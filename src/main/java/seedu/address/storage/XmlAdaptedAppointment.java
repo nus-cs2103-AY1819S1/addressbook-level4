@@ -26,6 +26,8 @@ public class XmlAdaptedAppointment {
     @XmlElement(required = true)
     private String doctor;
     @XmlElement(required = true)
+    private String patient;
+    @XmlElement(required = true)
     private String dateTime;
     @XmlElement(required = true)
     private String status;
@@ -43,10 +45,11 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs a {@code XmlAdaptedAppointment} with the given {@code prescriptionName}.
      */
-    public XmlAdaptedAppointment(int appointmentId, String doctor, String dateTime, String status,
+    public XmlAdaptedAppointment(int appointmentId, String doctor, String patient, String dateTime, String status,
                                  String comments, List<XmlAdaptedPrescription> prescriptions) {
         this.appointmentId = appointmentId;
         this.doctor = doctor;
+        this.patient = patient;
         this.dateTime = dateTime;
         this.status = status;
         this.comments = comments;
@@ -61,6 +64,7 @@ public class XmlAdaptedAppointment {
     public XmlAdaptedAppointment(Appointment source) {
         appointmentId = source.getAppointmentId();
         doctor = source.getDoctor();
+        patient = source.getPatient();
         dateTime = source.getDateTime().toString();
         status = source.getStatus().name();
         comments = source.getComments();
@@ -93,6 +97,11 @@ public class XmlAdaptedAppointment {
                     Doctor.class.getSimpleName()));
         }
 
+        if (patient == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Doctor.class.getSimpleName()));
+        }
+
         if (dateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LocalDateTime.class.getSimpleName()));
@@ -109,7 +118,7 @@ public class XmlAdaptedAppointment {
             appointmentStatus = Status.COMPLETED;
         }
 
-        return new Appointment(currentAppointmentId, doctor, appointmentDateTime,
+        return new Appointment(currentAppointmentId, doctor, patient, appointmentDateTime,
                 appointmentStatus, comments, appointmentPrescriptions);
     }
 

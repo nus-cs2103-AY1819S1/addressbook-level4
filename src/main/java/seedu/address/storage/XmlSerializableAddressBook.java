@@ -38,7 +38,7 @@ public class XmlSerializableAddressBook {
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
         appointments = new ArrayList<>();
-        appointmentCounter = 1;
+        appointmentCounter = 10000;
     }
 
     /**
