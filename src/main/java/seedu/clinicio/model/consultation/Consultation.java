@@ -16,24 +16,25 @@ import seedu.clinicio.model.staff.Staff;
 
 /**
  * Represents a medical consultation involving a patient and staff.
- * Guarantees that the staff is a doctor.
+ * Guarantees that the staff is a doctor, if present.
+ * Consultations may not be completed.
  */
 public class Consultation {
 
     // information fields
     private final Patient patient;
-    private Staff doctor;
+    private Optional<Staff> doctor;
     private Optional<Appointment> appointment;
-    private String description;
+    private Optional<String> description;
 
     // datetime fields
     private final Date date;
     private final Time arrivalTime;
-    private Time consultationTime;
-    private Time endTime;
+    private Optional<Time> consultationTime;
+    private Optional<Time> endTime;
 
     // fields to be changed
-    private String prescription;
+    private Optional<String> prescription;
 
     /**
      * Initializes a {@code Consultation} object with an {@code Appointment}.
@@ -49,7 +50,7 @@ public class Consultation {
         this.patient = patient;
         this.date = date;
         this.arrivalTime = arrivalTime;
-        this.appointment = Optional.of(appointment);
+        this.appointment = Optional.ofNullable(appointment);
     }
 
     /**
@@ -89,13 +90,13 @@ public class Consultation {
             endTime, prescription);
         this.patient = patient;
         updateDoctor(doctor);
-        this.appointment = Optional.of(appointment);
-        this.description = description;
+        this.appointment = Optional.ofNullable(appointment);
+        this.description = Optional.ofNullable(description);
         this.date = date;
         this.arrivalTime = arrivalTime;
-        this.consultationTime = consultationTime;
-        this.endTime = endTime;
-        this.prescription = prescription;
+        this.consultationTime = Optional.ofNullable(consultationTime);
+        this.endTime = Optional.ofNullable(endTime);
+        this.prescription = Optional.ofNullable(prescription);
     }
 
     /**
@@ -105,23 +106,23 @@ public class Consultation {
         if (!staff.getRole().equals(Role.DOCTOR)) {
             throw new NonDoctorException();
         }
-        this.doctor = doctor;
+        this.doctor = Optional.ofNullable(staff);
     }
 
     public void updateConsultationTime(Time time) {
-        consultationTime = time;
+        consultationTime = Optional.ofNullable(time);
     }
 
     public void updateDescription(String description) {
-        this.description = description;
+        this.description = Optional.ofNullable(description);
     }
 
     public void updatePrescription(String prescription) {
-        this.prescription = prescription;
+        this.prescription = Optional.ofNullable(prescription);
     }
 
     public void updateEndTime(Time time) {
-        endTime = time;
+        endTime = Optional.ofNullable(time);
     }
 
     /**
@@ -164,7 +165,7 @@ public class Consultation {
             && otherConsultation.getPrescription().equals(getPrescription());
     }
 
-    public Staff getDoctor() {
+    public Optional<Staff> getDoctor() {
         return doctor;
     }
 
@@ -176,7 +177,7 @@ public class Consultation {
         return date;
     }
 
-    public Time getConsultationTime() {
+    public Optional<Time> getConsultationTime() {
         return consultationTime;
     }
 
@@ -184,15 +185,15 @@ public class Consultation {
         return arrivalTime;
     }
 
-    public Time getEndTime() {
+    public Optional<Time> getEndTime() {
         return endTime;
     }
 
-    public String getDescription() {
+    public Optional<String> getDescription() {
         return description;
     }
 
-    public String getPrescription() {
+    public Optional<String> getPrescription() {
         return prescription;
     }
 
