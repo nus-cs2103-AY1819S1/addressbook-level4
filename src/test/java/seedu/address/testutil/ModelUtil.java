@@ -35,8 +35,10 @@ public class ModelUtil {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
         model.loadUserData(TEST_USERNAME, null);
-        model.modifyMaximumBudget(new Budget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));
-        model.modifyNotificationHandler(LocalDateTime.parse("2018-10-31T01:42:04.021756"), true,true );
+        model.modifyMaximumBudget(new Budget(28.00, 0.00, LocalDateTime.parse(
+                "2018-10-10T10:11:30"), 50000));
+        model.modifyNotificationHandler(LocalDateTime.parse("2018-10-31T01:42:04.021756"), true,
+                true);
         return model;
     }
 

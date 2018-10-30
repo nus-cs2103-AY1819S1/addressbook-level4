@@ -1,25 +1,25 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.NotificationCommand;
-import seedu.address.logic.commands.NotificationCommand.NotificationCommandDescriptor;
-
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_ON;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_OFF;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_WARNING_ON;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_WARNING_OFF;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_TIP_ON;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_TIP_OFF;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NOTIFICATION_WARNING_ONLY;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NOTIFICATION_TIP_ONLY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NOTIFICATION_TYPE;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NOTIFICATION_WARNING_ONLY;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TOGGLE_TYPE;
-
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_OFF;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_ON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_TIP_OFF;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_TIP_ON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_WARNING_OFF;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NOTIFICATION_WARNING_ON;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import seedu.address.logic.commands.NotificationCommand;
+import seedu.address.logic.commands.NotificationCommand.NotificationCommandDescriptor;
+
+
 
 //@@author Snookerballs
 
@@ -27,36 +27,36 @@ public class NotificationCommandParserTest {
     private NotificationCommandParser parser = new NotificationCommandParser();
 
     @Test
-    public void parse_invalidSyntaxt_throwsParseException() {
+    public void parse_invalidSyntax_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 NotificationCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_invalid_noSuffix_throwsParseException() {
+    public void parse_invalidNoSuffix_throwsParseException() {
         System.out.println(INVALID_NOTIFICATION_TYPE);
         assertParseFailure(parser, NotificationCommand.COMMAND_WORD + " "
                 + INVALID_NOTIFICATION_TYPE, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                NotificationCommand.MESSAGE_USAGE) );
+                NotificationCommand.MESSAGE_USAGE));
         assertParseFailure(parser, NotificationCommand.COMMAND_WORD + " "
                 + INVALID_TOGGLE_TYPE, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                NotificationCommand.MESSAGE_USAGE) );
+                NotificationCommand.MESSAGE_USAGE));
 
     }
 
     @Test
-    public void parse_invalid_noTogglePrefix_throwsParseException() {
-        assertParseFailure(parser, NotificationCommand.COMMAND_WORD + " " +
-                INVALID_NOTIFICATION_TIP_ONLY, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                NotificationCommand.MESSAGE_USAGE) );
-        assertParseFailure(parser, NotificationCommand.COMMAND_WORD + " " +
-                INVALID_NOTIFICATION_WARNING_ONLY, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                NotificationCommand.MESSAGE_USAGE) );
+    public void parse_invalidNoTogglePrefix_throwsParseException() {
+        assertParseFailure(parser, NotificationCommand.COMMAND_WORD + " "
+                + INVALID_NOTIFICATION_TIP_ONLY, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                NotificationCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, NotificationCommand.COMMAND_WORD + " "
+                + INVALID_NOTIFICATION_WARNING_ONLY, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                NotificationCommand.MESSAGE_USAGE));
 
     }
 
     @Test
-    public void parse_valid_noNotificationTypePrefix() {
+    public void parse_validNoNotificationTypePrefix() {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         descriptor.setToggle(NotificationCommand.OPTION_ON);
         assertParseSuccess(parser, NotificationCommand.COMMAND_WORD + " " + VALID_NOTIFICATION_ON,
@@ -67,7 +67,7 @@ public class NotificationCommandParserTest {
     }
 
     @Test
-    public void parse_valid_toggleWarning() {
+    public void parse_validToggleWarning() {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         descriptor.setNotificationType(NotificationCommand.OPTION_WARNING);
         descriptor.setToggle(NotificationCommand.OPTION_ON);
@@ -79,7 +79,7 @@ public class NotificationCommandParserTest {
     }
 
     @Test
-    public void parse_valid_toggleTip() {
+    public void parse_validToggleTip() {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         descriptor.setNotificationType(NotificationCommand.OPTION_TIP);
         descriptor.setToggle(NotificationCommand.OPTION_ON);

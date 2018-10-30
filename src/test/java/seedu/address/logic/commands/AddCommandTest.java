@@ -302,13 +302,15 @@ public class AddCommandTest {
         }
 
         @Override
-        public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled) throws NoUserSelectedException {
+        public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+                throws NoUserSelectedException {
             throw new AssertionError("modifyNotificationHandler should not be called.");
         }
 
         @Override
         public Budget getMaximumBudget() {
-            throw new AssertionError("getMaximumBudget method should not be called.");
+            throw new AssertionError(
+                    "getMaximumBudget method should not be called.");
         }
 
     }
@@ -413,7 +415,7 @@ public class AddCommandTest {
 
         @Override
         public boolean addWarningNotification() {
-            if(withinBudget) {
+            if (withinBudget) {
                 return false;
             } else {
                 return true;

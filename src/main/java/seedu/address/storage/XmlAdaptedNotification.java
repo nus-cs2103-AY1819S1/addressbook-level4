@@ -3,7 +3,6 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.Name;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.Notification.NotificationType;
 import seedu.address.model.notification.TipNotification;
@@ -20,15 +19,6 @@ public class XmlAdaptedNotification {
 
     @XmlElement
     private String header;
-
-    public String getHeader() {
-        return header;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
     @XmlElement
     private String body;
     @XmlElement
@@ -68,14 +58,14 @@ public class XmlAdaptedNotification {
      * Converts this jaxb-friendly adapted expense object into the model's Notification object.
      */
     public Notification toModelType() throws IllegalValueException {
-        if(header == null) {
+        if (header == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "header"));
         }
-        if(body == null) {
+        if (body == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "body"));
         }
 
-        if(type == null) {
+        if (type == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "type"));
         }
 
@@ -85,6 +75,7 @@ public class XmlAdaptedNotification {
         return new WarningNotification(header, body);
     }
 
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -100,4 +91,12 @@ public class XmlAdaptedNotification {
                 && this.type.equals(notification.type);
     }
 
+
+    public String getHeader() {
+        return header;
+    }
+
+    public String getBody() {
+        return body;
+    }
 }

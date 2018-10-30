@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,8 +40,8 @@ public class NotificationHandler implements Iterable<Notification> {
     }
 
     public NotificationHandler(List<Notification> internalList) {
-       super();
-       this.internalList = FXCollections.observableArrayList(internalList);
+        super();
+        this.internalList = FXCollections.observableArrayList(internalList);
     }
 
     public void setNotifications(ObservableList<Notification> notifications) {
@@ -132,12 +131,12 @@ public class NotificationHandler implements Iterable<Notification> {
     }
 
     @Override
-    public boolean equals(Object obj){
-        if(obj == null) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
 
-        if(!(obj instanceof NotificationHandler)) {
+        if (!(obj instanceof NotificationHandler)) {
             return false;
         }
 
@@ -147,7 +146,7 @@ public class NotificationHandler implements Iterable<Notification> {
                 && this.isTipEnabled == handler.isTipEnabled
                 && this.lastTipSentOn.getDayOfMonth() == handler.lastTipSentOn.getDayOfMonth()
                 && this.lastTipSentOn.getMonth().equals(handler.lastTipSentOn.getMonth())
-                &&this.lastTipSentOn.getYear() == handler.lastTipSentOn.getYear()
+                && this.lastTipSentOn.getYear() == handler.lastTipSentOn.getYear()
                 && this.internalList.equals(handler.internalList);
     }
 }

@@ -25,7 +25,6 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.NotificationHandler;
-import seedu.address.model.notification.WarningNotification;
 import seedu.address.model.user.Username;
 
 /**

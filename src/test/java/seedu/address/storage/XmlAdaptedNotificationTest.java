@@ -4,14 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.storage.XmlAdaptedNotification.MISSING_FIELD_MESSAGE_FORMAT;
 
+import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.Date;
 import seedu.address.model.notification.Notification.NotificationType;
 import seedu.address.model.notification.NotificationTest;
 import seedu.address.testutil.Assert;
-
-
-import org.junit.Test;
 
 //@@author Snookerballs
 

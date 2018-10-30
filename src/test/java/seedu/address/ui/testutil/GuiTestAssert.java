@@ -54,7 +54,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code expenses} correctly and
      * in the correct order.
      */
-    public static void assertExpenseListMatching(ExpenseListPanelHandle expenseListPanelHandle, List<Expense> expenses) {
+    public static void assertExpenseListMatching(ExpenseListPanelHandle expenseListPanelHandle,
+                                                 List<Expense> expenses) {
         assertExpenseListMatching(expenseListPanelHandle, expenses.toArray(new Expense[0]));
     }
 
@@ -68,7 +69,7 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedExpense}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedNotification}.
      */
     public static void assertCardDisplaysNotification(Notification expectedNotification,
                                                       NotificationCardHandle actualCard) {
@@ -77,10 +78,11 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code expenses} correctly and
-     * in the correct order.
+     * Asserts that the list in {@code notificationListPanelHandle} displays the details of {@code notification}
+     * correctly and in the correct order.
      */
-    public static void assertNotificationListMatching(NotificationListPanelHandle notificationsListPanelHandle, Notification... notifications) {
+    public static void assertNotificationListMatching(NotificationListPanelHandle notificationsListPanelHandle,
+                                                      Notification... notifications) {
         for (int i = 0; i < notifications.length; i++) {
             notificationsListPanelHandle.navigateToCard(i);
             assertCardDisplaysNotification(notifications[i], notificationsListPanelHandle.getNotificationCardHandle(i));
@@ -88,8 +90,8 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code expenses} correctly and
-     * in the correct order.
+     * Asserts that the list in {@code notificationListPanelHandle} displays the details of {@code notifications}
+     * correctly and in the correct order.
      */
     public static void assertNotificationListMatching(NotificationListPanelHandle notificationListPanelHandle,
                                                       List<Notification> notifications) {

@@ -12,7 +12,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ExpenseTracker;
-import seedu.address.model.notification.Notification;
 import seedu.address.testutil.TypicalExpenses;
 
 public class XmlSerializableExpenseTrackerTest {

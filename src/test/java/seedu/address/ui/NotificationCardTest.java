@@ -1,15 +1,16 @@
 package seedu.address.ui;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysNotification;
+
+import org.junit.Test;
+
 import guitests.guihandles.NotificationCardHandle;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.TipNotification;
 import seedu.address.model.notification.WarningNotification;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysNotification;
 
 public class NotificationCardTest extends GuiUnitTest {
     private static final String VALID_HEADER = "header";
@@ -37,7 +38,7 @@ public class NotificationCardTest extends GuiUnitTest {
         NotificationCard notificationCard = new NotificationCard(notification);
 
         // same expense, same index -> returns true
-        NotificationCard copy = new  NotificationCard(notification);
+        NotificationCard copy = new NotificationCard(notification);
         assertTrue(notificationCard.equals(copy));
 
         // same object -> returns true

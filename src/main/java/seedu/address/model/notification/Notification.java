@@ -62,8 +62,9 @@ public abstract class Notification {
         return type;
     }
 
+    @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof Notification)) {
+        if (!(obj instanceof Notification)) {
             return false;
         }
         Notification notification = (Notification) obj;

@@ -1,11 +1,12 @@
 package seedu.address.model.notification;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import seedu.address.testutil.Assert;
-import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
+
+import seedu.address.testutil.Assert;
 
 //@@Snookerballs
 public class TipNotificationTest extends NotificationTest {
@@ -18,12 +19,12 @@ public class TipNotificationTest extends NotificationTest {
     @Test
     public void constructor_nullStrings_throwsIllegalArgumentException() {
 
-        Assert.assertThrows(NullPointerException.class, () -> new TipNotification(null,null));
+        Assert.assertThrows(NullPointerException.class, () -> new TipNotification(null, null));
     }
 
     @Test
     public void getNotificationType() {
-            assertEquals(new TipNotification(VALID_HEADER, VALID_BODY).type, Notification.NotificationType.TIP);
+        assertEquals(new TipNotification(VALID_HEADER, VALID_BODY).type, Notification.NotificationType.TIP);
     }
 
     @Test

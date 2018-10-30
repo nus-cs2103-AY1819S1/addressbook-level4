@@ -91,6 +91,11 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     /// notification-level operations
+
+    /**
+     * Adds a {@code notification} to the {@code notificationHandler}
+     * @param notification to add
+     */
     public void addNotification(Notification notification) {
         this.notificationHandler.add(notification);
 

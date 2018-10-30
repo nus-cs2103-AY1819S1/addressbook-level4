@@ -189,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
         }
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getExpenseTrackerDirPath());
-         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         Title title = new Title();
         titlePlaceholder.getChildren().add(title.getRoot());
 
@@ -204,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
 
         statisticsSplitPane = new AnchorPane();
         statisticsSplitPane.setTopAnchor(statisticPanel.getRoot(), 0.0);
-        statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
+        statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 300.00);
         statisticsSplitPane.getChildren().addAll(statisticPanel.getRoot(), categoriesPanel.getRoot());
 
         swapToStat();

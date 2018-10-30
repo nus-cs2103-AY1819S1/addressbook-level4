@@ -4,6 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.address.model.notification.Notification;
 
+/**
+ * Provides a handle to anotification card in the expense list panel.
+ */
 public class NotificationCardHandle extends NodeHandle<Node> {
     private static final String HEADER_FIELD_ID = "#header";
     private static final String BODY_FIELD_ID = "#body";

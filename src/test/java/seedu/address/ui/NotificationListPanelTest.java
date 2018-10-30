@@ -1,5 +1,18 @@
 package seedu.address.ui;
 
+import static java.time.Duration.ofMillis;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static seedu.address.testutil.EventsUtil.postNow;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+import static seedu.address.testutil.TypicalNotifications.getTypicalNotifications;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysNotification;
+import static seedu.address.ui.testutil.GuiTestAssert.assertNotificationCardEquals;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.junit.Test;
+
 import guitests.guihandles.NotificationCardHandle;
 import guitests.guihandles.NotificationListPanelHandle;
 import javafx.collections.FXCollections;
@@ -10,18 +23,8 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.notification.Notification;
 import seedu.address.storage.XmlSerializableExpenseTracker;
 
-import org.junit.Test;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import static java.time.Duration.ofMillis;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalNotifications.getTypicalNotifications;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysNotification;
-import static seedu.address.ui.testutil.GuiTestAssert.assertNotificationCardEquals;
 
 public class NotificationListPanelTest extends GuiUnitTest {
     private static final ObservableList<Notification> TYPICAL_NOTIFICATIONS =
@@ -41,7 +44,7 @@ public class NotificationListPanelTest extends GuiUnitTest {
 
         for (int i = 0; i < TYPICAL_NOTIFICATIONS.size(); i++) {
             notificationListPanelHandle.navigateToCard(TYPICAL_NOTIFICATIONS.get(i));
-             Notification expectedNotification = TYPICAL_NOTIFICATIONS.get(i);
+            Notification expectedNotification = TYPICAL_NOTIFICATIONS.get(i);
             NotificationCardHandle actualCard = notificationListPanelHandle.getNotificationCardHandle(i);
 
             assertCardDisplaysNotification(expectedNotification, actualCard);

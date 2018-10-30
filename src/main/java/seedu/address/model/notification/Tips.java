@@ -1,10 +1,10 @@
 package seedu.address.model.notification;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a list of available tips.

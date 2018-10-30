@@ -1,11 +1,12 @@
 package seedu.address.model.notification;
 
-import seedu.address.testutil.Assert;
+import java.util.List;
 
 import org.junit.Test;
 
-import java.util.List;
+import seedu.address.testutil.Assert;
 
+//@@author Snookerballs
 public class TipsTest {
     private List<Tip> tips;
     @Test

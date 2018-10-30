@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.HBox?>
 
 
-<HBox prefHeight="150.0" prefWidth="200.0" fx:id="notificationCardPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="150.0" prefWidth="330.0" fx:id="notificationCardPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="161.0" prefWidth="200.0">
+      <AnchorPane prefHeight="150.0" prefWidth="320.0">
          <children>
-            <Label fx:id="body" layoutY="28.0" prefHeight="122.0" prefWidth="200.0" text="body" />
-            <Label fx:id="header" prefHeight="34.0" prefWidth="200.0" text="header" />
+            <Label fx:id="body" layoutY="28.0" prefWidth= "320.0"  text="body" wrapText="true" />
+            <Label fx:id="header" prefHeight="34.0" prefWidth= "320.0" text="header" wrapText="true"/>
          </children>
       </AnchorPane>
    </children>

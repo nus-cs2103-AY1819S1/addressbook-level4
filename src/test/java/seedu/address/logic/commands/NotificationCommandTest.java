@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static junit.framework.TestCase.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
@@ -10,28 +10,31 @@ import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.NotificationCommand.NotificationCommandDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.logic.commands.NotificationCommand.NotificationCommandDescriptor;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 
-//@@Snookerballs
+//@@author Snookerballs
 
 public class NotificationCommandTest {
     private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-   @BeforeEach
+    /**
+     * Initializes the model manager and command history after each test
+     */
+    @BeforeEach
     public void resetModelsAndCommandHistory() {
-       this.model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+        this.model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
         this.commandHistory = new CommandHistory();
     }
 
     @Test
-    public void execute_toggle_both_successful() throws NoUserSelectedException, CommandException {
+    public void execute_toggleBoth_successful() throws NoUserSelectedException, CommandException {
         Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
         expectedModel.toggleBothNotification(false);
         expectedModel.commitExpenseTracker();
@@ -39,9 +42,9 @@ public class NotificationCommandTest {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         String expectedMessage = NotificationCommand.MESSAGE_SUCCESS;
 
-       // Toggle off test
-       descriptor.setToggle(NotificationCommand.OPTION_OFF);
-       NotificationCommand notificationCommand = new NotificationCommand(descriptor);
+        // Toggle off test
+        descriptor.setToggle(NotificationCommand.OPTION_OFF);
+        NotificationCommand notificationCommand = new NotificationCommand(descriptor);
         assertCommandSuccess(notificationCommand, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(model.getNotificationHandler().isTipEnabled(),
                 expectedModel.getNotificationHandler().isTipEnabled());
@@ -68,7 +71,7 @@ public class NotificationCommandTest {
     }
 
     @Test
-    public void execute_toggle_tip_successful() throws NoUserSelectedException {
+    public void execute_toggleTip_successful() throws NoUserSelectedException {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         String expectedMessage = NotificationCommand.MESSAGE_SUCCESS;
 
@@ -105,7 +108,7 @@ public class NotificationCommandTest {
     }
 
     @Test
-    public void execute_toggle_warning_successful() throws NoUserSelectedException {
+    public void execute_toggleWarning_successful() throws NoUserSelectedException {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         String expectedMessage = NotificationCommand.MESSAGE_SUCCESS;
 

@@ -7,11 +7,11 @@ import static seedu.address.testutil.TypicalNotifications.TIP;
 
 import org.junit.Test;
 
-
+//@@author Snookerballs
 public class NotificationTest {
-    public static String VALID_HEADER = "aa";
-    public static String VALID_BODY = "bb";
-    public static Notification.NotificationType VALID_TYPE = Notification.NotificationType.TIP;
+    public static final String VALID_HEADER = "aa";
+    public static final String VALID_BODY = "bb";
+    public static final Notification.NotificationType VALID_TYPE = Notification.NotificationType.TIP;
 
     @Test
     public void equals() {

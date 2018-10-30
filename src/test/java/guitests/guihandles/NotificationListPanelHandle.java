@@ -1,18 +1,15 @@
 package guitests.guihandles;
 
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import seedu.address.model.expense.Expense;
-import seedu.address.model.notification.Notification;
-
-import org.assertj.core.condition.Not;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import seedu.address.model.notification.Notification;
+
 /**
- * Provides a handle for {@code ExpenseListPanel} containing the list of {@code ExpenseCard}.
+ * Provides a handle for {@code NotificationPanel} containing the list of {@code NotificationCard}.
  */
 public class NotificationListPanelHandle extends NodeHandle<ListView<Notification>> {
     public static final String NOTIFICATION_LIST_VIEW_ID = "#notificationListView";
@@ -26,7 +23,7 @@ public class NotificationListPanelHandle extends NodeHandle<ListView<Notificatio
     }
 
     /**
-     * Returns a handle to the selected {@code ExpenseCardHandle}.
+     * Returns a handle to the selected {@code NotificationCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
@@ -66,7 +63,7 @@ public class NotificationListPanelHandle extends NodeHandle<ListView<Notificatio
     }
 
     /**
-     * Navigates the listview to display {@code expense}.
+     * Navigates the listview to display {@code notification}.
      */
     public void navigateToCard(Notification notification) {
         if (!getRootNode().getItems().contains(notification)) {
@@ -94,14 +91,14 @@ public class NotificationListPanelHandle extends NodeHandle<ListView<Notificatio
     }
 
     /**
-     * Selects the {@code ExpenseCard} at {@code index} in the list.
+     * Selects the {@code ENotificationCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
     }
 
     /**
-     * Returns the expense card handle of a expense associated with the {@code index} in the list.
+     * Returns the notification card handle of a expense associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public NotificationCardHandle getNotificationCardHandle(int index) {
