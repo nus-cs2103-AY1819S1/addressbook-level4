@@ -7,28 +7,28 @@ import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.KFC;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.Name;
 import seedu.address.testutil.Assert;
 
 public class EncryptedNameTest {
     @Test
-    public void constructor_fromString_null_throwsNullPointerException() {
+    public void constructor_fromNullString_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedName(null));
     }
 
     @Test
-    public void constructor_fromString_valid_assertNoException() {
+    public void constructor_fromValidString_assertNoException() {
         new EncryptedName("a");
     }
 
     @Test
-    public void constructor_fromName_nullName_throwsNullPointerException() {
+    public void constructor_nullName_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedName(null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
-    public void constructor_fromString_nullKey_throwsNullPointerException() {
+    public void constructor_nullKey_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedName(KFC.getName(), null));
     }
 

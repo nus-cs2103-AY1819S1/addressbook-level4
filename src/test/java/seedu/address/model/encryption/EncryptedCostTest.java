@@ -7,27 +7,28 @@ import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.KFC;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.Assert;
 
 public class EncryptedCostTest {
     @Test
-    public void constructor_fromString_null_throwsNullPointerException() {
+    public void constructor_fromNullString_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedCost(null));
     }
 
     @Test
-    public void constructor_fromString_valid_assertNoException() {
+    public void constructor_fromValidString_assertNoException() {
         new EncryptedCost("a");
     }
 
     @Test
-    public void constructor_fromCost_nullCost_throwsNullPointerException() {
+    public void constructor_nullCost_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedCost(null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
-    public void constructor_fromString_nullKey_throwsNullPointerException() {
+    public void constructor_nullKey_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedCost(KFC.getCost(),
                 null));
     }

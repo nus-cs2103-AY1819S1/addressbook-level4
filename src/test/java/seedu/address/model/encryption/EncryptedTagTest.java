@@ -5,35 +5,34 @@ import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
-import static seedu.address.testutil.TypicalExpenses.IPHONE;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class EncryptedTagTest {
-    
     private static final Tag FOOD_TAG = new Tag(VALID_TAG_FOOD);
     private static final Tag FRIEND_TAG = new Tag(VALID_TAG_FRIEND);
-    
+
     @Test
-    public void constructor_fromString_null_throwsNullPointerException() {
+    public void constructor_fromNullString_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedTag(null));
     }
 
     @Test
-    public void constructor_fromString_valid_assertNoException() {
+    public void constructor_fromValidString_assertNoException() {
         new EncryptedTag("a");
     }
 
     @Test
-    public void constructor_fromTag_nullTag_throwsNullPointerException() {
+    public void constructor_nullTag_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedTag(null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
-    public void constructor_fromString_nullKey_throwsNullPointerException() {
+    public void constructor_nullKey_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedTag(FOOD_TAG,
                 null));
     }

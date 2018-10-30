@@ -7,27 +7,28 @@ import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.KFC;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.Assert;
 
 public class EncryptedDateTest {
     @Test
-    public void constructor_fromString_null_throwsNullPointerException() {
+    public void constructor_fromNullString_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedDate(null));
     }
 
     @Test
-    public void constructor_fromString_valid_assertNoException() {
+    public void constructor_fromValidString_assertNoException() {
         new EncryptedDate("a");
     }
 
     @Test
-    public void constructor_fromDate_nullDate_throwsNullPointerException() {
+    public void constructor_nullDate_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedDate(null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
-    public void constructor_fromString_nullKey_throwsNullPointerException() {
+    public void constructor_nullKey_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedDate(KFC.getDate(),
                 null));
     }

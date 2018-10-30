@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;

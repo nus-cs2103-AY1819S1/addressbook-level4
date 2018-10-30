@@ -10,13 +10,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.model.encryption.EncryptionUtil.encryptExpense;
-import static seedu.address.model.encryption.EncryptionUtil.encryptTracker;
 import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.ExpenseBuilder;
 
@@ -58,20 +58,29 @@ public class EncryptedExpenseTest {
 
         // different category and cost -> returns false
         EncryptedExpense editedAlice = new ExpenseBuilder(SCHOOLFEE)
-                .withCategory(VALID_CATEGORY_IPHONE).withCost(VALID_COST_IPHONE).buildEncrypted();
+                .withCategory(VALID_CATEGORY_IPHONE)
+                .withCost(VALID_COST_IPHONE)
+                .buildEncrypted();
         assertFalse(encryptedSchoolFee.isSameExpense(editedAlice));
 
         // different name -> returns false
-        editedAlice = new ExpenseBuilder(SCHOOLFEE).withName(VALID_NAME_IPHONE).buildEncrypted();
+        editedAlice = new ExpenseBuilder(SCHOOLFEE)
+                .withName(VALID_NAME_IPHONE)
+                .buildEncrypted();
         assertFalse(encryptedSchoolFee.isSameExpense(editedAlice));
 
         // same name, same category, different attributes -> returns true
-        editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE)
-                .withTags(VALID_TAG_HUSBAND).buildEncrypted();
+        editedAlice = new ExpenseBuilder(SCHOOLFEE)
+                .withCost(VALID_COST_IPHONE)
+                .withTags(VALID_TAG_HUSBAND)
+                .buildEncrypted();
         assertTrue(encryptedSchoolFee.isSameExpense(editedAlice));
 
         // same name, same category, different attributes -> returns true
-        editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).withTags(VALID_TAG_HUSBAND).buildEncrypted();
+        editedAlice = new ExpenseBuilder(SCHOOLFEE)
+                .withCost(VALID_COST_IPHONE)
+                .withTags(VALID_TAG_HUSBAND)
+                .buildEncrypted();
         assertTrue(encryptedSchoolFee.isSameExpense(editedAlice));
     }
 
@@ -94,19 +103,27 @@ public class EncryptedExpenseTest {
         assertNotEquals(encryptedSchoolFee, encryptedIphone);
 
         // different name -> returns false
-        EncryptedExpense editedAlice = new ExpenseBuilder(SCHOOLFEE).withName(VALID_NAME_IPHONE).buildEncrypted();
+        EncryptedExpense editedAlice = new ExpenseBuilder(SCHOOLFEE)
+                .withName(VALID_NAME_IPHONE)
+                .buildEncrypted();
         assertNotEquals(encryptedSchoolFee, editedAlice);
 
         // different category -> returns false
-        editedAlice = new ExpenseBuilder(SCHOOLFEE).withCategory(VALID_CATEGORY_IPHONE).buildEncrypted();
+        editedAlice = new ExpenseBuilder(SCHOOLFEE)
+                .withCategory(VALID_CATEGORY_IPHONE)
+                .buildEncrypted();
         assertNotEquals(encryptedSchoolFee, editedAlice);
 
         // different address -> returns false
-        editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).buildEncrypted();
+        editedAlice = new ExpenseBuilder(SCHOOLFEE)
+                .withCost(VALID_COST_IPHONE)
+                .buildEncrypted();
         assertNotEquals(encryptedSchoolFee, editedAlice);
 
         // different tags -> returns false
-        editedAlice = new ExpenseBuilder(SCHOOLFEE).withTags(VALID_TAG_HUSBAND).buildEncrypted();
+        editedAlice = new ExpenseBuilder(SCHOOLFEE)
+                .withTags(VALID_TAG_HUSBAND)
+                .buildEncrypted();
         assertNotEquals(encryptedSchoolFee, editedAlice);
     }
 }

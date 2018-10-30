@@ -7,28 +7,28 @@ import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.KFC;
 
 import org.junit.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.Category;
 import seedu.address.testutil.Assert;
 
 public class EncryptedCategoryTest {
     @Test
-    public void constructor_fromString_null_throwsNullPointerException() {
+    public void constructor_fromNullString_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedCategory(null));
     }
 
     @Test
-    public void constructor_fromString_valid_assertNoException() {
+    public void constructor_fromValidString_assertNoException() {
         new EncryptedCategory("a");
     }
 
     @Test
-    public void constructor_fromCategory_nullCategory_throwsNullPointerException() {
+    public void constructor_nullCategory_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedCategory(null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
-    public void constructor_fromString_nullKey_throwsNullPointerException() {
+    public void constructor_nllKey_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new EncryptedCategory(KFC.getCategory(),
                 null));
     }
