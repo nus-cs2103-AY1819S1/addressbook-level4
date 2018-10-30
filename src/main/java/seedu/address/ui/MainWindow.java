@@ -16,11 +16,13 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ShowDocumentWindowRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.document.Document;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -43,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private DocumentWindow documentWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -82,6 +85,7 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+        documentWindow = new DocumentWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -187,6 +191,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the document window or docuses on it if it's already opened.
+     */
+    @FXML
+    public void handleShowDocument(Document document) {
+        if (!documentWindow.isShowing()) {
+            documentWindow.show(document);
+        } else {
+            documentWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -216,6 +232,12 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleShowDocumentWindowEvent(ShowDocumentWindowRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleShowDocument(event.getDocument());
     }
 
     @Subscribe

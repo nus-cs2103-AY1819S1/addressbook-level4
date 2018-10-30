@@ -36,6 +36,7 @@ image::Ui.png[width="790"]
 +
 .  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+
 .  Some example commands you can try:
 
 * *`list`* : shows a list all patients in the database.
@@ -217,7 +218,7 @@ Example:
 * `editMedicine 1 n/hydrazine s/50022 p/20 min/30` +
 Edits the details of the medicine at index 1 in the displayed medicine list based on the new input parameters.
 
-==== Restock a medicine: `restock`
+==== Restocking a medicine : `restock`
 
 Restocks an existing medicine identified by the index number used in the displayed medicine list. +
 Alias: `rs` +
@@ -264,20 +265,24 @@ Format: `queue`
 
 ==== Registering Patient to Queue : `register`
 
-Registers a new patient that comes to the clinic. +
+Registers a new patient that comes to the clinic, the registered patient is placed inside the Patient Queue +
 Alias: `reg` +
 Format: `register <INDEX>` or `register <IC Number> [coming soon]`
 
 Example:
 
-* `register 3` +
-Register the patient into the 3rd index.
+* `list` +
+`register 3` +
+Registers the 3rd patient in the database.
+* `find david` +
+`register 1` +
+Registers the 1st patient in the results of the `find` command
 
 ==== Removing a patient from queue : `remove`
 
 Removes someone from the queue if he/she leaves before being served. +
 Alias: `rem` +
-Format: `remove <INDEX>` or `remove <IC Number> [coming soon]`
+Format: `remove <POSITION>` or `remove <IC Number> [coming soon]`
 
 Examples:
 
@@ -288,21 +293,22 @@ Remove patient with IC Number S9382839X from the queue.
 
 ==== Inserting a patient to queue : `insert`
 
-Inserts a patient at specified position in the queue. +
+Inserts a patient at a specified position in the queue. +
 Alias: `ins` +
 Format: `insert <INDEX> p/<POSITION>` or `insert <IC Number> p/<POSITION> [coming soon]`
 
 Examples:
 
-* `insert 4 p/5` +
-Insert the 4th person of the address book into the 5th index of the queue.
+* `list` +
+`insert 4 p/5` +
+Insert the 4th person of the database into the 5th position in the queue.
 * `insert S9123456A p/5` +
-Insert the patient with that IC number to the 5th index of the queue.
+Insert the patient with IC number S9123456A to the 5th position in the queue.
 
 
 ==== Serving the first patient in the queue : `serve`
 
-Serves the patient first in queue. +
+Serves the patient first in queue. This places the patient into the Current Patient. +
 Alias: `ser` +
 Format: `serve`
 
@@ -310,7 +316,7 @@ Format: `serve`
 
 Add documents to the Current Patient +
 Alias: `da` +
-Format: `docAdd [mc/<MC>] [n/<NOTE>] [r/<REFERRAL>]`
+Format: `docAdd [mc/<MC_DAYS>] [n/<NOTE>] [r/<REFERRAL>]`
 
 ****
 * At least one of the optional fields must be provided.
@@ -318,21 +324,28 @@ Format: `docAdd [mc/<MC>] [n/<NOTE>] [r/<REFERRAL>]`
 * You can remove any of the patient’s documents by typing prefix/ without specifying any document after it.
 ****
 
+[NOTE]
+====
+The note must be added to the patient to finish serving the patient.
+====
+
 Examples
 
-* `docAdd mc/3 days n/fever`
+* `docAdd mc/3 n/This patient complains of headache for past 3 days`
 * `docAdd r/Ng Teng Fong Hospital`
 
 ==== Dispensing Medicine to Current Patient : `dispenseMedicine`
 
 Add medicine to the Current Patient +
 Alias: `dm` +
-Format `dispenseMedicine <INDEX> amt/<AMOUNT`
+Format `dispenseMedicine <MEDICINE_INDEX> amt/<AMOUNT`
 
 Examples:
 
-*`dispenseMedicine 1 amt/10` +
-*`dispenseMedicine 5 amt/2`
+* `dispenseMedicine 1 amt/10` +
+10x of the 1st medicine in the displayed medicine list will be added to the patient. +
+* `dispenseMedicine 5 amt/2` +
+2x of the 5th medicine in the displayed medicine list will be added to the patient.
 
 ==== Finish serving the Current Patient : `finish`
 
@@ -401,6 +414,19 @@ Generates a referral letter for the 3rd patient in the address book with the fol
 Generates a referral letter for the patient of that IC number with the following reason and notes.
 // end::document[]
 
+==== Removing patient from served patient list : `payment`
+
+Removes a patient from the served patient list when the patient completes payment. +
+Alias: `pay` +
+Format: `payment <POSITION>`
+
+Examples:
+
+* `payment 3` +
+Removes the 3rd patient from the served patient list.
+* `payment 1` +
+Removes the 1st patient from the served patient list.
+
 // tag::misc[]
 === Miscellaneous
 
@@ -429,6 +455,7 @@ Format: `undo`
 [NOTE]
 ====
 Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `deleteAll`).
+This includes all commands that changes the `Patient` or `Medicine` class, PQMS-related commands are not __undoable__.
 ====
 
 Examples:
@@ -446,6 +473,9 @@ The `undo` command fails as there are no undoable commands executed previously.
 `deleteAll` +
 `undo` (reverses the `deleteAll` command) +
 `undo` (reverses the `delete 1` command) +
+
+* `addMedicine mn/panadol msq/100 ppu/5 sn/00000001 s/2500` +
+`undo` (reverses the `addMedicine` command)
 
 ==== Redoing the previously undone command : `redo`
 

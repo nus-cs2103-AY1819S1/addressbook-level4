@@ -3,20 +3,29 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
+import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.document.Document;
 
 /**
- * Controller for document page
+ * UI window representing a webview displaying the document generated for Patients.
  */
 public class DocumentWindow extends UiPart<Stage> {
 
-    private static final Logger logger = LogsCenter.getLogger(DocumentWindow.class);
+    public static final String DOCUMENT_TEMPLATE_FILE_PATH = "/view/Documents/DocumentTemplate.html";
+
+    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "DocumentWindow.fxml";
 
-    @javafx.fxml.FXML
+    private static String documentTemplateUrl;
+
+    private static int counter = 0;
+
+    @FXML
     private WebView browser;
 
     /**
@@ -24,22 +33,21 @@ public class DocumentWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the DocumentWindow.
      */
-    public DocumentWindow(Stage root, String filePath) {
+    public DocumentWindow(Stage root) {
         super(FXML, root);
-
-        String documentUrl = getClass().getResource(filePath).toString();
-        Platform.runLater(()->browser.getEngine().load(documentUrl));
+        this.documentTemplateUrl = getClass().getResource(DOCUMENT_TEMPLATE_FILE_PATH).toExternalForm();
+        this.load();
     }
 
     /**
      * Creates a new DocumentWindow.
      */
-    public DocumentWindow(String filePath) {
-        this(new Stage(), filePath);
+    public DocumentWindow() {
+        this(new Stage());
     }
 
     /**
-     * Shows the document window.
+     * Shows the help window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -56,13 +64,58 @@ public class DocumentWindow extends UiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show() {
-        logger.fine("Showing document for file.");
+
+    public void show(Document document) {
+        logger.fine("Showing document screenshot");
+        runScript(getScript(document), counter);
+        Platform.runLater(() -> browser.getEngine().load(documentTemplateUrl));
         getRoot().show();
     }
 
+    private void load() {
+        browser.getEngine().load(documentTemplateUrl);
+    }
+
     /**
-     * Returns true if the document window is currently being shown.
+     * Default show command for testing.
+     */
+    public void showTest() {
+        logger.fine("Showing default document");
+        getRoot().show();
+    }
+
+    private String getScript(Document document) {
+        String script = "loadDetails('";
+        script += document.getFileName();
+        script += "', '";
+        script += document.getHeaders();
+        script += "', '";
+        script += document.getPatientName();
+        script += "', '";
+        script += document.getPatientIc();
+        script += "', '";
+        script += document.getContent();
+        script += "');";
+        return script;
+    }
+
+    /**
+     * This function runs the executes some javascript in the html file.
+     * @param script script to run
+     * @param scriptCounter Ensure that only the script called is ran using an index counter.
+     */
+    private void runScript(String script, int scriptCounter) {
+        browser.getEngine().getLoadWorker().stateProperty().addListener((
+                ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
+            if (newValue == Worker.State.SUCCEEDED && counter == scriptCounter) {
+                Platform.runLater(() -> browser.getEngine().executeScript(script));
+                counter++;
+            }
+        });
+    }
+
+    /**
+     * Returns true if the receipt window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
