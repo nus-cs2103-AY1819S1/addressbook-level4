@@ -656,30 +656,30 @@ Given below is an example usage scenario and how the tag command behaves at each
 
 Step 1. The user launches the application and already has a few tagged contacts in InsuRen.
 
-image::TagCommand1StateDiagram.png[width="800"]
+image::TagCommand1StateDiagram.png[width="300"]
 
 Step 2. The user executes `tag Important` to retrieve all contacts tagged with `Important`. Tags are **case-sensitive**.
 
-image::TagCommand2StateDiagram.png[width="800"]
+image::TagCommand2StateDiagram.png[width="300"]
 
 Step 3. The user executes `tag Family Colleague` to retrieve all contacts tagged with `Family` or `Colleague`.
 
-image::TagCommand3StateDiagram.png[width="800"]
+image::TagCommand3StateDiagram.png[width="300"]
 
 Step 4. If the user wants to change all instances of the `Colleague` tag to `Work`, the user can input `tag edit
 Colleague Work`. `edit` is **not** case-sensitive.
 
-image::TagCommand4StateDiagram.png[width="800"]
+image::TagCommand4StateDiagram.png[width="300"]
 
 Step 5. If the user would like to delete the `close` tag, the user simply executes `tag close delete`.
 `delete` is **not** case-sensitive.
 
-image::TagCommand5StateDiagram.png[width="800"]
+image::TagCommand5StateDiagram.png[width="300"]
 
 Step 6. If the user would like to delete the `Family` and `Colleague` tags together, the user simply executes `tag
 Family Colleague delete`. Both tags will be deleted.
 
-image::TagCommand6StateDiagram.png[width="800"]
+image::TagCommand6StateDiagram.png[width="300"]
 
 All tag commands can be undone or redone with `undo` or `redo` respectively. +
 The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
