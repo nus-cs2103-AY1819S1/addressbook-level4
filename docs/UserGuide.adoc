@@ -310,6 +310,7 @@ Format: `list`
 //`select 1` +
 //Selects the 1st expense in the results of the `find` command.
 
+// tag::budget[]
 === Setting a total budget: `setBudget`
 Sets `totalBudget` for Expense Tracker. +
 
@@ -378,6 +379,7 @@ Format: `addCategoryBudget c/CATEGORY b/BUDGET`
 Valid `CATEOGRY` and `BUDGET` follows the syntax listed under 4.5 and 4.10
 ====
 
+// end::budget[]
 
 === Listing entered commands : `history`
 

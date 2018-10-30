@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Winson Heng Yong Seng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,31 +9,55 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This portfolio aims to document the contributions made by *Winson Heng Yong Seng* to the *ExpenseTracker*.
+
+*ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
+save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
+(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC.
+
+Some of its main features are:
+
+. Setting a budget for expenses.
+. Multiple user accounts.
+. Categorization of expenses.
+. Statistics for expenses.
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to have a budget on expenses.*
+** What it does: informs the user if the their expenses exceed a set budget
+** Justification: This is a core feature as it allows the user to know when they are spending too much money, the
+main purpose of an expense tracker.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
+ analysis of software design alternatives. The implementation was challenging as it required changes to existing
+ commands and the existing implementation of the main `ExpenseTracker` class.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+
+. Added a `history` command that allows the user to navigate to previous commands using up/down keys.
+. Added a `setRecurrenceFrequency` command that allows the user to reset their spending at a frequency of their choice.
+. Added a `addCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Created the organisation repository, set up issue tracker and milestones.
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated the About Us document template: https://github.com/CS2103-AY1819S1-T12-1/main/pull/2[#2]
+*** Made changes to the Developer Guide. Improved language and edited diagrams:
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/74[#74]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reviewed PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-1/main/pull/6[#6],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/8[#8], https://github.com/CS2103-AY1819S1-T12-1/main/pull/9[#9],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/11[#11], https://github.com/CS2103-AY1819S1-T12-1/main/pull/20[#20],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/21[#21], https://github.com/CS2103-AY1819S1-T12-1/main/pull/22[#22],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/24[#24], https://github.com/CS2103-AY1819S1-T12-1/main/pull/31[#31],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/33[#33], https://github.com/CS2103-AY1819S1-T12-1/main/pull/45[#45],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/69[#69], https://github.com/CS2103-AY1819S1-T12-1/main/pull/71[#71],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/108[#108]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
@@ -50,9 +74,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=budget]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +82,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=budget]
 
 
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
