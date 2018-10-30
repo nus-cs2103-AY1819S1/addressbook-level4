@@ -645,6 +645,61 @@ image::PictureCommandActivityDiagram.png[width="500"]
 
 // end::addpicture[]
 
+// tag::tagcommand[]
+=== Tag feature
+==== Current Implementation
+
+Each contact in Insuren can have any number of tags. The `tag` command allows the user to easily find contacts by tags.
+The user can also easily edit or delete tags using the tag command, allowing for better management of tags in Insuren.
+
+Given below is an example usage scenario and how the tag command behaves at each step.
+
+Step 1. The user launches the application and already has a few tagged contacts in InsuRen.
+
+image::TagCommand1StateDiagram.png[width="300"]
+
+Step 2. The user executes `tag Important` to retrieve all contacts tagged with `Important`. Tags are **case-sensitive**.
+
+image::TagCommand2StateDiagram.png[width="300"]
+
+Step 3. The user executes `tag Family Colleague` to retrieve all contacts tagged with `Family` or `Colleague`.
+
+image::TagCommand3StateDiagram.png[width="300"]
+
+Step 4. If the user wants to change all instances of the `Colleague` tag to `Work`, the user can input `tag edit
+Colleague Work`. `edit` is **not** case-sensitive.
+
+image::TagCommand4StateDiagram.png[width="300"]
+
+Step 5. If the user would like to delete the `close` tag, the user simply executes `tag close delete`.
+`delete` is **not** case-sensitive.
+
+image::TagCommand5StateDiagram.png[width="300"]
+
+Step 6. If the user would like to delete the `Family` and `Colleague` tags together, the user simply executes `tag
+Family Colleague delete`. Both tags will be deleted.
+
+image::TagCommand6StateDiagram.png[width="300"]
+
+All tag commands can be undone or redone with `undo` or `redo` respectively. +
+The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
+
+image::TagCommandActivityDiagram.png[width="500"]
+
+==== Design Considerations
+
+===== Aspect: How tag command works
+
+* **Alternative 1 (current choice):** Search through the address book's list of persons to find all persons with any matching tag.
+** Pros: Consistent with `find` command, easy to implement.
+** Cons: Performance can be slow especially if InsuRen has many contacts as InsuRen will look through every person.
+* **Alternative 2:** A hashmap is used with the key values being each unique tag and the values being a list of persons associated with each tag.
+** Pros: Will have faster lookup, O(1) access time to get the list of persons associated with a tag.
+** Cons: Will use more memory storing a separate data structure. This separate data structure also has to be updated with the right list of persons
+every time a person's details are edited or a person is deleted. Programming such a data structure would require significantly more effort.
+
+// end::tagcommand[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

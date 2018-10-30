@@ -384,19 +384,7 @@ The first person in the list will now have image `petertan.jpg` from the given p
 
 // end::picture[]
 
-=== Allow user to add contact if duplicate contact is added
-
-Warns user about adding a contact that has the same name and same phone number or email or address field.
-InsuRen allows you to add contact with the same name as an existing contact as long as one of the other fields
-are different.
-
-Examples:
-
-* `add n/John Doe p/91234567 e/johndoe@example.com a/John street, block 123, #01-01` +
-`add n/John Doe p/98765432 e/differentemail@example.com a/Different street, block 123, #01-01` +
-InsuRen will warn user that an existing contact John Doe already exists. InsuRen will ask you if you would
-like to go ahead and create a new contact, edit the existing contact, or cancel the operation.
-
+// tag::tag[]
 === Using tags: `tag`
 
 ==== View contacts by tag
@@ -407,7 +395,6 @@ Shorthand: `t`
 
 ****
 * View all contacts that belong to the same tag.
-* InsuRen will throw an error if an invalid `TAG_NAME` is given.
 ****
 
 Example:
@@ -417,9 +404,25 @@ Returns all contacts with the `Work` tag.
 * `tag Work Important` +
 Returns all contacts with the `Work` or `Important` tags.
 
+=== Edit a tag
+Edit a tag, replacing all its occurrences with a new user-specified tag.
+Format: `tag edit EXISTING_TAG_NAME NEW_TAG_NAME`
+
+****
+* All contacts tagged with `EXISTING_TAG_NAME` will have the tag replaced by `NEW_TAG_NAME`.
+****
+
+Example:
+
+* `tag edit Work Business` +
+All contacts that had the `Work` tag have the tag changed to `Business`.
+
+* `t EDIT Friends Buddies` +
+Usage of "edit" is **not** case-sensitive.
+
 ==== Delete a tag
 Delete a tag, removing it from all contacts. +
-Format: `tag TAG_NAME delete`
+Format: `tag TAG_NAME [MORE_TAG_NAMES...] delete`
 
 ****
 * All contacts in `TAG_NAME` will be removed from the tag. Contacts that were previously tagged are not deleted.
@@ -433,6 +436,7 @@ All contacts that were previously tagged with `Work` have the `Work` tag removed
 * `t Work Important delete` +
 All contacts that were previously tagged with `Work` and `Important` have the aforementioned tags removed. `Work` and
 `Important` tags are deleted.
+// end::tag[]
 
 === Saving the data
 
