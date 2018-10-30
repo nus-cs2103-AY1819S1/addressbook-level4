@@ -501,7 +501,7 @@ image::SelectActivityDiagram.png[width="650"]
 // tag::export[]
 === Export feature
 ==== Current Implementation
-
+===== Overview
 The export mechanism is facilitated by `ExportCommand`. `ExportCommandParser` is responsible for parsing the input arguments. +
 [NOTE]
 If there is no filepath provided, `export` command will return an invalid message, which the usage information to the user.
@@ -511,6 +511,12 @@ The following sequence diagram shows how export operation works:
 image::ExportCommandSeqDiagram.png[width="1000"]
 //TODO Explain XML
 The program will raise a `AddressBookExportEvent` to `EventCenter`. `StorageManager` which subscribed to the `EventCenter` which will trigger `handleAddressBookExportEvent` when received `AddressBookExportEvent`. This method will then export the data as a XML file using `Model#exportAddressBook`.
+
+===== Exporting to XML
+As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted into XML-like syntax before it can be successfully saved.
+``Object``s are parsed using their respective `XMLAdapted` classes which contain directions for it to parse into XML-like syntax.
+
+
 
 ==== Design Consideration
 
@@ -526,7 +532,7 @@ The program will raise a `AddressBookExportEvent` to `EventCenter`. `StorageMana
 *** After user export data, user rename the XML file or move the XML file. This causes the original file referenced by the `export` command to be lost and unable to continue the undo operation.
 
 +
-These scenarios create unnecessary complications when we want to attempt undoing the operation. Therefore we do not allow the command to be undoable.
+These scenarios create unnecessary complications when we want to attempt undoing the operation. Therefore, we choose to not allow the command to be undoable.
 
 // end::export[]
 
@@ -1228,7 +1234,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |import and export data |transfer data between machines
 
-|`* *` |new user |quick rundown of functionalities |fully understand the software features
+|`* *` |new user |has a quick rundown of functionalities |fully understand the software features
 
 |`* *` |user |see an overview of meeting list for the day |plan schedule for the day
 
