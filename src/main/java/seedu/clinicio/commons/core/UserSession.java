@@ -9,7 +9,10 @@ import seedu.clinicio.model.staff.Staff;
 public class UserSession {
     private static Staff currentUser;
 
-    public Staff getCurrentUser() {
+    /**
+     * Retrieve current user session
+     */
+    public static Staff getCurrentSession() {
         return currentUser;
     }
     /**

@@ -14,7 +14,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
+import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -82,5 +85,12 @@ public class StatusBarFooter extends UiPart<Region> {
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+    }
+    
+    @Subscribe
+    public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
+        Staff currentUser = UserSession.getCurrentSession();
+        logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent, "You are now logged in as " + currentUser));
+        setUserSessionStatus(String.format(USER_SESSION_STATUS_UPDATED, currentUser.getName(), currentUser.getRole()));
     }
 }
