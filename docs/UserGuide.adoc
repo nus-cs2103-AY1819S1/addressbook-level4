@@ -19,8 +19,9 @@ By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-*CLInic* is a desktop application that is created for clinics and optimised specifically for clinic receptionists and doctors who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
-If you have average to high typing speed and are in need of a clinic management application, CLInic can administer your clinic management tasks more efficiently than traditional GUI apps.
+Welcome to *CLInic*! *CLInic* is a desktop application that is created for clinics and optimised specifically for clinic receptionists and doctors who have average to high typing speed.
+*CLInic* also features a display window which structures information in a user-friendly and logical manner.
+If you are in need of a *fast* clinic management application, *CLInic* can improve your efficiency greatly by simplifying your complicated workflow to *short and simple, yet powerful* commands.
 You will have *all the tools* needed to manage your patient and medicine data, complete with an efficient queue management system. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -28,7 +29,7 @@ You will have *all the tools* needed to manage your patient and medicine data, c
 Follow the steps below to get started with CLInic.
 
 .  Check you have Java version `9` or later installed in your computer.
-.  Download the latest `CLInic.jar` link:{repoURL}/releases[here].
+.  Download the latest `CLInic.jar` link:https://github.com/CS2103-AY1819S1-W16-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
