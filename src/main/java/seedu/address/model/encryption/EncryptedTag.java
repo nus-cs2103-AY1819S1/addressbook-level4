@@ -50,4 +50,16 @@ public class EncryptedTag {
     public String getEncryptedString() {
         return encryptedString;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof EncryptedTag // instanceof handles nulls
+                && encryptedString.equals(((EncryptedTag) other).encryptedString); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return encryptedString.hashCode();
+    }
 }

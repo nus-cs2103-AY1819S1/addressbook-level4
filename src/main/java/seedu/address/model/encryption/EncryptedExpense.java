@@ -3,6 +3,7 @@ package seedu.address.model.encryption;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -79,5 +80,33 @@ public class EncryptedExpense {
                 && otherExpense.name.equals(this.name)
                 && (otherExpense.category.equals(category)
                 || otherExpense.cost.equals(cost));
+    }
+
+    /**
+     * Returns true if both expenses have the same identity and data fields.
+     * This defines a stronger notion of equality between two expenses.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Expense)) {
+            return false;
+        }
+
+        Expense otherExpense = (Expense) other;
+        return otherExpense.getName().equals(getName())
+                && otherExpense.getCategory().equals(getCategory())
+                && otherExpense.getCost().equals(getCost())
+                && otherExpense.getDate().equals(getDate())
+                && otherExpense.getTags().equals(getTags());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, category, cost, date, tags);
     }
 }

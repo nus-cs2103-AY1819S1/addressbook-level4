@@ -50,4 +50,9 @@ public abstract class EncryptedExpenseField<T extends ExpenseField> {
                 || (other.getClass().equals(this.getClass()) // instanceof handles nulls
                 && encryptedString.equals(((EncryptedExpenseField) other).encryptedString)); // state check
     }
+
+    @Override
+    public int hashCode() {
+        return encryptedString.hashCode();
+    }
 }

@@ -2,6 +2,7 @@ package seedu.address.model.encryption;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -95,5 +96,20 @@ public class EncryptedExpenseTracker {
 
     public UniqueEncryptedExpenseList getEncryptedExpenses() {
         return expenses;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EncryptedExpenseTracker // instanceof handles nulls
+                && expenses.equals(((EncryptedExpenseTracker) other).expenses))
+                && this.maximumBudget.equals(((EncryptedExpenseTracker) other).maximumBudget)
+                && this.username.equals(((EncryptedExpenseTracker) other).username)
+                && this.password.equals(((EncryptedExpenseTracker) other).password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(expenses, maximumBudget, username, password);
     }
 }
