@@ -1,14 +1,14 @@
-package seedu.address.logic.parser;
+package seedu.thanepark.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.ViewStatusCommand;
-import seedu.address.model.ride.RideStatusPredicate;
-import seedu.address.model.ride.Status;
+import seedu.thanepark.logic.commands.ViewStatusCommand;
+import seedu.thanepark.model.ride.RideStatusPredicate;
+import seedu.thanepark.model.ride.Status;
 
 public class ViewStatusCommandParserTest {
 

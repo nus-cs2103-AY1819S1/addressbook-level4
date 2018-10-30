@@ -1,22 +1,22 @@
-package seedu.address.logic.commands;
+package seedu.thanepark.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalRides.getTypicalThanePark;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
+import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import java.util.Collections;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.ride.RideStatusPredicate;
-import seedu.address.model.ride.Status;
+import seedu.thanepark.logic.CommandHistory;
+import seedu.thanepark.model.Model;
+import seedu.thanepark.model.ModelManager;
+import seedu.thanepark.model.UserPrefs;
+import seedu.thanepark.model.ride.RideStatusPredicate;
+import seedu.thanepark.model.ride.Status;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code ViewStatusCommand}.

@@ -42,7 +42,7 @@ public class FilterCommandTest {
                 new RideContainsConditionPredicate(List.of(new AttributePredicate("<",
                         new Maintenance("100"))));
         RideContainsConditionPredicate secondPredicate =
-                new RideContainsConditionPredicate(List.of(new AttributePredicate("<",
+                new RideContainsConditionPredicate(List.of(new AttributePredicate("<=",
                         new WaitTime("100"))));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
@@ -86,7 +86,7 @@ public class FilterCommandTest {
     public void execute_singlePredicate_multipleRidesFound() {
         String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 3);
         RideContainsConditionPredicate predicate =
-                new RideContainsConditionPredicate(Arrays.asList(prepareMaintenancePredicate(">", "15")));
+                new RideContainsConditionPredicate(Arrays.asList(prepareMaintenancePredicate(">=", "15")));
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -105,14 +105,14 @@ public class FilterCommandTest {
         String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 2);
         RideContainsConditionPredicate predicate =
                 new RideContainsConditionPredicate(Arrays.asList(prepareMaintenancePredicate(">", "15"),
-                        prepareMaintenancePredicate("<", "50")));
+                        prepareMaintenancePredicate("<=", "50")));
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BIG, GALAXY), model.getFilteredRideList());
 
         expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 2);
-        predicate = new RideContainsConditionPredicate(Arrays.asList(prepareWaitTimePredicate("<", "15"),
+        predicate = new RideContainsConditionPredicate(Arrays.asList(prepareWaitTimePredicate("<=", "15"),
                 prepareWaitTimePredicate(">", "5")));
         command = new FilterCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
@@ -120,8 +120,8 @@ public class FilterCommandTest {
         assertEquals(Arrays.asList(CASTLE, FANTASY), model.getFilteredRideList());
 
         expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 2);
-        predicate = new RideContainsConditionPredicate(Arrays.asList(prepareWaitTimePredicate("<", "15"),
-                prepareMaintenancePredicate(">", "15")));
+        predicate = new RideContainsConditionPredicate(Arrays.asList(prepareWaitTimePredicate("<=", "15"),
+                prepareMaintenancePredicate(">=", "15")));
         command = new FilterCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
