@@ -50,4 +50,11 @@ public class ViewPermissionCommand extends Command {
                 targetPerson.getPermissionSet()));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewPermissionCommand // instanceof handles nulls
+                && targetIndex.equals(((ViewPermissionCommand) other).targetIndex)); // state check
+    }
+
 }
