@@ -41,16 +41,7 @@ public class Recipe extends UniqueType {
         this.cookTime = cooktime;
         this.difficulty = difficulty;
         this.instructions.addAll(instructions);
-        for (Instruction instruction : instructions) {
-            for (IngredientPortion portion : instruction.ingredients) {
-                IngredientDefinition key = new IngredientDefinition(portion.getName());
-                if (ingredients.containsKey(key)) {
-                    ingredients.replace(key, ingredients.get(key).addAmount(portion.convertToCommonUnit()));
-                } else {
-                    ingredients.put(key, portion.convertToCommonUnit());
-                }
-            }
-        }
+        tabulateIngredients();
         this.tags.addAll(tags);
     }
 
@@ -95,6 +86,22 @@ public class Recipe extends UniqueType {
                 && otherRecipe.getName().equals(getName())
                 && otherRecipe.getCookTime().equals(getCookTime())
                 && otherRecipe.getDifficulty().equals(getDifficulty());
+    }
+
+    /**
+     * Tabulate all ingredients from each instruction step.
+     */
+    private void tabulateIngredients() {
+        for (Instruction instruction : instructions) {
+            for (IngredientPortion portion : instruction.ingredients) {
+                IngredientDefinition key = new IngredientDefinition(portion.getName());
+                if (ingredients.containsKey(key)) {
+                    ingredients.replace(key, ingredients.get(key).addAmount(portion.convertToCommonUnit()));
+                } else {
+                    ingredients.put(key, portion.convertToCommonUnit());
+                }
+            }
+        }
     }
 
     /**
