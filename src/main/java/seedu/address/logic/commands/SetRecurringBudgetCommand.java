@@ -17,14 +17,14 @@ public class SetRecurringBudgetCommand extends Command {
     public static final String COMMAND_WORD = "setRecurrenceFrequency";
     public static final String COMMAND_ALIAS = "srf";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a frequency for totalBudget to reset "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a frequency for the budget to reset "
         + "Parameters: "
         + "[" + PREFIX_HOURS + "HOURS] "
         + "[" + PREFIX_MINUTES + "MINUTES]"
         + "[" + PREFIX_SECONDS + "SECONDS]\n"
         + "Example " + COMMAND_WORD + " " + PREFIX_HOURS + "3";
 
-    public static final String MESSAGE_SUCCESS = "TotalBudget recurrence is set at %s";
+    public static final String MESSAGE_SUCCESS = "Budget recurrence is set at %s";
 
     private long toSet;
 

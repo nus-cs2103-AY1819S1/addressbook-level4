@@ -1,4 +1,5 @@
 package seedu.address.logic.commands;
+//@@author winsonhys
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
@@ -19,7 +20,7 @@ public class AddCategoryBudgetCommand extends Command {
     public static final String COMMAND_WORD = "addCategoryBudget";
     public static final String COMMAND_ALIAS = "acb";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Category totalBudget cap for one of the "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Category Budget cap for one of the "
         + "Categories in the expense tracker "
         + "Parameters: " + PREFIX_CATEGORY + "CATEGORY " + PREFIX_BUDGET + "MONEY (Must be a positive float with 2 "
         + "decimal places)\n"
