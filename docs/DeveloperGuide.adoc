@@ -123,7 +123,7 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App,
+The *_architecture diagram_* given above explains the high-level design of the App,
  which contains 6 <<Architecture-Components,*`architecture components`*>> and
  adopts an <<Architecture-design,*`events-driven nature`*>>.
 
@@ -162,7 +162,7 @@ Each of the User Interface, Logic, Model, Storage Components also:
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the *_Class Diagram_* given below) defines it's API in the `Logic` interface and exposes its functionality using the `LogicManager` class.
+For example, the `Logic` component (see the *_class diagram_* given below) defines it's API in the `Logic` interface and exposes its functionality using the `LogicManager` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -172,7 +172,7 @@ image::LogicClassDiagram.png[width="800"]
 
 This section explains the main nature of design adopted by the system.
 
-The *_Sequence Diagram_* below shows how the components interact when the user issues the command `find sengkang`.
+The *_sequence diagram_* below shows how the components interact when the user issues the command `find sengkang`.
 
 .Component interactions for `find sengkang` command (part 1)
 image::Sequence diagram - Find Carpark.png[width="800"]
@@ -180,7 +180,7 @@ image::Sequence diagram - Find Carpark.png[width="800"]
 [NOTE]
 Note how the `Model` simply raises a `CarparkFinderChangedEvent` when the Car Park Finder data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-The *_Sequence Diagram_* below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The *_sequence diagram_* below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `find sengkang` command (part 2)
 image::Sequence diagram - Find Carpark Event Handling.png[width="800"]
@@ -216,7 +216,7 @@ The `User Interface` (`UI`) component consists of a `MainWindow` that is made up
 The base class
 link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`] uses _JavaFx UI_ framework.
 
-Please refer to the *_Class Diagram_* below for more details on how they are connected.
+Please refer to the *_class diagram_* below for more details on how they are connected.
 
 .Structure of the User Interface component
 image::UiClassDiagram.png[width="800"]
@@ -239,7 +239,7 @@ is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWind
 The `Logic` component consist of a `LogicManager` that takes care of the parse and exexcution of commands.
 It inherits the base class link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`].
 
-Please refer to the *_Class Diagram_* below for more details on how they are connected.
+Please refer to the *_class diagram_* below for more details on how they are connected.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -252,7 +252,7 @@ In general, this is the workflow of the `Logic` component:
 .  Pass the result of the command execution over to `Model`, which can affect it (e.g. adding a person) and/or raise events.
 .  Return the command execution by encapsulating the command as a `CommandResult` object which then is passed back to the `UI`.
 
-The *_Sequence Diagram_* below shows the interactions within the `Logic` component
+The *_sequence diagram_* below shows the interactions within the `Logic` component
 when `execute("delete 1")` is called.
 
 .Sequence Diagram of of `execute("delete 1")
@@ -266,7 +266,7 @@ It does not depend on any of the three other components.
 link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`] is the base class.
 
 
-Please refer to the *_Class Diagram_* below for more details.
+Please refer to the *_class diagram_* below for more details.
 
 .Structure of the Model Component
 
@@ -305,7 +305,7 @@ image::ModelClassBetterOopDiagram.png[width="800"]
 The `Storage` component, managed by the `StorageManager`, serves as a backend storage for data of Car Park Finder.
 link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`] is the base class.
 
-Please refer to the *_Class Diagram_* below for more details on how they are connected.
+Please refer to the *_class diagram_* below for more details on how they are connected.
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
@@ -369,7 +369,7 @@ image::UndoRedoActivityDiagramNew4.png[width="800"]
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following sequence diagram shows how the undo operation works:
+The following *_sequence diagram_* shows how the undo operation works:
 
 .Sequence diagram of Undo/Redo feature
 image::Sequence Diagram - Undo.png[width="800"]
