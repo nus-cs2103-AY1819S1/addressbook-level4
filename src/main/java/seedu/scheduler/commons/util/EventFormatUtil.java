@@ -206,4 +206,33 @@ public class EventFormatUtil {
                 description,
                 venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
     }
+
+    /**
+     * Calculates the relative index of an existing recurring event instance to the first recurring event instance.
+     *
+     * @param lastShownList The last shown list of events.
+     * @param eventToDelete The recurring event to be deleted.
+     *
+     * @return The relative index of the event to be deleted to the first recurring event.
+     */
+    public static int calculateInstanceIndex(List<Event> lastShownList, Event eventToDelete) {
+        int counter = -1;
+        List<Event> lastShownListSorted = new ArrayList<>();
+        for (Event event : lastShownList) {
+            lastShownListSorted.add(event);
+        }
+        Collections.sort(lastShownListSorted, (
+                a, b) -> a.getStartDateTime()
+                        .compareTo(b.getStartDateTime()));
+
+        for (Event event : lastShownListSorted) {
+            if (event.getUuid().equals(eventToDelete.getUuid())) {
+                counter++;
+            }
+            if (event.getUid() == eventToDelete.getUid()) {
+                break;
+            }
+        }
+        return counter;
+    }
 }
