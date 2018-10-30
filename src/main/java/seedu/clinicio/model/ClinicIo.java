@@ -14,6 +14,7 @@ import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.consultation.UniqueConsultationList;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.UniquePersonList;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.staff.UniqueStaffList;
 
@@ -176,12 +177,17 @@ public class ClinicIo implements ReadOnlyClinicIo {
     }
 
     /**
-     * Retrieve a staff from ClinicIO
+     * Authenticate staff with staff record in ClinicIO.
      * This staff must exist inside ClinicIO.
      */
-    public Staff getStaff(Staff staff) {
+    public boolean checkStaffCredentials(Staff staff) {
         requireNonNull(staff);
-        return staffs.getStaff(staff);
+        Staff staffRecord = staffs.getStaff(staff);
+
+        return Password.verifyPassword(
+                staff.getPassword().password,
+                staffRecord.getPassword().password
+        );
     }
 
     /**
@@ -235,15 +241,6 @@ public class ClinicIo implements ReadOnlyClinicIo {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-    }
-
-    //@@author jjlee050
-    /**
-     * Removes {@code key} from this {@code ClinicIo}.
-     * {@code key} must exist in the ClinicIO.
-     */
-    public void removeStaff(Staff key) {
-        staffs.remove(key);
     }
 
     //@@author gingivitiss

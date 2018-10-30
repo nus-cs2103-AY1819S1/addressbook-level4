@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.clinicio.testutil.EventsUtil.postNow;
 import static seedu.clinicio.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.clinicio.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.clinicio.ui.StatusBarFooter.USER_SESSION_STATUS_INITIAL;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -47,7 +48,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION);
+        StatusBarFooter statusBarFooter = new StatusBarFooter();
         uiPartRule.setUiPart(statusBarFooter);
 
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
@@ -56,20 +57,21 @@ public class StatusBarFooterTest extends GuiUnitTest {
     @Test
     public void display() {
         // initial state
-        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
+        assertStatusBarContent(USER_SESSION_STATUS_INITIAL, SYNC_STATUS_INITIAL);
 
         // after ClinicIO is updated
+        // TODO: User session updated
         postNow(EVENT_STUB);
-        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
+        assertStatusBarContent(USER_SESSION_STATUS_INITIAL,
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }
 
     /**
-     * Asserts that the save location matches that of {@code expectedSaveLocation}, and the
+     * Asserts that the user session matches that of {@code expectedUserSession}, and the
      * sync status matches that of {@code expectedSyncStatus}.
      */
-    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus) {
-        assertEquals(expectedSaveLocation, statusBarFooterHandle.getSaveLocation());
+    private void assertStatusBarContent(String expectedUserSession, String expectedSyncStatus) {
+        assertEquals(expectedUserSession, statusBarFooterHandle.getUserSession());
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
         guiRobot.pauseForHuman();
     }

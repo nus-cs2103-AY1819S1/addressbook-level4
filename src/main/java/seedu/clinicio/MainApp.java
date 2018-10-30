@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.EventsCenter;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.core.Version;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
 import seedu.clinicio.commons.exceptions.DataConversionException;
@@ -50,7 +51,6 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
-
 
     @Override
     public void init() throws Exception {
@@ -192,6 +192,7 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+        UserSession.destorySession();
         Platform.exit();
         System.exit(0);
     }

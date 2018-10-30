@@ -1,6 +1,5 @@
 package seedu.clinicio.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -97,15 +96,9 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getStaff_staffInClinicIO_returnsStaff() {
-        modelManager.addStaff(ADAM);
-        assertEquals(ADAM, modelManager.getStaff(ADAM));
-    }
-
-    @Test
-    public void getStaff_nullStaff_throwsNullPointerException() {
+    public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.getStaff(null);
+        modelManager.checkStaffCredentials(null);
     }
 
     @Test
