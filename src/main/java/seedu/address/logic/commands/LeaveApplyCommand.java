@@ -56,7 +56,7 @@ public class LeaveApplyCommand extends Command {
     @Override
     public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        
+
         Person personToAddLeave = model.getLoggedInUser().getPerson();
         Person updatedPerson = createPersonWithNewLeaveApplication(personToAddLeave, leaveApplicationToAdd);
         model.updatePerson(personToAddLeave, updatedPerson);
