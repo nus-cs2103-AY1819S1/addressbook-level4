@@ -231,6 +231,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` or `r` (reapplies the `clear` command) +
 // end::undoredo[]
 
+////
 === Add contacts to an existing group : `addToGroup`
 
 Adds a specified list of contacts to a specified group, based on the user's last-viewed listing. +
@@ -271,6 +272,7 @@ Format: `createGroup group/GROUP_NAME`
 Examples:
 
 * `createGroup group/CS2103Group`
+////
 
 === Suggested Location : `generateLocation`
 
@@ -286,7 +288,7 @@ Examples:
 
 Adds an event in the system with information specified by the user.
 
-Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX...] [t/EVENT_TAG...]`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...`
 
 The user can input values for the following fields when adding an event: +
 
@@ -354,13 +356,39 @@ Executing `addEventTag t/MEETING t/meeting` will only result in the first tag be
 Executing `addEventTag t/MEETING` again will not be successful, as the tag already exists in the system.
 ====
 
-Examples:
+Example:
 
 * `addEventTag t/Lecture t/Dinner` +
 Adds the event tags into the system, if they do not already exist in the system.
 The newly added tags are highlighted in green below.
 
 image::add-event-tag_new-event-tag.PNG[Adding an event tag]
+
+=== Deleting an event: `deleteEvent`
+
+Adds an event in the system with information specified by the user.
+
+Format: `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX`
+
+Each of the fields are mandatory, and has to be supplied by the user
+before the event can be successfully deleted from the system.
+
+[TIP]
+====
+* Event dates should be in the format YYYY-MM-DD
+* Event index is based on the displayed index of each event in the displayed list (see example below).
+====
+
+Example:
+
+* `deleteEvent d/2018-10-14 i/1`
+
+image::delete-event.PNG[Deleting an event]
+
+=== List all events: `listEvent`
+
+Shows a list of all events in the address book. +
+Format: `listEvent`
 
 === Import Contacts: `importContacts`
 
@@ -410,16 +438,6 @@ There is no need to save manually.
 
 
 == Features coming up in V2.0
-
-=== List personal events: `listEvent`
-
-Lists all events in the system.
-
-Format: `listEvent`
-
-Examples:
-
-* `listEvent`
 
 === Add group event: `addGroupEvent`
 
@@ -608,39 +626,21 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
-e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
-* *Rename Group* `renameGroup group/ORIGINAL_NAME n/NEW_GROUP_NAME` +
-e.g. `renameGroup group/CS2103Group n/HelloWorld`
-* *Merge Group* : `mergeGroup n/NEW_GROUP_NAME group/GROUP_NAME…​` +
-e.g. `mergeGroup n/CS2103_MERGED group/CS2103_Group1 group/CS2103_Group2 group/CS2103_Group3`
-* *Split Group* : `splitGroup group/GROUP_NAME {n/NEW_GROUP_NAME i/INDEX…​}…​` +
-e.g. `splitGroup group/CS2103_MERGE
-n/CS2103_Group1 i/1 i/2 i/3 i/4 i/5`
-* *View Group* : `viewGroup/GROUP_NAME` +
-e.g. `viewGroup/CS2103Group`
-* *Common Group Contacts* : `commonGroupContacts n/CONTACT_NAME` +
-e.g. `commonGroupContacts n/James Bond`
-* *Remove Contact from Group* : remove n/CONTACT_NAME group/GROUP_NAME +
-e.g. `remove n/James Bond group/CS2103Group`
-* *Delete Group* : `deleteGroup group/GROUP_NAME` +
-e.g. `deleteGroup group/CS2103Group`
-* *Import Timetable* : `importCalendar SOURCE` +
-e.g. `importCalendar Google`
-* *Share Contact* : `share i/INDEX…​ t/INDEX` +
-e.g. `share i/2 i/3 i/4 t/1`
-* *Archive Group* : `archive group/GROUP_NAME` +
-e.g. `archive group/CS2103Group`
-* *Unarchive Group* : `unarchive group/GROUP_NAME` +
-e.g. `unarchive group/CS2103Group`
+
+// * *Create Group *: `createGroup group/GROUP_NAME` +
+// e.g. `createGroup group/CS2103Group`
+// * *Add Contacts to Group* : `addToGroup group/GROUP_NAME [i/INDEX]...` +
+// e.g. `addToGroup group/CS2103Group i/1 i/2 i/3`
+
 * *Suggest Location* : `generateLocation event/EVENT_NAME group/GROUP_NAME` +
 e.g. `generateLocation event/First Meeting group/CS2103Group`
-* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS` +
-e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2019-10-12 st/1030 et/1200 a/123, Clementi Rd, 1234665`
-* *List Events* : `listEvent`
-* *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME...` +
-e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
-* *List Group Events* : `listGroupEvent`
+* *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
+* *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
+e.g. `deleteEvent d/2018-10-12 i/1`
+* *Add Event Tag*: `addEventTag [t/EVENT_TAG...]` +
+e.g. `addEventTag t/Lecture t/Dinner`
+* *List Events* : `listEvent` +
 * *Import Contacts* : `importContacts file/FILEPATH` +
 e.g. `importContacts file/~/Downloads/contacts1.csv`
 * *Disable and Enable Notification* : `notification enable/disable` +
