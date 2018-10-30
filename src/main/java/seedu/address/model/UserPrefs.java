@@ -57,6 +57,7 @@ public class UserPrefs {
      */
     public void updateUserPrefs(Path newCurrDirectory) {
         this.currDirectory = newCurrDirectory;
+        updateImageList();
     }
 
     /**
