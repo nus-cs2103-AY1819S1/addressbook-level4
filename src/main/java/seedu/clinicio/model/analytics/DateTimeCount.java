@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -24,9 +25,7 @@ import seedu.clinicio.model.appointment.Date;
 public class DateTimeCount {
 
     /**
-     *
-     * @param dates
-     * @return
+     * @return the number of dates that match today's real life date.
      */
     public static int today(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
@@ -38,9 +37,7 @@ public class DateTimeCount {
     }
 
     /**
-     *
-     * @param dates
-     * @return
+     * @return the number of dates occurring in the current real life week.
      */
     public static int currentWeek(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
@@ -52,9 +49,7 @@ public class DateTimeCount {
     }
 
     /**
-     *
-     * @param dates
-     * @return
+     * @return the number of dates occurring in the current real life month.
      */
     public static int currentMonth(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
@@ -66,9 +61,7 @@ public class DateTimeCount {
     }
 
     /**
-     *
-     * @param dates
-     * @return
+     * @return the number of dates occurring in the current real life year.
      */
     public static int currentYear(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
@@ -80,28 +73,39 @@ public class DateTimeCount {
     }
 
     /**
-     *
-     * @param dates
-     * @return
+     * @return the number of dates that match each day in the current week.
      */
     public static Map<String, Integer> eachDayOfCurrentWeek(List<Date> dates) {
-        return dates.stream()
-            .filter(date -> isCurrentWeek(date))
-            .map(date -> date.toString())
-            .collect(groupingBy(Function.identity(), summingInt(date -> 1)));
+        Map<Date, Integer> currentWeekCount = new HashMap<>();
+        for (Date currentWeekDate : getCurrentWeekDates()) {
+            currentWeekCount.put(currentWeekDate, 0);
+            for (Date date : dates) {
+                if (currentWeekDate.equals(date)) {
+                    currentWeekCount.replace(currentWeekDate, currentWeekCount.get(currentWeekDate) + 1);
+                }
+            }
+        }
+
+        return currentWeekCount.entrySet().stream()
+            .collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue));
     }
 
     /**
-     *
-     * @param dates
-     * @return
+     * @return the number of dates that match each day in the next week.
      */
     public static Map<String, Integer> eachDayOfNextWeek(List<Date> dates) {
-        return dates.stream()
-            .filter(date -> isNextWeek(date))
-            .map(date -> getLocalDate(date))
-            .map(localDate -> localDate.getDayOfWeek().name())
-            .collect(groupingBy(Function.identity(), summingInt(date -> 1)));
+        Map<Date, Integer> nextWeekCount = new HashMap<>();
+        for (Date nextWeekDate : getNextWeekDates()) {
+            nextWeekCount.put(nextWeekDate, 0);
+            for (Date date : dates) {
+                if (nextWeekDate.equals(date)) {
+                    nextWeekCount.replace(nextWeekDate, nextWeekCount.get(nextWeekDate) + 1);
+                }
+            }
+        }
+
+        return nextWeekCount.entrySet().stream()
+            .collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue));
     }
 
     /**
@@ -156,7 +160,22 @@ public class DateTimeCount {
     }
 
     /**
-     * @return A list of each date in the next week.
+     * @return A list of each date in the current week.
+     */
+    public static List<Date> getCurrentWeekDates() {
+        List<Date> thisWeekDates = new ArrayList<>();
+        LocalDate thisMonday = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        for (DayOfWeek day : getDaysOfWeek()) {
+            LocalDate nextWeekDate = thisMonday.with(TemporalAdjusters.next(day));
+            thisWeekDates.add(getDate(nextWeekDate));
+        }
+
+        return thisWeekDates;
+    }
+
+
+    /**
+     * @return A list of each date in the current week.
      */
     public static List<Date> getNextWeekDates() {
         List<Date> nextWeekDates = new ArrayList<>();
@@ -177,10 +196,16 @@ public class DateTimeCount {
         return Arrays.asList(DayOfWeek.values());
     }
 
+    /**
+     * @return A {@code LocalDate} from a {@code Date}.
+     */
     public static LocalDate getLocalDate(Date date) {
         return LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
     }
 
+    /**
+     * @return A {@code Date} from a {@code LocalDate}.
+     */
     public static Date getDate(LocalDate localDate) {
         return new Date(localDate.getDayOfMonth(), localDate.getMonthValue(), localDate.getYear());
     }
