@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_MEETINGS_FOUND_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
+import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
+import static seedu.address.testutil.TypicalMeetings.URGENT;
+import static seedu.address.testutil.TypicalMeetings.WEEKLY;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -62,37 +66,36 @@ public class FindMeetingCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredMeetingList());
     }
 
-    // TODO FINISH THIS UP
-    //    @Test
-    //    public void execute_multipleKeywords_somePrefix() {
-    //        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 3);
-    //        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ",
-    //            "Team Clique", " ");
-    //        FindMeetingCommand command = new FindMeetingCommand(predicate);
-    //        expectedModel.updateFilteredMeetingList(predicate);
-    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-    //        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101, NUS_BASKETBALL), model.getFilteredMeetingList());
-    //    }
-    //
-    //    @Test
-    //    public void execute_multipleKeywords_allPrefix() {
-    //        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
-    //        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate("Project Team", " ", " ");
-    //        FindMeetingCommand command = new FindMeetingCommand(predicate);
-    //        expectedModel.updateFilteredMeetingList(predicate);
-    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-    //        assertEquals(Arrays.asList(PROJECT_2103T, GROUP_2101), model.getFilteredMeetingList());
-    //    }
-    //
-    //    @Test
-    //    public void execute_multipleKeywords_nonePrefix() {
-    //        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
-    //        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ", " ", "Project");
-    //        FindMeetingCommand command = new FindMeetingCommand(predicate);
-    //        expectedModel.updateFilteredMeetingList(predicate);
-    //        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-    //        assertEquals(Arrays.asList(NUS_COMPUTING, NUS_BASKETBALL), model.getFilteredMeetingList());
-    //    }
+    @Test
+    public void execute_multipleKeywords_somePrefix() {
+        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
+        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ",
+            "urgent features", " ");
+        FindMeetingCommand command = new FindMeetingCommand(predicate);
+        expectedModel.updateFilteredMeetingList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(DISCUSSION, URGENT), model.getFilteredMeetingList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_allPrefix() {
+        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 1);
+        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate("meetup", " ", " ");
+        FindMeetingCommand command = new FindMeetingCommand(predicate);
+        expectedModel.updateFilteredMeetingList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(WEEKLY), model.getFilteredMeetingList());
+    }
+
+    @Test
+    public void execute_multipleKeywords_nonePrefix() {
+        String expectedMessage = String.format(MESSAGE_MEETINGS_FOUND_OVERVIEW, 2);
+        MeetingTitleContainsKeywordsPredicate predicate = preparePredicate(" ", " ", "settle affair");
+        FindMeetingCommand command = new FindMeetingCommand(predicate);
+        expectedModel.updateFilteredMeetingList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(WEEKLY, REHEARSAL), model.getFilteredMeetingList());
+    }
 
     /**
      * Parses {@code userInput} into a {@code MeetingTitleContainsKeywordsPredicate}.
