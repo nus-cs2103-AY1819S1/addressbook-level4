@@ -79,12 +79,12 @@ public class TypicalPersons {
             ab.addPerson(person);
         }
 
-        for (Event event : getTypicalEvents()) {
-            ab.addEvent(event);
-        }
-
         for (Tag tag : getTypicalTags()) {
             ab.addEventTag(tag);
+        }
+
+        for (Event event : getTypicalEvents()) {
+            ab.addEvent(event);
         }
 
         return ab;
