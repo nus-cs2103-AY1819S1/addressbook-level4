@@ -40,6 +40,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+== User Interface
+This section will explain the user interface of the application.
+
+image::UiExplanation.png[width="790"]
+
+1. Menu bar
+2. Group list: display a list of groups
+3. Meeting list: display a list of meetings
+4. Person list: display a list of person
+5. Command box:
+6. Result display
+7. MeetingBook update status
+8. MeetingBook save path
+
 [[Features]]
 == Features
 
@@ -59,19 +73,6 @@ Format: `help`
 
 Add a new person named [Name] with parameters described in [Person Parameters] to the MeetingBook. +
 Format: `addMember n/[Name] p/[Phone] e/[Email] a/[Address] t/[Tag] g/[Group Tag]`
-
-.Required person parameters:
-* name / n
-* phone / p
-* email / e
-* address / a
-
-.Optional person parameters:
-* tag / t
-* group tag / g
-
-[NOTE]
-Optional parameters such as [Tag] and [GroupTag] are used for filtering the list. To learn more about how to utilize these parameters, see `select` command.
 
 Examples:
 
@@ -158,19 +159,22 @@ If “then [Command]”  is inserted after find, the [Command] will be applied t
 Thus it is possible to run commands like
 “in CS2101 findwhere then delete” to delete every task under CS2101
 
-=== Selecting a group / person : `select`
+=== Selecting a group / person / meeting: `select`
+
+Format: `select [person|group|meeting] [index]` where `[index]` is a positive integer (starts from 1)
 
 ****
-Pre-condition: user already list all available groups / persons using `find/findwhere` command.
-Select and displays a group / person from the list obtained using `find`
+* If `select [group]` is entered, the person list will be filtered to show only person who belong to the group, and the
+meeting list will be filtered to show only meeting scheduled for the group.
+* If `select [person]` is entered, only the person that is in the filtered person list will be selected.
+* If `select [meeting]` is entered, only the meeting that is in the filtered meeting list will be selected.
 ****
 
-Format: `select [person|group] [index]` or `s [p|g][index]` when `[index]` is a positive integer (starts from 1)
+Examples:
 
-****
-* If `select [Group]` is entered, the person list will be filtered to show only person who belong to the group.
-* If `select [Person]` is entered, only the person that is in the filtered person list will be selected.
-****
+* `select g/1`: selects the first group in the filtered group list.
+* `select m/3`: selects the third meeting in the filtered meeting list.
+* `select p/2`: selects the second person in the filtered person list.
 
 === Schedule meetings: `meet`
 
@@ -262,9 +266,20 @@ Removes the person 'Derek' from the group 'CS2101'.
 Both the person and group should exist in the MeetingBook.
 The person should also be an existing member of the group.
 
-=== Listing all persons : `list`
+=== Listing all groups / meetings / persons : `list`
 
-Display all existing persons on the person list display.
+Display all existing groups on the group list / meetings on the meeting list / persons on the person list display.
+
+Format: `list [group|meeting|person]`
+
+[NOTE]
+If the list is unfiltered, the list will remain the same.
+
+Examples:
+
+* `list group`: list all groups.
+* `list meeting`: list all meetings.
+* `list person`: list all persons.
 
 // tag::import[]
 === Importing data : `import`
@@ -348,8 +363,9 @@ e.g. `join n/Derek g/CS2103T`
 * *Removing a person from group* : `leave n/[Name] g/[Group]` +
 e.g. `leave n/Derek g/CS2101`
 * *Find a person / group / meeting* : `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>`
-* *Selecting a group / person* : `select [group|person]` +
+* *Selecting a group / meeting / person* : `select [group|meeting|person]` +
 e.g. `select g/1`
-* *List all person* : `list`
+* *List all groups / meetings / person* : `list [group|meeting|person]` +
+e.g. `list meeting`
 * *Import data* : `import`
 * *Export data* : `export`
