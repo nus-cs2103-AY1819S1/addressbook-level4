@@ -29,8 +29,8 @@ import seedu.address.model.person.ServedPatient;
  */
 public class QueueCommandTestUtil {
 
-    private static String VALID_MC_CONTENT = "5";
-    private static String VALID_REFERRAL_LETTER_CONTENT = "Go to NUH pls";
+    private static final String VALID_MC_CONTENT = "5";
+    private static final String VALID_REFERRAL_LETTER_CONTENT = "Go to NUH pls";
 
     /**
      * Generates a patient queue from given patients.

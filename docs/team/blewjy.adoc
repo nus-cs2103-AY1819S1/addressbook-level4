@@ -1,0 +1,72 @@
+= Bryan Lew - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CLInic
+
+---
+
+== Overview
+
+CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application.
+CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
+programming language and uses JavaFX, HTML and CSS for the GUI.
+
+My main responsibility for this project was to implement the UI and storage for the application, amidst some other smaller tasks,
+such as the development of the `MedicalRecord` attribute of the `Patient`.
+
+The project scope for CLInic is to morph the given addressbook-level4 into a clinic management application that allows users to manage patient
+information and medicine information and additionally manage the clinic queue.
+
+The team consists of four year-2 and one year-3 student in School of Computing, NUS.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the *GUI for the Patient Queue Management System (PQMS)*
+** What it does: This GUI window, which resides near the top of the application window, displays to the user the current state of the PQMS.
+** Justification: Having a responsive GUI allows users to be able to refer to and read the queue easily, and to perform any commands on the queue quickly, without having to always call a `queue` command to retrieve required queue information.
+** Highlights: This feature was implemented with the help of a little HTML for the display and Javascript that allowed the updating of the information in the GUI after each command.
+ It required a lot of synchronization between the command results, model objects and the display.
+ This was largely handled with some event handling and scripting.
+
+* *Major enhancement*: Added *storage capabilities* for the `MedicalRecord` model and the `Medicine` model.
+** What it does: This allows the user to be able to add and retrieve `MedicalRecord` and `Medicine` objects to the database easily and efficiently.
+** Justification: Before this enhancement, any user action that added `MedicalRecord` and `Medicine` to the database will not be saved once the user closes the application.
+ We wanted the user to be able to save these information for future use as well.
+** Highlights: This feature was implemented with the use of XML, similar to how `Patient` objects were saved to the file in the original _addressbook-level4_ application.
+ It required the creation of an `XmlAdapted-` version of each model object as well as careful handling of the adding and retrieval for each model object.
+
+* *Minor enhancements*:
+** Added ability for each `Document` to appear in a pop-up window after the respective `Document` commands.
+** Added the GUI display for all the `Medicine` objects in the database. This GUI display replaces the left panel displaying the `Patient` objects whenever a `Medicine` related command is called.
+** Added `addMedicalRecordCommand` that allows user to add a `MedicalRecord` to a specified `Patient`.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Documentation:
+*** Improved the navigability and readability of the User Guide by separating Section 3 (Features) into sub-sections.
+** Enhancements to existing features:
+*** Updated the GUI display under `BrowserPanel` to show other information such as `CurrentPatient`, PQMS, and `Patient`.
+** Testing:
+*** Wrote tests for all UI features to increase coverage from 75% to 79% (Pull request https://github.com/CS2103-AY1819S1-W16-4/main/pull/111[#111])
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addmedicalrecordcommand]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=medicalrecord]
