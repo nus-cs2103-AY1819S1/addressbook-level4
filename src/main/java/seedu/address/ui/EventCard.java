@@ -171,8 +171,8 @@ public class EventCard extends UiPart<Region> {
      * @param addressBookEventTagChangedEvent
      */
     @Subscribe
-    private void handleAddressBookEventTagChangedEvent
-            (AddressBookEventTagChangedEvent addressBookEventTagChangedEvent) {
+    private void handleAddressBookEventTagChangedEvent(AddressBookEventTagChangedEvent
+                                                                   addressBookEventTagChangedEvent) {
         List<Tag> updatedEventTagList = addressBookEventTagChangedEvent.data;
         for (Node node : eventTags.getChildren()) {
             assert node instanceof Label;

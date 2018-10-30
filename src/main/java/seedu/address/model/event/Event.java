@@ -27,7 +27,7 @@ public class Event {
 
     // data fields
     private Set<Person> eventContacts;
-    private Set<Tag> eventTags = new HashSet<>();;
+    private Set<Tag> eventTags = new HashSet<>();
 
     /**
      * Every field must be present and not null. End time must be later than start time.
