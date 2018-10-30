@@ -13,6 +13,7 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Password;
+import seedu.address.storage.budget.XmlAdaptedTotalBudget;
 
 /**
  * An Immutable ExpenseTracker that is serializable to XML format
@@ -27,7 +28,7 @@ public class XmlSerializableExpenseTracker {
     @XmlElement
     private XmlAdaptedUsername username;
     @XmlElement
-    private XmlAdaptedBudget budget;
+    private XmlAdaptedTotalBudget totalBudget;
     @XmlElement
     private XmlAdaptedPassword password;
 
@@ -47,7 +48,7 @@ public class XmlSerializableExpenseTracker {
         this.username = new XmlAdaptedUsername(src.getUsername());
         this.password = src.getPassword().map(XmlAdaptedPassword::new).orElse(null);
         expenses.addAll(src.getExpenseList().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
-        this.budget = new XmlAdaptedBudget(src.getMaximumBudget());
+        this.totalBudget = new XmlAdaptedTotalBudget(src.getMaximumTotalBudget());
     }
 
     /**
@@ -66,8 +67,8 @@ public class XmlSerializableExpenseTracker {
             }
             expenseTracker.addExpense(expense);
         }
-        if (this.budget != null) {
-            expenseTracker.modifyMaximumBudget(this.budget.toModelType());
+        if (this.totalBudget != null) {
+            expenseTracker.modifyMaximumBudget(this.totalBudget.toModelType());
         }
         return expenseTracker;
     }

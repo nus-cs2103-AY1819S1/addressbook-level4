@@ -7,7 +7,10 @@ import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
 import seedu.address.model.user.Password;
@@ -22,7 +25,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     protected Username username;
     protected Optional<Password> password;
     private final UniqueExpenseList expenses;
-    private Budget maximumBudget;
+    private TotalBudget maximumTotalBudget;
 
     /**
      * Creates an empty ExpenseTracker with the given username.
@@ -32,7 +35,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         this.username = username;
         this.password = password;
         this.expenses = new UniqueExpenseList();
-        this.maximumBudget = new Budget("28.00");
+        this.maximumTotalBudget = new TotalBudget("28.00");
     }
 
     /**
@@ -40,27 +43,53 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public ExpenseTracker(ReadOnlyExpenseTracker toBeCopied) {
         this(toBeCopied.getUsername(), toBeCopied.getPassword());
-        this.maximumBudget = toBeCopied.getMaximumBudget();
+        this.maximumTotalBudget = toBeCopied.getMaximumTotalBudget();
         resetData(toBeCopied);
     }
-    //// budget operations
+    //// totalBudget operations
 
 
     /**
-     * Modifies the maximum budget for the current expense tracker
-     * @param budget a valid Budget
+     * Modifies the maximum totalBudget for the current expense tracker
+     * @param totalBudget a valid TotalBudget
      */
-    public void modifyMaximumBudget(Budget budget) {
-        double previousSpending = this.maximumBudget.getCurrentExpenses();
-        this.maximumBudget = budget;
-        this.maximumBudget.modifyExpenses(previousSpending);
-
+    public void modifyMaximumBudget(TotalBudget totalBudget) {
+        double previousSpending = this.maximumTotalBudget.getCurrentExpenses();
+        this.maximumTotalBudget = totalBudget;
+        this.maximumTotalBudget.modifyExpenses(previousSpending);
 
     }
 
+    /**
+     * Adds a new category totalBudget to the expense tracker.
+     * @param budget
+     * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a category totalBudget will result in the
+     * sum of category budgets exceeding the total TotalBudget
+     */
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+
+        this.maximumTotalBudget.addCategoryBudget(budget);
+        System.out.println("Expense tracker class");
+        System.out.println(this.maximumTotalBudget.getCategoryBudgets());
+    }
+
+    /**
+     * Modifies an existing category totalBudget.
+     * @param budget
+     * @throws CategoryBudgetDoesNotExist Throws this if category totalBudget does not exist
+     */
+    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
+        this.maximumTotalBudget.modifyCategoryBudget(budget);
+    }
+
+    /**
+     * Sets the recurrence frequency for resetting the totalBudget and spending.
+     * @param seconds
+     */
     public void setRecurrenceFrequency(long seconds) {
-        this.maximumBudget.setRecurrenceFrequency(seconds);
+        this.maximumTotalBudget.setRecurrenceFrequency(seconds);
     }
+
 
 
     //// list overwrite operaticons
@@ -71,7 +100,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public void setExpenses(List<Expense> expenses) {
         this.expenses.setExpenses(expenses);
-        expenses.forEach(expense -> this.maximumBudget.addExpense(expense.getCost().getCostValue()));
+        expenses.forEach(expense -> this.maximumTotalBudget.addExpense(expense));
     }
 
     /**
@@ -81,7 +110,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         requireNonNull(newData);
 
         this.setExpenses(newData.getExpenseList());
-        this.maximumBudget = newData.getMaximumBudget();
+        this.maximumTotalBudget = newData.getMaximumTotalBudget();
     }
 
     //// expense-level operations
@@ -96,11 +125,11 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     /**
      * Adds a expense into the address book
-     * @return true if expense is successfully added withouot exceeding budget, else false
+     * @return true if expense is successfully added without exceeding totalBudget, else false
      */
     public boolean addExpense(Expense p) {
         this.expenses.add(p);
-        return this.maximumBudget.addExpense(p.getCost().getCostValue());
+        return this.maximumTotalBudget.addExpense(p);
     }
 
     /**
@@ -113,7 +142,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         requireNonNull(editedExpense);
 
         this.expenses.setExpense(target, editedExpense);
-        this.maximumBudget.alterSpending(target, editedExpense);
+        this.maximumTotalBudget.alterSpending(target, editedExpense);
 
     }
 
@@ -123,12 +152,13 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-        this.maximumBudget.removeExpense(key);
+        this.maximumTotalBudget.removeExpense(key);
     }
 
-    public Budget getMaximumBudget() {
-        return new Budget(this.maximumBudget.getBudgetCap(), this.maximumBudget.getCurrentExpenses(),
-            this.maximumBudget.getNextRecurrence(), this.maximumBudget.getNumberOfSecondsToRecurAgain());
+    public TotalBudget getMaximumTotalBudget() {
+        return new TotalBudget(this.maximumTotalBudget.getBudgetCap(), this.maximumTotalBudget.getCurrentExpenses(),
+            this.maximumTotalBudget.getNextRecurrence(), this.maximumTotalBudget.getNumberOfSecondsToRecurAgain(),
+            this.maximumTotalBudget.getCategoryBudgets());
     }
 
     @Override
@@ -170,7 +200,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         return other == this // short circuit if same object
                 || (other instanceof ExpenseTracker // instanceof handles nulls
                 && expenses.equals(((ExpenseTracker) other).expenses))
-                && this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget);
+                && this.maximumTotalBudget.equals(((ExpenseTracker) other).maximumTotalBudget);
     }
 
     @Override
