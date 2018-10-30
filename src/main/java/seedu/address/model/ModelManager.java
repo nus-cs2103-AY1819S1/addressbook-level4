@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.User;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private User loggedInUser;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -84,6 +86,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    public User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public void setLoggedInUser(User u) {
+        loggedInUser = u;
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -134,6 +144,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addLeaveApplication(LeaveApplication leaveApplication, Person employee) {
         // TODO
+    }
+
+    @Override
+    public void restartAddressBook() {
+        versionedAddressBook.restart();
     }
 
     @Override
