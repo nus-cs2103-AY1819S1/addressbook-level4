@@ -90,38 +90,7 @@ public class AddressBookParser {
 
         // Executes commands for volunteers
         if (contextId.equals(Context.VOLUNTEER_CONTEXT_ID)) {
-            // Replace all these commands
-            switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
-
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
-
-            case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser().parse(arguments);
-
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().parse(arguments);
-
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
-
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
-
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
-
-            case ManageCommand.COMMAND_WORD:
-                return new ManageCommandParser().parse(arguments);
-
-            case ExportCertCommand.COMMAND_WORD:
-                return new ExportCertCommandParser().parse(arguments);
-
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
+            return parseVolunteerCommand(commandWord, arguments);
         }
 
         // Execute commands for records
@@ -133,7 +102,7 @@ public class AddressBookParser {
     }
 
     /**
-     * Parses user input specifically for event command for execution.
+     * Parses user input specifically for event commands for execution.
      **/
     private Command parseEventCommand(String commandWord, String arguments) throws ParseException {
         // Replace all these commands
@@ -158,6 +127,40 @@ public class AddressBookParser {
 
         case ManageCommand.COMMAND_WORD:
             return new ManageCommandParser().parse(arguments);
+
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Parses user input specifically for volunteer commands for execution.
+     */
+    private Command parseVolunteerCommand(String commandWord, String arguments) throws ParseException {
+        switch (commandWord) {
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
+
+        case EditCommand.COMMAND_WORD:
+            return new EditCommandParser().parse(arguments);
+
+        case SelectCommand.COMMAND_WORD:
+            return new SelectCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
+
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+
+        case ExportCertCommand.COMMAND_WORD:
+            return new ExportCertCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
