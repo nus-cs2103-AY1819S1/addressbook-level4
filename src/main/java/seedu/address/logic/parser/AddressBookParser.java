@@ -75,6 +75,7 @@ public class AddressBookParser {
             return new AddCommandParser().parse(arguments);
 
         case AddMedicineCommand.COMMAND_WORD:
+        case AddMedicineCommand.COMMAND_ALIAS:
             return new AddMedicineCommandParser().parse(arguments);
 
         case DispenseMedicineCommand.COMMAND_WORD:
@@ -86,6 +87,7 @@ public class AddressBookParser {
             return new EditCommandParser().parse(arguments);
 
         case EditMedicineCommand.COMMAND_WORD:
+        case EditMedicineCommand.COMMAND_ALIAS:
             return new EditMedicineCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
@@ -97,6 +99,7 @@ public class AddressBookParser {
             return new DeleteCommandParser().parse(arguments);
 
         case CheckStockCommand.COMMAND_WORD:
+        case CheckStockCommand.COMMAND_ALIAS:
             return new CheckStockCommand();
 
         case ClearCommand.COMMAND_WORD:
@@ -115,9 +118,11 @@ public class AddressBookParser {
             return new ListCommand();
 
         case ListStockCommand.COMMAND_WORD:
+        case ListStockCommand.COMMAND_ALIAS:
             return new ListStockCommand();
 
         case RestockCommand.COMMAND_WORD:
+        case RestockCommand.COMMAND_ALIAS:
             return new RestockCommandParser().parse(arguments);
 
         case HistoryCommand.COMMAND_WORD:
