@@ -17,8 +17,9 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 
 
 /**
- * Panel containing two tabs: {@code BrowserPanel} and {@code EventListPanel}.
- * Each panel is initialized as {@code BrowserPanel} and {@code EventListPanel} objects.
+ * Panel containing two tabs: {@code BrowserPanel} and {@code EventListPanel} and {@code LocationDisplayPanel}.
+ * Each panel is initialized as {@code BrowserPanel} and {@code EventListPanel} and {@code LocationDisplayPanel}
+ * objects.
  */
 public class TabPanel extends UiPart<Region> {
 
@@ -29,6 +30,8 @@ public class TabPanel extends UiPart<Region> {
     private BrowserPanel browserPanel;
 
     private EventListPanel eventListPanel;
+
+    private LocationDisplayPanel locationDisplayPanel;
 
     @FXML
     private TabPane tabPane;
@@ -41,6 +44,9 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private Tab eventsTab;
 
+    @FXML
+    private Tab locationDisplayTab;
+
     public TabPanel(ObservableList<List<seedu.address.model.event.Event>> eventList) {
         super(FXML);
 
@@ -49,6 +55,9 @@ public class TabPanel extends UiPart<Region> {
 
         eventListPanel = new EventListPanel(eventList);
         eventsTab.setContent(eventListPanel.getRoot());
+
+        locationDisplayPanel = new LocationDisplayPanel();
+        locationDisplayTab.setContent(locationDisplayPanel.getRoot());
 
         // set default tab
         selectionModel.select(eventsTab);
@@ -68,12 +77,17 @@ public class TabPanel extends UiPart<Region> {
         return eventsTab;
     }
 
+    public Tab getLocationTab() {
+        return locationDisplayTab;
+    }
+
     /**
-     * Frees resources allocated to the browser.
+     * Frees resources allocated to the tab
      */
     public void freeResources() {
         webpageTab = null;
         eventsTab = null;
+        locationDisplayTab = null;
     }
 
     @Subscribe
@@ -89,6 +103,6 @@ public class TabPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         // switch active tab
-        selectionModel.select(webpageTab);
+        selectionModel.select(locationDisplayTab);
     }
 }

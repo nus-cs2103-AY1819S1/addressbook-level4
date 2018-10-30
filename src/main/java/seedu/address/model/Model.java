@@ -59,6 +59,12 @@ public interface Model {
     boolean hasClashingEvent(Event event);
 
     /**
+     * Deletes the given event.
+     * The event must exist in the address book.
+     */
+    void deleteEvent(Event target);
+
+    /**
      * Adds the given event into the address book.
      * {@code event} must not already exist in the address book and must not clash with any of the existing events in
      * the address book.

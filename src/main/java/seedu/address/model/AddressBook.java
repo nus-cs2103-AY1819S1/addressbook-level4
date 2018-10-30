@@ -110,7 +110,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from the person list in this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -133,6 +133,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean hasClashingEvent(Event event) {
         requireNonNull(event);
         return events.containsClashingEvent(event);
+    }
+
+    /**
+     * Removes {@code key} from the events list in this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEvent(Event key) {
+        events.remove(key);
     }
 
     /**

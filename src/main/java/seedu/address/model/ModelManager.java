@@ -31,7 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private static boolean notificationPref;
-    private static String favourite;
+    private static String favouriteEvent;
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
@@ -64,13 +64,9 @@ public class ModelManager extends ComponentManager implements Model {
         notificationPref = set;
     }
 
-    public static String getFavourite() {
-        return favourite;
-    }
+    public static String getFavouriteEvent() { return favouriteEvent; }
 
-    public static void updateFavourite(String newFavourite) {
-        favourite = newFavourite;
-    }
+    public static void updateFavourite(String newEvent) { favouriteEvent = newEvent; }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
@@ -131,6 +127,12 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasClashingEvent(Event event) {
         requireNonNull(event);
         return versionedAddressBook.hasClashingEvent(event);
+    }
+
+    @Override
+    public void deleteEvent(Event target) {
+        versionedAddressBook.removeEvent(target);
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -204,6 +206,10 @@ public class ModelManager extends ComponentManager implements Model {
         Map<EventDate, List<Event>> filteredEventsByDateMap = filteredEvents.stream()
                 .collect(Collectors.groupingBy(Event::getEventDate));
 
+        for (List<Event> eventList : filteredEventsByDateMap.values()) {
+            eventList.sort(Comparator.comparing(Event::getEventStartTime));
+        }
+
         // convert the map to a FilteredList
         ObservableList<List<Event>> filteredEventsByDateList = FXCollections.observableArrayList();
         filteredEventsByDateList.addAll(filteredEventsByDateMap.values());
@@ -211,6 +217,7 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<List<Event>> eventListComparator =
                 Comparator.comparing(eventList -> eventList.get(0).getEventDate());
         filteredEventsByDateList.sort(eventListComparator.reversed());
+
         FilteredList<List<Event>> filteredEventsByDate = new FilteredList<>(filteredEventsByDateList);
 
         return FXCollections.unmodifiableObservableList(filteredEventsByDate);

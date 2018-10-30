@@ -18,6 +18,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -25,6 +26,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -190,6 +193,32 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the event at the given {@code targetDate} and {@code
+     * targetIndex} in the {@code model}'s address book.
+     */
+    public static void showEventAtDateAndIndex(Model model, Index targetIndex, EventDate targetDate) {
+        assertTrue(model.getFilteredEventListByDate().stream()
+                .anyMatch(list -> list.get(0).getEventDate().equals(targetDate)));
+
+        List<List<Event>> eventList =
+                model.getFilteredEventListByDate().stream()
+                        .filter(list -> list.get(0).getEventDate().equals(targetDate))
+                        .collect(Collectors.toList());
+
+        assertTrue(eventList.size() == 1);
+        assertTrue(targetIndex.getZeroBased() < eventList.get(0).size());
+
+        Event event = eventList.get(0).get(targetIndex.getZeroBased());
+
+        final String[] splitName = event.getEventName().eventName.split("\\s+");
+        model.updateFilteredEventList(new EventNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredEventList().size());
+        assertEquals(1, model.getFilteredEventListByDate().size());
+        assertEquals(1, model.getFilteredEventListByDate().get(0).size());
     }
 
     /**
