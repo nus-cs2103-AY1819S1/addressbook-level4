@@ -61,6 +61,13 @@ Format: `help`
 
 // tag::add[]
 === Adding a person, module or occasion: `add[]`
+=== Adding an entry: `add[]`
+
+Adds a person, module or an occasion to the address book. +
+
+Format to add person: `addperson n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...` +
+Format to add module: `addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER [t/TAG]...` +
+Format to add occasion: `addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...`
 
 [TIP]
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
@@ -100,13 +107,15 @@ Example:
 * `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 // end::add[]
 
-=== Listing all persons : `list[]`
+// tag::list[]
+=== Listing all entries : `list[]`
 
 Shows a list of all persons/modules/occasions in the address book. +
 Format: `list[]`
+// end::list[]
 
 // tag::edit[]
-=== Editing a person/module/occasion : `edit[]`
+=== Editing an entry : `edit[]`
 
 Edits an existing person, module or occasion in TheTracker. +
 
@@ -141,6 +150,7 @@ Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
 * `editOccasion 7 on/Barbecue od/2019-6-17 loc/NUS` +
 Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue, edits the occasionDate to 2019-6-17, edits the occasionLocation to NUS.
 
+=== Locating entries by name: `find`
 // end::edit[]
 
 
@@ -186,7 +196,8 @@ Example:
 
 // end:find[]
 
-=== Deleting a person : `delete[]`
+// tag::delete[]
+=== Deleting an entry : `delete[]`
 
 Deletes the specified person, module or occasion from the address book. +
 Format: `delete[] INDEX`
@@ -203,7 +214,7 @@ Deletes the 2nd person. +
 Deletes the 1st module. +
 * `deleteoccasion 5` +
 Deletes the 5th occasion.
-
+// end::delete[]
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -299,10 +310,11 @@ There is no need to save manually.
 === Autocomplete (coming in v 1.4)
 A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
 
-=== Import information from external platform: `import` (coming in v 2.0)
-A command to allow the user to see the history of commands used within the address book.+
-Command Syntax: `import [keyword]` +
-keyword: One of either: IVLE, NUSMODS, MYISIS.
+=== Import module information from external platform: `importmodule` (coming in v 2.0)
+A command to allow the user to import information from NUSMods.+
+
+Command Syntax: `importmodule [modulecode]` +
+If the specified module in the current semester is not found, it will be imported with information extracted from NUSMods.
 
 
 == FAQ
