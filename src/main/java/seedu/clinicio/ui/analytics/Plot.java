@@ -140,7 +140,7 @@ public class Plot {
             barChart.getData().add(series);
         }
 
-        // remove the legend is there is only one group of data
+        // remove the legend if there is only one group of data
         if (barsData.getDataGroups().size() < 2) {
             Node legend = barChart.lookup(".chart-legend");
             legend.setStyle("visibility: hidden");
@@ -178,7 +178,7 @@ public class Plot {
             barChart.getData().add(series);
         }
 
-        // remove the legend is there is only one group of data
+        // remove the legend if there is only one group of data
         if (barsData.getDataGroups().size() < 2) {
             Node legend = barChart.lookup(".chart-legend");
             legend.setStyle("visibility: hidden");
