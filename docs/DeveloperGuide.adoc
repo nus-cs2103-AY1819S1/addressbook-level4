@@ -250,7 +250,7 @@ This section describes some noteworthy details on how certain features are imple
 
 The "by-name-commands" are extensions to the regular Commands, facilitated by classes that extend the regular `Command` classes. Currently implemented are the `EditByNameCommand` and the `DeleteByNameCommand`.
 They make use of `String` identifiers and the `PersonFinderUtil` to find the `Person` that the `Command` refers to, rather than an `Index`. +
-This allows time to be saved when trying to run a command, because instead of having to `find` a `Person` then type the command based on the `Index` of the list that the `Person` appears under, commands can be targeted swiftly and precisely.
+This allows time to be saved when trying to run a command, because instead of having to run a `find` or `list` command to display a `Person`, then type the command based on the `Index` of the list that the `Person` appears under, commands can be targeted swiftly and precisely.
 The "by-name-commands" depend on the following operation/classes:
 
 * `PersonFinderUtil#findPerson(Model model, String personIdentifier)` -- Finds and returns the person that is uniquely identified by the `personIdentifier` in the `Model` provided.
