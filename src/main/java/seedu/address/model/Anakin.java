@@ -10,6 +10,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
+import seedu.address.model.deck.anakinexceptions.DeckImportException;
 import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
 import seedu.address.storage.portmanager.PortManager;
@@ -178,6 +179,34 @@ public class Anakin implements ReadOnlyAnakin {
         }
     }
 
+    /**
+     * Attempts to export {@deck}
+     * Returns the exported file location as a string.
+     */
+    public String exportDeck(Deck deck) {
+        try {
+            return portManager.exportDeck(deck);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Attempts to import a deck at the specified file location.
+     * If there is an existing duplicate deck, throw DuplicateDeckException.
+     * If there was a problem with the import action, throw DeckImportException
+     */
+
+    public Deck importDeck(String filepath) throws DuplicateDeckException, DeckImportException {
+        Deck targetDeck = portManager.importDeck(filepath);
+        if (decks.contains(targetDeck)) {
+            throw new DuplicateDeckException();
+        }
+        return targetDeck;
+    }
+
     //// card-level operations
 
     /**
@@ -229,33 +258,6 @@ public class Anakin implements ReadOnlyAnakin {
         updateDisplayedCards();
     }
 
-    /**
-     * Attempts to export {@deck}
-     * Returns the exported file location as a string.
-     */
-    public String exportDeck(Deck deck) {
-        try {
-            return portManager.exportDeck(deck);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    /**
-     * Attempts to import a deck at the specified file location.
-     * If there is an existing duplicate deck, throw DuplicateDeckException.
-     */
-
-    public Deck importDeck(String filepath) {
-        Deck targetDeck = portManager.importDeck(filepath);
-        if (decks.contains(targetDeck)) {
-            throw new DuplicateDeckException();
-        }
-        return targetDeck;
-    }
 
     //// util methods
 
