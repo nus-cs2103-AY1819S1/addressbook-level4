@@ -361,30 +361,39 @@ Format: `summary`
 
 === Commands that do not require permissions
 
-* *Help* : `help`
-* *History* : `history` +
-* *List all employees*: `list` +
-* *Sort employee display list* : `sort -CRITERIA` +
-e.g. sort -d
-* *Select an employee* : `select INDEX` +
-* *Search employees by name* : `find NAME` +
-e.g. search Joshua
-* *Filter employees by criteria* : `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]` +
-e.g. filter -n Jeremy Choo -d Development
-* *Change password* : `passwd`
-* *View archived employees* : `archive`
-* *Undo commands* : `undo`
-* *Redo commands* : `redo`
-* *Logout from the system* : `Logout`
-* *Exit* : `exit`
+[width="100%",options="header"]
+|=========================================================
+ |Command | Format | Example
+ |Help|help|help
+ |History|history|history
+ |list all employee|list|list
+ |Sort employee display list| sort -CRITERIA| sort -d
+ |Select an employee|select INDEX | select 1
+ |Search employees by name|find NAME| find Joshua
+ |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo
+ -d Development
+ |Change password|passwd|passwd
+ |View archived employees|archive|archive
+ |Undo commands|undo|undo
+ |Redo commands|Redo|Redo
+ |Logout from the system|logout|logout
+ |Exit|exit|exit
+
+|=========================================================
 
 === Commands that require permission
 
-* *Add employee* : `add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT]` +
-* *Delete employee*: `delete INDEX`
-* *Admin permission*: `clear`
-* *Editing an employee*: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]`
-* *Assign permission*:
-** `viewpermission INDEX`
-** `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...`
+[width="100%",options="header"]
+|=========================================================
+ |Command|Required Permission|Format|Example
+ |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT] | add -n Joshua -s 15000 -e josh@gmail.com -n
+ 81234567 -a 81 Joshua's Road  Singapore 123456
+ |Delete employee|REMOVE_EMPLOYEE|delete INDEX|delete 1
+ |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]
+  | edit 1 -p 91234567 -e johndoe@example.com
+ |Clear|Admin|clear|clear
+ |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
+ modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
+ |View all Permissions of employee| ASSIGN_PERMISSION| viewpermission INDEX|viewpermission 1
+|=========================================================
 
