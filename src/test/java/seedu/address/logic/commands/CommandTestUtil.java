@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,7 +87,11 @@ public class CommandTestUtil {
     public static final String INVALID_APPOINTMENT_ID_DESC = " " + PREFIX_INDEX + "$"; //'$' not allowed
     public static final String INVALID_MEDICINE_NAME_DESC = " " + PREFIX_MEDICINE_NAME + "P@n@dol"; // '@' not allowed
     public static final String INVALID_DOSAGE_DESC = " " + PREFIX_DOSAGE + "2#"; // '#' not allowed
-    public static final String INVALID_CONSUMPTION_PER_DAY_DESC = " " + PREFIX_CONSUMPTION_PER_DAY + "-4"; // no numbers < 0
+    public static final String INVALID_CONSUMPTION_PER_DAY_DESC = " " + PREFIX_CONSUMPTION_PER_DAY + "-4"; // < 0
+
+    public static final String VALID_DOCTOR_JOHN = "John Doe";
+    public static final LocalDateTime VALID_DATE_TIME = LocalDateTime.of(
+            2018, 5, 12, 14, 30);
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -110,7 +115,7 @@ public class CommandTestUtil {
      * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel) {
+                                            String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -130,7 +135,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage) {
+                                            String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());

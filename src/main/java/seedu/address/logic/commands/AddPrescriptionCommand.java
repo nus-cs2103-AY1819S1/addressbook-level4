@@ -43,7 +43,7 @@ public class AddPrescriptionCommand extends Command {
     private final Prescription toAdd;
 
     /**
-     *Creates an AddPrescriptionCommand to add the specified {@code Person}
+     * Creates an AddPrescriptionCommand to add the specified {@code Person}
      */
     public AddPrescriptionCommand(Prescription prescription) {
         requireAllNonNull(prescription);
@@ -62,7 +62,7 @@ public class AddPrescriptionCommand extends Command {
 
         // Invalid appointment
         if (toAdd.getId() <= 0 || toAdd.getId() > model.getAppointmentCounter()) {
-            return new CommandResult(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
+            throw new CommandException(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
         }
         Appointment appointmentToEdit = appointmentList.stream()
                 .filter(appt -> appt.getAppointmentId() == toAdd.getId())
@@ -70,7 +70,7 @@ public class AddPrescriptionCommand extends Command {
                 .orElse(null);
 
         if (appointmentToEdit.getPrescriptions().contains(toAdd)) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE_PRESCRIPTION));
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PRESCRIPTION));
         }
         Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
                 appointmentToEdit.getDoctor(),
