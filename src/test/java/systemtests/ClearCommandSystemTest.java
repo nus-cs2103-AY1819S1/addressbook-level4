@@ -60,7 +60,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelSetCoordinator().getRecipeModel());
+        assertCommandSuccess(command, ClearCommand.MESSAGE_CLEAR_SUCCESS, new ModelSetCoordinator().getRecipeModel());
     }
 
     /**

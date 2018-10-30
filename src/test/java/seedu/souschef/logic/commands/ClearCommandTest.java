@@ -10,7 +10,6 @@ import seedu.souschef.model.AppContent;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
-import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.Recipe;
 
 public class ClearCommandTest {
@@ -23,7 +22,9 @@ public class ClearCommandTest {
         Model<Recipe> expectedModel = new ModelSetCoordinator().getRecipeModel();
         expectedModel.commitAppContent();
 
-        assertCommandSuccess(new ClearCommand<Day>(model), model, history, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearCommand<Recipe>(model), model, history,
+                String.format(ClearCommand.MESSAGE_CLEAR_SUCCESS,
+                history.getKeyword()),
                 expectedModel);
     }
 
@@ -35,7 +36,9 @@ public class ClearCommandTest {
         expectedModel.resetData(new AppContent());
         expectedModel.commitAppContent();
 
-        assertCommandSuccess(new ClearCommand<Day>(model), model, history, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearCommand<Recipe>(model), model, history,
+                String.format(ClearCommand.MESSAGE_CLEAR_SUCCESS,
+                        history.getKeyword()),
                 expectedModel);
     }
 
