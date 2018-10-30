@@ -34,7 +34,7 @@ Steps to set up ThanePark:
 .  Copy the file to the folder you want to use as the home folder for your ThanePark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="800"]
 
 Congratulations! You have successfully set up ThanePark!
 
@@ -54,7 +54,7 @@ Refer to <<Features>> for details of each command.
 [[Features]]
 == Features
 
-This section contains all commands used for ThanePark.
+This section contains information of all commands used in ThanePark.
 
 ====
 *Command Format*
@@ -65,11 +65,10 @@ Example: `add <attraction>`<maintenance> `<waitTime>` `<address>`
 Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
 Example: `{tab}` is the TAB keystroke.
-* Items ending with ellipses `...` denotes variable arguments. +
+* Items ending with ellipses `...` denotes variable number of arguments. +
 Example: `history [findargs...]`
 * Parameters can be in any order +
-Example: if the command specifies
-  n/name p/address, p/address n/name is also acceptable.
+Example: if the command specifies n/name p/address, p/address n/name is also acceptable.
 
 ====
 
@@ -209,14 +208,10 @@ Format: `open <attraction>`
 
 This section contains all commands related to viewing list on rides.
 
-# tag::view[]
-==== Viewing all available attractions: `viewall`
+==== Viewing all available rides: `viewall`
 
-Display all available attractions in a list according to the number of
-people that have taken the ride for the day in alphanumeric order if
-optional fields are not specified. `status` field specifies whether the user
-want to view opened or closed rides. +
-Format: `viewall [status]`
+Display all available rides in a list. +
+Format: `viewall`
 
 ==== View detailed information of a specific ride: `view`
 
@@ -224,11 +219,11 @@ Display all available information about a single ride on the list of displayed r
 `index` field specifies the index of the ride that the user wants to view. +
 Format: `view <index>`
 
-==== Quick view information of top five most frequented rides: `quickview`
+==== View rides according to their status: `viewstatus`
 
-Quick view information of the top 5 most frequented rides in the park. +
-Format: `quickview`
-# end::view[]
+Display all rides according to the status of the rides. +
+Format: `viewstatus [status]`
+
 
 === Filter the list of rides
 
@@ -267,20 +262,25 @@ Finds and displays the list of attractions with addresses that contain the word 
 
 == Command Summary
 
-* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
-  e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
-* *Delete*: `delete <index>` +
-  e.g. delete 3
-* *Exit*: `exit`
-* *Find*: `find <attraction>`
-* *Help*: `help [option]`
-* *History*: `history`
-* *Undo*: `undo`
-* *Redo*: `redo`
-* *Update*: `update <attraction> <tag> <value>`
-* *Open*: `open <attraction>`
-* *Shutdown*: `shutdown <attraction>`
-* *View*: `view <name>`
-* *Quickview*: `quickview`
-* *Filter*: `filter <tag> <condition>`
-* *tab*: `{tab}`
+The following table summarizes all commands available in ThanePark:
+
+[width="100%",cols="20%,<40%,<40%",options="header",]
+|=======================================================================
+|Command |Format |Example
+|Add ride |add <name of ride> <days since last maintenance> <waiting time> <address> [tag...] |add n/Mummy m/3 w/45 a/Lost World t/3D t/indoor
+|Clear table |clear |clear
+|Delete ride |delete <index> | delete 2
+|Exit ThanePark |exit |exit
+|Filter rides |filter <tag header> <condition> |filter m/ > 3 w/ < 60
+|Find rides |find <name of ride> OR find <tag header> <address> |find Mummy OR find a/ Mum
+|Help |help [option] |help more
+|History of commands |history |history
+|Open ride |open <index> |open 3
+|Redo command |redo |redo
+|Shutdown ride |shutdown <index> |shutdown 1
+|Undo command |undo |undo
+|Update ride information |update <index> <tag header> <new value> | update 2 a/ home
+|View ride information |view <index> |view 2
+|View all rides |viewall |viewall
+|View rides by status |viewstatus <status> |viewstatus open
+|=======================================================================
