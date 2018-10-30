@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import java.text.SimpleDateFormat;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
@@ -133,9 +132,9 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getStatsMode();
     }
 
-    public Iterator getCategoryList() {
+    /*public Iterator getCategoryList() {
         return model.getCategoryList();
-    }
+    }*/
 
     public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
         return model.getNotificationList();

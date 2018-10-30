@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -286,10 +285,10 @@ public class AddCommandTest {
             throw new AssertionError("isMatchPassword method should not be called.");
         }
 
-        @Override
+        /*@Override
         public Iterator getCategoryList() {
             throw new AssertionError("getCategoryList should not be called.");
-        }
+        }*/
 
         @Override
         public void addNotification(Notification notification) throws NoUserSelectedException {

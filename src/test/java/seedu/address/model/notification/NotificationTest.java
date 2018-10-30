@@ -11,7 +11,8 @@ import org.junit.Test;
 public class NotificationTest {
     public static final String VALID_HEADER = "aa";
     public static final String VALID_BODY = "bb";
-    public static final Notification.NotificationType VALID_TYPE = Notification.NotificationType.TIP;
+    public static final Notification.NotificationType VALID_TIP_TYPE = Notification.NotificationType.TIP;
+    public static final Notification.NotificationType VALID_WARNING_TYPE = Notification.NotificationType.WARNING;
 
     @Test
     public void equals() {

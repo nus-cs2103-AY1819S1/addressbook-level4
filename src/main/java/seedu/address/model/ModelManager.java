@@ -7,10 +7,8 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -32,7 +30,6 @@ import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
@@ -52,7 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private VersionedExpenseTracker versionedExpenseTracker;
     private FilteredList<Expense> filteredExpenses;
-    private HashMap<String, Double> categories;
+    //private HashMap<String, Double> categories;
     private Username username;
 
     //Stats related variables
@@ -73,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.username = null;
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
-        this.categories = initializeCategories();
+        //this.categories = initializeCategories();
         this.tips = tips;
         this.statsPeriod = defaultStatsPeriod();
         this.statsMode = defaultStatsMode();
@@ -91,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.username = expenseTracker.getUsername();
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
-        this.categories = initializeCategories();
+        //this.categories = initializeCategories();
         this.tips = new Tips();
         this.statsPeriod = defaultStatsPeriod();
         this.statsMode = defaultStatsMode();
@@ -190,11 +187,8 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author Snookerballs
     //=========== Category HashSet ==========================================================================
 
-    /**
-     * temp
-     * @param name
-     * @param expenseToAdd
-     */
+    /*
+
     public void addExpensesOfCategories(String name, double expenseToAdd) {
         requireNonNull(categories);
         double newExpense = expenseToAdd;
@@ -206,10 +200,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * temp
-     * @param name
-     * @param expenseToAdd
-     */
     public void removeExpensesOfCategories(String name, double expenseToAdd) {
         requireNonNull(categories);
         double newExpense = expenseToAdd;
@@ -236,13 +226,13 @@ public class ModelManager extends ComponentManager implements Model {
      * temp
      * @return
      */
-    public HashMap<String, Double> initializeCategories() {
+    /*public HashMap<String, Double> initializeCategories() {
         HashMap<String, Double> newMap = new HashMap<>();
         for (String name : Category.INITIAL_CATEGORIES) {
             newMap.put(name, 0.0);
         }
         return newMap;
-    }
+    }*/
 
     //@@author Snookerballs
     //=========== Notification =================================================================================

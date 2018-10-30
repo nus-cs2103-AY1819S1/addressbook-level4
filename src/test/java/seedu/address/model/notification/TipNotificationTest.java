@@ -23,6 +23,7 @@ public class TipNotificationTest extends NotificationTest {
     @Test
     public void constructor_validArgs() {
         assertEquals(new TipNotification(VALID_HEADER, VALID_BODY), VALID_TIP_NOTIFICATION);
+        assertEquals(new TipNotification(VALID_TIP_NOTIFICATION), VALID_TIP_NOTIFICATION);
         Tips tips = new Tips(TipsTest.VALID_TIP);
         assertEquals(new TipNotification(tips).getHeader(), tips.getRandomTip().getHeader());
         assertEquals(new TipNotification(tips).getBody(), tips.getRandomTip().getBody());

@@ -1,6 +1,5 @@
 package seedu.address.logic;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 import javafx.collections.ObservableList;
@@ -69,7 +68,7 @@ public interface Logic {
     ListElementPointer getHistorySnapshot();
 
     /** Returns an iterator of the list of categories and their total expenses */
-    Iterator getCategoryList();
+    //Iterator getCategoryList();
 
     ObservableList<Notification> getNotificationList() throws NoUserSelectedException;
 

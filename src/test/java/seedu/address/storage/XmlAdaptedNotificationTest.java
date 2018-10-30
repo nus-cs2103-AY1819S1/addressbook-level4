@@ -20,24 +20,33 @@ public class XmlAdaptedNotificationTest {
 
     @Test
     public void testEquals() {
-        XmlAdaptedNotification validXmlAdaptedNotification = new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
+        XmlAdaptedNotification validXmlAdaptedTipNotification = new XmlAdaptedNotification(
+                NotificationTest.VALID_HEADER,
                 NotificationTest.VALID_BODY,
-                NotificationTest.VALID_TYPE);
-        assertNotEquals(validXmlAdaptedNotification, new XmlAdaptedNotification(MISMATCHED_HEADER,
+                NotificationTest.VALID_TIP_TYPE);
+        XmlAdaptedNotification validXmlAdaptedWarningNotification = new XmlAdaptedNotification(
+                NotificationTest.VALID_HEADER,
+                NotificationTest.VALID_BODY,
+                NotificationTest.VALID_WARNING_TYPE);
+        assertNotEquals(validXmlAdaptedTipNotification, new XmlAdaptedNotification(MISMATCHED_HEADER,
                 MISMATCHED_BODY, MISMATCHED_TYPE));
-        assertNotEquals(validXmlAdaptedNotification, new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
+        assertNotEquals(validXmlAdaptedTipNotification, new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
                 MISMATCHED_BODY, MISMATCHED_TYPE));
-        assertNotEquals(validXmlAdaptedNotification, new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
+        assertNotEquals(validXmlAdaptedTipNotification, new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
                 NotificationTest.VALID_BODY, MISMATCHED_TYPE));
-        assertEquals(validXmlAdaptedNotification, new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
-                NotificationTest.VALID_BODY, NotificationTest.VALID_TYPE));
+        assertEquals(validXmlAdaptedWarningNotification, new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
+                NotificationTest.VALID_BODY, NotificationTest.VALID_WARNING_TYPE));
+        assertEquals(validXmlAdaptedWarningNotification.getHeader(), NotificationTest.VALID_HEADER);
+        assertEquals(validXmlAdaptedWarningNotification.getBody(), NotificationTest.VALID_BODY);
+        assertNotEquals(validXmlAdaptedWarningNotification, 0);
+        assertNotEquals(validXmlAdaptedWarningNotification, null);
     }
 
     @Test
     public void testToModelType_nullHeader_throwsIllegalValueException() {
         XmlAdaptedNotification invalidXmlAdaptedNotification = new XmlAdaptedNotification(null,
                 NotificationTest.VALID_BODY,
-                NotificationTest.VALID_TYPE);
+                NotificationTest.VALID_TIP_TYPE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "header");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, invalidXmlAdaptedNotification::toModelType);
     }
@@ -45,7 +54,7 @@ public class XmlAdaptedNotificationTest {
     @Test
     public void testToModelType_nullBody_throwsIllegalValueException() {
         XmlAdaptedNotification invalidXmlAdaptedNotification = new XmlAdaptedNotification(NotificationTest.VALID_HEADER,
-                null, NotificationTest.VALID_TYPE);
+                null, NotificationTest.VALID_TIP_TYPE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, "body");
         Assert.assertThrows(IllegalValueException.class, expectedMessage, invalidXmlAdaptedNotification::toModelType);
     }

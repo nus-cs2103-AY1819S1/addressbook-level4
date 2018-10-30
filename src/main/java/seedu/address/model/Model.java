@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.time.LocalDateTime;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -213,7 +212,7 @@ public interface Model {
      */
     boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException;
 
-    Iterator getCategoryList();
+    //Iterator getCategoryList();
 
     /**
      * Adds a notification to the list of notification
