@@ -1,11 +1,10 @@
 package seedu.address.model.expense;
 
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,11 +12,12 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Stores the details to edit the expense with. Each non-empty field value will replace the
@@ -116,7 +116,12 @@ public class EditExpenseDescriptor {
         return new Expense(updatedName, updatedCategory, updatedCost, updatedDate, updatedTags);
     }
 
-    public static EditExpenseDescriptor createEditExpenseDescriptor(ArgumentMultimap argMultimap) throws ParseException{
+    /**
+     * Create {@code EditExpenseDescriptor} based on the input {@code ArgumentMultimap}
+     * @throws ParseException if all attributes in the {@code editExpenseDescriptor} are null.
+     * */
+    public static EditExpenseDescriptor createEditExpenseDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
         EditExpenseDescriptor editExpenseDescriptor = new EditExpenseDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editExpenseDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));

@@ -1,6 +1,23 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.MassEditCommand.MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS;
+import static seedu.address.logic.commands.MassEditCommand.MESSAGE_NO_EXPENSE_FOUND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -15,35 +32,21 @@ import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.MassEditCommand.MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS;
-import static seedu.address.logic.commands.MassEditCommand.MESSAGE_NO_EXPENSE_FOUND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
-
+//@@Author jcjxwy
 public class MassEditCommandTest {
     private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_noExpenseFound_failure(){
+    public void execute_noExpenseFound_failure() {
         Expense editedExpense = new ExpenseBuilder().build();
         EditExpenseDescriptor editExpenseDescriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         ArgumentMultimap keywordsMap = prepareMap("n/test");
         ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywordsMap);
         MassEditCommand command = new MassEditCommand(predicate, editExpenseDescriptor);
-        try{
+        try {
             command.execute(model, commandHistory);
-        }catch (Exception e){
+        } catch (Exception e) {
             assertEquals(e.getMessage(), MESSAGE_NO_EXPENSE_FOUND);
         }
     }
@@ -61,7 +64,7 @@ public class MassEditCommandTest {
         expectedModel.updateFilteredExpenseList(predicate);
         List<Expense> filteredList = expectedModel.getFilteredExpenseList();
         List<Expense> editedList = new ArrayList<>();
-        for (int i = 0; i < filteredList.size(); i ++){
+        for (int i = 0; i < filteredList.size(); i++) {
             expectedModel.updateExpense(filteredList.get(i), editedExpense);
             editedList.add(editedExpense);
         }
@@ -73,7 +76,7 @@ public class MassEditCommandTest {
     }
 
     @Test
-    public void execute_someFieldSpecified_success() throws NoUserSelectedException{
+    public void execute_someFieldSpecified_success() throws NoUserSelectedException {
         EditExpenseDescriptor editExpenseDescriptor =
                 new EditExpenseDescriptorBuilder().withTags("test").withCost("1.00").build();
         ArgumentMultimap keywordsMap = prepareMap("n/t");
@@ -85,7 +88,7 @@ public class MassEditCommandTest {
         expectedModel.updateFilteredExpenseList(predicate);
         List<Expense> filteredList = expectedModel.getFilteredExpenseList();
         List<Expense> editedList = new ArrayList<>();
-        for (int i = 0; i < filteredList.size(); i ++){
+        for (int i = 0; i < filteredList.size(); i++) {
             Expense expense = filteredList.get(i);
             Expense editedExpense = EditExpenseDescriptor.createEditedExpense(expense, editExpenseDescriptor);
             expectedModel.updateExpense(filteredList.get(i), editedExpense);
@@ -98,7 +101,39 @@ public class MassEditCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
-    private ArgumentMultimap prepareMap(String input){
+    @Test
+    public void equals() {
+        ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(prepareMap("n/test"));
+        EditExpenseDescriptor descriptor =
+                new EditExpenseDescriptorBuilder().withCategory("test").withCost("1.11").build();
+        final MassEditCommand command = new MassEditCommand(predicate, descriptor);
+
+        //same object -> return true
+        assertEquals(command, command);
+
+        //same predicate and descriptor -> return true
+        assertEquals(command, new MassEditCommand(predicate, new EditExpenseDescriptor(descriptor)));
+
+        //null -> return false
+        assertFalse(command.equals(null));
+
+        //different types -> return false
+        assertFalse(command.equals(new EditExpenseDescriptorBuilder()));
+
+        //different predicate -> return false
+        ExpenseContainsKeywordsPredicate testPredicate =
+                new ExpenseContainsKeywordsPredicate(prepareMap("t/test"));
+        assertFalse(command.equals(new MassEditCommand(testPredicate, descriptor)));
+
+        //different descriptor -> return false
+        EditExpenseDescriptor testDescriptor = new EditExpenseDescriptorBuilder().withCost("2.00").build();
+        assertFalse(command.equals(new MassEditCommand(predicate, testDescriptor)));
+    }
+
+    /**
+     * Parses the input and stores the keywords in {@code ArgumentMultimap}
+     * */
+    private ArgumentMultimap prepareMap(String input) {
         String preparedInput = " " + input.trim();
         ArgumentMultimap map = ArgumentTokenizer.tokenize(preparedInput,
                 PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_DATE, PREFIX_TAG);

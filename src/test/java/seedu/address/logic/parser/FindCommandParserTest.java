@@ -113,13 +113,13 @@ public class FindCommandParserTest {
         //empty cost keyword
         assertParseFailure(parser, " $/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        Cost.MESSAGE_COST_CONSTRAINTS+ "\n" + MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
+                        Cost.MESSAGE_COST_CONSTRAINTS + "\n" + MESSAGE_INVALID_COST_KEYWORDS_FORMAT));
 
 
         //invalid date keywords
         assertParseFailure(parser, " d/60-02-2019",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        Date.DATE_FORMAT_CONSTRAINTS+ "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+                        Date.DATE_FORMAT_CONSTRAINTS + "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
         assertParseFailure(parser, " d/01-02-2019:99-02-2019",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.DATE_FORMAT_CONSTRAINTS));
 
@@ -142,7 +142,7 @@ public class FindCommandParserTest {
         //empty date keyword
         assertParseFailure(parser, " d/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        Date.DATE_FORMAT_CONSTRAINTS+ "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
+                        Date.DATE_FORMAT_CONSTRAINTS + "\n" + MESSAGE_INVALID_DATE_KEYWORDS_FORMAT));
 
 
         //missing prefix

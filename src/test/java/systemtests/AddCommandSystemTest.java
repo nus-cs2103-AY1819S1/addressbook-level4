@@ -62,7 +62,8 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a expense without tags to a non-empty expense tracker, command with leading spaces and trailing spaces
+        /* Case: add a expense without tags to a non-empty expense tracker,
+         * command with leading spaces and trailing spaces
          * -> added
          */
         Expense toAdd = GAME;

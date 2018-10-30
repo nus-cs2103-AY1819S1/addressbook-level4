@@ -18,10 +18,11 @@ import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
+
 
 /**
  * Edits the details of an existing expense in the expense tracker.

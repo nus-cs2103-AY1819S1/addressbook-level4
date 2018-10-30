@@ -1,16 +1,5 @@
 package seedu.address.model.expense;
 
-import org.junit.Test;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditExpenseDescriptorBuilder;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -26,11 +15,21 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
+import java.util.Set;
 
+import org.junit.Test;
+
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
+import seedu.address.testutil.EditExpenseDescriptorBuilder;
 public class EditExpenseDescriptorTest {
 
     @Test
-    public void test_equals(){
+    public void test_equals() {
         // same values -> returns true
         EditExpenseDescriptor descriptorWithSameValues = new EditExpenseDescriptor(DESC_GAME);
         assertTrue(DESC_GAME.equals(descriptorWithSameValues));
@@ -67,28 +66,28 @@ public class EditExpenseDescriptorTest {
 
     //@@Author jcjxwy
     @Test
-    public void test_createEditExpenseDescriptor_successful(){
+    public void test_createEditExpenseDescriptor_successful() {
         ArgumentMultimap testMap = prepareMap("n/test");
-        try{
+        try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
             assertTrue(test.getName().get().equals(new Name("test")));
-        }catch (ParseException pe){
+        } catch (ParseException pe) {
             pe.printStackTrace();
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
 
         testMap = prepareMap("c/test $/1.00");
-        try{
+        try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
             assertTrue(test.getCategory().get().equals(new Category("test")));
             assertTrue(test.getCost().get().equals(new Cost("1.00")));
-        }catch (ParseException pe){
+        } catch (ParseException pe) {
             pe.printStackTrace();
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
 
         testMap = prepareMap("n/same c/test $/1.00 t/equal d/01-01-2018");
-        try{
+        try {
             EditExpenseDescriptor test = EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
             assertTrue(test.getCategory().get().equals(new Category("test")));
             assertTrue(test.getName().get().equals(new Name("same")));
@@ -97,23 +96,26 @@ public class EditExpenseDescriptorTest {
             Set<Tag> tags = new HashSet<>();
             tags.add(new Tag("equal"));
             assertTrue(test.getTags().get().equals(tags));
-        }catch (ParseException pe){
+        } catch (ParseException pe) {
             pe.printStackTrace();
             throw new IllegalArgumentException("Invalid userInput.", pe);
         }
     }
 
     @Test
-    public void test_createEditExpenseDescriptor_fail(){
+    public void test_createEditExpenseDescriptor_fail() {
         ArgumentMultimap testMap = prepareMap("");
-        try{
+        try {
             EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
-        }catch (ParseException pe){
+        } catch (ParseException pe) {
             assertEquals(pe.getMessage(), EditCommand.MESSAGE_NOT_EDITED);
         }
     }
 
-    private ArgumentMultimap prepareMap(String input){
+    /**
+     * Parses the input and stores the keywords in {@code ArgumentMultimap}
+     * */
+    private ArgumentMultimap prepareMap(String input) {
         String preparedInput = " " + input.trim();
         ArgumentMultimap map = ArgumentTokenizer.tokenize(preparedInput,
                 PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_DATE, PREFIX_TAG);

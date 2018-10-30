@@ -1,5 +1,17 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.expense.EditExpenseDescriptor.createEditedExpense;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
@@ -11,20 +23,11 @@ import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.expense.EditExpenseDescriptor.createEditedExpense;
-
+/**
+ * Edit the details of multiple expenses in expense tracker
+ * */
 //@@Author jcjxwy
-public class MassEditCommand extends Command{
+public class MassEditCommand extends Command {
     public static final String COMMAND_WORD = "massedit";
     public static final String COMMAND_ALIAS = "me";
 
@@ -56,7 +59,7 @@ public class MassEditCommand extends Command{
      * @param predicate predicate to filter out the intended expenses
      * @param editExpenseDescriptor details to edit the expense with
      */
-    public MassEditCommand(ExpenseContainsKeywordsPredicate predicate, EditExpenseDescriptor editExpenseDescriptor){
+    public MassEditCommand(ExpenseContainsKeywordsPredicate predicate, EditExpenseDescriptor editExpenseDescriptor) {
         requireNonNull(predicate);
         requireNonNull(editExpenseDescriptor);
 
@@ -65,20 +68,20 @@ public class MassEditCommand extends Command{
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException{
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException {
         requireNonNull(model);
         EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.LIST));
         model.updateFilteredExpenseList(predicate);
         List<Expense> lastShownList = model.getFilteredExpenseList();
 
         //Throw exception if no expense was found by the keywords
-        if (lastShownList.size() == 0){
+        if (lastShownList.size() == 0) {
             throw new CommandException(MESSAGE_NO_EXPENSE_FOUND);
         }
 
         //Edit all the filtered expenses
         List<Expense> editedList = new ArrayList<>();
-        for (int i = 0; i < lastShownList.size(); i ++){
+        for (int i = 0; i < lastShownList.size(); i++) {
             Expense expense = lastShownList.get(i);
             Expense editedExpense = createEditedExpense(expense, editExpenseDescriptor);
             model.updateExpense(expense, editedExpense);

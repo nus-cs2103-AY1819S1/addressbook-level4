@@ -31,7 +31,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         //Check whether the user follow the pattern
-        if (!trimmedArgs.contains("/")){
+        if (!trimmedArgs.contains("/")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }

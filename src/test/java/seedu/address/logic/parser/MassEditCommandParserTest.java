@@ -1,11 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.commands.MassEditCommand;
-import seedu.address.model.expense.EditExpenseDescriptor;
-import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
-import seedu.address.testutil.EditExpenseDescriptorBuilder;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
@@ -15,6 +9,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import org.junit.Test;
+
+import seedu.address.logic.commands.MassEditCommand;
+import seedu.address.model.expense.EditExpenseDescriptor;
+import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
+import seedu.address.testutil.EditExpenseDescriptorBuilder;
+
 //@@Author jcjxwy
 public class MassEditCommandParserTest {
 
@@ -23,7 +24,7 @@ public class MassEditCommandParserTest {
     private MassEditCommandParser parser = new MassEditCommandParser();
 
     @Test
-    public void parse_missingParts_failure(){
+    public void parse_missingParts_failure() {
         //empty parameter
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
@@ -38,7 +39,7 @@ public class MassEditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidFormat_failure(){
+    public void parse_invalidFormat_failure() {
         //wrong symbol
         assertParseFailure(parser, "n/test => c/test", MESSAGE_INVALID_FORMAT);
 
@@ -47,10 +48,10 @@ public class MassEditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecify_success(){
+    public void parse_allFieldsSpecify_success() {
         ArgumentMultimap keywords = prepareMap("n/test c/test");
         ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywords);
-        EditExpenseDescriptor editExpenseDescriptor=
+        EditExpenseDescriptor editExpenseDescriptor =
                 new EditExpenseDescriptorBuilder()
                 .withName("test")
                 .withCategory("equal")
@@ -64,11 +65,11 @@ public class MassEditCommandParserTest {
     }
 
     @Test
-    public void parse_oneFieldSpecify_success(){
+    public void parse_oneFieldSpecify_success() {
         //name
         ArgumentMultimap keywords = prepareMap("n/test");
         ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywords);
-        EditExpenseDescriptor editExpenseDescriptor=
+        EditExpenseDescriptor editExpenseDescriptor =
                 new EditExpenseDescriptorBuilder().withName("equal").build();
         MassEditCommand expectedCommand = new MassEditCommand(predicate, editExpenseDescriptor);
         assertParseSuccess(parser,
@@ -77,7 +78,7 @@ public class MassEditCommandParserTest {
         //category
         keywords = prepareMap("n/test");
         predicate = new ExpenseContainsKeywordsPredicate(keywords);
-        editExpenseDescriptor=
+        editExpenseDescriptor =
                 new EditExpenseDescriptorBuilder().withCategory("equal").build();
         expectedCommand = new MassEditCommand(predicate, editExpenseDescriptor);
         assertParseSuccess(parser,
@@ -86,8 +87,8 @@ public class MassEditCommandParserTest {
         //tags
         keywords = prepareMap("n/test");
         predicate = new ExpenseContainsKeywordsPredicate(keywords);
-        editExpenseDescriptor=
-                new EditExpenseDescriptorBuilder().withTags("test","equal").build();
+        editExpenseDescriptor =
+                new EditExpenseDescriptorBuilder().withTags("test", "equal").build();
         expectedCommand = new MassEditCommand(predicate, editExpenseDescriptor);
         assertParseSuccess(parser,
                 "n/test -> t/test t/equal", expectedCommand);
@@ -95,7 +96,7 @@ public class MassEditCommandParserTest {
         //cost
         keywords = prepareMap("n/test");
         predicate = new ExpenseContainsKeywordsPredicate(keywords);
-        editExpenseDescriptor=
+        editExpenseDescriptor =
                 new EditExpenseDescriptorBuilder().withCost("2.00").build();
         expectedCommand = new MassEditCommand(predicate, editExpenseDescriptor);
         assertParseSuccess(parser,
@@ -104,7 +105,7 @@ public class MassEditCommandParserTest {
         //date
         keywords = prepareMap("n/test");
         predicate = new ExpenseContainsKeywordsPredicate(keywords);
-        editExpenseDescriptor=
+        editExpenseDescriptor =
                 new EditExpenseDescriptorBuilder().withDate("01-01-2018").build();
         expectedCommand = new MassEditCommand(predicate, editExpenseDescriptor);
         assertParseSuccess(parser,
@@ -112,7 +113,10 @@ public class MassEditCommandParserTest {
 
     }
 
-    private ArgumentMultimap prepareMap(String input){
+    /**
+     * Parses the input and stores the keywords in {@code ArgumentMultimap}
+     * */
+    private ArgumentMultimap prepareMap(String input) {
         String preparedInput = " " + input.trim();
         ArgumentMultimap map = ArgumentTokenizer.tokenize(preparedInput,
                 PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_DATE, PREFIX_TAG);

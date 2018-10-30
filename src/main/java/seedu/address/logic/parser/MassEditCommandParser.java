@@ -1,10 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.MassEditCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.expense.EditExpenseDescriptor;
-import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
@@ -14,10 +9,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.ParserUtil.ensureKeywordsAreValid;
 
+import seedu.address.logic.commands.MassEditCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.expense.EditExpenseDescriptor;
+import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
+
 /**
  * Parses input arguments and creates a new MassEditCommand
  * */
-public class MassEditCommandParser implements Parser{
+public class MassEditCommandParser implements Parser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the MassEditCommand
@@ -29,14 +29,14 @@ public class MassEditCommandParser implements Parser{
         String[] inputList = args.trim().split("->");
 
         //Check whether the user follows the pattern
-        if (inputList.length != 2){
+        if (inputList.length != 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MassEditCommand.MESSAGE_USAGE));
         }
 
         String keywords = inputList[0].trim();
         String editedKeywords = inputList[1].trim();
         //Check whether the user enters keywords
-        if (keywords.equals("") || editedKeywords.equals("")){
+        if (keywords.equals("") || editedKeywords.equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MassEditCommand.MESSAGE_USAGE));
         }
 

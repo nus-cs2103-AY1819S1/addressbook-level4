@@ -241,7 +241,7 @@ public class ParserUtil {
         List<String> costKeywords = keywordsMap.getAllValues(PREFIX_COST);
 
         //If the user enters multiple name keywords
-        if (nameKeywords.size() > 1){
+        if (nameKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_MULTIPLE_KEYWORDS));
         }
@@ -252,7 +252,7 @@ public class ParserUtil {
         }
 
         //If the user enters multiple category keywords
-        if (categoryKeywords.size() > 1){
+        if (categoryKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_MULTIPLE_KEYWORDS));
         }
@@ -274,7 +274,7 @@ public class ParserUtil {
         }
 
         //If the user enters multiple date keywords
-        if (dateKeywords.size() > 1){
+        if (dateKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_MULTIPLE_KEYWORDS));
         }
@@ -294,7 +294,7 @@ public class ParserUtil {
             }
 
             //If the ending date is earlier than the starting date
-            if (dates.length == 2 && Date.compare(new Date(dates[0]) ,new Date(dates[1])) == -1) {
+            if (dates.length == 2 && Date.compare(new Date(dates[0]), new Date(dates[1])) == -1) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         MESSAGE_INVALID_RANGE));
             }
@@ -308,7 +308,7 @@ public class ParserUtil {
         }
 
         //If the user enters multiple cost keywords
-        if (costKeywords.size() > 1){
+        if (costKeywords.size() > 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_MULTIPLE_KEYWORDS));
         }
