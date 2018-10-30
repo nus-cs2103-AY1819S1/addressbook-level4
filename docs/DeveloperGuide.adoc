@@ -486,11 +486,11 @@ The `exportcert` command enables the volunteer manager to export a PDF document 
 * List of events involved in
 * Hours of service contributed
 
-This is a sample of the exported PDF certificate:
+This is what the exported PDF certificate currently looks like:
 
-.Sample exported volunteer certificate
+.Current form of exported volunteer certificate
 [.thumb]
-image::VolunteerCert.png[width="600"]
+image::CurrentVolunteerCert.png[width="600"]
 
 
 ===== Intended Implementation
