@@ -4,7 +4,6 @@ import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAN
 
 import seedu.learnvocabulary.commons.core.index.Index;
 import seedu.learnvocabulary.logic.commands.DeleteCommand;
-import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 
 /**
