@@ -50,7 +50,7 @@ import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.RideUtil;
 
-public class UpdateCommandSystemTest extends AddressBookSystemTest {
+public class UpdateCommandSystemTest extends ThaneParkSystemTest {
 
     @Test
     public void update() throws IOException {
@@ -279,9 +279,9 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ThaneParkSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) throws IOException {
@@ -304,8 +304,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

@@ -47,7 +47,7 @@ import seedu.thanepark.ui.HelpWindow;
  * A system test class for ThanePark, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class ThaneParkSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
