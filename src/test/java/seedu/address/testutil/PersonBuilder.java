@@ -6,6 +6,8 @@ import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
+import seedu.address.model.diet.Diet;
+import seedu.address.model.diet.DietCollection;
 import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.Prescription;
@@ -40,6 +42,7 @@ public class PersonBuilder {
     private PrescriptionList prescriptionList;
     private VisitorList visitorList;
     private AppointmentsList appointmentsList;
+    private DietCollection dietCollection;
 
     public PersonBuilder() {
         nric = new Nric(DEFAULT_NRIC);
@@ -52,6 +55,7 @@ public class PersonBuilder {
         medicalHistory = new MedicalHistory();
         visitorList = new VisitorList();
         appointmentsList = new AppointmentsList();
+        dietCollection = new DietCollection();
     }
 
     /**
@@ -68,6 +72,7 @@ public class PersonBuilder {
         prescriptionList = personToCopy.getPrescriptionList();
         visitorList = new VisitorList(personToCopy.getVisitorList());
         appointmentsList = personToCopy.getAppointmentsList();
+        dietCollection = personToCopy.getDietCollection();
     }
 
     /**
@@ -148,6 +153,16 @@ public class PersonBuilder {
      */
     public PersonBuilder withAppointmentsList(List<Appointment> appointmentsList) {
         this.appointmentsList = new AppointmentsList(appointmentsList);
+        return this;
+    }
+
+    /**
+     * Sets the {@code DietCollection} of the {@code Person} that we are building.
+     * @param dietSet The set of Diet which this person should have.
+     * @return The updated PersonBuilder.
+     */
+    public PersonBuilder withDietCollection(Set<Diet> dietSet) {
+        this.dietCollection = new DietCollection(dietSet);
         return this;
     }
 
