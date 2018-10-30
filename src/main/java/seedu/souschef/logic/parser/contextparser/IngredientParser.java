@@ -65,6 +65,7 @@ public class IngredientParser {
             return new ClearCommand<Ingredient>(model);
 
         case ListCommand.COMMAND_WORD:
+            model.sort(new IngredientDateComparator());
             return new ListCommand<Ingredient>(model);
 
         default:
