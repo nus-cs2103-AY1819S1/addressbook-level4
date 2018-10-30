@@ -10,11 +10,11 @@ photographers, designers, developers and more, and is very easy to pick up.
 == Product
 
 ifdef::env-github[]
-image::docs/images/UI.jpg[width="602"]
+image::docs/images/Ui.png[width="602"]
 endif::[]
 
 ifndef::env-github[]
-image::images/UI.jpg[width="602"]
+image::images/Ui.png[width="602"]
 endif::[]
 
 Above shows the UI layout

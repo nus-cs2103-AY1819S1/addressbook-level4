@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author chivent -->
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="filmReelPanel" alignment="CENTER">
+    <VBox>
+        <Text fx:id="filmTitle" styleClass="titles">Photos in current batch</Text><VBox.margin>
+        <Insets>
+            <bottom>7</bottom>
+        </Insets>
+    </VBox.margin>
+    </VBox>
+    <ListView fx:id="imageListView" VBox.vgrow="ALWAYS" maxWidth="200" minWidth="200"/>
+</VBox>

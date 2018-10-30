@@ -7,6 +7,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -53,12 +54,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        // previewImageManager = PreviewImageManager.getInstance();
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
 
         this.userPrefs = userPrefs;
-        dirImageList = new ArrayList<>();
+        this.userPrefs.updateImageList();
+        dirImageList = this.userPrefs.getAllImages();
 
         try {
             //photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
@@ -168,6 +169,14 @@ public class ModelManager extends ComponentManager implements Model {
         this.dirImageList.remove(idx);
     }
 
+    /**
+     * Get preview image list (first 10 images in imageList)
+     */
+    @Override
+    public List<Path> returnPreviewImageList() {
+        return userPrefs.returnPreviewImageList();
+    }
+
     @Override
     public Path getCurrentOriginalImage() {
         return this.currentOriginalImage;
@@ -251,6 +260,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public PreviewImage getCurrentPreviewImage() {
         return currentPreviewImage;
+    }
+
+    @Override
+    public void setCurrentPreviewImage(PreviewImage previewImage) {
+        currentPreviewImage = previewImage;
     }
 
     @Override

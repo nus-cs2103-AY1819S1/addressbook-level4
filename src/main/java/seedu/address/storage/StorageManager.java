@@ -104,6 +104,7 @@ public class StorageManager extends ComponentManager implements Storage {
                 }
             }
         }
+        logger.info("Cache cleared.");
     }
 
 }

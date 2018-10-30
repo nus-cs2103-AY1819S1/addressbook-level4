@@ -13,7 +13,7 @@
 
 <?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         minWidth="1280" minHeight="600" onCloseRequest="#handleExit">
+         minWidth="1280" minHeight="700" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/address_book_32.png"/>
     </icons>
@@ -35,21 +35,31 @@
                     </Menu>
                 </MenuBar>
 
-                <HBox VBox.vgrow="ALWAYS">
+                <HBox VBox.vgrow="NEVER">
 
-                    <VBox fx:id="historyPanel" minWidth="200" prefWidth="200" minHeight="340"
-                          VBox.vgrow="ALWAYS" styleClass="pane-with-border">
-                        <StackPane fx:id="historyListPlaceholder" VBox.vgrow="ALWAYS"/>
+                    <VBox>
+                        <VBox fx:id="historyPanel" VBox.vgrow="NEVER" minWidth="200" prefWidth="200" maxWidth="200" minHeight="220" maxHeight="220"
+                              styleClass="pane-with-border">
+                            <StackPane fx:id="historyListPlaceholder" VBox.vgrow="NEVER" />
+                        </VBox>
+
+                        <VBox fx:id="filmReelPanel" VBox.vgrow="NEVER" minWidth="200" prefWidth="200" maxWidth="200" minHeight="250" maxHeight="340"
+                              styleClass="pane-with-border">
+                            <padding>
+                                <Insets top="5" right="5" bottom="5" left="10"/>
+                            </padding>
+                            <StackPane fx:id="filmReelPlaceholder" VBox.vgrow="NEVER"/>
+                        </VBox>
                     </VBox>
 
-                    <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" HBox.hgrow="ALWAYS">
+                    <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" HBox.hgrow="ALWAYS" >
 
                         <VBox fx:id="originalImagePanel" minWidth="340" prefWidth="340" minHeight="340" maxHeight="340"
                               SplitPane.resizableWithParent="false">
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10"/>
                             </padding>
-                            <StackPane fx:id="originalImagePlaceholder" VBox.vgrow="ALWAYS"/>
+                            <StackPane fx:id="originalImagePlaceholder" VBox.vgrow="NEVER"/>
                         </VBox>
 
                         <VBox fx:id="previewImagePanel" minWidth="340" prefWidth="340" minHeight="340" maxHeight="340"
@@ -57,7 +67,7 @@
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10"/>
                             </padding>
-                            <StackPane fx:id="previewImagePlaceholder" VBox.vgrow="ALWAYS"/>
+                            <StackPane fx:id="previewImagePlaceholder" VBox.vgrow="NEVER"/>
                         </VBox>
 
                     </SplitPane>
@@ -71,13 +81,14 @@
                     </padding>
                 </StackPane>
 
-                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border"
+                           minHeight="50" prefHeight="50" maxHeight="50">
                     <padding>
                         <Insets top="5" right="10" bottom="5" left="10"/>
                     </padding>
                 </StackPane>
 
-                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" minHeight="30" prefHeight="30" maxHeight="30"/>
             </VBox>
         </Scene>
     </scene>
