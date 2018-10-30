@@ -1,15 +1,19 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.EventsCenter;
+// import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventName;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+/**
+ *  Generates a location for a particular meeting.
+ */
 public class GenerateLocationCommand extends Command {
 
     public static final String COMMAND_WORD = "generateLocation";
