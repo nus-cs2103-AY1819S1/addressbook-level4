@@ -17,6 +17,7 @@ import javafx.scene.layout.Region;
 
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 
 /**
@@ -82,6 +83,21 @@ public class HistoryListPanel extends UiPart<Region> {
                 historyListView.scrollTo(items.size() - 1);
             });
         }
+    }
+
+    /**
+     * Event that triggers when select command occurs
+     *
+     * @param event
+     */
+    @Subscribe
+    private void handleClearHistoryEvent(ClearHistoryEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        int size = items.size();
+        for (; 0 < size; size--) {
+            items.remove(items.size() - 1, items.size());
+        }
+        redoQueue.clear();
     }
 
     /**
