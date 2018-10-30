@@ -370,8 +370,17 @@ Format: `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT`
 
 Example:
 
-* `add_event month/Oct year/2018 date/08 title/Hall open day` +
+* `add_all_day_event month/Oct year/2018 date/08 title/Hall open day` +
 Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
+
+Before executing command
+
+image::add_all_day_event_diagram_before.png[width="790"]
+
+After executing command
+
+image::add_all_day_event_diagram_after.png[width="790"]
+
 
 ==== Adding event into calendar : `add_event`
 
@@ -393,6 +402,14 @@ Example:
 * `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
 Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
 the `10th` at `1800`.
+
+Before executing command
+
+image::add_event_diagram_before.png[width="790"]
+
+After executing command
+
+image::add_event_diagram_after.png[width="790"]
 
 ==== Delete event from calendar : `delete_event`
 
