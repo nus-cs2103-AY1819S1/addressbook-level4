@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.parking.commons.util.StringUtil;
+import seedu.parking.logic.parser.CarparkTypeParameter;
+import seedu.parking.logic.parser.FreeParkingParameter;
 
 /**
  * Tests that a {@code Carpark} met all the filtering criteria.
@@ -15,16 +17,21 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
     private final List<String> locationKeywords;
     private final List<String> flagList;
+    private final FreeParkingParameter freeParkingParameter;
+    private final CarparkTypeParameter carparkTypeParameter;
 
-    public CarparkFilteringPredicate(List<String> locationKeywords, List<String> flagList) {
+    public CarparkFilteringPredicate(List<String> locationKeywords, List<String> flagList,
+                                     FreeParkingParameter freeParkingParameter, CarparkTypeParameter carparkTypeParameter) {
         this.locationKeywords = locationKeywords;
         this.flagList = flagList;
+        this.freeParkingParameter = freeParkingParameter;
+        this.carparkTypeParameter = carparkTypeParameter;
     }
 
     /**
      * Checks if the car park has free parking from the given starting to ending time on the specified day.
      */
-    private boolean checkFreeParking(String day, String startTime, String endTime, String timePeriod) {
+    private boolean checkFreeParking(String day, Date inputStart, Date inputEnd, String timePeriod) {
         boolean hasFreeParkingTiming = !timePeriod.equals("NO");
         boolean hasDay = false;
         boolean afterStart = false;
@@ -49,15 +56,11 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
                 Date start = dateFormat1.parse(startAndEndTime[0]);
                 Date end = dateFormat2.parse(startAndEndTime[1]);
 
-                // Input time of user can only be of dateFormat2
-                Date inputStart = dateFormat2.parse(startTime);
-                Date inputEnd = dateFormat2.parse(endTime);
-
                 afterStart = inputStart.after(start) || inputStart.equals(start);
                 beforeEnd = inputEnd.before(end) || inputEnd.equals(end);
             }
         } catch (ParseException e) {
-            System.out.println("parse exception");
+            System.out.println("parse exception"); // how to get rid of this?
         }
 
         return hasFreeParkingTiming && hasDay && afterStart && beforeEnd;
@@ -84,7 +87,6 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             return carparkType.contains("COVERED");
 
         default:
-            // Todo: should catch invalid input instead
             return carparkType.contains("CAR PARK");
         }
     }
@@ -110,22 +112,20 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             collective = hasNightParking;
         }
         if (flagList.contains("f/")) {
-            int index = flagList.indexOf("f/");
 
-            String day = flagList.get(index + 1).toUpperCase();
-            String startTime = flagList.get(index + 2);
-            String endTime = flagList.get(index + 3);
             String timePeriod = carpark.getFreeParking().value;
+            String day = freeParkingParameter.getDay();
+            Date inputStart = freeParkingParameter.getStartTime();
+            Date inputEnd = freeParkingParameter.getEndTime();
 
-            boolean hasFreeParking = checkFreeParking(day, startTime, endTime, timePeriod);
+            boolean hasFreeParking = checkFreeParking(day, inputStart, inputEnd, timePeriod);
 
             collective = collective && hasFreeParking;
         }
         if (flagList.contains("ct/")) {
-            int index2 = flagList.indexOf("ct/");
 
-            String selectedCarparkType = flagList.get(index2 + 1).toUpperCase();
             String carparkType = carpark.getCarparkType().value;
+            String selectedCarparkType = carparkTypeParameter.getCarparkType();
 
             boolean isCorrectType = checkCarParkType(selectedCarparkType, carparkType);
 

@@ -2,14 +2,14 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
 import java.util.List;
-
 import java.util.function.Predicate;
 
 import seedu.parking.commons.core.Messages;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.logic.parser.CarparkTypeParameter;
+import seedu.parking.logic.parser.FreeParkingParameter;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 import seedu.parking.model.carpark.CarparkFilteringPredicate;
@@ -30,14 +30,18 @@ public class FilterCommand extends Command {
             + "> Car Park Type: ct/ [car park type]     Example: filter ct/ basement\n";
 
     private Predicate predicate;
-    private final String[] flags;
+    private final List<String> flagList;
+    private final FreeParkingParameter freeParkingParameter;
+    private final CarparkTypeParameter carparkTypeParameter;
 
     /**
      * Creates a FilterCommand with the relevant flags
      */
-    public FilterCommand(String[] flags) {
-        this.flags = flags;
+    public FilterCommand(List<String> flagList, FreeParkingParameter freeParkingParameter, CarparkTypeParameter carparkTypeParameter) {
         this.predicate = null;
+        this.flagList = flagList;
+        this.freeParkingParameter = freeParkingParameter;
+        this.carparkTypeParameter = carparkTypeParameter;
     }
 
     @Override
@@ -49,9 +53,8 @@ public class FilterCommand extends Command {
             throw new CommandException(Messages.MESSAGE_FINDCOMMAND_NEEDS_TO_BE_EXECUTED_FIRST);
         }
 
-        List<String> flagList = Arrays.asList(flags);
         List<String> locationKeywords = locationPredicate.getKeywords();
-        predicate = new CarparkFilteringPredicate(locationKeywords, flagList);
+        predicate = new CarparkFilteringPredicate(locationKeywords, flagList, freeParkingParameter, carparkTypeParameter);
 
         model.updateFilteredCarparkList(predicate);
 
