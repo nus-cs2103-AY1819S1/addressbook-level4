@@ -252,6 +252,57 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::login[]
+=== Login/log out feature
+
+==== Current Implementation
+
+This section explains the implementation of the components associated with the login feature.
+
+image::LoginFeature_SequenceDiagram_includes_Logic_Model.png[width="800"]
+
+After the execute() method of the login command is called,  the login command authenticates the user.
+A commandException will be thrown in the following 2 scenarios:
+
+* When the user does not exist.
+
+* When there is already a user that has been logged in.
+
+On the other hand, after the execute() method of the log out command is called,
+a commandException will be thrown when there isn't any user that is logged in.
+
+image::LoginFeature_SequenceDiagram_includes_Logic_EventsCenter_UI.png[width="800"]
+
+After a user logs in or logs out, the modelManager will raise an UserIsLoginStatusChangedEvent to update the UI.
+
+For example, if the user, Alex Yeoh, wants to login to his account, the following image is what he will see before he logs in.
+
+image::LoginFeatureBeforeLogin.png[width="300"]
+
+After Alex Yeoh logs in, the UI will automatically be updated upon successful login as indicated by the change in colour
+of the user's name from white to green as shown in the image below. The user's name will remain in green as long as he is logged in. After he logs out,
+the colour of his name will revert back to white as shown in the image above.
+
+image::LoginFeatureAfterLogin.png[width="300"]
+
+==== Design Considerations
+
+===== Aspect: security
+
+* Alternative 1(Current choice) : store the password for each user as an attribute of Person class
+** Pros: Enforce some level of authentication with minimal code
+** Cons: Level of security is minimal
+
+
+* Alternative 2 : Use Java API to hash the password
+** Pros: Higher level of security for users
+** Cons: May not be pertinent for the EventOrganiser app as of v1.3
+
+* Alternative 3 : implement "login" via select command
+** Pros: Easy to implement
+** Cons: No security at all
+
+////
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -331,6 +382,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+////
 
 // tag::poll[]
 === Poll feature
@@ -1061,8 +1113,8 @@ Users able to search for events by attributes (date, time, location, interest) a
 
 #### Yao Feng : Add login function and improve on search functions
 - [x] V1.1: Basic login command.
-- [x] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
-- [ ] V1.3: Improved login command with password.
+- [X] V1.2: Search for users based on phone number, interests, friendships, schedule, and address.
+- [X] V1.3: Improved login command with password.
 
 #### Zhang Cheng : Add additional attributes for networking among users
 - [x] V1.1: Users able to specify their interests.

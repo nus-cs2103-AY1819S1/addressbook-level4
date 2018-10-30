@@ -13,6 +13,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
 import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
@@ -47,12 +48,14 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_NO_EVENT_SELECTED);
 
         // Case: user is not event organiser -> NotEventOrganiserException
+        executeCommand(LogoutCommand.COMMAND_WORD);
         executeCommand(SelectEventCommand.COMMAND_WORD + " 2");
         executeCommand(LoginCommand.COMMAND_WORD + " n/Benson Meier pass/password");
         assertCommandFailure(command, Messages.MESSAGE_NOT_EVENT_ORGANISER);
 
         // Case: add a poll with generic poll name
         //  -> poll added
+        executeCommand(LogoutCommand.COMMAND_WORD);
         executeCommand(LoginCommand.COMMAND_WORD + " n/Alice Pauline pass/password");
         assertAddPollCommandSuccess(command, POLLNAME);
 

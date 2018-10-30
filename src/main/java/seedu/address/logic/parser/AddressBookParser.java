@@ -11,6 +11,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.MaxScheduleCommand;
 import seedu.address.logic.commands.eventcommands.AddEventCommand;
 import seedu.address.logic.commands.eventcommands.AddPollCommand;
@@ -79,6 +80,9 @@ public class AddressBookParser {
         switch (commandWord) {
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
+
+        case LogoutCommand.COMMAND_WORD:
+            return new LogoutCommand();
 
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
