@@ -19,6 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportDeckCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NewCardCommand;
 import seedu.address.logic.commands.NewDeckCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -98,6 +99,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
         case ExportDeckCommand.COMMAND_WORD:
             return new ExportDeckCommandParser().parse(arguments);

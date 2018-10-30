@@ -120,7 +120,7 @@ public class PortManager implements Porter {
      */
 
     private Path makeFilePath(String name) {
-        if (name.substring(name.length() - 4).equals(".xml")) {
+        if (name.length() > 4 && name.substring(name.length() - 4).equals(".xml")) {
             return baseFilePath.resolve(name);
         } else {
             return baseFilePath.resolve(name + ".xml");
