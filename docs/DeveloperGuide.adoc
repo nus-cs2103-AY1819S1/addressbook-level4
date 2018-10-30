@@ -274,7 +274,7 @@ change many parts to add this additional feature. It also makes sense, because a
 * **Alternative 1 (current choice):** During the execution of `execute`
 ** Additional details: A `String personIdentifier` will be stored in the command, and upon `execute`, a person is first matched, then the edit is carried out.
 ** Pros: Execute takes in the model as an argument, making searching for a Person convenient.
-** Cons: The same `EditByNameCommand` executed at a different time can have a different result since it does not have a unique Person, but a identifier to find a name.
+** Cons: The same `_ByNameCommand` executed at a different time can have a different result since it does not have a unique Person, but an identifier to find a name.
 * **Alternative 2:** Before creation of the command
 ** Additional details: The command will have a `Person`
 ** Pros: The command is deterministic, since it targets a unique Person.
@@ -290,7 +290,7 @@ Additionally, it implements/depends on the following operations:
 
 * `EditByNameCommand#execute()` -- Executes the command encapsulated by this `EditByNameCommand`.
 
-Given below is an example usage scenario and how the EditByName mechanism behaves at each step.
+Given below is an example usage scenario and how the Edit-By-Name mechanism behaves at each step.
 
 Step 1. The user launches the application and already has at least one client's contact in InsuRen.
 
@@ -323,37 +323,32 @@ The delete by name mechanism is facilitated by the new `Command`, `DeleteByNameC
 It extends `DeleteCommand` with a "Person Identifier" String that is used in place of the Index (of a displayed list) used in the normal `DeleteCommand`.
 Additionally, it implements the following operations:
 
-* `EditByNameCommand#findPerson(Model model)` -- Finds and returns the person that is uniquely identified by the `personIdentifier` in the `Model` provided.
-* `EditByNameCommand#execute()` -- Executes the command encapsulated by this `EditByNameCommand`.
+* `DeleteByNameCommand#execute()` -- Executes the command encapsulated by this `DeleteByNameCommand`.
 
-The `findPerson` method makes use of the `NameContainsAllKeywordsPredicate`, which is in contrast to the `NameContainsKeywordsPredicate` used in the `FindCommand`.
-This is because when editing by name, we need a more specific filter, rather than a general one.
-So instead of finding a Person that contains at least one identifier term in their name, the Person found must contain *all* identifier terms in their name.
-
-Given below is an example usage scenario and how the EditByName mechanism behaves at each step.
+Given below is an example usage scenario and how the Delete-By-Name mechanism behaves at each step.
 
 Step 1. The user launches the application and already has at least one client's contact in InsuRen.
 
-image::EditByNameCommand1StateDiagram.png[width="800"]
+image::DeleteByNameCommand1StateDiagram.png[width="800"]
 
-Step 2. The user executes `edit Alice p/91232233` to edit Alice's phone number. However, there are more than two people with a name that matches Alice, so InsuRen notifies the user.
+Step 2. The user executes `delete Alice` to delete Alice from InsuRen. However, there are more than two people with a name that matches Alice, so InsuRen notifies the user.
 
-image::EditByNameCommand2StateDiagram.png[width="800"]
+image::DeleteByNameCommand2StateDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution due to multiple or no people matching the identifier, it will not edit any contact details.
+If a command fails its execution due to multiple or no people matching the identifier, it will not delete any contact details.
 
-Step 3. The user uses a much more specific name identifier, `edit Alice Tay Ren Ying p/91232233`, but this does not match any contact, so InsuRen notifies the user.
+Step 3. The user uses a much more specific name identifier, `delete Alice Tay Ren Ying`, but this does not match any contact, so InsuRen notifies the user.
 
-image::EditByNameCommand3StateDiagram.png[width="800"]
+image::DeleteByNameCommand3StateDiagram.png[width="800"]
 
-Step 4. The user uses a name identifier that uniquely identifies one person, `edit Alice Tay p/91232233`. The edit command is carried out, and the contact details of the identified person are changed accordingly.
+Step 4. The user uses a name identifier that uniquely identifies one person, `delete Alice Tay`. The delete command is carried out, Alice Tay is removed from InsuRen's contact list.
 
-image::EditByNameCommand4StateDiagram.png[width="800"]
+image::DeleteByNameCommand4StateDiagram.png[width="800"]
 
-The following activity diagram summarizes what happens when a user executes the `EditByNameCommand`:
+The following activity diagram summarizes what happens when a user executes the `DeleteByNameCommand`:
 
-image::EditByNameCommandActivityDiagram.png[width="500"]
+image::DeleteByNameCommandActivityDiagram.png[width="500"]
 // end::deleteByName[]
 // end::byNameCommands[]
 
