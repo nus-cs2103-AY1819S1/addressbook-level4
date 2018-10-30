@@ -100,11 +100,6 @@ public class CrossFindCommandParser {
         crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_CROSSRECIPES);
         List<CrossRecipe> crossRecipeList = crossRecipeModel.getFilteredList();
 
-        for (CrossRecipe crossRecipe : crossRecipeList) {
-            Recipe recipe = crossRecipe.getRecipe();
-            crossRecipeModel.update(crossRecipe, new CrossRecipe(recipe, recipe.getIngredients()));
-        }
-
         Map<Recipe, List<IngredientDefinition>> crossRecipeMap = new HashMap<>();
 
         for (CrossRecipe crossRecipe : crossRecipeList) {
