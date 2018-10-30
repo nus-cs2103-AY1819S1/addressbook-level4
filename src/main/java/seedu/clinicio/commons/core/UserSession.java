@@ -1,4 +1,4 @@
-package seedu.clinicio.commons.util;
+package seedu.clinicio.commons.core;
 
 import seedu.clinicio.model.staff.Staff;
 
