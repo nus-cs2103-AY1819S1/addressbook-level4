@@ -514,7 +514,7 @@ Animations will also be incorporated into the UI elements for a better user expe
 
 ==== totalBudget Panel
 
-The ``totalBudget` panel consists of 3 UI elements:
+The `totalBudget` panel consists of 3 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
