@@ -5,10 +5,16 @@ import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Control;
+import javafx.scene.control.Skin;
+import javafx.scene.control.SkinBase;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -16,12 +22,15 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
+import jfxtras.internal.scene.control.skin.agenda.base24hour.AgendaSkinTimeScale24HourAbstract;
 import jfxtras.scene.control.agenda.Agenda;
 
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.SchedulerChangedEvent;
 import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
+import seedu.address.commons.events.ui.JumpToDateTimeEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 
@@ -38,8 +47,7 @@ public class CalendarDisplay extends UiPart<Region> {
     private Agenda.AppointmentGroupImpl appointmentGroup;
 
     // keeps track of which week calendar is showing
-    private LocalDateTime currentDateTime = LocalDateTime.now()
-            .withHour(0).withMinute(0).withSecond(0).withNano(0);
+    private LocalDateTime currentDateTime = LocalDateTime.now();
 
     @FXML
     private VBox calendarDisplayBox;
@@ -54,6 +62,8 @@ public class CalendarDisplay extends UiPart<Region> {
         setControls();
 
         agenda.getStylesheets().add("view/ModifiedAgenda.css"); // "src/main/resources/view/
+
+        setDisplayedDateTime(currentDateTime); // jump to the correct location
     }
 
     /**
@@ -71,6 +81,12 @@ public class CalendarDisplay extends UiPart<Region> {
             public Void call(Appointment param) {
                 // can add more functionality here
                 logger.info("User double clicked on " + param.toString());
+                CalendarEvent calendarEvent = (CalendarEvent) param;
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Event Information");
+                alert.setHeaderText(calendarEvent.getTitle().value);
+                alert.setContentText(calendarEvent.getDescriptionObject().value);
+                alert.show();
                 return null;
             }
         });
@@ -82,9 +98,6 @@ public class CalendarDisplay extends UiPart<Region> {
         agenda.setAllowDragging(false);
 
         agenda.setEditAppointmentCallback(null);
-
-        // set the week for calendar to display
-        agenda.setDisplayedLocalDateTime(currentDateTime);
 
         // show 1 week
         agenda.setSkin(new AgendaWeekSkin(agenda));
@@ -148,6 +161,10 @@ public class CalendarDisplay extends UiPart<Region> {
                     viewNext();
                     indicateCalendarDisplayTimeChanged();
                     break;
+                case L:
+                    // for testing
+                    System.out.println("L pressed");
+                    break;
                 }
             }
         });
@@ -169,6 +186,12 @@ public class CalendarDisplay extends UiPart<Region> {
      */
     private void indicateCalendarDisplayTimeChanged() {
         raise(new CalendarDisplayTimeChangedEvent(currentDateTime));
+    }
+
+    @Subscribe
+    private void handleJumpToDateTimeEvent(JumpToDateTimeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setDisplayedDateTime(event.targetLocalDateTime);
     }
 
     /**
@@ -222,36 +245,39 @@ public class CalendarDisplay extends UiPart<Region> {
     public void setViewToDailyView() {
         agenda.setSkin(new AgendaDaySkin(agenda)); // skin for viewing by day
     }
+
     /**
      * Navigation method
      */
     public void displayNextWeek() {
-        currentDateTime = currentDateTime.plusDays(7);
-        agenda.setDisplayedLocalDateTime(currentDateTime);
+        setDisplayedDateTime(currentDateTime.plusWeeks(1));
     }
 
     /**
      * Navigation method
      */
     public void displayPreviousWeek() {
-        currentDateTime = currentDateTime.minusDays(7);
-        agenda.setDisplayedLocalDateTime(currentDateTime);
+        setDisplayedDateTime(currentDateTime.minusWeeks(1));
     }
 
     /**
      * Navigation method
      */
     public void displayNextDay() {
-        currentDateTime = currentDateTime.plusDays(1);
-        agenda.setDisplayedLocalDateTime(currentDateTime);
+        setDisplayedDateTime(currentDateTime.plusDays(1));
     }
 
     /**
      * Navigation method
      */
     public void displayPreviousDay() {
-        currentDateTime = currentDateTime.minusDays(1);
+        setDisplayedDateTime(currentDateTime.minusDays(1));
+    }
+
+    public void setDisplayedDateTime(LocalDateTime newLocalDateTime) {
+        currentDateTime = newLocalDateTime;
         agenda.setDisplayedLocalDateTime(currentDateTime);
+        indicateCalendarDisplayTimeChanged();
     }
 
 }
