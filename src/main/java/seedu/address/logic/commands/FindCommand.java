@@ -21,7 +21,6 @@ public abstract class FindCommand<E> extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    //TODO update this
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons, groups, or meetings whose names "
         + "or titles contain any of "
         + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
