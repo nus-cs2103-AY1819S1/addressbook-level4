@@ -49,7 +49,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Command Formats*
+
+In this user guide, you will find information about how commands are to be used explained in the form of command formats. These command formats will tell you what the `COMMAND_WORD` for the command is.
 
 * Some commands have an alias, which you can also use to execute the command +
 e.g. to add a person to the address book, you can type either `add n/John Doe` or `a n/John Doe`.
@@ -61,7 +63,7 @@ e.g. `[b/BLOOD_TYPE] [da/DRUG_ALLERGY]` can be used as `b/A+ da/Panadol` or as `
 e.g. `[da/DRUG_ALLERGY]...` can be used as `{nbsp}` (i.e. 0 times), `da/Panadol`, `da/Panadol da/Zyrtec` etc.
 * Parameters can be in any order +
 e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-* <INDEX> refers to the index number shown in the current displayed patient or medicine list.
+* `INDEX` refers to the index number shown in the current displayed patient or medicine list.
 ====
 
 // tag::patient[]
