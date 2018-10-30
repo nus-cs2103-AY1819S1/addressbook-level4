@@ -15,6 +15,7 @@ import java.util.UUID;
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.commons.util.CollectionUtil;
+import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
@@ -83,7 +84,8 @@ public class EditCommand extends Command {
         model.updateEvent(eventToEdit, editedEvent);
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
-        connectToGoogleCalendar.updateGoogleEvent(eventToEdit, editedEvent);
+        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
+        connectToGoogleCalendar.updateGoogleEvent(eventToEdit, editedEvent, instanceIndex);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
