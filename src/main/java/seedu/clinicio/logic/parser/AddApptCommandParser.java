@@ -57,7 +57,7 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
         Person person = new Person(name, phone, email, address, tags);
         Patient patient = Patient.buildFromPerson(person);
 
-        Appointment appt = new Appointment(date, time, patient, 1, null);
+        Appointment appt = new Appointment(date, time, patient, 1);
 
         return new AddApptCommand(appt);
     }

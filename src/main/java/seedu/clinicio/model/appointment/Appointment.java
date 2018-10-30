@@ -3,6 +3,7 @@ package seedu.clinicio.model.appointment;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.staff.Staff;
@@ -26,16 +27,16 @@ public class Appointment {
     private int appointmentStatus;
     private int appointmentType;
     private final Patient patient;
-    private final Staff assignedStaff;
+    private final Optional<Staff> assignedStaff;
 
-    public Appointment(Date date, Time time, Patient patient, int appointmentType, Staff staff) {
+    public Appointment(Date date, Time time, Patient patient, int appointmentType) {
         requireAllNonNull(date, time, patient); //TODO: Include appointmentType and staff
         this.appointmentDate = date;
         this.appointmentTime = time;
         this.patient = patient;
         this.appointmentStatus = APPROVED;
         this.appointmentType = appointmentType;
-        this.assignedStaff = staff;
+        this.assignedStaff = patient.getPreferredDoctor();
     }
 
     public Date getAppointmentDate() {
@@ -59,7 +60,7 @@ public class Appointment {
         return appointmentType;
     }
 
-    public Staff getAssignedStaff() {
+    public Optional<Staff> getAssignedStaff() {
         return assignedStaff;
     }
 

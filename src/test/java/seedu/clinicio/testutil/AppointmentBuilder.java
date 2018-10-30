@@ -83,6 +83,6 @@ public class AppointmentBuilder {
     }
 
     public Appointment build() {
-        return new Appointment(date, time, patient, type, staff);
+        return new Appointment(date, time, patient, type);
     }
 }
