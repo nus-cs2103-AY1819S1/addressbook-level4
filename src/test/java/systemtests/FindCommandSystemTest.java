@@ -9,7 +9,7 @@ import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BIG;
 import static seedu.thanepark.testutil.TypicalRides.CASTLE;
 import static seedu.thanepark.testutil.TypicalRides.DUMBO;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,16 +31,16 @@ public class FindCommandSystemTest extends ThaneParkSystemTest {
         /* Case: find multiple rides in thane park, command with leading spaces and trailing spaces
          * -> 2 rides found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BIG, DUMBO); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BIG, DUMBO); // names of BIG and DUMBO contains "The"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where ride list is displaying the rides we are finding
          * -> 2 rides found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -86,25 +86,25 @@ public class FindCommandSystemTest extends ThaneParkSystemTest {
         /* Case: find same rides in thane park after deleting 1 of them -> 1 ride found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getThanePark().getRideList().contains(BIG));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find ride in thane park, keyword is same as name but of different case -> 1 ride found */
-        command = FindCommand.COMMAND_WORD + " MeIeR";
+        command = FindCommand.COMMAND_WORD + " tHe";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find ride in thane park, keyword is substring of name -> 0 rides found */
-        command = FindCommand.COMMAND_WORD + " Mei";
+        command = FindCommand.COMMAND_WORD + " th";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find ride in thane park, name is substring of keyword -> 0 rides found */
-        command = FindCommand.COMMAND_WORD + " Meiers";
+        command = FindCommand.COMMAND_WORD + " their";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -161,7 +161,7 @@ public class FindCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: find ride in empty thane park -> 0 rides found */
         deleteAllPersons();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
