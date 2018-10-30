@@ -14,6 +14,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
 import seedu.address.model.diet.Diet;
 import seedu.address.model.diet.DietCollection;
+import seedu.address.model.medicalhistory.Diagnosis;
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Address;
@@ -49,7 +51,8 @@ public class XmlAdaptedPerson {
     private XmlAdaptedDietCollection diets = new XmlAdaptedDietCollection();
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
-    //todo may need to add new list for MedicalHistory
+    @XmlElement
+    private XmlAdaptedMedicalHistory medicalHistory = new XmlAdaptedMedicalHistory();
 
     /**
      * Constructs an XmlAdaptedPerson. This is the no-arg constructor that is
@@ -78,13 +81,17 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(String nric, String name, String phone, String email, String address,
                             List<XmlAdaptedTag> tagged, List<XmlAdaptedPrescription> prescriptions,
-                            List<XmlAdaptedAppointment> appointments, Set<XmlAdaptedDiet> diets) {
+                            List<XmlAdaptedAppointment> appointments, List<XmlAdaptedDiagnosis> diagnoses,
+                            Set<XmlAdaptedDiet> diets) {
         this(nric, name, phone, email, address, tagged);
         if (prescriptions != null) {
             this.prescriptions.setPrescription(prescriptions);
         }
         if (appointments != null) {
             this.appointments.setAppt(appointments);
+        }
+        if (diagnoses != null) {
+            this.medicalHistory.setMedicalHistory(diagnoses);
         }
         if (diets != null) {
             this.diets.setDiet(diets);
@@ -113,6 +120,10 @@ public class XmlAdaptedPerson {
             .stream()
             .map(XmlAdaptedAppointment::new)
             .collect(Collectors.toList()));
+        this.medicalHistory.setMedicalHistory(source.getMedicalHistory()
+            .stream()
+            .map(XmlAdaptedDiagnosis::new)
+            .collect(Collectors.toList()));
         this.diets.setDiet(source.getDietCollection()
             .stream()
             .map(XmlAdaptedDiet::new)
@@ -129,6 +140,7 @@ public class XmlAdaptedPerson {
         final List<Tag> personTags = new ArrayList<>();
         final List<Prescription> prescriptions = new ArrayList<>();
         final List<Appointment> appointments = new ArrayList<>();
+        final List<Diagnosis> diagnoses = new ArrayList<>();
         final Set<Diet> diets = new HashSet<>();
 
         for (XmlAdaptedTag tag : tagged) {
@@ -141,6 +153,10 @@ public class XmlAdaptedPerson {
 
         for (XmlAdaptedAppointment appointment : this.appointments) {
             appointments.add(appointment.toModelType());
+        }
+
+        for (XmlAdaptedDiagnosis diagnosis : this.medicalHistory) {
+            diagnoses.add(diagnosis.toModelType());
         }
 
         for (XmlAdaptedDiet diet : this.diets) {
@@ -193,10 +209,12 @@ public class XmlAdaptedPerson {
 
         final AppointmentsList appointmentsList = new AppointmentsList(new ArrayList<Appointment>(appointments));
 
+        final MedicalHistory medicalHistory = new MedicalHistory(new ArrayList<>(diagnoses));
+
         final DietCollection dietCollection = new DietCollection(new HashSet<>(diets));
 
         return new Person(modelNric, modelName, modelPhone, modelEmail, modelAddress, modelTags, prescriptionList,
-                appointmentsList, dietCollection);
+                appointmentsList, medicalHistory, dietCollection);
     }
 
     @Override
@@ -217,6 +235,7 @@ public class XmlAdaptedPerson {
             && tagged.equals(otherPerson.tagged)
             && prescriptions.equals(otherPerson.prescriptions)
             && appointments.equals(otherPerson.appointments)
+            && medicalHistory.equals(otherPerson.medicalHistory)
             && diets.equals(otherPerson.diets);
     }
 }

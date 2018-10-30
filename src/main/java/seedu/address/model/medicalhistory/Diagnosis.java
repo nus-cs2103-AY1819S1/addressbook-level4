@@ -8,9 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * The medical diagnosis entry for a patient.
  */
 public class Diagnosis {
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Diagnosis should not be blank, should include doctor's"
-            + "signature, data and time specified."; // TODO specify more accurate requirements
-    public static final String DIAGNOSIS_VALIDATION_REGEX = ".";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Diagnosis should not be blank, doctor's full name should be"
+            + " spelt out, with capitalisation at the start of every new name word.";
+    public static final String DOCTOR_VALIDATION_REGEX = "Dr(\\.|\\.\\s|\\s)([A-Z][a-z]*)(\\s[A-Z][a-z]*)*";
 
     private final String diagnosis;
     private final String doctorInCharge;
@@ -24,7 +24,7 @@ public class Diagnosis {
     public Diagnosis(String description, String doctorName) {
         requireNonNull(description);
         requireNonNull(doctorName);
-        checkArgument(isValidDiagnosis(description), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument(isValidDoctor(doctorName), MESSAGE_NAME_CONSTRAINTS);
         this.diagnosis = description;
         this.doctorInCharge = doctorName;
         this.timestamp = new Timestamp();
@@ -58,8 +58,6 @@ public class Diagnosis {
      * Returns true if a given string is a valid diagnosis.
      */
     public static boolean isValidDiagnosis(String test) {
-        //TODO complete DIAGNOSIS_VALIDATION_REGEX
-        //return test.matches(DIAGNOSIS_VALIDATION_REGEX);
         return true;
     }
 
@@ -67,9 +65,7 @@ public class Diagnosis {
      * Returns true if a given string is a valid doctor's name.
      */
     public static boolean isValidDoctor(String test) {
-        //todo complete regex
-        //return test.matches(DOCTOR_VALIDATION_REGEX);
-        return true;
+        return test.matches(DOCTOR_VALIDATION_REGEX);
     }
 
     @Override

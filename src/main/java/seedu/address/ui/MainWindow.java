@@ -48,6 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private BlankPanel blankPanel;
     private MedicationView medicationView;
     private AppointmentView appointmentView;
+    private HistoryView historyView;
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -140,11 +141,13 @@ public class MainWindow extends UiPart<Stage> {
         blankPanel = new BlankPanel();
         medicationView = new MedicationView(logic.getFilteredPersonList());
         appointmentView = new AppointmentView(logic.getFilteredPersonList());
+        historyView = new HistoryView(logic.getFilteredPersonList());
 
         // Set up the HashMap of Swappable panels
         panels.put(SwappablePanelName.BLANK, blankPanel);
         panels.put(SwappablePanelName.MEDICATION, medicationView);
         panels.put(SwappablePanelName.APPOINTMENT, appointmentView);
+        panels.put(SwappablePanelName.HISTORY, historyView);
     }
 
     /**

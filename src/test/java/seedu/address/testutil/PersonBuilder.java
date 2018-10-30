@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
+import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
@@ -40,7 +41,6 @@ public class PersonBuilder {
     private VisitorList visitorList;
     private AppointmentsList appointmentsList;
 
-
     public PersonBuilder() {
         nric = new Nric(DEFAULT_NRIC);
         name = new Name(DEFAULT_NAME);
@@ -64,7 +64,7 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
-        medicalHistory = new MedicalHistory(personToCopy.getMedicalHistory());
+        medicalHistory = personToCopy.getMedicalHistory();
         prescriptionList = personToCopy.getPrescriptionList();
         visitorList = new VisitorList(personToCopy.getVisitorList());
         appointmentsList = personToCopy.getAppointmentsList();
@@ -130,8 +130,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code ArrayList<Diagnosis> medicalhistory} of the {@code Person} that we are building.
      */
-    public PersonBuilder withMedicalHistory(MedicalHistory mh) {
-        this.medicalHistory = mh;
+    public PersonBuilder withMedicalHistory(List<Diagnosis> medicalHistory) {
+        this.medicalHistory = new MedicalHistory(medicalHistory);
         return this;
     }
 
@@ -155,8 +155,8 @@ public class PersonBuilder {
      * construct person class
      */
     public Person build() {
-        return new Person(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, appointmentsList,
-                visitorList);
+        return new Person(nric, name, phone, email, address, tags, prescriptionList, appointmentsList,
+                medicalHistory, visitorList);
     }
 
 }
