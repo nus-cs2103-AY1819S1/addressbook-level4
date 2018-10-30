@@ -6,6 +6,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.souschef.logic.IngredientDateComparator;
 import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.logic.commands.ClearCommand;
 import seedu.souschef.logic.commands.Command;

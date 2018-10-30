@@ -374,3 +374,17 @@
     -fx-text-fill: white;
     -fx-alignment: center-left;
 }
+
+.shop-label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: yellow;
+    -fx-alignment: center-left;
+}
+
+.shop-text {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: yellow;
+    -fx-alignment: center-left;
+}
