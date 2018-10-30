@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the number of medicine in clinic.
- * Guarantees: immutable; is valid as declared in {@link #isValidStock(int)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidStock(Integer)}
  */
 public class Stock {
     public static final String MESSAGE_STOCK_CONSTRAINTS =

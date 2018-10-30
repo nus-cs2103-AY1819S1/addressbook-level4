@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the minimum stock that is required in the clinic.
- * Guarantees: immutable; is valid as declared in {@link #isValidMinimumStockQuantity(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidMinimumStockQuantity(Integer)}
  */
 public class MinimumStockQuantity {
     public static final String MESSAGE_MINIMUM_STOCK_QUANTITY_CONSTRAINTS =

@@ -1,4 +1,4 @@
-= Chester Sng - Project Portfolio
+= Lee Yu Cong - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,40 +13,40 @@ CLInic is a desktop application made for clinics. The CLI in CLInic stands for C
 CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
 programming language and uses JavaFX, HTML and CSS for the GUI.
 
-My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
-after every enhancement or change.
+My task in CLInic is to implement *the classes and commands concerning medicines*.
 
-The project scope for CLInic is to morph the given `addressbook-level4` into a clinic management application that allows users to manage patient
-and medicine information and additionally manage the clinic queue.
+The project scope for CLInic is to morph the given addressbook-level4 into a clinic management application that allows users to manage patient
+information and medicine information and additionally manage the clinic queue.
 
-The team consists of four year-2 and one year-3 student in School of Computing, NUS.
 
 == Summary of contributions
 
-* *Major enhancement*: Implementation of *Patient Queue Management System (PQMS)*
-** What it does: This system allows the clinic to keep track of the queue in the clinic.
+* *Major enhancement*: Implementation of *medical records in CLInic*
+** What it does: This system allows the clinic to keep track of medical stocks in the clinic.
 ** Justification: This system improves the product significantly because it has created another use case for this application apart from just storing patient and medicine information.
 ** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands
 are made to be as intuitive as possible.
 
 * *Minor enhancement*:
-** Integration of `Patient` and `Document` class with PQMS through `DocumentAddCommand` and `DocumentDisplayCommand`
-** Integration of `Medicine` class and PQMS through `DispenseMedicineCommand`
+** Integration of `ReceiptCommand` and PQMS.
+** Enhancement of GUI.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Team Lead
+*** Developer
+
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-** Enhancements to test coverage:
-*** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
-//** Documentation:
-//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-//** Community:
-//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote tests for existing features to increase coverage from 67% to 75% (Pull requests https://goo.gl/vQbh82[#109])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 
 
