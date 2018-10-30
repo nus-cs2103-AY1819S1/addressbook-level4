@@ -103,9 +103,8 @@ public class Patient extends Person {
     }
 
     /**
-<<<<<<< HEAD
      * Sets a consultation for the patient. A consultation must be set whenever a Patient obj is created.
-     * @param consultation
+     * @param consultation consultation of the patient.
      */
     public void setConsultation(Consultation consultation) {
         requireNonNull(consultation);
