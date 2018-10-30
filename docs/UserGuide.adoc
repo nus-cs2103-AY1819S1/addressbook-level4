@@ -359,14 +359,21 @@ No additional search queries are needed.
 Adds a picture to a person in InsuRen. +
 Format: `​pic INDEX l/FILE_LOCATION​`
 
+Shorthand: `p`
+
 ****
 * InsuRen will add the image to the contact.
+* Only `.jpg` and `.png` files are accepted.
+* File location can be an absolute path (`/Users/john/Downloads/InsuRen/images/petertan.jpg`), or a relative path (`images/petertan.jpg`).
 ****
 
 Examples:
 
 * `pic 2 l/john.jpg` +
 The second person in the list will now have image `john.jpg` in his contact.
+* `p 1 l//Users/john/Downloads/InsuRen/images/petertan.jpg` +
+The first person in the list will now have image `petertan.jpg` from the given path in his contact.
+
 // end::picture[]
 
 === Allow user to add contact if duplicate contact is added
@@ -466,6 +473,6 @@ e.g.`select 2`
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
 * *Meetings* : `meetings [m/DD/MM/YY HHMM]`
-* *Add picture* : `​pic n/NAME l/FILE_LOCATION`
+* *Add picture* : `​pic INDEX l/FILE_LOCATION`
 * *View all contacts with a specified tag* : `tag TAG_NAME`
 * *Remove all contacts from a specified tag* : `tag TAG_NAME remove`

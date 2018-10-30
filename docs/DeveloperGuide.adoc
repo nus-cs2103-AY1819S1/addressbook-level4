@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-W13-1/main
+:repoURL: https://github.com/CS2103-AY1819S1-W13-1/main/tree/master
 
 By: `Team W13-1`      Since: `Sep 2018`      Licence: `MIT`
 
@@ -548,9 +548,20 @@ Step 1. The user launches the application and already has at least one client's 
 
 image::PictureCommand1StateDiagram.png[width="800"]
 
-Step 2. The user executes `pic 4 l//images/david.jpg` to add a picture for David. The `pic` command calls `Model#getFilteredPersonList()` to retrieve the list of contacts and filters `index` 4. It then calls `Picture#setPicture()` to update the picture for the contact. Finally, `Model#commitAddressBook()` is called, causing the modified state of the address book after the `pic 4 l//images/david.jpg` command executes to be saved.
+Step 2. The user executes `pic 4 l/images/invalidpath.jpg` to add a picture for David. However, the file `invalidpath.jpg` does not exist.
+`Picture#isValidPicture()` validates the given file path and InsuRen informs the user that the path given is invalid.
 
 image::PictureCommand2StateDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not pass the validation check, `Picture#isValidPicture()`, so InsuRen will not update the user's picture and instead return an error message.
+
+Step 3. The user now decides to execute `pic 4 l/images/david.jpg`, a valid image located in his drive, to add a picture for David.
+The `pic` command calls `Model#getFilteredPersonList()` to retrieve the list of contacts and filters `index` 4.
+The `PictureCommandParser` retrieves the input from the user and validates it.
+`ParserUtil#parseFileLocation()` is called and the picture path is checked. If the path is valid, it then calls `Picture#setPicture()` to update the picture for the contact. Finally, `Model#commitAddressBook()` is called, causing the modified state of the address book after the `pic 4 l/images/david.jpg` command executes to be saved.
+
+image::PictureCommand3StateDiagram.png[width="800"]
 
 The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
 
@@ -567,12 +578,33 @@ image::PictureCommandActivityDiagram.png[width="500"]
 ** Pros: Will use less memory (do not have to implement a new class and store an object).
 ** Cons: All checks have to be done within the `execute` method. Might overlook certain details and cause bugs.
 
+===== Aspect: Type of picture
+
+* **Alternative 1 (current choice):** Picture can be a `.jpg` or `.png` file.
+** Pros: `.jpg` and `.png` are common file formats that the user is used to.
+** Cons: Not flexible in what image files are accepted.
+* **Alternative 2:** In addition to alternative 1, the picture can also be a valid `URL` containing an image.
+** Pros: More flexible. User does not have to download the image file onto his local disk in order to use it. Can retrieve pictures of his contacts online and use it directly.
+** Cons: Additional checks have to be done (i.e. check if the `URL` is valid, check if the `URL` is an image file, what happens if the `URL` or server is broken?)
+
+===== Aspect: Path validation
+
+* **Alternative 1 (current choice):** File location input from user is checked against a regular expression and `Files#exists()`.
+** Pros: More secure. `Files#exists()` checks whether the file is on the disk while the regular expression checks for any ill-intended input as well as the file extension.
+** Cons: Will have to check twice.
+* **Alternative 2:** Just do `Files#exists()`.
+** Pros: Straightforward and simple.
+** Cons: Less secure, might result in an error if the file is not checked properly.
+
 // end::addpicture[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
+Due to the Singapore Personal Data Protection Act (PDPA), any disclosure of the user's personal information is considered to have severe implications.
+Thus, all data that are being stored in `Storage` should be encrypted using a secure encryption scheme with a secret key.
+When the user opens InsuRen, he should be prompted to login before he is able to access the secure data.
 
 // end::dataencryption[]
 
@@ -1328,8 +1360,8 @@ Use case ends.
 *MSS*
 
 1. User requests upload picture of client.
-2. InsuRen requests for the client’s name.
-3. User specifies the client’s name.
+2. InsuRen requests for the client’s ID.
+3. User specifies the client’s ID.
 4. InsuRen requests for the file location.
 5. User specifies the file location.
 6. InsuRen uploads the file and tags it to the client’s profile.
