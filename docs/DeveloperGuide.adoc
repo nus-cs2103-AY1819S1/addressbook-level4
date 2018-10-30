@@ -601,7 +601,6 @@ image::PictureCommandActivityDiagram.png[width="500"]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
 Due to the Singapore Personal Data Protection Act (PDPA), any disclosure of the user's personal information is considered to have severe implications.
 Thus, all data that are being stored in `Storage` should be encrypted using a secure encryption scheme with a secret key.
 When the user opens InsuRen, he should be prompted to login before he is able to access the secure data.
@@ -1456,8 +1455,8 @@ Use case resumes at step 1.
 
 _{More to be added}_
 
-[appendix]
 // tag::nfr[]
+[appendix]
 == Non Functional Requirements
 
 .  InsuRen should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
@@ -1469,6 +1468,7 @@ _{More to be added}_
 .  The product should be self-explanatory and intuitive such that an insurance agent is able to adapt to it within the first 10 minutes of using the product for the first time.
 .  When the program crashes, all data up till the point of crash will still be available upon relaunch of the program.
 // end::nfr[]
+
 [appendix]
 == Glossary
 
