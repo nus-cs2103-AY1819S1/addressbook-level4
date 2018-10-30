@@ -3,52 +3,52 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RIDES;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
-import static seedu.address.testutil.TypicalRides.AMY;
-import static seedu.address.testutil.TypicalRides.BOB;
-import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.thanepark.model.Model.PREDICATE_SHOW_ALL_RIDES;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
+import static seedu.thanepark.testutil.TypicalRides.AMY;
+import static seedu.thanepark.testutil.TypicalRides.BOB;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ride.Address;
-import seedu.address.model.ride.Maintenance;
-import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Ride;
-import seedu.address.model.ride.WaitTime;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.RideBuilder;
-import seedu.address.testutil.RideUtil;
+import seedu.thanepark.commons.core.Messages;
+import seedu.thanepark.commons.core.index.Index;
+import seedu.thanepark.logic.commands.RedoCommand;
+import seedu.thanepark.logic.commands.UndoCommand;
+import seedu.thanepark.logic.commands.UpdateCommand;
+import seedu.thanepark.model.Model;
+import seedu.thanepark.model.ride.Address;
+import seedu.thanepark.model.ride.Maintenance;
+import seedu.thanepark.model.ride.Name;
+import seedu.thanepark.model.ride.Ride;
+import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.tag.Tag;
+import seedu.thanepark.testutil.RideBuilder;
+import seedu.thanepark.testutil.RideUtil;
 
 public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
@@ -116,7 +116,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered ride list, edit index within bounds of address book and ride list -> edited */
+        /* Case: filtered ride list, edit index within bounds of thanepark book and ride list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         editedName = "Another name";
@@ -126,7 +126,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         editedRide = new RideBuilder(rideToEdit).withName(editedName).build();
         assertCommandSuccess(command, index, editedRide);
 
-        /* Case: filtered ride list, edit index within bounds of address book but out of bounds of ride list
+        /* Case: filtered ride list, edit index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -187,7 +187,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid thanepark -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
@@ -213,7 +213,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
 
-        /* Case: edit a ride with new values same as another ride's values but with different address -> rejected */
+        /* Case: edit a ride with new values same as another ride's values but with different thanepark -> rejected */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;

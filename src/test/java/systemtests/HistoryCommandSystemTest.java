@@ -4,18 +4,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HistoryWindowHandle;
 
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ViewCommand;
-import seedu.address.ui.StatusBarFooter;
+import seedu.thanepark.logic.commands.DeleteCommand;
+import seedu.thanepark.logic.commands.HistoryCommand;
+import seedu.thanepark.logic.commands.ViewCommand;
+import seedu.thanepark.ui.StatusBarFooter;
 
 /**
  * A system test class for the history window, which contains interaction with other UI components.

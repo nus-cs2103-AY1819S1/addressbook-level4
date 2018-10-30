@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.ride.Ride;
+import seedu.thanepark.model.ride.Ride;
 
 /**
  * Provides a handle to a ride card in the ride list panel.
@@ -16,7 +16,7 @@ import seedu.address.model.ride.Ride;
 public class RideCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String ADDRESS_FIELD_ID = "#thanepark";
     private static final String MAINTENANCE_FIELD_ID = "#daysSinceMaintenanceString";
     private static final String WAIT_TIME_FIELD_ID = "#waitingTimeString";
     private static final String TAGS_FIELD_ID = "#tags";
