@@ -93,6 +93,7 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the address book data stored inside the storage file.
      */
+    //TODO: Remove
     public AddressBook readStorageAddressBook() {
         try {
             return new AddressBook(storage.readAddressBook().get());
@@ -119,6 +120,7 @@ public class TestApp extends MainApp {
     /**
      * Returns the file path of the address book storage file.
      */
+    //TODO: Remove
     public Path getAddressStorageSaveLocation() {
         return storage.getAddressBookFilePath();
     }
@@ -133,6 +135,7 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the address book model.
      */
+    //TODO: Remove
     public Model getAddressBookModel() {
         Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
