@@ -681,6 +681,7 @@ Family Colleague delete`. Both tags will be deleted.
 
 image::TagCommand6StateDiagram.png[width="800"]
 
+All tag commands can be undone or redone with `undo` or `redo` respectively. +
 The following activity diagram summarizes what happens when a user executes the `PictureCommand`:
 
 image::TagCommandActivityDiagram.png[width="500"]
