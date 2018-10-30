@@ -4,11 +4,12 @@ import java.util.Map;
 
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 
 public class CrossRecipe extends Recipe {
-    private final Map<IngredientDefinition, Double> neededIngredients;
+    private final Map<IngredientDefinition, IngredientPortion> neededIngredients;
 
-    public CrossRecipe(Recipe recipe, Map<IngredientDefinition, Double> neededIngredients) {
+    public CrossRecipe(Recipe recipe, Map<IngredientDefinition, IngredientPortion> neededIngredients) {
         super(recipe.getName(), recipe.getDifficulty(), recipe.getCookTime(), recipe.getInstructions(),
                 recipe.getTags());
         this.neededIngredients = neededIngredients;
@@ -18,12 +19,8 @@ public class CrossRecipe extends Recipe {
         return new Recipe(getName(), getDifficulty(), getCookTime(), getInstructions(), getTags());
     }
 
-    public Map<IngredientDefinition, Double> getNeededIngredients() {
+    public Map<IngredientDefinition, IngredientPortion> getNeededIngredients() {
         return neededIngredients;
-    }
-
-    public Integer countIngredients() {
-        return neededIngredients.size();
     }
 
     @Override
