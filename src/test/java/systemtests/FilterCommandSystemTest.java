@@ -21,7 +21,6 @@ public class FilterCommandSystemTest extends ThaneParkSystemTest {
     private static final String MORE_THAN_THIRTY_STRING = " > 30";
     private static final String MORE_THAN_EQUAL_TEN_STRING = " >= 10";
     private static final String LESS_THAN_EQUAL_THIRTY_STRING = " <= 30";
-    
 
     @Test
     public void filter() {
