@@ -16,6 +16,7 @@ import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
@@ -303,6 +304,41 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
         requireNonNull(predicate);
         filteredConsultations.setPredicate(predicate);
+    }
+
+    //=========== Export ==================================================================================
+    //@@author arsalanc-v2
+
+    // TO CHANGE TO USE versionedClinicIo.getPatientsList()
+
+    /**
+     * Exports all patients' personal information.
+     * @return A String. The feedback message for the user.
+     */
+    @Override
+    public String exportPatients() {
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
+        return ExportPatientsData.exportPatients(patients);
+    }
+
+    /**
+     * Exports all patients' appointments records.
+     * @return A String. The feedback message for the user.
+     */
+    @Override
+    public String exportPatientsAppointments() {
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
+        return ExportPatientsData.exportAppointments(patients);
+    }
+
+    /**
+     * Exports all patients' consultation records.
+     * @return A String. The feedback message for the user.
+     */
+    @Override
+    public String exportPatientsConsultations() {
+        ObservableList<Patient> patients = FXCollections.observableArrayList();
+        return ExportPatientsData.exportConsultations(patients);
     }
     //=========== Undo/Redo ==================================================================================
 
