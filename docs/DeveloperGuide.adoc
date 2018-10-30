@@ -539,8 +539,8 @@ Step 4. The filtered lessons is then converted into an arraylist of Slot before 
 
 // end:::timetable[]
 
-//tag::addFriend[]
-=== Add Friend feature
+//tag::addDeleteFriend[]
+=== Add/Delete Friend feature
 
 ==== Current implementation
 This section explains the implementation of the addition/deletion of friends feature associated with each user in the event organizer. The relevant commands which are callable by the user to be discussed are:
@@ -550,7 +550,7 @@ This section explains the implementation of the addition/deletion of friends fea
 
 The following sequence diagram for AddFriendCommand is illustrated below:
 
-image::TimeTableScheduleDiagram.png[width="800"]
+image::AddFriendCommand.png[width="800"]
 
 ==== Design considerations
 
@@ -587,7 +587,7 @@ This triggers the updateFriendListsDueToDeletedPerson() function in the `DeleteU
 Person A's attributes gets modified (eg change name/phone):
 This triggers the updateFriendListsDueToEditedPerson() function in the `EditUserCommand` class, which searches through the friend lists of all the other persons. If someone has person A in their friend list (such as person B), the original Friend object will be replaced by the new Friend object created using the new attributes of person A.
 
-// end:::addFriend[]
+// end:::addDeleteFriend[]
 
 === Logging
 
