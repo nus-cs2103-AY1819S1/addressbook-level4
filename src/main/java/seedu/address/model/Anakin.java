@@ -172,6 +172,10 @@ public class Anakin implements ReadOnlyAnakin {
      */
     public void removeDeck(Deck deck) {
         decks.remove(deck);
+        if (deck.getCards().equals(cards)) {
+            cards = new UniqueCardList();
+            updateDisplayedCards();
+        }
     }
 
     //// card-level operations
