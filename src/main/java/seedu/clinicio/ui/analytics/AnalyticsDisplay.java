@@ -56,9 +56,13 @@ public class AnalyticsDisplay extends UiPart<Region> {
         analyticsPane.setVisible(false);
         registerAsAnEventHandler(this);
 
-        summaryLabels = Arrays.asList(new Tuple(summaryTextOne, summaryValueOne), new Tuple(summaryTextTwo,
-            summaryValueTwo), new Tuple(summaryTextThree, summaryValueThree), new Tuple(summaryTextFour,
-            summaryValueFour));
+        summaryLabels = Arrays.asList(
+            new Tuple(summaryTextOne, summaryValueOne),
+            new Tuple(summaryTextTwo, summaryValueTwo),
+            new Tuple(summaryTextThree, summaryValueThree),
+            new Tuple(summaryTextFour,
+            summaryValueFour)
+        );
     }
 
     @Subscribe
@@ -66,8 +70,8 @@ public class AnalyticsDisplay extends UiPart<Region> {
         StatData allDataToDisplay = event.getAllData();
         chartPane.getChildren().clear();
         chartPane.setStyle("-fx-background-color: #6593F5");
-       Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
-       Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
+        Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
+        Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         analyticsPane.setVisible(true);
     }
 }

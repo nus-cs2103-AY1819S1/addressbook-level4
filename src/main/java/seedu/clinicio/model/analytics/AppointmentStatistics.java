@@ -24,12 +24,11 @@ import seedu.clinicio.model.consultation.Consultation;
  */
 public class AppointmentStatistics extends Statistics {
 
+    private static final String SUMMARY_TITLE = "Number of appointments";
     private static final int NUM_APPOINTMENTS_DAY = 24;
 
     private ObservableList<Appointment> appointments;
     private ObservableList<Consultation> consultations;
-
-    private final String SUMMARY_TITLE_1 = "Number of appointments";
 
     public AppointmentStatistics() {
         this.appointments = FXCollections.observableArrayList();
@@ -157,7 +156,7 @@ public class AppointmentStatistics extends Statistics {
         List<Integer> values = Arrays.asList(appointmentsToday, appointmentsWeek, appointmentsWeek, appointmentsMonth);
 
         // update data with calculated values
-        statData.updateSummary(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS, values);
+        statData.updateSummary(SUMMARY_TITLE, DEFAULT_SUMMARY_TEXTS, values);
     }
 
     @Override

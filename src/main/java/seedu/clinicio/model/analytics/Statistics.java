@@ -26,10 +26,10 @@ public abstract class Statistics {
     public static final int NUM_SUMMARY = 1;
 
     // summary fields
-    public final String SUMMARY_TODAY = "Today";
-    public final String SUMMARY_WEEK = "This Week";
-    public final String SUMMARY_MONTH = "This Month";
-    public final String SUMMARY_YEAR = "This Year";
+    private static final String SUMMARY_TODAY = "Today";
+    private static final String SUMMARY_WEEK = "This Week";
+    private static final String SUMMARY_MONTH = "This Month";
+    private static final String SUMMARY_YEAR = "This Year";
 
     // protected so subclasses can access these fields
     protected final List<String> DEFAULT_SUMMARY_TEXTS = Arrays.asList(SUMMARY_TODAY, SUMMARY_WEEK, SUMMARY_MONTH,

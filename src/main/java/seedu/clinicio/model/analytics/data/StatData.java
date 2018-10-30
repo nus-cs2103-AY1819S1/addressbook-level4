@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.clinicio.model.analytics.ChartType;
-import seedu.clinicio.model.analytics.data.SummaryData;
-import seedu.clinicio.model.analytics.data.Tuple;
-import seedu.clinicio.model.analytics.data.VisualizationData;
 
 //@@author arsalanc-v2
 

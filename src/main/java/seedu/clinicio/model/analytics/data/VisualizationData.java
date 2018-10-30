@@ -25,7 +25,7 @@ public class VisualizationData<T> {
     private List<String> dataGroupsLabels;
 
     /**
-     * Categorical
+     * Categorical Visualizations.
      * @param type
      * @param chartTitle
      * @param xTitle
@@ -34,9 +34,7 @@ public class VisualizationData<T> {
      * @param dataGroups
      */
     public VisualizationData(String id, ChartType type, String chartTitle, String xTitle, String yTitle, List<String>
-        xLabels,
-        List<List<Tuple<T, Integer>>> dataGroups, List<String> dataGroupsLabels) {
-
+        xLabels, List<List<Tuple<T, Integer>>> dataGroups, List<String> dataGroupsLabels) {
         this.id = id;
         this.type = type;
         this.chartTitle = chartTitle;
@@ -48,7 +46,7 @@ public class VisualizationData<T> {
     }
 
     /**
-     * Continuous
+     * Continuous visualizations.
      * @param type
      * @param chartTitle
      * @param xTitle
@@ -57,14 +55,13 @@ public class VisualizationData<T> {
      */
     public VisualizationData(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
         List<List<Tuple<T, Integer>>> dataGroups, List<String> dataGroupsLabels) {
-
-            this.id = id;
-            this.type = type;
-            this.chartTitle = chartTitle;
-            this.xTitle = xTitle;
-            this.yTitle = yTitle;
-            this.dataGroups = dataGroups;
-            this.dataGroupsLabels = dataGroupsLabels;
+        this.id = id;
+        this.type = type;
+        this.chartTitle = chartTitle;
+        this.xTitle = xTitle;
+        this.yTitle = yTitle;
+        this.dataGroups = dataGroups;
+        this.dataGroupsLabels = dataGroupsLabels;
     }
 
     public String getId() {
