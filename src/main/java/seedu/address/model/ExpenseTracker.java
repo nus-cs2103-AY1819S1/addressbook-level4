@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -181,11 +182,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         return other == this // short circuit if same object
                 || (other instanceof ExpenseTracker // instanceof handles nulls
                 && expenses.equals(((ExpenseTracker) other).expenses))
-                && this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget);
+                && this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget)
+                && this.username.equals(((ExpenseTracker) other).username)
+                && this.password.equals(((ExpenseTracker) other).password)
+                && this.encryptionKey.equals(((ExpenseTracker) other).encryptionKey);
     }
 
     @Override
     public int hashCode() {
-        return expenses.hashCode();
+        return Objects.hash(expenses, maximumBudget, username, password, encryptionKey);
     }
 }
