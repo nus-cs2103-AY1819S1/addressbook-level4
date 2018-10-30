@@ -16,6 +16,7 @@ import seedu.clinicio.logic.parser.exceptions.ParseException;
 
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -179,7 +180,7 @@ public class ParserUtil {
      * Parses a {@code String time} into an {@code Time}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code date} is invalid.
+     * @throws ParseException if the given {@code time} is invalid.
      */
     public static Time parseTime(String time) throws ParseException {
         requireNonNull(time);
@@ -191,19 +192,17 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String ic} into an {@code Patient}.
+     * Parses a {@code String type} into an int.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code ic} is invalid.
+     * @throws ParseException if the given {@code type} is invalid.
      */
-    //TODO: Implement when IC is available
-    /*public static Patient parseIc(String ic) throws ParseException {
-        requireNonNull(ic);
-        String trimmedIc = ic.trim();
-        if (!Patient.isValidIc(ic)) {
-            throw new ParseException(Patient.MESSAGE_PATIENT_IC_CONSTRAINTS);
+    public static int parseType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (trimmedType.matches("followup")) {
+            return 1;
         }
-        Patient
-        return patient;
-    }*/
+        return 0;
+    }
 }
