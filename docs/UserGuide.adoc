@@ -415,12 +415,20 @@ Format: `delete_event month/MMM year/YYYY sdate/DD edate/DD title/NAME OF EVENT`
 
 Example:
 
+Before executing command +
+
+image::delete_event_diagram_before.png[width="790"]
+
 * Deleting a non-existing event (Title is case sensitive) +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/block committee audit`
+
+image::delete_event_diagram_after_invalid.png[width="790"]
 
 * Deleting an existing event +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
 Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
+
+image::delete_event_diagram_after_valid.png[width="790"]
 
 ==== Viewing calendar : `view_calendar`
 
