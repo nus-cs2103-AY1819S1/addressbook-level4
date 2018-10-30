@@ -765,7 +765,7 @@ each step.
 
 Step 1. The user launches the application for the first time.
 
-Step 2. The user enters `fi` in command box and then presses 'Tab' key. `autoComplete()`
+Step 2. The user enters `fi` in command box and then presses kbd:[Tab] . `autoComplete()`
 compares `input` through the list of applicable command words and abbreviations, and
 proceeds to `displayFormat()` because `fi` is an applicable `COMMAND_ALIAS`. It
 moves on to highlight its first placeholder, `DAY`, in the command line. As seen
@@ -774,7 +774,7 @@ from the following diagrams.
 .After `fi` is entered.
 image::screenshot-fi.png[width="700", align="left"]
 
-.After first 'Tab' key is pressed.
+.After kbd:[Tab] is pressed for the first time.
 image::screenshot-fiFirstArgSelected.png[width="700", align="left"]
 
 Step 3. The user replaces `DAY` with an actual value, `SUN`, and presses 'Tab'
@@ -782,16 +782,16 @@ key again. `autoComplete()` is called again, but because this time it checks tha
 `isFilterCommandFormat`, the next placeholder, `START_TIME`, is highlighted. Result
 is shown in the following diagram.
 
-.After second 'Tab' key is pressed.
+.After kbd:[Tab] is pressed for the second time.
 image::screenshot-fiSecondArgSelected.png[width="700", align="left"]
 
 Step 4. The user continues step 3 until all placeholders are filled up with actual
-values and then presses 'Enter' key to execute this command.
+values and then presses kbd:[Enter]  to execute this command.
 
 .Activity Diagram for Auto Completion Mechanism.
 image::ActivityDiagram-autocompletion.png[width="700", align="left"]
 
-The _Activity Diagram_ above explains what happens when user presses 'Tab'.
+The _Activity Diagram_ above explains what happens when user presses kbd:[Tab].
 
 ==== Design Considerations
 
