@@ -8,6 +8,7 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
@@ -126,7 +127,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_SECOND_RIDE);
+        showPersonAtIndex(model, INDEX_THIRD_PERSON);
         Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.deleteRide(rideToDelete);
         expectedModel.commitThanePark();

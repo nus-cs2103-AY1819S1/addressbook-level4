@@ -10,7 +10,7 @@
         <statusString>OPEN</statusString>
     </rides>
     <rides>
-        <name>Big Thunder Mountain Meier</name>
+        <name>The Big Thunder Mountain</name>
         <daysSinceMaintenanceString>31</daysSinceMaintenanceString>
         <waitingTimeString>16</waitingTimeString>
         <address>311, Clementi Ave 2, #02-25</address>
@@ -26,7 +26,7 @@
         <statusString>OPEN</statusString>
     </rides>
     <rides>
-        <name>Dumbo The Flying Elephant Meier</name>
+        <name>Dumbo The Flying Elephant</name>
         <daysSinceMaintenanceString>87</daysSinceMaintenanceString>
         <waitingTimeString>3</waitingTimeString>
         <address>10th street</address>
