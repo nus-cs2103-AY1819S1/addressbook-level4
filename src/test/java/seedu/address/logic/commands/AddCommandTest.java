@@ -194,6 +194,10 @@ public class AddCommandTest {
 
         @Override
         public void updateAssignment(Assignment target, Assignment editedAssignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void restartAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

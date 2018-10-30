@@ -20,6 +20,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.User;
 import seedu.address.model.project.Assignment;
 import seedu.address.testutil.AssignmentBuilder;
 
@@ -44,7 +45,7 @@ public class AddAssignmentCommandTest {
                 = new AddAssignmentCommandTest.ModelStubAcceptingAssignmentAdded();
         Assignment validAssignment = new AssignmentBuilder().build();
 
-        CommandResult commandResult = new AddAssignmentCommand(validAssignment).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddAssignmentCommand(validAssignment).runBody(modelStub, commandHistory);
 
         assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validAssignment), modelStub.assignmentsAdded);
@@ -121,6 +122,16 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public User getLoggedInUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setLoggedInUser(User u) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -182,6 +193,11 @@ public class AddAssignmentCommandTest {
 
         @Override
         public void updateAssignment(Assignment target, Assignment editedAssignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restartAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -21,6 +21,7 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.person.Username;
+import seedu.address.model.project.Assignment;
 
 /**
  * The main LogicManager of the app.
@@ -52,6 +53,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Assignment> getFilteredAssignmentList() {
+        return model.getFilteredAssignmentList();
     }
 
     @Override

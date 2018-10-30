@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private AssignmentListPanel assignmentListPanel;
 
     // Independent UI parts for login.
     private LoginIntroduction loginIntroduction;
@@ -60,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane assignmentListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -142,6 +146,10 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
+        //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+
     }
 
     /**
