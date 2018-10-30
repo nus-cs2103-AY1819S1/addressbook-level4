@@ -33,7 +33,7 @@ image::Ui.png[width:800]
 == Features
 
 ==== Command Format
-* Items in square brackets are compulsory parameters to be added e.g `add [TRANSFORMATION]` +
+* Items in square brackets are compulsory parameters to be added e.g `convert [TRANSFORMATION]` +
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >` +
 ** e.g `g ls <ALBUM_NAME>` can be used as `g ls <Vacation>` +
 * Flags such as `/a` are compulsory flags that need to be included when using that command
@@ -43,15 +43,19 @@ image::Ui.png[width:800]
 
 Format: `help`: viewing list of all commands
 
-=== Adding images to working set: `select`
+=== Selecting images for editing: `select`
 
-Format: `select [IMAGE_NAME]`: adds an image to the current working set
-Format: `select -all`: adds all images in current directory from working set
+Format: `select [INDEX]`: selects an image for image-editing
+Format: `select -all`: adds all images in current directory from working set [Coming in v2.0]
 
 Examples:
 
-* `select exampleImage` +
+* `select 1` +
 * `select -all`
+
+=== Retrieves the next batch of images: `next`
+
+Format: `next`: Retrieving the next 10 images for editing
 
 === Applying a transformation to an image : `convert`
 
