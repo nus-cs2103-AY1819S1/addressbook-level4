@@ -39,8 +39,7 @@ public class ExportCertCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
-    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d "
-            + "to your Desktop.";
+    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to ";
     public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again.";
     public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + "/Volunteer Certs/";
     public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
@@ -96,7 +95,7 @@ public class ExportCertCommand extends Command {
         }
 
         // Return a success result
-        return new CommandResult(String.format(MESSAGE_EXPORT_CERT_SUCCESS, index.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_EXPORT_CERT_SUCCESS + currentSavePath, index.getOneBased()));
     }
 
     /**
