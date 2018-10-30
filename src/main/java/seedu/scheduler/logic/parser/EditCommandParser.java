@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import com.google.common.collect.Iterables;
+
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.logic.commands.EditCommand;
 import seedu.scheduler.logic.commands.EditCommand.EditEventDescriptor;
@@ -47,6 +49,23 @@ public class EditCommandParser implements Parser<EditCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
+
+        Set<Flag> flags = ParserUtil.parseFlags(argMultimap.getFlags());
+        if (flags.size() > 1) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+
+        /*
+        if (flags.size() == 0
+                && (argMultimap.getValue(PREFIX_REPEAT_TYPE).isPresent()
+                || argMultimap.getValue(PREFIX_REPEAT_UNTIL_DATE_TIME).isPresent())) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_SINGLE_EVENT_FAIL));
+        }
+        */
+
 
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
         if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()) {
@@ -84,7 +103,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditCommand(index, editEventDescriptor);
+        return new EditCommand(index, editEventDescriptor, Iterables.toArray(flags, Flag.class));
     }
 
     /**

@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.scheduler.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 
 import org.junit.Test;
 
@@ -44,7 +44,7 @@ public class ClearCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: filters the event list before clearing -> entire scheduler cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original scheduler
-        showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
+        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

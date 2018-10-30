@@ -12,8 +12,8 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_M
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_MA2101;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_MONTHLY;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
+import static seedu.scheduler.testutil.TypicalEvents.INTERVIEW_WITH_JOHN;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -49,73 +49,73 @@ public class EventTest {
     @Test
     public void isSameEvent() {
         // same object -> returns true
-        assertTrue(JANUARY_1_2018_SINGLE.isSameEvent(JANUARY_1_2018_SINGLE));
+        assertTrue(DISCUSSION_WITH_JACK.isSameEvent(DISCUSSION_WITH_JACK));
 
         // null -> returns false
-        assertFalse(JANUARY_1_2018_SINGLE.isSameEvent(null));
+        assertFalse(DISCUSSION_WITH_JACK.isSameEvent(null));
 
         // different uuid -> returns false
-        Event editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
+        Event editedDiscussionWithJackeEvent = new EventBuilder(DISCUSSION_WITH_JACK)
                 .withUuid(UUID.randomUUID()).build();
-        assertFalse(JANUARY_1_2018_SINGLE.isSameEvent(editedJanuaryFirst2018SingleEvent));
+        assertFalse(DISCUSSION_WITH_JACK.isSameEvent(editedDiscussionWithJackeEvent));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Event januaryFirst2018SingleCopy = new EventBuilder(JANUARY_1_2018_SINGLE).build();
-        assertEquals(JANUARY_1_2018_SINGLE, januaryFirst2018SingleCopy);
+        Event discussionWithJackSingleCopy = new EventBuilder(DISCUSSION_WITH_JACK).build();
+        assertEquals(DISCUSSION_WITH_JACK, discussionWithJackSingleCopy);
 
         // same object -> returns true
-        assertEquals(JANUARY_1_2018_SINGLE, JANUARY_1_2018_SINGLE);
+        assertEquals(DISCUSSION_WITH_JACK, DISCUSSION_WITH_JACK);
 
         // null -> returns false
-        assertNotEquals(null, JANUARY_1_2018_SINGLE);
+        assertNotEquals(null, DISCUSSION_WITH_JACK);
 
         // different type -> returns false
-        assertNotEquals(5, JANUARY_1_2018_SINGLE);
+        assertNotEquals(5, DISCUSSION_WITH_JACK);
 
         // different event -> returns false
-        assertNotEquals(JANUARY_1_2018_SINGLE, JANUARY_1_2018_MONTHLY);
+        assertNotEquals(DISCUSSION_WITH_JACK, INTERVIEW_WITH_JOHN);
 
         // different uuid -> return false
-        Event editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
+        Event editedDiscussionWithJackEvent = new EventBuilder(DISCUSSION_WITH_JACK)
                 .withUuid(VALID_EVENT_UUID_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different eventName -> returns false
-        editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
+        editedDiscussionWithJackEvent = new EventBuilder(DISCUSSION_WITH_JACK)
                 .withEventName(VALID_EVENT_NAME_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different startDateTime -> returns false
-        editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
+        editedDiscussionWithJackEvent = new EventBuilder(DISCUSSION_WITH_JACK)
                 .withStartDateTime(VALID_START_DATETIME_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different endDateTime -> returns false
-        editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
+        editedDiscussionWithJackEvent = new EventBuilder(DISCUSSION_WITH_JACK)
                 .withEndDateTime(VALID_END_DATETIME_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different description -> returns false
-        editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withDescription(VALID_DESCRIPTION_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        editedDiscussionWithJackEvent =
+                new EventBuilder(DISCUSSION_WITH_JACK).withDescription(VALID_DESCRIPTION_MA2101).build();
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different venue -> returns false
-        editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withVenue(VALID_VENUE_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        editedDiscussionWithJackEvent =
+                new EventBuilder(DISCUSSION_WITH_JACK).withVenue(VALID_VENUE_MA2101).build();
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different repeat type -> returns false
-        editedJanuaryFirst2018SingleEvent =
-                new EventBuilder(JANUARY_1_2018_SINGLE).withRepeatType(VALID_REPEAT_TYPE_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        editedDiscussionWithJackEvent =
+                new EventBuilder(DISCUSSION_WITH_JACK).withRepeatType(VALID_REPEAT_TYPE_MA2101).build();
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different repeatUntilDateTime -> returns false
-        editedJanuaryFirst2018SingleEvent = new EventBuilder(JANUARY_1_2018_SINGLE)
+        editedDiscussionWithJackEvent = new EventBuilder(DISCUSSION_WITH_JACK)
                 .withEndDateTime(VALID_REPEAT_UNTIL_DATETIME_MA2101).build();
-        assertNotEquals(JANUARY_1_2018_SINGLE, editedJanuaryFirst2018SingleEvent);
+        assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
     }
 }

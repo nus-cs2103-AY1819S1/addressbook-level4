@@ -29,15 +29,15 @@ endif::[]
 *A desktop Event Scheduler application.*
 
 
-* *CLI (Command Line Interface)* interactions with modern *GUI* brought to you!
-* *Always connected.* Sync with your google account!
-* *Cross platform.* Run it on both *Windows* AND *Mac*!
+* *CLI (Command Line Interface)* interactions with modern *GUI* brought to you by us!
+* *Always connected.* Sync it with your Google account!
+* *Cross platform.* You can run it on both *Windows* AND *Mac*!
 * *Responsive interface.* We ensure your smooth experience.
 
 == Latest Features
 * Supports repeating events.
 * Supports tag management.
-* Sync with your google service.
+* Syncs with Google services.
 * Pop-up alert.
 
 == Site Map
@@ -48,9 +48,9 @@ endif::[]
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
-* This application was morph from CS2103 AddressBook-Level4 project created by https://github.com/se-edu/[SE-EDU initiative].
+* This application was morphed from the CS2103 AddressBook-Level4 project created by https://github.com/se-edu/[SE-EDU initiative].
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5], http://natty.joestelmach.com/[natty]
 
 == Licence : link:LICENSE[MIT]

@@ -3,8 +3,9 @@ package seedu.scheduler.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.PLAY_JANUARY_1_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
+import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
+import static seedu.scheduler.testutil.TypicalEvents.INTERVIEW_WITH_JOHN;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -31,13 +32,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasEvent_eventNotInScheduler_returnsFalse() {
-        assertFalse(modelManager.hasEvent(JANUARY_1_2018_SINGLE));
+        assertFalse(modelManager.hasEvent(DISCUSSION_WITH_JACK));
     }
 
     @Test
     public void hasEvent_eventInScheduler_returnsTrue() {
-        modelManager.addEvents(List.of(JANUARY_1_2018_SINGLE));
-        assertTrue(modelManager.hasEvent(JANUARY_1_2018_SINGLE));
+        modelManager.addEvents(List.of(DISCUSSION_WITH_JACK));
+        assertTrue(modelManager.hasEvent(DISCUSSION_WITH_JACK));
     }
 
     @Test
@@ -48,8 +49,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Scheduler scheduler = new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE)
-                .withEvent(PLAY_JANUARY_1_2018_SINGLE).build();
+        Scheduler scheduler = new SchedulerBuilder().withEvent(DISCUSSION_WITH_JACK)
+                .withEvent(INTERVIEW_WITH_JOHN).build();
         Scheduler differentScheduler = new Scheduler();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -71,7 +72,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentScheduler, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = JANUARY_1_2018_SINGLE.getEventName().value.split("\\s+");
+        String[] keywords = AD_HOC_WORK.getEventName().value.split("\\s+");
         modelManager.updateFilteredEventList(new EventNameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(scheduler, userPrefs)));
 

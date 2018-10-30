@@ -6,6 +6,7 @@ import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,11 +80,32 @@ public class EventList implements Iterable<Event> {
      * The event must exist in the list.
      */
     public void remove(Event toRemove, Predicate<Event> predicate) {
-        requireNonNull(predicate);
+        requireAllNonNull(toRemove, predicate);
         if (!internalList.remove(toRemove)) {
             throw new EventNotFoundException();
         }
         internalList.removeIf(predicate);
+    }
+
+    /**
+     * Replaces the events from the filtered list after applying {@code predicate} with editedEvents
+     * {@code target} must exist in the list.
+     */
+    public void setEvents(Event target, List<Event> editedEvents, Predicate<Event> predicate) {
+        requireAllNonNull(target, editedEvents);
+
+        int i = 0;
+        List<Event> filteredList = internalList.stream().filter(predicate).collect(Collectors.toList());
+        if (filteredList.isEmpty()) {
+            throw new EventNotFoundException();
+        }
+        while (i < filteredList.size() && i < editedEvents.size()) {
+            internalList.set(internalList.indexOf(filteredList.get(i)), editedEvents.get(i++));
+        }
+        internalList.addAll(editedEvents.subList(i, editedEvents.size()));
+        while (i < filteredList.size()) {
+            internalList.remove(filteredList.get(i++));
+        }
     }
 
     public void setEvents(EventList replacement) {

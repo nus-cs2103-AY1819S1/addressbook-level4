@@ -2,82 +2,253 @@
 <!-- Scheduler save file which contains the same Event values as in TypicalEvents#getTypicalScheduler() -->
 <scheduler>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
-        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
-        <eventName>01 January 2018</eventName>
-        <startDateTime>2018-01-01T01:00</startDateTime>
-        <endDateTime>2018-01-01T02:00</endDateTime>
-        <description>01 January 2018</description>
-        <venue>Computing</venue>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a621</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a632</uuid>
+        <eventName>Discussion with Jack</eventName>
+        <startDateTime>2018-01-01T14:00</startDateTime>
+        <endDateTime>2018-01-01T17:00</endDateTime>
+        <description>Talk about personal problems</description>
+        <venue>Jack's House</venue>
         <repeatType>NONE</repeatType>
-        <repeatUntilDateTime>2018-01-01T02:00</repeatUntilDateTime>
-        <tagged>play</tagged>
-        <tagged>home</tagged>
-        <reminderDurationList>PT5M: false</reminderDurationList>
+        <repeatUntilDateTime>2018-01-01T17:00</repeatUntilDateTime>
+        <reminderDurationList>PT15M: false, PT1H30M: false</reminderDurationList>
+        <tagged>Talk</tagged>
+        <tagged>Personal</tagged>
     </events>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
-        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
-        <eventName>02 January 2018</eventName>
-        <startDateTime>2018-01-02T01:00</startDateTime>
-        <endDateTime>2018-01-02T02:00</endDateTime>
-        <description>02 January 2018</description>
-        <venue>Science</venue>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a622</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a633</uuid>
+        <eventName>Interview with John</eventName>
+        <startDateTime>2018-01-02T13:00</startDateTime>
+        <endDateTime>2018-01-02T15:00</endDateTime>
+        <description>Interview for position as a software engineer</description>
+        <venue>Jane Street</venue>
         <repeatType>NONE</repeatType>
-        <repeatUntilDateTime>2018-01-02T02:00</repeatUntilDateTime>
-        <tagged>play</tagged>
-        <reminderDurationList>PT15M: false</reminderDurationList>
+        <repeatUntilDateTime>2018-01-02T15:00</repeatUntilDateTime>
+        <reminderDurationList>PT30M: false</reminderDurationList>
+        <tagged>Work</tagged>
+        <tagged>Interview</tagged>
     </events>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
-        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
-        <eventName>03 January 2018</eventName>
-        <startDateTime>2018-01-03T01:00</startDateTime>
-        <endDateTime>2018-01-03T02:00</endDateTime>
-        <description>03 January 2018</description>
-        <venue>Arts</venue>
-        <repeatType>NONE</repeatType>
-        <repeatUntilDateTime>2018-01-03T02:00</repeatUntilDateTime>
-        <tagged>home</tagged>
-        <reminderDurationList>PT60M: false</reminderDurationList>
-    </events>
-    <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
-        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
-        <eventName>work</eventName>
-        <startDateTime>2018-12-12T00:00</startDateTime>
-        <endDateTime>2018-12-12T01:00</endDateTime>
-        <description>workAndWork</description>
-        <venue>Work</venue>
-        <repeatType>NONE</repeatType>
-        <repeatUntilDateTime>2018-12-12T01:00</repeatUntilDateTime>
-        <tagged>work</tagged>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</uuid>
+        <eventName>Study with Jane</eventName>
+        <startDateTime>2018-01-03T10:00</startDateTime>
+        <endDateTime>2018-01-03T11:00</endDateTime>
+        <description>Study for MA2101</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T11:00</repeatUntilDateTime>
         <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
     </events>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
-        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
-        <eventName>Travel</eventName>
-        <startDateTime>2018-06-01T00:00</startDateTime>
-        <endDateTime>2018-06-01T01:00</endDateTime>
-        <description>travelOrTravel</description>
-        <venue>USA</venue>
-        <repeatType>NONE</repeatType>
-        <repeatUntilDateTime>2018-06-01T01:00</repeatUntilDateTime>
-        <tagged>travel</tagged>
-        <reminderDurationList>PT20M: false</reminderDurationList>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</uuid>
+        <eventName>Study with Jane</eventName>
+        <startDateTime>2018-01-04T10:00</startDateTime>
+        <endDateTime>2018-01-04T11:00</endDateTime>
+        <description>Study for MA2101</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T11:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
     </events>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
-        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uuid>
-        <eventName>Play</eventName>
-        <startDateTime>2018-01-01T00:00</startDateTime>
-        <endDateTime>2018-01-01T01:00</endDateTime>
-        <description>doAndPlay</description>
-        <venue>Home</venue>
-        <repeatType>NONE</repeatType>
-        <repeatUntilDateTime>2018-01-01T01:00</repeatUntilDateTime>
-        <tagged>playMonth</tagged>
-        <reminderDurationList>PT15M: false</reminderDurationList>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</uuid>
+        <eventName>Study with Jane</eventName>
+        <startDateTime>2018-01-05T10:00</startDateTime>
+        <endDateTime>2018-01-05T11:00</endDateTime>
+        <description>Study for MA2101</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T11:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</uuid>
+        <eventName>Study with Jane</eventName>
+        <startDateTime>2018-01-06T10:00</startDateTime>
+        <endDateTime>2018-01-06T11:00</endDateTime>
+        <description>Study for MA2101</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T11:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</uuid>
+        <eventName>Study with Jill</eventName>
+        <startDateTime>2018-01-03T11:00</startDateTime>
+        <endDateTime>2018-01-03T12:00</endDateTime>
+        <description>Study for CS2103</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T12:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</uuid>
+        <eventName>Study with Jill</eventName>
+        <startDateTime>2018-01-04T11:00</startDateTime>
+        <endDateTime>2018-01-04T12:00</endDateTime>
+        <description>Study for CS2103</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T12:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</uuid>
+        <eventName>Study with Jill</eventName>
+        <startDateTime>2018-01-05T11:00</startDateTime>
+        <endDateTime>2018-01-05T12:00</endDateTime>
+        <description>Study for CS2103</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T12:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</uuid>
+        <eventName>Study with Jill</eventName>
+        <startDateTime>2018-01-06T11:00</startDateTime>
+        <endDateTime>2018-01-06T12:00</endDateTime>
+        <description>Study for CS2103</description>
+        <venue>NUS</venue>
+        <repeatType>DAILY</repeatType>
+        <repeatUntilDateTime>2018-01-06T12:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</uuid>
+        <eventName>Jim's Birthday</eventName>
+        <startDateTime>2018-12-31T00:00</startDateTime>
+        <endDateTime>2018-12-31T01:00</endDateTime>
+        <description>Celebrate Jim's Birthday</description>
+        <venue>Jim's House</venue>
+        <repeatType>YEARLY</repeatType>
+        <repeatUntilDateTime>2020-12-31T01:00</repeatUntilDateTime>
+        <reminderDurationList>PT30M: false, PT1H30M: false</reminderDurationList>
+        <tagged>Celebration</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</uuid>
+        <eventName>Jim's Birthday</eventName>
+        <startDateTime>2019-12-31T00:00</startDateTime>
+        <endDateTime>2019-12-31T01:00</endDateTime>
+        <description>Celebrate Jim's Birthday</description>
+        <venue>Jim's House</venue>
+        <repeatType>YEARLY</repeatType>
+        <repeatUntilDateTime>2020-12-31T01:00</repeatUntilDateTime>
+        <reminderDurationList>PT30M: false, PT1H30M: false</reminderDurationList>
+        <tagged>Celebration</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</uuid>
+        <eventName>Jim's Birthday</eventName>
+        <startDateTime>2020-12-31T00:00</startDateTime>
+        <endDateTime>2020-12-31T01:00</endDateTime>
+        <description>Celebrate Jim's Birthday</description>
+        <venue>Jim's House</venue>
+        <repeatType>YEARLY</repeatType>
+        <repeatUntilDateTime>2020-12-31T01:00</repeatUntilDateTime>
+        <reminderDurationList>PT30M: false, PT1H30M: false</reminderDurationList>
+        <tagged>Celebration</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a626</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a637</uuid>
+        <eventName>Leap Day Celebration</eventName>
+        <startDateTime>2016-02-29T00:00</startDateTime>
+        <endDateTime>2016-02-29T01:00</endDateTime>
+        <description>Celebrate a day that happens one in 4 years</description>
+        <venue>Marina Bay Sands</venue>
+        <repeatType>YEARLY</repeatType>
+        <repeatUntilDateTime>2020-02-29T01:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Celebration</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a626</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a637</uuid>
+        <eventName>Leap Day Celebration</eventName>
+        <startDateTime>2020-02-29T00:00</startDateTime>
+        <endDateTime>2020-02-29T01:00</endDateTime>
+        <description>Celebrate a day that happens one in 4 years</description>
+        <venue>Marina Bay Sands</venue>
+        <repeatType>YEARLY</repeatType>
+        <repeatUntilDateTime>2020-02-29T01:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Celebration</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</uuid>
+        <eventName>Startup Lecture</eventName>
+        <startDateTime>2018-01-28T08:00</startDateTime>
+        <endDateTime>2018-01-28T10:00</endDateTime>
+        <description>Lecture about entrepreneurship</description>
+        <venue>iCube</venue>
+        <repeatType>MONTHLY</repeatType>
+        <repeatUntilDateTime>2018-03-28T10:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Timetable</tagged>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</uuid>
+        <eventName>Startup Lecture</eventName>
+        <startDateTime>2018-02-28T08:00</startDateTime>
+        <endDateTime>2018-02-28T10:00</endDateTime>
+        <description>Lecture about entrepreneurship</description>
+        <venue>iCube</venue>
+        <repeatType>MONTHLY</repeatType>
+        <repeatUntilDateTime>2018-03-28T10:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Timetable</tagged>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
+    </events>
+    <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</uid>
+        <uuid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</uuid>
+        <eventName>Startup Lecture</eventName>
+        <startDateTime>2018-03-28T08:00</startDateTime>
+        <endDateTime>2018-03-28T10:00</endDateTime>
+        <description>Lecture about entrepreneurship</description>
+        <venue>iCube</venue>
+        <repeatType>MONTHLY</repeatType>
+        <repeatUntilDateTime>2018-03-28T10:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Timetable</tagged>
+        <tagged>Study</tagged>
+        <tagged>School</tagged>
     </events>
 </scheduler>

@@ -2,9 +2,9 @@ package seedu.scheduler.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.scheduler.testutil.TypicalEvents.FEBRUARY_29_FOUR_YEAR_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_THREE_YEAR_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAILY_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_ONE;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.io.IOException;
@@ -85,14 +85,14 @@ public class XmlSchedulerStorageTest {
         assertEquals(original, new Scheduler(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addEvents(JANUARY_1_THREE_YEAR_LIST);
-        original.removeEvent(JANUARY_1_2018_SINGLE);
+        original.addEvents(STUDY_WITH_JANE_DAILY_LIST);
+        original.removeEvent(STUDY_WITH_JANE_DAY_ONE);
         xmlSchedulerStorage.saveScheduler(original, filePath);
         readBack = xmlSchedulerStorage.readScheduler(filePath).get();
         assertEquals(original, new Scheduler(readBack));
 
         //Save and read without specifying file path
-        original.addEvents(FEBRUARY_29_FOUR_YEAR_LIST);
+        original.addEvent(DISCUSSION_WITH_JACK);
         xmlSchedulerStorage.saveScheduler(original); //file path not specified
         readBack = xmlSchedulerStorage.readScheduler().get(); //file path not specified
         assertEquals(original, new Scheduler(readBack));

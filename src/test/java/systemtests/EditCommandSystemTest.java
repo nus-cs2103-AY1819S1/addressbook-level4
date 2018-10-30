@@ -26,7 +26,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
-import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalEvents.MA2101_JANUARY_1_2018_YEARLY;
 import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
@@ -61,8 +61,10 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
                 + "  " + START_DATETIME_DESC_MA3220 + "  " + END_DATETIME_DESC_MA3220 + "  " + DESCRIPTION_DESC_MA3220
                 + "  " + VENUE_DESC_MA3220 + "  " + REPEAT_TYPE_DESC_MA3220 + "  " + REPEAT_UNTIL_DATETIME_DESC_MA3220
                 + "  " + TAG_DESC_PLAY;
-        Event editedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).build();
-        assertCommandSuccess(command, index, editedEvent);
+        Event firstEditedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE)
+                .withUid(model.getFilteredEventList().get(index.getZeroBased()).getUid())
+                .withUuid(model.getFilteredEventList().get(index.getZeroBased()).getUuid()).build();
+        assertCommandSuccess(command, index, firstEditedEvent);
 
         /* Case: undo editing the last event in the list -> last event restored */
         command = UndoCommand.COMMAND_WORD;
@@ -73,57 +75,60 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updateEvent(
-                getModel().getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased()), editedEvent);
+                getModel().getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased()), firstEditedEvent);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: edit a event with new values same as existing values -> edited */
+        /* Case: edit an event with new values same as existing values -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + EVENT_NAME_DESC_MA3220
                 + START_DATETIME_DESC_MA3220 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220
                 + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY;
-        assertCommandSuccess(command, index, MA3220_JANUARY_1_2019_SINGLE);
+        assertCommandSuccess(command, index, firstEditedEvent);
 
         /* Case: edit an event with new values some same as event's values some different -> edited */
-        assertTrue(getModel().getScheduler().getEventList().contains(MA3220_JANUARY_1_2019_SINGLE));
+        assertTrue(getModel().getScheduler().getEventList().contains(firstEditedEvent));
         index = INDEX_SECOND_EVENT;
         assertNotEquals(getModel().getFilteredEventList().get(index.getZeroBased()), MA3220_JANUARY_1_2019_SINGLE);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + EVENT_NAME_DESC_MA3220
                 + START_DATETIME_DESC_MA3220 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA2101
                 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_SCHOOL;
-        editedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE).withDescription(VALID_DESCRIPTION_MA2101)
+        Event secondEditedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE)
+                .withUid(getModel().getFilteredEventList().get(index.getZeroBased()).getUid())
+                .withUuid(getModel().getFilteredEventList().get(index.getZeroBased()).getUuid())
+                .withDescription(VALID_DESCRIPTION_MA2101)
                 .withVenue(VALID_VENUE_MA2101).withTags(VALID_TAG_SCHOOL).build();
-        assertCommandSuccess(command, index, editedEvent);
+        assertCommandSuccess(command, index, secondEditedEvent);
 
         /* Case: edit an event with new values same as another event's values -> edited */
-        assertTrue(getModel().getScheduler().getEventList().contains(MA3220_JANUARY_1_2019_SINGLE));
+        assertTrue(getModel().getScheduler().getEventList().contains(secondEditedEvent));
         index = INDEX_SECOND_EVENT;
-        assertNotEquals(getModel().getFilteredEventList().get(index.getZeroBased()), MA3220_JANUARY_1_2019_SINGLE);
+        assertNotEquals(getModel().getFilteredEventList().get(index.getZeroBased()), firstEditedEvent);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + EVENT_NAME_DESC_MA3220
                 + START_DATETIME_DESC_MA3220 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA3220
                 + VENUE_DESC_MA3220 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_PLAY;
-        assertCommandSuccess(command, index, MA3220_JANUARY_1_2019_SINGLE);
+        assertCommandSuccess(command, index, firstEditedEvent);
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_EVENT;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Event eventToEdit = getModel().getFilteredEventList().get(index.getZeroBased());
-        editedEvent = new EventBuilder(eventToEdit).withTags().build();
-        assertCommandSuccess(command, index, editedEvent);
+        Event thirdEditedEvent = new EventBuilder(eventToEdit).withTags().build();
+        assertCommandSuccess(command, index, thirdEditedEvent);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered event list, edit index within bounds of scheduler and event list -> edited */
-        showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
+        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
         index = INDEX_FIRST_EVENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredEventList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + VENUE_DESC_MA3220;
         eventToEdit = getModel().getFilteredEventList().get(index.getZeroBased());
-        editedEvent = new EventBuilder(eventToEdit).withVenue(VALID_VENUE_MA3220).build();
-        assertCommandSuccess(command, index, editedEvent);
+        Event fourthEditedEvent = new EventBuilder(eventToEdit).withVenue(VALID_VENUE_MA3220).build();
+        assertCommandSuccess(command, index, fourthEditedEvent);
 
         /* Case: filtered event list, edit index within bounds of scheduler but out of bounds of event list
          * -> rejected
          */
-        showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
+        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
         int invalidIndex = getModel().getScheduler().getEventList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + VENUE_DESC_MA3220,
                 Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
@@ -198,11 +203,13 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Event editedEvent,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updateEvent(expectedModel.getFilteredEventList().get(toEdit.getZeroBased()), editedEvent);
+        Event eventToEdit = expectedModel.getFilteredEventList().get(toEdit.getZeroBased());
+        expectedModel.updateEvent(eventToEdit, editedEvent);
         expectedModel.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, editedEvent), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName()),
+                expectedSelectedCardIndex);
     }
 
     /**
