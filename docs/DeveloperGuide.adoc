@@ -1193,6 +1193,32 @@ Use case ends.
 ** 3a1. System gives user the option to state his/her preferred location and use case resumes from step 4.
 ** 3a2. If user does not state location, no common event location is set and use case ends.
 
+[discrete]
+=== UC8: Import contacts
+
+*MSS*
+
+. User request to import contacts.
+. System records and displays how many successfully added and duplicates.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid file path (not a file or not an absolute path).
+** 1a1. System displays invalid file path.
++
+Use case ends.
++
+* 2a. System detects empty file.
+** 2a1. System displays empty file.
++
+Use case ends.
+* 2b. System detects invalid csv format (cannot find compulsory header in csv).
+** 2b1. System displays invalid csv file.
++
+Use case ends.
 
 ////
 === Coming in V2.0
@@ -1233,15 +1259,9 @@ Use case ends.
 *Extensions*
 
 * 1a. User enters invalid personal event or invalid command.
-<<<<<<< HEAD
 +
 ** 1a1. System displays error message.
 +
-=======
-+
-** 1a1. System displays error message.
-+
->>>>>>> Merge branch 'notification' of https://github.com/ryantanwk/main into notification
 Use case ends.
 +
 * a. At any time, user chooses to end the command.
@@ -1326,7 +1346,6 @@ User case ends.
 +
 Use case ends.
 
-<<<<<<< HEAD
 [discrete]
 === UC13: Import contacts
 
@@ -1354,8 +1373,6 @@ Use case ends.
 +
 Use case ends.
 
-=======
->>>>>>> Merge branch 'notification' of https://github.com/ryantanwk/main into notification
 ////
 
 [appendix]
