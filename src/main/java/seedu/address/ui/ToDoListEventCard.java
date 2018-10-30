@@ -4,8 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+
 import seedu.address.model.todolist.ToDoListEvent;
 
 /**
@@ -42,7 +46,22 @@ public class ToDoListEventCard extends UiPart<Region> {
         this.toDoListEvent = toDoListEvent;
         id.setText(displayedIndex + ". ");
         title.setText(toDoListEvent.getTitle().value);
-        priority.setText(toDoListEvent.getPriority().value);
+        String priorityValue = toDoListEvent.getPriority().value;
+        if(priorityValue.contains("H")) {
+            priority.setText("High");
+            priority.setBackground(new Background(new BackgroundFill
+                    (Color.color(0.929,0.325,0.325),null,null)));
+        }
+        else if(priorityValue.contains("M")) {
+            priority.setText("Medium");
+            priority.setBackground(new Background(new BackgroundFill
+                    (Color.color(1.000,0.647,0.000),null,null)));
+        }
+        else {
+            priority.setText("Low");
+            priority.setBackground(new Background(new BackgroundFill
+                    (Color.color(0.408,0.718,0.137),null,null)));
+        }
     }
 
     @Override
