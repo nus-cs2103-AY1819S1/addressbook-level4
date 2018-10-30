@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Expense's name in the address book.
+ * Represents a Expense's name in the expense tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -16,7 +16,7 @@ public class Name {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String NAME_VALIDATION_REGEX = "[a-zA-Z0-9][a-zA-Z0-9 ]+";
+    public static final String NAME_VALIDATION_REGEX = "[a-zA-Z0-9][a-zA-Z0-9 ]*";
 
     public final String expenseName;
 
