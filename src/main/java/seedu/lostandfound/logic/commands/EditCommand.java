@@ -25,6 +25,7 @@ import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
@@ -104,10 +105,11 @@ public class EditCommand extends Command {
         Phone updatedPhone = editArticleDescriptor.getPhone().orElse(articleToEdit.getPhone());
         Email updatedEmail = editArticleDescriptor.getEmail().orElse(articleToEdit.getEmail());
         Description updatedDescription = editArticleDescriptor.getDescription().orElse(articleToEdit.getDescription());
+        Image updatedImage = editArticleDescriptor.getImage().orElse(articleToEdit.getImage());
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
 
         return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription,
-                null, articleToEdit.getIsResolved(), updatedTags);
+                updatedImage, articleToEdit.getIsResolved(), updatedTags);
     }
 
     @Override
@@ -137,6 +139,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Description description;
+        private Image image;
         private Set<Tag> tags;
 
         public EditArticleDescriptor() {}
@@ -150,6 +153,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setDescription(toCopy.description);
+            setImage(toCopy.image);
             setTags(toCopy.tags);
         }
 
@@ -157,7 +161,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, description, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, description, image, tags);
         }
 
         public void setName(Name name) {
@@ -191,6 +195,15 @@ public class EditCommand extends Command {
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
         }
+
+        public void setImage(Image image) {
+            this.image = image;
+        }
+
+        public Optional<Image> getImage() {
+            return Optional.ofNullable(image);
+        }
+
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -228,6 +241,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getDescription().equals(e.getDescription())
+                    && getImage().equals(e.getImage())
                     && getTags().equals(e.getTags());
         }
     }

@@ -8,6 +8,7 @@ import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 import seedu.lostandfound.model.util.SampleDataUtil;
 
@@ -20,12 +21,14 @@ public class ArticleBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_IMAGE = "data/images/0.png";
     public static final boolean DEFAULT_ISRESOLVED = false;
 
     private Name name;
     private Phone phone;
     private Email email;
     private Description description;
+    private Image image;
     private boolean isResolved;
     private Set<Tag> tags;
 
@@ -34,6 +37,7 @@ public class ArticleBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         description = new Description(DEFAULT_DESCRIPTION);
+        image = new Image (DEFAULT_IMAGE);
         isResolved = DEFAULT_ISRESOLVED;
         tags = new HashSet<>();
     }
@@ -46,6 +50,7 @@ public class ArticleBuilder {
         phone = articleToCopy.getPhone();
         email = articleToCopy.getEmail();
         description = articleToCopy.getDescription();
+        image = articleToCopy.getImage();
         isResolved = articleToCopy.getIsResolved();
         tags = new HashSet<>(articleToCopy.getTags());
     }
@@ -83,6 +88,15 @@ public class ArticleBuilder {
     }
 
     /**
+     * Sets the {@code Image} of the {@code Article} that we are building.
+     */
+    public ArticleBuilder withImage(String image) {
+        this.image = new Image(image);
+        return this;
+    }
+
+
+    /**
      * Sets the {@code isResolved} of the {@code Article} that we are building.
      */
     public ArticleBuilder withIsResolved(boolean isResolved) {
@@ -99,7 +113,7 @@ public class ArticleBuilder {
     }
 
     public Article build() {
-        return new Article(name, phone, email, description, null, isResolved, tags);
+        return new Article(name, phone, email, description, image, isResolved, tags);
     }
 
 }

@@ -13,6 +13,7 @@ import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
@@ -93,6 +94,22 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String image} into an {@code Image}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code image} is invalid.
+     */
+    public static Image parseImage(String image) throws ParseException {
+        System.out.println(image);
+        requireNonNull(image);
+        String trimmedFile = image.trim();
+        if (!Image.isValid(trimmedFile)) {
+            throw new ParseException(Image.MESSAGE_CONSTRAINTS);
+        }
+        return new Image(image);
     }
 
     /**
