@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT;
@@ -12,7 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,10 +53,10 @@ public class CommandTestUtil {
     public static final String VALID_PASSWORD_AMY = "Pa55w0rd";
     public static final String VALID_PASSWORD_BOB = "Pa55w0rd";
 
-    public static final Integer VALID_LEAVEID_BOB_LEAVE = 2;
     public static final String VALID_DESCRIPTION_BOB_LEAVE = "Bob's wedding anniversary";
     public static final StatusEnum.Status VALID_LEAVESTATUS_BOB_LEAVE = StatusEnum.Status.REJECTED;
-    public static final LocalDateTime VALID_LEAVEDATE_BOB_LEAVE = LocalDateTime.of(2018, 10, 30, 0, 0, 0);
+    public static final String VALID_LEAVEDATE_STRING_BOB_LEAVE = "2018-10-30";
+    public static final LocalDate VALID_LEAVEDATE_BOB_LEAVE = LocalDate.of(2018, 10, 30);
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + " " + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + " " + VALID_NAME_BOB;
@@ -75,6 +77,21 @@ public class CommandTestUtil {
     public static final String AUTHOR_ASSIGNMENT_DESC_FALCON = " " + PREFIX_AUTHOR + " " + VALID_NAME_BOB;
     public static final String ASSIGNMENT_DESC_FALCON = " " + PREFIX_PROJECT_DESCRIPTION + " " + VALID_DESCRIPTION_FALCON;
 
+    public static final String LEAVEDESCIPTION_DESC_ALICE_LEAVE = " " + PREFIX_LEAVE_DESCRIPTION
+            + " " + "Alice family holiday";
+    public static final String LEAVEDESCIPTION_DESC_BENSON_LEAVE = " " + PREFIX_LEAVE_DESCRIPTION
+            + " " + "Benson's brother's wedding";
+    public static final String LEAVEDESCIPTION_DESC_BOB_LEAVE = " " + PREFIX_LEAVE_DESCRIPTION
+            + " " + VALID_DESCRIPTION_BOB_LEAVE;
+    public static final String LEAVEDATES_DESC_ALICE_LEAVE = " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-23" + " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-24";
+    public static final String LEAVEDATES_DESC_BENSON_LEAVE = " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-25" + " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-26";
+    public static final String LEAVEDATES_DESC_BOB_LEAVE = " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-30";
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " " + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + " " + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + " " + "bob!yahoo"; // missing '@' symbol
@@ -83,6 +100,11 @@ public class CommandTestUtil {
     public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY; // empty string not allowed for salary
     public static final String INVALID_ASSIGNMENT_NAME_DESC = " " + PREFIX_PROJECT_NAME + " " + "Alibabaa&"; // '&' not allowed in names
     public static final String INVALID_ASSIGNMENT_AUTHOR_DESC = " " + PREFIX_AUTHOR + " " + "911a&"; // '&' not allowed in author
+
+    public static final String INVALID_LEAVEDESCIPTION_DESC = " " + PREFIX_LEAVE_DESCRIPTION + " "
+            + " "; // blank description not allowed
+    public static final String INVALID_LEAVEDATES_DESC = " " + PREFIX_LEAVE_DATE + " "
+            + "2018-10-123"; // wrong date format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

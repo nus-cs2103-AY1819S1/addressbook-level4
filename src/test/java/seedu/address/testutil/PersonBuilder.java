@@ -157,8 +157,8 @@ public class PersonBuilder {
      * Build the person object.
      */
     public Person build() {
-        return new Person(name, phone, email, address, salary, username, password, projects, pSet, Optional.empty(),
-            leaveApplications);
+        return new Person(name, phone, email, address, salary, username, password, projects, pSet, leaveApplications,
+                Optional.empty());
     }
 
 }
