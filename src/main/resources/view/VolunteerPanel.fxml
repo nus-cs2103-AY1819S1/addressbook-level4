@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.FlowPane?>
+<VBox fx:id="volunteerPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="CENTER_LEFT">
+        <Label fx:id="volunteerNameLabel" styleClass="event-name" />
+        <FlowPane fx:id="volunteerTag" hgap="5"/>
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="volunteerGenderLabel" styleClass="detail" />
+        </HBox>
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="volunteerBirthdayLabel" styleClass="detail" />
+        </HBox>
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="volunteerPhoneLabel" styleClass="detail" />
+        </HBox>
+        <HBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="volunteerEmailLabel" styleClass="detail" />
+        </HBox>
+        <Label fx:id="volunteerAddressLabel" styleClass="detail" />
+    </VBox>
+</VBox>
