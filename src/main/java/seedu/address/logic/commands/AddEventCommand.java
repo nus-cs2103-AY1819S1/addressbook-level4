@@ -28,7 +28,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Adds an event to the address book.
  */
-public class AddEventCommand extends Command {
+public class    AddEventCommand extends Command {
 
     public static final String COMMAND_WORD = "addEvent";
 
