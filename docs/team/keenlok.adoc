@@ -24,13 +24,18 @@ features, namely Filter and Find.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to filter data entries in the application*
+* *Major enhancement*: added *the ability to filter data entries stored in the application*
 ** What it does: Allows users to filter entries based on the conditions that they can input.
 ** Justification: This feature significantly improves the application because now, users don't need to know the exact number
 or name of the ride that they want. They can simple specify a range and then the application will provide a list of entries
 that is within the range specified.
-** Highlights: This enhancement involved introduction a new predicate class to allow users to input range
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Highlights: This enhancement involved introduction a new predicate class, `RideContainsConditionPredicate`, to allow users to input a range of values to
+compare values with the existing data. +
+The attributes of the rides that contains numeric values are also abstracted out to create a new interface `Attribute` that
+the classes `Maintenance` and `WaitTime` implement. This allows the implementation of the predicate class `AttributePredicate`,
+which enables it to store the user input and compare the values with the `Maintenance` and `WaitTime` of a ride class.
+** Credits: The filter is based on the way find feature works, with a `RideContainsConditionPredicate` instead of a
+`RideContainsKeywordsPredicate`.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
@@ -38,21 +43,8 @@ that is within the range specified.
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+** Enhancements to existing features: Find can now search tags and addresses in addition to the names of the rides
+
 
 _{you can add/remove categories in the list above}_
 
