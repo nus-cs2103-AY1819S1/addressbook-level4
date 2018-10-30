@@ -169,7 +169,7 @@ public class Person {
     }
 
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  PrescriptionList prescriptionList, AppointmentsList appointmentsList,MedicalHistory medicalHistory,
+                  PrescriptionList prescriptionList, AppointmentsList appointmentsList, MedicalHistory medicalHistory,
                   VisitorList visitorList) {
         requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, visitorList);
         this.nric = nric;
@@ -185,7 +185,7 @@ public class Person {
         this.visitorList = visitorList;
     }
     public Person(Nric nric, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  PrescriptionList prescriptionList, AppointmentsList appointmentsList,MedicalHistory medicalHistory,
+                  PrescriptionList prescriptionList, AppointmentsList appointmentsList, MedicalHistory medicalHistory,
                   DietCollection dietCollection) {
         requireAllNonNull(nric, name, phone, email, address, tags, medicalHistory, prescriptionList, dietCollection);
         this.nric = nric;

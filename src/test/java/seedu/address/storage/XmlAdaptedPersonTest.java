@@ -25,12 +25,11 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.Assert;
-import seedu.address.testutil.DietBuilder;
 import seedu.address.testutil.DiagnosisBuilder;
+import seedu.address.testutil.DietBuilder;
 import seedu.address.testutil.PrescriptionBuilder;
 
 public class XmlAdaptedPersonTest {
