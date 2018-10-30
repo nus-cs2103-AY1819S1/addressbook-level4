@@ -59,8 +59,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+<<<<<<<<< Temporary merge branch 1
 // tag::add[]
-=== Adding a person, module or occasion: `add[]`
 === Adding an entry: `add[]`
 
 Adds a person, module or an occasion to the address book. +
