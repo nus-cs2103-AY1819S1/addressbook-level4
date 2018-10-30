@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_DECK;
 import static seedu.address.commons.core.Messages.MESSAGE_FILEPATH_INVALID;
+import static seedu.address.storage.XmlSerializableAnakin.MESSAGE_DUPLICATE_DECK;
 import static seedu.address.testutil.TypicalDecks.DECK_WITH_CARDS;
 
 import java.nio.file.Path;
@@ -60,7 +60,7 @@ public class ImportDeckCommandTest {
 
     @Test
     public void importDuplicate_throwsException() throws Exception {
-        Model testModel = new ModelThrowsDE();
+        Model testModel = new ModelThrowsDe();
         Deck deckToImport = DECK_WITH_CARDS;
         ImportDeckCommand importCommand = new ImportDeckCommand("Unused");
 
@@ -235,7 +235,7 @@ public class ImportDeckCommandTest {
         }
     }
 
-    private class ModelThrowsDE extends ModelStub {
+    private class ModelThrowsDe extends ModelStub {
         final Porter porter = new PortManager();
 
         @Override
@@ -276,6 +276,10 @@ public class ImportDeckCommandTest {
             Path filepath = makeFilePath(stringPath);
             throw new DeckImportException(String.format(MESSAGE_FILEPATH_INVALID, filepath));
         }
+
+        /**
+         * Makes a string into a path.
+         */
 
         private Path makeFilePath(String name) {
             if (name.substring(name.length() - 4).equals(".xml")) {
