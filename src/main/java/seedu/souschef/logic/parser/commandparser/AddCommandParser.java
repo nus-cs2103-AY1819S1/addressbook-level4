@@ -110,7 +110,8 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
-        Ingredient toAdd = new Ingredient(ingredientName, ingredientAmount, ingredientServingUnit, ingredientDate);
+        Ingredient toAdd = new Ingredient(ingredientName, ingredientAmount,
+                ingredientServingUnit, ingredientDate).convertToCommonUnit();
 
         return new AddCommand<>(model, toAdd);
     }
