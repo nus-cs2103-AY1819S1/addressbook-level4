@@ -4,7 +4,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import org.junit.Before;
@@ -35,7 +35,7 @@ public class DietViewTest extends GuiUnitTest {
     @Before
     public void setUp() {
         adddietCommandSuccessEvent = new NewResultAvailableEvent("Dietary requirements added for patient: "
-                                                                 + BENSON.getNric());
+                                                                 + DANIEL.getNric());
         allergy = new DietBuilder().withDetail("Fish").build();
         initUi();
     }
@@ -46,7 +46,7 @@ public class DietViewTest extends GuiUnitTest {
     private void initUi() {
         dietView = new DietView(TYPICAL_PERSONS);
         uiPartRule.setUiPart(dietView);
-        dietView.setCurrentSelection(BENSON);
+        dietView.setCurrentSelection(DANIEL);
         allergyViewHandle = new DietViewHandle(getChildNode(dietView.getRoot(), DietViewHandle.ALLERGY_TABLE_VIEW_ID));
         culturalRequirementViewHandle = new DietViewHandle(getChildNode(dietView.getRoot(),
             DietViewHandle.CULTURAL_TABLE_VIEW_ID));
@@ -58,10 +58,10 @@ public class DietViewTest extends GuiUnitTest {
     @Test
     public void addAllergy_displayUpdates() {
         ObservableList<Diet> expected = FXCollections.observableArrayList();
-        expected.addAll(BENSON.getDietCollection().getObservableAllergies());
+        expected.addAll(DANIEL.getDietCollection().getObservableAllergies());
         expected.add(allergy);
 
-        BENSON.getDietCollection().add(allergy);
+        DANIEL.getDietCollection().add(allergy);
         postNow(adddietCommandSuccessEvent);
 
         assertEquals(allergyViewHandle.getBackingListOfDiet(), expected);
