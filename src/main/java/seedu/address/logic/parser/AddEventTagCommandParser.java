@@ -13,7 +13,8 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddEventTagCommand object
  */
-public class AddEventTagCommandParser implements Parser<AddEventTagCommand>  {
+public class AddEventTagCommandParser implements Parser<AddEventTagCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddEventTagCommand object for execution.
