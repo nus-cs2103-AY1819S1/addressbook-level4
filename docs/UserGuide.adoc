@@ -482,7 +482,7 @@ e.g.`select 2`
 * *Import contacts* : `import` or `import` l/FILE_PATH
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
-* *Meetings* : `meetings [m/DD/MM/YY HHMM]`
+* *Meetings* : `meetings [DD/MM/YY]`
 * *Add picture* : `​pic INDEX l/FILE_LOCATION`
 * *View all contacts with a specified tag* : `tag TAG_NAME`
 * *Remove all contacts from a specified tag* : `tag TAG_NAME remove`
