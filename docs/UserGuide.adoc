@@ -344,13 +344,23 @@ Examples:
 
 === Notifications: `notification`
 
-Allow users to disable notifications for upcoming events based on most recently displayed events list. All events initially have notifications enabled by default.
+Allow users to enable/disable notifications which appears upon application statrup. Notification is enabled by default.
 
-Format: `notification EVENT_INDEX enable/disable`
+Format: `notification enable/disable`
 
 Examples:
 
-* `notification 2 disable`
+* `notification disable`
+
+=== Favourite: `favourite`
+
+Allow users to favourite a upcoming events based on most recently displayed events list. Favourite is null by default.
+
+Format: `favourite d/DATE i/EVENT_INDEX`
+
+Examples:
+
+* `favourite d/2018-04-01 i/1`
 
 === Clearing all entries : `clear`, alias `cls`
 
@@ -602,5 +612,7 @@ e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123,
 * *List Group Events* : `listGroupEvent`
 * *Import Contacts* : `importContacts file/FILEPATH` +
 e.g. `importContacts file/~/Downloads/contacts1.csv`
-* *Disable and Enable Notification* : `notification EVENT_INDEX enable/disable` +
-e.g. `notification 2 disable`
+* *Disable and Enable Notification* : `notification enable/disable` +
+e.g. `notification disable`
+* *Favourite Event* : `favourite d/EVENT_DATE i/EVENT_INDEX` +
+e.g. `favourite d/2018-04-01 i/1`
