@@ -482,15 +482,23 @@ eat per day to hit their target.
  duration, scheme (gain/loss/maintain)
 * Users are able to delete entries that they do not want to keep anymore.
 * Users are aso able to edit entries which information is incorrect.
+* Users are able to add days of the meal planner segment into chosen health plan
+* Users are able to display all days of the meal planner segment concurrently with the health plan lists
+* Users are able to display the details of a health plan to see the days stored and also other information
+* Users are able to remove days of the health plan they added.
 
-==== Ongoing implementation (Adding of meal plans)
+==== Ongoing implementation (Implementing calory count)
 
-The new implementation of this feature should allow users to add meal plans from the meal planner feature, and also
-calculate the nutritional intake against the required calculate intake for the day and then also calculate the
-percentage of the set target by calculated by the system
-met by the user's own personal intake.
-This will then also help to compare the intake taken by the user via the meal plans versus the required target calculated
-by the system using the age, height and current weight of the user.
+Firstly, a library of calories for the ingredients need to set up.
+Then the new implementation of this function should extend the already established functionality by adding a calorie count
+for the ingredients within the recipes stored in the days of the health plan
+Providing the capability of being able to calculating the calorie intake of the meal by days,
+and also calculating the total of the entire plan.
+
+Furthermore the system will compute a target daily intake based on the age, current height and current weight provided.
+There will also then be a computed bar graph to compare the actual intake against the computed target to meet.
+Providing some statistics such as percentage met or exceeded and also speculated weight if the user continues with the
+current calories consumed.
 
 ==== Ongoing implementation (Expiry of health plans)
 
