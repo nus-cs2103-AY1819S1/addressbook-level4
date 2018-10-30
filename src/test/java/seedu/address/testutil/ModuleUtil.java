@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACADEMICYEAR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULECODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULETITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -9,7 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import seedu.address.model.module.Module;
 import seedu.address.model.tag.Tag;
@@ -23,7 +22,7 @@ public class ModuleUtil {
      * Returns an add command string for adding the {@code module}.
      */
     public static String getAddCommand(Module module) {
-        return AddCommand.COMMAND_WORD + " " + getModuleDetails(module);
+        return AddModuleCommand.COMMAND_WORD + " " + getModuleDetails(module);
     }
 
     /**
@@ -34,7 +33,7 @@ public class ModuleUtil {
         sb.append(PREFIX_MODULECODE + module.getModuleCode().fullModuleCode + " ");
         sb.append(PREFIX_MODULETITLE + module.getModuleTitle().fullModuleTitle + " ");
         sb.append(PREFIX_ACADEMICYEAR + "" + module.getAcademicYear().yearNumber + " ");
-        sb.append(PREFIX_ADDRESS + module.getSemester().semesterNumber + " ");
+        sb.append(PREFIX_SEMESTER + module.getSemester().semesterNumber + " ");
         module.getTags().stream().forEach(s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();

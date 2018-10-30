@@ -232,7 +232,7 @@ public class AddOccasionCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddOccasionCommand#execute()}
         }
 
         @Override

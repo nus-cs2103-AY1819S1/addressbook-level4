@@ -31,7 +31,7 @@ public class AddModuleCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_MODULECODE + "CS2103 "
             + PREFIX_MODULETITLE + "SOFTWARE ENGINEERING "
-            + PREFIX_ACADEMICYEAR + "AY1718 "
+            + PREFIX_ACADEMICYEAR + "1718 "
             + PREFIX_SEMESTER + "1 "
             + PREFIX_TAG + "gg ";
 

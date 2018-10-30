@@ -27,7 +27,7 @@ import seedu.address.model.tag.Tag;
 public class AddPersonCommandParser implements Parser<AddPersonCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the AddPersonCommand
      * and returns a new Person object of the given parameters.
      * @throws ParseException if the user input does not conform the expected format
      */

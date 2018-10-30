@@ -35,7 +35,9 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindModuleCommand;
+import seedu.address.logic.commands.FindOccasionCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.ListModuleCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -151,7 +153,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindPersonCommand.COMMAND_WORD + " n/" + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
@@ -184,7 +186,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showModulesWithTitle(String keyword) {
         // TODO: -> FindModuleCommand
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindModuleCommand.COMMAND_WORD + " mc/" + " " + keyword);
         assertTrue(getModel().getFilteredModuleList().size() < getModel().getAddressBook().getModuleList().size());
     }
 
@@ -219,7 +221,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showOccasionsWithName(String keyword) {
         // TODO: -> FindOccasionCommand
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindOccasionCommand.COMMAND_WORD + " on/" + " " + keyword);
         assertTrue(getModel().getFilteredOccasionList().size() < getModel().getAddressBook().getOccasionList().size());
     }
 

@@ -31,6 +31,10 @@ public class TypicalOccasions {
             .withOccasionName("Combined Birthday Celebration").withOccasionDate("2019-01-10")
             .withOccasionLocation("TBC").withTags("School Friends").build();
 
+    public static final Occasion EXAM_2103 = new OccasionBuilder()
+            .withOccasionName("CS2103 Exam").withOccasionDate("2018-12-05")
+            .withOccasionLocation("MPSH 1A").withTags("Must Prepare").build();
+
     private TypicalOccasions() {} // prevents instantiation
 
     /**
