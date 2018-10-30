@@ -48,18 +48,16 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
 
     @Override
     public boolean test(Ride ride) {
+        boolean result = false;
+        if (addressKeyWords.isPresent()) {
+            result = result || StringUtil.containsStringIgnoreCase(ride.getAddress().value,
+                    addressKeyWords.get().value);
+        }
+        if (!tagKeyWords.isEmpty()) {
+            result = result || CollectionUtil.containsAny(ride.getTags(), tagKeyWords);
+        }
         return keywords.stream()
-                .anyMatch(keyword -> {
-                    boolean result = StringUtil.containsWordIgnoreCase(ride.getName().fullName, keyword);
-                    if (addressKeyWords.isPresent()) {
-                        result = result || StringUtil.containsStringIgnoreCase(ride.getAddress().value,
-                                addressKeyWords.get().value);
-                    }
-                    if (!tagKeyWords.isEmpty()) {
-                        result = result || CollectionUtil.containsAny(ride.getTags(), tagKeyWords);
-                    }
-                    return result;
-                });
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(ride.getName().fullName, keyword)) || result;
     }
 
     @Override

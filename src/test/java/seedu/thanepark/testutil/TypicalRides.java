@@ -27,13 +27,13 @@ public class TypicalRides {
             .withAddress("123, Jurong West Ave 6, #08-111").withWaitTime("1")
             .withMaintenance("9")
             .withTags("rollerCoaster").build();
-    public static final Ride BIG = new RideBuilder().withName("Big Thunder Mountain Meier")
+    public static final Ride BIG = new RideBuilder().withName("The Big Thunder Mountain")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withWaitTime("16").withMaintenance("31")
             .withTags("heightRestrictions", "rollerCoaster").build();
     public static final Ride CASTLE = new RideBuilder().withName("Castle Carrousel").withMaintenance("1")
             .withWaitTime("13").withAddress("wall street").build();
-    public static final Ride DUMBO = new RideBuilder().withName("Dumbo The Flying Elephant Meier").withMaintenance(
+    public static final Ride DUMBO = new RideBuilder().withName("Dumbo The Flying Elephant").withMaintenance(
             "87")
             .withWaitTime("3").withAddress("10th street").withTags("rollerCoaster").build();
     public static final Ride ENCHANTED = new RideBuilder().withName("Enchanted Airways").withMaintenance("4")
@@ -57,7 +57,7 @@ public class TypicalRides {
             .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_THE = "The"; // A keyword that matches MEIER
 
     private TypicalRides() {} // prevents instantiation
 
