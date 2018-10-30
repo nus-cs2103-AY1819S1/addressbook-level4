@@ -1,0 +1,63 @@
+= Leong Eng Sea - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ThanePark
+
+---
+
+== Overview
+
+ThanePark is a desktop application for theme park management. The application is optimized for keyboard-oriented users and retains user-friendly graphics that informs users of their decisions in a glance.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to open/shutdown rides*
+** What it does: allows the user to open/shutdown all rides one at a time.
+** Justification: This feature improves the product significantly because a user can open/shutdown rides in commands.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: Refactor add,delete and update commands.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+***
+** Enhancements to existing features:
+*** Refactor add,delete and update commands.
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide
+** Community:
+** Tools:
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=]
+
+include::../DeveloperGuide.adoc[tag=]
+
+
+== PROJECT:
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
