@@ -80,25 +80,44 @@ Shows a list of all persons/modules/occasions in the address book. +
 Format: `list[]`
 // end::list[]
 
+// tag::edit[]
 === Editing an entry : `edit[]`
 
-Edits an existing person in the address book. +
-Format: `edit x/VALUE [t/VALUE TO EDIT | NEW VALUE] [t/VALUE TO EDIT | NEW VALUE] [t/TAG]...`
+Edits an existing person, module or occasion in TheTracker. +
 
-***
-* Edits the person, name of module specified by x - "n | m | e" followed by the VALUE which is the value of the person, module or event assigned during the add stage. +
+Format to edit person: `editPerson INDEX x/VALUE ...`
+****
+* Edits the person, name of part specified by x - "n | p | e | a | t" followed by the VALUE which is the value of the name, phone number, email, address or tag you want to change to. +
+****
+
+Format to edit module: `editModule INDEX x/VALUE ...`
+****
+* Edits the module, name of part specified by x - "mc | mt | ay | sem | t" followed by the VALUE which is the value of the moduleCode, moduleTitle, academicYear, semester or tag you want to change to. +
+****
+
+Format to edit occasion: `editOccasion x/VALUE ...`
+****
+* Edits the occasion, name of part specified by x - "on | od | loc | t" followed by the VALUE which is the value of the occasionName, occasionDate, occasionLocation or tag you want to change to. +
+****
+
+
+Common format:
+****
 * At least one value to edit must be provided. +
 * Existing values will be updated to the input values. +
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative. +
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-***
+****
 
 Examples:
 
-* `edit n/Betsy Crowe t/friend | enemy t/betsycrowe@example.com | johndoe@example.com` +
-Edits the tag of Betsy Crowe from friend to enemy, and the tag from betsycrowe@example.com to johndoe@example.com.
+* `editPerson 6 p/91234567 e/johndoe@example.com` +
+Edits the person of INDEX 6 in TheTracker: edits his phone to 91234567 and email address to johndoe@example.com.
+* `editModule 1 mc/CS1101S` +
+Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
+* `editOccasion 7 on/Barbecue od/2019-6-17 loc/NUS` +
+Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue, edits the occasionDate to 2019-6-17, edits the occasionLocation to NUS.
 
 === Locating entries by name: `find`
+// end::edit[]
 
 Finds a person, module or event whose tags contain any of the given keywords. +
 Format: `find x/VALUE t/VALUE ONE t/VALUE TWO...`

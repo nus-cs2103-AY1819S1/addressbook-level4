@@ -248,38 +248,40 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::supportforocassionandmodule[]
-=== [Proposed] Features supporting Person, Module and Occasion
+=== Features supporting Person, Module and Occasion
 Our application is an extension of address book application. Besides
 supporting basic address book features for 'Person', we also intended to
-make those features be available for 'Module' and 'Occasion'. This makes this
+make those features be available for 'Module' and `Occasion`. This makes this
 application(TheTracker) to be able to track the modules a person takes, as
 well as the Occasions they participate in.
 
 ==== Current Design plan
-The graph below shows the inheritance relationship between the related
-interface and classes.
-
-image::ClassInheritance.png[width="800"]
-
-We would be using polymorphism to realise support for 'Person', 'Module' and
-'Occasion'.
+We are storing persons, modules and occasions individually. And command are also entity-specific.
 // end::supportforocassionandmodule[]
 
+// tag::edit[]
+=== Edit Feature
+The following sequence diagram shows how the `editPerson` operation works:
+`editPerson 6 p/91234567 e/johndoe@example.com`
+
+image::EditPersonSequenceDiagram.png[width="800"]
+
+`editModule` and `editOccasion` works in a similar way as `editPerson`
+// end::edit[]
 
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
-
-The undo/redo mechanism is facilitated by 'VersionAddressBook'.It extends
-'AddressBook' with an command history, stored internally as an
-'addressBookStateList' and 'currentStatePointer'.
+The undo/redo mechanism is facilitated by `VersionAddressBook`.It extends
+`AddressBook` with an command history, stored internally as an
+`addressBookStateList` and `currentStatePointer`.
 In addition, it implements the following operations:
 
-* 'VersionedAddressBook#commit()': Saves the current book state
+* `VersionedAddressBook#commit()`: Saves the current book state
 in the command history
-* 'VersionedAddressBook#undo()': Restores the address book to its previous
+* `VersionedAddressBook#undo()`: Restores the address book to its previous
 state.
-* 'VersionedAddressBook#redo()': Restores the address book to its previously
+* `VersionedAddressBook#redo()`: Restores the address book to its previously
 undone state.
 
 These operations are exposed in the Model interface as
@@ -289,46 +291,46 @@ Provided below is an usage scenario instance. It illustrates how the
 undo/redo mechanism behaves at each step.
 
 Step 1: The user launches TheTracker for the first time. The
-'VersionedAddressBook' will be initialised with the initial address book
-state, which the 'currentStatePointer' is currently pointing to.
+`VersionedAddressBook` will be initialised with the initial address book
+state, which the `currentStatePointer` is currently pointing to.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2: The user executes 'add n/David...' command to add a person called
-David in his TheTracker. The 'find' command calls 'Model#commitAddressBook()
-', causing the modified state of TheTracker after the 'find David...' command
- executes to be saved in the 'addressBookStateList', and the
- 'currentStatePointer' is shifted to the newly inserted address book state.
+Step 2: The user executes `add n/David...` command to add a person called
+David in his TheTracker. The `find` command calls `Model#commitAddressBook()
+`, causing the modified state of TheTracker after the `find David...` command
+ executes to be saved in the `addressBookStateList`, and the
+ `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3: The user executes 'delete 7' to delete the 7th person in the address
-book. The 'delete' command also calls 'Model#commitAddressBook()', causing
-another modified address book state to be saved into the 'addressBookStateList'
+Step 3: The user executes `delete 7` to delete the 7th person in the address
+book. The `delete` command also calls `Model#commitAddressBook()`, causing
+another modified address book state to be saved into the `addressBookStateList`
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call 'Model#commitAddressBook()
-', so the address book state will not be saved into the 'addressBookStateList'.
+If a command fails its execution, it will not call `Model#commitAddressBook()
+`, so the address book state will not be saved into the `addressBookStateList`.
 
 Step 4: If the user now realizes that deleting the 7th person is a mistake,
-and decides to undo that action by executing the 'undo' command. The 'undo'
-command will call 'Model#undoAddressBook()', which will shift the
-'currentStatePointer' once to the left, pointing it to the previous address
+and decides to undo that action by executing the `undo` command. The `undo`
+command will call `Model#undoAddressBook()`, which will shift the
+`currentStatePointer` once to the left, pointing it to the previous address
 book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width='800']
 
 [NOTE]
-If the 'currentStatePointer' is at index 0, pointing the initial address book
-state, then there are no previous address book states to restore. The 'undo'
-command uses 'Model#canUndoAddressBook()' to check if this is the case. In
+If the `currentStatePointer` is at index 0, pointing the initial address book
+state, then there are no previous address book states to restore. The `undo`
+command uses `Model#canUndoAddressBook()` to check if this is the case. In
 this case, it will return an error to the user rather than attempting to
 perform the undo.
 
 The redo command does the opposite -- it calls Model#redoAddressBook(), which
-shifts the 'currentStatePointer' once to the right, pointing to the
+shifts the `currentStatePointer` once to the right, pointing to the
 previously undone state, and restores the address book to that state.
 
 The following sequence diagram shows how the undo operation works:
@@ -336,9 +338,9 @@ The following sequence diagram shows how the undo operation works:
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 [NOTE]
-If the 'currentStatePointer' is at index 'addressBookStateList.size() - 1',
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`,
 pointing to the latest address book state, then there are no undone address
-book states to restore. The 'redo' command uses 'Model#canRedoAddressBook()'
+book states to restore. The `redo` command uses `Model#canRedoAddressBook()`
 to check if this is the case. If so, it will return an error to the user
 rather than attempting to perform the redo.
 
@@ -384,13 +386,13 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-<<<<<<< HEAD
 // tag::history[]
 === History feature
-==== Current Implementation
-==== Design Considerations
+The following sequence diagram shows how the `history` operation works:
 
+image::HistoryCommandSequenceDiagram.png[width="800"]
 // end::history[]
+
 =======
 // tag::autocomplete[]
 === [Proposed] Autocomplete
@@ -404,7 +406,6 @@ The autocomplete parser will be checking after every input in the command line, 
 While checking, the feature will try to give a regex match of the command and also provide suggestions on correct arguments based on current entities stored in TheTracker's address book.
 
 // end::autocomplete[]
->>>>>>> 1047a3c7e9ee7a6c6ba36efd18eaee63c15a5e62
 
 === Logging
 
@@ -428,8 +429,8 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 === Delete
 (to be completed) +
-`delete` is a basic feature provided by every version of 'TheTracker'.
-It supports deletions of `Person`, `Module` and `Occasion', by the same `DeleteCommand` with different parameters, which would facilitate
+`delete` is a basic feature provided by every version of `TheTracker`.
+It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeleteCommand` with different parameters, which would facilitate
 and improve the user experience.
 
 ==== Current Implementation
@@ -458,9 +459,9 @@ after the `add David...` command executes to be saved in the `addressBookStateLi
 image::DeleteNewCommand1StateListDiagramXueyan.png[width="800"]
 
 Step 3: The user executes `delete n/David` to delete the person named David in the address
-book. The parser `DeleteCommandParser` will identify by the '\n' tag that the entity to be
+book. The parser `DeleteCommandParser` will identify by the `\n` tag that the entity to be
 deleted is a person.The `delete` command calls Model#getFilteredEntity(), Model#deleteEntity()
-and 'Model#commitAddressBook()', and causes modified address book state to be saved into the 'addressBookStateList'
+and `Model#commitAddressBook()`, and causes modified address book state to be saved into the `addressBookStateList`
 
 image::DeleteDeleteCommandStateListDiagramXueyan.png[width="800"]
 
@@ -756,7 +757,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
+** You can modify the existing test methods for `PersonCard` `s to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
