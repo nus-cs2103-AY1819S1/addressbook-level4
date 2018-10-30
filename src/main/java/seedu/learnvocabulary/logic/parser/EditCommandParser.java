@@ -42,8 +42,12 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         boolean hasDuplicatePrefix = false;
 
-        if (argMultimap.hasDuplicatePrefix(PREFIX_NAME) || argMultimap.hasDuplicatePrefix(PREFIX_MEANING)) {
-            hasDuplicatePrefix = true;
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            hasDuplicatePrefix = argMultimap.hasDuplicatePrefix(PREFIX_NAME);
+        }
+
+        if (argMultimap.getValue(PREFIX_MEANING).isPresent()) {
+            hasDuplicatePrefix = hasDuplicatePrefix || argMultimap.hasDuplicatePrefix(PREFIX_MEANING);
         }
 
         if (hasDuplicatePrefix) {
