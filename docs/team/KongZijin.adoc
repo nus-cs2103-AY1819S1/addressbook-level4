@@ -45,10 +45,9 @@ judgement of how much effort went into the feature}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=supportforocassionandmodule]
 include::../UserGuide.adoc[tag=edit]
 include::../UserGuide.adoc[tag=undoredo]
-include::../UserGuide.adoc[tag=history]
+
 
 == Contributions to the Developer Guide
 
@@ -56,7 +55,10 @@ include::../UserGuide.adoc[tag=history]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../UserGuide.adoc[tag=supportforocassionandmodule]
+include::../UserGuide.adoc[tag=edit]
 include::../DeveloperGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=history]
 
 
 

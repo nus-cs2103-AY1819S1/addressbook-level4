@@ -3,9 +3,6 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-
 /**
  * {@code AddressBook} that keeps track of its own history.
  */
