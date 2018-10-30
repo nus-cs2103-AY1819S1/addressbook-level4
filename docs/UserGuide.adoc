@@ -197,7 +197,7 @@ Alias: `amr` +
 Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
 [TIP]
-Updates the medical records of a patient based on his `IC_NUMBER` or the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+Updates the medical records of a patient based on the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 [TIP]
 At least one of the optional parameters must be provided.
@@ -206,7 +206,7 @@ At least one of the optional parameters must be provided.
 Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, and thus you can only add `BloodType` to a patient the very first time, and it will be permanent.
 
 [TIP]
-A `Note` usually consists of a `Message` and a `Prescription`. However, using this command does not allow you add any `Prescription`, since it is not meant to be used during the doctor's consultation. Hence, using this command will just add a `Note` with the specified `Message`, but an empty `Prescription`.
+Adding a `Note` with this command will yield a `Note` with an empty `Prescription`. A `Prescription` can only be added via the `dispenseMedicine` command.
 
 Examples:
 
