@@ -32,28 +32,28 @@ public interface Model {
     ReadOnlyExpenseTracker getExpenseTracker() throws NoUserSelectedException;
 
     /**
-     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the expense tracker.
      */
     boolean hasExpense(Expense expense) throws NoUserSelectedException;
 
     /**
      * Deletes the given expense.
-     * The expense must exist in the address book.
+     * The expense must exist in the expense tracker.
      */
     void deleteExpense(Expense target) throws NoUserSelectedException;
 
     /**
      * Adds the given expense.
-     * {@code expense} must not already exist in the address book.
+     * {@code expense} must not already exist in the expense tracker.
      * @return true if expense is added without warning, else false.
      */
     boolean addExpense(Expense expense) throws NoUserSelectedException;
 
     /**
      * Replaces the given expense {@code target} with {@code editedExpense}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the expense tracker.
      * The expense identity of {@code editedExpense}
-     * must not be the same as another existing expense in the address book.
+     * must not be the same as another existing expense in the expense tracker.
      */
     void updateExpense(Expense target, Expense editedExpense) throws NoUserSelectedException;
 
@@ -98,27 +98,27 @@ public interface Model {
     int getPeriodAmount();
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous expense tracker states to restore.
      */
     boolean canUndoExpenseTracker() throws NoUserSelectedException;
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone expense tracker states to restore.
      */
     boolean canRedoExpenseTracker() throws NoUserSelectedException;
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's expense tracker to its previous state.
      */
     void undoExpenseTracker() throws NoUserSelectedException;
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's expense tracker to its previously undone state.
      */
     void redoExpenseTracker() throws NoUserSelectedException;
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current expense tracker state for undo/redo.
      */
     void commitExpenseTracker() throws NoUserSelectedException;
 

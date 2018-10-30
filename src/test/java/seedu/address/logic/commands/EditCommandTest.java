@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
@@ -40,7 +41,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws NoUserSelectedException {
         Expense editedExpense = new ExpenseBuilder().build();
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
@@ -60,7 +61,7 @@ public class EditCommandTest {
         Expense editedExpense = expenseInList.withName(VALID_NAME_IPHONE).withCategory(VALID_CATEGORY_IPHONE)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE)
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE)
                 .withCategory(VALID_CATEGORY_IPHONE).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastExpense, descriptor);
 
@@ -75,7 +76,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() throws NoUserSelectedException {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, new EditCommand.EditExpenseDescriptor());
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, new EditExpenseDescriptor());
         Expense editedExpense = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
@@ -107,7 +108,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicateExpenseUnfilteredList_failure() throws NoUserSelectedException {
         Expense firstExpense = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(firstExpense).build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(firstExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_EXPENSE, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
@@ -116,7 +117,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicateExpenseFilteredList_failure() throws NoUserSelectedException {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
-        // edit expense in filtered list into a duplicate in address book
+        // edit expense in filtered list into a duplicate in expense tracker
         Expense expenseInList = model.getExpenseTracker().getExpenseList().get(INDEX_SECOND_EXPENSE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
                 new EditExpenseDescriptorBuilder(expenseInList).build());
@@ -127,7 +128,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidExpenseIndexUnfilteredList_failure() throws NoUserSelectedException {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
-        EditCommand.EditExpenseDescriptor descriptor =
+        EditExpenseDescriptor descriptor =
                 new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
@@ -136,13 +137,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of expense tracker
      */
     @Test
     public void execute_invalidExpenseIndexFilteredList_failure() throws NoUserSelectedException {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of expense tracker list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseTracker().getExpenseList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
@@ -155,7 +156,7 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Expense editedExpense = new ExpenseBuilder().build();
         Expense expenseToEdit = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
         Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
         expectedModel.updateExpense(expenseToEdit, editedExpense);
@@ -176,14 +177,14 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() throws NoUserSelectedException {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
-        EditCommand.EditExpenseDescriptor descriptor =
+        EditExpenseDescriptor descriptor =
                 new EditExpenseDescriptorBuilder().withName(VALID_NAME_IPHONE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> expense tracker state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single expense tracker state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -198,7 +199,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameExpenseEdited() throws Exception {
         Expense editedExpense = new ExpenseBuilder().build();
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
         Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
 
@@ -225,7 +226,7 @@ public class EditCommandTest {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_EXPENSE, DESC_GAME);
 
         // same values -> returns true
-        EditCommand.EditExpenseDescriptor copyDescriptor = new EditCommand.EditExpenseDescriptor(DESC_GAME);
+        EditExpenseDescriptor copyDescriptor = new EditExpenseDescriptor(DESC_GAME);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_EXPENSE, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

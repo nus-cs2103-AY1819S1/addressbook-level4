@@ -17,7 +17,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
 
 /**
- * Adds a expense to the address book.
+ * Adds a expense to the expense tracker.
  */
 public class AddCommand extends Command {
 
@@ -39,7 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "nus";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense tracker";
     //TODO: Redirect this to notification center
     public static final String MESSAGE_BUDGET_EXCEED_WARNING = "WARNING: "
         + "Adding this expense will cause your totalBudget to exceed.";

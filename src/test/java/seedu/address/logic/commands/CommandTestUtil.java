@@ -28,6 +28,7 @@ import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
@@ -80,8 +81,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditExpenseDescriptor DESC_GAME;
-    public static final EditCommand.EditExpenseDescriptor DESC_IPHONE;
+    public static final EditExpenseDescriptor DESC_GAME;
+    public static final EditExpenseDescriptor DESC_IPHONE;
 
     static {
         DESC_GAME = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)
@@ -119,7 +120,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered expense list in the {@code actualModel} remain unchanged <br>
+     * - the expense tracker and the filtered expense list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -149,7 +150,7 @@ public class CommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the expense at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s expense tracker.
      */
     public static void showExpenseAtIndex(Model model, Index targetIndex) throws NoUserSelectedException {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenseList().size());
@@ -164,7 +165,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first expense in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first expense in {@code model}'s filtered list from {@code model}'s expense tracker.
      */
     public static void deleteFirstExpense(Model model) throws NoUserSelectedException {
         Expense firstExpense = model.getFilteredExpenseList().get(0);

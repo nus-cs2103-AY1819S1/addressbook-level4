@@ -62,13 +62,13 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* --------------- Performing delete operation while a filtered list is being shown ------------------- */
 
-        /* Case: filtered expense list, delete index within bounds of address book and expense list -> deleted */
+        /* Case: filtered expense list, delete index within bounds of expense tracker and expense list -> deleted */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
         Index index = INDEX_FIRST_EXPENSE;
         assertTrue(index.getZeroBased() < getModel().getFilteredExpenseList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered expense list, delete index within bounds of address book but out of bounds of expense list
+        /* Case: filtered expense list, delete index within bounds of expense tracker but out of bounds of expense list
          * -> rejected
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
@@ -116,7 +116,7 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
     }
 
     /**
-     * Removes the {@code Expense} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Expense} at the specified {@code index} in {@code model}'s expense tracker.
      * @return the removed expense
      */
     private Expense removeExpense(Model model, Index index) throws NoUserSelectedException {

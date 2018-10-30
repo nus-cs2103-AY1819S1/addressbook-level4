@@ -42,7 +42,7 @@ import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the expense tracker data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -65,7 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(expenseTrackers, userPrefs);
         this.expenseTrackers = expenseTrackers;
-        logger.fine("Initializing with address book: " + expenseTrackers + " and user prefs " + userPrefs);
+        logger.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
         this.statsPeriod = defaultStatsPeriod();
@@ -84,7 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         requireAllNonNull(expenseTracker, userPrefs);
         Map<Username, EncryptedExpenseTracker> expenseTrackers = new TreeMap<>();
-        logger.fine("Initializing with address book: " + expenseTrackers + " and user prefs " + userPrefs);
+        logger.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
         this.expenseTrackers = expenseTrackers;
         try {
             this.expenseTrackers.put(expenseTracker.getUsername(),

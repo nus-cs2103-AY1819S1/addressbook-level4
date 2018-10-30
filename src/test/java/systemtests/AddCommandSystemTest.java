@@ -63,7 +63,8 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a expense without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a expense without tags to a non-empty expense tracker,
+         * command with leading spaces and trailing spaces
          * -> added
          */
         Expense toAdd = GAME;
@@ -82,20 +83,20 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a expense with all fields same as another expense in the address book except name -> added */
+        /* Case: add a expense with all fields same as another expense in the expense tracker except name -> added */
         toAdd = new ExpenseBuilder(GAME).withName(VALID_NAME_IPHONE).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a expense with all fields same as another expense in the address book except category and cost
+        /* Case: add a expense with all fields same as another expense in the expense tracker except category and cost
          * -> added
          */
         toAdd = new ExpenseBuilder(GAME).withCategory(VALID_CATEGORY_IPHONE).withCost(VALID_COST_IPHONE).build();
         command = ExpenseUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty expense tracker -> added */
         deleteAllExpenses();
         assertCommandSuccess(SCHOOLFEE);
 

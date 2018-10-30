@@ -62,7 +62,7 @@ public class SelectCommandTest {
         showExpenseAtIndex(expectedModel, INDEX_FIRST_EXPENSE);
 
         Index outOfBoundsIndex = INDEX_SECOND_EXPENSE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of expense tracker list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getExpenseTracker().getExpenseList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);

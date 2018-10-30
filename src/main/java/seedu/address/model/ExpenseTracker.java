@@ -119,7 +119,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     //// expense-level operations
 
     /**
-     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the expense tracker.
      */
     public boolean hasExpense(Expense expense) {
         requireNonNull(expense);
@@ -127,7 +127,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     /**
-     * Adds a expense into the address book
+     * Adds a expense into the expense tracker
      * @return true if expense is successfully added without exceeding totalBudget, else false
      */
     public boolean addExpense(Expense p) {
@@ -137,9 +137,9 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     /**
      * Replaces the given expense {@code target} in the list with {@code editedExpense}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the expense tracker.
      * The expense identity of {@code editedExpense}
-     * must not be the same as another existing expense in the address book.
+     * must not be the same as another existing expense in the expense tracker.
      */
     public void updateExpense(Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);
@@ -151,7 +151,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     /**
      * Removes {@code key} from this {@code ExpenseTracker}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the expense tracker.
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);

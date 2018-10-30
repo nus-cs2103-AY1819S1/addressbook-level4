@@ -85,9 +85,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s expense tracker and {@code userPrefs}. <br>
      * A user "sample" with a sample ExpenseTracker will be added if the username does not exist.
-     * or no users will be used instead if errors occur when reading {@code storage}'s address book.
+     * or no users will be used instead if errors occur when reading {@code storage}'s expense tracker.
      */
     protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Map<Username, EncryptedExpenseTracker> expenseTrackers;

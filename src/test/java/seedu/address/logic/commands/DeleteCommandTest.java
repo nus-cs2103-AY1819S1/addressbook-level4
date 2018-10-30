@@ -73,7 +73,7 @@ public class DeleteCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
 
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of expense tracker list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseTracker().getExpenseList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> expense tracker state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single expense tracker state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }

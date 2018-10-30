@@ -14,7 +14,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.testutil.ExpenseBuilder;
 
-//@@author Jiang Chen
+//@@author jcjxwy
 public class ExpenseContainsKeywordsPredicateTest {
 
     @Test

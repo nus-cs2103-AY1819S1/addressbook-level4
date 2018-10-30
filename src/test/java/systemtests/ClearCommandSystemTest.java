@@ -25,37 +25,37 @@ public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
             IllegalValueException, InvalidDataException {
         final Model defaultModel = getModel();
         showAllExpenses();
-        /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
+        /* Case: clear non-empty expense tracker, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
 
-        /* Case: undo clearing address book -> original address book restored */
+        /* Case: undo clearing expense tracker -> original expense tracker restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
-        /* Case: redo clearing address book -> cleared */
+        /* Case: redo clearing expense tracker -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, ModelUtil.modelWithTestUser());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in expense list and clears address book -> cleared and no card selected */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        /* Case: selects first card in expense list and clears expense tracker -> cleared and no card selected */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original expense tracker
         selectExpense(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the expense list before clearing -> entire address book cleared */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        /* Case: filters the expense list before clearing -> entire expense tracker cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original expense tracker
         showExpensesWithName(KEYWORD_MATCHING_BUY);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
-        /* Case: clear empty address book -> cleared */
+        /* Case: clear empty expense tracker -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
