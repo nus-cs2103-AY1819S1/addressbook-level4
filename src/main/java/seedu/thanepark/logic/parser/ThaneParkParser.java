@@ -15,13 +15,13 @@ import seedu.thanepark.logic.commands.FilterCommand;
 import seedu.thanepark.logic.commands.FindCommand;
 import seedu.thanepark.logic.commands.HelpCommand;
 import seedu.thanepark.logic.commands.HistoryCommand;
-import seedu.thanepark.logic.commands.QuickViewCommand;
 import seedu.thanepark.logic.commands.RedoCommand;
 import seedu.thanepark.logic.commands.SuggestCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.logic.commands.ViewAllCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
+import seedu.thanepark.logic.commands.ViewStatusCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
 
 /**
@@ -78,20 +78,20 @@ public class ThaneParkParser {
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommandParser().parse(arguments);
 
-        case QuickViewCommand.COMMAND_WORD:
-            return new QuickViewCommand();
-
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
+        case ViewCommand.COMMAND_WORD:
+            return new ViewCommandParser().parse(arguments);
+
         case ViewAllCommand.COMMAND_WORD:
             return new ViewAllCommand();
 
-        case ViewCommand.COMMAND_WORD:
-            return new ViewCommandParser().parse(arguments);
+        case ViewStatusCommand.COMMAND_WORD:
+            return new ViewStatusCommandParser().parse(arguments);
 
         default:
             SuggestCommand command = new SuggestCommand(commandWord);
