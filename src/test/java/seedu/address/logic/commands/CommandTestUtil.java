@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -123,7 +124,12 @@ public class CommandTestUtil {
     public static final String INVALID_EVENT_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed
     public static final String INVALID_EVENT_CONTACT_INDEX = " " + PREFIX_INDEX + "-1"; // contact index negative
 
+
     public static final String NONEXISTENT_EVENT_TAG = "Class";
+
+    // Import contacts
+    public static final String FILE_DESC = " " + PREFIX_FILE;
+
 
     public static final String PREAMBLE_WHITESPACE = "\r  \t  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

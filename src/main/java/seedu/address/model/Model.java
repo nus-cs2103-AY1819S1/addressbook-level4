@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -70,6 +71,12 @@ public interface Model {
      * the address book.
      */
     void addEvent(Event event);
+
+    /**
+     * Reads contacts info in the given file reader.
+     * {@code fileReader} must be have a valid file.
+     */
+    void importContacts(FileReader fileReader);
 
     /**
      * Returns true if an event tag with the same identity as {@code eventTag} exists in the address book.
