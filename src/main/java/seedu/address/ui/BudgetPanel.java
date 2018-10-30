@@ -16,14 +16,12 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
-import seedu.address.model.budget.Budget;
-
-
+import seedu.address.model.budget.TotalBudget;
 
 
 //@@author snookerballs
 /**
- * Panel containing the budget information.
+ * Panel containing the totalBudget information.
  */
 public class BudgetPanel extends UiPart<Region> {
     private static final String FXML = "BudgetPanel.fxml";
@@ -47,28 +45,28 @@ public class BudgetPanel extends UiPart<Region> {
     private double currentBudgetCap;
 
 
-    public BudgetPanel (Budget budget) {
+    public BudgetPanel (TotalBudget totalBudget) {
         super(FXML);
         registerAsAnEventHandler(this);
         currentExpenses = 0;
         currentBudgetCap = 0;
-        update(budget);
+        update(totalBudget);
     }
 
     /**
      * Update the budgetDisplay, expenseDisplay and budgetBar
-     * @param budget to update from
+     * @param totalBudget to update from
      */
-    public void update(Budget budget) {
-        double budgetCap = budget.getBudgetCap();
-        double currentExpenses = budget.getCurrentExpenses();
+    public void update(TotalBudget totalBudget) {
+        double budgetCap = totalBudget.getBudgetCap();
+        double currentExpenses = totalBudget.getCurrentExpenses();
 
         updateBudgetBar(budgetCap, currentExpenses);
         setBudgetUiColors(budgetCap, currentExpenses);
     }
 
     /**
-     * Update the text to display the correct budget
+     * Update the text to display the correct totalBudget
      * @param budgetCap to display
      */
     public void updateBudgetCapTextDisplay(double budgetCap) {
@@ -103,7 +101,7 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     /**
-     * Triggers animation for the budget panel
+     * Triggers animation for the totalBudget panel
      * @param newExpenses
      * @param newBudgetCap
      * @param newPercentage
@@ -132,7 +130,7 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     /**
-     * Adds the key frames needed to increment the expense and budget cap text display
+     * Adds the key frames needed to increment the expense and totalBudget cap text display
      * @param newExpenses to increment expenseDisplay to
      * @param newBudgetCap to increment budgetDisplay to
      */
@@ -165,7 +163,8 @@ public class BudgetPanel extends UiPart<Region> {
     }
 
     /**
-     * Changes the colors of the expenseDisplay and budget bar to red if overbudget, and green in below budget.
+     * Changes the colors of the expenseDisplay and totalBudget bar to red if over budget, and green in below
+     * totalBudget.
      */
     public void setBudgetUiColors(double budgetCap, double currentExpenses) {
         if (budgetCap < currentExpenses) {
@@ -181,7 +180,7 @@ public class BudgetPanel extends UiPart<Region> {
     @Subscribe
     public void handleUpdateBudgetPanelEvent(UpdateBudgetPanelEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        update(event.budget);
+        update(event.totalBudget);
     }
 
 }
