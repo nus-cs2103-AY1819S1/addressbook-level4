@@ -127,9 +127,9 @@ public class DetailPanel extends UiPart<Region> {
             builder.append(def.getName());
             builder.append(", ");
             if (portion.getAmount().getValue() % 1 > 0) {
-                builder.append(String.format("%.2f", portion.getAmount().getValue()));
+                builder.append(String.format("%.1f", portion.getAmount().getValue()));
             } else {
-                builder.append(String.format("%.2f", portion.getAmount().getValue()));
+                builder.append(String.format("%.1f", portion.getAmount().getValue()));
             }
             builder.append(" ");
             builder.append(portion.getUnit());
