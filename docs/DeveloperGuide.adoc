@@ -156,15 +156,15 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
-
+// tag::explanationofpolymorphism[]
 Even though the storage unit contains three types of Entities - Person, Module and Occasion, the behaviour of all three types is generally similar to each other.
 
 .Activity Diagram when user adds any entity
 image::AddActivityDiagram.png[width="800"]
-As of v1.2.1, the storage, commands, and parsers are distinct classes for each type of entity.
+As of v1.3, the storage, commands, and parsers are distinct classes for each type of entity.
 The diagram above shows that although these classes are separate, they serve very similar purposes.
 Polymorphism may be implemented on some commands in later versions.
-
+// end::explanationofpolymorphism[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -175,7 +175,8 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of three windows: The `PersonWindow`, `ModuleWindow` and `OccasionWindow`. Each of these windows inherits from the `MainWindow`.
+The `MainWindow` is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -248,21 +249,15 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::supportforocassionandmodule[]
-=== [Proposed] Features supporting Person, Module and Occasion
+=== Features supporting Person, Module and Occasion
 Our application is an extension of address book application. Besides
-supporting basic address book features for 'Person', we also intended to
-make those features be available for 'Module' and 'Occasion'. This makes this
+supporting basic address book features for `Person`, we also intended to
+make those features be available for `Module` and `Occasion`. This makes this
 application(TheTracker) to be able to track the modules a person takes, as
 well as the Occasions they participate in.
 
 ==== Current Design plan
-The graph below shows the inheritance relationship between the related
-interface and classes.
-
-image::ClassInheritance.png[width="800"]
-
-We would be using polymorphism to realise support for 'Person', 'Module' and
-'Occasion'.
+We are storing persons, modules and occasions individually. And command are also entity-specific.
 // end::supportforocassionandmodule[]
 
 // tag::find[]
@@ -322,16 +317,16 @@ the currently shown list in the UI, by posting a new `JumpToListRequestEvent`.
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by 'VersionAddressBook'.It extends
-'AddressBook' with an command history, stored internally as an
+The undo/redo mechanism is facilitated by `VersionAddressBook`.It extends
+`AddressBook` with an command history, stored internally as an
 'addressBookStateList' and 'currentStatePointer'.
 In addition, it implements the following operations:
 
-* 'VersionedAddressBook#commit()': Saves the current book state
+* `VersionedAddressBook#commit()`: Saves the current book state
 in the command history
-* 'VersionedAddressBook#undo()': Restores the address book to its previous
+* `VersionedAddressBook#undo()`: Restores the address book to its previous
 state.
-* 'VersionedAddressBook#redo()': Restores the address book to its previously
+* `VersionedAddressBook#redo()`: Restores the address book to its previously
 undone state.
 
 These operations are exposed in the Model interface as
@@ -341,16 +336,15 @@ Provided below is an usage scenario instance. It illustrates how the
 undo/redo mechanism behaves at each step.
 
 Step 1: The user launches TheTracker for the first time. The
-'VersionedAddressBook' will be initialised with the initial address book
+`VersionedAddressBook` will be initialised with the initial address book
 state, which the 'currentStatePointer' is currently pointing to.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2: The user executes 'add n/David...' command to add a person called
-David in his TheTracker. The 'find' command calls 'Model#commitAddressBook()
-', causing the modified state of TheTracker after the 'find David...' command
- executes to be saved in the 'addressBookStateList', and the
- 'currentStatePointer' is shifted to the newly inserted address book state.
+Step 2: The user executes `add n/David...` command to add a person called
+David in his TheTracker. The `find` command calls `Model#commitAddressBook()`, causing the modified state of TheTracker after the `find David...` command
+executes to be saved in the `addressBookStateList`, and the
+`currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -438,8 +432,9 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::history[]
 === History feature
-==== Current Implementation
-==== Design Considerations
+The following sequence diagram shows how the `history` operation works:
+
+image::HistoryCommandSequenceDiagram.png[width="800"]
 
 // end::history[]
 
@@ -476,15 +471,16 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+//tag::delete[]
 === Delete
-(to be completed) +
-`delete` is a basic feature provided by every version of 'TheTracker'.
-It supports deletions of `Person`, `Module` and `Occasion', by the same `DeleteCommand` with different parameters, which would facilitate
-and improve the user experience.
+`delete` is a basic feature provided by every version of `TheTracker`.
+It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeletePersonCommand` `DeleteModuleCommand` and
+`DeleteOccasionCommand` respectively.
 
 ==== Current Implementation
-The `delete` mechanism is managed by `DeleteCommand`, which extends the `Command` class and uses inheritance to facilitate implementation.
-Generally, it implements the following operation:
+This following section will use `DeletePersonCommand` as an example, `DeleteModuleCommand` and  `DeleteOccasionCommand`
+uses the same mechanism. `DeletePersonCommand`extends the `Command` class and uses inheritance to facilitate
+implementation.
 
 * `DeleteCommand#excute(Model model, CommandHistory history)`: deletes the entity passed to the `DeleteCommand` class
 
@@ -497,23 +493,22 @@ Step 1: The user launches TheTracker for the first time. The
 `VersionedAddressBook` will be initialised with the initial address book
 state.
 
-image::DeleteStartingStateListDiagramXueyan.png[width="800"]
+image::DeleteStartingStateListDiagram.png[width="800"]
 
-Step 2: The user executes `add n/David...` command to add a person named
-David in his TheTracker. The parser `AddCommandParser` will identify by
-the '\n' tag that the entity to be added is a person. The `add` command
+Step 2: The user executes `addperson n/David...` command to add a person named
+David in his TheTracker. The parser `AddPersonCommandParser` will identify by
+the 'n/' tag that the entity to be added is a person. The `addperson` command
 calls `Model#commitAddressBook()`, causing the modified state of TheTracker
 after the `add David...` command executes to be saved in the `addressBookStateList`.
 
-image::DeleteNewCommand1StateListDiagramXueyan.png[width="800"]
+image::DeleteNewCommand1StateListDiagram.png[width="800"]
 
-Step 3: The user executes `delete n/David` to delete the person named David in the address
-book. The parser `DeleteCommandParser` will identify by the '\n' tag that the entity to be
-deleted is a person.The `delete` command calls Model#getFilteredEntity(), Model#deleteEntity()
-and 'Model#commitAddressBook()', and causes modified address book state to be saved into the 'addressBookStateList'
+Step 3: The user executes `deleteperson 1` to delete the person named David in the address
+book who has an index 1. The parser `DeletePersonCommandParser` will identify by the index of the person to be
+deleted.The `deleteperson` command calls Model#getFilteredPersonList(), Model#deletePerson()
+and `Model#commitAddressBook()`, and causes modified address book state to be saved into the `addressBookStateList`
 
-image::DeleteDeleteCommandStateListDiagramXueyan.png[width="800"]
-
+image::DeleteDeleteCommandStateListDiagram.png[width="800"]
 
 The following sequence diagram shows how the delete operation works:
 
@@ -536,7 +531,7 @@ image::DeleteSequenceDiagramXueyan.png[width="800"]
 ** Cons:
 *** User needs to know the index number of the Entity to be deleted.
 
-
+// end::delete[]
 
 == Documentation
 
