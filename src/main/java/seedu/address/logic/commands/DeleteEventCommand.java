@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
@@ -13,22 +12,18 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 
 /**
- * Favourite an event for it to show up as a notification on startup
- * To do : documentation
+ * Deletes an event identified using its displayed date and index from the address book.
  */
+public class DeleteEventCommand extends Command {
 
-public class FavouriteCommand extends Command {
-
-    public static final String COMMAND_WORD = "favourite";
-    public static final String COMMAND_WORD_ALIAS = "fv";
+    public static final String COMMAND_WORD = "deleteEvent";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Favourites the event identified by the date and index number used in the displayed event list.\n"
+            + ": Deletes the event identified by the date and index number used in the displayed event list.\n"
             + "Parameters: "
             + PREFIX_DATE + "DATE "
             + PREFIX_INDEX + "INDEX (must be a positive integer)\n"
@@ -36,12 +31,12 @@ public class FavouriteCommand extends Command {
             + PREFIX_DATE + "2018-09-18 "
             + PREFIX_INDEX + "1";
 
-    public static final String MESSAGE_FAVOURITE_EVENT_SUCCESS = "Favorite Event: ";
+    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
 
     private final EventDate targetDate;
     private final Index targetIndex;
 
-    public FavouriteCommand(EventDate targetDate, Index targetIndex) {
+    public DeleteEventCommand(EventDate targetDate, Index targetIndex) {
         this.targetDate = targetDate;
         this.targetIndex = targetIndex;
     }
@@ -65,21 +60,23 @@ public class FavouriteCommand extends Command {
         // lastShownList should only have one list matching a given specific EventDate
         assert(targetDateList.size() == 1);
 
-        List<Event> listToFavouriteFrom = targetDateList.get(0);
+        List<Event> listToRemoveFrom = targetDateList.get(0);
 
-        if (targetIndex.getZeroBased() >= listToFavouriteFrom.size()) {
+        if (targetIndex.getZeroBased() >= listToRemoveFrom.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
-        Event favouriteEvent = listToFavouriteFrom.get(targetIndex.getZeroBased());
-
-        ModelManager.updateFavourite("Event Name: " + favouriteEvent.getEventName()
-                + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
-                + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
-                + "\nEvent Details: " + favouriteEvent.getEventDescription());
-
-        return new CommandResult(String.format(MESSAGE_FAVOURITE_EVENT_SUCCESS
-                + favouriteEvent.getEventName() + " on " + favouriteEvent.getEventDate()));
+        Event eventToDelete = listToRemoveFrom.get(targetIndex.getZeroBased());
+        model.deleteEvent(eventToDelete);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteEventCommand // instanceof handles nulls
+                && targetDate.equals(((DeleteEventCommand) other).targetDate)
+                && targetIndex.equals(((DeleteEventCommand) other).targetIndex)); // state check
+    }
 }

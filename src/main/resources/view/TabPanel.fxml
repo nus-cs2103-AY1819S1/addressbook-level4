@@ -16,5 +16,10 @@
         <AnchorPane />
       </content>
     </Tab>
+    <Tab fx:id="locationDisplayTab" text="LOCATION DISPLAY">
+      <content>
+        <AnchorPane />
+      </content>
+    </Tab>
   </tabs>
 </TabPane>

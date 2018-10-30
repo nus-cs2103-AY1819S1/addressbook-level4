@@ -18,6 +18,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventClashException;
+import seedu.address.model.event.exceptions.EventNotFoundException;
 import seedu.address.testutil.ScheduledEventBuilder;
 
 public class UniqueEventListTest {
@@ -118,6 +119,26 @@ public class UniqueEventListTest {
         List<Event> listWithClashingEvents = Arrays.asList(DOCTORAPPT, clashingEvent);
         thrown.expect(EventClashException.class);
         uniqueEventList.setEvents(listWithClashingEvents);
+    }
+
+    @Test
+    public void remove_nullEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueEventList.remove(null);
+    }
+
+    @Test
+    public void remove_eventDoesNotExist_throwsEventNotFoundException() {
+        thrown.expect(EventNotFoundException.class);
+        uniqueEventList.remove(DOCTORAPPT);
+    }
+
+    @Test
+    public void remove_existingEvent_removesEvent() {
+        uniqueEventList.add(DOCTORAPPT);
+        uniqueEventList.remove(DOCTORAPPT);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        assertEquals(expectedUniqueEventList, uniqueEventList);
     }
 
     @Test
