@@ -24,6 +24,9 @@ public class StatusBarFooter extends UiPart<Region> {
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
 
+    public static final String USER_SESSION_STATUS_INITIAL = "You are not logged in";
+    public static final String USER_SESSION_STATUS_UPDATED = "Logged in: %s (Role: %s)";
+    
     /**
      * Used to generate time stamps.
      *
@@ -41,13 +44,13 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private StatusBar syncStatus;
     @FXML
-    private StatusBar saveLocationStatus;
+    private StatusBar userSessionStatus;
 
 
-    public StatusBarFooter(Path saveLocation) {
+    public StatusBarFooter() {
         super(FXML);
         setSyncStatus(SYNC_STATUS_INITIAL);
-        setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
+        setUserSessionStatus(USER_SESSION_STATUS_INITIAL);
         registerAsAnEventHandler(this);
     }
 
@@ -65,8 +68,8 @@ public class StatusBarFooter extends UiPart<Region> {
         return clock;
     }
 
-    private void setSaveLocation(String location) {
-        Platform.runLater(() -> saveLocationStatus.setText(location));
+    private void setUserSessionStatus(String userSession) {
+        Platform.runLater(() -> userSessionStatus.setText(userSession));
     }
 
     private void setSyncStatus(String status) {
