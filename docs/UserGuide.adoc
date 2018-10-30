@@ -355,23 +355,40 @@ Displays view of calendar with current week as default page with the events load
 
 image::calendar_view_diagram.png[width="790"]
 
-==== Adding event into calendar : `add_event`
+==== Adding all day event into calendar : `add_all_day_event`
 
-Adds an event into the calendar. +
-Format: `add_event month/MONTH year/YEAR sdate/START DATE shour/START HOUR smin/START MIN
-edate/END DATE ehour/END HOUR emin/END MINUTE title/NAME OF EVENT`
+Adds an all day event into the calendar. +
+Format: `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT`
 
 ****
-* The *MONTH must be specified as MMM*.
-* The *YEAR must be specified as YYYY*.
-* *DATE, HOUR, MINUTE must be specified as XX*.
+* The MONTH *must be specified as MMM*.
+* The MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+* The DATE *must be specified as DD*.
 ****
 
 Example:
 
-* `add_event month/Feb year/2018 sdate/01 shour/12 smin/00 edate/01 ehour/15 emin/00 title/Enthral` +
-Adds an event titled `Enthral` into calendar for `Feb 2018` which starts on the `1` st at `1200` and ends on
-the `1` st at `1500`.
+* `add_event month/Oct year/2018 date/08 title/Hall open day` +
+Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
+
+==== Adding event into calendar : `add_event`
+Format: `add_event month/MMM year/YYYY sdate/DD shour/HH smin/mm
+edate/DD ehour/HH emin/mm title/NAME OF EVENT`
+
+****
+* The MONTH *must be specified as MMM*.
+* The MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+* The DATE *must be specified as DD*.
+* DATE, HOUR, MINUTE *must be specified as XX*.
+****
+
+* `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
+Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
+the `10th` at `1800`.
+
+==== Delete event from calendar : `delete_event`
 
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
