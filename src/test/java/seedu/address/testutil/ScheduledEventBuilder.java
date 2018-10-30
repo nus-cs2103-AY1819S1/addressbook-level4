@@ -10,6 +10,7 @@ import seedu.address.model.event.EventDescription;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventTime;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -32,6 +33,7 @@ public class ScheduledEventBuilder {
     private EventTime eventEndTime;
     private EventAddress eventAddress;
     private Set<Person> eventContacts;
+    private Set<Tag> eventTags;
 
     /**
      * Builds a new Event with the default values.
@@ -44,6 +46,7 @@ public class ScheduledEventBuilder {
         eventEndTime = new EventTime(DEFAULT_EVENT_END_TIME);
         eventAddress = new EventAddress(DEFAULT_EVENT_ADDRESS);
         eventContacts = new HashSet<>();
+        eventTags = new HashSet<>();
     }
 
     /**
@@ -57,6 +60,7 @@ public class ScheduledEventBuilder {
         eventEndTime = eventToCopy.getEventEndTime();
         eventAddress = eventToCopy.getEventAddress();
         eventContacts = eventToCopy.getEventContacts();
+        eventTags = new HashSet<>(eventToCopy.getEventTags());
     }
 
     /**
@@ -116,10 +120,19 @@ public class ScheduledEventBuilder {
     }
 
     /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Event} that we are building.
+     */
+    public ScheduledEventBuilder withEventTags(String ... tags) {
+        this.eventTags = SampleDataUtil.getTagSet(tags);
+        return this;
+    }
+
+    /**
      * Builds the Event
      */
     public Event build() {
-        Event event = new Event(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress);
+        Event event = new Event(eventName, eventDescription, eventDate, eventStartTime, eventEndTime, eventAddress,
+                eventTags);
         event.setEventContacts(eventContacts);
         return event;
     }

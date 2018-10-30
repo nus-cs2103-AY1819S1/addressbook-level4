@@ -24,9 +24,9 @@ public class VersionedAddressBookTest {
     private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
     private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
     private final ReadOnlyAddressBook addressBookWithDoctorAppt =
-            new AddressBookBuilder().withEvent(DOCTORAPPT).build();
+            new AddressBookBuilder().withEventTags(DOCTORAPPT.getEventTags()).withEvent(DOCTORAPPT).build();
     private final ReadOnlyAddressBook addressBookWithMeeting =
-            new AddressBookBuilder().withEvent(MEETING).build();
+            new AddressBookBuilder().withEventTags(MEETING.getEventTags()).withEvent(MEETING).build();
     private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
 
     @Test

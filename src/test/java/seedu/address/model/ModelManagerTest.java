@@ -84,12 +84,14 @@ public class ModelManagerTest {
 
     @Test
     public void hasEvent_eventInAddressBook_returnsTrue() {
+        DOCTORAPPT.getEventTags().forEach(modelManager::addEventTag);
         modelManager.addEvent(DOCTORAPPT);
         assertTrue(modelManager.hasEvent(DOCTORAPPT));
     }
 
     @Test
     public void hasClashingEvent_clashingEventInAddressBook_returnsTrue() {
+        DOCTORAPPT.getEventTags().forEach(modelManager::addEventTag);
         modelManager.addEvent(DOCTORAPPT);
         Event clashingEvent = new ScheduledEventBuilder()
                 .withEventName(DOCTORAPPT.getEventName().eventName)
@@ -149,6 +151,8 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder()
                 .withPerson(ALICE)
                 .withPerson(BENSON)
+                .withEventTags(DOCTORAPPT.getEventTags())
+                .withEventTags(MEETING.getEventTags())
                 .withEvent(DOCTORAPPT)
                 .withEvent(MEETING)
                 .build();

@@ -24,6 +24,7 @@ public class XmlSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_EVENT = "Events list contains duplicate event(s).";
     public static final String MESSAGE_CLASHING_EVENT = "Events list contains clashing event(s).";
     public static final String MESSAGE_DUPLICATE_TAG = "Event tags list contains duplicate event tag(s).";
+    public static final String MESSAGE_NONEXISTENT_TAG = "One or more event tag(s) does not exist in the address book.";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -69,22 +70,24 @@ public class XmlSerializableAddressBook {
             addressBook.addPerson(person);
         }
 
-        for (XmlAdaptedEvent e : events) {
-            Event event = e.toModelType();
-            if (addressBook.hasEvent(event)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
-            } else if (addressBook.hasClashingEvent(event)) {
-                throw new IllegalValueException(MESSAGE_CLASHING_EVENT);
-            }
-            addressBook.addEvent(event);
-        }
-
         for (XmlAdaptedTag t : eventTags) {
             Tag tag = t.toModelType();
             if (addressBook.hasEventTag(tag)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TAG);
             }
             addressBook.addEventTag(tag);
+        }
+
+        for (XmlAdaptedEvent e : events) {
+            Event event = e.toModelType();
+            if (addressBook.hasEvent(event)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
+            } else if (addressBook.hasClashingEvent(event)) {
+                throw new IllegalValueException(MESSAGE_CLASHING_EVENT);
+            } else if (!event.getEventTags().stream().allMatch(addressBook::hasEventTag)) {
+                throw new IllegalValueException(MESSAGE_NONEXISTENT_TAG);
+            }
+            addressBook.addEvent(event);
         }
         return addressBook;
     }
