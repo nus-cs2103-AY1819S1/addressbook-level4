@@ -27,7 +27,7 @@ You will have *all the tools* needed to manage your patient and medicine data, c
 
 Follow the steps below to get started with CLInic.
 
-.  Ensure you have Java version `9` or later installed in your computer.
+.  Check you have Java version `9` or later installed in your computer.
 .  Download the latest `CLInic.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
@@ -251,16 +251,16 @@ Lists all medicine stocks in the CLInic inventory. +
 Alias: `ls` +
 Format: `listStock`
 
-==== Finding details of a medicine: `findStock`
+==== Finding details of a medicine: `findMedicine`
 
-Finds the details of a medicine from its serial number. +
-Alias: `fs` +
-Format: `findStock SERIAL_NUMBER`
+Finds the details of a medicine from its medicine name. +
+Alias: `fm` +
+Format: `findMedicine MEDICINE_NAME`
 
 Example:
 
-* `findStock 1001` +
-Finds the details of the medicine tagged with the serial number 1001.
+* `findMedicine panadol` +
+Finds the details of the medicine tagged with the medicine name panadol.
 
 
 ==== Listing medicines that are low in supply: `checkStock`
@@ -549,7 +549,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Commands Words |Commands Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |Add |`a`  |`add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` |`add n/John Doe p/98765432 e/johnd@example.com a/John Street, block 123, #01-01`
 |List |`l`  | `list` |`list`
 |Edit |`e`  |`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |`edit 1 p/91234567 e/johndoe@example.com`
@@ -565,12 +565,12 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Commands Words |Commands Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |addMedicine |`am`  |`​addMedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK` |`addMedicine mn/panadol msq/500 ppu/0.50 sn/1234 s/1000`
 |editMedicine |`em`  | `editMedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editMedicine 1 n/hydrazine s/50022 p/20 min/30`
 |restock |`rs`  |`restock INDEX amt/AMOUNT` |`restock 2 amt/123`
 |listStock |`ls`  |`listStock` |`listStock`
-|findStock |`fs`  |`findStock SERIAL_NUMBER` |`findStock 1001`
+|findMedicine |`fs`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
 |checkStock |`cs`  |`checkStock` |`checkStock`
 |=======================================================================
 
@@ -578,7 +578,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Commands Words |Commands Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |register |`reg`  |`register INDEX​` |`register 1`
 |queue |`q`  | `queue` |`queue`
 |remove |`rem`  |`remove INDEX` |`remove 2`
@@ -594,7 +594,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Commands Words |Commands Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |mc |-  |`mc INDEX​` |`mc 1`
 |receipt |`rec`  | `receipt INDEX` |`receipt 2`
 |refer |`ref`  |`refer INDEX` |`refer 3`
@@ -604,7 +604,7 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-|Commands Words |Commands Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |help |-  |`help​` |`help`
 |history |`h`  | `history` |`history`
 |undo |`u`  |`undo` |`undo`
