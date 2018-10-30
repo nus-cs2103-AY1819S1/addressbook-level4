@@ -191,6 +191,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void setCurrentPreviewImage(PreviewImage previewImage) {
+        currentPreviewImage = previewImage;
+    }
+
+    @Override
     public Path getCurrentPreviewImagePath() {
         return currentPreviewImage.getCurrentPath();
     }
