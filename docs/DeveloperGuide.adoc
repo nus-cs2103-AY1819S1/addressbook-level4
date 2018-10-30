@@ -133,11 +133,11 @@ Step 4: The word is then stored within the storage file.
 
 **Word Of The Day**
 
-The Word Of The Day command is indicated as `Word` in `commands`, and inherits the `Command` class. It enables the user to display the current word of the day taken from website Dictionary.com. Similarly to the "learn" command, this command also requires a working internet connection. It is impossible to make this feature available offline since the word of the day cannot be predicted on Dictionary.com
+The Word Of The Day command is indicated as `WordOfTheDay` in `commands`, and inherits the `Command` class. It enables the user to display the current word of the day taken from website Dictionary.com. Similarly to the "learn" command, this command also requires a working internet connection. It is impossible to make this feature available offline since the word of the day cannot be predicted on Dictionary.com
 
 Functions added:
 
-* `Dictionary#doesWordOfTheDayExist()` -- checks to see if the word of the day exist on Dictionary.com and returns the word of the day page as a Document object.
+* `Dictionary#doesWordOfTheDayExist()` -- Checks to see if the word of the day exist on Dictionary.com and returns the word of the day page as a Document object.
 * `Dictionary#fetchWordOfTheDay()` -- Parses the word of the day and its meaning from the Document object returned by `doesWordOfTheDayExist()` and returns itself (Dictionary object).
 
 Below is a description on how the Word Of The Day function operates:
