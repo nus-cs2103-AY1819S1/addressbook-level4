@@ -1,5 +1,6 @@
-= Lost and Found - User Guide
+= LostBUTFound - User Guide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -17,15 +18,20 @@ By: `Team W12-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-Lost and Found is made for lost and found (duh) administrators... +
-...with a fear of mice (no pun intended).
+Welcome to *LostBUTFound*! *LostBUTFound* is made for administrators *managing lost and found articles*.
 
-It won't deter mice, but it makes you finish your job twice as fast.
+More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits of a Graphical User Interface (GUI).
+
+=== Accessing the user guide
+
+Everything you need to know about LostBUTFound is in this user guide.
+
+You can quickly navigate the user guide by clicking on the links found in the table of contents at the top of the user guide.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your computer.
-.  Download the latest `Lost and Found.jar` link:{repoURL}/releases[here].
+.  Download the latest `LostBUTFound.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Lost and Found app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -43,6 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 [[Features]]
 == Features
+LostBUTFound have many features to help administrators, and the subsequent section provides a step-by-step guide of all the commands LostBUTFound can offer to you.
 
 ====
 *Command Format*
@@ -54,17 +61,50 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Viewing help : `help`
+Description: Opens the user guide in a new window.
+
 Format: `help`
 
-=== Listing all articles : `list`
-Shows a list of all articles in the app. +
+=== Managing articles
+This section will detail commands that are used to managed article entries in LostBUTFound.
+
+==== Adding an article : `add`
+Description: Add a new article to LostBUTFound.
+
+Format: `add n/NAME d/DESCRIPTION f/FINDER p/PHONE e/EMAIL [t/TAG]...`
+
+* Articles added are in an unresolved state.
+* An article can have any number of tags (including 0)
+
+Examples:
+
+* `add n/Wallet d/Empty Wallet found in COM1 f/John Doe p/98765432 e/johnd@example.com`
+* `add n/Nike Bag d/Found at YIH f/Betsy Crowe t/blue e/betsycrowe@example.com p/1234567`
+
+==== Resolving an article: `resolve`
+Description: Resolves the specified article from LostBUTFound.
+
+Format: `resolve INDEX`
+
+* Resolves the article at the specified INDEX
+* The index refers to the index number shown in the displayed article list.
+* The index must be a positive number 1, 2, 3, ...
+
+Examples:
+
+* `resolve 2` resolves the second article in the list
+
+==== Listing all articles : `list`
+Description: Shows a list of all unresolved articles in LostBUTFound. Resolved articles will not appear in the list.
+
 Format: `list`
 
-=== Editing an article : `edit`
-Edits an existing article in the article list +
-Format `edit INDEX [n/NAME] [t/TAG]...`
+==== Editing an article : `edit`
+Description: Edits an unresolved article from LostBUTFound. Resolved articles cannot be edited.
 
-* Edits the article at the specific INDEX. The index refers to the index number shown in the displayed article list. The index must be a positive integer 1, 2, 3, ...
+Format `edit INDEX [n/NAME] [d/DESCRIPTION] [f/FINDER] [p/PHONE] [e/EMAIL] [t/TAG]...`
+
+* Edits the article at the specific INDEX. The index refers to the index number shown in the displayed list. The index must be a positive integer 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * When editing tags, the existing tags of the article will be removed i.e. adding of tags is not cumulative.
 * You can remove all the article's tags by typing t/ without specifying any tags after it.
@@ -73,23 +113,9 @@ Examples:
 
 * `edit 2 n/Bag t/` edits the name of the second article to be `Bag` and clears all existing tags.
 
-=== 3.5 Locating articles by keywords: `find`
-Finds articles with the keyword in all fields +
-format: `find KEYWORD [MORE_KEYWORDS]`
+==== Deleting an article: `delete`
+Description: Deletes the specified article from LostBUTFound. Both resolved and unresolved articles can be deleted.
 
-* The search is case sensitive e.g. wallet will NOT match Wallet.
-* The order of the keywords does not matter. e.g. Overpriced iPhone will match iPhone Overpriced.
-* All fields will be searched.
-* Only full words will be matched. e.g. Phone will not match iPhone.
-* Person matching at least one keyword will be returned, e.g. Overpriced iPhone will return Cheap iPhone, Overpriced Phone
-
-Examples:
-
-* `find Jacket` returns Jacket and Torn Jacket
-* `find wallet blue big-sized` returns any articles having field wallet, blue, or big-sized
-
-=== Deleting an article: `delete`
-Deletes the specified article from the article list. +
 Format: `delete INDEX`
 
 * Deletes the article at the specified INDEX
@@ -100,8 +126,9 @@ Examples:
 
 * `delete 2` deletes the second article in the list
 
-=== Selecting an article: `select`
-Selects the article identified by the index number used in the displayed articles. +
+==== Selecting an article: `select`
+Description: Selects the article identified by the index number from LostBUTFound.
+
 Format: `select INDEX`
 
 * Selects the article and shows a more detailed description of the article at the specified INDEX.
@@ -112,38 +139,100 @@ Examples:
 
 * `select 2` selects the second article in the list.
 
-=== Resolve claimed articles: `resolve`
-Mark an article as resolved and remove it from active list. +
-Format: `resolve INDEX`
+=== Finding articles
+This section will detail commands that are used to find article entries using various parameters in LostBUTFound. The list shown in the interface will only show matching article entries after executing the command.
 
-* Resolve the article at the specified index
-* The index refers to the index number shown in the displayed article list.
-* The index must be a positive integer 1, 2, 3, ...
+==== Finding unresolved articles by name: `find-n`
+Description: Finds unresolved articles whose name contains all of the given keywords.
 
-=== Listing entered commands: `history`
-Lists all the commands that you have entered in reverse chronological order. +
+Format: `find-n KEYWORD [MORE_KEYWORDS]`
+
+* The search is case insensitive e.g. `wallet` will match `Wallet`.
+* The order of the keywords does not matter. e.g. `iPhone XS` will match `XS iPhone`.
+* The name field of unresolved articles will be searched.
+* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
+* Unresolved articles matching all the keyword in the name field will be returned (AND operation), e.g. `iPhone XS` will not return `Cheap iPhone`, `iPhone`.
+
+Examples:
+
+* `find-n Jacket` returns unresolved article entries with name `Jacket` and `Torn Jacket`.
+* `find-n wallet blue` returns unresolved article entries with names `wallet blue` and `big blue wallet`.
+
+==== Finding unresolved articles by description: `find-d`
+Description: Finds unresolved articles whose description contains all of the given keywords.
+
+Format: `find-d KEYWORD [MORE_KEYWORDS]`
+
+* The search is case insensitive e.g. `library` will match `Library`.
+* The order of the keywords does not matter. e.g. `central library` will match `library central`.
+* The description field of unresolved articles will be searched.
+* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
+* Unresolved articles matching all the keyword in the description field will be returned (AND operation), e.g. `Central library` will not return `Science library`, `library`.
+
+Examples:
+
+* `find-d Jacket` returns unresolved article entries with description `Jacket` and `Torn Jacket`.
+* `find-d central library` returns unresolved article entries with description `near Central library`, `Central library toilet`.
+
+==== Finding unresolved articles by keyword: `findall`
+Description: Finds unresolved articles which contains any of the given keywords.
+
+Format: `findall KEYWORD [MORE_KEYWORDS]`
+
+* The search is case insensitive e.g. `library` will match `Library`.
+* The order of the keywords does not matter. e.g. `central library` will match `library central`.
+* All fields of unresolved articles will be searched.
+* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
+* Unresolved articles matching at least one of the keyword will be returned (OR operation), e.g. `Central library` will return `Science library`, `library toilet`.
+
+Examples:
+
+* `findall Jacket` returns unresolved article entries which have fields having keywords `Jacket`.
+* `findall Tom wallet` returns unresolved article entries which have fields having keywords `Tom`, `Wallet`.
+
+==== Finding resolved articles by keyword: `findresolved`
+Description: Finds resolved articles which contains any of the given keywords.
+
+Format: `findresolved [KEYWORD] [MORE_KEYWORDS]`
+
+* A list of resolved articles will be returned if no keywords are entered.
+* The search is case insensitive e.g. `library` will match `Library`.
+* The order of the keywords does not matter. e.g. `central library` will match `library central`.
+* All fields of resolved articles will be searched.
+* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
+* Resolved articles matching at the keyword will be returned (OR operation), e.g. `Central library` will return `Science library`, `library toilet`.
+
+Examples:
+
+* `findresolved` returns the list of resolved article entries.
+* `findresolved Jacket` returns resolved article entries which have fields having keywords `Jacket`.
+* `findresolved Tom wallet` returns resolved article entries which have fields having keywords `Tom`, `Wallet`.
+
+=== Miscellaneous Commands
+This section will detail other commands that facilitate use in LostBUTFound.
+
+==== Listing entered commands: `history`
+Description: Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
-// tag::undoredo[]
-===  Undoing previous command: `undo`
-Restores the app to the state before the previous undoable command was executed. +
+====  Undoing previous command: `undo`
+Description: Restores the app to the state before the previous undoable command was executed. +
 Format: `undo`
 
-===  Redoing previous command: `redo`
-Reverses the undo command. +
+====  Redoing previous command: `redo`
+Description: Reverses the undo command. +
 Format: `redo`
-// end::undoredo[]
 
-=== Clearing all entries: `clear`
-Clears all article entries. +
+==== Clearing all entries: `clear`
+Description: Clears all article entries. +
 Format: `clear`
 
-=== Exiting the program: `exit`
-Exits the program. +
+==== Exiting the program: `exit`
+Description: Exits LostBUTFound. +
 Format: `exit`
 
-=== Saving the data
-Lost and Found data is saved in the hard disk automatically after any command that changes the data. +
+==== Saving the data
+Description: Data in LostBUTFound is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ
