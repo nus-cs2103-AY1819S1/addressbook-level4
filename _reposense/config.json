@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "afiqlattif",
+      "displayName": "MUHAM...ATTIF",
+      "authorNames": ["afiqlattif"]
+    },
+    {
+      "githubId": "Scrubbius",
+      "displayName": "NGOH ...N JUN",
+      "authorNames": ["Scrubbius"]
+    },
+    {
+      "githubId": "Kratious",
+      "displayName": "SEM J...G HAN",
+      "authorNames": ["Kratious"]
+    },
+    {
+      "githubId": "sharan8",
+      "displayName": "THANG...HARAN",
+      "authorNames": ["sharan8", "Sharan"]
+    },
+    {
+      "githubId": "iMarbles",
+      "displayName": "YEO Y...MABEL",
+      "authorNames": ["iMarbles"]
+    }
+  ]
+}

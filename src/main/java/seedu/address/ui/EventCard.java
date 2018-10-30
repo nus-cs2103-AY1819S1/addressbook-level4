@@ -68,6 +68,14 @@ public class EventCard extends UiPart<Region> {
             endTime.setText("");
         }
 
+        int status = DateTimeUtil.getEventStatus(event.getStartDate(), event.getStartTime(),
+                                                                        event.getEndDate(), event.getEndTime());
+        if (status != DateTimeUtil.INVALID_STATUS) {
+            Label statusLabel = new Label(DateTimeUtil.STATUS[status]);
+            statusLabel.getStyleClass().add(DateTimeUtil.STATUS[status]);
+            tags.getChildren().add(statusLabel);
+        }
+
         event.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
