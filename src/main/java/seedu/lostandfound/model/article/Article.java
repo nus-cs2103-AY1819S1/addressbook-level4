@@ -83,7 +83,7 @@ public class Article {
 
         return otherArticle != null
                 && otherArticle.getName().equals(getName())
-                && otherArticle.getDescription().equals(getDescription());
+                && (otherArticle.getPhone().equals(getPhone()) || otherArticle.getEmail().equals(getEmail()));
     }
 
     /**
