@@ -324,7 +324,7 @@ The `switch` command updates the context found in `ModelManager` before raising 
 The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
 .Simplified sequence diagram of switch command
-image::Command_Switch_SequenceDiagram.png[switch SD, 800]
+image::command_switch_sd.png[switch SD, 800]
 
 ===== Design considerations
 ====== Aspect: How context is maintained
