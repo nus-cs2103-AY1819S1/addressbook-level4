@@ -35,7 +35,8 @@ public class ExportCertCommandTest {
         // Create the export cert command with the first volunteer's index
         ExportCertCommand exportCertCommand = new ExportCertCommand(INDEX_FIRST_VOLUNTEER);
 
-        String expectedMessage = String.format(ExportCertCommand.MESSAGE_EXPORT_CERT_SUCCESS, INDEX_FIRST_VOLUNTEER.getOneBased());
+        String expectedMessage = String.format(ExportCertCommand.MESSAGE_EXPORT_CERT_SUCCESS,
+                INDEX_FIRST_VOLUNTEER.getOneBased());
 
         // Make sure there is a pdf file with the volunteer's name ONLY
         assertExportCommandSuccess(exportCertCommand, model, commandHistory, expectedMessage, volunteerToExport);
@@ -49,7 +50,8 @@ public class ExportCertCommandTest {
         // Create the export cert command with the invalid out of bound index
         ExportCertCommand exportCertCommand = new ExportCertCommand(outOfBoundIndex);
 
-        assertCommandFailure(exportCertCommand, model, commandHistory, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
+        assertCommandFailure(exportCertCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
     }
 
     @Test
@@ -63,7 +65,8 @@ public class ExportCertCommandTest {
         // Create the export cert command with the first volunteer's index
         ExportCertCommand exportCertCommand = new ExportCertCommand(INDEX_FIRST_VOLUNTEER);
 
-        String expectedMessage = String.format(ExportCertCommand.MESSAGE_EXPORT_CERT_SUCCESS, INDEX_FIRST_VOLUNTEER.getOneBased());
+        String expectedMessage = String.format(ExportCertCommand.MESSAGE_EXPORT_CERT_SUCCESS,
+                INDEX_FIRST_VOLUNTEER.getOneBased());
 
         assertExportCommandSuccess(exportCertCommand, model, commandHistory, expectedMessage, volunteerToExport);
     }
@@ -82,7 +85,8 @@ public class ExportCertCommandTest {
         // Create the export cert command with the invalid out of bound index
         ExportCertCommand exportCertCommand = new ExportCertCommand(outOfBoundIndex);
 
-        assertCommandFailure(exportCertCommand, model, commandHistory, Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
+        assertCommandFailure(exportCertCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
     }
 
     @Test

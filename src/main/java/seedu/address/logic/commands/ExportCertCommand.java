@@ -2,14 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -38,12 +39,15 @@ public class ExportCertCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
-    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to your Desktop.";
+    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d "
+            + "to your Desktop.";
     public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again.";
+    public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + "/Volunteer Certs/";
+    public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
 
     private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportCertCommand.class);
 
-    public static String PDF_SAVE_PATH = System.getProperty("user.dir") + "/Volunteer Certs/";
+    private static String currentSavePath = PDF_SAVE_PATH;
 
     private final Index index;
 
@@ -55,15 +59,20 @@ public class ExportCertCommand extends Command {
         this.index = index;
 
         // Create a folder in user's working directory to export certificates to, if possible
-        File exportDir = new File(PDF_SAVE_PATH);
+        File exportDir = new File(currentSavePath);
         if (!exportDir.exists()) {
             try {
                 exportDir.mkdir();
             } catch (SecurityException se) {
-                logger.warning("Couldn't create a relative export path next to jar file. Defaulting to user's Desktop.");
-                PDF_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
+                logger.warning("Couldn't create a relative export path next to jar file. "
+                        + "Defaulting to user's Desktop.");
+                currentSavePath = PDF_ALT_SAVE_PATH;
             }
         }
+    }
+
+    public static String getCurrentSavePath() {
+        return currentSavePath;
     }
 
     @Override
@@ -81,7 +90,7 @@ public class ExportCertCommand extends Command {
 
         // Try creating and exporting the PDF for the selected volunteer
         try {
-            createPDF(model, selectedVolunteer);
+            createPdf(model, selectedVolunteer);
         } catch (IOException ioe) {
             throw new CommandException(MESSAGE_EXPORT_FAILED);
         }
@@ -95,13 +104,14 @@ public class ExportCertCommand extends Command {
      * @param volunteer who's data is to be input into the PDF document
      * @param model from which the volunteer's event records will be accessed
      */
-    private void createPDF(Model model, Volunteer volunteer) throws IOException {
+    private void createPdf(Model model, Volunteer volunteer) throws IOException {
         // Retrieve the selected volunteer's attributes
         VolunteerId volunteerId = volunteer.getVolunteerId();
         Name volunteerName = volunteer.getName();
 
         // Retrieve the volunteer's events
-        List<Record> eventRecords = model.getFilteredRecordList().filtered((x) -> x.getVolunteerId().equals(volunteerId));
+        List<Record> eventRecords = model.getFilteredRecordList().filtered((x) -> x.getVolunteerId()
+                .equals(volunteerId));
 
         // Create the new document
         PDDocument doc = new PDDocument();
@@ -153,7 +163,7 @@ public class ExportCertCommand extends Command {
                 EventId eventId = r.getEventId();
 
                 // Get the exact corresponding event object and extract information from it
-                Event event = model.getFilteredEventList().filtered((x) -> x.getEventId().equals(eventId)).get(0); // Assuming there are no duplicate events
+                Event event = model.getFilteredEventList().filtered((x) -> x.getEventId().equals(eventId)).get(0);
                 seedu.address.model.event.Name eventName = event.getName();
                 Date startDate = event.getStartDate();
                 Date endDate = event.getEndDate();
