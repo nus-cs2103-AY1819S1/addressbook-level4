@@ -365,6 +365,7 @@ Format: `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT`
 * The MONTH *is not case-sensitive*.
 * The YEAR *must be specified as YYYY*.
 * The DATE *must be specified as DD*.
+* The TITLE *is case-sensitive*.
 ****
 
 Example:
@@ -373,6 +374,8 @@ Example:
 Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
 
 ==== Adding event into calendar : `add_event`
+
+Adds an event with a specific time frame into the calendar. +
 Format: `add_event month/MMM year/YYYY sdate/DD shour/HH smin/mm
 edate/DD ehour/HH emin/mm title/NAME OF EVENT`
 
@@ -382,13 +385,37 @@ edate/DD ehour/HH emin/mm title/NAME OF EVENT`
 * The YEAR *must be specified as YYYY*.
 * The DATE *must be specified as DD*.
 * DATE, HOUR, MINUTE *must be specified as XX*.
+* The TITLE *is case-sensitive*.
 ****
+
+Example:
 
 * `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
 Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
 the `10th` at `1800`.
 
 ==== Delete event from calendar : `delete_event`
+
+Deletes an event from the calendar. +
+Format: `delete_event month/MMM year/YYYY sdate/DD edate/DD title/NAME OF EVENT`
+
+****
+* An event is considered identical when it has the same start date, end date and title. Regardless of starting time and ending time.
+*  The MONTH *must be specified as MMM*.
+* The MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+* The DATE *must be specified as DD*.
+* The TITLE *is case-sensitive*.
+****
+
+Example:
+
+* Deleting a non-existing event (Title is case sensitive) +
+`delete_event month/Oct year/2018 sdate/10 edate/10 title/block committee audit`
+
+* Deleting an existing event +
+`delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
+Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
 
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
