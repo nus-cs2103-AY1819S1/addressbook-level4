@@ -7,6 +7,7 @@ import java.util.List;
 
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.commons.util.EventFormatUtil;
 import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
@@ -65,32 +66,10 @@ public class DeleteCommand extends Command {
         }
 
         model.commitScheduler();
-        int instanceIndex = calculateInstanceIndex(lastShownList, eventToDelete);
+        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToDelete);
         connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName()));
     }
-
-    /**
-     * Calculates the relative index of an existing recurring event instance to the
-     * first recurring event instance.
-     *
-     * @param lastShownList The last shown list of events.
-     * @param eventToDelete The recurring event to be deleted.
-     * @return The relative index of the event to be deleted to the first recurring event.
-     */
-    private int calculateInstanceIndex(List<Event> lastShownList, Event eventToDelete) {
-        int counter = 0;
-        for (Event event : lastShownList) {
-            if (event.getUuid() == eventToDelete.getUuid()) {
-                counter++;
-            }
-            if (event.getUid() == eventToDelete.getUid()) {
-                break;
-            }
-        }
-        return counter;
-    }
-
 
     @Override
     public boolean equals(Object other) {
