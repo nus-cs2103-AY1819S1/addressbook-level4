@@ -21,9 +21,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.AssignmentBuilder;
 
-public class AddCommandTest {
+public class AddAssignmentCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -35,54 +35,55 @@ public class AddCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddAssignmentCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_assignmentAcceptedByModel_addSuccessful() throws Exception {
+        AddAssignmentCommandTest.ModelStubAcceptingAssignmentAdded modelStub
+                = new AddAssignmentCommandTest.ModelStubAcceptingAssignmentAdded();
+        Assignment validAssignment = new AssignmentBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddAssignmentCommand(validAssignment).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validAssignment), modelStub.assignmentsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateAssignment_throwsCommandException() throws Exception {
+        Assignment validAssignment = new AssignmentBuilder().build();
+        AddAssignmentCommand addAssignmentCommand = new AddAssignmentCommand(validAssignment);
+        AddAssignmentCommandTest.ModelStub modelStub = new AddAssignmentCommandTest.ModelStubWithAssignment(validAssignment);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT);
+        addAssignmentCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Assignment oasis = new AssignmentBuilder().withAssignmentName("OASIS").build();
+        Assignment falcon = new AssignmentBuilder().withAssignmentName("FALCON").build();
+        AddAssignmentCommand addOasisCommand = new AddAssignmentCommand(oasis);
+        AddAssignmentCommand addFalconCommand = new AddAssignmentCommand(falcon);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addOasisCommand.equals(addOasisCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddAssignmentCommand addOasisCommandCopy = new AddAssignmentCommand(oasis);
+        assertTrue(addOasisCommand.equals(addOasisCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addOasisCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addOasisCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addOasisCommand.equals(addFalconCommand));
     }
 
     /**
@@ -188,37 +189,37 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithAssignment extends AddAssignmentCommandTest.ModelStub {
+        private final Assignment assignment;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            this.assignment = assignment;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            return this.assignment.isSameAssignment(assignment);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingAssignmentAdded extends AddAssignmentCommandTest.ModelStub {
+        final ArrayList<Assignment> assignmentsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            return assignmentsAdded.stream().anyMatch(assignment::isSameAssignment);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addAssignment(Assignment assignment) {
+            requireNonNull(assignment);
+            assignmentsAdded.add(assignment);
         }
 
         @Override
