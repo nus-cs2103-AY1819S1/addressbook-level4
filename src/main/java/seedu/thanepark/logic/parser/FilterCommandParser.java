@@ -45,14 +45,14 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         if (maintenanceStrings.isPresent()) {
             for (String s : maintenanceStrings.get()) {
                 Pair<Character, String> maintenanceCondition = getOperatorAndValues(s);
-                predicates.add(new AttributePredicate(maintenanceCondition.getKey(),
+                predicates.add(new AttributePredicate(maintenanceCondition.getKey().toString(),
                         new Maintenance(maintenanceCondition.getValue())));
             }
         }
         if (waitingTimeStrings.isPresent()) {
             for (String s : waitingTimeStrings.get()) {
                 Pair<Character, String> waitingTimeConditions = getOperatorAndValues(s);
-                predicates.add(new AttributePredicate(waitingTimeConditions.getKey(),
+                predicates.add(new AttributePredicate(waitingTimeConditions.getKey().toString(),
                         new WaitTime(waitingTimeConditions.getValue())));
             }
         }
