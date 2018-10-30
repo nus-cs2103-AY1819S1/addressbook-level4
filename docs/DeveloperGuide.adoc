@@ -947,6 +947,35 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Open attraction
+*System*: ThanePark +
+*Actor* Operator +
+*MSS*
+
+1.  User opens an attraction.
+2.  ThanePark sets the status of attraction to be open.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The attraction does not exist.
++
+[none]
+** 1a1. ThanePark shows an error message for opening the attraction.
++
+Use case ends.
+
+[none]
+* 1b. The attraction is already open.
++
+[none]
+** 1b1. ThanePark shows error.
++
+Use case ends.
+
+[discrete]
 === Use case: Shutdown attraction
 *System*: ThanePark +
 *Actor* Operator +
