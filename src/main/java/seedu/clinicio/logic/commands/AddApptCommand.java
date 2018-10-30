@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;

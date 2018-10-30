@@ -4,14 +4,12 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -24,7 +22,6 @@ import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
 
 import seedu.clinicio.model.tag.Tag;
