@@ -21,9 +21,8 @@ import seedu.parking.model.carpark.Carpark;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-//    public static final String SEARCH_PAGE_URL =
-//            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?name=";
-    public static final String SEARCH_PAGE_URL = "www.google.com";
+    public static final String SEARCH_PAGE_URL =
+            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
