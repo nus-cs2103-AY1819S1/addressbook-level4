@@ -4,6 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,6 +17,8 @@ import java.util.NoSuchElementException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.canvas.Canvas;
+import seedu.address.model.canvas.Layer;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.storage.JsonConvertArgsStorage;
 
@@ -29,7 +34,8 @@ public class ImageMagickUtil {
     //for windows, as the path contains the / before the disk name, remove the first char
     public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get((
             getPlatform() == WINDOWS ? IMAGEMAGIC_PATH.substring(1) : IMAGEMAGIC_PATH) + "/commandTemplate.json");
-    public static final String TMP_PATH = IMAGEMAGIC_PATH + "/tmp";
+    public static final String TMP_PATH = Paths.get((
+            getPlatform() == WINDOWS ? IMAGEMAGIC_PATH.substring(1) : IMAGEMAGIC_PATH)) + "/tmp";
 
     /**
      * get the path of the package location
@@ -91,30 +97,18 @@ public class ImageMagickUtil {
      */
     public static BufferedImage processImage(Path path, Transformation transformation)
             throws ParseException, IOException, InterruptedException {
-        List<String> cmds = parseArguments(SINGLE_COMMAND_TEMPLATE_PATH, transformation);
-        File modifiedFile = new File(TMP_PATH + "/modified.png");
+        ArrayList<String> cmds = parseArguments(SINGLE_COMMAND_TEMPLATE_PATH, transformation);
+        String modifiedFile = TMP_PATH + "/output.png";
         //create a processbuilder to blur the image
-        ProcessBuilder pb;
-        List<String> args = new ArrayList<>();
+        ArrayList<String> args = new ArrayList<>();
         args.add(ImageMagickUtil.getExecuteImageMagic());
         args.add(path.toAbsolutePath().toString());
         args.add("-" + cmds.get(0));
         for (int i = 1; i < cmds.size(); i++) {
             args.add(cmds.get(i));
         }
-        args.add(modifiedFile.getAbsolutePath());
-        pb = new ProcessBuilder(args);
-        //set the environment of the processbuilder
-        if (getPlatform() == MAC) {
-            Map<String, String> mp = pb.environment();
-            mp.put("DYLD_LIBRARY_PATH", ImageMagickUtil.getImageMagicPackagePath() + "ImageMagick-7.0.8/lib/");
-        }
-        Process process = pb.start();
-        process.waitFor();
-        String s = process.getErrorStream().toString();
-        FileInputStream inputstream = new FileInputStream(TMP_PATH + "/modified.png");
-        Image modifiedImage = new Image(inputstream);
-        return SwingFXUtils.fromFXImage(modifiedImage, null);
+        args.add(modifiedFile.toString());
+        return runProcessBuilder(args, modifiedFile);
     }
 
     /**
@@ -125,10 +119,9 @@ public class ImageMagickUtil {
      * @throws IOException
      * @throws ParseException
      */
-    private static List<String> parseArguments(Path filepath, Transformation transformation)
+    private static ArrayList<String> parseArguments(Path filepath, Transformation transformation)
             throws IOException, ParseException {
-        int i;
-        List<String> trans = transformation.toList();
+        ArrayList<String> trans = transformation.toList();
         String operation = trans.get(0);
         List<String> cmds = JsonConvertArgsStorage.retrieveArgumentsTemplate(filepath, operation);
         int num = cmds.size();
@@ -136,5 +129,58 @@ public class ImageMagickUtil {
             throw new ParseException("Invalid arguments, should be " + cmds.toArray().toString());
         }
         return trans;
+    }
+
+    //@@author j-lum
+
+    /**
+     * Given a list of arguments to ImageMagick, calls the actual ImageMagick executable with the output set to the
+     * path provided
+     * @param args An ArrayList of arguments, the first of which needs to be a legal ImageMagick executable.
+     * @param output An URL to the output file.
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
+
+    public static BufferedImage runProcessBuilder(ArrayList<String> args, String output) throws IOException, InterruptedException {
+        ProcessBuilder pb = new ProcessBuilder(args);
+        if (getPlatform() == MAC) {
+            Map<String, String> mp = pb.environment();
+            mp.put("DYLD_LIBRARY_PATH", ImageMagickUtil.getImageMagicPackagePath() + "ImageMagick-7.0.8/lib/");
+        }
+        Process process = pb.start();
+        process.waitFor();
+        List<String> tmp = pb.command();
+        System.out.println(tmp);
+        FileInputStream is = new FileInputStream(output);
+        Image modifiedImage = new Image(is);
+        InputStream error = process.getErrorStream();
+        for (int i = 0; i < error.available(); i++) {
+            System.out.println("" + error.read());
+        }
+        return SwingFXUtils.fromFXImage(modifiedImage, null);
+    }
+
+    /**
+     * Creates a ProcessBuilder instance to merge/flatten layers.
+     * @param c - A canvas to be processed
+     * @return a buffered image with a merged canvas.
+     */
+    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
+        ArrayList<String> args = new ArrayList<>();
+        String output = TMP_PATH + "/modified.png";
+        args.add(getExecuteImageMagic() + " ");
+        args.add(String.format("-background %s ", c.getBackgroundColor()));
+        for (Layer l: c.getLayers()) {
+            args.add(String.format("-page +%d+%d %s ", l.getX(), l.getY(), l.getImage().getCurrentPath()));
+        }
+        if (c.isCanvasAuto()) {
+            args.add("-layers merge ");
+        } else {
+            args.add("-flatten ");
+        }
+        args.add(output);
+        return runProcessBuilder(args, output);
     }
 }
