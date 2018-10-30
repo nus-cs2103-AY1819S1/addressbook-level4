@@ -30,11 +30,11 @@ import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing calendar event in the scheduler.
+ * Edits the details of an existing calendar event in the calendar of the scheduler.
  */
-public class EditCommand extends Command {
+public class EditEventCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "edit event";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the event identified "
         + "by the index number used in the displayed event list. "
@@ -51,7 +51,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CALENDAR_EVENT = "This event already exists in the scheduler.";
+    public static final String MESSAGE_DUPLICATE_CALENDAR_EVENT = "This event already exists in the calendar.";
 
     private final Index index;
     private final EditCalendarEventDescriptor editCalendarEventDescriptor;
@@ -60,7 +60,7 @@ public class EditCommand extends Command {
      * @param index                       of the calendar event in the filtered calendar event list to edit
      * @param editCalendarEventDescriptor details to edit the calendar event with
      */
-    public EditCommand(Index index, EditCalendarEventDescriptor editCalendarEventDescriptor) {
+    public EditEventCommand(Index index, EditCalendarEventDescriptor editCalendarEventDescriptor) {
         requireNonNull(index);
         requireNonNull(editCalendarEventDescriptor);
 
@@ -124,12 +124,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditEventCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditEventCommand e = (EditEventCommand) other;
         return index.equals(e.index)
             && editCalendarEventDescriptor.equals(e.editCalendarEventDescriptor);
     }

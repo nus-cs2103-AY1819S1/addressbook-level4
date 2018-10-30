@@ -7,11 +7,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all calendar events in the scheduler to the user.
+ * Lists all events in the calendar of the scheduler to the user.
  */
-public class ListCommand extends Command {
+public class ListEventCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "list event";
 
     public static final String MESSAGE_SUCCESS = "Listed all events";
 
@@ -22,4 +22,6 @@ public class ListCommand extends Command {
         model.updateFilteredCalendarEventList(PREDICATE_SHOW_ALL_CALENDAR_EVENTS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    // TODO this will have to switch tabs
 }

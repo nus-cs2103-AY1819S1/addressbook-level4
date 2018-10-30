@@ -14,13 +14,13 @@ import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 /**
- * Adds a calendar event to the scheduler.
+ * Adds a calendar event to the calendar of the scheduler.
  */
-public class AddCommand extends Command {
+public class AddEventCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "add event";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a event to the scheduler. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the calendar. "
         + "Parameters: "
         + PREFIX_TITLE + "TITLE "
         + PREFIX_DESCRIPTION + "DESCRIPTION "
@@ -38,14 +38,14 @@ public class AddCommand extends Command {
         + PREFIX_TAG + "Final";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CALENDAR_EVENT = "This event already exists in the scheduler";
+    public static final String MESSAGE_DUPLICATE_CALENDAR_EVENT = "This event already exists in the calendar";
 
     private final CalendarEvent toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code CalendarEvent}
+     * Creates an AddEventCommand to add the specified {@code CalendarEvent}
      */
-    public AddCommand(CalendarEvent calendarEvent) {
+    public AddEventCommand(CalendarEvent calendarEvent) {
         requireNonNull(calendarEvent);
         toAdd = calendarEvent;
     }
@@ -66,7 +66,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof AddCommand // instanceof handles nulls
-            && toAdd.equals(((AddCommand) other).toAdd));
+            || (other instanceof AddEventCommand // instanceof handles nulls
+            && toAdd.equals(((AddEventCommand) other).toAdd));
     }
 }

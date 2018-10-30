@@ -25,7 +25,7 @@ import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
 import seedu.address.model.todolist.TitleToDoContainsKeywordsPredicate;
 import seedu.address.model.todolist.ToDoListEvent;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -74,15 +74,15 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditCalendarEventDescriptor DESC_LECTURE;
-    public static final EditCommand.EditCalendarEventDescriptor DESC_TUTORIAL;
+    public static final EditEventCommand.EditCalendarEventDescriptor DESC_LECTURE;
+    public static final EditEventCommand.EditCalendarEventDescriptor DESC_TUTORIAL;
 
     static {
-        DESC_LECTURE = new EditPersonDescriptorBuilder().withTitle(VALID_TITLE_LECTURE)
+        DESC_LECTURE = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_LECTURE)
             .withDescription(VALID_DESCRIPTION_LECTURE).withStart(VALID_START_DATETIME_LECTURE)
             .withEnd(VALID_END_DATETIME_LECTURE).withVenue(VALID_VENUE_LECTURE)
             .withTags(VALID_TAG_FRIEND).build();
-        DESC_TUTORIAL = new EditPersonDescriptorBuilder().withTitle(VALID_TITLE_TUTORIAL)
+        DESC_TUTORIAL = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_TUTORIAL)
             .withDescription(VALID_DESCRIPTION_TUTORIAL).withStart(VALID_START_DATETIME_TUTORIAL)
                 .withEnd(VALID_END_DATETIME_TUTORIAL).withVenue(VALID_VENUE_TUTORIAL)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
@@ -214,7 +214,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first calendar event in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstCalendarEvent(Model model) {
         CalendarEvent firstCalendarEvent = model.getFilteredCalendarEventList().get(0);
         model.deleteCalendarEvent(firstCalendarEvent);
         model.commitScheduler();

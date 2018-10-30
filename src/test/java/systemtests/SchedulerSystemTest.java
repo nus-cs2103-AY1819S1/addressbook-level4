@@ -24,9 +24,9 @@ import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ClearCalendarCommand;
+import seedu.address.logic.commands.FindEventCommand;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.Scheduler;
@@ -118,7 +118,7 @@ public abstract class SchedulerSystemTest {
      * Displays all persons in the address book.
      */
     protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(ListEventCommand.COMMAND_WORD);
         assertEquals(getModel().getScheduler().getCalendarEventList().size(),
             getModel().getFilteredCalendarEventList().size());
     }
@@ -127,7 +127,7 @@ public abstract class SchedulerSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithTitle(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindEventCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredCalendarEventList().size()
             < getModel().getScheduler().getCalendarEventList().size());
     }
@@ -144,7 +144,7 @@ public abstract class SchedulerSystemTest {
      * Deletes all persons in the address book.
      */
     protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
+        executeCommand(ClearCalendarCommand.COMMAND_WORD);
         assertEquals(0, getModel().getScheduler().getCalendarEventList().size());
     }
 

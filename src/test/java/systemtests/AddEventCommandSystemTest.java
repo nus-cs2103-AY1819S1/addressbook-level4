@@ -35,7 +35,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -48,7 +48,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CalendarEventBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class AddCommandSystemTest extends SchedulerSystemTest {
+public class AddEventCommandSystemTest extends SchedulerSystemTest {
 
     @Test
     public void add() {
@@ -63,7 +63,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
          */
         CalendarEvent toAdd = AMY;
         String command =
-            "   " + AddCommand.COMMAND_WORD + "  " + TITLE_DESC_LECTURE + "  " + DESCRIPTION_DESC_LECTURE + " "
+            "   " + AddEventCommand.COMMAND_WORD + "  " + TITLE_DESC_LECTURE + "  " + DESCRIPTION_DESC_LECTURE + " "
             + START_DESC_LECTURE + " " + END_DESC_LECTURE + " " + VENUE_DESC_LECTURE + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -81,7 +81,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         /* Case: add a calendar event with all fields same as another calendar event in the scheduler except name ->
         added */
         toAdd = new CalendarEventBuilder(AMY).withTitle(VALID_TITLE_TUTORIAL).build();
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_TUTORIAL + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE
                 + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
@@ -100,7 +100,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
         /* Case: add a calendarevent with tags, command with parameters in random order -> added */
         toAdd = TUTORIAL;
         command =
-            AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL
+            AddEventCommand.COMMAND_WORD + TAG_DESC_FRIEND + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL
                     + END_DESC_TUTORIAL + VENUE_DESC_TUTORIAL + TITLE_DESC_TUTORIAL + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
@@ -125,77 +125,77 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: add a duplicate calendarevent -> rejected */
         command = PersonUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
+        assertCommandFailure(command, AddEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: add a duplicate calendarevent except with different tags -> rejected */
         command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
+        assertCommandFailure(command, AddEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE + END_DESC_LECTURE;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
 
         /* Case: missing description -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE + END_DESC_LECTURE;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
 
         /* Case: missing start -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + END_DESC_LECTURE;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
 
         /* Case: missing end -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
 
         /* Case: missing venue -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE
                 + START_DESC_LECTURE + END_DESC_LECTURE;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_TITLE_DESC + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + INVALID_TITLE_DESC + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE + END_DESC_LECTURE;
         assertCommandFailure(command, Title.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + INVALID_DESCRIPTION_DESC + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + INVALID_DESCRIPTION_DESC + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE + END_DESC_LECTURE;
         assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid start -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + INVALID_START_DESC + END_DESC_LECTURE;
         assertCommandFailure(command, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
 
         /* Case: invalid end -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE + INVALID_END_DESC;
         assertCommandFailure(command, DateTime.MESSAGE_DATETIMEINPUT_CONSTRAINTS);
 
         /* Case: invalid venue -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + INVALID_VENUE_DESC
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + INVALID_VENUE_DESC
                 + START_DESC_LECTURE + END_DESC_LECTURE;
         assertCommandFailure(command, Venue.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
+        command = AddEventCommand.COMMAND_WORD + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE + VENUE_DESC_LECTURE
                 + START_DESC_LECTURE + END_DESC_LECTURE + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     /**
-     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * Executes the {@code AddEventCommand} that adds {@code toAdd} to the model and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
-     * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
+     * 3. Result display box displays the success message of executing {@code AddEventCommand} with the details of
      * {@code toAdd}.<br>
      * 4. {@code Storage} and {@code CalendarEventListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
@@ -214,12 +214,12 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(CalendarEvent)}. Executes {@code command}
      * instead.
      *
-     * @see AddCommandSystemTest#assertCommandSuccess(CalendarEvent)
+     * @see AddEventCommandSystemTest#assertCommandSuccess(CalendarEvent)
      */
     private void assertCommandSuccess(String command, CalendarEvent toAdd) {
         Model expectedModel = getModel();
         expectedModel.addCalendarEvent(toAdd);
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddEventCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
@@ -231,7 +231,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
      * 2. {@code Storage} and {@code CalendarEventListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
      *
-     * @see AddCommandSystemTest#assertCommandSuccess(String, CalendarEvent)
+     * @see AddEventCommandSystemTest#assertCommandSuccess(String, CalendarEvent)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

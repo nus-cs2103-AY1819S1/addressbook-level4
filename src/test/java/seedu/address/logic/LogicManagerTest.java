@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddToDoCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -48,8 +48,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
+        String deleteCommand = "delete event 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX); // test failing
         assertHistoryCorrect(deleteCommand);
     }
 
@@ -62,8 +62,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListEventCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListEventCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
     }
 

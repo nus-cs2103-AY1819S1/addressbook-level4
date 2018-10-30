@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtilToDo.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class DeleteToDoCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteToDoCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new DeleteToDoCommand(INDEX_FIRST_ELEMENT));
     }
 
     @Test

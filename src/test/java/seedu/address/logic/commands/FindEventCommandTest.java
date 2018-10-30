@@ -22,9 +22,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindEventCommand}.
  */
-public class FindCommandTest {
+public class FindEventCommandTest {
     private Model model = new ModelManager(getTypicalScheduler(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalScheduler(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -36,14 +36,14 @@ public class FindCommandTest {
         TitleContainsKeywordsPredicate secondPredicate =
             new TitleContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindEventCommand findFirstCommand = new FindEventCommand(firstPredicate);
+        FindEventCommand findSecondCommand = new FindEventCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindEventCommand findFirstCommandCopy = new FindEventCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -57,20 +57,20 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
+    public void execute_zeroKeywords_noCalendarEventFound() {
         String expectedMessage = String.format(MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, 0);
         TitleContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        FindEventCommand command = new FindEventCommand(predicate);
         expectedModel.updateFilteredCalendarEventList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredCalendarEventList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
+    public void execute_multipleKeywords_multipleCalendarEventsFound() {
         String expectedMessage = String.format(MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, 3);
         TitleContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FindCommand command = new FindCommand(predicate);
+        FindEventCommand command = new FindEventCommand(predicate);
         expectedModel.updateFilteredCalendarEventList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCalendarEventList());

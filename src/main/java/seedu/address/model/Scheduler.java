@@ -13,7 +13,7 @@ import seedu.address.model.calendarevent.UniqueCalendarEventList;
  * Duplicates are not allowed (by .isSameCalendarEvent comparison)
  */
 public class Scheduler implements ReadOnlyScheduler {
-
+    // TODO rename Scheduler to Calendar
     private final UniqueCalendarEventList calendarEvents;
 
     {
