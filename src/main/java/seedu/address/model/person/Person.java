@@ -81,6 +81,18 @@ public class Person {
     }
 
     /**
+     * Returns an array list containing days in which students
+     * have tuition lessons
+     */
+    public ArrayList<Time.Day> getDays() {
+        ArrayList<Time.Day> daysWithTuition = new ArrayList<>();
+        for (Time time : timeSlots) {
+            daysWithTuition.add(time.getDay());
+        }
+        return daysWithTuition;
+    }
+
+    /**
      * Adds a time slot to a Person's time array list
      */
     public void addTime(Time time) {
