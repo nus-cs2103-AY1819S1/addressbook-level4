@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import javax.imageio.ImageIO;
 
-import seedu.address.MainApp;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.model.transformation.TransformationSet;
 
@@ -17,12 +16,18 @@ import seedu.address.model.transformation.TransformationSet;
  * Wraps the image and transformation set for preview.
  */
 public class PreviewImage {
-    private static final String TESTPATH = MainApp.MAIN_PATH + "/src/main/java/seedu/address/storage/cache";
+    private static final String TESTPATH;
     private final TransformationSet transformationSet;
     private int height;
     private int width;
     private int currentIndex;
     private int currentSize; // Number of saved images
+
+    static {
+        File cache = new File("cache");
+        cache.mkdir();
+        TESTPATH = cache.getPath();
+    }
 
     public PreviewImage(BufferedImage image) {
         this.currentSize = 0;
