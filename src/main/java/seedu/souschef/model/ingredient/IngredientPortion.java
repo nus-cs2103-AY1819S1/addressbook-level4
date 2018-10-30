@@ -23,7 +23,7 @@ public class IngredientPortion extends IngredientDefinition {
     public IngredientPortion(String name, String unit, Double amount) throws ParseException {
         super(name);
         if (!IngredientServingUnit.isValid(unit)) {
-            throw new ParseException("Invalid Ingredient Name!");
+            throw new ParseException(IngredientServingUnit.MESSAGE_UNIT_CONSTRAINTS);
         }
         this.unit = new IngredientServingUnit(unit);
         this.amount = new IngredientAmount(amount);
