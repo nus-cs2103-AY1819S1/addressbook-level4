@@ -101,13 +101,24 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            CommandResult commandResult = logic.execute(commandTextField.getText());
-            initHistory();
-            historySnapshot.next();
-            // process result of the command
-            commandTextField.setText("");
-            logger.info("Result: " + commandResult.feedbackToUser);
-            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            String command = commandTextField.getText();
+            CommandResult commandResult;
+            String[] commandWord = command.trim().split(" ");
+            System.out.printf(commandWord[1]);
+            if(commandWord[1].contains("todo"))
+            {
+                commandResult = logic.executeToDo(command);
+            }
+            else
+            {
+                commandResult = logic.execute(command);
+            }
+                initHistory();
+                historySnapshot.next();
+                // process result of the command
+                commandTextField.setText("");
+                logger.info("Result: " + commandResult.feedbackToUser);
+                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
         } catch (CommandException | ParseException e) {
             initHistory();
