@@ -594,46 +594,6 @@ operation. Easier to implement.
 ** Cons: Slower operation due to time taken to enter filename and location. More difficult to implement.
 // end::export[]
 
-//tag::export[]
-=== Export feature
-The export feature allows users to extract patient related data out of the program, into Comma Separated Values(CSV)
-format.
-
-==== Current Implementation
-The `ExportPatientData` class contains `static` methods for filtering and organizing the relevant data. These methods
-depend on a list of patients. It then passes the data to `ExportUtil` in order to write to a CSV file. The names and
-locations of the CSV files are predetermined by `ExportPatientData`. All exported filed are stored in the root folder of
-the program.
-
-The following operations are implemented: +
-
-* `exportpatients` Command - exports all patients' personal information into `ClinicIO_patientdata.csv`.
-* `exportpatientsappointments` Command - exports all patients' appointment records into `ClinicIO_patientsappointments
-.csv`.
-* `exportpatientsconsultations` Command - exports all patients' consultation records into
-`ClinicIO_patientsconsultations.csv`.
-
-==== Design Considerations
-===== Aspect: File format
-
-* **Alternative 1 (current choice):** CSV
-** Pros: Human readable. Simple schema, easy to edit manually. Supported on all target platforms. Easier to implement.
-** Con: Does not allow complex relationships, resulting in repetitive data.
-* **Alternative 2:** XLS (Native Excel format)
-** Pros: Can store more complex relationships between data. Data can be stored in the form of charts and graphs.
-** Cons: Less widely supported. Consumes more memory. More difficult to implement.
-
-===== Aspect: File location and naming
-
-* **Alternative 1 (current choice):** Predetermined within the program to be stored in the root folder with fixed names.
-** Pros: Users can easily find it as it is in the same location as the program and has a standard name. Faster
-operation. Easier to implement.
-** Con: Reduces flexibility, another step is required if the user needs it in another directory.
-* **Alternative 2:** Specifiable by user
-** Pro: Gives users more control.
-** Cons: Slower operation due to time taken to enter filename and location. More difficult to implement.
-//end::export[]
-
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
