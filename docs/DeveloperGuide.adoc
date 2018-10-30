@@ -1,4 +1,4 @@
-= Lost and Found - Developer Guide
+= LostBUTFound - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -982,11 +982,17 @@ Use case ends.
 +
 Use case ends
 
+[appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 Articles without a noticeable sluggishness in performance for typical usage.
+.  Should take less than 3 seconds to respond to each command on any <<mainstream-os,mainstream OS>>.
+.  Should receive feedback after executing commands.
+.  Should have correct error handling for unexpected behavior to prevent the application from crashing.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The commands and the function it provides should be clear to the user.
+.  The user interface’s font and size should be legible by user.
 
 [appendix]
 == Glossary
