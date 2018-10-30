@@ -5,6 +5,7 @@ import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAN
 import java.util.Arrays;
 
 import seedu.learnvocabulary.logic.commands.FindCommand;
+import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.word.NameContainsKeywordsPredicate;
 

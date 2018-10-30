@@ -94,6 +94,18 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         return false;
     }
 
+    public Set<Tag> getTags() {
+        Set<Tag> totalTag = addedTag;
+        for (Word word:words) {
+            for (Tag tag: word.getTags()) {
+                if(!totalTag.contains(tag)){
+                    totalTag.add(tag);
+                }
+            }
+        }
+        return totalTag;
+    }
+
     /**
      * @param toDelete delete the word group from each word
      */

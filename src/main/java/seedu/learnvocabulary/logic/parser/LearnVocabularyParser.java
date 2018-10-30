@@ -22,11 +22,13 @@ import seedu.learnvocabulary.logic.commands.ListCommand;
 import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.SelectCommand;
 import seedu.learnvocabulary.logic.commands.ShowCommand;
+import seedu.learnvocabulary.logic.commands.ShowGroupCommand;
 import seedu.learnvocabulary.logic.commands.TriviaAnsCommand;
 import seedu.learnvocabulary.logic.commands.TriviaCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
 import seedu.learnvocabulary.logic.commands.WordOfTheDayCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
+import seedu.learnvocabulary.model.tag.Tag;
 
 /**
  * Parses user input.
@@ -115,7 +117,10 @@ public class LearnVocabularyParser {
         case GroupaddCommand.COMMAND_WORD:
             return new GroupAddCommandParser().parse(arguments);
 
-        default:
+            case ShowGroupCommand.COMMAND_WORD:
+                return new ShowGroupCommandParser().parse(arguments);
+
+                default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
