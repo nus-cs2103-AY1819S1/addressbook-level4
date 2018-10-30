@@ -344,8 +344,10 @@ Syntax: `addGroup n/[Name]` +
 
 Example: `addGroup n/CS2103T`: adds a new group with title 'CS2103T' into the MeetingBook.
 
+*The follow sequence diagram shows how addGroup command functions.*
+
 .Sequence diagram for addGroup command
-image::AddGroupCommand.png[width="300"]
+image::AddGroupCommand.png[width="350"]
 
 
 ==== `deleteGroup` command usage
@@ -356,8 +358,10 @@ Syntax: `deleteGroup n/[Name]` +
 
 Example: `deleteGroup n/CS2101`: removes the existing group with title 'CS2101' from the MeetingBook.
 
+*The follow sequence diagram shows how deleteGroup command functions.*
+
 .Sequence diagram for deleteGroup command
-image::DeleteGroupCommand.png[width="300"]
+image::DeleteGroupCommand.png[width="350"]
 
 ==== Implementation of `addGroup` and `deleteGroup` commands
 The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups
@@ -379,8 +383,10 @@ Syntax: `join n/[Name] g/[Group]` +
 
 Example: `join n/Derek g/CS2101`: makes the person 'Derek' become a member of group 'CS2101'
 
+*The follow sequence diagram shows how join command functions.*
+
 .Sequence diagram for join command
-image::JoinCommand.png[width="300"]
+image::JoinCommand.png[width="500"]
 
 
 ==== `leave` command usage
@@ -392,9 +398,11 @@ Syntax: `leave n/[Name] g/[Group]` +
 
 Example: `leave n/Ben g/CS2103T`: removes the person `Ben` from the group `CS2103T`.
 
+*The follow sequence diagram shows how leave command functions.*
+
 .Sequence diagram for leave command
 
-image::LeaveCommand.png[width="300"]
+image::LeaveCommand.png[width="500"]
 
 ==== Implementation of `join` and `leave` commands
 The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups that exist in this MeetingBook.
