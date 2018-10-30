@@ -74,7 +74,7 @@ public class XmlAdaptedAppointment {
     }
 
     /**
-     * Converts this jaxb-friendly adapted appointment object into the model's Appointment object.
+     * Converts this jaxb-friendly adapted appointment object into the model's Appointment object. TODO.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted appointment
      */
@@ -94,7 +94,7 @@ public class XmlAdaptedAppointment {
         if (patient == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Patient.class.getSimpleName()));
         }
-        return new Appointment(Date.newDate(date), Time.newTime(time),null, type);  //TODO
+        return new Appointment(Date.newDate(date), Time.newTime(time), null, type);
     }
 
     @Override
