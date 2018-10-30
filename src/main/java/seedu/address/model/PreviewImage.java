@@ -53,6 +53,14 @@ public class PreviewImage {
         return width;
     }
 
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public int getCurrentSize() {
+        return currentSize;
+    }
+
     /**
      * Check if have previous states to undo.
      */

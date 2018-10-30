@@ -3,11 +3,10 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.awt.image.BufferedImage;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.PreviewImage;
 
 /**
  * Contains helper methods for testing undo and redo commands.
@@ -19,14 +18,15 @@ public class UndoRedoCommandTestUtil {
      * - the result message matches {@code expectedMessage} <br>
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
+     * - model's previewImage's new index and size equal to the expected index and size.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, BufferedImage expectedImage) {
+            String expectedMessage, int expectedIndex, int expectedSize) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
-            assertTrue(imagesEqual(expectedImage, actualModel.getCurrentPreviewImage().getImage()));
+            assertTrue(previewImageHasCorrectState(actualModel.getCurrentPreviewImage(), expectedIndex, expectedSize));
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
@@ -39,39 +39,35 @@ public class UndoRedoCommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the previewImage in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
+     * - model's previewImage's index and size does not change.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, BufferedImage expectedImage) {
+            String expectedMessage) {
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        int originalIndex = actualModel.getCurrentPreviewImage().getCurrentIndex();
+        int originalSize = actualModel.getCurrentPreviewImage().getCurrentSize();
 
         try {
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertTrue(imagesEqual(expectedImage, actualModel.getCurrentPreviewImage().getImage()));
+            assertTrue(previewImageHasCorrectState(actualModel.getCurrentPreviewImage(), originalIndex, originalSize));
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
-    public static void assertImagesEqual(BufferedImage img1, BufferedImage img2) {
-        assertTrue(imagesEqual(img1, img2));
-    }
-
     /**
-     * Check if 2 photos are equal
+     * Check if a previewImage is at the expected index and size
      */
-    private static boolean imagesEqual(BufferedImage img1, BufferedImage img2) {
-        if (img1.getWidth() == img2.getWidth() && img1.getHeight() == img2.getHeight()) {
-            for (int x = 0; x < img1.getWidth(); x++) {
-                for (int y = 0; y < img1.getHeight(); y++) {
-                    if (img1.getRGB(x, y) != img2.getRGB(x, y)) {
-                        return false;
-                    }
-                }
-            }
-        } else {
+    private static boolean previewImageHasCorrectState(PreviewImage previewImage, int expectedIndex, int expectedSize) {
+        int actualIndex = previewImage.getCurrentIndex();
+        int actualSize = previewImage.getCurrentSize();
+        if (actualIndex != expectedIndex) {
+            return false;
+        }
+        if (actualSize != expectedSize) {
             return false;
         }
         return true;
