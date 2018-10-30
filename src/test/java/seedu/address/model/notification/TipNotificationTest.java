@@ -10,6 +10,10 @@ import seedu.address.testutil.Assert;
 
 //@@Snookerballs
 public class TipNotificationTest extends NotificationTest {
+    public static final String VALID_HEADER = "header";
+    public static final String VALID_BODY = "body";
+    public static final TipNotification VALID_TIP_NOTIFICATION = new TipNotification(VALID_HEADER, VALID_BODY);
+
     @Test
     public void constructor_nullBudget_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new TipNotification((Tips) null));
@@ -17,8 +21,15 @@ public class TipNotificationTest extends NotificationTest {
     }
 
     @Test
-    public void constructor_nullStrings_throwsIllegalArgumentException() {
+    public void constructor_validArgs() {
+        assertEquals(new TipNotification(VALID_HEADER, VALID_BODY), VALID_TIP_NOTIFICATION);
+        Tips tips = new Tips(TipsTest.VALID_TIP);
+        assertEquals(new TipNotification(tips).getHeader(), tips.getRandomTip().getHeader());
+        assertEquals(new TipNotification(tips).getBody(), tips.getRandomTip().getBody());
+    }
 
+    @Test
+    public void constructor_nullStrings_throwsIllegalArgumentException() {
         Assert.assertThrows(NullPointerException.class, () -> new TipNotification(null, null));
     }
 
@@ -30,10 +41,8 @@ public class TipNotificationTest extends NotificationTest {
     @Test
     public void isSameNotification() {
         assertTrue(new TipNotification(VALID_HEADER, VALID_BODY)
-                .isSameNotification(new TipNotification("aa", "bb")));
+                .isSameNotification(new TipNotification(VALID_HEADER, VALID_BODY)));
         assertFalse(new TipNotification(VALID_HEADER, VALID_BODY)
                 .isSameNotification(new TipNotification("bb", "bb")));
     }
-
-
 }

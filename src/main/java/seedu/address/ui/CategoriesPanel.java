@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
  * Panel containing the totalBudget information.
  */
 public class CategoriesPanel extends UiPart<Region> {
+
     private static final String FXML = "CategoriesPanel.fxml";
     private static final String IMAGE_PATH_PREFIX = "/images/categoryIcons/";
     private static final String IMAGE_PATH_POSTFIX = ".png";
@@ -30,14 +31,14 @@ public class CategoriesPanel extends UiPart<Region> {
         super(FXML);
         currentColumn = 0;
         currentRow = 0;
-        categories.forEachRemaining(entry -> updateCategories(entry.getKey()));
+        //categories.forEachRemaining(entry -> updateCategories(entry.getKey()));
     }
 
     /**
      * Update the list of categories being displayed
      * @param name of category to update
      */
-    public void updateCategories(String name) {
+   /* public void updateCategories(String name) {
         if (currentColumn / MAX_COL > 1) {
             currentColumn = 0;
             currentRow++;
@@ -46,7 +47,5 @@ public class CategoriesPanel extends UiPart<Region> {
         CategoryIcon categoryIcon = new CategoryIcon(name, IMAGE_PATH_PREFIX + "bulb" + IMAGE_PATH_POSTFIX);
         categoriesGrid.add(categoryIcon.getRoot(), currentColumn, currentRow);
         currentColumn++;
-    }
-
-
+    }*/
 }

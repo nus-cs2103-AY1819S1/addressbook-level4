@@ -45,6 +45,12 @@ public class NotificationHandlerTest {
         handler.add(TIP);
         assertEquals(handler, asNotificationHandler());
 
+        //Valid - Same Object
+        assertEquals(handler, handler);
+
+        //Invalid - not a NotificationHandler
+        assertNotEquals(handler, 0);
+
         //Differing  Date
         handler = new NotificationHandler();
         assertNotEquals(handler, asNotificationHandler());

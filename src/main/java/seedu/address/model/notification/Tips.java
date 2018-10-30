@@ -11,6 +11,8 @@ import java.util.Random;
  */
 //@@Snookerballs
 public class Tips {
+    public static final Tip DEFAULT_TIP = new Tip("No Tips!", "There are no tips!");
+
     private List<Tip> tips;
 
     /**
@@ -26,18 +28,40 @@ public class Tips {
         this.tips = new ArrayList<>();
     }
 
+    public Tips(Tip ... allTips) {
+        this();
+        for (Tip t: allTips) {
+            requireAllNonNull(t);
+            tips.add(t);
+        }
+    }
+
     /**
      * Choose a random tip from the list of tips
      * @return a randomly chosen tip
      */
     public Tip getRandomTip() {
         if (tips.size() == 0) {
-            return new Tip("No Tips!", "There are no tips!");
+            return DEFAULT_TIP;
         }
 
         Random rand = new Random();
-        int index = rand.nextInt(tips.size() - 1);
+        int index = rand.nextInt(tips.size());
         return tips.get(index);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (!(obj instanceof Tips)) {
+            return false;
+        }
+
+        Tips other = (Tips) obj;
+
+        return this.tips.equals(other.tips);
+    }
 }

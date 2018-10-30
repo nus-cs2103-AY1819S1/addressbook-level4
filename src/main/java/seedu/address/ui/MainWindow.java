@@ -214,11 +214,6 @@ public class MainWindow extends UiPart<Stage> {
         statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 300.00);
         statisticsSplitPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
 
-        statisticsSplitPane = new AnchorPane();
-        statisticsSplitPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
-        statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
-        statisticsSplitPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
-
         swapToStat();
         fadeInPanels();
 
