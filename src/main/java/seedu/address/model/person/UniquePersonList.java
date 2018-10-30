@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -93,6 +95,35 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.setAll(persons);
+    }
+
+
+    /**
+     * Finds the patient in the list with {@code persons}.
+     * {@code patient} must be in the list of persons.
+     */
+    public Patient findPatient(Patient patient) {
+        requireNonNull(patient);
+        for (Person p : internalList) {
+            if (p instanceof Patient && p.equals(patient)) {
+                return (Patient) p;
+            }
+        }
+        throw new PersonNotFoundException();
+    }
+
+    /**
+     * Finds the doctor in the list with {@code persons}.
+     * {@code doctor} must be in the list of persons.
+     */
+    public Doctor findDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        for (Person d : internalList) {
+            if (d instanceof Doctor && d.equals(doctor)) {
+                return (Doctor) d;
+            }
+        }
+        throw new PersonNotFoundException();
     }
 
     /**
