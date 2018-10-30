@@ -6,6 +6,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -26,23 +27,19 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_LOGIN_SUCCESS = "Logged in as %1$s";
     public static final String MESSAGE_INCORRECT_PASSWORD = "Incorrect password";
 
-    private final Username username;
-    private final Password password;
-    private final String plainPassword;
+    private final LoginInformation loginInformation;
 
-    public LoginCommand(Username username, Password password, String plainPassword) {
-        requireNonNull(username);
-        this.username = username;
-        this.password = password;
-        this.plainPassword = plainPassword;
+    public LoginCommand(LoginInformation loginInformation) {
+        requireNonNull(loginInformation);
+        this.loginInformation = loginInformation;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws
             NonExistentUserException, InvalidDataException {
         requireNonNull(model);
-        if (model.loadUserData(this.username, this.password, this.plainPassword)) {
-            return new CommandResult(String.format(MESSAGE_LOGIN_SUCCESS, this.username.toString()));
+        if (model.loadUserData(loginInformation)) {
+            return new CommandResult(String.format(MESSAGE_LOGIN_SUCCESS, loginInformation.getUsername()));
         } else {
             return new CommandResult(MESSAGE_INCORRECT_PASSWORD);
         }
@@ -52,6 +49,6 @@ public class LoginCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof LoginCommand // instanceof handles nulls
-                && username.equals(((LoginCommand) other).username)); // state check
+                && loginInformation.equals(((LoginCommand) other).loginInformation)); // state check
     }
 }

@@ -11,6 +11,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -124,7 +125,7 @@ public interface Model {
      * Selects the ExpenseTracker of the user with the input username to be used.
      * Returns true if successful, false if the input password is incorrect.
      */
-    boolean loadUserData(Username username, Password password, String encryptionKey)
+    boolean loadUserData(LoginInformation loginInformation)
             throws NonExistentUserException, InvalidDataException;
 
     /**

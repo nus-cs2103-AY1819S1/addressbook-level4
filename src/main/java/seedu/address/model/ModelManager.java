@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -71,11 +73,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Initializes a ModelManager with an input ExpenseTracker and UserPrefs. The ModelManager will be logged into
-     * the input ExpenseTracker.
+     * the input ExpenseTracker. Used for testing purposes.
      * @param expenseTracker the ExpenseTracker to be used
      * @param userPrefs the UserPrefs to be used
      */
-    public ModelManager(ReadOnlyExpenseTracker expenseTracker, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyExpenseTracker expenseTracker, UserPrefs userPrefs, String password) {
         super();
         requireAllNonNull(expenseTracker, userPrefs);
         Map<Username, EncryptedExpenseTracker> expenseTrackers = new TreeMap<>();
@@ -89,8 +91,8 @@ public class ModelManager extends ComponentManager implements Model {
             this.statsPeriod = defaultStatsPeriod();
             this.statsMode = defaultStatsMode();
             this.expenseStatPredicate = defaultExpensePredicate();
-            loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword().orElse(null),
-                    expenseTracker.getEncryptionKey());
+            LoginInformation loginInformation = new LoginInformation(expenseTracker.getUsername(), password);
+            loadUserData(loginInformation);
         } catch (NonExistentUserException | IllegalValueException | InvalidDataException e) {
             // The ExpenseTracker data is guaranteed to be valid and added to the ModelManager.
             throw new IllegalStateException();
@@ -323,40 +325,24 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public boolean loadUserData(Username username, Password password, String plainPassword)
+    public boolean loadUserData(LoginInformation loginInformation)
             throws NonExistentUserException, InvalidDataException {
-        requireAllNonNull(username);
+        requireAllNonNull(loginInformation);
+        Username username = loginInformation.getUsername();
+        Optional<Password> password = loginInformation.getPassword();
+        Optional<String> plainPassword = loginInformation.getPlainPassword();
+        EncryptedExpenseTracker encryptedTracker = expenseTrackers.get(username);
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, expenseTrackers.size());
         }
-        if (!expenseTrackers.get(username).isMatchPassword(password)) {
+        if (!encryptedTracker.isMatchPassword(password.orElse(null))) {
             return false;
         }
-        if (hasSelectedUser()) {
-            try {
-                expenseTrackers.replace(versionedExpenseTracker.getUsername(),
-                        EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
-            } catch (IllegalValueException e) {
-                throw new IllegalStateException("Illegal value in old expense tracker.");
-            }
-        }
 
-        EncryptedExpenseTracker encryptedTracker = expenseTrackers.get(username);
-        String encryptionKey;
-        if (!encryptedTracker.getPassword().isPresent()) {
-            encryptionKey = DEFAULT_ENCRYPTION_KEY;
-        } else {
-            requireNonNull(plainPassword);
-            encryptionKey = createEncryptionKey(plainPassword);
-        }
-        try {
-            this.versionedExpenseTracker = new VersionedExpenseTracker(encryptedTracker.decryptTracker(encryptionKey));
-        } catch (IllegalValueException e) {
-            // Invalid expense tracker data associated with the user. Cannot be a key issue as the password has been
-            // previously verified.
-            throw new InvalidDataException();
-        }
-
+        saveCurrentUserToMapIfExists();
+        String encryptionKey = getEncryptionKeyForData(encryptedTracker, plainPassword.orElse(null));
+        ExpenseTracker decryptedTrackerData = getDecryptedTrackerData(username, encryptionKey);
+        this.versionedExpenseTracker = new VersionedExpenseTracker(decryptedTrackerData);
         this.filteredExpenses = new FilteredList<>(versionedExpenseTracker.getExpenseList());
 
         try {
@@ -364,9 +350,64 @@ public class ModelManager extends ComponentManager implements Model {
             indicateExpenseTrackerChanged();
             checkBudgetRestart();
         } catch (NoUserSelectedException nuse) {
-            throw new IllegalStateException(nuse.getMessage());
+            throw new IllegalStateException("NoUserSelectedException thrown after loading user data");
         }
         return true;
+    }
+
+    /**
+     * Saves the data of the currently logged in user to the expense trackers map. Does nothing if no user is
+     * currently logged in.
+     */
+    private void saveCurrentUserToMapIfExists() {
+        if (!hasSelectedUser()) {
+            return;
+        }
+        try {
+            expenseTrackers.replace(versionedExpenseTracker.getUsername(),
+                    EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
+        } catch (IllegalValueException e) {
+            throw new IllegalStateException("Illegal value in old expense tracker.");
+        }
+    }
+
+    /**
+     * Gets the decrypted expense tracker data of the user with the input username using the given encryption key.
+     * @param username the username of the user
+     * @param encryptionKey the key to use
+     * @return the decrypted expense tracker data of the user as an ExpenseTracker object
+     * @throws InvalidDataException if the expense tracker data of the user contains invalid fields or the
+     * encryption key is invalid
+     */
+    private ExpenseTracker getDecryptedTrackerData(Username username, String encryptionKey)
+            throws InvalidDataException {
+        EncryptedExpenseTracker encryptedTracker = expenseTrackers.get(username);
+        ExpenseTracker decryptedTracker;
+        try {
+            decryptedTracker = encryptedTracker.decryptTracker(encryptionKey);
+        } catch (IllegalValueException e) {
+            // Invalid expense tracker data associated with the user. Cannot be a key issue as the password has been
+            // previously verified.
+            throw new InvalidDataException();
+        }
+        return decryptedTracker;
+    }
+
+    /**
+     * Generates the encryption key for a given encrypted expense tracker data and its password in plain text form.
+     * The key generated can be used to decrypt the data if and only if password given is accurate.
+     * @param tracker the data to decrypt
+     * @param plainPassword the password in plain text form
+     * @return the encryption key
+     */
+    private String getEncryptionKeyForData(EncryptedExpenseTracker tracker, String plainPassword) {
+        requireNonNull(tracker);
+        if (!tracker.getPassword().isPresent()) {
+            return DEFAULT_ENCRYPTION_KEY;
+        } else {
+            requireNonNull(plainPassword);
+            return createEncryptionKey(plainPassword);
+        }
     }
 
     @Override
