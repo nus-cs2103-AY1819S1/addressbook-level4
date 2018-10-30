@@ -228,7 +228,6 @@ public class StorageManager extends ComponentManager implements Storage {
             EventsCenter.getInstance().post(new ImageReadingExceptionEvent(e));
         }
 
-        System.out.print(image);
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "image read, writing file"));
         if (image != null) {
             try {

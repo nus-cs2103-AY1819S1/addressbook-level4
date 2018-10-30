@@ -31,7 +31,6 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String PERSON_PROFILE_PAGE = "profile.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
-    public static final String BREAK = "<br />";
 
     private static final String FXML = "BrowserPanel.fxml";
 
