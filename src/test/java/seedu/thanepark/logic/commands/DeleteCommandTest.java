@@ -8,10 +8,7 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
-<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/DeleteCommandTest.java
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-=======
->>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc:src/test/java/seedu/thanepark/logic/commands/DeleteCommandTest.java
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
@@ -78,11 +75,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
-<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/DeleteCommandTest.java
         assertTrue(outOfBoundIndex.getZeroBased() < model.getThanePark().getRideList().size());
-=======
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRideList().size());
->>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc:src/test/java/seedu/thanepark/logic/commands/DeleteCommandTest.java
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 

@@ -13,10 +13,7 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
-<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-=======
->>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
@@ -123,11 +120,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit ride in filtered list into a duplicate in thanepark book
-<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
         Ride rideInList = model.getThanePark().getRideList().get(INDEX_SECOND_RIDE.getZeroBased());
-=======
-        Ride rideInList = model.getAddressBook().getRideList().get(INDEX_SECOND_RIDE.getZeroBased());
->>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new UpdateRideDescriptorBuilder(rideInList).build());
 
@@ -152,11 +145,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
-<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
         assertTrue(outOfBoundIndex.getZeroBased() < model.getThanePark().getRideList().size());
-=======
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRideList().size());
->>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
 
         UpdateCommand editCommand = new UpdateCommand(outOfBoundIndex,
                 new UpdateRideDescriptorBuilder().withName(VALID_NAME_BOB).build());

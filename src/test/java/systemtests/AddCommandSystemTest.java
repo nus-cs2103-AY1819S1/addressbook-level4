@@ -50,11 +50,7 @@ import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.RideUtil;
 
-<<<<<<< HEAD
 public class AddCommandSystemTest extends ThaneParkSystemTest {
-=======
-public class AddCommandSystemTest extends AddressBookSystemTest {
->>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
     @Test
     public void add() {
