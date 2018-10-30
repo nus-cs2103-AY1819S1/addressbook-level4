@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.VolunteerPanelSelectionChangedEvent;
@@ -34,6 +35,8 @@ public class VolunteerPanel extends UiPart<Region> {
     private Label volunteerPhoneLabel;
     @FXML
     private Label volunteerEmailLabel;
+    @FXML
+    private FlowPane volunteerTag;
 
     private ObservableList<Record> recordList;
 
@@ -49,6 +52,8 @@ public class VolunteerPanel extends UiPart<Region> {
         volunteerPhoneLabel.setText(volunteer.getPhone().value);
         volunteerEmailLabel.setText(volunteer.getEmail().value);
         volunteerAddressLabel.setText(volunteer.getAddress().value);
+        volunteerTag.getChildren().clear();
+        volunteer.getTags().forEach(tag -> volunteerTag.getChildren().add(new Label(tag.tagName)));
     }
 
     @Subscribe
@@ -67,5 +72,6 @@ public class VolunteerPanel extends UiPart<Region> {
         volunteerPhoneLabel.setText("");
         volunteerEmailLabel.setText("");
         volunteerAddressLabel.setText("");
+        volunteerTag.getChildren().clear();
     }
 }
