@@ -68,14 +68,18 @@ public class UserPrefs {
         File currFileDir = new File(currDirectory.toString());
         File[] currFiles = currFileDir.listFiles();
         ArrayList<Path> dirImageList = new ArrayList<>();
-        for (File file : currFiles) {
-            if (file.isFile()) {
-                String mimetype = new MimetypesFileTypeMap().getContentType(file);
-                // only list if is image
-                if ((mimetype.split("/")[0]).equals("image")) {
-                    dirImageList.add(file.toPath());
+        try {
+            for (File file : currFiles) {
+                if (file.isFile()) {
+                    String mimetype = new MimetypesFileTypeMap().getContentType(file);
+                    // only list if is image
+                    if ((mimetype.split("/")[0]).equals("image")) {
+                        dirImageList.add(file.toPath());
+                    }
                 }
             }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
         Collections.sort(dirImageList);
         imageList = dirImageList;
