@@ -3,6 +3,8 @@ package seedu.clinicio.testutil;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 
+import java.util.Optional;
+
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
@@ -27,7 +29,7 @@ public class AppointmentBuilder {
     private Patient patient;
     private int type;
     private int status;
-    private Staff staff;
+    private Optional<Staff> staff;
 
     public AppointmentBuilder() {
         date = DEFAULT_DATE;
@@ -35,7 +37,7 @@ public class AppointmentBuilder {
         patient = DEFAULT_PATIENT;
         type = DEFAULT_TYPE;
         status = DEFAULT_STATUS;
-        staff = DEFAULT_STAFF;
+        staff = Optional.of(DEFAULT_STAFF);
     }
 
     /**
@@ -78,7 +80,7 @@ public class AppointmentBuilder {
      * Sets the {@code Doctor} of the {@code Appointment} that we are building.
      */
     public AppointmentBuilder withStaff(Staff staff) {
-        this.staff = staff;
+        this.staff = Optional.of(staff);
         return this;
     }
 

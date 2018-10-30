@@ -24,13 +24,13 @@ public class Appointment {
     //fields used for making appointment
     private final Date appointmentDate;
     private final Time appointmentTime;
+    private final Patient patient;
     private int appointmentStatus;
     private int appointmentType;
-    private final Patient patient;
-    private final Optional<Staff> assignedStaff;
+    private Optional<Staff> assignedStaff;
 
     public Appointment(Date date, Time time, Patient patient, int appointmentType) {
-        requireAllNonNull(date, time, patient); //TODO: Include appointmentType and staff
+        requireAllNonNull(date, time, patient);
         this.appointmentDate = date;
         this.appointmentTime = time;
         this.patient = patient;
@@ -62,6 +62,10 @@ public class Appointment {
 
     public Optional<Staff> getAssignedStaff() {
         return assignedStaff;
+    }
+
+    public void setAssignedStaff(Staff staff) {
+        assignedStaff = Optional.of(staff);
     }
 
     /**
