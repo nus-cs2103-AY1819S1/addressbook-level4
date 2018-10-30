@@ -1,6 +1,11 @@
-Name,Given Name,Additional Name,Family Name,Yomi Name,Given Name Yomi,Additional Name Yomi,Family Name Yomi,Name Prefix,Name Suffix,Initials,Nickname,Short Name,Maiden Name,Birthday,Gender,Location,Billing Information,Directory Server,Mileage,Occupation,Hobby,Sensitivity,Priority,Subject,Notes,Language,Photo,Group Membership,Phone 1 - Type,Phone 1 - Value
-Jack,Jack,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,,9123 4567
-Kai Ting,Kai Ting,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,,9876 5432
-Pratyay,Pratyay,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,,9777 7777
-Ryan,Ryan,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,,9888 8888
-Yu Wei,Yu Wei,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,,9666 6666
+Name,Given Name,Additional Name,Family Name,Yomi Name,Given Name Yomi,Additional Name Yomi,Family Name Yomi,Name Prefix,Name Suffix,Initials,Nickname,Short Name,Maiden Name,Birthday,Gender,Location,Billing Information,Directory Server,Mileage,Occupation,Hobby,Sensitivity,Priority,Subject,Notes,Language,Photo,Group Membership,E-mail 1 - Type,E-mail 1 - Value,Phone 1 - Type,Phone 1 - Value,Address 1 - Type,Address 1 - Formatted,Address 1 - Street,Address 1 - City,Address 1 - PO Box,Address 1 - Region,Address 1 - Postal Code,Address 1 - Country,Address 1 - Extended Address,Organization 1 - Type,Organization 1 - Name,Organization 1 - Yomi Name,Organization 1 - Title,Organization 1 - Department,Organization 1 - Symbol,Organization 1 - Location,Organization 1 - Job Description
+Jack,Jack,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,* ,@gmail.com,,9123 4567,,"12 Computing Drive
+SG",12 Computing Drive,,,,,SG,,,SOC,,,,,,
+Kai Ting,Kai Ting,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,* ,kaiting@gmail.com,,9876 5432,,"12 Computing Dr
+SG",12 Computing Dr,,,,,SG,,,SOC,,,,,,
+Pratyay,Pratyay,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,* ,pratyay@gmail.com,,9777 7777,,"12 Computing Dr
+SG",12 Computing Dr,,,,,SG,,,SOC,,,,,,
+Ryan,Ryan,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,* ,ryan@gmail.com,,9888 8888,,"12 Computing Dr
+SG",12 Computing Dr,,,,,SG,,,SOC,,,,,,
+Yu Wei,Yu Wei,,,,,,,,,,,,,,,,,,,,,,,,,,,* myContacts,* ,yuwei@gmail.com,,9666 6666,,"12 Computing Dr
+SG",12 Computing Dr,,,,,SG,,,SOC,,,,,,
