@@ -198,7 +198,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                 ingredientServingUnit = new IngredientServingUnit(servingUnit);
             } else if (tokens[i].equals("date")) {
                 try {
-                    date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[i+1]);
+                    date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[i + 1]);
                 } catch (java.text.ParseException pe) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
