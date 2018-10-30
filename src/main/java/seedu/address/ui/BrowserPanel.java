@@ -12,7 +12,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.module.Module;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,8 +25,11 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+    public static final String SEARCH_PERSON_PAGE_URL =
+            "https://www.google.com/search?q=";
+    public static final String SEARCH_MODULE_PAGE_URL = "https://nusmods.com/modules/";
+    public static final String SEARCH_OCCASION_PAGE_URL =
+            "https://www.google.com/search?q=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -42,7 +49,15 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+        loadPage(SEARCH_PERSON_PAGE_URL + person.getName().fullName);
+    }
+
+    private void loadModulePage (Module module) {
+        loadPage(SEARCH_MODULE_PAGE_URL + module.getModuleCode().fullModuleCode);
+    }
+
+    private void loadOccasionPage (Occasion occasion) {
+        loadPage(SEARCH_OCCASION_PAGE_URL + occasion.getOccasionName().fullOccasionName);
     }
 
     public void loadPage(String url) {
@@ -68,5 +83,17 @@ public class BrowserPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleModulePanelSelectionChangedEvent(ModulePanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadModulePage(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleoccasionPanelSelectionChangedEvent(OccasionPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadOccasionPage(event.getNewSelection());
     }
 }
