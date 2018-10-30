@@ -37,7 +37,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
@@ -52,12 +52,12 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
     @Test
     public void add() throws NoUserSelectedException {
         Model model = getModel();
-        //Set budget such that it never exceeds
+        //Set totalBudget such that it never exceeds
         model.commitExpenseTracker();
-        testApp.getActualModel().modifyMaximumBudget(new Budget(String.format("%.2f", Double.MAX_VALUE)));
+        testApp.getActualModel().modifyMaximumBudget(new TotalBudget(String.format("%.2f", Double.MAX_VALUE)));
         testApp.getActualModel().commitExpenseTracker();
 
-        model.modifyMaximumBudget(new Budget(String.format("%.2f", Double.MAX_VALUE)));
+        model.modifyMaximumBudget(new TotalBudget(String.format("%.2f", Double.MAX_VALUE)));
         showAllExpenses();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */

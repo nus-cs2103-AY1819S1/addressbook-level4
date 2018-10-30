@@ -21,5 +21,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_HOURS = new Prefix("hrs/");
     public static final Prefix PREFIX_MINUTES = new Prefix("min/");
     public static final Prefix PREFIX_SECONDS = new Prefix("sec/");
+    public static final Prefix PREFIX_BUDGET = new Prefix("b/");
 
 }

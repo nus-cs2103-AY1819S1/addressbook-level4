@@ -311,10 +311,11 @@ Format: `list`
 //`select 1` +
 //Selects the 1st expense in the results of the `find` command.
 
-=== Setting a budget: `setBudget`
-Sets the budget for Expense Tracker. +
+// tag::budget[]
+=== Setting a total budget: `setBudget`
+Sets `totalBudget` for Expense Tracker. +
 
-The Expense Tracker will warn you when your total expenditure exceeds the budget that is set.
+The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set.
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -322,9 +323,9 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 *Examples:*
 
 * `setBudget 2.00` +
- Sets a budget of $2.00.
+ Sets a `totalBudget` of $2.00.
 * `setBudget 20.00` +
- Sets a budget of $20.00.
+ Sets a `totalBudget` of $20.00.
 ****
 
 [NOTE]
@@ -333,10 +334,10 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 * MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.
 ====
 
-=== Setting a recurring frequency for budget: `setRecurrenceFrequency`
-Sets the recurrence frequency for the budget of Expense Tracker.
+=== Setting a recurring frequency for totalBudget: `setRecurrenceFrequency`
+Sets the recurrence frequency for the `totalBudget` of Expense Tracker.
 
-Expense Tracker will reset your budget after every `FREQUENCY`
+Expense Tracker will reset your spending after every `FREQUENCY`
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
@@ -345,9 +346,9 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 *Examples:*
 
 * `setRecurrenceFrequency hrs/1` +
-    Sets the budget to reset every 1 hour
+    Sets the spending of `totalBudget` to reset every 1 hour
 * `setRecurrenceFrequency hrs/1 min/30` +
-    Sets the budget reset every 1 hour and 30 minutes
+    Sets the spending of `totalBudget` reset every 1 hour and 30 minutes
 ****
 
 [NOTE]
@@ -356,6 +357,30 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 * HOURS/MINUTES/SECONDS must be a positive number.
 ====
 
+=== Adding a Category Budget: `addCategoryBudget`
+Adds a Budget to limit spending on a certain category.
+
+If spending exceeds Category budget, a warning similar to 4.10 will be shown.
+
+Sum of all category budgets cannot exceed total budget of
+Expense Tracker.
+
+Format: `addCategoryBudget c/CATEGORY b/BUDGET`
+
+****
+*Example:*
+
+* `addCategoryBudget c/School b/10.00` +
+    Adds a budget of $10 to the `School` category.
+
+****
+
+[NOTE]
+====
+Valid `CATEOGRY` and `BUDGET` follows the syntax listed under 4.5 and 4.10
+====
+
+// end::budget[]
 
 === Listing entered commands : `history`
 
@@ -511,9 +536,9 @@ e.g. `find c/School`
 * *List* : `list`
 //* *Select* : `select INDEX` +
 //e.g.`select 2`
-* *Set budget* : `setBudget` +
+* *Set `totalBudget`* : `setBudget` +
 e.g. `setBudget 20.00`
-* *Set recurring frequency for budget*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
+* *Set recurring frequency for `totalBudget`*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

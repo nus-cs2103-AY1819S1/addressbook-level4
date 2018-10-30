@@ -78,7 +78,7 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
     }
 
     /**
-     * Checks if the expenseText and budgetBar turns red when over budget.
+     * Checks if the expenseText and budgetBar turns red when over totalBudget.
      * @return true if both UI elements are red, false otherwise.
      */
     public boolean isColorRed() {
@@ -87,7 +87,7 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
     }
 
     /**
-     * Checks if the expenseText and budgetBar is green when under budget.
+     * Checks if the expenseText and budgetBar is green when under totalBudget.
      * @return true if both UI elements are green, false otherwise.
      */
     public boolean isColorGreen() {

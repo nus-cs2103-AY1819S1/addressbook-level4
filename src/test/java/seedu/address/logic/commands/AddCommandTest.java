@@ -21,7 +21,8 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.expense.Expense;
@@ -124,12 +125,22 @@ public class AddCommandTest {
             throw new AssertionError("setRecurrenceFrequency should not be called");
         }
         @Override
+        public void modifyCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("modifyCategoryBudget should not be called");
+
+        }
+        @Override
+        public void addCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("addCategoryBudget should not be called");
+
+        }
+        @Override
         public void resetData(ReadOnlyExpenseTracker newData) {
             throw new AssertionError("resetData method should not be called.");
         }
 
         @Override
-        public void modifyMaximumBudget(Budget budget) {
+        public void modifyMaximumBudget(TotalBudget totalBudget) {
             throw new AssertionError("modifyMaximumBudget method should not be called.");
         }
 
@@ -269,8 +280,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public Budget getMaximumBudget() {
-            throw new AssertionError("getMaximumBudget method should not be called.");
+        public TotalBudget getMaximumBudget() {
+            throw new AssertionError("getMaximumTotalBudget method should not be called.");
         }
 
     }
@@ -293,9 +304,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public Budget getMaximumBudget() {
+        public TotalBudget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0, 0);
+            return new TotalBudget(0, 0);
         }
     }
 
@@ -330,14 +341,14 @@ public class AddCommandTest {
         }
 
         @Override
-        public Budget getMaximumBudget() {
+        public TotalBudget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0, 0);
+            return new TotalBudget(0, 0);
         }
     }
 
     /**
-     * A Model stub that will always result in a successful add, but can be within or above the budget
+     * A Model stub that will always result in a successful add, but can be within or above the totalBudget
      */
     private class ModelStubBudget extends ModelStub {
         private final boolean withinBudget;
@@ -363,9 +374,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public Budget getMaximumBudget() {
+        public TotalBudget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0, 0);
+            return new TotalBudget(0, 0);
         }
     }
 
