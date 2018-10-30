@@ -456,10 +456,7 @@ The two main files it will encrypt are:
 
 _This feature is coming in v2.0._
 
-
-
 // end::dataencryption[]
-
 
 === Query feature
 
@@ -475,6 +472,7 @@ Some notable methods that `GsonUtil` implement are:
 * `GsonUtil#getCarparkData()` — Get the basic car park information from the API.
 * `GsonUtil#getCarparkAvailability()` — Get the total number of parking lots as well as the availability of the parking lots from another API.
 * `GsonUtil#fetchCarparkInfo()` — Return a list of car parks with populated data.
+* `GsonUtil#loadCarparkPostalCode` — Return a list of postal code information, with hashed coordinate data.
 
 Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
 
@@ -528,8 +526,6 @@ image::zy_seq.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Easy to implement.
-//** Cons: Application hangs while data is being queried.
 
 * **Alternative 2 :** Data is queried using a separate thread.
 +
@@ -540,8 +536,6 @@ image::zy_seq.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Application can continue to function as the data is being fetched in the background.
-//** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
 
 ===== Aspect: Data structure to support query command
 
@@ -554,9 +548,6 @@ image::zy_seq.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Easy to maintain and iterate through an array list of array lists to get a specific car park.
-//** Cons: Using an `ArrayList<ArrayList<String>>` can be confusing and unintuitive. Accessing elements is also not that efficient.
-
 * **Alternative 2 :** Use a `HashMap<String,Carpark>` to store data.
 +
 [cols="1,10"]
@@ -566,8 +557,6 @@ image::zy_seq.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Much more efficient in accessing elements by using a key and better code readability.
-//** Cons: `HashMap` does not provide an ordered collection.
 
 === [Propose] Notify feature
 
@@ -600,8 +589,6 @@ image::zy_act.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Easy to implement.
-//** Cons: Performance issues as the application might stall.
 
 * **Alternative 2 :** Data is queried using a separate thread every interval.
 +
@@ -612,8 +599,6 @@ image::zy_act.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Application can be used as the data is being fetched in the background.
-//** Cons: Reading the car park list while querying might cause unintended side effects if not handled properly.
 
 === Find feature
 
@@ -670,8 +655,6 @@ image::actdiagram-find.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Re-usable functions for partial checking.
-//** Cons: Harder to maintain for multiple keywords, which might cause unintended side effects.
 
 * **Alternative 2:** Filter the data when it is taken in.
 +
@@ -682,8 +665,6 @@ image::actdiagram-find.png[width="800", align="left"]
 |===
 +
 
-//** Pros: Easy to maintain as predicate will have lesser conditions.
-//** Cons: Breaks OOP style as the parser will modify the data.
 
 === Filter feature
 
