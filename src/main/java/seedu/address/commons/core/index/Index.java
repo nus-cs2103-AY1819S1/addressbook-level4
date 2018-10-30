@@ -45,6 +45,8 @@ public class Index {
         return new Index(oneBasedIndex - 1);
     }
 
+    public String getIndexString() { return Integer.toString(zeroBasedIndex); }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

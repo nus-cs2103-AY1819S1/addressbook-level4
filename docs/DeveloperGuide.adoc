@@ -239,20 +239,65 @@ Classes used by multiple components are in the `seedu.System.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::favourite[]
+=== Select an existing event to be detailed in the notification if notification is enabled.
+==== Current Implementation
+
+Details of favourite event (i.e. event name, date, day, time, details) stored as a String "Favourite" in preferences.json file.
+The favourite mechanism is implemented through the ModelManager.
+Upon startup, if notification is enabled, and there is a String "favourite" in preferences.json is non-null, the notification will display the String "favourite".
+"Favourite" in preferences.json is also loaded into ModelManager.
+Upon executing FavouriteCommand, the event is selected based on the input parameters and the filteredEventsListByDate.
+The attributes of the event is formatted into a String and saved to the ModelManager.
+Upon exit, the formatted String in ModelManager is saved to preferences.json to ensure statefulness.
+
+* `logic#parser#FavouriteCommandParser()` -- creates a FavouriteCommand object based on user's inputs.
+* `logic#commands#FavouriteCommand()` -- updates the ModelManager's favouriteEvent attribute.
+
+Given below is an example usage scenario and how the favourite mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The model's favouriteEvent attribute is initially null.
+
+Step 2. The user executes `favourite d/2018-04-01 i/1`. The `favourite` command calls FavouriteCommandParser which checks validity of user inputs and creates a new FavouriteCommand which selects the event and create a formatted String from the event details.
+
+[NOTE]
+The favourite command will update favouriteEvent regardless of whether the new favouriteEvent String is the same as the existing String.
+
+==== Design Considerations
+
+==== Aspect: How favourite is updated
+
+* **Alternative 1 (current choice):** Re-assign Model's favouriteEvet regardless of previous preference
+** Pros: Easy to implement.
+** Cons: Wasteful in the case of same favorite event.
+* **Alternative 2:** Check current favouriteEvent and only assign new value if it is different from the previous value.
+** Pros: Do not waste computing cycles on unecessary re-assingment of favouriteEvent.
+** Cons: Code becomes more complicated because additional check required.
+
+===== Aspect: Writing to preferences.json
+
+* **Alternative 1 (current choice):** Write all Model preferences to preferences.json
+** Pros: Easy to implement.
+** Cons: Unecessary computing cycles wasted on writing when possibly no change
+* **Alternative 2:** Check for difference between Model preferences and preferences.json, only write to preferences.json if there is difference.
+** Pros: Efficient.
+** Cons: Code becomes more complicated because additional check required
+// end::notification[]
+
 //tag::notification[]
 === Enable/Disable Notification feature
 ==== Current Implementation
 
 Notification preference is stored in the preferences.json file.
 The notification mechanism is facilitated by Javafx.
-Upon startup, notification preference is loaded from preferences.json and saved to the model.
+Upon startup, notification preference is loaded from preferences.json and saved to the ModelManager.
 Upon exit, the model's notification preference is saved to preferences.json to ensure statefulness.
 When enabled, it creates a child stage and scene from the main window and displays with a countdown timer to automatically close the stage.
 Additionally, it implements the following operations
 
 * `ui#NotificationWindow()` -- creates the stage and scene for the notification using 2 String inputs: `title` and `message`
-* `logic#parser#NotificationCommandParser()` -- creates a the relevant NotificationCommand object based on user's input
-* `logic#commands#NotificationCommand()` -- updates the model's notification preference
+* `logic#parser#NotificationCommandParser()` -- creates a NotificationCommand object based on user's input
+* `logic#commands#NotificationCommand()` -- updates the ModelManager's notificationPref attribute.
 
 Given below is an example usage scenario and how the enable/disable notification mechanism behaves at each step.
 
@@ -265,7 +310,7 @@ The notification command will update the notification preference regardless of w
 
 ==== Design Considerations
 
-===== Aspect: How notification preferences updated
+===== Aspect: How notification preferences is updated
 
 * **Alternative 1 (current choice):** Re-assign Model's notification preference regardless of previous preference
 ** Pros: Easy to implement.
@@ -1193,6 +1238,32 @@ Use case ends.
 ** 3a1. System gives user the option to state his/her preferred location and use case resumes from step 4.
 ** 3a2. If user does not state location, no common event location is set and use case ends.
 
+[discrete]
+=== UC8: Import contacts
+
+*MSS*
+
+. User request to import contacts.
+. System records and displays how many successfully added and duplicates.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid file path (not a file or not an absolute path).
+** 1a1. System displays invalid file path.
++
+Use case ends.
++
+* 2a. System detects empty file.
+** 2a1. System displays empty file.
++
+Use case ends.
+* 2b. System detects invalid csv format (cannot find compulsory header in csv).
+** 2b1. System displays invalid csv file.
++
+Use case ends.
 
 ////
 === Coming in V2.0
@@ -1233,15 +1304,9 @@ Use case ends.
 *Extensions*
 
 * 1a. User enters invalid personal event or invalid command.
-<<<<<<< HEAD
 +
 ** 1a1. System displays error message.
 +
-=======
-+
-** 1a1. System displays error message.
-+
->>>>>>> Merge branch 'notification' of https://github.com/ryantanwk/main into notification
 Use case ends.
 +
 * a. At any time, user chooses to end the command.
@@ -1326,7 +1391,6 @@ User case ends.
 +
 Use case ends.
 
-<<<<<<< HEAD
 [discrete]
 === UC13: Import contacts
 
@@ -1354,8 +1418,6 @@ Use case ends.
 +
 Use case ends.
 
-=======
->>>>>>> Merge branch 'notification' of https://github.com/ryantanwk/main into notification
 ////
 
 [appendix]

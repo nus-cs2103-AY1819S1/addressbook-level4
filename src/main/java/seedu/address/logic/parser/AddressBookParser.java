@@ -11,6 +11,7 @@ import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FavouriteCommand;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportContactsCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -83,6 +85,9 @@ public class AddressBookParser {
         case AddEventCommand.COMMAND_WORD:
             return new AddEventCommandParser().parse(arguments);
 
+        case DeleteEventCommand.COMMAND_WORD:
+            return new DeleteEventCommandParser().parse(arguments);
+
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_WORD_ALIAS:
             return new HistoryCommand();
@@ -113,6 +118,9 @@ public class AddressBookParser {
         case FavouriteCommand.COMMAND_WORD:
         case FavouriteCommand.COMMAND_WORD_ALIAS:
             return new FavouriteCommandParser().parse(arguments);
+
+        case ListEventCommand.COMMAND_WORD:
+            return new ListEventCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

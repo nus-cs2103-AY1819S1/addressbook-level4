@@ -19,5 +19,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
     public static final Prefix PREFIX_FACULTY = new Prefix("f/");
     public static final Prefix PREFIX_NOTIFICATION = new Prefix("b/");
-
 }

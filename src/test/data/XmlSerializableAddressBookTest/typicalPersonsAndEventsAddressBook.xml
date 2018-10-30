@@ -87,4 +87,12 @@
             <faculty>SOC</faculty>
         </eventContacts>
 	</events>
+    <events>
+        <eventName>Dinner appointment</eventName>
+        <eventDescription>with Ann</eventDescription>
+        <eventDate>2018-09-09</eventDate>
+        <eventStartTime>1800</eventStartTime>
+        <eventEndTime>2015</eventEndTime>
+        <eventAddress>NUS</eventAddress>
+    </events>
 </addressbook>
