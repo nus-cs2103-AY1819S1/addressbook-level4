@@ -6,6 +6,7 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ROLE;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 
@@ -32,6 +33,7 @@ public class LoginCommand extends Command {
             + "Example: login r/staff n/Adam Bell pass/doctor1";
 
     public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
+    public static final String MESSAGE_LOGIN_ALREADY = "You have already logged in.";
     public static final String MESSAGE_NO_RECORD_FOUND = "No staff records found.";
     public static final String MESSAGE_SUCCESS = "Login successful.";
 
@@ -53,6 +55,8 @@ public class LoginCommand extends Command {
         Staff authenticatedStaff = toAuthenticate;
         if (!model.hasStaff(authenticatedStaff)) {
             throw new CommandException(MESSAGE_NO_RECORD_FOUND);
+        } else if (UserSession.isLogin()) {
+            throw new CommandException(MESSAGE_LOGIN_ALREADY);
         }
 
         Staff retrievedStaff = model.getStaff(authenticatedStaff);
@@ -61,6 +65,7 @@ public class LoginCommand extends Command {
                 retrievedStaff.getPassword().toString());
 
         if (isCorrectPassword) {
+            UserSession.createSession(retrievedStaff);
             return new CommandResult(MESSAGE_SUCCESS);
         }
 
