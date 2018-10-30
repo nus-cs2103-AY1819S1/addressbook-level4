@@ -86,6 +86,11 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_CONTACT_INDEX_2 = "2";
     public static final String INVALID_EVENT_END_TIME_TOO_EARLY_DOCTORAPPT = "0800";
 
+    public static final String VALID_TAG_APPOINTMENT = "Appointment";
+    public static final String VALID_TAG_MEETING = "Meeting";
+    public static final String TAG_DESC_APPOINTMENT = " " + PREFIX_TAG + VALID_TAG_APPOINTMENT;
+    public static final String TAG_DESC_MEETING = " " + PREFIX_TAG + VALID_TAG_MEETING;
+
     public static final String EVENT_NAME_DESC_DOCTORAPPT = " " + PREFIX_NAME + VALID_EVENT_NAME_DOCTORAPPT;
     public static final String EVENT_NAME_DESC_MEETING = " " + PREFIX_NAME + VALID_EVENT_NAME_MEETING;
     public static final String EVENT_DESC_DESC_DOCTORAPPT =

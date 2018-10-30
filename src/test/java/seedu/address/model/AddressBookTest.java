@@ -6,10 +6,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_END_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,6 +29,8 @@ import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventClashException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.exceptions.DuplicateTagException;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.ScheduledEventBuilder;
 
@@ -64,7 +68,8 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
 
         List<Event> newEvents = Arrays.asList(DOCTORAPPT);
-        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
+        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);
+        AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
 
         thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
@@ -79,7 +84,8 @@ public class AddressBookTest {
         Event duplicateEvent =
                 new ScheduledEventBuilder(DOCTORAPPT).build();
         List<Event> newEvents = Arrays.asList(DOCTORAPPT, duplicateEvent);
-        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
+        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);
+        AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
 
         thrown.expect(DuplicateEventException.class);
         addressBook.resetData(newData);
@@ -97,9 +103,26 @@ public class AddressBookTest {
                         .withEventEndTime(CLASHING_EVENT_END_TIME_DOCTORAPPT)
                         .build();
         List<Event> newEvents = Arrays.asList(DOCTORAPPT, clashingEvent);
-        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
+        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);
+        AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
 
         thrown.expect(EventClashException.class);
+        addressBook.resetData(newData);
+    }
+
+    @Test
+    public void resetData_withDuplicateEventTags_throwsDuplicateTagException() {
+
+        List<Person> newPersons = Arrays.asList(ALICE);
+        List<Event> newEvents = Arrays.asList(DOCTORAPPT);
+
+        // Two event tags with the same values (case-insensitive)
+        Tag duplicateTag = new Tag(VALID_TAG_APPOINTMENT.toUpperCase());
+        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG, duplicateTag);
+
+        AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
+
+        thrown.expect(DuplicateTagException.class);
         addressBook.resetData(newData);
     }
 
@@ -116,6 +139,12 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasEventTag_nullTag_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasEventTag(null);
+    }
+
+    @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasPerson(ALICE));
     }
@@ -129,6 +158,12 @@ public class AddressBookTest {
     public void hasClashingEvent_clashingEventNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasClashingEvent(DOCTORAPPT));
     }
+
+    @Test
+    public void hasEventTag_tagNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasEventTag(APPOINTMENT_TAG));
+    }
+
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
@@ -153,6 +188,12 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasEventTag_tagInAddressBook_returnsTrue() {
+        addressBook.addEventTag(APPOINTMENT_TAG);
+        assertTrue(addressBook.hasEventTag(APPOINTMENT_TAG));
+    }
+
+    @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
@@ -168,6 +209,13 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasEventTag_tagWithSameValuesInAddressBook_returnsTrue() {
+        addressBook.addEventTag(APPOINTMENT_TAG);
+        Tag duplicateEventTag = new Tag(VALID_TAG_APPOINTMENT);
+        assertTrue(addressBook.hasEventTag(duplicateEventTag));
+    }
+
+    @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getPersonList().remove(0);
@@ -179,16 +227,24 @@ public class AddressBookTest {
         addressBook.getEventList().add(new ScheduledEventBuilder().build());
     }
 
+    @Test
+    public void getEventTagList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getEventTagList().add(APPOINTMENT_TAG);
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons list and events list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
+        private final ObservableList<Tag> eventTags = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Event> events) {
+        AddressBookStub(Collection<Person> persons, Collection<Event> events, Collection<Tag> eventTags) {
             this.persons.setAll(persons);
             this.events.setAll(events);
+            this.eventTags.setAll(eventTags);
         }
 
         @Override
@@ -199,6 +255,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Event> getEventList() {
             return events;
+        }
+
+        @Override
+        public ObservableList<Tag> getEventTagList() {
+            return eventTags;
         }
     }
 

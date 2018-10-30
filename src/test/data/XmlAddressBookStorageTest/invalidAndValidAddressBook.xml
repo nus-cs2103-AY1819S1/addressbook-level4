@@ -40,4 +40,8 @@
 		<eventEndTime>1310</eventEndTime>
 		<eventAddress>abc road</eventAddress>
     </events>
+    <!-- Valid event tag -->
+    <eventTags>Appointment</eventTags>
+    <!-- Invalid event tag -->
+    <eventTags>#Appointment</eventTags>
 </addressbook>

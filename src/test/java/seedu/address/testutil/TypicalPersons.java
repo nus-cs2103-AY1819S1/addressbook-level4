@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalEvents.getTypicalEvents;
+import static seedu.address.testutil.TypicalTags.getTypicalTags;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -79,6 +81,10 @@ public class TypicalPersons {
 
         for (Event event : getTypicalEvents()) {
             ab.addEvent(event);
+        }
+
+        for (Tag tag : getTypicalTags()) {
+            ab.addEventTag(tag);
         }
 
         return ab;
