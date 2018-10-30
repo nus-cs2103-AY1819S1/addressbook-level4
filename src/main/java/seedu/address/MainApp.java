@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -48,7 +49,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 2, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -128,7 +129,9 @@ public class MainApp extends Application {
             initialBudgetData = new BudgetBook();
         }
 
-        return new ModelManager(initialAddressData, initialBudgetData, userPrefs);
+        Set<String> emailNamesSet = storage.readEmailFiles();
+
+        return new ModelManager(initialAddressData, initialBudgetData, userPrefs, emailNamesSet);
     }
 
     private void initLogging(Config config) {
