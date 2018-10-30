@@ -251,16 +251,16 @@ Lists all medicine stocks in the CLInic inventory. +
 Alias: `ls` +
 Format: `listStock`
 
-==== Finding details of a medicine: `findStock`
+==== Finding details of a medicine: `findMedicine`
 
 Finds the details of a medicine from its serial number. +
-Alias: `fs` +
-Format: `findStock SERIAL_NUMBER`
+Alias: `fm` +
+Format: `findMedicine MEDICINE_NAME`
 
 Example:
 
-* `findStock 1001` +
-Finds the details of the medicine tagged with the serial number 1001.
+* `findMedicine panadol` +
+Finds the details of the medicine tagged with the medicine name panadol.
 
 
 ==== Listing medicines that are low in supply: `checkStock`
@@ -570,7 +570,7 @@ There is no need to save manually.
 |editMedicine |`em`  | `editMedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editMedicine 1 n/hydrazine s/50022 p/20 min/30`
 |restock |`rs`  |`restock INDEX amt/AMOUNT` |`restock 2 amt/123`
 |listStock |`ls`  |`listStock` |`listStock`
-|findStock |`fs`  |`findStock SERIAL_NUMBER` |`findStock 1001`
+|findMedicine |`fs`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
 |checkStock |`cs`  |`checkStock` |`checkStock`
 |=======================================================================
 
