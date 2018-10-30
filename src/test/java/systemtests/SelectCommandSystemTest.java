@@ -18,7 +18,7 @@
 //public class SelectCommandSystemTest extends LibrarySystemTest {
 //    @Test
 //    public void select() {
-//        /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
+//        /* ----------------------- Perform select operations on the shown unfiltered list ------------------------- */
 //
 //        /* Case: select the first card in the playlist list, command with leading spaces and trailing spaces
 //         * -> selected
@@ -39,7 +39,7 @@
 //        /* Case: select the current selected card -> selected */
 //        assertCommandSuccess(command, middleIndex);
 //
-//        /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
+//        /* ----------------------- Perform select operations on the shown filtered list --------------------------- */
 //
 //
 //        /* Case: filtered playlist list, select index within bounds of library but out of bounds of playlist list
@@ -56,7 +56,7 @@
 //        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
 //        assertCommandSuccess(command, validIndex);
 //
-//        /* ----------------------------------- Perform invalid select operations ------------------------------------ */
+//        /* ---------------------------------- Perform invalid select operations ----------------------------------- */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
@@ -68,7 +68,8 @@
 //
 //        /* Case: invalid index (size + 1) -> rejected */
 //        invalidIndex = getModel().getFilteredPlaylistList().size() + 1;
-//        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
+//        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
+//                MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
 //
 //        /* Case: invalid arguments (alphabets) -> rejected */
 //        assertCommandFailure(SelectCommand.COMMAND_WORD + " abc", MESSAGE_UNKNOWN_COMMAND);
