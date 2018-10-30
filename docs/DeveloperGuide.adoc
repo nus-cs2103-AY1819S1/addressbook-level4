@@ -71,7 +71,7 @@ To resolve this, place your cursor over any of the code section highlighted in r
 === Verifying the Setup
 It is recommended that you verify the setup by trying the following actions:
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.thanepark.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configuring your Integrated Development Environment
@@ -373,10 +373,17 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+//tag::filter[]
 === Filter Feature
 ==== Current Implementation
 .Activity Diagram for the Filter Feature
 image::FilterActivityDiagram.png[width="800"]
+
+The following diagram will show how the filter diagram works: +
+
+.Sequence Diagram for the Filter Feature
+image::FilterSequenceDiagram.png[width="800"]
+
 The filter function is being implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
 `ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
 parse the arguments from the user input.
@@ -405,7 +412,7 @@ would be returned after each ride is tested with the predicate.
 AttributePredicate to test the attribute
 ** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
 ** Cons: Need to implement more classes to handle
-
+// end::filter[]
 
 // tag::autocompletesuggest[]
 === Autocomplete/Suggest feature
@@ -590,14 +597,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.thanepark.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.thanepark.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.thanepark.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.thanepark.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
