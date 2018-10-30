@@ -27,6 +27,9 @@ public class Carpark {
     private final NightParking nightParking;
     private final ShortTerm shortTerm;
     private final TypeOfParking typeOfParking;
+
+    private final PostalCode postalCode;
+
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -34,9 +37,10 @@ public class Carpark {
      */
     public Carpark(Address address, CarparkNumber carparkNumber, CarparkType carparkType, Coordinate coordinate,
                    FreeParking freeParking, LotsAvailable lotsAvailable, NightParking nightParking,
-                   ShortTerm shortTerm, TotalLots totalLots, TypeOfParking typeOfParking, Set<Tag> tags) {
+                   ShortTerm shortTerm, TotalLots totalLots, TypeOfParking typeOfParking, PostalCode postalCode,
+                   Set<Tag> tags) {
         requireAllNonNull(address, carparkNumber, carparkType, coordinate, freeParking, lotsAvailable,
-                nightParking, shortTerm, totalLots, typeOfParking);
+                nightParking, shortTerm, totalLots, typeOfParking, postalCode);
         this.address = address;
         this.carparkNumber = carparkNumber;
         this.lotsAvailable = lotsAvailable;
@@ -47,6 +51,7 @@ public class Carpark {
         this.shortTerm = shortTerm;
         this.totalLots = totalLots;
         this.typeOfParking = typeOfParking;
+        this.postalCode = postalCode;
 
         if (tags != null) {
             this.tags.addAll(tags);
@@ -93,6 +98,10 @@ public class Carpark {
         return typeOfParking;
     }
 
+    public PostalCode getPostalCode() {
+        return postalCode;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -105,7 +114,7 @@ public class Carpark {
      * Returns true if both car parks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two car parks.
      */
-    public boolean isSameCarpark(Carpark otherCarpark) {
+    public boolean isSameCarpark (Carpark otherCarpark) {
         if (otherCarpark == this) {
             return true;
         }

@@ -88,6 +88,8 @@ public class MainApp extends Application {
             carparkFinderOptional = storage.readCarparkFinder();
             if (!carparkFinderOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample Car Park Finder");
+            } else {
+                logger.info("Data file found. Loading from saved data");
             }
             initialData = carparkFinderOptional.orElseGet(SampleDataUtil::getSampleCarparkFinder);
         } catch (DataConversionException e) {
