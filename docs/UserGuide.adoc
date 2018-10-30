@@ -211,7 +211,7 @@ Format: `shutdown <index>`
 Open the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
-
+// tag::viewstatus[]
 === View information on the list of rides
 
 This section contains all commands related to viewing list on rides.
@@ -228,8 +228,7 @@ Display all available information about a single ride on the list of displayed r
 Format: `view <index>`
 
 [NOTE]
-Index should not be greater than two billion.
-
+The range of `index` should be between one and one million.
 
 ==== Viewing rides by their status: `viewstatus`
 
@@ -237,8 +236,10 @@ Display all rides according to the status of the rides. +
 Format: `viewstatus <status>`
 
 [NOTE]
-There are only three statuses that can be used in the status field, namely open, shutdown and maintenance.
+There are only three statuses that are valid, namely open, shutdown and maintenance.
 
+
+// end::viewstatus[]
 
 === Find the relevant list of rides
 
