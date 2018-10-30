@@ -19,10 +19,23 @@ By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Welcome to *CLInic*! *CLInic* is a desktop application that is created for clinics and optimised specifically for clinic receptionists and doctors who have average to high typing speed.
-*CLInic* also features a display window which structures information in a user-friendly and logical manner.
-If you are in need of a *fast* clinic management application, *CLInic* can improve your efficiency greatly by simplifying your complicated workflow to *short and simple, yet powerful* commands.
-You will have *all the tools* needed to manage your patient and medicine data, complete with an efficient queue management system. Interested? Jump to <<Quick Start>> to get started. Enjoy!
+Welcome to *CLInic*! *CLInic* is a desktop application designed to streamline and expedite operations in clinics.
+Regardless of whether you are a doctor or a receptionist at a clinic , merely having an average to high typing
+speed is the only pre-requisite required to reap its numerous benefits, which includes:
+
+* Easy management of large databases of patient and medicine information
+* Efficient generation of official documents including receipts and medical certificates
+* Ease of use through helpful graphical displays of obscure technical information
+* User friendly commands that make complicated tasks intuitive
+* Packaged with an elegant queue system that displays the real-time states of the separate queues in the clinic
+for staff and patients to see
+
+If you wish for a clinic management application that can radically enhance your productivity, then look no further
+than *CLInic*! *CLInic* _will_ take care of the nitty-gritty complexities of your workflow, allowing you to
+focus instead on what truly matters to you as a health care professional: *providing quality healthcare services efficiently.* +
+You will have *all the tools* needed for running a world-class clinic at *your* fingertips (literally!). +
+Interested? Jump to <<Quick Start>> to get started. +
+Enjoy!
 
 == Quick Start
 
