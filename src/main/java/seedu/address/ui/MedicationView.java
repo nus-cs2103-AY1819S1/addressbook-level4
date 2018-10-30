@@ -115,7 +115,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
      * helps to refresh our reference to the currently selected {@code Person} object
      * to point to the new {@code Person} object.
      */
-    private Person getNewReferenceToPerson(Person p) {
+    private Person getNewReferenceToPerson() {
         return persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
     }
     /**
@@ -291,7 +291,7 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
             return;
         }
 
-        currentSelection = getNewReferenceToPerson(currentSelection);
+        currentSelection = getNewReferenceToPerson();
         refreshView();
         sortTableView();
     }
