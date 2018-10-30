@@ -7,6 +7,8 @@ import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.analytics.StatisticType;
 
+//@@author arsalanc-v2
+
 /**
  * Shows appointment statistics and visualizations.
  */
