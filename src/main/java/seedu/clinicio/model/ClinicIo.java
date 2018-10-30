@@ -75,6 +75,14 @@ public class ClinicIo implements ReadOnlyClinicIo {
     }
 
     /**
+     * Replaces the contents of the appointment list with {@code appointments}.
+     * {@code appointments} must not contain duplicate persons.
+     */
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments.setAppointments(appointments);
+    }
+
+    /**
      * Resets the existing data of this {@code ClinicIo} with {@code newData}.
      */
     public void resetData(ReadOnlyClinicIo newData) {

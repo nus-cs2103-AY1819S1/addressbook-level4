@@ -3,6 +3,7 @@ package seedu.clinicio.model.appointment;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.staff.Staff;
@@ -23,19 +24,19 @@ public class Appointment {
     //fields used for making appointment
     private final Date appointmentDate;
     private final Time appointmentTime;
+    private final Patient patient;
     private int appointmentStatus;
     private int appointmentType;
-    private final Patient patient;
-    private final Staff assignedStaff;
+    private Optional<Staff> assignedStaff;
 
-    public Appointment(Date date, Time time, Patient patient, int appointmentType, Staff staff) {
-        requireAllNonNull(date, time, patient); //TODO: Include appointmentType and staff
+    public Appointment(Date date, Time time, Patient patient, int appointmentType) {
+        requireAllNonNull(date, time, patient);
         this.appointmentDate = date;
         this.appointmentTime = time;
         this.patient = patient;
         this.appointmentStatus = APPROVED;
         this.appointmentType = appointmentType;
-        this.assignedStaff = staff;
+        this.assignedStaff = patient.getPreferredDoctor();
     }
 
     public Date getAppointmentDate() {
@@ -59,8 +60,12 @@ public class Appointment {
         return appointmentType;
     }
 
-    public Staff getAssignedStaff() {
+    public Optional<Staff> getAssignedStaff() {
         return assignedStaff;
+    }
+
+    public void setAssignedStaff(Staff staff) {
+        assignedStaff = Optional.ofNullable(staff);
     }
 
     /**
@@ -94,9 +99,10 @@ public class Appointment {
     public boolean isSameDoctor(Appointment other) {
         return other.getAssignedStaff().equals(getAssignedStaff());
     }
+
     /**
      * Returns true if the appointments are the same.
-     * Status is not considered.
+     * Status is not considered. Appointments with no assigned doctor may not be the same (TODO).
      * @param  other Appointment to compare with.
      */
     public boolean isSameAppointment(Appointment other) {
@@ -108,7 +114,7 @@ public class Appointment {
 
     /**
      * Returns true if the {@code toCheck} appointment's time slot encroaches {@code this} appointment's duration.
-     * Maximum appointment duration is 1 hour.
+     * Maximum appointment duration is 1 hour. Appointments with no assigned doctor may not be the same (TODO).
      * @param toCheck Appointment to compare with.
      */
     public boolean isOverlapAppointment(Appointment toCheck) {
@@ -133,6 +139,7 @@ public class Appointment {
      */
     public String statusToString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Status: ");
         if (appointmentStatus == APPROVED) {
             stringBuilder.append("APPROVED");
         } else {
@@ -148,6 +155,7 @@ public class Appointment {
      */
     public String typeToString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Type: ");
         if (appointmentType == NEW) {
             stringBuilder.append("NEW");
         } else {
@@ -191,11 +199,12 @@ public class Appointment {
                 .append("\n")
                 .append(patient.toString())
                 .append("\n")
-                .append(assignedStaff.toString())
-                .append("\n")
                 .append(statusToString())
                 .append("\n")
                 .append(typeToString());
+        if (assignedStaff.isPresent()) {
+            builder.append("\n").append(assignedStaff.toString());
+        }
         return builder.toString();
     }
 }
