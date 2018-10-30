@@ -15,7 +15,6 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class LeaveApplicationBuilder {
 
-    public static final Integer DEFAULT_ID = 0;
     public static final String DEFAULT_DESCRIPTION = "Family holiday to Thailand";
     public static final StatusEnum.Status DEFAULT_STATUS = StatusEnum.Status.PENDING;
 
