@@ -1,5 +1,7 @@
 package seedu.address.model.medicine;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represent the quantity of a medicine to be dispensed.
  */
@@ -14,14 +16,15 @@ public class QuantityToDispense {
      * @param value A positive integer.
      */
     public QuantityToDispense(Integer value) {
+        requireNonNull(value);
         this.value = value;
     }
 
     /**
      * Returns true if a given quantity is a valid quantity to dispense
      */
-    public static boolean isValidQuantityToDispense(String test) {
-        return Integer.parseInt(test) > 0;
+    public static boolean isValidQuantityToDispense(Integer test) {
+        return test > 0;
     }
 
     /**
