@@ -74,7 +74,7 @@ public class FindMeetingCommandTest {
         FindMeetingCommand command = new FindMeetingCommand(predicate);
         expectedModel.updateFilteredMeetingList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(DISCUSSION, URGENT), model.getFilteredMeetingList());
+        assertEquals(Arrays.asList(URGENT, DISCUSSION), model.getFilteredMeetingList());
     }
 
     @Test
