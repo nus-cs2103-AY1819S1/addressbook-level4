@@ -99,6 +99,7 @@ public class AppointmentTest {
         assertTrue(appt.isSameDoctor(appt2));
 
         //diff staff
+        appt3.setAssignedStaff(ADAM);
         assertFalse(appt2.isSameDoctor(appt3));
         assertFalse(appt.isSameDoctor(appt3));
     }

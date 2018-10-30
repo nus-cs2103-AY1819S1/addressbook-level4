@@ -94,6 +94,8 @@ public class AppointmentBuilder {
     }
 
     public Appointment build() {
-        return new Appointment(date, time, patient, type);
+        Appointment newappt = new Appointment(date, time, patient, type);
+        newappt.setAssignedStaff(staff.get());
+        return newappt;
     }
 }
