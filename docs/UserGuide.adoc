@@ -590,7 +590,7 @@ e.g.`select 2`
 * *History* : `history`
 
 * *Free time between persons*: `maxSchedule INDEX INDEX ...` +
-e.g. `maxSchedule 0 1 2 3`
+e.g. `maxSchedule 1 2 3`
 
 === Event organiser commands
 ​* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
