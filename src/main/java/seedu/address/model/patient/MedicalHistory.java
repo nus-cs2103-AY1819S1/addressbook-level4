@@ -18,6 +18,10 @@ public class MedicalHistory {
         this.allergies = allergies;
         this.conditions = conditions;
     }
+    public MedicalHistory(MedicalHistory medicalHistory) {
+        this.allergies = new ArrayList<>(medicalHistory.getAllergies());
+        this.conditions = new ArrayList<>(medicalHistory.getConditions());
+    }
 
     public ArrayList<String> getAllergies() {
         return allergies;

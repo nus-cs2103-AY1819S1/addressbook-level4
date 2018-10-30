@@ -20,7 +20,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.TagContainsDoctorPredicate;
 import seedu.address.model.tag.TagContainsPatientPredicate;
 import seedu.address.testutil.PatientBuilder;
@@ -37,8 +36,10 @@ public class AddMedicalHistoryCommandTest {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
         Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPatient =
-                new PatientBuilder(firstPatient).withMedicalHistory(VALID_ALLERGY, VALID_CONDITION).build();
+        Patient editedPatient =
+                new PatientBuilder(firstPatient).build();
+        editedPatient.getMedicalHistory().addAllergy(VALID_ALLERGY);
+        editedPatient.getMedicalHistory().addAllergy(VALID_CONDITION);
         AddMedicalHistoryCommand addMedicalHistoryCommand =
                 new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
         String expectedMessage = String.format(AddMedicalHistoryCommand.MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS,
