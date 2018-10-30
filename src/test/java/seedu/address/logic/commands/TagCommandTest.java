@@ -23,6 +23,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.tag.PersonContainsTagPredicate;
 
 //@@author A19Sean
+/**
+ * Contains integration tests (interaction with the Model) for {@code TagCommand}.
+ */
 public class TagCommandTest {
     private Model model = new ModelManager(getTaggedAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTaggedAddressBook(), new UserPrefs());

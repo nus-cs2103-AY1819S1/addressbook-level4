@@ -21,22 +21,32 @@ public class TagCommandParser implements Parser<TagCommand> {
      */
     public TagCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        String[] splitArgs = trimmedArgs.split("\\s+");
+        if (trimmedArgs.isEmpty() || (splitArgs[0].equalsIgnoreCase("edit") && splitArgs.length != 3)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         }
 
-        String[] tagKeywords = trimmedArgs.split("\\s+");
-
         TagCommand.Action action;
-        if (tagKeywords[tagKeywords.length - 1].equalsIgnoreCase("delete")) {
+        String[] tagKeywords;
+        if (splitArgs[splitArgs.length - 1].equalsIgnoreCase("delete")) {
             action = TagCommand.Action.DELETE;
+            tagKeywords = Arrays.copyOfRange(splitArgs, 0, splitArgs.length - 1);
+        } else if (splitArgs[0].equalsIgnoreCase("edit")) {
+            action = TagCommand.Action.EDIT;
+            tagKeywords = Arrays.copyOfRange(splitArgs, 1, splitArgs.length);
         } else {
             action = TagCommand.Action.FIND;
+            tagKeywords = splitArgs;
         }
 
-        return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords)), action,
-                Arrays.asList(tagKeywords));
+        if (action == TagCommand.Action.DELETE || action == TagCommand.Action.FIND) {
+            return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords)), action,
+                    Arrays.asList(tagKeywords));
+        } else {
+            return new TagCommand(new PersonContainsTagPredicate(Arrays.asList(tagKeywords[0])), action,
+                    Arrays.asList(tagKeywords));
+        }
     }
 
 }
