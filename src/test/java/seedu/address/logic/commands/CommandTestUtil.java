@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMETABLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME_START;
 
 import java.util.ArrayList;
@@ -108,6 +109,7 @@ public class CommandTestUtil {
     public static final String INVALID_INTEREST_DESC = " " + PREFIX_INTEREST + "study*"; // '*' not allowed in tags
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "Meeting&";
+    public static final String INVALID_TIMETABLE = " " + PREFIX_TIMETABLE + "http://modsn.us/H";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
