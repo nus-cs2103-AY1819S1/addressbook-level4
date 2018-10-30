@@ -1,11 +1,13 @@
 package seedu.clinicio.commons.events.ui;
 
 import seedu.clinicio.commons.events.BaseEvent;
-import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.StatisticType;
+import seedu.clinicio.model.analytics.data.StatData;
+
+//@@author arsalanc-v2
 
 /**
- *
+ * Responsible for triggering the display of a particular class of analytics.
  */
 public class AnalyticsDisplayEvent extends BaseEvent {
 
