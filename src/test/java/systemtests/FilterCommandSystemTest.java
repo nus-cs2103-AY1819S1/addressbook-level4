@@ -10,6 +10,7 @@ import static seedu.thanepark.testutil.TypicalRides.DUMBO;
 import static seedu.thanepark.testutil.TypicalRides.GALAXY;
 
 import org.junit.Test;
+
 import seedu.thanepark.logic.commands.DeleteCommand;
 import seedu.thanepark.logic.commands.FilterCommand;
 import seedu.thanepark.logic.commands.RedoCommand;
@@ -49,8 +50,8 @@ public class FilterCommandSystemTest extends ThaneParkSystemTest {
         assertStatusBarUnchanged();
 
         /* Case: the arguments in filter has spaces -> 2 rides found */
-        command = FilterCommand.COMMAND_WORD + " " + PREFIX_WAITING_TIME + " < = 30 " + PREFIX_MAINTENANCE + "   >   " +
-                "30";
+        command = FilterCommand.COMMAND_WORD + " " + PREFIX_WAITING_TIME + " < = 30 " + PREFIX_MAINTENANCE + "   >   "
+                + "30";
         ModelHelper.setFilteredList(expectedModel, BIG, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertStatusBarUnchanged();
