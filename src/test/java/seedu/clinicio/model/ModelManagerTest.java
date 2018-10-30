@@ -97,13 +97,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getStaff_staffInClinicIO_returnsStaff() {
-        modelManager.addStaff(ADAM);
-        assertEquals(ADAM, modelManager.checkStaffCredentials(ADAM));
-    }
-
-    @Test
-    public void getStaff_nullStaff_throwsNullPointerException() {
+    public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.checkStaffCredentials(null);
     }
