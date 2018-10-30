@@ -167,7 +167,7 @@ public class StorageManager extends ComponentManager implements Storage {
         try {
             exportAddressBook(event.getAddressBook(), event.getPath());
         } catch (IOException e) {
-            e.printStackTrace();
+            raise(new DataSavingExceptionEvent(e));
         }
     }
 

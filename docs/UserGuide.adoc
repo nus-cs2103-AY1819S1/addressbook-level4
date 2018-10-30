@@ -98,11 +98,11 @@ Clears `all` entries in Hallper.
 
 ==== Clearing all specified tags : `erase`
 
-Clears all spcified tags from all contacts from Hallper. +
-Format: `erase CCA`
+Clears all specified tags from all persons from Hallper. +
+Format: `erase CCA...`
 
 ****
-* Erases the CCA specified for all associated contacts.
+* Erases the CCA specified for all associated persons.
 * The CCA specified must be an existing CCA.
 * Multiple CCAs can be specified at once.
 ****
@@ -110,27 +110,29 @@ Format: `erase CCA`
 Example:
 
 * `erase basketball` +
-Erases `basketball` from contacts associated with this CCA. +
+Erases `basketball` from persons associated with this CCA. +
 * `erase basketball netball` +
-Erases `basketball` and `netball` from contacts associated with these CCAs.
+Erases `basketball` and `netball` from persons associated with these CCAs.
 
 ==== Clearing specific entries : `clear`
 
 Clears specified entries from Hallper. +
-Format: `clear KEYWORD`
+Format: `clear KEYWORD...`
 
 ****
-* Clears contacts associated with KEYWORD.
+* Clears persons associated with KEYWORD.
 * KEYWORD refers to either a CCA or ROOM.
-* KEYWORD is case-sensitive.
+* Multiple KEYWORDS can be specified at once in any order.
 ****
 
 Example:
 
 * `clear basketball` +
-Clears all entries associated with CCA `basketball`.
+Clears all persons associated with CCA `basketball`.
 * `clear A123` +
-Clears all entries associated with room `A123`.
+Clears all persons associated with room `A123`.
+* `clear baseball C456` +
+Clears all persons associated with CCA `baseball` and room `C456`
 
 ==== Editing a person : `edit`
 
@@ -217,6 +219,15 @@ Format: `import f/FILEPATH`
 * Allows for the mass upload of CCA lists.
 * The file to be uploaded must be a *`.xml`* file.
 ****
+
+
+File formats for imported `.xml` files are as shown below.
+
+image::AddressBookExample.png[width="790"]
+_Figure 4.1.7.1: Contacts information `.xml` file format._
+
+image::CCAListExample.png[width="790"]
+_Figure 4.1.7.2: CCA list `.xml` file format._
 
 Example:
 
@@ -612,6 +623,7 @@ e.g. `erase basketball`
 e.g. `clear basketball A123`
 * *Clear all* : `clear all`
 * *Import* : `import f/FILEPATH`
+* *Export* : `export dst/PATH fn/FILENAME`
 * *Image* : `image`
 * *Search* : `search KEYWORD [MORE_KEYWORDS]` +
 e.g. `search basketball A123`
