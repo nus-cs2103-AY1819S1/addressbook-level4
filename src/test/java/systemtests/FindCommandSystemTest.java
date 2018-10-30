@@ -22,7 +22,6 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.tag.Tag;
 
-//TODO need to update this and add sortcommand
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
     @Test
