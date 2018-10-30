@@ -16,6 +16,27 @@
     -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
+/* tab styles */
+.tab-label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12;
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+.tab-pane {
+    -fx-tab-min-width:90px;
+}
+
+.tab-header-background {
+    -fx-background-color: #3c3c3c
+}
+
+
 /* task list styles */
 #taskListHeader {
     -fx-font-family: "Segoe UI";
