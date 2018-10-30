@@ -43,6 +43,7 @@ import seedu.souschef.model.ingredient.IngredientAmount;
 import seedu.souschef.model.ingredient.IngredientDate;
 import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Name;
@@ -145,8 +146,9 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
         Scheme scheme = ParserUtil.parseScheme(argMultimap.getValue(PREFIX_SCHEME).get());
 
+        //generating a new plan, no list (empty by default)
         HealthPlan toAdd = new HealthPlan(healthPlanName, targetWeight,
-                currentWeight, currentHeight, age, duration, scheme);
+                currentWeight, currentHeight, age, duration, scheme, new ArrayList<Day>());
         if (model.has(toAdd)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_ADD_HEALTHPLAN_USAGE));

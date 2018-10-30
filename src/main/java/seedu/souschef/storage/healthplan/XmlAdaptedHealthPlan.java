@@ -1,6 +1,9 @@
 package seedu.souschef.storage.healthplan;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
@@ -13,7 +16,8 @@ import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.healthplan.HealthPlanName;
 import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
-
+import seedu.souschef.model.planner.Day;
+import seedu.souschef.storage.mealplanner.XmlAdaptedMealPlan;
 
 
 /**
@@ -40,12 +44,15 @@ public class XmlAdaptedHealthPlan {
     @XmlElement(required = true)
     private String scheme;
 
+    @XmlElement
+    private List<XmlAdaptedMealPlan> days = new ArrayList<>();
+
 
     //base constructor
     public XmlAdaptedHealthPlan(){}
 
     public XmlAdaptedHealthPlan(String name, String tweight, String cweight, String cheight, String age,
-                                String duration, String scheme) {
+                                String duration, String scheme, List<XmlAdaptedMealPlan> days) {
 
         this.name = name;
         this.tweight = tweight;
@@ -54,6 +61,10 @@ public class XmlAdaptedHealthPlan {
         this.age = age;
         this.duration = duration;
         this.scheme = scheme;
+
+        if (days != null) {
+            this.days = new ArrayList<>(days);
+        }
 
     }
 
@@ -71,6 +82,11 @@ public class XmlAdaptedHealthPlan {
         } else {
             scheme = Scheme.MAINTAIN.toString();
         }
+
+        days = source.getMealPlans().stream()
+                .map(XmlAdaptedMealPlan::new)
+                .collect(Collectors.toList());
+
     }
 
     /**
@@ -82,6 +98,14 @@ public class XmlAdaptedHealthPlan {
 
      */
     public HealthPlan toModelType() throws IllegalValueException {
+
+        //handle the meals
+
+        final List<Day> dayList = new ArrayList<>();
+        for (XmlAdaptedMealPlan dayToAdd : days) {
+            dayList.add(dayToAdd.toModelType());
+        }
+
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -143,8 +167,10 @@ public class XmlAdaptedHealthPlan {
 
         Scheme modelScheme = Scheme.valueOf(scheme);
 
+        final ArrayList<Day> modelDays = new ArrayList<>(dayList);
+
         return new HealthPlan(modelName, modelTWeight, modelCweight, modelCHeight,
-                modelAge, modelDuration, modelScheme);
+                modelAge, modelDuration, modelScheme, modelDays);
     }
 
     @Override

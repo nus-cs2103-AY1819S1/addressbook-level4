@@ -88,9 +88,9 @@ public class SampleDataUtil {
     public static HealthPlan[] getSampleHealthPlan() {
         return new HealthPlan[] {
             new HealthPlan(new HealthPlanName("Lose weight"), new TargetWeight("70"), new CurrentWeight("80"),
-                  new CurrentHeight("160"), new Age("25"), new Duration("10"), Scheme.LOSS),
+                  new CurrentHeight("160"), new Age("25"), new Duration("10"), Scheme.LOSS, new ArrayList<Day>()),
             new HealthPlan(new HealthPlanName("gain weight"), new TargetWeight("60"), new CurrentWeight("50"),
-                  new CurrentHeight("160"), new Age("27"), new Duration("10"), Scheme.GAIN)
+                  new CurrentHeight("160"), new Age("27"), new Duration("10"), Scheme.GAIN, new ArrayList<Day>())
         };
     }
 
