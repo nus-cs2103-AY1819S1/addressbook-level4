@@ -113,11 +113,11 @@ public class TypicalPersons {
 
     // Appointments
     public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(13, 00).withPatient(AMY_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(13, 00).withType(1).withPatient(AMY_AS_PATIENT).withStaff(ADAM).build();
     public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
-            .withTime(17, 45).withPatient(BENSON_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(17, 45).withType(1).withPatient(BENSON_AS_PATIENT).withStaff(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(18, 00).withPatient(CARL_AS_PATIENT).withStaff(ADAM).build();
+            .withTime(18, 00).withType(1).withPatient(CARL_AS_PATIENT).withStaff(ADAM).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

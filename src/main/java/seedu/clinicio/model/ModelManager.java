@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
+
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 
 import seedu.clinicio.model.appointment.Appointment;
@@ -174,6 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addAppointment(Appointment appt) {
         versionedClinicIo.addAppointment(appt);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        indicateClinicIoChanged();
     }
 
     //@author arsalanc-v2
@@ -202,14 +204,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
         versionedClinicIo.updatePerson(target, editedPerson);
-        indicateClinicIoChanged();
-    }
-
-    //@@author jjlee050
-    @Override
-    public void updateStaff(Staff target, Staff editedStaff) {
-        requireAllNonNull(target, editedStaff);
-        versionedClinicIo.updateStaff(target, editedStaff);
         indicateClinicIoChanged();
     }
 
@@ -264,8 +258,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jjlee050
     @Override
-    public Staff getStaff(Staff staff) {
-        return versionedClinicIo.getStaff(staff);
+    public boolean checkStaffCredentials(Staff staff) {
+        requireNonNull(staff);
+        return versionedClinicIo.checkStaffCredentials(staff);
     }
 
     //=========== Undo/Redo =================================================================================

@@ -6,6 +6,7 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.clinicio.logic.commands.AddApptCommand;
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AveragesCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
@@ -54,6 +55,9 @@ public class ClinicIoParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case AddApptCommand.COMMAND_WORD:
+            return new AddApptCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
