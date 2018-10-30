@@ -3,6 +3,7 @@ package seedu.address.model.module;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author alexkmj
 /**
  * Represents a Module's code in the transcript.
  * <p>
@@ -34,7 +35,7 @@ public class Code {
     public Code(String code) {
         requireNonNull(code);
         checkArgument(isValidCode(code), MESSAGE_CODE_CONSTRAINTS);
-        value = code;
+        value = code.toUpperCase();
     }
 
     /**

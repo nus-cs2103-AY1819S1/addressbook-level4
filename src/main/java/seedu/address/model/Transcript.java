@@ -2,14 +2,21 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import java.util.function.Predicate;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
+//@@author alexkmj
 /**
  * Wraps all data at the transcript level
  * Duplicates are not allowed (by .isSameModule comparison)
@@ -18,6 +25,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     private final UniqueModuleList modules;
     private CapGoal capGoal;
+    private double currentCap;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +41,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     public Transcript() {
         capGoal = new CapGoal();
+        currentCap = 0;
     }
 
     /**
@@ -51,6 +60,7 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void setModules(List<Module> modules) {
         this.modules.setModules(modules);
+        modulesUpdated();
     }
 
     /**
@@ -73,11 +83,20 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
+     * Returns true if a module with the same identity as {@code module} exists in the transcript.
+     */
+    public boolean hasMultipleInstances(Code code) {
+        requireNonNull(code);
+        return modules.hasMultipleInstances(code);
+    }
+
+    /**
      * Adds a module to the transcript.
      * The module must not already exist in the transcript.
      */
     public void addModule(Module p) {
         modules.add(p);
+        modulesUpdated();
     }
 
     /**
@@ -87,8 +106,8 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void updateModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
-
         modules.setModule(target, editedModule);
+        modulesUpdated();
     }
 
     /**
@@ -97,6 +116,14 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void removeModule(Module key) {
         modules.remove(key);
+        modulesUpdated();
+    }
+
+    /**
+     * Removes {@code key} from this {@code Transcript}.
+     */
+    public void removeModule(Predicate<Module> predicate) {
+        modules.remove(predicate);
     }
 
     //@@author jeremiah-ang
@@ -105,8 +132,12 @@ public class Transcript implements ReadOnlyTranscript {
      *
      * @return current cap score
      */
-    public double getCap() {
-        return calculateCap();
+    public double getCurrentCap() {
+        return currentCap;
+    }
+
+    private void updateCurrentCap() {
+        currentCap = calculateCap();
     }
 
     /**
@@ -117,23 +148,41 @@ public class Transcript implements ReadOnlyTranscript {
     private double calculateCap() {
 
         ObservableList<Module> gradedModulesList = getGradedModulesList();
-        double totalCap = 0;
-        double point;
-        int totalModuleCredit = 0;
-        int moduleCredit;
-        for (Module module : gradedModulesList) {
-            moduleCredit = module.getCredits().value;
-            point = module.getGrade().getPoint();
-            totalCap += moduleCredit * point;
-            totalModuleCredit += moduleCredit;
-        }
+        double totalModulePoint = calculateTotalModulePoint(gradedModulesList);
+        double totalModuleCredit = calculateTotalModuleCredit(gradedModulesList);
 
         double cap = 0;
         if (totalModuleCredit > 0) {
-            cap = totalCap / totalModuleCredit;
+            cap = totalModulePoint / totalModuleCredit;
         }
 
         return cap;
+    }
+
+    /**
+     * Calculates the total module point from the list of modules
+     * @param modules
+     * @return
+     */
+    private double calculateTotalModulePoint(ObservableList<Module> modules) {
+        double totalPoint = 0;
+        for (Module module : modules) {
+            totalPoint += module.getGrade().getPoint() * module.getCredits().value;
+        }
+        return totalPoint;
+    }
+
+    /**
+     * Calculates the total module credit from the list of modules
+     * @param modules
+     * @return
+     */
+    private double calculateTotalModuleCredit(ObservableList<Module> modules) {
+        int totalModuleCredit = 0;
+        for (Module module : modules) {
+            totalModuleCredit += module.getCredits().value;
+        }
+        return totalModuleCredit;
     }
 
     /**
@@ -141,8 +190,24 @@ public class Transcript implements ReadOnlyTranscript {
      *
      * @return list of modules used for CAP calculation
      */
-    private ObservableList<Module> getGradedModulesList() {
+    public ObservableList<Module> getGradedModulesList() {
         return modules.getFilteredModules(this::moduleIsUsedForCapCalculation);
+    }
+
+    /**
+     * Filters for modules that is to be assigned a target grade
+     * @return gradedModulesList: a list of modules used for CAP calculation
+     */
+    public ObservableList<Module> getTargetableModulesList() {
+        return modules.getFilteredModules(Module::isTargetable);
+    }
+
+    /**
+     * Filters for modules that have target grades
+     * @return gradedModulesList: a list of modules used for CAP calculation
+     */
+    public ObservableList<Module> getTargetedModulesList() {
+        return modules.getFilteredModules(Module::isTargeted);
     }
 
     /**
@@ -152,17 +217,86 @@ public class Transcript implements ReadOnlyTranscript {
      * @return true if yes, false otherwise
      */
     private boolean moduleIsUsedForCapCalculation(Module module) {
-        return module.hasCompleted() && moduleAffectsGrade(module);
+        return module.hasCompleted() && module.affectsGrade();
     }
 
     /**
-     * Check if a module affects grade
-     *
-     * @param module
-     * @return true if module affects grade, false otheriwse
+     * Calls relevant methods when the modules list is updated
      */
-    private boolean moduleAffectsGrade(Module module) {
-        return module.getGrade().affectsCap();
+    public void modulesUpdated() {
+        updateTargetModuleGrades();
+        updateCurrentCap();
+    }
+
+    /**
+     * Replaces targetable module with an updated target grade
+     */
+    public void updateTargetModuleGrades() {
+        boolean shouldSkip = !capGoal.isSet();
+        if (shouldSkip) {
+            return;
+        }
+        ObservableList<Module> targetableModules = getTargetableModulesList();
+        ObservableList<Module> newTargetModules = calculateNewTargetModuleGrade(targetableModules);
+        if (newTargetModules == null) {
+            makeCapGoalImpossible();
+            return;
+        }
+        replaceTargetModules(targetableModules, newTargetModules);
+    }
+
+    /**
+     * Replaces Modules used to calculate target grade with new Modules with those target grades
+     * @param targetableModules
+     * @param newTargetModules
+     */
+    private void replaceTargetModules(
+            List<Module> targetableModules, List<Module> newTargetModules) {
+        if (targetableModules.isEmpty()) {
+            return;
+        }
+        modules.removeAll(targetableModules);
+        modules.addAll(newTargetModules);
+    }
+
+
+    /**
+     * Calculates target module grade in order to achieve target goal
+     * @return a list of modules with target grade if possible. null otherwise
+     */
+    private ObservableList<Module> calculateNewTargetModuleGrade(ObservableList<Module> targetableModules) {
+        List<Module> targetModules = new ArrayList<>();
+        if (targetableModules.isEmpty()) {
+            return FXCollections.observableArrayList(targetModules);
+        }
+
+        ObservableList<Module> gradedModules = getGradedModulesList();
+        ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
+                Comparator.comparingInt(Module::getCreditsValue));
+
+        double totalUngradedModuleCredit = calculateTotalModuleCredit(sortedTargetableModules);
+        double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
+        double currentTotalPoint = calculateTotalModulePoint(gradedModules);
+
+        double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
+        double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+        if (unitScoreToAchieve > 5) {
+            return null;
+        }
+
+        Module newTargetModule;
+        for (Module targetedModule : sortedTargetableModules) {
+            if (unitScoreToAchieve == 0.5) {
+                unitScoreToAchieve = 1.0;
+            }
+            newTargetModule = targetedModule.updateTargetGrade(unitScoreToAchieve);
+            targetModules.add(newTargetModule);
+            totalScoreToAchieve -= newTargetModule.getCreditsValue() * unitScoreToAchieve;
+            totalUngradedModuleCredit -= newTargetModule.getCreditsValue();
+            unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+        }
+
+        return FXCollections.observableArrayList(targetModules);
     }
 
     public CapGoal getCapGoal() {
@@ -171,6 +305,22 @@ public class Transcript implements ReadOnlyTranscript {
 
     public void setCapGoal(double capGoal) {
         this.capGoal = new CapGoal(capGoal);
+        updateTargetModuleGrades();
+    }
+
+    /**
+     * Sets the value as something impossible
+     */
+    private void makeCapGoalImpossible() {
+        capGoal = capGoal.makeIsImpossible();
+    }
+
+    /**
+     * Tells if the value is no longer possible
+     * @return true if yes, false otherwise
+     */
+    public boolean isCapGoalImpossible() {
+        return capGoal.isImpossible();
     }
 
     //@@author

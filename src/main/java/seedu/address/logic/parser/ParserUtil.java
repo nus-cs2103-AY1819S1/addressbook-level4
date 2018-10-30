@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -27,6 +29,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    //@@author alexkmj
     /**
      * Tokenizes args into an array of args. Checks if args is null and trims leading and trailing
      * whitespaces.
@@ -37,23 +40,67 @@ public class ParserUtil {
     public static String[] tokenize(String args) {
         requireNonNull(args);
         String trimmedArgs = args.trim();
-        return trimmedArgs.split(" ");
+        return trimmedArgs.split("\\s+");
     }
 
+    //@@author alexkmj
     /**
-     * Validates the number of arguments. If number of arguments is not within the bounds,
-     * ParseException will be thrown.
+     * Validates the number of arguments. If number of arguments does not
+     * equal to {@code required}, {@code ParseException} will be thrown.
      *
      * @throws ParseException if the number of arguments is invalid
      */
-    public static void validateNumOfArgs(String[] args, int min, int max) throws ParseException {
+    public static void validateNumOfArgs(Object[] args, int required)
+            throws ParseException {
+        requireNonNull(args);
+
+        validateNumOfArgs(args, required, required);
+    }
+
+    //@@author alexkmj
+    /**
+     * Validates the number of arguments. If number of arguments is not within
+     * the bounds, {@code ParseException} will be thrown.
+     *
+     * @throws ParseException if the number of arguments is invalid
+     */
+    public static void validateNumOfArgs(Object[] args, int min, int max)
+            throws ParseException {
+        requireNonNull(args);
+
         if (args.length < min || args.length > max) {
             throw new ParseException("Invalid number of arguments!"
-                    + "Number of arguments should be more than or equal to " + min
-                    + " and less than or equal to " + max);
+                    + "Number of arguments should be more than or equal to "
+                    + min
+                    + " and less than or equal to "
+                    + max);
         }
     }
 
+    //@@author alexkmj
+    /**
+     * Validates the number of arguments. If number of arguments is not within
+     * the {@code setOfAllowedNumOfArgs}, {@code ParseException} is thrown.
+     *
+     * @throws ParseException if the number of arguments is not within the
+     * {@code setOfAllowedNumOfArgs}
+     */
+    public static void validateNumOfArgs(Object[] args,
+            HashSet<Integer> setOfAllowedNumOfArgs) throws ParseException {
+        requireNonNull(args);
+
+        if (!setOfAllowedNumOfArgs.contains(args.length)) {
+            String allowedNumOfArgs = setOfAllowedNumOfArgs.stream()
+                    .map(Objects::toString)
+                    .collect(Collectors.joining(", "));
+
+            throw new ParseException("Invalid number of arguments!"
+                    + "Number of arguments should be "
+                    + allowedNumOfArgs);
+        }
+    }
+
+    //@@author alexkmj
     /**
      * Parses a {@code String code} into a {@code Code}. Leading and trailing whitespaces will be
      * trimmed.
@@ -69,6 +116,7 @@ public class ParserUtil {
         return new Code(trimmedCode);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String year} into a {@code Year}. Leading and trailing whitespaces will be
      * trimmed.
@@ -84,6 +132,7 @@ public class ParserUtil {
         return new Year(trimmedYear);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String semester} into a {@code Semester}. Leading and trailing whitespaces
      * will be trimmed.
@@ -99,6 +148,7 @@ public class ParserUtil {
         return new Semester(trimmedSemester);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String credit} into a {@code Credit}. Leading and trailing whitespaces will
      * be trimmed.
@@ -115,6 +165,7 @@ public class ParserUtil {
         return new Credit(intCredit);
     }
 
+    //@@author alexkmj
     /**
      * Parses a {@code String grade} into a {@code Grade}. Leading and trailing whitespaces will be
      * trimmed.

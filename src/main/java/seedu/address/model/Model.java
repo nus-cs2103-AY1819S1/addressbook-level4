@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -15,11 +16,13 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true TODO: REMOVE*/
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    //@@author alexkmj
     /**
      * {@code Predicate} that always evaluate to true.
      */
     Predicate<Module> PREDICATE_SHOW_ALL_MODULES = unused -> true;
 
+    //@@author alexkmj
     /**
      * Clears existing backing model and replaces with the newly provided data.
      * @param replacement the replacement.
@@ -29,6 +32,7 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. TODO: REMOVE*/
     void resetData(ReadOnlyAddressBook newData);
 
+    //@@author alexkmj
     /**
      * Returns the Transcript.
      *
@@ -36,6 +40,7 @@ public interface Model {
      */
     ReadOnlyTranscript getTranscript();
 
+    //@@author alexkmj
     /**
      * Returns true if a module with the same identity as {@code module} exists in the transcript.
      *
@@ -44,6 +49,13 @@ public interface Model {
      */
     boolean hasModule(Module module);
 
+    //@@author alexkmj
+    /**
+     * Returns true if the list contains multiple instances of module with the given code.
+     */
+    boolean hasMultipleInstances(Code code);
+
+    //@@author alexkmj
     /**
      * Deletes the given module.
      * <p>
@@ -52,6 +64,16 @@ public interface Model {
      * @param target module to be deleted from the transcript
      */
     void deleteModule(Module target);
+
+    //@@author alexkmj
+    /**
+     * Deletes the given module.
+     * <p>
+     * The module must exist in the transcript.
+     *
+     * @param predicate predicate used to filter the modules to be deleted
+     */
+    void deleteModule(Predicate<Module> predicate);
 
     /**
      * Adds the given module.
@@ -62,6 +84,7 @@ public interface Model {
      */
     void addModule(Module module);
 
+    //@@author alexkmj
     /**
      * Replaces the given module {@code target} with {@code editedModule}.
      * {@code target} must exist in the transcript. The module identity of {@code editedModule}
@@ -72,37 +95,44 @@ public interface Model {
      */
     void updateModule(Module target, Module editedModule);
 
+    //@@author alexkmj
     /**
      * Returns an unmodifiable view of the filtered module list.
      */
     ObservableList<Module> getFilteredModuleList();
 
+    //@@author alexkmj
     /**
      * Updates the filter of the filtered module list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
 
+    //@@author alexkmj
     /**
      * Returns true if the model has previous transcript states to restore.
      */
     boolean canUndoTranscript();
 
+    //@@author alexkmj
     /**
      * Returns true if the model has undone transcript states to restore.
      */
     boolean canRedoTranscript();
 
+    //@@author alexkmj
     /**
      * Restores the model's transcript to its previous state.
      */
     void undoTranscript();
 
+    //@@author alexkmj
     /**
      * Restores the model's transcript to its previously undone state.
      */
     void redoTranscript();
 
+    //@@author alexkmj
     /**
      * Saves the current transcript state for undo/redo.
      */
@@ -117,8 +147,6 @@ public interface Model {
      * Set the cap goal of the current transcript
      */
     void updateCapGoal(double capGoal);
-
-
 
     /**
      * Returns the CAP based on the current Transcript records

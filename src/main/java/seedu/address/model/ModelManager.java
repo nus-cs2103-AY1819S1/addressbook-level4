@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.model.capgoal.CapGoal;
+import seedu.address.model.module.Code;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -28,9 +29,12 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
 
+    //@@author alexkmj
     private final VersionedTranscript versionedTranscript;
+    //@@author alexkmj
     private final FilteredList<Module> filteredModules;
 
+    //@@author alexkmj
     /**
      * Initializes a ModelManager with the given transcript and userPrefs.
      */
@@ -52,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         this(new Transcript(), new UserPrefs());
     }
 
+    //@@author alexkmj
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      * TODO: REMOVE
@@ -81,25 +86,43 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author alexkmj
     @Override
     public ReadOnlyTranscript getTranscript() {
         return versionedTranscript;
     }
 
+    //@@author alexkmj
     /** Raises an event to indicate the model has changed */
     private void indicateTranscriptChanged() {
         raise(new TranscriptChangedEvent(versionedTranscript));
     }
 
+    //@@author alexkmj
     @Override
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return versionedTranscript.hasModule(module);
     }
 
+    //@@author alexkmj
+    @Override
+    public boolean hasMultipleInstances(Code code) {
+        requireNonNull(code);
+        return versionedTranscript.hasMultipleInstances(code);
+    }
+
+    //@@author alexkmj
     @Override
     public void deleteModule(Module target) {
         versionedTranscript.removeModule(target);
+        indicateTranscriptChanged();
+    }
+
+    //@@author alexkmj
+    @Override
+    public void deleteModule(Predicate<Module> predicate) {
+        versionedTranscript.removeModule(predicate);
         indicateTranscriptChanged();
     }
 
@@ -110,6 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTranscriptChanged();
     }
 
+    //@@author alexkmj
     @Override
     public void updateModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
@@ -120,6 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Module List Accessors =============================================================
 
+    //@@author alexkmj
     /**
      * Returns an unmodifiable view of the list of {@code Module} backed by the internal list of
      * {@code versionedTranscript}
@@ -129,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredModules);
     }
 
+    //@@author alexkmj
     @Override
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
@@ -137,28 +163,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Undo/Redo =================================================================================
 
+    //@@author alexkmj
     @Override
     public boolean canUndoTranscript() {
         return versionedTranscript.canUndo();
     }
 
+    //@@author alexkmj
     @Override
     public boolean canRedoTranscript() {
         return versionedTranscript.canRedo();
     }
 
+    //@@author alexkmj
     @Override
     public void undoTranscript() {
         versionedTranscript.undo();
         indicateTranscriptChanged();
     }
 
+    //@@author alexkmj
     @Override
     public void redoTranscript() {
         versionedTranscript.redo();
         indicateTranscriptChanged();
     }
 
+    //@@author alexkmj
     @Override
     public void commitTranscript() {
         versionedTranscript.commit();
@@ -177,7 +208,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTranscriptChanged();
     }
 
-    //@@author
     //TODO: REMOVE
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -277,10 +307,10 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jeremiah-ang
     @Override
     public double getCap() {
-        return versionedTranscript.getCap();
+        return versionedTranscript.getCurrentCap();
     }
 
-    //@@author
+    //@@author alexkmj
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
