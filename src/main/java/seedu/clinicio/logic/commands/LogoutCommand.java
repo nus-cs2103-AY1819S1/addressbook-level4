@@ -13,9 +13,11 @@ import seedu.clinicio.model.analytics.Analytics;
  * Logout user from ClinicIO.
  */
 public class LogoutCommand extends Command {
+
     public static final String COMMAND_WORD = "logout";
     public static final String MESSAGE_SUCCESS = "User logout from ClinicIO successfully.";
     public static final String MESSAGE_NO_USER_LOGIN = "You have not logged in to ClinicIO.";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics)
             throws CommandException {

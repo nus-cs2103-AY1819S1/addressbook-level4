@@ -99,7 +99,7 @@ public class ClinicIoParser {
             return new LoginCommandParser().parse(arguments);
 
         case LogoutCommand.COMMAND_WORD:
-                return new LogoutCommand();
+            return new LogoutCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

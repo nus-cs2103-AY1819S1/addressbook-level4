@@ -7,8 +7,10 @@ import seedu.clinicio.commons.events.BaseEvent;
  * Indicates that user logout successfully.
  */
 public class LogoutClinicIoEvent extends BaseEvent {
+
     @Override
     public String toString() {
         return getClass().getSimpleName();
     }
+
 }
