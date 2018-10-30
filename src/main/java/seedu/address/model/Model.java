@@ -60,6 +60,7 @@ public interface Model {
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
+     * @throws NoUserSelectedException if there is no user selected in this Model
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException;
 
@@ -155,6 +156,7 @@ public interface Model {
     /**
      * Updates the expense stats
      * @throws NullPointerException if {@code predicate} is null.
+     * @throws NoUserSelectedException if there is no user selected in this Model
      */
     void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException;
 
