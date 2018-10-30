@@ -18,8 +18,9 @@ public class LogoutCommand extends Command {
     public static final String SHOWING_LOGOUT_MESSAGE = "User Logged out";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult runBody(Model model, CommandHistory history) {
         EventsCenter.getInstance().post(new LogoutEvent());
+        history.resetHistory();
         return new CommandResult(SHOWING_LOGOUT_MESSAGE);
     }
 }

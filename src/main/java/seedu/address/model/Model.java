@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.person.User;
 
 /**
  * The API of the Model component.
@@ -44,6 +45,18 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updatePerson(Person target, Person editedPerson);
+
+    /**
+     * Gets the currently logged in user.
+     * @return The currently logged in user.
+     */
+    User getLoggedInUser();
+
+    /**
+     * Sets the currently logged in user.
+     * @param u The currently logged in use
+     */
+    void setLoggedInUser(User u);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
@@ -122,4 +135,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
+  
+    /**
+     * Updates the address book to remove all undo and redo saved versions, as if it had been re-initalized.
+     */
+    void restartAddressBook();
 }
