@@ -1,8 +1,11 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -11,6 +14,7 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.util.Pair;
@@ -33,8 +37,12 @@ public class Plot {
      *
      */
     public static void fillSummary(SummaryData summaryData, Label summaryBar, List<Tuple<Label, Label>> summaryLabels) {
-        summaryBar.setText(summaryData.getTitle());
+        if (summaryData == null) {
+            summaryBar.setText("No summary data available");
+            return;
+        }
 
+        summaryBar.setText(summaryData.getTitle());
         for (int i = 0; i < NUM_SUMMARY_ELEMENTS; i++) {
             Tuple<String, Integer> summaryElementI = summaryData.getSummaryElement(i);
             // set text for summary text label
@@ -50,6 +58,11 @@ public class Plot {
      * @param allVisualizationData
      */
     public static void updateVisualization(List<VisualizationData> allVisualizationData, Pane chartPane) {
+        if (allVisualizationData.size() < 1) {
+            chartPane.setStyle("-fx-background-color: #fff");
+            return;
+        }
+
         for (VisualizationData data : allVisualizationData) {
             plotChart(data, chartPane);
         }

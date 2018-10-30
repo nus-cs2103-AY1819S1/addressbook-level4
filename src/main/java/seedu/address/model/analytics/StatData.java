@@ -106,16 +106,4 @@ public class StatData {
     public List<VisualizationData> getVisualizationData() {
         return allVisualizationData;
     }
-
-
-
-
-
-//    public Map<String, List> getAllData() {
-//        return new HashMap<>() {{
-//            put("summary", summaryData);
-//            put("visualization", visualizationData);
-//        }};
-//    }
-
 }

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.consultation.Consultation;
 import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 
 //@@author arsalanc-v2
 
@@ -27,10 +28,10 @@ public class Analytics {
         medicineStatistics = new MedicineStatistics();
     }
 
-//    public void setPatients(ObservableList<Appointment> appointments) {
-//        patientStatistics.setPatients(appointments);
-//    }
-//
+    public void setPatients(ObservableList<Patient> patients) {
+        patientStatistics.setPatients(patients);
+    }
+
     public void setAppointments(ObservableList<Appointment> appointments) {
         appointmentStatistics.setAppointments(appointments);
     }
@@ -70,11 +71,13 @@ public class Analytics {
         }
     }
 
-//    public void setMedicines(ObservableList<Medicine> medicines) {
-//        medicineStatistics.setMedicines(medicines);
-//    }
-//
-//    public void getAllMedicineStatistics() {
-//        medicineStatistics.getAllStatistics();
-//    }
+    /**
+    public void setMedicines(ObservableList<Medicine> medicines) {
+        medicineStatistics.setMedicines(medicines);
+    }
+
+    public void getAllMedicineStatistics() {
+        medicineStatistics.getAllStatistics();
+    }
+     */
 }
