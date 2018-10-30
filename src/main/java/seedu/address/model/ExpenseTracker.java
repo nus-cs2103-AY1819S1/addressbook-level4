@@ -184,7 +184,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
                 && expenses.equals(((ExpenseTracker) other).expenses))
                 && this.maximumBudget.equals(((ExpenseTracker) other).maximumBudget)
                 && this.username.equals(((ExpenseTracker) other).username)
-                && this.password.equals(((ExpenseTracker) other).password)
+                && Objects.equals(this.password, ((ExpenseTracker) other).password)
                 && this.encryptionKey.equals(((ExpenseTracker) other).encryptionKey);
     }
 

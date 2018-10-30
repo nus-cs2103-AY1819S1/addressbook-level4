@@ -105,7 +105,7 @@ public class EncryptedExpenseTracker {
                 && expenses.equals(((EncryptedExpenseTracker) other).expenses))
                 && this.maximumBudget.equals(((EncryptedExpenseTracker) other).maximumBudget)
                 && this.username.equals(((EncryptedExpenseTracker) other).username)
-                && this.password.equals(((EncryptedExpenseTracker) other).password);
+                && Objects.equals(this.password, ((EncryptedExpenseTracker) other).password);
     }
 
     @Override
