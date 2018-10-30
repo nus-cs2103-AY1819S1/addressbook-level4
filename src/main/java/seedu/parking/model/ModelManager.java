@@ -14,6 +14,7 @@ import seedu.parking.commons.core.ComponentManager;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.model.CarparkFinderChangedEvent;
 import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
 /**
  * Represents the in-memory model of the car park finder data.
@@ -23,6 +24,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedCarparkFinder versionedCarparkFinder;
     private final FilteredList<Carpark> filteredCarparks;
+
+    // Todo: double check
+    private CarparkContainsKeywordsPredicate lastPredicateUsedByFindCommand;
 
     /**
      * Initializes a ModelManager with the given carparkFinder and userPrefs.
@@ -106,6 +110,20 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredCarparkList(Predicate<Carpark> predicate) {
         requireNonNull(predicate);
         filteredCarparks.setPredicate(predicate);
+    }
+
+    // Todo: Location based filtering
+    @Override
+    public void updateLastPredicateUsedByFindCommand(CarparkContainsKeywordsPredicate predicate) {
+        System.out.println("last predicate stored: " + predicate);
+        lastPredicateUsedByFindCommand = predicate;
+    }
+
+    // Todo: Location based filtering
+    @Override
+    public CarparkContainsKeywordsPredicate getLastPredicateUsedByFindCommand() {
+        System.out.println("last predicate retrieved: " + lastPredicateUsedByFindCommand);
+        return lastPredicateUsedByFindCommand;
     }
 
     //=========== Undo/Redo =================================================================================
