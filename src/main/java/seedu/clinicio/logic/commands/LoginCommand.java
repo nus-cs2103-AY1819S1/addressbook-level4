@@ -56,20 +56,16 @@ public class LoginCommand extends Command {
         if (!model.hasStaff(authenticatedStaff)) {
             throw new CommandException(MESSAGE_NO_RECORD_FOUND);
         } else if (UserSession.isLogin()) {
-            throw new CommandException(MESSAGE_LOGIN_ALREADY);
+            return new CommandResult(MESSAGE_LOGIN_ALREADY);
         }
 
-        Staff retrievedStaff = model.getStaff(authenticatedStaff);
-        boolean isCorrectPassword = Password.verifyPassword(
-                authenticatedStaff.getPassword().toString(),
-                retrievedStaff.getPassword().toString());
-
-        if (isCorrectPassword) {
-            UserSession.createSession(retrievedStaff);
-            return new CommandResult(MESSAGE_SUCCESS);
+        boolean isAuthenticatedSuccess = model.checkStaffCredentials(authenticatedStaff);
+        
+        if (isAuthenticatedSuccess) {
+            return new CommandResult(MESSAGE_FAILURE);
         }
 
-        return new CommandResult(MESSAGE_FAILURE);
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

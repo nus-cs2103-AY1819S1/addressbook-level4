@@ -12,13 +12,16 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 
+import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 
 /**
@@ -263,8 +266,21 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jjlee050
     @Override
-    public Staff getStaff(Staff staff) {
-        return versionedClinicIo.getStaff(staff);
+    public boolean checkStaffCredentials(Staff staff) {
+        Staff staffRecord = versionedClinicIo.getStaff(staff);
+        
+        boolean isCorrectPassword = Password.verifyPassword(
+                staff.getPassword().password,
+                staffRecord.getPassword().password
+        );
+        
+        if (!isCorrectPassword) {
+            return false;
+        }
+        UserSession.createSession(staffRecord);
+        raise(new LoginSuccessEvent(staffRecord));
+        return true;
+        
     }
 
     //=========== Undo/Redo =================================================================================

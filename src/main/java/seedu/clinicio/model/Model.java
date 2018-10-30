@@ -63,7 +63,7 @@ public interface Model {
      * Retrieve the given staff
      * {@code staff} must exist in ClinicIO.
      */
-    Staff getStaff(Staff staff);
+    boolean checkStaffCredentials(Staff staff);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

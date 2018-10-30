@@ -110,7 +110,7 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public Staff getStaff(Staff staff) {
+        public boolean checkStaffCredentials(Staff staff) {
             throw new AssertionError("This method should not be called.");
         }
 

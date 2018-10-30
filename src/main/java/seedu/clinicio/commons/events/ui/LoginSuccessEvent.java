@@ -1,18 +1,18 @@
 package seedu.clinicio.commons.events.ui;
 
-import seedu.clinicio.commons.core.UserSession;
-
 import seedu.clinicio.commons.events.BaseEvent;
+
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * Indicate the login is successful.
  */
 public class LoginSuccessEvent extends BaseEvent {
 
-    private UserSession userSession;
+    private Staff currentUser;
 
-    public LoginSuccessEvent(UserSession userSession) {
-        this.userSession = userSession;
+    public LoginSuccessEvent(Staff currentUser) {
+        this.currentUser = currentUser;
     }
 
     @Override
