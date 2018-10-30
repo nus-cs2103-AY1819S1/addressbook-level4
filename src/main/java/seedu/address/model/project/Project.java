@@ -1,15 +1,7 @@
 package seedu.address.model.project;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.address.model.person.Name;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Project in the address book.
