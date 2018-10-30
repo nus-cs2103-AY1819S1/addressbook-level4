@@ -19,6 +19,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_PROJECT_DESCRIPTION = new Prefix("-d");
     public static final Prefix PREFIX_PROJECT_TAG = new Prefix("-pj");
 
+    /* Prefix definitions for leave application feature */
+    public static final Prefix PREFIX_LEAVE_DESCRIPTION = new Prefix("-de");
+    public static final Prefix PREFIX_LEAVE_DATE = new Prefix("-da");
+
     /* Prefix for permission*/
     public static final Prefix PREFIX_ADD_PERMISSION = new Prefix("-a");
     public static final Prefix PREFIX_REMOVE_PERMISSION = new Prefix("-r");

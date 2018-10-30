@@ -2,7 +2,7 @@ package seedu.address.model.leaveapplication;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,27 +13,18 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class LeaveApplication {
-    // Identity fields
-    private final LeaveId id;
-
-    // Data fields
     private final Description description;
     private final LeaveStatus leaveStatus;
-    private final List<LocalDateTime> dates = new ArrayList<>();
+    private final List<LocalDate> dates = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
      */
-    public LeaveApplication(LeaveId id, Description description, LeaveStatus leaveStatus, List<LocalDateTime> dates) {
-        requireAllNonNull(id, description, leaveStatus, dates);
-        this.id = id;
+    public LeaveApplication(Description description, LeaveStatus leaveStatus, List<LocalDate> dates) {
+        requireAllNonNull(description, leaveStatus, dates);
         this.description = description;
         this.leaveStatus = leaveStatus;
         this.dates.addAll(dates);
-    }
-
-    public LeaveId getId() {
-        return id;
     }
 
     public Description getDescription() {
@@ -45,10 +36,10 @@ public class LeaveApplication {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable date list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public List<LocalDateTime> getDates() {
+    public List<LocalDate> getDates() {
         return Collections.unmodifiableList(dates);
     }
 
@@ -67,29 +58,21 @@ public class LeaveApplication {
         }
 
         LeaveApplication otherLeaveApplication = (LeaveApplication) other;
-        return otherLeaveApplication.getId().equals(getId())
-                && otherLeaveApplication.getDescription().equals(getDescription())
+        return otherLeaveApplication.getDescription().equals(getDescription())
                 && otherLeaveApplication.getLeaveStatus().equals(getLeaveStatus())
                 && otherLeaveApplication.getDates().equals(getDates());
-//                && otherLeaveApplication.getDates().stream()
-//                    .map(Date::getTime)
-//                    .collect(Collectors.toList())
-//                    .equals(getDates().stream()
-//                            .map(Date::getTime)
-//                            .collect(Collectors.toList()));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, description, leaveStatus, dates);
+        return Objects.hash(description, leaveStatus, dates);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getId())
-                .append(" Description: ")
+        builder.append(" Description: ")
                 .append(getDescription())
                 .append(" Status: ")
                 .append(getLeaveStatus())
