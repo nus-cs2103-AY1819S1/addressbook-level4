@@ -3,54 +3,54 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RIDES;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
-import static seedu.address.testutil.TypicalRides.AMY;
-import static seedu.address.testutil.TypicalRides.BOB;
-import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_MAINTENANCE_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.MAINTENANCE_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.thanepark.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_MAINTENANCE_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_AMY;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.thanepark.model.Model.PREDICATE_SHOW_ALL_RIDES;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
+import static seedu.thanepark.testutil.TypicalRides.AMY;
+import static seedu.thanepark.testutil.TypicalRides.BOB;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.model.Model;
-import seedu.address.model.ride.Address;
-import seedu.address.model.ride.Maintenance;
-import seedu.address.model.ride.Name;
-import seedu.address.model.ride.Ride;
-import seedu.address.model.ride.WaitTime;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.RideBuilder;
-import seedu.address.testutil.RideUtil;
+import seedu.thanepark.commons.core.Messages;
+import seedu.thanepark.commons.core.index.Index;
+import seedu.thanepark.logic.commands.RedoCommand;
+import seedu.thanepark.logic.commands.UndoCommand;
+import seedu.thanepark.logic.commands.UpdateCommand;
+import seedu.thanepark.model.Model;
+import seedu.thanepark.model.ride.Address;
+import seedu.thanepark.model.ride.Maintenance;
+import seedu.thanepark.model.ride.Name;
+import seedu.thanepark.model.ride.Ride;
+import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.tag.Tag;
+import seedu.thanepark.testutil.RideBuilder;
+import seedu.thanepark.testutil.RideUtil;
 
-public class UpdateCommandSystemTest extends AddressBookSystemTest {
+public class UpdateCommandSystemTest extends ThaneParkSystemTest {
 
     @Test
     public void update() throws IOException {
@@ -75,7 +75,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         /* Case: redo editing the last ride in the list -> last ride edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updatePerson(
+        model.updateRide(
                 getModel().getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased()), editedRide);
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -86,7 +86,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a ride with new values same as another ride's values but with different name -> edited */
-        assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
+        assertTrue(getModel().getThanePark().getRideList().contains(BOB));
         index = INDEX_SECOND_RIDE;
         assertNotEquals(getModel().getFilteredRideList().get(index.getZeroBased()), BOB);
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
@@ -116,8 +116,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered ride list, edit index within bounds of address book and ride list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        /* Case: filtered ride list, edit index within bounds of thanepark book and ride list -> edited */
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         index = INDEX_FIRST_PERSON;
         editedName = "Another name";
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
@@ -126,11 +126,11 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
         editedRide = new RideBuilder(rideToEdit).withName(editedName).build();
         assertCommandSuccess(command, index, editedRide);
 
-        /* Case: filtered ride list, edit index within bounds of address book but out of bounds of ride list
+        /* Case: filtered ride list, edit index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getRideList().size();
+        showPersonsWithName(KEYWORD_MATCHING_THE);
+        int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
 
@@ -187,7 +187,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
                 WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid thanepark -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
@@ -199,7 +199,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a ride with new values same as another ride's values -> rejected */
         executeCommand(RideUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getRideList().contains(BOB));
+        assertTrue(getModel().getThanePark().getRideList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredRideList().get(index.getZeroBased()).equals(BOB));
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
@@ -213,7 +213,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, UpdateCommand.MESSAGE_DUPLICATE_RIDE);
 
-        /* Case: edit a ride with new values same as another ride's values but with different address -> rejected */
+        /* Case: edit a ride with new values same as another ride's values but with different thanepark -> rejected */
         command = UpdateCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
@@ -253,7 +253,7 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Ride editedRide,
             Index expectedSelectedCardIndex) throws IOException {
         Model expectedModel = getModel();
-        expectedModel.updatePerson(expectedModel.getFilteredRideList().get(toEdit.getZeroBased()), editedRide);
+        expectedModel.updateRide(expectedModel.getFilteredRideList().get(toEdit.getZeroBased()), editedRide);
         expectedModel.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
 
         assertCommandSuccess(command, expectedModel,
@@ -279,9 +279,9 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ThaneParkSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) throws IOException {
@@ -304,8 +304,8 @@ public class UpdateCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

@@ -1,46 +1,46 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalRides.ACCELERATOR;
-import static seedu.address.testutil.TypicalRides.BIG;
-import static seedu.address.testutil.TypicalRides.CASTLE;
-import static seedu.address.testutil.TypicalRides.DUMBO;
-import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
+import static seedu.thanepark.testutil.TypicalRides.BIG;
+import static seedu.thanepark.testutil.TypicalRides.CASTLE;
+import static seedu.thanepark.testutil.TypicalRides.DUMBO;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.thanepark.commons.core.index.Index;
+import seedu.thanepark.logic.commands.DeleteCommand;
+import seedu.thanepark.logic.commands.FindCommand;
+import seedu.thanepark.logic.commands.RedoCommand;
+import seedu.thanepark.logic.commands.UndoCommand;
+import seedu.thanepark.model.Model;
+import seedu.thanepark.model.tag.Tag;
 
-public class FindCommandSystemTest extends AddressBookSystemTest {
+public class FindCommandSystemTest extends ThaneParkSystemTest {
 
     @Test
     public void find() {
         /* Case: find multiple rides in thane park, command with leading spaces and trailing spaces
          * -> 2 rides found
          */
-        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, BIG, DUMBO); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, BIG, DUMBO); // names of BIG and DUMBO contains "The"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where ride list is displaying the rides we are finding
          * -> 2 rides found
          */
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -85,26 +85,26 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find same rides in thane park after deleting 1 of them -> 1 ride found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getRideList().contains(BIG));
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        assertFalse(getModel().getThanePark().getRideList().contains(BIG));
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find ride in thane park, keyword is same as name but of different case -> 1 ride found */
-        command = FindCommand.COMMAND_WORD + " MeIeR";
+        command = FindCommand.COMMAND_WORD + " tHe";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find ride in thane park, keyword is substring of name -> 0 rides found */
-        command = FindCommand.COMMAND_WORD + " Mei";
+        command = FindCommand.COMMAND_WORD + " th";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find ride in thane park, name is substring of keyword -> 0 rides found */
-        command = FindCommand.COMMAND_WORD + " Meiers";
+        command = FindCommand.COMMAND_WORD + " their";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -119,13 +119,13 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of ride in thane park -> 0 rides found */
+        /* Case: find thanepark of ride in thane park -> 0 rides found */
         command = FindCommand.COMMAND_WORD + " " + DUMBO.getAddress().value;
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of ride in thane park -> 1 rides found */
+        /* Case: find thanepark of ride in thane park -> 1 rides found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getAddress().value;
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
@@ -161,7 +161,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find ride in empty thane park -> 0 rides found */
         deleteAllPersons();
-        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_THE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
@@ -177,10 +177,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * box displays {@code Messages#MESSAGE_RIDES_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
@@ -196,10 +196,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();
