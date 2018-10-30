@@ -201,7 +201,7 @@ and contains the following operations:
 
 Select feature:
 
- * `Model#getDirectoryImageList` -- Retrieved the stored list of images in UserPrefs.
+ * `Model#getDirectoryImageList()` -- Retrieves the stored list of images in UserPrefs.
  * `Model#updateCurrentOriginalImage(Image, Path)` -- Updates the model with the current selected images.
 
 Next feature:
@@ -210,16 +210,16 @@ Next feature:
  * `Model#updateImageList(ArrayList<Path>)` -- Updates the list with the new list of images.
  * `Model#removeImageFromList(int)` -- Remove image from the list of images.
 
-The Model calls upon `UserPrefs` which stores and facilitates updates and retrieval of the `imageList` in the current
+The `Model` calls upon `UserPrefs` which stores and facilitates the updates and retrieval of `imageList` in the current
 directory. The `UserPrefs` class implements the following operation:
 
 * `UserPrefs#getAllImages()` -- Returns all the user's images current directory.
 * `UserPrefs#updateImageList()` -- Retrieves all the images in the current directory.
-* `UserPrefs#updateImageList(ArrayList<Path>) -- Updates `imageList` with the new `imageList`.
+* `UserPrefs#updateImageList(ArrayList<Path>)` -- Updates `imageList` with the new `imageList`.
 
-Other operation, `Model#updateCurrentOriginalImage(Image, Path)` stores the path of the selected image
-as `currOriginalImage` and the `PreviewImage` instance of the path as `currentPreviewImage` within the `ModelManager`.
-Additionally, the operation also creates a canvas and a layer to facilitate the transmission feature.
+The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the selected image and the
+`PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` respectively within the `ModelManager`.
+Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature.
 
 Given below is an example usage scenario and how the select and next mechanism behaves at each step.
 
@@ -227,7 +227,7 @@ Step 1. The user launches the application for the first time. The `UserPrefs` wi
 as the user's home directory.
 
 Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
-`Model#updateImageList()` to retrieve all the images within Desktop.
+`Model#updateImageList()` to initialise the `imageList` with all the images within Desktop.
 
 image::SelectNextCommand1.png[width=800]
 
@@ -255,22 +255,22 @@ image::NextSequenceDiagram.png[width=800]
 ===== Aspect: How select executes
 
 * *Alternative 1 (current choice)*: Select images within the BATCH_SIZE.
-** Pros: Work on a small size of images.
+** Pros: Users work on a small size of images.
 ** Cons: Hard to retrieve images from end of list.
 
 * *Alternative 2* : Select images within the `imageList` size.
 ** Pros: Easy to retrieve images anywhere in the list.
-** Cons: Can be very messy if the imageList size is too large.
+** Cons: Can be very messy if the `imageList` size is too large.
 
 ===== Aspect: How next executes
 
-* *Alternative 1 (current choice)*: Removes and updates `imageList` in `UserPrefs`.
+* *Alternative 1 (current choice)*: Removes first 10 images and updates `imageList` in `UserPrefs`.
 ** Pros: Easy to implement and to access current batch.
 ** Cons: Users unable to access previous images.
 
 * *Alternative 2* : Update the current start pointer for each batch.
 ** Pros: Users would be able to access previous batches.
-** Cons: Harder to implement and keep track of the the current start pointer.
+** Cons: Hard to implement and keep track of the current start pointer.
 
 === Undo/Redo feature
 ==== Current Implementation
