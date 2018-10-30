@@ -9,6 +9,9 @@ import seedu.clinicio.model.staff.Staff;
 public class UserSession {
     private static Staff currentUser;
 
+    public Staff getCurrentUser() {
+        return currentUser;
+    }
     /**
      * Create a new user session for ClinicIO.
      * @param user Authenticated user to add into user session
