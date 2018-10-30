@@ -47,9 +47,13 @@ public class GuiSettings implements Serializable {
         return windowCoordinates;
     }
 
-    public Boolean getNotificationIsEnabled() { return notificationIsEnabled; }
+    public Boolean getNotificationIsEnabled() {
+        return notificationIsEnabled;
+    }
 
-    public String getFavouriteEvent() { return favouriteEvent; }
+    public String getFavouriteEvent() {
+        return favouriteEvent;
+    }
 
     @Override
     public boolean equals(Object other) {
