@@ -40,7 +40,7 @@ public class CommandTestUtil {
     public static final String VALID_REMARK_AMY = "Likes coffee";
     public static final String VALID_REMARK_BOB = "Likes tea";
     public static final String VALID_ALLERGY = "milk";
-    public static final String VALID_CONDITION = "sub-health";
+    public static final String VALID_CONDITION = "healthy";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
