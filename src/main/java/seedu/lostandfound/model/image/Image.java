@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.lostandfound.commons.util.AppUtil.checkArgument;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -20,10 +22,13 @@ import seedu.lostandfound.model.util.Sequence;
  */
 public class Image {
 
-    public static final String MESSAGE_CONSTRAINTS = "Path should be valid";
     private static final String VALIDATION_REGEX = "(0|[1-9][0-9]*)\\.(png|svg|jpg)";
     private static final Sequence SEQUENCE = Sequence.getInstance();
     private static final Path IMAGE_FOLDER = Paths.get("data", "images");
+
+    public static final String MESSAGE_CONSTRAINTS = "Path should be valid";
+    public static final Image DEFAULT = new Image("data/images/0.png");
+
 
     public String filename;
     private Path path;
@@ -33,9 +38,9 @@ public class Image {
     /**
      * Constructs a {@code Image}.
      *
-     * @param file a valid image file.
+     * @param file a valid image file. will set a reference to that path.
      */
-    public Image(String file) {
+    public Image(String file) throws InvalidPathException {
         requireNonNull(file);
         checkArgument(isValid(file), MESSAGE_CONSTRAINTS);
         path = Paths.get(file);
@@ -46,7 +51,12 @@ public class Image {
         SEQUENCE.set(id);
     }
 
-    public Image(Path file) {
+    /**
+     * Constructs a {@code Image}
+     *
+     * @param file a valid image file. will set a reference to that path.
+     */
+    public Image(Path file) throws InvalidPathException {
         this(file.toString());
     }
 

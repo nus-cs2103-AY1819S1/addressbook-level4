@@ -60,7 +60,7 @@ public class Article {
     }
 
     public Image getImage() {
-        return image;
+        return image != null ? image : Image.DEFAULT;
     }
 
     public boolean getIsResolved() {

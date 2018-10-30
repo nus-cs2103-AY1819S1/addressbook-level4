@@ -21,7 +21,7 @@ public class SampleDataUtil {
     public static Article[] getSampleArticles() {
         return new Article[] {
             new Article(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Description("Blk 30 Geylang Street 29, #06-40"), new Image("data/images/0.png"), Boolean.FALSE,
+                new Description("Blk 30 Geylang Street 29, #06-40"), new Image("data/images/1.jpg"), Boolean.FALSE,
                 getTagSet("friends")),
             new Article(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Description("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), null, Boolean.FALSE,
