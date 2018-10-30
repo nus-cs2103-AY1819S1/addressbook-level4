@@ -52,10 +52,10 @@ public class AddCommand extends Command {
         if (model.hasWord(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_WORD);
         }
-
+        /**
         if (!model.hasTag(toAdd.getTags())) {
             throw new CommandException(MESSAGE_NO_GROUP);
-        }
+        }*/
 
         model.addWord(toAdd);
         model.commitLearnVocabulary();
