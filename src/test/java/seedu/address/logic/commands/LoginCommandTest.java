@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.ModelUtil.getTypicalModel;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,7 +13,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.user.LoginInformation;
-import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.model.user.Username;
 import seedu.address.model.user.UsernameTest;

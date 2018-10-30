@@ -10,7 +10,6 @@ import java.util.Optional;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.user.LoginInformation;
-import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
 //@@author JasonChong96

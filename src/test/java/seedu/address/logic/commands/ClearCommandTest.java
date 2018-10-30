@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.ModelUtil.getTypicalModel;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import org.junit.Test;
 

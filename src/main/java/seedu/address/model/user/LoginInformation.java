@@ -2,6 +2,7 @@ package seedu.address.model.user;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.logic.parser.ParserUtil;
@@ -61,5 +62,10 @@ public class LoginInformation {
         return username.equals(other.username)
                 && getPassword().equals(other.getPassword())
                 && getPlainPassword().equals(other.getPlainPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, plainPassword);
     }
 }

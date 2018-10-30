@@ -4,7 +4,6 @@ package seedu.address.logic.commands;
 import static junit.framework.TestCase.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.ModelUtil.getTypicalModel;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;

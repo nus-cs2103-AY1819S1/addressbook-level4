@@ -19,8 +19,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
