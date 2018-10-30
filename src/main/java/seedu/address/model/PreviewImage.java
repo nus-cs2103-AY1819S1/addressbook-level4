@@ -4,9 +4,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.model.transformation.TransformationSet;
 
@@ -17,6 +19,7 @@ import seedu.address.model.transformation.TransformationSet;
  * Wraps the image and transformation set for preview.
  */
 public class PreviewImage {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static final String TESTPATH = MainApp.MAIN_PATH + "/src/main/java/seedu/address/storage/cache";
     private final TransformationSet transformationSet;
     private int height;
@@ -105,9 +108,9 @@ public class PreviewImage {
             File out = new File(TESTPATH + "/Layer0-" + currentIndex + ".png");
             ImageIO.write(image, "png", out);
         } catch (IOException e) {
-            System.out.println("Exception occ :" + e.getMessage());
+            logger.warning("Exception occ :" + e.getMessage());
         }
-        System.out.println("Caching successful");
+        logger.info("Caching successful");
     }
 
     /**
@@ -135,9 +138,9 @@ public class PreviewImage {
             File in = new File(TESTPATH + "/Layer0-" + currentIndex + ".png");
             imageFromCache = ImageIO.read(in);
         } catch (IOException e) {
-            System.out.println("Exception occ :" + e.getMessage());
+            logger.warning("Reading from cache successful.");
         }
-        System.out.println("Retrieve successful");
+        logger.info("Reading from cache successful.");
         return imageFromCache;
     }
 

@@ -53,7 +53,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        // previewImageManager = PreviewImageManager.getInstance();
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
 
@@ -251,6 +250,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public PreviewImage getCurrentPreviewImage() {
         return currentPreviewImage;
+    }
+
+    @Override
+    public void setCurrentPreviewImage(PreviewImage previewImage) {
+        currentPreviewImage = previewImage;
     }
 
     @Override
