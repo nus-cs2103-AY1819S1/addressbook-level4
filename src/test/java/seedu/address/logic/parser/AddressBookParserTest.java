@@ -20,6 +20,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.ExportCertCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -171,5 +172,12 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand", Context.VOLUNTEER_CONTEXT_ID);
+    }
+
+    @Test
+    public void parseCommand_exportcert() throws Exception {
+        ExportCertCommand command = (ExportCertCommand) parser.parseCommand(ExportCertCommand.COMMAND_WORD
+                + " " + INDEX_FIRST_VOLUNTEER.getOneBased(), Context.VOLUNTEER_CONTEXT_ID);
+        assertEquals(new ExportCertCommand(INDEX_FIRST_VOLUNTEER), command);
     }
 }
