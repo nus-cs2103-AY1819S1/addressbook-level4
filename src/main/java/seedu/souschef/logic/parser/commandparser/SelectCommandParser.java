@@ -17,14 +17,14 @@ import seedu.souschef.model.recipe.Recipe;
 /**
  * Parses input arguments and creates a new SelectCommand object
  */
-public class SelectCommandParser implements CommandParser<SelectCommand> {
+public class SelectCommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand
      * and returns an SelectCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SelectCommand parseRecipe(Model model, String args) throws ParseException {
+    public SelectCommand parseIndex(Model model, String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new SelectCommand(model, index);
@@ -56,10 +56,5 @@ public class SelectCommandParser implements CommandParser<SelectCommand> {
         Index index = ParserUtil.parseIndex(recipeListIndex.toString());
 
         return new SelectCommand(recipeModel, index);
-    }
-
-    @Override
-    public SelectCommand parseIngredient(Model model, String args) throws ParseException {
-        return null;
     }
 }

@@ -9,6 +9,7 @@ import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.ui.Ui;
 
@@ -28,8 +29,11 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of recipes */
     ObservableList<Recipe> getFilteredRecipeList();
 
-    /** Returns an unmodifiable view of the filtered list of recipes */
+    /** Returns an unmodifiable view of the filtered list of ingredients */
     ObservableList<Ingredient> getFilteredIngredientList();
+
+    /** Returns an unmodifiable view of the filtered list of inventory recipes */
+    ObservableList<CrossRecipe> getFilteredCrossRecipeList();
 
     /**
      * returns unmodifiable view of filtered lists of healthplans

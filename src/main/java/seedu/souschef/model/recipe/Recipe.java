@@ -30,7 +30,7 @@ public class Recipe extends UniqueType {
     // Data fields
     private final ArrayList<Instruction> instructions = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
-    private final HashMap<IngredientDefinition, Double> ingredients = new HashMap<>();
+    private final HashMap<IngredientDefinition, IngredientPortion> ingredients = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -43,12 +43,11 @@ public class Recipe extends UniqueType {
         this.instructions.addAll(instructions);
         for (Instruction instruction : instructions) {
             for (IngredientPortion portion : instruction.ingredients) {
-                IngredientDefinition key = new IngredientDefinition(portion.getName().toString());
-                Double amount = portion.getAmount().getValue();
+                IngredientDefinition key = new IngredientDefinition(portion.getName());
                 if (ingredients.containsKey(key)) {
-                    ingredients.replace(key, ingredients.get(key) + amount);
+                    ingredients.replace(key, ingredients.get(key).addAmount(portion.convertToCommonUnit()));
                 } else {
-                    ingredients.put(key, amount);
+                    ingredients.put(key, portion.convertToCommonUnit());
                 }
             }
         }
@@ -79,7 +78,7 @@ public class Recipe extends UniqueType {
         return Collections.unmodifiableSet(tags);
     }
 
-    public Map<IngredientDefinition, Double> getIngredients() {
+    public Map<IngredientDefinition, IngredientPortion> getIngredients() {
         return ingredients;
     }
 

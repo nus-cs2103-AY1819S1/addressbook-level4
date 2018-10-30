@@ -20,6 +20,10 @@ public class IngredientDate {
         this.date = (new SimpleDateFormat("MM-dd-yyyy")).parse(date);
     }
 
+    public Date getDate() {
+        return date;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

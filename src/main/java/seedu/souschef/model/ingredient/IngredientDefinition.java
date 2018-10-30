@@ -1,7 +1,6 @@
 package seedu.souschef.model.ingredient;
 
-import java.util.HashMap;
-
+import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.UniqueType;
 
 /**
@@ -9,43 +8,20 @@ import seedu.souschef.model.UniqueType;
  */
 public class IngredientDefinition extends UniqueType {
     private final IngredientName name;
-    private final IngredientServingUnit unit;
 
-    private final HashMap<String, String> dictionary = new HashMap<>();
-
-    public IngredientDefinition(IngredientName name, IngredientServingUnit unit) {
+    public IngredientDefinition(IngredientName name) {
         this.name = name;
-        this.unit = unit;
     }
 
-    // temp
-    public IngredientDefinition(String name, String unit) {
-        this.name = new IngredientName(name);
-        this.unit = new IngredientServingUnit(unit);
-    }
-
-    public IngredientDefinition(String name) {
-        dictionary.put("chicken", "gram");
-        dictionary.put("onion", "piece");
-        dictionary.put("egg", "piece");
-        dictionary.put("garlic", "clove");
-        dictionary.put("flour", "gram");
-        dictionary.put("octopus", "gram");
-
-        this.name = new IngredientName(name);
-        if (dictionary.containsKey(name)) {
-            this.unit = new IngredientServingUnit(dictionary.get(name));
-        } else {
-            this.unit = new IngredientServingUnit("none");
+    public IngredientDefinition(String name) throws ParseException {
+        if (!IngredientName.isValid(name)) {
+            throw new ParseException("Invalid Ingredient Name!");
         }
+        this.name = new IngredientName(name);
     }
 
     public IngredientName getName() {
         return name;
-    }
-
-    public IngredientServingUnit getUnit() {
-        return unit;
     }
 
     /**
@@ -86,8 +62,7 @@ public class IngredientDefinition extends UniqueType {
         IngredientDefinition otherIngredient = (IngredientDefinition) other;
 
         return otherIngredient != null
-                && otherIngredient.getName().equals(getName())
-                && otherIngredient.getUnit().equals(getUnit());
+                && otherIngredient.getName().equals(getName());
     }
 
     @Override
@@ -96,6 +71,6 @@ public class IngredientDefinition extends UniqueType {
     }
 
     public String toString() {
-        return getName().toString() + " " + getUnit().toString();
+        return getName().toString();
     }
 }

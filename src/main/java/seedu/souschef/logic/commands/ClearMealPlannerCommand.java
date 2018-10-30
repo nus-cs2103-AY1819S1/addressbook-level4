@@ -10,7 +10,7 @@ import seedu.souschef.model.planner.Day;
 public class ClearMealPlannerCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Clears the Meal Planner.";
+        + ": Clears the %1$s.";
 
     public static final String MESSAGE_CLEAR_PLANNER_SUCCESS = "Meal Planner cleared.";
 

@@ -9,6 +9,7 @@ import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 /**
@@ -22,6 +23,7 @@ public class ModelSetCoordinator implements ModelSet {
     private final Model<Day> mealPlannerModel;
     private final Model<Tag> tagModel;
     private final Model<Ingredient> ingredientModel;
+    private final Model<CrossRecipe> crossRecipeModel;
     private final Model<Favourites> favouriteModel;
     private final VersionedAppContent versionedAppContent;
     /**
@@ -34,6 +36,7 @@ public class ModelSetCoordinator implements ModelSet {
         recipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getRecipes());
         tagModel = new ModelManager<>(versionedAppContent, versionedAppContent.getTags());
         ingredientModel = new ModelManager<>(versionedAppContent, versionedAppContent.getIngredients());
+        crossRecipeModel = new ModelManager<>(versionedAppContent, versionedAppContent.getCrossRecipes());
         healthPlanModel = new ModelManager<>(versionedAppContent, versionedAppContent.getHealthPlans());
         mealPlannerModel = new ModelManager<>(versionedAppContent, versionedAppContent.getMealPlanner());
         favouriteModel = new ModelManager<>(versionedAppContent, versionedAppContent.getFavourites());
@@ -65,29 +68,41 @@ public class ModelSetCoordinator implements ModelSet {
                 && healthPlanModel.equals(other.healthPlanModel)
                 && mealPlannerModel.equals(other.mealPlannerModel)
                 && ingredientModel.equals(other.ingredientModel)
+                && crossRecipeModel.equals(other.crossRecipeModel)
                 && favouriteModel.equals(other.favouriteModel);
     }
 
+    @Override
     public Model<Recipe> getRecipeModel() {
         return recipeModel;
     }
 
+    @Override
     public Model<Day> getMealPlannerModel() {
         return mealPlannerModel;
     }
 
+    @Override
     public Model<Tag> getTagModel() {
         return tagModel;
     }
 
+    @Override
     public Model<Ingredient> getIngredientModel() {
         return ingredientModel;
     }
 
+    @Override
+    public Model<CrossRecipe> getCrossRecipeModel() {
+        return crossRecipeModel;
+    }
+
+    @Override
     public Model<HealthPlan> getHealthPlanModel() {
         return healthPlanModel;
     }
 
+    @Override
     public Model<Favourites> getFavouriteModel() {
         return favouriteModel;
     }

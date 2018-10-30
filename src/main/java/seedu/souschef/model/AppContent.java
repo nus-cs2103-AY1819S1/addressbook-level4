@@ -12,6 +12,7 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.DayComparator;
 import seedu.souschef.model.planner.Meal;
+import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -26,6 +27,7 @@ public class AppContent implements ReadOnlyAppContent {
     private final UniqueList<Recipe> recipes;
     private final UniqueList<Tag> tags;
     private final UniqueList<Ingredient> ingredients;
+    private final UniqueList<CrossRecipe> crossRecipes;
     private final UniqueList<HealthPlan> healthPlans;
     private final UniqueList<Day> mealPlanner;
     private final UniqueList<Favourites> favourites;
@@ -41,6 +43,7 @@ public class AppContent implements ReadOnlyAppContent {
         recipes = new UniqueList<>();
         tags = new UniqueList<>();
         ingredients = new UniqueList<>();
+        crossRecipes = new UniqueList<>();
         healthPlans = new UniqueList<>();
         mealPlanner = new UniqueList<>();
         favourites = new UniqueList<>();
@@ -66,6 +69,7 @@ public class AppContent implements ReadOnlyAppContent {
         this.recipes.set(newData.getObservableRecipeList());
         this.tags.set(newData.getObservableTagList());
         this.ingredients.set(newData.getObservableIngredientList());
+        this.crossRecipes.set(newData.getObservableCrossRecipeList());
         this.healthPlans.set(newData.getObservableHealthPlanList());
         this.mealPlanner.set(newData.getObservableMealPlanner());
         this.favourites.set(newData.getObservableFavouritesList());
@@ -85,6 +89,9 @@ public class AppContent implements ReadOnlyAppContent {
         }
         if (newData.getObservableIngredientList().size() > 0) {
             this.ingredients.set(newData.getObservableIngredientList());
+        }
+        if (newData.getObservableCrossRecipeList().size() > 0) {
+            this.crossRecipes.set(newData.getObservableCrossRecipeList());
         }
         if (newData.getObservableMealPlanner().size() > 0) {
             List<Day> dayList = newData.getObservableMealPlanner();
@@ -123,6 +130,16 @@ public class AppContent implements ReadOnlyAppContent {
         return ingredients;
     }
 
+    //// cross recipe-level operations
+    public UniqueList<CrossRecipe> getCrossRecipes() {
+        if (crossRecipes.size() == 0) {
+            for (Recipe recipe : recipes) {
+                crossRecipes.add(new CrossRecipe(recipe, recipe.getIngredients()));
+            }
+        }
+        return crossRecipes;
+    }
+
     //healthplan level operations
     public UniqueList<HealthPlan> getHealthPlans() {
         return healthPlans;
@@ -158,6 +175,11 @@ public class AppContent implements ReadOnlyAppContent {
     @Override
     public ObservableList<Ingredient> getObservableIngredientList() {
         return ingredients.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<CrossRecipe> getObservableCrossRecipeList() {
+        return crossRecipes.asUnmodifiableObservableList();
     }
 
     @Override

@@ -22,7 +22,9 @@ public class ClearCommandTest {
         Model<Recipe> expectedModel = new ModelSetCoordinator().getRecipeModel();
         expectedModel.commitAppContent();
 
-        assertCommandSuccess(new ClearCommand(model), model, history, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearCommand<Recipe>(model), model, history,
+                String.format(ClearCommand.MESSAGE_CLEAR_SUCCESS,
+                history.getKeyword()),
                 expectedModel);
     }
 
@@ -34,7 +36,9 @@ public class ClearCommandTest {
         expectedModel.resetData(new AppContent());
         expectedModel.commitAppContent();
 
-        assertCommandSuccess(new ClearCommand(model), model, history, ClearCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ClearCommand<Recipe>(model), model, history,
+                String.format(ClearCommand.MESSAGE_CLEAR_SUCCESS,
+                        history.getKeyword()),
                 expectedModel);
     }
 
