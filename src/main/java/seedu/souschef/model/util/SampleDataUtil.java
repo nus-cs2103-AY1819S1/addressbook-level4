@@ -1,6 +1,7 @@
 package seedu.souschef.model.util;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,11 +68,14 @@ public class SampleDataUtil {
         try {
             ingredients = new Ingredient[]{
                 new Ingredient(new IngredientName("Carrot"), new IngredientAmount(300.0),
-                            new IngredientServingUnit("gram"), new IngredientDate("12-25-2018")),
+                            new IngredientServingUnit("gram"),
+                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-25-2018"))),
                 new Ingredient(new IngredientName("Tomato"), new IngredientAmount(200.0),
-                            new IngredientServingUnit("gram"), new IngredientDate("12-26-2018")),
+                            new IngredientServingUnit("gram"),
+                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-26-2018"))),
                 new Ingredient(new IngredientName("Potato"), new IngredientAmount(100.0),
-                            new IngredientServingUnit("gram"), new IngredientDate("12-24-2018"))
+                            new IngredientServingUnit("gram"),
+                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-24-2018")))
             };
         } catch (ParseException e) {
             e.printStackTrace();

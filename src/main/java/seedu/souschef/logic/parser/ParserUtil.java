@@ -1,6 +1,8 @@
 package seedu.souschef.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 
 import java.util.ArrayList;
@@ -191,7 +193,13 @@ public class ParserUtil {
             throw new ParseException(IngredientPortion.MESSAGE_INGREDIENTPORTION_CONSTRAINTS);
         }
         IngredientName name = new IngredientName(matcher.group("name").trim());
-        IngredientAmount amt = new IngredientAmount(matcher.group("amt"));
+        double amount;
+        try {
+            amount = Double.parseDouble(matcher.group("amt"));
+        } catch (NumberFormatException ne) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
+        }
+        IngredientAmount amt = new IngredientAmount(amount);
         IngredientServingUnit unit = new IngredientServingUnit(matcher.group("unit"));
         return new IngredientPortion(name, unit, amt);
     }
