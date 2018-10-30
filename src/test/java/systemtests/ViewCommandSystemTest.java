@@ -1,24 +1,24 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.thanepark.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.thanepark.testutil.TestUtil.getLastIndex;
+import static seedu.thanepark.testutil.TestUtil.getMidIndex;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
 
 import java.io.IOException;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.ViewCommand;
-import seedu.address.model.Model;
+import seedu.thanepark.commons.core.index.Index;
+import seedu.thanepark.logic.commands.RedoCommand;
+import seedu.thanepark.logic.commands.UndoCommand;
+import seedu.thanepark.logic.commands.ViewCommand;
+import seedu.thanepark.model.Model;
 
 public class ViewCommandSystemTest extends AddressBookSystemTest {
     @Test
@@ -56,14 +56,14 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered ride list, select index within bounds of address book but out of bounds of ride list
+        /* Case: filtered ride list, select index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getAddressBook().getRideList().size();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
-        /* Case: filtered ride list, select index within bounds of address book and ride list -> selected */
+        /* Case: filtered ride list, select index within bounds of thanepark book and ride list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredRideList().size());
         command = ViewCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -95,7 +95,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("VieW 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty thanepark book -> rejected */
         deleteAllPersons();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
