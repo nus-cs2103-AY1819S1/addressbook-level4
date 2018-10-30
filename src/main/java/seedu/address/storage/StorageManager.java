@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -13,6 +15,7 @@ import com.google.common.eventbus.Subscribe;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AllDayEventAddedEvent;
@@ -29,6 +32,9 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
 import seedu.address.commons.events.ui.EmailNotFoundEvent;
+import seedu.address.commons.events.model.NewImageEvent;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.storage.ImageReadingExceptionEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -37,6 +43,7 @@ import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Room;
 
 
 /**
@@ -50,16 +57,19 @@ public class StorageManager extends ComponentManager implements Storage {
     private BudgetBookStorage budgetBookStorage;
     private CalendarStorage calendarStorage;
     private EmailStorage emailStorage;
+    private ProfilePictureStorage profilePictureStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage, BudgetBookStorage budgetBookStorage,
                           UserPrefsStorage userPrefsStorage,
-                          CalendarStorage calendarStorage, EmailStorage emailStorage) {
+                          CalendarStorage calendarStorage, EmailStorage emailStorage,
+                          ProfilePictureStorage profilePictureStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.budgetBookStorage = budgetBookStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.calendarStorage = calendarStorage;
         this.emailStorage = emailStorage;
+        this.profilePictureStorage = profilePictureStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -305,7 +315,7 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
+    
     @Override
     @Subscribe
     public void handleCalendarEventAddedEvent(CalendarEventAddedEvent event) {
@@ -316,7 +326,7 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
+  
     @Override
     @Subscribe
     public void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event) {
@@ -328,4 +338,44 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+    //@@author javenseow
+    // ============== Profile Picture methods ========================
+
+    @Override
+    public Path getProfilePicturePath() {
+        return profilePictureStorage.getProfilePicturePath();
+    }
+
+    @Override
+    public BufferedImage readProfilePicture(File file) throws IOException {
+        try {
+            return profilePictureStorage.readProfilePicture(file);
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+     
+    public void saveProfilePicture(BufferedImage image, Room number) throws IOException {
+        profilePictureStorage.saveProfilePicture(image, number);
+    }
+
+    public void handleNewImageEvent(NewImageEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "reading image"));
+        BufferedImage image = null;
+
+        try {
+            image = readProfilePicture(event.file);
+        } catch (IOException e) {
+            EventsCenter.getInstance().post(new ImageReadingExceptionEvent(e));
+        }
+
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "image read, writing file"));
+        if (image != null) {
+            try {
+                saveProfilePicture(image, event.room);
+            } catch (IOException e) {
+                EventsCenter.getInstance().post(new DataSavingExceptionEvent(e));
+            }
+        }
+    }
 }

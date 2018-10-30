@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -18,6 +20,7 @@ import seedu.address.commons.events.model.CalendarEventDeletedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
+import seedu.address.commons.events.model.NewImageEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
@@ -26,12 +29,13 @@ import seedu.address.model.EmailModel;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyBudgetBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Room;
 
 /**
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPrefsStorage, CalendarStorage,
-    EmailStorage {
+    EmailStorage, ProfilePictureStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -132,4 +136,19 @@ public interface Storage extends AddressBookStorage, BudgetBookStorage, UserPref
 
     void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event);
 
+    //@@author javenseow
+    @Override
+    Path getProfilePicturePath();
+
+    @Override
+    BufferedImage readProfilePicture(File file) throws IOException;
+
+    @Override
+    void saveProfilePicture(BufferedImage image, Room number) throws IOException;
+
+    /**
+     * Reads and write the image file that is given from the hard disk
+     * to the hard disk into a file within the project.
+     */
+    void handleNewImageEvent(NewImageEvent abce);
 }
