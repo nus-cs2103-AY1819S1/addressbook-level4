@@ -1,6 +1,8 @@
 package seedu.souschef.storage.ingredient;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -72,12 +74,13 @@ public class XmlAdaptedIngredient {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "amount"));
         }
 
-        final IngredientAmount modelAmount;
+        double tempAmount;
         try {
-            modelAmount = new IngredientAmount(amount);
+            tempAmount = Double.parseDouble(amount);
         } catch (NumberFormatException e) {
             throw new IllegalValueException(IngredientAmount.MESSAGE_AMOUNT_CONSTRAINTS);
         }
+        final IngredientAmount modelAmount = new IngredientAmount(tempAmount);
 
         if (unit == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "unit"));
@@ -93,12 +96,14 @@ public class XmlAdaptedIngredient {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "date"));
         }
 
-        final IngredientDate modelDate;
+        Date tempDate;
         try {
-            modelDate = new IngredientDate(date);
+            tempDate = (new SimpleDateFormat("MM-dd-yyyy")).parse(date);
         } catch (ParseException e) {
             throw new IllegalValueException(String.format(IngredientDate.MESSAGE_DATE_CONSTRAINTS));
         }
+
+        final IngredientDate modelDate = new IngredientDate(tempDate);
 
         return new Ingredient(modelName, modelAmount, modelUnit, modelDate);
     }
