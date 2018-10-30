@@ -78,7 +78,8 @@ public class MassEditCommand extends Command{
 
         //Edit all the filtered expenses
         List<Expense> editedList = new ArrayList<>();
-        for (Expense expense:lastShownList){
+        for (int i = 0; i < lastShownList.size(); i ++){
+            Expense expense = lastShownList.get(i);
             Expense editedExpense = createEditedExpense(expense, editExpenseDescriptor);
             model.updateExpense(expense, editedExpense);
             editedList.add(editedExpense);
@@ -101,7 +102,7 @@ public class MassEditCommand extends Command{
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof MassEditCommand)) {
             return false;
         }
 

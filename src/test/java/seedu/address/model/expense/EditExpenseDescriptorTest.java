@@ -109,7 +109,7 @@ public class EditExpenseDescriptorTest {
         try{
             EditExpenseDescriptor.createEditExpenseDescriptor(testMap);
         }catch (ParseException pe){
-            assertEquals(pe.getMessage(), EditCommand.MESSAGE_NOT_EDITED); 
+            assertEquals(pe.getMessage(), EditCommand.MESSAGE_NOT_EDITED);
         }
     }
 

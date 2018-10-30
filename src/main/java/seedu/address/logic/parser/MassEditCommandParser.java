@@ -55,4 +55,5 @@ public class MassEditCommandParser implements Parser{
 
         return new MassEditCommand(predicate, editExpenseDescriptor);
     }
+
 }

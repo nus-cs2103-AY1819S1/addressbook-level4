@@ -143,7 +143,7 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // address
+        // cost
         userInput = targetIndex.getOneBased() + COST_DESC_AMY;
         descriptor = new EditExpenseDescriptorBuilder().withCost(VALID_COST_GAME).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -201,4 +201,5 @@ public class EditCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
+
 }
