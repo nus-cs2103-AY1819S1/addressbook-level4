@@ -1,5 +1,7 @@
 package seedu.address.model.encryption;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.ExpenseField;
 
@@ -15,6 +17,7 @@ public abstract class EncryptedExpenseField<T extends ExpenseField> {
      * @param encryptedString the encrypted String representation of the expense field
      */
     public EncryptedExpenseField(String encryptedString) {
+        requireNonNull(encryptedString);
         this.encryptedString = encryptedString;
     }
 
@@ -25,6 +28,7 @@ public abstract class EncryptedExpenseField<T extends ExpenseField> {
      * @throws IllegalValueException when the input encryption key is invalid
      */
     public EncryptedExpenseField(T src, String key) throws IllegalValueException {
+        requireNonNull(src, key);
         this.encryptedString = EncryptionUtil.encryptString(src.toString(), key);
     }
 
