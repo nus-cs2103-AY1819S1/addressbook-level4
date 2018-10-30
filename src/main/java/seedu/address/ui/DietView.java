@@ -84,6 +84,15 @@ public class DietView extends UiPart<Region> implements Swappable {
         currentSelection = persons.filtered(person -> currentSelection.isSamePerson(person)).get(0);
     }
 
+    /**
+     * Set the current selection to the given {@code Person}. Only used for testing purposes.
+     * @param p
+     */
+    // TODO: replace this method with other means as it only helps testing.
+    public void setCurrentSelection(Person p) {
+        currentSelection = p;
+    }
+
     @Override
     public void refreshView() {
         if (currentSelection == null) {
