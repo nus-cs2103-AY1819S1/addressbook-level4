@@ -100,6 +100,6 @@ public class TypicalPersons {
     }
 
     public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(appointment));
+        return new ArrayList<>(Arrays.asList(APPT_FIRST));
     }
 }
