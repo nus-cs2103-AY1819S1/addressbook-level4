@@ -277,13 +277,13 @@ After a user logs in or logs out, the modelManager will raise an UserIsLoginStat
 
 For example, if the user, Alex Yeoh, wants to login to his account, the following image is what he will see before he logs in.
 
-image::LoginFeature_BeforeLogin.png[width="800"]
+image::LoginFeature_BeforeLogin.png[width="300"]
 
 After Alex Yeoh logs in, the UI will automatically be updated upon successful login as indicated by the change in colour
 of the user's name from white to green as shown in the image below. The user's name will remain in green as long as he is logged in. After he logs out,
 the colour of his name will revert back to white as shown in the image above.
 
-image::LoginFeature_AfterLogin.png[width="800"]
+image::LoginFeature_AfterLogin.png[width="300"]
 
 ==== Design Considerations
 
