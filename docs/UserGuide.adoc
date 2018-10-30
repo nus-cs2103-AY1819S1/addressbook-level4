@@ -67,7 +67,7 @@ e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` i
 ====
 
 // tag::patient[]
-=== Patient
+=== Patient Record Management
 
 ==== Adding a patient: `add`
 
@@ -217,7 +217,7 @@ Adds 'B+' (under _Blood Type_) to the `MedicalRecord` of the 3rd `Patient`.
 
 // tag::patient[]
 // tag::medicine[]
-=== Medicine
+=== Medicine Inventory Management
 
 ==== Adding a medicine: `addMedicine`
 
