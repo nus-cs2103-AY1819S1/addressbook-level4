@@ -3,10 +3,7 @@ package seedu.scheduler.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.FLAG_UPCOMING;
 
-import java.io.IOException;
 import java.util.List;
-
-import com.google.api.services.calendar.Calendar;
 
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
@@ -68,16 +65,32 @@ public class DeleteCommand extends Command {
         }
 
         model.commitScheduler();
-        Calendar service = connectToGoogleCalendar.getCalendar();
-        String gEventId = String.valueOf(eventToDelete.getUuid())
-                                                      .replaceAll("-", "");
-        try {
-            service.events().delete("primary", gEventId).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int instanceIndex = calculateInstanceIndex(lastShownList, eventToDelete);
+        connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName()));
     }
+
+    /**
+     * Calculates the relative index of an existing recurring event instance to the
+     * first recurring event instance.
+     *
+     * @param lastShownList The last shown list of events.
+     * @param eventToDelete The recurring event to be deleted.
+     * @return The relative index of the event to be deleted to the first recurring event.
+     */
+    private int calculateInstanceIndex(List<Event> lastShownList, Event eventToDelete) {
+        int counter = 0;
+        for (Event event : lastShownList) {
+            if (event.getUuid() == eventToDelete.getUuid()) {
+                counter++;
+            }
+            if (event.getUid() == eventToDelete.getUid()) {
+                break;
+            }
+        }
+        return counter;
+    }
+
 
     @Override
     public boolean equals(Object other) {
