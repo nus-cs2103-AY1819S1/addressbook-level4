@@ -32,7 +32,7 @@ public class XmlAdaptedProject {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedProject(Project source) {
-        projectName = source.projectName;
+        projectName = source.getProjectName();
     }
 
     /**

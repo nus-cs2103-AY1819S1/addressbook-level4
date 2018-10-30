@@ -16,5 +16,5 @@ public class CliSyntax {
     /* Prefix for project*/
     public static final Prefix PREFIX_PROJECT_NAME = new Prefix("-pn");
     public static final Prefix PREFIX_AUTHOR = new Prefix("-au");
-    public static final Prefix PREFIX_PROJECT_TAG = new Prefix("-d");
+    public static final Prefix PREFIX_PROJECT_DESCRIPTION = new Prefix("-d");
 }
