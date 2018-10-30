@@ -149,12 +149,12 @@ public class PopUpManager {
                 while (true) {
                     LocalDateTime now = LocalDateTime.now();
                     DateTime currentDateTime = new DateTime(now);
-                    logger.info("Checking current event popUp info queue...");
+                    // logger.info("Checking current event popUp info queue...");
 
                     // check the event queue date time
                     if (!popUpQueue.isEmpty()) {
                         DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
-                        logger.info(frontEventDateTime.toString());
+                        //logger.info(frontEventDateTime.toString());
                         while (frontEventDateTime.isPast(currentDateTime)) {
                             EventPopUpInfo currentPopUp = popUpQueue.peek();
                             displayPopUp("Past Reminder!", currentPopUp.getDescription().toString());
@@ -170,9 +170,9 @@ public class PopUpManager {
                     }
 
                     if (!popUpQueue.isEmpty()) {
-                        logger.info("Checking for incoming events");
+                        //logger.info("Checking for incoming events");
                         DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
-                        logger.info(frontEventDateTime.toString());
+                        //logger.info(frontEventDateTime.toString());
                         while (frontEventDateTime.isClose(currentDateTime)) {
                             EventPopUpInfo currentPopUp = popUpQueue.peek();
                             displayPopUp("Time's Up!", currentPopUp.getDescription().toString());
