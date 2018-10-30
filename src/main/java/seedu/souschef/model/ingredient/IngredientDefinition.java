@@ -13,10 +13,7 @@ public class IngredientDefinition extends UniqueType {
         this.name = name;
     }
 
-    public IngredientDefinition(String name) throws ParseException {
-        if (!IngredientName.isValid(name)) {
-            throw new ParseException("Invalid Ingredient Name!");
-        }
+    public IngredientDefinition(String name) {
         this.name = new IngredientName(name);
     }
 

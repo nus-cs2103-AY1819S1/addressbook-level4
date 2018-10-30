@@ -20,11 +20,8 @@ public class IngredientPortion extends IngredientDefinition {
         this.amount = amount;
     }
 
-    public IngredientPortion(String name, String unit, Double amount) throws ParseException {
+    public IngredientPortion(String name, String unit, Double amount) {
         super(name);
-        if (!IngredientServingUnit.isValid(unit)) {
-            throw new ParseException(IngredientServingUnit.MESSAGE_UNIT_CONSTRAINTS);
-        }
         this.unit = new IngredientServingUnit(unit);
         this.amount = new IngredientAmount(amount);
     }

@@ -18,7 +18,7 @@ public class Ingredient extends IngredientPortion {
         this.date = date;
     }
 
-    public Ingredient(String name, String unit, Double amount, Date date) throws ParseException {
+    public Ingredient(String name, String unit, Double amount, Date date) {
         super(name, unit, amount);
         this.date = new IngredientDate(date);
     }
