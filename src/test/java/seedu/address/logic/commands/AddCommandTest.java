@@ -167,11 +167,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addLeaveApplication(LeaveApplication leaveApplication, Person employee) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void restartAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

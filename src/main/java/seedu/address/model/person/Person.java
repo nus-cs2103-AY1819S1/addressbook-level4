@@ -45,19 +45,19 @@ public class Person {
 
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
                   Password password, Set<Project> projects, PermissionSet permissionSet) {
-        this(name, phone, email, address, salary, username, password, projects, permissionSet, Optional.empty());
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, new ArrayList<>());
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
                   Password password, Set<Project> projects, PermissionSet permissionSet,
-                  Optional<ProfilePic> profilePic) {
-        this(name, phone, email, address, salary, username, password, projects, permissionSet, profilePic,
-                new ArrayList<>());
+                  List<LeaveApplication> leaveApplications) {
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, leaveApplications,
+                Optional.empty());
     }
 
     public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
                   Password password, Set<Project> projects, PermissionSet permissionSet,
-                  Optional<ProfilePic> profilePic, List<LeaveApplication> leaveApplications) {
+                  List<LeaveApplication> leaveApplications, Optional<ProfilePic> profilePic) {
         requireAllNonNull(name, phone, email, address, salary, projects, permissionSet, profilePic, leaveApplications);
         this.name = name;
         this.phone = phone;

@@ -140,12 +140,6 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
-    //=========== Leave Application Functionality ===========================================================
-    @Override
-    public void addLeaveApplication(LeaveApplication leaveApplication, Person employee) {
-        // TODO
-    }
-
     @Override
     public void restartAddressBook() {
         versionedAddressBook.restart();

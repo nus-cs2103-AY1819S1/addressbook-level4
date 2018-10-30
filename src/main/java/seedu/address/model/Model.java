@@ -91,11 +91,6 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Adds the given leave application for a specified employee.
-     */
-    void addLeaveApplication(LeaveApplication leaveApplication, Person employee);
-
-    /**
      * Updates the address book to remove all undo and redo saved versions, as if it had been re-initalized.
      */
     void restartAddressBook();
