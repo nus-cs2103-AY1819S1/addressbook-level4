@@ -1,13 +1,36 @@
-.table-header {
-    text-align: center;
-    font-family: "Apple Symbols", "Segoe UI";
-    font-size: 18pt;
-    color: white;
+html {
+    background-color: #404040;
 }
-
-.table-row {
+th {
+    padding-bottom: 2px;
+}
+th, td {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 14px;
+    font-weight: lighter;
+    color: #ffffff;
+}
+td {
+    border: 2px solid #ffffff;
+}
+.circles {
+    display: flex;
+    justify-content: center;
+}
+.dot {
+    background: linear-gradient(#d1d1d1, #ffffff);
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
     text-align: center;
-    font-family: "Apple Symbols", "Segoe UI";
-    font-size: 12pt;
-    color: white;
+    margin: 5px 20px;
+    font-size: 11px;
+    padding: 15px;
+    display: flex;
+    height: 26px;
+    width: 26px;
+    color: #000;
+}
+.hide {
+    visibility: hidden;
 }

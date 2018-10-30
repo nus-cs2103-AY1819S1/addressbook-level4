@@ -15,7 +15,7 @@ import seedu.address.model.person.CurrentPatient;
  * Displays the list of served patients to the user.
  */
 public class DisplayServedPatientsCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "servedPatients";
+    public static final String COMMAND_WORD = "servedpatients";
     public static final String COMMAND_ALIAS = "showsp";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the list of served patients";

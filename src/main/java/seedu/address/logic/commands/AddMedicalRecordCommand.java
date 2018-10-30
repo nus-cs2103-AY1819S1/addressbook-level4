@@ -25,8 +25,8 @@ import seedu.address.model.person.medicalrecord.MedicalRecord;
  */
 public class AddMedicalRecordCommand extends Command {
 
-    public static final String COMMAND_WORD = "addMedicalRecord";
-    public static final String COMMAND_ALIAS = "aMR";
+    public static final String COMMAND_WORD = "addmedicalrecord";
+    public static final String COMMAND_ALIAS = "amr";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates a new medical record, or adds data to existing "

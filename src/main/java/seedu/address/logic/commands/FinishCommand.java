@@ -27,7 +27,9 @@ public class FinishCommand extends QueueCommand {
 
     public static final String MESSAGE_SUCCESS = "Finish Serving patient: ";
     public static final String MESSAGE_EMPTY_CURRENT_PATIENT = "There is no current patient!";
-    public static final String MESSAGE_EMPTY_NOTE = "Add a note to patient before using the finish command.";
+    public static final String MESSAGE_EMPTY_NOTE = "Add a note to patient before using the finish command.\n"
+            + "Use the adddocument command.\n"
+            + DocumentContentAddCommand.MESSAGE_USAGE;
 
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
