@@ -24,7 +24,7 @@ import seedu.address.model.project.exceptions.DuplicateAssignmentException;
  *
  * @see Assignment#isSameAssignment(Assignment)
  */
-public class UniqueAssignmentList implements Iterable<Assignment>{
+public class UniqueAssignmentList implements Iterable<Assignment> {
 
     private final ObservableList<Assignment> internalList = FXCollections.observableArrayList();
 

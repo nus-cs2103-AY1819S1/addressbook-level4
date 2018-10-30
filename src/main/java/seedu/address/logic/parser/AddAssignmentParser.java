@@ -14,6 +14,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.project.ProjectName;
 
+/**
+ * Parses input arguments and creates a new AddAssignmentCommand object
+ */
 public class AddAssignmentParser implements Parser<AddAssignmentCommand> {
 
     /**
