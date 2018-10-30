@@ -333,14 +333,22 @@ image::add-event_new-event.PNG[Adding an event]
 
 === Import Contacts: `importContacts`
 
-Import contacts from a specified csv file. Duplicate contacts will be merged together.
+Import contacts from a specified csv file. +
+CSV file has to be exported from google contacts as Google CSV. +
 
-Format: `importContacts file/FILEPATH`
+[TIP]
+====
+* Ensure that First Name, Email, Phone Number, Address and Company (faculty) is filled up
+* Any missing field will result in failure in importing contacts
+* Exported csv file will be named: google.csv
+====
+
+Format: `importContacts file/ABSOLUTE_FILEPATH`
 
 Examples:
 
-* `importContacts file/~/Downloads/contacts1.csv` +
-  Imports all contacts from root/Downloads/contacts1.csv into application address book
+* `importContacts file/~/Downloads/google.csv` +
+  Imports all contacts from root/Downloads/google.csv into application address book
 
 === Notifications: `notification`
 
@@ -610,8 +618,8 @@ e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2019-10-12 st/1030 et/120
 * *Add Group Event* : `addGroupEvent n/EVENT_NAME dsc/DESCRIPTION d/DATE(DD-MM-YY) t/TIME(HHMM) a/ADDRESS group/GROUP_NAME...` +
 e.g. `addGroupEvent n/Project Meeting dsc/First Meeting d/12-09-18 t/1200 a/123, Clementi Rd, 1234665 group/CS2103_Group`
 * *List Group Events* : `listGroupEvent`
-* *Import Contacts* : `importContacts file/FILEPATH` +
-e.g. `importContacts file/~/Downloads/contacts1.csv`
+* *Import Contacts* : `importContacts file/ABSOLUTE_FILEPATH` +
+e.g. `importContacts file/~/Downloads/google.csv`
 * *Disable and Enable Notification* : `notification enable/disable` +
 e.g. `notification disable`
 * *Favourite Event* : `favourite d/EVENT_DATE i/EVENT_INDEX` +
