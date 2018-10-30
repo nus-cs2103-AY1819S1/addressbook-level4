@@ -22,6 +22,7 @@ import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -153,6 +154,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void addEvent(Event event) {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
+        indicateAddressBookChanged();
+    }
+
+    //=========== File Reader methods ========================================================================
+    @Override
+    public void importContacts(FileReader fileReader) {
+        versionedAddressBook.importContacts(fileReader);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 

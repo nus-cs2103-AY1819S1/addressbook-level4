@@ -6,6 +6,11 @@ import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_END_TI
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_TIME_DOCTORAPPT;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.ImportContactsPersons.JACK;
+import static seedu.address.testutil.ImportContactsPersons.KAITING;
+import static seedu.address.testutil.ImportContactsPersons.PRATYAY;
+import static seedu.address.testutil.ImportContactsPersons.RYAN;
+import static seedu.address.testutil.ImportContactsPersons.YUWEI;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -21,8 +26,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.event.Event;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.FileReaderBuilder;
 import seedu.address.testutil.ScheduledEventBuilder;
 
 public class ModelManagerTest {
@@ -125,6 +132,18 @@ public class ModelManagerTest {
     public void getEventTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getEventTagList().add(MEETING_TAG);
+    }
+
+    @Test
+    public void hasImportContactsPerson_returnsTtue() {
+        FileReader fileReader = new FileReaderBuilder().build();
+
+        modelManager.importContacts(fileReader);
+        assertTrue(modelManager.hasPerson(JACK));
+        assertTrue(modelManager.hasPerson(KAITING));
+        assertTrue(modelManager.hasPerson(PRATYAY));
+        assertTrue(modelManager.hasPerson(RYAN));
+        assertTrue(modelManager.hasPerson(YUWEI));
     }
 
     @Test

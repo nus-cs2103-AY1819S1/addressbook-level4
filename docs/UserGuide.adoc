@@ -73,18 +73,19 @@ Notifications are initially enabled
 === Adding a person: `add`, alias `a`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY`
 
 [TIP]
 ====
 * A person can have any number of tags (including 0)
 * A person can have 1 or many phone numbers
+* A person can have no faculty using '-', else faculty names are based on NUS naming conventions
 ====
 
 Examples:
 
-* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 p/88888888 e/johnd@example.com a/John street, block 123, #01-01 f/SDE` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal f/SOC` or `a n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
 === Listing all persons : `list`, alias `ls`
 
@@ -392,14 +393,22 @@ Format: `listEvent`
 
 === Import Contacts: `importContacts`
 
-Import contacts from a specified csv file. Duplicate contacts will be merged together.
+Import contacts from a specified csv file. +
+CSV file has to be exported from google contacts as Google CSV. +
 
-Format: `importContacts file/FILEPATH`
+[TIP]
+====
+* Ensure that First Name, Email, Phone Number, Address and Company (faculty) is filled up
+* Any missing field will result in failure in importing contacts
+* Exported csv file will be named: google.csv
+====
+
+Format: `importContacts file/ABSOLUTE_FILEPATH`
 
 Examples:
 
-* `importContacts file/~/Downloads/contacts1.csv` +
-  Imports all contacts from root/Downloads/contacts1.csv into application address book
+* `importContacts file/~/Downloads/google.csv` +
+  Imports all contacts from root/Downloads/google.csv into application address book
 
 === Notifications: `notification`
 
@@ -610,8 +619,8 @@ Examples:
 
 == Command Summary
 
-* *Add* : `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add* : `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY ` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague f/FOS`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
