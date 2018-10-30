@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private CalendarDisplay calendarDisplay;
     private CalendarPanel calendarPanel;
+    private TaskListPanel taskListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -128,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        TaskListPanel taskListPanel = new TaskListPanel();
+        TaskListPanel taskListPanel = new TaskListPanel(logic.getFilteredToDoListEventList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         calendarDisplay = new CalendarDisplay(logic.getFilteredCalendarEventList());
@@ -201,6 +202,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public CalendarPanel getCalendarPanel() {
         return calendarPanel;
+    }
+
+    public TaskListPanel getTaskListPanel() {
+        return taskListPanel;
     }
 
     // TODO remove method if not using browserPanel anymore
