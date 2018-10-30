@@ -19,6 +19,7 @@ import seedu.address.model.event.EventDescription;
 import seedu.address.model.event.EventName;
 import seedu.address.model.event.EventTime;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Event.
@@ -44,6 +45,9 @@ public class XmlAdaptedEvent {
     // eventContacts in XML format should be an ordered list
     private List<XmlAdaptedPerson> eventContacts = new ArrayList<>();
 
+    @XmlElement
+    private List<XmlAdaptedTag> eventTags = new ArrayList<>();
+
     /**
      * Constructs an XmlAdaptedEvent.
      * This is the no-arg constructor that is required by JAXB.
@@ -54,7 +58,8 @@ public class XmlAdaptedEvent {
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
     public XmlAdaptedEvent(String eventName, String eventDescription, String eventDate, String eventStartTime,
-                           String eventEndTime, String eventAddress, List<XmlAdaptedPerson> eventContacts) {
+                           String eventEndTime, String eventAddress, List<XmlAdaptedPerson> eventContacts,
+                           List<XmlAdaptedTag> eventTags) {
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventDate = eventDate;
@@ -63,6 +68,9 @@ public class XmlAdaptedEvent {
         this.eventAddress = eventAddress;
         if (eventContacts != null) {
             this.eventContacts = new ArrayList<>(eventContacts);
+        }
+        if (eventTags != null) {
+            this.eventTags = new ArrayList<>(eventTags);
         }
     }
 
@@ -81,6 +89,9 @@ public class XmlAdaptedEvent {
         eventContacts = source.getEventContacts().stream()
                 .map(XmlAdaptedPerson::new)
                 .collect(Collectors.toList());
+        eventTags = source.getEventTags().stream()
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -92,6 +103,11 @@ public class XmlAdaptedEvent {
         final List<Person> personList = new ArrayList<>();
         for (XmlAdaptedPerson person : eventContacts) {
             personList.add(person.toModelType());
+        }
+
+        final List<Tag> tagList = new ArrayList<>();
+        for (XmlAdaptedTag tag : eventTags) {
+            tagList.add(tag.toModelType());
         }
 
         if (eventName == null) {
@@ -155,9 +171,10 @@ public class XmlAdaptedEvent {
         final EventAddress modelAddress = new EventAddress(eventAddress);
 
         final Set<Person> modelContacts = new HashSet<>(personList);
+        final Set<Tag> modelTags = new HashSet<>(tagList);
 
         return new Event(modelName, modelDescription, modelDate, modelStartTime, modelEndTime,
-                modelAddress, modelContacts);
+                modelAddress, modelContacts, modelTags);
     }
 
     @Override
@@ -177,6 +194,7 @@ public class XmlAdaptedEvent {
                 && Objects.equals(eventStartTime, otherEvent.eventStartTime)
                 && Objects.equals(eventEndTime, otherEvent.eventEndTime)
                 && Objects.equals(eventAddress, otherEvent.eventAddress)
-                && eventContacts.equals(otherEvent.eventContacts);
+                && eventContacts.equals(otherEvent.eventContacts)
+                && eventTags.equals(otherEvent.eventTags);
     }
 }
