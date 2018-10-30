@@ -205,14 +205,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
-    //@@author jjlee050
-    @Override
-    public void updateStaff(Staff target, Staff editedStaff) {
-        requireAllNonNull(target, editedStaff);
-        versionedClinicIo.updateStaff(target, editedStaff);
-        indicateClinicIoChanged();
-    }
-
     //@@author gingivitiss
     @Override
     public void updateAppointment(Appointment target, Appointment editedAppt) {

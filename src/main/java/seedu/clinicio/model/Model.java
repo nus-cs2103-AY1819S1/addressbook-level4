@@ -72,13 +72,6 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson);
 
-    /**
-     * Replaces the given staff {@code target} with {@code editedStaff}.
-     * {@code target} must exist in the ClinicIO.
-     * The staff identity of {@code editedStaff} must not be the same as another existing staff in the ClinicIO.
-     */
-    void updateStaff(Staff target, Staff editedStaff);
-
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 

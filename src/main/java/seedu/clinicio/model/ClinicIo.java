@@ -235,15 +235,6 @@ public class ClinicIo implements ReadOnlyClinicIo {
         persons.remove(key);
     }
 
-    //@@author jjlee050
-    /**
-     * Removes {@code key} from this {@code ClinicIo}.
-     * {@code key} must exist in the ClinicIO.
-     */
-    public void removeStaff(Staff key) {
-        staffs.remove(key);
-    }
-
     //@@author gingivitiss
     /**
      * Removes {@code key} from this {@code ClinicIo}. Not to be used to cancel appointments.
