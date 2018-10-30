@@ -138,14 +138,19 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
-Deletes the specified person from InsuRen. +
-Format: `delete INDEX`
+Deletes the specified person from InsuRen by the displayed list's index or by an existing name. +
+Format: `delete INDEX/EXISTING_NAME`
 
 Shorthand: `d`
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the person by *index* or by *name*.
+** For deleting by `INDEX`,
+*** The index refers to the index number shown in the displayed person list.
+*** The index *must be a positive integer* 1, 2, 3, ...
+** For deleting by `EXISTING_NAME`,
+*** The name *​must uniquely identify a person.*
+*** If nobody matches the EXISTING_NAME, or there are multiple contacts matching it, InsuRen will notify you and not carry out changes.
+*** You can be less specific or more specific in the existing name to identify a person, but in the case that two people have exactly the same name, you have to delete by `INDEX`.
 ****
 
 Examples:
@@ -156,6 +161,9 @@ Deletes the 2nd person in InsuRen.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
+* `delete John` +
+Deletes John if John uniquely identifies a single person in InsuRen.
+
 
 === Selecting a person : `select`
 
