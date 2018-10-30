@@ -20,7 +20,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.canvas.Canvas;
@@ -297,7 +296,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
-        EventsCenter.getInstance().post(new ChangeDirectoryEvent(userPrefs.getCurrDirectory().toString()));
     }
 
     @Override
