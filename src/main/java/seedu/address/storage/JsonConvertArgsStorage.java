@@ -1,13 +1,15 @@
 package seedu.address.storage;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import seedu.address.commons.util.ResourceUtil;
 
 
 /**
@@ -21,13 +23,21 @@ public class JsonConvertArgsStorage {
 
     /**
      * get the template of the arguments need for the operation
-     * @param filepath
+     * @param fileUrl
      * @param operation
      * @return
      * @throws IOException
      */
-    public static List<String> retrieveArgumentsTemplate(Path filepath, String operation) throws IOException {
-        JsonNode jsonNode = new ObjectMapper().readTree(filepath.toFile());
+    public static List<String> retrieveArgumentsTemplate(URL fileUrl, String operation) throws IOException {
+        JsonNode jsonNode;
+        if (!new File(fileUrl.toString()).exists()) {
+            File file = new File("commandTemplate.json");
+            ResourceUtil.copyResourceFileOut(fileUrl, file);
+            jsonNode = new ObjectMapper().readTree(file);
+            file.delete();
+        } else {
+            jsonNode = new ObjectMapper().readTree(fileUrl.getFile());
+        }
         List<String> args = new ArrayList<>();
         if (jsonNode.get(operation) == null) {
             throw new IOException("no command found");
