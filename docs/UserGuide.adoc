@@ -286,7 +286,7 @@ Examples:
 
 Adds an event in the system with information specified by the user.
 
-Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS`
+Format: `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX...] [t/EVENT_TAG...]`
 
 The user can input values for the following fields when adding an event: +
 
@@ -296,8 +296,10 @@ The user can input values for the following fields when adding an event: +
 * Event start time +
 * Event end time +
 * Address of event +
+* Contact Index / Indices +
+* Event Type(s) +
 
-Note that each of these fields are mandatory, and has to be supplied by the user
+Note that each of these fields, except for contact indices and event type, are mandatory, and has to be supplied by the user
 before the event can be successfully added into the system.
 In addition, note the following constraints for the input values.
 
@@ -307,6 +309,9 @@ In addition, note the following constraints for the input values.
 and should not have any special characters e.g. *, &, etc.
 * Event dates should be in the format YYYY-MM-DD
 * Event times (start or end time) should be in the 24-hour format HHMM
+* Contact indices should be based on the latest displayed person list.
+* Event type has to be one of the existing tags in the EventsPlus+. If an event tag does not exist
+in EventsPlus+, it has to be added in before creating the event with the new event tag.
 ====
 
 //A notification will be sent to the user only 24 hours before the event.
@@ -314,22 +319,48 @@ and should not have any special characters e.g. *, &, etc.
 
 Examples:
 
-* `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665` +
-This adds a new event with the provided information.
-
-//* `list` +
-//  `addEvent n/Doctor Appointment dsc/Consultation d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1`
-//* `Find Betsy Tim John` +
-//  `addEvent n/Meeting  dsc/Project meeting d/15-09-18 t/1030 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
+* Without contacts and event tags +
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665` +
+* With a single contact +
+ `list` +
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1`
+* With multiple contacts +
+`Find Betsy Tim John` +
+`addEvent n/Meeting  dsc/Project meeting d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 i/2 i/3`
+* With contact indices and event tags +
+`addEventTag t/Meeting t/Appointment` +
+`addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment` +
 
 In EventsPlus+, the events can be found in the Events tab,
 and are displayed according to their date, in decreasing date order.
+Within each date, the events are ordered from earliest to latest.
 
 After the user executes the command, a message indicating successful execution of the command will be displayed.
 The user will be automatically directed to the Events tab,
 where the newly added event (as highlighted in green below) will be shown in the tab.
 
 image::add-event_new-event.PNG[Adding an event]
+
+=== Adding an event tag: `addEventTag`
+
+Adds an event tag specified by the user into the system.
+
+Format: `addEventTag [t/EVENT_TAG...]`
+
+[TIP]
+====
+Event tags are case-insensitive. i.e. MEETING and meeting are considered the same tag. 
+Executing `addEventTag t/MEETING t/meeting` will only result in the first tag being added.
+Executing `addEventTag t/MEETING` again will not be successful, as the tag already exists in the system.
+====
+
+Examples:
+
+* `addEventTag t/Lecture t/Dinner` +
+Adds the event tags into the system, if they do not already exist in the system.
+The newly added tags are highlighted in green below.
+
+image::add-event-tag_new-event-tag.PNG[Adding an event tag]
 
 === Import Contacts: `importContacts`
 
