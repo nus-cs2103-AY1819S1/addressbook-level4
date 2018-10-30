@@ -381,7 +381,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author arsalanc-v2
 
     /**
-     *
+     * Creates an event to display a particular class of analytics.
      */
     @Override
     public void requestAnalyticsDisplay(StatisticType type) {
@@ -389,7 +389,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     *
+     * Updates and returns the latest statistics data.
      */
     public StatData retrieveAnalytics(StatisticType type) {
         updateAnalytics(type);
@@ -397,7 +397,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     *
+     * Updates statistics data depending on the type that is supplied.
      */
     public void updateAnalytics(StatisticType type) {
         analytics.setConsultations(versionedClinicIo.getConsultationList());
