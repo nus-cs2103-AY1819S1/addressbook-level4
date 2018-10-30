@@ -1,8 +1,10 @@
 package seedu.clinicio.model.util;
 
+import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,6 +12,9 @@ import java.util.Objects;
  * @@author arsalanc-v2
  */
 public class ExportUtil {
+
+    private static final String LINE_INVALID = "Line is not valid.";
+    private static final String LINES_INVALID = "List of lines is not valid.";
 
     /**
      * Writes a single line to a file.
@@ -20,9 +25,10 @@ public class ExportUtil {
      */
     public static void writeLine(FileWriter writer, String line) throws IOException,
         IllegalArgumentException {
+        requireAllNonNull(writer, line);
 
         if (!isValidLine(line)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(LINE_INVALID);
         }
 
         writer.append(line + "\n");
@@ -38,23 +44,22 @@ public class ExportUtil {
      * @throws NullPointerException if {@code lines} is null.
      * @throws IllegalArgumentException if {@code lines} is empty.
      */
-    public static void writeLines(FileWriter writer, ArrayList<String> lines) throws IOException,
+    public static void writeLines(FileWriter writer, List<String> lines) throws IOException,
         NullPointerException, IllegalArgumentException {
-        Objects.requireNonNull(lines);
+        requireAllNonNull(writer, lines);
 
-        int numLines = lines.size();
-        if (numLines < 1) {
-            throw new IllegalArgumentException();
+        if (lines.size() < 1) {
+            throw new IllegalArgumentException(LINES_INVALID);
         }
 
+        int numLines = lines.size();
         for (int i = 0; i < numLines; i++) {
             String line = lines.get(i);
             if (!isValidLine(line)) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException(LINE_INVALID);
             }
 
-            line += "\n";
-            writer.append(line);
+            writer.append(line + "\n");
         }
 
         writer.flush();
@@ -64,7 +69,7 @@ public class ExportUtil {
     /**
      * Checks if a string is a valid line.
      * @param line A String.
-     * @return true if {@code line} is valid. false otherwise.
+     * @return {@code true} if {@code line} is valid. {@code false} otherwise.
      */
     public static boolean isValidLine(String line) {
         Objects.requireNonNull(line);

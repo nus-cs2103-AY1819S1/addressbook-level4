@@ -83,9 +83,9 @@ public class XmlAdaptedConsultation {
      */
     public XmlAdaptedConsultation(Consultation source) {
         patient = source.getPatient().toString();
-        doctor = new XmlAdaptedStaff(source.getStaff());
+        doctor = new XmlAdaptedStaff(source.getDoctor().map(doc -> doc).orElse(null));
         appointment = new XmlAdaptedAppointment(source.getAppointment().get());
-        description = source.getDescription();
+        description = source.getDescription().map(descript -> descript.toString()).orElse("");
 
         endTime = source.getEndTime().toString();
         prescription = source.getPrescription().toString();
@@ -99,12 +99,12 @@ public class XmlAdaptedConsultation {
         int arrivalMin = source.getArrivalTime().getMinute();
         arrivalTime = String.valueOf(arrivalHour) + " " + String.valueOf(arrivalMin);
 
-        int consultationHour = source.getConsultationTime().getHour();
-        int consultationMin = source.getConsultationTime().getMinute();
+        int consultationHour = source.getConsultationTime().map(time -> time.getHour()).orElse(null);
+        int consultationMin = source.getConsultationTime().map(time -> time.getMinute()).orElse(null);
         consultationTime = String.valueOf(consultationHour) + " " + String.valueOf(consultationMin);
 
-        int endHour = source.getEndTime().getHour();
-        int endMin = source.getEndTime().getMinute();
+        int endHour = source.getEndTime().map(time -> time.getHour()).orElse(null);
+        int endMin = source.getEndTime().map(time -> time.getMinute()).orElse(null);
         endTime = String.valueOf(endHour) + " " + String.valueOf(endMin);
     }
 

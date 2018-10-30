@@ -2,6 +2,8 @@ package seedu.clinicio.model.patient;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -28,14 +30,17 @@ public class Patient extends Person {
     private boolean isQueuing = false;
     private Optional<Staff> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
-    private Consultation consultation;
     private Time arrivalTime;
+    private List<Appointment> appointmentHistory;
+    private List<Consultation> consultationHistory;
 
     /**
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
+        appointmentHistory = new ArrayList<>();
+        consultationHistory = new ArrayList<>();
     }
 
     /**
@@ -98,21 +103,36 @@ public class Patient extends Person {
      */
     public void setAppointment(Appointment appointment) {
         requireNonNull(appointment);
-
+        appointmentHistory.add(appointment);
         this.appointment = Optional.of(appointment);
     }
 
     /**
-     * Sets a consultation for the patient. A consultation must be set whenever a Patient obj is created.
+     * Adds a {@code Consultation} to the patient's record.
+     * A consultation must be set whenever a Patient obj is created.
      * @param consultation consultation of the patient.
      */
-    public void setConsultation(Consultation consultation) {
+    public void addConsultation(Consultation consultation) {
         requireNonNull(consultation);
-        this.consultation = consultation;
+        this.consultationHistory.add(consultation);
     }
 
     public Time getArrivalTime() {
         return arrivalTime;
+    }
+
+    /**
+     * @return A list of all of the patient's appointments.
+     */
+    public List<Appointment> getAllAppointments() {
+        return appointmentHistory;
+    }
+
+    /**
+     * @return A list of all of the patient's consultations.
+     */
+    public List<Consultation> getAllConsultations() {
+        return consultationHistory;
     }
 
     /**

@@ -7,30 +7,34 @@ import java.util.Optional;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.consultation.exceptions.NonDoctorException;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.staff.Staff;
 
 //@@author arsalanc-v2
 
 /**
  * Represents a medical consultation involving a patient and staff.
+ * Guarantees that the staff is a doctor, if present.
+ * Consultations may not be completed.
  */
 public class Consultation {
 
     // information fields
     private final Patient patient;
-    private Staff staff;
+    private Optional<Staff> doctor;
     private Optional<Appointment> appointment;
-    private String description;
+    private Optional<String> description;
 
     // datetime fields
     private final Date date;
     private final Time arrivalTime;
-    private Time consultationTime;
-    private Time endTime;
+    private Optional<Time> consultationTime;
+    private Optional<Time> endTime;
 
     // fields to be changed
-    private String prescription;
+    private Optional<String> prescription;
 
     /**
      * Initializes a {@code Consultation} object with an {@code Appointment}.
@@ -46,7 +50,7 @@ public class Consultation {
         this.patient = patient;
         this.date = date;
         this.arrivalTime = arrivalTime;
-        this.appointment = Optional.of(appointment);
+        this.appointment = Optional.ofNullable(appointment);
     }
 
     /**
@@ -71,45 +75,54 @@ public class Consultation {
      * This consultation may or may not be the result of a requisite appointment.
      * All parameters are required.
      * @param patient The patient to be examined.
-     * @param staff The staff examining the patient.
-     * @param appointment The appointment tied to this {@code Consultation} .
+     * @param doctor The doctor examining the patient.
+     * @param appointment The appointment tied to this consultation.
+     * @param description The doctor's notes for this consultation.
      * @param date The date.
      * @param arrivalTime The arrival time of the patient at the clinic.
-
+     * @param consultationTime The start time of the consultation.
+     * @param endTime The end time of the consultation.
+     * @param prescription The prescription provided by the doctor.
      */
-    public Consultation(Patient patient, Staff staff, Appointment appointment, String description, Date date, Time
+    public Consultation(Patient patient, Staff doctor, Appointment appointment, String description, Date date, Time
         arrivalTime, Time consultationTime, Time endTime, String prescription) {
-        requireAllNonNull(patient, staff, appointment, description, date, arrivalTime, consultationTime,
+        requireAllNonNull(patient, doctor, appointment, description, date, arrivalTime, consultationTime,
             endTime, prescription);
         this.patient = patient;
-        this.staff = staff;
-        this.appointment = Optional.of(appointment);
-        this.description = description;
+        updateDoctor(doctor);
+        this.appointment = Optional.ofNullable(appointment);
+        this.description = Optional.ofNullable(description);
         this.date = date;
         this.arrivalTime = arrivalTime;
-        this.consultationTime = consultationTime;
-        this.endTime = endTime;
-        this.prescription = prescription;
+        this.consultationTime = Optional.ofNullable(consultationTime);
+        this.endTime = Optional.ofNullable(endTime);
+        this.prescription = Optional.ofNullable(prescription);
     }
 
+    /**
+     * Assigns a doctor to this consultation.
+     */
     public void updateDoctor(Staff staff) {
-        this.staff = staff;
+        if (!staff.getRole().equals(Role.DOCTOR)) {
+            throw new NonDoctorException();
+        }
+        this.doctor = Optional.ofNullable(staff);
     }
 
     public void updateConsultationTime(Time time) {
-        consultationTime = time;
+        consultationTime = Optional.ofNullable(time);
     }
 
     public void updateDescription(String description) {
-        this.description = description;
+        this.description = Optional.ofNullable(description);
     }
 
     public void updatePrescription(String prescription) {
-        this.prescription = prescription;
+        this.prescription = Optional.ofNullable(prescription);
     }
 
     public void updateEndTime(Time time) {
-        endTime = time;
+        endTime = Optional.ofNullable(time);
     }
 
     /**
@@ -121,7 +134,7 @@ public class Consultation {
      */
     public boolean isSameConsultation(Consultation toCheck) {
         return toCheck.getPatient().equals(getPatient())
-            && toCheck.getStaff().equals(getStaff())
+            && toCheck.getDoctor().equals(getDoctor())
             && toCheck.getConsultationDate().equals(getConsultationDate())
             && toCheck.getConsultationTime().equals(getConsultationTime());
     }
@@ -145,15 +158,15 @@ public class Consultation {
             && otherConsultation.getConsultationTime().equals(getConsultationTime())
             && otherConsultation.getPatient().equals(getPatient())
             && otherConsultation.getAppointment().equals(getAppointment())
-            && otherConsultation.getStaff().equals(getStaff())
+            && otherConsultation.getDoctor().equals(getDoctor())
             && otherConsultation.getArrivalTime().equals(getArrivalTime())
             && otherConsultation.getEndTime().equals(getEndTime())
             && otherConsultation.getDescription().equals(getDescription())
             && otherConsultation.getPrescription().equals(getPrescription());
     }
 
-    public Staff getStaff() {
-        return staff;
+    public Optional<Staff> getDoctor() {
+        return doctor;
     }
 
     public Patient getPatient() {
@@ -164,7 +177,7 @@ public class Consultation {
         return date;
     }
 
-    public Time getConsultationTime() {
+    public Optional<Time> getConsultationTime() {
         return consultationTime;
     }
 
@@ -172,15 +185,15 @@ public class Consultation {
         return arrivalTime;
     }
 
-    public Time getEndTime() {
+    public Optional<Time> getEndTime() {
         return endTime;
     }
 
-    public String getDescription() {
+    public Optional<String> getDescription() {
         return description;
     }
 
-    public String getPrescription() {
+    public Optional<String> getPrescription() {
         return prescription;
     }
 
