@@ -7,7 +7,7 @@ import static seedu.scheduler.logic.commands.DeleteCommand.MESSAGE_DELETE_EVENT_
 import static seedu.scheduler.testutil.TestUtil.getEvent;
 import static seedu.scheduler.testutil.TestUtil.getLastIndex;
 import static seedu.scheduler.testutil.TestUtil.getMidIndex;
-import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_JANUARY;
+import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.Test;
@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered event list, delete index within bounds of scheduler and event list -> deleted */
-        showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
+        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
         Index index = INDEX_FIRST_EVENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredEventList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         /* Case: filtered event list, delete index within bounds of scheduler but out of bounds of event list
          * -> rejected
          */
-        showEventsWithEventName(KEYWORD_MATCHING_JANUARY);
+        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
         int invalidIndex = getModel().getScheduler().getEventList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
@@ -75,6 +75,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         /* --------------------- Performing delete operation while a event card is selected ------------------------ */
 
         /* Case: delete the selected event -> event list panel selects the event before the deleted event */
+
         showAllEvents();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -84,6 +85,7 @@ public class DeleteCommandSystemTest extends SchedulerSystemTest {
         deletedEvent = removeEvent(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_EVENT_SUCCESS, deletedEvent.getEventName());
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
+
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 

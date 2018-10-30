@@ -69,7 +69,8 @@ public class RepeatEventGenerator {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getTags()
+                    targetEvent.getTags(),
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.plusDays(1);
         }
@@ -96,7 +97,8 @@ public class RepeatEventGenerator {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getTags()
+                    targetEvent.getTags(),
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
         }
@@ -123,7 +125,8 @@ public class RepeatEventGenerator {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getTags()
+                    targetEvent.getTags(),
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {
@@ -161,7 +164,8 @@ public class RepeatEventGenerator {
                     targetEvent.getVenue(),
                     targetEvent.getRepeatType(),
                     targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getTags()
+                    targetEvent.getTags(),
+                    targetEvent.getReminderDurationList()
             ));
             repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
                 do {

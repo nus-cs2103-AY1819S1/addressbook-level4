@@ -3,8 +3,8 @@ package seedu.scheduler.model.event;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_30_2018_DAILY;
+import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
+import static seedu.scheduler.testutil.TypicalEvents.INTERVIEW_WITH_JOHN;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,13 +29,13 @@ public class EventListTest {
 
     @Test
     public void contains_eventNotInList_returnsFalse() {
-        assertFalse(eventList.contains(JANUARY_1_2018_SINGLE));
+        assertFalse(eventList.contains(DISCUSSION_WITH_JACK));
     }
 
     @Test
     public void contains_eventInList_returnsTrue() {
-        eventList.add(JANUARY_1_2018_SINGLE);
-        assertTrue(eventList.contains(JANUARY_1_2018_SINGLE));
+        eventList.add(DISCUSSION_WITH_JACK);
+        assertTrue(eventList.contains(DISCUSSION_WITH_JACK));
     }
 
     @Test
@@ -47,36 +47,36 @@ public class EventListTest {
     @Test
     public void setEvent_nullTargetEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        eventList.setEvent(null, JANUARY_1_2018_SINGLE);
+        eventList.setEvent(null, DISCUSSION_WITH_JACK);
     }
 
     @Test
     public void setEvent_nullEditedEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        eventList.setEvent(JANUARY_1_2018_SINGLE, null);
+        eventList.setEvent(DISCUSSION_WITH_JACK, null);
     }
 
     @Test
     public void setEvent_targetEventNotInList_throwsEventNotFoundException() {
         thrown.expect(EventNotFoundException.class);
-        eventList.setEvent(JANUARY_1_2018_SINGLE, JANUARY_1_2018_SINGLE);
+        eventList.setEvent(DISCUSSION_WITH_JACK, DISCUSSION_WITH_JACK);
     }
 
     @Test
     public void setEvent_editedEventIsSameEvent_success() {
-        eventList.add(JANUARY_1_2018_SINGLE);
-        eventList.setEvent(JANUARY_1_2018_SINGLE, JANUARY_1_2018_SINGLE);
+        eventList.add(DISCUSSION_WITH_JACK);
+        eventList.setEvent(DISCUSSION_WITH_JACK, DISCUSSION_WITH_JACK);
         EventList expectedEventList = new EventList();
-        expectedEventList.add(JANUARY_1_2018_SINGLE);
+        expectedEventList.add(DISCUSSION_WITH_JACK);
         assertEquals(expectedEventList, eventList);
     }
 
     @Test
     public void setEvent_editedEventHasDifferentIdentity_success() {
-        eventList.add(JANUARY_1_2018_SINGLE);
-        eventList.setEvent(JANUARY_1_2018_SINGLE, JANUARY_30_2018_DAILY);
+        eventList.add(DISCUSSION_WITH_JACK);
+        eventList.setEvent(DISCUSSION_WITH_JACK, INTERVIEW_WITH_JOHN);
         EventList expectedEventList = new EventList();
-        expectedEventList.add(JANUARY_30_2018_DAILY);
+        expectedEventList.add(INTERVIEW_WITH_JOHN);
         assertEquals(expectedEventList, eventList);
     }
 
@@ -89,13 +89,13 @@ public class EventListTest {
     @Test
     public void remove_eventDoesNotExist_throwsEventNotFoundException() {
         thrown.expect(EventNotFoundException.class);
-        eventList.remove(JANUARY_1_2018_SINGLE);
+        eventList.remove(DISCUSSION_WITH_JACK);
     }
 
     @Test
     public void remove_existingEvent_removesEvent() {
-        eventList.add(JANUARY_1_2018_SINGLE);
-        eventList.remove(JANUARY_1_2018_SINGLE);
+        eventList.add(DISCUSSION_WITH_JACK);
+        eventList.remove(DISCUSSION_WITH_JACK);
         EventList expectedEventList = new EventList();
         assertEquals(expectedEventList, eventList);
     }
@@ -108,9 +108,9 @@ public class EventListTest {
 
     @Test
     public void setEvents_eventList_replacesOwnListWithProvidedEventList() {
-        eventList.add(JANUARY_1_2018_SINGLE);
+        eventList.add(DISCUSSION_WITH_JACK);
         EventList expectedEventList = new EventList();
-        expectedEventList.add(JANUARY_30_2018_DAILY);
+        expectedEventList.add(INTERVIEW_WITH_JOHN);
         eventList.setEvents(expectedEventList);
         assertEquals(expectedEventList, eventList);
     }
@@ -123,11 +123,11 @@ public class EventListTest {
 
     @Test
     public void setEvents_list_replacesOwnListWithProvidedList() {
-        eventList.add(JANUARY_1_2018_SINGLE);
-        List<Event> otherEventList = Collections.singletonList(JANUARY_30_2018_DAILY);
+        eventList.add(DISCUSSION_WITH_JACK);
+        List<Event> otherEventList = Collections.singletonList(INTERVIEW_WITH_JOHN);
         eventList.setEvents(otherEventList);
         EventList expectedEventList = new EventList();
-        expectedEventList.add(JANUARY_30_2018_DAILY);
+        expectedEventList.add(INTERVIEW_WITH_JOHN);
         assertEquals(expectedEventList, eventList);
     }
 

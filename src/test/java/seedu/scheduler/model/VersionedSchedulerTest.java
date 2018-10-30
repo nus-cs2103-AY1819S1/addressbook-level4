@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_2_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_3_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
+import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
+import static seedu.scheduler.testutil.TypicalEvents.INTERVIEW_WITH_JOHN;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,12 +18,12 @@ import seedu.scheduler.testutil.SchedulerBuilder;
 
 public class VersionedSchedulerTest {
 
-    private final ReadOnlyScheduler schedulerWithJanuaryFirstSingle =
-            new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE).build();
-    private final ReadOnlyScheduler schedulerWithJanuarySecondSingle =
-            new SchedulerBuilder().withEvent(JANUARY_2_2018_SINGLE).build();
-    private final ReadOnlyScheduler schedulerWithJanuaryThirdSingle =
-            new SchedulerBuilder().withEvent(JANUARY_3_2018_SINGLE).build();
+    private final ReadOnlyScheduler schedulerWithDiscussion =
+            new SchedulerBuilder().withEvent(DISCUSSION_WITH_JACK).build();
+    private final ReadOnlyScheduler schedulerWithInterview =
+            new SchedulerBuilder().withEvent(INTERVIEW_WITH_JOHN).build();
+    private final ReadOnlyScheduler schedulerWithAdHocWork =
+            new SchedulerBuilder().withEvent(AD_HOC_WORK).build();
     private final ReadOnlyScheduler emptyScheduler = new SchedulerBuilder().build();
 
     @Test
@@ -40,19 +40,19 @@ public class VersionedSchedulerTest {
     @Test
     public void commit_multipleSchedulerPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
 
         versionedScheduler.commit();
         assertSchedulerListStatus(versionedScheduler,
-                Arrays.asList(emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle),
-                schedulerWithJanuarySecondSingle,
+                Arrays.asList(emptyScheduler, schedulerWithDiscussion, schedulerWithInterview),
+                schedulerWithInterview,
                 Collections.emptyList());
     }
 
     @Test
     public void commit_multipleSchedulerPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 2);
 
         versionedScheduler.commit();
@@ -65,7 +65,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canUndo_multipleSchedulerPointerAtEndOfStateList_returnsTrue() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
 
         assertTrue(versionedScheduler.canUndo());
     }
@@ -73,7 +73,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canUndo_multipleSchedulerPointerAtStartOfStateList_returnsTrue() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 1);
 
         assertTrue(versionedScheduler.canUndo());
@@ -89,7 +89,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canUndo_multipleSchedulerPointerAtStartOfStateList_returnsFalse() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 2);
 
         assertFalse(versionedScheduler.canUndo());
@@ -98,7 +98,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canRedo_multipleSchedulerPointerNotAtEndOfStateList_returnsTrue() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 1);
 
         assertTrue(versionedScheduler.canRedo());
@@ -107,7 +107,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canRedo_multipleSchedulerPointerAtStartOfStateList_returnsTrue() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 2);
 
         assertTrue(versionedScheduler.canRedo());
@@ -123,7 +123,7 @@ public class VersionedSchedulerTest {
     @Test
     public void canRedo_multipleSchedulerPointerAtEndOfStateList_returnsFalse() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
 
         assertFalse(versionedScheduler.canRedo());
     }
@@ -131,26 +131,26 @@ public class VersionedSchedulerTest {
     @Test
     public void undo_multipleSchedulerPointerAtEndOfStateList_success() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
 
         versionedScheduler.undo();
         assertSchedulerListStatus(versionedScheduler,
                 Collections.singletonList(emptyScheduler),
-                schedulerWithJanuaryFirstSingle,
-                Collections.singletonList(schedulerWithJanuarySecondSingle));
+                schedulerWithDiscussion,
+                Collections.singletonList(schedulerWithInterview));
     }
 
     @Test
     public void undo_multipleSchedulerPointerNotAtStartOfStateList_success() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 1);
 
         versionedScheduler.undo();
         assertSchedulerListStatus(versionedScheduler,
                 Collections.emptyList(),
                 emptyScheduler,
-                Arrays.asList(schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle));
+                Arrays.asList(schedulerWithDiscussion, schedulerWithInterview));
     }
 
     @Test
@@ -163,7 +163,7 @@ public class VersionedSchedulerTest {
     @Test
     public void undo_multipleSchedulerPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 2);
 
         assertThrows(VersionedScheduler.NoUndoableStateException.class, versionedScheduler::undo);
@@ -172,27 +172,27 @@ public class VersionedSchedulerTest {
     @Test
     public void redo_multipleSchedulerPointerNotAtEndOfStateList_success() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 1);
 
         versionedScheduler.redo();
         assertSchedulerListStatus(versionedScheduler,
-                Arrays.asList(emptyScheduler, schedulerWithJanuaryFirstSingle),
-                schedulerWithJanuarySecondSingle,
+                Arrays.asList(emptyScheduler, schedulerWithDiscussion),
+                schedulerWithInterview,
                 Collections.emptyList());
     }
 
     @Test
     public void redo_multipleSchedulerPointerAtStartOfStateList_success() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 2);
 
         versionedScheduler.redo();
         assertSchedulerListStatus(versionedScheduler,
                 Collections.singletonList(emptyScheduler),
-                schedulerWithJanuaryFirstSingle,
-                Collections.singletonList(schedulerWithJanuarySecondSingle));
+                schedulerWithDiscussion,
+                Collections.singletonList(schedulerWithInterview));
     }
 
     @Test
@@ -205,7 +205,7 @@ public class VersionedSchedulerTest {
     @Test
     public void redo_multipleSchedulerPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedScheduler versionedScheduler = prepareSchedulerList(
-                emptyScheduler, schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                emptyScheduler, schedulerWithDiscussion, schedulerWithInterview);
 
         assertThrows(VersionedScheduler.NoRedoableStateException.class, versionedScheduler::redo);
     }
@@ -213,11 +213,11 @@ public class VersionedSchedulerTest {
     @Test
     public void equals() {
         VersionedScheduler versionedScheduler =
-                prepareSchedulerList(schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                prepareSchedulerList(schedulerWithDiscussion, schedulerWithInterview);
 
         // same values -> returns true
         VersionedScheduler copy =
-                prepareSchedulerList(schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                prepareSchedulerList(schedulerWithDiscussion, schedulerWithInterview);
 
         assertTrue(versionedScheduler.equals(copy));
 
@@ -232,12 +232,12 @@ public class VersionedSchedulerTest {
 
         // different state list -> returns false
         VersionedScheduler differentSchedulerList =
-                prepareSchedulerList(schedulerWithJanuarySecondSingle, schedulerWithJanuaryThirdSingle);
+                prepareSchedulerList(schedulerWithDiscussion, schedulerWithAdHocWork);
         assertFalse(versionedScheduler.equals(differentSchedulerList));
 
         // different current pointer index -> returns false
         VersionedScheduler differentCurrentStatePointer = prepareSchedulerList(
-                schedulerWithJanuaryFirstSingle, schedulerWithJanuarySecondSingle);
+                schedulerWithDiscussion, schedulerWithInterview);
         shiftCurrentStatePointerLeftwards(versionedScheduler, 1);
         assertFalse(versionedScheduler.equals(differentCurrentStatePointer));
     }
