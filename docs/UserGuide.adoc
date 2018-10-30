@@ -569,7 +569,7 @@ There is no need to save manually.
 |editMedicine |`em`  | `editMedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editMedicine 1 n/hydrazine s/50022 p/20 min/30`
 |restock |`rs`  |`restock INDEX amt/AMOUNT` |`restock 2 amt/123`
 |listStock |`ls`  |`listStock` |`listStock`
-|findMedicine |`fs`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
+|findMedicine |`fm`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
 |checkStock |`cs`  |`checkStock` |`checkStock`
 |=======================================================================
 
