@@ -254,7 +254,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseLeaveStatus_validValueWithoutWhitespace_returnsLeaveStatus() throws Exception {
-        LeaveStatus expectedLeaveStatus = new LeaveStatus(VALID_DESCRIPTION);
+        LeaveStatus expectedLeaveStatus = new LeaveStatus(VALID_LEAVE_STATUS);
         assertEquals(expectedLeaveStatus, ParserUtil.parseLeaveStatus(VALID_LEAVE_STATUS));
     }
 

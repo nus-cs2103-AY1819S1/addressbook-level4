@@ -12,10 +12,10 @@ import seedu.address.model.leaveapplication.StatusEnum;
  * A utility class containing a list of {@code LeaveApplication} objects to be used in tests.
  */
 public class TypicalLeaveApplications {
-    public static final LeaveApplication ALICE_LEAVE = new LeaveApplicationBuilder().withId(0)
+    public static final LeaveApplication ALICE_LEAVE = new LeaveApplicationBuilder()
             .withDates(LocalDate.of(2018, 10, 23), LocalDate.of(2018, 10, 24))
             .withStatus(StatusEnum.Status.PENDING).withDescription("Alice family holiday").build();
-    public static final LeaveApplication BENSON_LEAVE = new LeaveApplicationBuilder().withId(0)
+    public static final LeaveApplication BENSON_LEAVE = new LeaveApplicationBuilder()
             .withDates(LocalDate.of(2018, 10, 25), LocalDate.of(2018, 10, 26))
             .withStatus(StatusEnum.Status.APPROVED).withDescription("Benson's brother's wedding").build();
 

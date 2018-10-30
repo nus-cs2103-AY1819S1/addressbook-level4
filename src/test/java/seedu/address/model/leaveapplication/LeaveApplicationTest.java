@@ -47,13 +47,8 @@ public class LeaveApplicationTest {
         // different leave application -> returns false
         assertFalse(ALICE_LEAVE.equals(BENSON_LEAVE));
 
-        // different id -> returns false
-        LeaveApplication editedAlice = new LeaveApplicationBuilder(ALICE_LEAVE)
-                .withId(VALID_LEAVEID_BOB_LEAVE).build();
-        assertFalse(ALICE_LEAVE.equals(editedAlice));
-
         // different description -> returns false
-        editedAlice = new LeaveApplicationBuilder(ALICE_LEAVE).withDescription(VALID_DESCRIPTION_BOB_LEAVE).build();
+        LeaveApplication editedAlice = new LeaveApplicationBuilder(ALICE_LEAVE).withDescription(VALID_DESCRIPTION_BOB_LEAVE).build();
         assertFalse(ALICE_LEAVE.equals(editedAlice));
 
         // different status -> returns false
@@ -69,8 +64,7 @@ public class LeaveApplicationTest {
     public void toStringTest() {
         // same expected and actual toString() output for TypicalPerson's ALICE
         StringBuilder builder = new StringBuilder();
-        builder.append(0)
-                .append(" Description: ")
+        builder.append(" Description: ")
                 .append("Alice family holiday")
                 .append(" Status: ")
                 .append(StatusEnum.Status.PENDING.toString())
@@ -81,8 +75,7 @@ public class LeaveApplicationTest {
 
         // same expected and actual toString() output for TypicalPerson's BENSON
         builder = new StringBuilder();
-        builder.append(0)
-                .append(" Description: ")
+        builder.append(" Description: ")
                 .append("Benson's brother's wedding")
                 .append(" Status: ")
                 .append(StatusEnum.Status.APPROVED.toString())

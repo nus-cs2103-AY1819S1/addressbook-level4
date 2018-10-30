@@ -12,7 +12,6 @@ import seedu.address.logic.commands.LeaveApplyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.leaveapplication.LeaveApplication;
-import seedu.address.model.leaveapplication.LeaveId;
 import seedu.address.model.leaveapplication.LeaveStatus;
 
 /**
@@ -34,12 +33,11 @@ public class LeaveApplyCommandParser implements Parser<LeaveApplyCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LeaveApplyCommand.MESSAGE_USAGE));
         }
 
-        LeaveId leaveId = new LeaveId(0);
         Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_LEAVE_DESCRIPTION).get());
         LeaveStatus leaveStatus = ParserUtil.parseLeaveStatus("PENDING");
         List<LocalDate> dateList = ParserUtil.parseDates(argMultimap.getAllValues(PREFIX_LEAVE_DATE));
 
-        LeaveApplication leaveApplication = new LeaveApplication(leaveId, description, leaveStatus, dateList);
+        LeaveApplication leaveApplication = new LeaveApplication(description, leaveStatus, dateList);
 
         return new LeaveApplyCommand(leaveApplication);
     }
