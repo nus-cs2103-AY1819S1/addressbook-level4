@@ -29,7 +29,7 @@ import seedu.clinicio.model.staff.Staff;
  */
 public class DoctorStatistics extends Statistics {
 
-    private final String SUMMARY_TITLE = "Average number of consultations per doctor";
+    private static final String SUMMARY_TITLE = "Average number of consultations per doctor";
 
     private List<Staff> doctors;
     private List<Consultation> consultations;

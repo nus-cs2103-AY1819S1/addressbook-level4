@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Appointment;
