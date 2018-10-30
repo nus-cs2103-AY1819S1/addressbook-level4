@@ -48,7 +48,8 @@ public class AddApptCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment is already scheduled.";
-    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
+    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment."
+            + "Try a time slot an hour before or after.";
 
     private final Appointment toAdd;
 
