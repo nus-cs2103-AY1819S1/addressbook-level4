@@ -60,7 +60,7 @@ public class MainApp extends Application {
         config = initConfig(appParameters.getConfigPath());
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        storage = new StorageManager( userPrefsStorage);
+        storage = new StorageManager(userPrefsStorage);
 
         initLogging(config);
 
