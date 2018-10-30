@@ -262,6 +262,8 @@ Example(s):
 
 * `viewvisitors ic/S1234567A`
 
+image::viewvisitors_screenshot.png[width=800]
+
 === Sign in patient’s visitors: `visitorin`
 Sign in a visitor for a patient.
 
@@ -269,7 +271,9 @@ Format: `visitorin ic/PATIENT_NRIC v/VISITOR_NAME`
 
 Example(s):
 
-* `visitorin ic/S1234567A v/Sara Ann Nicholas`
+* `visitorin ic/S1234567A v/Amy`
+
+image::visitorin_screenshot.png[width=800]
 
 === Sign out patient’s visitors: `visitorout`
 Sign out a visitor for a patient.
@@ -278,7 +282,9 @@ Format: `visitorout ic/PATIENT_NRIC v/VISITOR_NAME`
 
 Example(s):
 
-* `visitorout ic/S1234567A v/Sara Ann Nicholas`
+* `visitorout ic/S1234567A v/Amy`
+
+image::visitorout_screenshot.png[width=800]
 
 === Cancel appointment for patient: `xappt`
 Cancels a scheduled appointment for a patient.
