@@ -28,7 +28,7 @@
                             <Insets left="5.0"/>
                         </padding>
                     </Label>
-                    <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="NEVER"/>
+                    <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                 </VBox>
 
                 <VBox prefHeight="675.0" prefWidth="900.0">
