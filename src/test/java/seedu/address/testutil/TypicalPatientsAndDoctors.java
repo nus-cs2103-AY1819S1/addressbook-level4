@@ -33,13 +33,13 @@ public class TypicalPatientsAndDoctors {
             .withPhone("94351253")
             .withRemark("")
             .withTags("Patient")
-            .withMedicalHistory("egg","healthy").build();
+            .withMedicalHistory("egg", "sub-health").build();
     public static final Patient BENSON = new PatientBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withRemark("")
             .withTags("Patient", "friends")
-            .withMedicalHistory("","having cold").build();
+            .withMedicalHistory("", "having cold").build();
     public static final Patient CARL = new PatientBuilder().withName("Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
@@ -52,15 +52,15 @@ public class TypicalPatientsAndDoctors {
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
             .withRemark("")
-            .withTags("Patient","friends")
-            .withMedicalHistory("","").build();
+            .withTags("Patient", "friends")
+            .withMedicalHistory("", "").build();
     public static final Patient ELLE = new PatientBuilder()
             .withName("Elle Meyer").withPhone("9482224")
             .withEmail("werner@example.com")
             .withAddress("michegan ave")
             .withRemark("")
             .withTags("Patient")
-            .withMedicalHistory("","").build();
+            .withMedicalHistory("", "").build();
     public static final Doctor FIONA = new DoctorBuilder()
             .withName("Fiona Kunz")
             .withPhone("9482427")
@@ -84,7 +84,7 @@ public class TypicalPatientsAndDoctors {
             .withAddress("little india")
             .withRemark("")
             .withTags("Patient")
-            .withMedicalHistory("","").build();
+            .withMedicalHistory("", "").build();
     public static final Patient IDA = new PatientBuilder()
             .withName("Ida Mueller")
             .withPhone("8482131")
@@ -92,7 +92,7 @@ public class TypicalPatientsAndDoctors {
             .withAddress("chicago ave")
             .withRemark("")
             .withTags("Patient")
-            .withMedicalHistory("","").build();
+            .withMedicalHistory("", "").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Patient AMY = new PatientBuilder().withName(VALID_NAME_AMY)
@@ -120,13 +120,13 @@ public class TypicalPatientsAndDoctors {
      */
     public static AddressBook getTypicalAddressBookWithPatientAndDoctor() {
         AddressBook ab = new AddressBook();
-        for (Person person : TypicalPatientsAndDoctors()) {
+        for (Person person : getTypicalPatientsAndDoctors()) {
             ab.addPerson(person);
         }
         return ab;
     }
 
-    public static List<Person> TypicalPatientsAndDoctors() {
+    public static List<Person> getTypicalPatientsAndDoctors() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }

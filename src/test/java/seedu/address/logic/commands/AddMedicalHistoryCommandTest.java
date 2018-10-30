@@ -33,7 +33,7 @@ public class AddMedicalHistoryCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_addMedicalHistory_success(){
+    public void execute_addMedicalHistory_success() {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
         Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());

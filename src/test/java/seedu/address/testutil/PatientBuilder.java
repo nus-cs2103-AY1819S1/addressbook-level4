@@ -18,6 +18,9 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building Patient objects.
+ */
 public class PatientBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -125,12 +128,12 @@ public class PatientBuilder {
     public PatientBuilder withMedicalHistory(String allergy, String condition) {
         if (allergy.equals("") && condition.equals("")) {
             this.medicalHistory = new MedicalHistory();
-        }else if (!(allergy.equals("")) && condition.equals("")) {
+        } else if (!(allergy.equals("")) && condition.equals("")) {
             this.medicalHistory = new MedicalHistory(new ArrayList<String>(Arrays.asList(allergy)), new ArrayList<>());
-        }else if ((allergy.equals("")) && !(condition.equals(""))) {
+        } else if ((allergy.equals("")) && !(condition.equals(""))) {
             this.medicalHistory = new MedicalHistory(new ArrayList<>(),
                     new ArrayList<String>(Arrays.asList(condition)));
-        }else{
+        } else {
             this.medicalHistory = new MedicalHistory(new ArrayList<String>(Arrays.asList(allergy)),
                     new ArrayList<String>(Arrays.asList(condition)));
         }
@@ -138,6 +141,9 @@ public class PatientBuilder {
         return this;
     }
 
+    /**
+     * constructor
+     */
     public Patient build() {
         return new Patient(name, phone, email, address, remark, tags, telegramId,
                 upcomingAppointments, pastAppointments, medicalHistory);

@@ -15,6 +15,9 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
+/**
+ * A utility class to help with building Doctor objects.
+ */
 public class DoctorBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
@@ -104,7 +107,6 @@ public class DoctorBuilder {
         this.remark = new Remark(remark);
         return this;
     }
-    
 
     public Doctor build() {
         return new Doctor(name, phone, email, address, remark, tags);
