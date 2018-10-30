@@ -65,7 +65,7 @@ public class Appointment {
     }
 
     public void setAssignedStaff(Staff staff) {
-        assignedStaff = Optional.of(staff);
+        assignedStaff = Optional.ofNullable(staff);
     }
 
     /**
