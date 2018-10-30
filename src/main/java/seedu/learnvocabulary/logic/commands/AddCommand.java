@@ -56,9 +56,9 @@ public class AddCommand extends Command {
         /*
         For Haoxuan - Create methods and tests together to ensure it runs smoothly.
          */
-        //if (!model.hasTag(toAdd.getTags())) {
-        //    throw new CommandException(MESSAGE_NO_GROUP);
-        //}
+        if (!model.hasTag(toAdd.getTags())) {
+            throw new CommandException(MESSAGE_NO_GROUP);
+        }
 
         model.addWord(toAdd);
         model.commitLearnVocabulary();
