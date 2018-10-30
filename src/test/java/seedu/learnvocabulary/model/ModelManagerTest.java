@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.NameContainsKeywordsPredicate;
 import seedu.learnvocabulary.testutil.LearnVocabularyBuilder;
 
@@ -80,5 +81,10 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setLearnVocabularyFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(learnVocabulary, differentUserPrefs)));
+    }
+
+    @Test
+    public void hasTag() {
+        assertFalse(modelManager.hasTag(new Tag("toLearn")));
     }
 }

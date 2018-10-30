@@ -22,10 +22,13 @@ import seedu.learnvocabulary.logic.commands.ListCommand;
 import seedu.learnvocabulary.logic.commands.RedoCommand;
 import seedu.learnvocabulary.logic.commands.SelectCommand;
 import seedu.learnvocabulary.logic.commands.ShowCommand;
+import seedu.learnvocabulary.logic.commands.ShowGroupCommand;
 import seedu.learnvocabulary.logic.commands.TriviaAnsCommand;
 import seedu.learnvocabulary.logic.commands.TriviaCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
+import seedu.learnvocabulary.logic.commands.WordOfTheDayCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
+import seedu.learnvocabulary.model.tag.Tag;
 
 /**
  * Parses user input.
@@ -38,7 +41,7 @@ public class LearnVocabularyParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * Parses user or website input into command for execution.
      *
      * @param userInput full user input string
      * @return the command based on the user input
@@ -56,6 +59,12 @@ public class LearnVocabularyParser {
 
         case LearnCommand.COMMAND_WORD:
             return new LearnCommandParser().parse(arguments);
+
+        /*
+        * Word of the day is fetched from website and not user. Parser is needed to parse
+        * data from website Dictionary.com into a word object. */
+        case WordOfTheDayCommand.COMMAND_WORD:
+            return new WordOfTheDayParser().parse("");
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
@@ -108,7 +117,10 @@ public class LearnVocabularyParser {
         case GroupaddCommand.COMMAND_WORD:
             return new GroupAddCommandParser().parse(arguments);
 
-        default:
+            case ShowGroupCommand.COMMAND_WORD:
+                return new ShowGroupCommandParser().parse(arguments);
+
+                default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
