@@ -90,7 +90,8 @@ public class CommandTestUtil {
     public static final String DRUG_ALLERGY_DESC_PENICILLIN = " " + PREFIX_DRUG_ALLERGY + VALID_DRUG_ALLERGY_PENICILLIN;
     public static final String VALID_VISITOR_DESC = " " + PREFIX_VISITOR + VALID_VISITOR;
 
-    public static final String VALID_DIAGNOSIS_DESC = " " + PREFIX_MED_HISTORY + VALID_DIAGNOSIS;
+    public static final String VALID_DIAGNOSIS_DESC = " " + PREFIX_MED_HISTORY + VALID_DIAGNOSIS
+            + " " + PREFIX_DOCTOR + VALID_DOCTOR;
 
     public static final String VALID_DIET_COLLECTION_DESC = " " + PREFIX_ALLERGY + VALID_ALLERGY
             + " " + PREFIX_CULTURAL_REQUIREMENT + VALID_CULTURAL_REQUIREMENT
