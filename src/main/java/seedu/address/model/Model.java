@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.person.Person;
 
 /**
@@ -75,4 +76,9 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Adds the given leave application for a specified employee.
+     */
+    void addLeaveApplication(LeaveApplication leaveApplication, Person employee);
 }
