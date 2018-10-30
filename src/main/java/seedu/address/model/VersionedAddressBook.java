@@ -3,9 +3,6 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-
 /**
  * {@code AddressBook} that keeps track of its own history.
  */
@@ -14,18 +11,12 @@ public class VersionedAddressBook extends AddressBook {
     private final List<ReadOnlyAddressBook> addressBookStateList;
     private int currentStatePointer;
 
-    private final List<ObservableList<Person>> personListStateList;
-    private int currentPersonStatePointer;
-
     public VersionedAddressBook(ReadOnlyAddressBook initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
         addressBookStateList.add(new AddressBook(initialState));
         currentStatePointer = 0;
-
-        personListStateList = new ArrayList<>();
-        currentPersonStatePointer = 0;
     }
 
     /**
@@ -43,9 +34,6 @@ public class VersionedAddressBook extends AddressBook {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
 
-    private void removePersonStatesAfterCurrentPointer() {
-        personListStateList.subList(currentPersonStatePointer + 1, personListStateList.size()).clear();
-    }
 
     /**
      * Restores the address book to its previous state.
@@ -113,14 +101,6 @@ public class VersionedAddressBook extends AddressBook {
         }
     }
 
-    /**
-     * Thrown when trying to {@code undoPerson()} but can't.
-     */
-    public static class NoUndoablePersonStateException extends RuntimeException {
-        private NoUndoablePersonStateException() {
-            super("Current state pointer at start of personListState list, unable to undo.");
-        }
-    }
 
     /**
      * Thrown when trying to {@code redo()} but can't.
