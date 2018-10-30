@@ -9,6 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" minHeight="450.0" minWidth="800.0" onCloseRequest="#handleExit"
          type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8">
     <icons>
@@ -28,15 +30,15 @@
                             <Insets left="5.0"/>
                         </padding>
                     </Label>
-                    <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="NEVER"/>
                 </VBox>
-
                 <VBox prefHeight="675.0" prefWidth="900.0">
                     <VBox fx:id="dayMonthYearPanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
                           prefHeight="85" prefWidth="900" VBox.vgrow="NEVER"/>
                     <StackPane fx:id="calendarDisplayPlaceholder" prefWidth="900"/>
                     <StackPane fx:id="calendarPanelPlaceholder" minWidth="600.0" prefHeight="380" prefWidth="900"
                                VBox.vgrow="ALWAYS"/>
+
                     <StackPane fx:id="calendarCommandBoxBorder" maxHeight="-Infinity" minHeight="-Infinity"
                                prefHeight="25.0" prefWidth="900" VBox.vgrow="NEVER"/>
                     <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25"
