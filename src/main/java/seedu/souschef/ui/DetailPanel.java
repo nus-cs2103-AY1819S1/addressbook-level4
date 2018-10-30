@@ -107,7 +107,7 @@ public class DetailPanel extends UiPart<Region> {
     private void loadCrossDetail(CrossRecipe crossRecipe) {
         this.crossRecipe = crossRecipe;
         Recipe targetRecipe = crossRecipe.getRecipe();
-        Map<IngredientDefinition, Double> neededIngredients = crossRecipe.getNeededIngredients();
+        Map<IngredientDefinition, IngredientPortion> neededIngredients = crossRecipe.getNeededIngredients();
         name.setText(targetRecipe.getName().fullName);
         ingredientLabel.setText("Ingredients: ");
         ingredientToShopLabel.setText("Ingredients to shop");
@@ -124,12 +124,12 @@ public class DetailPanel extends UiPart<Region> {
     private String ingredientsDisplay(Map<IngredientDefinition, IngredientPortion> ingredientSet) {
         StringBuilder builder = new StringBuilder();
         ingredientSet.forEach((def, portion) -> {
-            builder.append(def.getName().toString());
+            builder.append(def.getName());
             builder.append(", ");
             if (portion.getAmount().getValue() % 1 > 0) {
-                builder.append((portion.getAmount().getValue()));
+                builder.append((portion.getAmount()));
             } else {
-                builder.append((portion.getAmount().getValue().intValue()));
+                builder.append((portion.getAmount()));
             }
             builder.append(" ");
             builder.append(portion.getUnit());
