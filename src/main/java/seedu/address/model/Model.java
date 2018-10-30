@@ -115,4 +115,13 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    void updateNotificationPref(boolean set);
+
+    void updateFavourite(String favourite);
+
+    boolean getNotificationPref();
+
+    String getFavourite();
+
 }

@@ -19,6 +19,7 @@ import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private Model model;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -65,7 +67,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, Model model) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -73,6 +75,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.model = model;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -90,12 +93,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void setNotification(UserPrefs prefs) {
 
-        ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
-        ModelManager.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
+        model.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
+        model.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
 
-        if (ModelManager.getNotificationPref()) {
-            if (ModelManager.getFavouriteEvent() != null) {
-                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavouriteEvent());
+        if (model.getNotificationPref()) {
+            if (model.getFavourite() != null) {
+                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, model.getFavourite());
                 // delete event must clean up favourite as well!
             } else {
                 NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
@@ -187,8 +190,8 @@ public class MainWindow extends UiPart<Stage> {
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY(),
-                ModelManager.getNotificationPref(),
-                ModelManager.getFavouriteEvent());
+                model.getNotificationPref(),
+                model.getFavourite());
     }
 
     /**

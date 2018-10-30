@@ -16,7 +16,7 @@ public class UserPrefs {
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0, true, null);
-        ModelManager.updateNotificationPref(guiSettings.getNotificationIsEnabled());
+        //ModelManager.updateNotificationPref(guiSettings.getNotificationIsEnabled());
     }
 
     public GuiSettings getGuiSettings() {

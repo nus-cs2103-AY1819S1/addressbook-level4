@@ -33,7 +33,7 @@ public class NotificationCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        ModelManager.updateNotificationPref(set);
+        model.updateNotificationPref(set);
 
         if (set) {
             messageNotificationSuccess = "Notification:" + " enabled";

@@ -18,6 +18,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEventList events;
+    private boolean notificationPref;
+    private String favourite;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +31,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         events = new UniqueEventList();
+        notificationPref = true;
+        favourite = null;
     }
 
     public AddressBook() {}
@@ -179,4 +183,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode() + events.hashCode();
     }
+
+    public boolean getNotificationPref() {
+        return notificationPref;
+    }
+
+    public void updateNotificationPref(boolean set) {
+        notificationPref = set;
+    }
+
+    public String getFavouriteEvent() { return favourite; }
+
+    public void updateFavourite(String newEvent) { favourite = newEvent; }
+
 }

@@ -29,12 +29,11 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static boolean notificationPref;
-    private static String favouriteEvent;
-
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private boolean notificationPref;
+    private String favourite;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -54,18 +53,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
     }
-
-    public static boolean getNotificationPref() {
-        return notificationPref;
-    }
-
-    public static void updateNotificationPref(boolean set) {
-        notificationPref = set;
-    }
-
-    public static String getFavouriteEvent() { return favouriteEvent; }
-
-    public static void updateFavourite(String newEvent) { favouriteEvent = newEvent; }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
@@ -261,5 +248,27 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredEvents.equals(other.filteredEvents);
     }
+
+    @Override
+    public boolean getNotificationPref() {
+        return versionedAddressBook.getNotificationPref();
+    }
+
+    @Override
+    public void updateNotificationPref(boolean set) {
+        versionedAddressBook.updateNotificationPref(set);
+        indicateAddressBookChanged();
+    }
+    @Override
+    public String getFavourite() {
+        return versionedAddressBook.getFavouriteEvent();
+    }
+
+    @Override
+    public void updateFavourite(String newEvent) {
+        versionedAddressBook.updateFavourite(newEvent);
+        indicateAddressBookChanged();
+    }
+
 
 }
