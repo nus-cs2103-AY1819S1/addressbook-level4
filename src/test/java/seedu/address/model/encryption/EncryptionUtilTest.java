@@ -66,6 +66,11 @@ public class EncryptionUtilTest {
         EncryptionUtil.decryptString(createStringOfLength(1), null);
     }
 
+    /**
+     * Creates a string with length matching to input.
+     * @param length the length of the output string
+     * @return a string with length matching to input.
+     */
     private String createStringOfLength(int length) {
         StringBuilder sb = new StringBuilder();
         while (sb.length() < length) {
