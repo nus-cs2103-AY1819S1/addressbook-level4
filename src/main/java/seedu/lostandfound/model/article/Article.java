@@ -38,6 +38,7 @@ public class Article {
         this.phone = phone;
         this.email = email;
         this.description = description;
+        this.image = image;
         this.isResolved = isResolved;
         this.tags.addAll(tags);
     }

@@ -23,7 +23,7 @@ public class Image {
     public static final String MESSAGE_CONSTRAINTS = "Path should be valid";
     private static final String VALIDATION_REGEX = "(0|[1-9][0-9]*)\\.(png|svg|jpg)";
     private static final Sequence SEQUENCE = Sequence.getInstance();
-    private static final String IMAGE_FOLDER = Paths.get("images");
+    private static final Path IMAGE_FOLDER = Paths.get("data", "images");
 
     public String filename;
     private Path path;
@@ -41,20 +41,21 @@ public class Image {
         path = Paths.get(file);
         filename = FileUtil.getFilename(path);
         basename = FileUtil.getBasename(path);
+        System.out.println(filename + " " + basename);
         id = Integer.parseInt(basename);
-        SEQUENCE.set(id));
+        SEQUENCE.set(id);
     }
 
     public Image(Path file) {
         this(file.toString());
     }
 
-    public static Image create(String pathName) {
+    public static Image create(String pathName) throws IOException {
         return Image.create(Paths.get(pathName));
     }
 
-    public static Image create(Path path) {
-        Path target = Paths.get(IMAGE_FOLDER + SEQUENCE.next() + FileUtil.getExtension(path));
+    public static Image create(Path path) throws IOException {
+        Path target = Paths.get(IMAGE_FOLDER + SEQUENCE.next().toString() + FileUtil.getExtension(path));
         FileUtil.copy(path, target);
         return new Image(target);
     }

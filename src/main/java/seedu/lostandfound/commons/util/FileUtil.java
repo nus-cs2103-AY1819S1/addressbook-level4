@@ -81,7 +81,7 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
-    public static void copy(Path source, Path target) {
+    public static void copy(Path source, Path target) throws IOException {
         Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
     }
 
@@ -90,12 +90,12 @@ public class FileUtil {
     }
 
     public static String getBasename(Path path) {
-        String[] split = getFilename(path).split("\\.", 1);
+        String[] split = getFilename(path).split("\\.");
         return split[0];
     }
 
     public static String getExtension(Path path) {
-        String[] split = getFilename(path).split("\\.", 1);
+        String[] split = getFilename(path).split("\\.");
         if (split.length == 2) {
             return split[1];
         }
