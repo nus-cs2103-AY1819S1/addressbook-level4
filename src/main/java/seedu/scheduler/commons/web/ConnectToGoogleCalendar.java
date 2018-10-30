@@ -183,7 +183,6 @@ public class ConnectToGoogleCalendar {
             DateTime end = parseRfc3339(endDateTime);
             gEvent.setEnd(new EventDateTime().setDateTime(end).setTimeZone("Singapore"));
 
-            gEvent.setId(String.valueOf(toAddEvent.getUid()).replaceAll("-", ""));
 
             ReminderDurationList reminderDurationList = toAddEvent.getReminderDurationList();
             List<EventReminder> reminderOverrides = new ArrayList<>();
@@ -202,10 +201,13 @@ public class ConnectToGoogleCalendar {
             gEvent.setReminders(reminder);
 
             if (toAddEvent.getRepeatType() == RepeatType.NONE) {
-
-
+                gEvent = gEvent.setICalUID(toAddEvent.getUuid().toString().replaceAll("-", ""));
             } else { //repeated event
-                gEvent.setRecurringEventId(String.valueOf(toAddEvent.getUuid()));
+                String googleRecurringEventId = toAddEvent.getUuid()
+                        .toString()
+                        .replaceAll("-", "");
+                gEvent = gEvent.setICalUID(googleRecurringEventId);
+
                 String eventRepeatType = String.valueOf(toAddEvent.getRepeatType());
                 seedu.scheduler.model.event.DateTime eventUntilDt = toAddEvent.getRepeatUntilDateTime();
                 String eventUntilDate = eventUntilDt.getPrettyString()
