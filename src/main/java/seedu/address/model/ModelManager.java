@@ -124,10 +124,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deleteAppointment(Appointment appointment) {
+    public void deleteAppointment(Appointment appointment, Patient patient, Doctor doctor) {
         requireAllNonNull(appointment);
 
-        versionedAddressBook.deleteAppointment(appointment);
+        versionedAddressBook.deleteAppointment(appointment, patient, doctor);
         indicateAddressBookChanged();
     }
 
