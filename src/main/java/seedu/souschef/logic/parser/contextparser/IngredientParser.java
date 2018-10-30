@@ -63,7 +63,7 @@ public class IngredientParser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand<Ingredient>(model);
-            
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand<Ingredient>(model);
 

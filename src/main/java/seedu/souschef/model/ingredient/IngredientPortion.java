@@ -61,8 +61,8 @@ public class IngredientPortion extends IngredientDefinition {
     /**
      * multiply double to ingredient amount
      */
-    public IngredientPortion multiplyAmount(double NumberOfServings) {
-        double amount = getAmount().getValue() * NumberOfServings;
+    public IngredientPortion multiplyAmount(double numberOfServings) {
+        double amount = getAmount().getValue() * numberOfServings;
         return new IngredientPortion(getName(), getUnit(), new IngredientAmount(amount));
     }
 

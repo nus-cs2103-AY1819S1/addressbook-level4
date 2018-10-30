@@ -41,8 +41,8 @@ public class Ingredient extends IngredientPortion {
     }
 
     @Override
-    public Ingredient multiplyAmount(double NumberOfServings) {
-        double amount = getAmount().getValue() * NumberOfServings;
+    public Ingredient multiplyAmount(double numberOfServings) {
+        double amount = getAmount().getValue() * numberOfServings;
         return new Ingredient(getName(), new IngredientAmount(amount), getUnit(), getDate());
     }
 
