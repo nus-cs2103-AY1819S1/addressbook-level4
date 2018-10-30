@@ -6,9 +6,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
+<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/FindCommandTest.java
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS_FULL;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
+=======
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc:src/test/java/seedu/thanepark/logic/commands/FindCommandTest.java
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BIG;
 import static seedu.thanepark.testutil.TypicalRides.CASTLE;

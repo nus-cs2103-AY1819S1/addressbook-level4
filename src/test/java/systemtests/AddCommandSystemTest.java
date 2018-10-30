@@ -27,7 +27,11 @@ import static seedu.thanepark.testutil.TypicalRides.BOB;
 import static seedu.thanepark.testutil.TypicalRides.CASTLE;
 import static seedu.thanepark.testutil.TypicalRides.HAUNTED;
 import static seedu.thanepark.testutil.TypicalRides.IDA;
+<<<<<<< HEAD
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
+=======
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
 import org.junit.Test;
 
@@ -46,7 +50,11 @@ import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.RideUtil;
 
+<<<<<<< HEAD
 public class AddCommandSystemTest extends ThaneParkSystemTest {
+=======
+public class AddCommandSystemTest extends AddressBookSystemTest {
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
     @Test
     public void add() {

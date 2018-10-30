@@ -8,7 +8,11 @@ import static seedu.thanepark.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_S
 import static seedu.thanepark.testutil.TestUtil.getLastIndex;
 import static seedu.thanepark.testutil.TestUtil.getMidIndex;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+<<<<<<< HEAD
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
+=======
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
 import java.io.IOException;
 

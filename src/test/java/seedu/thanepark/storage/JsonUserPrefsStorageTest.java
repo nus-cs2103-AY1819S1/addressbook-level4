@@ -82,7 +82,11 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(1000, 500, 300, 100);
+<<<<<<< HEAD:src/test/java/seedu/thanepark/storage/JsonUserPrefsStorageTest.java
         userPrefs.setAddressBookFilePath(Paths.get("thanepark.xml"));
+=======
+        userPrefs.setThaneParkFilePath(Paths.get("addressbook.xml"));
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc:src/test/java/seedu/thanepark/storage/JsonUserPrefsStorageTest.java
         return userPrefs;
     }
 

@@ -8,7 +8,11 @@ import static seedu.thanepark.testutil.TestUtil.getLastIndex;
 import static seedu.thanepark.testutil.TestUtil.getMidIndex;
 import static seedu.thanepark.testutil.TestUtil.getPerson;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+<<<<<<< HEAD
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
+=======
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
 import java.io.IOException;
 
@@ -61,7 +65,11 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered ride list, delete index within bounds of thanepark book and ride list -> deleted */
+<<<<<<< HEAD
         showPersonsWithName(KEYWORD_MATCHING_THE);
+=======
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
         assertCommandSuccess(index);

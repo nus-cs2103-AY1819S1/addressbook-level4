@@ -98,7 +98,7 @@ public class RideListPanelTest extends GuiUnitTest {
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<daysSinceMaintenanceString>000</daysSinceMaintenanceString>\n");
             builder.append("<waitingTimeString>123</waitingTimeString>\n");
-            builder.append("<address>a</address>\n");
+            builder.append("<thanepark>a</thanepark>\n");
             builder.append("<statusString>OPEN</statusString>\n");
             builder.append("</rides>\n");
         }

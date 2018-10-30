@@ -22,18 +22,18 @@ public interface Storage extends ThaneParkStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getAddressBookFilePath();
+    Path getThaneParkFilePath();
 
     @Override
-    Optional<ReadOnlyThanePark> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyThanePark> readThanePark() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyThanePark addressBook) throws IOException;
+    void saveThanePark(ReadOnlyThanePark addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(ThaneParkChangedEvent abce);
+    void handleThaneParkChangedEvent(ThaneParkChangedEvent abce);
 }

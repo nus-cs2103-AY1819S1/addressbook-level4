@@ -20,7 +20,7 @@ import seedu.thanepark.model.ride.WaitTime;
  * Parses input arguments and creates a new FilterCommand Object
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
-
+    
     /**
      * Parses the given {@code String} of arguments in the context of the FilterCommand
      * and returns an FilterCommand object for execution.
@@ -35,19 +35,19 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MAINTENANCE, PREFIX_WAITING_TIME);
         Optional<List<String>> maintenanceStrings = !argMultimap.getValue(PREFIX_MAINTENANCE).isPresent()
-                                                    ? Optional.empty()
-                                                    : Optional.of(argMultimap.getAllValues(PREFIX_MAINTENANCE));
+                ? Optional.empty()
+                : Optional.of(argMultimap.getAllValues(PREFIX_MAINTENANCE));
         Optional<List<String>> waitingTimeStrings = !argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()
-                                                    ? Optional.empty()
-                                                    : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
-
+                ? Optional.empty()
+                : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
+        
         List<AttributePredicate> predicates = new ArrayList<>();
         predicates = getMaintenancePredicates(maintenanceStrings, predicates);
         predicates = getWaitTimePredicate(waitingTimeStrings, predicates);
-
+        
         return new FilterCommand(new RideContainsConditionPredicate(predicates));
     }
-
+    
     /**
      * Gets a list of predicates from the list of maintenance input if any is present
      */
@@ -64,7 +64,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         newPredicates.addAll(predicates);
         return newPredicates;
     }
-
+    
     /**
      * Gets a list of predicates from the list of wait time input if any is present
      */
@@ -81,7 +81,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         newPredicates.addAll(predicates);
         return newPredicates;
     }
-
+    
     /**
      * Returns a Pair object with the operator and input value from the user input string.
      */
@@ -103,7 +103,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
         return new Pair<>(operator, value);
     }
-
+    
     /**
      * Checks if a character is an operator, i.e. >, < or =
      */

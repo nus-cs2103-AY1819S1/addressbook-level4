@@ -14,6 +14,7 @@ import seedu.thanepark.commons.core.LogsCenter;
 import seedu.thanepark.commons.events.ui.JumpToListRequestEvent;
 import seedu.thanepark.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.thanepark.model.ride.Ride;
+import seedu.thanepark.ui.exceptions.AccessibilityException;
 
 /**
  * Panel containing the list of persons.
@@ -75,7 +76,11 @@ public class RideListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new RideCard(ride, getIndex() + 1).getRoot());
+                try {
+                    setGraphic(new RideCard(ride, getIndex() + 1).getRoot());
+                } catch (AccessibilityException ae) {
+                    logger.warning(ae.getMessage());
+                }
             }
         }
     }

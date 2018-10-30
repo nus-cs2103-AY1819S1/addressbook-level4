@@ -29,7 +29,11 @@ import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.AMY;
 import static seedu.thanepark.testutil.TypicalRides.BOB;
+<<<<<<< HEAD
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
+=======
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
 import java.io.IOException;
 
@@ -50,7 +54,11 @@ import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.RideUtil;
 
+<<<<<<< HEAD
 public class UpdateCommandSystemTest extends ThaneParkSystemTest {
+=======
+public class UpdateCommandSystemTest extends AddressBookSystemTest {
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
     @Test
     public void update() throws IOException {
@@ -117,7 +125,11 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered ride list, edit index within bounds of thanepark book and ride list -> edited */
+<<<<<<< HEAD
         showPersonsWithName(KEYWORD_MATCHING_THE);
+=======
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+>>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
         index = INDEX_FIRST_PERSON;
         editedName = "Another name";
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
