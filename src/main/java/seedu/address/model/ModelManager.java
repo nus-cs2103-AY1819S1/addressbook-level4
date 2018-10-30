@@ -133,6 +133,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void deleteEvent(Event target) {
+        versionedAddressBook.removeEvent(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void addEvent(Event event) {
         versionedAddressBook.addEvent(event);
         updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
@@ -195,6 +201,10 @@ public class ModelManager extends ComponentManager implements Model {
         Map<EventDate, List<Event>> filteredEventsByDateMap = filteredEvents.stream()
                 .collect(Collectors.groupingBy(Event::getEventDate));
 
+        for (List<Event> eventList : filteredEventsByDateMap.values()) {
+            eventList.sort(Comparator.comparing(Event::getEventStartTime));
+        }
+
         // convert the map to a FilteredList
         ObservableList<List<Event>> filteredEventsByDateList = FXCollections.observableArrayList();
         filteredEventsByDateList.addAll(filteredEventsByDateMap.values());
@@ -202,6 +212,7 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<List<Event>> eventListComparator =
                 Comparator.comparing(eventList -> eventList.get(0).getEventDate());
         filteredEventsByDateList.sort(eventListComparator.reversed());
+
         FilteredList<List<Event>> filteredEventsByDate = new FilteredList<>(filteredEventsByDateList);
 
         return FXCollections.unmodifiableObservableList(filteredEventsByDate);
