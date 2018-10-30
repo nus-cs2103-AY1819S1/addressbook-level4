@@ -1,6 +1,12 @@
 package seedu.learnvocabulary;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,16 +20,21 @@ import seedu.learnvocabulary.commons.util.ConfigUtil;
 import seedu.learnvocabulary.commons.util.StringUtil;
 import seedu.learnvocabulary.logic.Logic;
 import seedu.learnvocabulary.logic.LogicManager;
-import seedu.learnvocabulary.model.*;
+import seedu.learnvocabulary.model.LearnVocabulary;
+import seedu.learnvocabulary.model.Model;
+import seedu.learnvocabulary.model.ModelManager;
+import seedu.learnvocabulary.model.ReadOnlyLearnVocabulary;
+import seedu.learnvocabulary.model.UserPrefs;
 import seedu.learnvocabulary.model.util.SampleDataUtil;
-import seedu.learnvocabulary.storage.*;
+import seedu.learnvocabulary.storage.JsonUserPrefsStorage;
+
+import seedu.learnvocabulary.storage.LearnVocabularyStorage;
+import seedu.learnvocabulary.storage.Storage;
+import seedu.learnvocabulary.storage.StorageManager;
+import seedu.learnvocabulary.storage.UserPrefsStorage;
+import seedu.learnvocabulary.storage.XmlLearnVocabularyStorage;
 import seedu.learnvocabulary.ui.Ui;
 import seedu.learnvocabulary.ui.UiManager;
-
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.

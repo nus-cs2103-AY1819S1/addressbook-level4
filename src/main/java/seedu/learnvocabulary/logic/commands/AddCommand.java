@@ -53,9 +53,6 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_WORD);
         }
 
-        /*
-        For Haoxuan - Create methods and tests together to ensure it runs smoothly.
-         */
         if (!model.hasTag(toAdd.getTags())) {
             throw new CommandException(MESSAGE_NO_GROUP);
         }
