@@ -92,6 +92,9 @@ public class AppointmentBuilder {
         return this;
     }
 
+    /**
+     * Returns a new build appointment.
+     */
     public Appointment build() {
         Appointment newappt = new Appointment(date, time, patient, type);
         newappt.setAssignedStaff(staff.get());
