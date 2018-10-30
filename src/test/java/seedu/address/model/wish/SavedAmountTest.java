@@ -40,14 +40,14 @@ public class SavedAmountTest {
 
     @Test
     public void isValidSavedAmount() {
-        // null phone number
+        // null saved amount
         Assert.assertThrows(NullPointerException.class, () -> SavedAmount.isValidSavedAmount(null));
 
         // invalid prices
         assertFalse(SavedAmount.isValidSavedAmount("")); // empty string
         assertFalse(SavedAmount.isValidSavedAmount(" ")); // spaces only
         assertFalse(SavedAmount.isValidSavedAmount("91..1")); // double dot
-        assertFalse(SavedAmount.isValidSavedAmount("phone")); // non-numeric
+        assertFalse(SavedAmount.isValidSavedAmount("price")); // non-numeric
         assertFalse(SavedAmount.isValidSavedAmount("1.0e321")); // exp
         assertFalse(SavedAmount.isValidSavedAmount("9312 1534")); // spaces within digits
         assertFalse(SavedAmount.isValidSavedAmount("2.")); // no digits after decimal point

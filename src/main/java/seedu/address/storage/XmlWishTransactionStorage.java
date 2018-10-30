@@ -49,9 +49,9 @@ public class XmlWishTransactionStorage implements WishTransactionStorage {
 
         XmlWishTransactions xmlWishTransactions = XmlFileStorage.loadWishTransactionDataFromFile(filePath);
         try {
-            logger.fine("Converting WishTransaction from XML to model type in XmlWishTransactionStorage.");
-            logger.info(xmlWishTransactions.toString());
-            return Optional.of(xmlWishTransactions.toModelType());
+            logger.info("Converting WishTransaction from XML to model type in XmlWishTransactionStorage.");
+            WishTransaction wishTransaction = xmlWishTransactions.toModelType();
+            return Optional.of(wishTransaction);
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in WishTransaction file at " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);

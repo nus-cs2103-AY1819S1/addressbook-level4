@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -18,7 +19,10 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyWishBook newData);
 
-    /** Returns the WishBook */
+    /** Returns the unusedFunds of the WishBook. */
+    String getUnusedFunds();
+
+    /** Returns the WishBook. */
     ReadOnlyWishBook getWishBook();
 
     /**
@@ -44,6 +48,12 @@ public interface Model {
      * The wish identity of {@code editedWish} must not be the same as another existing wish in the wish book.
      */
     void updateWish(Wish target, Wish editedWish);
+
+    /**
+     * Updates the unusedFunds amount by the given {@code change}
+     * @code change The amount to update unusedFunds by.
+     */
+    void updateUnusedFunds(Amount change);
 
     /** Returns an unmodifiable view of the filtered wish list */
     ObservableList<Wish> getFilteredSortedWishList();
@@ -78,4 +88,6 @@ public interface Model {
      * Saves the current wish book state for undo/redo.
      */
     void commitWishBook();
+
+
 }

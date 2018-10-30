@@ -14,7 +14,7 @@
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox minHeight="300" GridPane.columnIndex="0">
+        <VBox minHeight="400" GridPane.columnIndex="0">
             <padding>
                 <Insets top="5" bottom="5" />
             </padding>
@@ -25,18 +25,18 @@
                 <Label fx:id="savedAmount" styleClass="detail_saving_amount_label" text="\$savedAmount" />
                 <Label fx:id="price" styleClass="detail_price_label" text="\$price" />
             </HBox>
-            <StackPane fx:id="pane" alignment="CENTER_LEFT">
+            <StackPane fx:id="pane" alignment="CENTER">
                 <padding>
-                    <Insets top="40" left="80" right="80" />
+                    <Insets top="40" left="30" right="130" />
                 </padding>
                 <children>
                     <Circle fx:id="circle" centerX="260" centerY="260" radius="130" fill="#2EE298" opacity="0.3">
                     </Circle>
                     <VBox alignment="CENTER" prefWidth="260">
                         <padding>
-                            <Insets right="90" />
+                            <Insets left="0" />
                         </padding>
-                        <Label styleClass="detail_progress_title_label">You Saved</Label>
+                        <Label styleClass="detail_progress_title_label">You saved</Label>
                         <HBox alignment="CENTER">
                             <Label fx:id="progress" styleClass="detail_progress_label" text="\$progress" />
                         </HBox>

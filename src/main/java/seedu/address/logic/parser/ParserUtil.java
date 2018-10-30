@@ -2,10 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Period;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -51,14 +54,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
+     * Parses a {@code String price} into a {@code Price}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if the given {@code price} is invalid.
      */
-    public static Price parsePrice(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPrice = phone.trim();
+    public static Price parsePrice(String price) throws ParseException {
+        requireNonNull(price);
+        String trimmedPrice = price.trim();
         if (!Price.isValidPrice(trimmedPrice)) {
             throw new ParseException(Price.MESSAGE_PRICE_CONSTRAINTS);
         }
@@ -113,6 +116,7 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
+
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
@@ -124,5 +128,20 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String period} into a {@code Period}.
+     */
+    public static Period parsePeriod(String period) throws ParseException {
+        requireNonNull(period);
+        String trimmedPeriod = period.trim();
+        try {
+            Period.parse("P" + trimmedPeriod);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, period));
+        }
+
+        return Period.parse("P" + trimmedPeriod);
     }
 }

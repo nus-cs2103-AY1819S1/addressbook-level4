@@ -36,7 +36,7 @@ public class WishTest {
         // null -> returns false
         assertFalse(ALICE.isSameWish(null));
 
-        // different phone and email, same id -> returns true
+        // different price and email, same id -> returns true
         Wish editedAlice = new WishBuilder(ALICE).withPrice(VALID_PRICE_BOB).withDate(VALID_DATE_1).build();
         assertTrue(ALICE.isSameWish(editedAlice));
 
@@ -44,7 +44,7 @@ public class WishTest {
         editedAlice = new WishBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertTrue(ALICE.isSameWish(editedAlice));
 
-        // same name, same phone, different attributes, same id -> returns true
+        // same name, same price, different attributes, same id -> returns true
         editedAlice = new WishBuilder(ALICE).withDate(VALID_DATE_2).withUrl(VALID_URL_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameWish(editedAlice));
@@ -54,7 +54,7 @@ public class WishTest {
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameWish(editedAlice));
 
-        // same name, same phone, same email, different attributes, same id -> returns true
+        // same name, same price, same email, different attributes, same id -> returns true
         editedAlice = new WishBuilder(ALICE).withUrl(VALID_URL_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSameWish(editedAlice));
     }
@@ -81,7 +81,7 @@ public class WishTest {
         Wish editedAlice = new WishBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different phone -> returns false
+        // different price -> returns false
         editedAlice = new WishBuilder(ALICE).withPrice(VALID_PRICE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 

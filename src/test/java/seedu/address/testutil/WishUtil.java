@@ -46,7 +46,7 @@ public class WishUtil {
     public static String getEditWishDescriptorDetails(EditWishDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getPrice().ifPresent(phone -> sb.append(PREFIX_PRICE).append(phone.value).append(" "));
+        descriptor.getPrice().ifPresent(price -> sb.append(PREFIX_PRICE).append(price.value).append(" "));
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.date).append(" "));
         descriptor.getUrl().ifPresent(url -> sb.append(PREFIX_URL).append(url.value).append(" "));
         if (descriptor.getTags().isPresent()) {

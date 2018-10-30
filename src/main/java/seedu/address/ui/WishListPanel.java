@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.WishPanelSelectionChangedEvent;
-import seedu.address.model.WishTransaction;
+import seedu.address.commons.events.ui.WishUpdatedEvent;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -31,16 +31,6 @@ public class WishListPanel extends UiPart<Region> {
         setConnections(wishList);
         registerAsAnEventHandler(this);
         scrollTo(0);
-        // TODO: [Jiho] Remove this constructor once the one immediately below this is used.
-    }
-
-
-    public WishListPanel(ObservableList<Wish> wishList, WishTransaction wishTransaction) {
-        super(FXML);
-        setConnections(wishList);
-        registerAsAnEventHandler(this);
-
-        // TODO: [Jiho] Utilize wishTransaction's data in the WishListPanel (if wanted).
     }
 
     private void setConnections(ObservableList<Wish> wishList) {
@@ -75,6 +65,11 @@ public class WishListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    @Subscribe
+    private void handleWishUpdatedEvent(WishUpdatedEvent event) {
+        wishListView.getSelectionModel().clearAndSelect(0);
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Wish} using a {@code WishCard}.
      */
@@ -91,5 +86,4 @@ public class WishListPanel extends UiPart<Region> {
             }
         }
     }
-
 }

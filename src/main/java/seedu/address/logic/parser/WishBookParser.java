@@ -16,6 +16,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MoveCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SaveCommand;
@@ -87,6 +88,10 @@ public class WishBookParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case MoveCommand.COMMAND_WORD:
+        case MoveCommand.COMMAND_ALIAS:
+            return new MoveCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
         case UndoCommand.COMMAND_ALIAS:

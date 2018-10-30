@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.wish.SavedAmount;
 import seedu.address.model.wish.Wish;
 
 /**
@@ -14,4 +15,8 @@ public interface ReadOnlyWishBook {
      */
     ObservableList<Wish> getWishList();
 
+    /**
+     * Returns an unmodifiable view of the unusedFunds amount.
+     */
+    SavedAmount getUnusedFunds();
 }

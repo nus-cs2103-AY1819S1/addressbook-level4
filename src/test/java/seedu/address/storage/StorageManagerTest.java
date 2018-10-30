@@ -87,10 +87,13 @@ public class StorageManagerTest {
     public void handleWishBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlWishBookStorageExceptionThrowingStub(Paths.get("dummy")),
+                                             new XmlWishTransactionStorage(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleWishBookChangedEvent(new WishBookChangedEvent(new WishBook()));
+        storage.handleWishBookChangedEvent(new WishBookChangedEvent(new WishBook(), new WishTransaction()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
+
+    //todo add test for wishbookchanged event (wishtransaction)
 
     // ================ WishTransaction tests ==============================
 

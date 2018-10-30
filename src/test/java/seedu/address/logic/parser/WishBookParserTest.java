@@ -38,7 +38,6 @@ import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.wish.NameContainsKeywordsPredicate;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.WishContainsKeywordsPredicate;
 import seedu.address.testutil.EditWishDescriptorBuilder;

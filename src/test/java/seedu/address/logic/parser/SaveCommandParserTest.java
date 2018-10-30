@@ -3,9 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AMY;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_USAGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.SaveCommandParser.UNUSED_FUNDS_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 
 import org.junit.Test;
@@ -22,10 +22,12 @@ public class SaveCommandParserTest {
     @Test
     public void parse_indexSpecified_success() {
         final String userInput = targetIndex.getOneBased() + " " + VALID_SAVED_AMOUNT_AMY;
-
         final SaveCommand expectedCommand = new SaveCommand(targetIndex, amount);
-
         assertParseSuccess(saveCommandParser, userInput, expectedCommand);
+
+        final String userInputUnusedFundsIndex = UNUSED_FUNDS_INDEX + " " + VALID_SAVED_AMOUNT_AMY;
+        final SaveCommand expectedCommandUnusedFunds = new SaveCommand(amount);
+        assertParseSuccess(saveCommandParser, userInputUnusedFundsIndex, expectedCommandUnusedFunds);
     }
 
     @Test
@@ -36,12 +38,12 @@ public class SaveCommandParserTest {
         assertParseFailure(saveCommandParser, userInputMissingIndex,
                 expectedMessage);
 
-        final String userInputMissingSavingAmount = targetIndex + " " + PREFIX_SAVING;
+        final String userInputMissingSavingAmount = targetIndex + " ";
         assertParseFailure(saveCommandParser, userInputMissingSavingAmount,
                 expectedMessage);
 
-        final String userInputMissingSavingAmountAndSavingPrefix = targetIndex + "";
+        /*final String userInputMissingSavingAmountAndSavingPrefix = targetIndex + "";
         assertParseFailure(saveCommandParser, userInputMissingSavingAmountAndSavingPrefix,
-                expectedMessage);
+                expectedMessage);*/
     }
 }

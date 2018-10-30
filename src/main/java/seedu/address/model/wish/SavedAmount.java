@@ -21,7 +21,7 @@ public class SavedAmount {
     private DecimalFormat currencyFormat = new DecimalFormat("#.##");
 
     /**
-     * Constructs a {@code Price}.
+     * Constructs a {@code SavedAmount}.
      *
      * @param savedAmount A valid savedAmount number.
      */
@@ -43,11 +43,22 @@ public class SavedAmount {
      * @return Incremented {@code SavedAmount}.
      */
     public SavedAmount incrementSavedAmount(Amount change) {
+        if (this.value + change.value < 0.0) {
+            throw new IllegalArgumentException(MESSAGE_SAVED_AMOUNT_NEGATIVE);
+        }
+
         return new SavedAmount(currencyFormat.format(this.value + change.value));
     }
 
     /**
-     * Returns true if a given string is a valid {@code SavedAmount} number.
+     * Returns a {@code Amount} from the savedAmount.
+     */
+    public Amount getAmount() {
+        return new Amount("" + this.value);
+    }
+
+    /**
+     * Returns true if a given string is a valid savedAmount number.
      */
     public static boolean isValidSavedAmount(String test) {
         return test.matches(SAVED_AMOUNT_VALIDATION_REGEX);

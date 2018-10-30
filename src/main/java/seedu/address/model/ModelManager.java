@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.events.model.WishBookChangedEvent;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.WishComparator;
@@ -83,13 +84,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public String getUnusedFunds() {
+        return versionedWishBook.getUnusedFunds().toString();
+    }
+
+    @Override
     public ReadOnlyWishBook getWishBook() {
         return versionedWishBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateWishBookChanged() {
-        raise(new WishBookChangedEvent(versionedWishBook));
+        raise(new WishBookChangedEvent(versionedWishBook, versionedWishTransaction));
     }
 
     @Override
@@ -121,6 +127,12 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedWish);
         versionedWishTransaction.updateWish(target, editedWish);
         versionedWishBook.updateWish(target, editedWish);
+        indicateWishBookChanged();
+    }
+
+    @Override
+    public void updateUnusedFunds(Amount change) {
+        versionedWishBook.updateUnusedFunds(change);
         indicateWishBookChanged();
     }
 
@@ -197,6 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+
         return versionedWishBook.equals(other.versionedWishBook)
                 && filteredSortedWishes.equals(other.filteredSortedWishes);
     }

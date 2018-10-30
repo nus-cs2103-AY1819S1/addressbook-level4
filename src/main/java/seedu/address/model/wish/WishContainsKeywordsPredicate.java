@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Wish}'s {@code Name}, {@code Tags} and {@code Remark} matches any or all of the keywords given.
+ * Tests that a {@code Wish}'s {@code Name}, {@code Tags} and {@code Remark} match any or all of the keywords given.
  */
-import seedu.address.commons.util.StringUtil;
-
 public class WishContainsKeywordsPredicate implements Predicate<Wish> {
     private final boolean isExactMatch;
     private final List<String> nameKeywords;
@@ -24,9 +22,9 @@ public class WishContainsKeywordsPredicate implements Predicate<Wish> {
      */
     public WishContainsKeywordsPredicate(List<String> nameKeywords, List<String> tagKeywords,
                                          List<String> remarkKeywords, boolean isExactMatch) {
-        this.isExactMatch =isExactMatch;
+        this.isExactMatch = isExactMatch;
         this.nameKeywords = nameKeywords;
-        this.tagKeywords  = tagKeywords;
+        this.tagKeywords = tagKeywords;
         this.remarkKeywords = remarkKeywords;
     }
 
@@ -52,11 +50,13 @@ public class WishContainsKeywordsPredicate implements Predicate<Wish> {
                 && remarkKeywords.equals(((WishContainsKeywordsPredicate) other).remarkKeywords));
     }
 
+    /** Returns true if all keyword is found in the sentence, case insensitive. */
     private boolean testAllMatch(String sentence, List<String> keywords) {
         String processedSentence = sentence.toLowerCase();
         return keywords.stream().allMatch(keyword -> processedSentence.contains(keyword.toLowerCase()));
     }
 
+    /** Returns true if any keyword is found in the sentence, case insensitive. */
     private boolean testAnyMatch(String sentence, List<String> keywords) {
         if (keywords.isEmpty()) {
             return true;

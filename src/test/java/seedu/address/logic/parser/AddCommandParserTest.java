@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.AGE_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
@@ -31,6 +32,7 @@ import static seedu.address.testutil.TypicalWishes.BOB;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.Date;
@@ -55,11 +57,11 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
-        // multiple prices - last phone accepted
+        // multiple prices - last price accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_AMY + PRICE_DESC_BOB + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
-        // multiple dates - last email accepted
+        // multiple dates - last date accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_1 + DATE_DESC_2
                 + URL_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedWish));
 
@@ -83,6 +85,13 @@ public class AddCommandParserTest {
     }
 
     @Test
+    public void parse_additionalFields_failure() {
+        // both DATE and AGE used, invalid
+        assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + DATE_DESC_1 + AGE_DESC_1
+                + URL_DESC_BOB, Messages.MESSAGE_DOUBLE_DATE_FORMAT);
+    }
+
+    @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
@@ -90,11 +99,11 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + PRICE_DESC_BOB + DATE_DESC_2 + URL_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
+        // missing price prefix
         assertParseFailure(parser, NAME_DESC_BOB + VALID_PRICE_BOB + DATE_DESC_2 + URL_DESC_BOB,
                 expectedMessage);
 
-        // missing email prefix
+        // missing date prefix
         assertParseFailure(parser, NAME_DESC_BOB + PRICE_DESC_BOB + VALID_DATE_2 + URL_DESC_BOB,
                 expectedMessage);
 
@@ -109,7 +118,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_NAME_DESC + PRICE_DESC_BOB + DATE_DESC_2 + URL_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
 
-        // invalid phone
+        // invalid price
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_PRICE_DESC + DATE_DESC_2 + URL_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Price.MESSAGE_PRICE_CONSTRAINTS);
 

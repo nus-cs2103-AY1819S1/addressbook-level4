@@ -22,7 +22,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.WishComparator;
-import seedu.address.model.wish.NameContainsKeywordsPredicate;
 import seedu.address.model.wish.Wish;
 import seedu.address.model.wish.WishContainsKeywordsPredicate;
 

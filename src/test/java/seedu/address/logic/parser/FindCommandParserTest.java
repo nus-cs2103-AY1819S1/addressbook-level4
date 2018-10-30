@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.model.wish.NameContainsKeywordsPredicate;
 import seedu.address.model.wish.WishContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
@@ -72,7 +71,8 @@ public class FindCommandParserTest {
         expectedFindCommand =
                 new FindCommand(new WishContainsKeywordsPredicate(Arrays.asList("Water", "Balloon"),
                         Arrays.asList("family", "important"), Arrays.asList("Visa", "must do"), false));
-        assertParseSuccess(parser, " dsfas;dkfjsd n/Water n/Balloon t/family t/important r/Visa r/must do", expectedFindCommand);
+        assertParseSuccess(parser, " dsfas;dkfjsd n/Water n/Balloon t/family t/important r/Visa r/must do",
+                expectedFindCommand);
 
         // valid preamble
         expectedFindCommand =

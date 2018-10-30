@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DOUBLE_DATE_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -8,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_URL;
 import static seedu.address.model.wish.Url.DEFAULT_URL;
 
-import java.util.LinkedList;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -35,21 +39,38 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_URL, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_AGE, PREFIX_URL,
+                        PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE)
+        if (!(arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE)
+                || arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_PRICE, PREFIX_AGE))
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        if (arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_AGE)) {
+            throw new ParseException(MESSAGE_DOUBLE_DATE_FORMAT);
+        }
+
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        Date date;
+        if (arePrefixesPresent(argMultimap, PREFIX_AGE)) {
+            Period period = ParserUtil.parsePeriod(argMultimap.getValue(PREFIX_AGE).get());
+            java.util.Date now = new java.util.Date();
+            LocalDate localNow = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate finalDate = localNow.plus(period);
+            date = ParserUtil.parseDate(String.format("%02d/%02d/%d", finalDate.getDayOfMonth(),
+                    finalDate.getMonth().getValue(),
+                    finalDate.getYear()));
+        } else {
+            date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
+        }
+
         Url url = ParserUtil.parseUrl(argMultimap.getValue(PREFIX_URL).orElse(DEFAULT_URL));
 
         SavedAmount savedAmount = new SavedAmount("0.0");
         Remark remark = new Remark(""); // remark cannot be added manually by add command
-        LinkedList<Wish> transactions = new LinkedList<>();
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
