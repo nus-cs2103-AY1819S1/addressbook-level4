@@ -305,7 +305,7 @@ Deletes all employees from the system. +
 Format: `clear`
 
 ****
-* To use this command, you must be logged in with "Remove Employee" permissions.
+* To use this command, you must be logged in as an admin user.
 ****
 
 === Logout from the system: `logout`
@@ -381,9 +381,8 @@ e.g. filter -n Jeremy Choo -d Development
 === Commands that require permission
 
 * *Add employee* : `add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT]` +
-* *Delete employee*:
-** `delete INDEX`
-** `clear`
+* *Delete employee*: `delete INDEX`
+* *Admin permission*: `clear`
 * *Editing an employee*: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]`
 * *Assign permission*:
 ** `viewpermission INDEX`
