@@ -7,7 +7,6 @@ import java.util.Collections;
 import java.util.Set;
 
 import seedu.learnvocabulary.logic.commands.LearnCommand;
-import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.Dictionary;

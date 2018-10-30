@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
-import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.commands.WordOfTheDayCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.tag.Tag;

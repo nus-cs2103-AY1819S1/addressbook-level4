@@ -14,7 +14,6 @@ import java.util.Set;
 import seedu.learnvocabulary.commons.core.index.Index;
 import seedu.learnvocabulary.logic.commands.EditCommand;
 import seedu.learnvocabulary.logic.commands.EditCommand.EditWordDescriptor;
-import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.tag.Tag;
 
