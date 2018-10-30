@@ -57,7 +57,8 @@
 //        postNow(JUMP_TO_SECOND_EVENT);
 //        guiRobot.pauseForHuman();
 //
-//        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_IMAGE.getZeroBased());
+//        PersonCardHandle expectedPerson = personListPanelHandle
+//              .getPersonCardHandle(INDEX_SECOND_IMAGE.getZeroBased());
 //        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
 //        assertCardEquals(expectedPerson, selectedPerson);
 //    }
