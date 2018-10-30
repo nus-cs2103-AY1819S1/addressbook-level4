@@ -64,16 +64,10 @@ public class HealthPlanParser {
             return new AddCommandParser().parseHealthPlan(healthPlanModel, arguments);
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parseHealthPlan(healthPlanModel, arguments);
-
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parseHealthPlan(healthPlanModel, arguments);
-
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parseHealthPlan(healthPlanModel, arguments);
-
         case ListCommand.COMMAND_WORD:
             return new ListCommand<HealthPlan>(healthPlanModel);
-
         case AddMealHealthPlanCommand.COMMAND_WORD:
             return new AddMealHealthPlanCommandParser().parseHealthPlan(healthPlanModel, mealPlanModel, arguments);
         case ShowHealthPlanDetailsCommand.COMMAND_WORD:
