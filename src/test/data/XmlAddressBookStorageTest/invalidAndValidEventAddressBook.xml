@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+	<!-- Valid Event -->
+	<events>
+        <eventName>Class</eventName>
+		<eventDescription>lecture</eventDescription>
+		<eventDate>2018-01-01</eventDate>
+		<eventStartTime>1200</eventStartTime>
+		<eventEndTime>1200</eventEndTime>
+		<eventAddress>abc road</eventAddress>
+		<eventContacts>
+			<name>Alex Yeoh</name>
+			<phone>87438807</phone>
+			<email>alexyeoh@example.com</email>
+			<address>Blk 30 Geylang Street 29, #06-40</address>
+			<tagged>friends</tagged>
+			<faculty>SCI</faculty>
+		</eventContacts>
+    </events>
+	<!-- Event with invalid start and end time field -->
+	<events>
+        <eventName>Class</eventName>
+		<eventDescription>lecture</eventDescription>
+		<eventDate>2018-01-01</eventDate>
+		<eventStartTime>1200</eventStartTime>
+		<eventEndTime>1110</eventEndTime>
+		<eventAddress>abc road</eventAddress>
+    </events>
+</addressbook>

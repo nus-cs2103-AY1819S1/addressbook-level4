@@ -15,9 +15,11 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -25,6 +27,10 @@ import seedu.address.model.UserPrefs;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+
+    public static final String NOTIFICATION_DEFAULT_TITLE = "Welcome";
+    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to Addressbook Level 4";
+    public static final String NOTIFICATION_FAVOURITE_TITLE = "Favourite Event";
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -39,9 +45,10 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private TabPanel tabPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane tabsPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -70,11 +77,26 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
+        setNotification(prefs);
 
         setAccelerators();
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+    }
+
+    private void setNotification(UserPrefs prefs) {
+
+        ModelManager.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
+        ModelManager.updateFavourite(prefs.getGuiSettings().getFavourite());
+
+        if (ModelManager.getNotificationPref()) {
+            if (ModelManager.getFavourite() != null) {
+                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, ModelManager.getFavourite());
+            } else {
+                NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
+            }
+        }
     }
 
     public Stage getPrimaryStage() {
@@ -119,8 +141,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -160,7 +182,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(),
+                ModelManager.getNotificationPref(), ModelManager.getFavourite());
     }
 
     /**
@@ -192,12 +215,24 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     void releaseResources() {
-        browserPanel.freeResources();
+        tabPanel.freeResources();
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        /* This is a workaround to reset the displayed events list.
+        TODO: Add a listener to ModelManager to listen for changes in the base list, update the list of lists grouped
+         by date, and remove this method.
+        */
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
     }
 }

@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.testutil.ScheduledEventBuilder;
 
 
 public class LogicManagerTest {
@@ -47,9 +48,22 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_validCommandAlias_success() {
+        String listCommand = ListCommand.COMMAND_WORD_ALIAS;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        assertHistoryCorrect(listCommand);
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredPersonList().remove(0);
+    }
+
+    @Test
+    public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredEventList().add(new ScheduledEventBuilder().build());
     }
 
     /**

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains the same Person and Event values as in TypicalPersons#getTypicalAddressBook() -->
+<addressbook>
+    <persons>
+        <name>Alice Pauline</name>
+        <phone>94351253</phone>
+        <email>alice@example.com</email>
+        <address>123, Jurong West Ave 6, #08-111</address>
+        <tagged>friends</tagged>
+        <faculty>SOC</faculty>
+    </persons>
+    <persons>
+        <name>Benson Meier</name>
+        <phone>98765432</phone>
+        <email>johnd@example.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
+        <faculty>SOC</faculty>
+    </persons>
+    <persons>
+        <name>Carl Kurz</name>
+        <phone>95352563</phone>
+        <email>heinz@example.com</email>
+        <address>wall street</address>
+        <faculty>SOC</faculty>
+    </persons>
+    <persons>
+        <name>Daniel Meier</name>
+        <phone>87652533</phone>
+        <email>cornelia@example.com</email>
+        <address>10th street</address>
+        <tagged>friends</tagged>
+        <faculty>SOC</faculty>
+    </persons>
+    <persons>
+        <name>Elle Meyer</name>
+        <phone>9482224</phone>
+        <email>werner@example.com</email>
+        <address>michegan ave</address>
+        <faculty>SOC</faculty>
+    </persons>
+    <persons>
+        <name>Fiona Kunz</name>
+        <phone>9482427</phone>
+        <email>lydia@example.com</email>
+        <address>little tokyo</address>
+        <faculty>SOC</faculty>
+    </persons>
+    <persons>
+        <name>George Best</name>
+        <phone>9482442</phone>
+        <email>anna@example.com</email>
+        <address>4th street</address>
+        <faculty>SOC</faculty>
+    </persons>
+	<events>
+		<eventName>Doctor appointment</eventName>
+		<eventDescription>Consultation</eventDescription>
+		<eventDate>2018-09-01</eventDate>
+		<eventStartTime>1400</eventStartTime>
+        <eventEndTime>1500</eventEndTime>
+		<eventAddress>Blk 312, Amy Street 1</eventAddress>
+        <eventContacts>
+            <name>Alice Pauline</name>
+            <phone>94351253</phone>
+            <email>alice@example.com</email>
+            <address>123, Jurong West Ave 6, #08-111</address>
+            <tagged>friends</tagged>
+            <faculty>SOC</faculty>
+        </eventContacts>
+	</events>
+	<events>
+		<eventName>Meeting</eventName>
+		<eventDescription>Group meeting desc</eventDescription>
+		<eventDate>2018-09-09</eventDate>
+		<eventStartTime>0900</eventStartTime>
+        <eventEndTime>1200</eventEndTime>
+		<eventAddress>Block 123, Bobby Street 3</eventAddress>
+        <eventContacts>
+            <name>Benson Meier</name>
+            <phone>98765432</phone>
+            <email>johnd@example.com</email>
+            <address>311, Clementi Ave 2, #02-25</address>
+            <tagged>owesMoney</tagged>
+            <tagged>friends</tagged>
+            <faculty>SOC</faculty>
+        </eventContacts>
+	</events>
+    <events>
+        <eventName>Dinner appointment</eventName>
+        <eventDescription>with Ann</eventDescription>
+        <eventDate>2018-09-09</eventDate>
+        <eventStartTime>1800</eventStartTime>
+        <eventEndTime>2015</eventEndTime>
+        <eventAddress>NUS</eventAddress>
+    </events>
+</addressbook>

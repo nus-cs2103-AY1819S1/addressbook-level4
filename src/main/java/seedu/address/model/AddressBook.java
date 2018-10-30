@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueEventList events;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        events = new UniqueEventList();
     }
 
     public AddressBook() {}
@@ -48,12 +52,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the event list with {@code events}.
+     * {@code events} must not contain duplicate events.
+     */
+    public void setEvents(List<Event> events) {
+        this.events.setEvents(events);
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setEvents(newData.getEventList());
     }
 
     //// person-level operations
@@ -86,18 +99,61 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from the person list in this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
         persons.remove(key);
     }
 
+    //// event-level operations
+
+    /**
+     * Returns true if an event with the same identity as {@code event} exists in the address book.
+     */
+    public boolean hasEvent(Event event) {
+        requireNonNull(event);
+        return events.contains(event);
+    }
+
+    /**
+     * Returns true if a clashing event with {@code event} exists in the address book.
+     */
+    public boolean hasClashingEvent(Event event) {
+        requireNonNull(event);
+        return events.containsClashingEvent(event);
+    }
+
+    /**
+     * Removes {@code key} from the events list in this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeEvent(Event key) {
+        events.remove(key);
+    }
+
+    /**
+     * Adds an event to the address book.
+     * The event must not already exist in the address book, and must not clash any of the existing events in the
+     * address book.
+     */
+    //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
+    // ask the
+    // user (by raising an event which brings up a message and prompts user for further input - enter to add anyway
+    // or esc to delete) for confirmation before adding.
+    public void addEvent(Event event) {
+        assert !hasEvent(event);
+        assert !hasClashingEvent(event);
+
+        events.add(event);
+    }
+
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons"
+                + "\n" + events.asUnmodifiableObservableList().size() + " events";
         // TODO: refine later
     }
 
@@ -107,14 +163,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Event> getEventList() {
+        return events.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && events.equals(((AddressBook) other).events));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return persons.hashCode() + events.hashCode();
     }
 }

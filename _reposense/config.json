@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "cjiefeng",
+      "displayName": "CHAI ... FENG",
+      "authorNames": ["cjiefeng", "JACK\\Jack"]
+    },
+    {
+      "githubId": "kaitingpeck",
+      "displayName": "PECK ... TING",
+      "authorNames": ["kaitingpeck", "Kai Ting Peck"]
+    },
+    {
+      "githubId": "pratyayj",
+      "displayName": "PRATY...AIDEV",
+      "authorNames": ["pratyayj", "Pratyay Jaidev"]
+    },
+    {
+      "githubId": "ryantanwk",
+      "displayName": "RYAN ... KEAT",
+      "authorNames": ["ryantanwk", "Ryan Tan Wei Keat"]
+    },
+    {
+      "githubId": "yap666y",
+      "displayName": "YAP Y...U WEI",
+      "authorNames": ["yap666y"]
+    }
+  ]
+}

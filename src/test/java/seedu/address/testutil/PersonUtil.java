@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -25,6 +26,10 @@ public class PersonUtil {
         return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
+    public static String getAddCommandAlias(Person person) {
+        return AddCommand.COMMAND_WORD_ALIAS + " " + getPersonDetails(person);
+    }
+
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
@@ -37,6 +42,7 @@ public class PersonUtil {
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
+        sb.append(PREFIX_FACULTY + person.getFaculty().value + " ");
         return sb.toString();
     }
 
