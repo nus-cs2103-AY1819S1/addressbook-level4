@@ -41,8 +41,6 @@ Congratulations! You have successfully set up ThanePark!
 Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
- insert diagram here of help window
-
 Type some of these commands to try out ThanePark:
 
 * *`viewall`* : lists all rides in your theme park.
