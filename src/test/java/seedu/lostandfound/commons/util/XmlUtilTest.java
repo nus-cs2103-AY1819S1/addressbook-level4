@@ -82,7 +82,7 @@ public class XmlUtilTest {
         XmlAdaptedArticle actualArticle = XmlUtil.getDataFromFile(
                 MISSING_ARTICLE_FIELD_FILE, XmlAdaptedArticleWithRootElement.class);
         XmlAdaptedArticle expectedArticle = new XmlAdaptedArticle(
-                null, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, FALSE_ISRESOLVED, VALID_TAGS);
+                null, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, null, FALSE_ISRESOLVED, VALID_TAGS);
         assertEquals(expectedArticle, actualArticle);
     }
 
@@ -91,7 +91,7 @@ public class XmlUtilTest {
         XmlAdaptedArticle actualArticle = XmlUtil.getDataFromFile(
                 INVALID_ARTICLE_FIELD_FILE, XmlAdaptedArticleWithRootElement.class);
         XmlAdaptedArticle expectedArticle = new XmlAdaptedArticle(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, FALSE_ISRESOLVED, VALID_TAGS);
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, null, FALSE_ISRESOLVED, VALID_TAGS);
         assertEquals(expectedArticle, actualArticle);
     }
 
@@ -100,7 +100,7 @@ public class XmlUtilTest {
         XmlAdaptedArticle actualArticle = XmlUtil.getDataFromFile(
                 VALID_ARTICLE_FILE, XmlAdaptedArticleWithRootElement.class);
         XmlAdaptedArticle expectedArticle = new XmlAdaptedArticle(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, FALSE_ISRESOLVED, VALID_TAGS);
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_DESCRIPTION, null, FALSE_ISRESOLVED, VALID_TAGS);
         assertEquals(expectedArticle, actualArticle);
     }
 

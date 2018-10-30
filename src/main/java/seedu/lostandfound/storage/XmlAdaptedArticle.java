@@ -15,6 +15,7 @@ import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
@@ -32,6 +33,8 @@ public class XmlAdaptedArticle {
     private String email;
     @XmlElement(required = true)
     private String description;
+    @XmlElement()
+    private String image;
     @XmlElement(required = true)
     private boolean isResolved;
 
@@ -48,12 +51,13 @@ public class XmlAdaptedArticle {
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
     public XmlAdaptedArticle(String name, String phone, String email, String description,
-        boolean isResolved, List<XmlAdaptedTag> tagged) {
+                             String image, boolean isResolved, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.description = description;
         this.isResolved = isResolved;
+        this.image = image;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -69,6 +73,7 @@ public class XmlAdaptedArticle {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         description = source.getDescription().value;
+        image = source.getImage().toString();
         isResolved = source.getIsResolved();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -119,11 +124,16 @@ public class XmlAdaptedArticle {
         }
         final Description modelDescription = new Description(description);
 
+        if (!Image.isValid(image)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+        final Image modelImage = image != null ? new Image(image) : null;
+
         final Set<Tag> modelTags = new HashSet<>(articleTags);
 
         final boolean modelIsResolved = isResolved;
 
-        return new Article(modelName, modelPhone, modelEmail, modelDescription, null, modelIsResolved, modelTags);
+        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelImage, modelIsResolved, modelTags);
     }
 
     @Override
@@ -141,6 +151,7 @@ public class XmlAdaptedArticle {
                 && Objects.equals(phone, otherArticle.phone)
                 && Objects.equals(email, otherArticle.email)
                 && Objects.equals(description, otherArticle.description)
+                && Objects.equals(image, otherArticle.image)
                 && tagged.equals(otherArticle.tagged);
     }
 }

@@ -45,7 +45,6 @@ public class Image {
         path = Paths.get(file);
         filename = FileUtil.getFilename(path);
         basename = FileUtil.getBasename(path);
-        System.out.println(filename + " " + basename);
         id = Integer.parseInt(basename);
         SEQUENCE.set(id);
     }
