@@ -326,35 +326,6 @@ Displays the email with the subject `Meeting on Friday`.
 === Calendar
 This section lists features related to managing the calendar in Hallper.
 
-==== Creating calendar : `create_calendar`
-
-Creates a calendar file in Hallper for updating of events. +
-Format: `create_calendar month/MMM year/YYYY`
-
-****
-* Creates a monthly calendar as a *`.ics`* file.
-* The MONTH *must be specified as MMM*.
-* MONTH *is not case-sensitive*.
-* The YEAR *must be specified as YYYY*.
-****
-Example:
-
-* `create_calendar month/Feb year/2018` +
-Creates a calendar for the month of `Feb` and year `2018` and
-saves it as a *`.ics`* file.
-
-==== Viewing calendar : `view_calendar`
-
-Loads the specified monthly calendar `.ics` file into the UI. UI by default displays the current week. +
-Format: `view_calendar month/MMM year/YYYY`
-
-Example:
-
-* `view_calendar month/Oct year/2018` +
-Displays view of calendar with current week as default page with the events loaded from `OCT-2018.ics`.
-
-image::calendar_view_diagram.png[width="790"]
-
 ==== Adding all day event into calendar : `add_all_day_event`
 
 Adds an all day event into the calendar. +
@@ -411,6 +382,23 @@ After executing command
 
 image::add_event_diagram_after.png[width="790"]
 
+==== Creating calendar : `create_calendar`
+
+Creates a calendar file in Hallper for updating of events. +
+Format: `create_calendar month/MMM year/YYYY`
+
+****
+* Creates a monthly calendar as a *`.ics`* file.
+* The MONTH *must be specified as MMM*.
+* MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+****
+Example:
+
+* `create_calendar month/Feb year/2018` +
+Creates a calendar for the month of `Feb` and year `2018` and
+saves it as a *`.ics`* file.
+
 ==== Delete event from calendar : `delete_event`
 
 Deletes an event from the calendar. +
@@ -433,6 +421,18 @@ Example:
 * Deleting an existing event +
 `delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
 Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
+
+==== Viewing calendar : `view_calendar`
+
+Loads the specified monthly calendar `.ics` file into the UI. UI by default displays the current week. +
+Format: `view_calendar month/MMM year/YYYY`
+
+Example:
+
+* `view_calendar month/Oct year/2018` +
+Displays view of calendar with current week as default page with the events loaded from `OCT-2018.ics`.
+
+image::calendar_view_diagram.png[width="790"]
 
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
