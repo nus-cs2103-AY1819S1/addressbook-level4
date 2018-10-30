@@ -18,8 +18,8 @@ public class EncryptedCategoryTest {
     }
 
     @Test
-    public void constructor_fromValidString_assertNoException() {
-        new EncryptedCategory("a");
+    public void constructor_fromValidString_success() {
+        assertEquals(new EncryptedCategory("a").getEncryptedString(), "a");
     }
 
     @Test

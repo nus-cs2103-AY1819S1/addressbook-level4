@@ -18,8 +18,8 @@ public class EncryptedCostTest {
     }
 
     @Test
-    public void constructor_fromValidString_assertNoException() {
-        new EncryptedCost("a");
+    public void constructor_fromValidString_success() {
+        assertEquals(new EncryptedCost("a").getEncryptedString(), "a");
     }
 
     @Test

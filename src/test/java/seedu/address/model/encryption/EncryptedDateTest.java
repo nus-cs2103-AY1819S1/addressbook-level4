@@ -18,8 +18,8 @@ public class EncryptedDateTest {
     }
 
     @Test
-    public void constructor_fromValidString_assertNoException() {
-        new EncryptedDate("a");
+    public void constructor_fromValidString_success() {
+        assertEquals(new EncryptedDate("a").getEncryptedString(), "a");
     }
 
     @Test

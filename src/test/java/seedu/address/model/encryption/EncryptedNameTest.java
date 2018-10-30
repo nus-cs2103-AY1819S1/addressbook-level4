@@ -18,8 +18,8 @@ public class EncryptedNameTest {
     }
 
     @Test
-    public void constructor_fromValidString_assertNoException() {
-        new EncryptedName("a");
+    public void constructor_fromValidString_success() {
+        assertEquals(new EncryptedName("a").getEncryptedString(), "a");
     }
 
     @Test

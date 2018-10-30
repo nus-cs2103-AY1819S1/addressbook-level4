@@ -22,8 +22,8 @@ public class EncryptedTagTest {
     }
 
     @Test
-    public void constructor_fromValidString_assertNoException() {
-        new EncryptedTag("a");
+    public void constructor_fromValidString_success() {
+        assertEquals(new EncryptedTag("a").getEncryptedString(), "a");
     }
 
     @Test
