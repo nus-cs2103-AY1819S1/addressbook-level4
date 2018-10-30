@@ -4,9 +4,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.logging.HtmlFormattable;
 import seedu.address.model.ride.exceptions.InvalidNumericAttributeException;
 import seedu.address.model.tag.Tag;
 
@@ -14,7 +17,10 @@ import seedu.address.model.tag.Tag;
  * Represents a Ride in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Ride {
+public class Ride implements HtmlFormattable {
+    public static final Ride RIDE_TEMPLATE =
+        new Ride(new Name("Name"), new Maintenance(0), new WaitTime(0),
+            new Address("Address"), new HashSet<>(), Status.OPEN);
     private static final Status DEFAULT_STATUS = Status.OPEN;
 
     // Identity fields
@@ -113,6 +119,24 @@ public class Ride {
                 && otherRide.getName().equals(getName());
     }
 
+    @Override
+    public List<String> getFieldHeaders() {
+        List<String> headers = new LinkedList<>();
+        headers.add("Status");
+        headers.add("Days since last maintenance");
+        headers.add("Waiting Time");
+        return headers;
+    }
+
+    @Override
+    public List<String> getFields() {
+        List<String> fields = new LinkedList<>();
+        fields.add(getStatus().name());
+        fields.add(getDaysSinceMaintenance().toString());
+        fields.add(getWaitingTime().toString());
+        return fields;
+    }
+
     /**
      * Returns true if both rides have the same identity and data fields.
      * This defines a stronger notion of equality between two rides.
@@ -156,5 +180,4 @@ public class Ride {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

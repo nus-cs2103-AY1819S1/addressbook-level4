@@ -7,8 +7,9 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.HtmlReportGenerator;
 import seedu.address.commons.events.ui.ShowHistoryRequestEvent;
+import seedu.address.commons.util.CommandReportGenerator;
+import seedu.address.commons.util.FilePathToUrl;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -26,6 +27,9 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_HISTORY_WINDOW = "Showing requested history of commands.";
     public static final String MESSAGE_HISTORY_WINDOW_FAILURE = "Failed to generate Html report.";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
+
+    private static final FilePathToUrl REPORT_PAGE_PATH = new FilePathToUrl("src/main/resources/docs/report.html");
+    private static final String COMMAND_ENTRY_REPORT_TITLE = "Command History Report";
 
     private static final String[] ARGUMENTS_BLANK = {""};
     private final boolean isSummarized;
@@ -59,8 +63,9 @@ public class HistoryCommand extends Command {
         //request for CommandEntry list
         if (!isSummarized) {
             try {
-                HtmlReportGenerator.generateCommandEntryReport(history.getCommandEntryList());
-                EventsCenter.getInstance().post(new ShowHistoryRequestEvent(HtmlReportGenerator.DEFAULT_REPORT_NAME));
+                CommandReportGenerator.getInstance()
+                    .generateHtml(COMMAND_ENTRY_REPORT_TITLE, history.getCommandEntryList(), REPORT_PAGE_PATH);
+                EventsCenter.getInstance().post(new ShowHistoryRequestEvent(REPORT_PAGE_PATH.getFilePath()));
                 return new CommandResult(MESSAGE_HISTORY_WINDOW);
             } catch (IOException e) {
                 e.printStackTrace();

@@ -11,7 +11,7 @@ import seedu.address.model.Model;
  */
 public class ViewAllCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewAll";
+    public static final String COMMAND_WORD = "viewall";
 
     public static final String MESSAGE_SUCCESS = "Viewed all rides";
 
