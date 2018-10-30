@@ -30,7 +30,8 @@ import seedu.address.model.medicine.Stock;
  */
 public class EditMedicineCommand extends Command {
 
-    public static final String COMMAND_WORD = "editMedicine";
+    public static final String COMMAND_WORD = "editmedicine";
+    public static final String COMMAND_ALIAS = "em";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the medicine identified "
             + "by the index number used in the displayed medicine list. "

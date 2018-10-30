@@ -7,20 +7,33 @@
 
 ---
 
-== Overview
+== Introduction
 
-CLInic is a desktop application made to streamline and expedite operations in clinics. The application
-is aptly named CLInic as it is a wordplay on the acronym for the Command Line Interface, from which the
-application is mainly used. CLInic boasts an intuitive Graphical User Interface (GUI) to display
-information in a structured and user-friendly manner. The main features of the application is primarily
-coded in Java while the GUI is handled by JavaFX, HTML and CSS.
+This Project Portfolio Page documents `clawyq`'s contributions to the development of CLInic.
 
-CLInic is the culmination of semester-long efforts of a team of five students from NUS School Of
+CLInic is a desktop application made to manage and expedite operations in clinics. It was inspired by
+the Command Line Interface (CLI), which allowed users to issue commands to the computer efficently.
+However, the CLI's non-visual display and walls of cryptic text makes it intimidating to the general,
+non-tech-savvy populous.
+
+These reasons were the main impetus behind CLInic, which marries the **simplistic design** and
+**efficient command issuing mechanism** of the CLI with an intuitive Graphical User Interface (GUI).
+This culminated in a clean application that is easy for anyone to use, all while providing the powerful
+ functionalities and efficiencies provided by a CLI.
+
+Below are some of the key functionalities provided by CLInic:
+
+* Allows users to manage patient and medicine information
+* Allows users to easily generate documents to be issued by a clinic like `Medical Certificates`,
+`Receipts` and `Referral Letters` efficiently
+* Provides intuitive workarounds to normally arduous but common administrative tasks such as restocking
+and dispensing medicine
+
+CLInic is the product of semester-long efforts of a team of five students from NUS School Of
 Computing as part of the CS2103T Software Engineering module. Through the course of the module, the
 team morphed a very primitive application, which had basic add/delete functionalities akin to that of a
- phone/contact book, into a clinic management application. The application allows users to manage patient
- and medicine information in a user-friendly environment, all while providing intuitive workarounds to
- normally arduous but common administrative tasks in running a clinic.
+ phone/contact book, into a fully-fledged clinic management application. The main features of the
+ application is primarily coded in Java while the GUI is handled by JavaFX, HTML and CSS.
 
 I played a major role in the development of the Document class, the relevant Receipt, MedicalCertificate
 and Referral classes that extend it and the relevant patient management operations that are required for

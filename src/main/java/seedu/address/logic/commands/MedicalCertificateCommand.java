@@ -20,8 +20,7 @@ import seedu.address.model.person.ServedPatient;
  * Generates an MC for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
  */
 public class MedicalCertificateCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "medicalcertificate";
-    public static final String COMMAND_ALIAS = "mc";
+    public static final String COMMAND_WORD = "mc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Generates a medical certificate for the patient in"

@@ -19,7 +19,8 @@ import seedu.address.model.medicine.Medicine;
  */
 public class AddMedicineCommand extends Command {
 
-    public static final String COMMAND_WORD = "addMedicine";
+    public static final String COMMAND_WORD = "addmedicine";
+    public static final String COMMAND_ALIAS = "am";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the records. "
             + "Parameters: "
             + PREFIX_MEDICINE_NAME + "MEDICINE NAME "
