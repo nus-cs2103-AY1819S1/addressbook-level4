@@ -5,9 +5,12 @@ import static seedu.scheduler.ui.testutil.GuiTestAssert.assertListMatching;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
+import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.model.Scheduler;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.util.SampleSchedulerDataUtil;
@@ -45,7 +48,10 @@ public class SampleDataTest extends SchedulerSystemTest {
 
     @Test
     public void scheduler_dataFileDoesNotExist_loadSampleData() {
-        Event[] expectedList = SampleSchedulerDataUtil.getSampleEvents();
+        List<Event> expectedList = new ArrayList<>();
+        for (Event sampleEvent : SampleSchedulerDataUtil.getSampleEvents()) {
+            expectedList.addAll(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(sampleEvent));
+        }
         assertListMatching(getEventListPanel(), expectedList);
     }
 }
