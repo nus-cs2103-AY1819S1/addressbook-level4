@@ -549,23 +549,13 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-<<<<<<< HEAD
-|Commands Words |Commands Alias |Format|Example
+|Command Word |Command Alias |Format|Example
 |add |`a`  |`add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` |`add n/John Doe p/98765432 e/johnd@example.com a/John Street, block 123, #01-01`
 |list |`l`  | `list` |`list`
 |edit |`e`  |`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |`edit 1 p/91234567 e/johndoe@example.com`
 |find |`f`  |`find KEYWORD [MORE_KEYWORDS]​` |`find Betsy Tim John`
 |delete |`d`  |`delete INDEX` |`delete 2`
 |select |`s`  |`select INDEX` |`select 3`
-=======
-|Command Word |Command Alias |Format|Example
-|Add |`a`  |`add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` |`add n/John Doe p/98765432 e/johnd@example.com a/John Street, block 123, #01-01`
-|List |`l`  | `list` |`list`
-|Edit |`e`  |`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​` |`edit 1 p/91234567 e/johndoe@example.com`
-|Find |`f`  |`find KEYWORD [MORE_KEYWORDS]​` |`find Betsy Tim John`
-|Delete |`d`  |`delete INDEX` |`delete 2`
-|Select |`s`  |`select INDEX` |`select 3`
->>>>>>> 6c9b04db9b71284b573fc3e3fc9af79d1ea525a0
 |addMedicalRecord |`amr`  |`addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…`​ or +
                             `addMedicalRecord IC_NUMBER [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…​​` |`addMedicalRecord 5 b/A+ da/Paracetamol d/Diabetes` or +
                             `addMedicalRecord S94738123X b/B+`
@@ -604,13 +594,8 @@ There is no need to save manually.
 
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
-<<<<<<< HEAD
-|Commands Words |Commands Alias |Format|Example
-|medicalcertificate | `mc`  |`mc INDEX​` |`mc 1`
-=======
 |Command Word |Command Alias |Format|Example
-|mc |-  |`mc INDEX​` |`mc 1`
->>>>>>> 6c9b04db9b71284b573fc3e3fc9af79d1ea525a0
+|medicalcertificate | `mc`  |`mc INDEX​` |`mc 1`
 |receipt |`rec`  | `receipt INDEX` |`receipt 2`
 |referralletter |`rl`  |`refer INDEX` |`refer 3`
 |=======================================================================
