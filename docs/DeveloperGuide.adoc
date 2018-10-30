@@ -319,7 +319,7 @@ the currently shown list in the UI, by posting a new `JumpToListRequestEvent`.
 
 The undo/redo mechanism is facilitated by `VersionAddressBook`.It extends
 `AddressBook` with an command history, stored internally as an
-'addressBookStateList' and 'currentStatePointer'.
+`addressBookStateList` and `currentStatePointer`.
 In addition, it implements the following operations:
 
 * `VersionedAddressBook#commit()`: Saves the current book state
@@ -337,7 +337,7 @@ undo/redo mechanism behaves at each step.
 
 Step 1: The user launches TheTracker for the first time. The
 `VersionedAddressBook` will be initialised with the initial address book
-state, which the 'currentStatePointer' is currently pointing to.
+state, which the `currentStatePointer` is currently pointing to.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
@@ -348,33 +348,33 @@ executes to be saved in the `addressBookStateList`, and the
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3: The user executes 'delete 7' to delete the 7th person in the address
-book. The 'delete' command also calls 'Model#commitAddressBook()', causing
-another modified address book state to be saved into the 'addressBookStateList'
+Step 3: The user executes `delete 7` to delete the 7th person in the address
+book. The `delete` command also calls `Model#commitAddressBook()`, causing
+another modified address book state to be saved into the `addressBookStateList`
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call 'Model#commitAddressBook()
-', so the address book state will not be saved into the 'addressBookStateList'.
+If a command fails its execution, it will not call `Model#commitAddressBook()`,
+so the address book state will not be saved into the `addressBookStateList`.
 
 Step 4: If the user now realizes that deleting the 7th person is a mistake,
-and decides to undo that action by executing the 'undo' command. The 'undo'
-command will call 'Model#undoAddressBook()', which will shift the
-'currentStatePointer' once to the left, pointing it to the previous address
+and decides to undo that action by executing the `undo` command. The `undo`
+command will call `Model#undoAddressBook()`, which will shift the
+`currentStatePointer` once to the left, pointing it to the previous address
 book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width='800']
 
 [NOTE]
-If the 'currentStatePointer' is at index 0, pointing the initial address book
-state, then there are no previous address book states to restore. The 'undo'
-command uses 'Model#canUndoAddressBook()' to check if this is the case. In
+If the `currentStatePointer` is at index 0, pointing the initial address book
+state, then there are no previous address book states to restore. The `undo`
+command uses `Model#canUndoAddressBook()` to check if this is the case. In
 this case, it will return an error to the user rather than attempting to
 perform the undo.
 
 The redo command does the opposite -- it calls Model#redoAddressBook(), which
-shifts the 'currentStatePointer' once to the right, pointing to the
+shifts the `currentStatePointer` once to the right, pointing to the
 previously undone state, and restores the address book to that state.
 
 The following sequence diagram shows how the undo operation works:
@@ -382,9 +382,9 @@ The following sequence diagram shows how the undo operation works:
 image::UndoRedoSequenceDiagram.png[width="800"]
 
 [NOTE]
-If the 'currentStatePointer' is at index 'addressBookStateList.size() - 1',
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`,
 pointing to the latest address book state, then there are no undone address
-book states to restore. The 'redo' command uses 'Model#canRedoAddressBook()'
+book states to restore. The `redo` command uses `Model#canRedoAddressBook()`
 to check if this is the case. If so, it will return an error to the user
 rather than attempting to perform the redo.
 
@@ -471,7 +471,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-//tag::delete[]
+// tag::delete[]
 === Delete
 `delete` is a basic feature provided by every version of `TheTracker`.
 It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeletePersonCommand` `DeleteModuleCommand` and
@@ -481,6 +481,8 @@ It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeleteP
 This following section will use `DeletePersonCommand` as an example, `DeleteModuleCommand` and  `DeleteOccasionCommand`
 uses the same mechanism. `DeletePersonCommand`extends the `Command` class and uses inheritance to facilitate
 implementation.
+
+Generally, it implements the following operation:
 
 * `DeleteCommand#excute(Model model, CommandHistory history)`: deletes the entity passed to the `DeleteCommand` class
 
@@ -499,7 +501,7 @@ Step 2: The user executes `addperson n/David...` command to add a person named
 David in his TheTracker. The parser `AddPersonCommandParser` will identify by
 the 'n/' tag that the entity to be added is a person. The `addperson` command
 calls `Model#commitAddressBook()`, causing the modified state of TheTracker
-after the `add David...` command executes to be saved in the `addressBookStateList`.
+after the `addperson n/ David...` command executes to be saved in the `addressBookStateList`.
 
 image::DeleteNewCommand1StateListDiagram.png[width="800"]
 
@@ -512,12 +514,12 @@ image::DeleteDeleteCommandStateListDiagram.png[width="800"]
 
 The following sequence diagram shows how the delete operation works:
 
-image::DeleteSequenceDiagramXueyan.png[width="800"]
+image::DeleteSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 ===== Aspect: How delete executes
 
-* **Alternative 1 (Use tags and entity):** Inputs the type of the entity to be deleted.
+* **Alternative 1 (Use tags):** Inputs the type of the entity to be deleted.
 ** Pros:
 *** Easy for user to understand the usage.
 ** Cons:
