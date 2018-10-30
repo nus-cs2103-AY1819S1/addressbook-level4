@@ -300,8 +300,13 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Deletes all employees from the system. +
+
 Format: `clear`
+
+****
+* To use this command, you must be logged in with "Remove Employee" permissions.
+****
 
 === Logout from the system: `logout`
 
@@ -354,41 +359,33 @@ Format: `summary`
 
 == Command Summary
 
-=== Employee Commands
+=== Commands that do not require permissions
 
 * *Help* : `help`
 * *History* : `history` +
+* *List all employees*: `list` +
 * *Sort employee display list* : `sort -CRITERIA` +
 e.g. sort -d
-* *Apply for leave* : `leave add -de DESCRIPTION -da DATE [-da DATE]` +
-e.g. leave add -de Family holiday -da 20181018 20181019
-* *Search employees by name* : `search NAME` +
+* *Select an employee* : `select INDEX` +
+* *Search employees by name* : `find NAME` +
 e.g. search Joshua
 * *Filter employees by criteria* : `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]` +
 e.g. filter -n Jeremy Choo -d Development
-* *Edit details* : `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY]` +
-e.g. edit 1 -p 91234567 -e johndoe@example.com
-* *Change password* : `password`
-* *View income summary* : `summary`
-* *Exit* : `exit [-f]`
+* *Change password* : `passwd`
+* *View archived employees* : `archive`
+* *Undo commands* : `undo`
+* *Redo commands* : `redo`
+* *Logout from the system* : `Logout`
+* *Exit* : `exit`
 
 === Commands that require permission
 
 * *Add employee* : `add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT]` +
-* *Delete employee*: `delete INDEX`
+* *Delete employee*:
+** `delete INDEX`
+** `clear`
 * *Editing an employee*: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]`
 * *Assign permission*:
 ** `viewpermission INDEX`
 ** `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...`
-
-=== Employee with "Department Manager" permissions
-* *Adding an employee to a department* : `add -n NAME [-e EMAIL] [-n NUMBER] [-s SALARY]` +
-e.g. add -n Elliot -e Elliot@gmail.com
-* *Removing an employee* : `remove -id ID` +
-e.g. remove -id E01312
-* *List effectiveness of sector by profit* : `sector`
-* *View details of an employee* : `detail -id ID` +
-e.g. detail -id E01312
-* *View employee leave summary* : `leavesummary`
-* *View deleted employee archive* : `archive`
 
