@@ -89,6 +89,14 @@ public class ExampleCommand extends Command {
             transformation = new Transformation("colorspace", "gray");
             transformationDone = transformation;
             return ImageMagickUtil.processImage(imagePath, transformation);
+        case 5:
+            transformation = new Transformation("@grayblur");
+            transformationDone = transformation;
+            return ImageMagickUtil.processImage(imagePath, transformation);
+        case 6:
+            transformation = new Transformation("@blurR");
+            transformationDone = transformation;
+            return ImageMagickUtil.processImage(imagePath, transformation);
         default:
             transformation = new Transformation("resize", "100%");
             transformationDone = transformation;

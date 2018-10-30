@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
 import java.util.Arrays;
 
 import seedu.address.commons.util.ImageMagickUtil;

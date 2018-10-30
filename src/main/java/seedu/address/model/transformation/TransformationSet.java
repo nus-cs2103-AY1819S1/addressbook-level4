@@ -61,7 +61,7 @@ public class TransformationSet {
      */
     public ProcessBuilder toProcessBuilder() {
         ArrayList<String> arguments = new ArrayList<>();
-        arguments.add(ImageMagickUtil.getExecuteImageMagic());
+        arguments.add(ImageMagickUtil.getExecuteImageMagick());
         for (Transformation t : transformations) {
             arguments.add(t.toString());
         }
