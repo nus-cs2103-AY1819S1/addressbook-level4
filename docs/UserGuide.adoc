@@ -60,6 +60,7 @@ Refer to <<Features>> for the details of each command.
 TIP: Features are sorted by their command word in lexicographical order.
 
 
+//tag::addappt[]
 === Add appointment for patient: `addappt`
 Add a scheduled appointment for a patient.
 
@@ -71,6 +72,7 @@ Example(s):
 
 The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
 *Other inputs will not be allowed.*
+//end::addappt[]
 
 === Add patient’s dietary needs: `adddiet`
 Add a patient’s dietary needs into the system.

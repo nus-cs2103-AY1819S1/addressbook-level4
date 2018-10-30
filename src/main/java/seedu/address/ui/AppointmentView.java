@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.commands.SortCommand.SortOrder;
@@ -24,7 +25,6 @@ import seedu.address.model.person.Person;
 /**
  * The Appointment Panel of the App
  */
-
 public class AppointmentView extends UiPart<Region> implements Swappable, Sortable {
     private static final String FXML = "ApptBrowserPanel.fxml";
     private static final String MESSAGE_CURRENT_SELECTION_NOT_NULL = "There was an attempt "
