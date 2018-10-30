@@ -15,6 +15,11 @@ public class CarparkContainsKeywordsPredicate implements Predicate<Carpark> {
         this.keywords = keywords;
     }
 
+    // Todo: double check
+    public List<String> getKeywords() {
+        return this.keywords;
+    }
+
     @Override
     public boolean test(Carpark carpark) {
         return keywords.stream()

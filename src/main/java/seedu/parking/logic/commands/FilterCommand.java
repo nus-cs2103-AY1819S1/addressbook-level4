@@ -11,9 +11,8 @@ import seedu.parking.commons.core.Messages;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
 import seedu.parking.model.Model;
-import seedu.parking.model.carpark.CarparkHasFreeParkingPredicate;
-import seedu.parking.model.carpark.CarparkHasNightParkingPredicate;
-import seedu.parking.model.carpark.CarparkIsOfTypePredicate;
+import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
+import seedu.parking.model.carpark.CarparkFilteringPredicate;
 
 
 /**
@@ -50,46 +49,22 @@ public class FilterCommand extends Command {
         requireNonNull(model);
         List<String> flagList = Arrays.asList(flags);
 
-        // Currently can only have one flag at a time.
-        if (flagList.contains("n/")) {
-            this.predicate = new CarparkHasNightParkingPredicate();
-            model.updateFilteredCarparkList(predicate);
-        }
-        if (flagList.contains("f/")) {
-            int index = flagList.indexOf("f/");
+        // Todo: Location based filtering
+        // Get last findCommand predicate
+        CarparkContainsKeywordsPredicate locationPredicate = model.getLastPredicateUsedByFindCommand();
+        List<String> locationKeywords = locationPredicate.getKeywords();
 
-            // Can accept small letters too
-            String day = flagList.get(index + 1).toUpperCase();
-            System.out.println("day: " + day);
+        this.predicate = new CarparkFilteringPredicate(locationKeywords, flagList);
+        model.updateFilteredCarparkList(predicate);
 
-            String startTime = flagList.get(index + 2);
-            System.out.println("startTime: " + startTime);
-
-            String endTime = flagList.get(index + 3);
-            System.out.println("endTime: " + endTime);
-
-            this.predicate = new CarparkHasFreeParkingPredicate(day, startTime, endTime);
-            model.updateFilteredCarparkList(predicate);
-        }
-        if (flagList.contains("ct/")) {
-            int index2 = flagList.indexOf("ct/");
-
-            String carparkType = flagList.get(index2 + 1).toUpperCase();
-            System.out.println("carparkType: " + carparkType);
-
-            this.predicate = new CarparkIsOfTypePredicate(carparkType);
-            model.updateFilteredCarparkList(predicate);
-        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
-        //throw new CommandException("filter command executed.");
-        //return new CommandResult(String.format(MESSAGE_FILTER_CARPARK_SUCCESS));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this; // short circuit if same object
-        //|| (other instanceof DeleteCommand // instanceof handles nulls
-        //&& targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+        return other == this // short circuit if same object
+                || (other instanceof FilterCommand // instanceof handles nulls
+                && predicate.equals(((FilterCommand) other).predicate)); // state check
     }
 }
