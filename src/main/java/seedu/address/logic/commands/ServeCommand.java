@@ -20,6 +20,7 @@ import seedu.address.model.person.Patient;
  */
 public class ServeCommand extends QueueCommand {
     public static final String COMMAND_WORD = "serve";
+    public static final String COMMAND_ALIAS = "ser";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Dequeues the first person in queue. ";
 

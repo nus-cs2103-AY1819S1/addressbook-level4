@@ -21,7 +21,7 @@ import seedu.address.model.person.ServedPatient;
  */
 public class ReceiptCommand extends QueueCommand {
     public static final String COMMAND_WORD = "receipt";
-    public static final String COMMAND_ALIAS = "rct";
+    public static final String COMMAND_ALIAS = "rec";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a receipt for the patient in the specified"
             + " index. Includes information like the date of visit, consultation fee, medicine dispensed, cost, etc. \n"
