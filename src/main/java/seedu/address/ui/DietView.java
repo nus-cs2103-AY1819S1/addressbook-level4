@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 //@@author yuntongzhang
 
-
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;

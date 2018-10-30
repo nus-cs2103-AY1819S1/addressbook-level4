@@ -14,7 +14,6 @@ import guitests.guihandles.DietViewHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.diet.Diet;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.DietBuilder;
@@ -37,10 +36,13 @@ public class DietViewTest extends GuiUnitTest {
     public void setUp() {
         adddietCommandSuccessEvent = new NewResultAvailableEvent("Dietary requirements added for patient: "
                                                                  + BENSON.getNric());
-        allergy = new DietBuilder().build();
+        allergy = new DietBuilder().withDetail("Fish").build();
         initUi();
     }
 
+    /**
+     * Initialize the UI panel and set the selection for testing.
+     */
     private void initUi() {
         dietView = new DietView(TYPICAL_PERSONS);
         uiPartRule.setUiPart(dietView);

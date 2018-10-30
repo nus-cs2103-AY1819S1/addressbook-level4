@@ -37,7 +37,7 @@ public class DietCollection {
         }
     }
 
-    private List<Diet> getAllergies() {
+    public List<Diet> getAllergies() {
         List<Diet> allergies = new LinkedList<>();
         for (Diet diet: dietSet) {
             if (diet.isAllergy()) {
@@ -47,7 +47,7 @@ public class DietCollection {
         return allergies;
     }
 
-    private List<Diet> getCulturalRequirements() {
+    public List<Diet> getCulturalRequirements() {
         List<Diet> culturalRequirements = new LinkedList<>();
         for (Diet diet: dietSet) {
             if (diet.isCulturalRequirement()) {
@@ -57,7 +57,7 @@ public class DietCollection {
         return culturalRequirements;
     }
 
-    private List<Diet> getPhysicalDifficulties() {
+    public List<Diet> getPhysicalDifficulties() {
         List<Diet> physicalDifficulties = new LinkedList<>();
         for (Diet diet: dietSet) {
             if (diet.isPhysicalDifficulty()) {
