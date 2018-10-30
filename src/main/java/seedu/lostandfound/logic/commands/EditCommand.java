@@ -3,6 +3,7 @@ package seedu.lostandfound.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_FINDER;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
@@ -39,9 +40,10 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_FINDER + "FINDER] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -104,9 +106,11 @@ public class EditCommand extends Command {
         Phone updatedPhone = editArticleDescriptor.getPhone().orElse(articleToEdit.getPhone());
         Email updatedEmail = editArticleDescriptor.getEmail().orElse(articleToEdit.getEmail());
         Description updatedDescription = editArticleDescriptor.getDescription().orElse(articleToEdit.getDescription());
+        Name updatedFinder = editArticleDescriptor.getFinder().orElse(articleToEdit.getFinder());
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
+        Name defaultOwner = new Name("Not Claimed");
 
-        return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription,
+        return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription, updatedFinder, defaultOwner,
                 articleToEdit.getIsResolved(), updatedTags);
     }
 
@@ -137,6 +141,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Description description;
+        private Name finder;
         private Set<Tag> tags;
 
         public EditArticleDescriptor() {}
@@ -150,6 +155,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setDescription(toCopy.description);
+            setFinder(toCopy.finder);
             setTags(toCopy.tags);
         }
 
@@ -157,7 +163,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, description, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, description, finder, tags);
         }
 
         public void setName(Name name) {
@@ -190,6 +196,14 @@ public class EditCommand extends Command {
 
         public Optional<Description> getDescription() {
             return Optional.ofNullable(description);
+        }
+
+        public void setFinder(Name finder) {
+            this.finder = finder;
+        }
+
+        public Optional<Name> getFinder() {
+            return Optional.ofNullable(finder);
         }
 
         /**

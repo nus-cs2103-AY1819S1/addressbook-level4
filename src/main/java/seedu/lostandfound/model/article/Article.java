@@ -20,6 +20,9 @@ public class Article {
     private final Phone phone;
     private final Email email;
 
+    private final Name finder;
+    private final Name owner;
+
     // Data fields
     private final Description description;
     private final Set<Tag> tags = new HashSet<>();
@@ -30,12 +33,15 @@ public class Article {
     /**
      * Every field must be present and not null.
      */
-    public Article(Name name, Phone phone, Email email, Description description, boolean isResolved, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, description, tags);
+    public Article(Name name, Phone phone, Email email, Description description,
+                   Name finder, Name owner, boolean isResolved, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, description, finder, owner, isResolved, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.description = description;
+        this.finder = finder;
+        this.owner = owner;
         this.isResolved = isResolved;
         this.tags.addAll(tags);
     }
@@ -58,6 +64,14 @@ public class Article {
 
     public boolean getIsResolved() {
         return isResolved;
+    }
+
+    public Name getFinder() {
+        return finder;
+    }
+
+    public Name getOwner() {
+        return owner;
     }
 
     /**
@@ -119,12 +133,16 @@ public class Article {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Description: ")
+                .append(getDescription())
+                .append(" Finder: ")
+                .append(getFinder())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Description: ")
-                .append(getDescription())
+                .append(" Owner: ")
+                .append(getOwner())
                 .append(" isResolved: ")
                 .append(getIsResolved())
                 .append(" Tags: ");

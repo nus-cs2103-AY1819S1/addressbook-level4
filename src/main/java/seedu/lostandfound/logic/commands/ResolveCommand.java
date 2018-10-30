@@ -11,12 +11,14 @@ import seedu.lostandfound.logic.CommandHistory;
 import seedu.lostandfound.logic.commands.exceptions.CommandException;
 import seedu.lostandfound.model.Model;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Name;
 
 /**
  * Resolves an article identified using it's displayed index from the address book.
  */
 public class ResolveCommand extends Command {
     public static final String COMMAND_WORD = "resolve";
+    private static final Name DEFAULT_OWNER = new Name("Not Claimed");
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Resolves the person identified by the index number used in the displayed article list.\n"
@@ -44,7 +46,8 @@ public class ResolveCommand extends Command {
         Article articleToEdit = lastShownList.get(targetIndex.getZeroBased());
 
         Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(),
-                articleToEdit.getEmail(), articleToEdit.getDescription(), SET_ISRESOLVED, articleToEdit.getTags());
+                articleToEdit.getEmail(), articleToEdit.getDescription(), articleToEdit.getFinder(),
+                DEFAULT_OWNER, SET_ISRESOLVED, articleToEdit.getTags());
 
         model.updateArticle(articleToEdit, editedArticle);
         model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);

@@ -3,6 +3,7 @@ package seedu.lostandfound.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_FINDER;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
@@ -22,17 +23,19 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a article to the article list. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_DESCRIPTION + "DESCRIPTION "
+            + PREFIX_FINDER + "FINDER "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_DESCRIPTION + "DESCRIPTION "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Nike Wallet "
+            + PREFIX_DESCRIPTION + "Found at library on 11/5/18 12pm "
+            + PREFIX_FINDER + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_DESCRIPTION + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_TAG + "blue "
+            + PREFIX_TAG + "worn";
 
     public static final String MESSAGE_SUCCESS = "New article added: %1$s";
     public static final String MESSAGE_DUPLICATE_ARTICLE = "This article already exists in the article list";

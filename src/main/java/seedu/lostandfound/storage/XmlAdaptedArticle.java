@@ -33,6 +33,10 @@ public class XmlAdaptedArticle {
     @XmlElement(required = true)
     private String description;
     @XmlElement(required = true)
+    private String finder;
+    @XmlElement(required = true)
+    private String owner;
+    @XmlElement(required = true)
     private boolean isResolved;
 
     @XmlElement
@@ -47,12 +51,14 @@ public class XmlAdaptedArticle {
     /**
      * Constructs an {@code XmlAdaptedArticle} with the given article details.
      */
-    public XmlAdaptedArticle(String name, String phone, String email, String description,
+    public XmlAdaptedArticle(String name, String phone, String email, String description, String finder, String owner,
         boolean isResolved, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.description = description;
+        this.finder = finder;
+        this.owner = owner;
         this.isResolved = isResolved;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -69,6 +75,8 @@ public class XmlAdaptedArticle {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         description = source.getDescription().value;
+        finder = source.getFinder().fullName;
+        owner = source.getOwner().fullName;
         isResolved = source.getIsResolved();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -119,11 +127,21 @@ public class XmlAdaptedArticle {
         }
         final Description modelDescription = new Description(description);
 
+        if (finder == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(finder)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Name modelFinder = new Name(finder);
+
         final Set<Tag> modelTags = new HashSet<>(articleTags);
 
         final boolean modelIsResolved = isResolved;
 
-        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelIsResolved, modelTags);
+        final Name modelOwner = new Name(owner);
+
+        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelFinder, modelOwner, modelIsResolved, modelTags);
     }
 
     @Override
