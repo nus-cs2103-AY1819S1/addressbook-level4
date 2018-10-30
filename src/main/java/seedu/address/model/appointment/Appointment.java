@@ -27,7 +27,8 @@ public class Appointment implements Comparable<Appointment> {
         prescriptions = new ArrayList<>();
     }
 
-    public Appointment(AppointmentId appointmentId, String doctor, String patient, LocalDateTime dateTime, Status status,
+    public Appointment(AppointmentId appointmentId, String doctor, String patient,
+                       LocalDateTime dateTime, Status status,
                        String comments, List<Prescription> prescriptions) {
         this.appointmentId = appointmentId;
         this.doctor = doctor;
@@ -53,7 +54,9 @@ public class Appointment implements Comparable<Appointment> {
         return doctor;
     }
 
-    public String getPatient() { return patient; }
+    public String getPatient() {
+        return patient;
+    }
 
     public LocalDateTime getDateTime() {
         return dateTime;

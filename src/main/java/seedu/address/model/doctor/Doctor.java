@@ -7,7 +7,6 @@ import java.util.Set;
 
 import seedu.address.calendar.CalendarManager;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.InvalidSecurityAccessException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
