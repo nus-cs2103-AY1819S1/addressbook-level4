@@ -18,10 +18,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.anakinexceptions.DeckImportException;
 import seedu.address.storage.portmanager.PortManager;
+import seedu.address.storage.portmanager.Porter;
 
 /**
- * Contains integration tests (interaction with the AddressbookModel) and unit tests for
+ * Contains integration tests (interaction with the Anakin) and unit tests for
  * {@code ExportDeckCommand}.
  */
 public class ExportDeckCommandTest {
@@ -33,11 +35,11 @@ public class ExportDeckCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         Deck deckToExport = model.getFilteredDeckList().get(INDEX_FIRST_DECK.getZeroBased());
         ExportDeckCommand exportCommand = new ExportDeckCommand(INDEX_FIRST_DECK);
-        PortManager temp = new PortManager();
-        String location = temp.getBfp() + "\\" + deckToExport.getName().fullName + ".xml";
+        Porter temp = new PortManagerExportsDeck();
+
+        String location = temp.exportDeck(deckToExport);
 
         String expectedMessage = String.format(ExportDeckCommand.MESSAGE_EXPORT_DECK_SUCCESS, deckToExport, location);
-
 
         ModelManager expectedModel = new ModelManager(model.getAnakin(), new UserPrefs());
         expectedModel.exportDeck(deckToExport);
@@ -110,12 +112,18 @@ public class ExportDeckCommandTest {
         assertFalse(exportFirstCommand.equals(exportSecondCommand));
     }
 
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    private void showNoDeck(Model model) {
-        model.updateFilteredDeckList(p -> false);
 
-        assertTrue(model.getFilteredDeckList().isEmpty());
+    private static class PortManagerExportsDeck implements Porter {
+
+        @Override
+        public String exportDeck(Deck deck) {
+            PortManager temp = new PortManager();
+            return temp.getBfp() + "\\" + deck.getName().fullName + ".xml";
+        }
+
+        @Override
+        public Deck importDeck(String stringPath) throws DeckImportException {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 }
