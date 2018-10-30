@@ -148,7 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds an event to the address book.
      * The event must not already exist in the address book, and must not clash any of the existing events in the
-     * address book.
+     * address book. All event tags must be existing in the address book.
      */
     //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
     // ask the
@@ -157,19 +157,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addEvent(Event event) {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);
+        /*for (Tag eventTag : event.getEventTags()) {
+            assert hasEventTag(eventTag);
+        }*/
 
         events.add(event);
     }
 
     //// tag-level operations
     /**
-     * Returns true if an event with the same identity as {@code event} exists in the address book.
+     * Returns true if an event tag with the same identity as {@code tag} exists in the address book.
      */
     public boolean hasEventTag(Tag tag) {
         requireNonNull(tag);
         return eventTags.contains(tag);
     }
 
+    /**
+     * Adds an event tag to the address book.
+     * The event tag must not be already existing in the address book.
+     */
     public void addEventTag(Tag tag) {
         assert !hasEventTag(tag);
 
