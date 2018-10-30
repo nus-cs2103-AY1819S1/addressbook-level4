@@ -2,99 +2,55 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.UndoRedoCommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.UndoRedoCommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.UndoRedoCommandTestUtil.assertImagesEqual;
+import static seedu.address.testutil.ModelGenerator.executeATransformation;
+import static seedu.address.testutil.ModelGenerator.getDefaultModel;
+import static seedu.address.testutil.ModelGenerator.getModelWithOneTransformation;
+import static seedu.address.testutil.ModelGenerator.getModelWithThreeTransformations;
+import static seedu.address.testutil.ModelGenerator.getModelWithTwoTransformations;
 
-import static seedu.address.testutil.DefaultModelWithImage.getDefaultModelWithImage;
-
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import javax.imageio.ImageIO;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.MainApp;
-import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.transformation.Transformation;
 
 public class UndoCommandTest {
-
-    private final Model model = getDefaultModelWithImage();
     private CommandHistory commandHistory = new CommandHistory();
     private UndoCommand undoCommand = new UndoCommand();
 
-    private BufferedImage originalImage = null;
-    private BufferedImage oneTransformationDoneImage = null;
-    private BufferedImage twoTransformationDoneImage = null;
-
-    private Transformation grayTransformation = new Transformation("colorspace", "gray");
-    private Transformation blurTransformation = new Transformation("blur", "0x8");
-
-    @Before
-    public void setUp() {
-        try {
-            ClassLoader classLoader = getClass().getClassLoader();
-            originalImage = ImageIO.read(classLoader.getResource("testimgs/original.png"));
-            oneTransformationDoneImage = ImageIO.read(classLoader.getResource("testimgs/gray.png"));
-            twoTransformationDoneImage = ImageIO.read(classLoader.getResource("testimgs/gray&blur.png"));
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
-        System.out.println("reading resources ok");
+    @Test
+    public void execute_defaultStateHasNothingToUndo() {
+        Model model = getDefaultModel();
+        assertCommandFailure(undoCommand, model, commandHistory, "No more commands to undo!");
+        clearCache();
     }
 
     @Test
     public void execute_singleUndo() {
-        executeTransformation(grayTransformation);
-        assertImagesEqual(getModelPreviewImage(model), oneTransformationDoneImage);
-
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", originalImage);
+        Model model = getModelWithOneTransformation();
+        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 0, 2);
         clearCache();
     }
 
     @Test
     public void execute_successiveUndo() {
-        executeTransformation(grayTransformation);
-        assertImagesEqual(getModelPreviewImage(model), oneTransformationDoneImage);
-        executeTransformation(blurTransformation);
-        assertImagesEqual(getModelPreviewImage(model), twoTransformationDoneImage);
-
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", oneTransformationDoneImage);
-
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", originalImage);
+        Model model = getModelWithTwoTransformations();
+        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 1, 3);
+        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 0, 3);
         clearCache();
     }
 
     @Test
-    public void execute_defaultStateHasNothingToUndo() {
-        Model model = getDefaultModelWithImage();
-        assertCommandFailure(undoCommand, model, commandHistory, "No more commands to undo!", originalImage);
+    public void execute_successiveUndoWithPurge() {
+        Model model = getModelWithThreeTransformations();
+        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 2, 4);
+        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 1, 4);
+        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 0, 4);
+        Model purgedModel = executeATransformation(model);
+        assertCommandSuccess(undoCommand, purgedModel, commandHistory, "Undo success!", 0, 2);
         clearCache();
-    }
-
-    /**
-     * Get the model's previewImage's current image.
-     */
-    private BufferedImage getModelPreviewImage(Model model) {
-        return model.getCurrentPreviewImage().getImage();
-    }
-
-    /**
-     * Execute the transformation on the current model.
-     */
-    private void executeTransformation(Transformation transformation) {
-        try {
-            Path imagePath = model.getCurrentPreviewImagePath();
-            BufferedImage modifiedImage = ImageMagickUtil.processImage(imagePath, transformation);
-            model.updateCurrentPreviewImage(modifiedImage, transformation);
-        } catch (IOException | InterruptedException | ParseException e) {
-            System.out.println(e.toString());
-        }
     }
 
     /**
