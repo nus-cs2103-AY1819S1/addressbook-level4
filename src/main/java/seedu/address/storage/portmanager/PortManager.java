@@ -37,6 +37,10 @@ public class PortManager implements Porter {
         baseFilePath = bfp;
     }
 
+    public String getBfp() {
+        return baseFilePath.toAbsolutePath().toString();
+    }
+
     @Override
     public String exportDeck(Deck deck) {
         Name deckName = deck.getName();
