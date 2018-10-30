@@ -1,7 +1,7 @@
 package seedu.clinicio.model.analytics;
 
 /**
- *
+ * Represent the various types of charts used by analytics.
  */
 public enum ChartType {
     VERTICAL_BAR("vbar"),
