@@ -253,7 +253,7 @@ Format: `listStock`
 
 ==== Finding details of a medicine: `findMedicine`
 
-Finds the details of a medicine from its serial number. +
+Finds the details of a medicine from its medicine name. +
 Alias: `fm` +
 Format: `findMedicine MEDICINE_NAME`
 
