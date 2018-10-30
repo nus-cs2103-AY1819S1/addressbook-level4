@@ -267,18 +267,14 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jjlee050
     @Override
     public boolean checkStaffCredentials(Staff staff) {
-        Staff staffRecord = versionedClinicIo.getStaff(staff);
+        requireNonNull(staff);
         
-        boolean isCorrectPassword = Password.verifyPassword(
-                staff.getPassword().password,
-                staffRecord.getPassword().password
-        );
-        
-        if (!isCorrectPassword) {
+        boolean isAuthenticatedSuccess = versionedClinicIo.checkStaffCredentials(staff);
+        if (!isAuthenticatedSuccess) {
             return false;
         }
-        UserSession.createSession(staffRecord);
-        raise(new LoginSuccessEvent(staffRecord));
+        UserSession.createSession(staff);
+        raise(new LoginSuccessEvent(staff));
         return true;
         
     }

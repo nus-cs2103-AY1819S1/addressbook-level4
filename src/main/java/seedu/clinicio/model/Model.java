@@ -60,7 +60,7 @@ public interface Model {
     void addStaff(Staff staff);
 
     /**
-     * Retrieve the given staff
+     * Authenticate staff with staff record in ClinicIO.
      * {@code staff} must exist in ClinicIO.
      */
     boolean checkStaffCredentials(Staff staff);
