@@ -103,7 +103,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             case "COUPON":
                 return parkingSystemType.contains("COUPON");
 
-            case "ELEC":
+            case "ELECTRONIC":
                 return parkingSystemType.contains("ELECTRONIC");
 
             default:

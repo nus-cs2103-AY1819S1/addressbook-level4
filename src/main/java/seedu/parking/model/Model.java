@@ -64,7 +64,7 @@ public interface Model {
 
     CarparkContainsKeywordsPredicate getLastPredicateUsedByFindCommand();
 
-    // Todo: Calculate command
+    // Todo: Calculate command add java comment
     Carpark getCarparkFromFilteredList(int index);
 
     /**
