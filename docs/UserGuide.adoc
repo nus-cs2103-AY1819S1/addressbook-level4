@@ -292,7 +292,7 @@ Deletes the details of the volunteer specified at index 1
 [[command-volunteer-exportcert]]
 ==== Exporting volunteer certificate : `exportcert`
 
-Exports a PDF document to a folder in the user's current working directory or desktop, detailing the volunteer's involvement with the organisation. This document includes:
+Exports a PDF document to a folder in the user's current working directory or directly to the desktop, detailing the volunteer's involvement with the organisation. This document includes:
 
 * Title: 'Certificate of Recognition'
 * Date of export
@@ -304,17 +304,24 @@ Format: `exportcert VOLUNTEER_INDEX`
 
 * Exports PDF certificate for the volunteer at specified `VOLUNTEER INDEX`
 * `VOLUNTEER INDEX` **must be a positive integer** 1, 2, 3, ...
+* If the index given exceeds the number of volunteers in the displayed volunteer list, the message 'The volunteer index provided is invalid.' will be shown.
 
 Example(s):
 
 * `exportcert 2` +
-Exports PDF certificate of volunteer at specified index 2 to local folder 'certs'
+Exports PDF certificate of volunteer at specified index 2 to folder 'Volunteer Certs' in the current working directory, or directly to the Desktop.
 
-Here is a sample exported certificate:
+Here is what the exported certificate currently looks like:
 
-.Sample exported volunteer certificate
+.Current sample exported volunteer certificate
 [.thumb]
-image::VolunteerCert.png[width="600"]
+image::CurrentVolunteerCert.png[width="600"]
+
+Here is the intended final form of the exported certificate:
+
+.Intended sample exported volunteer certificate
+[.thumb]
+image::FinalVolunteerCert.png[width="600"]
 
 === Event Management
 
