@@ -29,9 +29,7 @@ public class Messages {
 
     /* Error messages canvas and layers. */
     public static final String MESSAGE_LAYER_SWAP_INVALID_INDEX = "Please specify valid layer indexes!";
-    public static final String MESSAGE_INVALID_ALBUM_REQUESTED = "The album name provided is invalid.";
     public static final String MESSAGE_INVALID_IMAGE_REQUESTED = "The image name provided is invalid.";
-    public static final String MESSAGE_GOOGLE_INVALID_FORMAT = "Please enter a valid google command format.";
     public static final String ENTIRE_GOOGLE_MESSAGE = MESSAGE_GOOGLE_INVALID_FORMAT + "\n------------------------\n\n"
             + GoogleLsCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + GoogleDlCommand.MESSAGE_USAGE + "\n------------------------\n\n"

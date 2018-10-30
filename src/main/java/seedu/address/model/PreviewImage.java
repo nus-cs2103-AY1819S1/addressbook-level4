@@ -26,8 +26,10 @@ public class PreviewImage {
     private int width;
     private int currentIndex;
     private int currentSize; // Number of saved images
+    private long prefix;
 
     public PreviewImage(BufferedImage image) {
+        prefix = System.currentTimeMillis();
         this.currentSize = 0;
         this.currentIndex = -1;
         this.height = image.getHeight();
@@ -113,7 +115,7 @@ public class PreviewImage {
         try {
             currentSize++;
             currentIndex++;
-            File out = new File(TESTPATH + "/Layer0-" + currentIndex + ".png");
+            File out = new File(TESTPATH + prefix + "-" + currentIndex + ".png");
             ImageIO.write(image, "png", out);
         } catch (IOException e) {
             logger.warning("Exception occ :" + e.getMessage());
@@ -127,7 +129,7 @@ public class PreviewImage {
     public void purgeAndCommit(BufferedImage image) {
         int numDeleted = 0;
         for (int i = currentIndex + 1; i < currentSize; i++) {
-            File toDelete = new File(TESTPATH + "/Layer0-" + i + ".png");
+            File toDelete = new File(TESTPATH + prefix + "-" + i + ".png");
             toDelete.delete();
             numDeleted++;
         }
@@ -143,7 +145,7 @@ public class PreviewImage {
     public BufferedImage getImage() {
         BufferedImage imageFromCache = null;
         try {
-            File in = new File(TESTPATH + "/Layer0-" + currentIndex + ".png");
+            File in = new File(TESTPATH + prefix + "-" + currentIndex + ".png");
             imageFromCache = ImageIO.read(in);
         } catch (IOException e) {
             logger.warning("Reading from cache successful.");
@@ -156,7 +158,7 @@ public class PreviewImage {
      * Get the current image path from cache.
      */
     public Path getCurrentPath() {
-        File f = new File(TESTPATH + "/Layer0-" + currentIndex + ".png");
+        File f = new File(TESTPATH + prefix + "-" + currentIndex + ".png");
         return f.toPath();
     }
 
