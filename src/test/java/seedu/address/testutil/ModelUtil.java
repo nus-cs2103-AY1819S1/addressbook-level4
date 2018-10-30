@@ -26,12 +26,6 @@ public class ModelUtil {
     public static final Username TEST_USERNAME = new Username("AAA");
 
     /**
-     * An extension of the {@code ModelManager} where developers can pass in the time instead of checking against
-     * system clock. Class of a model with a test user that is already logged in with username TEST_USERNAME.
-     * The address book is empty. Budget cap is $28 with $10 current expenses
-     */
-
-    /**
      * Creates a model with a test user that is already logged in with username TEST_USERNAME. The address book is
      * empty. Budget cap is $28 with $0 current expenses
      * @return a model logged in with a test user
