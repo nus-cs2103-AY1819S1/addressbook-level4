@@ -15,7 +15,9 @@ import seedu.thanepark.logic.commands.FilterCommand;
 import seedu.thanepark.logic.commands.FindCommand;
 import seedu.thanepark.logic.commands.HelpCommand;
 import seedu.thanepark.logic.commands.HistoryCommand;
+import seedu.thanepark.logic.commands.OpenCommand;
 import seedu.thanepark.logic.commands.RedoCommand;
+import seedu.thanepark.logic.commands.ShutDownCommand;
 import seedu.thanepark.logic.commands.SuggestCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.UpdateCommand;
@@ -23,6 +25,7 @@ import seedu.thanepark.logic.commands.ViewAllCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
 import seedu.thanepark.logic.commands.ViewStatusCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses user input.
@@ -78,8 +81,14 @@ public class ThaneParkParser {
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommandParser().parse(arguments);
 
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(arguments);
+
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case ShutDownCommand.COMMAND_WORD:
+            return new ShutDownCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();

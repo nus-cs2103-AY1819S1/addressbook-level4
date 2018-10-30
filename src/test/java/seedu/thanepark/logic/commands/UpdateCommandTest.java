@@ -31,7 +31,8 @@ import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.UpdateRideDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * UpdateCommand.
  */
 public class UpdateCommandTest {
 

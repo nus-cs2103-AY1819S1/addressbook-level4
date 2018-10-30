@@ -23,7 +23,9 @@ public class SuggestCommandSystemTest extends ThaneParkSystemTest {
         assertSuggestCommandSuccessBehavior("e", "exit");
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
+        assertSuggestCommandSuccessBehavior("o", "open");
         assertSuggestCommandSuccessBehavior("r", "redo");
+        assertSuggestCommandSuccessBehavior("s", "shutdown");
         assertSuggestCommandSuccessBehavior("u", "update", "undo");
         assertSuggestCommandSuccessBehavior("v", "viewall", "viewstatus", "view");
 
@@ -35,10 +37,8 @@ public class SuggestCommandSystemTest extends ThaneParkSystemTest {
         assertSuggestCommandFailureBehavior("l");
         assertSuggestCommandFailureBehavior("m");
         assertSuggestCommandFailureBehavior("n");
-        assertSuggestCommandFailureBehavior("o");
         assertSuggestCommandFailureBehavior("p");
         assertSuggestCommandFailureBehavior("q");
-        assertSuggestCommandFailureBehavior("s");
         assertSuggestCommandFailureBehavior("t");
         assertSuggestCommandFailureBehavior("w");
         assertSuggestCommandFailureBehavior("x");
