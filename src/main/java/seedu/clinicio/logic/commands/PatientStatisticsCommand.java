@@ -1,13 +1,13 @@
-package seedu.address.logic.commands;
+package seedu.clinicio.logic.commands;
 
 //@@author arsalanc-v2
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.analytics.StatisticType;
+import seedu.clinicio.logic.CommandHistory;
+import seedu.clinicio.logic.commands.exceptions.CommandException;
+import seedu.clinicio.model.Model;
+import seedu.clinicio.model.analytics.StatisticType;
 
 /**
  * Shows patient statistics and visualizations.

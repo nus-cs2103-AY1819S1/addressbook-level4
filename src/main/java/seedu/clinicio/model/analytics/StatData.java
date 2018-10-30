@@ -1,12 +1,11 @@
-package seedu.address.model.analytics;
+package seedu.clinicio.model.analytics;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-import seedu.address.model.analytics.data.SummaryData;
-import seedu.address.model.analytics.data.Tuple;
-import seedu.address.model.analytics.data.VisualizationData;
+import seedu.clinicio.model.analytics.data.SummaryData;
+import seedu.clinicio.model.analytics.data.Tuple;
+import seedu.clinicio.model.analytics.data.VisualizationData;
 
 //@@author arsalanc-v2
 

@@ -1,11 +1,8 @@
-package seedu.address.commons.events.model;
+package seedu.clinicio.commons.events.ui;
 
-import java.util.List;
-import java.util.Map;
-
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.analytics.StatData;
-import seedu.address.model.analytics.StatisticType;
+import seedu.clinicio.commons.events.BaseEvent;
+import seedu.clinicio.model.analytics.StatData;
+import seedu.clinicio.model.analytics.StatisticType;
 
 /**
  *

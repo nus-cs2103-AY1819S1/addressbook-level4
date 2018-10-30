@@ -1,4 +1,4 @@
-package seedu.address.model.analytics;
+package seedu.clinicio.model.analytics;
 
 //@@author arsalanc-v2
 
@@ -7,7 +7,6 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -15,18 +14,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.print.Doc;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.analytics.data.Tuple;
-import seedu.address.model.consultation.Consultation;
-import seedu.address.model.appointment.Date;
-import seedu.address.model.doctor.Doctor;
-import seedu.address.model.doctor.Id;
-import seedu.address.model.doctor.Password;
-import seedu.address.model.patient.Patient;
-import seedu.address.model.person.Name;
+import seedu.clinicio.model.analytics.data.Tuple;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author arsalanc-v2
 
@@ -37,7 +31,7 @@ public class DoctorStatistics extends Statistics {
 
     private final String SUMMARY_TITLE_1 = "Average number of consultations per doctor";
 
-    private ObservableList<Doctor> doctors;
+    private ObservableList<Staff> doctors;
     private ObservableList<Consultation> consultations;
     private ObservableList<Patient> patients;
 
@@ -48,7 +42,7 @@ public class DoctorStatistics extends Statistics {
         initializeSummaryValues(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS);
     }
 
-    public void setDoctors(ObservableList<Doctor> doctors) {
+    public void setDoctors(ObservableList<Staff> doctors) {
         this.doctors = doctors;
     }
 

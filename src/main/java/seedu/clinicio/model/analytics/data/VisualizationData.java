@@ -1,8 +1,8 @@
-package seedu.address.model.analytics.data;
+package seedu.clinicio.model.analytics.data;
 
 import java.util.List;
 
-import seedu.address.model.analytics.ChartType;
+import seedu.clinicio.model.analytics.ChartType;
 
 //@@author arsalanc-v2
 

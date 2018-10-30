@@ -3,7 +3,6 @@ package seedu.clinicio.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,12 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import seedu.address.commons.events.model.AnalyticsDisplayEvent;
-import seedu.address.model.analytics.StatData;
-
 import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
+
+import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
+import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.analytics.StatData;
+import seedu.clinicio.model.analytics.StatisticType;
 
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
@@ -363,18 +364,18 @@ public class ModelManager extends ComponentManager implements Model {
      *
      */
     public void updateAnalytics(StatisticType type) {
-        analytics.setConsultations(versionedAddressBook.getConsultationList());
+        analytics.setConsultations(versionedClinicIo.getConsultationList());
         switch (type) {
         case APPOINTMENT:
-            analytics.setAppointments(versionedAddressBook.getAppointmentList());
+            analytics.setAppointments(versionedClinicIo.getAppointmentList());
             break;
 
         case DOCTOR:
-            analytics.setDoctors(versionedAddressBook.getDoctorList());
+            analytics.setDoctors(versionedClinicIo.getStaffList());
             break;
 
         default:
-            analytics.setAppointments(versionedAddressBook.getAppointmentList());
+            analytics.setAppointments(versionedClinicIo.getAppointmentList());
             break;
         }
     }

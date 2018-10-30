@@ -4,24 +4,17 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
-import javafx.util.Pair;
-import seedu.address.model.analytics.ChartType;
-import seedu.address.model.analytics.data.SummaryData;
-import seedu.address.model.analytics.data.Tuple;
-import seedu.address.model.analytics.data.VisualizationData;
+import seedu.clinicio.model.analytics.data.SummaryData;
+import seedu.clinicio.model.analytics.data.Tuple;
+import seedu.clinicio.model.analytics.data.VisualizationData;
 
 //@@author arsalanc-v2
 

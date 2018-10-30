@@ -6,19 +6,12 @@ import java.util.List;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.StackedBarChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import seedu.address.commons.events.model.AnalyticsDisplayEvent;
-import seedu.address.model.analytics.StatData;
-import seedu.address.model.analytics.data.SummaryData;
-import seedu.address.model.analytics.data.Tuple;
-import seedu.address.model.analytics.data.VisualizationData;
+import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
+import seedu.clinicio.model.analytics.StatData;
+import seedu.clinicio.model.analytics.data.Tuple;
 
 //@@author arsalanc-v2
 

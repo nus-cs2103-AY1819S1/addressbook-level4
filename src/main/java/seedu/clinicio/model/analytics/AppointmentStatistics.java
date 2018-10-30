@@ -1,8 +1,7 @@
-package seedu.address.model.analytics;
+package seedu.clinicio.model.analytics;
 
 import static java.lang.Math.toIntExact;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,7 +11,7 @@ import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.analytics.data.Tuple;
+import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.consultation.Consultation;

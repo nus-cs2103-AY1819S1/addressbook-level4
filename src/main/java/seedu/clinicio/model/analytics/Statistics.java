@@ -5,19 +5,14 @@ import static java.util.Objects.requireNonNull;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import seedu.address.model.analytics.data.SummaryData;
-import seedu.address.model.analytics.data.Tuple;
-import seedu.address.model.analytics.data.VisualizationData;
-import seedu.address.model.appointment.Date;
+import seedu.clinicio.model.analytics.data.SummaryData;
+import seedu.clinicio.model.analytics.data.Tuple;
+import seedu.clinicio.model.analytics.data.VisualizationData;
+import seedu.clinicio.model.appointment.Date;
 
 // @@author arsalanc-v2
 

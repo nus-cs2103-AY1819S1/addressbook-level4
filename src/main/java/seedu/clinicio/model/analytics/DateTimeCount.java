@@ -1,4 +1,4 @@
-package seedu.address.model.analytics;
+package seedu.clinicio.model.analytics;
 
 import static java.lang.Math.toIntExact;
 import static java.util.stream.Collectors.groupingBy;

@@ -1,4 +1,4 @@
-package seedu.address.model.analytics.data;
+package seedu.clinicio.model.analytics.data;
 
 /**
  *

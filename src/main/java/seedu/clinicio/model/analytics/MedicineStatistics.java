@@ -1,4 +1,4 @@
-package seedu.address.model.analytics;
+package seedu.clinicio.model.analytics;
 
 //@@author arsalanc-v2
 

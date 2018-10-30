@@ -6,15 +6,12 @@ import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AppointmentStatisticsCommand;
-import seedu.address.logic.commands.DoctorStatisticsCommand;
-import seedu.address.logic.commands.MedicineStatisticsCommand;
-import seedu.address.logic.commands.PatientStatisticsCommand;
-
 import seedu.clinicio.logic.commands.AddCommand;
+import seedu.clinicio.logic.commands.AppointmentStatisticsCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.Command;
 import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.DoctorStatisticsCommand;
 import seedu.clinicio.logic.commands.EditCommand;
 import seedu.clinicio.logic.commands.ExitCommand;
 import seedu.clinicio.logic.commands.FindCommand;
@@ -22,10 +19,15 @@ import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
+import seedu.clinicio.logic.commands.MedicineStatisticsCommand;
+import seedu.clinicio.logic.commands.PatientStatisticsCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
+
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+
+
 
 /**
  * Parses user input.

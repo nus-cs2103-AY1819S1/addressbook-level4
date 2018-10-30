@@ -2,6 +2,9 @@ package seedu.clinicio.model.analytics;
 
 import javafx.collections.ObservableList;
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author arsalanc-v2
 
@@ -32,7 +35,7 @@ public class Analytics {
         appointmentStatistics.setAppointments(appointments);
     }
 
-    public void setDoctors(ObservableList<Doctor> doctors) {
+    public void setDoctors(ObservableList<Staff> doctors) {
         doctorStatistics.setDoctors(doctors);
     }
 
