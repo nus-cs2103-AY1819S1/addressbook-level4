@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.ImportContactsPersons.getImportContactsAddressBook;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -27,10 +28,12 @@ import javafx.collections.ObservableList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventClashException;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
+import seedu.address.testutil.FileReaderBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.ScheduledEventBuilder;
 
@@ -231,6 +234,16 @@ public class AddressBookTest {
     public void getEventTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getEventTagList().add(APPOINTMENT_TAG);
+    }
+
+    @Test
+    public void hasPersonsImported() {
+        FileReader fileReader = new FileReaderBuilder().build();
+
+        AddressBook importAddressBook = getImportContactsAddressBook();
+        AddressBook newAddressBook = new AddressBook();
+        newAddressBook.importContacts(fileReader);
+        assertEquals(importAddressBook, newAddressBook);
     }
 
     /**

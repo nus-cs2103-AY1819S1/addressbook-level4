@@ -2,12 +2,22 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.filereader.FileReader;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Faculty;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -162,6 +172,46 @@ public class AddressBook implements ReadOnlyAddressBook {
         }*/
 
         events.add(event);
+    }
+
+    /**
+     * Reads contacts info in the given file reader.
+     */
+    public void importContacts(FileReader fileReader) {
+        ArrayList<String> contacts = fileReader.getContacts();
+        for (String s : contacts) {
+            String[] parts = s.split(",");
+            String nameString = parts[fileReader.getNameIndex()];
+            String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("\\s", "");
+            String addressString = parts[fileReader.getAddressIndex()];
+            String emailString = parts[fileReader.getEmailIndex()];
+            String facultyString = parts[fileReader.getFacultyIndex()];
+
+            if (!(Name.isValidName(nameString) && Phone.isValidPhone(phoneString)
+                    && Address.isValidAddress(addressString) && Email.isValidEmail(emailString))
+                    && Faculty.isValidFaculty(facultyString)) {
+                continue;
+            }
+
+            try {
+                Name name = ParserUtil.parseName(nameString);
+                Phone phone = ParserUtil.parsePhone(phoneString);
+                Email email = ParserUtil.parseEmail(emailString);
+                Address address = ParserUtil.parseAddress(addressString);
+                Set<Tag> tagList = ParserUtil.parseTags(new ArrayList<>());
+                Faculty faculty = ParserUtil.parseFaculty(facultyString);
+
+                Person person = new Person(name, phone, email, address, tagList, faculty);
+
+                if (!persons.contains(person)) {
+                    persons.add(person);
+                } else {
+                    fileReader.incrementFailCounter();
+                }
+            } catch (ParseException e) {
+                fileReader.incrementFailCounter();
+            }
+        }
     }
 
     //// tag-level operations

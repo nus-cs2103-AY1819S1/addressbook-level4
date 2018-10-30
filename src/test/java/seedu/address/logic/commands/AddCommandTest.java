@@ -24,6 +24,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
@@ -123,6 +124,11 @@ public class AddCommandTest {
         @Override
         public boolean hasEvent(Event event) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void importContacts(FileReader fileReader) {
+            throw new AssertionError("This method should not be called");
         }
 
         @Override

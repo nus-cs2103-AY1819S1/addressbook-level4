@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_FILE_READER_INVALID_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
@@ -7,11 +8,13 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ImportContactsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.filereader.FilePath;
+import seedu.address.model.filereader.FileReader;
 
 /**
  * Parses input arguments and creates a new ImportContactsCommand object
  */
-public class ImportContactsCommandParser {
+public class ImportContactsCommandParser implements Parser<ImportContactsCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ImportContactsCommand
      * and returns an ImportContactsCommand object for execution.
@@ -26,9 +29,15 @@ public class ImportContactsCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ImportContactsCommand.MESSAGE_USAGE));
         }
-        String filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE).get());
+        FilePath filePath = ParserUtil.parseFilePath(argMultimap.getValue(PREFIX_FILE).get());
+        FileReader fileReader = new FileReader(filePath);
 
-        return new ImportContactsCommand(filePath);
+        if (!fileReader.isValidFile()) {
+            throw new ParseException(String.format(MESSAGE_FILE_READER_INVALID_FORMAT,
+                    ImportContactsCommand.MESSAGE_WRONG_FILE_FORMAT));
+        }
+
+        return new ImportContactsCommand(fileReader);
     }
 
     /**
