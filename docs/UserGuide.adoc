@@ -84,6 +84,25 @@ Examples:
 * `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
 * `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth`
 
+=== Listing all persons : `list`
+
+Shows a list of all employees in the system. +
+Format: `list`
+
+=== View all the permissions that an employee has : `viewpermission`
+
+Displays all the permissions that an employee has been assigned.
+
+Format: viewpermission INDEX
+
+****
+* To use this command, you must be logged in with "ASSIGN_PERMISSION" permission.
+****
+
+Examples:
+
+* viewpermission 2
+
 === Removing an employee from my department: `delete`
 
 Removes an employee from the system.
