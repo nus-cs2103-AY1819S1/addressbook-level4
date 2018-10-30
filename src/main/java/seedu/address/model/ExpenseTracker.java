@@ -100,7 +100,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public void setExpenses(List<Expense> expenses) {
         this.expenses.setExpenses(expenses);
-        expenses.forEach(expense -> this.maximumTotalBudget.addExpense(expense.getCost().getCostValue()));
+        expenses.forEach(expense -> this.maximumTotalBudget.addExpense(expense));
     }
 
     /**
