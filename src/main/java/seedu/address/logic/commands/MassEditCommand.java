@@ -47,7 +47,6 @@ public class MassEditCommand extends Command{
             + PREFIX_CATEGORY + "Lunch ";
 
     public static final String MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS = "Edit expenses successfully.";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_NO_EXPENSE_FOUND = "No expense is found by the keywords.";
 
     private final ExpenseContainsKeywordsPredicate predicate;

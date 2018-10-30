@@ -48,7 +48,7 @@ public class EditExpenseDescriptor {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, category, cost, tags);
+        return CollectionUtil.isAnyNonNull(name, category, cost, tags, date);
     }
 
     public void setName(Name name) {

@@ -24,7 +24,7 @@ public class MassEditCommandParser implements Parser{
      * and returns a MassEditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      * */
-    public MassEditCommand parse(String args) throws ParseException{
+    public MassEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String[] inputList = args.trim().split("->");
 
@@ -41,10 +41,10 @@ public class MassEditCommandParser implements Parser{
         }
 
         ArgumentMultimap keywordsMap =
-                ArgumentTokenizer.tokenize(keywords,
+                ArgumentTokenizer.tokenize(" " + keywords,
                         PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_DATE, PREFIX_TAG);
         ArgumentMultimap editedKeywordsMap =
-                ArgumentTokenizer.tokenize(editedKeywords,
+                ArgumentTokenizer.tokenize(" " + editedKeywords,
                         PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_DATE, PREFIX_TAG);
         ensureKeywordsAreValid(keywordsMap);
         ensureKeywordsAreValid(editedKeywordsMap);

@@ -30,6 +30,12 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        //Check whether the user follow the pattern
+        if (!trimmedArgs.contains("/")){
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        }
+
         String[] splitTrimmedArgs = trimmedArgs.split("/");
         if (splitTrimmedArgs[0].equals("")) {
             //Ensure args contains at least one prefix
