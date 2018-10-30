@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.EVENT_DATE_DESC_DOCTO
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_APPOINTMENT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_DATE_DOCTORAPPT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
@@ -47,7 +46,6 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;

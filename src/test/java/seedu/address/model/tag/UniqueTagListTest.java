@@ -3,11 +3,7 @@ package seedu.address.model.tag;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
 import static seedu.address.testutil.TypicalTags.MEETING_TAG;
 
@@ -19,12 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.exceptions.DuplicateTagException;
-import seedu.address.testutil.PersonBuilder;
 
 public class UniqueTagListTest {
     @Rule

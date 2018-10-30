@@ -9,6 +9,9 @@ import java.util.List;
 
 import seedu.address.model.tag.Tag;
 
+/**
+ * A utility class containing a list of {@code Tag} objects to be used in tests.
+ */
 public class TypicalTags {
 
     // Manually added - Tag's details found in {@code CommandTestUtil}
