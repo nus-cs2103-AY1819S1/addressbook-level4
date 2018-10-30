@@ -1,4 +1,3 @@
-//@@author chantca95
 package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
@@ -8,12 +7,13 @@ import java.util.ArrayList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+
+//@@author chantca95
 /**
  * Adds a list of pre-established Valid persons to the address book.
  * Duplicate contacts will not be added.
  */
 public class ImportCommand extends Command {
-
     public static final String COMMAND_WORD = "import";
     public static final String COMMAND_ALIAS = "i";
 
@@ -41,7 +41,6 @@ public class ImportCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-
         boolean hasAddedNew = false;
         boolean hasDuplicate = false;
 

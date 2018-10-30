@@ -1225,7 +1225,7 @@ Use case ends.
 +
 [none]
 ** 1a1. InsuRen shows an error message.
-Step 1 is repeated until the data entered are correct.
+Use case resumes at step 1.
 +
 Use case resumes at step 2.
 
