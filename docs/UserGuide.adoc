@@ -178,6 +178,7 @@ Selects the 2nd patient in the whole database.
 `select 1` +
 Selects the 1st patient in the resulting list of the `find` command.
 
+// tag::addmedicalrecordcommand[]
 ==== Adding medical records of a patient: `addMedicalRecord`
 
 Updates a patient's medical record based on his NRIC or index number in the displayed patient list. +
@@ -191,8 +192,9 @@ Examples:
 Adds 'Paracetamol' (under _Drug Allergy_) and 'Diabetes' (under _Past Disease_) to the 5th patient's medical record.
 * `aMR S94738123X b/B+` +
 Adds 'B+' (under _Blood Type_) to the medical record of the patient with that NRIC.
-// tag::patient[]
+// end::addmedicalrecordcommand[]
 
+// tag::patient[]
 // tag::medicine[]
 === Medicine
 
