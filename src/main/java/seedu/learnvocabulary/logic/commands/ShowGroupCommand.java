@@ -1,9 +1,11 @@
 package seedu.learnvocabulary.logic.commands;
 
+import java.util.Set;
 import seedu.learnvocabulary.logic.CommandHistory;
 import seedu.learnvocabulary.logic.commands.exceptions.CommandException;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
+import seedu.learnvocabulary.model.tag.Tag;
 
 import static java.util.Objects.requireNonNull;
 
@@ -29,6 +31,19 @@ public class ShowGroupCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if(predicate.getTag().isEmpty()){
+            Set<Tag> totalTag = model.getTags();
+            String result = "The existed Word Group that word can be added are: \n";
+            int index = 0;
+            for (Tag tag: totalTag) {
+                result = result + tag.tagName + ",";
+                index++;
+                if(index % 4 == 0){
+                    result += "\n";
+                }
+            }
+            return new CommandResult(result);
+        }
         model.updateTag(predicate);
         return new CommandResult(String.format(MESSAGE_SUCCESS, predicate.getTag()));
     }

@@ -109,6 +109,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public Set<Tag> getTags() {
+        return versionedLearnVocabulary.getTags();
+    }
+
+    @Override
     public void deleteWord(Word target) {
 
         versionedLearnVocabulary.removeWord(target);

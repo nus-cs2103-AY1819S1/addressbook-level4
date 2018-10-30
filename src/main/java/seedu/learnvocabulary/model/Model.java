@@ -138,4 +138,9 @@ public interface Model {
      * @param predicate tag to show as a word group
      */
     void updateTag(TagContainsKeywordsPredicate predicate);
+
+
+    Set<Tag> getTags();
+
+
 }

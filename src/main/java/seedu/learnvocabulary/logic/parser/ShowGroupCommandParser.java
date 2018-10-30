@@ -22,10 +22,6 @@ public class ShowGroupCommandParser implements Parser<ShowGroupCommand> {
      */
     public ShowGroupCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
         return new ShowGroupCommand(new TagContainsKeywordsPredicate(Arrays.asList(trimmedArgs)));
     }
 
