@@ -7,6 +7,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.REMARK_DESC_SAMPLE_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 
 import java.util.Arrays;
@@ -37,6 +40,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.wish.NameContainsKeywordsPredicate;
 import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.WishContainsKeywordsPredicate;
 import seedu.address.testutil.EditWishDescriptorBuilder;
 import seedu.address.testutil.WishBuilder;
 import seedu.address.testutil.WishUtil;
@@ -114,18 +118,36 @@ public class WishBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List<String> nameKeywords = Arrays.asList("foo", "bar", "baz");
+        List<String> tagKeywords = Arrays.asList("biz", "fiz");
+        List<String> remarkKeywords = Arrays.asList("hut", "mut");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_WORD + " " + PREFIX_NAME
+                        + nameKeywords.stream().collect(Collectors.joining(" " + PREFIX_NAME))
+                        + " " + PREFIX_TAG
+                        + tagKeywords.stream().collect(Collectors.joining(" " + PREFIX_TAG))
+                        + " " + PREFIX_REMARK
+                        + remarkKeywords.stream().collect(Collectors.joining(" " + PREFIX_REMARK)));
+        assertEquals(new FindCommand(
+                new WishContainsKeywordsPredicate(nameKeywords, tagKeywords, remarkKeywords, false)),
+                command);
     }
 
     @Test
     public void parseCommand_findAlias() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List<String> nameKeywords = Arrays.asList("foo", "bar", "baz");
+        List<String> tagKeywords = Arrays.asList("biz", "fiz");
+        List<String> remarkKeywords = Arrays.asList("hut", "mut");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+                FindCommand.COMMAND_ALIAS + " " + PREFIX_NAME
+                        + nameKeywords.stream().collect(Collectors.joining(" " + PREFIX_NAME))
+                        + " " + PREFIX_TAG
+                        + tagKeywords.stream().collect(Collectors.joining(" " + PREFIX_TAG))
+                        + " " + PREFIX_REMARK
+                        + remarkKeywords.stream().collect(Collectors.joining(" " + PREFIX_REMARK)));
+        assertEquals(new FindCommand(
+                        new WishContainsKeywordsPredicate(nameKeywords, tagKeywords, remarkKeywords, false)),
+                command);
     }
 
     @Test

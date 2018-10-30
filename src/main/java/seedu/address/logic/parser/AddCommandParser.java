@@ -34,7 +34,6 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected FORMAT
      */
     public AddCommand parse(String args) throws ParseException {
-        // TODO: include prefix for barcode
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PRICE, PREFIX_DATE, PREFIX_URL, PREFIX_TAG);
 
