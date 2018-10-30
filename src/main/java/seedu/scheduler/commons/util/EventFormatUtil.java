@@ -235,4 +235,23 @@ public class EventFormatUtil {
         }
         return counter;
     }
+
+    /**
+     * Calculates total number of existing recurring event instance.
+     *
+     * @param lastShownList The last shown list of events.
+     * @param eventToDelete The recurring event to be deleted.
+     *
+     * @return The relative index of the event to be deleted to the first recurring event.
+     */
+    public static int calculateTotalInstanceNumber(List<Event> lastShownList, Event eventToDelete) {
+        int counter = -1;
+
+        for (Event event : lastShownList) {
+            if (event.getUuid().equals(eventToDelete.getUuid())) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 }
