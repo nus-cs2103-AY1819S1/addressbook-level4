@@ -28,7 +28,7 @@ import seedu.address.model.tag.Tag;
 public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the AddModuleCommand
      * and returns a new Module object of the given parameters.
      * @throws ParseException if the user input does not conform the expected format
      */

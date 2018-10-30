@@ -231,7 +231,7 @@ public class AddPersonCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddPersonCommand#execute()}
         }
 
         @Override

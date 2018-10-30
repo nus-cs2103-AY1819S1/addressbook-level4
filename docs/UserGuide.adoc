@@ -27,7 +27,10 @@ TheTracker is for NUS students who *prefer to use a desktop app for managing con
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+
+image::UI_v1.3_Persons.png[width="790"]
+image::UI_v1.3_Modules.png[width="790"]
+image::UI_v1.3_Occasions.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -56,22 +59,46 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding an entry: `add[]`
-
-Adds a person, module or an occasion to the address book. +
-
-Format to add person: `addperson n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...` +
-Format to add module: `addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER [t/TAG]...` +
-Format to add occasion: `addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...`
+// tag::add[]
+=== Adding a person, module or occasion: `add[]`
 
 [TIP]
-A person, module or an occasion can have any number of tags (including 0) and in no particular order.
+A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
 
-Examples:
+==== Adding a person: `addperson`
+Adds a person to TheTracker. +
+
+Format: +
+`addperson n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...`
+
+Example:
 
 * `addperson n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` +
+
+
+==== Adding a module: `addmodule`
+
+Adds a module to TheTracker. +
+
+Format: +
+`addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER [t/TAG]...` +
+
+Example:
+
 * `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/AY1718 sem/1 t/gg` +
+
+==== Adding an occasion: `addoccasion`
+
+Adds an occasion to TheTracker. +
+
+Format: +
+`addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...`
+
+
+Example:
+
 * `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
+// end::add[]
 
 // tag::delete[]
 === Listing all entries : `list[]`
@@ -119,26 +146,48 @@ Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue,
 === Locating entries by name: `find`
 // end::edit[]
 
-Finds a person, module or event whose tags contain any of the given keywords. +
-Format: `find x/VALUE t/VALUE ONE t/VALUE TWO...`
 
-Values a `x` can take:
-* n: Name of the Person you would like to find. +
-* m: name/Code of the module you would like to find. +
-* e: The event name that you would like to find.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans` +
-* Only full words will be matched e.g. `Han` will not match `Hans` +
-* Persons, events or modules matching at least one keyword will be returned (i.e. `OR` search). e.g. `t/Hans t/Bo` will return an item that has the following tags: `t/Hans t/Gruber` or `Bo Yang`
-****
+// tag::find[]
+=== Locating persons, modules, or occasions: `find[]`
 
-Examples:
+==== Finding a person: `findperson`
+Finds a person in TheTracker. +
 
-* `find n/John` +
-Returns `john` and `John Doe`
-* `find n/Betsy n/Tim n/John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+Format: +
+`findperson n/NAME`, `findperson p/PHONE_NUMBER`, `findperson e/EMAIL_ADDRESS`, `findperson a/ADDRESS`
+
+Example:
+
+* `findperson n/John Doe`, `findperson p/98765432`, `findperson e/johnd@example.com`,
+ `findperson a/Clementi` +
+
+
+==== Finding a module: `findmodule`
+
+Finds a module in TheTracker. +
+
+Format: +
+`findmodule mc/MODULE_CODE`, `findmodule mt/MODULE_TITLE`, `findmodule ay/ACADEMIC_YEAR`,
+ `findmodule sem/SEMESTER` +
+
+Example:
+
+* `findmodule mc/CS2103`, `findmodule mt/SOFTWARE`, `findmodule ay/AY1718`, `findmodule sem/1` +
+
+==== Finding an occasion: `findoccasion`
+
+Finds an occasion in TheTracker. +
+
+Format: +
+`findoccasion on/OCCASION_NAME`, `findoccasion od/OCCASION_DATE`, `findoccasion loc/LOCATION`
+
+
+Example:
+
+* `findoccasion on/discussion`, `findoccasion od/2018-01-01`, `findoccasion loc/SoC`
+
+// end:find[]
 
 // tag::delete[]
 === Deleting an entry : `delete[]`

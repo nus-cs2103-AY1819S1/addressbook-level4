@@ -246,7 +246,7 @@ public class AddModuleCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddModuleCommand#execute()}
         }
 
         @Override
