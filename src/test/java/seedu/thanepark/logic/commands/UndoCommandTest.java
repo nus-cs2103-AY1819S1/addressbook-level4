@@ -35,11 +35,11 @@ public class UndoCommandTest {
         deleteFirstPerson(expectedModel);
 
         // multiple undoable states in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
-        expectedModel.undoAddressBook();
+        expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model
@@ -54,40 +54,40 @@ public class UndoCommandTest {
 
         Ride validRide = new RideBuilder().buildDifferent();
         new AddCommand(validRide).execute(model, commandHistory);
-        expectedModel.addPerson(validRide);
-        expectedModel.commitAddressBook();
+        expectedModel.addRide(validRide);
+        expectedModel.commitThanePark();
         assertEquals(expectedModel, model);
         total++;
 
         Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         new DeleteCommand(INDEX_FIRST_PERSON).execute(model, commandHistory);
-        expectedModel.deletePerson(rideToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.deleteRide(rideToDelete);
+        expectedModel.commitThanePark();
         assertEquals(expectedModel, model);
         total++;
 
         //Change some ride back to the deleted one
         Ride editedRide = rideToDelete;
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(editedRide).build();
-        expectedModel.updatePerson(model.getFilteredRideList().get(0), editedRide);
+        expectedModel.updateRide(model.getFilteredRideList().get(0), editedRide);
         new UpdateCommand(INDEX_FIRST_PERSON, descriptor).execute(model, commandHistory);
-        expectedModel.commitAddressBook();
+        expectedModel.commitThanePark();
         assertEquals(expectedModel, model);
         total++;
 
         expectedModel.resetData(new ThanePark());
-        expectedModel.commitAddressBook();
+        expectedModel.commitThanePark();
         new ClearCommand().execute(model, commandHistory);
         assertEquals(expectedModel, model);
         total++;
 
         for (int i = 0; i < total; i++) {
-            expectedModel.undoAddressBook();
+            expectedModel.undoThanePark();
             assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
         }
 
         for (int i = 0; i < total; i++) {
-            expectedModel.redoAddressBook();
+            expectedModel.redoThanePark();
             assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
         }
     }

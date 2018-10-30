@@ -4,22 +4,23 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ThanePark;
+import seedu.thanepark.model.ride.Status;
 
 /**
- * Clears the thanepark book.
+ * View all opened rides in thane park.
  */
-public class ClearCommand extends Command {
+public class QuickViewCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String COMMAND_WORD = "quickView";
 
+    public static final String MESSAGE_SUCCESS = "Opened rides listed!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.resetData(new ThanePark());
-        model.commitThanePark();
+
+        model.updateFilteredRideList(ride -> ride.getStatus().equals(Status.OPEN));
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

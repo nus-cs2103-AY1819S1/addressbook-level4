@@ -39,13 +39,13 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingRideAdded modelStub = new ModelStubAcceptingRideAdded();
         Ride validRide = new RideBuilder().build();
 
         CommandResult commandResult = new AddCommand(validRide).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validRide), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validRide), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validRide), modelStub.ridesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -53,7 +53,7 @@ public class AddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Ride validRide = new RideBuilder().build();
         AddCommand addCommand = new AddCommand(validRide);
-        ModelStub modelStub = new ModelStubWithPerson(validRide);
+        ModelStub modelStub = new ModelStubWithRide(validRide);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_RIDE);
@@ -89,7 +89,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Ride ride) {
+        public void addRide(Ride ride) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -99,22 +99,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyThanePark getAddressBook() {
+        public ReadOnlyThanePark getThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Ride ride) {
+        public boolean hasRide(Ride ride) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Ride target) {
+        public void deleteRide(Ride target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Ride target, Ride editedRide) {
+        public void updateRide(Ride target, Ride editedRide) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -129,27 +129,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoThanePark() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitThanePark() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -157,16 +157,16 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single ride.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithRide extends ModelStub {
         private final Ride ride;
 
-        ModelStubWithPerson(Ride ride) {
+        ModelStubWithRide(Ride ride) {
             requireNonNull(ride);
             this.ride = ride;
         }
 
         @Override
-        public boolean hasPerson(Ride ride) {
+        public boolean hasRide(Ride ride) {
             requireNonNull(ride);
             return this.ride.isSameRide(ride);
         }
@@ -175,28 +175,28 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the ride being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Ride> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingRideAdded extends ModelStub {
+        final ArrayList<Ride> ridesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Ride ride) {
+        public boolean hasRide(Ride ride) {
             requireNonNull(ride);
-            return personsAdded.stream().anyMatch(ride::isSameRide);
+            return ridesAdded.stream().anyMatch(ride::isSameRide);
         }
 
         @Override
-        public void addPerson(Ride ride) {
+        public void addRide(Ride ride) {
             requireNonNull(ride);
-            personsAdded.add(ride);
+            ridesAdded.add(ride);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitThanePark() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyThanePark getAddressBook() {
+        public ReadOnlyThanePark getThanePark() {
             return new ThanePark();
         }
     }

@@ -51,12 +51,12 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasRide(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
-        model.addPerson(toAdd);
-        model.commitAddressBook();
+        model.addRide(toAdd);
+        model.commitThanePark();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

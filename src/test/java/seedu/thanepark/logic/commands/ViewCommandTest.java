@@ -65,7 +65,7 @@ public class ViewCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getRideList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getThanePark().getRideList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
     }

@@ -45,9 +45,9 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
-        Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredRideList().get(0), editedRide);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new ThanePark(model.getThanePark()), new UserPrefs());
+        expectedModel.updateRide(model.getFilteredRideList().get(0), editedRide);
+        expectedModel.commitThanePark();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -67,9 +67,9 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
-        Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(lastRide, editedRide);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new ThanePark(model.getThanePark()), new UserPrefs());
+        expectedModel.updateRide(lastRide, editedRide);
+        expectedModel.commitThanePark();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,8 +81,8 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
-        Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new ThanePark(model.getThanePark()), new UserPrefs());
+        expectedModel.commitThanePark();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -98,9 +98,9 @@ public class UpdateCommandTest {
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_RIDE_SUCCESS, editedRide);
 
-        Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(model.getFilteredRideList().get(0), editedRide);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new ThanePark(model.getThanePark()), new UserPrefs());
+        expectedModel.updateRide(model.getFilteredRideList().get(0), editedRide);
+        expectedModel.commitThanePark();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -119,7 +119,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit ride in filtered list into a duplicate in thanepark book
-        Ride rideInList = model.getAddressBook().getRideList().get(INDEX_SECOND_RIDE.getZeroBased());
+        Ride rideInList = model.getThanePark().getRideList().get(INDEX_SECOND_RIDE.getZeroBased());
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON,
                 new UpdateRideDescriptorBuilder(rideInList).build());
 
@@ -144,7 +144,11 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
+<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRideList().size());
+=======
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getThanePark().getRideList().size());
+>>>>>>> master:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
 
         UpdateCommand editCommand = new UpdateCommand(outOfBoundIndex,
                 new UpdateRideDescriptorBuilder().withName(VALID_NAME_BOB).build());
@@ -158,19 +162,19 @@ public class UpdateCommandTest {
         Ride rideToEdit = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(editedRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
-        expectedModel.updatePerson(rideToEdit, editedRide);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(new ThanePark(model.getThanePark()), new UserPrefs());
+        expectedModel.updateRide(rideToEdit, editedRide);
+        expectedModel.commitThanePark();
 
         // edit -> first ride edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first ride edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoThanePark();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -200,23 +204,23 @@ public class UpdateCommandTest {
         Ride editedRide = new RideBuilder().buildDifferent();
         UpdateRideDescriptor descriptor = new UpdateRideDescriptorBuilder(editedRide).build();
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new ThanePark(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ThanePark(model.getThanePark()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_RIDE);
         Ride rideToEdit = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.updatePerson(rideToEdit, editedRide);
-        expectedModel.commitAddressBook();
+        expectedModel.updateRide(rideToEdit, editedRide);
+        expectedModel.commitThanePark();
 
         // edit -> edits second ride in unfiltered ride list / first ride in filtered ride list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased()), rideToEdit);
         // redo -> edits same second ride in unfiltered ride list
-        expectedModel.redoAddressBook();
+        expectedModel.redoThanePark();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

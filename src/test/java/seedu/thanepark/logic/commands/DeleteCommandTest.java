@@ -36,9 +36,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RIDE_SUCCESS, rideToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(rideToDelete);
-        expectedModel.commitAddressBook();
+        ModelManager expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
+        expectedModel.deleteRide(rideToDelete);
+        expectedModel.commitThanePark();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -60,9 +60,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_RIDE_SUCCESS, rideToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(rideToDelete);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
+        expectedModel.deleteRide(rideToDelete);
+        expectedModel.commitThanePark();
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -74,7 +74,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRideList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getThanePark().getRideList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -85,19 +85,19 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(rideToDelete);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
+        expectedModel.deleteRide(rideToDelete);
+        expectedModel.commitThanePark();
 
         // delete -> first ride deleted
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first ride deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoThanePark();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -124,23 +124,23 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_RIDE);
         Ride rideToDelete = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.deletePerson(rideToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.deleteRide(rideToDelete);
+        expectedModel.commitThanePark();
 
         // delete -> deletes second ride in unfiltered ride list / first ride in filtered ride list
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(rideToDelete, model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second ride in unfiltered ride list
-        expectedModel.redoAddressBook();
+        expectedModel.redoThanePark();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

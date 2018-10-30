@@ -7,6 +7,7 @@ import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -52,12 +53,17 @@ public class FindCommandParser implements Parser<FindCommand> {
      * if present.
      */
     private Optional<Set<Tag>> parseAndGetTags(ArgumentMultimap argMultimap) throws ParseException {
+        Set<Tag> tagSet = new HashSet<>();
         if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            return Optional.of(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)));
-        } else if (argMultimap.getValue(PREFIX_TAG_FULL).isPresent()) {
-            return Optional.of(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_FULL)));
+            tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG)));
         }
-        return Optional.empty();
+        if (argMultimap.getValue(PREFIX_TAG_FULL).isPresent()) {
+            tagSet.addAll(ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_FULL)));
+        }
+        if (tagSet.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(tagSet);
     }
 
     /**

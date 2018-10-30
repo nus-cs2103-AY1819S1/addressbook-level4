@@ -31,9 +31,9 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         Ride validRide = new RideBuilder().buildDifferent();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validRide);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getThanePark(), new UserPrefs());
+        expectedModel.addRide(validRide);
+        expectedModel.commitThanePark();
 
         assertCommandSuccess(new AddCommand(validRide), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validRide), expectedModel);
@@ -48,7 +48,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Ride rideInList = model.getAddressBook().getRideList().get(0);
+        Ride rideInList = model.getThanePark().getRideList().get(0);
         assertCommandFailure(new AddCommand(rideInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_RIDE);
     }

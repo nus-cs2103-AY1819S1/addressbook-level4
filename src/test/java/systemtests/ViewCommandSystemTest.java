@@ -20,7 +20,7 @@ import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
 import seedu.thanepark.model.Model;
 
-public class ViewCommandSystemTest extends AddressBookSystemTest {
+public class ViewCommandSystemTest extends ThaneParkSystemTest {
     @Test
     public void select() throws IOException {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
@@ -60,7 +60,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getRideList().size();
+        int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         /* Case: filtered ride list, select index within bounds of thanepark book and ride list -> selected */
@@ -111,9 +111,9 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ThaneParkSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws IOException {
         Model expectedModel = getModel();
@@ -142,8 +142,8 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code RideListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

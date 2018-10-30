@@ -20,11 +20,11 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoAddressBook()) {
+        if (!model.canUndoThanePark()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.undoAddressBook();
+        model.undoThanePark();
         model.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
         return new CommandResult(MESSAGE_SUCCESS);
     }

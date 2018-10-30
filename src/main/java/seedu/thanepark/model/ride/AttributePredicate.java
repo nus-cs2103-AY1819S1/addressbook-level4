@@ -6,10 +6,10 @@ import java.util.function.Predicate;
  * Tests that an attribute value matches the predicate given
  */
 public class AttributePredicate implements Predicate<NumericAttribute> {
-    private char operator;
+    private String operator;
     private NumericAttribute attribute;
 
-    public AttributePredicate(char operator, NumericAttribute attribute) {
+    public AttributePredicate(String operator, NumericAttribute attribute) {
         this.operator = operator;
         this.attribute = attribute;
     }
@@ -21,11 +21,17 @@ public class AttributePredicate implements Predicate<NumericAttribute> {
     @Override
     public boolean test(NumericAttribute attribute) {
         switch (operator) {
-
-        case '<':
+        case "<":
             return attribute.getValue() < this.attribute.getValue();
-        case '>':
+        case ">":
             return attribute.getValue() > this.attribute.getValue();
+        case "<=":
+            return attribute.getValue() <= this.attribute.getValue();
+        case ">=":
+            return attribute.getValue() >= this.attribute.getValue();
+        case "==":
+        case "=":
+            return attribute.getValue() == this.attribute.getValue();
         default:
             return false;
         }
@@ -36,6 +42,6 @@ public class AttributePredicate implements Predicate<NumericAttribute> {
         return other == this // short circuit if same object
                 || (other instanceof AttributePredicate // instanceof handles nulls
                 && this.attribute.equals(((AttributePredicate) other).attribute)
-                && this.operator == ((AttributePredicate) other).operator);
+                && this.operator.equals(((AttributePredicate) other).operator));
     }
 }

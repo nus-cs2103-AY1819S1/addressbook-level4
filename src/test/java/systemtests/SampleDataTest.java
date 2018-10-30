@@ -13,7 +13,7 @@ import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.util.SampleDataUtil;
 import seedu.thanepark.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookSystemTest {
+public class SampleDataTest extends ThaneParkSystemTest {
     /**
      * Returns null to force test app to load data of the file in {@code getDataFileLocation()}.
      */

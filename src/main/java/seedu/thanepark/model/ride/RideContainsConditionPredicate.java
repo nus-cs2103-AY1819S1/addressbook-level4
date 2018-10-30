@@ -26,6 +26,6 @@ public class RideContainsConditionPredicate implements Predicate<Ride> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof RideContainsConditionPredicate // instanceof handles nulls
-                && attributePredicates.equals(((RideContainsConditionPredicate) other).attributePredicates));
+                && attributePredicates.containsAll(((RideContainsConditionPredicate) other).attributePredicates));
     }
 }

@@ -41,8 +41,8 @@ public class DeleteCommand extends Command {
         }
 
         Ride rideToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(rideToDelete);
-        model.commitAddressBook();
+        model.deleteRide(rideToDelete);
+        model.commitThanePark();
         return new CommandResult(String.format(MESSAGE_DELETE_RIDE_SUCCESS, rideToDelete));
     }
 

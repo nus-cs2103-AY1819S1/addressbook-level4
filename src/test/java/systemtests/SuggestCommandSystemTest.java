@@ -13,7 +13,7 @@ import seedu.thanepark.model.Model;
 /**
  * Contains system tests for {@code SuggestCommand}
  */
-public class SuggestCommandSystemTest extends AddressBookSystemTest {
+public class SuggestCommandSystemTest extends ThaneParkSystemTest {
 
     @Test
     public void suggestCommand() throws Exception {

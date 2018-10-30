@@ -20,7 +20,7 @@ import seedu.thanepark.model.ride.Ride;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedThanePark versionedAddressBook;
+    private final VersionedThanePark versionedThanePark;
     private final FilteredList<Ride> filteredRides;
 
     /**
@@ -32,8 +32,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with thanepark book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedThanePark(addressBook);
-        filteredRides = new FilteredList<>(versionedAddressBook.getRideList());
+        versionedThanePark = new VersionedThanePark(addressBook);
+        filteredRides = new FilteredList<>(versionedThanePark.getRideList());
     }
 
     public ModelManager() {
@@ -42,44 +42,44 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyThanePark newData) {
-        versionedAddressBook.resetData(newData);
+        versionedThanePark.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyThanePark getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyThanePark getThanePark() {
+        return versionedThanePark;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new ThaneParkChangedEvent(versionedAddressBook));
+        raise(new ThaneParkChangedEvent(versionedThanePark));
     }
 
     @Override
-    public boolean hasPerson(Ride ride) {
+    public boolean hasRide(Ride ride) {
         requireNonNull(ride);
-        return versionedAddressBook.hasRide(ride);
+        return versionedThanePark.hasRide(ride);
     }
 
     @Override
-    public void deletePerson(Ride target) {
-        versionedAddressBook.removeRide(target);
+    public void deleteRide(Ride target) {
+        versionedThanePark.removeRide(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Ride ride) {
-        versionedAddressBook.addRide(ride);
+    public void addRide(Ride ride) {
+        versionedThanePark.addRide(ride);
         updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Ride target, Ride editedRide) {
+    public void updateRide(Ride target, Ride editedRide) {
         requireAllNonNull(target, editedRide);
 
-        versionedAddressBook.updateRide(target, editedRide);
+        versionedThanePark.updateRide(target, editedRide);
         indicateAddressBookChanged();
     }
 
@@ -87,7 +87,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Ride} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedThanePark}
      */
     @Override
     public ObservableList<Ride> getFilteredRideList() {
@@ -103,30 +103,30 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoThanePark() {
+        return versionedThanePark.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoThanePark() {
+        return versionedThanePark.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoThanePark() {
+        versionedThanePark.undo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoThanePark() {
+        versionedThanePark.redo();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitThanePark() {
+        versionedThanePark.commit();
     }
 
     @Override
@@ -143,7 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedThanePark.equals(other.versionedThanePark)
                 && filteredRides.equals(other.filteredRides);
     }
 

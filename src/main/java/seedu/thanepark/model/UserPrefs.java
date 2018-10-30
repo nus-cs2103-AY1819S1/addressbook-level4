@@ -12,7 +12,7 @@ import seedu.thanepark.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path addressBookFilePath = Paths.get("data" , "thanepark.xml");
 
     public UserPrefs() {
         setGuiSettings(700, 500, 0, 0);
