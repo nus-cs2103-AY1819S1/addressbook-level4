@@ -143,6 +143,8 @@ public class CalendarDisplay extends UiPart<Region> {
                     logger.info("RIGHT arrow Pressed");
                     viewNext();
                     break;
+                default:
+                    logger.info("invalid execution");
                 }
             }
         });
@@ -180,6 +182,9 @@ public class CalendarDisplay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Set different view versions.
+     */
     public void toggleSkin() {
         if (isDaySkin()) {
             setViewToWeeklyView();

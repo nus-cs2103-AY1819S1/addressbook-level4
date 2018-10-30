@@ -105,20 +105,18 @@ public class CommandBox extends UiPart<Region> {
             CommandResult commandResult;
             String[] commandWord = command.trim().split(" ");
             System.out.printf(commandWord[1]);
-            if(commandWord[1].contains("todo"))
-            {
+            if (commandWord[1].contains("todo")) {
                 commandResult = logic.executeToDo(command);
             }
-            else
-            {
+            else {
                 commandResult = logic.execute(command);
             }
-                initHistory();
-                historySnapshot.next();
-                // process result of the command
-                commandTextField.setText("");
-                logger.info("Result: " + commandResult.feedbackToUser);
-                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            initHistory();
+            historySnapshot.next();
+            // process result of the command
+            commandTextField.setText("");
+            logger.info("Result: " + commandResult.feedbackToUser);
+            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
         } catch (CommandException | ParseException e) {
             initHistory();
