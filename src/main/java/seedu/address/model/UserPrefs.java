@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import javax.imageio.ImageIO;
+import javax.activation.MimetypesFileTypeMap;
 
 import seedu.address.commons.core.GuiSettings;
 
@@ -70,12 +69,10 @@ public class UserPrefs {
         ArrayList<Path> dirImageList = new ArrayList<>();
         for (File file : currFiles) {
             if (file.isFile()) {
-                try {
-                    if (ImageIO.read(file) != null) {
-                        dirImageList.add(file.toPath());
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
+                String mimetype = new MimetypesFileTypeMap().getContentType(file);
+                // only list if is image
+                if ((mimetype.split("/")[0]).equals("image")) {
+                    dirImageList.add(file.toPath());
                 }
             }
         }
