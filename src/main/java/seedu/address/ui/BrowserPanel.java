@@ -3,6 +3,8 @@ package seedu.address.ui;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.VolunteerPanelSelectionChangedEvent;
 import seedu.address.model.volunteer.Volunteer;
 
 /**
@@ -62,5 +65,10 @@ public class BrowserPanel extends UiPart<Region> {
      */
     public void freeResources() {
         browser = null;
+    }
+    @Subscribe
+    private void handleVolunteerPanelSelectionChangedEvent(VolunteerPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadVolunteerPage(event.getNewSelection());
     }
 }
