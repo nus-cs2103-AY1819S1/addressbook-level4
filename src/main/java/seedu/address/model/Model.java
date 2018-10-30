@@ -95,7 +95,12 @@ public interface Model {
     PreviewImage getCurrentPreviewImage();
 
     /**
-     * Retrieves the path of the current displayed preview image.
+     * Sets the current model's preview image.
+     */
+    void setCurrentPreviewImage(PreviewImage previewImage);
+
+    /**
+     * Retrieves the current displayed preview image.
      */
     Path getCurrentPreviewImagePath();
 
