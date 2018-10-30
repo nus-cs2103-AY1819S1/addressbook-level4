@@ -156,15 +156,15 @@ image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
-
+// tag::explanationofpolymorphism[]
 Even though the storage unit contains three types of Entities - Person, Module and Occasion, the behaviour of all three types is generally similar to each other.
 
 .Activity Diagram when user adds any entity
 image::AddActivityDiagram.png[width="800"]
-As of v1.2.1, the storage, commands, and parsers are distinct classes for each type of entity.
+As of v1.3, the storage, commands, and parsers are distinct classes for each type of entity.
 The diagram above shows that although these classes are separate, they serve very similar purposes.
 Polymorphism may be implemented on some commands in later versions.
-
+// end::explanationofpolymorphism[]
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -175,7 +175,9 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of three windows: The `PersonWindow`, `ModuleWindow` and `OccasionWindow`. Each of these windows inherits from the `MainWindow`.
+
+The `MainWindow` is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
