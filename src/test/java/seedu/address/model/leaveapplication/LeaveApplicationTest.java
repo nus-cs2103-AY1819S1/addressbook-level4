@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVEDATE_BOB_LEAVE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVEID_BOB_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVESTATUS_BOB_LEAVE;
 import static seedu.address.testutil.TypicalLeaveApplications.ALICE_LEAVE;
 import static seedu.address.testutil.TypicalLeaveApplications.BENSON_LEAVE;
@@ -48,7 +47,8 @@ public class LeaveApplicationTest {
         assertFalse(ALICE_LEAVE.equals(BENSON_LEAVE));
 
         // different description -> returns false
-        LeaveApplication editedAlice = new LeaveApplicationBuilder(ALICE_LEAVE).withDescription(VALID_DESCRIPTION_BOB_LEAVE).build();
+        LeaveApplication editedAlice = new LeaveApplicationBuilder(ALICE_LEAVE)
+                .withDescription(VALID_DESCRIPTION_BOB_LEAVE).build();
         assertFalse(ALICE_LEAVE.equals(editedAlice));
 
         // different status -> returns false
