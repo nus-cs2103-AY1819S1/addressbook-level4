@@ -136,7 +136,7 @@ public interface Model {
     /**
      * Deletes appointment.
      */
-    void deleteAppointment(Appointment appointment);
+    void deleteAppointment(Appointment appointment, Patient patient, Doctor doctor);
 
     /**
      * Saves the current address book state for undo/redo.
