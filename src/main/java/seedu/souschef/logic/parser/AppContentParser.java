@@ -43,6 +43,7 @@ public class AppContentParser {
         }
 
         if (userInput.charAt(0) == '-') {
+
             return new UniversalParser().parseCommand(history, userInput, ui);
         }
 
@@ -60,13 +61,15 @@ public class AppContentParser {
                     userInput);
         case HEALTH_PLAN:
             setFeatureStorage(storage, Context.HEALTH_PLAN);
-            return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), userInput);
+            return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), modelSet.getMealPlannerModel(),
+                    userInput);
         case MEAL_PLANNER:
             setFeatureStorage(storage, Context.MEAL_PLANNER);
             return new MealPlannerParser()
                     .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
         case FAVOURITES:
             setFeatureStorage(storage, Context.FAVOURITES);
+
             return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

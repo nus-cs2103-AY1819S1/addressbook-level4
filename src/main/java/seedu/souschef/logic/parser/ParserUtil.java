@@ -290,11 +290,4 @@ public class ParserUtil {
         return Scheme.valueOf(trimmedScheme);
     }
 
-
-
-
-
-
-
-
 }

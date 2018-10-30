@@ -36,6 +36,8 @@ public class UniversalParser {
     public Command parseCommand(History history, String userInput, Ui ui) throws ParseException {
         final String commandWord = userInput.substring(1);
         switch (commandWord) {
+
+
         case RecipeParser.COMMAND_WORD:
             ui.switchToRecipeListPanel();
             return new ContextCommand(Context.RECIPE);
@@ -52,9 +54,11 @@ public class UniversalParser {
             ui.switchToHealthPlanListPanel();
             return new ContextCommand(Context.HEALTH_PLAN);
 
+
         case MealPlannerParser.COMMAND_WORD:
             ui.switchToMealPlanListPanel();
             return new ContextCommand(Context.MEAL_PLANNER);
+
 
         case FavouritesParser.COMMAND_WORD:
             ui.switchToFavouritesListPanel();
