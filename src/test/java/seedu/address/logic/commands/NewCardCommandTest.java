@@ -24,7 +24,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAnakin;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.DeckBuilder;
 
