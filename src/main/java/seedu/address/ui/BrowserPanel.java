@@ -56,9 +56,9 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadPersonPage(Person person, ObservableList<seedu.address.model.event.Event> events) {
 
         StringBuilder sb = new StringBuilder();
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + PERSON_PAGE);
         try {
-            BufferedInputStream bin = ((BufferedInputStream) defaultPage.getContent());
+            BufferedInputStream bin = new BufferedInputStream(
+                MainApp.class.getResourceAsStream(FXML_FILE_FOLDER + PERSON_PAGE));
             byte[] contents = new byte[1024];
             int bytesRead = 0;
             while ((bytesRead = bin.read(contents)) != -1) {
