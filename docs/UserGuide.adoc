@@ -141,7 +141,7 @@ Examples:
 === Finding articles
 This section will detail commands that are used to find article entries using various parameters in LostBUTFound. The list shown in the interface will only show matching article entries after executing the command.
 
-=== Finding unresolved articles by name: `find-n`
+==== Finding unresolved articles by name: `find-n`
 Description: Finds unresolved articles whose name contains all of the given keywords.
 
 Format: `find-n KEYWORD [MORE_KEYWORDS]`
@@ -157,7 +157,7 @@ Examples:
 * `find-n Jacket` returns unresolved article entries with name `Jacket` and `Torn Jacket`.
 * `find-n wallet blue` returns unresolved article entries with names `wallet blue` and `big blue wallet`.
 
-=== Finding unresolved articles by description: `find-d`
+==== Finding unresolved articles by description: `find-d`
 Description: Finds unresolved articles whose description contains all of the given keywords.
 
 Format: `find-d KEYWORD [MORE_KEYWORDS]`
@@ -173,7 +173,7 @@ Examples:
 * `find-d Jacket` returns unresolved article entries with description `Jacket` and `Torn Jacket`.
 * `find-d central library` returns unresolved article entries with description `near Central library`, `Central library toilet`.
 
-=== Finding unresolved articles by keyword: `findall`
+==== Finding unresolved articles by keyword: `findall`
 Description: Finds unresolved articles which contains any of the given keywords.
 
 Format: `findall KEYWORD [MORE_KEYWORDS]`
@@ -189,7 +189,7 @@ Examples:
 * `findall Jacket` returns unresolved article entries which have fields having keywords `Jacket`.
 * `findall Tom wallet` returns unresolved article entries which have fields having keywords `Tom`, `Wallet`.
 
-=== Finding resolved articles by keyword: `findresolved`
+==== Finding resolved articles by keyword: `findresolved`
 Description: Finds resolved articles which contains any of the given keywords.
 
 Format: `findresolved [KEYWORD] [MORE_KEYWORDS]`
