@@ -48,10 +48,7 @@ public class VolunteerCard extends UiPart<Region> {
         this.volunteer = volunteer;
         id.setText(displayedIndex + ". ");
         name.setText(volunteer.getName().fullName);
-        gender.setText(volunteer.getGender().value);
-        birthday.setText(volunteer.getBirthday().value);
         phone.setText(volunteer.getPhone().value);
-        address.setText(volunteer.getAddress().value);
         email.setText(volunteer.getEmail().value);
         volunteer.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
