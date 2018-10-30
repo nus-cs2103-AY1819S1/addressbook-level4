@@ -112,8 +112,6 @@ public class DateTimeCount {
     public static Map<String, Integer> eachMonthOfCurrentYear(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
 
-        // get all months of current year
-
         return dates.stream()
             .map(date -> getLocalDate(date))
             .filter(localDate -> localDate.getYear() == todayDate.getYear())
@@ -158,29 +156,25 @@ public class DateTimeCount {
     }
 
     /**
-     *
-     * @return
+     * @return A list of each date in the next week.
      */
     public static List<Date> getNextWeekDates() {
-        LocalDate today = LocalDate.now();
-
         List<Date> nextWeekDates = new ArrayList<>();
-        for (DayOfWeek day : DayOfWeek.values()) {
-            LocalDate localDate = today.with(TemporalAdjusters.next(day));
-            nextWeekDates.add(getDate(localDate));
+        LocalDate nextMonday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        for (DayOfWeek day : getDaysOfWeek()) {
+            LocalDate nextWeekDate = nextMonday.with(TemporalAdjusters.nextOrSame(day));
+            nextWeekDates.add(getDate(nextWeekDate));
         }
 
         return nextWeekDates;
     }
 
     /**
-     *
+     * Get a list of each {@code DayOfWeek}
      * @return
      */
-    public static List<String> getDaysOfWeek() {
-        return Arrays.asList(DayOfWeek.values()).stream()
-            .map(day -> day.name())
-            .collect(Collectors.toList());
+    public static List<DayOfWeek> getDaysOfWeek() {
+        return Arrays.asList(DayOfWeek.values());
     }
 
     public static LocalDate getLocalDate(Date date) {

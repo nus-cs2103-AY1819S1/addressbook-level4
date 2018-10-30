@@ -1,13 +1,13 @@
 package seedu.clinicio.model.analytics;
 
 import javafx.collections.ObservableList;
+import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.staff.Staff;
 
 //@@author arsalanc-v2
-
 
 /**
  * Wrapper for all analytics functionality.
@@ -54,19 +54,19 @@ public class Analytics {
     public StatData getAllStatisticsOfType(StatisticType type) {
         switch (type) {
         case PATIENT:
-            return patientStatistics.getAllStatistics();
+            return patientStatistics.getAllData();
 
         case APPOINTMENT:
-            return appointmentStatistics.getAllStatistics();
+            return appointmentStatistics.getAllData();
 
         case DOCTOR:
-            return doctorStatistics.getAllStatistics();
+            return doctorStatistics.getAllData();
 
         case MEDICINE:
-            return medicineStatistics.getAllStatistics();
+            return medicineStatistics.getAllData();
 
         default:
-            return appointmentStatistics.getAllStatistics();
+            return appointmentStatistics.getAllData();
         }
     }
 

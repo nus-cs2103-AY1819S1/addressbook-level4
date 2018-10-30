@@ -22,13 +22,12 @@ public class PatientStatistics extends Statistics {
     }
 
     @Override
-    public void computeSummaryStatistics() {
-//        patients.stream()
-//            .map(patient -> patient);
+    public void computeSummaryData() {
+
     }
 
     @Override
-    public void computeVisualizationStatistics() {
+    public void computeVisualizationData() {
 
     }
 }

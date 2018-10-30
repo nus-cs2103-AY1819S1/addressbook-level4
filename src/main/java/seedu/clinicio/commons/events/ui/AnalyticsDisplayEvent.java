@@ -1,7 +1,7 @@
 package seedu.clinicio.commons.events.ui;
 
 import seedu.clinicio.commons.events.BaseEvent;
-import seedu.clinicio.model.analytics.StatData;
+import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.StatisticType;
 
 /**

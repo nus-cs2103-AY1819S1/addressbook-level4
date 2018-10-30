@@ -7,7 +7,8 @@ import seedu.clinicio.model.analytics.ChartType;
 //@@author arsalanc-v2
 
 /**
- *
+ * Data structure for storing data needed to create visualizations.
+ * Exposes data to be displayed through convenient methods.
  */
 public class VisualizationData<T> {
 
@@ -91,12 +92,15 @@ public class VisualizationData<T> {
     }
 
     /**
-     *
+     * @return the title for each group of data in this visualization.
      */
     public List<String> getDataGroupsLabels() {
         return dataGroupsLabels;
     }
 
+    /**
+     * @return all the groups of data to be displayed in this visualization.
+     */
     public List<List<Tuple<T, Integer>>> getDataGroups() {
         return dataGroups;
     }

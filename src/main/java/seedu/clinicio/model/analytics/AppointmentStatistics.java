@@ -20,6 +20,7 @@ import seedu.clinicio.model.consultation.Consultation;
 
 /**
  * Responsible for all statistics related to appointments.
+ * Assumes there are a total of 24 appointment slots in any given day.
  */
 public class AppointmentStatistics extends Statistics {
 
@@ -99,7 +100,7 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
-     *
+     * Computes data to plot the supply of appointments against their demand.
      */
     public void plotAppointmentSupplyDemand() {
         // get the subset of appointments that are scheduled for next week.
@@ -110,18 +111,16 @@ public class AppointmentStatistics extends Statistics {
 
         // get a list of the dates for next week
         List<Date> nextWeekDates = DateTimeCount.getNextWeekDates();
-        // get a list of all days next week
-        List<String> nextWeekDays = DateTimeCount.getDaysOfWeek();
+
 
         List<Date> availableSlotsDates = new ArrayList<>();
-        // for each day of next week, find the number of slots not scheduled yet.
+        // for each day of next week, find the number of slots scheduled
         for (Date nextWeekDate : nextWeekDates) {
-            // find the number of scheduled slots for a particular day in the following week
             long scheduledSlots = scheduledSlotsDates.stream()
                 .filter(scheduledDate -> scheduledDate == nextWeekDate)
                 .count();
 
-            // find the number of available slots for a particular day in the following week
+            // find the number of available slots for a particular day next week
             int availableSlots = NUM_APPOINTMENTS_DAY - toIntExact(scheduledSlots);
             availableSlotsDates.addAll(Collections.nCopies(availableSlots, nextWeekDate));
         }
@@ -129,6 +128,11 @@ public class AppointmentStatistics extends Statistics {
         List<List<Tuple<String, Integer>>> appointmentGroupsData = overNextWeekData(Arrays.asList
             (scheduledSlotsDates, availableSlotsDates));
         List<String> appointmentGroupsLabels = Arrays.asList("scheduled", "available");
+
+        // get a list of all days next week
+        List<String> nextWeekDays = DateTimeCount.getDaysOfWeek().stream()
+            .map(dayOfWeek -> dayOfWeek.name())
+            .collect(Collectors.toList());
 
         statData.addCategoricalVisualization("apptSupplyDemand", ChartType.STACKED_BAR,
             "Appointments Next Week", "Day of week", "Number of appointments", nextWeekDays,
@@ -139,7 +143,7 @@ public class AppointmentStatistics extends Statistics {
      * Updates {@code summaryStatistics} with the latest values.
      */
     @Override
-    public void computeSummaryStatistics() {
+    public void computeSummaryData() {
         List<Date> appointmentDates = appointments.stream()
             .map(appt -> appt.getAppointmentDate())
             .collect(Collectors.toList());
@@ -157,8 +161,7 @@ public class AppointmentStatistics extends Statistics {
     }
 
     @Override
-    public void computeVisualizationStatistics() {
+    public void computeVisualizationData() {
         plotAppointmentSupplyDemand();
-
     }
 }

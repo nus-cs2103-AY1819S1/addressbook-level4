@@ -5,9 +5,11 @@ import java.util.List;
 //@@author arsalanc-v2
 
 /**
- *
+ * Data structure to store data required to create summaries.
  */
 public class SummaryData {
+
+    public static final int DEFAULT_SUMMARY_VALUE = 0;
 
     private String title;
     private List<Tuple<String, Integer>> summaryElements;
@@ -30,11 +32,11 @@ public class SummaryData {
     }
 
     /**
-     *
+     * Reset summary values to their default of zero.
      */
     public void resetSummaryValues() {
         for (Tuple<String, Integer> summaryElement : summaryElements) {
-            summaryElement.setValue(0);
+            summaryElement.setValue(DEFAULT_SUMMARY_VALUE);
         }
     }
 }

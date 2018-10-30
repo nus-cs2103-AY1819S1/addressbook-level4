@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
@@ -18,6 +19,7 @@ import seedu.clinicio.model.appointment.Date;
 
 /**
  * Represents statistics of a general type.
+ * Contains method for calculate statistics and represent them as data to be displayed.
  */
 public abstract class Statistics {
 
@@ -47,14 +49,13 @@ public abstract class Statistics {
         statData.initializeSummary(summaryTitle, summaryTexts);
     }
 
-    public abstract void computeSummaryStatistics();
-    public abstract void computeVisualizationStatistics();
+    public abstract void computeSummaryData();
+    public abstract void computeVisualizationData();
 
     /**
+     * Calculates the range of an axis given {@code values} based on an {@code offset} from the minimum and maximum
+     * values.
      * Assumes values are not negative.
-     * @param values
-     * @param offset
-     * @return
      */
     public Tuple<Integer, Integer> calculateAxisRange(List<Integer> values, int offset) {
         requireNonNull(values);
@@ -82,17 +83,20 @@ public abstract class Statistics {
     }
 
     /**
-     *
-     * @param map
-     * @return
+     * Transforms a map to a list of tuples for categorical data.
+     * Considers categorical data to mean having a String, Integer pairing.
      */
-    public List<Tuple<String, Integer>> getTupleDataPointsCategorical(Map<String, Integer> map) {
+    public List<Tuple<String, Integer>> getTupleDataCategorical(Map<String, Integer> map) {
         return map.entrySet().stream()
             .map(entry -> new Tuple<String, Integer>(entry.getKey(), entry.getValue()))
             .collect(Collectors.toList());
     }
 
-    public List<Tuple<Integer, Integer>> getTupleDataPointsContinuous(Map<Integer, Integer> map) {
+    /**
+     * Transforms a map to a list of tuples for continuous data.
+     * Considers categorical data to mean having an Integer, Integer pairing.
+     */
+    public List<Tuple<Integer, Integer>> getTupleDataContinuous(Map<Integer, Integer> map) {
         return map.entrySet().stream()
             .map(entry -> new Tuple<Integer, Integer>(entry.getKey(), entry.getValue()))
             .collect(Collectors.toList());
@@ -103,10 +107,9 @@ public abstract class Statistics {
      * Returns counts in the order they were provided as inputs.
      * @param datesGroups
      */
-    // fill absent days
     public List<List<Tuple<String, Integer>>> overNextWeekData(List<List<Date>>
         datesGroups) {
-        assert datesGroups.size() >= 1 : "Invalid groups of dates supplied";
+        assert datesGroups.size() >= 1 : "Invalid number of groups of dates supplied.";
 
         List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
 
@@ -126,94 +129,27 @@ public abstract class Statistics {
     }
 
     /**
-     * Constructs data for a categorical plot for the days of the current week.
-     * @param dates
+     * @return All data to be displayed.
      */
-
-    // fill absent days
-//    public void plotOverCurrentWeek(List<Date> dates, String chartTitle, String yTitle) {
-//        Map<String, Integer> xy = DateTimeCount.eachDayOfCurrentWeek(dates);
-//
-//        List<Tuple<String, Integer>> dataPoints = xy.entrySet().stream()
-//            .map(entry -> new Tuple<DayOfWeek, Integer>(DayOfWeek.valueOf(entry.getKey()), entry.getValue()))
-//            .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
-//            .map(tuple -> new Tuple<String, Integer>(tuple.getKey().getAbbreviatedDay(), tuple.getValue()))
-//            .collect(Collectors.toList());
-//
-//        Tuple<Integer, Integer> yAxisRange = calculateAxisRange(new ArrayList<>(xy.values()), 10);
-//        statData.addCategoricalVisualization(ChartType.BAR, chartTitle, "Days of the week", "numbers", new
-//            ArrayList<>(xy
-//            .keySet()), yAxisRange, dataPoints);
-//    }
-
-    /**
-     *
-     * @param dates
-     */
-    // categorical vs continuous
-    // fill absent months
-//    public void plotOverCurrentYear(List<Date> dates, String chartTitle, String yTitle) {
-//        Map<String, Integer> xy = DateTimeCount.eachMonthOfCurrentYear(dates);
-//
-//        List<Tuple<String, Integer>> dataPoints = xy.entrySet().stream()
-//            .map(entry -> new Tuple<MonthOfYear, Integer>(MonthOfYear.valueOf(entry.getKey()), entry.getValue()))
-//            .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
-//            .map(tuple -> new Tuple<String, Integer>(tuple.getKey().getAbbreviatedMonth(), tuple.getValue()))
-//            .collect(Collectors.toList());
-//
-//        Tuple<Integer, Integer> yAxisRange = calculateAxisRange(new ArrayList<>(xy.values()), 10);
-//        statData.addCategoricalVisualization(ChartType.BAR, chartTitle, "Months", yTitle, new
-//            ArrayList<>(xy
-//                .keySet()), yAxisRange, dataPoints);
-//    }
-
-    /**
-     *
-     * @return
-     */
-    public StatData getAllStatistics() {
-        computeSummaryStatistics();
-        computeVisualizationStatistics();
+    public StatData getAllData() {
+        computeSummaryData();
+        computeVisualizationData();
         return statData;
     }
 
     /**
-     * @return The HashMap containing all statistics of a type.
+     * @return All data pertaining to summaries to be displayed.
      */
     public SummaryData getSummaryData() {
-        computeSummaryStatistics();
+        computeSummaryData();
         return statData.getSummaryData();
     }
 
     /**
-     *
+     * @return All data pertaining to visualizations to be displayed.
      */
     public List<VisualizationData> getVisualizationData() {
-        computeVisualizationStatistics();
+        computeVisualizationData();
         return statData.getVisualizationData();
     }
-
-//    /**
-//     * @return The names of the different summary statistics.
-//     */
-//    public Set<String> getSummaryKeys() {
-//        return summaryStatistics.keySet();
-//    }
-//
-//    /**
-//     * @return A String consisting of a statistic and its value, each on a separate line.
-//     */
-//    @Override
-//    public String toString() {
-//        StringBuilder toDisplay = new StringBuilder();
-//        for (Map.Entry<String, Integer> entry : summaryStatistics.entrySet()) {
-//            toDisplay.append(entry.getKey() + ": " + entry.getValue() + "\n");
-//        }
-//
-//        for (Map.Entry<String, Integer> entry : visualizationStatistics.entrySet()) {
-//            toDisplay.append(entry.getKey() + ": " + entry.getValue() + "\n");
-//        }
-//
-//        return toDisplay.toString();
-//    }
 }

@@ -17,25 +17,38 @@
     -fx-text-fill: #6593F5;
 }
 
-#apptSupplyDemand {
+.visualization-pane {
+    -fx-background-color: #6593F5;
+}
+
+.chart {
     -fx-text-fill: #fff;
     -fx-font-family: "Avenir";
 }
 
-#apptSupplyDemand .chart-title {
+.chart .chart-title {
     -fx-text-fill: #fff;
 }
 
-#apptSupplyDemand .chart-legend {
+.chart .chart-legend {
     -fx-background-color: #fff;
 }
 
-#apptSupplyDemand .axis-label {
-    -fx-text-fill: #fff;
-    -fx-font-size: 14px;
+.chart .axis-label {
+    -fx-text-fill: #E5ECE9;
+    -fx-font-size: 15px;
 }
 
-#apptSupplyDemand .chart-plot-background {
+.chart .axis {
+    -fx-tick-label-fill: #fff;
+}
+
+.chart .axis-tick-mark {
+    -fx-stroke: #fff;
+    -fx-stroke-width: 2;
+}
+
+.chart .chart-plot-background {
     -fx-background-color: transparent;
 }
 
@@ -47,6 +60,6 @@
     -fx-background-color: #00A572;
 }
 
-.visualization-pane {
-    -fx-background-color: #6593F5;
+#doctorPreferences .chart-bar {
+    -fx-background-color: #406E8E;
 }

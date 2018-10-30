@@ -1,4 +1,4 @@
-package seedu.clinicio.ui;
+package seedu.clinicio.ui.analytics;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,26 +10,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
-import seedu.clinicio.model.analytics.StatData;
+import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.Tuple;
+import seedu.clinicio.ui.UiPart;
 
 //@@author arsalanc-v2
-
-// hierarchial data structure  {summaryLabel, list(Tuple)}
-
-//      root
-//     /    \
-// summary  visualizations
-//     /               \
-// summaryLabel        {chart title, xtitle, ytitle, xlabels, ylabels, (x, y) values}
-//      /
-// {key, value}
-
-// patient, medicine
-// charts ui adjustment
-// 1d 1w 1m 1y
-// consultation tests
-// 0 data points tests
 
 /**
  * A ui for displaying statistics and visualizations.
@@ -80,6 +65,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
     public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
         StatData allDataToDisplay = event.getAllData();
         chartPane.getChildren().clear();
+        chartPane.setStyle("-fx-background-color: #6593F5");
        Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
        Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         analyticsPane.setVisible(true);

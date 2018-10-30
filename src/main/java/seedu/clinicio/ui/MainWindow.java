@@ -25,6 +25,7 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
+import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -205,10 +206,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

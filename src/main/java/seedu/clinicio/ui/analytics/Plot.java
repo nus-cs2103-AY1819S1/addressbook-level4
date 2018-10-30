@@ -1,7 +1,8 @@
-package seedu.clinicio.ui;
+package seedu.clinicio.ui.analytics;
 
 import java.util.List;
 
+import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -9,7 +10,6 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
@@ -17,15 +17,14 @@ import seedu.clinicio.model.analytics.data.VisualizationData;
 //@@author arsalanc-v2
 
 /**
- *
- *
+ * Contains methods to represent analytics data onto a user interface.
  */
 public class Plot {
     private static final int NUM_SUMMARY_ELEMENTS = 4;
     private static final int NUM_VISUALIZATION_ELEMENTS = 6;
 
     /**
-     *
+     * Edits ui labels to show summary texts and corresponding values.
      */
     public static void fillSummary(SummaryData summaryData, Label summaryBar, List<Tuple<Label, Label>> summaryLabels) {
         if (summaryData == null) {
@@ -45,8 +44,7 @@ public class Plot {
     }
 
     /**
-     *
-     * @param allVisualizationData
+     * Updates {@code chartPane} with the appropriate visualizations, if they exist.
      */
     public static void updateVisualization(List<VisualizationData> allVisualizationData, Pane chartPane) {
         if (allVisualizationData.size() < 1) {
@@ -54,15 +52,16 @@ public class Plot {
             return;
         }
 
+        // TO CHANGE
         for (VisualizationData data : allVisualizationData) {
             plotChart(data, chartPane);
         }
     }
 
     /**
-     *
-     * @param data
-     * @param chartPane
+     * Decides which chart type to plot.
+     * @param data The data to plot.
+     * @param chartPane The pane to be plotted on.
      */
     public static void plotChart(VisualizationData data, Pane chartPane) {
         switch (data.getChartType()) {
@@ -85,17 +84,15 @@ public class Plot {
     }
 
     /**
-     *
-     * @param barsData
+     * Plots a stacked bar chart.
+     * Assumes a minimum of two groups of data.
      */
     public static void plotStackedBar(VisualizationData<String> barsData, Pane chartPane) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(barsData.getXTitle());
-        xAxis.setTickLabelFill(Paint.valueOf("#fff"));
 
         NumberAxis yAxis = new NumberAxis();
         yAxis.setLabel(barsData.getYTitle());
-        yAxis.setTickLabelFill(Paint.valueOf("#fff"));
 
         StackedBarChart<String, Number> stackedBarChart = new StackedBarChart<String, Number>(xAxis, yAxis);
         stackedBarChart.setTitle(barsData.getChartTitle());
@@ -113,14 +110,12 @@ public class Plot {
             stackedBarChart.getData().add(series);
         }
 
-        stackedBarChart.setStyle("-fx-text-fill: red");
         stackedBarChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
         chartPane.getChildren().add(stackedBarChart);
     }
 
     /**
-     * Plots a vertical bar chart with a single bar for categorical data.
-     * @param barsData
+     * Plots a vertical bar chart for categorical data.
      */
     public static void plotVBar(VisualizationData<String> barsData, Pane chartPane) {
         CategoryAxis xAxis = new CategoryAxis();
@@ -145,14 +140,20 @@ public class Plot {
             barChart.getData().add(series);
         }
 
+        // remove the legend is there is only one group of data
+        if (barsData.getDataGroups().size() < 2) {
+            Node legend = barChart.lookup(".chart-legend");
+            legend.setStyle("visibility: hidden");
+            legend.setVisible(false);
+            legend.setManaged(false);
+        }
+
         barChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
         chartPane.getChildren().add(barChart);
     }
 
     /**
-     * Plots a vertical bar chart with a single bar for categorical data.
-     * Assumes a single bar for each category.
-     * @param barsData
+     * Plots a horizontal bar chart for categorical data.
      */
     public static void plotHBar(VisualizationData<String> barsData, Pane chartPane) {
         CategoryAxis yAxis = new CategoryAxis();
@@ -175,6 +176,14 @@ public class Plot {
             }
 
             barChart.getData().add(series);
+        }
+
+        // remove the legend is there is only one group of data
+        if (barsData.getDataGroups().size() < 2) {
+            Node legend = barChart.lookup(".chart-legend");
+            legend.setStyle("visibility: hidden");
+            legend.setVisible(false);
+            legend.setManaged(false);
         }
 
         barChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());

@@ -7,14 +7,13 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Date;
@@ -26,40 +25,58 @@ import seedu.clinicio.model.staff.Staff;
 //@@author arsalanc-v2
 
 /**
- * Responsible for all statistics related to Doctors.
+ * Responsible for all statistics related to doctors.
  */
 public class DoctorStatistics extends Statistics {
 
     private final String SUMMARY_TITLE_1 = "Average number of consultations per doctor";
 
-    private ObservableList<Staff> doctors;
-    private ObservableList<Consultation> consultations;
-    private ObservableList<Patient> patients;
+    private List<Staff> doctors;
+    private List<Consultation> consultations;
+    private List<Patient> patients;
 
     public DoctorStatistics() {
-        doctors = FXCollections.observableArrayList();
-        consultations = FXCollections.observableArrayList();
-        patients = FXCollections.observableArrayList();
+        doctors = new ArrayList<>();
+        consultations = new ArrayList<>();
+        patients = new ArrayList<>();
         initializeSummaryValues(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS);
     }
 
-    public void setDoctors(ObservableList<Staff> doctors) {
-        this.doctors = doctors;
+    /**
+     * Sets the internal list of doctors as the latest one.
+     * Ensure staff besides doctors are not included.
+     * @param allStaff The latest staff list.
+     */
+    public void setDoctors(ObservableList<Staff> allStaff) {
+        this.doctors = allStaff.stream()
+            .filter(staff -> staff.getRole().equals(Role.DOCTOR))
+            .collect(Collectors.toList());
     }
 
+    /**
+     * Sets the internal list of consultations as the latest one.
+     * Ensure staff besides doctors are not included.
+     * @param consultations The latest consultations list.
+     */
     public void setConsultations(ObservableList<Consultation> consultations) {
         this.consultations = consultations;
     }
 
+    /**
+     * Sets the internal list of patients as the latest one.
+     * Ensure staff besides doctors are not included.
+     * @param patients The latest patient list.
+     */
     public void setPatients(ObservableList<Patient> patients) {
         this.patients = patients;
     }
 
     /**
-     *
+     * Calculate the number of consultations for various time periods
+     * Add these to be displayed as a summary.
      */
     @Override
-    public void computeSummaryStatistics() {
+    public void computeSummaryData() {
         List<Date> consultationDates = consultations.stream()
             .map(consultation -> consultation.getConsultationDate())
             .collect(Collectors.toList());
@@ -88,7 +105,7 @@ public class DoctorStatistics extends Statistics {
     }
 
     @Override
-    public void computeVisualizationStatistics() {
+    public void computeVisualizationData() {
         plotPreferencesPerDoctorCount();
     }
 
@@ -99,15 +116,16 @@ public class DoctorStatistics extends Statistics {
         Map<String, Integer> consultationCounts = consultations.stream()
             .map(consultation -> consultation.getDoctor())
             // remove non doctor staff
-            .filter(staffOptional -> staffOptional.map(staff -> staff.getRole().equals(Role.DOCTOR)).orElse(false))
-            // count the number of preferences for each doctor
+            .filter(staffOptional -> staffOptional
+                .map(staff -> staff.getRole().equals(Role.DOCTOR))
+                .orElse(false))
+            // count the number of consultations for each doctor
             .collect(groupingBy(Function.identity(), summingInt(doctor -> 1)))
             .entrySet()
             .stream()
-            // ensure the staff are doctors
             .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey()
-            // convert the {@code Staff} object to its name
-            .map(doctor -> doctor.getName().toString()).orElse("otherstaff"), entry
+                // convert the {@code Staff} object to its name
+                .map(doctor -> doctor.getName().toString()).orElse("otherstaff"), entry
                 .getValue()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
@@ -116,17 +134,11 @@ public class DoctorStatistics extends Statistics {
         return consultationCounts;
     }
 
-    public List<String> getAllDoctorNames() {
-        return doctors.stream()
-            .map(doctor -> doctor.getName().toString())
-            .collect(Collectors.toList());
-    }
-
     /**
-     *
+     * Add each doctor's patient preference count to be visualized.
      */
     public void plotPreferencesPerDoctorCount() {
-        List<Tuple<String, Integer>> preferencesDataPoints = getTupleDataPointsCategorical(preferencesPerDoctorCount());
+        List<Tuple<String, Integer>> preferencesDataPoints = preferencesPerDoctorCount();
 
         statData.addCategoricalVisualization("doctorPreferences", ChartType.HORIZONTAL_BAR, "Number of patient " +
             "preferences for each doctor", "Number of patients", "Doctor", getAllDoctorNames(),
@@ -134,19 +146,33 @@ public class DoctorStatistics extends Statistics {
     }
 
     /**
-     *
-     * @return
+     * Counts the number of patients who prefer each doctor.
+     * @return A list of tuples with the key being a doctor's name and the value being the number of patients who have
+     * a preference for him or her.
      */
-    public Map<String, Integer> preferencesPerDoctorCount() {
-        Map<String, Integer> prefCounts = new HashMap<String, Integer>();
+    public List<Tuple<String, Integer>> preferencesPerDoctorCount() {
+        List<Tuple<String, Integer>> prefCounts = new ArrayList<Tuple<String, Integer>>();
         for (Staff doctor : doctors) {
             long count = patients.stream()
-                .filter(patient -> patient.getPreferredDoctor().equals(doctor))
+                .filter(patient -> patient.getPreferredDoctor()
+                    .map(prefDoc -> prefDoc.equals(doctor))
+                    .orElse(false))
                 .count();
 
-            prefCounts.put(doctor.getName().toString(), toIntExact(count));
+            prefCounts.add(new Tuple<String, Integer>(doctor.getName().toString(), toIntExact(count)));
         }
 
         return prefCounts;
+    }
+
+    /**
+     * @return A list of the names of all the doctors.
+     */
+    public List<String> getAllDoctorNames() {
+        return doctors.stream()
+            // remove non doctor staff
+            .filter(staff -> staff.getRole().equals(Role.DOCTOR))
+            .map(doctor -> doctor.getName().toString())
+            .collect(Collectors.toList());
     }
 }

@@ -22,7 +22,7 @@
                   </Label>
                   <Label fx:id="summaryValueOne" alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="37.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
-                        <Font name="Baskerville" size="72.0" />
+                        <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
                </children>
@@ -31,7 +31,7 @@
                <children>
                   <Label fx:id="summaryValueTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
-                        <Font name="Baskerville" size="72.0" />
+                        <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
                   <Label fx:id="summaryTextTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="91.0" prefHeight="16.0" prefWidth="137.0" text="This Week" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
@@ -45,7 +45,7 @@
                <children>
                   <Label fx:id="summaryValueThree" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
-                        <Font name="Baskerville" size="72.0" />
+                        <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
                   <Label fx:id="summaryTextThree" alignment="CENTER" contentDisplay="CENTER" layoutY="92.0" prefHeight="20.0" prefWidth="111.0" text="This Month" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
@@ -64,7 +64,7 @@
                   </Label>
                   <Label fx:id="summaryValueFour" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
                      <font>
-                        <Font name="Baskerville" size="72.0" />
+                        <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
                   <Label fx:id="summaryTextFour" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="93.0" prefHeight="17.0" prefWidth="142.0" text="This Year" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">

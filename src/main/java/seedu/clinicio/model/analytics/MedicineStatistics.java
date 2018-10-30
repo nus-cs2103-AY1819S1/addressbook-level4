@@ -2,25 +2,19 @@ package seedu.clinicio.model.analytics;
 
 //@@author arsalanc-v2
 
-import javafx.collections.ObservableList;
-
 /**
- *
+ * Responsible for all statistics related to the medicine inventory.
  */
 public class MedicineStatistics extends Statistics {
     //private ObservableList<Medicine> = new ObservableList<Medicine>();
 
     @Override
-    public void computeSummaryStatistics() {
+    public void computeSummaryData() {
 
     }
 
     @Override
-    public void computeVisualizationStatistics() {
+    public void computeVisualizationData() {
 
     }
-
-//    public void setMedicines(ObservableList<Medicine> medicines) {
-//        this.medicines = medicines;
-//    }
 }
