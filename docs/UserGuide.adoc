@@ -365,7 +365,7 @@ Format: `serve`
 [TIP]
 The medicine list will be displayed when this command is used for easy reference for medicine dispensing.
 
-[[docAdd]]
+[[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
 
 Adds document contents to the Current Patient. +
@@ -380,6 +380,9 @@ Existing values will be updated with the newly input values of the corresponding
 
 [TIP]
 You can remove any of the patient's document contents by typing the prefixes `mc/` `n/` `r/` without specifying any contents after the prefix.
+
+[TIP]
+At least the note field must be added before executing the <<finish, `finish`>> command.
 
 Examples:
 
@@ -410,13 +413,14 @@ Examples:
 * `dispensemedicine 5 amt/2` +
 2 units of the 5th medicine in the displayed medicine list will be added to the Current Patient.
 
+[[finish]]
 ==== Finishing service of the Current Patient: `finish`
 
 Transfers the Current Patient to the Served Patient queue. +
 Format: `finish`
 
 [TIP]
-This command cannot be called if no notes have been added to the patient. Use <<docAdd, `docAdd`>> command with prefix `n/` to add `NOTES`.
+This command cannot be called if no notes have been added to the patient. Use <<adddocument, `adddocument`>> command with prefix `n/` to add `NOTES`.
 
 [TIP]
 Upon successful call of this command, the patient list will be displayed.
@@ -572,7 +576,7 @@ There is no need to save manually.
 *A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CLInic folder.
 
 *Q*: Why can't I execute the `finish` command even if there is a Current Patient? +
-*A*: You are required to add notes to the Current Patient before using the `finish` command, use the `docAdd` command to add notes.
+*A*: You are required to add notes to the Current Patient before using the `finish` command, use the <<adddocument, `adddocument`>> command to add notes.
 
 == Command Summary
 
