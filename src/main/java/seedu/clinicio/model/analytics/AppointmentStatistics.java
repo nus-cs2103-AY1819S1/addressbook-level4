@@ -27,11 +27,12 @@ public class AppointmentStatistics extends Statistics {
     private static final String SUMMARY_TITLE = "Number of appointments";
     private static final int NUM_APPOINTMENTS_DAY = 24;
 
-    private ObservableList<Appointment> appointments;
-    private ObservableList<Consultation> consultations;
+    private List<Appointment> appointments;
+    private List<Consultation> consultations;
 
     public AppointmentStatistics() {
-        this.appointments = FXCollections.observableArrayList();
+        this.appointments = new ArrayList<>();
+        initializeSummaryValues(SUMMARY_TITLE, defaultSummaryTexts);
     }
 
     /**
@@ -73,7 +74,7 @@ public class AppointmentStatistics extends Statistics {
      * Depends on the fact that there are only two appointment statuses.
      */
     private int getNumberOfApprovedAppointments() {
-       return getNumberOfAppointments() - getNumberOfCancelledAppointments();
+        return getNumberOfAppointments() - getNumberOfCancelledAppointments();
     }
 
     /**
@@ -156,7 +157,7 @@ public class AppointmentStatistics extends Statistics {
         List<Integer> values = Arrays.asList(appointmentsToday, appointmentsWeek, appointmentsWeek, appointmentsMonth);
 
         // update data with calculated values
-        statData.updateSummary(SUMMARY_TITLE, DEFAULT_SUMMARY_TEXTS, values);
+        statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, values);
     }
 
     @Override

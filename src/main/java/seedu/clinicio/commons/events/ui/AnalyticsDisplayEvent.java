@@ -11,7 +11,7 @@ import seedu.clinicio.model.analytics.data.StatData;
  */
 public class AnalyticsDisplayEvent extends BaseEvent {
 
-    private final String MESSAGE = "This is the %s statistics display event";
+    private static final String MESSAGE = "This is the %s statistics display event";
     // the type of statistic to display data for
     private StatisticType type;
     // the data for the statistic to be displayed

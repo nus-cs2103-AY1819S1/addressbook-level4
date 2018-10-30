@@ -29,7 +29,7 @@ import seedu.clinicio.model.staff.Staff;
  */
 public class DoctorStatistics extends Statistics {
 
-    private final String SUMMARY_TITLE_1 = "Average number of consultations per doctor";
+    private final String SUMMARY_TITLE = "Average number of consultations per doctor";
 
     private List<Staff> doctors;
     private List<Consultation> consultations;
@@ -39,7 +39,7 @@ public class DoctorStatistics extends Statistics {
         doctors = new ArrayList<>();
         consultations = new ArrayList<>();
         patients = new ArrayList<>();
-        initializeSummaryValues(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS);
+        initializeSummaryValues(SUMMARY_TITLE, defaultSummaryTexts);
     }
 
     /**
@@ -100,7 +100,7 @@ public class DoctorStatistics extends Statistics {
                 consultationsMonthPerDoctor, consultationsYearPerDoctor);
 
             // update store of calculated values
-            statData.updateSummary(SUMMARY_TITLE_1, DEFAULT_SUMMARY_TEXTS, values);
+            statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, values);
         }
     }
 

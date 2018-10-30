@@ -50,10 +50,10 @@ public class StatData {
         assert summaryValues.size() == NUM_SUMMARY_ELEMENTS : "There must be four summary values";
 
         List<Tuple<String, Integer>> newSummaryElements = new ArrayList<>();
-       for (int i = 0; i < NUM_SUMMARY_ELEMENTS; i++) {
-           // create a pair of text and value, and add it to the list
-           newSummaryElements.add(new Tuple<String, Integer>(summaryTexts.get(i), summaryValues.get(i)));
-       }
+        for (int i = 0; i < NUM_SUMMARY_ELEMENTS; i++) {
+            // create a pair of text and value, and add it to the list
+            newSummaryElements.add(new Tuple<String, Integer>(summaryTexts.get(i), summaryValues.get(i)));
+        }
 
         summaryData = new SummaryData(title, newSummaryElements);
     }

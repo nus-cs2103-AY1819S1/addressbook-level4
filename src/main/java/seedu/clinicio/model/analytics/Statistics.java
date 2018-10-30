@@ -32,9 +32,9 @@ public abstract class Statistics {
     private static final String SUMMARY_YEAR = "This Year";
 
     // protected so subclasses can access these fields
-    protected final List<String> DEFAULT_SUMMARY_TEXTS = Arrays.asList(SUMMARY_TODAY, SUMMARY_WEEK, SUMMARY_MONTH,
+    protected final List<String> defaultSummaryTexts = Arrays.asList(SUMMARY_TODAY, SUMMARY_WEEK, SUMMARY_MONTH,
         SUMMARY_YEAR);
-    protected final List<Integer> DEFAULT_SUMMARY_VALUES = Arrays.asList(0, 0, 0, 0);
+    protected final List<Integer> defaultSummaryValues = Arrays.asList(0, 0, 0, 0);
 
     protected StatData statData;
 
