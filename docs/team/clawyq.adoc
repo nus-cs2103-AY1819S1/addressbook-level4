@@ -51,11 +51,15 @@ abstractions that helped 'finalise' the information to be used for the generatio
 
 * *Other contributions*:
 
-** Enhancements to existing features:
-*** Wrote tests for existing features to increase coverage from 54% to 63% (Pull requests https://goo.gl/vQbh82[#109])
+** Enhancements to features:
+*** Wrote tests for various features to increase coverage from 59% to 63% (Pull requests: https://github.com/CS2103-AY1819S1-W16-4/main/pull/97[#97],
+https://github.com/CS2103-AY1819S1-W16-4/main/pull/98[#98],
+https://github.com/CS2103-AY1819S1-W16-4/main/pull/104[#104])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reviewed PRs and provided constructive feedback: (Pull requests: https://github.com/CS2103-AY1819S1-W16-4/main/commit/f8b4ae0b80adfaa3355d82c396a3017d8b6f4b26[#110],
+https://github.com/CS2103-AY1819S1-W16-4/main/commit/6c731cdce1270a4009cad3f4e65a5b7b98030f67[#119],
+https://github.com/CS2103-AY1819S1-W16-4/main/commit/3740d6e8b3a2b90126fcab6fdd250817bd8981aa[#120])
+
 
 == Contributions to the User Guide
 
