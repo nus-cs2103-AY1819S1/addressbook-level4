@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
 import java.time.DayOfWeek;
-import java.time.Month;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import seedu.address.model.appointment.Date;
+import seedu.clinicio.model.appointment.Date;
 
 //@@author arsalanc-v2
 

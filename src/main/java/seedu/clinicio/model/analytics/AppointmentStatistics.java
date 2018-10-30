@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.clinicio.model.analytics.data.Tuple;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Date;
-import seedu.address.model.consultation.Consultation;
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.consultation.Consultation;
 
 //@@author arsalanc-v2
 

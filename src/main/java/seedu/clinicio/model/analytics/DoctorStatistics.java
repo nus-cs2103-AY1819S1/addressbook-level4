@@ -133,7 +133,7 @@ public class DoctorStatistics extends Statistics {
      */
     public Map<String, Integer> preferencesPerDoctorCount() {
         Map<String, Integer> prefCounts = new HashMap<String, Integer>();
-        for (Doctor doctor : doctors) {
+        for (Staff doctor : doctors) {
             long count = patients.stream()
                 .filter(patient -> patient.getPreferredDoctor().equals(doctor))
                 .count();

@@ -4,7 +4,7 @@ package seedu.clinicio.model.analytics;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.patient.Patient;
+import seedu.clinicio.model.patient.Patient;
 
 /**
  *
