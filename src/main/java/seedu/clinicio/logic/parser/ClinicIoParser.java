@@ -14,6 +14,9 @@ import seedu.clinicio.logic.commands.DeleteCommand;
 import seedu.clinicio.logic.commands.DoctorStatisticsCommand;
 import seedu.clinicio.logic.commands.EditCommand;
 import seedu.clinicio.logic.commands.ExitCommand;
+import seedu.clinicio.logic.commands.ExportPatientsAppointmentsCommand;
+import seedu.clinicio.logic.commands.ExportPatientsCommand;
+import seedu.clinicio.logic.commands.ExportPatientsConsultationsCommand;
 import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
@@ -73,6 +76,15 @@ public class ClinicIoParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case ExportPatientsCommand.COMMAND_WORD:
+            return new ExportPatientsCommand();
+
+        case ExportPatientsAppointmentsCommand.COMMAND_WORD:
+            return new ExportPatientsAppointmentsCommand();
+
+        case ExportPatientsConsultationsCommand.COMMAND_WORD:
+            return new ExportPatientsConsultationsCommand();
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
