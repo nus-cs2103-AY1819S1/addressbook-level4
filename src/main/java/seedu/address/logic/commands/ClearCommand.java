@@ -109,7 +109,7 @@ public class ClearCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ClearCommand // instance of handles null
-                && target.equals(((ClearCommand) other).target));
+            || (other instanceof ClearCommand // instance of handles null
+            && target.equals(((ClearCommand) other).target));
     }
 }

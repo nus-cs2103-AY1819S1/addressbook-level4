@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddAllDayEventCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
+import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -16,9 +17,11 @@ import seedu.address.logic.commands.ComposeEmailIndexCommand;
 import seedu.address.logic.commands.ComposeEmailListCommand;
 import seedu.address.logic.commands.CreateCalendarCommand;
 import seedu.address.logic.commands.CreateCcaCommand;
+import seedu.address.logic.commands.DeleteCcaCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DeleteEmailCommand;
 import seedu.address.logic.commands.DeleteEventCommand;
+import seedu.address.logic.commands.DeleteTransactionCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EraseCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -155,6 +158,15 @@ public class AddressBookParser {
 
         case ViewCalendarCommand.COMMAND_WORD:
             return new ViewCalendarCommandParser().parse(arguments);
+
+        case DeleteCcaCommand.COMMAND_WORD:
+            return new DeleteCcaCommandParser().parse(arguments);
+
+        case AddTransactionCommand.COMMAND_WORD:
+            return new AddTransactionCommandPaser().parse(arguments);
+
+        case DeleteTransactionCommand.COMMAND_WORD:
+            return new DeleteTransactionCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

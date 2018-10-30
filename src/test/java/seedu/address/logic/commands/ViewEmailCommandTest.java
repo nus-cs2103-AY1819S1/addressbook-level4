@@ -31,7 +31,7 @@ public class ViewEmailCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new BudgetBook(), new UserPrefs(),
-            getTypicalExistingEmails());
+        getTypicalExistingEmails());
 
     @Test
     public void constructor_nullString_throwsNullPointerException() {
@@ -48,7 +48,7 @@ public class ViewEmailCommandTest {
         String expectedMessage = String.format(ViewEmailCommand.MESSAGE_SUCCESS, emailToView.getSubject());
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new BudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
         expectedModel.saveEmail(emailToView);
 
         assertCommandSuccess(viewEmailCommand, model, commandHistory, expectedMessage, expectedModel);

@@ -41,6 +41,7 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
@@ -135,6 +136,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasPerson(Name person) {
+        requireNonNull(person);
+        return versionedAddressBook.hasPerson(person);
+    }
+
+    @Override
     public boolean hasCca(Person person) {
         requireNonNull(person);
         return versionedBudgetBook.hasCca(person);
@@ -156,6 +163,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteCca(Cca target) {
+        versionedBudgetBook.removeCca(target);
+        indicateBudgetBookChanged();
     }
 
     //@@author kengwoon
@@ -322,7 +335,7 @@ public class ModelManager extends ComponentManager implements Model {
                                               int endDate, int endHour, int endMin, String title,
                                               Calendar calendarToBeLoaded) {
         raise(new CalendarEventAddedEvent(year, month, startDate, startHour, startMin,
-                endDate, endHour, endMin, title, calendarToBeLoaded));
+            endDate, endHour, endMin, title, calendarToBeLoaded));
     }
 
     /**
@@ -415,10 +428,10 @@ public class ModelManager extends ComponentManager implements Model {
                             int endDate, int endHour, int endMin, String title) {
         try {
             Calendar calendarToBeLoaded = calendarModel.createEvent(year, month, startDate,
-                    startHour, startMin, endDate, endHour, endMin, title);
+                startHour, startMin, endDate, endHour, endMin, title);
             String calendarName = month + "-" + year;
             indicateCalendarEventCreated(year, month, startDate, startHour, startMin, endDate, endHour, endMin, title,
-                    calendarToBeLoaded);
+                calendarToBeLoaded);
             indicateViewCalendar(calendarToBeLoaded, calendarName);
         } catch (IOException e) {
             logger.warning("Failed to create event : " + StringUtil.getDetails(e));

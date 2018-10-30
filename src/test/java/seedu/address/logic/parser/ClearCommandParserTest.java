@@ -14,7 +14,7 @@ import seedu.address.logic.commands.ClearCommand;
 public class ClearCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE);
 
     private ClearCommandParser parser = new ClearCommandParser();
 

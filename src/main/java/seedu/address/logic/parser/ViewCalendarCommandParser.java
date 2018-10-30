@@ -21,16 +21,17 @@ public class ViewCalendarCommandParser implements Parser<ViewCalendarCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the ViewCalendarCommand
      * and returns an ViewCalendarCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public ViewCalendarCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_YEAR);
+            ArgumentTokenizer.tokenize(args, PREFIX_MONTH, PREFIX_YEAR);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MONTH, PREFIX_YEAR)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCalendarCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCalendarCommand.MESSAGE_USAGE));
         }
 
         Month month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());

@@ -14,6 +14,7 @@ import seedu.address.logic.commands.ComposeEmailListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author EatOrBeEaten
+
 /**
  * Parses input arguments and creates a new ComposeEmailListCommand object
  */
@@ -22,16 +23,17 @@ public class ComposeEmailListCommandParser implements Parser<ComposeEmailListCom
     /**
      * Parses the given {@code String} of arguments in the context of the ComposeEmailListCommand
      * and returns an ComposeEmailListCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public ComposeEmailListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_SUBJECT, PREFIX_CONTENT);
+            ArgumentTokenizer.tokenize(args, PREFIX_FROM, PREFIX_SUBJECT, PREFIX_CONTENT);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_FROM, PREFIX_SUBJECT, PREFIX_CONTENT)
-                || !argMultimap.getPreamble().isEmpty()) {
+            || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ComposeEmailListCommand.MESSAGE_USAGE));
+                ComposeEmailListCommand.MESSAGE_USAGE));
         }
 
         String from = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_FROM).get()).toString();
@@ -39,10 +41,10 @@ public class ComposeEmailListCommandParser implements Parser<ComposeEmailListCom
         String content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get()).toString();
 
         Email email = EmailBuilder.startingBlank()
-                .from(from)
-                .withSubject(subject)
-                .withHTMLText(content)
-                .buildEmail();
+            .from(from)
+            .withSubject(subject)
+            .withHTMLText(content)
+            .buildEmail();
 
         return new ComposeEmailListCommand(email);
     }

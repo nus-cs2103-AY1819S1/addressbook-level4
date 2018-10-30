@@ -4,7 +4,10 @@ import net.fortuna.ical4j.model.Calendar;
 import seedu.address.commons.events.BaseEvent;
 
 //@@author GilgameshTC
-/** Indicates a calendar has been loaded*/
+
+/**
+ * Indicates a calendar has been loaded
+ */
 public class CalendarLoadedEvent extends BaseEvent {
 
     public final Calendar calendar;

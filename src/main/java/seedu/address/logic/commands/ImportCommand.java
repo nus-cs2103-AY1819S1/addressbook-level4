@@ -78,7 +78,7 @@ public class ImportCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ImportCommand // instanceof handles nulls
-                && path.equals(((ImportCommand) other).path));
+            && path.equals(((ImportCommand) other).path));
     }
 
     /**

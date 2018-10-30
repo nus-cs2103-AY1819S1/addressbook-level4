@@ -27,7 +27,7 @@ public class ContactContainsTagPredicateTest {
 
         // same value -> returns true
         ContactContainsTagPredicate firstPredicateCopy =
-                new ContactContainsTagPredicate(firstPredicateKeywordList);
+            new ContactContainsTagPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -44,7 +44,7 @@ public class ContactContainsTagPredicateTest {
     public void test_contactContainsTags_returnTrue() {
         // One tag
         ContactContainsTagPredicate predicate = new ContactContainsTagPredicate(Collections
-                .singletonList("Basketball"));
+            .singletonList("Basketball"));
         assertTrue(predicate.test(new PersonBuilder().withTags("Basketball").build()));
 
         // Multiple tags
@@ -73,7 +73,7 @@ public class ContactContainsTagPredicateTest {
         // Tags match name, phone, email, but do not match other fields
         predicate = new FieldsContainsKeywordsPredicate(Arrays.asList("Alice", "alice@email.com", "987654"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("987654")
-                .withEmail("alice@email.com").withTags("Basketball").build()));
+            .withEmail("alice@email.com").withTags("Basketball").build()));
     }
 
 }

@@ -19,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 //@@author EatOrBeEaten
+
 /**
  * Composes an email to all currently listed people.
  */
@@ -27,14 +28,14 @@ public class ComposeEmailListCommand extends Command {
     public static final String COMMAND_WORD = "compose_email_list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to all currently listed people. "
-            + "Parameters: "
-            + PREFIX_FROM + "EMAIL "
-            + PREFIX_SUBJECT + "SUBJECT "
-            + PREFIX_CONTENT + "CONTENT(Input <br> for newline)\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FROM + "johndoe@example.com "
-            + PREFIX_SUBJECT + "Meeting this Friday "
-            + PREFIX_CONTENT + "Dear All<br><br>Remember our meeting this friday.<br><br>John";
+        + "Parameters: "
+        + PREFIX_FROM + "EMAIL "
+        + PREFIX_SUBJECT + "SUBJECT "
+        + PREFIX_CONTENT + "CONTENT(Input <br> for newline)\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_FROM + "johndoe@example.com "
+        + PREFIX_SUBJECT + "Meeting this Friday "
+        + PREFIX_CONTENT + "Dear All<br><br>Remember our meeting this friday.<br><br>John";
 
     public static final String MESSAGE_SUCCESS = "Email(List) composed: %s";
     public static final String MESSAGE_DUPLICATE_EMAIL = "Email with subject: \"%s\" already exists.";
@@ -68,6 +69,7 @@ public class ComposeEmailListCommand extends Command {
 
     /**
      * Creates an {@code Email} with recipients in the current list.
+     *
      * @param lastShownList Current filtered list.
      * @return Email with recipients from list.
      */
@@ -83,7 +85,7 @@ public class ComposeEmailListCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ComposeEmailListCommand // instanceof handles nulls
-                && toCompose.equals(((ComposeEmailListCommand) other).toCompose)); // state check
+            || (other instanceof ComposeEmailListCommand // instanceof handles nulls
+            && toCompose.equals(((ComposeEmailListCommand) other).toCompose)); // state check
     }
 }

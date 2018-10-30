@@ -14,7 +14,7 @@ import seedu.address.logic.commands.ImportCommand;
 public class ImportCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE);
+        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE);
 
     private ImportCommandParser parser = new ImportCommandParser();
 
@@ -37,7 +37,7 @@ public class ImportCommandParserTest {
 
         // valid path and filename
         ImportCommand expectedImportCommand =
-                new ImportCommand(new File("C://path/file.xml").toPath());
+            new ImportCommand(new File("C://path/file.xml").toPath());
         assertParseSuccess(parser, " f/C://path/file.xml", expectedImportCommand);
     }
 

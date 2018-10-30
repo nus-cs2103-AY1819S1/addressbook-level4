@@ -54,6 +54,7 @@ public class EmailModel {
 
     /**
      * Saves a newly composed email to the EmailModel.
+     *
      * @param email the newly composed email.
      */
     public void saveComposedEmail(Email email) {

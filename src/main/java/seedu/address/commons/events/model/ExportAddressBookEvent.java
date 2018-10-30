@@ -6,6 +6,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyAddressBook;
 
 //@@author kengwoon
+
 /**
  * Indicates that the contacts in Hallper are being exported.
  */

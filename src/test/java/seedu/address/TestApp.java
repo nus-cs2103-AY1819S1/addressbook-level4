@@ -93,7 +93,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getAddressBook()), model.getBudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

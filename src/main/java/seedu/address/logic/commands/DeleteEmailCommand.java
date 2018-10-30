@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 //@author EatOrBeEaten
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EMAIL_DOES_NOT_EXIST;
 
@@ -17,9 +18,9 @@ public class DeleteEmailCommand extends Command {
     public static final String COMMAND_WORD = "delete_email";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the email identified by its subject.\n"
-            + "Parameters SUBJECT\n"
-            + "Example: " + COMMAND_WORD + " Meeting on Friday";
+        + ": Deletes the email identified by its subject.\n"
+        + "Parameters SUBJECT\n"
+        + "Example: " + COMMAND_WORD + " Meeting on Friday";
 
     public static final String MESSAGE_SUCCESS = "Email deleted: %s";
 
@@ -46,7 +47,7 @@ public class DeleteEmailCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteEmailCommand // instanceof handles nulls
-                && subject.equals(((DeleteEmailCommand) other).subject)); // state check
+            || (other instanceof DeleteEmailCommand // instanceof handles nulls
+            && subject.equals(((DeleteEmailCommand) other).subject)); // state check
     }
 }

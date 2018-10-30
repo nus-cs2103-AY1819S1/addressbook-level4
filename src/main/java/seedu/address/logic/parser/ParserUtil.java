@@ -13,7 +13,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.budget.Transaction;
 import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 import seedu.address.model.cca.Budget;
@@ -29,6 +28,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Date;
+import seedu.address.model.transaction.Remarks;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -37,17 +39,18 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Date must be a non-negative integer and not greater than 31.";
+        "Date must be a non-negative integer and not greater than 31.";
     public static final String MESSAGE_HOUR_CONSTRAINTS =
-            "Hour must be a non-negative integer and not greater than 23.";
+        "Hour must be a non-negative integer and not greater than 23.";
     public static final String MESSAGE_MINUTE_CONSTRAINTS =
-            "Minute must be a non-negative integer and not greater than 59";
+        "Minute must be a non-negative integer and not greater than 59";
     public static final String MESSAGE_TITLE_CONSTRAINTS =
-            "Title must not be empty";
+        "Title must not be empty";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -59,6 +62,7 @@ public class ParserUtil {
     }
 
     //@@author EatOrBeEaten
+
     /**
      * Parses {@code String oneBasedIndexes} into a {@code Set<Index>}.
      */
@@ -149,6 +153,7 @@ public class ParserUtil {
         return new School(trimmedSchool);
     }
     //@@author
+
     /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
@@ -192,6 +197,7 @@ public class ParserUtil {
     }
 
     //@@author kengwoon
+
     /**
      * Parses a {@code String file} into a {@code File}.
      * Leading and trailing whitespaces will be trimmed.
@@ -225,6 +231,7 @@ public class ParserUtil {
     }
 
     //@@author EatOrBeEaten
+
     /**
      * Parses a {@code String content} into an {@code Content}.
      * Leading and trailing whitespaces will be trimmed.
@@ -256,6 +263,7 @@ public class ParserUtil {
     }
 
     //@@author GilgameshTC
+
     /**
      * Parses a {@code String month} into a {@code Month}.
      * Leading and trailing whitespaces will be trimmed.
@@ -288,11 +296,11 @@ public class ParserUtil {
         return new Year(trimmedYear);
     }
 
+    //@@author ericyjw
     /**
      * Parses a {@code String Budget} into a {@code Budget}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code budget} is invalid.
      */
     public static Budget parseBudget(String budget) throws ParseException {
@@ -308,7 +316,6 @@ public class ParserUtil {
      * Parses a {@code String ccaName} into a {@code CcaName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code ccaName} is invalid.
      */
     public static CcaName parseCcaName(String ccaName) throws ParseException {
@@ -324,7 +331,6 @@ public class ParserUtil {
      * Parses a {@code String Spent} into a {@code Spent}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code Spent} is invalid.
      */
     public static Spent parseSpent(String spent) throws ParseException {
@@ -340,7 +346,6 @@ public class ParserUtil {
      * Parses a {@code String outstanding} into a {@code Outstanding}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
      * @throws ParseException if the given {@code Outstanding} is invalid.
      */
     public static Outstanding parseOutstanding(String outstanding) throws ParseException {
@@ -353,20 +358,70 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String transaction} into a {@code Transaction}.
+     * Parses a {@code String entryNum} into a {@code Integer}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @author ericyjw
-     * @throws ParseException if the given {@code Transaction} is invalid.
+     * @throws ParseException if the given {@code entryNum} is invalid.
      */
-    public static Transaction parseTransaction(String transaction) throws ParseException {
-        requireNonNull(transaction);
-        String trimmedTransaction = transaction.trim();
-        if (!Transaction.isValidTranscation(trimmedTransaction)) {
-            throw new ParseException(Transaction.MESSAGE_TRANSACTION_CONSTRAINTS);
+    public static Integer parseEntryNum(String entryNum) throws ParseException {
+        requireNonNull(entryNum);
+        try {
+            int num = Integer.valueOf(entryNum);
+            if (entryNum == null || num < 1) {
+                throw new ParseException("Entry number should only be positive integer that is more than 0!");
+            }
+        } catch (NumberFormatException e) {
+            throw new ParseException("Entry number should only be positive integer that is more than 0!");
         }
-        return new Transaction(trimmedTransaction);
+
+        return Integer.parseInt(entryNum);
     }
+
+    /**
+     * Parses a {@code String date} into a {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseEntryDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String amount} into an {@code Amount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code amount} is invalid.
+     */
+    public static Amount parseAmount(String amount) throws ParseException {
+        requireNonNull(amount);
+        String trimmedAmount = amount.trim();
+        if (!Amount.isValidAmount(trimmedAmount)) {
+            throw new ParseException(Amount.MESSAGE_AMOUNT_CONSTRAINTS);
+        }
+        return new Amount(Integer.valueOf(trimmedAmount));
+    }
+
+    /**
+     * Parses a {@code String remarks} into a {@code Remarks}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remarks} is invalid.
+     */
+    public static Remarks parseRemarks(String remarks) throws ParseException {
+        requireNonNull(remarks);
+        if (!Remarks.isValidRemark(remarks)) {
+            throw new ParseException(Remarks.MESSAGE_REMARKS_CONSTRAINTS);
+        }
+        return new Remarks(remarks);
+    }
+
+    //@@author
     /**
      * Parses a {@code String date} into a {@code int}.
      * Leading and trailing whitespaces will be trimmed.

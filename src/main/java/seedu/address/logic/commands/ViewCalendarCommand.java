@@ -11,6 +11,7 @@ import seedu.address.model.calendar.Month;
 import seedu.address.model.calendar.Year;
 
 //@@author GilgameshTC
+
 /**
  * View a Calendar with a specified month and year.
  */
@@ -18,12 +19,12 @@ public class ViewCalendarCommand extends Command {
     public static final String COMMAND_WORD = "view_calendar";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View a calendar. "
-            + "Parameters: "
-            + PREFIX_MONTH + "MMM "
-            + PREFIX_YEAR + "YYYY\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MONTH + "OCT "
-            + PREFIX_YEAR + "2018 ";
+        + "Parameters: "
+        + PREFIX_MONTH + "MMM "
+        + PREFIX_YEAR + "YYYY\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_MONTH + "OCT "
+        + PREFIX_YEAR + "2018 ";
 
     public static final String MESSAGE_SUCCESS = "Calendar loaded onto UI: %s";
     public static final String MESSAGE_NOT_EXISTING_CALENDAR = "This calendar doesn't exist in Hallper";
@@ -51,8 +52,8 @@ public class ViewCalendarCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewCalendarCommand // instanceof handles nulls
-                && month.equals(((ViewCalendarCommand) other).month)
-                && year.equals(((ViewCalendarCommand) other).year));
+            || (other instanceof ViewCalendarCommand // instanceof handles nulls
+            && month.equals(((ViewCalendarCommand) other).month)
+            && year.equals(((ViewCalendarCommand) other).year));
     }
 }

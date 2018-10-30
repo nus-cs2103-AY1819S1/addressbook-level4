@@ -26,7 +26,7 @@ public class ListCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), model.getBudgetBook(), new UserPrefs(),
-                model.getExistingEmails());
+            model.getExistingEmails());
     }
 
     @Test
