@@ -57,6 +57,18 @@ public interface Model {
      */
     void updateEvent(Event target, Event editedEvent);
 
+    /**
+     * Replaces the given event {@code target} and its repeat events with {@code editedEvents}.
+     * {@code target} must exist in the scheduler.
+     */
+    void updateRepeatingEvents(Event target, List<Event> editedEvents);
+
+    /**
+     * Replaces the given event {@code target} and its upcoming events with {@code editedEvents}.
+     * {@code target} must exist in the scheduler.
+     */
+    void updateUpcomingEvents(Event target, List<Event> editedEvents);
+
     /** Returns an unmodifiable view of the filtered event list */
     ObservableList<Event> getFilteredEventList();
 
@@ -65,6 +77,9 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredEventList(Predicate<Event> predicate);
+
+    /** Returns the first event out of all similar repeating events in the event list according to predicate*/
+    Event getFirstInstanceOfEvent(Predicate<Event> predicate);
 
     /**
      * Returns true if the model has previous scheduler states to restore.

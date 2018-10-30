@@ -2,7 +2,7 @@ package seedu.scheduler.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.scheduler.storage.XmlAdaptedEvent.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,23 +22,23 @@ public class XmlAdaptedEventTest {
     private static final String INVALID_EVENT_NAME = " study ";
     private static final String INVALID_TAG = "#friend";
 
-    private static final UUID VALID_UID = JANUARY_1_2018_SINGLE.getUid();
-    private static final UUID VALID_UUID = JANUARY_1_2018_SINGLE.getUuid();
-    private static final String VALID_EVENT_NAME = JANUARY_1_2018_SINGLE.getEventName().toString();
-    private static final DateTime VALID_START_DATETIME = JANUARY_1_2018_SINGLE.getStartDateTime();
-    private static final DateTime VALID_END_DATETIME = JANUARY_1_2018_SINGLE.getEndDateTime();
-    private static final String VALID_DESCRIPTION = JANUARY_1_2018_SINGLE.getDescription().toString();
-    private static final String VALID_VENUE = JANUARY_1_2018_SINGLE.getVenue().toString();
-    private static final RepeatType VALID_REPEAT_TYPE = JANUARY_1_2018_SINGLE.getRepeatType();
-    private static final DateTime VALID_REPEAT_UNTIL_DATETIME = JANUARY_1_2018_SINGLE.getRepeatUntilDateTime();
-    private static final List<XmlAdaptedTag> VALID_TAGS = JANUARY_1_2018_SINGLE.getTags().stream()
+    private static final UUID VALID_UID = DISCUSSION_WITH_JACK.getUid();
+    private static final UUID VALID_UUID = DISCUSSION_WITH_JACK.getUuid();
+    private static final String VALID_EVENT_NAME = DISCUSSION_WITH_JACK.getEventName().toString();
+    private static final DateTime VALID_START_DATETIME = DISCUSSION_WITH_JACK.getStartDateTime();
+    private static final DateTime VALID_END_DATETIME = DISCUSSION_WITH_JACK.getEndDateTime();
+    private static final String VALID_DESCRIPTION = DISCUSSION_WITH_JACK.getDescription().toString();
+    private static final String VALID_VENUE = DISCUSSION_WITH_JACK.getVenue().toString();
+    private static final RepeatType VALID_REPEAT_TYPE = DISCUSSION_WITH_JACK.getRepeatType();
+    private static final DateTime VALID_REPEAT_UNTIL_DATETIME = DISCUSSION_WITH_JACK.getRepeatUntilDateTime();
+    private static final List<XmlAdaptedTag> VALID_TAGS = DISCUSSION_WITH_JACK.getTags().stream()
             .map(XmlAdaptedTag::new).collect(Collectors.toList());
-    private static final ReminderDurationList VALID_REMINDER_DURATION_LIST = JANUARY_1_2018_SINGLE
+    private static final ReminderDurationList VALID_REMINDER_DURATION_LIST = DISCUSSION_WITH_JACK
             .getReminderDurationList();
     @Test
     public void toModelType_validEventDetails_returnsEvent() throws Exception {
-        XmlAdaptedEvent event = new XmlAdaptedEvent(JANUARY_1_2018_SINGLE);
-        assertEquals(JANUARY_1_2018_SINGLE, event.toModelType());
+        XmlAdaptedEvent event = new XmlAdaptedEvent(DISCUSSION_WITH_JACK);
+        assertEquals(DISCUSSION_WITH_JACK, event.toModelType());
     }
 
     @Test

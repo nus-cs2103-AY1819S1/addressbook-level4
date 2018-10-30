@@ -5,9 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.scheduler.commons.core.Messages.MESSAGE_EVENTS_LISTED_OVERVIEW;
 import static seedu.scheduler.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_2_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_3_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_FOUR;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_ONE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_THREE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_TWO;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JILL_DAY_FOUR;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JILL_DAY_ONE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JILL_DAY_THREE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JILL_DAY_TWO;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.util.Arrays;
@@ -68,12 +73,14 @@ public class FindCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleEventsFound() {
-        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 3);
-        EventNameContainsKeywordsPredicate predicate = preparePredicate("January");
+        String expectedMessage = String.format(MESSAGE_EVENTS_LISTED_OVERVIEW, 8);
+        EventNameContainsKeywordsPredicate predicate = preparePredicate("Study");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredEventList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(JANUARY_1_2018_SINGLE, JANUARY_2_2018_SINGLE, JANUARY_3_2018_SINGLE),
+        assertEquals(Arrays.asList(STUDY_WITH_JANE_DAY_ONE, STUDY_WITH_JANE_DAY_TWO, STUDY_WITH_JANE_DAY_THREE,
+                STUDY_WITH_JANE_DAY_FOUR, STUDY_WITH_JILL_DAY_ONE, STUDY_WITH_JILL_DAY_TWO,
+                STUDY_WITH_JILL_DAY_THREE, STUDY_WITH_JILL_DAY_FOUR),
                 model.getFilteredEventList());
     }
 

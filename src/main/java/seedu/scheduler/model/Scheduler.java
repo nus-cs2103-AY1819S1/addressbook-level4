@@ -1,6 +1,7 @@
 package seedu.scheduler.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -92,6 +93,16 @@ public class Scheduler implements ReadOnlyScheduler {
     }
 
     /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in the scheduler.
+     */
+    public void updateEvents(Event targetEvent, List<Event> editedEvents, Predicate<Event> predicate) {
+        requireAllNonNull(editedEvents);
+
+        events.setEvents(targetEvent, editedEvents, predicate);
+    }
+
+    /**
      * Removes {@code key} from this {@code Scheduler}.
      * {@code key} must exist in the scheduler.
      */
@@ -139,6 +150,12 @@ public class Scheduler implements ReadOnlyScheduler {
     @Override
     public ObservableList<Event> getEventList() {
         return events.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public Event getFirstInstanceOfEvent(Predicate<Event> predicate) {
+        return events.asUnmodifiableObservableList().stream()
+                .filter(predicate).findFirst().orElse(null);
     }
 
     @Override

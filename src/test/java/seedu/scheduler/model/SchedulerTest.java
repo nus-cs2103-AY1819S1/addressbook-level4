@@ -3,15 +3,15 @@ package seedu.scheduler.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_PLAY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_2_2018_SINGLE;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_3_2018_SINGLE;
+import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
+import static seedu.scheduler.testutil.TypicalEvents.DISCUSSION_WITH_JACK;
+import static seedu.scheduler.testutil.TypicalEvents.INTERVIEW_WITH_JOHN;
 import static seedu.scheduler.testutil.TypicalEvents.getTypicalScheduler;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,8 +30,8 @@ public class SchedulerTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final Scheduler scheduler = new Scheduler();
-    private final Scheduler schedulerWithJanuary1and2 = new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE)
-            .withEvent(JANUARY_2_2018_SINGLE).build();
+    private final Scheduler schedulerWithDiscussionAndInterview = new SchedulerBuilder().withEvent(DISCUSSION_WITH_JACK)
+            .withEvent(INTERVIEW_WITH_JOHN).build();
 
     @Test
     public void constructor() {
@@ -59,13 +59,13 @@ public class SchedulerTest {
 
     @Test
     public void hasEvent_eventNotInScheduler_returnsFalse() {
-        assertFalse(scheduler.hasEvent(JANUARY_3_2018_SINGLE));
+        assertFalse(scheduler.hasEvent(AD_HOC_WORK));
     }
 
     @Test
     public void hasEvent_eventInScheduler_returnsTrue() {
-        scheduler.addEvent(JANUARY_3_2018_SINGLE);
-        assertTrue(scheduler.hasEvent(JANUARY_3_2018_SINGLE));
+        scheduler.addEvent(AD_HOC_WORK);
+        assertTrue(scheduler.hasEvent(AD_HOC_WORK));
     }
 
     @Test
@@ -76,20 +76,21 @@ public class SchedulerTest {
 
     @Test
     public void removeTagNonExistentTagSchedulerUnchanged() throws Exception {
-        schedulerWithJanuary1and2.removeTag(new Tag(VALID_TAG_UNUSED));
-        Scheduler expectedScheduler = new SchedulerBuilder().withEvent(JANUARY_1_2018_SINGLE)
-                .withEvent(JANUARY_2_2018_SINGLE).build();
-        assertEquals(expectedScheduler, schedulerWithJanuary1and2);
+        schedulerWithDiscussionAndInterview.removeTag(new Tag(VALID_TAG_UNUSED));
+        Scheduler expectedScheduler = new SchedulerBuilder().withEvent(DISCUSSION_WITH_JACK)
+                .withEvent(INTERVIEW_WITH_JOHN).build();
+        assertEquals(expectedScheduler, schedulerWithDiscussionAndInterview);
     }
 
     @Test
     public void removeTagTagUsedByMultipleEventsTagRemoved() {
-        schedulerWithJanuary1and2.removeTag(new Tag(VALID_TAG_PLAY));
-        Event january1WithoutPlayTag = new EventBuilder(JANUARY_1_2018_SINGLE).withTags("home").build();
-        Event january2WithoutPlayTag = new EventBuilder(JANUARY_2_2018_SINGLE).withTags().build();
-        Scheduler expectedScheduler = new SchedulerBuilder().withEvent(january1WithoutPlayTag)
-                .withEvent(january2WithoutPlayTag).build();
-        assertEquals(expectedScheduler, schedulerWithJanuary1and2);
+        schedulerWithDiscussionAndInterview.removeTag(new Tag("Work"));
+        Event discussionWithoutWorkTag = new EventBuilder(DISCUSSION_WITH_JACK)
+                .withTags("Talk", "Personal").build();
+        Event interviewWithoutWorkTag = new EventBuilder(INTERVIEW_WITH_JOHN).withTags("Interview").build();
+        Scheduler expectedScheduler = new SchedulerBuilder().withEvent(discussionWithoutWorkTag)
+                .withEvent(interviewWithoutWorkTag).build();
+        assertEquals(expectedScheduler, schedulerWithDiscussionAndInterview);
     }
 
     /**
@@ -105,6 +106,11 @@ public class SchedulerTest {
         @Override
         public ObservableList<Event> getEventList() {
             return events;
+        }
+
+        @Override
+        public Event getFirstInstanceOfEvent(Predicate<Event> predicate) {
+            return events.filtered(predicate).get(0);
         }
     }
 

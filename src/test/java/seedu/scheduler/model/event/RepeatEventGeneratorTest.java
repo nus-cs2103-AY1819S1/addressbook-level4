@@ -1,16 +1,14 @@
 package seedu.scheduler.model.event;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.scheduler.testutil.TypicalEvents.DAY2018_THREE_DAY_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.FEBRUARY_29_2016_YEARLY;
-import static seedu.scheduler.testutil.TypicalEvents.FEBRUARY_29_FOUR_YEAR_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_MONTHLY;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_2018_YEARLY;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_1_THREE_YEAR_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_30_2018_DAILY;
-import static seedu.scheduler.testutil.TypicalEvents.JANUARY_31_2018_MONTHLY;
-import static seedu.scheduler.testutil.TypicalEvents.MONTH2018_1_THREE_MONTH_LIST;
-import static seedu.scheduler.testutil.TypicalEvents.MONTH2018_31_THREE_MONTH_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.JIM_BIRTHDAY_YEARLY_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.JIM_BIRTHDAY_YEAR_ONE;
+import static seedu.scheduler.testutil.TypicalEvents.LEAP_DAY_CELEBRATION_YEARLY_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.LEAP_DAY_CELEBRATION_YEAR_ONE;
+import static seedu.scheduler.testutil.TypicalEvents.STARTUP_LECTURE_MONTHLY_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.STARTUP_LECTURE_MONTH_ONE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAILY_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_ONE;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,45 +26,41 @@ public class RepeatEventGeneratorTest {
     @Test
     public void generateAllRepeatedEvents() {
         // daily event
-        assertEquals(DAY2018_THREE_DAY_LIST, repeatEventGenerator.generateAllRepeatedEvents(JANUARY_30_2018_DAILY));
+        assertEquals(STUDY_WITH_JANE_DAILY_LIST,
+                repeatEventGenerator.generateAllRepeatedEvents(STUDY_WITH_JANE_DAY_ONE));
 
         // monthly event
-        assertEquals(MONTH2018_1_THREE_MONTH_LIST,
-                repeatEventGenerator.generateAllRepeatedEvents(JANUARY_1_2018_MONTHLY));
-        assertEquals(MONTH2018_31_THREE_MONTH_LIST,
-                repeatEventGenerator.generateAllRepeatedEvents(JANUARY_31_2018_MONTHLY));
+        assertEquals(STARTUP_LECTURE_MONTHLY_LIST,
+                repeatEventGenerator.generateAllRepeatedEvents(STARTUP_LECTURE_MONTH_ONE));
 
         // yearly event
-        assertEquals(JANUARY_1_THREE_YEAR_LIST,
-                repeatEventGenerator.generateAllRepeatedEvents(JANUARY_1_2018_YEARLY));
-        assertEquals(FEBRUARY_29_FOUR_YEAR_LIST,
-                repeatEventGenerator.generateAllRepeatedEvents(FEBRUARY_29_2016_YEARLY));
+        assertEquals(LEAP_DAY_CELEBRATION_YEARLY_LIST,
+                repeatEventGenerator.generateAllRepeatedEvents(LEAP_DAY_CELEBRATION_YEAR_ONE));
+        assertEquals(JIM_BIRTHDAY_YEARLY_LIST,
+                repeatEventGenerator.generateAllRepeatedEvents(JIM_BIRTHDAY_YEAR_ONE));
     }
 
     @Test
     public void generateDailyRepeatEvents() {
         // standard day of a year
-        assertEquals(DAY2018_THREE_DAY_LIST, repeatEventGenerator.generateDailyRepeatEvents(JANUARY_30_2018_DAILY));
+        assertEquals(STUDY_WITH_JANE_DAILY_LIST,
+                repeatEventGenerator.generateDailyRepeatEvents(STUDY_WITH_JANE_DAY_ONE));
     }
 
     @Test
     public void generateMonthlyRepeatEvents() {
-        // standard day of a year
-        assertEquals(MONTH2018_1_THREE_MONTH_LIST,
-                repeatEventGenerator.generateMonthlyRepeatEvents(JANUARY_1_2018_MONTHLY));
-        // days that do not appear every month
-        assertEquals(MONTH2018_31_THREE_MONTH_LIST,
-                repeatEventGenerator.generateMonthlyRepeatEvents(JANUARY_31_2018_MONTHLY));
+        assertEquals(STARTUP_LECTURE_MONTHLY_LIST,
+                repeatEventGenerator.generateMonthlyRepeatEvents(STARTUP_LECTURE_MONTH_ONE));
     }
 
     @Test
     public void generateYearlyRepeatEvents() {
         // standard day of year
-        assertEquals(JANUARY_1_THREE_YEAR_LIST,
-                repeatEventGenerator.generateYearlyRepeatEvents(JANUARY_1_2018_YEARLY));
+        assertEquals(JIM_BIRTHDAY_YEARLY_LIST,
+                repeatEventGenerator.generateYearlyRepeatEvents(JIM_BIRTHDAY_YEAR_ONE));
         // day of leap year
-        assertEquals(FEBRUARY_29_FOUR_YEAR_LIST,
-                repeatEventGenerator.generateYearlyRepeatEvents(FEBRUARY_29_2016_YEARLY));
+        assertEquals(LEAP_DAY_CELEBRATION_YEARLY_LIST,
+                repeatEventGenerator.generateYearlyRepeatEvents(LEAP_DAY_CELEBRATION_YEAR_ONE));
     }
 
     /**
