@@ -85,8 +85,7 @@ public class AppointmentBuilder {
     }
 
     /**
-     * Setst the type of the {@code Appointment} we are building.
-     * @return
+     * Sets the type of the {@code Appointment} we are building.
      */
     public AppointmentBuilder withType(int type) {
         this.type = type;
