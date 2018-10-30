@@ -349,7 +349,7 @@ Format: `addEventTag [t/EVENT_TAG...]`
 
 [TIP]
 ====
-Event tags are case-insensitive. i.e. MEETING and meeting are considered the same tag. 
+Event tags are case-insensitive. i.e. MEETING and meeting are considered the same tag.
 Executing `addEventTag t/MEETING t/meeting` will only result in the first tag being added.
 Executing `addEventTag t/MEETING` again will not be successful, as the tag already exists in the system.
 ====
