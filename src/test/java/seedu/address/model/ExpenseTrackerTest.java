@@ -53,6 +53,7 @@ public class ExpenseTrackerTest {
     public void resetData_withValidReadOnlyExpenseTracker_replacesData() {
         ExpenseTracker newData = getTypicalExpenseTracker();
         expenseTracker.resetData(newData);
+        newData.setUsername(ModelUtil.TEST_USERNAME);
         assertEquals(newData, expenseTracker);
         assertEquals(newData.getMaximumBudget(), expenseTracker.getMaximumBudget());
     }

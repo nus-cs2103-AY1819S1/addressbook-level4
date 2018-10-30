@@ -24,6 +24,7 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.encryption.EncryptionUtil;
+import seedu.address.model.user.Username;
 import seedu.address.testutil.ModelUtil;
 
 public class XmlExpensesStorageTest {
@@ -84,12 +85,13 @@ public class XmlExpensesStorageTest {
     public void readAndSaveExpenseTracker_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempExpenseTracker.xml");
         ExpenseTracker original = getTypicalExpenseTracker();
+        original.setUsername(new Username("TempExpenseTracker"));
         XmlExpensesStorage xmlExpenseTrackerStorage = new XmlExpensesStorage(filePath);
-
         //Save in new file and read back
         xmlExpenseTrackerStorage.saveExpenses(EncryptionUtil.encryptTracker(original), filePath);
         ReadOnlyExpenseTracker readBack =
                 xmlExpenseTrackerStorage.readExpenses(filePath).get().decryptTracker(DEFAULT_ENCRYPTION_KEY);
+
         assertEquals(original, new ExpenseTracker(readBack));
 
         //Modify data, overwrite exiting file, and read back

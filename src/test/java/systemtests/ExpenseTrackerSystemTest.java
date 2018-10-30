@@ -179,10 +179,6 @@ public abstract class ExpenseTrackerSystemTest {
             Model expectedModel) throws NoUserSelectedException, IllegalValueException {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        System.out.println(expectedModel.getExpenseTracker().getMaximumBudget().getNextRecurrence());
-        System.out.println(
-                new ExpenseTracker(expectedModel.getExpenseTracker()).getMaximumBudget().getNextRecurrence());
-        System.out.println(testApp.readStorageExpenseTracker().getMaximumBudget().getNextRecurrence());
         assertEquals(new ExpenseTracker(expectedModel.getExpenseTracker()), testApp.readStorageExpenseTracker());
         assertListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());
     }

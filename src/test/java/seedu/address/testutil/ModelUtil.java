@@ -39,8 +39,8 @@ public class ModelUtil {
     public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException,
             NoUserSelectedException, InvalidDataException, ParseException {
         Model model = new ModelManager();
-        model.addUser(TEST_USERNAME);
-        model.loadUserData(new LoginInformation(TEST_USERNAME, null));
+        model.addUser(TypicalExpenses.SAMPLE_USERNAME);
+        model.loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
         model.modifyMaximumBudget(new Budget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));
         return model;
     }
