@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -26,6 +24,8 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.DoctorBuilder;
+
+import javafx.collections.ObservableList;
 
 class RegisterDoctorCommandTest {
 
@@ -44,8 +44,8 @@ class RegisterDoctorCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        RegisterDoctorCommandTest.ModelStubAcceptingDoctorAdded modelStub
-                = new RegisterDoctorCommandTest.ModelStubAcceptingDoctorAdded();
+        RegisterDoctorCommandTest.ModelStubAcceptingDoctorAdded modelStub =
+                new RegisterDoctorCommandTest.ModelStubAcceptingDoctorAdded();
         Doctor validDoctor = new DoctorBuilder().build();
 
         CommandResult commandResult = new RegisterDoctorCommand(validDoctor).execute(modelStub, commandHistory);
