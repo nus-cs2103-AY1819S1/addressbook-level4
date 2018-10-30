@@ -199,7 +199,7 @@ Format: `undo`
 Shorthand: `u`
 [NOTE]
 ====
-Undoable commands: those commands that modify InsuRen's content (`add`, `delete`, `edit`, `import`, `meetings`,
+Undoable commands: those commands that modify InsuRen's content (`add`, `delete`, `edit`, `import`, `schedule`,
  `pic` and `clear`).
 ====
 
@@ -314,37 +314,38 @@ image::exportedCsv.png[width="790"]
 === Add meeting time: `schedule`
 
 Add a meeting at the input date and time with a specified person. +
-Format: `schedule n/PERSON d/DDMMYY [t/HHMM]`
+Format: `schedule INDEX m/DD/MM/YY HHMM`
+
+Shorthand: `sch`
 
 ****
 * InsuRen will add the meeting to your list of meetings, as well as mark the person with the meeting.
+* If the day is invalid, an error will be thrown.
+* If there are any meetings scheduled at the same time, it will be flagged out.
 ****
 
 Example:
 
-* `schedule Jane Doe d/120319 t/0930` +
-InsuRen will record that Jane Doe is scheduled for a meeting on 12 March 2019, 0930.
+* `schedule 1 m/12/03/19 0930` +
+InsuRen will record that a meeting is scheduled on 12 March 2019, 0930 with the first entry.
 
-=== View meeting timings: `meetings` `[coming in v2.0]`
+=== View meeting timings: `meetings`
 
 Displays the details of the meeting at the input date and time. +
-Format: `meetings [d/DDMMYY] [t/HHMM]`
+Format: `meetings [DD/MM/YY]`
 
+shorthand: `mtngs`
 ****
-* If there is a meeting scheduled at the queried date and time, the details of the client the meeting is scheduled with
+* If there are meetings scheduled on the queried date, the details of the clients the meetings are scheduled with
 are displayed.
-* If the query has no time, then all meetings scheduled on the day are displayed.
 * If the query has no date, then all meetings scheduled in InsuRen are displayed.
-* If there is no meeting scheduled on the day/time, the details of the first meeting after the queried date/time are
-displayed.
-* If there are no meetings on/at and after the scheduled date/time, you are notified that there are no upcoming
-meetings.
+* If there is no meeting scheduled on the day, an empty list is displayed.
 ****
 
 Example:
 
-* `meetings 23022018 1600` +
-InsuRen displays meetings at that time or the earliest meeting after the specified time.
+* `meetings 23/02/18` +
+InsuRen displays meetings scheduled on 23rd February, 2018.
 
 === Notifications for expiring plans `[coming in v2.0]`
 
@@ -470,8 +471,8 @@ e.g.`select 2`
 * *Redo* : `redo`
 * *Import contacts* : `import` or `import` l/FILE_PATH
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
-* *Schedule* : `schedule n/NAME d/DDMMYY [t/HHMM]`
-* *Meetings* : `meetings [d/DDMMYY] [t/HHMM]`
+* *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
+* *Meetings* : `meetings [m/DD/MM/YY HHMM]`
 * *Add picture* : `​pic INDEX l/FILE_LOCATION`
 * *View all contacts with a specified tag* : `tag TAG_NAME`
 * *Remove all contacts from a specified tag* : `tag TAG_NAME remove`
