@@ -49,7 +49,7 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-        int type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TIME).get());
+        int type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
