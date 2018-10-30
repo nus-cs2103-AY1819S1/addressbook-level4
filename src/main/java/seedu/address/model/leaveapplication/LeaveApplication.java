@@ -45,7 +45,7 @@ public class LeaveApplication {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable date list, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public List<LocalDate> getDates() {
@@ -71,12 +71,6 @@ public class LeaveApplication {
                 && otherLeaveApplication.getDescription().equals(getDescription())
                 && otherLeaveApplication.getLeaveStatus().equals(getLeaveStatus())
                 && otherLeaveApplication.getDates().equals(getDates());
-//                && otherLeaveApplication.getDates().stream()
-//                    .map(Date::getTime)
-//                    .collect(Collectors.toList())
-//                    .equals(getDates().stream()
-//                            .map(Date::getTime)
-//                            .collect(Collectors.toList()));
     }
 
     @Override
