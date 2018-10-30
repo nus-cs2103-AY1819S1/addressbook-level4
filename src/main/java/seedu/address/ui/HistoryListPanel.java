@@ -63,7 +63,7 @@ public class HistoryListPanel extends UiPart<Region> {
             //undo command
             if (items.size() > 0) {
                 redoQueue.add(items.get(items.size() - 1));
-                items.remove( items.size() - 1, items.size());
+                items.remove(items.size() - 1, items.size());
             }
         } else {
             if (event.transformation.isEmpty()) {
@@ -95,7 +95,7 @@ public class HistoryListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         int size = items.size();
         for (; 0 < size; size--) {
-            items.remove( items.size() - 1, items.size());
+            items.remove(items.size() - 1, items.size());
         }
         redoQueue.clear();
     }
