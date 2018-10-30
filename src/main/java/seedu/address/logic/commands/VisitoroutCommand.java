@@ -22,17 +22,13 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.visitor.Visitor;
 import seedu.address.model.visitor.VisitorList;
 
-
-
-//@@author GAO JIAXIN666
 /**
- * Checks in a visitor into patient's visitor list.
+ * Visitorout command to check out visitor for patient's visitor list
  */
-public class VisitorinCommand extends Command {
+public class VisitoroutCommand extends Command {
+    public static final String COMMAND_WORD = "visitorout";
 
-    public static final String COMMAND_WORD = "visitorin";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Checks in a visitor into the patient's visitor list \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": check out visitor form patient visitor list"
             + "Parameters: "
             + PREFIX_NRIC + "PATIENT_NRIC "
             + PREFIX_VISITOR + "VISITOR_NAME \n"
@@ -40,20 +36,16 @@ public class VisitorinCommand extends Command {
             + PREFIX_NRIC + "S1234567A "
             + PREFIX_VISITOR + "Jane";
 
-    public static final String MESSAGE_SUCCESS = "New visitor checked in: %1$s";
-    public static final String MESSAGE_DUPLICATE_VISITORS = "This person is already in the list";
-    public static final String MESSAGE_UNREGISTERED = "Patient %1$s is not registered within the system.";
-    public static final String MESSAGE_FULL = "Patient can not has more than 5 visitor in the list";
+    public static final String MESSAGE_UNREGISTERED = "Person %1$s is not registered within the system.\n";
+    public static final String MESSAGE_NO_VISITORS = "Patient %1$s has no existing visitors at present";
+    public static final String MESSAGE_NO_REQUIRED_VISITOR = "Patient %1$s has no existing visitors at present";
+    public static final String MESSAGE_SUCCESS = "visitor is checked out from %1$s";
 
     private final Nric patientNric;
     private final Visitor visitorName;
 
-    /**
-     * Creates an VisitorInCommand to add visitors to patient's visitor's list
-     */
-    public VisitorinCommand(Nric patientNric, Visitor visitorName) {
+    public VisitoroutCommand(Nric patientNric, Visitor visitorName) {
         requireNonNull(patientNric);
-        requireNonNull(visitorName);
         this.patientNric = patientNric;
         this.visitorName = visitorName;
     }
@@ -69,19 +61,21 @@ public class VisitorinCommand extends Command {
             throw new CommandException(MESSAGE_UNREGISTERED);
         }
 
-        Person patientToUpdate = filteredByNric.get(0);
+        Person selectedPatient = filteredByNric.get(0);
+        VisitorList patientVisitorList = selectedPatient.getVisitorList();
 
-        if (patientToUpdate.getVisitorList().getSize() >= 5) {
-            throw new CommandException(MESSAGE_FULL);
+
+        if (patientVisitorList.getSize() == 0) {
+            return new CommandResult(String.format(MESSAGE_NO_VISITORS, patientNric));
         }
 
-        if (patientToUpdate.getVisitorList().contains(visitorName)) {
-            throw new CommandException(MESSAGE_DUPLICATE_VISITORS);
+        if (!patientVisitorList.contains(visitorName)) {
+            return new CommandResult(String.format(MESSAGE_NO_REQUIRED_VISITOR, patientNric));
         }
 
-        Person updatedPatient = addVisitorForPatient(patientToUpdate, this.visitorName);
+        Person updatedPatient = removeVisitorForPatient(selectedPatient, this.visitorName);
 
-        model.updatePerson(patientToUpdate, updatedPatient);
+        model.updatePerson(selectedPatient, updatedPatient);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, patientNric));
     }
@@ -89,23 +83,23 @@ public class VisitorinCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof VisitorinCommand //instanceof handles nulls
-                && patientNric.equals(((VisitorinCommand) other).patientNric)
-                && visitorName.equals(((VisitorinCommand) other).visitorName));
+                || (other instanceof VisitoroutCommand //instanceof handles nulls
+                && patientNric.equals(((VisitoroutCommand) other).patientNric)
+                && visitorName.equals(((VisitoroutCommand) other).visitorName));
     }
 
     /**
-     * Updates a patient with new visitor and construct a the person class
+     * Updates a patient to remove a visitor from the patient's visitor list
      *
      * @param patientToEdit The patient to update.
-     * @param newVisitor The newly added visitor
+     * @param visitor visitor needs to be removed
      * @return An updated patient with an updated visitorList.
      */
-    private static Person addVisitorForPatient(Person patientToEdit, Visitor newVisitor) {
-        requireAllNonNull(patientToEdit, newVisitor);
+    private static Person removeVisitorForPatient(Person patientToEdit, Visitor visitor) {
+        requireAllNonNull(patientToEdit, visitor);
 
         VisitorList updatedVisitorList = patientToEdit.getVisitorList();
-        updatedVisitorList.add(newVisitor);
+        updatedVisitorList.remove(visitor);
 
         Nric nric = patientToEdit.getNric();
         Name name = patientToEdit.getName();
