@@ -68,9 +68,13 @@ public class ModelManager extends ComponentManager implements Model {
         notificationPref = set;
     }
 
-    public static String getFavouriteEvent() { return favouriteEvent; }
+    public static String getFavouriteEvent() {
+        return favouriteEvent;
+    }
 
-    public static void updateFavourite(String newEvent) { favouriteEvent = newEvent; }
+    public static void updateFavourite(String newEvent) {
+        favouriteEvent = newEvent;
+    }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
