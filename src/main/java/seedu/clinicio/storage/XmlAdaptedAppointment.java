@@ -8,6 +8,7 @@ import seedu.clinicio.commons.exceptions.IllegalValueException;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.patient.Patient;
 
 
 /**
@@ -21,14 +22,14 @@ public class XmlAdaptedAppointment {
     @XmlElement(required = true)
     private String time;
     @XmlElement(required = true)
-    private String ic;
+    private String patient;
     @XmlElement(required = true)
     private int status;
 
     @XmlElement
     private int type;
     @XmlElement
-    private String doctor;
+    private String staff;
 
     /**
      * Constructs an XmlAdaptedAppointment. This is the no-arg constructor that is required by JAXB.
@@ -39,14 +40,14 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs an {@code XmlAdaptedAppointment} with the given appointment details.
      */
-    public XmlAdaptedAppointment(String date, String time, String ic, int status, int type, String doctor) {
+    public XmlAdaptedAppointment(String date, String time, String ic, int status, int type, String staff) {
         this.date = date;
         this.time = time;
-        this.ic = ic;
+        this.patient = ic;
         this.status = status;
         this.type = type;
-        if (doctor != null) {
-            this.doctor = doctor;
+        if (staff != null) {
+            this.staff = staff;
         }
     }
 
@@ -66,14 +67,14 @@ public class XmlAdaptedAppointment {
         int min = source.getAppointmentTime().getMinute();
 
         time = String.valueOf(hour) + " " + String.valueOf(min);
-        ic = "TODO: Get ic string of patient";
+        patient = source.getPatient().toString();
         status = source.getAppointmentStatus();
         type = source.getAppointmentType();
-        doctor = source.getAssignedStaff().toString();
+        staff = source.getAssignedStaff().toString();
     }
 
     /**
-     * Converts this jaxb-friendly adapted appointment object into the model's Appointment object.
+     * Converts this jaxb-friendly adapted appointment object into the model's Appointment object. TODO.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted appointment
      */
@@ -90,12 +91,10 @@ public class XmlAdaptedAppointment {
         if (!Time.isValidTime(time)) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
-        //TODO: Add check for validity of ic
-        if (ic == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "IC"));
+        if (patient == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Patient.class.getSimpleName()));
         }
-        //TODO: Add ic once appointment takes in ic
-        return new Appointment(Date.newDate(date), Time.newTime(time), null, type, null);
+        return new Appointment(Date.newDate(date), Time.newTime(time), null, type);
     }
 
     @Override
@@ -111,9 +110,9 @@ public class XmlAdaptedAppointment {
         XmlAdaptedAppointment otherAppt = (XmlAdaptedAppointment) other;
         return Objects.equals(date, otherAppt.date)
                 && Objects.equals(time, otherAppt.time)
-                && Objects.equals(ic, otherAppt.ic)
-                && Objects.equals(status, otherAppt.ic)
-                && Objects.equals(type, otherAppt.ic)
-                && Objects.equals(doctor, otherAppt.doctor);
+                && Objects.equals(patient, otherAppt.patient)
+                && Objects.equals(status, otherAppt.status)
+                && Objects.equals(type, otherAppt.type)
+                && Objects.equals(staff, otherAppt.staff);
     }
 }

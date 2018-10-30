@@ -174,6 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addAppointment(Appointment appt) {
         versionedClinicIo.addAppointment(appt);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        indicateClinicIoChanged();
     }
 
     //@author arsalanc-v2
