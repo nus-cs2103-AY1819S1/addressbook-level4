@@ -134,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Directory Image List Accessors =============================================================
-
+    // @@author benedictcss
     /**
      * Returns an array list of the images from the current directory {@code dirImageList}
      * backed by the list of {@code userPrefs}
@@ -186,6 +186,8 @@ public class ModelManager extends ComponentManager implements Model {
         currentPreviewImage = selectedImage;
         canvas.addLayer(selectedImage);
     }
+    //@@author
+
     //=========== GoogleClient Accessors =============================================================
 
     @Override
@@ -240,7 +242,7 @@ public class ModelManager extends ComponentManager implements Model {
                 new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
     }
 
-    //=========== get/updateing preview image ==========================================================================
+    //=========== get/updating preview image ==========================================================================
 
     @Override
     public void addTransformation(Transformation transformation) {
@@ -291,6 +293,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Update UserPrefs ==========================================================================
 
+    // @@author benedictcss
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
