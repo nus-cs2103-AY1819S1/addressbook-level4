@@ -180,6 +180,7 @@ public class AddressBookParser {
             return new RemoveCommandParser().parse(arguments);
 
         case ServeCommand.COMMAND_WORD:
+        case ServeCommand.COMMAND_ALIAS:
             return new ServeCommand();
 
         case DocumentContentAddCommand.COMMAND_WORD:
