@@ -31,7 +31,7 @@ public class ResolvedAndContainsKeywordsPredicate implements Predicate<Article> 
                         || keywords.stream().anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword))
                         || keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(article.getTags().toString(), keyword)));
+                        StringUtil.containsWordIgnoreCase(article.getStringTags(), keyword)));
 
     }
 
