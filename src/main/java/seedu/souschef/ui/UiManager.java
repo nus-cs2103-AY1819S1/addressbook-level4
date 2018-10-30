@@ -89,6 +89,11 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Override
+    public void switchToCrossRecipeListPanel() {
+        this.mainWindow.switchToCrossRecipeListPanel();
+    }
+
+    @Override
     public void switchToHealthPlanListPanel () {
         this.mainWindow.switchToHealthPlanListPanel();
     }

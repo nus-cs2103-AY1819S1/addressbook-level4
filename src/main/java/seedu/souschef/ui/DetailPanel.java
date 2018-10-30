@@ -12,8 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.events.ui.CrossRecipePanelSelectionChangedEvent;
 import seedu.souschef.commons.events.ui.RecipePanelSelectionChangedEvent;
 import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
+import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Recipe;
 
@@ -25,6 +28,7 @@ public class DetailPanel extends UiPart<Region> {
     private static final String FXML = "DetailPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private Recipe recipe;
+    private CrossRecipe crossRecipe;
 
     @FXML
     private Label name;
@@ -32,6 +36,10 @@ public class DetailPanel extends UiPart<Region> {
     private Label ingredientLabel;
     @FXML
     private Label ingredients;
+    @FXML
+    private Label ingredientToShopLabel;
+    @FXML
+    private Label ingredientsToShop;
     @FXML
     private Label instructionLabel;
     @FXML
@@ -41,15 +49,23 @@ public class DetailPanel extends UiPart<Region> {
         super(FXML);
         getRoot().setOnKeyPressed(Event::consume);
 
-        loadDefaultPage();
+        loadDefaultRecipePage();
         registerAsAnEventHandler(this);
     }
 
     /**
      * Loads a placeholders into details panel.
      */
-    public void loadDefaultPage() {
+    public void loadDefaultRecipePage() {
         name.setText("Select a recipe for viewing...");
+        loadEmptyFields();
+    }
+
+    /**
+     * Loads a placeholders into details panel.
+     */
+    public void loadDefaultICrossPage() {
+        name.setText("Select recipe to view needed ingredients and its amount...");
         loadEmptyFields();
     }
 
@@ -67,6 +83,8 @@ public class DetailPanel extends UiPart<Region> {
     private void loadEmptyFields() {
         ingredientLabel.setText("");
         ingredients.setText("");
+        ingredientToShopLabel.setText("");
+        ingredientsToShop.setText("");
         instructionLabel.setText("");
         instructions.setText("");
     }
@@ -84,20 +102,37 @@ public class DetailPanel extends UiPart<Region> {
     }
 
     /**
+     * Loads a result of inventory command into details panel.
+     */
+    private void loadCrossDetail(CrossRecipe crossRecipe) {
+        this.crossRecipe = crossRecipe;
+        Recipe targetRecipe = crossRecipe.getRecipe();
+        Map<IngredientDefinition, IngredientPortion> neededIngredients = crossRecipe.getNeededIngredients();
+        name.setText(targetRecipe.getName().fullName);
+        ingredientLabel.setText("Ingredients: ");
+        ingredientToShopLabel.setText("Ingredients to shop");
+        instructionLabel.setText("Instruction: ");
+        ingredients.setText(ingredientsDisplay(targetRecipe.getIngredients()));
+        ingredientsToShop.setText(ingredientsDisplay(neededIngredients));
+        instructions.setText(instructionsDisplay(targetRecipe.getInstructions()));
+
+    }
+
+    /**
      * Generate screen-friendly text format for ingredients.
      */
-    private String ingredientsDisplay(Map<IngredientDefinition, Double> ingredientSet) {
+    private String ingredientsDisplay(Map<IngredientDefinition, IngredientPortion> ingredientSet) {
         StringBuilder builder = new StringBuilder();
-        ingredientSet.forEach((def, amount) -> {
-            builder.append(def.getName().toString());
+        ingredientSet.forEach((def, portion) -> {
+            builder.append(def.getName());
             builder.append(", ");
-            if (amount % 1 > 0) {
-                builder.append(amount);
+            if (portion.getAmount().getValue() % 1 > 0) {
+                builder.append(String.format("%.1f", portion.getAmount().getValue()));
             } else {
-                builder.append(amount.intValue());
+                builder.append(String.format("%.1f", portion.getAmount().getValue()));
             }
             builder.append(" ");
-            builder.append(def.getUnit());
+            builder.append(portion.getUnit());
             builder.append("\n");
         });
         return builder.toString();
@@ -122,6 +157,12 @@ public class DetailPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(RecipePanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadRecipeDetail(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(CrossRecipePanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCrossDetail(event.getNewSelection());
     }
 
     @Override

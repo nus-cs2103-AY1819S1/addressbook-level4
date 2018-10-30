@@ -26,6 +26,6 @@ public class ListCommand<T extends UniqueType> extends Command {
     public CommandResult execute(History history) {
         requireNonNull(model);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getContext().toString().toLowerCase()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getKeyword()));
     }
 }

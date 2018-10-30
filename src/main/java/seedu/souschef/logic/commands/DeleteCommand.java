@@ -26,7 +26,7 @@ public class DeleteCommand<T extends UniqueType> extends Command {
         model.delete(toDelete);
         model.commitAppContent();
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS,
-                history.getContext().toString().toLowerCase(), toDelete));
+                history.getKeyword(), toDelete));
     }
 
     @Override

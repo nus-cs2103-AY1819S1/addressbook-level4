@@ -92,25 +92,27 @@ public class AddCommandParser implements CommandParser<AddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
-        IngredientName name = new IngredientName(tokens[0].replaceAll("_", " "));
-        IngredientAmount amount;
-        IngredientServingUnit unit = new IngredientServingUnit(tokens[2]);
-        IngredientDate date;
-
-        if (!(name.isValid() && unit.isValid())) {
+        String name = tokens[0].replaceAll("_", " ");
+        String unit = tokens[2];
+        if (!(IngredientName.isValid(name) && IngredientServingUnit.isValid(unit))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
+        IngredientName ingredientName = new IngredientName(name);
+        IngredientServingUnit ingredientServingUnit = new IngredientServingUnit(unit);
+        IngredientAmount ingredientAmount;
+        IngredientDate ingredientDate;
 
         try {
-            amount = new IngredientAmount(tokens[1]);
-            date = new IngredientDate(tokens[3]);
+            ingredientAmount = new IngredientAmount(tokens[1]);
+            ingredientDate = new IngredientDate(tokens[3]);
         } catch (NumberFormatException ne) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         } catch (java.text.ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
 
-        Ingredient toAdd = new Ingredient(name, amount, unit, date);
+        Ingredient toAdd = new Ingredient(ingredientName, ingredientAmount,
+                ingredientServingUnit, ingredientDate).convertToCommonUnit();
 
         return new AddCommand<>(model, toAdd);
     }

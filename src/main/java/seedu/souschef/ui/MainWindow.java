@@ -152,7 +152,7 @@ public class MainWindow extends UiPart<Stage> {
         hideBrowserSidePanel();
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
-        detailPanel.loadDefaultPage();
+        detailPanel.loadDefaultRecipePage();
     }
 
 
@@ -164,6 +164,12 @@ public class MainWindow extends UiPart<Stage> {
         generalListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
         detailPanel.loadBlankPage();
+    }
+
+    protected void switchToCrossRecipeListPanel() {
+        generalListPanel = new CrossRecipeListPanel(logic.getFilteredCrossRecipeList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadDefaultICrossPage();
     }
 
     /**

@@ -35,6 +35,13 @@ public class History {
         return context;
     }
 
+    public String getKeyword() {
+        if (context.equals(Context.CROSS)) {
+            return "recipe";
+        }
+        return context.toString().toLowerCase();
+    }
+
     public void setContext(Context context) {
         this.context = context;
     }

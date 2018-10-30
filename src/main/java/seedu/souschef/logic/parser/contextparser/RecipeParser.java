@@ -81,7 +81,7 @@ public class RecipeParser {
             return new ListCommand<Recipe>(recipeModel);
 
         case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parseRecipe(recipeModel, arguments);
+            return new SelectCommandParser().parseIndex(recipeModel, arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
