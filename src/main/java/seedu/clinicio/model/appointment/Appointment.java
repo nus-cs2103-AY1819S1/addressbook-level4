@@ -134,6 +134,7 @@ public class Appointment {
      */
     public String statusToString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Status: ");
         if (appointmentStatus == APPROVED) {
             stringBuilder.append("APPROVED");
         } else {
@@ -149,6 +150,7 @@ public class Appointment {
      */
     public String typeToString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Type: ");
         if (appointmentType == NEW) {
             stringBuilder.append("NEW");
         } else {
@@ -192,11 +194,12 @@ public class Appointment {
                 .append("\n")
                 .append(patient.toString())
                 .append("\n")
-                .append(assignedStaff.toString())
-                .append("\n")
                 .append(statusToString())
                 .append("\n")
                 .append(typeToString());
+        if (assignedStaff.isPresent()) {
+            builder.append("\n").append(assignedStaff.toString());
+        }
         return builder.toString();
     }
 }
