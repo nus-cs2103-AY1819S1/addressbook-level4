@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Logger;
@@ -22,11 +21,14 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
 import seedu.address.model.person.Person;
 
+/**
+ * The Appointment Panel of the App
+ */
 public class AppointmentView extends UiPart<Region> implements Swappable, Sortable {
     private static final String FXML = "ApptBrowserPanel.fxml";
     private static final String MESSAGE_CURRENT_SELECTION_NOT_NULL = "There was an attempt "
             + "to set the current selection, but it is not null.";
-    private final Logger logger=  LogsCenter.getLogger(getClass());
+    private final Logger logger = LogsCenter.getLogger(getClass());
     private final String loggingPrefix = "[" + getClass().getName() + "]: ";
 
     private HashMap<Integer, TableColumn<Appointment, String>> colIdxToCol = new HashMap<>();
@@ -172,15 +174,15 @@ public class AppointmentView extends UiPart<Region> implements Swappable, Sortab
     @Override
     public void sortView(SortOrder order, int... colIdx) {
         switch(order) {
-            case ASCENDING:
-                sortType = SortType.ASCENDING;
-                break;
-            case DESCENDING:
-                sortType = SortType.DESCENDING;
-                break;
-            default:
-                sortType = SortType.ASCENDING;
-                break;
+        case ASCENDING:
+            sortType = SortType.ASCENDING;
+            break;
+        case DESCENDING:
+            sortType = SortType.DESCENDING;
+            break;
+        default:
+            sortType = SortType.ASCENDING;
+            break;
         }
 
         sortOrder.clear();
