@@ -64,7 +64,7 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
-        //ResourceUtil.copyResourceFileOut(MainApp.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8/bin/magick"), new File("testBin.exe"));
+
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());

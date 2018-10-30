@@ -1,11 +1,13 @@
 package seedu.address.commons.util;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
+
+import java.io.*;
 import java.net.URL;
+import java.util.logging.Logger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 /**
  * .
@@ -28,5 +30,42 @@ public class ResourceUtil {
         }
         io.close();
         os.close();
+    }
+
+    public static void unzipFolder(File zfile) throws IOException{
+        String Parent = zfile.getParent()+"/";
+        FileInputStream fis = new FileInputStream(zfile);
+        ZipInputStream zis = new ZipInputStream(fis);
+        ZipEntry entry = null;
+        BufferedOutputStream bos = null;
+        boolean check = false;
+        while ((entry = zis.getNextEntry())!= null) {
+            if (!check) {
+                String path = entry.getName();
+                Logger logger = LogsCenter.getLogger(MainApp.class);
+                logger.warning(path);
+                String folderName = path.split("/")[0];
+                logger.warning(folderName);
+                new File(Parent + folderName).mkdir();
+                check = true;
+            }
+            if (entry.isDirectory()) {
+                File filePath = new File(Parent+entry.getName());
+                if (!filePath.exists()) {
+                    filePath.mkdirs();
+                }
+            } else {
+                FileOutputStream fos = new FileOutputStream(Parent+entry.getName());
+                bos=new BufferedOutputStream(fos);
+                byte buf[] = new byte[1024];
+                int len;
+                while ((len = zis.read(buf)) != -1) {
+                    bos.write(buf, 0, len);
+                }
+                zis.closeEntry();
+                bos.close();
+            }
+        }
+        zis.close();
     }
 }

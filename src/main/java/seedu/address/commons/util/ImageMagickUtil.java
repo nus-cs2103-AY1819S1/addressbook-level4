@@ -62,8 +62,7 @@ public class ImageMagickUtil {
         case MAC:
             return ImageMagickUtil.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8.zip");
         case WINDOWS:
-            return ImageMagickUtil.class.getResource(
-                   "/imageMagic/package/win/ImageMagick-7.0.8-14-portable-Q16-x64.zip");
+            return ImageMagickUtil.class.getResource("/imageMagic/package/win/ImageMagick-7.0.8-14.zip");
         default:
             return ImageMagickUtil.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8.zip");
         }
@@ -191,15 +190,16 @@ public class ImageMagickUtil {
             p.waitFor();
             //remove the __MACOSX folder in the mac
             Process p2 = new ProcessBuilder("rm", "-rf", currentPath.toString() + "/__MACOSX").start();
+            ECT_PATH = currentPath.toString() + "/ImageMagick-7.0.8/bin/magick";
             break;
         case WINDOWS:
-            p = new ProcessBuilder("tar", "zxvf", zipFile.getPath(), "-C", currentPath.toString()).start();
-            p.waitFor();
+            ResourceUtil.unzipFolder(zipFile);
+            ECT_PATH = currentPath.toString() + "/ImageMagick-7.0.8-14-portable-Q16-x64/magick.exe";
             break;
         default:
         }
         IMAGEMAGIC_PATH = currentPath.toString();
-        ECT_PATH = currentPath.toString() + "/ImageMagick-7.0.8/bin/magick";
+
         TMP_PATH = tempFolder.getPath();
         zipFile.delete();
         //p.waitFor();
