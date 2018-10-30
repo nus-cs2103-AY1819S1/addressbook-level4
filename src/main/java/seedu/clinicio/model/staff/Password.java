@@ -1,13 +1,14 @@
-package seedu.clinicio.model.doctor;
+package seedu.clinicio.model.staff;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 
 import seedu.clinicio.commons.util.HashUtil;
 
 //@@author jjlee050
 /**
- * Represents a Doctor's password in the ClinicIO.
+ * Represents a Staff's password in the ClinicIO.
  * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
  */
 public class Password {
@@ -57,7 +58,7 @@ public class Password {
     /**
      * Returns true if the given hashed password match the user hash password.
      */
-    public static boolean isSameAsHashPassword(String password, String passwordHashString) {
+    public static boolean verifyPassword(String password, String passwordHashString) {
         return HashUtil.verifyPassword(password, passwordHashString);
     }
 

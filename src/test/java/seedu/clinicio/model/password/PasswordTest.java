@@ -1,4 +1,4 @@
-package seedu.clinicio.model.doctor;
+package seedu.clinicio.model.password;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.clinicio.commons.util.HashUtil;
+import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.testutil.Assert;
 
 //@@author jjlee050
@@ -80,22 +81,23 @@ public class PasswordTest {
 
 
     @Test
-    public void isSameAsHashPassword() {
+    public void verifyPassword() {
         String password = "peter12";
         //null password
-        Assert.assertThrows(NullPointerException.class, () -> Password.isSameAsHashPassword(password, null));
+        Assert.assertThrows(NullPointerException.class, () -> Password.verifyPassword(password, null));
 
         //empty string
-        Assert.assertThrows(IllegalArgumentException.class, () -> Password.isSameAsHashPassword(password, ""));
+        Assert.assertThrows(IllegalArgumentException.class, () -> Password.verifyPassword(password, ""));
 
         //invalid password
-        assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
-        assertFalse(Password.isSameAsHashPassword("peter13", HashUtil.hashToString(password)));
-        assertFalse(Password.isSameAsHashPassword("peter12", " ")); //Only spaces password hash string
-        assertFalse(Password.isSameAsHashPassword("", " ")); //Empty string and only spaces password hash string
+        assertFalse(Password.verifyPassword("peter13", HashUtil.hashToString(password)));
+        assertFalse(Password.verifyPassword("peter13", HashUtil.hashToString(password)));
+        assertFalse(Password.verifyPassword("peter12", " ")); //Only spaces password hash string
+        assertFalse(Password.verifyPassword("", " ")); //Empty string and only spaces password hash string
+        assertFalse(Password.verifyPassword("\\s", " ")); //Empty string and only spaces password hash string
 
         //valid password
-        assertTrue(Password.isSameAsHashPassword(password, HashUtil.hashToString(password)));
+        assertTrue(Password.verifyPassword(password, HashUtil.hashToString(password)));
 
     }
 }

@@ -7,19 +7,22 @@ import java.util.Optional;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.consultation.exceptions.NonDoctorException;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Role;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author arsalanc-v2
 
 /**
- * Represents a medical consultation involving a patient and doctor.
+ * Represents a medical consultation involving a patient and staff.
+ * Guarantees that the staff is a doctor.
  */
 public class Consultation {
 
     // information fields
     private final Patient patient;
-    private Doctor doctor;
+    private Staff doctor;
     private Optional<Appointment> appointment;
     private String description;
 
@@ -72,17 +75,20 @@ public class Consultation {
      * All parameters are required.
      * @param patient The patient to be examined.
      * @param doctor The doctor examining the patient.
-     * @param appointment The appointment tied to this {@code Consultation} .
+     * @param appointment The appointment tied to this consultation.
+     * @param description The doctor's notes for this consultation.
      * @param date The date.
      * @param arrivalTime The arrival time of the patient at the clinic.
-
+     * @param consultationTime The start time of the consultation.
+     * @param endTime The end time of the consultation.
+     * @param prescription The prescription provided by the doctor.
      */
-    public Consultation(Patient patient, Doctor doctor, Appointment appointment, String description, Date date, Time
+    public Consultation(Patient patient, Staff doctor, Appointment appointment, String description, Date date, Time
         arrivalTime, Time consultationTime, Time endTime, String prescription) {
         requireAllNonNull(patient, doctor, appointment, description, date, arrivalTime, consultationTime,
             endTime, prescription);
         this.patient = patient;
-        this.doctor = doctor;
+        updateDoctor(doctor);
         this.appointment = Optional.of(appointment);
         this.description = description;
         this.date = date;
@@ -92,7 +98,13 @@ public class Consultation {
         this.prescription = prescription;
     }
 
-    public void updateDoctor(Doctor doctor) {
+    /**
+     * Assigns a doctor to this consultation.
+     */
+    public void updateDoctor(Staff staff) {
+        if (!staff.getRole().equals(Role.DOCTOR)) {
+            throw new NonDoctorException();
+        }
         this.doctor = doctor;
     }
 
@@ -114,7 +126,7 @@ public class Consultation {
 
     /**
      * Denotes a weaker notion of equality between two {@code Consultation} objects.
-     * @return {@code true} if {@code patient}, {@code doctor}, {@code consultationDate} and {@code consultationTime}
+     * @return {@code true} if {@code patient}, {@code staff}, {@code consultationDate} and {@code consultationTime}
      * fields are
      * the same.
      * {@code false} otherwise
@@ -152,7 +164,7 @@ public class Consultation {
             && otherConsultation.getPrescription().equals(getPrescription());
     }
 
-    public Doctor getDoctor() {
+    public Staff getDoctor() {
         return doctor;
     }
 

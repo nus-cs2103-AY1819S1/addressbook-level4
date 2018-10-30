@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.util.ExportUtil;
 
 //@@author arsalanc-v2
@@ -64,7 +65,7 @@ public class ExportPatientsData {
     public static String exportAppointments(ObservableList<Patient> patients) {
         List<String> rows = new ArrayList<>();
 
-        String header = getCsvRow(NAME, ADDRESS, PHONE, EMAIL, "Date", "Time", "Doctor", "Status", "Type");
+        String header = getCsvRow(NAME, ADDRESS, PHONE, EMAIL, "Date", "Time", "Status", "Type");
         rows.add(header);
 
         for (Patient patient : patients) {
@@ -75,11 +76,10 @@ public class ExportPatientsData {
             for (Appointment appt : patient.getAllAppointments()) {
                 String date = appt.getAppointmentDate().toString();
                 String time = appt.getAppointmentTime().toString();
-                String doctor = appt.getAssignedDoctor().getName().toString();
                 String status = appt.statusToString();
                 String type = appt.typeToString();
 
-                String row = getCsvRow(name, address, phone, email, date, time, doctor, status, type);
+                String row = getCsvRow(name, address, phone, email, date, time, status, type);
                 rows.add(row);
             }
         }
