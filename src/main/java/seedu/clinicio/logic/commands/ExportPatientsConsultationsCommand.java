@@ -17,7 +17,7 @@ public class ExportPatientsConsultationsCommand extends Command {
     public static final String COMMAND_WORD = "exportpatientsconsultations";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         String resultMessage = model.exportPatientsConsultations();
         return new CommandResult(resultMessage);

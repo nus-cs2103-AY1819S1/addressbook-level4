@@ -14,20 +14,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
-<<<<<<< HEAD:src/test/java/seedu/address/logic/commands/AddCommandTest.java
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.analytics.Analytics;
-import seedu.address.model.analytics.StatisticType;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.consultation.Consultation;
-import seedu.address.model.doctor.Doctor;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
-=======
 
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
@@ -36,13 +22,13 @@ import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ReadOnlyClinicIo;
 import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 import seedu.clinicio.testutil.PersonBuilder;
->>>>>>> 1d5e5b870c9b30499244a51be618d3616b116f7d:src/test/java/seedu/clinicio/logic/commands/AddCommandTest.java
 
 public class AddCommandTest {
 

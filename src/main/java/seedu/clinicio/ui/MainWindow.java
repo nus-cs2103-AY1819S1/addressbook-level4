@@ -126,10 +126,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //@@author arsalanc-v2
         analyticsDisplay = new AnalyticsDisplay();
-        browserPanel = new BrowserPanel();
-        //browserPlaceholder.getChildren().add(browserPanel.getRoot());
         browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());

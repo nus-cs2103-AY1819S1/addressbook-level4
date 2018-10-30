@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.person.Person;

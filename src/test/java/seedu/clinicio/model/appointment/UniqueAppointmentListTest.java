@@ -154,15 +154,9 @@ public class UniqueAppointmentListTest {
     @Test
     public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(CARL_APPT);
-<<<<<<< HEAD:src/test/java/seedu/address/model/appointment/UniqueAppointmentListTest.java
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        uniqueAppointmentList.add(BENSON_APPT);
-=======
-
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
         uniqueAppointmentList.add(AMY_APPT);
 
->>>>>>> 1d5e5b870c9b30499244a51be618d3616b116f7d:src/test/java/seedu/clinicio/model/appointment/UniqueAppointmentListTest.java
         uniqueAppointmentList.setAppointments(expectedUniqueAppointmentList);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }

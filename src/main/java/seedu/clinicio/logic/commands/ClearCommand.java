@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 
 /**
  * Clears the ClinicIO.
@@ -17,7 +16,7 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.resetData(new ClinicIo());
         model.commitClinicIo();

@@ -1,6 +1,4 @@
-package seedu.address.ui;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+package seedu.clinicio.ui;
 
 import java.util.List;
 
@@ -63,7 +61,8 @@ public class Plot {
 
     /**
      *
-     * @param type
+     * @param data
+     * @param chartPane
      */
     public static void plotChart(VisualizationData data, Pane chartPane) {
         switch (data.getChartType()) {

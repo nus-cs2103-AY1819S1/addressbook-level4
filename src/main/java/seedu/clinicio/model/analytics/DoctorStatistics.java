@@ -20,6 +20,7 @@ import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.staff.Staff;
 
 //@@author arsalanc-v2
@@ -88,10 +89,6 @@ public class DoctorStatistics extends Statistics {
 
     @Override
     public void computeVisualizationStatistics() {
-//        doctors.add(new Doctor(new Id(1), new Name("a"), new Password("a", true)));
-//        doctors.add(new Doctor(new Id(1), new Name("b"), new Password("b", true)));
-//        doctors.add(new Doctor(new Id(1), new Name("c"), new Password("c", true)));
-
         plotPreferencesPerDoctorCount();
     }
 
@@ -99,15 +96,24 @@ public class DoctorStatistics extends Statistics {
      * Computes the number of consultations per doctor.
      */
     public Map<String, Integer> consultationsPerDoctor() {
-        return consultations.stream()
+        Map<String, Integer> consultationCounts = consultations.stream()
             .map(consultation -> consultation.getDoctor())
+            // remove non doctor staff
+            .filter(staffOptional -> staffOptional.map(staff -> staff.getRole().equals(Role.DOCTOR)).orElse(false))
             // count the number of preferences for each doctor
             .collect(groupingBy(Function.identity(), summingInt(doctor -> 1)))
             .entrySet()
             .stream()
-            // convert keys from {@code Doctor} to the {@code String} name
-            .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey().getName().toString(), entry.getValue()))
+            // ensure the staff are doctors
+            .map(entry -> new AbstractMap.SimpleEntry<>(entry.getKey()
+            // convert the {@code Staff} object to its name
+            .map(doctor -> doctor.getName().toString()).orElse("otherstaff"), entry
+                .getValue()))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+        // remove non doctor staff
+        consultationCounts.remove("otherstaff");
+        return consultationCounts;
     }
 
     public List<String> getAllDoctorNames() {
