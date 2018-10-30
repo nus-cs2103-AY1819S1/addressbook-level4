@@ -20,6 +20,7 @@ import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
 //@@author kengwoon
+
 /**
  * Imports XML file as contacts list to update database.
  */

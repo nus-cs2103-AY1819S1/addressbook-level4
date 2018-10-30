@@ -88,9 +88,9 @@ public class DefaultEmailBuilder {
      */
     public org.simplejavamail.email.Email buildWithoutTo() {
         return EmailBuilder.startingBlank()
-                .from(from.value)
-                .withSubject(subject.value)
-                .withHTMLText(content.value)
-                .buildEmail();
+            .from(from.value)
+            .withSubject(subject.value)
+            .withHTMLText(content.value)
+            .buildEmail();
     }
 }

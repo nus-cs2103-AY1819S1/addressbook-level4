@@ -3,7 +3,10 @@ package seedu.address.commons.events.model;
 import seedu.address.commons.events.BaseEvent;
 
 //@@author GilgameshTC
-/** Indicates a calendar has been requested to be loaded*/
+
+/**
+ * Indicates a calendar has been requested to be loaded
+ */
 public class LoadCalendarEvent extends BaseEvent {
 
     public final String calendarName;

@@ -5,6 +5,7 @@ import java.util.Set;
 import seedu.address.commons.events.BaseEvent;
 
 //@@author EatOrBeEaten
+
 /**
  * Indicates a request to list emails.
  */

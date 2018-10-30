@@ -57,6 +57,21 @@ public class CommandTestUtil {
     public static final String VALID_CONTENT_CAMP = "We have a camp on Tuesday";
     public static final String VALID_SUBJECT_EXCURSION = "Excursion";
     public static final String VALID_SUBJECT_CAMP = "Camp";
+    public static final String VALID_CONTENT_AMY = "Dear Bob<br /><br />See you tomorrow!<br /><br />Amy";
+    public static final String VALID_CONTENT_BOB = "Dear Amy<br /><br />See you tomorrow!<br /><br />Bob";
+    public static final String VALID_SUBJECT_AMY = "Meeting Tomorrow";
+    public static final String VALID_SUBJECT_BOB = "Conference Tomorrow";
+    public static final String VALID_CCA_NAME_BASKETBALL = "Basketball";
+    public static final String VALID_CCA_NAME_BADMINTON = "BADMINTON";
+    public static final String VALID_CCA_NAME_TRACK = "track";
+    public static final String VALID_CCA_NAME_FLOORBALL = "FLOORBALL M";
+    public static final String VALID_CCA_NAME_HOCKEY = "hockey f";
+    public static final String VALID_BUDGET = "700";
+    public static final String VALID_ENTRY_NUM = "1";
+    public static final String VALID_DATE = "12.12.2018";
+    public static final String VALID_AMOUNT = "-100";
+    public static final String VALID_REMARKS = "Purchase of Equipment";
+
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 //@@author EatOrBeEaten
+
 /**
  * Composes an email to specified indexes.
  */
@@ -29,16 +30,16 @@ public class ComposeEmailIndexCommand extends Command {
     public static final String COMMAND_WORD = "compose_email_index";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Composes an email to specified index(es). "
-            + "Parameters: "
-            + PREFIX_FROM + "EMAIL "
-            + PREFIX_TO + "INDEXES "
-            + PREFIX_SUBJECT + "SUBJECT "
-            + PREFIX_CONTENT + "CONTENT(Input <br> for newline)\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FROM + "johndoe@example.com "
-            + PREFIX_TO + "1 6 10 "
-            + PREFIX_SUBJECT + "Meeting this Friday "
-            + PREFIX_CONTENT + "Dear All<br><br>Remember our meeting this friday.<br><br>John";
+        + "Parameters: "
+        + PREFIX_FROM + "EMAIL "
+        + PREFIX_TO + "INDEXES "
+        + PREFIX_SUBJECT + "SUBJECT "
+        + PREFIX_CONTENT + "CONTENT(Input <br> for newline)\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_FROM + "johndoe@example.com "
+        + PREFIX_TO + "1 6 10 "
+        + PREFIX_SUBJECT + "Meeting this Friday "
+        + PREFIX_CONTENT + "Dear All<br><br>Remember our meeting this friday.<br><br>John";
 
     public static final String MESSAGE_SUCCESS = "Email(Index) composed: %s";
     public static final String MESSAGE_DUPLICATE_EMAIL = "Email with subject: \"%s\" already exists.";
@@ -73,6 +74,7 @@ public class ComposeEmailIndexCommand extends Command {
 
     /**
      * Creates an {@code Email} with recipients in the list.
+     *
      * @param lastShownList Current filtered list.
      * @return Email with recipients from list.
      * @throws CommandException if index is beyond list size
@@ -93,8 +95,8 @@ public class ComposeEmailIndexCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ComposeEmailIndexCommand // instanceof handles nulls
-                && toCompose.equals(((ComposeEmailIndexCommand) other).toCompose) // state check
-                && indexSet.equals(((ComposeEmailIndexCommand) other).indexSet));
+            || (other instanceof ComposeEmailIndexCommand // instanceof handles nulls
+            && toCompose.equals(((ComposeEmailIndexCommand) other).toCompose) // state check
+            && indexSet.equals(((ComposeEmailIndexCommand) other).indexSet));
     }
 }

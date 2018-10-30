@@ -85,7 +85,9 @@ public class CalendarModel {
         return false;
     }
 
-    /** Checks if calendar to be edited is already loaded. */
+    /**
+     * Checks if calendar to be edited is already loaded.
+     */
     public boolean isLoadedCalendar(Year year, Month month) {
         String calendarName = month + "-" + year;
         if (this.loadedCalendar == null) {

@@ -21,14 +21,14 @@ public class ContactContainsRoomPredicateTest {
 
         ContactContainsRoomPredicate firstPredicate = new ContactContainsRoomPredicate(firstPredicateKeywordList);
         ContactContainsRoomPredicate secondPredicate =
-                new ContactContainsRoomPredicate(secondPredicateKeywordList);
+            new ContactContainsRoomPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same value -> returns true
         ContactContainsRoomPredicate firstPredicateCopy =
-                new ContactContainsRoomPredicate(firstPredicateKeywordList);
+            new ContactContainsRoomPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,7 +45,7 @@ public class ContactContainsRoomPredicateTest {
     public void test_contactContainsRoom_returnTrue() {
         // One room
         ContactContainsRoomPredicate predicate = new ContactContainsRoomPredicate(Collections
-                .singletonList("A123"));
+            .singletonList("A123"));
         assertTrue(predicate.test(new PersonBuilder().withRoom("A123").build()));
 
         // Multiple rooms

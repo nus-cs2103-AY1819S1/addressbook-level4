@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.email.Subject;
 
 //@@author EatOrBeEaten
+
 /**
  * Loads an email from the computer
  */
@@ -19,9 +20,9 @@ public class ViewEmailCommand extends Command {
     public static final String COMMAND_WORD = "view_email";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Loads the email identified by its subject.\n"
-            + "Parameters SUBJECT\n"
-            + "Example: " + COMMAND_WORD + " Meeting on Friday";
+        + ": Loads the email identified by its subject.\n"
+        + "Parameters SUBJECT\n"
+        + "Example: " + COMMAND_WORD + " Meeting on Friday";
 
     public static final String MESSAGE_SUCCESS = "Email loaded: %s";
 
@@ -48,7 +49,7 @@ public class ViewEmailCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ViewEmailCommand // instanceof handles nulls
-                && subject.equals(((ViewEmailCommand) other).subject)); // state check
+            || (other instanceof ViewEmailCommand // instanceof handles nulls
+            && subject.equals(((ViewEmailCommand) other).subject)); // state check
     }
 }

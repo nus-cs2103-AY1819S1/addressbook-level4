@@ -33,9 +33,10 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_HEAD = new Prefix("h/");
     public static final Prefix PREFIX_VICE_HEAD = new Prefix("vh/");
-    public static final Prefix PREFIX_BUDGET = new Prefix("bud/");
-    public static final Prefix PREFIX_SPENT = new Prefix("spt/");
-    public static final Prefix PREFIX_OUTSTANDING = new Prefix("out/");
+    public static final Prefix PREFIX_BUDGET = new Prefix("budget/");
     public static final Prefix PREFIX_TRANSACTION = new Prefix("trans/");
+    public static final Prefix PREFIX_ENTRY = new Prefix("entry/");
+    public static final Prefix PREFIX_AMOUNT = new Prefix("amount/");
+    public static final Prefix PREFIX_REMARKS = new Prefix("remarks/");
 
 }

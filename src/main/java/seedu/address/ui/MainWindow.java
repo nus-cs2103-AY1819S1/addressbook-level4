@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -18,11 +19,13 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ExitBudgetWindowRequestEvent;
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.cca.CcaName;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -94,6 +97,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(budgetMenuItem, KeyCombination.keyCombination("F2"));
     }
 
     /**
@@ -191,7 +195,7 @@ public class MainWindow extends UiPart<Stage> {
             return false;
         }
 
-        switch(view) {
+        switch (view) {
         case ToggleBrowserPlaceholderEvent.BROWSER_PANEL:
             return topPanel.equals(ToggleBrowserPlaceholderEvent.BROWSER_PANEL);
 
@@ -228,20 +232,54 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the budget window or focuses on it if it's already opened.
+     * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
     public void handleBudget() {
-        budgetWindow = new BudgetWindow(logic, prefs);
+        if (!Optional.ofNullable(budgetWindow).isPresent()) {
+            budgetWindow = new BudgetWindow(logic, prefs, this);
+        }
+
         if (!budgetWindow.isShowing()) {
-            budgetWindow.show();
+            budgetWindow.show(null);
         } else {
-            budgetWindow.focus();
+            budgetWindow.focus(null);
+        }
+    }
+
+    /**
+     * Opens the budget window or focuses on it if it's already opened.
+     * @param ccaName
+     */
+    @FXML
+    public void handleBudget(CcaName ccaName) {
+        if (!Optional.ofNullable(budgetWindow).isPresent()) {
+            budgetWindow = new BudgetWindow(logic, prefs, this);
+        }
+
+        if (!budgetWindow.isShowing()) {
+            budgetWindow.show(ccaName);
+        } else {
+            budgetWindow.focus(ccaName);
         }
     }
 
     void show() {
         primaryStage.show();
+    }
+
+    /**
+     * Returns true if the help window is currently being shown.
+     */
+    public boolean isShowing() {
+        return getRoot().isShowing();
+    }
+
+    /**
+     * Focuses on the help window.
+     */
+    public void focus() {
+        getRoot().requestFocus();
     }
 
     /**
@@ -270,7 +308,14 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleShowBudgetEvent(ShowBudgetViewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        handleBudget();
+        CcaName ccaName = event.getCcaName();
+        handleBudget(ccaName);
+    }
+
+    @Subscribe
+    private void handleExitBudgetWindowRequestEvent(ExitBudgetWindowRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        primaryStage.show();
     }
 
     @Subscribe
