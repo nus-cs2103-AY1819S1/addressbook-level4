@@ -13,7 +13,8 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeImageEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ClearHistoryEvent;
+import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -62,7 +63,8 @@ public class SelectCommand extends Command {
             e.printStackTrace();
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        EventsCenter.getInstance().post(new ClearHistoryEvent());
+        EventsCenter.getInstance().post(new FilmReelSelectionChangeEvent(targetIndex.getZeroBased()));
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
 

@@ -195,7 +195,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Piconso ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

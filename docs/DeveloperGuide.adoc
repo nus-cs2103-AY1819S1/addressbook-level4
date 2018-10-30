@@ -139,15 +139,22 @@ _{In Progress}_ +
 This section describes some noteworthy details on how certain features are implemented.
 
 === Change Directory (Cd) feature
+The Cd feature is implemented to allow users to access images in the different directories within their home system.
+This removes the restrictions of accessing only images from one particular folder.
+
 ==== Current Implementation
-The Cd mechanism is facilitated by the `UserPrefs`. It contains the current directory the user's in, stored internally as
-`currDirectory`. It implements the following operations:
+The Cd mechanism is facilitated by the `ModelManager`. It contains the operations `Model#getCurrDirectory` and
+`Model#updateCurrDirectory(Path)` respectively.
+
+The Model calls upon `UserPrefs` within the respective operations. The `UserPrefs` class contains the current directory
+the user's in, stored internally as `currDirectory` and implements the following operations:
 
 * `UserPrefs#getCurrDirectory()` - Returns the user's current directory.
 * `UserPrefs#updateUserPrefs(Path)` - Updates the user's current directory with the updated Path.
 
-These operations are exposed to the Model interface as `Model#getCurrDirectory` and `Model#updateCurrDirectory(Path)`
-respectively.
+Within the operation `UserPrefs#updateUserPrefs(Path)`, it also retrieves the list of images within the directory,
+which are stored internally as `imageList`. This would facilitates the `Select` feature in our application
+(refer to 3.2).
 
 Additionally, to ease user's experience, similar to the actual usage of the cd command, this feature also uses the `tab`
 function to auto-complete the directory name if it exists.
@@ -180,6 +187,90 @@ If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false
 * *Alternative 2* : Stores path that exists in a HashSet.
 ** Pros: Do not need to append and check, and just check if it exists in HashSet.
 ** Cons: Does not update existing path if user deletes a directory.
+
+=== Select/Next feature
+The Select Command allow users to select the images in a batch of 10 images within the directory for image-editing.
+This command is further facilitated by the Next Command.
+
+The Next Command retrieves the next 10 images in the image list for users to select.
+The image selected will then be displayed on the GUI.
+
+==== Current Implementation
+The implementation of the Select/Next feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
+and contains the following operations:
+
+Select feature:
+
+ * `Model#getDirectoryImageList()` -- Retrieves the stored list of images in UserPrefs.
+ * `Model#updateCurrentOriginalImage(Image, Path)` -- Updates the model with the current selected images.
+
+Next feature:
+
+ * `Model#updateImageList()` -- Retrieves the list with all the images from `UserPrefs`.
+ * `Model#updateImageList(ArrayList<Path>)` -- Updates the list with the new list of images.
+ * `Model#removeImageFromList(int)` -- Remove image from the list of images.
+
+The `Model` calls upon `UserPrefs` which stores and facilitates the updates and retrieval of `imageList` in the current
+directory. The `UserPrefs` class implements the following operation:
+
+* `UserPrefs#getAllImages()` -- Returns all the user's images current directory.
+* `UserPrefs#updateImageList()` -- Retrieves all the images in the current directory.
+* `UserPrefs#updateImageList(ArrayList<Path>)` -- Updates `imageList` with the new `imageList`.
+
+The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the selected image and the
+`PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` respectively within the `ModelManager`.
+Additionally, the operation also creates a canvas and a layer to facilitate the `transmission` feature.
+
+Given below is an example usage scenario and how the select and next mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+as the user's home directory.
+
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
+`Model#updateImageList()` to initialise the `imageList` with all the images within Desktop.
+
+image::SelectNextCommand1.png[width=800]
+
+Step 3. The user executes `select 1` command to select the first image in the first batch of 10 images. The select
+command calls `Model#getDirectoryImageList()` to retrieve all the images within Desktop. The first image is then
+retrieved and displayed on the GUI.
+
+image::SelectNextCommand2.png[width=800]
+
+Step 4. The user executes `next` command to access the next batch of 10 images from the list. The next command calls
+`Model#removeImageFromList(int)` to remove the first 10 images in the current `imageList` and calls
+`Model#updateImageList(ArrayList<Path>)` to update `UserPrefs` with the new `imageList`.
+
+image::SelectNextCommand3.png[width=800]
+
+The following sequence diagram shows how the select command works:
+
+image::SelectSequenceDiagram.png[width=800]
+
+The following sequence diagram shows how the next command works:
+
+image::NextSequenceDiagram.png[width=800]
+
+==== Design Considerations
+===== Aspect: How select executes
+
+* *Alternative 1 (current choice)*: Select images within the BATCH_SIZE.
+** Pros: Users work on a small size of images.
+** Cons: Hard to retrieve images from end of list.
+
+* *Alternative 2* : Select images within the `imageList` size.
+** Pros: Easy to retrieve images anywhere in the list.
+** Cons: Can be very messy if the `imageList` size is too large.
+
+===== Aspect: How next executes
+
+* *Alternative 1 (current choice)*: Removes first 10 images and updates `imageList` in `UserPrefs`.
+** Pros: Easy to implement and to access current batch.
+** Cons: Users unable to access previous images.
+
+* *Alternative 2* : Update the current start pointer for each batch.
+** Pros: Users would be able to access previous batches.
+** Cons: Hard to implement and keep track of the current start pointer.
 
 === Undo/Redo feature
 ==== Current Implementation
