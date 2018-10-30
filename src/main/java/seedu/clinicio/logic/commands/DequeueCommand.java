@@ -1,6 +1,7 @@
 package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 
@@ -22,14 +23,15 @@ public class DequeueCommand extends Command {
     public static final String COMMAND_WORD = "dequeuepatient";
 
     public static final String COMMAND_USAGE = COMMAND_WORD + ": Removes (from the queue) the selected patient "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed person list. \n"
             + "Parameters: INDEX (must be a positive integer)";
 
     public static final String MESSAGE_DEQUEUE_PATIENT_SUCCESS = "Patient %1$s successfully removed from the queue. ";
 
     public static final String MESSAGE_PERSON_NOT_PATIENT = "Person %1$s is not a patient. ";
 
-    public static final String MESSAGE_PATIENT_IS_NOT_CURRENTLY_QUEUING = "Patient %1$s is not currently in the queue. ";
+    public static final String MESSAGE_PATIENT_IS_NOT_CURRENTLY_QUEUING =
+            "Patient %1$s is not currently in the queue. ";
 
     private final Index index;
 
@@ -58,6 +60,8 @@ public class DequeueCommand extends Command {
 
         model.dequeue((Patient) patientToDequeue);
 
+        // This line ensures Observer of the list gets updated on UI.
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_DEQUEUE_PATIENT_SUCCESS, patientToDequeue.getName()));
