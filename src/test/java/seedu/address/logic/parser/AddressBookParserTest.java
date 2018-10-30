@@ -113,9 +113,8 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         Diagnosis diagnosis = new DiagnosisBuilder().build();
         AddmhCommand command = (AddmhCommand) parser.parseCommand(
-                DiagnosisUtil.getAddmhCommand(person.getNric(), diagnosis));
+            DiagnosisUtil.getAddmhCommand(person.getNric(), diagnosis));
         assertEquals(new AddmhCommand(person.getNric(), diagnosis), command);
-        // test that typing addmh returns an instance of addmhCommand
     }
 
     @Test

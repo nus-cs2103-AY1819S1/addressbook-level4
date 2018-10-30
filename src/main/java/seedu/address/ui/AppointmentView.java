@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -15,6 +14,8 @@ import javafx.scene.control.TableColumn.SortType;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.commands.SortCommand.SortOrder;
 import seedu.address.model.appointment.Appointment;
@@ -30,8 +31,6 @@ public class AppointmentView extends UiPart<Region> implements Swappable, Sortab
             + "to set the current selection, but it is not null.";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final String loggingPrefix = "[" + getClass().getName() + "]: ";
-
-    private HashMap<Integer, TableColumn<Appointment, String>> colIdxToCol = new HashMap<>();
 
     @javafx.fxml.FXML
     private TableView<Appointment> appointmentTableView;
@@ -61,11 +60,6 @@ public class AppointmentView extends UiPart<Region> implements Swappable, Sortab
         this.persons = persons;
         this.sortOrder = FXCollections.observableArrayList(new ArrayList<>());
         registerAsAnEventHandler(this);
-
-        colIdxToCol.put(1, typeCol);
-        colIdxToCol.put(2, procedureCol);
-        colIdxToCol.put(3, dateTimeCol);
-        colIdxToCol.put(4, doctorCol);
     }
 
     /**
@@ -187,11 +181,13 @@ public class AppointmentView extends UiPart<Region> implements Swappable, Sortab
 
         sortOrder.clear();
 
+        ObservableList<TableColumn<Appointment, ?>> columns = appointmentTableView.getColumns();
+
         for (int i = 0; i < colIdx.length; i++) {
-            TableColumn<Appointment, String> col = colIdxToCol.get(colIdx[i]);
-            if (col == null) {
+            if (colIdx[i] < 1 || colIdx[i] > columns.size()) {
                 continue;
             }
+            TableColumn<Appointment, ?> col = columns.get(colIdx[i] - 1);
             sortOrder.add(col);
         }
         sortTableView();
@@ -202,5 +198,18 @@ public class AppointmentView extends UiPart<Region> implements Swappable, Sortab
         logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
         currentSelection = event.getNewSelection();
         refreshView();
+    }
+
+    @Subscribe
+    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
+        logger.info(loggingPrefix + LogsCenter.getEventHandlingLogMessage(event));
+
+        if (currentSelection == null) {
+            return;
+        }
+
+        currentSelection = getNewReferenceToPerson();
+        refreshView();
+        sortTableView();
     }
 }

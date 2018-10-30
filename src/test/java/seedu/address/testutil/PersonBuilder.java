@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicine.Prescription;
@@ -22,7 +23,7 @@ import seedu.address.model.visitor.VisitorList;
  * A utility class to help with building Person objects.
  */
 public class PersonBuilder {
-    public static final String DEFAULT_NRIC = "S1234567A";
+    public static final String DEFAULT_NRIC = "S0000100Z";
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
@@ -145,7 +146,7 @@ public class PersonBuilder {
     /**
      * Sets the {@code AppointmentsList} of the {@code Person} that we are building.
      */
-    public PersonBuilder withAppointmentsList(AppointmentsList appointmentsList) {
+    public PersonBuilder withAppointmentsList(List<Appointment> appointmentsList) {
         this.appointmentsList = new AppointmentsList(appointmentsList);
         return this;
     }
