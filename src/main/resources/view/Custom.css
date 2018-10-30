@@ -303,6 +303,12 @@
     -fx-padding: 0 0 20 0;
 }
 
+.volunteer-name {
+    -fx-font-size: 20pt;
+    -fx-text-fill: -white-1-;
+    -fx-font-family: "IBM Plex Sans";
+}
+
 .table-view {
     -fx-control-inner-background: -card-2-;
     -fx-background-color: transparent;
