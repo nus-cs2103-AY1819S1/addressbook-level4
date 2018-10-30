@@ -36,9 +36,16 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         FreeParkingParameter freeParkingParameter = null; // variable null if not initialised?
         CarparkTypeParameter carparkTypeParameter = null;
+        ParkingSystemTypeParameter parkingSystemTypeParameter = null;
 
         if (argumentsList.contains("n/")) {
             flagList.add("n/");
+        }
+        if (argumentsList.contains("a/")) {
+            flagList.add("a/");
+        }
+        if (argumentsList.contains("s/")) {
+            flagList.add("s/");
         }
         if (argumentsList.contains("f/")) {
             flagList.add("f/");
@@ -98,6 +105,22 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
             carparkTypeParameter = new CarparkTypeParameter(selectedCarparkType);
         }
+        if (argumentsList.contains("ps/")) {
+            flagList.add("ps/");
+
+            int index2 = argumentsList.indexOf("ps/");
+
+            String selectedParkingSystemType = argumentsList.get(index2 + 1).toUpperCase();
+
+            // check that selected car park type matches at least one of the strings
+            String[] validParkingSystemTypes = {"COUPON", "ELEC"};
+            boolean isValidParkingSystemType = Arrays.stream(validParkingSystemTypes).anyMatch(x -> x.equals(selectedParkingSystemType));
+            if (!isValidParkingSystemType) {
+                throw new ParseException(Messages.MESSAGE_CARPARK_TYPE_IS_INVALID);
+            }
+
+            parkingSystemTypeParameter = new ParkingSystemTypeParameter(selectedParkingSystemType);
+        }
 
         // check if there's at least one flag
         if (flagList.isEmpty()) {
@@ -105,6 +128,6 @@ public class FilterCommandParser implements Parser<FilterCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
-        return new FilterCommand(flagList, freeParkingParameter, carparkTypeParameter);
+        return new FilterCommand(flagList, freeParkingParameter, carparkTypeParameter, parkingSystemTypeParameter);
     }
 }

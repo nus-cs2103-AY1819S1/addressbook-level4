@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 import seedu.parking.commons.util.StringUtil;
 import seedu.parking.logic.parser.CarparkTypeParameter;
 import seedu.parking.logic.parser.FreeParkingParameter;
+import seedu.parking.logic.parser.ParkingSystemTypeParameter;
 
 /**
  * Tests that a {@code Carpark} met all the filtering criteria.
@@ -19,13 +20,16 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
     private final List<String> flagList;
     private final FreeParkingParameter freeParkingParameter;
     private final CarparkTypeParameter carparkTypeParameter;
+    private final ParkingSystemTypeParameter parkingSystemTypeParameter;
 
     public CarparkFilteringPredicate(List<String> locationKeywords, List<String> flagList,
-                                     FreeParkingParameter freeParkingParameter, CarparkTypeParameter carparkTypeParameter) {
+                                     FreeParkingParameter freeParkingParameter, CarparkTypeParameter carparkTypeParameter,
+                                     ParkingSystemTypeParameter parkingSystemTypeParameter) {
         this.locationKeywords = locationKeywords;
         this.flagList = flagList;
         this.freeParkingParameter = freeParkingParameter;
         this.carparkTypeParameter = carparkTypeParameter;
+        this.parkingSystemTypeParameter = parkingSystemTypeParameter;
     }
 
     /**
@@ -91,6 +95,22 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
         }
     }
 
+    /**
+     * Checks if the car park is of the specified car park type.
+     */
+    private boolean checkParkingSystemType(String selectedParkingSystemType, String parkingSystemType) {
+        switch (selectedParkingSystemType) {
+            case "COUPON":
+                return parkingSystemType.contains("COUPON");
+
+            case "ELEC":
+                return parkingSystemType.contains("ELECTRONIC");
+
+            default:
+                return parkingSystemType.contains("PARKING");
+        }
+    }
+
     @Override
     public boolean test(Carpark carpark) {
 
@@ -111,6 +131,16 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
             collective = hasNightParking;
         }
+        if (flagList.contains("a/")) {
+            boolean hasAvailableSlots = !carpark.getLotsAvailable().value.equals("0");
+
+            collective = collective && hasAvailableSlots;
+        }
+        if (flagList.contains("s/")) {
+            boolean hasShortTermParking = !carpark.getShortTerm().value.equals("NO");
+
+            collective = collective && hasShortTermParking;
+        }
         if (flagList.contains("f/")) {
 
             String timePeriod = carpark.getFreeParking().value;
@@ -130,6 +160,15 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             boolean isCorrectType = checkCarParkType(selectedCarparkType, carparkType);
 
             collective = collective && isCorrectType;
+        }
+        if (flagList.contains("ps/")) {
+
+            String parkingSystemType = carpark.getTypeOfParking().value;
+            String selectedParkingSystemType = parkingSystemTypeParameter.getParkingSystemType();
+
+            boolean isCorrectSystem = checkParkingSystemType(selectedParkingSystemType, parkingSystemType);
+
+            collective = collective && isCorrectSystem;
         }
 
         return correctLocation && collective;
