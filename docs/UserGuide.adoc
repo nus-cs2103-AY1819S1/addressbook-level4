@@ -181,7 +181,7 @@ Format: `find KEYWORD`
 ==== Display achievements across a time period: `achievements`
 [%hardbreaks]
 Displays the cumulative achievements of a user across a specified time period on the GUI.
-Such achievements include current level, xp earned and number of tasks completed across that time period. 
+Such achievements include current level, xp earned and number of tasks completed across that time period.
 Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-time`, `today`, or `this week`.
 
 [%hardbreaks]
