@@ -29,6 +29,7 @@ import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewPermissionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -136,6 +137,14 @@ public class AddressBookParserTest {
                 + Permission.ADD_EMPLOYEE.name()) instanceof ModifyPermissionCommand);
 
     }
+
+    @Test
+    public void parseCommand_viewPermissionCommand() throws Exception {
+        ViewPermissionCommand command = (ViewPermissionCommand) parser.parseCommand(
+                ViewPermissionCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new ViewPermissionCommand(INDEX_FIRST_PERSON), command);
+    }
+
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
