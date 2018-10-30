@@ -30,9 +30,9 @@ public class ImageMagickUtil {
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
     private static String ectPath = "";
-    public static String imageMagickPath = ImageMagickUtil.class.getResource("/imageMagic").getPath();
-    public static String tmpPath = imageMagickPath + "/tmp";
-    public static String commandSaveFolder;
+    private static String imageMagickPath = ImageMagickUtil.class.getResource("/imageMagic").getPath();
+    private static String tmpPath = imageMagickPath + "/tmp";
+    private static String commandSaveFolder;
 
     /**
      * get the path of the package location
