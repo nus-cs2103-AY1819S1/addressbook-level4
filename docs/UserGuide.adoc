@@ -179,14 +179,13 @@ Selects the 1st patient in the resulting list of the `find` command.
 
 Updates the medical records of a patient. +
 Alias: `amr` +
-Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...` or +
-`addMedicalRecord IC_NUMBER [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...`
+Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
 ****
-* Updates the medical records of a patient based on his `IC_NUMBER` or the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+* Updates the medical records of a patient based on the specified `INDEX`. The index refers to the index number shown in the filtered patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 * At least one of the optional parameters must be provided.
-* Existing values will be updated with the newly input values of the corresponding field.
-* You can remove any of the patient's records by typing the prefixes `b/` `d/` `da/` `m/` without specifying any contents after the prefix.
+* Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, and thus you can only add `BloodType` to a patient the very first time, and it will be permanent.
+* A `Note` usually consists of a `Message` and a `Prescription`. However, using this command does not allow you add any `Precription`, since it is not meant to be used during the doctor's consultation. Hence, using this command will just add a `Note` with the specified `Message`, but an empty `Prescription`.
 ****
 
 Examples:
