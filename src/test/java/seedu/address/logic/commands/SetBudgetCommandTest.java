@@ -12,7 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 
@@ -33,7 +33,7 @@ public class SetBudgetCommandTest {
     @Test
     public void execute_setBudget_successful() throws NoUserSelectedException {
         ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
-        Budget toSet = new Budget("2.00");
+        TotalBudget toSet = new TotalBudget("2.00");
         expectedModel.modifyMaximumBudget(toSet);
         expectedModel.commitExpenseTracker();
         SetBudgetCommand setBudgetCommand = new SetBudgetCommand(toSet);

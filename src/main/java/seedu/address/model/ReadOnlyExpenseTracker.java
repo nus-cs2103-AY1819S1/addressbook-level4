@@ -3,7 +3,7 @@ package seedu.address.model;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
@@ -20,7 +20,7 @@ public interface ReadOnlyExpenseTracker {
      * This list will not contain any duplicate expenses.
      */
     ObservableList<Expense> getExpenseList();
-    Budget getMaximumBudget();
+    TotalBudget getMaximumTotalBudget();
     Username getUsername();
     ObservableList<Notification> getNotificationList();
     NotificationHandler getNotificationHandler();

@@ -140,6 +140,7 @@ public class CommandTestUtil {
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (Exception ce) {
+            System.out.println(ce);
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }

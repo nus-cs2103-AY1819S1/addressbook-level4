@@ -103,10 +103,10 @@ public class ExpenseListPanelTest extends GuiUnitTest {
             builder.append("</expenses>\n");
         }
         builder.append("<username>manyExpenses</username>\n");
-        builder.append("<budget>\n");
+        builder.append("<totalBudget>\n");
         builder.append("<budgetCap>").append((double) expenseCount).append("</budgetCap>\n");
         builder.append("<currentExpenses>").append((double) expenseCount).append("</currentExpenses>\n");
-        builder.append("</budget>\n");
+        builder.append("</totalBudget>\n");
         builder.append("</expensetracker>\n");
 
         Path manyExpensesFile = Paths.get(TEST_DATA_FOLDER + "manyExpenses.xml");

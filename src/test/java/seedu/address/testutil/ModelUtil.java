@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -22,12 +22,12 @@ public class ModelUtil {
     /**
      * An extension of the {@code ModelManager} where developers can pass in the time instead of checking against
      * system clock. Class of a model with a test user that is already logged in with username TEST_USERNAME.
-     * The address book is empty. Budget cap is $28 with $10 current expenses
+     * The address book is empty. TotalBudget cap is $28 with $10 current expenses
      */
 
     /**
      * Creates a model with a test user that is already logged in with username TEST_USERNAME. The address book is
-     * empty. Budget cap is $28 with $0 current expenses
+     * empty. TotalBudget cap is $28 with $0 current expenses
      * @return a model logged in with a test user
      */
     public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException,
@@ -35,10 +35,9 @@ public class ModelUtil {
         Model model = new ModelManager();
         model.addUser(TEST_USERNAME);
         model.loadUserData(TEST_USERNAME, null);
-        model.modifyMaximumBudget(new Budget(28.00, 0.00, LocalDateTime.parse(
-                "2018-10-10T10:11:30"), 50000));
         model.modifyNotificationHandler(LocalDateTime.parse("2018-10-31T01:42:04.021756"), true,
                 true);
+        model.modifyMaximumBudget(new TotalBudget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));
         return model;
     }
 

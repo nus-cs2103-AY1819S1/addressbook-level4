@@ -16,7 +16,8 @@ import seedu.address.testutil.TypicalExpenses;
 
 public class XmlSerializableExpenseTrackerTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableExpenseTrackerTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test",
+        "data", "XmlSerializableExpenseTrackerTest");
     private static final Path TYPICAL_EXPENSES_FILE = TEST_DATA_FOLDER.resolve("typicalExpensesExpenseTracker.xml");
     private static final Path INVALID_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("invalidExpenseExpenseTracker.xml");
     private static final Path DUPLICATE_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("duplicateExpenseExpenseTracker.xml");
@@ -30,12 +31,13 @@ public class XmlSerializableExpenseTrackerTest {
                 XmlSerializableExpenseTracker.class);
         ExpenseTracker expenseTrackerFromFile = dataFromFile.toModelType();
         ExpenseTracker typicalExpensesExpenseTracker = TypicalExpenses.getTypicalExpenseTracker();
-        System.out.println(expenseTrackerFromFile.getMaximumBudget().getNumberOfSecondsToRecurAgain() + " "
-            + typicalExpensesExpenseTracker.getMaximumBudget().getNumberOfSecondsToRecurAgain());
+        System.out.println(expenseTrackerFromFile.getMaximumTotalBudget().getNumberOfSecondsToRecurAgain() + " "
+            + typicalExpensesExpenseTracker.getMaximumTotalBudget().getNumberOfSecondsToRecurAgain());
         assertEquals(expenseTrackerFromFile, typicalExpensesExpenseTracker);
-        assertEquals(expenseTrackerFromFile.getMaximumBudget(), typicalExpensesExpenseTracker.getMaximumBudget());
         assertEquals(expenseTrackerFromFile.getNotificationHandler(),
                 typicalExpensesExpenseTracker.getNotificationHandler());
+        assertEquals(expenseTrackerFromFile.getMaximumTotalBudget(),
+            typicalExpensesExpenseTracker.getMaximumTotalBudget());
     }
 
     @Test

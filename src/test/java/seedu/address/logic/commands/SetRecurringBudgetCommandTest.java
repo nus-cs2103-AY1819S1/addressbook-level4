@@ -36,26 +36,26 @@ public class SetRecurringBudgetCommandTest {
         ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
         expectedModel.setRecurrenceFrequency(this.newRecurrenceFrequency);
         expectedModel.commitExpenseTracker();
-        SetRecurringBudgetCommand setRecurringBudgetCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
+        SetRecurringBudgetCommand setRecurrenceFrequencyCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
         String expectedMessage = String.format(SetRecurringBudgetCommand.MESSAGE_SUCCESS, this.newRecurrenceFrequency);
-        assertCommandSuccess(setRecurringBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(setRecurrenceFrequencyCommand, model, commandHistory, expectedMessage, expectedModel);
         assertNotNull(expectedModel.getMaximumBudget().getNextRecurrence());
         assertTrue(this.newRecurrenceFrequency
-            == expectedModel.getExpenseTracker().getMaximumBudget().getNumberOfSecondsToRecurAgain());
+            == expectedModel.getExpenseTracker().getMaximumTotalBudget().getNumberOfSecondsToRecurAgain());
 
     }
     @Test
     public void execute_updateRecurrence_successful() throws NoUserSelectedException {
         ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
         long initialRecurrenceFrequency =
-            expectedModel.getExpenseTracker().getMaximumBudget().getNumberOfSecondsToRecurAgain();
+            expectedModel.getExpenseTracker().getMaximumTotalBudget().getNumberOfSecondsToRecurAgain();
         expectedModel.setRecurrenceFrequency(this.newRecurrenceFrequency);
         expectedModel.commitExpenseTracker();
         String expectedMessage = String.format(SetRecurringBudgetCommand.MESSAGE_SUCCESS, this.newRecurrenceFrequency);
-        SetRecurringBudgetCommand setRecurringBudgetCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
-        assertCommandSuccess(setRecurringBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
+        SetRecurringBudgetCommand setRecurrenceFrequencyCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
+        assertCommandSuccess(setRecurrenceFrequencyCommand, model, commandHistory, expectedMessage, expectedModel);
         assertFalse(initialRecurrenceFrequency
-            == expectedModel.getExpenseTracker().getMaximumBudget().getNumberOfSecondsToRecurAgain());
+            == expectedModel.getExpenseTracker().getMaximumTotalBudget().getNumberOfSecondsToRecurAgain());
     }
 
     @Test

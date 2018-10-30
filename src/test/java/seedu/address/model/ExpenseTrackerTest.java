@@ -20,7 +20,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 import seedu.address.model.notification.Notification;
@@ -46,7 +46,7 @@ public class ExpenseTrackerTest {
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         this.expenseTracker.resetData(null);
-        assertTrue(this.expenseTracker.getMaximumBudget().getBudgetCap() == 0);
+        assertTrue(this.expenseTracker.getMaximumTotalBudget().getBudgetCap() == 0);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ExpenseTrackerTest {
         ExpenseTracker newData = getTypicalExpenseTracker();
         expenseTracker.resetData(newData);
         assertEquals(newData, expenseTracker);
-        assertEquals(newData.getMaximumBudget(), expenseTracker.getMaximumBudget());
+        assertEquals(newData.getMaximumTotalBudget(), expenseTracker.getMaximumTotalBudget());
     }
 
     @Test
@@ -118,8 +118,8 @@ public class ExpenseTrackerTest {
         }
 
         @Override
-        public Budget getMaximumBudget() {
-            return new Budget("0.00");
+        public TotalBudget getMaximumTotalBudget() {
+            return new TotalBudget("0.00");
         }
 
         @Override

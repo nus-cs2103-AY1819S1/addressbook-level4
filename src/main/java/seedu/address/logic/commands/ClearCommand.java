@@ -7,7 +7,7 @@ import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 /**
@@ -25,10 +25,10 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         ExpenseTracker newExpenseTracker =
                 new ExpenseTracker(model.getExpenseTracker().getUsername(), model.getExpenseTracker().getPassword());
-        Budget clearedSpendingBudget = model.getMaximumBudget();
+        TotalBudget clearedSpendingTotalBudget = model.getMaximumBudget();
         model.resetData(newExpenseTracker);
-        clearedSpendingBudget.clearSpending();
-        model.modifyMaximumBudget(clearedSpendingBudget);
+        clearedSpendingTotalBudget.clearSpending();
+        model.modifyMaximumBudget(clearedSpendingTotalBudget);
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         return new CommandResult(MESSAGE_SUCCESS);

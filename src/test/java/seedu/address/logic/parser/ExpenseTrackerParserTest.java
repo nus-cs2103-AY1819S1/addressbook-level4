@@ -182,9 +182,9 @@ public class ExpenseTrackerParserTest {
     @Test
     public void parseCommand_stats() throws Exception {
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
-        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " n/7 m/m") instanceof StatsCommand);
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " n/7 p/m m/t") instanceof StatsCommand);
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS) instanceof StatsCommand);
-        assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS + " n/7 m/m") instanceof StatsCommand);
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS + " n/7 p/m m/t") instanceof StatsCommand);
     }
 
     @Test

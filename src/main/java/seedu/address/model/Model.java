@@ -7,7 +7,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
-import seedu.address.model.budget.Budget;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -66,6 +70,16 @@ public interface Model {
     void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException;
 
     /**
+     * Updates statsPeriod to the given {@code period}.
+     */
+    void updateStatsPeriod(StatsPeriod period);
+
+    /**
+     * Returns statsPeriod.
+     */
+    StatsPeriod getStatsPeriod();
+
+    /**
      * Updates statsMode to the given {@code mode}.
      */
     void updateStatsMode(StatsMode mode);
@@ -74,6 +88,16 @@ public interface Model {
      * Returns statsMode.
      */
     StatsMode getStatsMode();
+
+    /**
+     * Updates statsNoOfDays to the given {@code noOfDays}.
+     */
+    void updatePeriodAmount(int periodAmount);
+
+    /**
+     * Returns statsNoOfDaysOrMonths.
+     */
+    int getPeriodAmount();
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -134,20 +158,38 @@ public interface Model {
      * Updates the expense stats
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateExpenseStats(Predicate<Expense> predicate) throws NoUserSelectedException;
+    void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException;
 
     /**
-     * Modifies the existing maximum budget for the current user
+     * Modifies the existing maximum totalBudget for the current user
      */
-    void modifyMaximumBudget(Budget budget) throws NoUserSelectedException;
+    void modifyMaximumBudget(TotalBudget totalBudget) throws NoUserSelectedException;
 
     /**
-     * Returns the existing maximum budget for the current user
+     * Returns the existing maximum totalBudget for the current user
      */
-    Budget getMaximumBudget();
+    TotalBudget getMaximumBudget();
 
     /**
-     * Sets the budget to reset and store spending data after a certain amount of time
+     * Adds Category totalBudget into the expense tracker
+     * @param budget a valid {@code CategoryBudget}
+     * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a
+     * category totalBudget results in the sum of all category budgets exceeding the total totalBudget.
+     */
+    void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+        NoUserSelectedException;
+
+    /**
+     * Modifies an existing Category TotalBudget in the expense tracker
+     * @param budget a valid {@code CategoryBudget}
+     * @throws CategoryBudgetDoesNotExist Throws this if attempting to modify a {@code CategoryBudget} that does not
+     * exist
+     */
+    void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
+        NoUserSelectedException;
+
+    /**
+     * Sets the totalBudget to reset and store spending data after a certain amount of time
      * @param seconds The recurrence frequency
      */
     void setRecurrenceFrequency(long seconds) throws NoUserSelectedException;

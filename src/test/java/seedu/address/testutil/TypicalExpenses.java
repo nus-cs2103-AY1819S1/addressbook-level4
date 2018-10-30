@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.address.model.ExpenseTracker;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Username;
@@ -108,7 +108,7 @@ public class TypicalExpenses {
 
     /**
      * Returns an {@code ExpenseTracker} with all the typical expenses
-     * and its maximmum budget equal to the sum of all expenses.
+     * and its maximmum totalBudget equal to the sum of all expenses.
      */
     public static ExpenseTracker getTypicalExpenseTracker() {
         double expense = 0;
@@ -117,9 +117,11 @@ public class TypicalExpenses {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();
         }
-        ab.modifyMaximumBudget(new Budget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"), 50000));
         ab.setNotificationHandler(new NotificationHandler(LocalDateTime.parse("2018-10-31T01:42:04.021756"),
                 true, true));
+        ab.modifyMaximumBudget(new TotalBudget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"),
+            50000));
+
         return ab;
     }
 

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,7 +24,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
-import seedu.address.model.budget.Budget;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -50,8 +55,11 @@ public class ModelManager extends ComponentManager implements Model {
     private HashMap<String, Double> categories;
     private Username username;
 
+    //Stats related variables
+    private StatsPeriod statsPeriod;
     private StatsMode statsMode;
     private Predicate<Expense> expenseStatPredicate;
+    private int periodAmount;
 
     private final Map<Username, ReadOnlyExpenseTracker> expenseTrackers;
     /**
@@ -67,6 +75,10 @@ public class ModelManager extends ComponentManager implements Model {
         this.filteredExpenses = null;
         this.categories = initializeCategories();
         this.tips = tips;
+        this.statsPeriod = defaultStatsPeriod();
+        this.statsMode = defaultStatsMode();
+        this.expenseStatPredicate = defaultExpensePredicate();
+        this.periodAmount = defaultPeriodAmount();
     }
 
     public ModelManager(ReadOnlyExpenseTracker expenseTracker, UserPrefs userPrefs) {
@@ -81,6 +93,9 @@ public class ModelManager extends ComponentManager implements Model {
         this.filteredExpenses = null;
         this.categories = initializeCategories();
         this.tips = new Tips();
+        this.statsPeriod = defaultStatsPeriod();
+        this.statsMode = defaultStatsMode();
+        this.expenseStatPredicate = defaultExpensePredicate();
         try {
             loadUserData(expenseTracker.getUsername(), expenseTracker.getPassword());
         } catch (NonExistentUserException e) {
@@ -112,6 +127,8 @@ public class ModelManager extends ComponentManager implements Model {
         if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
+        System.out.println("indicate expense tracker changed");
+        System.out.println(this.versionedExpenseTracker.getMaximumTotalBudget().getCategoryBudgets());
         raise(new ExpenseTrackerChangedEvent(versionedExpenseTracker));
     }
 
@@ -133,6 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean addExpense(Expense expense) throws NoUserSelectedException {
         boolean budgetNotExceeded = versionedExpenseTracker.addExpense(expense);
+
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         indicateExpenseTrackerChanged();
         return budgetNotExceeded;
@@ -356,11 +374,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@author winsonhys
-    //========== Budget ====================================================================
+    //========== TotalBudget ====================================================================
 
     @Override
-    public void modifyMaximumBudget(Budget budget) throws NoUserSelectedException {
-        this.versionedExpenseTracker.modifyMaximumBudget(budget);
+    public void modifyMaximumBudget(TotalBudget totalBudget) throws NoUserSelectedException {
+        this.versionedExpenseTracker.modifyMaximumBudget(totalBudget);
         indicateExpenseTrackerChanged();
     }
 
@@ -370,10 +388,24 @@ public class ModelManager extends ComponentManager implements Model {
         indicateExpenseTrackerChanged();
     }
 
+    @Override
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+        NoUserSelectedException {
+        this.versionedExpenseTracker.addCategoryBudget(budget);
+        System.out.println(this.versionedExpenseTracker.getMaximumTotalBudget().getCategoryBudgets());
+        indicateExpenseTrackerChanged();
+    }
 
     @Override
-    public Budget getMaximumBudget() {
-        return this.versionedExpenseTracker.getMaximumBudget();
+    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
+        NoUserSelectedException {
+        this.versionedExpenseTracker.modifyCategoryBudget(budget);
+        indicateExpenseTrackerChanged();
+    }
+
+    @Override
+    public TotalBudget getMaximumBudget() {
+        return this.versionedExpenseTracker.getMaximumTotalBudget();
     }
 
     //@@author jonathantjm
@@ -398,11 +430,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateExpenseStats(Predicate<Expense> predicate) throws NoUserSelectedException {
+    public void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException {
         if (filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
         expenseStatPredicate = predicate;
+    }
+
+    @Override
+    public void updateStatsPeriod(StatsPeriod period) {
+        this.statsPeriod = period;
+    }
+
+    @Override
+    public StatsPeriod getStatsPeriod() {
+        return this.statsPeriod;
     }
 
     @Override
@@ -413,6 +455,34 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public StatsMode getStatsMode() {
         return this.statsMode;
+    }
+
+    @Override
+    public void updatePeriodAmount(int periodAmount) {
+        this.periodAmount = periodAmount;
+    }
+
+    @Override
+    public int getPeriodAmount() {
+        return this.periodAmount;
+    }
+
+    private StatsPeriod defaultStatsPeriod() {
+        return StatsPeriod.DAY;
+    }
+
+    private StatsMode defaultStatsMode() {
+        return StatsMode.TIME;
+    }
+
+    private int defaultPeriodAmount() {
+        return 7;
+    }
+
+    private Predicate <Expense> defaultExpensePredicate() {
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.DAY_OF_MONTH, 7 * -1);
+        return e -> e.getDate().fullDate.after(now);
     }
 
     //@@author JasonChong96
@@ -473,10 +543,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Checks if budget is required to restart due to recurrence
+     * Checks if totalBudget is required to restart due to recurrence
      */
     protected void checkBudgetRestart() {
-        this.versionedExpenseTracker.getMaximumBudget().checkBudgetRestart();
+        this.versionedExpenseTracker.getMaximumTotalBudget().checkBudgetRestart();
     }
 
 

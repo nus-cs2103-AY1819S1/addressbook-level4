@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -39,7 +40,7 @@ public class ModelManagerTest {
     public void checkBudgetRestart_noFrequency_doesNotResetSpending() throws NoUserSelectedException {
         double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+        assertTrue(modelManager.getExpenseTracker().getMaximumTotalBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
@@ -47,7 +48,7 @@ public class ModelManagerTest {
         double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
         modelManager.setRecurrenceFrequency(Integer.MAX_VALUE);
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+        assertTrue(modelManager.getExpenseTracker().getMaximumTotalBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
@@ -61,7 +62,7 @@ public class ModelManagerTest {
             return;
         }
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == 0);
+        assertTrue(modelManager.getExpenseTracker().getMaximumTotalBudget().getCurrentExpenses() == 0);
     }
 
 
@@ -139,16 +140,30 @@ public class ModelManagerTest {
     @Test
     public void updateExpenseStats_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.updateExpenseStats(unused -> true);
+        modelManagerLoggedOut.updateExpenseStatsPredicate(unused -> true);
     }
 
 
     @Test
-    public void getExpenseStatsReturnsCorrectStatsMode() {
-        modelManager.updateStatsMode(StatsMode.DAY);
-        assertTrue(modelManager.getStatsMode() == StatsMode.DAY);
-        modelManager.updateStatsMode(StatsMode.MONTH);
-        assertTrue(modelManager.getStatsMode() == StatsMode.MONTH);
+    public void getStatsPeriodReturnsCorrectStatsPeriod() {
+        modelManager.updateStatsPeriod(StatsPeriod.DAY);
+        assertTrue(modelManager.getStatsPeriod() == StatsPeriod.DAY);
+        modelManager.updateStatsPeriod(StatsPeriod.MONTH);
+        assertTrue(modelManager.getStatsPeriod() == StatsPeriod.MONTH);
+    }
+
+    @Test
+    public void getStatsModeReturnsCorrectStatsMode() {
+        modelManager.updateStatsMode(StatsMode.TIME);
+        assertTrue(modelManager.getStatsMode() == StatsMode.TIME);
+        modelManager.updateStatsMode(StatsMode.CATEGORY);
+        assertTrue(modelManager.getStatsMode() == StatsMode.CATEGORY);
+    }
+
+    @Test
+    public void getPeriodAmountReturnsCorrectPeriodAmount() {
+        modelManager.updatePeriodAmount(7);
+        assertTrue(modelManager.getPeriodAmount() == 7);
     }
 
     @Test

@@ -89,6 +89,9 @@ public class XmlExpensesStorage implements ExpensesStorage {
 
         FileUtil.createIfMissing(filePath);
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableExpenseTracker(expenseTracker));
+        System.out.println("Expenses saved");
+        System.out.println("Category budgets: ");
+        System.out.println(expenseTracker.getMaximumTotalBudget().getCategoryBudgets());
     }
 
     @Override

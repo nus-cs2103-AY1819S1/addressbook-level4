@@ -42,7 +42,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";
     //TODO: Redirect this to notification center
     public static final String MESSAGE_BUDGET_EXCEED_WARNING = "WARNING: "
-        + "Adding this expense will cause your budget to exceed.";
+        + "Adding this expense will cause your totalBudget to exceed.";
 
     private final Expense toAdd;
 

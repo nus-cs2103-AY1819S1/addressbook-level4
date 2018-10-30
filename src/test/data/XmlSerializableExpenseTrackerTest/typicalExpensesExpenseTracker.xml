@@ -48,12 +48,12 @@
 		<date>02-10-2018</date>
     </expenses>
     <username>typicalExpensesExpenseTracker</username>
-    <budget>
+    <totalBudget>
         <budgetCap>28.00</budgetCap>
         <currentExpenses>26.00</currentExpenses>
         <nextRecurrence>2017-08-04T10:11:30</nextRecurrence>
         <numberOfSecondsToRecurAgain>50000</numberOfSecondsToRecurAgain>
-    </budget>
+    </totalBudget>
     <notificationHandler>
         <lastTipSentOn>2018-10-31T01:42:04.021756</lastTipSentOn>
         <isTipEnabled>true</isTipEnabled>

@@ -54,7 +54,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-    private StatisticPanel statisticPanel;
+    private StatisticsPanel statisticsPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -199,13 +199,25 @@ public class MainWindow extends UiPart<Stage> {
         NotificationPanel notificationPanel = new NotificationPanel(logic.getNotificationList());
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-        statisticPanel = new StatisticPanel(logic.getExpenseStats(), logic.getStatsMode());
+
         CategoriesPanel categoriesPanel = new CategoriesPanel(logic.getCategoryList());
 
+        statisticsPanel = new StatisticsPanel(
+                logic.getExpenseStats(),
+                logic.getStatsPeriod(),
+                logic.getStatsMode(),
+                logic.getPeriodAmount()
+        );
+
         statisticsSplitPane = new AnchorPane();
-        statisticsSplitPane.setTopAnchor(statisticPanel.getRoot(), 0.0);
+        statisticsSplitPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
         statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 300.00);
-        statisticsSplitPane.getChildren().addAll(statisticPanel.getRoot(), categoriesPanel.getRoot());
+        statisticsSplitPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
+
+        statisticsSplitPane = new AnchorPane();
+        statisticsSplitPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
+        statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
+        statisticsSplitPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
 
         swapToStat();
         fadeInPanels();
@@ -329,7 +341,12 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowStatsEvent(ShowStatsRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         try {
-            statisticPanel.setData(logic.getExpenseStats(), logic.getStatsMode());
+            statisticsPanel.setData(
+                    logic.getExpenseStats(),
+                    logic.getStatsPeriod(),
+                    logic.getStatsMode(),
+                    logic.getPeriodAmount()
+            );
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }

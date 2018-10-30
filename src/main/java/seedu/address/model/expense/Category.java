@@ -16,6 +16,8 @@ public class Category {
     public static final String[] INITIAL_CATEGORIES = {"Food", "Transport", "Stationary", "Printing"};
     public final String categoryName;
 
+
+
     /**
      * Constructs a {@code Category}.
      *
