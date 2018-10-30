@@ -39,12 +39,6 @@ public class XmlAdaptedPerson {
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
-    @XmlElement
-    private boolean isQueuing = false;
-    @XmlElement
-    private Optional<Doctor> preferredDoctor = Optional.empty();
-    @XmlElement
-    private Optional<Appointment> appointment = Optional.empty();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -78,13 +72,6 @@ public class XmlAdaptedPerson {
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
-
-        // more data is converted if the person is a patient.
-        if (source instanceof Patient) {
-            isQueuing = ((Patient) source).isQueuing();
-            preferredDoctor = ((Patient) source).getPreferredDoctor();
-            appointment = ((Patient) source).getAppointment();
-        }
     }
 
     /**
@@ -131,14 +118,7 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        Patient patient = new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags);
-        appointment.ifPresent((appointment) -> patient.setAppointment(appointment));
-        preferredDoctor.ifPresent((doctor -> patient.setPreferredDoctor(doctor)));
-        if (isQueuing) {
-            patient.setIsQueuing();
-        }
-
-        return patient;
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
     @Override
