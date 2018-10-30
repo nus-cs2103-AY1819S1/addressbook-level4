@@ -58,14 +58,14 @@ public class ShutDownCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
         }
 
-        Ride rideToOpen = lastShownList.get(index.getZeroBased());
-        Ride editedRide = createUpdatedRide(rideToOpen, shutdownRideDescriptor);
+        Ride rideToShutDown = lastShownList.get(index.getZeroBased());
+        Ride editedRide = createUpdatedRide(rideToShutDown, shutdownRideDescriptor);
 
-        if (rideToOpen.isSameRide(editedRide) && rideToOpen.equals(editedRide)) {
+        if (rideToShutDown.isSameRide(editedRide) && rideToShutDown.equals(editedRide)) {
             throw new CommandException(MESSAGE_DUPLICATE_RIDE);
         }
 
-        model.updatePerson(rideToOpen, editedRide);
+        model.updatePerson(rideToShutDown, editedRide);
         model.updateFilteredRideList(PREDICATE_SHOW_ALL_RIDES);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SHUTDOWN_RIDE_SUCCESS, editedRide));
