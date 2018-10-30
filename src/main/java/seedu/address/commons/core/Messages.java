@@ -20,8 +20,15 @@ public class Messages {
     public static final String MESSAGE_NO_MORE_IMAGES = "No more images in the current directory.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
 
+    /* Error messages for Google OAuth */
+    public static final String MESSAGE_INVALID_ALBUM_REQUESTED = "The album name provided is invalid";
+    public static final String MESSAGE_GOOGLE_INVALID_FORMAT = "Please enter a valid google command format.";
+
     public static final String MESSAGE_LOGIN_FAILURE = "Login unsuccessful";
     public static final String MESSAGE_CONNECTION_FAILURE = "Error connecting to Google Photos, please try again.";
+
+    /* Error messages canvas and layers. */
+    public static final String MESSAGE_LAYER_SWAP_INVALID_INDEX = "Please specify valid layer indexes!";
     public static final String MESSAGE_INVALID_ALBUM_REQUESTED = "The album name provided is invalid.";
     public static final String MESSAGE_INVALID_IMAGE_REQUESTED = "The image name provided is invalid.";
     public static final String MESSAGE_GOOGLE_INVALID_FORMAT = "Please enter a valid google command format.";
