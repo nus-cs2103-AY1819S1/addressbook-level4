@@ -1,61 +1,28 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LEAVEDATES_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LEAVEDESCIPTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PROJECT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_SALARY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDATES_DESC_ALICE_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDATES_DESC_BOB_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDESCIPTION_DESC_ALICE_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDESCIPTION_DESC_BENSON_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDESCIPTION_DESC_BOB_LEAVE;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.PROJECT_DESC_FALCON;
-import static seedu.address.logic.commands.CommandTestUtil.PROJECT_DESC_OASIS;
-import static seedu.address.logic.commands.CommandTestUtil.SALARY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SALARY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB_LEAVE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LEAVEDATE_STRING_BOB_LEAVE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_OASIS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SALARY_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalLeaveApplications.ALICE_LEAVE;
-import static seedu.address.testutil.TypicalPersons.AMY;
 
 import org.junit.Test;
+
 import seedu.address.commons.util.DateUtil;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.LeaveApplyCommand;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.leaveapplication.LeaveApplication;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Salary;
-import seedu.address.model.project.Project;
 import seedu.address.testutil.LeaveApplicationBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class LeaveApplyCommandParserTest {
     private LeaveApplyCommandParser parser = new LeaveApplyCommandParser();

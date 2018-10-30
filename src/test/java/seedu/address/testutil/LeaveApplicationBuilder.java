@@ -17,6 +17,10 @@ public class LeaveApplicationBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Family holiday to Thailand";
     public static final StatusEnum.Status DEFAULT_STATUS = StatusEnum.Status.PENDING;
+    public static final List<LocalDate> DEFAULT_DATES = List.of(
+            LocalDate.of(2018, 10, 25),
+            LocalDate.of(2018, 10, 26)
+    );
 
     private Description description;
     private LeaveStatus leaveStatus;
@@ -25,7 +29,7 @@ public class LeaveApplicationBuilder {
     public LeaveApplicationBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);
         leaveStatus = new LeaveStatus(DEFAULT_STATUS.toString());
-        dates = new ArrayList<>();
+        dates = new ArrayList<>(DEFAULT_DATES);
     }
 
     /**
