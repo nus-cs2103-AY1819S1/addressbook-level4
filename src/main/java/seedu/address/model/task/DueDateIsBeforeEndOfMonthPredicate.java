@@ -11,7 +11,7 @@ public class DueDateIsBeforeEndOfMonthPredicate implements Predicate<Task> {
 
     @Override
     public boolean test(Task person) {
-        /** Get time at the end of the month, Sunday 2359. */
+        // Get time at the end of the month, Sunday 2359.
         Calendar date = new GregorianCalendar();
         int dayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
         date.set(Calendar.DAY_OF_MONTH, dayOfMonth);

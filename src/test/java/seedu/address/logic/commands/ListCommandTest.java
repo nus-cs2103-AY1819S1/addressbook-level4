@@ -26,6 +26,7 @@ import seedu.address.model.task.DueDateIsBeforeEndOfMonthPredicate;
 import seedu.address.model.task.DueDateIsBeforeEndOfWeekPredicate;
 import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
 import seedu.address.model.task.Task;
+import seedu.address.model.util.DateFormatUtil;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TaskManagerBuilder;
 
@@ -128,7 +129,7 @@ public class ListCommandTest {
                 .setTimeOfDay(20, 00, 00)
                 .build();
         Date date = c.getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-YYYY HHmm");
+        SimpleDateFormat formatter = new SimpleDateFormat(DateFormatUtil.DATE_FORMAT_STANDARD);
         String strDate = formatter.format(date);
 
         /** Build a task with the due date near the end of the month */
