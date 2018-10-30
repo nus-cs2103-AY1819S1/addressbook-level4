@@ -3,6 +3,7 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -61,9 +62,21 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void getUnfilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getUnfilteredPersonList().remove(0);
+    }
+
+    @Test
     public void getFilteredEventList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredEventList().add(new ScheduledEventBuilder().build());
+    }
+
+    @Test
+    public void getEventTagList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getEventTagList().add(APPOINTMENT_TAG);
     }
 
     /**
