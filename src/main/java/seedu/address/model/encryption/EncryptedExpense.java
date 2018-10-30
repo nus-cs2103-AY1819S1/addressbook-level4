@@ -2,6 +2,7 @@ package seedu.address.model.encryption;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -63,8 +64,13 @@ public class EncryptedExpense {
         return cost;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     * @return an immutable tag set
+     */
     public Set<EncryptedTag> getTags() {
-        return tags;
+        return Collections.unmodifiableSet(tags);
     }
 
     /**
@@ -92,11 +98,11 @@ public class EncryptedExpense {
             return true;
         }
 
-        if (!(other instanceof Expense)) {
+        if (!(other instanceof EncryptedExpense)) {
             return false;
         }
 
-        Expense otherExpense = (Expense) other;
+        EncryptedExpense otherExpense = (EncryptedExpense) other;
         return otherExpense.getName().equals(getName())
                 && otherExpense.getCategory().equals(getCategory())
                 && otherExpense.getCost().equals(getCost())
