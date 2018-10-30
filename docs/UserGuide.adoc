@@ -73,7 +73,65 @@ Example: if the command specifies
 
 ====
 
-=== Manage commands
+
+=== Manage attractions
+
+This section contains all commands related to managing attractions.
+
+==== Add attractions: `add`
+
+Add an attraction by name with the information. +
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
+
+A ride can have any number of tags (including 0). +
+
+Examples:
+
+* add n/Transformers m/1 w/30 a/John street, block 123, #01-01
+* add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+
+==== Delete attractions: `delete`
+
+Deletes the specified attraction from ThanePark. +
+Format: `delete <index>`
+
+====
+
+* Deletes the ride at the specified index.
+
+* The index refers to the index number shown in the list of displayed rides.
+
+* The index must be a positive integer 1, 2, 3, …​
+
+====
+
+Examples:
+
+* `viewall` +
+  `delete 2` +
+  Deletes the 2nd ride in ThanePark.
+
+* `find Puss in Boots' Giant Journey` +
+   `delete 1` +
+   Deletes the 1st ride in the results of the find command.
+
+==== Update information of attraction: `update`
+
+Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
+Format: `update <index> <tag> <value>`
+
+==== Shutdown attraction: `shutdown`
+
+Closes the ride for the day. Display statistics for the ride on that day. +
+Format: `shutdown <index>`
+
+==== Open attraction: `open`
+
+Opens the ride for the day. Display statistics for the ride on that day. +
+Format: `open <index>`
+
+=== User help and accessibility
+
 
 This section contains all commands related to managing commands.
 
@@ -192,18 +250,18 @@ Examples:
 
 ==== Update information of attraction: `update`
 
-Updates the information `<tag>` with `<value>` about the ride with `<name>`. +
-Format: `update <attraction> <tag> <value>`
+Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
+Format: `update <index> <tag> <value>`
 
 ==== Shutdown attraction: `shutdown`
 
 Close the ride for the day. Display statistics for the ride on that day. +
-Format: `shutdown <attraction>`
+Format: `shutdown <index>`
 
 ==== Open attraction: `open`
 
 Open the ride for the day. Display statistics for the ride on that day. +
-Format: `open <attraction>`
+Format: `open <index>`
 
 === View the list of rides
 
@@ -299,9 +357,13 @@ image::ui_screenshots/find-example-3.png[width="790"]
 * *History*: `history`
 * *Undo*: `undo`
 * *Redo*: `redo`
-* *Update*: `update <attraction> <tag> <value>`
-* *Open*: `open <attraction>`
-* *Shutdown*: `shutdown <attraction>`
+
+
+=== Added
+* *Update*: `update <index> <tag> <value>`
+* *Open*: `open <index>`
+* *Shutdown*: `shutdown <index>`
+
 * *View*: `view <name>`
 * *Quickview*: `quickview`
 * *Filter*: `filter <tag> <condition>`

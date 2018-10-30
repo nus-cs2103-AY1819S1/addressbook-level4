@@ -1,15 +1,16 @@
 :stylesDir: stylesheets
 :experimental:
 * `add <attraction>`
-* `delete <attraction>`
+* `delete <index>`
 * `exit`
 * `find <attraction>`
 * `help [option]`
 * `history |find| [findargs...]`
 * `undo`
 * `redo`
-* `update <attraction> <tag> <value>`
-* `shutdown <attraction>`
+* `update <index> <tag> <value>`
+* `open <index>`
+* `shutdown <index>`
 * `view <name>`
 * `quickview`
 * `filter <tag> <condition>`
