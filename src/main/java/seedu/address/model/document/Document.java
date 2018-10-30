@@ -1,5 +1,7 @@
 package seedu.address.model.document;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -62,11 +64,6 @@ public class Document {
     private IcNumber icNumber;
     private String mcDuration;
     private String referralContent;
-
-    //variables specific to receipt but here because of checkstyle issues
-    private float totalPrice = 0;
-    private Map<Medicine, QuantityToDispense> allocatedMedicine;
-    private ArrayList<Service> servicesRendered;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -180,6 +177,7 @@ public class Document {
     String formatReceiptInformation() {
         Receipt receipt = (Receipt) this;
         StringBuilder stringbuilder = new StringBuilder();
+        receipt.resetPrice();
         stringbuilder.append(RECEIPT_HEADER)
                 .append(RECEIPT_HEADER_CONTENT)
                 .append(unpackTypesOfServices(receipt.getServicesRendered()))
@@ -227,13 +225,15 @@ public class Document {
      * a table to be reflected in the HTML file.
      */
     private String unpackTypesOfServices(ArrayList<Service> servicesRendered) {
+        requireNonNull(servicesRendered);
         Receipt receipt = (Receipt) this;
         StringBuilder stringBuilder = new StringBuilder();
         String serviceName;
-        int servicePrice;
+        float servicePrice;
         for (Service s : servicesRendered) {
             serviceName = s.toString();
-            servicePrice = Integer.parseInt(s.getPrice().toString());
+
+            servicePrice = Float.parseFloat(s.getPrice().toString());
             receipt.increaseTotalPriceBy(servicePrice);
 
             stringBuilder.append("<tr><td>")
@@ -241,9 +241,9 @@ public class Document {
                     .append(HTML_TABLE_DATA_DIVIDER)
                     .append(1)
                     .append(HTML_TABLE_DATA_DIVIDER)
-                    .append(servicePrice)
+                    .append(String.format("%.02f", servicePrice))
                     .append(HTML_TABLE_DATA_DIVIDER)
-                    .append(servicePrice)
+                    .append(String.format("%.02f", servicePrice))
                     .append("</td></tr>");
 
         }
@@ -260,14 +260,14 @@ public class Document {
         Receipt receipt = (Receipt) this;
         StringBuilder stringBuilder = new StringBuilder();
         int quantity;
-        int pricePerUnit;
-        int totalPriceForSpecificMedicine;
+        float pricePerUnit;
+        float totalPriceForSpecificMedicine;
         String medicineName;
         for (Map.Entry<Medicine, QuantityToDispense> entry : medicineAllocated.entrySet()) {
             Medicine medicine = entry.getKey();
             medicineName = medicine.getMedicineName().toString();
             quantity = entry.getValue().getValue();
-            pricePerUnit = Integer.parseInt(medicine.getPricePerUnit().toString());
+            pricePerUnit = Float.parseFloat(medicine.getPricePerUnit().toString());
             totalPriceForSpecificMedicine = pricePerUnit * quantity;
             receipt.increaseTotalPriceBy(totalPriceForSpecificMedicine);
 
@@ -276,9 +276,9 @@ public class Document {
                     .append(HTML_TABLE_DATA_DIVIDER)
                     .append(quantity)
                     .append(HTML_TABLE_DATA_DIVIDER)
-                    .append(pricePerUnit)
+                    .append(String.format("%.02f", pricePerUnit))
                     .append(HTML_TABLE_DATA_DIVIDER)
-                    .append(totalPriceForSpecificMedicine)
+                    .append(String.format("%.02f", totalPriceForSpecificMedicine))
                     .append("</td></tr>");
         }
         return stringBuilder.toString();
@@ -302,14 +302,6 @@ public class Document {
 
     public void setReferralContent(String referralContent) {
         this.referralContent = referralContent;
-    }
-
-    public void setAllocatedMedicine(Map<Medicine, QuantityToDispense> allocatedMedicine) {
-        this.allocatedMedicine = allocatedMedicine;
-    }
-
-    public void setServicesRendered (ArrayList<Service> services) {
-        this.servicesRendered = services;
     }
 
     public File getFile() {
