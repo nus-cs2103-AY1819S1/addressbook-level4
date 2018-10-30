@@ -185,15 +185,15 @@ Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]... [da/DRUG_ALLE
 * Updates the medical records of a patient based on the specified `INDEX`. The index refers to the index number shown in the filtered patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 * At least one of the optional parameters must be provided.
 * Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, and thus you can only add `BloodType` to a patient the very first time, and it will be permanent.
-* A `Note` usually consists of a `Message` and a `Prescription`. However, using this command does not allow you add any `Precription`, since it is not meant to be used during the doctor's consultation. Hence, using this command will just add a `Note` with the specified `Message`, but an empty `Prescription`.
+* A `Note` usually consists of a `Message` and a `Prescription`. However, using this command does not allow you add any `Prescription`, since it is not meant to be used during the doctor's consultation. Hence, using this command will just add a `Note` with the specified `Message`, but an empty `Prescription`.
 ****
 
 Examples:
 
-* `addMedicalRecord 5 b/A+ da/Paracetamol d/Diabetes` +
-Adds 'Paracetamol' (under _Drug Allergy_) and 'Diabetes' (under _Past Disease_) to the 5th patient's medical record.
-* `addMedicalRecord S94738123X b/B+` +
-Adds 'B+' (under _Blood Type_) to the medical record of the patient with that IC number.
+* `addMedicalRecord 5 da/Paracetamol d/Diabetes` +
+Adds 'Paracetamol' (under _Drug Allergy_) and 'Diabetes' (under _Past Disease_) to the `MedicalRecord` of the 5th `Patient`.
+* `addMedicalRecord 3 b/B+` +
+Adds 'B+' (under _Blood Type_) to the `MedicalRecord` of the 3rd `Patient`.
 // end::addmedicalrecordcommand[]
 
 // tag::patient[]
