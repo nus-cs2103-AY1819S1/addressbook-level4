@@ -2,17 +2,29 @@ package seedu.address.testutil;
 
 import java.util.Optional;
 
+<<<<<<< HEAD:src/test/java/seedu/clinicio/testutil/PatientBuilder.java
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
+||||||| merged common ancestors
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.person.Person;
+=======
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+>>>>>>> fd0466fa9c4e16f0bbc839aa76ae8488c7686bff:src/test/java/seedu/address/testutil/PatientBuilder.java
 
 /**
  * A utility class to build {@link Patient} objects.
  */
 public class PatientBuilder extends PersonBuilder {
 
-    private Optional<Doctor> preferredDoctor;
+    private Optional<Staff> preferredDoctor;
     private Optional<Appointment> appointment;
 
     public PatientBuilder() {
@@ -41,11 +53,11 @@ public class PatientBuilder extends PersonBuilder {
     }
 
     /**
-     * Sets the doctor as preferred by the patient.
+     * Sets the staff as preferred by the patient.
      * @return a PersonBuilder
      */
-    public PatientBuilder withPreferredDoctor(Doctor doctor) {
-        preferredDoctor = Optional.of(doctor);
+    public PatientBuilder withPreferredDoctor(Staff staff) {
+        preferredDoctor = Optional.of(staff);
         return this;
     }
 

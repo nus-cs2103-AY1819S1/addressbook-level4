@@ -95,10 +95,10 @@ public class AppointmentTest {
         //same obj
         assertTrue(appt.isSameDoctor(appt));
 
-        //diff fields, same doctor
+        //diff fields, same staff
         assertTrue(appt.isSameDoctor(appt2));
 
-        //diff doctor
+        //diff staff
         assertFalse(appt2.isSameDoctor(appt3));
         assertFalse(appt.isSameDoctor(appt3));
     }
@@ -133,7 +133,7 @@ public class AppointmentTest {
         //diff date
         assertFalse(appt5.isSameAppointment(appt4));
 
-        //diff doctor
+        //diff staff
         assertFalse(appt6.isSameAppointment(appt5));
 
         //diff status
@@ -242,7 +242,7 @@ public class AppointmentTest {
         //diff time
         assertFalse(appt.equals(appt4));
 
-        //diff doctor
+        //diff staff
         assertFalse(appt6.equals(appt5));
 
         //diff status

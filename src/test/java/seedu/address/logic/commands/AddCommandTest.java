@@ -14,6 +14,33 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+<<<<<<< HEAD:src/test/java/seedu/clinicio/logic/commands/AddCommandTest.java
+
+import seedu.clinicio.logic.CommandHistory;
+import seedu.clinicio.logic.commands.exceptions.CommandException;
+
+import seedu.clinicio.model.ClinicIo;
+import seedu.clinicio.model.Model;
+import seedu.clinicio.model.ReadOnlyClinicIo;
+import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
+
+import seedu.clinicio.testutil.PersonBuilder;
+||||||| merged common ancestors
+import seedu.clinicio.logic.CommandHistory;
+import seedu.clinicio.logic.commands.exceptions.CommandException;
+import seedu.clinicio.model.ClinicIo;
+import seedu.clinicio.model.Model;
+import seedu.clinicio.model.ReadOnlyClinicIo;
+import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.testutil.PersonBuilder;
+=======
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
@@ -24,6 +51,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
+>>>>>>> fd0466fa9c4e16f0bbc839aa76ae8488c7686bff:src/test/java/seedu/address/logic/commands/AddCommandTest.java
 
 public class AddCommandTest {
 
@@ -99,21 +127,40 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public void addDoctor(Doctor doctor) {
+        public void addStaff(Staff staff) {
             throw new AssertionError("This method should not be called.");
         }
 
 
+        //@@author jjlee050
         @Override
+<<<<<<< HEAD:src/test/java/seedu/clinicio/logic/commands/AddCommandTest.java
+        public Staff getStaff(Staff staff) {
+||||||| merged common ancestors
+        public void resetData(ReadOnlyClinicIo newData) {
+=======
         public void resetData(ReadOnlyAddressBook newData) {
+>>>>>>> fd0466fa9c4e16f0bbc839aa76ae8488c7686bff:src/test/java/seedu/address/logic/commands/AddCommandTest.java
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+<<<<<<< HEAD:src/test/java/seedu/clinicio/logic/commands/AddCommandTest.java
+        public void resetData(ReadOnlyClinicIo newData) {
+||||||| merged common ancestors
+        public ReadOnlyClinicIo getClinicIo() {
+=======
         public ReadOnlyAddressBook getAddressBook() {
+>>>>>>> fd0466fa9c4e16f0bbc839aa76ae8488c7686bff:src/test/java/seedu/address/logic/commands/AddCommandTest.java
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ReadOnlyClinicIo getClinicIo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //@@author jjlee050
         @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -121,18 +168,12 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public boolean hasDoctor(Doctor doctor) {
+        public boolean hasStaff(Staff staff) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        //@@author jjlee050
-        @Override
-        public void deleteDoctor(Doctor target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -143,7 +184,7 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public void updateDoctor(Doctor target, Doctor editedDoctor) {
+        public void updateStaff(Staff target, Staff editedStaff) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -153,11 +194,11 @@ public class AddCommandTest {
         }
 
         //@@author jjlee050
-
         @Override
-        public ObservableList<Doctor> getFilteredDoctorList() {
+        public ObservableList<Staff> getFilteredStaffList() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -165,7 +206,7 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+        public void updateFilteredStaffList(Predicate<Staff> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -217,6 +258,36 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPatientInPatientQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasConsultation(Consultation consultation) {
+            return false;
+        }
+
+        @Override
+        public void deleteConsultation(Consultation target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addConsultation(Consultation consultation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateConsultation(Consultation target, Consultation editedConsultation) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Consultation> getFilteredConsultationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredConsultationList(Predicate<Consultation> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

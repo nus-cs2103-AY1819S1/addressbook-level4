@@ -3,11 +3,25 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalPersons.ADAM;
 import static seedu.address.testutil.TypicalPersons.ALICE_AS_PATIENT;
 
+<<<<<<< HEAD:src/test/java/seedu/clinicio/testutil/AppointmentBuilder.java
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
+||||||| merged common ancestors
+import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.Date;
+import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.patient.Patient;
+=======
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Date;
 import seedu.address.model.appointment.Time;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
+>>>>>>> fd0466fa9c4e16f0bbc839aa76ae8488c7686bff:src/test/java/seedu/address/testutil/AppointmentBuilder.java
 
 //@@author gingivitiss
 /**
@@ -20,14 +34,14 @@ public class AppointmentBuilder {
     public static final Patient DEFAULT_PATIENT = ALICE_AS_PATIENT;
     public static final int DEFAULT_TYPE = 0;
     public static final int DEFAULT_STATUS = 1;
-    public static final Doctor DEFAULT_DOCTOR = ADAM;
+    public static final Staff DEFAULT_STAFF = ADAM;
 
     private Date date;
     private Time time;
     private Patient patient;
     private int type;
     private int status;
-    private Doctor doctor;
+    private Staff staff;
 
     public AppointmentBuilder() {
         date = DEFAULT_DATE;
@@ -35,7 +49,7 @@ public class AppointmentBuilder {
         patient = DEFAULT_PATIENT;
         type = DEFAULT_TYPE;
         status = DEFAULT_STATUS;
-        doctor = DEFAULT_DOCTOR;
+        staff = DEFAULT_STAFF;
     }
 
     /**
@@ -47,7 +61,7 @@ public class AppointmentBuilder {
         patient = appointmentToCopy.getPatient();
         type = appointmentToCopy.getAppointmentType();
         status = appointmentToCopy.getAppointmentStatus();
-        doctor = appointmentToCopy.getAssignedDoctor();
+        staff = appointmentToCopy.getAssignedStaff();
     }
 
     /**
@@ -77,12 +91,12 @@ public class AppointmentBuilder {
     /**
      * Sets the {@code Doctor} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public AppointmentBuilder withStaff(Staff staff) {
+        this.staff = staff;
         return this;
     }
 
     public Appointment build() {
-        return new Appointment(date, time, patient, type, doctor);
+        return new Appointment(date, time, patient, type, staff);
     }
 }

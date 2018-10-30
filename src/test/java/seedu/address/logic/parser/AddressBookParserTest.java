@@ -2,10 +2,27 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+<<<<<<< HEAD:src/test/java/seedu/clinicio/logic/parser/ClinicIoParserTest.java
+import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ALAN;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+import static seedu.clinicio.testutil.TypicalPersons.ALAN;
+||||||| merged common ancestors
+import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinicio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+=======
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.ADAM;
+>>>>>>> fd0466fa9c4e16f0bbc839aa76ae8488c7686bff:src/test/java/seedu/address/logic/parser/AddressBookParserTest.java
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +32,58 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+<<<<<<< HEAD:src/test/java/seedu/clinicio/logic/parser/ClinicIoParserTest.java
+import seedu.clinicio.logic.commands.AddCommand;
+import seedu.clinicio.logic.commands.ClearCommand;
+import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.EditCommand;
+import seedu.clinicio.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.clinicio.logic.commands.ExitCommand;
+import seedu.clinicio.logic.commands.FindCommand;
+import seedu.clinicio.logic.commands.HelpCommand;
+import seedu.clinicio.logic.commands.HistoryCommand;
+import seedu.clinicio.logic.commands.ListCommand;
+import seedu.clinicio.logic.commands.LoginCommand;
+import seedu.clinicio.logic.commands.RedoCommand;
+import seedu.clinicio.logic.commands.SelectCommand;
+import seedu.clinicio.logic.commands.UndoCommand;
+import seedu.clinicio.logic.parser.exceptions.ParseException;
+import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
+import seedu.clinicio.testutil.PersonBuilder;
+import seedu.clinicio.testutil.PersonUtil;
+
+public class ClinicIoParserTest {
+
+||||||| merged common ancestors
+import seedu.clinicio.logic.commands.AddCommand;
+import seedu.clinicio.logic.commands.ClearCommand;
+import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.EditCommand;
+import seedu.clinicio.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.clinicio.logic.commands.ExitCommand;
+import seedu.clinicio.logic.commands.FindCommand;
+import seedu.clinicio.logic.commands.HelpCommand;
+import seedu.clinicio.logic.commands.HistoryCommand;
+import seedu.clinicio.logic.commands.ListCommand;
+import seedu.clinicio.logic.commands.LoginCommand;
+import seedu.clinicio.logic.commands.RedoCommand;
+import seedu.clinicio.logic.commands.SelectCommand;
+import seedu.clinicio.logic.commands.UndoCommand;
+import seedu.clinicio.logic.parser.exceptions.ParseException;
+import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.doctor.Password;
+import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
+import seedu.clinicio.testutil.PersonBuilder;
+import seedu.clinicio.testutil.PersonUtil;
+
+public class ClinicIoParserTest {
+=======
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -39,6 +108,7 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
+>>>>>>> fd0466fa9c4e16f0bbc839aa76ae8488c7686bff:src/test/java/seedu/address/logic/parser/AddressBookParserTest.java
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -116,11 +186,21 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_login() throws Exception {
         LoginCommand command = (LoginCommand) parser.parseCommand(
-                LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName + " pass/doctor1");
-        assertEquals(new LoginCommand(new Doctor(ADAM.getId(), ADAM.getName(), new Password("doctor1", false))),
+                LoginCommand.COMMAND_WORD + " r/doctor n/" + ADAM.getName().fullName
+                        + " pass/" + VALID_PASSWORD_ADAM);
+        assertEquals(new LoginCommand(new Staff(DOCTOR,
+                        ADAM.getName(),
+                        new Password(VALID_PASSWORD_ADAM, false))),
                 command);
 
-        // TODO: Add receptionist
+        command = (LoginCommand) parser.parseCommand(
+                LoginCommand.COMMAND_WORD + " r/receptionist n/" + ALAN.getName().fullName
+                        + " pass/" + VALID_PASSWORD_ALAN);
+        assertEquals(new LoginCommand(new Staff(RECEPTIONIST,
+                        ALAN.getName(),
+                        new Password(VALID_PASSWORD_ALAN, false))),
+                command);
+
     }
 
     @Test

@@ -42,21 +42,36 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    public static final String VALID_NAME_ADAM = "Adam Bell";
+    public static final String VALID_NAME_BEN = "Ben Hill";
+    public static final String VALID_NAME_CAT = "Cat Johnson";
+    public static final String VALID_PASSWORD_ADAM = "doctor1";
+    public static final String VALID_PASSWORD_BEN = "doctor2";
+    public static final String VALID_PASSWORD_CAT = "doctor3";
+    public static final String VALID_HASH_PASSWORD_ADAM = "$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T"
+            + ".ri/9bF3ti";
+    public static final String VALID_HASH_PASSWORD_BEN = "$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUz"
+        + "hQrCLGvUW";
+    public static final String VALID_HASH_PASSWORD_CAT = "123";
+
+    public static final String VALID_NAME_ALAN = "Alan Lee";
+    public static final String VALID_NAME_FRANK = "Frank Tay";
+    public static final String VALID_NAME_DAISY = "Daisy Johnson";
+    public static final String VALID_PASSWORD_ALAN = "reception1";
+    public static final String VALID_PASSWORD_FRANK = "reception2";
+    public static final String VALID_PASSWORD_DAISY = "reception3";
+    public static final String VALID_HASH_PASSWORD_ALAN = "$2a$08$L0jw35.qOdt7p5TdMQ4bIuSPvvX8D3UOGY4wCaWSWNUQ"
+            + "jsnsJWcSO";
+    public static final String VALID_HASH_PASSWORD_FRANK = "$2a$08$y9vtjkky9/YxP3WRXtgb3.7ECtblD8c0YsNXX4CrM8p49X"
+            + "jwUkwh6";
+    public static final String VALID_HASH_PASSWORD_DAISY = "123";
+
     public static final String VALID_DATE_AMY = "02 10 2018";
     public static final String VALID_DATE_BENSON = "03 10 2018";
     public static final String VALID_TIME_AMY = "13 00";
     public static final String VALID_TIME_BENSON = "15 00";
     public static final String VALID_IC_AMY = "D222222E";
     public static final String VALID_IC_BENSON = "R2221234E";
-
-    public static final int VALID_ID_ADAM = 1;
-    public static final int VALID_ID_BEN = 2;
-    public static final String VALID_NAME_ADAM = "Adam Bell";
-    public static final String VALID_NAME_BEN = "Ben Hill";
-    public static final String VALID_HASH_PASSWORD_ADAM = "$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T"
-            + ".ri/9bF3ti";
-    public static final String VALID_HASH_PASSWORD_BEN = "$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUz"
-        + "hQrCLGvUW";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
