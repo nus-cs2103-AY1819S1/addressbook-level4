@@ -27,14 +27,13 @@ import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.model.EmailSavedEvent;
 import seedu.address.commons.events.model.ExportAddressBookEvent;
 import seedu.address.commons.events.model.LoadCalendarEvent;
+import seedu.address.commons.events.model.NewImageEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.EmailDeleteEvent;
 import seedu.address.commons.events.storage.EmailLoadEvent;
-import seedu.address.commons.events.ui.EmailNotFoundEvent;
-import seedu.address.commons.events.model.NewImageEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.storage.ImageReadingExceptionEvent;
+import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
 import seedu.address.commons.events.ui.ToggleBrowserPlaceholderEvent;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -315,7 +314,7 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-    
+
     @Override
     @Subscribe
     public void handleCalendarEventAddedEvent(CalendarEventAddedEvent event) {
@@ -326,7 +325,7 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-  
+
     @Override
     @Subscribe
     public void handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event) {
@@ -354,11 +353,13 @@ public class StorageManager extends ComponentManager implements Storage {
             throw e;
         }
     }
-     
+
     public void saveProfilePicture(BufferedImage image, Room number) throws IOException {
         profilePictureStorage.saveProfilePicture(image, number);
     }
 
+    @Subscribe
+    @Override
     public void handleNewImageEvent(NewImageEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "reading image"));
         BufferedImage image = null;
