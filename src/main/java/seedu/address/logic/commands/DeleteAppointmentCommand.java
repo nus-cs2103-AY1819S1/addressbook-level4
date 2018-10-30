@@ -80,9 +80,7 @@ public class DeleteAppointmentCommand extends Command {
             }
         }
 
-        model.deleteAppointment(appointment);
-        patient.deleteAppointment(appointment);
-        doctor.deleteAppointment(appointment);
+        model.deleteAppointment(appointment, patient, doctor);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
