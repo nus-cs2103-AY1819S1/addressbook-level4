@@ -64,9 +64,10 @@ public class SampleDataUtil {
      */
     public static MedicalHistory getSampleMedicalHistory() {
         Diagnosis[] records = {
-                new Diagnosis("Diagnosed with acute bronchitis, drink more water", "Dr. Zhang"),
-                new Diagnosis("Patient shows symptoms of dengue fever, monitor carefully", "Dr Jeff"),
-                new Diagnosis("Patient is ill", "Dr Ling")};
+            new Diagnosis("Diagnosed with acute bronchitis, drink more water", "Dr. Zhang"),
+            new Diagnosis("Patient shows symptoms of dengue fever, monitor carefully", "Dr Jeff"),
+            new Diagnosis("Patient is ill", "Dr Ling")
+        };
         ArrayList<Diagnosis> recordList = Arrays.stream(records)
                     .collect(Collectors.toCollection(ArrayList::new));
         MedicalHistory mh = new MedicalHistory(recordList);

@@ -4,13 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+/**
+ * Timestamp class used in the {@code Diagnosis} class.
+ * Provides a timestamp of when a diagnosis was created.
+ */
 public class Timestamp {
     private final String timestamp;
     private final DateTimeFormatter formatter = DateTimeFormatter
             .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
 
     /**
-     * Constructs an immutable timestamp for the medical records.
+     * Constructs a timestamp for the medical records.
      */
     Timestamp() {
         timestamp = LocalDateTime.now().format(formatter);
@@ -39,6 +43,6 @@ public class Timestamp {
             return false;
         }
 
-        return timestamp.equals(((Timestamp)other).getTimestamp());
+        return timestamp.equals(((Timestamp) other).getTimestamp());
     }
 }
