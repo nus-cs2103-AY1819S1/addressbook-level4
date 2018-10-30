@@ -22,7 +22,7 @@ import seedu.clinicio.model.appointment.Date;
 /**
  * Computes occurrences for various date and time periods.
  */
-public class DateTimeCount {
+public class DateTimeUtil {
 
     /**
      * @return the number of dates that match today's real life date.
@@ -93,7 +93,7 @@ public class DateTimeCount {
     /**
      * @return the number of dates that match each day in the next week.
      */
-    public static Map<String, Integer> eachDayOfNextWeek(List<Date> dates) {
+    public static Map<Date, Integer> eachDateOfNextWeek(List<Date> dates) {
         Map<Date, Integer> nextWeekCount = new HashMap<>();
         for (Date nextWeekDate : getNextWeekDates()) {
             nextWeekCount.put(nextWeekDate, 0);
@@ -104,8 +104,7 @@ public class DateTimeCount {
             }
         }
 
-        return nextWeekCount.entrySet().stream()
-            .collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue));
+        return nextWeekCount;
     }
 
     /**
@@ -194,6 +193,14 @@ public class DateTimeCount {
      */
     public static List<DayOfWeek> getDaysOfWeek() {
         return Arrays.asList(DayOfWeek.values());
+    }
+
+    /**
+     * Get the day of the week enumerated value based on a {@code Date}.
+     */
+    public static DayOfWeek getDayFromDate(Date date) {
+        LocalDate localDate = getLocalDate(date);
+        return localDate.getDayOfWeek();
     }
 
     /**

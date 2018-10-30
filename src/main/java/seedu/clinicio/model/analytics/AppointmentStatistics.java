@@ -95,7 +95,7 @@ public class AppointmentStatistics extends Statistics {
                 .map(appt -> appt.getAppointmentDate())
                 .collect(Collectors.toList());
 
-        return DateTimeCount.eachDayOfCurrentWeek(datesOfAppointments);
+        return DateTimeUtil.eachDayOfCurrentWeek(datesOfAppointments);
     }
 
     /**
@@ -105,18 +105,17 @@ public class AppointmentStatistics extends Statistics {
         // get the subset of appointments that are scheduled for next week.
         List<Date> scheduledSlotsDates = appointments.stream()
             .map(appt -> appt.getAppointmentDate())
-            .filter(date -> DateTimeCount.isNextWeek(date))
+            .filter(date -> DateTimeUtil.isNextWeek(date))
             .collect(Collectors.toList());
 
         // get a list of the dates for next week
-        List<Date> nextWeekDates = DateTimeCount.getNextWeekDates();
-
+        List<Date> nextWeekDates = DateTimeUtil.getNextWeekDates();
 
         List<Date> availableSlotsDates = new ArrayList<>();
         // for each day of next week, find the number of slots scheduled
         for (Date nextWeekDate : nextWeekDates) {
             long scheduledSlots = scheduledSlotsDates.stream()
-                .filter(scheduledDate -> scheduledDate == nextWeekDate)
+                .filter(scheduledDate -> scheduledDate.equals(nextWeekDate))
                 .count();
 
             // find the number of available slots for a particular day next week
@@ -129,7 +128,7 @@ public class AppointmentStatistics extends Statistics {
         List<String> appointmentGroupsLabels = Arrays.asList("scheduled", "available");
 
         // get a list of all days next week
-        List<String> nextWeekDays = DateTimeCount.getDaysOfWeek().stream()
+        List<String> nextWeekDays = DateTimeUtil.getDaysOfWeek().stream()
             .map(dayOfWeek -> dayOfWeek.name())
             .collect(Collectors.toList());
 
@@ -148,10 +147,10 @@ public class AppointmentStatistics extends Statistics {
             .collect(Collectors.toList());
 
         // calculate appointment numbers - TO ABSTRACT
-        int appointmentsToday = DateTimeCount.today(appointmentDates);
-        int appointmentsWeek = DateTimeCount.currentWeek(appointmentDates);
-        int appointmentsMonth = DateTimeCount.currentMonth(appointmentDates);
-        int appointmentsYear = DateTimeCount.currentYear(appointmentDates);
+        int appointmentsToday = DateTimeUtil.today(appointmentDates);
+        int appointmentsWeek = DateTimeUtil.currentWeek(appointmentDates);
+        int appointmentsMonth = DateTimeUtil.currentMonth(appointmentDates);
+        int appointmentsYear = DateTimeUtil.currentYear(appointmentDates);
 
         List<Integer> values = Arrays.asList(appointmentsToday, appointmentsWeek, appointmentsWeek, appointmentsMonth);
 

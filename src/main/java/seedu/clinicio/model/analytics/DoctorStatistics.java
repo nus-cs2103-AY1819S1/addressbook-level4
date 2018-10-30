@@ -82,10 +82,10 @@ public class DoctorStatistics extends Statistics {
             .collect(Collectors.toList());
 
         // calculate consultation numbers
-        int consultationsToday = DateTimeCount.today(consultationDates);
-        int consultationsWeek = DateTimeCount.currentWeek(consultationDates);
-        int consultationsMonth = DateTimeCount.currentMonth(consultationDates);
-        int consultationsYear = DateTimeCount.currentYear(consultationDates);
+        int consultationsToday = DateTimeUtil.today(consultationDates);
+        int consultationsWeek = DateTimeUtil.currentWeek(consultationDates);
+        int consultationsMonth = DateTimeUtil.currentMonth(consultationDates);
+        int consultationsYear = DateTimeUtil.currentYear(consultationDates);
 
         int numberOfDoctors = doctors.size();
 

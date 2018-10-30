@@ -114,10 +114,11 @@ public abstract class Statistics {
         List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
 
         for (List<Date> datesGroup : datesGroups) {
-            Map<String, Integer> nextWeekDateCounts = DateTimeCount.eachDayOfNextWeek(datesGroup);
+            Map<Date, Integer> nextWeekDateCounts = DateTimeUtil.eachDateOfNextWeek(datesGroup);
 
             List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.entrySet().stream()
-                .map(entry -> new Tuple<DayOfWeek, Integer>(DayOfWeek.valueOf(entry.getKey()), entry.getValue()))
+                .map(entry -> new Tuple<DayOfWeek, Integer>(DateTimeUtil.getDayFromDate(entry.getKey()), entry
+                    .getValue()))
                 .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
                 .map(tuple -> new Tuple<String, Integer>(tuple.getKey().name(), tuple.getValue()))
                 .collect(Collectors.toList());
