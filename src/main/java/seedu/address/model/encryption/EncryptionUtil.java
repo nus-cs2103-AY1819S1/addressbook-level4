@@ -126,7 +126,7 @@ public class EncryptionUtil {
      */
     public static EncryptedExpenseTracker encryptTracker(ReadOnlyExpenseTracker src) throws IllegalValueException {
         EncryptedExpenseTracker result = new EncryptedExpenseTracker(src.getUsername(), src.getPassword().orElse(null),
-                src.getMaximumBudget());
+                src.getMaximumTotalBudget());
         for (Expense expense : src.getExpenseList()) {
             result.addExpense(encryptExpense(expense, src.getEncryptionKey()));
         }

@@ -47,11 +47,11 @@
         <cost>oCUynNobLy/5GQOcQxM9PA==</cost>
         <date>XY334pjHPNyTyAsIbPchmQ==</date>
     </expenses>
-    <username>sampleData</username>
-    <budget>
-        <budgetCap>28.0</budgetCap>
-        <currentExpenses>26.0</currentExpenses>
+    <username>typicalExpensesExpenseTracker</username>
+    <totalBudget>
+        <budgetCap>28.00</budgetCap>
+        <currentExpenses>26.00</currentExpenses>
         <nextRecurrence>2017-08-04T10:11:30</nextRecurrence>
         <numberOfSecondsToRecurAgain>50000</numberOfSecondsToRecurAgain>
-    </budget>
+    </totalBudget>
 </expensetracker>

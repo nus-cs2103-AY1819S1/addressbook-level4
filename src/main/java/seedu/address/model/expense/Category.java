@@ -14,6 +14,8 @@ public class Category extends ExpenseField {
     public static final String CATEGORY_VALIDATION_REGEX = "[a-zA-Z0-9][a-zA-Z0-9 ]+";
     public final String categoryName;
 
+
+
     /**
      * Constructs a {@code Category}.
      *

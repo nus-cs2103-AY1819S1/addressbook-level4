@@ -16,7 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ExpenseTrackerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
@@ -58,7 +58,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     //@@author winsonhys
     @Override
-    public Budget getMaximumBudget() {
+    public TotalBudget getMaximumBudget() {
         return model.getMaximumBudget();
     }
 

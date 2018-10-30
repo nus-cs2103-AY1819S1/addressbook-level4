@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.encryption.EncryptedExpense;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.user.Password;
+import seedu.address.storage.budget.XmlAdaptedTotalBudget;
 
 /**
  * An Immutable ExpenseTracker that is serializable to XML format
@@ -26,7 +27,7 @@ public class XmlSerializableExpenseTracker {
     @XmlElement
     private XmlAdaptedUsername username;
     @XmlElement
-    private XmlAdaptedBudget budget;
+    private XmlAdaptedTotalBudget totalBudget;
     @XmlElement
     private XmlAdaptedPassword password;
 
@@ -46,7 +47,7 @@ public class XmlSerializableExpenseTracker {
         this.username = new XmlAdaptedUsername(src.getUsername());
         this.password = src.getPassword().map(XmlAdaptedPassword::new).orElse(null);
         expenses.addAll(src.getEncryptedExpenses().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
-        this.budget = new XmlAdaptedBudget(src.getMaximumBudget());
+        this.totalBudget = new XmlAdaptedTotalBudget(src.getMaximumTotalBudget());
     }
 
     /**
@@ -58,11 +59,11 @@ public class XmlSerializableExpenseTracker {
     public EncryptedExpenseTracker toModelType() throws IllegalValueException {
         Optional<Password> passwordOptional = Optional.ofNullable(password).map(XmlAdaptedPassword::toModelType);
         EncryptedExpenseTracker expenseTracker;
-        if (budget == null) {
+        if (totalBudget == null) {
             expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional.orElse(null));
         } else {
             expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional.orElse(null),
-                    budget.toModelType());
+                    totalBudget.toModelType());
         }
         for (XmlAdaptedExpense p : expenses) {
             EncryptedExpense expense = p.toModelType();

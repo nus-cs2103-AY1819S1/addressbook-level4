@@ -13,11 +13,13 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ExpenseTracker;
+import seedu.address.model.user.Username;
 import seedu.address.testutil.TypicalExpenses;
 
 public class XmlSerializableExpenseTrackerTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableExpenseTrackerTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test",
+        "data", "XmlSerializableExpenseTrackerTest");
     private static final Path TYPICAL_EXPENSES_FILE = TEST_DATA_FOLDER.resolve("typicalExpensesExpenseTracker.xml");
     private static final Path DUPLICATE_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("duplicateExpenseExpenseTracker.xml");
 
@@ -30,11 +32,11 @@ public class XmlSerializableExpenseTrackerTest {
                 XmlSerializableExpenseTracker.class);
         ExpenseTracker expenseTrackerFromFile = dataFromFile.toModelType().decryptTracker(DEFAULT_ENCRYPTION_KEY);
         ExpenseTracker typicalExpensesExpenseTracker = TypicalExpenses.getTypicalExpenseTracker();
-
-        System.out.println(expenseTrackerFromFile.getMaximumBudget().getNumberOfSecondsToRecurAgain() + " "
-            + typicalExpensesExpenseTracker.getMaximumBudget().getNumberOfSecondsToRecurAgain());
+        typicalExpensesExpenseTracker.setUsername(new Username(TYPICAL_EXPENSES_FILE.getFileName().toString()
+                .replace(".xml", "")));
         assertEquals(expenseTrackerFromFile, typicalExpensesExpenseTracker);
-        assertEquals(expenseTrackerFromFile.getMaximumBudget(), typicalExpensesExpenseTracker.getMaximumBudget());
+        assertEquals(expenseTrackerFromFile.getMaximumTotalBudget(),
+            typicalExpensesExpenseTracker.getMaximumTotalBudget());
     }
 
     @Test

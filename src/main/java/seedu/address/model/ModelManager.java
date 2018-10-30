@@ -25,10 +25,13 @@ import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.exceptions.InvalidDataException;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
+import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -153,6 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean addExpense(Expense expense) throws NoUserSelectedException {
         boolean budgetNotExceeded = versionedExpenseTracker.addExpense(expense);
+
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         indicateExpenseTrackerChanged();
         return budgetNotExceeded;
@@ -225,11 +229,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //@author winsonhys
-    //========== Budget ====================================================================
+    //========== TotalBudget ====================================================================
 
     @Override
-    public void modifyMaximumBudget(Budget budget) throws NoUserSelectedException {
-        this.versionedExpenseTracker.modifyMaximumBudget(budget);
+    public void modifyMaximumBudget(TotalBudget totalBudget) throws NoUserSelectedException {
+        this.versionedExpenseTracker.modifyMaximumBudget(totalBudget);
         indicateExpenseTrackerChanged();
     }
 
@@ -239,10 +243,24 @@ public class ModelManager extends ComponentManager implements Model {
         indicateExpenseTrackerChanged();
     }
 
+    @Override
+    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+        NoUserSelectedException {
+        this.versionedExpenseTracker.addCategoryBudget(budget);
+        System.out.println(this.versionedExpenseTracker.getMaximumTotalBudget().getCategoryBudgets());
+        indicateExpenseTrackerChanged();
+    }
 
     @Override
-    public Budget getMaximumBudget() {
-        return this.versionedExpenseTracker.getMaximumBudget();
+    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
+        NoUserSelectedException {
+        this.versionedExpenseTracker.modifyCategoryBudget(budget);
+        indicateExpenseTrackerChanged();
+    }
+
+    @Override
+    public TotalBudget getMaximumBudget() {
+        return this.versionedExpenseTracker.getMaximumTotalBudget();
     }
 
     //@@author jonathantjm
@@ -438,10 +456,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Checks if budget is required to restart due to recurrence
+     * Checks if totalBudget is required to restart due to recurrence
      */
     protected void checkBudgetRestart() {
-        this.versionedExpenseTracker.getMaximumBudget().checkBudgetRestart();
+        this.versionedExpenseTracker.getMaximumTotalBudget().checkBudgetRestart();
     }
 
 

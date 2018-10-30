@@ -8,6 +8,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -18,21 +19,21 @@ public class EncryptedExpenseTracker {
     private Username username;
     private final Password password;
     private final UniqueEncryptedExpenseList expenses;
-    private final Budget maximumBudget;
+    private final TotalBudget maximumTotalBudget;
 
     /**
      * Creates an empty EncryptedExpenseTracker with the given username.
      * @param username the username associated to the ExpenseTracker
      */
     public EncryptedExpenseTracker(Username username, Password password) {
-        this(username, password, new Budget("28.00"));
+        this(username, password, new TotalBudget("28.00"));
     }
 
-    public EncryptedExpenseTracker(Username username, Password password, Budget budget) {
+    public EncryptedExpenseTracker(Username username, Password password, TotalBudget budget) {
         this.username = username;
         this.password = password;
         this.expenses = new UniqueEncryptedExpenseList();
-        this.maximumBudget = budget;
+        this.maximumTotalBudget = budget;
     }
 
     /**
@@ -48,7 +49,7 @@ public class EncryptedExpenseTracker {
         for (EncryptedExpense expense : expenses) {
             result.addExpense(expense.getDecryptedExpense(key));
         }
-        result.modifyMaximumBudget(maximumBudget);
+        result.modifyMaximumBudget(maximumTotalBudget);
         return result;
     }
 
@@ -89,9 +90,14 @@ public class EncryptedExpenseTracker {
         this.username = username;
     }
 
-    public Budget getMaximumBudget() {
-        return new Budget(this.maximumBudget.getBudgetCap(), this.maximumBudget.getCurrentExpenses(),
-                this.maximumBudget.getNextRecurrence(), this.maximumBudget.getNumberOfSecondsToRecurAgain());
+    /**
+     * Returns a copy of the TotalBudget of the ExpenseTracker.
+     * @return a copy of the TotalBudget of the ExpenseTracker
+     */
+    public TotalBudget getMaximumTotalBudget() {
+        return new TotalBudget(this.maximumTotalBudget.getBudgetCap(), this.maximumTotalBudget.getCurrentExpenses(),
+                this.maximumTotalBudget.getNextRecurrence(), this.maximumTotalBudget.getNumberOfSecondsToRecurAgain(),
+                this.maximumTotalBudget.getCategoryBudgets());
     }
 
     public UniqueEncryptedExpenseList getEncryptedExpenses() {
@@ -103,13 +109,13 @@ public class EncryptedExpenseTracker {
         return other == this // short circuit if same object
                 || (other instanceof EncryptedExpenseTracker // instanceof handles nulls
                 && expenses.equals(((EncryptedExpenseTracker) other).expenses))
-                && this.maximumBudget.equals(((EncryptedExpenseTracker) other).maximumBudget)
+                && this.maximumTotalBudget.equals(((EncryptedExpenseTracker) other).maximumTotalBudget)
                 && this.username.equals(((EncryptedExpenseTracker) other).username)
                 && Objects.equals(this.password, ((EncryptedExpenseTracker) other).password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(expenses, maximumBudget, username, password);
+        return Objects.hash(expenses, maximumTotalBudget, username, password);
     }
 }

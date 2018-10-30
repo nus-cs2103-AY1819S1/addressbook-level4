@@ -10,8 +10,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
 import seedu.address.model.exceptions.InvalidDataException;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -41,9 +41,9 @@ public class ClearCommandTest {
         expectedModel.resetData(new ExpenseTracker(new Username("typicalExpenseTracker"), null,
                 DEFAULT_ENCRYPTION_KEY));
 
-        Budget clearedBudget = model.getMaximumBudget();
-        clearedBudget.clearSpending();
-        expectedModel.modifyMaximumBudget(clearedBudget);
+        TotalBudget clearedTotalBudget = model.getMaximumBudget();
+        clearedTotalBudget.clearSpending();
+        expectedModel.modifyMaximumBudget(clearedTotalBudget);
         expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);

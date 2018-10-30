@@ -41,7 +41,7 @@ public class ModelManagerTest {
     public void checkBudgetRestart_noFrequency_doesNotResetSpending() throws NoUserSelectedException {
         double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+        assertTrue(modelManager.getExpenseTracker().getMaximumTotalBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ModelManagerTest {
         double previousExpenses = modelManager.getMaximumBudget().getCurrentExpenses();
         modelManager.setRecurrenceFrequency(Integer.MAX_VALUE);
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == previousExpenses);
+        assertTrue(modelManager.getExpenseTracker().getMaximumTotalBudget().getCurrentExpenses() == previousExpenses);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ModelManagerTest {
             return;
         }
         modelManager.checkBudgetRestart();
-        assertTrue(modelManager.getExpenseTracker().getMaximumBudget().getCurrentExpenses() == 0);
+        assertTrue(modelManager.getExpenseTracker().getMaximumTotalBudget().getCurrentExpenses() == 0);
     }
 
 
