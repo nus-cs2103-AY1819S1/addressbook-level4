@@ -1,33 +1,43 @@
 package seedu.jxmusic.player;
 
-import java.io.File;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import seedu.jxmusic.model.Track;
 
 /**
  * Playlist1 structure used by Player
  */
 public class PlayableTrack implements Playable {
-    private static MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer;
     // static cos otherwise java garbage collects mediaplayer in like 5 seconds
     // then the track only play for 5 seconds before it suddenly stop
     private String fileName;
+    private Track track;
 
-    public PlayableTrack() { // todo take in Track model as parameter
-        fileName = "library/scarborough fair.mp3";
-        Media media = new Media(new File(fileName).toURI().toString());
+    public PlayableTrack(Track track) {
+        // fileName = "library/Ihojin no Yaiba.mp3";
+        // Media media = new Media(new File(fileName).toURI().toString());
+        Media media = new Media(track.getFile().toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setOnReady(() -> {
             System.out.println("ready");
         });
+        mediaPlayer.setOnEndOfMedia(() -> {
+            System.out.println("end of media");
+        });
+    }
+
+    public String getTrackName() {
+        return track.getFileNameWithoutExtension();
     }
 
     @Override
-    public void play() {
+    public void play(boolean unpause) {
         System.out.println("playabletrack play");
-        mediaPlayer.setStartTime(new Duration(0));
+        if (!unpause) {
+            mediaPlayer.setStartTime(new Duration(0));
+        }
         mediaPlayer.play();
     }
 

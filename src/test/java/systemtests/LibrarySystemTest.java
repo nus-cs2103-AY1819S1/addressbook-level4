@@ -41,7 +41,7 @@ import seedu.jxmusic.logic.commands.ListCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
-import seedu.jxmusic.testutil.TypicalPlaylists;
+import seedu.jxmusic.testutil.TypicalPlaylistList;
 import seedu.jxmusic.ui.BrowserPanel;
 import seedu.jxmusic.ui.CommandBox;
 
@@ -86,7 +86,7 @@ public abstract class LibrarySystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected Library getInitialData() {
-        return TypicalPlaylists.getTypicalLibrary();
+        return TypicalPlaylistList.getTypicalLibrary();
     }
 
     /**

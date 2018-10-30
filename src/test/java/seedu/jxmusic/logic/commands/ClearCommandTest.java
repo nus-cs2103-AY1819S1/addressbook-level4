@@ -1,7 +1,7 @@
 package seedu.jxmusic.logic.commands;
 
 import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibrary;
 
 import org.junit.Test;
 

@@ -21,13 +21,13 @@
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_NAME_METAL;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 //import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.BOB;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.HOON;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.IDA;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.AMY;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.BOB;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.HOON;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.IDA;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.KEYWORD_MATCHING_SONG;
 //
 //import org.junit.Test;
 //

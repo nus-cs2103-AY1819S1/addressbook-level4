@@ -33,7 +33,7 @@ public class TrackCard extends UiPart<Region> {
         super(FXML);
         this.track = track;
         id.setText(displayedIndex + ".");
-        name.setText(track.getFileName());
+        name.setText(track.getFileNameWithoutExtension());
     }
 
     @Override
@@ -50,7 +50,7 @@ public class TrackCard extends UiPart<Region> {
 
         //name check
         Track track1 = ((TrackCard) other).track;
-        return name.getText().equals(track1.getFileName());
+        return name.getText().equals(track1.getFileNameWithoutExtension());
 
         //state check
         /*
