@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.learnvocabulary.model.tag.Tag;
 
+import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
 import seedu.learnvocabulary.model.word.Word;
 
 
@@ -129,7 +130,12 @@ public interface Model {
     void deleteGroup(Tag toDelete);
 
     /**
-     * @param toAdd tag to delete as a word group
+     * @param toAdd tag to add as a word group
      */
     void addGroup(Tag toAdd);
+
+    /**
+     * @param predicate tag to show as a word group
+     */
+    void updateTag(TagContainsKeywordsPredicate predicate);
 }

@@ -1,6 +1,7 @@
 package seedu.learnvocabulary.logic.parser;
 
 import seedu.learnvocabulary.logic.commands.Command;
+import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 
 /**

@@ -16,6 +16,7 @@ import seedu.learnvocabulary.commons.core.LogsCenter;
 import seedu.learnvocabulary.commons.events.model.LearnVocabularyChangedEvent;
 import seedu.learnvocabulary.model.tag.Tag;
 
+import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
 import seedu.learnvocabulary.model.word.Word;
 
 /**
@@ -99,6 +100,12 @@ public class ModelManager extends ComponentManager implements Model {
         if (!versionedLearnVocabulary.hasTag(toAdd)) {
             versionedLearnVocabulary.addGroup(toAdd);
         }
+    }
+
+    @Override
+    public void updateTag(TagContainsKeywordsPredicate predicate) {
+        requireNonNull(predicate);
+        filteredWords.setPredicate(predicate);
     }
 
     @Override
