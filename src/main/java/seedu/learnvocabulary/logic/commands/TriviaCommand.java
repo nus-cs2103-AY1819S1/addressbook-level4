@@ -1,6 +1,7 @@
 package seedu.learnvocabulary.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.learnvocabulary.model.Model.PREDICATE_SHOW_ALL_WORDS;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class TriviaCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        model.updateFilteredWordList(PREDICATE_SHOW_ALL_WORDS);
         List<Word> lastShownList = model.getFilteredWordList();
 
         if (lastShownList.size() < 1) {

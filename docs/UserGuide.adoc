@@ -64,6 +64,14 @@ Used to answer questions presented in trivia mode. No command syntax is needed.
 
 Format: [word]
 
+*Word of The Day*
+
+Displays the word of the day and its meaning from Dictionary.com. Requires a working internet connection.
+
+Command syntax: word
+
+Format: word
+
 *Clears all words from the vocabulary list*
 
 Clears all of the words on LearnVocabulary.

@@ -109,7 +109,7 @@ public class WordListPanelHandle extends NodeHandle<ListView<Word>> {
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Word getWord(int index) {
+    public Word getWord(int index) {
         return getRootNode().getItems().get(index);
     }
 

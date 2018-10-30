@@ -14,10 +14,13 @@ public class Dictionary {
     public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet to learn about words.";
     public static final String WORD_NOT_EXIST =
             "Word cannot be located online (does not exist) - try respelling it.";
+    public static final String NO_WORD_OF_THE_DAY =
+            "The word of the day is not available at this moment";
 
     private String args;
     private String wordToLearn;
     private String definition;
+    private String wordOfTheDay;
 
     public Dictionary(String args) {
         this.args = args;
@@ -29,6 +32,32 @@ public class Dictionary {
 
     public String getDefinition() {
         return definition;
+    }
+
+    public String getWordOfTheDay() {
+        return wordOfTheDay;
+    }
+
+    /**
+     * Parses the wordOfTheDay document if Dictionary.com is available.
+     */
+    public Dictionary fetchWordOfTheDay() throws ParseException {
+        if (!isConnectedToInternet()) {
+            throw new ParseException(MESSAGE_NO_INTERNET);
+        }
+        //Get wordoftheday from document object.
+        Document doc;
+        if ((doc = doesWordOfTheDayExist()) == null) {
+            throw new ParseException(NO_WORD_OF_THE_DAY);
+        }
+        wordOfTheDay = doc.select("meta[property=title]").get(0)
+                .attr("content");
+        wordOfTheDay = wordOfTheDay.replace("Get the Word of the Day - ", "");
+        wordOfTheDay = wordOfTheDay.replace(" | Dictionary.com", "");
+        args = wordOfTheDay;
+        this.invoke();
+        System.out.println(wordOfTheDay);
+        return this;
     }
 
     /**
@@ -78,4 +107,17 @@ public class Dictionary {
             return null;
         }
     }
+
+    /**
+     * Pulls the wordoftheday page into a document if availabe.
+     */
+    public static Document doesWordOfTheDayExist() {
+        try {
+            return Jsoup.connect("https://www.dictionary.com/wordoftheday/").get();
+        } catch (IOException e) {
+            return null;
+        }
+    }
 }
+
+

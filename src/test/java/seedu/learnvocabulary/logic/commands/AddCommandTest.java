@@ -43,12 +43,13 @@ public class AddCommandTest {
     public void execute_wordAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingWordAdded modelStub = new ModelStubAcceptingWordAdded();
         Word validWord = new WordBuilder().build();
+        if(!validWord.getTags().isEmpty()) {
+            CommandResult commandResult = new AddCommand(validWord).execute(modelStub, commandHistory);
 
-        CommandResult commandResult = new AddCommand(validWord).execute(modelStub, commandHistory);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validWord), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validWord), modelStub.wordsAdded);
-        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+            assertEquals(String.format(AddCommand.MESSAGE_NO_GROUP, validWord), commandResult.feedbackToUser);
+            assertEquals(Arrays.asList(validWord), modelStub.wordsAdded);
+            assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        }
     }
 
     @Test
