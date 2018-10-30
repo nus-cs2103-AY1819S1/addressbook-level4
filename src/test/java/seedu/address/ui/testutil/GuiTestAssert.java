@@ -9,7 +9,9 @@ import guitests.guihandles.CalendarEventCardHandle;
 import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 
+import guitests.guihandles.ToDoListEventCardHandle;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.todolist.ToDoListEvent;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -27,6 +29,15 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEqualsToDo(ToDoListEventCardHandle expectedCard, ToDoListEventCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getPriority(), actualCard.getPriority());
+        assertEquals(expectedCard.getTitle(), actualCard.getTitle());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedCalendarEvent}.
      */
     public static void assertCardDisplaysPerson(CalendarEvent expectedCalendarEvent,
@@ -36,6 +47,15 @@ public class GuiTestAssert {
         assertEquals(expectedCalendarEvent.getVenue().value, actualCard.getVenue());
         assertEquals(expectedCalendarEvent.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
             actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedToDoListEvent}.
+     */
+    public static void assertCardDisplaysToDo(ToDoListEvent expectedToDoListEvent,
+                                              ToDoListEventCardHandle actualCard) {
+        assertEquals(expectedToDoListEvent.getTitle().value, actualCard.getTitle());
+        assertEquals(expectedToDoListEvent.getPriority().value, actualCard.getPriority());
     }
 
     /**

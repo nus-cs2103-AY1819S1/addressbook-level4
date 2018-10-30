@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditCalendarEventDescriptor;
+import seedu.address.logic.commands.EditEventCommand.EditCalendarEventDescriptor;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.Description;
@@ -15,22 +15,22 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class to help with building EditCalendarEventDescriptor objects.
  */
-public class EditPersonDescriptorBuilder {
+public class EditCalendarEventDescriptorBuilder {
 
     private EditCalendarEventDescriptor descriptor;
 
-    public EditPersonDescriptorBuilder() {
+    public EditCalendarEventDescriptorBuilder() {
         descriptor = new EditCalendarEventDescriptor();
     }
 
-    public EditPersonDescriptorBuilder(EditCalendarEventDescriptor descriptor) {
+    public EditCalendarEventDescriptorBuilder(EditCalendarEventDescriptor descriptor) {
         this.descriptor = new EditCalendarEventDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditCalendarEventDescriptor} with fields containing {@code calendarevent}'s details
      */
-    public EditPersonDescriptorBuilder(CalendarEvent calendarEvent) {
+    public EditCalendarEventDescriptorBuilder(CalendarEvent calendarEvent) {
         descriptor = new EditCalendarEventDescriptor();
         descriptor.setTitle(calendarEvent.getTitle());
         descriptor.setDescription(calendarEvent.getDescriptionObject());
@@ -43,7 +43,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Title} of the {@code EditCalendarEventDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withTitle(String name) {
+    public EditCalendarEventDescriptorBuilder withTitle(String name) {
         descriptor.setTitle(new Title(name));
         return this;
     }
@@ -51,7 +51,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Phone} of the {@code EditCalendarEventDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withDescription(String description) {
+    public EditCalendarEventDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));
         return this;
     }
@@ -59,7 +59,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the start {@code DateTime} of the {@code EditCalendarEventDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withStart(String start) {
+    public EditCalendarEventDescriptorBuilder withStart(String start) {
         descriptor.setStart(new DateTime(start));
         return this;
     }
@@ -67,7 +67,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the end {@code DateTime} of the {@code EditCalendarEventDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withEnd(String end) {
+    public EditCalendarEventDescriptorBuilder withEnd(String end) {
         descriptor.setEnd(new DateTime(end));
         return this;
     }
@@ -75,7 +75,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Venue} of the {@code EditCalendarEventDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withVenue(String address) {
+    public EditCalendarEventDescriptorBuilder withVenue(String address) {
         descriptor.setVenue(new Venue(address));
         return this;
     }
@@ -84,7 +84,7 @@ public class EditPersonDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditCalendarEventDescriptor}
      * that we are building.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) {
+    public EditCalendarEventDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;

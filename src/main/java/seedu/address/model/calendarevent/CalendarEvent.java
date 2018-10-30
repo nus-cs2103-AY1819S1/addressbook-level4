@@ -3,8 +3,6 @@ package seedu.address.model.calendarevent;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;

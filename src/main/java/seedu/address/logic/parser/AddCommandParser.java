@@ -11,7 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.DateTime;
@@ -22,24 +22,24 @@ import seedu.address.model.calendarevent.Venue;
 import seedu.address.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddEventCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddCommandParser implements Parser<AddEventCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddEventCommand
+     * and returns an AddEventCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DESCRIPTION,
                                         PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_START, PREFIX_END, PREFIX_VENUE, PREFIX_DESCRIPTION)
             || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
         DateTime start = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_START).get());
@@ -56,7 +56,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         CalendarEvent calendarEvent = new CalendarEvent(name, description, dateTimeInfo, venue, tagList);
 
-        return new AddCommand(calendarEvent);
+        return new AddEventCommand(calendarEvent);
     }
 
     /**

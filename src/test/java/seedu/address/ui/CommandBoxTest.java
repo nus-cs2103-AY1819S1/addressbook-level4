@@ -11,7 +11,7 @@ import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ModelManagerToDo;
@@ -19,7 +19,7 @@ import seedu.address.model.ModelToDo;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = ListEventCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
@@ -96,7 +96,7 @@ public class CommandBoxTest extends GuiUnitTest {
         guiRobot.push(KeyCode.UP);
         String thirdCommand = "list";
         commandBoxHandle.run(thirdCommand);
-        assertInputHistory(KeyCode.UP, thirdCommand);
+        assertInputHistory(KeyCode.UP, thirdCommand); // TODO test failing
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);

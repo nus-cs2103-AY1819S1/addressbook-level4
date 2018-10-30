@@ -14,11 +14,11 @@ import seedu.address.model.Model;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 /**
- * Selects a calendar event identified using its displayed index from the scheduler.
+ * Selects a calendar event identified using its displayed index from the calendar event list in the scheduler.
  */
 public class SelectCommand extends Command {
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = "select event";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Selects the event identified by the index number used in the displayed event list.\n"
