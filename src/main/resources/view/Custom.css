@@ -303,6 +303,26 @@
     -fx-padding: 0 0 20 0;
 }
 
+.volunteer-name {
+    -fx-font-size: 20pt;
+    -fx-text-fill: -white-1-;
+    -fx-font-family: "IBM Plex Sans";
+}
+
+#volunteerTag {
+    -fx-padding: 0 0 5 0;
+}
+
+#volunteerTag .label {
+    -fx-text-fill: white;
+    -fx-background-color: -blue-2-;
+    -fx-padding: 2 5 2 5;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11.5;
+    -fx-font-family: "Open Sans"
+}
+
 .table-view {
     -fx-control-inner-background: -card-2-;
     -fx-background-color: transparent;

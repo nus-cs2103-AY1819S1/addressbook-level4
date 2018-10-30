@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SWITCH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -179,6 +180,28 @@ public class CommandTestUtil {
         Volunteer firstVolunteer = model.getFilteredVolunteerList().get(0);
         model.deleteVolunteer(firstVolunteer);
         model.commitAddressBook();
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualCommandHistory} remains unchanged <br>
+     * - a file with the {@code volunteer}'s name exists.
+     */
+    public static void assertExportCommandSuccess(Command command, Model model, CommandHistory actualCommandHistory,
+                                            String expectedMessage, Volunteer volunteer) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(model, actualCommandHistory);
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+
+            // For now we just check if the exported file exists
+            File file = new File(ExportCertCommand.getCurrentSavePath() + volunteer.getName() + ".pdf");
+            assertTrue(file.exists());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 
 }

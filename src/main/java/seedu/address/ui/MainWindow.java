@@ -44,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private ContextIndicator contextIndicator;
     private VolunteerListPanel volunteerListPanel;
+    private VolunteerPanel volunteerPanel;
     private EventListPanel eventListPanel;
     private EventPanel eventPanel;
     private RecordEventPanel recordEventPanel;
@@ -140,6 +141,7 @@ public class MainWindow extends UiPart<Stage> {
         volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
+        volunteerPanel = new VolunteerPanel();
         eventPanel = new EventPanel(logic.getFilteredRecordList());
         recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredVolunteerList());
 
@@ -217,8 +219,9 @@ public class MainWindow extends UiPart<Stage> {
             browserPlaceholder.getChildren().add(eventPanel.getRoot());
         } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
             volunteerListPanel.clearSelection();
+            volunteerPanel.clearDetails();
             listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
-            browserPlaceholder.getChildren().add(browserPanel.getRoot());
+            browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
         } else if (contextId.equals(RECORD_CONTEXT_ID)) {
             // TO_UPDATE: Shows all available volunteers for event
             listPanelPlaceholder.getChildren().add(volunteerListPanel.getRoot());
