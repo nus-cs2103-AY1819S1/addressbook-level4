@@ -3,27 +3,24 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: TheTracker (v1.3)
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The Tracker (v1.3) is a desktop application that helps NUS students to monitor contacts, modules and events.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to EditModule and EditOccasion commands*
-** What it does: allow the user to edit all fields in a `module` or an `occasion`, similar to `editPerson`.
+* *Major enhancement*: *Improved existing edit function to edit any type of entry.
+** What it does: allows the user to edit a person, module or occasion by index
 ** Justification: This is one of the basic features of TheTracker, which allows a user to edit module and occasion in a
 similar way of how he edit a person in his address book.
-** Highlights: This feature affects existing commands and commands to be added in future. It required an rigorous implementation as it required changes to existing commands.
-** Credits: `EditCommand` in the original AddressBook4_{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate
-judgement of how much effort went into the feature}_
+** Highlights: This feature is necessary for a user to simultaneously maintain all three types of entries.
+** Credits: This enhancement required the different lists to be handled independently, but with all actions tracked simultaneously (e.g. for undo/redo).
 
 * *Minor enhancement*: Implement the `Occasion` class and its related classes(`OccasionName`, `OccasionDate`, `OccasionLocation`)
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
@@ -33,10 +30,13 @@ judgement of how much effort went into the feature}_
 *** Wrote additional tests for Undo/Redo command features to increase coverage (in progress)
 *** Did cosmetic tweaks to existing contents of the User Guide
 ** Community:
-*** PRs reviewed (with non-trivial review comments)
+*** PRs reviewed (with non-trivial review comments) (To Do in next milestone)
 ** Tools:
 *** Integrated a third party library (Natty) to the project, eg: (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
+** Documentation:
+*** Wrote user stories for v1.0
+*** Updated AboutUs.adoc to match application design
 
 == Contributions to the User Guide
 
