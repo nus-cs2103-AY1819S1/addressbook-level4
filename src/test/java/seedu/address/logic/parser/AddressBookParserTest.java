@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDATES_DESC_BENSON_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDESCIPTION_DESC_BENSON_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERMISSION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_DESCRIPTION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
