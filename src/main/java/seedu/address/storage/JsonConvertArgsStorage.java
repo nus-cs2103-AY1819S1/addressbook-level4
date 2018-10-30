@@ -51,7 +51,7 @@ public class JsonConvertArgsStorage {
         }
         objectNode1.putPOJO("operations", operation);
         byte[] content = mapper.writer().writeValueAsString(objectNode1).getBytes();
-        File command = new File(ImageMagickUtil.commandSaveFolder + "/" + name + ".json");
+        File command = new File(ImageMagickUtil.getCommandSaveFolder() + "/" + name + ".json");
         BufferedOutputStream bio = new BufferedOutputStream(new FileOutputStream(command));
         bio.write(content);
         bio.write("\n".getBytes());

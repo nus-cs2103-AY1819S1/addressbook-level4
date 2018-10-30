@@ -57,6 +57,10 @@ public class ImageMagickUtil {
         throw new NoSuchElementException("cannot find the file");
     }
 
+    public static String getCommandSaveFolder() {
+        return commandSaveFolder;
+    }
+
     /**
      * get the platform;
      * @return
