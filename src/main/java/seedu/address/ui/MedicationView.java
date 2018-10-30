@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -34,8 +33,6 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
         + "to set the current selection, but it is not null.";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final String loggingPrefix = "[" + getClass().getName() + "]: ";
-
-    private HashMap<Integer, TableColumn<Prescription, String>> colIdxToCol = new HashMap<>();
 
     // Remember to set the fx:id of the elements in the .fxml file!
     @javafx.fxml.FXML
@@ -80,16 +77,6 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
         this.persons = persons;
         this.sortOrder = FXCollections.observableArrayList(new ArrayList<>());
         registerAsAnEventHandler(this);
-
-        // For easy reference when sorting later.
-        colIdxToCol.put(1, drugNameCol);
-        colIdxToCol.put(2, dosageCol);
-        colIdxToCol.put(3, dosageUnitCol);
-        colIdxToCol.put(4, dosesPerDayCol);
-        colIdxToCol.put(5, startDateCol);
-        colIdxToCol.put(6, endDateCol);
-        colIdxToCol.put(7, durationCol);
-        colIdxToCol.put(8, activePrescriptionCol);
     }
 
     /**
@@ -264,12 +251,16 @@ public class MedicationView extends UiPart<Region> implements Swappable, Sortabl
 
         sortOrder.clear();
 
+        ObservableList<TableColumn<Prescription, ?>> columns = prescriptionTableView.getColumns();
+
         for (int i = 0; i < colIdx.length; i++) {
-            TableColumn<Prescription, String> col = colIdxToCol.get(colIdx[i]);
-            if (col == null) {
+            // Recall that the column indices passed in are 1-indexed.
+            if (colIdx[i] < 1 || colIdx[i] > columns.size()) {
                 // No corresponding column for that column index exists
                 continue;
             }
+
+            TableColumn<Prescription, ?> col = columns.get(colIdx[i] - 1);
             sortOrder.add(col);
         }
 
