@@ -256,7 +256,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void setCurrentPreviewImage(PreviewImage previewImage) {
-        currentPreviewImage = previewImage;
+        setCurrentPreviewImage(previewImage);
     }
 
     @Override

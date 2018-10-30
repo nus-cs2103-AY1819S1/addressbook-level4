@@ -170,15 +170,19 @@ public class ImageMagickUtil {
     public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
         ArrayList<String> args = new ArrayList<>();
         String output = TMP_PATH + "/modified.png";
-        args.add(getExecuteImageMagic() + " ");
-        args.add(String.format("-background %s ", c.getBackgroundColor()));
+        args.add(getExecuteImageMagic());
+        args.add("-background");
+        args.add(String.format("%s", c.getBackgroundColor()));
         for (Layer l: c.getLayers()) {
-            args.add(String.format("-page +%d+%d %s ", l.getX(), l.getY(), l.getImage().getCurrentPath()));
+            args.add("-page");
+            args.add(String.format("+%d+%d", l.getX(), l.getY()));
+            args.add(String.format("%s", l.getImage().getCurrentPath()));
         }
         if (c.isCanvasAuto()) {
-            args.add("-layers merge ");
+            args.add("-layers");
+            args.add(" merge");
         } else {
-            args.add("-flatten ");
+            args.add("-flatten");
         }
         args.add(output);
         return runProcessBuilder(args, output);
