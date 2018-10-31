@@ -16,7 +16,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS = unused -> true;
     Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_PENDING_LEAVEAPPLICATIONS =
-            leaveApplication -> leaveApplication.getLeaveStatus().value.equals(StatusEnum.Status.PENDING);
+        leaveApplication -> leaveApplication.getLeaveStatus().value.equals(StatusEnum.Status.PENDING);
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
