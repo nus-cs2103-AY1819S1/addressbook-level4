@@ -40,8 +40,8 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAssignmentList assignmentList
-            , ReadOnlyArchiveList archiveList, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAssignmentList assignmentList,
+                        ReadOnlyArchiveList archiveList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -56,7 +56,9 @@ public class ModelManager extends ComponentManager implements Model {
         archivedPersons = new FilteredList<>(versionedArchiveList.getPersonList());
     }
 
-    public ModelManager() { this(new AddressBook(), new AssignmentList(), new ArchiveList(), new UserPrefs()); }
+    public ModelManager() {
+        this(new AddressBook(), new AssignmentList(), new ArchiveList(), new UserPrefs());
+    }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {

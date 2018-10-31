@@ -73,8 +73,10 @@ public class SampleDataUtil {
 
     public static Assignment[] getSampleAssignments() {
         return new Assignment[] {
-            new Assignment(new ProjectName("OASIS"), new Name("Amy Bee"), new Description("Project Management System.")),
-            new Assignment(new ProjectName("Falcon"), new Name("Bob Choo"), new Description("Home Security System."))
+            new Assignment(new ProjectName("OASIS"), new Name("Amy Bee"),
+                    new Description("Project Management System.")),
+            new Assignment(new ProjectName("Falcon"), new Name("Bob Choo"),
+                    new Description("Home Security System."))
         };
     }
 

@@ -35,8 +35,8 @@ public class AddAssignmentParser implements Parser<AddAssignmentCommand> {
 
         ProjectName name = ParserUtil.parseProjectName(argMultimap.getValue(PREFIX_ASSIGNMENT_NAME).get());
         Name author = ParserUtil.parseName(argMultimap.getValue(PREFIX_AUTHOR).get());
-        Description description
-                = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ASSIGNMENT_DESCRIPTION).get());
+        Description description =
+                ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ASSIGNMENT_DESCRIPTION).get());
         Assignment assignment = new Assignment(name, author, description);
 
         return new AddAssignmentCommand(assignment);
