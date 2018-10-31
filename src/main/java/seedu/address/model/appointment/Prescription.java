@@ -12,7 +12,8 @@ public class Prescription {
     private Dosage dosage;
     private ConsumptionPerDay consumptionPerDay;
 
-    public Prescription(int appointmentId, MedicineName medicineName, Dosage dosage, ConsumptionPerDay consumptionPerDay) {
+    public Prescription(int appointmentId, MedicineName medicineName, Dosage dosage,
+                        ConsumptionPerDay consumptionPerDay) {
         this.id = appointmentId;
         this.medicineName = medicineName;
         this.dosage = dosage;

@@ -27,10 +27,6 @@ public class ConsumptionPerDay {
         return value;
     }
 
-    public ConsumptionPerDay() {
-        value = "";
-    }
-
     /**
      * Returns true if a given string is a valid number of consumption per day
      */

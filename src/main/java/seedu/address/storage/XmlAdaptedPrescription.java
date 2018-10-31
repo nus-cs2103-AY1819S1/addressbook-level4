@@ -88,7 +88,9 @@ public class XmlAdaptedPrescription {
         return new Prescription(medAppointmentId, medName, medDosage, medConsumptionPerDay);
     }
 
-    public int getAppointmentId() { return appointmentId; }
+    public int getAppointmentId() {
+        return appointmentId;
+    }
 
     public String getMedicineName() {
         return medicineName;
