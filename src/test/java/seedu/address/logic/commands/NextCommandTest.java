@@ -9,14 +9,10 @@ import static seedu.address.testutil.ModelGenerator.getModelWithTestImgDirectory
 import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.testutil.EventsCollectorRule;
-
-import java.util.logging.Logger;
-
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
