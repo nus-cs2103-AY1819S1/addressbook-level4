@@ -87,6 +87,7 @@ public class AddressBookParserTest {
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
+    //@@author LZYAndy
     @Test
     public void parseCommand_findEmail() throws Exception {
         List<String> keywords = Arrays.asList("e1234567@u.nus.edu");
@@ -102,6 +103,7 @@ public class AddressBookParserTest {
                 FindPhoneCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindPhoneCommand(new PhoneContainsKeywordsPredicate(keywords)), command);
     }
+    //@@author LZYAndy
 
     @Test
     public void parseCommand_help() throws Exception {

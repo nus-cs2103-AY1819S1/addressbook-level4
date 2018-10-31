@@ -1,3 +1,4 @@
+//@@author LZYAndy
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
@@ -81,3 +82,4 @@ public class FindEmailCommandTest {
         return new EmailContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
+//@@author LZYAndy
