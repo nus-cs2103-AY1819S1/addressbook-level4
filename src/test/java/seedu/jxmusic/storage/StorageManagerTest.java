@@ -65,7 +65,7 @@ public class StorageManagerTest {
          */
         Library original = getTypicalLibrary();
         storageManager.saveLibrary(original);
-        ReadOnlyLibrary retrieved = storageManager.readLibrary().get();
+        ReadOnlyLibrary retrieved = storageManager.readLibrary();
         assertEquals(original, new Library(retrieved));
     }
 
