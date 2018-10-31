@@ -15,28 +15,28 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes a patient's appointment to the health book.
+ * Completes a patient's appointment in the health book.
  */
-public class DeleteAppointmentCommand extends Command {
+public class CompleteAppointmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete-appointment";
+    public static final String COMMAND_WORD = "complete-appointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes a patient's appointment in the health book. "
+            + ": Completes a patient's appointment in the health book. "
             + "Parameters: "
             + "APPOINTMENT_ID \n"
             + "Example: " + COMMAND_WORD + " "
-            + "3 ";
+            + "10001 ";
 
-    public static final String MESSAGE_SUCCESS = "Appointment deleted";
+    public static final String MESSAGE_SUCCESS = "Appointment completed";
     public static final String MESSAGE_INVALID_APPOINTMENT_INDEX = "AppointmentId is invalid";
 
     private final int appointmentId;
 
     /**
-     * Creates an AddAppointmentCommand to add the specified {@code Appointment}
+     * Creates an CompleteAppointmentCommand to add the specified {@code Appointment}
      */
-    public DeleteAppointmentCommand(int appointmentId) {
+    public CompleteAppointmentCommand(int appointmentId) {
         requireAllNonNull(appointmentId);
         this.appointmentId = appointmentId;
     }
@@ -84,7 +84,7 @@ public class DeleteAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
         }
 
-        model.deleteAppointment(appointment, patient, doctor);
+        model.completeAppointment(appointment, patient, doctor);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
@@ -93,6 +93,6 @@ public class DeleteAppointmentCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddAppointmentCommand // instanceof handles nulls
-                && (appointmentId == ((DeleteAppointmentCommand) other).appointmentId));
+                && (appointmentId == ((CompleteAppointmentCommand) other).appointmentId));
     }
 }

@@ -169,6 +169,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         appointments.remove(appointment);
     }
 
+    /**
+     * Completes a patient's {@code appointment} from this {@code HealthBook}.
+     */
+    public void completeAppointment(Appointment appointment, Patient patient, Doctor doctor) {
+        Patient targetPatient = persons.findPatient(patient);
+        Doctor targetDoctor = persons.findDoctor(doctor);
+        patient.completeUpcomingAppointment(appointment);
+        doctor.completeUpcomingAppointment(appointment);
+        persons.setPerson(targetPatient, patient);
+        persons.setPerson(targetDoctor, doctor);
+        appointments.setToComplete(appointment);
+    }
+
     //// util methods
 
     @Override
