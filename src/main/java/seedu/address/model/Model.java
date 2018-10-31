@@ -1,12 +1,16 @@
 package seedu.address.model;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.image.Image;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.transformation.Transformation;
 
@@ -117,5 +121,13 @@ public interface Model {
      * update the transformationSet of the current image
      * @param transformation
      */
-    void addTransformation(Transformation transformation);
+    void addTransformation(Transformation transformation) throws ParseException, InterruptedException, IOException;
+
+    void addLayer(PreviewImage i, String name);
+
+    void addLayer(PreviewImage i);
+
+    void removeLayer(Index i);
+
+    Canvas getCanvas();
 }
