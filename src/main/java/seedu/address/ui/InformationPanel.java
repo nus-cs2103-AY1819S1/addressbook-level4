@@ -34,7 +34,7 @@ public class InformationPanel extends UiPart<Region> {
 
     @FXML
     private Label allergiesLabel;
-    
+
     @FXML
     private Label conditionsLabel;
 
@@ -43,7 +43,7 @@ public class InformationPanel extends UiPart<Region> {
 
     @FXML
     private TableView<Appointment> pastAppointmentTable;
-    
+
     @FXML
     private TableColumn<Appointment, ArrayList<Prescription>> prescriptionColumn;
 
@@ -117,8 +117,8 @@ public class InformationPanel extends UiPart<Region> {
      * Loads a patient's information on the panel.
      */
     private void loadPatientInformation(Patient patient) {
-        Iterator<String> allergiesItr =  patient.getMedicalHistory().getAllergies().iterator();
-        Iterator<String> conditionsItr =  patient.getMedicalHistory().getConditions().iterator();
+        Iterator<String> allergiesItr = patient.getMedicalHistory().getAllergies().iterator();
+        Iterator<String> conditionsItr = patient.getMedicalHistory().getConditions().iterator();
         Iterator<Appointment> upcomingAppointmentItr = patient.getUpcomingAppointments().iterator();
         Iterator<Appointment> pastAppointmentItr = patient.getPastAppointments().iterator();
 
