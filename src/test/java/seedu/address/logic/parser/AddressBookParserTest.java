@@ -161,14 +161,16 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_leaveapprove() throws Exception {
-        assertTrue(parser.parseCommand(LeaveApproveCommand.COMMAND_WORD) instanceof LeaveApproveCommand);
-        assertTrue(parser.parseCommand(LeaveApproveCommand.COMMAND_WORD + " 3") instanceof LeaveApproveCommand);
+        LeaveApproveCommand command = (LeaveApproveCommand) parser.parseCommand(
+                LeaveApproveCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new LeaveApproveCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
     public void parseCommand_leavereject() throws Exception {
-        assertTrue(parser.parseCommand(LeaveRejectCommand.COMMAND_WORD) instanceof LeaveRejectCommand);
-        assertTrue(parser.parseCommand(LeaveRejectCommand.COMMAND_WORD + " 3") instanceof LeaveRejectCommand);
+        LeaveRejectCommand command = (LeaveRejectCommand) parser.parseCommand(
+                LeaveRejectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new LeaveRejectCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
