@@ -44,10 +44,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         List<AttributePredicate> predicates = new ArrayList<>();
         predicates = getMaintenancePredicates(maintenanceStrings, predicates);
         predicates = getWaitTimePredicate(waitingTimeStrings, predicates);
-        
+
         return new FilterCommand(new RideContainsConditionPredicate(predicates));
     }
-    
+
     /**
      * Gets a list of predicates from the list of maintenance input if any is present
      */
@@ -64,7 +64,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         newPredicates.addAll(predicates);
         return newPredicates;
     }
-    
+
     /**
      * Gets a list of predicates from the list of wait time input if any is present
      */
@@ -81,7 +81,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         newPredicates.addAll(predicates);
         return newPredicates;
     }
-    
+
     /**
      * Returns a Pair object with the operator and input value from the user input string.
      */
@@ -103,7 +103,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
         return new Pair<>(operator, value);
     }
-    
+
     /**
      * Checks if a character is an operator, i.e. >, < or =
      */
