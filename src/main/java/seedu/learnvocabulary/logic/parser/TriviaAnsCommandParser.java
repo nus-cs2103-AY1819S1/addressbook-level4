@@ -2,7 +2,6 @@ package seedu.learnvocabulary.logic.parser;
 
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.commands.TriviaAnsCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.word.Meaning;

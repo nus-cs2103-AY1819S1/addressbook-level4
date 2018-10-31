@@ -102,7 +102,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         Set<Tag> totalTag = addedTag;
         for (Word word:words) {
             for (Tag tag: word.getTags()) {
-                if(!totalTag.contains(tag)){
+                if (!totalTag.contains(tag)) {
                     totalTag.add(tag);
                 }
             }

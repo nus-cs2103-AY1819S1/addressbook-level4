@@ -28,7 +28,6 @@ import seedu.learnvocabulary.logic.commands.TriviaCommand;
 import seedu.learnvocabulary.logic.commands.UndoCommand;
 import seedu.learnvocabulary.logic.commands.WordOfTheDayCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
-import seedu.learnvocabulary.model.tag.Tag;
 
 /**
  * Parses user input.
