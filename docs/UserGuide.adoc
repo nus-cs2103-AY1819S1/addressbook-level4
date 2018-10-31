@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
@@ -236,7 +237,7 @@ Extended usage of suggesting commands:
 * `CommandBox` text turns red.
 |=======================================================================
 
-[suggest_examples]
+[#suggest_examples]
 Examples:
 
 * `he` +
