@@ -2,11 +2,10 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.leaveapplication.LeaveApplication;
+
 import seedu.address.model.leaveapplication.LeaveApplicationList;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
