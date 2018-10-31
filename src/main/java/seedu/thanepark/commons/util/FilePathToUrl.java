@@ -9,14 +9,16 @@ import java.net.URL;
  */
 public class FilePathToUrl {
     private static final String MESSAGE_FILE_ERROR = "%1$s cannot be accessed!";
-    private static final String URL_HEADER = "file:/";
+
     private final String filePath;
+    private final boolean isGeneratedAtRuntime;
 
     /**
      * Constructs a FilePathToUrl using a filePath String.
      */
-    public FilePathToUrl (String filePath) {
+    public FilePathToUrl (String filePath, boolean isGeneratedAtRuntime) {
         this.filePath = filePath;
+        this.isGeneratedAtRuntime = isGeneratedAtRuntime;
     }
 
     /**
@@ -37,9 +39,13 @@ public class FilePathToUrl {
      * Returns the URL representation of the file's Url.
      */
     public URL filePathToUrl() throws IOException {
-        File file = new File(filePath);
+        if (!isGeneratedAtRuntime) {
+            return getClass().getResource(filePath);
+        }
+        String formattedFilePath = filePath;
+        File file = new File(formattedFilePath);
         if (!file.exists() || !file.canRead()) {
-            throw new IOException(String.format(MESSAGE_FILE_ERROR, filePath));
+            throw new IOException(String.format(MESSAGE_FILE_ERROR, formattedFilePath));
         }
         return file.toURI().toURL();
     }
