@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.Password;
@@ -31,6 +29,14 @@ public class PasswordCommand extends Command {
             if (currentUser.getPassword().matches(oldPassword)) {
                 CommandResult result = new CommandResult(PROGRESS_PASSWORD_MESSAGE);
                 result.addIntercepter(newPassword -> {
+                    if(!Password.isValidPassword(newPassword)) {
+                        return new CommandResult(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+                    }
+
+                    if(currentUser.isAdminUser()) {
+                        return new CommandResult(SHOWING_PASSWORD_MESSAGE);
+                    }
+
                     Person editedPerson = new Person(currentUser.getName(), currentUser.getPhone(),
                         currentUser.getEmail(), currentUser.getAddress(), currentUser.getSalary(),
                         currentUser.getUsername(), new Password(newPassword), currentUser.getProjects(),
