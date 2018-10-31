@@ -48,7 +48,7 @@ public class ListCommand extends Command {
             DUE_TODAY,
             DUE_END_OF_WEEK,
             DUE_END_OF_MONTH,
-            BLOCKING;
+            NOT_BLOCKED;
     }
 
     public ListCommand() {
@@ -66,7 +66,7 @@ public class ListCommand extends Command {
         case DUE_END_OF_MONTH:
             this.predicate = new DueDateIsBeforeEndOfMonthPredicate();
             break;
-        case BLOCKING:
+        case NOT_BLOCKED:
             this.predicate = new IsNotBlockedPredicate();
             break;
         default:
