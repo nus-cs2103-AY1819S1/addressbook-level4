@@ -69,7 +69,7 @@ Format: `track list`
 === Searching for a playlist : `playlist search`
 
 Searches for playlists by names. +
-Format: `playlist search q/QUERY`
+Format: `playlist search QUERY`
 
 ****
 * `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
@@ -77,7 +77,7 @@ Format: `playlist search q/QUERY`
 
 Examples:
 
-* `playlist search q/Fav` +
+* `playlist search Fav` +
 Searches for playlists that has Fav in their names.
 
 === Creating a playlist : `playlist new`
@@ -443,8 +443,8 @@ Format: `exit`
 * *Pause track* : `pause`
 * *Continue track* : `play`
 * *Stop playing* : `stop`
-* *Seek time point* : `seek ti/TIME` +
-eg. `seek ti/01:10`
+* *Seek time point* : `seek t/TIME` +
+eg. `seek t/01:10`
 * *Step* : `step [s/SECONDS]` +
 eg. `step s/100`
 * *Stepback* : `stepback [s/SECONDS]` +
@@ -462,8 +462,8 @@ eg. `stepback s/100`
 
 === Commands for managing playlists in library
 * *List all playlists* : `playlist list`
-* *Search for playlist* : `playlist search q/QUERY` +
-eg. `playlist search q/Fav`
+* *Search for playlist* : `playlist search QUERY` +
+eg. `playlist search Fav`
 * *Create playlist* : `playlist new p/PLAYLIST` +
 eg. `playlist new p/Favourites`
 * *Delete playlist* : `playlist del p/PLAYLIST` +
@@ -471,7 +471,7 @@ eg. `playlist del p/Favourites`
 
 === Commands for managing tracks in playlist
 * *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
-eg. `track add p/Favourites n/Some Song.mp3`
+eg. `track add p/Favourites t/Some Song.mp3`
 * *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
 eg. `track del p/Favourites i/1`
 * *List all tracks* : `track list`
