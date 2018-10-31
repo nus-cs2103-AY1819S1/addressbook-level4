@@ -2,24 +2,25 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.NON_EXIST_NAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Name;
 import seedu.address.model.tag.TagContainsDoctorPredicate;
 import seedu.address.model.tag.TagContainsPatientPredicate;
 import seedu.address.testutil.PatientBuilder;
@@ -43,7 +44,7 @@ public class AddMedicalHistoryCommandTest {
         editedPatient.getMedicalHistory().addAllergy(VALID_CONDITION);
 
         AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, VALID_CONDITION);
 
         String expectedMessage = String.format(AddMedicalHistoryCommand.MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS,
                 editedPatient);
@@ -56,13 +57,12 @@ public class AddMedicalHistoryCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndex_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+    public void execute_invalidPersonName_failure() {
         AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(outOfBoundIndex, VALID_ALLERGY, VALID_CONDITION);
+                new AddMedicalHistoryCommand(new Name(NON_EXIST_NAME), VALID_ALLERGY, VALID_CONDITION);
 
         assertCommandFailure(addMedicalHistoryCommand,
-                model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                model, commandHistory, AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_MATCH_NAME);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class AddMedicalHistoryCommandTest {
         Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String duplicateAllergy = new String(firstPatient.getMedicalHistory().getAllergies().get(0));
         AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, duplicateAllergy, VALID_CONDITION);
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), duplicateAllergy, VALID_CONDITION);
 
         assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
                 duplicateAllergy
@@ -87,7 +87,7 @@ public class AddMedicalHistoryCommandTest {
         Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         String duplicateCondition = new String(firstPatient.getMedicalHistory().getConditions().get(0));
         AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, duplicateCondition);
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, duplicateCondition);
 
         assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
                 duplicateCondition
@@ -100,7 +100,9 @@ public class AddMedicalHistoryCommandTest {
         final TagContainsDoctorPredicate predicate = new TagContainsDoctorPredicate();
         model.updateFilteredPersonList(predicate);
         AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+                new AddMedicalHistoryCommand(
+                        model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(),
+                        VALID_ALLERGY, VALID_CONDITION);
         assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
                 AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY);
 
@@ -111,7 +113,7 @@ public class AddMedicalHistoryCommandTest {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
         AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, "", "");
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", "");
         assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
                 AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO);
     }
@@ -119,11 +121,11 @@ public class AddMedicalHistoryCommandTest {
     @Test
     public void equals() {
         final AddMedicalHistoryCommand standardCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, VALID_CONDITION);
 
         // same values -> returns true
         AddMedicalHistoryCommand commandWithSameValues =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, VALID_CONDITION);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -135,13 +137,13 @@ public class AddMedicalHistoryCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
-        // different index -> returns false
+        // different name -> returns false
         assertFalse(standardCommand.equals(
-                new AddMedicalHistoryCommand(INDEX_SECOND_PERSON, VALID_ALLERGY, VALID_CONDITION)));
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_BENSON), VALID_ALLERGY, VALID_CONDITION)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, "", "")));
+                new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", "")));
     }
 
 }

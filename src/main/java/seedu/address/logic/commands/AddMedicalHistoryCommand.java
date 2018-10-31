@@ -3,19 +3,19 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.MedicalHistory;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -27,10 +27,12 @@ public class AddMedicalHistoryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds medical history for a person to the address book. "
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
             + PREFIX_ALLERGY + "ALLERGIES (separated by comma) "
             + PREFIX_CONDITION + "CONDITIONS (separated by comma) \n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe "
             + PREFIX_ALLERGY + "penicillin,milk "
             + PREFIX_CONDITION + "sub-healthy,hyperglycemia ";
 
@@ -38,8 +40,9 @@ public class AddMedicalHistoryCommand extends Command {
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY = "This command is only for patients";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE = ": already existed";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
+    public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_MATCH_NAME = " does not exist in the healthbook";
 
-    private final Index index;
+    private final Name name;
     private String allergy;
     private String condition;
     private MedicalHistory medicalHistory = new MedicalHistory();
@@ -49,9 +52,9 @@ public class AddMedicalHistoryCommand extends Command {
     /**
      * Creates an AddMedicalHistoryCommand to add the specified {@code Person}
      */
-    public AddMedicalHistoryCommand(Index index, String allergy, String condition) {
-        requireNonNull(index);
-        this.index = index;
+    public AddMedicalHistoryCommand(Name name, String allergy, String condition) {
+        requireNonNull(name);
+        this.name = name;
         this.condition = condition;
         this.allergy = allergy;
     }
@@ -62,22 +65,29 @@ public class AddMedicalHistoryCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Person personToEdit = null;
+        boolean personExist = false;
+        for (Person person : lastShownList) {
+            if (person.getName().equals(name) ) {
+                personToEdit = person;
+                personExist = true;
+                break;
+            }
         }
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-
+        if (!personExist){
+            throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_MATCH_NAME);
+        }
         if (!(personToEdit.getTags().contains(new Tag("Patient")))) {
             throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY);
         }
-        Patient patientToEdit = (Patient) lastShownList.get(index.getZeroBased());
+        Patient patientToEdit = (Patient) personToEdit;
         if (allergy.equals("") && condition.equals("")) {
             throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO);
         }
 
         ArrayList<String> newAllergies = new ArrayList<>();
         ArrayList<String> newConditions = new ArrayList<>();
-        if (!(allergy.equals(null))) {
+        if (!(allergy.equals(""))) {
             newAllergies = new ArrayList<>(Arrays.asList(allergy.split(",")));
             if (!(patientToEdit.getMedicalHistory().getAllergies().equals(null))) {
                 for (int i = 0; i < newAllergies.size(); i++) {
@@ -87,7 +97,7 @@ public class AddMedicalHistoryCommand extends Command {
                 }
             }
         }
-        if (!(condition.equals(null))) {
+        if (!(condition.equals(""))) {
             newConditions = new ArrayList<>(Arrays.asList(condition.split(",")));
             if (!(patientToEdit.getMedicalHistory().getConditions().equals(null))) {
                 for (int i = 0; i < newConditions.size(); i++) {
@@ -107,12 +117,16 @@ public class AddMedicalHistoryCommand extends Command {
         if (!(patientToEdit.getMedicalHistory().getAllergies().equals(null))) {
             allergies.addAll(patientToEdit.getMedicalHistory().getAllergies());
         }
-        allergies.addAll(newAllergies);
+        if (!(allergy.equals(""))) {
+            allergies.addAll(newAllergies);
+            System.out.println("add new allergy");
+        }
         if (!(patientToEdit.getMedicalHistory().getAllergies().equals(null))) {
             conditions.addAll(patientToEdit.getMedicalHistory().getConditions());
         }
-        conditions.addAll(newConditions);
-
+        if (!(condition.equals(""))) {
+            conditions.addAll(newConditions);
+        }
         medicalHistory.setAllergies(allergies);
         medicalHistory.setConditions(conditions);
 
@@ -135,7 +149,7 @@ public class AddMedicalHistoryCommand extends Command {
             return false;
         } else {
             AddMedicalHistoryCommand r = (AddMedicalHistoryCommand) o;
-            return index.equals(r.index) && allergy.equals(r.allergy) && condition.equals(r.condition);
+            return name.equals(r.name) && allergy.equals(r.allergy) && condition.equals(r.condition);
         }
 
     }
