@@ -46,6 +46,7 @@ Format: `help`: viewing list of all commands
 === Selecting images for editing: `select`
 
 Format: `select [INDEX]`: selects an image for image-editing
+
 Format: `select -all`: adds all images in current directory from working set [Coming in v2.0]
 
 Examples:
@@ -85,7 +86,7 @@ Available transformations
 
 * `rotate`: rotates an image. DIRECTION [left, right], VALUE [-180, 180]
 
-** Format: `convert rotate [vlaue]`
+** Format: `convert rotate [value]`
 
 === Saving images/transformation set : `save`
 
