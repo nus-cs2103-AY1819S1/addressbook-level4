@@ -352,7 +352,7 @@ Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
 TARGET WEIGHT, DURATION AND SCHEME +
 
 Format: +
-`add [n/NAME] [a/AGE] [h/HEIGHT] [w/CURRENTWEIGHT] [t/TARGETWEIGHT] [d/DURATION] [s/SCHEME]` +
+`add n/NAME a/AGE h/HEIGHT w/CURRENTWEIGHT t/TARGETWEIGHT d/DURATION s/SCHEME` +
 
 ****
 * Height is numeric and input is of centimetre units
@@ -395,7 +395,7 @@ Format : +
 After being shown the meal planner list by the system +
 User selects to add to intake List +
 Format: +
-`addDay [p/PlanIndex] [d/DayIndex]`
+`addDay p/PlanIndex d/DayIndex'
 
 ****
 * Plan Index specifies the plan to add to, has to be more than 0 and be a valid index on the list
@@ -407,7 +407,7 @@ Format: +
 After being shown the list of days from intake list +
 User selects day to remove and also the plan to remove from +
 Format: +
-`deleteDay [p/PlanIndex] [d/DayIndex]`
+`deleteDay p/PlanIndex d/DayIndex`
 
 ****
 * Plan Index specifies the plan to delete from, has to be more than 0 and be a valid index on the list
