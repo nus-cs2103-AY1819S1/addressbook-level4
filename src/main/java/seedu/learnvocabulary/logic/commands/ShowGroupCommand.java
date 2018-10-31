@@ -53,5 +53,12 @@ public class ShowGroupCommand extends Command {
         model.updateTag(predicate);
         return new CommandResult(String.format(MESSAGE_SUCCESS, predicate.getTag()));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ShowGroupCommand // instanceof handles nulls
+                && predicate.equals(((ShowGroupCommand) other).predicate)); // state check
+    }
 }
 //@@author
