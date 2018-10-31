@@ -94,6 +94,16 @@ public class ModelGenerator {
     }
 
     /**
+     * Returns a Model at index 0, size 4 (3 undone states).
+     */
+    public static Model getModelWithUndoneStates() {
+        Model model = getModelWithThreeTransformations();
+        model.undoPreviewImage();
+        model.undoPreviewImage();
+        model.undoPreviewImage(); // Now at original state
+        return model;
+    }
+    /**
      * Returns a Model with current directory testimgs.
      */
     public static Model getModelWithTestImgDirectory() {

@@ -1,49 +1,47 @@
 package seedu.address.logic.commands;
 
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandFailure;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.UndoRedoCommandTestUtil.clearCache;
 
-import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.testutil.ModelGenerator;
 
 public class RedoCommandTest {
+    private CommandHistory commandHistory = new CommandHistory();
+    private RedoCommand redoCommand = new RedoCommand();
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final CommandHistory commandHistory = new CommandHistory();
-
-    @Before
-    public void setUp() {
-        // set up of both models' undo/redo history
-        deleteFirstPerson(model);
-        deleteFirstPerson(model);
-        //model.undoAddressBook();
-
-        deleteFirstPerson(expectedModel);
-        deleteFirstPerson(expectedModel);
-        ////expectedModel.undoAddressBook();
-        //expectedModel.undoAddressBook();
+    @Test
+    public void execute_defaultStateHasNothingToRedo() {
+        Model model = ModelGenerator.getDefaultModel();
+        assertCommandFailure(redoCommand, model, commandHistory, "No more commands to redo!");
     }
 
     @Test
-    public void execute() {
-        /* REDO COMMAND ASSERTION FAILURE
-        // multiple redoable states in model
-        //expectedModel.redoAddressBook();
-        //assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    public void execute_lastStateHasNothingToRedo() {
+        Model model = ModelGenerator.getModelWithTwoTransformations();
+        assertCommandFailure(redoCommand, model, commandHistory, "No more commands to redo!");
+    }
 
-        // single redoable state in model
-        //expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    @Test
+    public void execute_singleRedo() {
+        Model model = ModelGenerator.getModelWithUndoneStates();
+        assertCommandSuccess(redoCommand, model, commandHistory, "Redo success!", 1, 4);
+    }
 
-        // no redoable state in model
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);*/
+    @Test
+    public void execute_successiveRedo() {
+        Model model = ModelGenerator.getModelWithUndoneStates();
+        assertCommandSuccess(redoCommand, model, commandHistory, "Redo success!", 1, 4);
+        assertCommandSuccess(redoCommand, model, commandHistory, "Redo success!", 2, 4);
+    }
+
+    @After
+    public void cleanUp() {
+        clearCache();
     }
 }
