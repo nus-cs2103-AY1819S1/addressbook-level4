@@ -12,19 +12,20 @@ import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 
 /**
- * Add a track to target playlist.
+ * Remove a track from target playlist.
  */
-public class TrackAddCommand extends Command {
-    public static final String COMMAND_PHRASE = "track add";
+public class TrackRemoveCommand extends Command {
+    public static final String COMMAND_PHRASE = "track del";
     public static final String MESSAGE_SUCCESS = "";
-    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Adds a new track to the playlist identified "
-        + "by the name of the track and playlist."
-        + "Playlist will be modified with new track.\n"
-        + "Parameters: [" + PREFIX_TRACK + "TRACK] "
-        + "[" + PREFIX_PLAYLIST + "PLAYLIST]...\n"
-        + "Example: " + COMMAND_PHRASE
-        + PREFIX_TRACK + "rockNRoll"
-        + PREFIX_PLAYLIST + "rockPlaylist";
+    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Edits the details of the person identified "
+            + "by the index number used in the displayed person list. "
+            + "Existing values will be overwritten by the input values.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + "[" + PREFIX_TRACK + "TRACK] "
+            + "[" + PREFIX_PLAYLIST + "PLAYLIST]...\n"
+            + "Example: " + COMMAND_PHRASE + " 1 "
+            + PREFIX_TRACK + "rocknroll"
+            + PREFIX_PLAYLIST + "rock";
     public static final String MESSAGE_DUPLICATE_TRACK = "This track already exists in the playlist";
     public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist does not exist";
 
