@@ -74,7 +74,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
-        meetings.setMeetings(groups.stream().map(Group::getMeeting).collect(Collectors.toList()));
+        meetings.setMeetings(groups.stream().filter(group -> group.getMeeting() != null).map(Group::getMeeting)
+            .collect(Collectors.toList()));
     }
     // @@author
 
@@ -237,6 +238,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Sets meeting field of {@code group} in the group list to {@code meeting}.
      */
     public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
+        meetings.setMeeting(group.getMeeting(), meeting);
         groups.setMeeting(group, meeting);
     }
 
@@ -244,6 +246,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets meeting field of {@code group} in the group list to an empty optional.
      */
     public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
+        List<Meeting> meetings = groups.asUnmodifiableObservableList().stream().filter(g -> g.isSameGroup(group))
+            .map(Group::getMeeting).collect(Collectors.toList());
+        if (!meetings.isEmpty() && meetings.get(0) != null) {
+            this.meetings.remove(meetings.get(0));
+        }
         groups.cancelMeeting(group);
     }
     // @@author
