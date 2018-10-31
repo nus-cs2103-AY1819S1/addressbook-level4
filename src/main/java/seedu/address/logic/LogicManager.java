@@ -58,6 +58,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
         return model.getFilteredLeaveApplicationList();
+
+    @Override
+    public ObservableList<Person> getArchivedPersonList() {
+        return model.getArchivedPersonList();
     }
 
     @Override
