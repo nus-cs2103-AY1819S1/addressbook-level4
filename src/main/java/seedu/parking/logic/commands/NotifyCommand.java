@@ -30,7 +30,7 @@ import seedu.parking.ui.CarparkListPanel;
 public class NotifyCommand extends Command {
 
     public static final String COMMAND_WORD = "notify";
-    public static final String COMMAND_ALIAS = "n";
+    public static final String COMMAND_ABBREVIATION = "n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Set when to update the car park information.\n"

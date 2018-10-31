@@ -56,11 +56,11 @@ public class CommandBox extends UiPart<Region> {
         historySnapshot = logic.getHistorySnapshot();
 
         autoCompleteCommands.addAll(
-            Arrays.asList(FindCommand.COMMAND_WORD, FindCommand.COMMAND_ALIAS));
+            Arrays.asList(FindCommand.COMMAND_WORD, FindCommand.COMMAND_ABBREVIATION));
         autoCompleteCommands.addAll(
-            Arrays.asList(SelectCommand.COMMAND_WORD, SelectCommand.COMMAND_ALIAS));
+            Arrays.asList(SelectCommand.COMMAND_WORD, SelectCommand.COMMAND_ABBREVIATION));
         autoCompleteCommands.addAll(
-            Arrays.asList(FilterCommand.COMMAND_WORD, FilterCommand.COMMAND_ALIAS));
+            Arrays.asList(FilterCommand.COMMAND_WORD, FilterCommand.COMMAND_ABBREVIATION));
     }
 
     /**
@@ -105,16 +105,16 @@ public class CommandBox extends UiPart<Region> {
             commandTextField.requestFocus();
             switch(input) {
             case FindCommand.COMMAND_WORD:
-            case FindCommand.COMMAND_ALIAS:
+            case FindCommand.COMMAND_ABBREVIATION:
             case SelectCommand.COMMAND_WORD:
-            case SelectCommand.COMMAND_ALIAS:
+            case SelectCommand.COMMAND_ABBREVIATION:
                 String text = commandTextField.getText();
                 int indexOfFirstSpace = text.indexOf(" ");
                 commandTextField.selectRange(
                     indexOfFirstSpace + 1, text.length());
                 break;
             case FilterCommand.COMMAND_WORD:
-            case FilterCommand.COMMAND_ALIAS:
+            case FilterCommand.COMMAND_ABBREVIATION:
                 commandTextField.selectRange(
                     INDEX_OF_FILTER_FIRST_ARG, END_OF_FILTER_FIRST_ARG);
                 caretPosition = commandTextField.getCaretPosition();
@@ -140,15 +140,21 @@ public class CommandBox extends UiPart<Region> {
      * @param command input by the user
      */
     private void displayFormat(String command) {
-        if (command.equals(FindCommand.COMMAND_WORD)
-            || command.equals(FindCommand.COMMAND_ALIAS)) {
+        switch (command) {
+        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_ABBREVIATION:
             replaceText(FindCommand.FORMAT);
-        } else if (command.equals(SelectCommand.COMMAND_WORD)
-            || command.equals(SelectCommand.COMMAND_ALIAS)) {
+            break;
+        case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_ABBREVIATION:
             replaceText(SelectCommand.FORMAT);
-        } else if (command.equals(FilterCommand.COMMAND_WORD)
-            || command.equals(FilterCommand.COMMAND_ALIAS)) {
+            break;
+        case FilterCommand.COMMAND_WORD:
+        case FilterCommand.COMMAND_ABBREVIATION:
             replaceText(FilterCommand.FORMAT);
+            break;
+        default:
+            break;
         }
     }
 

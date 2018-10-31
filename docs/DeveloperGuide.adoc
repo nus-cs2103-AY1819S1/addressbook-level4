@@ -758,21 +758,21 @@ Step 2. The user executes `f` command instead of `find`. The `Matcher` object in
 _arguments_, in which the _command word_ is parsed using a _switch_
 statement.
 
-Step 3. This _command word_ will be matched to a `COMMAND_ALIAS` from
+Step 3. This _command word_ will be matched to a `COMMAND_ABBREVIATION` from
 `ListCommand`, which holds the value of 'f'. As the program finds a match, it
 proceeds as if a `find` command is given.
 
-.Flow chart of command alias usage.
-image::ActivityDiagram-alias.png[width="700", align="left"]
+.Flow chart of command abbreviation usage.
+image::ActivityDiagram-abbreviation.png[width="700", align="left"]
 
 The _Activity Diagram_ above explains what happens when a user executes a `f`
 command.
 
 ==== Design Considerations
 
-===== Aspect: How alias executes
+===== Aspect: How abbreviation executes
 
-* *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
+* *Alternative 1 (current choice):* declare `COMMAND_ABBREVIATION` with a string value
 in each Command file.
 +
 [cols="1,10"]
@@ -783,7 +783,7 @@ in each Command file.
 |===
 +
 
-* *Alternative 2:* declare `COMMAND_ALIAS` using the first two characters of `COMMAND_WORD`
+* *Alternative 2:* declare `COMMAND_ABBREVIATION` using the first two characters of `COMMAND_WORD`
 in each Command file.
 +
 [cols="1,10"]
@@ -811,7 +811,7 @@ Step 1. The user launches the application for the first time.
 
 Step 2. The user enters `fi` in command box and then presses kbd:[Tab] . `autoComplete()`
 compares `input` through the list of applicable command words and abbreviations, and
-proceeds to `displayFormat()` because `fi` is an applicable `COMMAND_ALIAS`. It
+proceeds to `displayFormat()` because `fi` is an applicable `COMMAND_ABBREVIATION`. It
 moves on to highlight its first placeholder, `DAY`, in the command line. As seen
 from the following diagrams.
 
@@ -1180,7 +1180,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |new user |be able to understand the UI without much instruction
 |spend my time on the program using the features
 
-|`* *` |user |use shorthand equivalent alias of commands
+|`* *` |user |use shorthand equivalent abbreviation of commands
 |navigate the application in a more time efficient way
 
 |`*` |user |autocomplete my requests
@@ -1611,10 +1611,10 @@ Use case ends.
 
 [width="60%",options="header",]
 |=======================================================================
-|Use case: UC14 - Command alias
+|Use case: UC14 - Command abbreviation
 a|*MSS*
 
-. *Actor* requests using alias for the commands
+. *Actor* requests using abbreviation for the commands
 . *System* understands the command and proceeds to process it
 +
 Use case ends.
