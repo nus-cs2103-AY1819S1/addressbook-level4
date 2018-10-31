@@ -62,7 +62,7 @@ public class ToDoListEventCard extends UiPart<Region> {
         } else {
             priority.setText("Low");
             priority.setBackground(new Background(new BackgroundFill(
-                    Color.color(0.408, 0.718, 0.137), null, null)));
+                     Color.color(0.408, 0.718, 0.137), null, null)));
         }
     }
 
