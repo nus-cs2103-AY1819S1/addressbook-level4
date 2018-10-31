@@ -18,12 +18,12 @@ public class TrackAddCommand extends Command {
     public static final String COMMAND_PHRASE = "track add";
     public static final String MESSAGE_SUCCESS = "Track %1$s added to playlist %2$s";
     public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Adds a new track to the playlist identified "
-        + "by the name of the track and playlist."
+        + "by the name of the track and playlist. "
         + "Playlist will be modified with new track.\n"
-        + "Parameters: [" + PREFIX_PLAYLIST + "PLAYLIST]"
+        + "Parameters: [" + PREFIX_PLAYLIST + "PLAYLIST] "
         + "[" + PREFIX_TRACK + "TRACK]...\n"
-        + "Example: " + COMMAND_PHRASE
-        + PREFIX_PLAYLIST + "rockPlaylist"
+        + "Example: " + COMMAND_PHRASE + " "
+        + PREFIX_PLAYLIST + "rockPlaylist "
         + PREFIX_TRACK + "rockNRoll";
     public static final String MESSAGE_DUPLICATE_TRACK = "This track already exists in the playlist: %1$s";
     public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist %1$s does not exist";

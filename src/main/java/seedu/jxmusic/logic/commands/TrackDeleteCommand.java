@@ -14,11 +14,11 @@ public class TrackDeleteCommand extends Command {
     public static final String COMMAND_PHRASE = "track del";
     public static final String MESSAGE_SUCCESS = "Track %1$s deleted from playlist %2$s";
     public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Deletes a track from the playlist identified "
-            + "by the index of track in the playlist."
+            + "by the index of track in the playlist. "
             + "Track will be deleted from the playlist.\n"
-            + "Parameters: [" + PREFIX_PLAYLIST + "PLAYLIST] + [INDEX]...\n"
-            + "Example: " + COMMAND_PHRASE
-            + PREFIX_PLAYLIST + "rockPlaylist"
+            + "Parameters: [" + PREFIX_PLAYLIST + "PLAYLIST] [INDEX]...\n"
+            + "Example: " + COMMAND_PHRASE + " "
+            + PREFIX_PLAYLIST + "rockPlaylist "
             + "1";
     public static final String MESSAGE_TRACK_DOES_NOT_EXIST = "This playlist does not have track: %1$s";
     public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist %1$s does not exist";
