@@ -72,21 +72,25 @@ each of the sections is explained as below.
 
 === Menu Bar
 
-Available options inside the menu bar: +
+The *Menu Bar* provide you quick access to functions as below.
 
-* File
-** Exit
-* Help
+Here are the available options currently: +
+
+* File: Provide access to file functions.
+** Exit: Exit the program.
+* Help: Show ClinicIO tutorial. 
+
+You can also press F1 to show ClinicIO tutorial.
 
 === Command Box
 
-This component allow you to enter command input. +
+The *Command Box* allow you to enter command input. +
 
 === Result Display
 
-=== Patient List Panel
+=== List Panel
 
-=== Patient Card
+=== Card
 
 === Display Panel
 
