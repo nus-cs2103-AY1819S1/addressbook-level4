@@ -56,13 +56,18 @@ Format: `help`
 
 === Listing all playlists : `playlist list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all playlists in the library. +
 Format: `playlist list`
+
+=== Listing all tracks : `track list`
+
+Shows a list of all tracks in the library. +
+Format: `track list`
 
 === Searching for a playlist : `playlist search`
 
 Searches for playlists by names. +
-Format: `playlist search q/QUERY`
+Format: `playlist search QUERY`
 
 ****
 * `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
@@ -70,8 +75,22 @@ Format: `playlist search q/QUERY`
 
 Examples:
 
-* `playlist search q/Fav` +
+* `playlist search Fav` +
 Searches for playlists that has Fav in their names.
+
+=== Searching for a track : `track search`
+
+Searches for tracks by names. +
+Format: `track search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `track search aliez` +
+Searches for tracks that has aliez in their names.
 
 === Creating a playlist : `playlist new`
 

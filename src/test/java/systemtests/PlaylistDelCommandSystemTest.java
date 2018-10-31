@@ -8,7 +8,7 @@ import static seedu.jxmusic.testutil.TestUtil.getLastIndex;
 import static seedu.jxmusic.testutil.TestUtil.getMidIndex;
 import static seedu.jxmusic.testutil.TestUtil.getPlaylist;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
-import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_MUSIC;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.KEYWORD_MATCHING_MUSIC;
 
 import org.junit.Test;
 

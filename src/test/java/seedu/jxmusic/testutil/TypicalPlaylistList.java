@@ -23,7 +23,7 @@ import seedu.jxmusic.model.Playlist;
 /**
  * A utility class containing a list of {@code Playlist} objects to be used in tests.
  */
-public class TypicalPlaylists {
+public class TypicalPlaylistList {
 
     // Playlist's details found in {@code CommandTestUtil}
     public static final Playlist EMPTY = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_EMPTY)
@@ -44,20 +44,20 @@ public class TypicalPlaylists {
 
     public static final String KEYWORD_MATCHING_MUSIC = "music"; // A keyword that matches name with "music"
 
-    private TypicalPlaylists() {} // prevents instantiation
+    private TypicalPlaylistList() {} // prevents instantiation
 
     /**
      * Returns an {@code Library} with all the typical playlists.
      */
     public static Library getTypicalLibrary() {
         Library library = new Library();
-        for (Playlist playlist : getTypicalPlaylists()) {
+        for (Playlist playlist : getTypicalPlaylistList()) {
             library.addPlaylist(playlist);
         }
         return library;
     }
 
-    public static List<Playlist> getTypicalPlaylists() {
+    public static List<Playlist> getTypicalPlaylistList() {
         return new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
     }
 }

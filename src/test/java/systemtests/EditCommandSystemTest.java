@@ -27,9 +27,9 @@
 // import static seedu.jxmusic.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 // import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 // import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-// import static seedu.jxmusic.testutil.TypicalPlaylists.AMY;
-// import static seedu.jxmusic.testutil.TypicalPlaylists.BOB;
-// import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+// import static seedu.jxmusic.testutil.TypicalPlaylistList.AMY;
+// import static seedu.jxmusic.testutil.TypicalPlaylistList.BOB;
+// import static seedu.jxmusic.testutil.TypicalPlaylistList.KEYWORD_MATCHING_SONG;
 //
 // import org.junit.Test;
 //
