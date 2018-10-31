@@ -138,7 +138,7 @@ Adds the track named "Some Song.mp3" to the "Favourites" playlist.
 === Deleting a track from a playlist : `track del`
 
 Removes a track from a playlist. The command will update the PLAYLIST even if it is currently playing. So the deleted track will not be played after its previous track finishes playing. +
-Format: `track del p/PLAYLIST i/INDEX`
+Format: `track del p/PLAYLIST INDEX`
 
 ****
 * `PLAYLIST` refers to an existing playlist’s name.
@@ -147,7 +147,7 @@ Format: `track del p/PLAYLIST i/INDEX`
 
 Examples:
 
-* `track del p/Favourites i/3` +
+* `track del p/Favourites 3` +
 Deletes the 3rd track in "Favourites" playlist.
 
 === Playing a track : `play t/`
@@ -484,5 +484,5 @@ eg. `playlist del p/Favourites`
 === Commands for managing tracks in playlist
 * *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
 eg. `track add p/Favourites n/Some Song.mp3`
-* *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
-eg. `track del p/Favourites i/1`
+* *Delete track from playlist* : `track del p/PLAYLIST INDEX` +
+eg. `track del p/Favourites 1`

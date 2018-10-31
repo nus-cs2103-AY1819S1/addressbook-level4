@@ -34,8 +34,8 @@ import seedu.jxmusic.commons.core.EventsCenter;
 import seedu.jxmusic.commons.core.index.Index;
 //import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.ClearCommand;
-import seedu.jxmusic.logic.commands.FindCommand;
-import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
+import seedu.jxmusic.logic.commands.PlaylistSearchCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Model;
@@ -144,7 +144,7 @@ public abstract class LibrarySystemTest {
      * Displays all playlists in the jxmusic player.
      */
     protected void showAllPlaylists() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(PlaylistListCommand.COMMAND_PHRASE);
         assertEquals(getModel().getLibrary().getPlaylistList().size(), getModel().getFilteredPlaylistList().size());
     }
 
@@ -152,7 +152,7 @@ public abstract class LibrarySystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPlaylistsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(PlaylistSearchCommand.COMMAND_PHRASE + " " + keyword);
         assertTrue(getModel().getFilteredPlaylistList().size() < getModel().getLibrary().getPlaylistList().size());
     }
 
@@ -212,32 +212,21 @@ public abstract class LibrarySystemTest {
      * Asserts that the browser's url is changed to display the details of the playlist in the playlist list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */
-    //protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-    //getPlaylistListPanel().navigateToCard(getPlaylistListPanel().getSelectedCardIndex());
-    //String selectedCardName = getPlaylistListPanel().getHandleToSelectedCard().getName();
-    //URL expectedUrl;
-    //try {
-    //expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-    //} catch (MalformedURLException mue) {
-    //throw new AssertionError("URL expected to be valid.", mue);
-    //}
-    //assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
-    //assertEquals(expectedSelectedCardIndex.getZeroBased(), getPlaylistListPanel().getSelectedCardIndex());
-    //}
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+        getPlaylistListPanel().navigateToCard(getPlaylistListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPlaylistListPanel().getSelectedCardIndex());
+    }
 
     /**
      * Asserts that the browser's url and the selected card in the playlist list panel remain unchanged.
      *
-     * @see BrowserPanelHandle#isUrlChanged()
      * @see PlaylistListPanelHandle#isSelectedPlaylistCardChanged()
      */
-    //protected void assertSelectedCardUnchanged() {
-    //assertFalse(getBrowserPanel().isUrlChanged());
-    //assertFalse(getPlaylistListPanel().isSelectedPlaylistCardChanged());
-    //}
+    protected void assertSelectedCardUnchanged() {
+        assertFalse(getPlaylistListPanel().isSelectedPlaylistCardChanged());
+    }
 
     /**
      * Asserts that the command box's shows the default style.

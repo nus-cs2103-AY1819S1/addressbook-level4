@@ -55,25 +55,26 @@
 //         * -> edited
 //         */
 //        Index index = INDEX_FIRST_PERSON;
-//        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_METAL + "  "
+//        String command = " " + EditCommand.COMMAND_PHRASE + "  " + index.getOneBased() + "  " + NAME_DESC_METAL + "  "
 //                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TRACK_DESC_EXISTENCE + " ";
 //        Person editedPerson = new PlaylistBuilder(BOB).withTags(VALID_TRACK_ALIEZ).build();
 //        assertCommandSuccess(command, index, editedPerson);
 //
 //        /* Case: undo editing the last playlist in the list -> last playlist restored */
-//        command = UndoCommand.COMMAND_WORD;
+//        command = UndoCommand.COMMAND_PHRASE;
 //        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
 //        assertCommandSuccess(command, model, expectedResultMessage);
 //
 //        /* Case: redo editing the last playlist in the list -> last playlist edited again */
-//        command = RedoCommand.COMMAND_WORD;
+//        command = RedoCommand.COMMAND_PHRASE;
 //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
 //        model.updatePerson(
 //                getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
 //        assertCommandSuccess(command, model, expectedResultMessage);
 //
 //        /* Case: edit a playlist with new values same as existing values -> edited */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL +
+// PHONE_DESC_BOB + EMAIL_DESC
 // _BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandSuccess(command, index, BOB);
@@ -83,7 +84,8 @@
 //        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
 //        index = INDEX_SECOND_PERSON;
 //        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_BOB + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_ANIME +
+// PHONE_DESC_BOB + EMAIL_DESC
 // _BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        editedPerson = new PlaylistBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -93,7 +95,8 @@
 //         * -> edited
 //         */
 //        index = INDEX_SECOND_PERSON;
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL +
+// PHONE_DESC_AMY + EMAIL_DESC
 // _AMY
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        editedPerson = new PlaylistBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
@@ -101,7 +104,7 @@
 //
 //        /* Case: clear tags -> cleared */
 //        index = INDEX_FIRST_PERSON;
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
 //        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
 //        editedPerson = new PlaylistBuilder(personToEdit).withTags().build();
 //        assertCommandSuccess(command, index, editedPerson);
@@ -113,7 +116,7 @@
 //        showPersonsWithName(KEYWORD_MATCHING_SONG);
 //        index = INDEX_FIRST_PERSON;
 //        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_METAL;
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + " " + NAME_DESC_METAL;
 //        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
 //        editedPerson = new PlaylistBuilder(personToEdit).withName(VALID_NAME_METAL).build();
 //        assertCommandSuccess(command, index, editedPerson);
@@ -123,7 +126,7 @@
 //         */
 //        showPersonsWithName(KEYWORD_MATCHING_SONG);
 //        int invalidIndex = getModel().getAddressBook().getPlaylistList().size();
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_METAL,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + invalidIndex + NAME_DESC_METAL,
 //                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
 //        /* --------------------- Performing edit operation while a playlist card is selected ------------------------
@@ -136,7 +139,8 @@
 //        showAllPersons();
 //        index = INDEX_FIRST_PERSON;
 //        selectPerson(index);
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ANIME + PHONE_DESC_AMY + EMAIL_DESC
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_ANIME +
+// PHONE_DESC_AMY + EMAIL_DESC
 // _AMY
 //                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ;
 //        // this can be misleading: card selection actually remains unchanged but the
@@ -147,44 +151,45 @@
 // */
 //
 //        /* Case: invalid index (0) -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_METAL,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " 0" + NAME_DESC_METAL,
 //                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 //
 //        /* Case: invalid index (-1) -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_METAL,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " -1" + NAME_DESC_METAL,
 //                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 //
 //        /* Case: invalid index (size + 1) -> rejected */
 //        invalidIndex = getModel().getFilteredPersonList().size() + 1;
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_METAL,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + invalidIndex + NAME_DESC_METAL,
 //                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
 //        /* Case: missing index -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_METAL,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + NAME_DESC_METAL,
 //                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 //
 //        /* Case: missing all fields -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased(),
 //                EditCommand.MESSAGE_NOT_EDITED);
 //
 //        /* Case: invalid name -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
 //                Name.MESSAGE_NAME_CONSTRAINTS);
 //
 //        /* Case: invalid phone -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
 //                Phone.MESSAGE_PHONE_CONSTRAINTS);
 //
 //        /* Case: invalid email -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
 //                Email.MESSAGE_EMAIL_CONSTRAINTS);
 //
 //        /* Case: invalid jxmusic -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased() +
+// INVALID_ADDRESS_DESC,
 //                Address.MESSAGE_ADDRESS_CONSTRAINTS);
 //
 //        /* Case: invalid tag -> rejected */
-//        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
+//        assertCommandFailure(EditCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
 //                Tag.MESSAGE_TAG_CONSTRAINTS);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values -> rejected */
@@ -192,35 +197,36 @@
 //        assertTrue(getModel().getAddressBook().getPlaylistList().contains(BOB));
 //        index = INDEX_FIRST_PERSON;
 //        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
-// C_BOB
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL +
+// PHONE_DESC_BOB + EMAIL_DESC_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values but with different tags -> rejecte
 // d */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB +
+// EMAIL_DES
 // C_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values but with different jxmusic -> reje
 // cted */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_DES
-// C_BOB
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB +
+// EMAIL_DESC_BOB
 //                + ADDRESS_DESC_AMY + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values but with different phone -> reject
 // ed */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY + EMAIL_DES
-// C_BOB
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_AMY +
+// EMAIL_DESC_BOB
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
 //
 //        /* Case: edit a playlist with new values same as another playlist's values but with different email -> rejec
 // ted */
-//        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_D
+//        command = EditCommand.COMMAND_PHRASE + " " + index.getOneBased() + NAME_DESC_METAL + PHONE_DESC_BOB + EMAIL_D
 // ESC_AMY
 //                + ADDRESS_DESC_BOB + TRACK_DESC_ALIEZ + TRACK_DESC_EXISTENCE;
 //        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);

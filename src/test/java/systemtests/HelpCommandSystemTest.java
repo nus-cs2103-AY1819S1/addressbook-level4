@@ -4,16 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-//import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
+import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
 //import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-//import seedu.jxmusic.logic.commands.DeleteCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
-//import seedu.jxmusic.logic.commands.SelectCommand;
+import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
@@ -71,6 +70,7 @@ public class HelpCommandSystemTest extends LibrarySystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
+        executeCommand(PlaylistDelCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PLAYLIST.getOneBased());
         //executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
         // todo failing test
         // assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

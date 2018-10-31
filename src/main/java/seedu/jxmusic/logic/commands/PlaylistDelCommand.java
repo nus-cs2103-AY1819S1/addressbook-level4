@@ -13,20 +13,20 @@ import seedu.jxmusic.model.Playlist;
 /**
  * Deletes a playlist identified using it's displayed index from the jxmusic book.
  */
-public class DeleteCommand extends Command {
+public class PlaylistDelCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_PHRASE = "playlist delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_PHRASE
             + ": Deletes the playlist identified by the index number used in the displayed playlist list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_PHRASE + "1";
 
     public static final String MESSAGE_DELETE_PLAYLIST_SUCCESS = "Deleted Playlist: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public PlaylistDelCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -48,7 +48,7 @@ public class DeleteCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+                || (other instanceof PlaylistDelCommand // instanceof handles nulls
+                && targetIndex.equals(((PlaylistDelCommand) other).targetIndex)); // state check
     }
 }

@@ -19,35 +19,35 @@
 //        /* Case: clear non-empty jxmusic book, command with leading spaces and trailing alphanumeric characters and
 //         * spaces -> cleared
 //         */
-//        assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
+//        assertCommandSuccess("   " + ClearCommand.COMMAND_PHRASE + " ab12   ");
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: undo clearing jxmusic book -> original jxmusic book restored */
-//        String command = UndoCommand.COMMAND_WORD;
+//        String command = UndoCommand.COMMAND_PHRASE;
 //        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
 //        assertCommandSuccess(command, expectedResultMessage, defaultModel);
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: redo clearing jxmusic book -> cleared */
-//        command = RedoCommand.COMMAND_WORD;
+//        command = RedoCommand.COMMAND_PHRASE;
 //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
 //        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: selects first card in playlist list and clears jxmusic book -> cleared and no card selected */
-//        executeCommand(UndoCommand.COMMAND_WORD); // restores the original jxmusic book
+//        executeCommand(UndoCommand.COMMAND_PHRASE); // restores the original jxmusic book
 //        selectPerson(Index.fromOneBased(1));
-//        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+//        assertCommandSuccess(ClearCommand.COMMAND_PHRASE);
 //        assertSelectedCardDeselected();
 //
 //        /* Case: filters the playlist list before clearing -> entire jxmusic book cleared */
-//        executeCommand(UndoCommand.COMMAND_WORD); // restores the original jxmusic book
+//        executeCommand(UndoCommand.COMMAND_PHRASE); // restores the original jxmusic book
 //        showPersonsWithName(KEYWORD_MATCHING_SONG);
-//        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+//        assertCommandSuccess(ClearCommand.COMMAND_PHRASE);
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: clear empty jxmusic book -> cleared */
-//        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+//        assertCommandSuccess(ClearCommand.COMMAND_PHRASE);
 //        assertSelectedCardUnchanged();
 //
 //        /* Case: mixed case command word -> rejected */
