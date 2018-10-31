@@ -30,18 +30,17 @@ import static seedu.thanepark.testutil.TypicalRides.IDA;
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import org.junit.Test;
-
 import seedu.thanepark.commons.core.Messages;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.AddCommand;
 import seedu.thanepark.logic.commands.RedoCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.RideUtil;

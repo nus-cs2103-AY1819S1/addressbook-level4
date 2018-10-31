@@ -24,13 +24,12 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
-
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ModelManager;
 import seedu.thanepark.model.UserPrefs;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**

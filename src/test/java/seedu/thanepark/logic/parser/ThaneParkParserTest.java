@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.thanepark.logic.commands.AddCommand;
 import seedu.thanepark.logic.commands.ClearCommand;
 import seedu.thanepark.logic.commands.DeleteCommand;

@@ -13,7 +13,6 @@ import static seedu.thanepark.testutil.TypicalRides.BOB;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.thanepark.testutil.RideBuilder;
 
 public class RideTest {

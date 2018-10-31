@@ -9,7 +9,6 @@ import static seedu.thanepark.logic.commands.HelpCommand.SHOWING_SHORT_HELP_MESS
 
 import org.junit.Rule;
 import org.junit.Test;
-
 import seedu.thanepark.commons.events.BaseEvent;
 import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.logic.CommandHistory;

@@ -11,7 +11,6 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.thanepark.logic.commands.CommandTestUtil.VALID_WAIT_TIME_BOB;
 
 import org.junit.Test;
-
 import seedu.thanepark.testutil.UpdateRideDescriptorBuilder;
 
 public class UpdateRideDescriptorTest {

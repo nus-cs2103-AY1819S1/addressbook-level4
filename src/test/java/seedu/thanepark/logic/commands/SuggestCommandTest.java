@@ -8,7 +8,6 @@ import static seedu.thanepark.logic.commands.SuggestCommand.MESSAGE_SUGGEST_COMM
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.parser.ThaneParkParser;
 import seedu.thanepark.logic.parser.exceptions.ParseException;

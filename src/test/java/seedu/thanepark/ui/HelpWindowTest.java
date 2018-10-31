@@ -8,12 +8,11 @@ import static seedu.thanepark.ui.HelpWindow.USER_GUIDE_FILE_PATH;
 
 import java.net.URL;
 
+import guitests.guihandles.HelpWindowHandle;
+import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
-
-import guitests.guihandles.HelpWindowHandle;
-import javafx.stage.Stage;
 
 public class HelpWindowTest extends GuiUnitTest {
 

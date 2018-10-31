@@ -10,7 +10,6 @@ import static seedu.thanepark.testutil.TypicalRides.DUMBO;
 import static seedu.thanepark.testutil.TypicalRides.GALAXY;
 
 import org.junit.Test;
-
 import seedu.thanepark.logic.commands.DeleteCommand;
 import seedu.thanepark.logic.commands.FilterCommand;
 import seedu.thanepark.logic.commands.RedoCommand;

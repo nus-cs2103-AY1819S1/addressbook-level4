@@ -5,9 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.ui.testutil.GuiTestAssert.assertCardDisplaysRide;
 
-import org.junit.Test;
-
 import guitests.guihandles.RideCardHandle;
+import org.junit.Test;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.ui.exceptions.AccessibilityException;

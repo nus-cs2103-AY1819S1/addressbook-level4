@@ -6,7 +6,6 @@ import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ModelManager;

@@ -5,7 +5,6 @@ import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFail
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
-
 import seedu.thanepark.logic.commands.ViewStatusCommand;
 import seedu.thanepark.model.ride.RideStatusPredicate;
 import seedu.thanepark.model.ride.Status;

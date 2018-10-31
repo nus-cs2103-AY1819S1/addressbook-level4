@@ -13,12 +13,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.exceptions.DuplicateRideException;
 import seedu.thanepark.testutil.RideBuilder;

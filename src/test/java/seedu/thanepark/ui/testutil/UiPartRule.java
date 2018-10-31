@@ -2,10 +2,9 @@ package seedu.thanepark.ui.testutil;
 
 import java.util.concurrent.TimeoutException;
 
-import org.testfx.api.FxToolkit;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import org.testfx.api.FxToolkit;
 import seedu.thanepark.ui.UiPart;
 
 /**

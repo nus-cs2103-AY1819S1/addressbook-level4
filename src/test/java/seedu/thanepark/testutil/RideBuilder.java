@@ -3,11 +3,11 @@ package seedu.thanepark.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.model.util.SampleDataUtil;
 

@@ -8,7 +8,6 @@ import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
-
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.thanepark.model.Model;

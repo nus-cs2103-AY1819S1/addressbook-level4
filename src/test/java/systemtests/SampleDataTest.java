@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import org.junit.Test;
-
 import seedu.thanepark.model.ThanePark;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.util.SampleDataUtil;

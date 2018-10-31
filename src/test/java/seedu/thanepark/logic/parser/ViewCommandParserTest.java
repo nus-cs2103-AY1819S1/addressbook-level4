@@ -6,7 +6,6 @@ import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSucc
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
-
 import seedu.thanepark.logic.commands.ViewCommand;
 
 /**

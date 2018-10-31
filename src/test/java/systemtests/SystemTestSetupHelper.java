@@ -4,10 +4,9 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
-import org.testfx.api.FxToolkit;
-
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
+import org.testfx.api.FxToolkit;
 import seedu.thanepark.TestApp;
 import seedu.thanepark.model.ReadOnlyThanePark;
 

@@ -32,14 +32,13 @@ import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
-
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.logic.commands.UpdateCommand.UpdateRideDescriptor;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.UpdateRideDescriptorBuilder;
 

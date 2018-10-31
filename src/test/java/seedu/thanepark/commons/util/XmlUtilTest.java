@@ -7,14 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.thanepark.model.ThanePark;
 import seedu.thanepark.storage.XmlAdaptedRide;
 import seedu.thanepark.storage.XmlAdaptedTag;

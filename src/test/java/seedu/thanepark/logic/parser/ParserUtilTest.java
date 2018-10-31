@@ -2,7 +2,6 @@ package seedu.thanepark.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import static seedu.thanepark.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -14,12 +13,11 @@ import java.util.Set;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.Assert;
 

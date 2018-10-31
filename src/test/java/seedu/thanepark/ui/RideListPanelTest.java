@@ -12,12 +12,11 @@ import static seedu.thanepark.ui.testutil.GuiTestAssert.assertCardEquals;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.Test;
-
 import guitests.guihandles.RideCardHandle;
 import guitests.guihandles.RideListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.junit.Test;
 import seedu.thanepark.commons.events.ui.JumpToListRequestEvent;
 import seedu.thanepark.commons.util.FileUtil;
 import seedu.thanepark.commons.util.XmlUtil;

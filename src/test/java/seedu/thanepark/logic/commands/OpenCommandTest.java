@@ -9,7 +9,6 @@ import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
-
 import seedu.thanepark.commons.core.Messages;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.CommandHistory;

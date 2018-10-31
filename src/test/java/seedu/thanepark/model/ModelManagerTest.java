@@ -12,7 +12,6 @@ import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
 import seedu.thanepark.testutil.AddressBookBuilder;
 

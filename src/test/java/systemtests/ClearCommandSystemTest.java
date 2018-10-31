@@ -4,7 +4,6 @@ import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import org.junit.Test;
-
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.ClearCommand;
 import seedu.thanepark.logic.commands.RedoCommand;

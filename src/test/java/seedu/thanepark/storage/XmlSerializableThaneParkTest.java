@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.thanepark.commons.exceptions.IllegalValueException;
 import seedu.thanepark.commons.util.XmlUtil;
 import seedu.thanepark.model.ThanePark;

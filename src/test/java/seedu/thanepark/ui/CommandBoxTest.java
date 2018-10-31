@@ -4,11 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
+import org.junit.Before;
+import org.junit.Test;
 import seedu.thanepark.logic.Logic;
 import seedu.thanepark.logic.LogicManager;
 import seedu.thanepark.logic.commands.ViewAllCommand;

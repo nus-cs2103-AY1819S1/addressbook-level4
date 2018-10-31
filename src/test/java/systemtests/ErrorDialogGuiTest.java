@@ -8,10 +8,9 @@ import static seedu.thanepark.ui.UiManager.FILE_OPS_ERROR_DIALOG_STAGE_TITLE;
 
 import java.io.IOException;
 
-import org.junit.Test;
-
 import guitests.GuiRobot;
 import guitests.guihandles.AlertDialogHandle;
+import org.junit.Test;
 import seedu.thanepark.commons.events.storage.DataSavingExceptionEvent;
 
 public class ErrorDialogGuiTest extends ThaneParkSystemTest {

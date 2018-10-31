@@ -30,13 +30,12 @@ import static seedu.thanepark.testutil.TypicalRides.AMY;
 import static seedu.thanepark.testutil.TypicalRides.BOB;
 
 import org.junit.Test;
-
 import seedu.thanepark.logic.commands.AddCommand;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.RideBuilder;
 
