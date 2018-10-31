@@ -115,6 +115,26 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== Locating persons by address: `find/a`
+
+Finds persons whose addresses contain all the given keywords. +
+Format: `find/a KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `serAngoOn GaRden` will match `Serangoon Garden`
+* The order of the keywords does not matter. e.g. `Street 26 garden serangoon 436 blk` will match `Blk 436 Serangoon Garden Street 26`
+* Only the address is searched.
+* Only full words will be matched e.g. `Seran` will not match `Serangoon`
+* Persons matching all keyword will be returned (i.e. `AND` search). e.g. `serangoon` will return the persons whose addresses contain `serangoon`, who are `Bernice Yu` and `David Li`
+****
+
+Examples:
+
+* `find/a Blk 30 Lorong 3 seRangoon gArdens, #07-18` +
+Returns `Bernice Yu`
+* `find/a serangoon` +
+Returns any person matching these keywords, i.e. `Bernice Yu` and `David Li`
+
 === Locating persons by email address: `find/e`
 
 Finds a person through his/her email address. +
