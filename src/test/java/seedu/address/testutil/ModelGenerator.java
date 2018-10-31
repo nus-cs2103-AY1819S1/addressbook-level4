@@ -4,9 +4,11 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -99,6 +101,14 @@ public class ModelGenerator {
         model.undoPreviewImage();
         model.undoPreviewImage();
         model.undoPreviewImage(); // Now at original state
+        return model;
+    }
+    /**
+     * Returns a Model with current directory testimgs.
+     */
+    public static Model getModelWithTestImgDirectory() {
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.updateCurrDirectory(Paths.get(MainApp.MAIN_PATH + "/src/test/resources/testimgs"));
         return model;
     }
 }
