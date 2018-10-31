@@ -1,7 +1,7 @@
 package seedu.jxmusic.ui;
 
 import static java.time.Duration.ofMillis;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.jxmusic.testutil.EventsUtil.postNow;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_TRACK;
@@ -94,9 +94,10 @@ public class TrackListPanelTest extends GuiUnitTest {
     private Path createJsonFileWithTracks(int trackCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("{\n\"tracks\": [\n");
-
         for (int i = 0; i < trackCount; i++) {
-            builder.append("SOS Morse Code.mp3,\n");
+            builder.append("{\n");
+            builder.append("\"name\": \"Marbles\"\n");
+            builder.append("},\n");
         }
         builder.deleteCharAt(builder.length() - 2); // delete last comma
         builder.append("]\n}\n");
