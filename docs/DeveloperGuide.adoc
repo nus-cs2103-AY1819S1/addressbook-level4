@@ -249,7 +249,7 @@ image::NewDeck.png[width="790", align="left"]
 
 === Performance Tracking Implementation
 
-==== Proposed Implementation (v1.4)
+==== Current Implementation (v1.3)
 
 The user can assign to a card a difficulty after reviewing it in "play" mode. Users can only do this assignment on
 the card they are currently reviewing, as it is the only time it makes sense.
