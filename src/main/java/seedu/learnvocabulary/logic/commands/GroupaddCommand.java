@@ -15,6 +15,7 @@ public class GroupaddCommand extends Command {
     public static final String COMMAND_WORD = "groupadd";
     public static final String MESSAGE_SUCCESS = "Group %1$s has been added";
     //@@author Harryqu123
+    public static final String MESSAGE_USAGE = "please type in the group";
     public static final String MESSAGE_NO_GROUP = "The group typed has existed.";
     //@@author
     private final Tag toAdd;
@@ -38,6 +39,12 @@ public class GroupaddCommand extends Command {
         model.addGroup(toAdd);
         model.commitLearnVocabulary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GroupaddCommand // instanceof handles nulls
+                && this.toAdd.equals(((GroupaddCommand) other).toAdd)); // state check
     }
 }
 //@@author

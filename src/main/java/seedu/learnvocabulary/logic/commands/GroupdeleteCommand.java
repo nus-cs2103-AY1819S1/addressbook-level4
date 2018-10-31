@@ -37,5 +37,11 @@ public class GroupdeleteCommand extends Command {
         model.commitLearnVocabulary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));
     }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GroupdeleteCommand // instanceof handles nulls
+                && this.toDelete.equals(((GroupdeleteCommand) other).toDelete)); // state check
+    }
 }
 //@@author
