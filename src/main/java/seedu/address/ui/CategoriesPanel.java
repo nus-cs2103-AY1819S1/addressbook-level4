@@ -1,11 +1,13 @@
 package seedu.address.ui;
 
-/*import java.util.Iterator;
+import java.util.Iterator;
 import java.util.Map;
 
-import javafx.fxml.FXML;
+/*import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;*/
 import javafx.scene.layout.Region;
+
+import com.sun.xml.bind.v2.TODO;
 
 //@@author snookerballs
 /**
@@ -34,25 +36,27 @@ public class CategoriesPanel extends UiPart<Region> {
      * Create categoriesPanel with a list of categories
      * @param categories to list
      */
-    /*public CategoriesPanel(Iterator<Map.Entry<String, Double>> categories) {
+    public CategoriesPanel(Iterator<Map.Entry<String, Double>> categories) {
+        // TODO: Reimplement Categories panel
         super(FXML);
-        currentColumn = 0;
+       /* currentColumn = 0;
         currentRow = 0;
-        //categories.forEachRemaining(entry -> updateCategories(entry.getKey()));
-    }*/
+        categories.forEachRemaining(entry -> updateCategories(entry.getKey()));*/
+    }
 
     /**
      * Update the list of categories being displayed
      * @param name of category to update
      */
-   /* public void updateCategories(String name) {
-        if (currentColumn / MAX_COL > 1) {
+     public void updateCategories(String name) {
+    //TODO: Reimplement Categories panel
+        /*if (currentColumn / MAX_COL > 1) {
             currentColumn = 0;
             currentRow++;
         }
 
         CategoryIcon categoryIcon = new CategoryIcon(name, IMAGE_PATH_PREFIX + "bulb" + IMAGE_PATH_POSTFIX);
         categoriesGrid.add(categoryIcon.getRoot(), currentColumn, currentRow);
-        currentColumn++;
-    }*/
+        currentColumn++;*/
+    }
 }

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -70,7 +71,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.username = null;
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
-        //this.categories = initializeCategories();
         this.tips = tips;
         this.statsPeriod = defaultStatsPeriod();
         this.statsMode = defaultStatsMode();
@@ -88,7 +88,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.username = expenseTracker.getUsername();
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
-        //this.categories = initializeCategories();
         this.tips = new Tips();
         this.statsPeriod = defaultStatsPeriod();
         this.statsMode = defaultStatsMode();
@@ -187,21 +186,20 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author Snookerballs
     //=========== Category HashSet ==========================================================================
 
-    /*
-
     public void addExpensesOfCategories(String name, double expenseToAdd) {
-        requireNonNull(categories);
+        //TODO: Implement when categories is completed
+        /*requireNonNull(categories);
         double newExpense = expenseToAdd;
 
         if (categories.containsKey(name)) {
             newExpense += categories.get(name);
         }
-        categories.put(name, newExpense);
+        categories.put(name, newExpense);*/
     }
 
-    /**
     public void removeExpensesOfCategories(String name, double expenseToAdd) {
-        requireNonNull(categories);
+        // TODO: Implement Once Categories is done
+        /*requireNonNull(categories);
         double newExpense = expenseToAdd;
 
         if (categories.containsKey(name)) {
@@ -212,27 +210,22 @@ public class ModelManager extends ComponentManager implements Model {
             categories.remove(name);
         } else {
             categories.put(name, newExpense);
-        }
-    }
-
-    @Override
-    public Iterator getCategoryList() {
-        requireNonNull(categories);
-        Set<Map.Entry<String, Double>> categoriesSet = categories.entrySet();
-        return categoriesSet.iterator();
+        }*/
     }
 
     /**
      * temp
      * @return
      */
-    /*public HashMap<String, Double> initializeCategories() {
-        HashMap<String, Double> newMap = new HashMap<>();
+    public HashMap<String, Double> initializeCategories() {
+        // TODO: Implement Once Categories is done
+        /*HashMap<String, Double> newMap = new HashMap<>();
         for (String name : Category.INITIAL_CATEGORIES) {
             newMap.put(name, 0.0);
         }
-        return newMap;
-    }*/
+        return newMap;*/
+        return new HashMap<String, Double>();
+    }
 
     //@@author Snookerballs
     //=========== Notification =================================================================================
@@ -497,6 +490,7 @@ public class ModelManager extends ComponentManager implements Model {
             indicateUserLoggedIn();
             indicateExpenseTrackerChanged();
             checkBudgetRestart();
+            System.out.println("CALL");
             addTipNotification();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());

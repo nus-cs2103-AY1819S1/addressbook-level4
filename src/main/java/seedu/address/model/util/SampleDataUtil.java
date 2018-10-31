@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -47,6 +48,8 @@ public class SampleDataUtil {
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);
         }
+        sampleAb.modifyNotificationHandler(LocalDateTime.parse("2018-11-01T17:20:16.847790"),
+                true, true);
         return sampleAb;
     }
 

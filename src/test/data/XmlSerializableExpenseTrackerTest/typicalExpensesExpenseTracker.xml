@@ -55,7 +55,7 @@
         <numberOfSecondsToRecurAgain>50000</numberOfSecondsToRecurAgain>
     </totalBudget>
     <notificationHandler>
-        <lastTipSentOn>2018-10-31T01:42:04.021756</lastTipSentOn>
+        <lastTipSentOn>2018-11-01T17:26:18.868275</lastTipSentOn>
         <isTipEnabled>true</isTipEnabled>
         <isWarningEnabled>true</isWarningEnabled>
     </notificationHandler>

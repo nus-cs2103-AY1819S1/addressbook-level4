@@ -90,8 +90,6 @@ public class NotificationCommand extends Command {
         private String toggle;
         private String notificationType;
 
-        public NotificationCommandDescriptor() {}
-
         public Optional<String> getToggle() {
             return Optional.ofNullable(toggle);
         }

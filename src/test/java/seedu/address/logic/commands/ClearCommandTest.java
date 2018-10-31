@@ -44,7 +44,6 @@ public class ClearCommandTest {
         clearedTotalBudget.clearSpending();
         expectedModel.modifyMaximumBudget(clearedTotalBudget);
         expectedModel.commitExpenseTracker();
-
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

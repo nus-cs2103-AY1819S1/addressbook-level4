@@ -11,6 +11,7 @@ import seedu.address.model.notification.Notification;
 /**
  * Provides a handle for {@code NotificationPanel} containing the list of {@code NotificationCard}.
  */
+//@@author Snookerballs
 public class NotificationListPanelHandle extends NodeHandle<ListView<Notification>> {
     public static final String NOTIFICATION_LIST_VIEW_ID = "#notificationListView";
 

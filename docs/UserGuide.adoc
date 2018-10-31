@@ -481,6 +481,35 @@ Shows the expense statistics for the past 3 months as a bar chart showing expens
 Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
 ****
 
+=== Toggling Notifications: `notification`
+
+Toggles the ability of `Expense Tracker` to send notifications.
+
+There are three notification types to toggle: `warning` and `tip`, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
+To toggle both, omit `NOTIFICATION_TYPE`.
+
+There are two toggle options, `on` and `off`.
+
+
+The available options for `PERIOD` are `d` and `m`, which represents day and month respectively. E.g. if `PERIOD_AMOUNT` is 7
+and `MODE` is `d`, the statistics will include data from the past 7 days.
+
+
+Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
+
+****
+*Examples:*
+
+* `stats n/14 p/d m/t` +
+Shows the expense statistics for the past 14 days as a bar chart showing expenses for each day +
+
+* `stats n/3 p/m m/t` +
+Shows the expense statistics for the past 3 months as a bar chart showing expenses for each month +
+
+* `stats n/3 p/m m/c` +
+Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
+****
+
 [NOTE]
 ====
 * PERIOD_AMOUNT must be a positive number greater than 0

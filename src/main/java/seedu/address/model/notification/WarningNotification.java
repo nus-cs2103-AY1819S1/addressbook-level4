@@ -13,7 +13,7 @@ public class WarningNotification extends Notification {
 
 
     public WarningNotification(Budget budget) {
-        header = "WARNING";
+        header = "Warning";
         body = generateBody(budget);
         type = NotificationType.WARNING;
 

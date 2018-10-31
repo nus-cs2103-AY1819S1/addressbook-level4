@@ -9,7 +9,7 @@
 
 <!-- @@Snookerballs -->
 
-<AnchorPane fx:id ="categoriesPanel" prefHeight="200.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id ="categoriesPanel" prefHeight="150.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Categories" />
       <GridPane fx:id="categoriesGrid" layoutY="37.0" prefHeight="163.0" prefWidth="443.0">

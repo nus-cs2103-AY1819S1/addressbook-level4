@@ -84,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane leftPanelPlaceholder;
 
     @FXML
-    private AnchorPane statisticsSplitPane;
+    private AnchorPane statisticsPane;
 
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -174,7 +174,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void swapToStat() {
         Platform.runLater(() -> leftPanelPlaceholder.getChildren().clear());
-        Platform.runLater(() -> leftPanelPlaceholder.getChildren().add(statisticsSplitPane));
+        Platform.runLater(() -> leftPanelPlaceholder.getChildren().add(statisticsPane));
     }
 
     //@@author snookerballs
@@ -199,7 +199,6 @@ public class MainWindow extends UiPart<Stage> {
         NotificationPanel notificationPanel = new NotificationPanel(logic.getNotificationList());
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
 
-
         CategoriesPanel categoriesPanel = new CategoriesPanel();
 
         statisticsPanel = new StatisticsPanel(
@@ -209,10 +208,10 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getPeriodAmount()
         );
 
-        statisticsSplitPane = new AnchorPane();
-        statisticsSplitPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
-        statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 300.00);
-        statisticsSplitPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
+        statisticsPane = new AnchorPane();
+        statisticsPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
+        statisticsPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
+        statisticsPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
 
         swapToStat();
         fadeInPanels();
@@ -251,9 +250,9 @@ public class MainWindow extends UiPart<Stage> {
     private void hideLoggedInUi() {
         splitPane.setManaged(false);
         splitPane.setVisible(false);
-        getPrimaryStage().setHeight(225);
-        getPrimaryStage().setMaxHeight(225);
-        getPrimaryStage().setMinHeight(225);
+        getPrimaryStage().setHeight(200);
+        getPrimaryStage().setMaxHeight(200);
+        getPrimaryStage().setMinHeight(200);
         statusbarPlaceholder.setManaged(false);
     }
 

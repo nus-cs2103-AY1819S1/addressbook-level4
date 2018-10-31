@@ -11,7 +11,7 @@ import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.TipNotification;
 import seedu.address.model.notification.WarningNotification;
 
-
+//@@author Snookerballs
 public class NotificationCardTest extends GuiUnitTest {
     private static final String VALID_HEADER = "header";
     private static final String VALID_BODY = "body";

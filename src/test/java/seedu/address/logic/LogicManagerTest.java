@@ -215,7 +215,6 @@ public class LogicManagerTest {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
-        System.out.println(expectedModel.equals(model));
         assertEquals(expectedModel, model);
     }
 

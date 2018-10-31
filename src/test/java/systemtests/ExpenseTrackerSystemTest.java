@@ -180,7 +180,7 @@ public abstract class ExpenseTrackerSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         System.out.println(expectedModel.getExpenseTracker().getMaximumTotalBudget().getNextRecurrence());
-        System.out.println(testApp.readStorageExpenseTracker().getNotificationHandler().getLastTipSentOn());
+        System.out.println(testApp.readStorageExpenseTracker().getNotificationHandler().equals(expectedModel.getNotificationHandler()));
         System.out.println(testApp.readStorageExpenseTracker().getMaximumTotalBudget().getNextRecurrence());
         assertEquals(new ExpenseTracker(expectedModel.getExpenseTracker()), testApp.readStorageExpenseTracker());
         assertExpenseListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());

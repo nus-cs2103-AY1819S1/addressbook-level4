@@ -23,9 +23,7 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.notification.Notification;
 import seedu.address.storage.XmlSerializableExpenseTracker;
 
-
-
-
+//@@author Snookerballs
 public class NotificationListPanelTest extends GuiUnitTest {
     private static final ObservableList<Notification> TYPICAL_NOTIFICATIONS =
             FXCollections.observableList(getTypicalNotifications());
@@ -45,7 +43,8 @@ public class NotificationListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_NOTIFICATIONS.size(); i++) {
             notificationListPanelHandle.navigateToCard(TYPICAL_NOTIFICATIONS.get(i));
             Notification expectedNotification = TYPICAL_NOTIFICATIONS.get(i);
-            NotificationCardHandle actualCard = notificationListPanelHandle.getNotificationCardHandle(i);
+            NotificationCardHandle actualCard = notificationListPanelHandle.getNotificationCardHandle(
+                    TYPICAL_NOTIFICATIONS.size()-1 - i);
 
             assertCardDisplaysNotification(expectedNotification, actualCard);
         }

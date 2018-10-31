@@ -117,6 +117,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         requireNonNull(newData);
         this.setExpenses(newData.getExpenseList());
         this.maximumTotalBudget = newData.getMaximumTotalBudget();
+        this.setNotificationHandler(newData.getNotificationHandler());
     }
 
     /// notification-level operations
@@ -182,7 +183,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Modify notificationHandler {@code WarningNotification}
      */
     public void modifyNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
-        notificationHandler = new NotificationHandler(date, isTipEnabled, isWarningEnabled);
+        notificationHandler.modifyNotificationHandler(date, isTipEnabled, isWarningEnabled);
     }
 
     //// expense-level operations

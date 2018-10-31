@@ -65,7 +65,7 @@ public class NotificationHandlerTest {
     @Test
     public void assertSetNotifications() {
         handler.setNotifications(list);
-        assertEquals(handler, new NotificationHandler(list));
+        assertEquals(handler.getInternalList(), list);
     }
 
     @Test
