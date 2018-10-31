@@ -33,7 +33,7 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
             throw new ParseException(FirstDayCommand.MESSAGE_INVALID_DATE);
         }
 
-        if (LocalDate.parse(trimmedArgs, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() != "MONDAY") {
+        if (!isMonday(trimmedArgs)) {
             throw new ParseException(FirstDayCommand.MESSAGE_NOT_MONDAY);
         }
 
@@ -63,6 +63,10 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
             }
         }
         return true;
+    }
+
+    private boolean isMonday(String inputDate) {
+        return (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() == "MONDAY");
     }
 
 }
