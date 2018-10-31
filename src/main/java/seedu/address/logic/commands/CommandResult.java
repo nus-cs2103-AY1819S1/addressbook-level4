@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 import seedu.address.commons.core.ProcessCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
