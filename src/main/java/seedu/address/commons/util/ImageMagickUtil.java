@@ -4,11 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,50 +21,45 @@ import seedu.address.storage.JsonConvertArgsStorage;
 
 /**
  * An utility class that handles most of the low-level interaction with the ImageMagick executable.
+ * @author lancelotwillow
  */
 public class ImageMagickUtil {
     //initialize the paths used in the imageMagic
-    public static final String IMAGEMAGIC_PATH = ImageMagickUtil.class.getResource("/imageMagic").getPath();
+    public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
+            ImageMagickUtil.class.getResource("/imageMagic/commandTemplate.json");
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
-    //for windows, as the path contains the / before the disk name, remove the first char
-    public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get((
-            getPlatform() == WINDOWS ? IMAGEMAGIC_PATH.substring(1) : IMAGEMAGIC_PATH) + "/commandTemplate.json");
-    public static final String TMP_PATH = Paths.get((
-            getPlatform() == WINDOWS ? IMAGEMAGIC_PATH.substring(1) : IMAGEMAGIC_PATH)) + "/tmp";
+    private static String ectPath = "";
+    private static String imageMagickPath = ImageMagickUtil.class.getResource("/imageMagic").getPath();
+    private static String tmpPath = imageMagickPath + "/tmp";
+    private static String commandSaveFolder;
 
     /**
      * get the path of the package location
      * @return
      * @throws NoSuchElementException
      */
-    public static String getImageMagicPackagePath() throws NoSuchElementException {
-        switch(getPlatform()) {
+    public static URL getImageMagickZipUrl() throws NoSuchElementException {
+        switch (getPlatform()) {
         case MAC:
-            return IMAGEMAGIC_PATH + "/package/mac/";
+            return ImageMagickUtil.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8.zip");
         case WINDOWS:
-            return IMAGEMAGIC_PATH + "/package/win";
+            return ImageMagickUtil.class.getResource("/imageMagic/package/win/ImageMagick-7.0.8-14.zip");
         default:
+            return ImageMagickUtil.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8.zip");
         }
-        return "";
     }
 
-    public static String getExecuteImageMagic() throws NoSuchElementException {
-        File folder = new File(getImageMagicPackagePath());
-        File[] listOfFiles = folder.listFiles();
-        for (File file : listOfFiles) {
-            if (file.isDirectory()) {
-                switch (getPlatform()) {
-                case MAC:
-                    return file.getAbsolutePath() + "/bin/magick";
-                case WINDOWS:
-                    return file.getAbsolutePath() + "/magick.exe";
-                default:
-                }
-            }
+    public static String getExecuteImageMagick() throws NoSuchElementException {
+        if (ectPath != null) {
+            return ectPath;
         }
         throw new NoSuchElementException("cannot find the file");
+    }
+
+    public static String getCommandSaveFolder() {
+        return commandSaveFolder;
     }
 
     /**
@@ -113,7 +105,6 @@ public class ImageMagickUtil {
 
     /**
      * parse the argument passing to the imageMagic to check the validation about the arguments
-     * @param filepath
      * @param transformation
      * @return
      * @throws IOException
@@ -123,12 +114,26 @@ public class ImageMagickUtil {
             throws IOException, ParseException {
         ArrayList<String> trans = transformation.toList();
         String operation = trans.get(0);
-        List<String> cmds = JsonConvertArgsStorage.retrieveArgumentsTemplate(filepath, operation);
-        int num = cmds.size();
-        if (num != trans.size() - 1) {
-            throw new ParseException("Invalid arguments, should be " + cmds.toArray().toString());
+        if (!operation.startsWith("@")) {
+            URL fileUrl = ImageMagickUtil.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
+            if (fileUrl == null) {
+                throw new ParseException("Invalid argument, cannot find");
+            }
+            List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation);
+            int num = cmds.size();
+            if (num != trans.size() - 1) {
+                throw new ParseException("Invalid arguments, should be " + cmds.toArray().toString());
+            }
+            return trans;
+        } else {
+            operation = operation.substring(1);
+            File file = new File(commandSaveFolder + "/" + operation + ".json");
+            if (!file.exists()) {
+                throw new ParseException("Invalid argument, cannot find");
+            }
+            List<String> cmds = JsonConvertArgsStorage.retrieveCommandArguments(file, operation);
+            return cmds;
         }
-        return trans;
     }
 
     //@@author j-lum
@@ -187,4 +192,43 @@ public class ImageMagickUtil {
         args.add(output);
         return runProcessBuilder(args, output);
     }
+
+    /**
+     * copy the imageMagick outside of the jarfile in order to call it.
+     * @param userPrefs
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static void copyOutside(UserPrefs userPrefs) throws IOException, InterruptedException {
+        URL zipUrl = getImageMagickZipUrl();
+        Path currentPath = userPrefs.getCurrDirectory();
+        File zipFile = new File(currentPath.toString() + "/temp.zip");
+        File tempFolder = new File(userPrefs.getCurrDirectory() + "/tempFolder");
+        tempFolder.mkdir();
+        ResourceUtil.copyResourceFileOut(zipUrl, zipFile);
+        switch (getPlatform()) {
+        case MAC:
+            Process process = new ProcessBuilder(
+                    "tar", "zxvf", zipFile.getPath(), "-C", currentPath.toString()).start();
+            process.waitFor();
+            //remove the __MACOSX folder in the mac
+            new ProcessBuilder("rm", "-rf", currentPath.toString() + "/__MACOSX").start();
+            ectPath = currentPath.toString() + "/ImageMagick-7.0.8/bin/magick";
+            break;
+        case WINDOWS:
+            ResourceUtil.unzipFolder(zipFile);
+            ectPath = currentPath.toString() + "/ImageMagick-7.0.8-14-portable-Q16-x64/magick.exe";
+            break;
+        default:
+        }
+        imageMagickPath = currentPath.toString();
+        tmpPath = tempFolder.getPath();
+        commandSaveFolder = currentPath.toString() + "/PiconsoCommands";
+        File commandFolder = new File(commandSaveFolder);
+        if (!(commandFolder.exists() && commandFolder.isDirectory())) {
+            commandFolder.mkdir();
+        }
+        zipFile.delete();
+    }
+
 }

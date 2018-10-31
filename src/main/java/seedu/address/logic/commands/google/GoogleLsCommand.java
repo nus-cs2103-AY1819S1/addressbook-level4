@@ -42,6 +42,7 @@ public class GoogleLsCommand extends GoogleCommand {
         try {
             if (parameter.isEmpty()) {
                 printTarget = model.getPhotoHandler().returnAllImagesList();
+
                 //Retrieve all names and call
             } else if (parameter.equals("/a")) {
                 printTarget = model.getPhotoHandler().returnAllAlbumsList();
@@ -67,7 +68,6 @@ public class GoogleLsCommand extends GoogleCommand {
             }
             throw new CommandException(message + "\n\n" + MESSAGE_USAGE);
         }
-        //Save all entries into temporary space and only refresh on new ls/retrieval - for PhotoHandler
 
         return new CommandResult(toPrint.toString());
     }

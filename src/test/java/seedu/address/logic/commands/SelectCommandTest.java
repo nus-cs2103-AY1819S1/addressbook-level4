@@ -4,6 +4,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.ModelGenerator.getModelWithTestImgDirectory;
@@ -17,11 +18,10 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.testutil.EventsCollectorRule;
-
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -87,8 +87,10 @@ public class SelectCommandTest {
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
-        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
-        assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
+
+        FilmReelSelectionChangeEvent lastEvent =
+                (FilmReelSelectionChangeEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        assertEquals(index, Index.fromZeroBased(lastEvent.index));
     }
 
     /**
