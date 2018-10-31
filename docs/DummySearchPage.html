@@ -238,7 +238,7 @@
 				"<p>Night Parking: " +  coords.night_parking + "</p>" + 
 				"<p>Parking System: " +  coords.type_of_parking_system + "</p>"
 			var infowindow = new google.maps.InfoWindow()
-			google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+			google.maps.event.addListener(marker,'click', (function(marker,content,infowindow) {
 				return function() {
 					infowindow.setContent(content);
 					infowindow.open(map,marker);
@@ -248,7 +248,7 @@
 
 					prev_infowindow = infowindow;
 				};
-			})(marker,content,infowindow)); 
+			})(marker, content, infowindow));
 		}
 		function handleMaps () {
 			var defaultFlag = getJsonFromUrl().isDefault;
