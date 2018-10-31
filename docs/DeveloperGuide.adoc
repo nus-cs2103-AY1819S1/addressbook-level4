@@ -542,7 +542,7 @@ The UI has been redesigned to implement the following UI elements required for t
 
 Animations will also be incorporated into the UI elements for a better user experience.
 
-==== totalBudget Panel
+==== Budget Panel
 
 The `totalBudget` panel consists of 3 UI elements:
 
@@ -598,6 +598,47 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 * **Alternative 2:** Use the `Transition` class
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for the `Text` elements of the `BudgetPanel`.
+
+==== Notification System
+The Notification System is comprised of 3 features:
+* `Notification` - An abstract method that consists of a `header`, `type` and `body`. There are two types of `Notification`,
+`TipNotification` and `WarningNotification`.
+* `NotificationPanel` `and NotificationCard` - Lists the notifications that have been sent to the user.
+* `NotificationHandler` - Handles the storing and logic of notifications.
+* `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
+
+Given below is an example scenario of how the Notification System functions:
+
+. The user launches the application for the first time. A new `NotificationHandler` is instantiated.
+
+. A call to `NotificationHandler#isTimeToSendTip` is made upon login. In turn, a check is made to see if it has
+been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+[NOTE]
+If this is the user's first time logging into their account, a new `TipNotification` will be sent.
+
+. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning` to check if the user is nearing or over their budget.
+If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+[NOTE]
+The same procedure is carried out if the user execute an `edit` command.
+
+. If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
+the new `Notification`.
+
+Given below is an example scenario of how the `NotificationCommand` functions:
+. The user executes `notification n/warning t/off`. THe command is received by the `ExpenseTrackerParser`.
+
+.  A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
+extracted parameters `warning` and `off`. A `NotificationCommand` is returned to the `LogicManager`.
+[NOTE]
+The `n/` parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
+
+. `LogicManager` then calls `NotificationCommand#execute`, which calls `NotificationHandler#toggleWarningNotifications` to set
+`NotificationPanel#isWarningEnabled` to `false`.
+[NOTE]
+ If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications` would be called to set `NotificationHandler#isTipEnabled`
+ to `true`.
+ If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications` will be called instead.
+
 
 // end::userInterfaceRedesign[]
 
