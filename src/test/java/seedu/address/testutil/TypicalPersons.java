@@ -75,9 +75,6 @@ public class TypicalPersons {
             new MedicineName(VALID_DOSAGE_PARACETAMOL), new Dosage(VALID_DOSAGE_PARACETAMOL),
             new ConsumptionPerDay(VALID_CONSUMPTION_PER_DAY_PARACETAMOL));
 
-    public static final Appointment APPT_FIRST = new Appointment(VALID_APPOINTMENT_ID_FIRST, VALID_DOCTOR_JOHN,
-            VALID_DATE_TIME);
-
     private TypicalPersons() {
     } // prevents instantiation
 
@@ -89,9 +86,6 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
-        for (Appointment appointment : getTypicalAppointments()) {
-            ab.addAppointment(appointment);
-        }
         return ab;
     }
 
@@ -99,7 +93,4 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(APPT_FIRST));
-    }
 }
