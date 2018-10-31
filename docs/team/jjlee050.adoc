@@ -16,7 +16,7 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 
 * *Major enhancement*:
 ** Added *the ability to login/logout commands*
-*** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+*** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
 *** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 *** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
@@ -26,11 +26,15 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 * *Other contributions*:
 
 ** Project management:
+*** Setup organisation/team repo
+*** Managed issue tracker
+*** Managed project schedule tracking
 *** Managed releases `v1.1`, `v1.2`, `v1.2.1`, `v1.3`, `v1.4` (5 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S1-W14-1/main/pull/105[#105], https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152]
+*** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
@@ -48,6 +52,8 @@ _{you can add/remove categories in the list above}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+include::../UserGuide.adoc[tag=ui-walkthrough]
 
 include::../UserGuide.adoc[tag=authenticationcommands]
 
