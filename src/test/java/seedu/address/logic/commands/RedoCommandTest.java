@@ -1,15 +1,15 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandSuccess;
+//import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandFailure;
+//import static seedu.address.testutil.UndoRedoCommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.UndoRedoCommandTestUtil.clearCache;
 
 import org.junit.After;
-import org.junit.Test;
+//import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.testutil.ModelGenerator;
+//import seedu.address.model.Model;
+//import seedu.address.testutil.ModelGenerator;
 
 public class RedoCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
