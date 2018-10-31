@@ -40,8 +40,9 @@ public class TrackAddCommand extends Command {
     }
 
     /**
+     * For immutability
      * @param targetPlaylist
-     * @return playlistCopy
+     * Returns a copy of targetPlaylist
      */
     private Playlist copyPlaylist(Playlist targetPlaylist) {
         List<Track> tracks = targetPlaylist.getTracks();
@@ -54,9 +55,9 @@ public class TrackAddCommand extends Command {
     }
 
     /**
-     * @param playlist
-     * @param newTrack
-     * @return
+     * @param playlist an existing playlist
+     * @param newTrack a new track to be added
+     * Returns boolean depending if newTrack already exists in playlist
      */
     private boolean trackExists(Playlist playlist, Track newTrack) {
         for (Track track : playlist.getTracks()) {
@@ -71,22 +72,17 @@ public class TrackAddCommand extends Command {
     public CommandResult execute(Model model) {
         Playlist updatedPlaylist;
 
-        // - check if playlist exists
+        // check if playlist exists
         if (!model.hasPlaylist(targetPlaylist)) {
             return new CommandResult(MESSAGE_PLAYLIST_DOES_NOT_EXIST);
         }
         updatedPlaylist = copyPlaylist(targetPlaylist);
+        // check if track exists in existing playlist
         if (trackExists(targetPlaylist, trackToAdd)) {
             return new CommandResult(MESSAGE_DUPLICATE_TRACK);
         }
         updatedPlaylist.addTrack(trackToAdd);
         model.updatePlaylist(targetPlaylist, updatedPlaylist);
-        // add track to playlist
-        // - check if track exists
-        // - get track id or path
-        // - check if track is already added
-        // - update model
-        // display success message
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

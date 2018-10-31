@@ -97,9 +97,6 @@ public class ParserUtil {
     public static Playlist parsePlaylist(String playlistName) throws ParseException {
         requireNonNull(playlistName);
         String trimmedPlaylistName = playlistName.trim();
-        // if (!Track.isValidTrackFromFileName(trimmedTrackName)) {
-        //     throw new ParseException(Track.MESSAGE_NAME_CONSTRAINTS);
-        // }
         try {
             return new Playlist(new Name(trimmedPlaylistName));
         } catch (IllegalArgumentException ex) {
