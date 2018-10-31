@@ -20,6 +20,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAssignmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
@@ -106,6 +107,9 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ReadOnlyAssignmentList getAssignmentList() { throw new AssertionError("This method should not be called."); }
 
         @Override
         public boolean hasPerson(Person person) {

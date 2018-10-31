@@ -20,6 +20,9 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    /** Returns the AssignmentList */
+    ReadOnlyAssignmentList getAssignmentList();
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
@@ -94,12 +97,6 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
-    /** Clears existing backing model and replaces with the provided new data. */
-    //void resetData(ReadOnlyAddressBook newData);
-
-    /** Returns the AddressBook */
-    //ReadOnlyAddressBook getAddressBook();
-
     /**
      * Returns true if a assignment with the same identity as {@code assignment} exists in the address book.
      */
@@ -125,11 +122,11 @@ public interface Model {
      */
     void updateAssignment(Assignment target, Assignment editedAssignment);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered assignment list */
     ObservableList<Assignment> getFilteredAssignmentList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);

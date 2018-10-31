@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_NAME;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,25 +15,25 @@ import seedu.address.model.project.Assignment;
  */
 public class AddAssignmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "addproject";
+    public static final String COMMAND_WORD = "addassignment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a project to OASIS. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an assignment to OASIS. "
             + "Parameters: "
-            + PREFIX_PROJECT_NAME + " PROJECT NAME "
+            + PREFIX_ASSIGNMENT_NAME + " ASSIGNMENT NAME "
             + PREFIX_AUTHOR + " AUTHOR "
-            + PREFIX_PROJECT_DESCRIPTION + " DESCRIPTION \n"
+            + PREFIX_ASSIGNMENT_DESCRIPTION + " DESCRIPTION \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PROJECT_NAME + " OASIS "
+            + PREFIX_ASSIGNMENT_NAME + " OASIS "
             + PREFIX_AUTHOR + " Amy Bee "
-            + PREFIX_PROJECT_DESCRIPTION + " Management system for all. ";
+            + PREFIX_ASSIGNMENT_DESCRIPTION + " Management system for all. ";
 
-    public static final String MESSAGE_SUCCESS = "New project added: %1$s";
-    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This project already exists in the system.";
+    public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
+    public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the system.";
 
     private final Assignment toAdd;
 
     /**
-     * Creates an AddAssignmentCommand to add the specified {@code Project}
+     * Creates an AddAssignmentCommand to add the specified {@code Assignment}
      */
     public AddAssignmentCommand(Assignment assignment) {
         requireNonNull(assignment);

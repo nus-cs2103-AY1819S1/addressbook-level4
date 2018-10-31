@@ -147,8 +147,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        //assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
-        //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
 
     }
 
@@ -199,6 +198,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().remove(resultDisplay.getRoot());
         statusbarPlaceholder.getChildren().remove(statusBarFooter.getRoot());
         commandBoxPlaceholder.getChildren().remove(commandBox.getRoot());
+        assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
     }
 
     void hide() {

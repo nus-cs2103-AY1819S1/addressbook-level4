@@ -15,10 +15,4 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Person> getPersonList();
 
-    /**
-     * Returns an unmodifiable view of the projects list.
-     * This list will not contain any duplicate projects.
-     */
-    ObservableList<Assignment> getAssignmentList();
-
 }
