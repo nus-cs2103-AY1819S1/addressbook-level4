@@ -78,7 +78,65 @@ Example: if the command specifies n/name p/address, p/address n/name is also acc
 
 ====
 
-=== Manage commands
+
+=== Manage attractions
+
+This section contains all commands related to managing attractions.
+
+==== Add attractions: `add`
+
+Add an attraction by name with the information. +
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
+
+A ride can have any number of tags (including 0). +
+
+Examples:
+
+* add n/Transformers m/1 w/30 a/John street, block 123, #01-01
+* add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+
+==== Delete attractions: `delete`
+
+Deletes the specified attraction from ThanePark. +
+Format: `delete <index>`
+
+====
+
+* Deletes the ride at the specified index.
+
+* The index refers to the index number shown in the list of displayed rides.
+
+* The index must be a positive integer 1, 2, 3, …​
+
+====
+
+Examples:
+
+* `viewall` +
+  `delete 2` +
+  Deletes the 2nd ride in ThanePark.
+
+* `find Puss in Boots' Giant Journey` +
+   `delete 1` +
+   Deletes the 1st ride in the results of the find command.
+
+==== Update information of attraction: `update`
+
+Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
+Format: `update <index> <tag> <value>`
+
+==== Shutdown attraction: `shutdown`
+
+Closes the ride for the day. Display statistics for the ride on that day. +
+Format: `shutdown <index>`
+
+==== Open attraction: `open`
+
+Opens the ride for the day. Display statistics for the ride on that day. +
+Format: `open <index>`
+
+=== User help and accessibility
+
 
 This section contains all commands related to managing commands.
 
@@ -198,7 +256,9 @@ Examples:
 
 ==== Updating information of attraction: `update`
 
-Updates the information `<tag>` with `<value>` about the ride with `<name>`. +
+
+Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
+
 Format: `update <index> <tag> <value>`
 
 ==== Shutting down attraction: `shutdown`
@@ -300,25 +360,26 @@ image::ui_screenshots/find-example-3.png[width="790"]
 
 == Command Summary
 
-The following table summarizes all commands available in ThanePark:
 
-[width="100%",cols="20%,<40%,<40%",options="header",]
-|=======================================================================
-|Command |Format |Example
-|Add ride |add <name of ride> <days since last maintenance> <waiting time> <address> [tag...] |add n/Mummy m/3 w/45 a/Lost World t/3D t/indoor
-|Clear table |clear |clear
-|Delete ride |delete <index> | delete 2
-|Exit ThanePark |exit |exit
-|Filter rides |filter <tag header> <condition> |filter m/ > 3 w/ < 60
-|Find rides |find <name of ride> OR find <tag header> <address> |find Mummy OR find a/ Mum
-|Help |help [option] |help more
-|History of commands |history |history
-|Open ride |open <index> |open 3
-|Redo command |redo |redo
-|Shutdown ride |shutdown <index> |shutdown 1
-|Undo command |undo |undo
-|Update ride information |update <index> <tag header> <new value> | update 2 a/ home
-|View ride information |view <index> |view 2
-|View all rides |viewall |viewall
-|View rides by status |viewstatus <status> |viewstatus open
-|=======================================================================
+* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
+  e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+* *Delete*: `delete <index>` +
+  e.g. delete 3
+* *Exit*: `exit`
+* *Find*: `find <attraction>`
+* *Help*: `help [option]`
+* *History*: `history`
+* *Undo*: `undo`
+* *Redo*: `redo`
+
+
+=== Added
+* *Update*: `update <index> <tag> <value>`
+* *Open*: `open <index>`
+* *Shutdown*: `shutdown <index>`
+
+* *View*: `view <name>`
+* *Quickview*: `quickview`
+* *Filter*: `filter <tag> <condition>`
+* *tab*: `{tab}`
+
