@@ -13,6 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path assignmentListFilePath = Paths.get("data", "assignmentlist.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -34,9 +35,15 @@ public class UserPrefs {
         return addressBookFilePath;
     }
 
+    public Path getAssignmentListFilePath() {
+        return assignmentListFilePath;
+    }
+
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
     }
+
+    public void setAssignmentListFilePath(Path assignmentListFilePath) { this.assignmentListFilePath = assignmentListFilePath; }
 
     @Override
     public boolean equals(Object other) {

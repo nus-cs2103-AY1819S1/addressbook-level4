@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.AssignmentListChangedEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
@@ -23,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+    private final VersionedAssignmentList versionedAssignmentList;
     private final FilteredList<Person> filteredPersons;
     private User loggedInUser;
 
@@ -31,30 +33,37 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAssignmentList assignmentList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAssignmentList = new VersionedAssignmentList(assignmentList);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredAssignments = new FilteredList<>(versionedAddressBook.getAssignmentList());
+        filteredAssignments = new FilteredList<>(versionedAssignmentList.getAssignmentList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new AssignmentList(), new UserPrefs());
     }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
+        indicateAssignmentListChanged();
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
+    }
+
+    @Override
+    public ReadOnlyAssignmentList getAssignmentList() {
+        return versionedAssignmentList;
     }
 
     /** Raises an event to indicate the model has changed */
@@ -166,31 +175,36 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    /** Raises an event to indicate the model has changed */
+    private void indicateAssignmentListChanged() {
+        raise(new AssignmentListChangedEvent(versionedAssignmentList));
+    }
+
     @Override
     public boolean hasAssignment(Assignment assignment) {
         requireNonNull(assignment);
-        return versionedAddressBook.hasProject(assignment);
+        return versionedAssignmentList.hasAssignment(assignment);
     }
 
     @Override
     public void deleteAssignment(Assignment target) {
-        versionedAddressBook.removeProject(target);
-        indicateAddressBookChanged();
+        versionedAssignmentList.removeAssignmnet(target);
+        indicateAssignmentListChanged();
     }
 
     @Override
     public void addAssignment(Assignment assignment) {
-        versionedAddressBook.addProject(assignment);
+        versionedAssignmentList.addAssignment(assignment);
         updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        indicateAddressBookChanged();
+        indicateAssignmentListChanged();
     }
 
     @Override
     public void updateAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
 
-        versionedAddressBook.updateProject(target, editedAssignment);
-        indicateAddressBookChanged();
+        versionedAssignmentList.updateAssignment(target, editedAssignment);
+        indicateAssignmentListChanged();
     }
 
     /**

@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_NAME;
 
 import java.util.stream.Stream;
 
@@ -26,16 +26,16 @@ public class AddAssignmentParser implements Parser<AddAssignmentCommand> {
      */
     public AddAssignmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PROJECT_NAME, PREFIX_AUTHOR, PREFIX_PROJECT_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_ASSIGNMENT_NAME, PREFIX_AUTHOR, PREFIX_ASSIGNMENT_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PROJECT_NAME, PREFIX_AUTHOR, PREFIX_PROJECT_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_ASSIGNMENT_NAME, PREFIX_AUTHOR, PREFIX_ASSIGNMENT_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAssignmentCommand.MESSAGE_USAGE));
         }
 
-        ProjectName name = ParserUtil.parseProjectName(argMultimap.getValue(PREFIX_PROJECT_NAME).get());
+        ProjectName name = ParserUtil.parseProjectName(argMultimap.getValue(PREFIX_ASSIGNMENT_NAME).get());
         Name author = ParserUtil.parseName(argMultimap.getValue(PREFIX_AUTHOR).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_PROJECT_DESCRIPTION).get());
+        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ASSIGNMENT_DESCRIPTION).get());
 
         Assignment assignment = new Assignment(name, author, description);
 
