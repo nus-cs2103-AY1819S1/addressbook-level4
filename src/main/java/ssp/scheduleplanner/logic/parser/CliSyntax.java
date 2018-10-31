@@ -7,7 +7,7 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
-    public static final Prefix PREFIX_PRIORITY = new Prefix("pl/");
+    public static final Prefix PREFIX_PRIORITY = new Prefix("p/");
     public static final Prefix PREFIX_VENUE = new Prefix("v/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_REPEAT = new Prefix("r/");
