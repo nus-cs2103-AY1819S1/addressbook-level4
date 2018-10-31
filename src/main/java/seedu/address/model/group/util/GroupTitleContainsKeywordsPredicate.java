@@ -1,32 +1,20 @@
 package seedu.address.model.group.util;
 
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.group.Group;
+import seedu.address.model.util.EntityContainsKeywordsPredicate;
 
 /**
  * Tests that a {@code Group}'s {@code Title} matches any of the keywords given.
  * {@author jeffreyooi}
  */
-public class GroupTitleContainsKeywordsPredicate implements Predicate<Group> {
-    private final List<String> keywords;
+public class GroupTitleContainsKeywordsPredicate extends EntityContainsKeywordsPredicate<Group> {
+    private static final Function<Group, String> groupTitleGetter = group -> group.getTitle().fullTitle;
 
-    public GroupTitleContainsKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
-    }
-
-    @Override
-    public boolean test(Group group) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(group.getTitle().fullTitle, keyword));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof GroupTitleContainsKeywordsPredicate // instanceof handles null
-                && keywords.equals(((GroupTitleContainsKeywordsPredicate) other).keywords)); // state check
+    public GroupTitleContainsKeywordsPredicate(List<String> allKeywords, List<String> someKeywords,
+                                               List<String> noneKeywords) {
+        super(allKeywords, someKeywords, noneKeywords, groupTitleGetter);
     }
 }

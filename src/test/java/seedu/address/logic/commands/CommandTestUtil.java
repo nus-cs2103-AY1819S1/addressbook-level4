@@ -28,9 +28,9 @@ import seedu.address.model.group.Group;
 import seedu.address.model.group.util.GroupContainsPersonPredicate;
 import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.util.MeetingTitleContainsKeywordPredicate;
+import seedu.address.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.util.NameContainsKeywordsPredicate;
+import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -176,7 +176,7 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(
+        model.updateFilteredPersonList(new PersonNameContainsKeywordsPredicate(
             Collections.emptyList(), Arrays.asList(splitName[0]), Collections.emptyList()));
 
         assertEquals(1, model.getFilteredPersonList().size());
@@ -191,7 +191,8 @@ public class CommandTestUtil {
 
         Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
         final String[] splitName = meeting.getTitle().fullTitle.split("\\s+");
-        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordsPredicate(Collections.emptyList(),
+            Arrays.asList(splitName[0]), Collections.emptyList()));
 
         /**
          * TODO this is a temp hack because there may be multiple meetings with same identities, will have to wait for
@@ -217,9 +218,12 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredGroupList().size());
 
         Group group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
-        final String[] splitGroupTitle = { group.getTitle().fullTitle };
-        model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Arrays.asList(splitGroupTitle[0])));
-        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Arrays.asList(group)));
+
+        final String[] splitGroupTitle = group.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
+            Arrays.asList(splitGroupTitle[0]), Collections.emptyList()));
+        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Collections.singletonList(group)));
+
         assertEquals(1, model.getFilteredGroupList().size());
     }
 }

@@ -45,7 +45,7 @@ image::derek-hardy.png[width="150", align="left"]
 {empty}[https://github.com/Derek-Hardy[github]]
 
 Role: Developer +
-Responsibilities: Logic
+Responsibilities: Group
 
 '''
 

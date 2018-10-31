@@ -281,11 +281,14 @@ Examples:
 * `list meeting`: list all meetings.
 * `list person`: list all persons.
 
+// tag::import[]
 === Importing data : `import`
 
 User is able to import other data. +
 Format: `import <relative filepath>`
+// end::import[]
 
+// tag::export[]
 === Exporting data : `export`
 
 User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
@@ -297,7 +300,9 @@ Format: +
 
 Example:
 `export f/backup.xml` : Export MeetingBook as `backup.xml`.
+// end::export[]
 
+// tag::filepath[]
 === Changing Storage Location: `filepath`
 
 Change the storage location of MeetingBook. +
@@ -310,6 +315,7 @@ Example:
 ****
 User can also check the current path of MeetingBook use `filepath show`
 ****
+// end::filepath[]
 
 === Saving the data
 

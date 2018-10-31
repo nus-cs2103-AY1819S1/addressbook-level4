@@ -58,7 +58,7 @@
         <grouped>CS2101op2</grouped>
     </persons>
     <groups>
-        <title>CS2103T</title>
+        <title>CS2103T Project Team</title>
         <description>Project group for module CS2103T</description>
         <meeting>
             <title>Weekly meetup</title>
@@ -68,13 +68,13 @@
         </meeting>
     </groups>
     <groups>
-        <title>CS2101</title>
+        <title>CS2101 Project Team</title>
         <description>CS2101 Presentation team</description>
         <meeting>
-            <title>Weekly meetup</title>
-            <time>22-02-2017@10:10</time>
-            <location>COM1-0202</location>
-            <description>Weekly report of progress</description>
+            <title>Rehearse presentation</title>
+            <time>01-01-2018@12:31</time>
+            <location>BIZ2-0304</location>
+            <description>Practice product demo</description>
         </meeting>
     </groups>
     <groups>
@@ -88,7 +88,7 @@
         </meeting>
     </groups>
     <groups>
-        <title>Basketball</title>
+        <title>Basketball Clique</title>
         <description>NUS basketball</description>
         <meeting>
             <title>Urgent affair</title>
