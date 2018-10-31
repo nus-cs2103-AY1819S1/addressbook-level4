@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox prefHeight="25.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox prefHeight="25.0" prefWidth="390.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <CheckBox mnemonicParsing="false" prefHeight="25.0" prefWidth="16.0" />
       <Label fx:id="id" prefHeight="24.0" prefWidth="25.0" text="$id" />

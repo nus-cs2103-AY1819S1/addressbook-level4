@@ -50,8 +50,8 @@
                 </TabPane>
 
                 <VBox prefHeight="675.0" prefWidth="900.0">
-                    <VBox fx:id="dayMonthYearPanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
-                          prefHeight="85" prefWidth="900" VBox.vgrow="NEVER"/>
+                    <VBox fx:id="monthYearPanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
+                          prefHeight="50" prefWidth="900" VBox.vgrow="NEVER"/>
                     <StackPane fx:id="calendarDisplayPlaceholder" prefWidth="900"/>
 
                     <StackPane fx:id="calendarCommandBoxBorder" maxHeight="-Infinity" minHeight="-Infinity"

@@ -62,7 +62,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane calendarPanelPlaceholder;
 
     @FXML
-    private VBox dayMonthYearPanelPlaceholder;
+    private VBox monthYearPanelPlaceholder;
 
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -135,8 +135,8 @@ public class MainWindow extends UiPart<Stage> {
         calendarDisplay = new CalendarDisplay(logic.getFilteredCalendarEventList());
         calendarDisplayPlaceholder.getChildren().add(calendarDisplay.getRoot());
 
-        DayMonthYearPanel dayMonthYearPanel = new DayMonthYearPanel(logic.getFilteredCalendarEventList());
-        dayMonthYearPanelPlaceholder.getChildren().add(dayMonthYearPanel.getRoot());
+        MonthYearPanel monthYearPanel = new MonthYearPanel(logic.getFilteredCalendarEventList());
+        monthYearPanelPlaceholder.getChildren().add(monthYearPanel.getRoot());
 
         CalendarPanel calendarPanel = new CalendarPanel(logic.getFilteredCalendarEventList());
         calendarPanelPlaceholder.getChildren().add(calendarPanel.getRoot());
