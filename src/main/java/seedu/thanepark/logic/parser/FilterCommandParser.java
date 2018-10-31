@@ -20,7 +20,7 @@ import seedu.thanepark.model.ride.WaitTime;
  * Parses input arguments and creates a new FilterCommand Object
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
-    
+
     /**
      * Parses the given {@code String} of arguments in the context of the FilterCommand
      * and returns an FilterCommand object for execution.
@@ -40,7 +40,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Optional<List<String>> waitingTimeStrings = !argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()
                 ? Optional.empty()
                 : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
-        
+
         List<AttributePredicate> predicates = new ArrayList<>();
         predicates = getMaintenancePredicates(maintenanceStrings, predicates);
         predicates = getWaitTimePredicate(waitingTimeStrings, predicates);
