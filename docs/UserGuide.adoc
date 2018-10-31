@@ -60,33 +60,52 @@ Format: `next`: Retrieving the next 10 images for editing
 
 === Applying a transformation to an image : `convert`
 
-Format: `convert [args]`: apply the conversion specified to the select image
+Format: `convert [operation] [arg1] [arg2] ...`: apply the specified processing to the selected image
 
-Custom defined transformation by user (see save set, 3.5)
+Custom defined transformation by user (see create transformation, 3.6)
 
-* Format: `convert [NAME_OF_TRANSFORMATION_SET]`
+* Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`
 
 Available transformations
 
 * `resize`: resize the image to the specified percentage of the original one
 
 ** Format: `convert resize [percentage]`
+** Example: `convert resize 50%`
 
 * `blur`: performs gaussian blur on the currently opened image, with the argument specified with radius and sigama
 
 ** Format: `convert blur [RadiusxSigama]`
+** Example: `convert blur 0x8`
 
 * `colorspace`: change the color space of the current image
 
 ** Format: `convert colorspace [color space]`
+** Example: `convert colorspave GRAY`
 
-* `contrast`: adjust the contrast of the image.
+* `contrast`: contrast of the image.
 
 ** Format: `convert contrast`
+** Example: `convert contrast`
+
+* `sigmoidal-contrast`: contrast the image with certain degree and percentage
+
+** Format: `convert sigmoidal-contrast [DegreexPercentage]`
+** Example: `convert sigmoidal-contrast 10x10%`
 
 * `rotate`: rotates an image. DIRECTION [left, right], VALUE [-180, 180]
 
-** Format: `convert rotate [value]`
+** Format: `convert rotate [vlaue]`
+** Example: `convert rotate 90`
+
+=== customizing transformation for imageProcessing : `create`
+
+Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`: create a customized operation for
+transformation base on the operation specified
+
+Examples:
+
+* `create blurR blur|0x8 rotate|90`
 
 === Saving images/transformation set : `save`
 
