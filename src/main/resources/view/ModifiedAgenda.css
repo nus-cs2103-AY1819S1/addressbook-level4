@@ -4,45 +4,45 @@
 
 .Agenda .Week {
 	-fx-background-color: #282828;
+    -fx-border-color: transparent;
+    -fx-border-width: 0px 0px 0px 0px;
 }
 
 .Agenda .HourLabel {
-	-fx-fill: BLACK;
+	-fx-fill: #CCCCCC;
 	-fx-stroke: transparent;
+    -fx-font-size: 16;
 }
 
+.Agenda .DayLabel {
+    -fx-fill: #CCCCCC;
+    -fx-font-size: 16;
+    -fx-text-alignment: right;
+}
 .Agenda .HourLine {
 	-fx-fill: transparent;
-	-fx-stroke: LIGHTGRAY;
+	-fx-stroke: #666666;
 }
 
 .Agenda .HalfHourLine {
 	-fx-fill: transparent;
-	-fx-stroke: LIGHTGRAY;
+	-fx-stroke: transparent;
 	-fx-stroke-dash-array: 4 4 4 4;
 }
 
 .Agenda .DayHeader {
-	-fx-border-color:LIGHTGRAY;
-	-fx-border-width: 0px 0px 0px 1px;
+	-fx-border-width: 0px 0px 0px 0px;
 }
-
-/*
-.Agenda .DayHeader .weekend {
-	-fx-text-fill: BLACK;
-	-fx-font-weight: bold;
-}
-*/
 
 .Agenda .Day {
 	-fx-fill: transparent;
 	-fx-stroke: transparent;
-	-fx-border-color:LIGHTGRAY;
-	-fx-border-width: 0px 0px 0px 1px;
+	-fx-border-color: transparent;
+	-fx-border-width: 0px 0px 0px 0px;
 }
 
 .Agenda .weekend {
-	-fx-background-color: #eeeeee90;
+	-fx-background-color: transparent;
 }
 
 .Agenda .today {
@@ -124,7 +124,7 @@
 
 .Agenda .Now {
 	-fx-fill: #FF000088;
-	-fx-stroke: WHITE;
+	-fx-stroke: transparent;
 }
 .Agenda .History {
 	-fx-stroke: transparent;
@@ -157,4 +157,13 @@
 
 .AgendaPopup .action-icon  {
     -fx-image: url("AgendaWeekSkinActionIcon.png");
+}
+
+.scroll-bar:vertical {
+	-fx-background-color: #1a1a1a;
+}
+
+.scroll-bar:vertical .thumb {
+	-fx-background-color: #666666;
+	-fx-background-radius: 5em;
 }

@@ -33,7 +33,7 @@ public class ClearCalendarCommandTest {
         expectedModel.commitScheduler();
 
         assertCommandSuccess(new ClearCalendarCommand(), model, commandHistory,
-                ClearCalendarCommand.MESSAGE_SUCCESS, expectedModel);
+                                ClearCalendarCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

@@ -34,7 +34,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
         deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteEventCommand.COMMAND_WORD + "      "
-                + INDEX_FIRST_ELEMENT.getOneBased() + "       ";
+                            + INDEX_FIRST_ELEMENT.getOneBased() + "       ";
         CalendarEvent deletedCalendarEvent = removePerson(expectedModel, INDEX_FIRST_ELEMENT);
         String expectedResultMessage = String.format(MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS, deletedCalendarEvent);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
