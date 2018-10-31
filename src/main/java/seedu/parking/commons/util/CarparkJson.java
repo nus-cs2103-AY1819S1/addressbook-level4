@@ -57,6 +57,10 @@ public class CarparkJson {
         return car_park_no;
     }
 
+    public List<String> getJsonData() {
+        return jsonData;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -83,10 +87,5 @@ public class CarparkJson {
     public int hashCode() {
         return Objects.hash(short_term_parking, y_coord, car_park_type, x_coord, free_parking, night_parking,
                 address, car_park_no, type_of_parking_system);
-    }
-
-
-    public List<String> getJsonData() {
-        return jsonData;
     }
 }

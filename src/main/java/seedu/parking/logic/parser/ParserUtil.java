@@ -49,7 +49,7 @@ public class ParserUtil {
      */
     public static int parseTime(String time) throws ParseException {
         String trimmedTime = time.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedTime)) {
+        if (!StringUtil.isNonNegativeAboveNineInteger(trimmedTime)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Integer.parseInt(trimmedTime);

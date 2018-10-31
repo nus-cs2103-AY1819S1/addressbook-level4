@@ -2,26 +2,9 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import seedu.parking.commons.core.Messages;
-import seedu.parking.commons.core.index.Index;
 import seedu.parking.logic.CommandHistory;
-import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.logic.NotifyTimeTask;
 import seedu.parking.model.Model;
-import seedu.parking.model.carpark.Address;
-import seedu.parking.model.carpark.Carpark;
-import seedu.parking.model.carpark.CarparkNumber;
-import seedu.parking.model.carpark.CarparkType;
-import seedu.parking.model.carpark.Coordinate;
-import seedu.parking.model.carpark.FreeParking;
-import seedu.parking.model.carpark.LotsAvailable;
-import seedu.parking.model.carpark.NightParking;
-import seedu.parking.model.carpark.PostalCode;
-import seedu.parking.model.carpark.ShortTerm;
-import seedu.parking.model.carpark.TotalLots;
-import seedu.parking.model.carpark.TypeOfParking;
 import seedu.parking.ui.CarparkListPanel;
 
 /**
@@ -30,15 +13,17 @@ import seedu.parking.ui.CarparkListPanel;
 public class NotifyCommand extends Command {
 
     public static final String COMMAND_WORD = "notify";
-    public static final String COMMAND_ALIAS = "n";
+    public static final String COMMAND_ABBREVIATION = "n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Set when to update the car park information.\n"
+            + "Parameters: SECONDS (0 is turn off, range is 10 to 600 seconds)\n"
             + "Example: " + COMMAND_WORD + " 60";
 
-    public static final String MESSAGE_SUCCESS = "Notification set for car park %1$d\nInterval: every %2$ds";
+    public static final String MESSAGE_SUCCESS = "Notification set for car park %1$s\nInterval: every %2$ds";
     public static final String MESSAGE_ERROR = "Cannot notify without selecting a car park first";
     public static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
+
 
     private final int targetTime;
 
@@ -46,41 +31,20 @@ public class NotifyCommand extends Command {
         this.targetTime = targetTime;
     }
 
-    /**
-     * Calls the API and load all the car parks information
-     * @return An array of car parks
-     */
-    private List<Carpark> readCarpark(List<List<String>> carparkData) {
-        List<Carpark> carparkList = new ArrayList<>();
-        for (List<String> carpark : carparkData) {
-            Carpark c = new Carpark(new Address(carpark.get(0)), new CarparkNumber(carpark.get(1)),
-                    new CarparkType(carpark.get(2)), new Coordinate(carpark.get(3)),
-                    new FreeParking(carpark.get(4)), new LotsAvailable(carpark.get(5)),
-                    new NightParking(carpark.get(6)), new ShortTerm(carpark.get(7)),
-                    new TotalLots(carpark.get(8)), new TypeOfParking(carpark.get(9)), new PostalCode(carpark.get(10)),
-                    null);
-            carparkList.add(c);
-        }
-        return carparkList;
-    }
-
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        int validity = CarparkListPanel.getSelectedIndex();
-        if (validity < 0) {
-            throw new CommandException(MESSAGE_ERROR);
+        if (targetTime > 0) {
+            NotifyTimeTask task = new NotifyTimeTask(model, targetTime);
+            CarparkListPanel.setTimer();
+            CarparkListPanel.getTimer().scheduleAtFixedRate(task, 0, targetTime * 1000);
+
+            return new CommandResult("Loading...please wait...");
+        } else {
+            CarparkListPanel.getTimer().cancel();
+            return new CommandResult("Notification turned off");
         }
-
-        Index notifyIndex = Index.fromZeroBased(validity);
-        List<Carpark> filteredCarparkList = model.getFilteredCarparkList();
-
-        if (notifyIndex.getZeroBased() >= filteredCarparkList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
-        }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, notifyIndex.getOneBased(), targetTime));
     }
 
     @Override

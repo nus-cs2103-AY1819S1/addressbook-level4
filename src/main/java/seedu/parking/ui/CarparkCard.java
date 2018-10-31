@@ -58,29 +58,29 @@ public class CarparkCard extends UiPart<Region> {
         super(FXML);
         this.carpark = carpark;
         id.setText(displayedIndex + ". ");
-        carparkNumber.setText(carpark.getCarparkNumber().value);
-        address.setText(carpark.getAddress().value);
+        carparkNumber.setText(carpark.getCarparkNumber().toString());
+        address.setText(carpark.getAddress().toString());
 
-        if (carpark.getPostalCode().value.equals(PostalCode.DEFAULT_VALUE)) {
+        if (carpark.getPostalCode().toString().equals(PostalCode.DEFAULT_VALUE)) {
             postalCode.setText("Postal Code: Not Available");
         } else {
-            postalCode.setText("Postal Code: " + carpark.getPostalCode().value);
+            postalCode.setText("Postal Code: " + carpark.getPostalCode().toString());
         }
 
-        carparkType.setText(carpark.getCarparkType().value);
-        coordinate.setText("Coordinate: " + carpark.getCoordinate().value);
+        carparkType.setText(carpark.getCarparkType().toString());
+        coordinate.setText("Coordinate: " + carpark.getCoordinate().toString());
 
-        if (carpark.getTotalLots().value.equals("0")) {
+        if (carpark.getTotalLots().toString().equals("0")) {
             totalLots.setText("Total Lots: Not Available");
             lotsAvailable.setText("Lots Available: Not Available");
         } else {
-            totalLots.setText("Total Lots: " + carpark.getTotalLots().value);
-            lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().value);
+            totalLots.setText("Total Lots: " + carpark.getTotalLots().toString());
+            lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().toString());
         }
 
-        freeParking.setText("Free Parking: " + carpark.getFreeParking().value);
-        nightParking.setText("Night Parking: " + carpark.getNightParking().value);
-        shortTerm.setText("Short Term Parking: " + carpark.getShortTerm().value);
+        freeParking.setText("Free Parking: " + carpark.getFreeParking().toString());
+        nightParking.setText("Night Parking: " + carpark.getNightParking().toString());
+        shortTerm.setText("Short Term Parking: " + carpark.getShortTerm().toString());
         parkingSystem.setText("Parking System: " + carpark.getTypeOfParking());
         carpark.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

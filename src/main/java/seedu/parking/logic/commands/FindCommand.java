@@ -14,11 +14,11 @@ import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
-    public static final String COMMAND_ALIAS = "f";
+    public static final String COMMAND_ABBREVIATION = "f";
     public static final String FORMAT = "find KEYWORD";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all car parks whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "the specified keywords (case-insensitive)\nand displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " punggol";
 

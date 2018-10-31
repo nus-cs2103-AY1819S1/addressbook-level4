@@ -4,10 +4,18 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.events.model.DataFetchExceptionEvent;
+import seedu.parking.commons.events.ui.NewResultAvailableEvent;
+import seedu.parking.commons.events.ui.ToggleTextFieldRequestEvent;
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Address;
 import seedu.parking.model.carpark.Carpark;
@@ -28,7 +36,7 @@ import seedu.parking.model.carpark.TypeOfParking;
 public class QueryCommand extends Command {
 
     public static final String COMMAND_WORD = "query";
-    public static final String COMMAND_ALIAS = "q";
+    public static final String COMMAND_ABBREVIATION = "q";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates all the car park information in Car Park Finder.\n"
@@ -58,18 +66,31 @@ public class QueryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        int updated;
+        ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
 
-        try {
-            List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchCarparkInfo());
-            List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
-            model.loadCarpark(allCarparks);
-            model.commitCarparkFinder();
-            updated = model.compareCarparkFinder();
-        } catch (Exception e) {
-            throw new CommandException(MESSAGE_ERROR_CARPARK);
-        }
+        Callable<Boolean> task = () -> {
+            try {
+                EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
+                model.resetData(new CarparkFinder());
+                List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchAllCarparkInfo());
+                List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
+                model.loadCarpark(allCarparks);
+                model.commitCarparkFinder();
+                int updated = model.compareCarparkFinder();
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(String.format(MESSAGE_SUCCESS, updated)));
+                EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
+            } catch (Exception e) {
+                if (model.canUndoCarparkFinder()) {
+                    model.undoCarparkFinder();
+                }
+                EventsCenter.getInstance().post(new DataFetchExceptionEvent(
+                        new CommandException(MESSAGE_ERROR_CARPARK)));
+            }
+            return true;
+        };
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, updated));
+        threadExecutor.submit(task);
+
+        return new CommandResult("Loading...please wait...");
     }
 }

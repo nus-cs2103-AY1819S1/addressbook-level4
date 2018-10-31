@@ -14,7 +14,7 @@ public class Coordinate {
 
     public static final String COORD_VALIDATION_REGEX = "^(\\d+(\\.\\d+)?),\\s(\\d+(\\.\\d+)?)$";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code Coordinate}.

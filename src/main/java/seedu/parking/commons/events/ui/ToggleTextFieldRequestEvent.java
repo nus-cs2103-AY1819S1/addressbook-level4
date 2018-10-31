@@ -3,9 +3,9 @@ package seedu.parking.commons.events.ui;
 import seedu.parking.commons.events.BaseEvent;
 
 /**
- * Indicates a request to notify to the list of car parks
+ * Indicates a toggle to change the state of the text field.
  */
-public class NotifyCarparkRequestEvent extends BaseEvent {
+public class ToggleTextFieldRequestEvent extends BaseEvent {
 
     @Override
     public String toString() {

@@ -310,7 +310,7 @@ Please refer to the *_class diagram_* below for more details on how they are con
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-
+[[localcopy]]
 The `Storage` component can perform the following functions:
 
 * save `UserPref` objects in json format and read it back.
@@ -460,11 +460,12 @@ _This feature is coming in v2.0._
 
 === Query feature
 
-The query features updates the car park information.
+The `query` command updates the information of every car park using the latest information provided by
+`data.gov.sg` database.
 
 ==== Overview
 
-The query mechanism does an API call to the website `data.gov.sg` to obtain car park information in `JSON` format.
+The mechanism does an API call to the website `data.gov.sg` to obtain car park information in `JSON` format.
 An external library `Gson` is used to parse the data in `GsonUtil`. The data is stored internally as a `CarparkJson` object.
 
 Some notable methods that `GsonUtil` implement are:
@@ -476,8 +477,8 @@ Some notable methods that `GsonUtil` implement are:
 
 Only `GsonUtil#fetchCarparkInfo()` is exposed in `QueryCommand`, inside `QueryCommand#readCarpark()` method.
 
-[NOTE]
-A local copy of the car park information is saved at the end. The user only needs to execute this command to get the latest information.
+[TIP]
+A <<localcopy, local copy>> of the data is saved at the end. Users only need to execute this command if they want to get the most recent information from the database.
 
 ==== Example
 
@@ -512,6 +513,9 @@ Please refer to the _Sequence Diagram_ below for the `query` operation.
 
 .Interactions for query operation
 image::zy_seq.png[width="800", align="left"]
+
+[NOTE]
+For more details on the internal workings of `Model` please refer to `undo`.
 
 ==== Design Considerations
 
@@ -758,21 +762,21 @@ Step 2. The user executes `f` command instead of `find`. The `Matcher` object in
 _arguments_, in which the _command word_ is parsed using a _switch_
 statement.
 
-Step 3. This _command word_ will be matched to a `COMMAND_ALIAS` from
+Step 3. This _command word_ will be matched to a `COMMAND_ABBREVIATION` from
 `ListCommand`, which holds the value of 'f'. As the program finds a match, it
 proceeds as if a `find` command is given.
 
-.Flow chart of command alias usage.
-image::ActivityDiagram-alias.png[width="700", align="left"]
+.Flow chart of command abbreviation usage.
+image::ActivityDiagram-abbreviation.png[width="700", align="left"]
 
 The _Activity Diagram_ above explains what happens when a user executes a `f`
 command.
 
 ==== Design Considerations
 
-===== Aspect: How alias executes
+===== Aspect: How abbreviation executes
 
-* *Alternative 1 (current choice):* declare `COMMAND_ALIAS` with a string value
+* *Alternative 1 (current choice):* declare `COMMAND_ABBREVIATION` with a string value
 in each Command file.
 +
 [cols="1,10"]
@@ -783,7 +787,7 @@ in each Command file.
 |===
 +
 
-* *Alternative 2:* declare `COMMAND_ALIAS` using the first two characters of `COMMAND_WORD`
+* *Alternative 2:* declare `COMMAND_ABBREVIATION` using the first two characters of `COMMAND_WORD`
 in each Command file.
 +
 [cols="1,10"]
@@ -811,7 +815,7 @@ Step 1. The user launches the application for the first time.
 
 Step 2. The user enters `fi` in command box and then presses kbd:[Tab] . `autoComplete()`
 compares `input` through the list of applicable command words and abbreviations, and
-proceeds to `displayFormat()` because `fi` is an applicable `COMMAND_ALIAS`. It
+proceeds to `displayFormat()` because `fi` is an applicable `COMMAND_ABBREVIATION`. It
 moves on to highlight its first placeholder, `DAY`, in the command line. As seen
 from the following diagrams.
 
@@ -1180,7 +1184,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |new user |be able to understand the UI without much instruction
 |spend my time on the program using the features
 
-|`* *` |user |use shorthand equivalent alias of commands
+|`* *` |user |use shorthand equivalent abbreviation of commands
 |navigate the application in a more time efficient way
 
 |`*` |user |autocomplete my requests
@@ -1611,10 +1615,10 @@ Use case ends.
 
 [width="60%",options="header",]
 |=======================================================================
-|Use case: UC14 - Command alias
+|Use case: UC14 - Command abbreviation
 a|*MSS*
 
-. *Actor* requests using alias for the commands
+. *Actor* requests using abbreviation for the commands
 . *System* understands the command and proceeds to process it
 +
 Use case ends.

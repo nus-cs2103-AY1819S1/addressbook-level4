@@ -72,7 +72,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         List<String> temp = new ArrayList<>();
-        temp.add(ALFA.getCarparkNumber().value);
+        temp.add(ALFA.getCarparkNumber().toString());
         String[] keywords = temp.toArray(new String[0]);
         modelManager.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(carparkFinder, userPrefs)));
