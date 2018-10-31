@@ -35,7 +35,7 @@ public class FirstDayCommand extends Command {
     public static final String MESSAGE_DATA_UNABLE_CONVERT = "Data unable to convert from saved file";
 
     public static final int WEEKS_IN_SEMESTER = 17;
-    private static final String DEFAULT_MONDAY_DATE = "010118";
+    public static final String DEFAULT_MONDAY_DATE = "010118";
 
     private String inputDate = "";
     private String[][] rangeOfWeek = new String[WEEKS_IN_SEMESTER][3];

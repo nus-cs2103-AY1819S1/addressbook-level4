@@ -172,6 +172,32 @@ public class FirstDayCommandTest {
         assertFalse(isWithinDateRange("101218", "130818", "091218"));
     }
 
+    @Test
+    public void createDefaultFileIfNotExist_success() throws CommandException {
+        createDefaultFileIfNotExist();
+        assertTrue(checkFileExist.exists());
+        retrieveRangeOfWeeks_success();
+    }
+
+    @Test
+    public void computeAppTitle_test() throws CommandException {
+        String appTitle = "";
+
+        if (fds.isWithinDateRange(rangeOfWeeks[0][0], rangeOfWeeks[16][1])) {
+            appTitle = "Schedule Planner" + "  - " + fds.retrieveWeekDescription(rangeOfWeeks);
+        } else {
+            appTitle = "Schedule Planner";
+        }
+
+        //if system time is within date range, appTitle should not be "Schedule Planner"
+        //else, appTitle should be "Schedule Planner"
+        if (fds.isWithinDateRange(rangeOfWeeks[0][0], rangeOfWeeks[16][1])) {
+            assertFalse(appTitle.equals("Schedule Planner"));
+        } else {
+            assertTrue(appTitle.equals("Schedule Planner"));
+        }
+    }
+
     @After
     public void close() {
         if (checkFileExist.exists()) {
@@ -192,6 +218,40 @@ public class FirstDayCommandTest {
         LocalDate systemDate = LocalDate.parse(systemTestDate, DateTimeFormatter.ofPattern("ddMMyy"));
         return (systemDate.isEqual(firstDate) || systemDate.isAfter(firstDate) && (systemDate.isBefore(lastDate)
                 || systemDate.isEqual(lastDate)));
+    }
+
+    /**
+     * Modification of actual createDefaultFileIfNotExist in FirstDayCommand.java
+     * change the defaultfile to a testfile
+     * solution below adapted from
+     * https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
+     * @throws CommandException
+     */
+    private void createDefaultFileIfNotExist () throws CommandException {
+        String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
+        File checkFileExist = new File("testrangeofweek.xml");
+        if (!checkFileExist.exists()) {
+            try {
+                checkFileExist.createNewFile();
+                rangeOfWeek = fds.computeRangeOfWeeks(FirstDayCommand.DEFAULT_MONDAY_DATE);
+                saveRangeOfWeeks(rangeOfWeek);
+            } catch (java.io.IOException e) {
+                throw new CommandException("Failed to create rangeofweek.xml");
+            }
+        }
+    }
+
+    /**
+     * stub method to override the path from actual filepath to test filepath
+     * @param rangeOfWeek
+     * @throws CommandException
+     */
+    private void saveRangeOfWeeks (String[][] rangeOfWeek) throws CommandException {
+        try {
+            XmlFileStorage.saveWeekDataToFile(path, new XmlSerializableRangeOfWeek(rangeOfWeek));
+        } catch (FileNotFoundException e) {
+            throw new CommandException(FirstDayCommand.MESSAGE_FILE_DOES_NOT_EXIST);
+        }
     }
 
 }
