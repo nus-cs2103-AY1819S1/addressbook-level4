@@ -35,13 +35,16 @@ public class AddMedicalHistoryCommandTest {
     public void execute_addMedicalHistory_success() {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
+
         Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Patient editedPatient =
-                new PatientBuilder(firstPatient).build();
+
+        Patient editedPatient = new PatientBuilder(firstPatient).build();
         editedPatient.getMedicalHistory().addAllergy(VALID_ALLERGY);
         editedPatient.getMedicalHistory().addAllergy(VALID_CONDITION);
+
         AddMedicalHistoryCommand addMedicalHistoryCommand =
                 new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+
         String expectedMessage = String.format(AddMedicalHistoryCommand.MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS,
                 editedPatient);
 
