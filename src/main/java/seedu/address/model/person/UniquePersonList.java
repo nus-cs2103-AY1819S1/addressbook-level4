@@ -72,6 +72,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void addTimeSlot(String target, Time timeslot) {
         requireAllNonNull(target);
+        requireAllNonNull(timeslot);
         Person targetPerson = null;
         for (Person p : internalList) {
             if (p.getName().toString().equals(target)) {
