@@ -20,11 +20,10 @@ import seedu.thanepark.model.ride.WaitTime;
  * Parses input arguments and creates a new FilterCommand Object
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
-
+    
     /**
      * Parses the given {@code String} of arguments in the context of the FilterCommand
      * and returns an FilterCommand object for execution.
-     *
      * @throws ParseException if user input does not conform the expected format
      */
     @Override
@@ -41,34 +40,74 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         Optional<List<String>> waitingTimeStrings = !argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()
                 ? Optional.empty()
                 : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
-
+        
         List<AttributePredicate> predicates = new ArrayList<>();
-        if (maintenanceStrings.isPresent()) {
-            for (String s : maintenanceStrings.get()) {
-                Pair<Character, String> maintenanceCondition = getOperatorAndValues(s);
-                predicates.add(new AttributePredicate(maintenanceCondition.getKey().toString(),
-                        new Maintenance(maintenanceCondition.getValue())));
-            }
-        }
+        predicates = getMaintenancePredicates(maintenanceStrings, predicates);
+        predicates = getWaitTimePredicate(waitingTimeStrings, predicates);
+        
+        return new FilterCommand(new RideContainsConditionPredicate(predicates));
+    }
+    
+    /**
+     * Gets a list of predicates from the list of maintenance input if any is present
+     */
+    private List<AttributePredicate> getWaitTimePredicate(Optional<List<String>> waitingTimeStrings,
+                                                          List<AttributePredicate> predicates) {
+        List<AttributePredicate> newPredicates = new ArrayList<>();
         if (waitingTimeStrings.isPresent()) {
             for (String s : waitingTimeStrings.get()) {
-                Pair<Character, String> waitingTimeConditions = getOperatorAndValues(s);
-                predicates.add(new AttributePredicate(waitingTimeConditions.getKey().toString(),
+                Pair<String, String> waitingTimeConditions = getOperatorAndValues(s);
+                newPredicates.add(new AttributePredicate(waitingTimeConditions.getKey(),
                         new WaitTime(waitingTimeConditions.getValue())));
             }
         }
-
-        return new FilterCommand(new RideContainsConditionPredicate(predicates));
+        newPredicates.addAll(predicates);
+        return newPredicates;
     }
-
+    
+    /**
+     * Gets a list of predicates from the list of wait time input if any is present
+     */
+    private List<AttributePredicate> getMaintenancePredicates(Optional<List<String>> maintenanceStrings,
+                                                              List<AttributePredicate> predicates) {
+        List<AttributePredicate> newPredicates = new ArrayList<>();
+        if (maintenanceStrings.isPresent()) {
+            for (String s : maintenanceStrings.get()) {
+                Pair<String, String> maintenanceCondition = getOperatorAndValues(s);
+                predicates.add(new AttributePredicate(maintenanceCondition.getKey(),
+                        new Maintenance(maintenanceCondition.getValue())));
+            }
+        }
+        newPredicates.addAll(predicates);
+        return newPredicates;
+    }
+    
     /**
      * Returns a Pair object with the operator and input value from the user input string.
      */
-    private Pair<Character, String> getOperatorAndValues(String string) {
+    private Pair<String, String> getOperatorAndValues(String string) {
         String predicateString = string.trim();
-        char operator = predicateString.charAt(0);
-        StringBuilder sb = new StringBuilder(predicateString);
-        String resultString = sb.deleteCharAt(0).toString().trim();
-        return new Pair<>(operator, resultString);
+        char[] array = predicateString.toCharArray();
+        String operator = "";
+        String value = "";
+        for (char c : array) {
+            if (c == ' ') {
+                continue;
+            }
+            if (isOperator(c)) {
+                operator = operator.concat(Character.toString(c));
+            }
+            if (Character.isDigit(c)) {
+                value = value.concat(Character.toString(c));
+            }
+        }
+        return new Pair<>(operator, value);
+    }
+    
+    /**
+     * Checks if a character is an operator, i.e. >, < or =
+     */
+    private boolean isOperator(char c) {
+        return c == '<' || c == '>' || c == '=';
     }
 }
