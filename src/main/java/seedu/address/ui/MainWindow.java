@@ -43,7 +43,6 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private LeaveListPanel leaveListPanel;
     private PersonListPanel archivedListPanel;
-  
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
