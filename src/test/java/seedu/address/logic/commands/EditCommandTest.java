@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
@@ -35,7 +35,7 @@ import seedu.address.testutil.ExpenseBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,7 +45,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
         expectedModel.updateExpense(model.getFilteredExpenseList().get(0), editedExpense);
         expectedModel.commitExpenseTracker();
 
@@ -67,7 +67,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
         expectedModel.updateExpense(lastExpense, editedExpense);
         expectedModel.commitExpenseTracker();
 
@@ -81,7 +81,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
         expectedModel.commitExpenseTracker();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -98,7 +98,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
 
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
         expectedModel.updateExpense(model.getFilteredExpenseList().get(0), editedExpense);
         expectedModel.commitExpenseTracker();
 
@@ -158,7 +158,7 @@ public class EditCommandTest {
         Expense expenseToEdit = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
         expectedModel.updateExpense(expenseToEdit, editedExpense);
         expectedModel.commitExpenseTracker();
 
@@ -201,7 +201,7 @@ public class EditCommandTest {
         Expense editedExpense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE, descriptor);
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
 
         showExpenseAtIndex(model, INDEX_SECOND_EXPENSE);
         Expense expenseToEdit = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());

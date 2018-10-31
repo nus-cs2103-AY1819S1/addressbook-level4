@@ -14,6 +14,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -117,7 +118,8 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
-        } catch (NoUserSelectedException | UserAlreadyExistsException | NonExistentUserException nuse) {
+        } catch (NoUserSelectedException | UserAlreadyExistsException | NonExistentUserException
+                | InvalidDataException nuse) {
             initHistory();
             setStyleToIndicateCommandFailure();
             logger.info(nuse.getMessage());

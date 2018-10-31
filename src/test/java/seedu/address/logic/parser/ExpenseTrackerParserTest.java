@@ -25,6 +25,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetPasswordCommand;
@@ -184,6 +185,18 @@ public class ExpenseTrackerParserTest {
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD + " n/7 p/m m/t") instanceof StatsCommand);
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS) instanceof StatsCommand);
         assertTrue(parser.parseCommand(StatsCommand.COMMAND_ALIAS + " n/7 p/m m/t") instanceof StatsCommand);
+    }
+
+    @Test
+    public void parseCommand_notification() throws Exception {
+        assertTrue(parser.parseCommand(NotificationCommand.COMMAND_WORD + " t/off")
+                instanceof NotificationCommand);
+        assertTrue(parser.parseCommand(NotificationCommand.COMMAND_WORD + " n/warning t/on")
+                instanceof NotificationCommand);
+        assertTrue(parser.parseCommand(NotificationCommand.COMMAND_ALIAS + " t/off")
+                instanceof NotificationCommand);
+        assertTrue(parser.parseCommand(NotificationCommand.COMMAND_ALIAS + " n/tip t/off")
+                instanceof NotificationCommand);
     }
 
     @Test

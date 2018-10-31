@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -21,7 +22,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 
 public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
     @Test
-    public void select() throws NoUserSelectedException {
+    public void select() throws NoUserSelectedException, IllegalValueException {
         showAllExpenses();
         /* --------------------- Perform select operations on the shown unfiltered list ----------------------- */
 
@@ -116,7 +117,8 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see ExpenseTrackerSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws NoUserSelectedException {
+    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_EXPENSE_SUCCESS, expectedSelectedCardIndex.getOneBased());
@@ -146,7 +148,8 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
      * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

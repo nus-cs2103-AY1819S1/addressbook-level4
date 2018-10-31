@@ -94,7 +94,6 @@ public class ParserUtil {
         return new Cost(trimmedAddress);
     }
 
-
     /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
@@ -341,5 +340,4 @@ public class ParserUtil {
             }
         }
     }
-
 }
