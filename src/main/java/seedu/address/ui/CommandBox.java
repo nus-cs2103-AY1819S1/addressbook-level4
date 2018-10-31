@@ -106,8 +106,7 @@ public class CommandBox extends UiPart<Region> {
             String[] commandWord = command.trim().split(" ");
             if (commandWord[1].contains("todo")) {
                 commandResult = logic.executeToDo(command);
-            }
-            else {
+            } else {
                 commandResult = logic.execute(command);
             }
             initHistory();

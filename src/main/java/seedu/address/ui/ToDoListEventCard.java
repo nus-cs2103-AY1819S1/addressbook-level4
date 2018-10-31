@@ -47,25 +47,22 @@ public class ToDoListEventCard extends UiPart<Region> {
     public ToDoListEventCard(ToDoListEvent toDoListEvent, int displayedIndex) {
         super(FXML);
         this.selectedIndex = displayedIndex;
-        System.out.printf("id = %d\n",selectedIndex);
         this.toDoListEvent = toDoListEvent;
         id.setText(displayedIndex + ". ");
         title.setText(toDoListEvent.getTitle().value);
         String priorityValue = toDoListEvent.getPriority().value;
-        if(priorityValue.contains("H")) {
+        if (priorityValue.contains("H")) {
             priority.setText("High");
-            priority.setBackground(new Background(new BackgroundFill
-                    (Color.color(0.929,0.325,0.325),null,null)));
-        }
-        else if(priorityValue.contains("M")) {
+            priority.setBackground(new Background(new BackgroundFill(
+                    Color.color(0.929, 0.325, 0.325), null, null)));
+        } else if (priorityValue.contains("M")) {
             priority.setText("Medium");
-            priority.setBackground(new Background(new BackgroundFill
-                    (Color.color(1.000,0.647,0.000),null,null)));
-        }
-        else {
+            priority.setBackground(new Background(new BackgroundFill(
+                    Color.color(1.000, 0.647, 0.000), null, null)));
+        } else {
             priority.setText("Low");
-            priority.setBackground(new Background(new BackgroundFill
-                    (Color.color(0.408,0.718,0.137),null,null)));
+            priority.setBackground(new Background(new BackgroundFill(
+                    Color.color(0.408, 0.718, 0.137), null, null)));
         }
     }
 
