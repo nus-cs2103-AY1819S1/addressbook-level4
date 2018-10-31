@@ -133,14 +133,7 @@ public class MainApp extends Application {
         fdc.createDefaultFileIfNotExist();
         try {
             Config updateConfig = new Config();
-            String[][] rangeOfWeek = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
-            rangeOfWeek = fdc.retrieveRangeOfWeeks(rangeOfWeek);
-
-            if (fdc.isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
-                updateConfig.setAppTitle("Schedule Planner" + "  - " + fdc.retrieveWeekDescription(rangeOfWeek));
-            } else {
-                updateConfig.setAppTitle("Schedule Planner");
-            }
+            updateConfig.setAppTitle(fdc.computeAppTitle());
             ConfigUtil.saveConfig(updateConfig, configFilePathUsed);
         } catch (IOException e) {
             logger.warning("Failed to update config file : " + StringUtil.getDetails(e));

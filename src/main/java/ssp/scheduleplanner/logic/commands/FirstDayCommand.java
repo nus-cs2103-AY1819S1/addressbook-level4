@@ -178,6 +178,26 @@ public class FirstDayCommand extends Command {
     }
 
     /**
+     * This method compute the correct application title and return the string value
+     * @return application title
+     * @throws CommandException
+     */
+    public String computeAppTitle() throws CommandException {
+        String appTitle = "";
+
+        String[][] retrieveData = new String[WEEKS_IN_SEMESTER][3];
+        retrieveData = retrieveRangeOfWeeks(retrieveData);
+
+        if (isWithinDateRange(retrieveData[0][0], retrieveData[16][1])) {
+            appTitle = "Schedule Planner" + "  - " + retrieveWeekDescription(retrieveData);
+        } else {
+            appTitle = "Schedule Planner";
+        }
+
+        return appTitle;
+    }
+
+    /**
      * This method create default storage file if not exist.
      * solution below adapted from
      * https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
