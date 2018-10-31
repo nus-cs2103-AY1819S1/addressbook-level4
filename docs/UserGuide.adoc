@@ -32,7 +32,8 @@ E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Future features till v2.0
 .  Support multilingual mode.
 .  Allow group merge and group divide.
-.  Achieve the functionality of auto-delete after a word has been well remembered by the uesr.
+.  Achieve the functionality of auto-delete after a word has been well remembered by the user.
+.  Record the trivia score for user to self check later
 
 
 [Features]]
