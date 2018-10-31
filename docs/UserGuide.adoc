@@ -192,7 +192,7 @@ image::command_clear_before.png[clear bef, 800]
 image::command_clear_after.png[clear aft, 800]
 
 The figures above shows the before and after state of clearing the entries of the application.
-//end:command-clear[]
+//end::command-clear[]
 
 [[command-exit]]
 ==== Exiting the application : `exit`

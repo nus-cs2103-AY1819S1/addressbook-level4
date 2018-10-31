@@ -675,11 +675,12 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 ==== Delete event [Coming in V1.3]
 
 
-//tag::command-record[]
+
 === Record management
 
 This section describes the details on how the record management features are implemented.
 
+//tag::command-manage[]
 ==== Manage function
 
 The `manage` command is used in the 'event' context to manage the volunteering records for an event. +
@@ -723,7 +724,7 @@ image::command_manage_sd.png[manage SD, 800]
 |===
 +
 
-//end::command-record[]
+//end::command-manage[]
 
 == Documentation
 
