@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.ProcessCommand;
 import seedu.address.commons.events.ui.FailedLoginEvent;
 import seedu.address.commons.events.ui.LoginEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
@@ -35,7 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
 
-    private List<Function<String, CommandResult>> interceptors;
+    private List<ProcessCommand<String, CommandResult, CommandException>> interceptors;
 
     public LogicManager(Model model) {
         this.model = model;

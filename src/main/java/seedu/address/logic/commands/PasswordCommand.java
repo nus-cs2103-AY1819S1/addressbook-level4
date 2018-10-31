@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
@@ -30,7 +32,7 @@ public class PasswordCommand extends Command {
                 CommandResult result = new CommandResult(PROGRESS_PASSWORD_MESSAGE);
                 result.addIntercepter(newPassword -> {
                     if(!Password.isValidPassword(newPassword)) {
-                        return new CommandResult(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+                        throw new CommandException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
                     }
 
                     if(currentUser.isAdminUser()) {

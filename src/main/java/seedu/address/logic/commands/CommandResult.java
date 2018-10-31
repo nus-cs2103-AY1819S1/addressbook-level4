@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import seedu.address.commons.core.ProcessCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
+
 /**
  * Represents the result of a command execution.
  */
@@ -13,7 +16,7 @@ public class CommandResult {
 
     private String feedbackToUser;
 
-    private List<Function<String, CommandResult>> interceptors;
+    private List<ProcessCommand<String, CommandResult, CommandException>> interceptors;
 
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -27,7 +30,7 @@ public class CommandResult {
      * @param interceptor The method for the user input to pass into. Returned command result will be processed as if
      *                    it was a normal command.
      */
-    public void addIntercepter(Function<String, CommandResult> interceptor) {
+    public void addIntercepter(ProcessCommand<String, CommandResult, CommandException> interceptor) {
         interceptors.add(interceptor);
     }
 
@@ -35,7 +38,7 @@ public class CommandResult {
      * Gets a list of intercepts as required by this command
      * @return A list of interceptors for the next user input.
      */
-    public List<Function<String, CommandResult>> getIntercepters() {
+    public List<ProcessCommand<String, CommandResult, CommandException>> getIntercepters() {
         return interceptors;
     }
 
