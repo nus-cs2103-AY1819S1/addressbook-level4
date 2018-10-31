@@ -645,10 +645,10 @@ image::LoginActivityDiagram.png[width="1080"]
 ===== Aspect: Retrieval of password
 
 * *Alternative 1 (current choice)*: Create a `PasswordPrefixFormatter` to handle
-`CommandBox` whenever user type 'pass/' prefix. 
+`CommandBox` whenever user type 'pass/' prefix.
 
-** Pros: Able to mask password in order to keep password secure.
-** Cons: 
+** Pros: More secure for being able to mask password.
+** Cons: Complex as it will require certain manipulation of the password in order to mask password.
 
 * *Alternative 2*: Open an additional alert window to prompt the user for a password.
 
@@ -667,8 +667,8 @@ In addition, this will detract from the user experience due to the shift in focu
 * *Alternative 2*: Save user session state in a file.
 
 ** Pros: More convenience for users as they does not need to login on every startup.
-** Cons: Less secure as users, who understand how ClinicIO works, could 
-edit the role of the user to have unauthorised access
+** Cons: Less secure as users, who understand how ClinicIO works, 
+could edit the role of the user to have unauthorised access
 to ClinicIO.
 
 // end::login[]
