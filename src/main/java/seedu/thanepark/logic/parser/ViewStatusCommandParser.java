@@ -2,7 +2,6 @@ package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.thanepark.commons.util.StringUtil;
 import seedu.thanepark.logic.commands.ViewStatusCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
 import seedu.thanepark.model.ride.RideStatusPredicate;
@@ -24,11 +23,11 @@ public class ViewStatusCommandParser implements Parser<ViewStatusCommand> {
         String[] trimmedArgs = args.trim().split(" ");
         String arg = trimmedArgs[0];
         if (!arg.isEmpty() && (trimmedArgs.length == 1)) {
-            if (StringUtil.containsStringIgnoreCase(arg, "open")) {
+            if (arg.equalsIgnoreCase("open")) {
                 status = Status.OPEN;
-            } else if (StringUtil.containsStringIgnoreCase(arg, "shutdown")) {
+            } else if (arg.equalsIgnoreCase("shutdown")) {
                 status = Status.SHUTDOWN;
-            } else if (StringUtil.containsStringIgnoreCase(arg, "maintenance")) {
+            } else if (arg.equalsIgnoreCase("maintenance")) {
                 status = Status.MAINTENANCE;
             } else {
                 throw new ParseException(

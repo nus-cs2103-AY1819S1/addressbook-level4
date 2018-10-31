@@ -9,11 +9,7 @@ import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BIG;
 import static seedu.thanepark.testutil.TypicalRides.CASTLE;
 import static seedu.thanepark.testutil.TypicalRides.DUMBO;
-<<<<<<< HEAD
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
-=======
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
->>>>>>> 97f09bbbacc89e0a4bf8f2932e076a459cfa28cc
 
 import java.util.ArrayList;
 import java.util.List;

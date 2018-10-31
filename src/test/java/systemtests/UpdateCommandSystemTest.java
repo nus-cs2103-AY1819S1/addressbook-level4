@@ -118,7 +118,6 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: filtered ride list, edit index within bounds of thanepark book and ride list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_THE);
-
         index = INDEX_FIRST_PERSON;
         editedName = "Another name";
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());

@@ -24,7 +24,7 @@ public class RideListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(RideListPanel.class);
 
     @FXML
-    private ListView<Ride> personListView;
+    private ListView<Ride> rideListView;
 
     public RideListPanel(ObservableList<Ride> rideList) {
         super(FXML);
@@ -33,13 +33,13 @@ public class RideListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Ride> rideList) {
-        personListView.setItems(rideList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        rideListView.setItems(rideList);
+        rideListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        rideListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in ride list panel changed to : '" + newValue + "'");
@@ -53,8 +53,8 @@ public class RideListPanel extends UiPart<Region> {
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            rideListView.scrollTo(index);
+            rideListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

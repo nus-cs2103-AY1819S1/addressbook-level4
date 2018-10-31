@@ -10,7 +10,6 @@ import static seedu.thanepark.testutil.TestUtil.getPerson;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
-
 import java.io.IOException;
 
 import org.junit.Test;
@@ -63,7 +62,6 @@ public class DeleteCommandSystemTest extends ThaneParkSystemTest {
 
         /* Case: filtered ride list, delete index within bounds of thanepark book and ride list -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_THE);
-
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredRideList().size());
         assertCommandSuccess(index);

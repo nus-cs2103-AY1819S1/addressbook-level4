@@ -11,6 +11,7 @@ import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.Status;
+
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.tag.Tag;
 
@@ -25,7 +26,7 @@ public class SampleDataUtil {
                 getTagSet("friends")),
             new Ride(new Name("Battlestar Galactica"), new Maintenance("58"), new WaitTime("2"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("HUMANSvsCYLON", "friends"), Status.SHUTDOWN),
+                getTagSet("HUMANSvsCYLON", "friends"), Status.SHUTDOWN),
             new Ride(new Name("Canopy Flyer"), new Maintenance("93"), new WaitTime("3"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
                 getTagSet("neighbours")),
