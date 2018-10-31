@@ -1,4 +1,4 @@
-package seedu.thanepark.ui;
+package seedu.thanepark.ui.browser;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -8,7 +8,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.thanepark.commons.core.LogsCenter;
 import seedu.thanepark.commons.util.FilePathToUrl;
-import seedu.thanepark.ui.browser.BrowserRelatedUiPart;
 
 /**
  * Controller for a command history window.
@@ -59,9 +58,8 @@ public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show(String reportFileName) throws IOException {
-        FilePathToUrl reportUrl = new FilePathToUrl(reportFileName);
-        loadPage(reportUrl);
+    public void show(FilePathToUrl reportFilePath) throws IOException {
+        loadPage(reportFilePath);
 
         logger.fine("Showing command history report.");
         getRoot().show();
