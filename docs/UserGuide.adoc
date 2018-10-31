@@ -113,22 +113,24 @@ Edits the name of the 2nd todo list item to be `CS2103 Project`.
 
 === Locating: `find`
 
-Finds calendar events / todo items whose names contain any of the given keywords. +
-Format: `find {event/todo} KEYWORD [MORE_KEYWORDS]`
+Finds calendar events whose names contain any of the given keywords.
+Also optionally filters the search by the specified tags. +
+Format: `find event KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]`
 
 ****
-* The search is case insensitive. e.g `lecture` will match `Lecture`
+* The search is case insensitive for both keywords and tags. e.g `lecture` will match `Lecture`
 * The order of the keywords does not matter. e.g. `CS2103 Lecture` will match `Lecture CS2103`
-* All fields (title, description, etc) will be searched.
+* Currently only the title will be searched.
 * The search does not look for only exact matches; slight differences and typos will attempt to be matched
 * `CS2103 Lecture` will match 'CS210X Lectures', or 'Lecture CS'
+* However, tags must be an exact (albeit case-insensitive) match.
 ****
 Examples:
 
 * `find event lecture` +
 Returns `CS2103 Lecture` and `Lecture`
-* `find todo cs2103 assignment` +
-Returns any todo item having `CS2103` or `Lecture` in the title or description.
+* `find event cs2103 assignment tag/Project` +
+Returns any event with the tag `Project` having `CS2103` or `assignment` in the title.
 
 === Deleting: `delete`
 
@@ -284,7 +286,7 @@ e.g. `delete event 3`
 e.g. `edit event 1 d/Abstraction v/i3 Auditorium`
 * *Edit* : `edit todo INDEX [t/TITLE] [d/DESCRIPTION] [p/PRIORITY]` +
 e.g. `edit todo 2 t/CS2103 Project` 
-* *Find* : `find {event/todo} KEYWORD [MORE_KEYWORDS]` +
+* *Find* : `find {event/todo} KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]` +
 e.g. `find event CS2103 Lecture`
 * *List* : `list {event/todo}`
 * *Help* : `help`
