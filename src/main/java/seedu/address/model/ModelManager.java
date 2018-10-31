@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,10 @@ import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.google.PhotosLibraryClientFactory;
@@ -30,7 +33,6 @@ public class ModelManager extends ComponentManager implements Model {
     private ArrayList<Path> dirImageList;
     private Path currentOriginalImage;
     private PhotoHandler photoLibrary;
-    private PreviewImage currentPreviewImage;
     private Canvas canvas;
 
     private final UserPrefs userPrefs;
@@ -107,11 +109,9 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void updateCurrentOriginalImage(Image img, Path imgPath) {
-        canvas = new Canvas();
         currentOriginalImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
-        currentPreviewImage = selectedImage;
-        canvas.addLayer(selectedImage);
+        canvas = new Canvas(selectedImage);
     }
     //@@author
 
@@ -145,26 +145,26 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
     @Override
     public boolean canUndoPreviewImage() {
-        return currentPreviewImage.canUndo();
+        return getCurrentPreviewImage().canUndo();
     }
 
     @Override
     public boolean canRedoPreviewImage() {
-        return currentPreviewImage.canRedo();
+        return getCurrentPreviewImage().canRedo();
     }
 
     @Override
     public void undoPreviewImage() {
-        currentPreviewImage.undo();
-        BufferedImage newImage = currentPreviewImage.getImage();
+        getCurrentPreviewImage().undo();
+        BufferedImage newImage = getCurrentPreviewImage().getImage();
         EventsCenter.getInstance().post(
                 new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
     }
 
     @Override
     public void redoPreviewImage() {
-        currentPreviewImage.redo();
-        BufferedImage newImage = currentPreviewImage.getImage();
+        getCurrentPreviewImage().redo();
+        BufferedImage newImage = getCurrentPreviewImage().getImage();
         EventsCenter.getInstance().post(
                 new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
     }
@@ -172,32 +172,31 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== get/updating preview image ==========================================================================
 
     @Override
-    public void addTransformation(Transformation transformation) {
-        //need to check the availability of adding a new transformation
-        //need to get the current layer and update the transformationSet
-        return;
+    public void addTransformation(Transformation transformation) throws
+            ParseException, InterruptedException, IOException {
+        canvas.getCurrentLayer().addTransformation(transformation);
     }
 
     @Override
     public PreviewImage getCurrentPreviewImage() {
-        return currentPreviewImage;
+        return canvas.getCurrentLayer().getImage();
     }
 
     @Override
     public void setCurrentPreviewImage(PreviewImage previewImage) {
-        currentPreviewImage = previewImage;
+        setCurrentPreviewImage(previewImage);
     }
 
     @Override
     public Path getCurrentPreviewImagePath() {
-        return currentPreviewImage.getCurrentPath();
+        return getCurrentPreviewImage().getCurrentPath();
     }
 
     //@@author lancelotwillow
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
-        currentPreviewImage.commit(image);
-        currentPreviewImage.addTransformation(transformation);
+        getCurrentPreviewImage().addTransformation(transformation);
+        getCurrentPreviewImage().commit(image);
     }
 
     @Override
@@ -233,5 +232,30 @@ public class ModelManager extends ComponentManager implements Model {
     //LOL
     public void testCache() {
 
+    }
+
+
+    //=========== Canvas and layers ==========================================================================
+
+    public void addLayer(PreviewImage i) {
+        canvas.addLayer(i);
+    }
+
+    /**
+     * Overloads the addLayer function to handle an optional name.
+     * @param i
+     * @param name
+     */
+    public void addLayer(PreviewImage i, String name) {
+        canvas.addLayer(i, name);
+
+    }
+
+    public void removeLayer(Index i) {
+        canvas.removeLayer(i);
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
     }
 }

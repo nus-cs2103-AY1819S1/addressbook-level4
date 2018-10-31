@@ -4,7 +4,6 @@ package seedu.address.model.transformation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Represents a single transformation to a single layer in a canvas.
@@ -34,8 +33,8 @@ public class Transformation {
      * return a list of String that contains all the arguments and the operation
      * @return
      */
-    public List<String> toList() {
-        List<String> list = new ArrayList<>();
+    public ArrayList<String> toList() {
+        ArrayList<String> list = new ArrayList<>();
         list.add(operation);
         list.addAll(Arrays.asList(args));
         return list;
