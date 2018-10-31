@@ -23,8 +23,8 @@ import seedu.address.model.person.CurrentPatient;
  */
 public class DocumentContentAddCommand extends QueueCommand {
 
-    public static final String COMMAND_WORD = "docAdd";
-    public static final String COMMAND_ALIAS = "da";
+    public static final String COMMAND_WORD = "adddocument";
+    public static final String COMMAND_ALIAS = "ad";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds document content to the Current Patient "
             + "Parameters: "

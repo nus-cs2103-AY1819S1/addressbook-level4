@@ -20,8 +20,7 @@ import seedu.address.model.person.ServedPatient;
  * Generates a referral letter for {@code Patient} specified by {@code index} that appears in the GUI and in a pdf.
  */
 public class ReferralLetterCommand extends QueueCommand {
-    public static final String COMMAND_WORD = "referralletter";
-    public static final String COMMAND_ALIAS = "rl";
+    public static final String COMMAND_WORD = "refer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Generates a referral letter for the patient in the specified"
