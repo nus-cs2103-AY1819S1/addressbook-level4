@@ -1,11 +1,14 @@
 package seedu.address.logic.commands;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.transformation.Transformation;
 import seedu.address.storage.JsonConvertArgsStorage;
 
 /**
@@ -13,10 +16,16 @@ import seedu.address.storage.JsonConvertArgsStorage;
  * the class to create the convert command
  */
 public class CreateConvertCommand extends Command {
-    private List<String> cmds;
+
+    public static final String COMMAND_WORD = "create";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": add a new command, customised yourself.\n"
+            + "Parameters: name operation|argument1|argument2\n"
+            + "Example: " + COMMAND_WORD + " blurgray blur|0x8 colorspace|GRAY";
+    private List<Transformation> cmds;
     private String name;
 
-    CreateConvertCommand(String name, List<String> cmds) {
+    public CreateConvertCommand(String name, List<Transformation> cmds) {
         if (cmds.isEmpty()) {
             throw new IllegalArgumentException("nothing inside the command arguments");
         } else {
@@ -27,35 +36,45 @@ public class CreateConvertCommand extends Command {
 
     /**
      * to check whether the single argument tag is valid or not
-     * @param arg
+     * @param transformation
      * @throws IllegalArgumentException
      */
-    private void checkSigleValidation(String arg) throws IllegalArgumentException {
+    private void checkSingleValidation(Transformation transformation) throws IllegalArgumentException, IOException {
         //just a template, not only this
-        if (arg == "") {
-            throw new IllegalArgumentException();
+        String operation = transformation.toList().get(0);
+        URL fileUrl = CreateConvertCommand.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
+        if (fileUrl == null) {
+            throw new IllegalArgumentException("Invalid argument, cannot find");
         }
-    };
+        List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation);
+        if (transformation.toList().size() != cmds.size() + 1) {
+            throw new IllegalArgumentException("Invalid argument, cannot find");
+        }
+    }
 
 
     /**
      * to check the validation of the whole argument list
      */
-    private void checkValidation() {
-        Iterator<String> iter = cmds.iterator();
+    private void checkValidation() throws CommandException {
+        Iterator<Transformation> iter = cmds.iterator();
         while (iter.hasNext()) {
             try {
-                checkSigleValidation(iter.next());
-            } catch (IllegalArgumentException e) {
-                System.err.println(e);
+                checkSingleValidation(iter.next());
+            } catch (IllegalArgumentException | IOException e) {
+                throw new CommandException(e.toString());
             }
         }
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        JsonConvertArgsStorage.storeArgument(name, cmds);
-        return null;
+        try {
+            JsonConvertArgsStorage.storeArgument(name, cmds);
+        } catch (IOException e) {
+            throw new CommandException(e.getMessage());
+        }
+        return new CommandResult("successfully create " + name);
     }
 }
 

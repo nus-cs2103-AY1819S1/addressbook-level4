@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -29,23 +30,23 @@ public class ConvertCommand extends Command {
     //the path of the json file containing the arguments of the convert command
     public static final Path SINGLE_COMMAND_TEMPLATE_PATH = Paths.get(
             MainApp.MAIN_PATH + "/src/main/resources/imageMagic/commandTemplate.json");
-    private Path filepath;
+    private URL fileUrl;
     private Transformation transformation;
     /**
      * the constructor take the path of the JSON file of the detail of the convert operation
-     * @param filepath the path to the JSON file
+     * @param fileUrl the path to the JSON file
      * @param transformation contains the operation to be processed to the image
      */
-    public ConvertCommand(Path filepath, Transformation transformation) throws ParseException, IOException {
-        if (!isFileExist(filepath)) {
+    public ConvertCommand(URL fileUrl, Transformation transformation) throws ParseException, IOException {
+        if (!isFileExist(fileUrl)) {
             throw new ParseException("no file found");
         }
-        this.filepath = filepath;
+        this.fileUrl = fileUrl;
         this.transformation = transformation;
     }
 
-    private static boolean isFileExist(Path filepath) {
-        return new File(filepath.toString()).exists();
+    private static boolean isFileExist(URL fileUrl) {
+        return new File(fileUrl.toString()).exists();
     }
 
     /**
