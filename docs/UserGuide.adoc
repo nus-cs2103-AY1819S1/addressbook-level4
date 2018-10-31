@@ -59,6 +59,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 This section is designed to help you familiarise with all of the user componenet in ClinicIO.
 
+// tag::ui-walkthrough[]
+
+image::user-guide-ui-walkthrough-overview.png[width="900"]
+
+// end::ui-walkthrough[]
+
 == Features
 
 This section is designed to provide a list of features that are implemented/working in progress to ease users in the day-to-day operations at the clinic.
