@@ -15,7 +15,6 @@ import seedu.address.logic.commands.DeleteDeckCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.NewDeckCommand;
 import seedu.address.testutil.TypicalDecks;
-import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.StatusBarFooter;
 
 /**
@@ -29,45 +28,45 @@ public class HelpCommandSystemTest extends AnakinSystemTest {
 
     private final GuiRobot guiRobot = new GuiRobot();
 
-        @Test
-        public void openHelpWindow() {
-            //use accelerator
-            getCommandBox().click();
-            getMainMenu().openHelpWindowUsingAccelerator();
-            assertHelpWindowOpen();
+    @Test
+    public void openHelpWindow() {
+        //use accelerator
+        getCommandBox().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
-            getResultDisplay().click();
-            getMainMenu().openHelpWindowUsingAccelerator();
-            assertHelpWindowOpen();
+        getResultDisplay().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
-            getDeckListPanel().click();
-            getMainMenu().openHelpWindowUsingAccelerator();
-            assertHelpWindowOpen();
+        getDeckListPanel().click();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
-            //use menu button
-            getMainMenu().openHelpWindowUsingMenu();
-            assertHelpWindowOpen();
+        //use menu button
+        getMainMenu().openHelpWindowUsingMenu();
+        assertHelpWindowOpen();
 
-            //use command box
-            executeCommand(HelpCommand.COMMAND_WORD);
-            assertHelpWindowOpen();
+        //use command box
+        executeCommand(HelpCommand.COMMAND_WORD);
+        assertHelpWindowOpen();
 
-            // open help window and give it focus
-            executeCommand(HelpCommand.COMMAND_WORD);
-            getMainWindowHandle().focus();
+        // open help window and give it focus
+        executeCommand(HelpCommand.COMMAND_WORD);
+        getMainWindowHandle().focus();
 
-            // assert that while the help window is open the UI updates correctly for a command execution
-            executeCommand(NewDeckCommand.COMMAND_WORD + " " + TypicalDecks.DECK_A);
-            assertEquals("", getCommandBox().getInput());
-            assertCommandBoxShowsDefaultStyle();
-            assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-            assertDeckListMatching(getDeckListPanel(), getModel().getFilteredDeckList());
+        // assert that while the help window is open the UI updates correctly for a command execution
+        executeCommand(NewDeckCommand.COMMAND_WORD + " " + TypicalDecks.DECK_A);
+        assertEquals("", getCommandBox().getInput());
+        assertCommandBoxShowsDefaultStyle();
+        assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
+        assertDeckListMatching(getDeckListPanel(), getModel().getFilteredDeckList());
 
-            // assert that the status bar too is updated correctly while the help window is open
-            // note: the select command tested above does not update the status bar
-            executeCommand(DeleteDeckCommand.COMMAND_WORD + " " + DECK_A);
-            assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-        }
+        // assert that the status bar too is updated correctly while the help window is open
+        // note: the select command tested above does not update the status bar
+        executeCommand(DeleteDeckCommand.COMMAND_WORD + " " + DECK_A);
+        assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+    }
 
     @Test
     public void help_multipleCommands_onlyOneHelpWindowOpen() {
