@@ -15,6 +15,7 @@ public class GroupdeleteCommand extends Command {
     public static final String COMMAND_WORD = "groupdelete";
     public static final String MESSAGE_NO_GROUP = "The group typed does not exist.";
     public static final String MESSAGE_SUCCESS = "Group %1$s has been deleted";
+    public static final String MESSAGE_USAGE = "please type in the group";
 
     private final Tag toDelete;
 
