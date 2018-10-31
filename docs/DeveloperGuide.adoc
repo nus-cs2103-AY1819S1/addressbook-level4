@@ -249,7 +249,7 @@ image::NewDeck.png[width="790", align="left"]
 
 === Performance Tracking Implementation
 
-==== Proposed Implementation (v1.3)
+==== Proposed Implementation (v1.4)
 
 The user can assign to a card a difficulty after reviewing it in "play" mode. Users can only do this assignment on
 the card they are currently reviewing, as it is the only time it makes sense.
@@ -342,6 +342,32 @@ an event (CardListChangedEvent), which is subscribed by UI, then UI can re-assig
 and update the cards panel accordingly
 ** Pros: Better performance
 ** Cons: Need to re-design Model and UI components
+
+=== Import/Export Implementation
+==== Current implementation (v1.3)
+
+Imports and exports in Anakin are managed by a PortManager.
+
+PortManager will contain a `java.nio Path` that files will be exported to. By default it is the same folder that Anakin is located in.
+Exporting a `Deck` will convert it to an `XmlExportableDeck`
+Upon creation, Model will initialize a PortManager. When an ExportCommand or ImportCommand is executed, it will call the Model's importDeck or exportDeck method.
+
+
+==== Design considerations
+
+* *Alternative 1 (current choice):* Have Model contain a PortManager class to manage imports and export.
+** Explanation: Commands pass arguments to Model, which passes arguments to its PortManager.
+In the case of ExportCommand, the `Deck` to be exported is passed from Command to Model to PortManager.
+PortManager returns a `String` of the export location, which is passed to Model, then passed to the Command for printing. +
+
+** Pros: Better modularity
+** Cons: Have to pass messages through many layers and methods.
+
+* *Alternative 2:* Have Model itself manage imports and exports
+
+** Pros: Less message passing between layers
+** Cons: Worse modularity and Separation of Concerns.
+
 
 === Logging
 
