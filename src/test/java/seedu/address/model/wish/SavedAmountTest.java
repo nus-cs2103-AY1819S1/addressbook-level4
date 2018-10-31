@@ -39,8 +39,8 @@ public class SavedAmountTest {
     }
 
     @Test
-    public void isValidPrice() {
-        // null price value
+    public void isValidSavedAmount() {
+        // null saved amount
         Assert.assertThrows(NullPointerException.class, () -> SavedAmount.isValidSavedAmount(null));
 
         // invalid prices

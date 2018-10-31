@@ -54,8 +54,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Viewing help : `help`
-Displays a popup window showing all the commands a user can use in `WishBook`.
-
+Displays a popup window showing all the commands a user can use in `WishBook`. +
 Format: `help`
 
 === Adding a wish: `add`
@@ -105,8 +104,6 @@ Shows a list of all the wishes you have set, sorted by date by default, based on
 If no filter is specified, all wishes in the WishBook will be listed. +
 Format: `list [FILTER]`
 
-Examples:
-
 * `list` +
 Lists all the wishes in the WishBook.
 
@@ -115,6 +112,11 @@ Lists all the completed wishes in the WishBook.
 
 * `list -u` +
 Lists all the uncompleted wishes in the WishBook.
+
+****
+* Only wishes in the current state of the wishbook will be listed.
+* Deleted wishes will not be displayed.
+****
 
 === Listing history of entered commands : `history -c`
 
@@ -145,7 +147,7 @@ Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 * The user can search using the following search predicates:
     * `NAME`
     * `TAG`
-* `NAME`is the default search predicate.
+* `NAME` is the default search predicate.
 * The search is case insensitive. e.g. watch will match Watch.
 * Only full words will be matched. e.g. wat will not match watch.
 * Wishes matching at least one keyword will be returned. e.g. watch will return apple watch, pebble watch.
@@ -167,7 +169,7 @@ Format: `delete INDEX`
 ****
 * `INDEX` refers to the index number shown in the displayed list.
 * `INDEX` must be a positive integer 1, 2, 3...
-* If the wish at `INDEX` is not yet fulfilled, the saved amount in that wish will be channelled to unusedFunds.
+* If the wish at `INDEX` is not yet fulfilled, the saved amount in that wish will be channelled to `unusedFunds`.
 ****
 
 Examples:
@@ -187,6 +189,7 @@ Format: `select INDEX`
 
 ****
 * Selects the wish and loads the webpage at the `url` specific to that wish at the specified `INDEX`.
+* If there is no internet connection, the webpage will not be loaded.
 * `INDEX` refers to the index number shown in the displayed wish list.
 * `INDEX` *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -204,15 +207,15 @@ Selects the 1st wish in the results of the `find` command.
 // tag::save[]
 === Save money for a particular wish: `save`
 
-Channels savings for a specified wish. +
+Channels a specified amount of money to savings for a specified wish. +
 Format: `save INDEX AMOUNT`
 
 ****
 * `INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes.
-* If `INDEX` is 0, AMOUNT will be channelled directly to unusedFunds.
-* If `AMOUNT` saved to INDEX is greater than the amount needed to fulfil that wish, excess funds will be channelled to unusedFunds.
-* If `AMOUNT` is negative, money will be removed from savings for that wish. +
-* If `AMOUNT` brings the savings value to below 0, `AMOUNT` will not be accepted.
+* If `INDEX` is 0, `AMOUNT` will be channelled directly to `unusedFunds`.
+* If `AMOUNT` saved to `INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
+* If `AMOUNT` is negative, money will be removed from amount saved for that wish. +
+* If `AMOUNT` brings the savings value for that wish to below 0, `AMOUNT` will not be accepted and the `save` command will fail.
 * If wish at `INDEX` is already fulfilled, `AMOUNT` will not accepted.
 ****
 
@@ -225,7 +228,7 @@ Attempt to save $1000 for the wish at index 1.
 Attempt to remove $100.50 from the savings for the wish at index 1.
 
 * `save 0 100.50` +
-Attempt save $100.50 to unusedFunds.
+Attempt save $100.50 to `unusedFunds`.
 
 // end::save[]
 
@@ -236,15 +239,29 @@ Moves funds from one wish to another. +
 Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
 
 ****
+<<<<<<< HEAD
 * `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes.
 * If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from unusedFunds to `TO_WISH_INDEX`.
 * If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to unusedFunds.
 * If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
 * If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to unusedFunds in WishBook.
+=======
+* `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
+* If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from unusedFunds to `TO_WISH_INDEX`.
+* If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to `unusedFunds`.
+* `AMOUNT` from `unusedFunds` will only be successfully channelled if the exact amount requested if present in `unusedFunds`.
+* If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
+* If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
+>>>>>>> 422e70b6daede031bd3cf4d9e0bf85ea9758d5a7
 * If `AMOUNT` is negative, `AMOUNT` will not be accepted. +
 * If `AMOUNT` brings the savings amount of wish at `FROM_WISH_INDEX` to below 0, `AMOUNT` will not be accepted.
 * If wish at `FROM_WISH_INDEX` or `TO_WISH_INDEX` is already fulfilled, `AMOUNT` will not accepted.
 ****
+
+[NOTE]
+====
+Index 0 is a specially allocated for unused funds. Excess funds when user attempts to save to a wish will be automatically allocated to `unusedFunds`. The user can also choose to channel funds from `unusedFunds` to a valid wish.
+====
 
 Examples: +
 
@@ -255,7 +272,7 @@ Attempt to move $10 from the wish at index 1 to the wish at index 2.
 Attempt to move $10 from unusedFunds to the wish at index 1.
 
 * `move 1 0 10` +
-Attempt to move $10 from the wish at index 1 to unusedFunds.
+Attempt to move $10 from the wish at index 1 to `unusedFunds`.
 
 // end::move[]
 
@@ -284,6 +301,10 @@ Removes the remark for the first wish (if any).
 
 Restores WishBook to the state before the previous undoable command was executed. +
 Format: `undo`
+
+****
+* If no undoable commands exist or the state of the wishbook is already in its original state, the undo command will fail and the state of the wishbook will remain unchanged.
+****
 
 [NOTE]
 ====

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
@@ -18,9 +19,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.WishBook;
-import seedu.address.model.wish.NameContainsKeywordsPredicate;
 import seedu.address.model.wish.Remark;
 import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.WishContainsKeywordsPredicate;
 import seedu.address.testutil.EditWishDescriptorBuilder;
 
 /**
@@ -28,6 +29,11 @@ import seedu.address.testutil.EditWishDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_AGE_YEAR = "5y";
+    public static final String VALID_AGE_YEAR_MONTH = "7y2m";
+    public static final String VALID_AGE_ALL_FIELDS = "3y7m2d";
+    public static final String VALID_AGE_YEAR_DAY = "2y3d";
+    public static final String VALID_AGE_DAY = "3d";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_NAME_CHARLES = "Charles the slave";
@@ -69,6 +75,9 @@ public class CommandTestUtil {
     public static final String DATE_DESC_1 = " " + PREFIX_DATE + VALID_DATE_1;
     public static final String DATE_DESC_2 = " " + PREFIX_DATE + VALID_DATE_2;
     public static final String DATE_DESC_3 = " " + PREFIX_DATE + VALID_DATE_CHARLES;
+    public static final String AGE_DESC_1 = " " + PREFIX_AGE + VALID_AGE_ALL_FIELDS;
+    public static final String AGE_DESC_2 = " " + PREFIX_AGE + VALID_AGE_DAY;
+    public static final String AGE_DESC_3 = " " + PREFIX_AGE + VALID_AGE_YEAR_DAY;
     public static final String URL_DESC_AMY = " " + PREFIX_URL + VALID_URL_AMY;
     public static final String URL_DESC_BOB = " " + PREFIX_URL + VALID_URL_BOB;
     public static final String URL_DESC_CHARLES = " " + PREFIX_URL + VALID_URL_CHARLES;
@@ -79,6 +88,7 @@ public class CommandTestUtil {
     public static final String REMARK_DESC_SAMPLE_2 = " " + PREFIX_REMARK + SAMPLE_REMARK_2;
     public static final String REMARK_DESC_EMPTY = " " + PREFIX_REMARK;
 
+    public static final String INVALID_AGE_DESC = " " + PREFIX_AGE + "9d2y"; // days need to come after years
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "9..2"; // two decimal points not allowed
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "15/21/2034"; // 21 is not a valid month
@@ -158,7 +168,8 @@ public class CommandTestUtil {
 
         Wish wish = model.getFilteredSortedWishList().get(targetIndex.getZeroBased());
         final String[] splitName = wish.getName().fullName.split("\\s+");
-        model.updateFilteredWishList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredWishList(new WishContainsKeywordsPredicate(Arrays.asList(splitName[0]), Arrays.asList(),
+                Arrays.asList(), true));
 
         assertEquals(1, model.getFilteredSortedWishList().size());
     }

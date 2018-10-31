@@ -2,10 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Period;
+import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -113,6 +116,7 @@ public class ParserUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
+
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
@@ -124,5 +128,20 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String period} into a {@code Period}.
+     */
+    public static Period parsePeriod(String period) throws ParseException {
+        requireNonNull(period);
+        String trimmedPeriod = period.trim();
+        try {
+            Period.parse("P" + trimmedPeriod);
+        } catch (DateTimeParseException e) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, period));
+        }
+
+        return Period.parse("P" + trimmedPeriod);
     }
 }
