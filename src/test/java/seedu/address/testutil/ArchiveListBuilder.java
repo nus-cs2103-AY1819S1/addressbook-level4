@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.ArchiveList;
 import seedu.address.model.person.Person;
 
@@ -11,25 +10,25 @@ import seedu.address.model.person.Person;
  */
 public class ArchiveListBuilder {
 
-  private ArchiveList archiveList;
+    private ArchiveList archiveList;
 
-  public ArchiveListBuilder() {
-    archiveList = new ArchiveList();
-  }
+    public ArchiveListBuilder() {
+        archiveList = new ArchiveList();
+    }
 
-  public ArchiveListBuilder(ArchiveList archiveList) {
-    this.archiveList = archiveList;
-  }
+    public ArchiveListBuilder(ArchiveList archiveList) {
+        this.archiveList = archiveList;
+    }
 
-  /**
-   * Adds a new {@code Person} to the {@code AddressBook} that we are building.
-   */
-  public ArchiveListBuilder withPerson(Person person) {
-    archiveList.addPerson(person);
-    return this;
-  }
+    /**
+     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     */
+    public ArchiveListBuilder withPerson(Person person) {
+        archiveList.addPerson(person);
+        return this;
+    }
 
-  public ArchiveList build() {
-    return archiveList;
-  }
+    public ArchiveList build() {
+        return archiveList;
+    }
 }

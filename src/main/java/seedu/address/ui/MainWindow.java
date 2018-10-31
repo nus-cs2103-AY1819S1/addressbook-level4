@@ -276,11 +276,11 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        if(event.getNewSelection() == 2) {
+        if (event.getNewSelection() == 2) {
             personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
             personListPanelPlaceholder.getChildren().add(archivedListPanel.getRoot());
         }
-        if(event.getNewSelection() == 1) {
+        if (event.getNewSelection() == 1) {
             personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }

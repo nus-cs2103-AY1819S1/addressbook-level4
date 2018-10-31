@@ -14,107 +14,105 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class ArchiveList implements ReadOnlyArchiveList {
 
-  private final UniquePersonList persons;
+    private final UniquePersonList persons;
 
-  /*
-   * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
-   * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-   *
-   * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-   *   among constructors.
-   */
-  {
-    persons = new UniquePersonList();
-  }
+    /*
+     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
+    {
+        persons = new UniquePersonList();
+    }
 
-  public ArchiveList() {}
+    public ArchiveList() {}
 
-  /**
-   * Creates an AddressBook using the Persons in the {@code toBeCopied}
-   */
-  public ArchiveList(ReadOnlyArchiveList toBeCopied) {
-    this();
-    resetData(toBeCopied);
-  }
+    /**
+    * Creates an AddressBook using the Persons in the {@code toBeCopied}
+    */
+    public ArchiveList(ReadOnlyArchiveList toBeCopied) {
+        this();
+        resetData(toBeCopied);
+    }
 
-  //// list overwrite operations
+    //// list overwrite operations
 
-  /**
-   * Replaces the contents of the person list with {@code persons}.
-   * {@code persons} must not contain duplicate persons.
-   */
-  public void setPersons(List<Person> persons) {
-    this.persons.setPersons(persons);
-  }
+    /**
+    * Replaces the contents of the person list with {@code persons}.
+    * {@code persons} must not contain duplicate persons.
+    */
+    public void setPersons(List<Person> persons) {
+        this.persons.setPersons(persons);
+    }
 
-  /**
-   * Resets the existing data of this {@code AddressBook} with {@code newData}.
-   */
-  public void resetData(ReadOnlyArchiveList newData) {
-    requireNonNull(newData);
+    /**
+    * Resets the existing data of this {@code AddressBook} with {@code newData}.
+    */
+    public void resetData(ReadOnlyArchiveList newData) {
+        requireNonNull(newData);
+        setPersons(newData.getPersonList());
+    }
 
-    setPersons(newData.getPersonList());
-  }
+    //// person-level operations
 
-  //// person-level operations
+    /**
+    * Returns true if a person with the same identity as {@code person} exists in the address book.
+    */
+    public boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return persons.contains(person);
+    }
 
-  /**
-   * Returns true if a person with the same identity as {@code person} exists in the address book.
-   */
-  public boolean hasPerson(Person person) {
-    requireNonNull(person);
-    return persons.contains(person);
-  }
+    /**
+    * Adds a person to the address book.
+    * The person must not already exist in the address book.
+    */
+    public void addPerson(Person p) {
+        persons.add(p);
+    }
 
-  /**
-   * Adds a person to the address book.
-   * The person must not already exist in the address book.
-   */
-  public void addPerson(Person p) {
-    persons.add(p);
-  }
+    /**
+    * Replaces the given person {@code target} in the list with {@code editedPerson}.
+    * {@code target} must exist in the address book.
+    * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+    */
+    public void updatePerson(Person target, Person editedPerson) {
+        requireNonNull(editedPerson);
+        persons.setPerson(target, editedPerson);
+    }
 
-  /**
-   * Replaces the given person {@code target} in the list with {@code editedPerson}.
-   * {@code target} must exist in the address book.
-   * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-   */
-  public void updatePerson(Person target, Person editedPerson) {
-    requireNonNull(editedPerson);
+    /**
+    * Removes {@code key} from this {@code AddressBook}.
+    * {@code key} must exist in the address book.
+    */
+    public void removePerson(Person key) {
+        persons.remove(key);
+    }
 
-    persons.setPerson(target, editedPerson);
-  }
+    //// util methods
 
-  /**
-   * Removes {@code key} from this {@code AddressBook}.
-   * {@code key} must exist in the address book.
-   */
-  public void removePerson(Person key) {
-    persons.remove(key);
-  }
+    @Override
+    public String toString() {
+        return persons.asUnmodifiableObservableList().size() + " persons";
+        // TODO: refine later
+    }
 
-  //// util methods
+    @Override
+    public ObservableList<Person> getPersonList() {
+        return persons.asUnmodifiableObservableList();
+    }
 
-  @Override
-  public String toString() {
-    return persons.asUnmodifiableObservableList().size() + " persons";
-    // TODO: refine later
-  }
-
-  @Override
-  public ObservableList<Person> getPersonList() {
-    return persons.asUnmodifiableObservableList();
-  }
-
-  @Override
-  public boolean equals(Object other) {
-    return other == this // short circuit if same object
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
             || (other instanceof AddressBook // instanceof handles nulls
             && persons.equals(((ArchiveList) other).persons));
-  }
+    }
 
-  @Override
-  public int hashCode() {
-    return persons.hashCode();
-  }
+    @Override
+    public int hashCode() {
+        return persons.hashCode();
+    }
 }

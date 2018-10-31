@@ -25,7 +25,8 @@ public class LoginTest {
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
 
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), TypicalPersons.getTypicalArchiveList(),new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(),
+            TypicalPersons.getTypicalArchiveList(), new UserPrefs());
     private Logic logic = new LogicManager(model);
 
     @Test

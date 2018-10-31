@@ -34,7 +34,7 @@ public class ModifyPermissionCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
         model.setLoggedInUser(User.getAdminUser());
     }
 
@@ -79,7 +79,8 @@ public class ModifyPermissionCommandTest {
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
                 editedFirstPerson.getPermissionSet());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getArchiveList(),new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 
@@ -119,7 +120,8 @@ public class ModifyPermissionCommandTest {
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
                 editedFirstPerson.getPermissionSet());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getArchiveList(),new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 
@@ -160,7 +162,8 @@ public class ModifyPermissionCommandTest {
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
                 editedFirstPerson.getPermissionSet());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getArchiveList(),new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 

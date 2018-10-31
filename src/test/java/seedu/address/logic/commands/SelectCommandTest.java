@@ -33,8 +33,10 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),
+            new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),
+            new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before

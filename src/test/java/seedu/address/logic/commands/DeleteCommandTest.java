@@ -29,7 +29,7 @@ import seedu.address.model.person.User;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -44,7 +44,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), getTypicalArchiveList(),new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), getTypicalArchiveList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         expectedModel.commitAddressBook();
 
@@ -68,7 +68,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveList(),new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         expectedModel.commitAddressBook();
         showNoPerson(expectedModel);
@@ -93,7 +93,7 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveList(),new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveList(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         expectedModel.commitAddressBook();
 
@@ -132,7 +132,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveList(),new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveList(), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());

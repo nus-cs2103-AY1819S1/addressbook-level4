@@ -42,7 +42,6 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ArchiveList;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -71,7 +70,7 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication(this::getInitialData, this::getArchiveData,getDataFileLocation());
+        testApp = setupHelper.setupApplication(this::getInitialData, this::getArchiveData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());

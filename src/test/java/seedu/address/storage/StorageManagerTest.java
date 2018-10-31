@@ -35,7 +35,7 @@ public class StorageManagerTest {
         XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         XmlArchiveListStorage archiveListStorage = new XmlArchiveListStorage(getTempFilePath("aa"));
-        storageManager = new StorageManager(addressBookStorage, archiveListStorage,userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, archiveListStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

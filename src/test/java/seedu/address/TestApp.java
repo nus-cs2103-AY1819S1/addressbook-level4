@@ -43,7 +43,8 @@ public class TestApp extends MainApp {
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Supplier<ReadOnlyArchiveList> initialArchiveSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier,
+                   Supplier<ReadOnlyArchiveList> initialArchiveSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.initialArchiveSupplier = initialArchiveSupplier;
@@ -55,7 +56,8 @@ public class TestApp extends MainApp {
                     this.saveFileLocation);
         }
         if (initialArchiveSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableArchiveList(this.initialArchiveSupplier.get()), this.saveArchiveLocation);
+            createDataFileWithData(new XmlSerializableArchiveList(this.initialArchiveSupplier.get()),
+                    this.saveArchiveLocation);
         }
     }
 
