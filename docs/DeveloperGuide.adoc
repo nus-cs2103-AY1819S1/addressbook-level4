@@ -432,7 +432,7 @@ from the current date till the closest Sunday.
 `listday`/`listweek` mechanism utilises the same implementation used by the
 `list` command:
 
-* `Model#updateFilteredTaskList()` takes in a predicate parameter and updates the model
+* `Model#updateFilteredTaskList()` -- Takes in a predicate parameter and updates the model
 according to the predicate.
 
 `listday`/`listweek` uses `DateSamePredicate`/`DateWeekSamePredicate` as the predicate respectively for
@@ -451,8 +451,9 @@ Given below is an example usage scenario and how `listweek` mechanism behaves at
 
 Step 1. The user entered the command `listweek`.
 
-Step 2. `ListWeekCommand#appendDateList(datelist, numDaysTillSunday(dateName))` will generate the `dateList` in
-`ddmmyy` format after retrieving the result from `numDaysTillSunday()` method.
+Step 2. `ListWeekCommand#appendDateList(datelist, numDaysTillSunday(dateName))` will generate the `dateList`, which
+is a `list` of dates in `ddmmyy` format after retrieving the result from `numDaysTillSunday()` method.
+`numDaysTillSunday()` method itself will compute the number of days from current date till Sunday based on `dateName`.
 
 Step 3. `model.updateFilteredTaskList()` will update the task list with `DateWeekSamePredicate`
 as the parameter. `DateWeekSamePredicate` itself would take `dateList` in Step 2 as the paramter.
@@ -461,6 +462,7 @@ Step 4. The updated task list would be reflected on the UI to be displayed to th
 
 The following sequence diagram illustrates how the mechanism works:
 
+.Sequence Diagram of ListWeek Command
 image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 
 ==== Design Considerations
@@ -471,6 +473,7 @@ image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 ** Pros: It is easy to implement and use.
 ** Cons: It restrict to view all tasks from current date or from current date till Sunday only.
 * **Alternative 2:** Allow the commands to receive argument for which date(s) to filter.
+E.g listday 130818 to view all tasks for 13 August 2018.
 ** Pros: It allows viewing for different date(s).
 ** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
 // end::viewarangeoftasks[]
@@ -478,11 +481,12 @@ image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 // tag::generateacademiccalendar[]
 === Generate academic calendar weeks
 
-In order to enable users to better monitor their tasks in the schedule planner, we added `firstday` command.
+In order to enable users to better monitor their tasks in the schedule planner by knowing what is the current
+academic week, we added `firstday` command.
 
 The `firstday` command will generate the weeks according to the NUS academic calendar, and will append the week
-number to the application title  whenever the user launches the application to allow user to know the current
-academic week.
+number to the application title if the user launches the application within the academic calendar dates.
+This allows the user to know the current academic week.
 
 ==== Current Implementation
 
@@ -491,19 +495,24 @@ academic week.
 * `FirstDayCommand#isWithinDateRange(firstDayOfSem, lastDayOfSem)` -- Check if current system date is within the
 `firstDayOfSem` and `lastDayOfSem` and return true or false.
 
-* `FirstDayCommand#retrieveWeekDescription(rangeOfWeek)` -- Return the description of a particular week
+* `FirstDayCommand#retrieveWeekDescription(rangeOfWeek)` -- It return the description of a particular week
 
-* `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` -- Save the academic calendar weeks data into `rangeOfWeek.xml`
+* `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` -- It save the academic calendar weeks data into `rangeofweek.xml`
 
-* `FirstDayCommand#retrieveRangeOfWeeks(storeRangeOfWeeks)` -- Retrieved the saved academic calendar weeks data from
-`rangeOfWeek.xml`
+* `FirstDayCommand#retrieveRangeOfWeeks(storeRangeOfWeeks)` -- It retrieves the saved academic calendar weeks data from
+`rangeofweek.xml`
 
-* `FirstDayCommand#computeRangeOfWeek(firstDay)` -- Generate the academic calendar weeks data based on the `firstDay`
+* `FirstDayCommand#computeRangeOfWeek(firstDay)` -- It generate the academic calendar weeks data based on the `firstDay`
  parameter.
 
-* `FirstDayCommand#addDescription` -- Append description for each academic calendar weeks.
+* `FirstDayCommand#addDescription` -- It appends description for each academic calendar weeks.
 
-* `FirstDayCommand#isMonday(inputDate)` -- Check if inputDate is Monday and return true or false.
+* `FirstDayCommand#isMonday(inputDate)` -- It checks if inputDate is Monday and return true or false.
+
+* `FirstDayCommand#computeAppTitle()` -- It computes the corresponding application title after checking if current
+system date is within academic calendar dates.
+
+* `FirstDayCommand#createDefaultFileIfNotExist()` -- It creates the default `rangeofweek.xml` if it does not exist.
 
 Given below is an example usage scenario and how `firstday` mechanism behaves at each step:
 
@@ -512,8 +521,9 @@ Step 1. The user enter the command `firstday 130818`
 Step 2. `FirstDayCommandParser` will be activated as the command word `firstday` is used. It will then trimmed the
 remaining argument into `trimmedArgs`.
 
-Step 3. Methods `onlyOneSetArgument`, `Date.isValidDate` and `isMonday` are to be used to check if `trimmedArgs` is
-valid.
+Step 3. Methods `onlyOneSetArgument(trimmedArgs)`, `Date.isValidDate(trimmedArgs)` and `isMonday(trimmedArgs)` are used
+ in sequence to check if
+`trimmedArgs` is valid.
 
 [NOTE]
 If either method in Step 3 failed, `ParseException` with respective message will be thrown to inform user what had
@@ -540,13 +550,19 @@ weeks, the `UI` would display the corresponding week description to the user.
 
 image::FirstDayCommand_UG_Bef.png[width="600"]
 
-Step 9. When user launch the application, `MainApp` will check if `rangeOfWeek.xml` exists. Should it be the first
-time user launch the application or if user deleted the file, it will create a default file that would not affect the
- user experiences.
+Step 9. When user launch the application,`MainApp` will create a `FirstDayCommand` object named `fdc` to utilise the
+method `FirstDayCommand#createDefaultFileIfNotExist`. The purpose is to check if `rangeOfWeek.xml` exists. Should it be the
+first time user launch the application or if user deleted the file, it will create a default file that would not
+affect the user experiences.
 
-If the file exist, `FirstDayCommand#retrieveRangeOfWeeks` will be called to retrieve the academic
- calendar weeks data from `rangeOfWeek.xml`. `FirstDayCommand#isWithinDateRange` would then be called to check if
- current system date lies within the academic calendar weeks and update the application title correspondly if necessary.
+Step 10. `MainApp` will create a `Config` object named as `updateConfig` and then calls the method `updateConfig.setAppTitle(fdc.computeAppTitle())`. `fdc.computeAppTitle()` would generate the corresponding application title by
+checking the current system date and the saved academic calendar weeks data. It would then return the result into
+`updateConfig.setAppTitle()` to update the application title.
+
+`MainApp` then calls `ConfigUtil#saveConfig(updateConfig, configFilePathUsed)` to save the updated configuration into
+ the path where `config.json` is.
+
+Step 11. `MainApp` would then retrieve the application title from `config.json` and display on the `UI`.
 
 image::FirstDayCommand_UG_Aft.png[width="400"]
 
@@ -556,8 +572,10 @@ not exist.
 
 The following sequence diagram illustrates how the mechanism works:
 
+.Sequence diagram of FirstDay Command
 image::FirstDayCommand_DG_SequenceDiagram.png[width="800"]
 
+.Sequence diagram of launching MainApp
 image::LaunchMainApp_DG_SequenceDiagram.png[width="800"]
 
 
