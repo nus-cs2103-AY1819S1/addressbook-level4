@@ -18,37 +18,57 @@ Double-click the file to start the app. The GUI should appear in a few seconds.
 **Adding words**
 
 A command for adding words to LearnVocabulary
+
 Command syntax: add [word]
-Format: add [word] [word] [word]
+
+Format: add n/[name] m/[meaning] t/[tag]
 
 **Learning words**
 
 A command for learning words to LearnVocabulary, pulled from online.
+
 Command syntax: learn [word]
-Format: add [word]
+
+Format: learn [word]
 
 *Showing words*
 
 Shows and displays the words from LearnVocabulary
+
 Command syntax: show [word]
-Format: show [word] [word] [word]
+
+Format: show [word]
+
+*Selecting words*
+
+Selects and displays word in browser based on index of the vocabulary list.
+
+Command syntax: select [index]
+
+Format: select [index]
 
 *Finding words*
 
 Searches for a specific word from LearnVocabulary
+
 Command syntax: find [word]
+
 Format: find [word] [word] [word]
 
 *List out all the words*
 
 Displays the list of saved words by the user
+
 Command syntax: list
+
 Format: list
 
 *Delete words*
 
 Deletes a word indexed by the previously display list using the list feature
+
 Command syntax: delete [index]
+
 Format: delete 3
 
 *Trivia game*
@@ -57,12 +77,20 @@ Starts trivia mode.
 Presents 10 questions from the user's vocabulary list.
 
 Command syntax: trivia
+
 Format: trivia
 
 *Trivia Answer*
+
 Used to answer questions presented in trivia mode. No command syntax is needed.
 
 Format: [word]
+
+*Other trivia functions*
+
+In trivia mode, commands that user can input are triviaExit and triviaShow. triviaExit exits trivia mode while triviaShow shows the current trivia question.
+
+Command syntax: triviaExit/triviaShow
 
 *Word of The Day*
 
@@ -75,25 +103,33 @@ Format: word
 *Clears all words from the vocabulary list*
 
 Clears all of the words on LearnVocabulary.
+
 Command syntax: clear
+
 Format: clear
 
 *Help view*
 
 Displays all commands and descriptions for them
+
 Command syntax: help
-Format: help
+
+ormat: help
 
 *Exit application*
 
 Exits the application
+
 Command syntax: exit
+
 Format: exit
 
 *Group words*
 
 Group words accordingly
+
 Command syntax: group [word] [group]
+
 Format: group [word] [group]
 
 == FAQ
@@ -113,6 +149,8 @@ Clear: clear
 Learn: learn [word]
 
 Show: show [word]
+
+Select: select [index]
 
 Trivia: trivia
 
