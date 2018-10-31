@@ -14,7 +14,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
-
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
@@ -49,7 +48,7 @@ public class NextCommandTest {
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code UpdateFilmReelEvent}
      * is raised with the correct index.
      */
     private void assertExecutionSuccess() {
