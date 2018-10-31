@@ -56,7 +56,7 @@ public class Playlist {
      */
     public void addTrack(Track track) {
         if (track == null) {
-            throw new NullPointerException("track must not be null");
+            throw new NullPointerException("Track must not be null");
         }
         tracks.add(track);
     }
@@ -103,8 +103,12 @@ public class Playlist {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Tracks: ");
-        tracks.forEach(builder::append);
+                .append('\n')
+                .append("Tracks: \n");
+        tracks.forEach(t -> {
+            builder.append(t)
+                    .append('\n');
+        });
         return builder.toString();
     }
 
