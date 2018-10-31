@@ -52,6 +52,17 @@ public class ArgumentMultimap {
     }
 
     /**
+     * returns true if list corresponding to prefix has size of 1 or 0.
+     */
+    public boolean hasDuplicatePrefix(Prefix prefix) {
+        boolean result = false;
+        if (argMultimap.get(prefix).size() > 1) {
+            result = true;
+        }
+        return result;
+    }
+
+    /**
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {

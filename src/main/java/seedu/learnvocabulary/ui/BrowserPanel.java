@@ -43,7 +43,7 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadWordPage(Word word) {
         String searchPage = SEARCH_PAGE_URL;
         loadPage(searchPage + "?name=" + word.getName().fullName
-                + "&meaning=" + word.getMeaning().fullMeaning);
+                + "&meaning=" + word.getMeaning().fullMeaning.replaceAll("%", "%25"));
     }
 
     public void loadPage(String url) {
