@@ -187,29 +187,6 @@ Usage(s):
 * `filter f/ SUN 7.30AM 5.30PM n/ ct/ SURFACE`
 * `fi ct/ BASEMENT`
 
-[[Features-Sort]]
-=== Sorting car parks : `sort` `[coming in v2.0]`
-
-Sort the list of car parks by distance or name. +
-Format: `sort FILTER_TYPE` or `so FILTER_TYPE`
-
-[NOTE]
-====
-Must have car parks listed beforehand.
-====
-
-Flags:
-
-* `DISTANCE`
-* `NAME`
-* `FP (Free Parking)`
-* `NP (Night Parking)`
-
-Usage(s):
-
-* `sort DISTANCE`
-* `so NAME`
-
 [[Features-List]]
 === Listing all car parks : `list`
 
@@ -224,28 +201,6 @@ After executing `list`, it will show all the car parks again.
 Usage(s)
 
 * `list`
-
-[[Features-Add]]
-=== Adding to favorites list : `add` `[coming in v2.0]`
-
-Add a car park into your favorites list. This does not affect the main list. +
-Format: `add c/CARPARK_NUMBER` or `a c/CARPARK_NUMBER`
-
-Usage(s):
-
-* `add c/SE12`
-* `a c/SE12`
-
-[[Features-Delete]]
-=== Removing from favorites list : `delete` `[coming in v2.0]`
-
-Remove the specified car park from your favorites list. This does not affect the main list. +
-Format: `delete c/CARPARK_NUMBER` or `d c/CARPARK_NUMBER`
-
-Usage(s):
-
-* `delete c/SE12`
-* `d c/SE12`
 
 [[Features-Query]]
 === Querying data: `query`
@@ -319,18 +274,6 @@ Usage(s):
 * `notify 60`
 * `n 60`
 
-[[Features-Weather]]
-=== Updating Weather : `weather` `[coming in v2.0]`
-
-Include weather updates in the notifications by indicating on or off. +
-Format: `weather TOGGLE`
-
-Usage(s):
-
-* `weather on`
-
-* `weather off`
-
 [[Features-Clear]]
 === Clearing all entries : `clear`
 
@@ -368,6 +311,63 @@ Only available in the following commands:
 * <<Features-Filter,*`filter`*>>
 * <<Features-Sort,*`sort`*>>
 
+[[Features-Add]]
+=== Adding to favorites list : `add` `[coming in v2.0]`
+
+Add a car park into your favorites list. This does not affect the main list. +
+Format: `add c/CARPARK_NUMBER` or `a c/CARPARK_NUMBER`
+
+Usage(s):
+
+* `add c/SE12`
+* `a c/SE12`
+
+[[Features-Delete]]
+=== Removing from favorites list : `delete` `[coming in v2.0]`
+
+Remove the specified car park from your favorites list. This does not affect the main list. +
+Format: `delete c/CARPARK_NUMBER` or `d c/CARPARK_NUMBER`
+
+Usage(s):
+
+* `delete c/SE12`
+* `d c/SE12`
+
+[[Features-Sort]]
+=== Sorting car parks : `sort` `[coming in v2.0]`
+
+Sort the list of car parks by distance or name. +
+Format: `sort FILTER_TYPE` or `so FILTER_TYPE`
+
+[NOTE]
+====
+Must have car parks listed beforehand.
+====
+
+Flags:
+
+* `DISTANCE`
+* `NAME`
+* `FP (Free Parking)`
+* `NP (Night Parking)`
+
+Usage(s):
+
+* `sort DISTANCE`
+* `so NAME`
+
+[[Features-Weather]]
+=== Updating Weather : `weather` `[coming in v2.0]`
+
+Include weather updates in the notifications by indicating on or off. +
+Format: `weather TOGGLE`
+
+Usage(s):
+
+* `weather on`
+
+* `weather off`
+
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
@@ -380,15 +380,29 @@ Only available in the following commands:
 
 Here are a few technical terms used in the user guide.
 
-.General Commands
+.Technical Terms
 [cols="1,6"]
 |===
 |Term |Explanation
 
+|*Application Programming Interface (API)*
+|Specifies the interface through which other programs can interact with a software component. It is a contract between the component and its clients.
+
+|*Autocomplete*
+|Provides suggestions while you type into the field.
+
+|*Mainstream Operating System (OS)*
+|Windows, Linux, Unix and OS-X are operating systems used widely in the world.
+
+|*Favourites*
+|A custom list of car parks that is meant to be viewed easily.
+
 |*Flag*
 |Flag is a value that acts as a signal for a function.
-|===
 
+|*User Interface (UI)*
+|Allows the user to interact with the application through inputs and outputs of data.
+|===
 
 == Command Summary
 Here are the summarize list of commands available to the user.
