@@ -339,8 +339,6 @@ image::undoRedoActivityDiagram.png[width="800"]
 
 === Transmission feature
 ==== Current Implementation
-(the diagram will be upload soon)
-
 
 The transmission mechanism is facilitated by ImageMagic execute file.
 It is an execute file which can be use to do the processing to the target image with the specified command given. There is a imageMaigc Util which will check the existence of the package, Additional, there is a demo given in the example command, which is able to do the blur, resize, and contrast on the target image.

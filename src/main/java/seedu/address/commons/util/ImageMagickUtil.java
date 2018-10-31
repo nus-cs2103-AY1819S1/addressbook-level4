@@ -154,7 +154,7 @@ public class ImageMagickUtil {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform() == MAC) {
             Map<String, String> mp = pb.environment();
-            mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "ImageMagick-7.0.8/lib/");
+            mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "/ImageMagick-7.0.8/lib/");
         }
         Process process = pb.start();
         process.waitFor();
@@ -193,6 +193,7 @@ public class ImageMagickUtil {
 
     /**
      * copy the imageMagick outside of the jarfile in order to call it.
+     * @author lancelotwillow
      * @param userPrefs
      * @throws IOException
      * @throws InterruptedException
