@@ -57,7 +57,7 @@ public class StringUtil {
         String preppedWord = word.trim();
         String commaWord = preppedWord + ",";
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(!commaWord.equals(","), "Word parameter cannot be empty");
+        checkArgument(!",".equals(commaWord), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
         checkArgument(commaWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
