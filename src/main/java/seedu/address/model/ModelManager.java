@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -181,50 +180,6 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         filteredExpenses.setPredicate(predicate);
-    }
-
-    //@@author Snookerballs
-    //=========== Category HashSet ==========================================================================
-
-    public void addExpensesOfCategories(String name, double expenseToAdd) {
-        //TODO: Implement when categories is completed
-        /*requireNonNull(categories);
-        double newExpense = expenseToAdd;
-
-        if (categories.containsKey(name)) {
-            newExpense += categories.get(name);
-        }
-        categories.put(name, newExpense);*/
-    }
-
-    public void removeExpensesOfCategories(String name, double expenseToAdd) {
-        // TODO: Implement Once Categories is done
-        /*requireNonNull(categories);
-        double newExpense = expenseToAdd;
-
-        if (categories.containsKey(name)) {
-            newExpense -= categories.get(name);
-        }
-
-        if (newExpense == 0) {
-            categories.remove(name);
-        } else {
-            categories.put(name, newExpense);
-        }*/
-    }
-
-    /**
-     * temp
-     * @return
-     */
-    public HashMap<String, Double> initializeCategories() {
-        // TODO: Implement Once Categories is done
-        /*HashMap<String, Double> newMap = new HashMap<>();
-        for (String name : Category.INITIAL_CATEGORIES) {
-            newMap.put(name, 0.0);
-        }
-        return newMap;*/
-        return new HashMap<String, Double>();
     }
 
     //@@author Snookerballs
@@ -490,7 +445,6 @@ public class ModelManager extends ComponentManager implements Model {
             indicateUserLoggedIn();
             indicateExpenseTrackerChanged();
             checkBudgetRestart();
-            System.out.println("CALL");
             addTipNotification();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException(nuse.getMessage());

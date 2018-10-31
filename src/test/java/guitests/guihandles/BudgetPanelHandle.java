@@ -34,7 +34,7 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
 
         budgetBar = getChildNode(BUDGET_BAR_ID);
         percentageDisplay = getChildNode(PERCENTAGE_DISPLAY_ID);
-        expenseDisplay =(Text) percentageDisplay.getChildren().get(EXPENSE_DISPLAY_INDEX);
+        expenseDisplay = (Text) percentageDisplay.getChildren().get(EXPENSE_DISPLAY_INDEX);
         budgetDisplay = (Text) percentageDisplay.getChildren().get(BUDGET_DISPLAY_INDEX);
     }
 

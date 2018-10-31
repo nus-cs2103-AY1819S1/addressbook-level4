@@ -57,7 +57,7 @@ public class NotificationCard extends UiPart<Region> {
 
 
     private void setImage(NotificationType type) {
-        if(type.equals(NotificationType.TIP)) {
+        if (type.equals(NotificationType.TIP)) {
             Image image = new Image(TIP_IMAGE_LOCATION);
             notificationImage.setImage(image);
         } else {

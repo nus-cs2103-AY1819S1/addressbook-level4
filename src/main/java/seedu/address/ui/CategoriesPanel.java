@@ -3,11 +3,7 @@ package seedu.address.ui;
 import java.util.Iterator;
 import java.util.Map;
 
-/*import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;*/
 import javafx.scene.layout.Region;
-
-import com.sun.xml.bind.v2.TODO;
 
 //@@author snookerballs
 /**
@@ -39,17 +35,17 @@ public class CategoriesPanel extends UiPart<Region> {
     public CategoriesPanel(Iterator<Map.Entry<String, Double>> categories) {
         // TODO: Reimplement Categories panel
         super(FXML);
-       /* currentColumn = 0;
+        /* currentColumn = 0;
         currentRow = 0;
         categories.forEachRemaining(entry -> updateCategories(entry.getKey()));*/
     }
 
     /**
-     * Update the list of categories being displayed
-     * @param name of category to update
-     */
-     public void updateCategories(String name) {
-    //TODO: Reimplement Categories panel
+    * Update the list of categories being displayed
+    * @param name of category to update
+    */
+    public void updateCategories(String name) {
+        //TODO: Reimplement Categories panel
         /*if (currentColumn / MAX_COL > 1) {
             currentColumn = 0;
             currentRow++;

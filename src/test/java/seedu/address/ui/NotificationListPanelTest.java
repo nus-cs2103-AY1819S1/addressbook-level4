@@ -44,7 +44,7 @@ public class NotificationListPanelTest extends GuiUnitTest {
             notificationListPanelHandle.navigateToCard(TYPICAL_NOTIFICATIONS.get(i));
             Notification expectedNotification = TYPICAL_NOTIFICATIONS.get(i);
             NotificationCardHandle actualCard = notificationListPanelHandle.getNotificationCardHandle(
-                    TYPICAL_NOTIFICATIONS.size()-1 - i);
+                    TYPICAL_NOTIFICATIONS.size() - 1 - i);
 
             assertCardDisplaysNotification(expectedNotification, actualCard);
         }

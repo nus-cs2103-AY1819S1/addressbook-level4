@@ -485,29 +485,24 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 
 Toggles the ability of `Expense Tracker` to send notifications.
 
-There are three notification types to toggle: `warning` and `tip`, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
+There are three notification types to toggle: Warning` and Tip, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
 To toggle both, omit `NOTIFICATION_TYPE`.
 
-There are two toggle options, `on` and `off`.
-
-
-The available options for `PERIOD` are `d` and `m`, which represents day and month respectively. E.g. if `PERIOD_AMOUNT` is 7
-and `MODE` is `d`, the statistics will include data from the past 7 days.
-
+There are two toggle options, `on` and `off`, which can be indication by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter. `TOGGLE_OPTION` is required.
 
 Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
 
 ****
 *Examples:*
 
-* `stats n/14 p/d m/t` +
-Shows the expense statistics for the past 14 days as a bar chart showing expenses for each day +
+* `notification n/warning t/off` +
+Disables the sending Warning type notifications. +
 
-* `stats n/3 p/m m/t` +
-Shows the expense statistics for the past 3 months as a bar chart showing expenses for each month +
+* `notification n/tip t/off` +
+Enables the sending of Tip type notifications. +
 
-* `stats n/3 p/m m/c` +
-Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
+* `notification t/off` +
+Disables the sending of both types of notifications. +
 ****
 
 [NOTE]

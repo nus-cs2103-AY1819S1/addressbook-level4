@@ -44,6 +44,10 @@ public class NotificationHandler implements Iterable<Notification> {
         this.internalList = FXCollections.observableArrayList(internalList);
     }
 
+    /**
+     * Set the {@code internalList} based on {@code Notifications}
+     * @param notifications
+     */
     public void setNotifications(ObservableList<Notification> notifications) {
         requireNonNull(notifications);
         ArrayList<Notification> list = new ArrayList<>();
@@ -131,6 +135,12 @@ public class NotificationHandler implements Iterable<Notification> {
         return internalList;
     }
 
+    /**
+     * Modifies the fields while leaving the list intact
+     * @param date to set
+     * @param isTipEnabled to set
+     * @param isWarningEnabled to set
+     */
     public void modifyNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
         this.lastTipSentOn = date;
         this.isTipEnabled = isTipEnabled;
@@ -155,8 +165,6 @@ public class NotificationHandler implements Iterable<Notification> {
         }
 
         NotificationHandler handler = (NotificationHandler) obj;
-        System.out.println(handler.lastTipSentOn);
-        System.out.println(lastTipSentOn);
 
         return this.isWarningEnabled == handler.isWarningEnabled
                 && this.isTipEnabled == handler.isTipEnabled
