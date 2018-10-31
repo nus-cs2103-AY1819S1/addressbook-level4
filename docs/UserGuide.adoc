@@ -118,6 +118,8 @@ Trivia: trivia
 
 Answer: answer [word]
 
+Word Of The Day: word
+
 Help: help
 
 Exit: exit
