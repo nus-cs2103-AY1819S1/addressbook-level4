@@ -1,127 +1,256 @@
-= User Guide
+= LearnVocabulary - User Guide
 :site-section: UserGuide
-:relfileprefix: team/
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/CS2103-AY1819S1-T10-3/main
 
 == Introduction
 
-LearnV is for those who prefer to use an offline version of the dictionary for learning purposes. More importantly, LearnV is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, LearnV can fetch the words faster than searching it on the website. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+LearnVocabulary is for those who prefer to use an offline version of the dictionary for learning purposes. More importantly,
+LearnVocabulary is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, LearnVocabulary can fetch the words faster than searching it on the website. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
-Ensure you have Java version 9 or later installed in your Computer.
-Download the latest dictionary.jar here.
-Copy the file to the folder you want to use as the home folder for LearnV
-Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Ensure you have Java version 9 or later installed in your Computer.
+.  Download the latest dictionary.jar link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for LearnVocabulary
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Type the command in command box and press kbd:[Enter] to execute the command.
+E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 
+.  Refer to <<Features>> for details of each command.
+
+[Features]]
 == Features
-**Adding words**
 
-A command for adding words to LearnVocabulary
-Command syntax: add [word]
-Format: add [word] [word] [word]
+====
+*Command Format*
 
-**Learning words**
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/levitate`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/levitate t/Easy` or as `n/levitate`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Easy`, `t/Ability t/Testing` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME m/MEANING`, `m/MEANING n/NAME` is also acceptable.
+====
 
-A command for learning words to LearnVocabulary, pulled from online.
-Command syntax: learn [word]
-Format: add [word]
+=== Viewing help : `help`
 
-*Showing words*
+Format: `help`
 
-Shows and displays the words from LearnVocabulary
-Command syntax: show [word]
-Format: show [word] [word] [word]
+=== Adding a word: `add`
 
-*Finding words*
+Adds a word to the vocabulary list +
+Format: `add n/NAME m\MEANING [t/TAG]...`
 
-Searches for a specific word from LearnVocabulary
-Command syntax: find [word]
-Format: find [word] [word] [word]
+[TIP]
+A word can have any number of tags provided the groups of the tags are already created. Words that are added without tags will be added to the toLearn group by default
 
-*List out all the words*
 
-Displays the list of saved words by the user
-Command syntax: list
-Format: list
+Examples:
 
-*Delete words*
+* `add n/levitate m/to float or fly t/Test`
 
-Deletes a word indexed by the previously display list using the list feature
-Command syntax: delete [index]
-Format: delete 3
+=== Learning a word: `learn`
 
-*Trivia game*
+Adds a word obtained from an online dictionary to the vocabulary list
+Format `learn WORD`
 
-Starts trivia mode.
-Presents 10 questions from the user's vocabulary list.
+Examples:
 
-Command syntax: trivia
-Format: trivia
+* `learn ghosting`
 
-*Trivia Answer*
-Used to answer questions presented in trivia mode. No command syntax is needed.
+=== Listing all word : `list`
 
-Format: [word]
+Shows a list of all words in the address book. +
+Format: `list`
 
-*Word of The Day*
+=== Editing a word : `edit`
 
-Displays the word of the day and its meaning from Dictionary.com. Requires a working internet connection.
+Edits an existing word in the vocabulary list. +
+Format: `edit INDEX [n/NAME] [m/MEANING] [t/TAG]...`
 
-Command syntax: word
+****
+* Edits the word at the specified `INDEX`. The index refers to the index number shown in the displayed vocabulary list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the word will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
 
-Format: word
+Examples:
 
-*Clears all words from the vocabulary list*
+* `edit 1 m/diabolic magic or art` +
+Edits the meaning of the first word to `diabloic magic or art`.
 
-Clears all of the words on LearnVocabulary.
-Command syntax: clear
-Format: clear
+=== Locating word by name: `find`
 
-*Help view*
+Finds words whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-Displays all commands and descriptions for them
-Command syntax: help
-Format: help
+****
+* The search is case insensitive. e.g `levitate` will match `Levitate`
+* The order of the keywords does not matter.
+* Only the name is searched.
+* Only full words will be matched e.g. `levi` will not match `levitate`
+* Persons matching at least one keyword will be returned.
+****
 
-*Exit application*
+Examples:
 
-Exits the application
-Command syntax: exit
-Format: exit
+* `find levitate` +
+Returns `levitate`
 
-*Group words*
+=== Deleting a word : `delete`
 
-Group words accordingly
-Command syntax: group [word] [group]
-Format: group [word] [group]
+Deletes the specified word from the vocabulary list. +
+Format: `delete INDEX`
 
-== FAQ
+****
+* Deletes the word at the specified `INDEX`.
+* The index refers to the index number shown in the displayed vocabulary list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
 
-*Command Summary*
+Examples:
 
-Add: add [word]
+* `list` +
+`delete 2` +
+Deletes the 2nd word in the vocabulary list.
+* `find levitate` +
+`delete 1` +
+Deletes the 1st word in the results of the `find` command.
 
-Find: find [word]
+=== Selecting a word : `select`
 
-List: list
+Selects the word identified by the index number used in the displayed vocabulary list. +
+Format: `select INDEX`
 
-Delete: delete [index]
+****
+* Selects the person and loads a page displaying the word and its meaning at the specified `INDEX`.
+* The index refers to the index number shown in the displayed vocabulary list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
 
-Clear: clear
+Examples:
 
-Learn: learn [word]
+* `list` +
+`select 2` +
+Selects the 2nd word in the vocabulary list.
+* `find computing` +
+`select 1` +
+Selects the 1st word in the results of the `find` command.
 
-Show: show [word]
+=== Showing a word : `show`
+Shows the word identified by the word itself.
+Format `show WORD`
 
-Trivia: trivia
+****
+* Finds the word and shows its name, meaning and tags in the command box.
+****
 
-Answer: answer [word]
+Examples:
 
-Word Of The Day: word
+* `show levitate`
+Outputs the `meaning` and `name` of levitate in the command box
 
-Help: help
+=== Trivia game: `trivia`
+A trivia game mode where it outputs meaning of words stored in vocabulary list and prompts the user to input its name.
+`trivia` will output at most 10 questions depending on the size of the user's vocabulary list.
 
-Exit: exit
+Format `trivia`
 
-Group: group [word] [group]
+To answer the trivia question, simply input the answer in the command box.
+
+Format `WORD`
+
+==== Other commands in `trivia`
+Show the current trivia question.
+
+Format `triviaShow`
+
+Exits trivia game.
+
+Format `triviaExit`
+
+[NOTE] The above commands can only be used when in `trivia`
+
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+// tag::undoredo[]
+=== Undoing previous command : `undo`
+
+Restores the address book to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+
+
