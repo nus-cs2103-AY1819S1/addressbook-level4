@@ -439,7 +439,37 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App title, logging level) through the configuration file (default: `config.json`).
 
+=== Calendar Display
+
+==== Current Implementation
+
+The Calendar Display is implemented using the *Agenda*, a rich Control under *jfxtras*. *Agenda* accepts the Calendar Events of the user and displays them in the chronological format.
+
+As the calendar is intended to be a visual representation of the calendar events, any changes to the calendar events should be done through the command line interface. Hence, some of the built-in features that *Agenda* has to add, edit and delete events have been disabled.
+
+The Calendar display listens to the list of calendar events. When the list is changed, the calendar display will update itself accordingly.
+
+==== Features
+
+The user can:
+
+1. Double click on displayed events to open a dialog box containing the details of the event.
+
+2. Jump to the time period containing an event by selecting the event in the list of calendar events.
+
 === Calendar Navigation Feature
+==== Current Implementation
+
+The user can navigate the calendar display using the `arrow keys` and `T` key.
+
+1. The user can toggle between weekly view and daily view using `T` key.
+
+2. The user can view the next / previous day or week using `left` and `right` arrows keys.
+
+3. The user can scroll up and down using `up` and `down` arrow keys, or using the mouse scroll wheel.
+
+While not a CLI feature, it is fast and easy to navigate around the calendar.
+
 ==== Planned Implementation
 
 The navigation mechanism will be facilitated by `ModelManager#updateFilteredCalendarEventList`.
