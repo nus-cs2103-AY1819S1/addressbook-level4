@@ -18,5 +18,5 @@ public class JumpToListRequestEvent extends BaseEvent {
     public String toString() {
         return getClass().getSimpleName();
     }
-    
+
 }
