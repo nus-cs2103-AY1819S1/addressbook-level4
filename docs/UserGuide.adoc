@@ -16,7 +16,7 @@ endif::[]
 
 == Introduction
 
-LearnVocabulary is for those who prefer to use an offline version of the dictionary for learning purposes. More importantly,
+LearnVocabulary is for those whmultilingual modefer to use an offline version of the dictionary for learning purposes. More importantly,
 LearnVocabulary is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, LearnVocabulary can fetch the words faster than searching it on the website. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
@@ -28,6 +28,12 @@ LearnVocabulary is optimized for those who prefer to work with a Command Line In
 E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
+
+== Future features till v2.0
+.  Support multilingual mode.
+.  Allow group merge and group divide.
+.  Achieve the functionality of auto-delete after a word has been well remembered by the uesr.
+
 
 [Features]]
 == Features
