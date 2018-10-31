@@ -35,32 +35,36 @@ public class ChangeTimeCommand extends Command {
     public ChangeTimeCommand (String args) {
         String[] stringCommand = args.trim().split(" ");
         this.nameA = stringCommand[0];
-        this.nameB = stringCommand[1];
-        this.numA = Integer.parseInt(stringCommand[2]);
+        this.numA = Integer.parseInt(stringCommand[1]);
+        this.nameB = stringCommand[2];
         this.numB = Integer.parseInt(stringCommand[3]);
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-
-
         ArrayList<String> pplList = new ArrayList<>();
         pplList.add(nameA);
-        pplList.add(nameB);
-
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList));
-
+        if (model.getFilteredPersonList().isEmpty()) {
+            return new CommandResult("Cannot find the student, please enter valid name");
+        }
         Person targetPersonA = model.getFilteredPersonList().get(0);
-        Person targetPersonB = model.getFilteredPersonList().get(1);
+        ArrayList<String> pplList2 = new ArrayList<>();
+        pplList2.add(nameB);
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList2));
+        if (model.getFilteredPersonList().isEmpty()) {
+            return new CommandResult("Cannot find the student, please enter valid name");
+        }
+        Person targetPersonB = model.getFilteredPersonList().get(0);
 
         // Execute the display of student's grades here
         requireNonNull(model);
 
-        if (numA >= targetPersonA.getTime().size() || numA <= 0 ) {
+        if (numA >= targetPersonA.getTime().size() || numA <= 0) {
             return new CommandResult("Cannot find the wanted timeSlot, please enter valid timeSlot");
         }
 
-        if (numB >= targetPersonB.getTime().size() || numB <= 0 ) {
+        if (numB >= targetPersonB.getTime().size() || numB <= 0) {
             return new CommandResult("Cannot find the wanted timeSlot, please enter valid timeSlot");
         }
 

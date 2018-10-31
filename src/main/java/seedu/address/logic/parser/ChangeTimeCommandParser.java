@@ -4,9 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.commands.ChangeTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Time;
-
 
 /**
  * ChangeTimeCommandParser.
@@ -24,9 +21,13 @@ public class ChangeTimeCommandParser implements Parser<ChangeTimeCommand> {
 
         try {
             String[] stringCommand = args.trim().split(" ");
+            if (stringCommand.length != 4) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeTimeCommand.MESSAGE_USAGE));
+            }
             String nameA = stringCommand[0];
-            String nameB = stringCommand[1];
-            int numA = Integer.parseInt(stringCommand[2]);
+            String nameB = stringCommand[2];
+            int numA = Integer.parseInt(stringCommand[1]);
             int numB = Integer.parseInt(stringCommand[3]);
             if (nameA.toString().isEmpty()) {
                 throw new ParseException(
