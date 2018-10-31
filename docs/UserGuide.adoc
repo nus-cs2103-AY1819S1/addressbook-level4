@@ -241,7 +241,7 @@ Application will first display the 'volunteers' panel and you can change the pan
 ==== Registering new volunteer: `add`
 
 Adds a volunteer to the system when in the volunteers context +
-Format: `add n/NAME b/BIRTHDAY g/GENDER a/ADDRESS e/EMAIL p/PHONE_NUMBER [t/TAG]...`
+Format: `add n/NAME g/GENDER b/BIRTHDAY p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 ****
 * Birthday is in the 'DD-MM-YYYY format'.
@@ -250,8 +250,46 @@ Format: `add n/NAME b/BIRTHDAY g/GENDER a/ADDRESS e/EMAIL p/PHONE_NUMBER [t/TAG]
 
 Example(s):
 
-* `add n/John Doe b/05-08-1995 g/M a/Yishun Block 62 p/87183749 e/John@gmail.com`
-* `add n/Betty Sue b/31-12-1995 g/M a/Ang Mo Kio Block 62 p/81749272 e/Betty@gmail.com t/Longtime t/Helpful`
+.Before adding a volunteer
+image::command_volunteer_add_before.png[add command, 300]
+
+The figure above shows how the panel looks like before executing the commands below.
+
+* `add n/John Doe  g/m b/05-08-1995 p/87183749 e/John@gmail.com  a/Yishun Block 62 `
++
+Adds a volunteer with the following properties:
++
+[options="header", cols="1,3"]
+|===
+|Property   |Value
+|Name       |John Doe
+|Gender     |m
+|Birthday   |05-08-1995
+|Phone      |87183749
+|Email      |John@gmail.com
+|Address    |Yishun Block 62
+|===
+.Output of `add`
+image::command_volunteer_add_after1.png[add command, 300]
+
+
+* `add n/Betty Sue  g/f b/31-12-1995 p/81749272 e/Betty@gmail.com  a/Ang Mo Kio Block 62 t/Longtime t/Helpful`
++
+Adds a volunteer with the following properties:
++
+[options="header", cols="1,3"]
+|===
+|Property   |Value
+|Name       |Betty Sue
+|Gender     |f
+|Birthday   |31-12-1995
+|Phone      |81749272
+|Email      |Betty@gmail.com
+|Address    |Ang Mo Kio Block 62
+|Tags       |Longtime, Helpful
+|===
+.Output of `add`
+image::command_volunteer_add_after2.png[add command, 300]
 
 [[command-volunteer-list]]
 ==== Listing all volunteers : `list`
@@ -259,11 +297,17 @@ Example(s):
 Lists all volunteers in the system when in the volunteers context. +
 Format: `list`
 
+The figure below shows the expected panel after executing the `list` command.
+
+.Output of `list`
+image::command_volunteer_list.png[list command, 300]
+
+
 [[command-volunteer-edit]]
 ==== Editing volunteers details : `edit`
 
 Edit details of an existing volunteer in the system when in the volunteers context. +
-Format: `edit VOLUNTEER_INDEX [n/NAME] [b/BIRTHDAY] [g/GENDER] [a/ADDRESS] [e/EMAIL] [p/PHONE_NUMBER] [t/TAG]...`
+Format: `edit VOLUNTEER_INDEX [n/NAME]  [g/GENDER] [b/BIRTHDAY]  [p/PHONE_NUMBER] [a/ADDRESS] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
 * Edits the volunteer at the specified `INDEX`. The index refers to the index number shown in the displayed volunteer list. The index *must be a positive integer* 1, 2, 3, ...
@@ -278,6 +322,17 @@ Example(s):
 * `edit 1 n/John Doe` +
 Edits the name of the volunteer at index 1
 
+The figures below show the before and after results of an edit command.
+
+--
+.Before entering the edit command
+image::command_volunteer_edit_before.png[Before edit, 300]
+
+.The targeted volunteer is updated to reflect the new values after entering the edit command
+image::command_volunteer_edit_after.png[After edit, 300]
+--
+
+
 [[command-volunteer-delete]]
 ==== Deleting volunteer details : `delete`
 
@@ -289,31 +344,50 @@ Example(s):
 * `delete 1` +
 Deletes the details of the volunteer specified at index 1
 
+The figures below show the before and after results of a delete command.
+
+--
+.The volunteer at index 1 is targeted before entering the delete command
+image::command_volunteer_delete_before.png[Before delete, 300]
+
+.The targeted volunteer is deleted after entering the delete command
+image::command_volunteer_delete_after.png[After delete, 300]
+--
+
+
 [[command-volunteer-exportcert]]
-==== Exporting volunteer certificate : `exportcert [coming in v1.3]`
+==== Exporting volunteer certificate : `exportcert`
 
-Exports a PDF document to the user's Desktop, detailing the volunteer's involvement with the organisation. This document includes:
+Exports a PDF document to a folder in the user's current working directory or directly to the desktop, detailing the volunteer's involvement with the organisation. This document includes:
 
-* Volunteer Name & NRIC
-* List of events involved in
-* Hours of service contributed
-* Organisation's logo
+* Title: 'Certificate of Recognition'
+* Date of export
+* Volunteer name
+* Volunteer ID
+* List of events involved in - Event name, hours contributed, event start and end dates
 
 Format: `exportcert VOLUNTEER_INDEX`
 
 * Exports PDF certificate for the volunteer at specified `VOLUNTEER INDEX`
 * `VOLUNTEER INDEX` **must be a positive integer** 1, 2, 3, ...
+* If the index given exceeds the number of volunteers in the displayed volunteer list, the message 'The volunteer index provided is invalid.' will be shown.
 
 Example(s):
 
 * `exportcert 2` +
-Exports PDF certificate of volunteer at specified index 2 to local folder 'certs'
+Exports PDF certificate of volunteer at specified index 2 to folder 'Volunteer Certs' in the current working directory, or directly to the Desktop.
 
-Here is a sample exported certificate:
+Here is what the exported certificate currently looks like:
 
-.Sample exported volunteer certificate
+.Current sample exported volunteer certificate
 [.thumb]
-image::VolunteerCert.png[width="600"]
+image::CurrentVolunteerCert.png[width="600"]
+
+Here is the intended final form of the exported certificate:
+
+.Intended sample exported volunteer certificate
+[.thumb]
+image::FinalVolunteerCert.png[width="600"]
 
 === Event Management
 
