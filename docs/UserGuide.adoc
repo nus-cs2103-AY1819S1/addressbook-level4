@@ -27,7 +27,7 @@ JxMusic is for those who *prefer to use a desktop app for listening to music*. M
 .  Copy the file to the folder you want to use as the home folder for your JxMusic player.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui latest.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -38,7 +38,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-.  To add the tracks you want to listen using the software, open the home folder of the jar file and add th tracks you want to listen to `/library` folder.
+.  To add the tracks you want to listen using the software, open the home folder of the jar file and add th tracks you want to listen to `library` folder.
+.  Restart the file so that your new tracks could be scanned and showed in UI.
 
 
 [[Features]]
@@ -431,7 +432,7 @@ Format: `exit`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the `library` folder it creates with the file that contains the data of your previous `library` folder.
 
 == Command Summary
 
@@ -473,3 +474,6 @@ eg. `playlist del p/Favourites`
 eg. `track add p/Favourites n/Some Song.mp3`
 * *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
 eg. `track del p/Favourites i/1`
+* *List all tracks* : `track list`
+* *Search for tracks* : `track search QUERY` +
+eg. `track search Fav`
