@@ -111,7 +111,7 @@ public interface Model {
      * Saves the current LearnVocabulary state for undo/redo.
      */
     void commitLearnVocabulary();
-
+    //@@author Harryqu123
     /**
      *
      * @param tags set of tags that is entered by the user
@@ -144,6 +144,6 @@ public interface Model {
 
 
     Set<Tag> getTags();
-
+    //@@author
 
 }

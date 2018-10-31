@@ -38,10 +38,6 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_LEVITATE + MEANING_DESC
                 + TAG_DESC_FLOATING, new AddCommand(expectedWord));
 
-        // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_FLY + NAME_DESC_LEVITATE + MEANING_DESC
-                + TAG_DESC_FLOATING, new AddCommand(expectedWord));
-
         // multiple tags - all accepted
         Word expectedWordMultipleTags = new WordBuilder(LEVITATE).withTags(VALID_TAG_FLOATING, VALID_TAG_ABILITY)
                 .build();
@@ -88,5 +84,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_LEVITATE
                         + MEANING_DESC + TAG_DESC_ABILITY + TAG_DESC_FLOATING,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        // multiple names
+        assertParseFailure(parser, NAME_DESC_FLY + NAME_DESC_LEVITATE + MEANING_DESC
+                + TAG_DESC_FLOATING, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

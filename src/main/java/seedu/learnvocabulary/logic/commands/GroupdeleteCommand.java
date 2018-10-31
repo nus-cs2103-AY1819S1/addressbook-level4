@@ -6,7 +6,7 @@ import seedu.learnvocabulary.logic.CommandHistory;
 import seedu.learnvocabulary.logic.commands.exceptions.CommandException;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.tag.Tag;
-
+//@@author Harryqu123
 /**
  * Creates an GroupdeleteCommand to delete the specified {@code Word}
  */
@@ -38,3 +38,4 @@ public class GroupdeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));
     }
 }
+//@@author

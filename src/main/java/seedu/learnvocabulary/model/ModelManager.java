@@ -70,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(word);
         return versionedLearnVocabulary.hasWord(word);
     }
-
+    //@@author Harryqu123
     @Override
     public boolean hasTag(Set<Tag> tags) {
         requireNonNull(tags);
@@ -116,7 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Set<Tag> getTags() {
         return versionedLearnVocabulary.getTags();
     }
-
+    //@@author
     @Override
     public void deleteWord(Word target) {
 

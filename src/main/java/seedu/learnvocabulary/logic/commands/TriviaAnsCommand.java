@@ -16,6 +16,8 @@ public class TriviaAnsCommand extends Command {
 
     public static final String COMMAND_EXIT = "triviaExit";
 
+    public static final String COMMAND_SHOW = "triviaShow";
+
     public static final String MESSAGE_SUCCESS = "Correct!";
 
     public static final String MESSAGE_WRONG = "Wrong!";
@@ -28,7 +30,10 @@ public class TriviaAnsCommand extends Command {
 
     public static final String MESSAGE_END = "Trivia ended! Type trivia to play again!";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " your answer";
+    public static final String MESSAGE_USAGE = "Please input your answer. "
+            + "Type triviaShow to show your current question.";
+
+    private String question;
 
     private final String answer;
 
@@ -38,16 +43,25 @@ public class TriviaAnsCommand extends Command {
         this.answer = answer;
     }
 
+    private String getQuestion() {
+        return question;
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         Word triviaQ = model.getTrivia();
+        question = triviaQ.getMeaning().fullMeaning;
         ArrayList<Word> triviaList = model.getTriviaList();
         String messageOutput = "";
 
         if (answer.equals(COMMAND_EXIT)) {
             model.toggleTriviaMode();
             return new CommandResult(MESSAGE_END);
+        }
+
+        if (answer.equals(COMMAND_SHOW)) {
+            return new CommandResult("Question: " + this.getQuestion());
         }
 
         if (triviaQ == null) {

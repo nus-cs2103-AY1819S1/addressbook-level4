@@ -29,8 +29,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MEANING, PREFIX_TAG);
 
+
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MEANING)
-                || !argMultimap.getPreamble().isEmpty()) {
+                || !argMultimap.getPreamble().isEmpty() || argMultimap.hasDuplicatePrefix(PREFIX_NAME)
+                || argMultimap.hasDuplicatePrefix(PREFIX_MEANING)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 

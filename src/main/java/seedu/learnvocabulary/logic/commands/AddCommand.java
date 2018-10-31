@@ -31,9 +31,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New word added: %1$s";
     public static final String MESSAGE_DUPLICATE_WORD = "This word already exists in LearnVocabulary";
 
-
+    //@@author Harryqu123
     public static final String MESSAGE_NO_GROUP = "The group typed does not exist.";
-
+    //@@author
     private final Word toAdd;
 
 
@@ -52,11 +52,11 @@ public class AddCommand extends Command {
         if (model.hasWord(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_WORD);
         }
-        /**
+        //@@author Harryqu123
         if (!model.hasTag(toAdd.getTags())) {
             throw new CommandException(MESSAGE_NO_GROUP);
-        }*/
-
+        }
+        //@@author
         model.addWord(toAdd);
         model.commitLearnVocabulary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
