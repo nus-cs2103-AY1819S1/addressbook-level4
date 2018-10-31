@@ -67,8 +67,8 @@ public class DeleteMedicalHistoryCommandTest {
                 new DeleteMedicalHistoryCommand(new Name(NON_EXIST_NAME), VALID_ALLERGY, VALID_CONDITION);
 
         assertCommandFailure(deleteMedicalHistoryCommand,
-                model, commandHistory, DeleteMedicalHistoryCommand.
-                        MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME);
+                model, commandHistory, DeleteMedicalHistoryCommand
+                        .MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME);
     }
 
     @Test

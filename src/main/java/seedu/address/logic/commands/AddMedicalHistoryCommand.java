@@ -68,13 +68,13 @@ public class AddMedicalHistoryCommand extends Command {
         Person personToEdit = null;
         boolean personExist = false;
         for (Person person : lastShownList) {
-            if (person.getName().equals(name) ) {
+            if (person.getName().equals(name)) {
                 personToEdit = person;
                 personExist = true;
                 break;
             }
         }
-        if (!personExist){
+        if (!personExist) {
             throw new CommandException(MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_MATCH_NAME);
         }
         if (!(personToEdit.getTags().contains(new Tag("Patient")))) {

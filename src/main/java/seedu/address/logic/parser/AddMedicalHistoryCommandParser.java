@@ -24,11 +24,13 @@ public class AddMedicalHistoryCommandParser implements Parser<AddMedicalHistoryC
     public AddMedicalHistoryCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ALLERGY, PREFIX_CONDITION, PREFIX_NAME);
-        if (!arePrefixesPresent(argMultimap, PREFIX_ALLERGY) || !arePrefixesPresent(argMultimap, PREFIX_CONDITION) ||
-        !arePrefixesPresent(argMultimap, PREFIX_NAME)){
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_ALLERGY) || !arePrefixesPresent(argMultimap, PREFIX_CONDITION)
+                || !arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddMedicalHistoryCommand.MESSAGE_USAGE));
         }
+
         String nameStr = argMultimap.getValue(PREFIX_NAME).get();
         String allergy = argMultimap.getValue(PREFIX_ALLERGY).get();
         String condition = argMultimap.getValue(PREFIX_CONDITION).get();

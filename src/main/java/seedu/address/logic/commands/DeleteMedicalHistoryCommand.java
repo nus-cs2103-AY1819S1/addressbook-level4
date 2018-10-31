@@ -40,7 +40,8 @@ public class DeleteMedicalHistoryCommand extends Command {
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY = "Non Exist Allergy: ";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION = "Non Exist Condition: ";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
-    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME = " does not exist in the healthbook";
+    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME =
+            " does not exist in the healthbook";
 
 
     private final Name name;
@@ -66,7 +67,7 @@ public class DeleteMedicalHistoryCommand extends Command {
         Person personToEdit = null;
         boolean personExist = false;
         for (Person person : lastShownList) {
-            if (person.getName().equals(name) ) {
+            if (person.getName().equals(name)) {
                 personToEdit = person;
                 personExist = true;
                 break;

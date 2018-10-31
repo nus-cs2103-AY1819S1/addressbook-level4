@@ -24,8 +24,8 @@ public class DeleteMedicalHistoryCommandParser implements Parser<DeleteMedicalHi
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ALLERGY, PREFIX_CONDITION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ALLERGY) || !arePrefixesPresent(argMultimap, PREFIX_CONDITION) ||
-                !arePrefixesPresent(argMultimap, PREFIX_NAME)){
+        if (!arePrefixesPresent(argMultimap, PREFIX_ALLERGY) || !arePrefixesPresent(argMultimap, PREFIX_CONDITION)
+                || !arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteMedicalHistoryCommand.MESSAGE_USAGE));
         }

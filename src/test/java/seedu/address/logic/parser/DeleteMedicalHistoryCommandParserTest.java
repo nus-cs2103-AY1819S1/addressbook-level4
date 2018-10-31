@@ -37,7 +37,8 @@ public class DeleteMedicalHistoryCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for condition is left blank
-        userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE + " " + PREFIX_CONDITION;
+        userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
+                + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE + " " + PREFIX_CONDITION;
         expectedCommand = new DeleteMedicalHistoryCommand(
                 new Name(VALID_NAME_ALICE), VALID_ALLERGY_TO_DELETE, "");
         assertParseSuccess(parser, userInput, expectedCommand);
