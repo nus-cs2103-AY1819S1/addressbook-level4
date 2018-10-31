@@ -1,13 +1,11 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -35,12 +33,7 @@ public class NotificationPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Notification> notificationList) {
-        ArrayList<Notification> list = new ArrayList<>();
-        for (int i = notificationList.size() - 1; i >= 0; i--) {
-            list.add(notificationList.get(i));
-        }
-        ObservableList<Notification> reversedList = FXCollections.observableArrayList(list);
-        notificationListView.setItems(reversedList);
+        notificationListView.setItems(notificationList);
         notificationListView.setCellFactory(listView -> new NotificationPanel.NotificationListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
