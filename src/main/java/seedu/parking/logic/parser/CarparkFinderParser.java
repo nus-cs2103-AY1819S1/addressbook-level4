@@ -49,29 +49,29 @@ public class CarparkFinderParser {
         switch (commandWord) {
 
         case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ALIAS:
+        case SelectCommand.COMMAND_ABBREVIATION:
             return new SelectCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
+        case FindCommand.COMMAND_ABBREVIATION:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_ALIAS:
+        case ListCommand.COMMAND_ABBREVIATION:
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
-        case ExitCommand.COMMAND_ALIAS:
+        case ExitCommand.COMMAND_ABBREVIATION:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-        case HelpCommand.COMMAND_ALIAS:
+        case HelpCommand.COMMAND_ABBREVIATION:
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
@@ -81,15 +81,15 @@ public class CarparkFinderParser {
             return new RedoCommand();
 
         case FilterCommand.COMMAND_WORD:
-        case FilterCommand.COMMAND_ALIAS:
+        case FilterCommand.COMMAND_ABBREVIATION:
             return new FilterCommandParser().parse(arguments);
 
         case QueryCommand.COMMAND_WORD:
-        case QueryCommand.COMMAND_ALIAS:
+        case QueryCommand.COMMAND_ABBREVIATION:
             return new QueryCommand();
 
         case NotifyCommand.COMMAND_WORD:
-        case NotifyCommand.COMMAND_ALIAS:
+        case NotifyCommand.COMMAND_ABBREVIATION:
             return new NotifyCommandParser().parse(arguments);
 
         default:
