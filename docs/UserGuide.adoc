@@ -43,7 +43,7 @@ The figure above is a sample display of the application's GUI, which consists of
 A message will appear in the Message Box.
 
 [TIP]
-Some example commands you can try: +
+Some commands you can try: +
 <<Features-List,*`list`*>>: bring up a list of all the car parks +
 <<Features-Help,*`help`*>>: show the list of available commands and how to use them +
 <<Features-Exit,*`exit`*>>: exit the program
@@ -78,7 +78,7 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
-Example(s)
+Usage(s)
 
 - `help`
 
@@ -103,13 +103,13 @@ image::findafter.png[width="880"]
 The figure above shows what happen after executing the `find` command.
 
 
-Example(s):
+Usage(s):
 
 * `find punggol`
 * `f HG83`
 
 [[Features-Select]]
-=== Select car park : `select`
+=== Selecting a car park : `select`
 
 Select the car park you wish to go to. +
 Format: `select INDEX` or `s INDEX`
@@ -123,7 +123,7 @@ Format: `select INDEX` or `s INDEX`
 image::select.png[width="880"]
 The figure above is the outcome of the select command.
 
-Example(s):
+Usage(s):
 
 Selecting the 2nd car park in the list.
 
@@ -138,7 +138,7 @@ Step 1. `find sengkang`
 Step 2.  `s 1`
 
 [[Features-History]]
-=== Listing entered commands : `history`
+=== Show past commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -148,7 +148,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-Example(s)
+Usage(s)
 
 * `history`
 
@@ -182,7 +182,7 @@ image::filter.png[width="880"]
 
 After filtering, a smaller subset of car parks are listed.
 
-Example(s):
+Usage(s):
 
 * `filter f/ SUN 7.30AM 5.30PM n/ ct/ SURFACE`
 * `fi ct/ BASEMENT`
@@ -205,7 +205,7 @@ Flags:
 * `FP (Free Parking)`
 * `NP (Night Parking)`
 
-Example(s):
+Usage(s):
 
 * `sort DISTANCE`
 * `so NAME`
@@ -221,17 +221,17 @@ image::listafter.png[width="880"]
 
 After executing `list`, it will show all the car parks again.
 
-Example(s)
+Usage(s)
 
 * `list`
 
 [[Features-Add]]
-=== Adding favourite car parks or location : `add` `[coming in v2.0]`
+=== Adding to favorites list : `add` `[coming in v2.0]`
 
-Add a car park into your favorites list +
+Add a car park into your favorites list. This does not affect the main list. +
 Format: `add c/CARPARK_NUMBER` or `a c/CARPARK_NUMBER`
 
-Example(s):
+Usage(s):
 
 * `add c/SE12`
 * `a c/SE12`
@@ -239,10 +239,10 @@ Example(s):
 [[Features-Delete]]
 === Removing from favorites list : `delete` `[coming in v2.0]`
 
-Remove the specified car park from your favorites list +
+Remove the specified car park from your favorites list. This does not affect the main list. +
 Format: `delete c/CARPARK_NUMBER` or `d c/CARPARK_NUMBER`
 
-Example(s):
+Usage(s):
 
 * `delete c/SE12`
 * `d c/SE12`
@@ -250,34 +250,71 @@ Example(s):
 [[Features-Query]]
 === Querying data: `query`
 
-Get car park information from data.gov.sg by querying it. +
+If you want to get the latest updates for all the car parks, just type `query` into the _Command Box_. +
 
 [NOTE]
 ====
-You need to run this command to get the latest information on all the car parks.
+Car Park Finder currently does not autorun this command at the start!
 ====
 
-.After using query command
-image::query.png[width="880"]
+Here are some pictures to illustrate how `query` works:
 
-All car parks data are refreshed, with all the bottom left panel saying when it was updated.
+.Before running Query Command
+image::zy_before_query.png[width="880"]
+image::zy_arrow.png[width="880"]
 
-Example(s):
+.While Query Command is running
+image::zy_during_query.png[width="880"]
+image::zy_arrow.png[width="880"]
+
+.Result of Query Command
+image::zy_after_query.png[width="880"]
+
+All information for the car parks are refreshed, with the bottom left text telling you when it was
+last updated.
+
+Usage(s):
 
 * `query`
 
 [[Features-Notify]]
 === Enabling Notification : `notify`
 
-Set the interval to give updates in real time for all the car parks. +
+After selecting a car park, you can get real-time notifications by typing `notify 10`, where
+10 means updating the car park information every 10 seconds. +
 Format: `notify TIME_SECONDS` or `n TIME_SECONDS`
 
 [NOTE]
 ====
-The default value is 60 seconds. You can set within a range of 10 seconds to 1 hour.
+You need to select a car park first or this command will not work. +
+
+The default value is 60 seconds. You can set within a range of 10 to 600 seconds.
 ====
 
-Example(s):
+Here are some pictures to illustrate how `notify` works:
+
+.Selected Car park SK96
+image::zy_select_notify.png[width="880"]
+image::zy_arrow.png[width="880"]
+
+.Real-time notification for SK96
+image::zy_notify_after.png[width="880"]
+image::zy_arrow.png[width="880"]
+
+.Turning notification off
+image::zy_notify_off.png[width="880"]
+
+To turn off the notification, simply set the seconds value to 0.
+
+Below are examples where notify will not work:
+
+.Invalid command format
+image::zy_notify_invalid.png[width="880"]
+
+.Invalid command format
+image::zy_notify_select.png[width="880"]
+
+Usage(s):
 
 * `notify 60`
 * `n 60`
@@ -288,7 +325,7 @@ Example(s):
 Include weather updates in the notifications by indicating on or off. +
 Format: `weather TOGGLE`
 
-Example(s):
+Usage(s):
 
 * `weather on`
 
@@ -300,7 +337,7 @@ Example(s):
 Clears all entries from the list. +
 Format: `clear`
 
-Example(s)
+Usage(s)
 
 * `clear`
 
@@ -310,17 +347,17 @@ Example(s)
 Exits the application. +
 Format: `exit`
 
-Example(s)
+Usage(s)
 
 * `exit`
 
-=== Auto complete the command line
+=== Autocomplete
 
 Display the full format of an executable command line. +
 Format: `COMMAND_WORD` followed by 'Tab' key.
 Function: press 'Tab' key again to move to the next parameter.
 
-Example(s)
+Usage(s)
 
 * key in `fi` in command box and then press 'Tab' key.
 
@@ -357,7 +394,7 @@ Here are a few technical terms used in the user guide.
 Here are the summarize list of commands available to the user.
 
 .General Commands
-[cols="1,4,2"]
+[cols="1,3,2"]
 |===
 |Command |Format |Example
 
