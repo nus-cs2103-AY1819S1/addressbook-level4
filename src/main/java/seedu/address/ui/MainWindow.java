@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -18,6 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.LeaveListEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
+import seedu.address.commons.events.ui.PersonListEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SuccessfulLoginEvent;
 import seedu.address.logic.Logic;
@@ -197,9 +197,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Listens for a person list Event from the EventBus. This will be triggered when a PersonListEvent is pushed
+     * to the EventBus.
+     * @param personListEvent The event information
+     */
+    @Subscribe
+    void processPersonList(PersonListEvent personListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillPersonListParts();
+    }
+
+    /**
      * Listens for a leave list Event from the EventBus. This will be triggered when a LeaveListEvent is pushed
      * to the EventBus.
-     * @param leaveListEvent The login information
+     * @param leaveListEvent The event information
      */
     @Subscribe
     void processLeaveList(LeaveListEvent leaveListEvent) {
