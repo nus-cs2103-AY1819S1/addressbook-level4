@@ -104,7 +104,7 @@ Shows a list of all the wishes you have set, sorted by date by default. +
 Format: `list`
 
 ****
-* Only wishes in the current state of the wishbook will be listed. 
+* Only wishes in the current state of the wishbook will be listed.
 * Deleted wishes will not be displayed.
 ****
 
@@ -114,7 +114,7 @@ Shows a list of all the wishes that have been completed, sorted by date by defau
 Format: `list -c`
 
 ****
-* Only wishes in the current state of the wishbook will be listed. 
+* Only wishes in the current state of the wishbook will be listed.
 * Deleted wishes will not be displayed.
 ****
 
@@ -124,7 +124,7 @@ Shows a list of all the wishes that are still in progress, sorted by date by def
 Format: `list -u`
 
 ****
-* Only wishes in the current state of the wishbook will be listed. 
+* Only wishes in the current state of the wishbook will be listed.
 * Deleted wishes will not be displayed.
 ****
 
