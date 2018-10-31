@@ -252,9 +252,9 @@ The serial number of a medicine *must* be a 5 digit integer!
 
 Example:
 
-* `addmedicine mn/panadol msq/500 ppu/0.50 sn/1234 s/1000` +
+* `addmedicine mn/panadol msq/500 ppu/0.50 sn/91853 s/1000` +
 Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `500` units to the CLInic inventory.
-* `am mn/asprin msq/100 ppu/0.20 sn/3068 s/100` +
+* `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
 
 ==== Editing a medicine: `editmedicine`
@@ -262,6 +262,9 @@ Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _
 Edits the details of an existing medicine. +
 Alias: `em` +
 Format: `editmedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]`
+
+[NOTE]
+The serial number of a medicine *must* be a 5 digit integer!
 
 [TIP]
 Edits the medicine details at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
