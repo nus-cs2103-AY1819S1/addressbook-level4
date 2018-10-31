@@ -188,8 +188,8 @@
 				var coords = obj.result.records[i];
 				var result = cv.computeLatLon(obj.result.records[i].y_coord, obj.result.records[i].x_coord);
 				var latLng = new google.maps.LatLng(result.lat,result.lon);
-				var marker = new google.maps.Marker({  
-					map: map, title: coords.car_park_no, position: latLng  
+				var marker = new google.maps.Marker({
+					map: map, title: coords.car_park_no, position: latLng
 				});
 				var content = "<h3>Car park no: " + coords.car_park_no + "</h3>" +
 					"<p>Address: " +  coords.address + "</p>" +
@@ -228,7 +228,7 @@
 			var result = cv.computeLatLon(coords.y_coord, coords.x_coord);
 			var latLng = new google.maps.LatLng(result.lat,result.lon);
 			var marker = new google.maps.Marker({
-				map: map, title: coords.car_park_no, position: latLng  
+				map: map, title: coords.car_park_no, position: latLng
 			});
 			var content = "<h3>Car park no: " + coords.car_park_no + "</h3>" +
 				"<p>Address: " +  coords.address + "</p>" +
