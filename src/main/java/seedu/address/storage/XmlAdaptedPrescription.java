@@ -3,6 +3,7 @@ package seedu.address.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.ConsumptionPerDay;
 import seedu.address.model.appointment.Dosage;
 import seedu.address.model.appointment.MedicineName;
@@ -16,11 +17,13 @@ public class XmlAdaptedPrescription {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Prescription's %s field is missing!";
 
     @XmlElement(required = true)
-    private MedicineName medicineName;
+    private int appointmentId;
     @XmlElement(required = true)
-    private Dosage dosage;
+    private String medicineName;
     @XmlElement(required = true)
-    private ConsumptionPerDay consumptionPerDay;
+    private String dosage;
+    @XmlElement(required = true)
+    private String consumptionPerDay;
 
     /**
      * Constructs an XmlAdaptedPrescription.
@@ -31,7 +34,8 @@ public class XmlAdaptedPrescription {
     /**
      * Constructs a {@code XmlAdaptedPrescription} with the given prescription details
      */
-    public XmlAdaptedPrescription(MedicineName medicineName, Dosage dosage, ConsumptionPerDay consumptionPerDay) {
+    public XmlAdaptedPrescription(int appointmentId, String medicineName, String dosage, String consumptionPerDay) {
+        this.appointmentId = appointmentId;
         this.medicineName = medicineName;
         this.dosage = dosage;
         this.consumptionPerDay = consumptionPerDay;
@@ -43,9 +47,10 @@ public class XmlAdaptedPrescription {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedPrescription(Prescription source) {
-        medicineName = source.getMedicineName();
-        dosage = source.getDosage();
-        consumptionPerDay = source.getConsumptionPerDay();
+        appointmentId = source.getId();
+        medicineName = source.getMedicineName().getFullMedicineName();
+        dosage = source.getDosage().getValue();
+        consumptionPerDay = source.getConsumptionPerDay().getValue();
     }
 
     /**
@@ -55,35 +60,45 @@ public class XmlAdaptedPrescription {
      */
     public Prescription toModelType() throws IllegalValueException {
 
+        if (appointmentId == 0) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AppointmentId.class.getSimpleName()));
+        }
+        final int medAppointmentId = appointmentId;
 
         if (medicineName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, String.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    MedicineName.class.getSimpleName()));
         }
-        final MedicineName medicineName = new MedicineName("Empty");
+        final MedicineName medName = new MedicineName(medicineName);
 
 
-        if (Integer.parseInt(dosage.toString()) == 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Integer.class.getSimpleName()));
+        if (dosage == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Dosage.class.getSimpleName()));
         }
-        final Dosage dosage = new Dosage(String.valueOf(1));
+        final Dosage medDosage = new Dosage(dosage);
 
-        if (Integer.parseInt(consumptionPerDay.toString()) == 0) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Integer.class.getSimpleName()));
+        if (consumptionPerDay == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ConsumptionPerDay.class.getSimpleName()));
         }
-        final ConsumptionPerDay consumptionPerDay = new ConsumptionPerDay(String.valueOf(1));
+        final ConsumptionPerDay medConsumptionPerDay = new ConsumptionPerDay(consumptionPerDay);
 
-        return new Prescription(12, medicineName, dosage, consumptionPerDay);
+        return new Prescription(medAppointmentId, medName, medDosage, medConsumptionPerDay);
     }
 
-    public MedicineName getMedicineName() {
+    public int getAppointmentId() { return appointmentId; }
+
+    public String getMedicineName() {
         return medicineName;
     }
 
-    public Dosage getDosage() {
+    public String getDosage() {
         return dosage;
     }
 
-    public ConsumptionPerDay getConsumptionPerDay() {
+    public String getConsumptionPerDay() {
         return consumptionPerDay;
     }
 
