@@ -151,7 +151,6 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
             boolean hasFreeParking = checkFreeParking(day, inputStart, inputEnd, timePeriod);
 
-
             collective = collective && hasFreeParking;
         }
         if (flagList.contains("ct/")) {
