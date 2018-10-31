@@ -7,6 +7,7 @@ import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.thanepark.logic.commands.CommandResult;
 import seedu.thanepark.logic.commands.HistoryCommand;
 import seedu.thanepark.logic.commands.ViewAllCommand;

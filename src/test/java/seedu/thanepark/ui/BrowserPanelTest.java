@@ -7,10 +7,14 @@ import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 
 import java.net.URL;
 
-import guitests.guihandles.BrowserPanelHandle;
 import org.junit.Before;
 import org.junit.Test;
+
+import guitests.guihandles.BrowserPanelHandle;
+
 import seedu.thanepark.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.thanepark.ui.browser.BrowserPanel;
+import seedu.thanepark.ui.browser.HelpWindow;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;

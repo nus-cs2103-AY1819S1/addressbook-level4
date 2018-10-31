@@ -66,7 +66,7 @@ This section contains information of all commands used in ThanePark.
 *Command Format*
 
 * Items in chevrons `<>` denotes compulsory field. +
-Example: `add <attraction>`<maintenance> `<waitTime>` `<address>`
+Example: `add <attraction>`<maintenance> `<waitTime>` `<zone>`
 * Items in square brackets `[]` denotes optional field. +
 Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
@@ -74,7 +74,7 @@ Example: `{tab}` is the TAB keystroke.
 * Items ending with ellipses `...` denotes variable number of arguments. +
 Example: `history [findargs...]`
 * Parameters can be in any order +
-Example: if the command specifies n/name p/address, p/address n/name is also acceptable.
+Example: if the command specifies n/name p/zone, p/zone n/name is also acceptable.
 
 ====
 
@@ -86,7 +86,7 @@ This section contains all commands related to managing attractions.
 ==== Add attractions: `add`
 
 Add an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
 
 A ride can have any number of tags (including 0). +
 
@@ -208,7 +208,7 @@ Format: `{tab}`
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the zone book. +
 Format: `clear`
 
 ==== Exiting ThanePark: `exit`
@@ -224,7 +224,7 @@ This section contains all commands related to managing attractions.
 ==== Adding attractions: `add`
 
 Add an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
 
 A ride can have any number of tags (including 0). +
 
@@ -328,7 +328,7 @@ image::ui_screenshots/filter-example-2.png[width="790"]
 ==== Finding a particular attraction: `find`
 
 Find the rides that the user needs to check on. Case insensitive. +
-Can only find the name, the address, and the tags of the attractions. +
+Can only find the name, the zone, and the tags of the attractions. +
 Format: `find <[name] [[tag][keyword]...]>` +
 Must include arguments when finding. +
 Here are some examples with images to let you follow along. +
@@ -344,7 +344,7 @@ Finds and displays the list of attractions with addresses that contain the word 
 
 image::ui_screenshots/find-example-2.png[width="790"]
 
-* `find address street t/friends tag family` +
+* `find zone street t/friends tag family` +
 Finds and displays the list of attractions with addresses that contain the word "street" and the tags "friends"
 and "family"
 
@@ -361,7 +361,7 @@ image::ui_screenshots/find-example-3.png[width="790"]
 == Command Summary
 
 
-* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
+* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<zone>` `[tag(s)]` +
   e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
 * *Delete*: `delete <index>` +
   e.g. delete 3

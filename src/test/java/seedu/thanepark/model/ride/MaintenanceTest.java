@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
 import seedu.thanepark.testutil.Assert;
 
 public class MaintenanceTest {
@@ -53,7 +54,7 @@ public class MaintenanceTest {
         assertFalse(Maintenance.isValidMaintenance("9011p041")); // alphabets within digits
         assertFalse(Maintenance.isValidMaintenance("9312 1534")); // spaces within digits
         assertFalse(Maintenance.isValidMaintenance("124293842033123")); // long phone numbers
-    
+
         // valid numbers
         assertTrue(Maintenance.isValidMaintenance("1")); // exactly 1 numbers
         assertTrue(Maintenance.isValidMaintenance("93121534"));

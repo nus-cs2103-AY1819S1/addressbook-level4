@@ -5,6 +5,7 @@ import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIE
 import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Test;
+
 import seedu.thanepark.logic.commands.ViewStatusCommand;
 import seedu.thanepark.model.Model;
 

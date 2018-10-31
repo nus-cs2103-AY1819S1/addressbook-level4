@@ -9,15 +9,17 @@ import static seedu.thanepark.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 
+import org.junit.Test;
+
 import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.HelpWindowHandle;
-import org.junit.Test;
+
 import seedu.thanepark.logic.commands.DeleteCommand;
 import seedu.thanepark.logic.commands.HelpCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
-import seedu.thanepark.ui.HelpWindow;
 import seedu.thanepark.ui.StatusBarFooter;
+import seedu.thanepark.ui.browser.HelpWindow;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.

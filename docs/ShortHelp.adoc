@@ -7,7 +7,7 @@
 * `delete <index>`
 * `exit`
 * `filter <tag> <condition>`
-* `find <attraction>` or `find <tag> <address>`
+* `find <attraction>` or `find <tag> <zone>`
 * `help [option]`
 * `history`
 * `open <index>`

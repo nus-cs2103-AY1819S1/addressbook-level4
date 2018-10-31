@@ -12,7 +12,7 @@ import seedu.thanepark.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "thanepark.xml");
+    private Path thaneParkFilePath = Paths.get("data" , "thanepark.xml");
 
     public UserPrefs() {
         setGuiSettings(700, 500, 0, 0);
@@ -31,11 +31,11 @@ public class UserPrefs {
     }
 
     public Path getThaneParkFilePath() {
-        return addressBookFilePath;
+        return thaneParkFilePath;
     }
 
-    public void setThaneParkFilePath(Path addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setThaneParkFilePath(Path thaneParkFilePath) {
+        this.thaneParkFilePath = thaneParkFilePath;
     }
 
     @Override
@@ -50,19 +50,19 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+                && Objects.equals(thaneParkFilePath, o.thaneParkFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, thaneParkFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + thaneParkFilePath);
         return sb.toString();
     }
 

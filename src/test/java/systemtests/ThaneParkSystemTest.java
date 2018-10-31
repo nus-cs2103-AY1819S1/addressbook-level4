@@ -16,6 +16,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.ClassRule;
+
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
@@ -23,10 +28,7 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.RideListPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
+
 import seedu.thanepark.TestApp;
 import seedu.thanepark.commons.core.EventsCenter;
 import seedu.thanepark.commons.core.index.Index;
@@ -37,11 +39,12 @@ import seedu.thanepark.logic.commands.ViewCommand;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ThanePark;
 import seedu.thanepark.testutil.TypicalRides;
-import seedu.thanepark.ui.BrowserPanel;
 import seedu.thanepark.ui.CommandBox;
-import seedu.thanepark.ui.HelpWindow;
+import seedu.thanepark.ui.browser.BrowserPanel;
+import seedu.thanepark.ui.browser.HelpWindow;
 
 /**
+ *
  * A system test class for ThanePark, which provides access to handles of GUI components and helper methods
  * for test verification.
  */

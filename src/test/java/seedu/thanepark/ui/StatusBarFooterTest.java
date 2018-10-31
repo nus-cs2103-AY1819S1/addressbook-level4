@@ -12,11 +12,13 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
-import guitests.guihandles.StatusBarFooterHandle;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import guitests.guihandles.StatusBarFooterHandle;
+
 import seedu.thanepark.commons.events.model.ThaneParkChangedEvent;
 import seedu.thanepark.model.ThanePark;
 

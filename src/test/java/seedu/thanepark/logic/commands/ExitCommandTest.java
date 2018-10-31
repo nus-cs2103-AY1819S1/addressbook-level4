@@ -6,6 +6,7 @@ import static seedu.thanepark.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDG
 
 import org.junit.Rule;
 import org.junit.Test;
+
 import seedu.thanepark.commons.events.ui.ExitAppRequestEvent;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;

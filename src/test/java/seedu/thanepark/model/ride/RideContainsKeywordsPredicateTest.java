@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
+
 import seedu.thanepark.testutil.RideBuilder;
 
 public class RideContainsKeywordsPredicateTest {

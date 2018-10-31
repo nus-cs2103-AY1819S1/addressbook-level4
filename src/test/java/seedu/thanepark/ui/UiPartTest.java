@@ -5,11 +5,13 @@ import static org.junit.Assert.assertNotNull;
 
 import java.net.URL;
 
-import javafx.fxml.FXML;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
+import javafx.fxml.FXML;
+
 import seedu.thanepark.MainApp;
 import seedu.thanepark.testutil.Assert;
 

@@ -3,9 +3,11 @@ package seedu.thanepark.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.thanepark.testutil.EventsUtil.postNow;
 
-import guitests.guihandles.ResultDisplayHandle;
 import org.junit.Before;
 import org.junit.Test;
+
+import guitests.guihandles.ResultDisplayHandle;
+
 import seedu.thanepark.commons.events.ui.NewResultAvailableEvent;
 
 public class ResultDisplayTest extends GuiUnitTest {

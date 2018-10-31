@@ -6,6 +6,7 @@ import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.thanepark.logic.commands.SuggestCommand.MESSAGE_SUGGEST_COMMAND_SUCCESS;
 
 import org.junit.Test;
+
 import seedu.thanepark.logic.commands.SuggestCommand;
 import seedu.thanepark.model.Model;
 

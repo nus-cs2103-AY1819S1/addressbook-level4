@@ -5,6 +5,7 @@ import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFail
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
+
 import seedu.thanepark.logic.commands.HistoryCommand;
 
 /**

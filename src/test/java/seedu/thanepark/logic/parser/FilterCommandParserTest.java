@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+
 import seedu.thanepark.logic.commands.FilterCommand;
 import seedu.thanepark.model.ride.AttributePredicate;
 import seedu.thanepark.model.ride.Maintenance;

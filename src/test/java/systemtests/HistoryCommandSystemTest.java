@@ -7,9 +7,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.ui.testutil.GuiTestAssert.assertListMatching;
 
+import org.junit.Test;
+
 import guitests.GuiRobot;
 import guitests.guihandles.HistoryWindowHandle;
-import org.junit.Test;
+
 import seedu.thanepark.logic.commands.DeleteCommand;
 import seedu.thanepark.logic.commands.HistoryCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
