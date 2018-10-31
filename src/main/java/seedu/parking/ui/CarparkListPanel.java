@@ -1,5 +1,6 @@
 package seedu.parking.ui;
 
+import java.util.Timer;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.parking.commons.events.ui.JumpToListRequestEvent;
+import seedu.parking.commons.events.ui.NoSelectionRequestEvent;
 import seedu.parking.commons.events.ui.NotifyCarparkRequestEvent;
 import seedu.parking.model.carpark.Carpark;
 
@@ -23,6 +25,7 @@ public class CarparkListPanel extends UiPart<Region> {
     private static final String FXML = "CarparkListPanel.fxml";
     private static int selectIndex = -1;
     private static Carpark selectedCarpark = null;
+    private static Timer timer = new Timer("Timer");
     private final Logger logger = LogsCenter.getLogger(CarparkListPanel.class);
 
     @FXML
@@ -69,13 +72,20 @@ public class CarparkListPanel extends UiPart<Region> {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
-        scrollTo(event.targetIndex);
     }
 
     @Subscribe
     private void handleNotifyCarparkRequestEvent(NotifyCarparkRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setConnections(carparkListView.getItems());
+    }
+
+    @Subscribe
+    private void handleNoSelectionRequestEvent(NoSelectionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        selectIndex = -1;
+        selectedCarpark = null;
+        timer.cancel();
     }
 
     /**
@@ -88,6 +98,15 @@ public class CarparkListPanel extends UiPart<Region> {
 
     public static Carpark getSelectedCarpark() {
         return selectedCarpark;
+    }
+
+    public static Timer getTimer() {
+        return timer;
+    }
+
+    public static void setTimer() {
+        timer.cancel();
+        timer = new Timer("Timer");
     }
 
     /**

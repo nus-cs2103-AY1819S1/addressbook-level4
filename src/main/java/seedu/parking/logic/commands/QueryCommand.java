@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -30,7 +29,6 @@ import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
-import seedu.parking.ui.CommandBox;
 
 /**
  * Queries when to get the car park information from the API.

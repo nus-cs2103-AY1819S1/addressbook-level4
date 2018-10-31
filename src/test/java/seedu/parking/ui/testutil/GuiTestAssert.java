@@ -45,7 +45,8 @@ public class GuiTestAssert {
             assertEquals("Lots Available: Not Available", actualCard.getLotsAvailable());
         } else {
             assertEquals("Total Lots: " + expectedCarpark.getTotalLots().toString(), actualCard.getTotalLots());
-            assertEquals("Lots Available: " + expectedCarpark.getLotsAvailable().toString(), actualCard.getLotsAvailable());
+            assertEquals("Lots Available: " + expectedCarpark.getLotsAvailable().toString(),
+                    actualCard.getLotsAvailable());
         }
 
         assertEquals("Free Parking: " + expectedCarpark.getFreeParking().toString(), actualCard.getFreeParking());

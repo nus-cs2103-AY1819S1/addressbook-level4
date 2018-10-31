@@ -96,7 +96,8 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
                 .anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().toString(), keyword)
                                 || StringUtil.containsWordIgnoreCase(carpark.getAddress().toString(), keyword)
-                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().toString(), keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().toString(),
+                                keyword)
                                 || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().toString(), keyword)
                 );
 

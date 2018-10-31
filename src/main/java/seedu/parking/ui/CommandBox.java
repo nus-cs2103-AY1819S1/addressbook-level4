@@ -285,7 +285,7 @@ public class CommandBox extends UiPart<Region> {
         initHistory();
         // handle command failure
         raise(new NewResultAvailableEvent(event.exception.getMessage()));
-        commandTextField.setDisable(!commandTextField.isDisable());
+        commandTextField.setDisable(false);
         replaceText(rawText);
         setStyleToIndicateCommandFailure();
         commandTextField.setPromptText("Enter command here...");
