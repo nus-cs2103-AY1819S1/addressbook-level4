@@ -294,7 +294,7 @@ DDMM is the format of date to be entered
 Example:
 
 * `earnings from/0204 to/2504` +
-This input returns the total amount of tuition fees earned from 2 April 2018 to 25 April 2018 inclusive.
+This command returns the total amount of tuition fees earned from 2 April 2018 to 25 April 2018 inclusive.
 
 // tag::undoredo[]
 === Undoing previous command : `undo`

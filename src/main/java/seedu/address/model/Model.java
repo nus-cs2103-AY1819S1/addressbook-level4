@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -19,6 +18,7 @@ public interface Model {
     /**
      * {@code Comparator}
      */
+    /*
     Comparator<Person> COMPARATOR_FOR_SORT = new Comparator<Person>() {
         @Override
         public int compare(Person o1, Person o2) {
@@ -26,7 +26,7 @@ public interface Model {
             int n2 = Integer.valueOf(o2.getGrades().value);
             return n2 - n1;
         }
-    };
+    };*/
 
     /**
      * Clears existing backing model and replaces with the provided new data.

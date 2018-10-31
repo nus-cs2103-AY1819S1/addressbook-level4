@@ -7,7 +7,7 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <education>Secondary 4</education>
-        <grades>100</grades>
+        <grades>Y1819S1_Mid 100</grades>
         <tagged>friends</tagged>
     </persons>
     <persons>
@@ -16,7 +16,7 @@
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
         <education>Secondary 3</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
@@ -26,7 +26,7 @@
         <email>heinz@example.com</email>
         <address>wall street</address>
         <education>Secondary 2</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -34,7 +34,7 @@
         <email>cornelia@example.com</email>
         <address>10th street</address>
         <education>Primary 6</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
         <tagged>friends</tagged>
     </persons>
     <persons>
@@ -43,7 +43,7 @@
         <email>werner@example.com</email>
         <address>michegan ave</address>
         <education>Secondary 4</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
@@ -51,7 +51,7 @@
         <email>lydia@example.com</email>
         <address>little tokyo</address>
         <education>Primary 3</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
     </persons>
     <persons>
         <name>George Best</name>
@@ -59,6 +59,6 @@
         <email>anna@example.com</email>
         <address>4th street</address>
         <education>Primary 1</education>
-        <grades>99</grades>
+        <grades>Y1819S1_Mid 99</grades>
     </persons>
 </addressbook>

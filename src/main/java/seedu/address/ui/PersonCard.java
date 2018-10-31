@@ -39,7 +39,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private Label grades;
+    private FlowPane grades;
     @FXML
     private Label fees;
     @FXML
@@ -56,7 +56,8 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         education.setText(person.getEducation().toString());
         email.setText(person.getEmail().value);
-        grades.setText(person.getGrades().value);
+        person.getGrades().forEach((key, value) ->
+                grades.getChildren().add(new Label(key + " " + value.toString())));
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         fees.setText("$" + person.getFees().value + "/hour");
         person.getTime().forEach(time -> times.getChildren().add(new Label("[" + time.toString() + "] ")));

@@ -10,10 +10,16 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Grades {
 
+    public static final String MESSAGE_GRADE_INPUT_CONSTRAINTS =
+            "Grades input should contain "
+                    + "an exam name and a positive integer range from 0 to 100 which are separated by space";
+
     public static final String MESSAGE_GRADE_CONSTRAINTS =
-            "Grades should only contain a positive integer range from 0 to 100, and it should not be blank";
+            "Grade should only contain a positive integer range from 0 to 100, and it should not be blank";
 
     public static final String GRADE_VALIDATION_REGEX = "^(?:\\d?\\d|100)$";
+
+    public static final String GRADE_INPUT_VALIDATION_REGEX = "^(\\S+)(\\s+)(?:\\d?\\d|100)$";
 
     public final String value;
 
@@ -33,6 +39,10 @@ public class Grades {
      */
     public static boolean isValidGrade(String test) {
         return test.matches(GRADE_VALIDATION_REGEX);
+    }
+
+    public static boolean isValidGradeInput(String test) {
+        return test.matches(GRADE_INPUT_VALIDATION_REGEX);
     }
 
     @Override

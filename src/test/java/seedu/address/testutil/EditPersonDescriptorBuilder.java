@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -86,8 +87,14 @@ public class EditPersonDescriptorBuilder {
     /**
      * Sets the {@code Grades} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditPersonDescriptorBuilder withGrades(String grades) {
-        descriptor.setGrades(new Grades(grades));
+    public EditPersonDescriptorBuilder withGrades(String... grades) {
+        HashMap<String, Grades> gradesHashMap = new HashMap<>();
+        for (String grade : grades) {
+            assert (Grades.isValidGradeInput(grade));
+            String[] splitGrade = grade.trim().split("\\s+");
+            gradesHashMap.put(splitGrade[0], new Grades(splitGrade[1]));
+        }
+        descriptor.setGrades(gradesHashMap);
         return this;
     }
 

@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import javafx.util.Pair;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Education;
@@ -36,8 +38,9 @@ public class XmlAdaptedPerson {
     private String address;
     @XmlElement(required = true)
     private String education;
-    @XmlElement(required = true)
-    private String grades;
+
+    @XmlElement
+    private List<XmlAdaptedGrades> grades = new ArrayList<>();
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -46,19 +49,22 @@ public class XmlAdaptedPerson {
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson() {
+    }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String education,
-                            String grades, List<XmlAdaptedTag> tagged) {
+                            List<XmlAdaptedGrades> grades, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.education = education;
-        this.grades = grades;
+        if (grades != null) {
+            this.grades = new ArrayList<>(grades);
+        }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -75,7 +81,10 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         education = source.getEducation().toString();
-        grades = source.getGrades().value;
+
+        grades = source.getGrades().entrySet().stream()
+                .map(XmlAdaptedGrades::new)
+                .collect(Collectors.toList());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -87,6 +96,13 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Person toModelType() throws IllegalValueException {
+        //get grades hashmap
+        HashMap<String, Grades> modelGrades = new HashMap<>();
+        for (XmlAdaptedGrades grade : grades) {
+            Pair<String, Grades> gradePair = grade.toModelType();
+            modelGrades.put(gradePair.getKey(), gradePair.getValue());
+        }
+
         final List<Tag> personTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
@@ -134,15 +150,6 @@ public class XmlAdaptedPerson {
         }
         final Education modelEducation = new Education(education);
 
-        if (grades == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Grades.class.getSimpleName()));
-        }
-        if (!Grades.isValidGrade(grades)) {
-            throw new IllegalValueException(Grades.MESSAGE_GRADE_CONSTRAINTS);
-        }
-        final Grades modelGrades = new Grades(grades);
-
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelEducation, modelGrades, modelTags);
     }
@@ -163,7 +170,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(address, otherPerson.address)
                 && Objects.equals(education, otherPerson.education)
-                && Objects.equals(grades, otherPerson.grades)
+                && grades.equals(otherPerson.grades)
                 && tagged.equals(otherPerson.tagged);
     }
 }

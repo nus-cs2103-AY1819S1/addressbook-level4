@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -18,9 +19,15 @@ public class GradeFilterPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        int a = Integer.valueOf(person.getGrades().value);
-        return a >= minLimit && a <= maxLimit;
-
+        boolean result = false;
+        for (Map.Entry<String, Grades> grade : person.getGrades().entrySet()) {
+            int a = Integer.valueOf(grade.getValue().value);
+            if (a >= minLimit && a <= maxLimit) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
 

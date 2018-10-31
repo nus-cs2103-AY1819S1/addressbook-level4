@@ -369,14 +369,23 @@ phone number and address.
 The earnings feature has been implemented to retrieve the sum of all tuition fees
 from each student. A `Fee` class has been added to the list of attributes of Person class.
 
-* The earnings command is taken as an input into the `AddressBookParser` class,
-where an `EarningsCommand` object is returned, which executes and displays the calculated
-sum of total tuition fees per hour from each student.
-
 * Each student's tuition fee per hour is also displayed on the PersonCard GUI. The tuition
 fee of an individual student is determined by his or her educational level and grade.
 +
 image::PersonCardExample.png[width="250"]
+
+* The earnings command word and two arguments which contains a start and end date are taken as an
+input into the `AddressBookParser` class. An `EarningsCommand` object is returned,
+which executes and displays the calculated sum of tuition fees earned between a range of dates.
+
+The earnings command uses the information in UniquePersonList from `VersionedAddressBook` to obtain the fees information
+of every student contained in the AddressBook. Using the list of students, `EarningsCommand` then uses the
+Java 8 Stream API to calculate and return the total amount of tuition fees earned within the period provided by
+the user.
+
+The following sequence diagram shows how the earnings function works:
+
+image::EarningsCommandSequenceDiagram.png[width="800"]
 
 ==== Future Implementation
 
