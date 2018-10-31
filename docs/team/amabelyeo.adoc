@@ -333,5 +333,3 @@ image::command_manage_sd.png[manage SD, 800]
 
 
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
