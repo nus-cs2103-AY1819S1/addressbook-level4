@@ -42,7 +42,7 @@ public interface Storage extends AddressBookStorage, AssignmentListStorage, Arch
 
     @Override
     void saveAssignmentList(ReadOnlyAssignmentList assignmentList) throws IOException;
-  
+
     @Override
     void saveArchiveList(ReadOnlyArchiveList addressBook) throws IOException;
 

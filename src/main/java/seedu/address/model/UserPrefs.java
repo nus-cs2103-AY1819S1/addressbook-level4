@@ -39,7 +39,7 @@ public class UserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
     }
-  
+
     public Path getAssignmentListFilePath() {
         return assignmentListFilePath;
     }

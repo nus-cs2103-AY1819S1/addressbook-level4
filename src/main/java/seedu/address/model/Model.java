@@ -24,7 +24,7 @@ public interface Model {
 
     /** Returns the AssignmentList */
     ReadOnlyAssignmentList getAssignmentList();
-  
+
     /** Returns the ArchiveList */
     ReadOnlyArchiveList getArchiveList();
 
@@ -147,7 +147,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAssignmentList(Predicate<Assignment> predicate);
-  
+
     /**
      * Updates the address book to remove all undo and redo saved versions, as if it had been re-initalized.
      */

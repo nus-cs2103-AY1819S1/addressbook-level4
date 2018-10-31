@@ -111,9 +111,6 @@ public class AddressBookTest {
         }
 
         @Override
-        public ObservableList<Assignment> getAssignmentList() { return assignments; }
-      
-        @Override
         public ObservableList<LeaveApplicationWithEmployee> getLeaveApplicationList() {
             return leaveApplications;
         }

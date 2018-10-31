@@ -54,9 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         archivedPersons = new FilteredList<>(versionedArchiveList.getPersonList());
     }
 
-    public ModelManager() {
-        this(new AddressBook(), new AssignmentList(), new ArchiveList(), new UserPrefs());   
-    }
+    public ModelManager() { this(new AddressBook(), new AssignmentList(), new ArchiveList(), new UserPrefs()); }
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
@@ -75,8 +73,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyAssignmentList getAssignmentList() {
         return versionedAssignmentList;
     }
-      
-    @Override  
+
+    @Override
     public ReadOnlyArchiveList getArchiveList() {
         return versionedArchiveList;
     }

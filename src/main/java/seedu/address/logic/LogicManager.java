@@ -60,7 +60,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<Assignment> getFilteredAssignmentList() {
         return model.getFilteredAssignmentList();
     }
-  
+
     @Override
     public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
         return model.getFilteredLeaveApplicationList();

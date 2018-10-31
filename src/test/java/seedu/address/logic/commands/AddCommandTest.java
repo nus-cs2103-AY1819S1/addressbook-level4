@@ -113,7 +113,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAssignmentList getAssignmentList() { throw new AssertionError("This method should not be called."); }
-      
+
         @Override
         public ReadOnlyArchiveList getArchiveList() {
             throw new AssertionError("This method should not be called.");
@@ -163,7 +163,7 @@ public class AddCommandTest {
         public ObservableList<Assignment> getFilteredAssignmentList() {
             throw new AssertionError("This method should not be called.");
         }
-      
+
         @Override
         public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
             throw new AssertionError("This method should not be called.");

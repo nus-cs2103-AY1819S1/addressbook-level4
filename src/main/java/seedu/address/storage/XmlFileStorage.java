@@ -68,7 +68,7 @@ public class XmlFileStorage {
             throw new DataConversionException(e);
         }
     }
-   
+
     /**
      * Returns archive list in the file or an empty archive list
      */

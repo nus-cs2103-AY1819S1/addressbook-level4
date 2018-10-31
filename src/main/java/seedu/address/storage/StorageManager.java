@@ -30,7 +30,7 @@ public class StorageManager extends ComponentManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private AssignmentListStorage assignmentListStorage;
 
-  
+
     public StorageManager(AddressBookStorage addressBookStorage, AssignmentListStorage assignmentListStorage
             , ArchiveListStorage archiveListStorage, UserPrefsStorage userPrefsStorage) {
         super();
