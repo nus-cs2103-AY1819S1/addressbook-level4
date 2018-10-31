@@ -40,9 +40,9 @@ public class RidePageGenerator extends HtmlGenerator<Ride> {
         List<Ride> dataAsList = new LinkedList<>();
         dataAsList.add(data);
         generateHtml(title, dataAsList, filePathToUrl);
-        FileUtil.saveResource(getClass().getResource("/docs/images/ride.png").getPath(),
+        FileUtil.saveResource(getClass().getResourceAsStream("/docs/images/ride.png"),
                 "ride.png", false);
-        FileUtil.saveResource(getClass().getResource("/docs/stylesheets/asciidoctor.css").getPath(),
+        FileUtil.saveResource(getClass().getResourceAsStream("/docs/stylesheets/asciidoctor.css"),
                 "asciidoctor.css", false);
     }
 

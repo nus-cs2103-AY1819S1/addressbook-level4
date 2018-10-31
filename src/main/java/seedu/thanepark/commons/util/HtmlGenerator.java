@@ -48,7 +48,7 @@ public abstract class HtmlGenerator<HtmlData extends HtmlFormattable> {
         throws IOException {
         String content = generateHtmlLayout(title, data);
         createFile(filePathToUrl.getFilePath(), content);
-        FileUtil.saveResource(getClass().getResource("/docs/stylesheets/asciidoctor.css").getPath(),
+        FileUtil.saveResource(getClass().getResourceAsStream("/docs/stylesheets/asciidoctor.css"),
                 "asciidoctor.css", false);
     }
 

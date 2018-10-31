@@ -1,7 +1,6 @@
 package seedu.thanepark.commons.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,28 +85,22 @@ public class FileUtil {
     }
 
     /**
-     * Export resource to folder. Reference:
-     * https://stackoverflow.com/questions/40569537/how-to-export-all-files-and-folders-in-resources-folder-in-java
+     * Export resource to folder.
      */
-    public static void saveResource(String resourcePath, String target, boolean replace) throws IOException {
-        if (resourcePath == null || resourcePath.equals("")) {
-            throw new IllegalArgumentException("ResourcePath cannot be null or empty");
-        }
-
+    public static void saveResource(InputStream resource, String target, boolean replace) throws IOException {
         File outFile = new File(target);
         if (outFile.exists() && !replace) {
             return;
         }
 
-        InputStream in = new FileInputStream(resourcePath.replace('\\', '/'));
         OutputStream out = new FileOutputStream(outFile);
         byte[] buffer = new byte[1024];
         int length;
-        while ((length = in.read(buffer)) > 0) {
+        while ((length = resource.read(buffer)) > 0) {
             out.write(buffer, 0, length);
         }
         out.close();
-        in.close();
+        resource.close();
     }
 
 }
