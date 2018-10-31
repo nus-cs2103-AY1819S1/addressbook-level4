@@ -1,3 +1,4 @@
+//@@author LZYAndy
 package seedu.address.model.person;
 
 import java.util.List;
@@ -29,3 +30,4 @@ public class EmailContainsKeywordsPredicate implements Predicate<Person> {
     }
 
 }
+//@@author LZYAndy

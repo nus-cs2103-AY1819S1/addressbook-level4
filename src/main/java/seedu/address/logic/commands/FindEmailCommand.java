@@ -1,3 +1,4 @@
+//@@author LZYAndy
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -41,4 +42,4 @@ public class FindEmailCommand extends Command {
                 && predicate.equals(((FindEmailCommand) other).predicate)); // state check
     }
 }
-
+//@@author LZYAndy

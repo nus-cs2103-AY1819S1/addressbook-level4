@@ -1,3 +1,4 @@
+//@@author LZYAndy
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -41,3 +42,4 @@ public class FindPhoneCommand extends Command {
                 && predicate.equals(((FindPhoneCommand) other).predicate)); // state check
     }
 }
+//@@author LZYAndy
