@@ -342,7 +342,7 @@ InsuRen will record that a meeting is scheduled on 12 March 2019, 0930 with the 
 Displays the details of the meeting at the input date and time. +
 Format: `meetings [DD/MM/YY]`
 
-shorthand: `mtngs`
+shorthand: `m`
 ****
 * If there are meetings scheduled on the queried date, the details of the clients the meetings are scheduled with
 are displayed.
