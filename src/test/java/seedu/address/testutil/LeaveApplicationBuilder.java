@@ -22,9 +22,9 @@ public class LeaveApplicationBuilder {
             LocalDate.of(2018, 10, 26)
     );
 
-    private Description description;
-    private LeaveStatus leaveStatus;
-    private List<LocalDate> dates;
+    protected Description description;
+    protected LeaveStatus leaveStatus;
+    protected List<LocalDate> dates;
 
     public LeaveApplicationBuilder() {
         description = new Description(DEFAULT_DESCRIPTION);

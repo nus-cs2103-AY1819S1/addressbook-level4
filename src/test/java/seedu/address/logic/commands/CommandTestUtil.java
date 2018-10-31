@@ -191,7 +191,8 @@ public class CommandTestUtil {
         LeaveApplicationWithEmployee leaveApplication = model.getFilteredLeaveApplicationList()
                 .get(targetIndex.getZeroBased());
         final String[] splitDesc = leaveApplication.getDescription().value.split("\\s+");
-        model.updateFilteredLeaveApplicationList(new LeaveDescriptionContainsKeywordsPredicate(Arrays.asList(splitDesc[0])));
+        model.updateFilteredLeaveApplicationList(new LeaveDescriptionContainsKeywordsPredicate(
+                Arrays.asList(splitDesc[0])));
 
         assertEquals(1, model.getFilteredLeaveApplicationList().size());
     }

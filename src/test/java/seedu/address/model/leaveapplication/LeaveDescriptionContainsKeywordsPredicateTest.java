@@ -8,8 +8,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.PersonBuilder;
+
+import seedu.address.testutil.LeaveApplicationWithEmployeeBuilder;
 
 public class LeaveDescriptionContainsKeywordsPredicateTest {
 
@@ -18,14 +18,17 @@ public class LeaveDescriptionContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
-        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList);
+        LeaveDescriptionContainsKeywordsPredicate firstPredicate =
+                new LeaveDescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
+        LeaveDescriptionContainsKeywordsPredicate secondPredicate =
+                new LeaveDescriptionContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        NameContainsKeywordsPredicate firstPredicateCopy = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
+        LeaveDescriptionContainsKeywordsPredicate firstPredicateCopy =
+                new LeaveDescriptionContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -39,37 +42,34 @@ public class LeaveDescriptionContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
+    public void test_descriptionContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        LeaveDescriptionContainsKeywordsPredicate predicate =
+                new LeaveDescriptionContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        assertTrue(predicate.test(new LeaveApplicationWithEmployeeBuilder().withDescription("Alice Bob").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        predicate = new LeaveDescriptionContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
+        assertTrue(predicate.test(new LeaveApplicationWithEmployeeBuilder().withDescription("Alice Bob").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+        predicate = new LeaveDescriptionContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
+        assertTrue(predicate.test(new LeaveApplicationWithEmployeeBuilder().withDescription("Alice Carol").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        predicate = new LeaveDescriptionContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        assertTrue(predicate.test(new LeaveApplicationWithEmployeeBuilder().withDescription("Alice Bob").build()));
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_descriptionDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
+        LeaveDescriptionContainsKeywordsPredicate predicate =
+                new LeaveDescriptionContainsKeywordsPredicate(Collections.emptyList());
+        assertFalse(predicate.test(new LeaveApplicationWithEmployeeBuilder().withDescription("Alice").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
-
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withSalary("10000").build()));
+        predicate = new LeaveDescriptionContainsKeywordsPredicate(Arrays.asList("Carol"));
+        assertFalse(predicate.test(new LeaveApplicationWithEmployeeBuilder().withDescription("Alice Bob").build()));
     }
 }
