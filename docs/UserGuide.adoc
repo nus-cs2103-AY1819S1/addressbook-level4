@@ -171,8 +171,8 @@ Format: `login r/ROLE n/NAME pass/PASSWORD` +
 
 Examples:
 
-* `login r/doctor n/Adam Bell pass/-------` +
-* `login r/receptionist n/Mary Jane pass/-------` +
+* `login r/doctor n/Adam Bell pass/------1` +
+* `login r/receptionist n/Mary Jane pass/------3` +
 
 ==== Log out of the program : `logout` `[coming in v2.0]`
 
