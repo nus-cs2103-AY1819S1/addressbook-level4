@@ -6,7 +6,6 @@ import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
-import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -51,13 +50,13 @@ public class DoctorBuilder {
     /**
      * Initializes the PatientBuilder with the data of {@code personToCopy}.
      */
-    public DoctorBuilder(Patient patientToCopy) {
-        name = patientToCopy.getName();
-        phone = patientToCopy.getPhone();
-        email = patientToCopy.getEmail();
-        address = patientToCopy.getAddress();
-        remark = patientToCopy.getRemark();
-        tags = new HashSet<>(patientToCopy.getTags());
+    public DoctorBuilder(Doctor doctorToCopy) {
+        name = doctorToCopy.getName();
+        phone = doctorToCopy.getPhone();
+        email = doctorToCopy.getEmail();
+        address = doctorToCopy.getAddress();
+        remark = doctorToCopy.getRemark();
+        tags = new HashSet<>(doctorToCopy.getTags());
     }
 
     /**

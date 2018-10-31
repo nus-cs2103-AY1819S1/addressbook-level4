@@ -12,23 +12,27 @@ public class Appointment implements Comparable<Appointment> {
 
     private AppointmentId appointmentId;
     private String doctor;
+    private String patient;
     private LocalDateTime dateTime;
     private Status status;
     private String comments;
     private List<Prescription> prescriptions;
 
-    public Appointment(int appointmentCounter, String doctor, LocalDateTime dateTime) {
+    public Appointment(int appointmentCounter, String doctor, String patient, LocalDateTime dateTime) {
         appointmentId = new AppointmentId(appointmentCounter);
         this.doctor = doctor;
+        this.patient = patient;
         this.dateTime = dateTime;
         this.status = Status.UPCOMING;
         prescriptions = new ArrayList<>();
     }
 
-    public Appointment(AppointmentId appointmentId, String doctor, LocalDateTime dateTime, Status status,
+    public Appointment(AppointmentId appointmentId, String doctor, String patient,
+                       LocalDateTime dateTime, Status status,
                        String comments, List<Prescription> prescriptions) {
         this.appointmentId = appointmentId;
         this.doctor = doctor;
+        this.patient = patient;
         this.dateTime = dateTime;
         this.status = status;
         if (comments != null) {
@@ -48,6 +52,10 @@ public class Appointment implements Comparable<Appointment> {
 
     public String getDoctor() {
         return doctor;
+    }
+
+    public String getPatient() {
+        return patient;
     }
 
     public LocalDateTime getDateTime() {

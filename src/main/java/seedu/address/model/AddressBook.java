@@ -33,7 +33,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         appointments = new UniqueAppointmentList();
-        appointmentCounter = 1;
+        appointmentCounter = 10000;
     }
 
     public AddressBook() {

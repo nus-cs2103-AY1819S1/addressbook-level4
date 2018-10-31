@@ -2,8 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.NON_EXIST_ALLERGY;
+import static seedu.address.logic.commands.CommandTestUtil.NON_EXIST_CONDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -25,73 +29,71 @@ import seedu.address.model.tag.TagContainsPatientPredicate;
 import seedu.address.testutil.PatientBuilder;
 
 /**
- * Contains integration tests and unit tests for AddMedicalHistoryCommand.
+ * Contains integration tests and unit tests for DeleteMedicalHistoryCommand.
  */
-public class AddMedicalHistoryCommandTest {
+public class DeleteMedicalHistoryCommandTest {
     private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctor(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_addMedicalHistory_success() {
+    public void execute_deleteMedicalHistory_success() {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
 
         Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         Patient editedPatient = new PatientBuilder(firstPatient).build();
-        editedPatient.getMedicalHistory().addAllergy(VALID_ALLERGY);
-        editedPatient.getMedicalHistory().addAllergy(VALID_CONDITION);
+        editedPatient.getMedicalHistory().getAllergies().remove(VALID_ALLERGY_TO_DELETE);
+        editedPatient.getMedicalHistory().getConditions().remove(VALID_CONDITION_TO_DELETE);
 
-        AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY_TO_DELETE, VALID_CONDITION_TO_DELETE);
 
-        String expectedMessage = String.format(AddMedicalHistoryCommand.MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS,
+        String expectedMessage = String.format(DeleteMedicalHistoryCommand.MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS,
                 editedPatient);
-
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPatient, editedPatient);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(addMedicalHistoryCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteMedicalHistoryCommand, model, commandHistory, expectedMessage, expectedModel);
+
     }
 
     @Test
     public void execute_invalidPersonIndex_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(outOfBoundIndex, VALID_ALLERGY, VALID_CONDITION);
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(outOfBoundIndex, VALID_ALLERGY_TO_DELETE, VALID_CONDITION_TO_DELETE);
 
-        assertCommandFailure(addMedicalHistoryCommand,
+        assertCommandFailure(deleteMedicalHistoryCommand,
                 model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_duplicateAllergy_failure() {
+    public void execute_invalidAllergy_failure() {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
-        Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        String duplicateAllergy = new String(firstPatient.getMedicalHistory().getAllergies().get(0));
-        AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, duplicateAllergy, VALID_CONDITION);
 
-        assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
-                duplicateAllergy
-                        + AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, NON_EXIST_ALLERGY, "");
+
+        assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
+                DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY
+                        + NON_EXIST_ALLERGY);
 
     }
 
     @Test
-    public void execute_duplicateCondition_failure() {
+    public void execute_invalidCondition_failure() {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
-        Patient firstPatient = (Patient) model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        String duplicateCondition = new String(firstPatient.getMedicalHistory().getConditions().get(0));
-        AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, duplicateCondition);
 
-        assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
-                duplicateCondition
-                        + AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_DUPLICATE);
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, "", NON_EXIST_CONDITION);
+
+        assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
+                DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION
+                        + NON_EXIST_CONDITION);
 
     }
 
@@ -99,10 +101,10 @@ public class AddMedicalHistoryCommandTest {
     public void execute_invalidType_failure() {
         final TagContainsDoctorPredicate predicate = new TagContainsDoctorPredicate();
         model.updateFilteredPersonList(predicate);
-        AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
-        assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
-                AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY);
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+        assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
+                DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE);
 
     }
 
@@ -110,20 +112,20 @@ public class AddMedicalHistoryCommandTest {
     public void execute_blankInput_failure() {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
-        AddMedicalHistoryCommand addMedicalHistoryCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, "", "");
-        assertCommandFailure(addMedicalHistoryCommand, model, commandHistory,
-                AddMedicalHistoryCommand.MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO);
+        DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, "", "");
+        assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
+                DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
     }
 
     @Test
     public void equals() {
-        final AddMedicalHistoryCommand standardCommand =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+        final DeleteMedicalHistoryCommand standardCommand =
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
 
         // same values -> returns true
-        AddMedicalHistoryCommand commandWithSameValues =
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
+        DeleteMedicalHistoryCommand commandWithSameValues =
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, VALID_ALLERGY, VALID_CONDITION);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -137,11 +139,10 @@ public class AddMedicalHistoryCommandTest {
 
         // different index -> returns false
         assertFalse(standardCommand.equals(
-                new AddMedicalHistoryCommand(INDEX_SECOND_PERSON, VALID_ALLERGY, VALID_CONDITION)));
+                new DeleteMedicalHistoryCommand(INDEX_SECOND_PERSON, VALID_ALLERGY, VALID_CONDITION)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(
-                new AddMedicalHistoryCommand(INDEX_FIRST_PERSON, "", "")));
+                new DeleteMedicalHistoryCommand(INDEX_FIRST_PERSON, "", "")));
     }
-
 }

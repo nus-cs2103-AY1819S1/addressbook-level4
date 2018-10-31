@@ -46,6 +46,8 @@ public class CommandTestUtil {
     public static final String VALID_REMARK_BOB = "Likes tea";
     public static final String VALID_ALLERGY = "milk";
     public static final String VALID_CONDITION = "healthy";
+    public static final String VALID_ALLERGY_TO_DELETE = "egg";
+    public static final String VALID_CONDITION_TO_DELETE = "sub-health";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -97,6 +99,9 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String NON_EXIST_ALLERGY = "non_exist_allergy";
+    public static final String NON_EXIST_CONDITION = "non_exist_condition";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;

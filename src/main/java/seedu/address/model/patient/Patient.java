@@ -44,7 +44,6 @@ public class Patient extends Person {
         this.upcomingAppointments = upcomingAppointments;
         this.pastAppointments = pastAppointments;
         this.medicalHistory = new MedicalHistory();
-
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Remark remark,

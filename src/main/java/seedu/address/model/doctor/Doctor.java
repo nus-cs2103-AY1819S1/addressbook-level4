@@ -1,9 +1,13 @@
 package seedu.address.model.doctor;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import seedu.address.calendar.CalendarManager;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.InvalidSecurityAccessException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -27,11 +31,26 @@ public class Doctor extends Person {
         upcomingAppointments = new PriorityQueue<>();
     }
 
+    public Doctor(Name name, Phone phone, Email email, Address address, Remark remark,
+                  Set<Tag> tags, PriorityQueue<Appointment> upcomingAppointments) {
+        super(name, phone, email, address, remark, tags);
+        this.upcomingAppointments = upcomingAppointments;
+    }
+
     /**
      * Adds an upcoming appointment to the doctor's queue of upcoming appointment.
+     * The appointment is also added into Doctor's google calendar
      */
     public void addUpcomingAppointment(Appointment appointment) {
         upcomingAppointments.add(appointment);
+        CalendarManager calendarManager = new CalendarManager();
+        try {
+            calendarManager.addAppointment(this.getName().toString(), appointment);
+        } catch (GeneralSecurityException e) {
+            throw new InvalidSecurityAccessException();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 
     public PriorityQueue<Appointment> getUpcomingAppointments() {
@@ -43,6 +62,14 @@ public class Doctor extends Person {
      */
     public void deleteAppointment(Appointment appointment) {
         upcomingAppointments.remove(appointment);
+        CalendarManager calendarManager = new CalendarManager();
+        try {
+            calendarManager.deleteAppointment(this.getName().toString(), appointment);
+        } catch (GeneralSecurityException e) {
+            throw new InvalidSecurityAccessException();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 
     /**

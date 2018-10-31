@@ -35,8 +35,8 @@ public class DeleteMedicalHistoryCommand extends Command {
 
     public static final String MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS = "Medical history deleted for: %1$s";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE = "This command is only for patients";
-    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY = "No such allergy";
-    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION = "No such condition";
+    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY = "Non Exist Allergy: ";
+    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION = "Non Exist Condition: ";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
 
     private final Index index;
@@ -78,7 +78,7 @@ public class DeleteMedicalHistoryCommand extends Command {
                     patientToEdit.getMedicalHistory().getAllergies().remove(allergiesToDelete.get(index));
                 } else {
                     throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY
-                            + patientToEdit.getMedicalHistory().getAllergies().get(0));
+                            + allergiesToDelete.get(index));
                 }
             }
         }
@@ -89,7 +89,7 @@ public class DeleteMedicalHistoryCommand extends Command {
                     patientToEdit.getMedicalHistory().getConditions().remove(conditionsToDelete.get(index));
                 } else {
                     throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION
-                            + patientToEdit.getMedicalHistory().getConditions().get(0));
+                            + conditionsToDelete.get(index));
                 }
             }
         }
@@ -101,5 +101,18 @@ public class DeleteMedicalHistoryCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS, patientToEdit));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) { //if same object
+            return true;
+        } else if (!(o instanceof DeleteMedicalHistoryCommand)) {
+            return false;
+        } else {
+            DeleteMedicalHistoryCommand r = (DeleteMedicalHistoryCommand) o;
+            return index.equals(r.index) && allergy.equals(r.allergy) && condition.equals(r.condition);
+        }
+
     }
 }
