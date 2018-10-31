@@ -21,7 +21,7 @@ public class NotificationHandler implements Iterable<Notification> {
     private static final int DAYS_BEFORE_SENDING_TIP = 1;
     private static final double WARNING_NOTIFICATION_TRESHOLD = 0.8;
     private static final int MAXIMUM_NUMBER_OF_NOTIFICATIONS = 10;
-    private static final LocalDateTime DEFAULT_LOCAL_DATE_TIME = LocalDateTime.now().minusDays(1);
+    private static final LocalDateTime DEFAULT_LOCAL_DATE_TIME = LocalDateTime.parse("2018-11-01T17:20:16.847790");
 
     private LocalDateTime lastTipSentOn;
     private boolean isTipEnabled;
@@ -165,8 +165,11 @@ public class NotificationHandler implements Iterable<Notification> {
             return false;
         }
 
+
         NotificationHandler handler = (NotificationHandler) obj;
 
+        System.out.println("H: " + lastTipSentOn);
+        System.out.println("N " + handler.lastTipSentOn);
         return this.isWarningEnabled == handler.isWarningEnabled
                 && this.isTipEnabled == handler.isTipEnabled
                 && this.lastTipSentOn.getDayOfMonth() == handler.lastTipSentOn.getDayOfMonth()
