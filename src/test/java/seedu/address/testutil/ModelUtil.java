@@ -35,6 +35,9 @@ public class ModelUtil {
         Model model = new ModelManager();
         model.addUser(TypicalExpenses.SAMPLE_USERNAME);
         model.loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
+        model.getNotificationHandler().clearList();
+        model.modifyNotificationHandler(LocalDateTime.parse("2018-10-01T17:26:18.868275"), true,
+                true);
         model.modifyMaximumBudget(new TotalBudget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));
         return model;
     }

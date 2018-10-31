@@ -58,11 +58,11 @@ public class StatsCommandTest {
     public void executeStatsSuccess() throws NoUserSelectedException {
         StatsCommand statsCommand = new StatsCommand();
         statsCommand.execute(model, commandHistory);
+
         assertTrue(model.getStatsPeriod() == StatsCommand.StatsPeriod.DAY);
 
         assertCommandSuccess(new StatsCommand(), model, commandHistory, MESSAGE_SUCCESS, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowStatsRequestEvent);
-        assertEquals(10, eventsCollectorRule.eventsCollector.getSize());
-
+        assertEquals(12, eventsCollectorRule.eventsCollector.getSize());
     }
 }

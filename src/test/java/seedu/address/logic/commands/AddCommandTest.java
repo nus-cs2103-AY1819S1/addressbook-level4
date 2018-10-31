@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -25,6 +26,8 @@ import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
@@ -55,6 +58,7 @@ public class AddCommandTest {
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validExpense), modelStub.expensesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertFalse(modelStub.addWarningNotification());
     }
 
     @Test
@@ -65,6 +69,7 @@ public class AddCommandTest {
 
         assertEquals(AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertTrue(modelStub.addWarningNotification());
     }
 
     @Test
@@ -75,6 +80,7 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertFalse(modelStub.addWarningNotification());
     }
 
     @Test
@@ -280,8 +286,50 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean addWarningNotification() throws NoUserSelectedException {
+            throw new AssertionError("addWarningNotification should not be called.");
+        }
+
+        @Override
+        public boolean addTipNotification() throws NoUserSelectedException {
+            throw new AssertionError("addTipNotification should not be called.");
+        }
+
+        @Override
+        public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
+            throw new AssertionError("addNotificationList should not be called.");
+        }
+
+        @Override
+        public void toggleTipNotification(boolean toggleOption) throws NoUserSelectedException {
+            throw new AssertionError("toggleTipNotification should not be called.");
+        }
+
+        @Override
+        public void toggleWarningNotification(boolean toggleOption) throws NoUserSelectedException {
+            throw new AssertionError("toggleWarningNotification should not be called.");
+        }
+
+        @Override
+        public void toggleBothNotification(boolean toggleOption) throws NoUserSelectedException {
+            throw new AssertionError("toggleBothNotification should not be called.");
+        }
+
+        @Override
+        public NotificationHandler getNotificationHandler() throws NoUserSelectedException {
+            throw new AssertionError("getNotificationHandler should not be called.");
+        }
+
+        @Override
+        public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+                throws NoUserSelectedException {
+            throw new AssertionError("modifyNotificationHandler should not be called.");
+        }
+
+        @Override
         public TotalBudget getMaximumBudget() {
             throw new AssertionError("getMaximumTotalBudget method should not be called.");
+
         }
 
     }
@@ -345,6 +393,11 @@ public class AddCommandTest {
             // called by {@param UpdateBudgetDisplayEvent}
             return new TotalBudget(0, 0);
         }
+
+        @Override
+        public boolean addWarningNotification() {
+            return false;
+        }
     }
 
     /**
@@ -377,6 +430,15 @@ public class AddCommandTest {
         public TotalBudget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
             return new TotalBudget(0, 0);
+        }
+
+        @Override
+        public boolean addWarningNotification() {
+            if (withinBudget) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 

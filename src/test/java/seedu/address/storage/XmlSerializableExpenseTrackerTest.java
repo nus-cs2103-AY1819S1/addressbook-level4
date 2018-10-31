@@ -35,6 +35,8 @@ public class XmlSerializableExpenseTrackerTest {
         typicalExpensesExpenseTracker.setUsername(new Username(TYPICAL_EXPENSES_FILE.getFileName().toString()
                 .replace(".xml", "")));
         assertEquals(expenseTrackerFromFile, typicalExpensesExpenseTracker);
+        assertEquals(expenseTrackerFromFile.getNotificationHandler(),
+                typicalExpensesExpenseTracker.getNotificationHandler());
         assertEquals(expenseTrackerFromFile.getMaximumTotalBudget(),
             typicalExpensesExpenseTracker.getMaximumTotalBudget());
     }

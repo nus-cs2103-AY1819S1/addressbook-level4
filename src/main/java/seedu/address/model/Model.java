@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,8 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
@@ -216,4 +219,58 @@ public interface Model {
      * @return true if the password to check matches that of the currently logged in user, false if it doesn't
      */
     boolean isMatchPassword(Password toCheck) throws NoUserSelectedException;
+
+    /**
+     * Adds a notification of type {@code WarningNotification}to the list of notification
+     * @return true if successfully added
+     * @throws NoUserSelectedException
+     */
+    boolean addWarningNotification() throws NoUserSelectedException;
+
+    /**
+     * Adds a notification of type {@code TipNotification}to the list of notification
+     * @return true if successfully added.
+     * @throws NoUserSelectedException
+     */
+    boolean addTipNotification() throws NoUserSelectedException;
+
+    /**
+     * Returns an {@code ObservableList} of current notifications
+     * @return an {@code ObservableList} of current notifications
+     * @throws NoUserSelectedException
+     */
+    ObservableList<Notification> getNotificationList() throws NoUserSelectedException;
+
+    /**
+     * Toggles the ability to add {@code TipNotifications}
+     * @param toggleOption to toggle to
+     * @throws NoUserSelectedException
+     */
+    void toggleTipNotification(boolean toggleOption) throws NoUserSelectedException;
+
+    /**
+     * Toggles the ability to add {@code WarningNotifications}
+     * @param toggleOption to toggle to
+     * @throws NoUserSelectedException
+     */
+    void toggleWarningNotification(boolean toggleOption) throws NoUserSelectedException;
+
+    /**
+     * Toggles the ability to add {@code WarningNotifications} and {@code TipNotification}
+     * @param toggleOption to toggle to
+     * @throws NoUserSelectedException
+     */
+    void toggleBothNotification(boolean toggleOption) throws NoUserSelectedException;
+
+    /**
+     * Returns notificationHandler.
+     */
+    NotificationHandler getNotificationHandler() throws NoUserSelectedException;
+
+    /**
+     * Modify NotificationHandler.
+     */
+    void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+            throws NoUserSelectedException;
+
 }

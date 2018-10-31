@@ -5,9 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 import java.util.Optional;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -20,20 +23,23 @@ public class EncryptedExpenseTracker {
     private final Password password;
     private final UniqueEncryptedExpenseList expenses;
     private final TotalBudget maximumTotalBudget;
+    private final NotificationHandler notificationHandler;
 
     /**
      * Creates an empty EncryptedExpenseTracker with the given username.
      * @param username the username associated to the ExpenseTracker
      */
     public EncryptedExpenseTracker(Username username, Password password) {
-        this(username, password, new TotalBudget("28.00"));
+        this(username, password, new TotalBudget("28.00"), new NotificationHandler());
     }
 
-    public EncryptedExpenseTracker(Username username, Password password, TotalBudget budget) {
+    public EncryptedExpenseTracker(Username username, Password password, TotalBudget budget,
+                                   NotificationHandler notificationHandler) {
         this.username = username;
         this.password = password;
         this.expenses = new UniqueEncryptedExpenseList();
         this.maximumTotalBudget = budget;
+        this.notificationHandler = notificationHandler;
     }
 
     /**
@@ -50,6 +56,7 @@ public class EncryptedExpenseTracker {
             result.addExpense(expense.getDecryptedExpense(key));
         }
         result.modifyMaximumBudget(maximumTotalBudget);
+        result.setNotificationHandler(notificationHandler);
         return result;
     }
 
@@ -103,6 +110,26 @@ public class EncryptedExpenseTracker {
     public UniqueEncryptedExpenseList getEncryptedExpenses() {
         return expenses;
     }
+
+    public NotificationHandler getNotificationHandler() {
+        return notificationHandler;
+    }
+
+    /**
+     * Adds a notification to the tracker
+     */
+    public void addNotification(Notification notification) {
+        this.notificationHandler.add(notification);
+    }
+
+    /**
+     * Returns an unmodifiable version of the list of Notificaitions
+     * @return Returns an unmodifiable version of the list of Notificaitions
+     */
+    public ObservableList<Notification> getNotificationList() {
+        return notificationHandler.asUnmodifiableObservableList();
+    }
+
 
     @Override
     public boolean equals(Object other) {

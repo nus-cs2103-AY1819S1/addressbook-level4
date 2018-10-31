@@ -144,6 +144,47 @@ public class ModelManagerTest {
         modelManagerLoggedOut.updateExpenseStatsPredicate(unused -> true);
     }
 
+    @Test
+    public void addWarningNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.addWarningNotification();
+    }
+
+    @Test
+    public void addTipNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.addTipNotification();
+    }
+
+    @Test
+    public void getNotificationList_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getNotificationList();
+    }
+
+    @Test
+    public void toggleTipNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.toggleTipNotification(false);
+    }
+
+    @Test
+    public void toggleWarningNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.toggleWarningNotification(false);
+    }
+
+    @Test
+    public void toggleBothNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.toggleBothNotification(false);
+    }
+
+    @Test
+    public void getNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getNotificationHandler();
+    }
 
     @Test
     public void getStatsPeriodReturnsCorrectStatsPeriod() {

@@ -24,6 +24,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
@@ -101,12 +103,18 @@ public class ExpenseTrackerTest {
         expenseTracker.getExpenseList().remove(0);
     }
 
+    @Test
+    public void setNotifications_nullList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        expenseTracker.setNotifications(null);
+    }
 
     /**
      * A stub ReadOnlyExpenseTracker whose expenses list can violate interface constraints.
      */
     private static class ExpenseTrackerStub implements ReadOnlyExpenseTracker {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
+        private final ObservableList<Notification> notifications = FXCollections.observableArrayList();
 
         ExpenseTrackerStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
@@ -125,6 +133,16 @@ public class ExpenseTrackerTest {
         @Override
         public Username getUsername() {
             return ModelUtil.TEST_USERNAME;
+        }
+
+        @Override
+        public ObservableList<Notification> getNotificationList() {
+            return notifications;
+        }
+
+        @Override
+        public NotificationHandler getNotificationHandler() {
+            return new NotificationHandler();
         }
 
         @Override

@@ -54,4 +54,9 @@
         <nextRecurrence>2017-08-04T10:11:30</nextRecurrence>
         <numberOfSecondsToRecurAgain>50000</numberOfSecondsToRecurAgain>
     </totalBudget>
+    <notificationHandler>
+        <lastTipSentOn>2018-10-01T17:26:18.868275</lastTipSentOn>
+        <isTipEnabled>true</isTipEnabled>
+        <isWarningEnabled>true</isWarningEnabled>
+    </notificationHandler>
 </expensetracker>

@@ -39,7 +39,8 @@ public class StorageManagerTest {
     public void setUp() {
         XmlExpensesStorage expenseTrackerStorage = new XmlExpensesStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(expenseTrackerStorage, userPrefsStorage);
+        JsonTipsStorage tipsStorage = new JsonTipsStorage(getTempFilePath("tips"));
+        storageManager = new StorageManager(expenseTrackerStorage, userPrefsStorage, tipsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -84,7 +85,8 @@ public class StorageManagerTest {
     public void handleExpenseTrackerChangedEvent_exceptionThrown_eventRaised() throws IllegalValueException {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlExpensesStorageExceptionThrowingStub(Paths.get("dummy")),
-                                             new JsonUserPrefsStorage(Paths.get("dummy")));
+                                             new JsonUserPrefsStorage(Paths.get("dummy")),
+                                             new JsonTipsStorage(Paths.get("dummy")));
         storage.handleExpenseTrackerChangedEvent(
                 new ExpenseTrackerChangedEvent(EncryptionUtil.encryptTracker(
                         new ExpenseTracker(ModelUtil.TEST_USERNAME, null,

@@ -2,6 +2,7 @@ package seedu.address.model.util;
 
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -48,6 +49,8 @@ public class SampleDataUtil {
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleAb.addExpense(sampleExpense);
         }
+        sampleAb.modifyNotificationHandler(LocalDateTime.parse("2018-11-01T17:20:16.847790"),
+                true, true);
         return sampleAb;
     }
 

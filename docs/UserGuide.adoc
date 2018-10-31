@@ -9,7 +9,7 @@
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
-:tip-caption: :bulb:
+:tips-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T12-1/main
@@ -482,12 +482,35 @@ Shows the expense statistics for the past 3 months as a bar chart showing expens
 Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
 ****
 
+=== Toggling Notifications: `notification`
+
+Toggles the ability of `Expense Tracker` to send notifications.
+
+There are three notification types to toggle: Warning` and Tip, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
+To toggle both, omit `NOTIFICATION_TYPE`.
+
+There are two toggle options, `on` and `off`, which can be indication by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter. `TOGGLE_OPTION` is required.
+
+Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
+
+****
+*Examples:*
+
+* `notification n/warning t/off` +
+Disables the sending Warning type notifications. +
+
+* `notification n/tip t/off` +
+Enables the sending of Tip type notifications. +
+
+* `notification t/off` +
+Disables the sending of both types of notifications. +
+****
+
 [NOTE]
 ====
-* PERIOD_AMOUNT must be a positive number greater than 0
-* PERIOD can only be 'd' or 'm'.
-* MODE can only be 't' or 'c'.
-* If no parameters are provided, the command defaults to show statistics for the past 7 days in time mode.
+* NOTIFICATION_TYPE can only be 'warning' or 'tip'
+* TOGGLE_OPTION can only be 'on' or 'off'
+* NOTIFICATION_TYPE is optional
 ====
 
 === Clearing all entries : `clear`

@@ -5,6 +5,8 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -20,7 +22,8 @@ public interface ReadOnlyExpenseTracker {
     ObservableList<Expense> getExpenseList();
     TotalBudget getMaximumTotalBudget();
     Username getUsername();
-
+    ObservableList<Notification> getNotificationList();
+    NotificationHandler getNotificationHandler();
     Optional<Password> getPassword();
 
     /**

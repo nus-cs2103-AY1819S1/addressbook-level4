@@ -22,6 +22,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
 
 /**
  * The main LogicManager of the app.
@@ -132,12 +133,18 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getStatsMode();
     }
 
+    /*public Iterator getCategoryList() {
+        return model.getCategoryList();
+    }*/
+
+    public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
+        return model.getNotificationList();
+    }
+
     public int getPeriodAmount() {
         return model.getPeriodAmount();
     }
 
-
-    //@@author
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
     }

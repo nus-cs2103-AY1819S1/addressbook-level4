@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.model.encryption.EncryptionUtil.createEncryptionKey;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -37,6 +38,11 @@ import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
+import seedu.address.model.notification.TipNotification;
+import seedu.address.model.notification.Tips;
+import seedu.address.model.notification.WarningNotification;
 import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
@@ -46,28 +52,31 @@ import seedu.address.model.user.Username;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static Tips tips;
 
     private VersionedExpenseTracker versionedExpenseTracker;
     private FilteredList<Expense> filteredExpenses;
+    private Username username;
+
 
     //Stats related variables
     private StatsPeriod statsPeriod;
     private StatsMode statsMode;
     private Predicate<Expense> expenseStatPredicate;
     private int periodAmount;
-
     private final Map<Username, EncryptedExpenseTracker> expenseTrackers;
 
     /**
      * Initializes a ModelManager with the given expenseTrackers and userPrefs.
      */
-    public ModelManager(Map<Username, EncryptedExpenseTracker> expenseTrackers, UserPrefs userPrefs) {
+    public ModelManager(Map<Username, EncryptedExpenseTracker> expenseTrackers, UserPrefs userPrefs, Tips tips) {
         super();
         requireAllNonNull(expenseTrackers, userPrefs);
         this.expenseTrackers = expenseTrackers;
         logger.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
         this.versionedExpenseTracker = null;
         this.filteredExpenses = null;
+        this.tips = tips;
         this.statsPeriod = defaultStatsPeriod();
         this.statsMode = defaultStatsMode();
         this.expenseStatPredicate = defaultExpensePredicate();
@@ -86,6 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
         Map<Username, EncryptedExpenseTracker> expenseTrackers = new TreeMap<>();
         logger.fine("Initializing with expense tracker: " + expenseTrackers + " and user prefs " + userPrefs);
         this.expenseTrackers = expenseTrackers;
+
         try {
             this.expenseTrackers.put(expenseTracker.getUsername(),
                     EncryptionUtil.encryptTracker(expenseTracker));
@@ -94,6 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
             this.statsPeriod = defaultStatsPeriod();
             this.statsMode = defaultStatsMode();
             this.expenseStatPredicate = defaultExpensePredicate();
+            this.tips = new Tips();
             LoginInformation loginInformation = new LoginInformation(expenseTracker.getUsername(), password);
             loadUserData(loginInformation);
         } catch (NonExistentUserException | IllegalValueException | InvalidDataException e) {
@@ -103,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new HashMap<>(), new UserPrefs());
+        this(new HashMap<>(), new UserPrefs(), new Tips());
     }
 
     @Override
@@ -191,6 +202,91 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         filteredExpenses.setPredicate(predicate);
+    }
+
+    //@@author Snookerballs
+    //=========== Notification =================================================================================
+    @Override
+    public boolean addWarningNotification() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddWarningNotification(getMaximumBudget());
+        if (isNotificationAdded) {
+            this.versionedExpenseTracker.addNotification(new WarningNotification(getMaximumBudget()));
+            indicateExpenseTrackerChanged();
+        }
+        return isNotificationAdded;
+    }
+
+    @Override
+    public boolean addTipNotification() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+
+        boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddTipNotification();
+        if (isNotificationAdded) {
+            this.versionedExpenseTracker.addNotification(new TipNotification(tips));
+            indicateExpenseTrackerChanged();
+        }
+        return isNotificationAdded;
+    }
+
+    @Override
+    public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+
+        return this.versionedExpenseTracker.getNotificationList();
+    }
+
+    @Override
+    public void toggleTipNotification(boolean toggleOption) throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        versionedExpenseTracker.toggleTipNotification(toggleOption);
+        indicateExpenseTrackerChanged();
+    }
+
+    @Override
+    public void toggleWarningNotification(boolean toggleOption) throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        versionedExpenseTracker.toggleWarningNotification(toggleOption);
+        indicateExpenseTrackerChanged();
+    }
+
+    @Override
+    public void toggleBothNotification(boolean toggleOption) throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+
+        versionedExpenseTracker.toggleTipNotification(toggleOption);
+        versionedExpenseTracker.toggleWarningNotification(toggleOption);
+        indicateExpenseTrackerChanged();
+    }
+
+    @Override
+    public NotificationHandler getNotificationHandler() throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+
+        return versionedExpenseTracker.getNotificationHandler();
+    }
+
+    @Override
+    public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+            throws NoUserSelectedException {
+        if (versionedExpenseTracker == null) {
+            throw new NoUserSelectedException();
+        }
+        this.versionedExpenseTracker.modifyNotificationHandler(time, isTipEnabled, isWarningEnabled);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -367,6 +463,7 @@ public class ModelManager extends ComponentManager implements Model {
             indicateUserLoggedIn();
             indicateExpenseTrackerChanged();
             checkBudgetRestart();
+            addTipNotification();
         } catch (NoUserSelectedException nuse) {
             throw new IllegalStateException("NoUserSelectedException thrown after loading user data");
         }
@@ -465,7 +562,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
-        ModelManager copy = new ModelManager(expenseTrackers, userPrefs);
+        ModelManager copy = new ModelManager(expenseTrackers, userPrefs, tips);
         copy.versionedExpenseTracker = new VersionedExpenseTracker(this.getExpenseTracker());
         copy.filteredExpenses = new FilteredList<>(copy.versionedExpenseTracker.getExpenseList());
         return copy;
@@ -499,7 +596,6 @@ public class ModelManager extends ComponentManager implements Model {
             throw new IllegalStateException("Illegal key created for current expense tracker.");
         }
     }
-    //@@author
 
     @Override
     public boolean equals(Object obj) {
