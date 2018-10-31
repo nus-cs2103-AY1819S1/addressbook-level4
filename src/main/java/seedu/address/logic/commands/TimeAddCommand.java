@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
