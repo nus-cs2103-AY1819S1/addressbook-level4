@@ -214,47 +214,4 @@
             </ingredients>
         </instructions>
     </recipes>
-    <recipes>
-        <name>Salted Egg Sotong</name>
-        <difficulty>3</difficulty>
-        <cooktime>PT25M</cooktime>
-        <tagged>Asian</tagged>
-    </recipes>
-    <recipes>
-        <name>Tomato Pizza</name>
-        <difficulty>2</difficulty>
-        <cooktime>PT35M</cooktime>
-        <tagged>Italy</tagged>
-    </recipes>
-    <recipes>
-        <name>Curry Chicken</name>
-        <difficulty>1</difficulty>
-        <cooktime>PT23M</cooktime>
-        <tagged>Asian</tagged>
-    </recipes>
-    <recipes>
-        <name>Fish Curry</name>
-        <difficulty>1</difficulty>
-        <cooktime>PT23M</cooktime>
-        <tagged>Asian</tagged>
-    </recipes>
-    <recipes>
-        <name>BlackPepper Crab</name>
-        <difficulty>5</difficulty>
-        <cooktime>PT1H20M</cooktime>
-        <tagged>Asian</tagged>
-    </recipes>
-    <recipes>
-        <name>Cheese Fries</name>
-        <difficulty>2</difficulty>
-        <cooktime>PT20M</cooktime>
-        <tagged>Western</tagged>
-    </recipes>
-    <recipes>
-        <name>Chicken Rice</name>
-        <difficulty>2</difficulty>
-        <cooktime>PT40M</cooktime>
-        <tagged>Staple</tagged>
-        <tagged>Asian</tagged>
-    </recipes>
 </souschef>
