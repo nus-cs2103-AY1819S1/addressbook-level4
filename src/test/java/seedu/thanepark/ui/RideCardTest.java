@@ -10,11 +10,12 @@ import org.junit.Test;
 import guitests.guihandles.RideCardHandle;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.testutil.RideBuilder;
+import seedu.thanepark.ui.exceptions.AccessibilityException;
 
 public class RideCardTest extends GuiUnitTest {
 
     @Test
-    public void display() {
+    public void display() throws AccessibilityException {
         // no tags
         Ride rideWithNoTags = new RideBuilder().withTags(new String[0]).build();
         RideCard rideCard = new RideCard(rideWithNoTags, 1);
@@ -29,7 +30,7 @@ public class RideCardTest extends GuiUnitTest {
     }
 
     @Test
-    public void equals() {
+    public void equals() throws AccessibilityException {
         Ride ride = new RideBuilder().build();
         RideCard rideCard = new RideCard(ride, 0);
 

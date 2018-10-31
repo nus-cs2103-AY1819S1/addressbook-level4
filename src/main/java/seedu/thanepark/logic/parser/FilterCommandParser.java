@@ -35,11 +35,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         }
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MAINTENANCE, PREFIX_WAITING_TIME);
         Optional<List<String>> maintenanceStrings = !argMultimap.getValue(PREFIX_MAINTENANCE).isPresent()
-                                                    ? Optional.empty()
-                                                    : Optional.of(argMultimap.getAllValues(PREFIX_MAINTENANCE));
+                ? Optional.empty()
+                : Optional.of(argMultimap.getAllValues(PREFIX_MAINTENANCE));
         Optional<List<String>> waitingTimeStrings = !argMultimap.getValue(PREFIX_WAITING_TIME).isPresent()
-                                                    ? Optional.empty()
-                                                    : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
+                ? Optional.empty()
+                : Optional.of(argMultimap.getAllValues(PREFIX_WAITING_TIME));
 
         List<AttributePredicate> predicates = new ArrayList<>();
         predicates = getMaintenancePredicates(maintenanceStrings, predicates);

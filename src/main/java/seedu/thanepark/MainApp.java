@@ -64,7 +64,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
-        ThaneParkStorage thaneParkStorage = new XmlThaneParkStorage(userPrefs.getAddressBookFilePath());
+        ThaneParkStorage thaneParkStorage = new XmlThaneParkStorage(userPrefs.getThaneParkFilePath());
         storage = new StorageManager(thaneParkStorage, userPrefsStorage);
 
         initLogging(config);
@@ -84,14 +84,14 @@ public class MainApp extends Application {
      * or an empty thanepark book will be used instead if errors occur when reading {@code storage}'s thanepark book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyThanePark> addressBookOptional;
+        Optional<ReadOnlyThanePark> thaneParkOptional;
         ReadOnlyThanePark initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleThanePark);
-            if (!addressBookOptional.isPresent()) {
+            thaneParkOptional = storage.readThanePark();
+            initialData = thaneParkOptional.orElseGet(SampleDataUtil::getSampleThanePark);
+            if (!thaneParkOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample ThanePark");
-                storage.saveAddressBook(initialData);
+                storage.saveThanePark(initialData);
             }
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ThanePark");
@@ -188,7 +188,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping ThanePark ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

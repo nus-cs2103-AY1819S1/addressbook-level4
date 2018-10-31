@@ -77,6 +77,20 @@ public class Ride implements HtmlFormattable {
     }
 
     /**
+     * Returns an immutable information set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<String> getInformation() {
+        List<String> information = new LinkedList<>();
+        information.add(address.value);
+        information.add(daysSinceMaintenance.toString());
+        information.add(waitingTime.toString());
+        Set<String> informationSet = new HashSet<>();
+        informationSet.addAll(information);
+        return Collections.unmodifiableSet(informationSet);
+    }
+
+    /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */

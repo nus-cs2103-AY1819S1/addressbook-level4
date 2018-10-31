@@ -74,10 +74,10 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(ThaneParkChangedEvent abce) {
+    public void handleThaneParkChangedEvent(ThaneParkChangedEvent tpce) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        logger.info(LogsCenter.getEventHandlingLogMessage(tpce, "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 }
