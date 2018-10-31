@@ -13,25 +13,25 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
 
 == Summary of contributions
 
-*Enhancement*: added *the ability to control the operations each employee can perform* through usage of Permissions.
+The following section shows my code contribution for OASIS. 
+
+=== Major Enhancement: Added ability to control the operations each employee can perform through usage of Permissions.
 
 NOTE: This operation can only be executed by an employee with `ASSIGN_PERMISSION` permission
 
 ** What it does: Ensures that each operation is executed by an employee with the permission required for it.
 ** Justification: There are many operations in OASIS that should only be performable by employees with certain authorization. Usage of permission allows the admins to easily ensure that previously stated criteria is met.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-*Enhancement*: added *the ability to modify the permissions granted to an employee*
+=== Major Enhancement: Added ability to modify the permissions granted to an employee
 
 NOTE: This operation can only be executed by an employee with `ASSIGN_PERMISSION` permission
 
 ** What it does: Modify the permissions of the employee.
 ** Justification: Allows for easy modification of permission
-** Highlights: []
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Highlights: 
 
-*Enhancement*: added *the ability to view the permissions granted to an employee*
+=== Major Enhancement: Added ability to view the permissions granted to an employee
 
 NOTE: This operation can only be executed by an employee with `ASSIGN_PERMISSION` permission
 
@@ -39,18 +39,12 @@ NOTE: This operation can only be executed by an employee with `ASSIGN_PERMISSION
 ** Justification: Users might not remember the permissions that have been assigned to an employee. This enhancement
 give them a method to check it easily.
 ** Highlights: []
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-*Enhancement*: added *Command Auto-Complete* feature
-** What it does: When user type in the command box, OASIS will predict the command that user is trying to execute, and
-auto complete the command.
-** Justification: This features also allows the user to be more productive, as they can save time on typing the commands.
-** Highlights: []
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+=== Minor Enhancement: Added Command Auto-Complete feature
 
+** What it does: When user type in the command box, OASIS will predict the command that user is trying to execute, and auto complete the command.
 
-* *Minor enhancement*: [Add something here]
-
+=== Others
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
