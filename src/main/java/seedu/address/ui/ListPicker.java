@@ -35,7 +35,6 @@ public class ListPicker extends UiPart<Region> {
 
  public ListPicker() {
     super(FXML);
-    test();
     archiveList.setOnAction(new EventHandler<ActionEvent>() {
       @Override public void handle(ActionEvent e) {
         archiveList.setStyle("-fx-background-color: #28B463; -fx-border-color: #28B463;");
@@ -51,10 +50,6 @@ public class ListPicker extends UiPart<Region> {
      }
    });
     registerAsAnEventHandler(this);
-
-  }
-
-  public void test() {
 
   }
 }
