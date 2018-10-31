@@ -2,7 +2,6 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.leaveapplication.LeaveApplication;
-import seedu.address.model.person.Person;
 
 /**
  * Represents a selection change in the LeaveApplication List Panel

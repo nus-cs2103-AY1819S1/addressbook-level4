@@ -115,7 +115,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Leave Application List Accessors =============================================================
+    //=========== Filtered Leave Application List Accessors ============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code LeaveApplication} backed by the internal list of
@@ -138,7 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
     private ObservableList<LeaveApplicationWithEmployee> retrieveLeaveApplicationsFromPersons() {
         List<LeaveApplicationWithEmployee> leaveApplications = new ArrayList<>();
         versionedAddressBook.getPersonList().forEach(person
-                -> person.getLeaveApplications().forEach(leaveApplication
+            -> person.getLeaveApplications().forEach(leaveApplication
                 -> leaveApplications.add(new LeaveApplicationWithEmployee(leaveApplication, person))));
         return FXCollections.unmodifiableObservableList(FXCollections.observableList(leaveApplications));
     }

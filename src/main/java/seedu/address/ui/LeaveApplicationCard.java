@@ -46,7 +46,7 @@ public class LeaveApplicationCard extends UiPart<Region> {
         description.setText("Description: " + leaveApplication.getDescription().value);
         status.setText("Status: " + leaveApplication.getLeaveStatus().value.toString());
         leaveApplication.getDates().forEach(date
-                -> dates.getChildren()
+            -> dates.getChildren()
                 .add(new Label(DateUtil.convertToString(date) + " ")));
     }
 
