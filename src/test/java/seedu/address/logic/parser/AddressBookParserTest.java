@@ -33,6 +33,7 @@ import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewPermissionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.Permission;
@@ -154,6 +155,13 @@ public class AddressBookParserTest {
     public void parseCommand_leavelist() throws Exception {
         assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD) instanceof LeaveListCommand);
         assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD + " 3") instanceof LeaveListCommand);
+    }
+
+    @Test
+    public void parseCommand_viewPermissionCommand() throws Exception {
+        ViewPermissionCommand command = (ViewPermissionCommand) parser.parseCommand(
+                ViewPermissionCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new ViewPermissionCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

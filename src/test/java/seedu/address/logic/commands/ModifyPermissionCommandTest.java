@@ -76,7 +76,7 @@ public class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
-                editedFirstPerson.getPermissionSet());
+                editedFirstPerson.getName(), editedFirstPerson.getPermissionSet());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
@@ -116,7 +116,7 @@ public class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
-                editedFirstPerson.getPermissionSet());
+                editedFirstPerson.getName(), editedFirstPerson.getPermissionSet());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
@@ -157,7 +157,7 @@ public class ModifyPermissionCommandTest {
         editedFirstPerson.getPermissionSet().removePermissions(toRemove);
 
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
-                editedFirstPerson.getPermissionSet());
+                editedFirstPerson.getName(), editedFirstPerson.getPermissionSet());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
