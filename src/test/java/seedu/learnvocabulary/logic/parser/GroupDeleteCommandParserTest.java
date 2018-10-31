@@ -1,6 +1,5 @@
 package seedu.learnvocabulary.logic.parser;
 
-import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
@@ -13,7 +12,6 @@ import seedu.learnvocabulary.model.tag.Tag;
 public class GroupDeleteCommandParserTest {
 
     private GroupDeleteCommandParser parser = new GroupDeleteCommandParser();
-    
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
