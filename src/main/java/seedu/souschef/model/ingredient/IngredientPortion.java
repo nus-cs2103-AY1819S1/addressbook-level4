@@ -1,6 +1,5 @@
 package seedu.souschef.model.ingredient;
 
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.UniqueType;
 
 /**
@@ -20,11 +19,8 @@ public class IngredientPortion extends IngredientDefinition {
         this.amount = amount;
     }
 
-    public IngredientPortion(String name, String unit, Double amount) throws ParseException {
+    public IngredientPortion(String name, String unit, Double amount) {
         super(name);
-        if (!IngredientServingUnit.isValid(unit)) {
-            throw new ParseException("Invalid Ingredient Name!");
-        }
         this.unit = new IngredientServingUnit(unit);
         this.amount = new IngredientAmount(amount);
     }
