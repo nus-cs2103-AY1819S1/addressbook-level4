@@ -11,6 +11,7 @@ import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertTrackCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -21,6 +22,7 @@ import javafx.collections.ObservableList;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
 import seedu.jxmusic.commons.util.FileUtil;
 import seedu.jxmusic.model.Library;
+import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Track;
 import seedu.jxmusic.storage.JsonFileStorage;
 
@@ -47,7 +49,7 @@ public class TrackListPanelTest extends GuiUnitTest {
             TrackCardHandle actualCard = trackListPanelHandle.getTrackCardHandle(i);
 
             assertCardDisplaysTrack(expectedTrack, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals(Integer.toString(i + 1) + ".", actualCard.getId());
         }
     }
 
@@ -82,9 +84,14 @@ public class TrackListPanelTest extends GuiUnitTest {
      * {@code TrackListPanel}.
      */
     private ObservableList<Track> createBackingList(int trackCount) throws Exception {
-        Path jsonFile = createJsonFileWithTracks(trackCount);
-        Library library = JsonFileStorage.loadDataFromFile(jsonFile);
-        return FXCollections.observableArrayList(library.getObservableTrackList());
+        ObservableList<Track> result = FXCollections.observableArrayList(new ArrayList<>());
+        for (int i = 0; i < trackCount; i++) {
+            result.add(new Track(new Name("Marbles")));
+        }
+//        Path jsonFile = createJsonFileWithTracks(trackCount);
+//        Library library = JsonFileStorage.loadDataFromFile(jsonFile);
+//        return library.getObservableTrackList());
+        return result;
     }
 
     /**

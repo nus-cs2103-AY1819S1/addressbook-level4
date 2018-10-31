@@ -14,7 +14,7 @@ import seedu.jxmusic.model.Track;
 public class TrackListPanelHandle extends NodeHandle<ListView<Track>> {
     public static final String TRACK_LIST_VIEW_ID = "#trackListView";
 
-    private static final String CARD_PANE_ID = "#cardPane";
+    private static final String CARD_PANE_ID = "#trackCardPane";
 
     private Optional<Track> lastRememberedSelectedTrackCard;
 
