@@ -1,15 +1,21 @@
-= John Doe - Project Portfolio
+= Yeo Zhuan Yu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+image::zhuanyu.png[width="150", align="left"]
+{empty}[https://github.com/ZhuanYu[github]]
+
+== PROJECT: Car Park Finder
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+_Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
+HDB (Housing Development Board) car parks in Singapore.
+Our application allows you to view various information about the car parks so that you can plan ahead. If you use the computer frequently
+and commute by driving, try out our convenient application that simply requires typing to get started.
 
 == Summary of contributions
 
@@ -58,11 +64,3 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

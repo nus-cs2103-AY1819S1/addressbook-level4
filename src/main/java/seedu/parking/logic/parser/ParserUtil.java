@@ -42,6 +42,20 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String time} into an {@code int time}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     */
+    public static int parseTime(String time) throws ParseException {
+        String trimmedTime = time.trim();
+        if (!StringUtil.isNonNegativeAboveNineInteger(trimmedTime)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+        return Integer.parseInt(trimmedTime);
+    }
+
+    /**
      * Parses a {@code String parking} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -63,11 +77,12 @@ public class ParserUtil {
      * @throws ParseException if the given {@code carNum} is invalid.
      */
     public static CarparkNumber parseCarparkNumber(String carNum) throws ParseException {
-        String trimmedcarNum = carNum.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedcarNum)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+        requireNonNull(carNum);
+        String trimmedCarparkNumber = carNum.trim();
+        if (!CarparkNumber.isValidCarparkNumber(trimmedCarparkNumber)) {
+            throw new ParseException(CarparkNumber.MESSAGE_CAR_NUM_CONSTRAINTS);
         }
-        return new CarparkNumber(trimmedcarNum);
+        return new CarparkNumber(trimmedCarparkNumber);
     }
 
     /**
@@ -94,7 +109,7 @@ public class ParserUtil {
     public static Coordinate parseCoordinate(String coordinate) throws ParseException {
         requireNonNull(coordinate);
         String trimmedCoordinate = coordinate.trim();
-        if (!Coordinate.isValidCoord(trimmedCoordinate)) {
+        if (!Coordinate.isValidCoordinate(trimmedCoordinate)) {
             throw new ParseException(Coordinate.MESSAGE_COORD_CONSTRAINTS);
         }
         return new Coordinate(trimmedCoordinate);
@@ -122,11 +137,11 @@ public class ParserUtil {
      * @throws ParseException if the given {@code lotsAvail} is invalid.
      */
     public static LotsAvailable parseLotsAvailable(String lotsAvail) throws ParseException {
-        String trimmedLotsAvail = lotsAvail.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLotsAvail)) {
+        String trimmedLotsAvailable = lotsAvail.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedLotsAvailable)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
-        return new LotsAvailable(trimmedLotsAvail);
+        return new LotsAvailable(trimmedLotsAvailable);
     }
 
     /**

@@ -33,20 +33,24 @@ Here are several quick tips to get the application running.
 . Copy the file to the folder you want to use as the home folder for Car Park Finder.
 . Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
 +
-.Home page
-image::Ui2.png[width="880"]
-The figure above is a sample display of the application.
+.Home page of GUI
+image:quickstart-GUI.png[width="880"]
+The figure above is a sample display of the application's GUI, which consists of
+5 regions.
 
 +
-. Type the command in the command box and press kbd:[Enter] to execute it.
+. Type a command in the Command Box and then press kbd:[Enter] to execute it.
+A message will appear in the Message Box.
 
-Some example commands you can try:
+[TIP]
+Some example commands you can try: +
+<<Features-List,*`list`*>>: bring up a list of all the car parks +
+<<Features-Help,*`help`*>>: show the list of available commands and how to use them +
+<<Features-Exit,*`exit`*>>: exit the program
 
-- `list` : bring up a list of all the car parks
-- `help` : show the list of available commands and how to use them
-- `exit` : exit the program
+Congratulations, You have successfully executed your first command!
 
-Refer to <<Features>> for details of each command.
+Refer to <<Features>> for more commands.
 
 [[Features]]
 == Features
@@ -61,6 +65,7 @@ parameter which can be used as `find serangoon`.
 
 ====
 
+[[Features-Help]]
 === Viewing help : `help`
 
 Shows the list of available commands and how to use them.
@@ -130,6 +135,7 @@ Upper and lower case characters do not matter.
 image::filter.png[width="880"]
 
 
+[[Features-Find]]
 === Finding car parks : `find`
 
 Find a list of car parks within a certain location.
@@ -157,7 +163,6 @@ The figure above is a sample display of the application.
 image::findafter.png[width="880"]
 The figure above shows what happen after executing the `find` command.
 
-
 === Select car park : `select`
 
 Select the car park you wish to go to.
@@ -181,6 +186,7 @@ image::select.png[width="880"]
 [NOTE]
 `ListCommand` must be executed before `SelectCommand`
 
+[[Features-History]]
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -240,8 +246,8 @@ Add a car park into your favorites list.
 |`add c/CARPARK_NUMBER`| a | `add c/SE12`
 |===
 
+[[Features-Delete]]
 === Removing from favorites list : `delete` `[coming in v2.0]`
-
 
 Remove the specified car park from your favorites list.
 
@@ -252,6 +258,7 @@ Remove the specified car park from your favorites list.
 |`delete c/CARPARK_NUMBER`| d | `delete c/SE12`
 |===
 
+[[Features-Query]]
 === Querying data: `query`
 
 Get car park information from data.gov.sg by querying it.
@@ -300,6 +307,7 @@ Include weather updates in the notifications by indicating on or off.
 |`weather TOGGLE`| - | `weather on`
 |===
 
+[[Features-Clear]]
 === Clearing all entries : `clear`
 
 Clears all entries from the list.
@@ -311,6 +319,7 @@ Clears all entries from the list.
 |`clear`| - | `clear`
 |===
 
+[[Features-Exit]]
 === Exiting the application : `exit`
 
 Exits the application.
@@ -321,6 +330,23 @@ Exits the application.
 |Format| Abbreviation | Example(s)
 |`exit`| - | `exit`
 |===
+
+=== Auto complete the command line
+
+Display the full format of an executable command line. +
+Format: `COMMAND_WORD` followed by 'Tab' key.
+Function: press 'Tab' key again to move to the next parameter.
+
+Example(s)
+
+* key in `fi` in command box and then press 'Tab' key.
+
+Only available in the following commands:
+
+* <<Features-Find,*`find`*>>
+* <<Features-Select,*`select`*>>
+* <<Features-Filter,*`filter`*>>
+* <<Features-Sort,*`sort`*>>
 
 == FAQ
 

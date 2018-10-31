@@ -19,14 +19,15 @@ import seedu.parking.model.carpark.Carpark;
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
-    public static final String COMMAND_ALIAS = "s";
+    public static final String COMMAND_ABBREVIATION = "s";
+    public static final String FORMAT = "select INDEX";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the carpark identified by the index number used in the displayed carpark list.\n"
+            + ": Selects the car park identified by the index number used in the displayed car park list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_CARPARK_SUCCESS = "Selected Carpark: %1$s";
+    public static final String MESSAGE_SELECT_CARPARK_SUCCESS = "Selected car park: %1$s";
 
     private final Index targetIndex;
 

@@ -2,6 +2,7 @@
 <carparkfinder>
     <carparks>
         <address>BLK 5A GHIM MOH RD</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>GM1B</carparkNumber>
         <carparkType>MULTI-STOREY CAR PARK</carparkType>
         <coordinate>22985.4178, 32794.2010</coordinate>
@@ -14,6 +15,7 @@
     </carparks>
     <carparks>
         <address>BLK 49A WHAMPOA SOUTH</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>KB20</carparkNumber>
         <carparkType>MULTI-STOREY CAR PARK</carparkType>
         <coordinate>31686.3712, 33999.0332</coordinate>
@@ -26,6 +28,7 @@
     </carparks>
     <carparks>
         <address>BLK 643-646/649-662/665-667 HOUGANG AVENUE 8</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>HG42</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>33575.4429, 39573.3197</coordinate>
@@ -38,6 +41,7 @@
     </carparks>
     <carparks>
         <address>BLK 301/309 BUKIT BATOK STREET 31</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>U21</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>18569.9729, 37715.1464</coordinate>
@@ -50,6 +54,7 @@
     </carparks>
     <carparks>
         <address>BLK 231/237 SERANGOON AVENUE 3</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>SE14</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>32080.9673, 37405.0495</coordinate>
@@ -62,6 +67,7 @@
     </carparks>
     <carparks>
         <address>BLK 562/565/560 ANG MO KIO STREET 54</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>A47</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>30885.4750, 39174.8899</coordinate>
@@ -74,6 +80,7 @@
     </carparks>
     <carparks>
         <address>BLK 137 EDGEDALE PLAINS</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>PL12</carparkNumber>
         <carparkType>MULTI-STOREY CAR PARK</carparkType>
         <coordinate>36467.5455, 41586.9263</coordinate>
@@ -86,6 +93,7 @@
     </carparks>
     <carparks>
         <address>BLK 729/730 ANG MO KIO AVE 6/8</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>A55</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>29485.5000, 39515.4900</coordinate>
@@ -98,6 +106,7 @@
     </carparks>
     <carparks>
         <address>BLK 639/640 ROWELL COURT</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>CR30</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>30406.3770, 32213.3125</coordinate>

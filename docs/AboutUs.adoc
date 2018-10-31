@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-We are Team T09-4 and we are a team based in
+We are Team T09-4 and based in
 the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. +
 
 This Java application is developed for CS2103T Software Engineering.

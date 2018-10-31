@@ -2,12 +2,20 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.events.model.DataFetchExceptionEvent;
+import seedu.parking.commons.events.ui.NewResultAvailableEvent;
+import seedu.parking.commons.events.ui.ToggleTextFieldRequestEvent;
 import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Address;
 import seedu.parking.model.carpark.Carpark;
@@ -17,6 +25,7 @@ import seedu.parking.model.carpark.Coordinate;
 import seedu.parking.model.carpark.FreeParking;
 import seedu.parking.model.carpark.LotsAvailable;
 import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
@@ -27,28 +36,28 @@ import seedu.parking.model.carpark.TypeOfParking;
 public class QueryCommand extends Command {
 
     public static final String COMMAND_WORD = "query";
-    public static final String COMMAND_ALIAS = "q";
+    public static final String COMMAND_ABBREVIATION = "q";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sets when to update the car park information.\n"
+            + ": Updates all the car park information in Car Park Finder.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = " Car parks updated";
-    public static final String MESSAGE_ERROR_CARPARK = "Problem loading car park information from online";
+    public static final String MESSAGE_SUCCESS = "%1$d Car parks updated";
+    private static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
 
     /**
      * Calls the API and load all the car parks information
      * @return An array of car parks
-     * @throws IOException If unable to load from API
      */
-    private ArrayList<Carpark> readCarpark() throws IOException {
-        ArrayList<Carpark> carparkList = new ArrayList<>();
-        for (ArrayList<String> carpark : GsonUtil.fetchCarparkInfo()) {
+    private List<Carpark> readCarpark(List<List<String>> carparkData) {
+        List<Carpark> carparkList = new ArrayList<>();
+        for (List<String> carpark : carparkData) {
             Carpark c = new Carpark(new Address(carpark.get(0)), new CarparkNumber(carpark.get(1)),
                     new CarparkType(carpark.get(2)), new Coordinate(carpark.get(3)),
                     new FreeParking(carpark.get(4)), new LotsAvailable(carpark.get(5)),
                     new NightParking(carpark.get(6)), new ShortTerm(carpark.get(7)),
-                    new TotalLots(carpark.get(8)), new TypeOfParking(carpark.get(9)), null);
+                    new TotalLots(carpark.get(8)), new TypeOfParking(carpark.get(9)), new PostalCode(carpark.get(10)),
+                    null);
             carparkList.add(c);
         }
         return carparkList;
@@ -57,14 +66,31 @@ public class QueryCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        int numberChanged;
-        try {
-            model.loadCarpark(readCarpark());
-        } catch (IOException e) {
-            throw new CommandException(MESSAGE_ERROR_CARPARK);
-        }
-        model.commitCarparkFinder();
-        numberChanged = model.compareParkingBook();
-        return new CommandResult(numberChanged + MESSAGE_SUCCESS);
+        ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
+
+        Callable<Boolean> task = () -> {
+            try {
+                EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
+                model.resetData(new CarparkFinder());
+                List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchAllCarparkInfo());
+                List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
+                model.loadCarpark(allCarparks);
+                model.commitCarparkFinder();
+                int updated = model.compareCarparkFinder();
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(String.format(MESSAGE_SUCCESS, updated)));
+                EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
+            } catch (Exception e) {
+                if (model.canUndoCarparkFinder()) {
+                    model.undoCarparkFinder();
+                }
+                EventsCenter.getInstance().post(new DataFetchExceptionEvent(
+                        new CommandException(MESSAGE_ERROR_CARPARK)));
+            }
+            return true;
+        };
+
+        threadExecutor.submit(task);
+
+        return new CommandResult("Loading...please wait...");
     }
 }

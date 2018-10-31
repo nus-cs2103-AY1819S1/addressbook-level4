@@ -9,13 +9,13 @@ import java.util.regex.Pattern;
 import seedu.parking.logic.commands.CalculateCommand;
 import seedu.parking.logic.commands.ClearCommand;
 import seedu.parking.logic.commands.Command;
-import seedu.parking.logic.commands.DeleteCommand;
 import seedu.parking.logic.commands.ExitCommand;
 import seedu.parking.logic.commands.FilterCommand;
 import seedu.parking.logic.commands.FindCommand;
 import seedu.parking.logic.commands.HelpCommand;
 import seedu.parking.logic.commands.HistoryCommand;
 import seedu.parking.logic.commands.ListCommand;
+import seedu.parking.logic.commands.NotifyCommand;
 import seedu.parking.logic.commands.QueryCommand;
 import seedu.parking.logic.commands.RedoCommand;
 import seedu.parking.logic.commands.SelectCommand;
@@ -50,33 +50,29 @@ public class CarparkFinderParser {
         switch (commandWord) {
 
         case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ALIAS:
+        case SelectCommand.COMMAND_ABBREVIATION:
             return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
+        case FindCommand.COMMAND_ABBREVIATION:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_ALIAS:
+        case ListCommand.COMMAND_ABBREVIATION:
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
-        case ExitCommand.COMMAND_ALIAS:
+        case ExitCommand.COMMAND_ABBREVIATION:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-        case HelpCommand.COMMAND_ALIAS:
+        case HelpCommand.COMMAND_ABBREVIATION:
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
@@ -86,7 +82,7 @@ public class CarparkFinderParser {
             return new RedoCommand();
 
         case FilterCommand.COMMAND_WORD:
-        case FilterCommand.COMMAND_ALIAS:
+        case FilterCommand.COMMAND_ABBREVIATION:
             return new FilterCommandParser().parse(arguments);
 
         case CalculateCommand.COMMAND_WORD:
@@ -94,8 +90,12 @@ public class CarparkFinderParser {
             return new CalculateCommandParser().parse(arguments);
 
         case QueryCommand.COMMAND_WORD:
-        case QueryCommand.COMMAND_ALIAS:
+        case QueryCommand.COMMAND_ABBREVIATION:
             return new QueryCommand();
+
+        case NotifyCommand.COMMAND_WORD:
+        case NotifyCommand.COMMAND_ABBREVIATION:
+            return new NotifyCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
