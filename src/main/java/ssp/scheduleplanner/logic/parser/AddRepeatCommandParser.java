@@ -30,7 +30,8 @@ public class AddRepeatCommandParser implements Parser<AddRepeatCommand> {
 
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_REPEAT, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_VENUE,
                 CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_PRIORITY) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddRepeatCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddRepeatCommand.MESSAGE_USAGE));
         }
 
 
