@@ -1,5 +1,6 @@
 package seedu.address.model.leaveapplication;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
@@ -25,6 +26,10 @@ public class LeaveApplication {
         this.description = description;
         this.leaveStatus = leaveStatus;
         this.dates.addAll(dates);
+    }
+
+    public LeaveApplication(LeaveApplicationWithEmployee leaveApplication) {
+        this(leaveApplication.getDescription(), leaveApplication.getLeaveStatus(), leaveApplication.getDates());
     }
 
     public Description getDescription() {
