@@ -6,6 +6,7 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -15,10 +16,13 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.EndReviewRequestEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.StartReviewRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.deck.Card;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -37,9 +41,14 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private DeckListPanel deckListPanel;
     private CardListPanel cardListPanel;
+    private DeckEditScreen deckEditScreen;
+    private DeckReviewScreen deckReviewScreen;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+
+    @FXML
+    private StackPane mainAreaPlaceholder;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -49,12 +58,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane deckListPanelPlaceholder;
-
-    @FXML
-    private StackPane cardListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -124,14 +127,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         cardListPanel = new CardListPanel(logic.getFilteredCardList());
-        cardListPanelPlaceholder.getChildren().add(cardListPanel.getRoot());
-
         deckListPanel = new DeckListPanel(logic.getFilteredDeckList());
-        deckListPanelPlaceholder.getChildren().add(deckListPanel.getRoot());
+
+        deckEditScreen = new DeckEditScreen(deckListPanel, cardListPanel);
+        deckReviewScreen = new DeckReviewScreen();
+        mainAreaPlaceholder.getChildren().add(deckReviewScreen.getRoot());
+        mainAreaPlaceholder.getChildren().add(deckEditScreen.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -207,5 +210,28 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    private void handleStartReview(Card cardToShow) {
+        Node currentFront = mainAreaPlaceholder.getChildren().get(mainAreaPlaceholder.getChildren().size() - 1);
+        mainAreaPlaceholder.getChildren().set(0, (new DeckReviewScreen(cardToShow)).getRoot());
+        currentFront.toBack();
+    }
+
+    @Subscribe
+    private void handleStartReviewEvent(StartReviewRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleStartReview(event.getCard());
+    }
+
+    private void handleEndReview() {
+        Node currentFront = mainAreaPlaceholder.getChildren().get(mainAreaPlaceholder.getChildren().size() - 1);
+        currentFront.toBack();
+    }
+
+    @Subscribe
+    private void handleEndReviewEvent(EndReviewRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleEndReview();
     }
 }

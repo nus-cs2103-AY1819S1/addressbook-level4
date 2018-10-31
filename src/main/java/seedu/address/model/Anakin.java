@@ -13,6 +13,8 @@ import seedu.address.model.deck.UniqueDeckList;
 import seedu.address.model.deck.anakinexceptions.DeckImportException;
 import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
+import seedu.address.model.deck.anakinexceptions.IllegalOperationWhileReviewingDeckException;
+import seedu.address.model.deck.anakinexceptions.NotReviewingDeckException;
 import seedu.address.storage.portmanager.PortManager;
 
 /**
@@ -29,6 +31,9 @@ public class Anakin implements ReadOnlyAnakin {
 
     // Represents the list of cards displayed on the UI
     private UniqueCardList displayedCards;
+
+    // Boolean flag to indicate whether user is in deck review mode
+    private boolean isReviewingDeck;
 
     // Manager to handle imports/exports
     private PortManager portManager;
@@ -64,6 +69,9 @@ public class Anakin implements ReadOnlyAnakin {
      * {@code decks} must not contain duplicate decks.
      */
     public void setDecks(List<Deck> decks) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
         this.decks.setDecks(decks);
     }
 
@@ -72,6 +80,9 @@ public class Anakin implements ReadOnlyAnakin {
      * {@code cards} must not contain duplicate cards.
      */
     public void setCards(List<Card> cards) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
         this.cards.setCards(cards);
     }
 
@@ -82,6 +93,7 @@ public class Anakin implements ReadOnlyAnakin {
         requireNonNull(newData);
 
         setIsInsideDeck(newData.isInsideDeck());
+        setIsReviewingDeck(newData.isReviewingDeck());
 
         setDecks(newData.getDeckList());
         setCards(newData.getCardList());
@@ -92,6 +104,10 @@ public class Anakin implements ReadOnlyAnakin {
      * Sort the current list of decks/cards in alphabetical order.
      */
     public void sort() {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
         if (isInsideDeck()) {
             cards.sort();
             updateDisplayedCards();
@@ -115,6 +131,9 @@ public class Anakin implements ReadOnlyAnakin {
      */
     public void getIntoDeck(Deck deck) {
         requireNonNull(deck);
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
         isInsideDeck = true;
         cards = deck.getCards();
         updateDisplayedCards();
@@ -124,6 +143,9 @@ public class Anakin implements ReadOnlyAnakin {
      * Navigating out of the current deck
      */
     public void getOutOfDeck() {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
         isInsideDeck = false;
         cards = new UniqueCardList();
         updateDisplayedCards();
@@ -153,6 +175,9 @@ public class Anakin implements ReadOnlyAnakin {
      * The deck must not already exist in the Anakin.
      */
     public void addDeck(Deck d) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
         decks.add(d);
     }
 
@@ -162,6 +187,9 @@ public class Anakin implements ReadOnlyAnakin {
      * The deck identity of {@code editedDeck} must not be the same as another existing deck in the Anakin.
      */
     public void updateDeck(Deck target, Deck editedDeck) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
         requireNonNull(editedDeck);
 
         decks.setDeck(target, editedDeck);
@@ -172,6 +200,9 @@ public class Anakin implements ReadOnlyAnakin {
      * {@code deck} must exist in the Anakin.
      */
     public void removeDeck(Deck deck) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
         decks.remove(deck);
         if (deck.getCards().equals(cards)) {
             cards = new UniqueCardList();
@@ -213,6 +244,10 @@ public class Anakin implements ReadOnlyAnakin {
      * Returns true if a card with the same identity as {@code card} exists in current deck.
      */
     public boolean hasCard(Card card) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
         requireNonNull(card);
         if (!isInsideDeck()) {
             throw new DeckNotFoundException();
@@ -225,6 +260,10 @@ public class Anakin implements ReadOnlyAnakin {
      * The card must not already exist in the current deck.
      */
     public void addCard(Card c) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
         if (!isInsideDeck()) {
             throw new DeckNotFoundException();
         }
@@ -238,6 +277,10 @@ public class Anakin implements ReadOnlyAnakin {
      * The card identity of {@code editedCard} must not be the same as another existing card in the current deck.
      */
     public void updateCard(Card target, Card editedCard) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
         requireNonNull(editedCard);
         if (!isInsideDeck()) {
             throw new DeckNotFoundException();
@@ -251,6 +294,10 @@ public class Anakin implements ReadOnlyAnakin {
      * {@code key} must exist in the currentDeck.
      */
     public void removeCard(Card key) {
+        if (isReviewingDeck()) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
         if (!isInsideDeck()) {
             throw new DeckNotFoundException();
         }
@@ -258,6 +305,44 @@ public class Anakin implements ReadOnlyAnakin {
         updateDisplayedCards();
     }
 
+    /**
+     * Return true if user is inside deck review mode
+     */
+    public boolean isReviewingDeck() {
+        return isReviewingDeck;
+    }
+
+    private void setIsReviewingDeck(boolean state) {
+        isReviewingDeck = state;
+    }
+
+    public void startReview() {
+        isReviewingDeck = true;
+    }
+
+    /**
+     * Concludes the end of a deck review by setting isReviewingDeck flag to false
+     */
+    public void endReview() {
+        if (!isReviewingDeck()) {
+            throw new NotReviewingDeckException();
+        }
+        isReviewingDeck = false;
+    }
+
+    public int getIndexOfCurrentCard() {
+        if (!isReviewingDeck()) {
+            throw new NotReviewingDeckException();
+        }
+        return cards.getCurrentIndex();
+    }
+
+    public void setIndexOfCurrentCard(int newIndex) {
+        if (!isReviewingDeck()) {
+            throw new NotReviewingDeckException();
+        }
+        cards.setCurrentIndex(newIndex);
+    }
 
     //// util methods
 

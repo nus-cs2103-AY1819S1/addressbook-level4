@@ -17,5 +17,6 @@ public class Messages {
     public static final String MESSAGE_IMPORTED_DECK_INVALID = "Target deck contains invalid data";
     public static final String MESSAGE_EDIT_DECK_SUCCESS = "Edited Deck: %1$s";
     public static final String MESSAGE_DECK_NOT_EDITED = "Index of Deck to edit and Name to edit to must be provided.";
+    public static final String MESSAGE_NOT_REVIEWING_DECK = "Not currently reviewing deck.";
 
 }

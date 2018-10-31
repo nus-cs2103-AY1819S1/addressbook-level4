@@ -13,16 +13,21 @@ import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.DeleteDeckCommand;
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.EditDeckCommand;
+import seedu.address.logic.commands.EndReviewCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportDeckCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FlipCardCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportDeckCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NewCardCommand;
 import seedu.address.logic.commands.NewDeckCommand;
+import seedu.address.logic.commands.NextCardCommand;
+import seedu.address.logic.commands.PreviousCardCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ReviewCommand;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -108,6 +113,21 @@ public class Parser {
 
         case ImportDeckCommand.COMMAND_WORD:
             return new ImportDeckCommandParser().parse(arguments);
+
+        case ReviewCommand.COMMAND_WORD:
+            return new ReviewCommandParser().parse(arguments);
+
+        case EndReviewCommand.COMMAND_WORD:
+            return new EndReviewCommand();
+
+        case FlipCardCommand.COMMAND_WORD:
+            return new FlipCardCommand();
+
+        case NextCardCommand.COMMAND_WORD:
+            return new NextCardCommand();
+
+        case PreviousCardCommand.COMMAND_WORD:
+            return new PreviousCardCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
