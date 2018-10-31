@@ -34,19 +34,23 @@ Here are several quick tips to get the application running.
 . Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
 +
 .Home page of GUI
-image::Ui2.png[width="880"]
-The figure above is a sample display of the application's GUI.
+image:quickstart-GUI.png[width="880"]
+The figure above is a sample display of the application's GUI, which consists of
+5 regions.
 
 +
-. Type the command in the command box and press kbd:[Enter] to execute it.
+. Type a command in the Command Box and then press kbd:[Enter] to execute it.
+A message will appear in the Message Box.
 
-Some example commands you can try:
+[TIP]
+Some example commands you can try: +
+<<Features-List,*`list`*>>: bring up a list of all the car parks +
+<<Features-Help,*`help`*>>: show the list of available commands and how to use them +
+<<Features-Exit,*`exit`*>>: exit the program
 
-- <<Features-List,*`list`*>>: bring up a list of all the car parks
-- <<Features-Help,*`help`*>>: show the list of available commands and how to use them
-- <<Features-Exit,*`exit`*>>: exit the program
+Congratulations, You have successfully executed your first command!
 
-Refer to <<Features>> for details of each command.
+Refer to <<Features>> for more commands.
 
 [[Features]]
 == Features
