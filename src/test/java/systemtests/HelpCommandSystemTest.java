@@ -4,16 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
-import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertListMatching;
+//import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
+//import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.jxmusic.logic.commands.DeleteCommand;
+//import seedu.jxmusic.logic.commands.DeleteCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
-import seedu.jxmusic.logic.commands.SelectCommand;
+//import seedu.jxmusic.logic.commands.SelectCommand;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
