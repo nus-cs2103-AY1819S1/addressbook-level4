@@ -69,7 +69,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 10pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -311,6 +311,8 @@
 }
 
 .titled-pane {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
     -fx-color: derive(#1d1d1d, 20%);
 }
 

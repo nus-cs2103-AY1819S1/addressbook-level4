@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -86,6 +88,8 @@ public class DeleteAppointmentCommand extends Command {
 
         model.deleteAppointment(appointment, patient, doctor);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
         return new CommandResult(String.format(MESSAGE_SUCCESS, appointment));
     }
 
