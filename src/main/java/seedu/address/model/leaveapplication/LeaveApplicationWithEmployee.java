@@ -17,6 +17,11 @@ public class LeaveApplicationWithEmployee extends LeaveApplication {
     /**
      * Every field must be present and not null.
      */
+    public LeaveApplicationWithEmployee(LeaveApplication leaveApplication, Person employee) {
+        this(leaveApplication.getDescription(), leaveApplication.getLeaveStatus(), leaveApplication.getDates(),
+                employee);
+    }
+
     public LeaveApplicationWithEmployee(Description description, LeaveStatus leaveStatus, List<LocalDate> dates,
                                         Person employee) {
         super(description, leaveStatus, dates);

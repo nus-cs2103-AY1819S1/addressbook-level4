@@ -6,10 +6,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.DateUtil;
-import seedu.address.model.leaveapplication.LeaveApplication;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 
 /**
- * An UI component that displays information of a {@code LeaveApplication}.
+ * An UI component that displays information of a {@code LeaveApplicationWithEmployee}.
  */
 public class LeaveApplicationCard extends UiPart<Region> {
 
@@ -23,7 +23,7 @@ public class LeaveApplicationCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final LeaveApplication leaveApplication;
+    public final LeaveApplicationWithEmployee leaveApplication;
 
     @FXML
     private HBox cardPane;
@@ -38,11 +38,11 @@ public class LeaveApplicationCard extends UiPart<Region> {
     @FXML
     private FlowPane dates;
 
-    public LeaveApplicationCard(LeaveApplication leaveApplication, int displayedIndex) {
+    public LeaveApplicationCard(LeaveApplicationWithEmployee leaveApplication, int displayedIndex) {
         super(FXML);
         this.leaveApplication = leaveApplication;
         id.setText(displayedIndex + ". ");
-        employee.setText(""); // TODO
+        employee.setText(leaveApplication.getEmployee().getName().fullName);
         description.setText(leaveApplication.getDescription().value);
         status.setText(leaveApplication.getLeaveStatus().value.toString());
         leaveApplication.getDates().forEach(date -> dates.getChildren().add(new Label(DateUtil.convertToString(date))));

@@ -13,6 +13,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.LeavePanelSelectionChangedEvent;
 import seedu.address.model.leaveapplication.LeaveApplication;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 
 /**
  * Panel containing the list of leave applications.
@@ -22,15 +23,15 @@ public class LeaveListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(LeaveListPanel.class);
 
     @FXML
-    private ListView<LeaveApplication> leaveListView;
+    private ListView<LeaveApplicationWithEmployee> leaveListView;
 
-    public LeaveListPanel(ObservableList<LeaveApplication> leaveApplicationList) {
+    public LeaveListPanel(ObservableList<LeaveApplicationWithEmployee> leaveApplicationList) {
         super(FXML);
         setConnections(leaveApplicationList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<LeaveApplication> leaveApplicationList) {
+    private void setConnections(ObservableList<LeaveApplicationWithEmployee> leaveApplicationList) {
         leaveListView.setItems(leaveApplicationList);
         leaveListView.setCellFactory(listView -> new LeaveListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -63,12 +64,12 @@ public class LeaveListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code LeaveApplication} using
+     * Custom {@code ListCell} that displays the graphics of a {@code LeaveApplicationWithEmployee} using
      * a {@code LeaveApplicationCard}.
      */
-    class LeaveListViewCell extends ListCell<LeaveApplication> {
+    class LeaveListViewCell extends ListCell<LeaveApplicationWithEmployee> {
         @Override
-        protected void updateItem(LeaveApplication leaveApplication, boolean empty) {
+        protected void updateItem(LeaveApplicationWithEmployee leaveApplication, boolean empty) {
             super.updateItem(leaveApplication, empty);
 
             if (empty || leaveApplication == null) {

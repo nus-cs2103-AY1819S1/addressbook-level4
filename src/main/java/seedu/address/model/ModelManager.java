@@ -14,7 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.leaveapplication.LeaveApplication;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 
@@ -26,7 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final FilteredList<LeaveApplication> filteredLeaveApplications;
+    private final FilteredList<LeaveApplicationWithEmployee> filteredLeaveApplications;
     private User loggedInUser;
 
     /**
@@ -122,21 +122,24 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<LeaveApplication> getFilteredLeaveApplicationList() {
+    public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
         return FXCollections.unmodifiableObservableList(filteredLeaveApplications);
     }
 
     @Override
-    public void updateFilteredLeaveApplicationList(Predicate<LeaveApplication> predicate) {
+    public void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate) {
         requireNonNull(predicate);
         filteredLeaveApplications.setPredicate(predicate);
     }
 
-    private ObservableList<LeaveApplication> retrieveLeaveApplicationsFromPersons() {
-        List<LeaveApplication> leaveApplications = new ArrayList<>();
-        versionedAddressBook.getPersonList().forEach(
-                person -> person.getLeaveApplications().forEach(
-                        leaveApplication -> leaveApplications.add(leaveApplication)));
+    /**
+     * Gets a list of all leave applications from all {@code Person} in the address book.
+     */
+    private ObservableList<LeaveApplicationWithEmployee> retrieveLeaveApplicationsFromPersons() {
+        List<LeaveApplicationWithEmployee> leaveApplications = new ArrayList<>();
+        versionedAddressBook.getPersonList().forEach(person
+                -> person.getLeaveApplications().forEach(leaveApplication
+                -> leaveApplications.add(new LeaveApplicationWithEmployee(leaveApplication, person))));
         return FXCollections.unmodifiableObservableList(FXCollections.observableList(leaveApplications));
     }
 
