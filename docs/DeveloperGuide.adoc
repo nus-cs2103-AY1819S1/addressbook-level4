@@ -132,6 +132,7 @@ The rest of the App consists of four components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Player,*`Player`*>>: Interacts with the audio interface.
 
 Each of the four components
 
@@ -234,6 +235,19 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the library data in json format and read it back.
+
+[[Design-Player]]
+=== Player component
+
+.Structure of the Player Component
+image::PlayerClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/jxmusic/player/Player.java[`Player.java`]
+
+The `Player` component,
+
+* interfaces with JavaFX Media to play sounds
+* handles media control with mp3 files
 
 [[Design-Commons]]
 === Common classes
