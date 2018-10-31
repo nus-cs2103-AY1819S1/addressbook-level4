@@ -40,10 +40,10 @@ public class XmlAdaptedAppointment {
     /**
      * Constructs an {@code XmlAdaptedAppointment} with the given appointment details.
      */
-    public XmlAdaptedAppointment(String date, String time, String ic, int status, int type, String staff) {
+    public XmlAdaptedAppointment(String date, String time, String patient, int status, int type, String staff) {
         this.date = date;
         this.time = time;
-        this.patient = ic;
+        this.patient = patient;
         this.status = status;
         this.type = type;
         if (staff != null) {
@@ -79,21 +79,29 @@ public class XmlAdaptedAppointment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted appointment
      */
     public Appointment toModelType() throws IllegalValueException {
+
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
+
         if (!Date.isValidDate(date)) {
             throw new IllegalValueException(String.format(Date.MESSAGE_DATE_CONSTRAINTS));
         }
+
         if (time == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
+
         if (!Time.isValidTime(time)) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Time.class.getSimpleName()));
         }
+
         if (patient == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Patient.class.getSimpleName()));
         }
+
+        //TODO: Patient
+
         return new Appointment(Date.newDate(date), Time.newTime(time), null, type);
     }
 

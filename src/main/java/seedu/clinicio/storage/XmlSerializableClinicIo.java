@@ -11,6 +11,7 @@ import seedu.clinicio.commons.exceptions.IllegalValueException;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
+import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
@@ -22,12 +23,16 @@ public class XmlSerializableClinicIo {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_STAFF = "Staffs list contains duplicate staff(s).";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
 
     @XmlElement
     private List<XmlAdaptedStaff> staffs;
+
+    @XmlElement
+    private List<XmlAdaptedAppointment> appointments;
 
     /**
      * Creates an empty XmlSerializableClinicIo.
@@ -36,6 +41,7 @@ public class XmlSerializableClinicIo {
     public XmlSerializableClinicIo() {
         persons = new ArrayList<>();
         staffs = new ArrayList<>();
+        appointments = new ArrayList<>();
     }
 
     /**
@@ -45,6 +51,7 @@ public class XmlSerializableClinicIo {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
+        appointments.addAll(src.getAppointmentList().stream().map(XmlAdaptedAppointment::new).collect(Collectors.toList()));
     }
 
     /**
@@ -70,6 +77,14 @@ public class XmlSerializableClinicIo {
             }
             clinicIo.addStaff(staff);
         }
+        //@@author gingivitiss
+        for (XmlAdaptedAppointment a : appointments) {
+            Appointment appointment = a.toModelType();
+            if (clinicIo.hasAppointment(appointment)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
+            }
+            clinicIo.addAppointment(appointment);
+        }
 
         return clinicIo;
     }
@@ -85,7 +100,8 @@ public class XmlSerializableClinicIo {
         }
 
         return persons.equals(((XmlSerializableClinicIo) other).persons)
-                && staffs.equals(((XmlSerializableClinicIo) other).staffs);
+                && staffs.equals(((XmlSerializableClinicIo) other).staffs)
+                && appointments.equals(((XmlSerializableClinicIo) other).appointments);
 
     }
 }
