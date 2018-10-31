@@ -21,10 +21,16 @@ public class PasswordCommand extends Command {
     public static final String FAILED_PASSWORD_MESSAGE = "Your entered password did not match. Command aborted.";
     public static final String PROGRESS_PASSWORD_MESSAGE = "Please enter in your new password.";
     public static final String SHOWING_PASSWORD_MESSAGE = "Password changed!";
+    public static final String ADMIN__MODIFICATION_MESSAGE = "Warning: Modification of the admin password cannot be "
+        + "corrected with undo or redo.";
 
     @Override
     public CommandResult runBody(Model model, CommandHistory history) {
         CommandResult buildingResult = new CommandResult(STARTING_PASSWORD_MESSAGE);
+
+        if(model.getLoggedInUser().isAdminUser()) {
+            buildingResult.absorb(new CommandResult(ADMIN__MODIFICATION_MESSAGE));
+        }
 
         buildingResult.addIntercepter(oldPassword -> {
             User currentUser = model.getLoggedInUser();
