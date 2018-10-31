@@ -6,6 +6,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Create EventPopUpInfo that store the info to insert into the popUpQueue
+ */
 public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
     private UUID uid;
     private UUID uuid;

@@ -1,10 +1,5 @@
 package seedu.scheduler.storage;
 
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import seedu.scheduler.model.event.ReminderDurationList;

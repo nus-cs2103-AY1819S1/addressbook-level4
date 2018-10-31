@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedScheduler versionedScheduler;
     private final FilteredList<Event> filteredEvents;
-    private PopUpManager popUpManager =  PopUpManager.getInstance();
+    private PopUpManager popUpManager = PopUpManager.getInstance();
 
     /**
      * Initializes a ModelManager with the given scheduler and userPrefs.

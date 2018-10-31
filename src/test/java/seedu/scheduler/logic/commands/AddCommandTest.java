@@ -23,7 +23,6 @@ import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.tag.Tag;
 import seedu.scheduler.storage.Storage;
 import seedu.scheduler.testutil.EventBuilder;
-import seedu.scheduler.ui.PopUp;
 
 public class AddCommandTest {
 
