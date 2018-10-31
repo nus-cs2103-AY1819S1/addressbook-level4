@@ -508,10 +508,9 @@ Disables the sending of both types of notifications. +
 
 [NOTE]
 ====
-* PERIOD_AMOUNT must be a positive number greater than 0
-* PERIOD can only be 'd' or 'm'.
-* MODE can only be 't' or 'c'.
-* If no parameters are provided, the command defaults to show statistics for the past 7 days in time mode.
+* NOTIFICATION_TYPE can only be 'warning' or 'tip'
+* TOGGLE_OPTION can only be 'on' or 'off'
+* NOTIFICATION_TYPE is optional
 ====
 
 === Clearing all entries : `clear`

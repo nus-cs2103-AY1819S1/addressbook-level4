@@ -27,7 +27,7 @@ public class NotificationCommand extends Command {
             + PREFIX_NOTIFICATION_TYPE + "warning "
             + PREFIX_TOGGLE + "off";
 
-    public static final String MESSAGE_SUCCESS = "%1 type notifications toggled %1";
+    public static final String MESSAGE_SUCCESS = "Notification Successfully Toggled";
 
     public static final String OPTION_ON = "on";
     public static final String OPTION_OFF = "off";
