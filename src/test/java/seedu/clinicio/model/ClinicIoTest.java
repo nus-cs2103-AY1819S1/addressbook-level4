@@ -188,13 +188,13 @@ public class ClinicIoTest {
     @Test
     public void getStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        clinicIo.getStaff(null);
+        clinicIo.checkStaffCredentials(null);
     }
 
     @Test
     public void getStaff_validStaff_returnDoctor() {
         clinicIo.addStaff(ADAM);
-        assertNotNull(clinicIo.getStaff(ADAM));
+        assertNotNull(clinicIo.checkStaffCredentials(ADAM));
     }
 
     @Test

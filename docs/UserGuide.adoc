@@ -505,33 +505,36 @@ Removes the Paracetemol entry from the medicine inventory.
 ==== Adding appointments: `addappt`
 
 Adds an appointment to the appointment schedule. +
-Format: `addappt d/DATE tm/TIME id/PATIENTID` [TODO: PATIENTID] +
+Format: `addappt d/DATE tm/TIME tp/[followup/new] n/NAME p/PHONE e/EMAIL a/ADDRESS t/TAGS` +
 
 [NOTE]
 Date is in dd/mm/yyyy format and time is in military time. +
 
+[NOTE]
+Tags are optional. +
+
 Examples:
 
-* `addappt d/03042018 tm/1645 id/38920` +
-Adds appointment scheduled on 3 April 2018 at 4.45pm for patient 38920. +
+* `addappt d/03042018 tm/1645 tp/followup n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/fever` +
+Adds a follow-up appointment scheduled on 3 April 2018 at 4.45pm for John Doe. +
 
-* `addappt d/12122013 tm/1300 id/100` +
-Adds appointment scheduled on 12 December 2013 at 1.00pm for patient 100. +
+* `addappt d/12122013 tm/1300 tp/new id/100 n/Sally Bower p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25` +
+Adds a new appointment scheduled on 12 December 2013 at 1.00pm for Sally Bower. +
 
-==== Listing Appointments by Day: `listapptday`
+==== Listing Appointments by Day: `listappt` [Coming in v1.4]
 
 Shows a list of all the appointments for the specified day. +
-Format: `listapptday d/DATE` +
+Format: `listappt d/DATE` +
 
 Examples:
 
-* `listapptday d/02032017` +
+* `listappt d/02032017` +
 Lists all appointments on 2 March 2017. +
 
-* `listapptday d/01012000` +
+* `listappt d/01012000` +
 Lists all appointments on 1 January 2000.
 
-==== Cancelling Appointments: `cancelappt`
+==== Cancelling Appointments: `cancelappt` [Coming in v1.4]
 
 Cancels an appointment from the appointment schedule. +
 Format: `cancelappt INDEX` +
@@ -544,11 +547,11 @@ Format: `cancelappt INDEX` +
 
 Examples:
 
-* `listapptday d/03042018` +
+* `listappt d/03042018` +
 `cancelappt 1` +
 Cancels the 1st appointment in the list.
 
-* `listapptday d/12122018` +
+* `listappt d/12122018` +
 `cancelappt 4` +
 Cancels the 4th appointment in the list.
 
@@ -630,9 +633,9 @@ e.g. `increasemedicine m/Paracetamol q/500`
 e.g. `decreasemedicine m/Paracetamol q/20`
 
 === Appointment Commands
-* *Add Appointment* : `addappt [d/DATE] [tm/TIME] [id/PATIENTID]` +
-e.g. `addappt d/01012018 tm/1430 id/39201`
-* *List Appointment* : `listapptday [d/DATE]` +
-e.g. `listapptday d/12122012`
+* *Add Appointment* : `addappt [d/DATE] [tm/TIME] [tp/TYPE] [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]... ` +
+e.g. `addappt d/01012018 tm/1430 tp/followup n/Johnny Do p/9999999 e/john@email a/Spring Road t/recurringfever`
+* *List Appointment* : `listappt [d/DATE]` +
+e.g. `listappt d/12122012`
 * *Cancel Appointment* : `cancelappt INDEX` +
 e.g. `cancelappt 2`

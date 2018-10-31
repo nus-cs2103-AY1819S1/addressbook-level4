@@ -60,10 +60,10 @@ public interface Model {
     void addStaff(Staff staff);
 
     /**
-     * Retrieve the given staff
+     * Authenticate staff with staff record in ClinicIO.
      * {@code staff} must exist in ClinicIO.
      */
-    Staff getStaff(Staff staff);
+    boolean checkStaffCredentials(Staff staff);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -71,13 +71,6 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the ClinicIO.
      */
     void updatePerson(Person target, Person editedPerson);
-
-    /**
-     * Replaces the given staff {@code target} with {@code editedStaff}.
-     * {@code target} must exist in the ClinicIO.
-     * The staff identity of {@code editedStaff} must not be the same as another existing staff in the ClinicIO.
-     */
-    void updateStaff(Staff target, Staff editedStaff);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

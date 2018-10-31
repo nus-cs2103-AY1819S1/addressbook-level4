@@ -1,7 +1,9 @@
 package seedu.clinicio.testutil;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.BENSON_AS_PATIENT;
+
+import java.util.Optional;
 
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
@@ -17,17 +19,17 @@ public class AppointmentBuilder {
 
     public static final Date DEFAULT_DATE = new Date(1, 1, 2018);
     public static final Time DEFAULT_TIME = new Time(16, 30);
-    public static final Patient DEFAULT_PATIENT = ALICE_AS_PATIENT;
+    public static final Patient DEFAULT_PATIENT = BENSON_AS_PATIENT;
     public static final int DEFAULT_TYPE = 0;
     public static final int DEFAULT_STATUS = 1;
-    public static final Staff DEFAULT_STAFF = ADAM;
+    public static final Optional<Staff> DEFAULT_STAFF = Optional.of(ADAM);
 
     private Date date;
     private Time time;
     private Patient patient;
     private int type;
     private int status;
-    private Staff staff;
+    private Optional<Staff> staff;
 
     public AppointmentBuilder() {
         date = DEFAULT_DATE;
@@ -78,11 +80,24 @@ public class AppointmentBuilder {
      * Sets the {@code Doctor} of the {@code Appointment} that we are building.
      */
     public AppointmentBuilder withStaff(Staff staff) {
-        this.staff = staff;
+        this.staff = Optional.of(staff);
         return this;
     }
 
+    /**
+     * Sets the type of the {@code Appointment} we are building.
+     */
+    public AppointmentBuilder withType(int type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Returns a new build appointment.
+     */
     public Appointment build() {
-        return new Appointment(date, time, patient, type, staff);
+        Appointment newappt = new Appointment(date, time, patient, type);
+        newappt.setAssignedStaff(staff.get());
+        return newappt;
     }
 }
