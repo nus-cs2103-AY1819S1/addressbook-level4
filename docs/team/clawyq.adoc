@@ -80,7 +80,7 @@ https://github.com/CS2103-AY1819S1-W16-4/main/commit/3740d6e8b3a2b90126fcab6fdd2
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=document]
+include::../UserGuide.adoc[tag=introduction]
 
 == Contributions to the Developer Guide
 
@@ -88,4 +88,16 @@ include::../UserGuide.adoc[tag=document]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=document]
+. Introduction to the `Document` Section
+
+include::../DeveloperGuide.adoc[tag=documentpreamble]
+
+[start = 2]
+. Implementation of the `Receipt` class
+
+include::../DeveloperGuide.adoc[tag=receipt]
+
+[start = 3]
+. Design considerations of the `Document` class
+
+include::../DeveloperGuide.adoc[tag=documentconsiderations]

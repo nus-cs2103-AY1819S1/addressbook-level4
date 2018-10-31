@@ -17,6 +17,7 @@ endif::[]
 
 By: `Team W16-4`      Since: `Aug 2018`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 Welcome to *CLInic*! *CLInic* is a desktop application designed to streamline and expedite operations in clinics.
@@ -33,9 +34,9 @@ for staff and patients to see
 If you wish for a clinic management application that can radically enhance your productivity, then look no further
 than *CLInic*! *CLInic* _will_ take care of the nitty-gritty complexities of your workflow, allowing you to
 focus instead on what truly matters to you as a health care professional: *providing quality healthcare services efficiently.* +
-You will have *all the tools* needed for running a world-class clinic at *your* fingertips (literally!). +
-Interested? Jump to <<Quick Start>> to get started. +
-Enjoy!
+You will have *all the tools* needed for running a world-class clinic at *your* fingertips (literally!).
+Interested? Continue scrolling to hop onboard with us and get started! +
+// end::introduction[]
 
 == Quick Start
 
