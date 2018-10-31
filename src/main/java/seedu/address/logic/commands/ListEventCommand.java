@@ -27,4 +27,5 @@ public class ListEventCommand extends Command {
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    // TODO this will have to switch tabs
 }

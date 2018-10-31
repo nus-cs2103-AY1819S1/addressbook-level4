@@ -206,7 +206,8 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different tags
         -> rejected */
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
-            + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_HUSBAND;
+                + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE
+                + VENUE_DESC_LECTURE + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different

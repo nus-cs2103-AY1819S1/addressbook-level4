@@ -16,7 +16,7 @@ import seedu.address.model.todolist.ToDoListEvent;
  * Adds a todolist event to the toDoList.
  */
 public class AddToDoCommand extends CommandToDo {
-    public static final String COMMAND_WORD = "add_todo";
+    public static final String COMMAND_WORD = "add todo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a event to the todo list. "
             + "Parameters: "

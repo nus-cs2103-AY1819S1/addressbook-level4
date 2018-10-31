@@ -44,8 +44,8 @@ public class EditEventCommandTest {
         EditCalendarEventDescriptor descriptor = new EditCalendarEventDescriptorBuilder(editedCalendarEvent).build();
         EditEventCommand editEventCommand = new EditEventCommand(INDEX_FIRST_ELEMENT, descriptor);
 
-        String expectedMessage = String.format(EditEventCommand.MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS,
-                                                editedCalendarEvent);
+        String expectedMessage = String.format(
+                EditEventCommand.MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS, editedCalendarEvent);
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
         expectedModel.updateCalendarEvent(model.getFilteredCalendarEventList().get(0), editedCalendarEvent);
