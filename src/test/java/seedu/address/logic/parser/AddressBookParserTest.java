@@ -91,7 +91,7 @@ public class AddressBookParserTest {
 
     //@@author LZYAndy
     @Test
-    public void parseCommand_findAddress() throws Exception {
+    public void parseCommandFindAddress() throws Exception {
         List<String> keywords = Arrays.asList("Jurong");
         FindAddressCommand command = (FindAddressCommand) parser.parseCommand(
                 FindAddressCommand.COMMAND_WORD + " " +
@@ -100,7 +100,7 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_findEmail() throws Exception {
+    public void parseCommandFindEmail() throws Exception {
         List<String> keywords = Arrays.asList("e1234567@u.nus.edu");
         FindEmailCommand command = (FindEmailCommand) parser.parseCommand(
                 FindEmailCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));

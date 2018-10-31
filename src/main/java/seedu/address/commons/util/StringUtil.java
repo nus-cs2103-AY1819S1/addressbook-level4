@@ -39,6 +39,17 @@ public class StringUtil {
     }
 
     //@@author LZYAndy
+    /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     *   Ignores case, but a full word match is required.
+     *   <br>examples:<pre>
+     *       containsWordIgnoreCase("ABc def", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "DEF") == true
+     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       </pre>
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     */
     public static boolean containsWordIgnoreCaseAndComma(String sentence, String word) {
         requireNonNull(sentence);
         requireNonNull(word);
@@ -46,7 +57,7 @@ public class StringUtil {
         String preppedWord = word.trim();
         String commaWord = preppedWord + ",";
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(commaWord != ",", "Word parameter cannot be empty");
+        checkArgument(!commaWord.equals(","), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
         checkArgument(commaWord.split("\\s+").length == 1, "Word parameter should be a single word");
 

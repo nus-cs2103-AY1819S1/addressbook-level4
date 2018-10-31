@@ -7,7 +7,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.person.AddressContainsKeywordsPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose address contains any of the argument keywords.
