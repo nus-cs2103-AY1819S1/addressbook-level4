@@ -1,7 +1,7 @@
 package seedu.jxmusic.ui;
 
 import static java.time.Duration.ofMillis;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.jxmusic.testutil.EventsUtil.postNow;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_TRACK;
@@ -11,6 +11,7 @@ import static seedu.jxmusic.ui.testutil.GuiTestAssert.assertTrackCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -20,9 +21,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jxmusic.commons.events.ui.JumpToListRequestEvent;
 import seedu.jxmusic.commons.util.FileUtil;
-import seedu.jxmusic.model.Library;
+import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Track;
-import seedu.jxmusic.storage.JsonFileStorage;
 
 public class TrackListPanelTest extends GuiUnitTest {
     private static final ObservableList<Track> TYPICAL_TRACKLIST =
@@ -47,7 +47,7 @@ public class TrackListPanelTest extends GuiUnitTest {
             TrackCardHandle actualCard = trackListPanelHandle.getTrackCardHandle(i);
 
             assertCardDisplaysTrack(expectedTrack, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals(Integer.toString(i + 1) + ".", actualCard.getId());
         }
     }
 
@@ -82,9 +82,14 @@ public class TrackListPanelTest extends GuiUnitTest {
      * {@code TrackListPanel}.
      */
     private ObservableList<Track> createBackingList(int trackCount) throws Exception {
-        Path jsonFile = createJsonFileWithTracks(trackCount);
-        Library library = JsonFileStorage.loadDataFromFile(jsonFile);
-        return FXCollections.observableArrayList(library.getObservableTrackList());
+        ObservableList<Track> result = FXCollections.observableArrayList(new ArrayList<>());
+        for (int i = 0; i < trackCount; i++) {
+            result.add(new Track(new Name("Marbles")));
+        }
+        //Path jsonFile = createJsonFileWithTracks(trackCount);
+        //Library library = JsonFileStorage.loadDataFromFile(jsonFile);
+        //return library.getObservableTrackList());
+        return result;
     }
 
     /**
@@ -94,9 +99,10 @@ public class TrackListPanelTest extends GuiUnitTest {
     private Path createJsonFileWithTracks(int trackCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("{\n\"tracks\": [\n");
-
         for (int i = 0; i < trackCount; i++) {
-            builder.append("SOS Morse Code.mp3,\n");
+            builder.append("{\n");
+            builder.append("\"name\": \"Marbles\"\n");
+            builder.append("},\n");
         }
         builder.deleteCharAt(builder.length() - 2); // delete last comma
         builder.append("]\n}\n");

@@ -33,7 +33,7 @@ public class TrackCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code track}.
      */
     public boolean equals(Track track) {
-        return getName().equals(track.getFileName());
+        return getName().equals(track.getFileNameWithoutExtension());
     }
 }
 

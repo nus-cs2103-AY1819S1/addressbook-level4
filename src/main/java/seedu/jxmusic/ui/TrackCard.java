@@ -23,7 +23,7 @@ public class TrackCard extends UiPart<Region> {
     public final Track track;
 
     @FXML
-    private HBox cardPane;
+    private HBox trackCardPane;
     @FXML
     private Label name;
     @FXML

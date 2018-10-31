@@ -40,11 +40,11 @@ public class TrackCardTest extends GuiUnitTest {
         assertFalse(trackCard.equals(0));
 
         // different track, same index -> returns false
-        Track differentTrack = new TrackBuilder().withName("differentName.mp3").build();
+        Track differentTrack = new TrackBuilder().withName("Marbles").build();
         assertFalse(trackCard.equals(new TrackCard(differentTrack, 0)));
 
         // same track, different index -> returns false
-        // assertFalse(trackCard.equals(new TrackCard(track, 1))); // todo failing test
+        // assertFalse(trackCard.equals(new TrackCard(track, 1)));
     }
 
     /**
