@@ -46,9 +46,11 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
-
-_{To be updated}_
+This will generate all resources required by the application and tests. +
+. Open MainWindow.java and other files to check for any code errors +
+.. Due to an ongoing issue with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully +
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press ALT+ENTER, and select Add '--add-modules=…​' to module compiler options for each error +
+. Repeat this for the test folder as well (e.g. check HelpWindowTest.java and other files for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
@@ -84,12 +86,20 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
 
+==== Getting started with coding
+
+When you are ready to start coding,
+
+1. Get some sense of the overall design by reading <<Design-Architecture>>.
+
 == Design
 
 [[Design-Architecture]]
 === Architecture
 
-_{Image to be added}_
+.Architecture Diagram
+image::Architecture.png[width="600"]
+
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -117,6 +127,15 @@ Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it’s API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component
+image::LogicClassDiagram.png[width="800"]
+
+[discrete]
+==== Events-Driven nature of the design
+
 
 [[Design-Ui]]
 === UI component

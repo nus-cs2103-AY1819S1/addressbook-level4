@@ -22,6 +22,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
+import seedu.address.commons.events.ui.ClearHistoryEvent;
+import seedu.address.commons.events.ui.TransformationEvent;
+import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
@@ -151,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateImageList() {
         userPrefs.updateImageList();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(returnPreviewImageList(), true));
     }
 
     /**
@@ -193,6 +197,10 @@ public class ModelManager extends ComponentManager implements Model {
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         currentPreviewImage = selectedImage;
         canvas.addLayer(selectedImage);
+
+        EventsCenter.getInstance().post(new ClearHistoryEvent());
+        EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
+        EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
     }
     //=========== GoogleClient Accessors =============================================================
 
@@ -238,6 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
         BufferedImage newImage = currentPreviewImage.getImage();
         EventsCenter.getInstance().post(
                 new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        EventsCenter.getInstance().post(new TransformationEvent(true));
     }
 
     @Override
@@ -246,6 +255,7 @@ public class ModelManager extends ComponentManager implements Model {
         BufferedImage newImage = currentPreviewImage.getImage();
         EventsCenter.getInstance().post(
                 new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        EventsCenter.getInstance().post(new TransformationEvent(false));
     }
 
     //=========== get/updateing preview image ==========================================================================
@@ -254,6 +264,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addTransformation(Transformation transformation) {
         //need to check the availability of adding a new transformation
         //need to get the current layer and update the transformationSet
+        EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
         return;
     }
 

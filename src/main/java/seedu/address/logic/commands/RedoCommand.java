@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 //@@author ihwk1996
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -27,7 +25,6 @@ public class RedoCommand extends Command {
         }
 
         model.redoPreviewImage();
-        EventsCenter.getInstance().post(new TransformationEvent(false));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
