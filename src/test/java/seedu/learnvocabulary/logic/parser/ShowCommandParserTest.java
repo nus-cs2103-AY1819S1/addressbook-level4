@@ -1,7 +1,6 @@
 package seedu.learnvocabulary.logic.parser;
 
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_ENTER_WORD;
-import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -9,7 +8,6 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.learnvocabulary.logic.commands.FindCommand;
 import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.model.word.NameContainsKeywordsPredicate;
 
