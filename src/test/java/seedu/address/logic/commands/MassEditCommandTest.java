@@ -29,7 +29,7 @@ import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
 
-//@@Author jcjxwy
+//@@author jcjxwy
 public class MassEditCommandTest {
     private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
