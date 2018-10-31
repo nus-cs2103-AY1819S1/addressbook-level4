@@ -182,4 +182,10 @@ public class UniqueWishListTest {
         thrown.expect(UnsupportedOperationException.class);
         uniqueWishList.asUnmodifiableObservableList().remove(0);
     }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(uniqueWishList.hashCode() ==
+                uniqueWishList.hashCode());
+    }
 }
