@@ -64,7 +64,8 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if the current content of the directory display is different from the value remembered by the most recent
+     * Returns true if the current content of the directory display is different from the
+     * value remembered by the most recent
      * {@code rememberDirectoryStatus()} call.
      */
     public boolean isDirectoryChanged() {
