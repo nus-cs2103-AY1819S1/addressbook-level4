@@ -5,59 +5,55 @@
 
 == PROJECT: CLInic
 
----
+== Introduction
+Hello, I am Yu Cong. I am currently studying Computer Science as my major in the School of Computing, National University of Singapore.
+I formed a team with 4 other students to create CLInic as part of the project requirement under the CS2103T module as part of my university education.
 
-== Overview
+// write clearly this is to showcase contributions
+This project portfolio serves to document my contributions to this project. You can see my contributions to
+the <<Summary of contributions, code contribution>>, the <<Contributions to the User Guide, user guide>> and the <<Contributions to the Developer Guide, developer guide>> below.
 
-CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application.
-CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
-programming language and uses JavaFX, HTML and CSS for the GUI.
+CLInic is a desktop application made for clinics who wish to automate their daily operations.
+The CLI in CLInic is an acronym for Command Line Interface, which is the main method to use this application.
+Unlike traditional address books, the doctor or clinic receptionist can easily find patient or medicine information by entering one simple line in the command box.
+You can also manage patient and medical records easily with the easy-to-use CLinic.
 
-My task in CLInic is to implement *the classes and commands concerning medicines*.
+// list of main features
+Examples of the main features include:
 
-The project scope for CLInic is to morph the given addressbook-level4 into a clinic management application that allows users to manage patient
-information and medicine information and additionally manage the clinic queue.
-
+. Efficient management of patient and medicine information
+. Realistic model of clinic's daily operation and commands to cater to clinics.
+. Customised receipts, medical certificates and referral letters for different clinics.
 
 == Summary of contributions
+//preface to this section to inform reader purpose of this section
+In this section, you can find the major and minor enhancement that I made to CLInic:
 
 * *Major enhancement*: Implementation of *medical records in CLInic*
-** What it does: This system allows the clinic to keep track of medical stocks in the clinic.
-** Justification: This system improves the product significantly because it has created another use case for this application apart from just storing patient and medicine information.
-** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands
-are made to be as intuitive as possible.
+** What it does: It allows the clinic to keep track of medical stocks in the clinic.
+** Justification: The medical stocks are managed and the useful commands can organise and find the information of a medicine.
+** Highlights: With a simple command, you can easily list out all medical stocks that are low in stock.
 
 * *Minor enhancement*:
-** Integration of `ReceiptCommand` and PQMS.
-** Enhancement of GUI.
+** Rewrote command output to make it more user friendly.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+// not yet done
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
-
-** Project management:
-*** Developer
-
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote tests for existing features to increase coverage from 67% to 75% (Pull requests https://goo.gl/vQbh82[#109])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
+** Wrote the utilities for test cases for other members to build their tests upon.
+** Proof-read all code written to adhere to standard Java writing style.
+** Advised my team to apply knowledge learnt in lecture wherever necessary.
+** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
 
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=pqms]
+include::../UserGuide.adoc[tag=medicine]
 
 == Contributions to the Developer Guide
 
@@ -65,4 +61,4 @@ include::../UserGuide.adoc[tag=pqms]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=pqms]
+include::../DeveloperGuide.adoc[tag=medicine]
