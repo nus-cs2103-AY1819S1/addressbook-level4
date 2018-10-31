@@ -42,7 +42,7 @@ public class ModifyPermissionCommand extends Command {
             + PREFIX_ADD_PERMISSION + " ADD_EMPLOYEE "
             + PREFIX_REMOVE_PERMISSION + " VIEW_PROJECT";
 
-    public static final String MESSAGE_MODIFY_PERMISSION_SUCCESS = "Permission modified.\nNew Permissions : %1$s";
+    public static final String MESSAGE_MODIFY_PERMISSION_SUCCESS = "Permission modified for %s.\nNew Permissions : %s";
     public static final String MESSAGE_NO_MODIFICATION = "At least 1 permission that can be added or removed "
             + "must be provided.";
     public static final String MESSAGE_ADD_AND_REMOVE_SAME_PERMISSION = "Permission to be added and removed "
@@ -85,7 +85,8 @@ public class ModifyPermissionCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(MESSAGE_MODIFY_PERMISSION_SUCCESS, editedPerson.getPermissionSet()));
+        return new CommandResult(String.format(MESSAGE_MODIFY_PERMISSION_SUCCESS, editedPerson.getName(),
+                editedPerson.getPermissionSet()));
     }
 
     /**

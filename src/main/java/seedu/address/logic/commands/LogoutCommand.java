@@ -20,6 +20,7 @@ public class LogoutCommand extends Command {
     @Override
     public CommandResult runBody(Model model, CommandHistory history) {
         EventsCenter.getInstance().post(new LogoutEvent());
+        history.resetHistory();
         return new CommandResult(SHOWING_LOGOUT_MESSAGE);
     }
 }

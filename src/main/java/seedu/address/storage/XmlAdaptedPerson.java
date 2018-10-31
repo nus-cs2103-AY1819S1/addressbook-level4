@@ -214,7 +214,7 @@ public class XmlAdaptedPerson {
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelUsername,
-                modelPassword, modelProjects, pSet, modelProfilePic, modelLeaveApplications);
+                modelPassword, modelProjects, pSet, modelLeaveApplications, modelProfilePic);
     }
 
     @Override
