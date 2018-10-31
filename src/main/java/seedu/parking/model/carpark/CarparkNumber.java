@@ -19,7 +19,7 @@ public class CarparkNumber {
      */
     public static final String CAR_NUM_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*";
 
-    private final String value;
+    public final String value;
 
     /**
      * Constructs an {@code CarparkNumber}.

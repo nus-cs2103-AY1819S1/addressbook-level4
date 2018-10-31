@@ -15,7 +15,6 @@ public class CarparkContainsKeywordsPredicate implements Predicate<Carpark> {
         this.keywords = keywords;
     }
 
-    // Todo: double check
     public List<String> getKeywords() {
         return this.keywords;
     }
@@ -38,5 +37,4 @@ public class CarparkContainsKeywordsPredicate implements Predicate<Carpark> {
                 || (other instanceof CarparkContainsKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((CarparkContainsKeywordsPredicate) other).keywords)); // state check
     }
-
 }

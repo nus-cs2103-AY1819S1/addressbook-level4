@@ -60,10 +60,12 @@ public interface Model {
     void updateFilteredCarparkList(Predicate<Carpark> predicate);
 
 
-    // Todo: Location based filtering
-    public void updateLastPredicateUsedByFindCommand(CarparkContainsKeywordsPredicate predicate);
-    // Todo: Location based filtering
-    public CarparkContainsKeywordsPredicate getLastPredicateUsedByFindCommand();
+    void updateLastPredicateUsedByFindCommand(CarparkContainsKeywordsPredicate predicate);
+
+    CarparkContainsKeywordsPredicate getLastPredicateUsedByFindCommand();
+
+    // Todo: Calculate command add java comment
+    Carpark getCarparkFromFilteredList(int index);
 
     /**
      * Returns true if the model has previous car park finder states to restore.

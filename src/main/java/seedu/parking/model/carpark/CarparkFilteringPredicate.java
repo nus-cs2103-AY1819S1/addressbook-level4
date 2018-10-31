@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.parking.commons.util.StringUtil;
+import seedu.parking.logic.parser.CarparkTypeParameter;
+import seedu.parking.logic.parser.FreeParkingParameter;
+import seedu.parking.logic.parser.ParkingSystemTypeParameter;
 
 /**
  * Tests that a {@code Carpark} met all the filtering criteria.
@@ -15,17 +18,25 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
     private final List<String> locationKeywords;
     private final List<String> flagList;
+    private final FreeParkingParameter freeParkingParameter;
+    private final CarparkTypeParameter carparkTypeParameter;
+    private final ParkingSystemTypeParameter parkingSystemTypeParameter;
 
-    public CarparkFilteringPredicate(List<String> locationKeywords, List<String> flagList) {
+    public CarparkFilteringPredicate(List<String> locationKeywords, List<String> flagList,
+                                     FreeParkingParameter freeParkingParameter,
+                                     CarparkTypeParameter carparkTypeParameter,
+                                     ParkingSystemTypeParameter parkingSystemTypeParameter) {
         this.locationKeywords = locationKeywords;
         this.flagList = flagList;
+        this.freeParkingParameter = freeParkingParameter;
+        this.carparkTypeParameter = carparkTypeParameter;
+        this.parkingSystemTypeParameter = parkingSystemTypeParameter;
     }
 
-    // Todo: Javadoc Comment
     /**
      * Checks if the car park has free parking from the given starting to ending time on the specified day.
      */
-    private boolean checkFreeParking(String day, String startTime, String endTime, String timePeriod) {
+    private boolean checkFreeParking(String day, Date inputStart, Date inputEnd, String timePeriod) {
         boolean hasFreeParkingTiming = !timePeriod.equals("NO");
         boolean hasDay = false;
         boolean afterStart = false;
@@ -50,14 +61,11 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
                 Date start = dateFormat1.parse(startAndEndTime[0]);
                 Date end = dateFormat2.parse(startAndEndTime[1]);
 
-                // Input time of user can only be of dateFormat2
-                Date inputStart = dateFormat2.parse(startTime);
-                Date inputEnd = dateFormat2.parse(endTime);
                 afterStart = inputStart.after(start) || inputStart.equals(start);
                 beforeEnd = inputEnd.before(end) || inputEnd.equals(end);
             }
         } catch (ParseException e) {
-            System.out.println("parse exception");
+            System.out.println("parse exception"); // how to get rid of this?
         }
 
         return hasFreeParkingTiming && hasDay && afterStart && beforeEnd;
@@ -84,14 +92,30 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             return carparkType.contains("COVERED");
 
         default:
-            // should catch invalid input instead (to be implemented)
             return carparkType.contains("CAR PARK");
+        }
+    }
+
+    /**
+     * Checks if the car park is of the specified car park type.
+     */
+    private boolean checkParkingSystemType(String selectedParkingSystemType, String parkingSystemType) {
+        switch (selectedParkingSystemType) {
+        case "COUPON":
+            return parkingSystemType.contains("COUPON");
+
+        case "ELECTRONIC":
+            return parkingSystemType.contains("ELECTRONIC");
+
+        default:
+            return parkingSystemType.contains("PARKING");
         }
     }
 
     @Override
     public boolean test(Carpark carpark) {
 
+        // Location filtering
         boolean correctLocation = locationKeywords.stream()
                 .anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().toString(), keyword)
@@ -101,6 +125,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
                                 || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().toString(), keyword)
                 );
 
+        // Filtering by various flags
         boolean collective = true;
 
         if (flagList.contains("n/")) {
@@ -108,28 +133,44 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
             collective = hasNightParking;
         }
+        if (flagList.contains("a/")) {
+            boolean hasAvailableSlots = !carpark.getLotsAvailable().value.equals("0");
+
+            collective = collective && hasAvailableSlots;
+        }
+        if (flagList.contains("s/")) {
+            boolean hasShortTermParking = !carpark.getShortTerm().value.equals("NO");
+
+            collective = collective && hasShortTermParking;
+        }
         if (flagList.contains("f/")) {
-            int index = flagList.indexOf("f/");
 
-            // Can accept small letters too
-            String day = flagList.get(index + 1).toUpperCase();
-            String startTime = flagList.get(index + 2);
-            String endTime = flagList.get(index + 3);
+            String timePeriod = carpark.getFreeParking().value;
+            String day = freeParkingParameter.getDay();
+            Date inputStart = freeParkingParameter.getStartTime();
+            Date inputEnd = freeParkingParameter.getEndTime();
 
-            String timePeriod = carpark.getFreeParking().toString();
-            boolean hasFreeParking = checkFreeParking(day, startTime, endTime, timePeriod);
+            boolean hasFreeParking = checkFreeParking(day, inputStart, inputEnd, timePeriod);
 
             collective = collective && hasFreeParking;
         }
         if (flagList.contains("ct/")) {
-            int index2 = flagList.indexOf("ct/");
 
-            String selectedCarparkType = flagList.get(index2 + 1).toUpperCase();
+            String carparkType = carpark.getCarparkType().value;
+            String selectedCarparkType = carparkTypeParameter.getCarparkType();
 
-            String carparkType = carpark.getCarparkType().toString();
             boolean isCorrectType = checkCarParkType(selectedCarparkType, carparkType);
 
             collective = collective && isCorrectType;
+        }
+        if (flagList.contains("ps/")) {
+
+            String parkingSystemType = carpark.getTypeOfParking().value;
+            String selectedParkingSystemType = parkingSystemTypeParameter.getParkingSystemType();
+
+            boolean isCorrectSystem = checkParkingSystemType(selectedParkingSystemType, parkingSystemType);
+
+            collective = collective && isCorrectSystem;
         }
 
         return correctLocation && collective;

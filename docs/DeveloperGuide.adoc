@@ -647,42 +647,86 @@ image::actdiagram-find.png[width="800", align="left"]
 
 === Filter feature
 
-The filter feature reduces the amount of car park data by a condition.
+The filter feature allow users to find a suitable car park based on criteria that users input, within a certain area.
 
 ==== Overview
 The filter mechanism is facilitated by `FilterCommand` and `FilterCommandParser`.
-The filter mechanism can filter car parks by the following criteria:
+The filter mechanism can filter car parks by the following criteria. The corresponding flag of each criterion is also
+indicated below.
 
-* Type of car park
-* Availability of free parking
-* Availability of night parking
+* Car park has available parking slots `a/`
+* Car park has short-term parking `s/`
+* Type of car park `ct/`
+* Car park has free parking between a specified time period `f/`
+* Car park has night parking `n/`
+* Type of parking system that the car park uses `ps/`
 
 The `FilterCommandParser` extends `Parser` and implements the following operation:
 
-* `FilterCommandParser#parse()` -- Checks the arguments for empty strings and throws a `ParseException` if empty string is found.
-It then splits the arguments by white spaces and store then into an array list.
+* `FilterCommandParser#parse()` -- Splits the arguments by white spaces and store them into an array list.
+Parser then checks the validity of the arguments input by user, and throws a `ParseException` when arguments are deemed invalid in various ways.
 
 The `FilterCommand` extends `Command` and implements the following operation:
 
-* `FilterCommand#execute()` -- Executes the command by filtering the car park list against a selected predicate.
-* The various predicates that `FilterCommand` uses include `CarparkHasFreeParkingPredicate`, `CarparkHasNightParkingPredicate` and `CarparkIsOfTypePredicate`
+* `FilterCommand#execute()` -- Executes the command by filtering the car park list with `CarparkFilteringPredicate`.
+
+The `FilterCommand` is able to filter car parks by multiple criteria at a time.
 
 ==== Current Implementation
 
-Given below is an example usage scenario of how the filter mechanism behaves at each step when filtering for free parking.
+Given below is an example usage scenario of how the filter mechanism behaves at each step when filtering with the following criteria:
+
+* car park is covered
+* car park has free parking between Sunday 11.30am and 3.30pm
+* car park currently has available parking slot
 
 Step 1. The user launches the application.
 
-Step 2. The user executes `filter f/ SUN 7.30am 5.30pm` to get all car parks that has free parking between 7.30am and 5.30pm on the following Sunday.
+Step 2. The user executes `filter ct/ COVERED f/ SUN 11.30AM 3.30PM a/`.
+
+[NOTE]
+Input parameters can also be in lower case as `FilterCommandParser` will convert input parameters to upper case
+if they are not.
 
 Step 3. After `CarparkFinderParser` detects `filter` as the command word, a
-`FilterCommandParser` is created to parse the arguments supplied to the command into `String[] flags`.
+`FilterCommandParser` is created to parse the arguments supplied to the command.
 
-Step 4. The `FilterCommand` object is then created to decode `String[] flags` and create the `CarparkHasFreeParkingPredicate`.
+Step 4. The `FilterCommandParser` splits the arguments by white spaces and store them into `List<String> argumentsList`.
 
-Step 5. `CarparkHasFreeParkingPredicate` checks that a carpark has free parking on Sunday, and that the start and end time input by the user falls between the free parking time period of the car park.
+Step 5. Then, it identifies the flags  present in `List<String> argumentsList` and store them in `List<String> flagList`.
 
-Step 6. The list of car parks is filtered against the predicate and returned to the GUI.
+[NOTE]
+If `List<String> flagList` is empty, `FilterCommandParser` throws a `ParseException` to indicatte that the command has invalid parameters.
+
+Step 6. `FilterCommandParser` also parses the parameter(s) of each flag, and throws `ParseException` when necessary.
+
+* `ct/`: `FilterCommandParser` ensures that `COVERED` is a valid car park type.
+* `f/`: `FilterCommandParser` ensures that `SUN` is a valid day and `11.30AM` and `3.30PM` are valid times.
+Moreover, `FilterCommandParser` ensures that all three parameters are present.
+
+Step 7. Parameters of `ct/` and `f/` are packaged into `CarparkTypeParameter carparkTypeParameter` and
+ `FreeParkingParameter freeParkingParameter` respectively. They are then passed to a newly created `FilterCommand`
+ together with `List<String> flagList`.
+
+Step 8. The `FilterCommand` object obtains the last predicate used by `FindCommand` from `model` and creates the `CarparkFilteringPredicate`.
+
+[NOTE]
+The `ModelManager` stores the last predicate used by `FindCommand`. The predicate is updated every time `FindCommand` is executed.
+
+Step 9. Besides filtering by the last predicate used by `FindCommand` (location), `CarparkFilteringPredicate` has a
+series of `if` statements that checks which flags are present in `List<String> flagList`, before looking into
+the parameters of the flags.
+
+* For `a/`: `CarparkFilteringPredicate` checks that the car park has available parking slots.
+* For `ct/`: `CarparkFilteringPredicate` checks that the car park type of the car park is `COVERED`.
+* For `f/`: `CarparkFilteringPredicate` checks that the car park has free parking on Sunday, and the start and end time
+input by the user falls between the free parking time period of the car park.
+
+Step 10. To combine the filtering criteria, a boolean variable, `collective`, is used. The following snippet of code shows more clearly how it is used.
+
+image::CarparkFilteringPredicate_code_snippet.png[width="700", align="left"]
+
+Step 11. The list of car parks is filtered against the predicate and returned to the GUI.
 
 Please refer to the _Sequence Diagram_ below for the filter operation.
 
@@ -697,23 +741,32 @@ image::ActivityDiagram-filter.png[width="700", align="left"]
 
 ==== Design Considerations
 
-===== Aspect: How location based filtering executes
+===== Aspect: How location based filtering is done
 
-* **Alternative 1 (Current choice):** Extracting the location from the previous `FindCommand` to form the predicate for the current `FilterCommand`
+* **Alternative 1 (Current choice):** Extracting the location from the previous `FindCommand` to form part of the predicate for the current `FilterCommand`
 +
 [cols="1,10"]
 |===
-|Pros| Able to pass in the location as a parameter easily when creating the combined predicate. Various existing methods that filters the whole list of car parks can still be used.
-|Cons| Efficiency compromised as the whole list of car parks needs to be filtered through again.
+|Pros| Able to creating a combined predicate that does location-based filtering easily.
+Various existing methods that filters the list of car parks can still be used.
+|Cons| Efficiency compromised as the list of car park needs to be filtered by location again.
 |===
 
-* **Alternative 2:** Store the location-filtered list of car parks from `FindCommand`, then `FilterCommand` filters from the filtered list of car parks.
+* **Alternative 2:** Store the filtered list of car parks from `FindCommand`, then filter from there.
 +
 [cols="1,10"]
 |===
 |Pros| Improved efficiency as a shorter list of car park needs to be filtered by `FilterCommand`.
 |Cons| Additional memory required to store the list of car park generated by `FindCommand`.
+A whole new set of classes and methods needs to be written to store the filtered list, might over-complicate code.
 |===
+
+=== [Proposed] Calculate feature
+
+The calculate feature helps users calculate the cost of parking at a specific car park for a specified time period.
+
+==== Overview
+_This feature is coming in v2.0._
 
 === Abbreviation feature
 

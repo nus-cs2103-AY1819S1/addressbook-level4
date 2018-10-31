@@ -2,21 +2,21 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
 import java.util.List;
-
 import java.util.function.Predicate;
 
 import seedu.parking.commons.core.Messages;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
+import seedu.parking.logic.parser.CarparkTypeParameter;
+import seedu.parking.logic.parser.FreeParkingParameter;
+import seedu.parking.logic.parser.ParkingSystemTypeParameter;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 import seedu.parking.model.carpark.CarparkFilteringPredicate;
 
-
 /**
- * Filters car parks using to flags
+ * Filters the list of car parks returned by the previous find command with the use of flags
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
@@ -24,37 +24,48 @@ public class FilterCommand extends Command {
     public static final String FORMAT = "filter f/ DAY START_TIME END_TIME n/ ct/ CARPARK_TYPE";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Filters the carpark based using flags.\n"
-            + "Flags:\n"
+            + ": Filters the list of car parks returned by the previous find command with the use of flags. "
+            + "Multiple flags can be used and in any order.\n"
+            + "Note: User must first find a list of car parks using the find command.\n"
+            + "Valid flags:\n"
+            + "> Available: a/ \n"
             + "> Night Parking: n/ \n"
+            + "> Short-term Parking: st/ \n"
             + "> Free Parking: f/ [day] [start time] [end time]     Example: filter f/ SUN 7.30AM 8.30PM\n"
             + "> Car Park Type: ct/ [car park type]     Example: filter ct/ basement\n"
-            + "   SURFACE\n" + "   MUITISTOREY\n" + "   BASEMENT\n" + "   COVERED\n" + "   MECHANISED";
+            + "> Parking System Type: ps/ [parking system type]     Example: filter ps/ coupon\n";
 
-    //public static final String MESSAGE_FILTER_CARPARK_SUCCESS = "Filtered Car Parks.";
     private Predicate predicate;
-    private String[] flags;
+    private final List<String> flagList;
+    private final FreeParkingParameter freeParkingParameter;
+    private final CarparkTypeParameter carparkTypeParameter;
+    private final ParkingSystemTypeParameter parkingSystemTypeParameter;
 
     /**
      * Creates a FilterCommand with the relevant flags
      */
-    public FilterCommand(String[] flags) {
-        this.flags = flags;
+    public FilterCommand(List<String> flagList, FreeParkingParameter freeParkingParameter, CarparkTypeParameter
+            carparkTypeParameter, ParkingSystemTypeParameter parkingSystemTypeParameter) {
         this.predicate = null;
+        this.flagList = flagList;
+        this.freeParkingParameter = freeParkingParameter;
+        this.carparkTypeParameter = carparkTypeParameter;
+        this.parkingSystemTypeParameter = parkingSystemTypeParameter;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
         requireNonNull(model);
-        List<String> flagList = Arrays.asList(flags);
 
-        // Todo: Location based filtering
-        // Get last findCommand predicate
         CarparkContainsKeywordsPredicate locationPredicate = model.getLastPredicateUsedByFindCommand();
-        List<String> locationKeywords = locationPredicate.getKeywords();
+        if (locationPredicate == null) {
+            throw new CommandException(Messages.MESSAGE_FINDCOMMAND_NEEDS_TO_BE_EXECUTED_FIRST);
+        }
 
-        this.predicate = new CarparkFilteringPredicate(locationKeywords, flagList);
+        List<String> locationKeywords = locationPredicate.getKeywords();
+        predicate = new CarparkFilteringPredicate(locationKeywords, flagList, freeParkingParameter,
+                carparkTypeParameter, parkingSystemTypeParameter);
+
         model.updateFilteredCarparkList(predicate);
 
         return new CommandResult(

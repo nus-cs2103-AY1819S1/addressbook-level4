@@ -18,7 +18,7 @@ public class ShortTerm {
      */
     public static final String SHORT_TERM_VALIDATION_REGEX = "[^\\s].*";
 
-    private final String value;
+    public final String value;
 
     /**
      * Constructs an {@code ShortTerm}.
