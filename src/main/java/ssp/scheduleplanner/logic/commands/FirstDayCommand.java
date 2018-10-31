@@ -2,6 +2,7 @@ package ssp.scheduleplanner.logic.commands;
 
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,6 +35,8 @@ public class FirstDayCommand extends Command {
     public static final String MESSAGE_DATA_UNABLE_CONVERT = "Data unable to convert from saved file";
 
     public static final int WEEKS_IN_SEMESTER = 17;
+    public static final String DEFAULT_MONDAY_DATE = "010118";
+
     private String inputDate = "";
     private String[][] rangeOfWeek = new String[WEEKS_IN_SEMESTER][3];
     private String weekDescription = "";
@@ -55,11 +58,8 @@ public class FirstDayCommand extends Command {
 
         if (isWithinDateRange(rangeOfWeek[0][0], rangeOfWeek[16][1])) {
             weekDescription = retrieveWeekDescription(rangeOfWeek);
-        }
-
-        if (weekDescription != "") {
             return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + "Current week: %s", weekDescription
-            + "\n" + "The week description will be reflected when you relaunch the application"));
+                    + "\n" + "The week description will be reflected when you relaunch the application"));
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
@@ -172,6 +172,44 @@ public class FirstDayCommand extends Command {
 
     public boolean isMonday(String inputDate) {
         return (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() == "MONDAY");
+    }
+
+    /**
+     * This method compute the correct application title and return the string value
+     * @return application title
+     * @throws CommandException
+     */
+    public String computeAppTitle() throws CommandException {
+        String appTitle = "";
+
+        String[][] retrieveData = new String[WEEKS_IN_SEMESTER][3];
+        retrieveData = retrieveRangeOfWeeks(retrieveData);
+
+        if (isWithinDateRange(retrieveData[0][0], retrieveData[16][1])) {
+            appTitle = "Schedule Planner" + "  - " + retrieveWeekDescription(retrieveData);
+        } else {
+            appTitle = "Schedule Planner";
+        }
+
+        return appTitle;
+    }
+
+    /**
+     * This method create default storage file if not exist.
+     * solution below adapted from
+     * https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
+     * @throws CommandException
+     */
+    public void createDefaultFileIfNotExist () throws CommandException {
+        File checkFileExist = new File("rangeofweek.xml");
+        if (!checkFileExist.exists()) {
+            try {
+                checkFileExist.createNewFile();
+                saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
+            } catch (java.io.IOException e) {
+                throw new CommandException("Failed to create rangeofweek.xml");
+            }
+        }
     }
 
     public String returnUserDate () {

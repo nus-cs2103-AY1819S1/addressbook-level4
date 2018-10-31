@@ -1,5 +1,7 @@
 package ssp.scheduleplanner.logic.parser;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static ssp.scheduleplanner.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static ssp.scheduleplanner.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -72,6 +74,21 @@ public class FirstDayCommandParserTest {
         assertParseFailure(parser, testDate1 + testDate2, FirstDayCommand.MESSAGE_ONLY_ONE_ARGUMENT);
 
         assertParseFailure(parser, testDate1 + testDate2 + testDate3, FirstDayCommand.MESSAGE_ONLY_ONE_ARGUMENT);
+    }
+
+    @Test
+    public void isMonday_test() {
+        //the following tests are Monday
+        assertTrue(parser.isMonday("130818"));
+        assertTrue(parser.isMonday("200818"));
+
+        //the following tests are Tuesday to Sunday
+        assertFalse(parser.isMonday("140818"));
+        assertFalse(parser.isMonday("150818"));
+        assertFalse(parser.isMonday("160818"));
+        assertFalse(parser.isMonday("170818"));
+        assertFalse(parser.isMonday("180818"));
+        assertFalse(parser.isMonday("190818"));
     }
 
 
