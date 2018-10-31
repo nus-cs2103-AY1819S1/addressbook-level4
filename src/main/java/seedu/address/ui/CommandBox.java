@@ -1,9 +1,11 @@
 package seedu.address.ui;
 
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.textfield.TextFields;
 
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -39,6 +41,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
+        TextFields.bindAutoCompletion(commandTextField, logic.getAutoCompleteList());
     }
 
     /**
@@ -60,7 +63,6 @@ public class CommandBox extends UiPart<Region> {
             break;
         default:
             // let JavaFx handle the keypress
-            TextFields.bindAutoCompletion(commandTextField, logic.getAutoCompleteList());
         }
     }
 
