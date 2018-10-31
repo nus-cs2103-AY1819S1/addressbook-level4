@@ -133,8 +133,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        fillPersonListParts();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -158,10 +157,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Fills up the person list placeholder with the person list
+     */
+    void fillPersonListParts() {
+        if (personListPanel == null) {
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        }
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
      * Fills up the person list placeholder with the leave application list
      */
     void fillLeaveParts() {
-        leaveListPanel = new LeaveListPanel(logic.getFilteredLeaveApplicationList());
+        if (leaveListPanel == null) {
+            leaveListPanel = new LeaveListPanel(logic.getFilteredLeaveApplicationList());
+        }
         personListPanelPlaceholder.getChildren().add(leaveListPanel.getRoot());
     }
 
@@ -192,13 +203,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     @Subscribe
     void processLeaveList(LeaveListEvent leaveListEvent) {
-        personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        removePersonListPanelPlaceholderElements();
         fillLeaveParts();
     }
 
     private void removeLoginWindow() {
         commandBoxPlaceholder.getChildren().remove(loginIntroduction.getRoot());
-
         personListPanelPlaceholder.getChildren().remove(loginForm.getRoot());
     }
 
@@ -208,10 +218,22 @@ public class MainWindow extends UiPart<Stage> {
     private void removeInnerElements() {
         this.releaseResources();
         browserPlaceholder.getChildren().remove(browserPanel.getRoot());
-        personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        removePersonListPanelPlaceholderElements();
         resultDisplayPlaceholder.getChildren().remove(resultDisplay.getRoot());
         statusbarPlaceholder.getChildren().remove(statusBarFooter.getRoot());
         commandBoxPlaceholder.getChildren().remove(commandBox.getRoot());
+    }
+
+    /**
+     * Removes the elements in the person list panel placeholder.
+     */
+    private void removePersonListPanelPlaceholderElements() {
+        if (personListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        }
+        if (leaveListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(leaveListPanel.getRoot());
+        }
     }
 
     void hide() {
