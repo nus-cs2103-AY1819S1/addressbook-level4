@@ -21,6 +21,7 @@ import seedu.address.model.person.ServedPatient;
  */
 public class ReferralLetterCommand extends QueueCommand {
     public static final String COMMAND_WORD = "refer";
+    public static final String COMMAND_ALIAS = "ref";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Generates a referral letter for the patient in the specified"
