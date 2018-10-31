@@ -39,7 +39,7 @@ public class TrackAddCommandTest {
     @Test
     public void execute_addTrackToPlaylist() {
         assertCommandSuccess(new TrackAddCommand(trackToAdd, targetPlaylist), model, commandHistory,
-                TrackAddCommand.MESSAGE_SUCCESS, expectedModel);
+                String.format(TrackAddCommand.MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName()), expectedModel);
     }
 
     @Test

@@ -16,7 +16,7 @@ import seedu.jxmusic.model.Track;
  */
 public class TrackAddCommand extends Command {
     public static final String COMMAND_PHRASE = "track add";
-    public static final String MESSAGE_SUCCESS = "";
+    public static final String MESSAGE_SUCCESS = "Track %1$s added to playlist %2$s";
     public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Adds a new track to the playlist identified "
         + "by the name of the track and playlist."
         + "Playlist will be modified with new track.\n"
@@ -82,7 +82,7 @@ public class TrackAddCommand extends Command {
         }
         updatedPlaylist.addTrack(trackToAdd);
         model.updatePlaylist(targetPlaylist, updatedPlaylist);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName()));
     }
 
 }
