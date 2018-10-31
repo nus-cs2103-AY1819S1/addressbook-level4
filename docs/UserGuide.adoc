@@ -61,7 +61,7 @@ Shorthand: `h`
 
 === Adding a person: `add`
 
-Adds a person to InsuRen +
+Adds a person to InsuRen. Tags cannot be `edit` or `delete` (case-insensitive). +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 Shorthand: `a`
@@ -86,7 +86,7 @@ Shorthand: `l`
 // tag::editByName[]
 === Editing a person : `edit`
 
-Edits an existing person in InsuRen by the displayed list's index or by an existing name. +
+Edits an existing person in InsuRen by the displayed list's index or by an existing name. Tags cannot be `edit` or `delete` (case-insensitive). +
 Format: `edit INDEX/EXISTING_NAME [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Shorthand: `e`
@@ -404,8 +404,8 @@ Returns all contacts with the `Work` tag.
 * `tag Work Important` +
 Returns all contacts with the `Work` or `Important` tags.
 
-=== Edit a tag
-Edit a tag, replacing all its occurrences with a new user-specified tag.
+==== Edit a tag
+Edit a tag, replacing all its occurrences with a new user-specified tag. Tags cannot be `edit` or `delete` (case-insensitive).
 Format: `tag edit EXISTING_TAG_NAME NEW_TAG_NAME`
 
 ****
