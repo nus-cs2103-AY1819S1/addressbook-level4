@@ -25,16 +25,18 @@ public class PasswordCommand extends Command {
     @Override
     public CommandResult runBody(Model model, CommandHistory history) {
         CommandResult buildingResult = new CommandResult(STARTING_PASSWORD_MESSAGE);
+
         buildingResult.addIntercepter(oldPassword -> {
             User currentUser = model.getLoggedInUser();
             if (currentUser.getPassword().matches(oldPassword)) {
                 CommandResult result = new CommandResult(PROGRESS_PASSWORD_MESSAGE);
+
                 result.addIntercepter(newPassword -> {
-                    if(!Password.isValidPassword(newPassword)) {
+                    if (!Password.isValidPassword(newPassword)) {
                         throw new CommandException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
                     }
 
-                    if(currentUser.isAdminUser()) {
+                    if (currentUser.isAdminUser()) {
                         return new CommandResult(SHOWING_PASSWORD_MESSAGE);
                     }
 
