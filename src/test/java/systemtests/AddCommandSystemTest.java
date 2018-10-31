@@ -1,7 +1,6 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
@@ -179,7 +178,7 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
                 + TAG_DESC_HUSBAND + DATE_DESC_2018;
         testApp.getActualModel().unloadUserData();
         executeCommand(command);
-        assertEquals(new NoUserSelectedException().getMessage(), getResultDisplay().getText());
+        assertTrue(getResultDisplay().getText().startsWith(new NoUserSelectedException().getMessage()));
     }
 
     /**

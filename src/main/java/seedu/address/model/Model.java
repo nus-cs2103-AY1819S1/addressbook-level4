@@ -174,7 +174,7 @@ public interface Model {
     /**
      * Returns the existing maximum totalBudget for the current user
      */
-    TotalBudget getMaximumBudget();
+    TotalBudget getMaximumBudget() throws NoUserSelectedException;
 
     /**
      * Adds Category totalBudget into the expense tracker
