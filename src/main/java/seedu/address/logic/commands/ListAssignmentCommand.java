@@ -6,6 +6,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
+/**
+ * Lists all assignments in the assignment list to the user.
+ */
 public class ListAssignmentCommand extends Command {
 
     public static final String COMMAND_WORD = "listassignment";

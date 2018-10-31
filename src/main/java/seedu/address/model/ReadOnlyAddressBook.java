@@ -3,7 +3,6 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
-import seedu.address.model.project.Assignment;
 
 /**
  * Unmodifiable view of an address book

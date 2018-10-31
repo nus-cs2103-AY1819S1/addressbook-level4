@@ -15,6 +15,9 @@ import seedu.address.commons.events.ui.AssignmentPanelSelectionChangeEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.project.Assignment;
 
+/**
+ * Panel containing the list of assignments.
+ */
 public class AssignmentListPanel extends UiPart<Region> {
     private static final String FXML = "AssignmentListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AssignmentListPanel.class);

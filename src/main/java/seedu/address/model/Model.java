@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
-import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
+import seedu.address.model.project.Assignment;
 
 /**
  * The API of the Model component.
@@ -15,6 +15,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS = unused -> true;
+    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -111,8 +112,6 @@ public interface Model {
     void commitAddressBook();
 
     /*---------------------------------------------------------------*/
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
 
     /**
      * Returns true if a assignment with the same identity as {@code assignment} exists in the address book.

@@ -44,7 +44,9 @@ public class UserPrefs {
         return assignmentListFilePath;
     }
 
-    public void setAssignmentListFilePath(Path assignmentListFilePath) { this.assignmentListFilePath = assignmentListFilePath; }
+    public void setAssignmentListFilePath(Path assignmentListFilePath) {
+        this.assignmentListFilePath = assignmentListFilePath;
+    }
 
     public Path getArchiveListFilePath() {
         return archiveListFilePath;

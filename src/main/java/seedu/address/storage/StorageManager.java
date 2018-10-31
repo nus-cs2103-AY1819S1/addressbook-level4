@@ -31,8 +31,8 @@ public class StorageManager extends ComponentManager implements Storage {
     private AssignmentListStorage assignmentListStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, AssignmentListStorage assignmentListStorage
-            , ArchiveListStorage archiveListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, AssignmentListStorage assignmentListStorage,
+                          ArchiveListStorage archiveListStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -134,7 +134,9 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ AssignmentList methods ==============================
 
     @Override
-    public Path getAssignmentListFilePath() { return assignmentListStorage.getAssignmentListFilePath(); }
+    public Path getAssignmentListFilePath() {
+        return assignmentListStorage.getAssignmentListFilePath();
+    }
 
     @Override
     public Optional<ReadOnlyAssignmentList> readAssignmentList() throws DataConversionException, IOException {
@@ -142,7 +144,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAssignmentList> readAssignmentList(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyAssignmentList> readAssignmentList(Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return assignmentListStorage.readAssignmentList(filePath);
     }

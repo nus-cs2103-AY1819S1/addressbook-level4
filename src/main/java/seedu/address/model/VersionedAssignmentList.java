@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * {@code AssignmentList} that keeps track of its own history.
  */
-public class VersionedAssignmentList extends AssignmentList{
+public class VersionedAssignmentList extends AssignmentList {
 
     private final List<ReadOnlyAssignmentList> assignmentListStateList;
     private int currentStatePointer;

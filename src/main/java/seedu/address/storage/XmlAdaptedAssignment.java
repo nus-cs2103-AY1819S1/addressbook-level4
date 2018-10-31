@@ -58,7 +58,8 @@ public class XmlAdaptedAssignment {
      */
     public Assignment toModelType() throws IllegalValueException {
         if (assignmentName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ProjectName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ProjectName.class.getSimpleName()));
         }
         if (!ProjectName.isValidName(assignmentName)) {
             throw new IllegalValueException(ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
@@ -66,7 +67,8 @@ public class XmlAdaptedAssignment {
         final ProjectName modelAssignmentName = new ProjectName(assignmentName);
 
         if (author == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
         }
         if (!Name.isValidName(author)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
@@ -74,7 +76,8 @@ public class XmlAdaptedAssignment {
         final Name modelName = new Name(author);
 
         if (description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Description.class.getSimpleName()));
         }
         if (!Description.isValidDescription(description)) {
             throw new IllegalValueException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);

@@ -36,7 +36,8 @@ public class XmlSerializableAssignmentList {
      */
     public XmlSerializableAssignmentList(ReadOnlyAssignmentList src) {
         this();
-        assignments.addAll(src.getAssignmentList().stream().map(XmlAdaptedAssignment::new).collect(Collectors.toList()));
+        assignments.addAll(src.getAssignmentList()
+                .stream().map(XmlAdaptedAssignment::new).collect(Collectors.toList()));
     }
 
     /**

@@ -72,9 +72,10 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        AssignmentListStorage assignmentListStorage = new XmlAssignmentListStorage(userPrefs.getAssignmentListFilePath());
+        AssignmentListStorage assignmentListStorage =
+                new XmlAssignmentListStorage(userPrefs.getAssignmentListFilePath());
         ArchiveListStorage archiveListStorage = new XmlArchiveListStorage(userPrefs.getArchiveListFilePath());
-        storage = new StorageManager(addressBookStorage,assignmentListStorage, archiveListStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, assignmentListStorage, archiveListStorage, userPrefsStorage);
 
         initLogging(config);
 

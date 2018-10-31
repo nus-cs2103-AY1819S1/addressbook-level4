@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 
 import java.util.stream.Stream;
 
@@ -35,8 +35,8 @@ public class AddAssignmentParser implements Parser<AddAssignmentCommand> {
 
         ProjectName name = ParserUtil.parseProjectName(argMultimap.getValue(PREFIX_ASSIGNMENT_NAME).get());
         Name author = ParserUtil.parseName(argMultimap.getValue(PREFIX_AUTHOR).get());
-        Description description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ASSIGNMENT_DESCRIPTION).get());
-
+        Description description
+                = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_ASSIGNMENT_DESCRIPTION).get());
         Assignment assignment = new Assignment(name, author, description);
 
         return new AddAssignmentCommand(assignment);

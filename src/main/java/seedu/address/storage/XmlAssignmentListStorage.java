@@ -18,7 +18,7 @@ import seedu.address.model.ReadOnlyAssignmentList;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlAssignmentListStorage implements AssignmentListStorage{
+public class XmlAssignmentListStorage implements AssignmentListStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAssignmentListStorage.class);
 

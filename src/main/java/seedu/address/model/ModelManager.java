@@ -13,12 +13,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.AssignmentListChangedEvent;
 import seedu.address.commons.events.model.ArchivedListChangedEvent;
+import seedu.address.commons.events.model.AssignmentListChangedEvent;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
-import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
+import seedu.address.model.project.Assignment;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -39,7 +40,8 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAssignmentList assignmentList, ReadOnlyArchiveList archiveList, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAssignmentList assignmentList
+            , ReadOnlyArchiveList archiveList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 

@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyAssignmentList;
 
 /** Indicates the AddressBook in the model has changed*/
-public class AssignmentListChangedEvent extends BaseEvent{
+public class AssignmentListChangedEvent extends BaseEvent {
 
     public final ReadOnlyAssignmentList data;
 
