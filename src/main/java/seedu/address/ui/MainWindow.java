@@ -3,7 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +15,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LeaveListEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SuccessfulLoginEvent;
@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Replaces the person list placeholder with the leave application list placeholder
+     * Fills up the person list placeholder with the leave application list
      */
     void fillLeaveParts() {
         leaveListPanel = new LeaveListPanel(logic.getFilteredLeaveApplicationList());
@@ -182,6 +182,17 @@ public class MainWindow extends UiPart<Stage> {
     void processLogout(LogoutEvent logoutEvent) {
         removeInnerElements();
         fillLoginParts();
+    }
+
+    /**
+     * Listens for a leave list Event from the EventBus. This will be triggered when a LeaveListEvent is pushed
+     * to the EventBus.
+     * @param leaveListEvent The login information
+     */
+    @Subscribe
+    void processLeaveList(LeaveListEvent leaveListEvent) {
+        personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        fillLeaveParts();
     }
 
     private void removeLoginWindow() {
