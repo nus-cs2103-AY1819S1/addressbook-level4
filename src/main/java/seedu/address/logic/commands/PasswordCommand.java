@@ -18,7 +18,7 @@ public class PasswordCommand extends Command {
     public static final String SHOWING_LOGOUT_MESSAGE = "Password changed!";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult runBody(Model model, CommandHistory history) {
         EventsCenter.getInstance().post(new LogoutEvent());
         return new CommandResult(SHOWING_LOGOUT_MESSAGE);
     }
