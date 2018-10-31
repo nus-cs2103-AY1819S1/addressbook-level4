@@ -28,7 +28,8 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String PERSON_PROFILE_PAGE = "profile.html";
+    public static final String PROFILE_PAGE = "/ProfileWindow.html";
+    public static final String RELATIVE_PATH = "./src/main/resources/ProfileWindow.html";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -113,7 +114,9 @@ public class BrowserPanel extends UiPart<Region> {
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {
-        File htmlTemplateFile = new File("./src/main/resources/ProfileWindow.html");
+        URL profilePage = getClass().getResource(PROFILE_PAGE);
+        System.out.println(profilePage);
+        File htmlTemplateFile = new File(RELATIVE_PATH);
         String htmlString = null;
         try {
             htmlString = FileUtils.readFileToString(htmlTemplateFile);
