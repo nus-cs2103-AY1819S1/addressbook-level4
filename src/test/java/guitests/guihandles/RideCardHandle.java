@@ -16,26 +16,28 @@ import seedu.thanepark.model.ride.Ride;
 public class RideCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#thanepark";
-    private static final String MAINTENANCE_FIELD_ID = "#daysSinceMaintenanceString";
-    private static final String WAIT_TIME_FIELD_ID = "#waitingTimeString";
+    private static final String INFO_FIELD_ID = "#rideInfo";
     private static final String TAGS_FIELD_ID = "#tags";
+    private static final String STATUS_FIELD_ID = "#statusString";
 
     private final Label idLabel;
     private final Label nameLabel;
-    private final Label addressLabel;
-    private final Label maintenanceLabel;
-    private final Label waitTimeLabel;
+    private final List<Label> rideInfoList;
     private final List<Label> tagLabels;
+    private final Label statusLabel;
 
     public RideCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        maintenanceLabel = getChildNode(MAINTENANCE_FIELD_ID);
-        waitTimeLabel = getChildNode(WAIT_TIME_FIELD_ID);
+        statusLabel = getChildNode(STATUS_FIELD_ID);
+        Region infoContainer = getChildNode(INFO_FIELD_ID);
+        rideInfoList = infoContainer
+                .getChildrenUnmodifiable()
+                .stream()
+                .map(Label.class::cast)
+                .collect(Collectors.toList());
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -53,16 +55,15 @@ public class RideCardHandle extends NodeHandle<Node> {
         return nameLabel.getText();
     }
 
-    public String getAddress() {
-        return addressLabel.getText();
+    public String getStatusString() {
+        return statusLabel.getText();
     }
 
-    public String getMaintenance() {
-        return maintenanceLabel.getText();
-    }
-
-    public String getWaitingTime() {
-        return waitTimeLabel.getText();
+    public List<String> getInfo() {
+        return rideInfoList
+                .stream()
+                .map(Label::getText)
+                .collect(Collectors.toList());
     }
 
     public List<String> getTags() {
@@ -77,11 +78,10 @@ public class RideCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Ride ride) {
         return getName().equals(ride.getName().fullName)
-                && getAddress().equals(ride.getAddress().value)
-                && getMaintenance().equals(ride.getDaysSinceMaintenance().toString())
-                && getWaitingTime().equals(ride.getWaitingTime().toString())
+                && ImmutableMultiset.copyOf(getInfo()).equals(ImmutableMultiset.copyOf(ride.getInformation()))
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(ride.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+                .map(tag -> tag.tagName)
+                .collect(Collectors.toList())))
+                && getStatusString().equals(ride.getStatus().name());
     }
 }
