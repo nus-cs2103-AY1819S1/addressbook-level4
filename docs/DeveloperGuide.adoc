@@ -429,24 +429,24 @@ from the current date till the closest Sunday.
 
 ==== Current Implementation
 
-`listday`/`listweek` mechanism utilise the same implementation used by the
+`listday`/`listweek` mechanism utilises the same implementation used by the
 `list` command:
 
-* `Model#updateFilteredTaskList()` - Take in a predicate parameter and update the model
+* `Model#updateFilteredTaskList()` takes in a predicate parameter and updates the model
 according to the predicate.
 
 `listday`/`listweek` uses `DateSamePredicate`/`DateWeekSamePredicate` as the predicate respectively for
 `Model#updateFilteredTaskList()`.
 
-When `listday` command was executed, `DateSamePredicate` will use the current
-system date as a 'filter'. `model#updateFilteredTaskList()` which uses `DateSamePredicate`
-will update the list of tasks with deadline that match the system date.
+When `listday` is executed, `DateSamePredicate` will reference the current
+system date to filter the list. `model#updateFilteredTaskList()` uses the predicate `DateSamePredicate`
+to return an updated list of tasks with deadlines that match the system date.
 
-Whereas for `listweek` command, `DateWeekSamePredicate` will use all dates from current system date
-until the closest Sunday as the 'filter'. `model#updateFilteredTaskList()` which uses `DateWeekSamePredicate`
-will update the list of tasks with deadline that matches any of those dates.
+When `listweek` is executed, `DateWeekSamePredicate` will obtain several dates, from the current system date
+until the closest Sunday, to use as the 'filter'. `model#updateFilteredTaskList()` uses `DateWeekSamePredicate`
+to update the list to include tasks with deadline that matches any of those dates.
 
-As both `listday`/`listweek` are similar, we would only illustrate how `listweek` works.
+As both `listday`/`listweek` commands are similar, we will only illustrate how `listweek` works.
 Given below is an example usage scenario and how `listweek` mechanism behaves at each step:
 
 Step 1. The user entered the command `listweek`.
@@ -480,9 +480,9 @@ image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 
 In order to enable users to better monitor their tasks in the schedule planner, we added `firstday` command.
 
-The `firstday` command will generate the academic calendar weeks and whenever the user launch the application within
-either academic week, description for the particular week will append to the application title to allow user
-to know the current academic week.
+The `firstday` command will generate the weeks according to the NUS academic calendar, and will append the week
+number to the application title  whenever the user launches the application to allow user to know the current
+academic week.
 
 ==== Current Implementation
 
@@ -584,6 +584,7 @@ description for each weeks.
 
 // end::generateacademiccalendar[]
 
+// tag::filtertags[]
 === Filter Tags
 
 The `filter` command allows the user to filter tasks in the schedule planner according to their tags. The user may
@@ -602,9 +603,23 @@ Step 1. The user executes the command `filter tutorial CS2100`
 Step 2. The 'filter' command parses the argument `tutorial CS2100` into separate words `tutorial` and `CS2100` which
 are stored in a list in `TagsContainsKeywordsPredicate`.
 
-Step 3. `FilterCommand` is then created, which contains the `TagsContainsKeywordsPredicate`. `FilterCommand.execute()
-` returns a list of tasks containing any of the tags input by the user.
+Step 3. `FilterCommand` is then created, which contains `TagsContainsKeywordsPredicate`, a predicate which searches
+for the tags 'tutorial' and 'CS2100'. `FilterCommand.execute()` returns a list of tasks containing any of the tags input by the user.
 
+==== Design Considerations
+
+===== Aspect: How filter executes
+
+* **Alternative 1 (current choice):** The filter command is inclusive i.e filtering for A and B returns tasks with A,
+ B, or both.
+** Pros: It is easy to implement, it is also consistent with how the 'find' command works.
+** Cons: It is not as specific.
+
+* **Alternative 2:** The filter command is exclusive, i.e filtering for A and B returns tasks with A & B
+** Pros: It is more specific (e.g. filters the tasks more strictly).
+** Cons: It is inconsistent with the original implementation of the 'find' command. It is more difficult to implement.
+
+//end::filtertags[]
 
 == Documentation
 
@@ -1285,6 +1300,31 @@ Use case ends.
 Use case ends.
 
 [discrete]
+=== Use case: Filter Tasks according to Tags
+
+*MSS*
+
+1.  User requests to filter tasks by its tags from Student Schedule Planner.
+2.  Student Schedule Planner filters the tasks by the given parameters.
+3.  Student Schedule Planner displays the filtered tasks.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The filter task command did not follow the correct format.
++
+[none]
+** 1a1. Student Schedule Planner shows an error message.
++
+Use case ends.
+[none]
+* 3a. The filtered task list is empty and thus displays an empty list.
++
+Use case ends.
+
+[discrete]
 === Use case: List tasks due today
 
 *MSS*
@@ -1339,13 +1379,13 @@ Use case ends.
 
 *MSS*
 
-1.  User request to key in a specific date to generate the academic calendar weeks.
-2.  Student Schedule Planner generate the academic calendar weeks.
-3.  Student Schedule Planner save the academic calendar weeks.
-4.  Student Schedule Planner display to user the command result.
-5.  User launch the Student Schedule Planner at any time after Step 1 - 4.
-6.  Student Schedule Planner retrieve data saved.
-7.  Student Schedule Planner display the updated application title based on the retrieved data.
+1.  User keys in a specific date to generate the academic calendar weeks.
+2.  Student Schedule Planner generates the academic calendar weeks.
+3.  Student Schedule Planner saves the academic calendar weeks.
+4.  Student Schedule Planner displays to user the command result.
+5.  User launches the Student Schedule Planner at any time after Steps 1 - 4.
+6.  Student Schedule Planner retrieves data saved.
+7.  Student Schedule Planner displays the updated application title based on the retrieved data.
 
 +
 Use case ends.
