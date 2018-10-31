@@ -115,7 +115,8 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         // Edit command does not change meeting. Use schedule to change meeting.
         Meeting updatedMeeting = personToEdit.getMeeting();
-        Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedMeeting);
+        Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updatedTags, updatedMeeting);
         updatedPerson.setPicture(personToEdit.getPicture());
         return updatedPerson;
     }
