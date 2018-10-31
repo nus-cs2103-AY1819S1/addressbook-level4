@@ -26,7 +26,8 @@ public class PhoneContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        PhoneContainsKeywordsPredicate firstPredicateCopy = new PhoneContainsKeywordsPredicate(firstPredicateKeywordList);
+        PhoneContainsKeywordsPredicate firstPredicateCopy =
+                new PhoneContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -40,14 +41,15 @@ public class PhoneContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_phoneContainsKeywords_returnsTrue() {
+    public void testPhoneContainsKeywordsReturnsTrue() {
         // One keyword
-        PhoneContainsKeywordsPredicate predicate = new PhoneContainsKeywordsPredicate(Collections.singletonList("85355255"));
+        PhoneContainsKeywordsPredicate predicate =
+                new PhoneContainsKeywordsPredicate(Collections.singletonList("85355255"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
 
     @Test
-    public void test_phoneDoesNotContainKeywords_returnsFalse() {
+    public void testPhoneDoesNotContainKeywordsReturnsFalse() {
         // Zero keywords
         PhoneContainsKeywordsPredicate predicate = new PhoneContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
