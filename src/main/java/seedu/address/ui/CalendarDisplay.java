@@ -84,12 +84,9 @@ public class CalendarDisplay extends UiPart<Region> {
             }
         });
 
-        agenda.setAppointmentChangedCallback(null);
-
         agenda.setAllowDragging(false);
-
-        agenda.setEditAppointmentCallback(null);
-
+        agenda.setAppointmentChangedCallback(param -> null);
+        agenda.setEditAppointmentCallback(param -> null);
         agenda.setSkin(new AgendaWeekSkin(agenda));
 
         calendarDisplayBox.getChildren().add(agenda);
