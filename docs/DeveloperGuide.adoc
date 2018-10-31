@@ -379,6 +379,8 @@ Aspect: How to implement ToDoList UI
 === Fuzzy Search for Find Event Command
 ==== Current Implementation
 
+// end::FuzzySearch[]
+
 
 === Calendar Model
 ==== Implementation
