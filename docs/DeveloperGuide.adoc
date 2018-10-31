@@ -352,8 +352,6 @@ image::DeleteByNameCommandActivityDiagram.png[width="500"]
 // end::deleteByName[]
 // end::byNameCommands[]
 
-
-
 // tag::schedule[]
 === Schedule feature
 ==== Current Implementation
