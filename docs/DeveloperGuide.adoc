@@ -654,7 +654,7 @@ In addition to updating the context, the `manage` command also does the followin
 The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
 .Simplified sequence diagram for manage command
-image::Command_Manage_SequenceDiagram.png[manage SD, 800]
+image::command_manage_sd.png[manage SD, 800]
 
 ===== Design considerations
 ====== Aspect: Context switching
