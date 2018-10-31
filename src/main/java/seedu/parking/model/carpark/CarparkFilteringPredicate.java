@@ -23,7 +23,8 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
     private final ParkingSystemTypeParameter parkingSystemTypeParameter;
 
     public CarparkFilteringPredicate(List<String> locationKeywords, List<String> flagList,
-                                     FreeParkingParameter freeParkingParameter, CarparkTypeParameter carparkTypeParameter,
+                                     FreeParkingParameter freeParkingParameter,
+                                     CarparkTypeParameter carparkTypeParameter,
                                      ParkingSystemTypeParameter parkingSystemTypeParameter) {
         this.locationKeywords = locationKeywords;
         this.flagList = flagList;
@@ -100,14 +101,14 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
      */
     private boolean checkParkingSystemType(String selectedParkingSystemType, String parkingSystemType) {
         switch (selectedParkingSystemType) {
-            case "COUPON":
-                return parkingSystemType.contains("COUPON");
+        case "COUPON":
+            return parkingSystemType.contains("COUPON");
 
-            case "ELECTRONIC":
-                return parkingSystemType.contains("ELECTRONIC");
+        case "ELECTRONIC":
+            return parkingSystemType.contains("ELECTRONIC");
 
-            default:
-                return parkingSystemType.contains("PARKING");
+        default:
+            return parkingSystemType.contains("PARKING");
         }
     }
 

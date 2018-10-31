@@ -114,7 +114,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
             // check that selected car park type matches at least one of the strings
             String[] validParkingSystemTypes = {"COUPON", "ELECTRONIC"};
-            boolean isValidParkingSystemType = Arrays.stream(validParkingSystemTypes).anyMatch(x -> x.equals(selectedParkingSystemType));
+            boolean isValidParkingSystemType = Arrays.stream(validParkingSystemTypes)
+                                                     .anyMatch(x -> x.equals(selectedParkingSystemType));
             if (!isValidParkingSystemType) {
                 throw new ParseException(Messages.MESSAGE_CARPARK_TYPE_IS_INVALID);
             }
