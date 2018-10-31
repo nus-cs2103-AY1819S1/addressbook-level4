@@ -1,10 +1,8 @@
 package seedu.address.model.transformation;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ImageMagickUtil;
 
 //@@author j-lum
 
