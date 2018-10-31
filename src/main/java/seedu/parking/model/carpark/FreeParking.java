@@ -18,7 +18,7 @@ public class FreeParking {
      */
     public static final String FREE_PARK_VALIDATION_REGEX = "[^\\s].*";
 
-    private final String value;
+    public final String value;
 
     /**
      * Constructs an {@code FreeParking}.

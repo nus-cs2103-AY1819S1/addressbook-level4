@@ -32,8 +32,6 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredCarparkList(predicate);
-
-        // Todo: Location based filtering
         model.updateLastPredicateUsedByFindCommand(predicate);
 
         return new CommandResult(
