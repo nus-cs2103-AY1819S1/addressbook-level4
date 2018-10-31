@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.ELLE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
