@@ -667,7 +667,7 @@ In addition, this will detract from the user experience due to the shift in focu
 * *Alternative 2*: Save user session state in a file.
 
 ** Pros: More convenience for users as they does not need to login on every startup.
-** Cons: Less secure as users, who understand how ClinicIO works, 
+** Cons: Less secure as users, who understand how ClinicIO works,
 could edit the role of the user to have unauthorised access
 to ClinicIO.
 
