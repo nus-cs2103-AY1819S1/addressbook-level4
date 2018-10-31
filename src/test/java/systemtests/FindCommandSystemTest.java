@@ -105,44 +105,44 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find type of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getCarparkType().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getCarparkType().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find coordinate of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getCoordinate().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getCoordinate().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find lots available of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getLotsAvailable().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getLotsAvailable().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find total lots of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getTotalLots().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getTotalLots().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find free parking of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getFreeParking().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getFreeParking().toString();
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find night parking of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getNightParking().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getNightParking().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find short term parking of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getShortTerm().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getShortTerm().toString();
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find type of parking of car park in car park finder -> 0 car parks found */
-        command = FindCommand.COMMAND_WORD + " " + DELTA.getTypeOfParking().value;
+        command = FindCommand.COMMAND_WORD + " " + DELTA.getTypeOfParking().toString();
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -157,7 +157,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         showAllCarparks();
         selectCarpark(Index.fromOneBased(1));
         assertFalse(getCarparkListPanel().getHandleToSelectedCard().getCarparkNumber().equals(
-                DELTA.getCarparkNumber().value));
+                DELTA.getCarparkNumber().toString()));
         command = FindCommand.COMMAND_WORD + " SK23";
         ModelHelper.setFilteredList(expectedModel, DELTA);
         assertCommandSuccess(command, expectedModel);

@@ -35,23 +35,24 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedCarpark}.
      */
     public static void assertCardDisplaysCarpark(Carpark expectedCarpark, CarparkCardHandle actualCard) {
-        assertEquals(expectedCarpark.getCarparkNumber().value, actualCard.getCarparkNumber());
-        assertEquals(expectedCarpark.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedCarpark.getCarparkType().value, actualCard.getCarparkType());
-        assertEquals("Coordinate: " + expectedCarpark.getCoordinate().value, actualCard.getCoordinate());
+        assertEquals(expectedCarpark.getCarparkNumber().toString(), actualCard.getCarparkNumber());
+        assertEquals(expectedCarpark.getAddress().toString(), actualCard.getAddress());
+        assertEquals(expectedCarpark.getCarparkType().toString(), actualCard.getCarparkType());
+        assertEquals("Coordinate: " + expectedCarpark.getCoordinate().toString(), actualCard.getCoordinate());
 
-        if (expectedCarpark.getTotalLots().value.equals("0")) {
+        if (expectedCarpark.getTotalLots().toString().equals("0")) {
             assertEquals("Total Lots: Not Available", actualCard.getTotalLots());
             assertEquals("Lots Available: Not Available", actualCard.getLotsAvailable());
         } else {
-            assertEquals("Total Lots: " + expectedCarpark.getTotalLots().value, actualCard.getTotalLots());
-            assertEquals("Lots Available: " + expectedCarpark.getLotsAvailable().value, actualCard.getLotsAvailable());
+            assertEquals("Total Lots: " + expectedCarpark.getTotalLots().toString(), actualCard.getTotalLots());
+            assertEquals("Lots Available: " + expectedCarpark.getLotsAvailable().toString(),
+                    actualCard.getLotsAvailable());
         }
 
-        assertEquals("Free Parking: " + expectedCarpark.getFreeParking().value, actualCard.getFreeParking());
-        assertEquals("Night Parking: " + expectedCarpark.getNightParking().value, actualCard.getNightParking());
-        assertEquals("Short Term Parking: " + expectedCarpark.getShortTerm().value, actualCard.getShortTerm());
-        assertEquals("Parking System: " + expectedCarpark.getTypeOfParking().value, actualCard.getTypeOfParking());
+        assertEquals("Free Parking: " + expectedCarpark.getFreeParking().toString(), actualCard.getFreeParking());
+        assertEquals("Night Parking: " + expectedCarpark.getNightParking().toString(), actualCard.getNightParking());
+        assertEquals("Short Term Parking: " + expectedCarpark.getShortTerm().toString(), actualCard.getShortTerm());
+        assertEquals("Parking System: " + expectedCarpark.getTypeOfParking().toString(), actualCard.getTypeOfParking());
         assertEquals(expectedCarpark.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

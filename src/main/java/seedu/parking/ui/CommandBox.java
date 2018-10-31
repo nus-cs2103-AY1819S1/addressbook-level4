@@ -9,13 +9,17 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.parking.commons.core.LogsCenter;
+import seedu.parking.commons.events.model.DataFetchExceptionEvent;
 import seedu.parking.commons.events.ui.NewResultAvailableEvent;
+import seedu.parking.commons.events.ui.ToggleTextFieldRequestEvent;
 import seedu.parking.logic.ListElementPointer;
 import seedu.parking.logic.Logic;
 import seedu.parking.logic.commands.CommandResult;
@@ -44,6 +48,7 @@ public class CommandBox extends UiPart<Region> {
     private int anchorPosition;
     private int caretPosition;
     private String selectedText = "";
+    private String rawText = "";
 
     @FXML
     private TextField commandTextField;
@@ -51,6 +56,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
+        registerAsAnEventHandler(this);
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = logic.getHistorySnapshot();
@@ -249,14 +255,14 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         try {
-            CommandResult commandResult = logic.execute(commandTextField.getText());
+            rawText = commandTextField.getText();
+            CommandResult commandResult = logic.execute(rawText);
             initHistory();
             historySnapshot.next();
             // process result of the command
             commandTextField.setText("");
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure
@@ -264,6 +270,26 @@ public class CommandBox extends UiPart<Region> {
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
         }
+    }
+
+    @Subscribe
+    private void handleToggleTextFieldRequestEvent(ToggleTextFieldRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        commandTextField.setPromptText("");
+        commandTextField.setDisable(!commandTextField.isDisable());
+    }
+
+    @Subscribe
+    private void handleDataFetchExceptionEventEvent(DataFetchExceptionEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        initHistory();
+        // handle command failure
+        raise(new NewResultAvailableEvent(event.exception.getMessage()));
+        commandTextField.setDisable(false);
+        replaceText(rawText);
+        setStyleToIndicateCommandFailure();
+        commandTextField.setPromptText("Enter command here...");
+        logger.info("Invalid command: " + commandTextField.getText());
     }
 
     /**

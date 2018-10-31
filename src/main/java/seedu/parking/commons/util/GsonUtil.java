@@ -43,40 +43,95 @@ public class GsonUtil {
      * @return A list of list of strings containing the car park information.
      * @throws IOException if unable to connect to URL.
      */
-    public static List<List<String>> fetchCarparkInfo() throws Exception {
+    public static List<List<String>> fetchAllCarparkInfo() throws Exception {
         final boolean[] hasError = {false, false, false};
-        loadCarparkPostalCode();
 
         Thread first = new Thread(() -> {
             try {
-                getCarparkData();
+                loadCarparkPostalCode();
             } catch (IOException e) {
                 hasError[0] = true;
             }
         });
         first.start();
 
-        if (hasError[0]) {
-            throw new IOException();
-        }
-
         Thread second = new Thread(() -> {
             try {
-                getCarparkAvailability();
+                getCarparkData();
             } catch (IOException e) {
                 hasError[1] = true;
             }
         });
         second.start();
 
-        if (hasError[1]) {
-            throw new IOException();
-        }
+        Thread third = new Thread(() -> {
+            try {
+                getCarparkAvailability();
+            } catch (IOException e) {
+                hasError[2] = true;
+            }
+        });
+        third.start();
 
         first.join();
         second.join();
+        third.join();
+
+        if (hasError[0] || hasError[1] || hasError[2]) {
+            throw new IOException();
+        }
 
         return saveAsList();
+    }
+
+    public static List<String> getSelectedCarparkInfo(String carparkNum) throws IOException {
+        String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
+        URL link = new URL(url);
+        URLConnection communicate = link.openConnection();
+        communicate.setConnectTimeout(20000);
+        communicate.setReadTimeout(20000);
+        communicate.connect();
+
+        InputStreamReader in = new InputStreamReader((InputStream) communicate.getContent());
+
+        JsonArray array = new JsonParser()
+                .parse(in)
+                .getAsJsonObject()
+                .getAsJsonArray("items")
+                .get(0)
+                .getAsJsonObject()
+                .getAsJsonArray("carpark_data");
+
+        List<String> lotData = new ArrayList<>();
+        for (int i = 0; i < array.size(); i++) {
+            JsonObject carObject = array.get(i).getAsJsonObject();
+            String[] carparkNumber = carObject.get("carpark_number")
+                    .toString()
+                    .split("\"");
+
+            if (!carparkNumber[1].equals(carparkNum)) {
+                continue;
+            }
+
+            JsonObject carInfo = carObject.getAsJsonArray("carpark_info")
+                    .get(0)
+                    .getAsJsonObject();
+
+            String[] totalLot = carInfo.get("total_lots")
+                    .toString()
+                    .split("\"");
+
+            String[] lotAvail = carInfo.get("lots_available")
+                    .toString()
+                    .split("\"");
+
+            lotData.add(carparkNumber[1]);
+            lotData.add(lotAvail[1]);
+            lotData.add(totalLot[1]);
+        }
+
+        in.close();
+        return lotData;
     }
 
     /**
@@ -88,10 +143,10 @@ public class GsonUtil {
 
         for (CarparkJson list : carparkList) {
             for (String[] data : parkingData) {
-                if (list.getNumber().contains(data[0])) {
+                if (list.getNumber().equals(data[0])) {
                     list.addOn(data[1], data[2]);
                     break;
-                } else {
+                } else if (list.getJsonData() == null) {
                     list.addOn("0", "0");
                 }
             }
@@ -115,8 +170,8 @@ public class GsonUtil {
         String url = "https://api.data.gov.sg/v1/transport/carpark-availability";
         URL link = new URL(url);
         URLConnection communicate = link.openConnection();
-        communicate.setConnectTimeout(30000);
-        communicate.setReadTimeout(30000);
+        communicate.setConnectTimeout(20000);
+        communicate.setReadTimeout(20000);
         communicate.connect();
 
         InputStreamReader in = new InputStreamReader((InputStream) communicate.getContent());
@@ -155,54 +210,6 @@ public class GsonUtil {
     }
 
     /**
-     * FNV hashes a String array.
-     * @return A long which is the hash value
-     */
-    private static long fnvHash (String[] strings) {
-        long hash = 0xCBF29CE484222325L;
-        for (String s : strings) {
-            hash ^= s.hashCode();
-            hash *= 0x100000001B3L;
-        }
-        return hash;
-    }
-
-    /**
-     * Outputs a hashmap to a txt file.
-     * @throws IOException if unable to open file.
-     */
-    private static void hashmapToTxt (HashMap<Long, String> map) throws IOException {
-        FileWriter fstream;
-        BufferedWriter out;
-
-        // create your filewriter and bufferedreader
-        fstream = new FileWriter(POSTAL_CODE_TXT);
-        out = new BufferedWriter(fstream);
-
-        // initialize the record count
-        int count = 0;
-
-        // create your iterator for your map
-        Iterator<Map.Entry<Long, String>> it = map.entrySet().iterator();
-
-        // then use the iterator to loop through the map, stopping when we reach the
-        // last record in the map or when we have printed enough records
-        while (it.hasNext()) {
-
-            // the key/value pair is stored here in pairs
-            Map.Entry<Long, String> pairs = it.next();
-
-            // since you only want the value, we only care about pairs.getValue(), which is written to out
-            out.write(pairs.getKey() + "," + pairs.getValue() + "\n");
-
-            // increment the record count once we have printed to the file
-            count++;
-        }
-        // lastly, close the file and end
-        out.close();
-    }
-
-    /**
      * Get list of car park information without available lots information.
      * @throws IOException if unable to connect to URL.
      */
@@ -221,8 +228,8 @@ public class GsonUtil {
         do {
             URL link = new URL(urlFull.toString());
             URLConnection communicate = link.openConnection();
-            communicate.setConnectTimeout(30000);
-            communicate.setReadTimeout(30000);
+            communicate.setConnectTimeout(20000);
+            communicate.setReadTimeout(20000);
             communicate.connect();
 
             in = new InputStreamReader((InputStream) communicate.getContent());
@@ -291,6 +298,8 @@ public class GsonUtil {
 
         URL link = new URL(url);
         URLConnection communicate = link.openConnection();
+        communicate.setConnectTimeout(20000);
+        communicate.setReadTimeout(20000);
         communicate.connect();
 
         in = new InputStreamReader((InputStream) communicate.getContent());
@@ -313,5 +322,53 @@ public class GsonUtil {
         }
         in.close();
         return null;
+    }
+
+    /**
+     * FNV hashes a String array.
+     * @return A long which is the hash value
+     */
+    private static long fnvHash (String[] strings) {
+        long hash = 0xCBF29CE484222325L;
+        for (String s : strings) {
+            hash ^= s.hashCode();
+            hash *= 0x100000001B3L;
+        }
+        return hash;
+    }
+
+    /**
+     * Outputs a hashmap to a txt file.
+     * @throws IOException if unable to open file.
+     */
+    private static void hashmapToTxt (HashMap<Long, String> map) throws IOException {
+        FileWriter fstream;
+        BufferedWriter out;
+
+        // create your filewriter and bufferedreader
+        fstream = new FileWriter(POSTAL_CODE_TXT);
+        out = new BufferedWriter(fstream);
+
+        // initialize the record count
+        int count = 0;
+
+        // create your iterator for your map
+        Iterator<Map.Entry<Long, String>> it = map.entrySet().iterator();
+
+        // then use the iterator to loop through the map, stopping when we reach the
+        // last record in the map or when we have printed enough records
+        while (it.hasNext()) {
+
+            // the key/value pair is stored here in pairs
+            Map.Entry<Long, String> pairs = it.next();
+
+            // since you only want the value, we only care about pairs.getValue(), which is written to out
+            out.write(pairs.getKey() + "," + pairs.getValue() + "\n");
+
+            // increment the record count once we have printed to the file
+            count++;
+        }
+        // lastly, close the file and end
+        out.close();
     }
 }

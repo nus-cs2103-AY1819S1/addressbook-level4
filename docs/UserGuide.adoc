@@ -82,7 +82,7 @@ Example(s)
 
 - `help`
 
-[[Features-Filter]]
+[[Features-Find]]
 === Finding car parks : `find`
 
 Finds a list of available car parks. +

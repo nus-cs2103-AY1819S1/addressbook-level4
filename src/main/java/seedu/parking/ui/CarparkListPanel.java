@@ -1,5 +1,6 @@
 package seedu.parking.ui;
 
+import java.util.Timer;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.parking.commons.events.ui.JumpToListRequestEvent;
+import seedu.parking.commons.events.ui.NoSelectionRequestEvent;
 import seedu.parking.commons.events.ui.NotifyCarparkRequestEvent;
 import seedu.parking.model.carpark.Carpark;
 
@@ -22,6 +24,8 @@ import seedu.parking.model.carpark.Carpark;
 public class CarparkListPanel extends UiPart<Region> {
     private static final String FXML = "CarparkListPanel.fxml";
     private static int selectIndex = -1;
+    private static Carpark selectedCarpark = null;
+    private static Timer timer = new Timer("Timer");
     private final Logger logger = LogsCenter.getLogger(CarparkListPanel.class);
 
     @FXML
@@ -31,6 +35,7 @@ public class CarparkListPanel extends UiPart<Region> {
         super(FXML);
         setConnections(carparkList);
         registerAsAnEventHandler(this);
+        carparkListView.setFixedCellSize(240.0);
     }
 
     private void setConnections(ObservableList<Carpark> carparkList) {
@@ -45,6 +50,7 @@ public class CarparkListPanel extends UiPart<Region> {
                     if (newValue != null) {
                         logger.fine("Selection in car park list panel changed to : '" + newValue + "'");
                         selectIndex = carparkListView.getSelectionModel().getSelectedIndex();
+                        selectedCarpark = carparkListView.getSelectionModel().getSelectedItem();
                         raise(new CarparkPanelSelectionChangedEvent(newValue));
                     }
                 });
@@ -56,8 +62,9 @@ public class CarparkListPanel extends UiPart<Region> {
     private void scrollTo(int index) {
         Platform.runLater(() -> {
             carparkListView.scrollTo(index);
-            carparkListView.getFocusModel().focus(index);
+            carparkListView.layout();
             carparkListView.getSelectionModel().clearAndSelect(index);
+            carparkListView.getFocusModel().focus(index);
         });
     }
 
@@ -70,8 +77,15 @@ public class CarparkListPanel extends UiPart<Region> {
     @Subscribe
     private void handleNotifyCarparkRequestEvent(NotifyCarparkRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setConnections(carparkListView.getItems());
+    }
 
-
+    @Subscribe
+    private void handleNoSelectionRequestEvent(NoSelectionRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        selectIndex = -1;
+        selectedCarpark = null;
+        timer.cancel();
     }
 
     /**
@@ -82,20 +96,35 @@ public class CarparkListPanel extends UiPart<Region> {
         return selectIndex;
     }
 
+    public static Carpark getSelectedCarpark() {
+        return selectedCarpark;
+    }
+
+    public static Timer getTimer() {
+        return timer;
+    }
+
+    public static void setTimer() {
+        timer.cancel();
+        timer = new Timer("Timer");
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Carpark} using a {@code CarparkCard}.
      */
     class CarparkListViewCell extends ListCell<Carpark> {
         @Override
         protected void updateItem(Carpark carpark, boolean empty) {
-            super.updateItem(carpark, empty);
+            Platform.runLater(() -> {
+                super.updateItem(carpark, empty);
 
-            if (empty || carpark == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(new CarparkCard(carpark, getIndex() + 1).getRoot());
-            }
+                if (empty || carpark == null) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    setGraphic(new CarparkCard(carpark, getIndex() + 1).getRoot());
+                }
+            });
         }
     }
 

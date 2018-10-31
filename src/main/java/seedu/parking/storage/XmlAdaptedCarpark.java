@@ -92,17 +92,17 @@ public class XmlAdaptedCarpark {
      * @param source future changes to this will not affect the created XmlAdaptedCarpark
      */
     public XmlAdaptedCarpark(Carpark source) {
-        this.address = source.getAddress().value;
-        this.carparkNumber = source.getCarparkNumber().value;
-        this.carparkType = source.getCarparkType().value;
-        this.coordinate = source.getCoordinate().value;
-        this.freeParking = source.getFreeParking().value;
-        this.lotsAvailable = source.getLotsAvailable().value;
-        this.nightParking = source.getNightParking().value;
-        this.shortTerm = source.getShortTerm().value;
-        this.totalLots = source.getTotalLots().value;
-        this.typeOfParking = source.getTypeOfParking().value;
-        this.postalCode = source.getPostalCode().value;
+        this.address = source.getAddress().toString();
+        this.carparkNumber = source.getCarparkNumber().toString();
+        this.carparkType = source.getCarparkType().toString();
+        this.coordinate = source.getCoordinate().toString();
+        this.freeParking = source.getFreeParking().toString();
+        this.lotsAvailable = source.getLotsAvailable().toString();
+        this.nightParking = source.getNightParking().toString();
+        this.shortTerm = source.getShortTerm().toString();
+        this.totalLots = source.getTotalLots().toString();
+        this.typeOfParking = source.getTypeOfParking().toString();
+        this.postalCode = source.getPostalCode().toString();
 
         this.tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)

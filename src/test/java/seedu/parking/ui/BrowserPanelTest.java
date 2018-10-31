@@ -41,7 +41,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // associated web page of a car park
         postNow(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + ALFA.getCarparkNumber().value.replaceAll(" ", "%20"));
+                + ALFA.getCarparkNumber().toString().replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
