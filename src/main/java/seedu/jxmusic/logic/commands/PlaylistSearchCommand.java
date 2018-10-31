@@ -1,7 +1,6 @@
 package seedu.jxmusic.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_QUERY;
 
 import seedu.jxmusic.commons.core.Messages;
 import seedu.jxmusic.model.Model;
@@ -18,7 +17,7 @@ public class PlaylistSearchCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Searches all playlists whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_PHRASE + " " + PREFIX_QUERY + "Fav\n";
+            + "Example: " + COMMAND_PHRASE + " Favourites\n";
 
     private final NameContainsKeywordsPredicate predicate;
 
