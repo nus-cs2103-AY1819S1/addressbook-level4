@@ -178,6 +178,7 @@ Example:
 * `import f/C://Users/Files/data.xml` +
 Imports `data.xml` file to be read and for database to be updated accordingly.
 
+// tag::image[]
 ==== Adds a picture to resident detail : `image`
 
 Uploads the image of resident staying in the specified room to Hallper. +
@@ -185,12 +186,23 @@ Format: `image ROOM`
 
 ****
 * Allow for the upload of the profile picture of resident.
+* ROOM is not case-sensitive
 * The image must be in *`.jpg`* or *`.png`*.
 ****
+
+Examples:
+
+* `image r/a123 f/C:/user/images/e0000000.jpg` +
+Uploads the profile picture (in *`.jpg`*) of the resident living in room A123 into Hallper.
+
+* `image r/b224 f:C:/user/images/e999999.png` +
+Uploads the profile picture (in *`.png`*) of the resident living in room B224 into Hallper.
+// end::image[]
 
 === Viewing Hallper
 This section lists features related to viewing all or specific contacts in Hallper.
 
+// tag::search[]
 ==== Searching all persons under specified tag : `search`
 
 Shows a list of all persons in the Hallper that are associated with the specified keyword. +
@@ -208,6 +220,7 @@ Searches Hallper and lists all contacts associated with `basketball`.
 Searches Hallper and lists all contacts associated with `A123`.
 * `search basketball A123` +
 Searches Hallper and lists all contacts associated with `basketball` and `A123`.
+// end::search[]
 
 ==== Locating persons by name: `find`
 Finds persons whose names contain any of the given keywords. +
