@@ -38,7 +38,7 @@ public class WordOfTheDayParser implements Parser<WordOfTheDayCommand> {
             Set<Tag> tagList = ParserUtil.parseTags(stringArrayList);
             word = new Word(name, meaning, tagList);
         } catch (ParseException pe) {
-            throw new ParseException(MESSAGE_OVERALL_ERROR);
+            throw new ParseException(MESSAGE_OVERALL_ERROR + " \n" + pe.getMessage());
         }
         return new WordOfTheDayCommand(word);
     }
