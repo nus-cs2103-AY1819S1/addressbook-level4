@@ -118,8 +118,23 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
-        } catch (NoUserSelectedException | UserAlreadyExistsException | NonExistentUserException
-                | InvalidDataException nuse) {
+        } catch (NoUserSelectedException nuse) {
+            initHistory();
+            setStyleToIndicateCommandFailure();
+            logger.info(nuse.getMessage());
+            raise(new NewResultAvailableEvent(nuse.getMessage() + "\n"
+                    + "Press F1 to view more information about our signup and login commands"));
+        } catch (UserAlreadyExistsException nuse) {
+            initHistory();
+            setStyleToIndicateCommandFailure();
+            logger.info(nuse.getMessage());
+            raise(new NewResultAvailableEvent(nuse.getMessage()));
+        } catch (NonExistentUserException nuse) {
+            initHistory();
+            setStyleToIndicateCommandFailure();
+            logger.info(nuse.getMessage());
+            raise(new NewResultAvailableEvent(nuse.getMessage()));
+        } catch (InvalidDataException nuse) {
             initHistory();
             setStyleToIndicateCommandFailure();
             logger.info(nuse.getMessage());
