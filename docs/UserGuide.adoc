@@ -428,7 +428,7 @@ Format: +
 `showDetails INDEX`
 
 ****
-* INDEX needs to be numeric more than 0 and be a valid index found on the list
+* INDEX is the target plan to view details, needs to be numeric more than 0 and be a valid index found on the list
 ****
 
 ==== Compare overall intake against : `compareIntake` [coming in V2.0]
