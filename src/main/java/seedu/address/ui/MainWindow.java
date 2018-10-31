@@ -255,6 +255,9 @@ public class MainWindow extends UiPart<Stage> {
         if (personListPanel != null) {
             personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
         }
+        if (archivedListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+        }
         if (leaveListPanel != null) {
             personListPanelPlaceholder.getChildren().remove(leaveListPanel.getRoot());
         }
