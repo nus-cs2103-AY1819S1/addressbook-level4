@@ -24,7 +24,7 @@ import seedu.address.commons.events.ui.UpdateFilmReelEvent;
  */
 public class FilmReel extends UiPart<Region> {
     private static final String FXML = "FilmReelPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(HistoryListPanel.class);
     private ObservableList<Path> items = FXCollections.observableArrayList();
 
     @FXML

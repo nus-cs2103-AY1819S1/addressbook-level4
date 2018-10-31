@@ -10,7 +10,6 @@ import javafx.embed.swing.SwingFXUtils;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeImageEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
@@ -33,7 +32,7 @@ public class ExampleCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Example Person: %1$s";
+    public static final String MESSAGE_EXAMPLE_SUCCESS = "Example: %1$s";
 
     private final Index targetIndex;
     private Path imagePath;
@@ -46,7 +45,6 @@ public class ExampleCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         try {
             imagePath = model.getCurrentPreviewImagePath();
             BufferedImage modifiedImage = processImage(targetIndex, imagePath);
@@ -54,7 +52,7 @@ public class ExampleCommand extends Command {
             EventsCenter.getInstance().post(
                     new ChangeImageEvent(SwingFXUtils.toFXImage(modifiedImage, null), "preview"));
             EventsCenter.getInstance().post(new TransformationEvent(transformationDone.toString()));
-            return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+            return new CommandResult(String.format(MESSAGE_EXAMPLE_SUCCESS, targetIndex.getOneBased()));
         } catch (IOException | InterruptedException | ParseException e) {
             throw new CommandException(e.toString());
         }
@@ -87,6 +85,14 @@ public class ExampleCommand extends Command {
             return ImageMagickUtil.processImage(imagePath, transformation);
         case 4:
             transformation = new Transformation("colorspace", "gray");
+            transformationDone = transformation;
+            return ImageMagickUtil.processImage(imagePath, transformation);
+        case 5:
+            transformation = new Transformation("@grayblur");
+            transformationDone = transformation;
+            return ImageMagickUtil.processImage(imagePath, transformation);
+        case 6:
+            transformation = new Transformation("@blurR");
             transformationDone = transformation;
             return ImageMagickUtil.processImage(imagePath, transformation);
         default:
