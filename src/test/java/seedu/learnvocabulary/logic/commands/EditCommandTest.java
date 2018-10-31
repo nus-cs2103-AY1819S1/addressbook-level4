@@ -71,6 +71,7 @@ public class EditCommandTest {
         expectedModel.commitLearnVocabulary();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+
     }
 
     @Test

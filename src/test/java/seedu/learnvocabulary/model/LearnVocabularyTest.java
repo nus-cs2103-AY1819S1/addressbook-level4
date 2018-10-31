@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,6 +19,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.Word;
 import seedu.learnvocabulary.model.word.exceptions.DuplicateWordException;
 import seedu.learnvocabulary.testutil.WordBuilder;
@@ -103,6 +105,11 @@ public class LearnVocabularyTest {
         @Override
         public ObservableList<Word> getWordList() {
             return words;
+        }
+
+        @Override
+        public Set<Tag> getTags() {
+            return null;
         }
     }
 

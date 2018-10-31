@@ -100,7 +100,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         }
         return false;
     }
-
+    @Override
     public Set<Tag> getTags() {
         Set<Tag> totalTag = addedTag;
         for (Word word:words) {

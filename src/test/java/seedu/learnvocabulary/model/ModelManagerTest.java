@@ -85,6 +85,6 @@ public class ModelManagerTest {
 
     @Test
     public void hasTag() {
-        assertFalse(modelManager.hasTag(new Tag("toLearn")));
+        assertTrue(modelManager.hasTag(new Tag("toLearn")));
     }
 }

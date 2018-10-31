@@ -68,13 +68,6 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         /* Case: add to empty learnvocabulary book -> added */
         deleteAllWords();
         assertCommandSuccess(SUMO);
-
-        /* Case: add a word with tags, command with parameters in random order -> added */
-        toAdd = LEVITATE;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FLOATING + MEANING_DESC
-                + NAME_DESC_LEVITATE + TAG_DESC_ABILITY;
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add a word, missing tags -> added */
         assertCommandSuccess(HI);
 
