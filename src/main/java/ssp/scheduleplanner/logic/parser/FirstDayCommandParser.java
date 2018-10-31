@@ -64,7 +64,7 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
         return true;
     }
 
-    private boolean isMonday(String inputDate) {
+    public boolean isMonday(String inputDate) {
         return (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() == "MONDAY");
     }
 
