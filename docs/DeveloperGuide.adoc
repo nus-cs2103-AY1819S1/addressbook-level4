@@ -373,6 +373,116 @@ Aspect: How to implement ToDoList UI
 ** Pros: Don't need to change current GUI.
 
 ** Cons: Need to consruct a lot parts in GUI.
+// end::ToDoList[]
+
+// tag::FuzzySearch[]
+=== Fuzzy Search for Find Event Command
+==== Current Implementation
+
+// end::FuzzySearch[]
+
+
+=== Calendar Model
+==== Implementation
+
+The calendar model adapts the previous address book functionality to allow the `Scheduler` to store and display `CalendarEvents`.
+
+`Person` has been refactored to `CalendarEvent`. This class stores the relevant information for each event in the
+calendar, such as the title, description, start and end date/time, venue and tags.
+
+`DateTime` stores and validates the input start and end date/time of each event in the calendar.
+
+`DateTimeInfo` validates that the start date/time are not after the end date/time.
+
+`AddCommandParser` and `EditCommandParser` functionality have been modified to allow the creation and modification of `CalendarEvent` objects.
+New prefixes d/, s/, e/ and v/ respectively allow user to input `Description`, start `DateTime`, end `DateTime`, and `Venue` for each calendar event.
+
+Given below is an example usage scenario for adding a calendar event, and how the calendar model behaves at each step.
+
+Step 1: The user launches the application for the first time. The `Scheduler` is initialised to be empty.
+
+Step 2: The user executes `add t/CS2103 Tutorial d/Prepare answers to the 5 questions s/Thursday 10am e/Thursday 11am v/COM1-0210`.
+
+Step 3: The `AddCommandParser` parses out the strings for the title, description, start and end date/time and the venue.
+
+Step 4: Then, `ParserUtil` checks that the input strings are valid, and initialises the `Title`, `Description`, start and end `DateTime` and `Venue`. It also checks that the `DateTime` values input are valid dates and times.
+
+Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
+
+Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the calendar GUI.
+
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g App title, logging level) through the configuration file (default: `config.json`).
+
+=== Calendar Display
+
+==== Current Implementation
+
+The Calendar Display is implemented using the *Agenda*, a rich Control under *jfxtras*. *Agenda* accepts the Calendar Events of the user and displays them in the chronological format.
+
+As the calendar is intended to be a visual representation of the calendar events, any changes to the calendar events should be done through the command line interface. Hence, some of the built-in features that *Agenda* has to add, edit and delete events have been disabled.
+
+==== Features
+
+The user can:
+
+1. Double click on displayed events to open a dialog box containing the details of the event.
+
+2. Jump to the time period containing an event by selecting the event in the list of calendar events.
+
+=== Calendar Navigation Feature
+==== Current Implementation
+
+The user can navigate the calendar display using the `arrow keys` and `T` key.
+
+1. The user can toggle between weekly view and daily view using `T` key.
+
+2. The user can view the next / previous day or week using `left` and `right` arrows keys.
+
+3. The user can scroll up and down using `up` and `down` arrow keys, or using the mouse scroll wheel.
+
+While not a CLI feature, it is fast and easy to navigate around the calendar.
+
+==== Planned Implementation
+
+The navigation mechanism will be facilitated by `ModelManager#updateFilteredCalendarEventList`.
+
+Given below is an example usage scenario and how the navigation mechanism behaves at each step.
+
+Step 1. The user is viewing the events for one week.
+
+Step 2. The user executes `next week` to view the events in the following week. The command is parsed by `schedulerParser#parseCommand`, returning `ChangePeriodCommand`
+
+Step 3. `ChangePeriodCommand#executes` called with `EventIsInThisPeriodPredicate`.
+
+Step 4. `filteredCalendarEvents` is updated.
+
+Step 5. `CalendarPanel#filteredCalendarEventsListener` repopulates the calendar UI.
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -453,86 +563,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-=== Calendar Model
-==== Implementation
-
-The calendar model adapts the previous address book functionality to allow the `Scheduler` to store and display `CalendarEvents`.
-
-`Person` has been refactored to `CalendarEvent`. This class stores the relevant information for each event in the
-calendar, such as the title, description, start and end date/time, venue and tags.
-
-`DateTime` stores and validates the input start and end date/time of each event in the calendar.
-
-`DateTimeInfo` validates that the start date/time are not after the end date/time.
-
-`AddCommandParser` and `EditCommandParser` functionality have been modified to allow the creation and modification of `CalendarEvent` objects.
-New prefixes d/, s/, e/ and v/ respectively allow user to input `Description`, start `DateTime`, end `DateTime`, and `Venue` for each calendar event.
-
-Given below is an example usage scenario for adding a calendar event, and how the calendar model behaves at each step.
-
-Step 1: The user launches the application for the first time. The `Scheduler` is initialised to be empty.
-
-Step 2: The user executes `add t/CS2103 Tutorial d/Prepare answers to the 5 questions s/Thursday 10am e/Thursday 11am v/COM1-0210`.
-
-Step 3: The `AddCommandParser` parses out the strings for the title, description, start and end date/time and the venue.
-
-Step 4: Then, `ParserUtil` checks that the input strings are valid, and initialises the `Title`, `Description`, start and end `DateTime` and `Venue`. It also checks that the `DateTime` values input are valid dates and times.
-
-Step 5: Subsequently, `AddCommandParser` calls `DateTimeInfo` to validate that the start date/time is not chronologically after the end `DateTime`, before wrapping the start and end `DateTime` in a `DateTimeInfo` object.
-
-Step 6: Following that, a new `CalendarEvent` is initialised and will be displayed in the list of calendar events in the GUI.
-
-
-==== Design Considerations
-
-===== Aspect: GUI
-
-The calendar events are currently only fully visible via the console. Further enhancement would be needed to display the events in an appropriate Calendar GUI.
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g App title, logging level) through the configuration file (default: `config.json`).
-
-=== Calendar Navigation Feature
-==== Planned Implementation
-
-The navigation mechanism will be facilitated by `ModelManager#updateFilteredCalendarEventList`.
-
-Given below is an example usage scenario and how the navigation mechanism behaves at each step.
-
-Step 1. The user is viewing the events for one week.
-
-Step 2. The user executes `next week` to view the events in the following week. The command is parsed by `schedulerParser#parseCommand`, returning `ChangePeriodCommand`
-
-Step 3. `ChangePeriodCommand#executes` called with `EventIsInThisPeriodPredicate`.
-
-Step 4. `filteredCalendarEvents` is updated.
-
-Step 5. `CalendarPanel#filteredCalendarEventsListener` repopulates the calendar UI.
 
 == Documentation
 
