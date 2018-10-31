@@ -16,10 +16,12 @@ import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ProfilePic;
 import seedu.address.model.person.Salary;
+import seedu.address.model.person.Username;
 import seedu.address.model.project.Project;
 
 /**
@@ -39,6 +41,10 @@ public class XmlAdaptedPerson {
     private String salary;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String username;
+    @XmlElement(required = true)
+    private String password;
 
     @XmlElement
     private String profilePic;
@@ -60,24 +66,24 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, List<XmlAdaptedProject> project) {
-        this(name, phone, email, address, salary, project, new ArrayList<>());
+                            String salary, String username, String password, List<XmlAdaptedProject> project) {
+        this(name, phone, email, address, salary, username, password, project, new ArrayList<>());
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, String salary, String username,
+                            String password, List<XmlAdaptedProject> project, List<XmlAdaptedPermission> permission) {
+        this(name, phone, email, address, salary, username, password, project, null, permission, new ArrayList<>());
     }
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, List<XmlAdaptedProject> project, List<XmlAdaptedPermission> permission) {
-        this(name, phone, email, address, salary, project, null, permission, new ArrayList<>());
-    }
-
-    /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
-     */
-    public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, List<XmlAdaptedProject> project, String profilePic,
-                            List<XmlAdaptedPermission> permission,
+                            String salary, String username, String password, List<XmlAdaptedProject> project,
+                            String profilePic, List<XmlAdaptedPermission> permission,
                             List<XmlAdaptedLeaveApplication> leaveApplications) {
         this.name = name;
         this.phone = phone;
@@ -85,6 +91,8 @@ public class XmlAdaptedPerson {
         this.salary = salary;
         this.address = address;
         this.profilePic = profilePic;
+        this.username = username;
+        this.password = password;
         if (project != null) {
             this.project = new ArrayList<>(project);
         }
@@ -107,6 +115,8 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         salary = source.getSalary().value;
         address = source.getAddress().value;
+        username = source.getUsername().username;
+        password = source.getPassword().getEncodedPassword();
         project = source.getProjects().stream()
                 .map(XmlAdaptedProject::new)
                 .collect(Collectors.toList());
@@ -162,6 +172,22 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Salary.SALARY_CONSTRAINTS);
         }
         final Salary modelSalary = new Salary(salary);
+        if (username == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Username.class.getSimpleName()));
+        }
+        if (!Username.isValidUsername(username)) {
+            throw new IllegalValueException(Username.MESSAGE_USERNAME_CONSTRAINTS);
+        }
+        final Username modelUsername = new Username(username);
+        if (password == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Password.class.getSimpleName()));
+        }
+        if (!Password.isValidPassword(password)) {
+            throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        }
+        final Password modelPassword = new Password(password);
 
         Optional<ProfilePic> modelProfilePic = Optional.empty();
         if (profilePic != null) {
@@ -187,8 +213,8 @@ public class XmlAdaptedPerson {
             modelLeaveApplications.add(leaveApplication.toModelType());
         }
 
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelProjects, pSet,
-                modelProfilePic, modelLeaveApplications);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelSalary, modelUsername,
+                modelPassword, modelProjects, pSet, modelLeaveApplications, modelProfilePic);
     }
 
     @Override
@@ -209,6 +235,8 @@ public class XmlAdaptedPerson {
                 && Objects.equals(address, otherPerson.address)
                 && project.equals(otherPerson.project)
                 && Objects.equals(profilePic, otherPerson.profilePic)
+                && Objects.equals(username, otherPerson.username)
+                && Objects.equals(password, otherPerson.password)
                 && Objects.equals(leaveApplications, otherPerson.leaveApplications);
     }
 }

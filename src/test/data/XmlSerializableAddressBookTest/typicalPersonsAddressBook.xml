@@ -7,6 +7,8 @@
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <username>Alice Pauline</username>
+        <password>Ap12345678</password>
     </persons>
     <persons>
         <name>Benson Meier</name>
@@ -14,12 +16,14 @@
         <email>johnd@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <username>Benson Meier</username>
+        <password>Bm12345678</password>
         <leaveApplications>
             <id>0</id>
             <description>Benson's brother's wedding</description>
             <status>APPROVED</status>
-            <dates>2018-10-25T00:00:00</dates>
-            <dates>2018-10-26T00:00:00</dates>
+            <dates>2018-10-25</dates>
+            <dates>2018-10-26</dates>
         </leaveApplications>
     </persons>
     <persons>
@@ -28,6 +32,8 @@
         <email>heinz@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <username>Carl Kurz</username>
+        <password>P@55w0rd</password>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -36,6 +42,8 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
         <project>OASIS</project>
+        <username>Daniel Meier</username>
+        <password>Pa55w0rd</password>
     </persons>
     <persons>
         <name>Elle Meyer</name>
@@ -43,6 +51,8 @@
         <email>werner@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <username>Elle Meyer</username>
+        <password>ElleI5gr8</password>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
@@ -50,6 +60,8 @@
         <email>lydia@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <username>Fiona Kunz</username>
+        <password>FionaI5H0t</password>
     </persons>
     <persons>
         <name>George Best</name>
@@ -57,5 +69,7 @@
         <email>anna@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
+        <username>George Best</username>
+        <password>Pa55w0rd</password>
     </persons>
 </addressbook>

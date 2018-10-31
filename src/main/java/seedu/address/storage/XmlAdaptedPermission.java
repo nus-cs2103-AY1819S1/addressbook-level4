@@ -17,7 +17,8 @@ public class XmlAdaptedPermission {
      * Constructs an XmlAdaptedPermission.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPermission() {}
+    public XmlAdaptedPermission() {
+    }
 
     /**
      * Constructs a {@code XmlAdaptedPermission} with the given {@code permissionName}.
@@ -41,12 +42,13 @@ public class XmlAdaptedPermission {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Permission toModelType() throws IllegalValueException {
-        try {
-            return Permission.valueOf(permissionName);
-        } catch (IllegalArgumentException e) {
+        if (!Permission.isValidPermission(permissionName)) {
             //TODO: How to remove this magic word?
             throw new IllegalValueException("Value not in Permission Enum");
         }
+
+        return Permission.valueOf(permissionName);
+
     }
 
     @Override

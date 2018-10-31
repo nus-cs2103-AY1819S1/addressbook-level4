@@ -6,4 +6,6 @@
     <address>4th street</address>
     <salary>10000</salary>
     <project>friends</project>
+    <username>Hans Muster</username>
+    <password>Hans1234</password>
 </person>

@@ -25,17 +25,17 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
 .  Ensure you have Java version 9 or later installed in your Computer.
 .  Download the latest oasis.jar.
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press Enter to execute it. +
+.  To login, enter in the username `Admin` and the password `Pa55w0rd`. Both values are case sensitive. These values are the default username and password combinations for the admin account, and are always available.
+.  After you have logged in, type a command in the command box and press Enter to execute it. +
 e.g. typing help and pressing Enter will open the help window.
 .  Some example commands you can try:
 
-* *`login`* : login into the manager account. The default username and password is admin/admin.
-* *`employees`* : lists all employees.
-* **`add`**`-n John Doe Marketing` : adds an employee named John Doe into the department of the employee adding John.
+* *`list`* : lists all employees.
+* **`add`**`-n John Doe Marketing` : adds an employee named John Doe into the marketing department.
 * **`find`**`J*` : finds all employees that start with J.
 * *`exit`* : exits the app
 
@@ -58,21 +58,6 @@ e.g. typing help and pressing Enter will open the help window.
 View the help associated with the system.
 
 Format: `help`
-
-=== Login into the system : `login`
-
-Login into the system using the username given.
-
-Format: `login -u USERNAME`
-
-****
-* Will prompt the user in an interactive prompt for the password
-* Passwords not to be supplied in the command line (makes it vulnerable to viewing it through history.)
-* Login must be done to enable the usage of some commands.
-****
-
-Examples:
-* `login -u User1`
 
 === View history : `history`
 

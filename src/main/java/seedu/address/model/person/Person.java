@@ -31,28 +31,33 @@ public class Person {
     private final Set<Project> projects = new HashSet<>();
     private final Optional<ProfilePic> profilePic;
     private final PermissionSet permissionSet = new PermissionSet();
+    private final Username username;
+    private final Password password;
     private final List<LeaveApplication> leaveApplications;
 
     /**
      * Constructors: every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects) {
-        this(name, phone, email, address, salary, projects, new PermissionSet());
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects) {
+        this(name, phone, email, address, salary, username, password, projects, new PermissionSet());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet) {
-        this(name, phone, email, address, salary, projects, permissionSet, Optional.empty());
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet) {
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, new ArrayList<>());
     }
 
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet, Optional<ProfilePic> profilePic) {
-        this(name, phone, email, address, salary, projects, permissionSet, profilePic, new ArrayList<>());
-    }
-
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet, Optional<ProfilePic> profilePic,
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet,
                   List<LeaveApplication> leaveApplications) {
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, leaveApplications,
+                Optional.empty());
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet,
+                  List<LeaveApplication> leaveApplications, Optional<ProfilePic> profilePic) {
         requireAllNonNull(name, phone, email, address, salary, projects, permissionSet, profilePic, leaveApplications);
         this.name = name;
         this.phone = phone;
@@ -62,6 +67,8 @@ public class Person {
         this.projects.addAll(projects);
         this.permissionSet.addAll(permissionSet);
         this.profilePic = profilePic;
+        this.username = username;
+        this.password = password;
         this.leaveApplications = leaveApplications;
     }
 
@@ -104,6 +111,14 @@ public class Person {
      */
     public PermissionSet getPermissionSet() {
         return permissionSet;
+    }
+
+    public Username getUsername() {
+        return username;
+    }
+
+    public Password getPassword() {
+        return password;
     }
 
     /**
@@ -150,13 +165,16 @@ public class Person {
                 && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getProjects().equals(getProjects())
                 && otherPerson.getProfilePic().equals(getProfilePic())
+                && otherPerson.getUsername().equals(getUsername())
+                && otherPerson.getPassword().equals(getPassword())
                 && otherPerson.getLeaveApplications().equals(getLeaveApplications());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, salary, projects, profilePic, leaveApplications);
+        return Objects.hash(name, phone, email, address, salary, projects, profilePic, username, password,
+            leaveApplications);
     }
 
     @Override
@@ -171,6 +189,10 @@ public class Person {
                 .append(getAddress())
                 .append(" Salary: ")
                 .append(getSalary())
+                .append(" Username; ")
+                .append(getUsername())
+                .append(" Password: ")
+                .append(getPassword())
                 .append(" Profile Pic: ")
                 .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
                 .append(" Projects: ");

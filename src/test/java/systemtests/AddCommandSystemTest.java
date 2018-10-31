@@ -74,7 +74,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a person with all fields same as another person in the address book except name -> added */
-        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
+        //default username in the add command: equal to name
+        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).withUsername(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + SALARY_DESC_AMY + PROJECT_DESC_OASIS;
         assertCommandSuccess(command, toAdd);
@@ -88,7 +89,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ALICE);
+        //Set check to default password in generation
+        assertCommandSuccess(new PersonBuilder(ALICE).withPassword("Pa55w0rd").build());
 
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
@@ -109,7 +111,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        //Set check to default password in generation
+        assertCommandSuccess(new PersonBuilder(CARL).withPassword("Pa55w0rd").build());
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 

@@ -15,6 +15,14 @@ public class LoginEvent extends BaseEvent {
         password = p;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public String toString() {
         return "login u:" + username + " p:" + password;
