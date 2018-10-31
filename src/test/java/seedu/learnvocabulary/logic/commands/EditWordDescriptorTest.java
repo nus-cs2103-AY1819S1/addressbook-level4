@@ -36,9 +36,5 @@ public class EditWordDescriptorTest {
         EditCommand.EditWordDescriptor editedFly = new EditWordDescriptorBuilder(DESC_FLY)
                 .withName(VALID_NAME_LEVITATE).build();
         assertFalse(DESC_FLY.equals(editedFly));
-
-        // different tags -> returns false
-        editedFly = new EditWordDescriptorBuilder(DESC_FLY).withTags(VALID_TAG_ABILITY).build();
-        assertFalse(DESC_FLY.equals(editedFly));
     }
 }
