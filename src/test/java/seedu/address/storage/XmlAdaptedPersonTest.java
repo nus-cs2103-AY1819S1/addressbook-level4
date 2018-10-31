@@ -1,7 +1,11 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ELLE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
@@ -11,6 +15,8 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -117,4 +123,27 @@ public class XmlAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
+    @Test
+    public void toModelType_validDoctorDetails_returnsDoctor() throws Exception {
+        XmlAdaptedPerson doctor = new XmlAdaptedPerson(FIONA);
+        assertEquals(FIONA, doctor.toModelType());
+    }
+
+    @Test
+    public void toModelType_invalidDoctorDetails_returnsNotDoctor() throws Exception {
+        XmlAdaptedPerson notDoctor = new XmlAdaptedPerson(ELLE);
+        assertFalse(notDoctor.toModelType() instanceof Doctor);
+    }
+
+    @Test
+    public void toModelType_validPatientDetails_returnsPatient() throws Exception {
+        XmlAdaptedPerson patient = new XmlAdaptedPerson(ELLE);
+        assertEquals(ELLE, patient.toModelType());
+    }
+
+    @Test
+    public void toModelType_invalidPatientDetails_returnsNotPatient() throws Exception {
+        XmlAdaptedPerson notPatient = new XmlAdaptedPerson(BENSON);
+        assertFalse(notPatient.toModelType() instanceof Patient);
+    }
 }
