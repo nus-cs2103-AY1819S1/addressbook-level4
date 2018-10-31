@@ -26,8 +26,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_FLY = "fly";
     public static final String VALID_NAME_LEVITATE = "levitate";
-    public static final String VALID_TAG_ABILITY = "ability";
-    public static final String VALID_TAG_FLOATING = "floating";
+    public static final String VALID_TAG_ABILITY = "toLearn";
+    public static final String VALID_TAG_FLOATING = "toLearn";
     public static final String VALID_MEANING = "Test";
 
     public static final String NAME_DESC_FLY = " " + PREFIX_NAME + VALID_NAME_FLY;

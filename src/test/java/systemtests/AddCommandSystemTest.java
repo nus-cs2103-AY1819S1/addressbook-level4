@@ -6,7 +6,6 @@ import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_TAG_D
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.MEANING_DESC;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_FLY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.NAME_DESC_LEVITATE;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_ABILITY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.TAG_DESC_FLOATING;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_LEVITATE;
 import static seedu.learnvocabulary.logic.parser.CliSyntax.PREFIX_TAG;
@@ -14,7 +13,6 @@ import static seedu.learnvocabulary.testutil.TypicalWords.FIRE;
 import static seedu.learnvocabulary.testutil.TypicalWords.FLY;
 import static seedu.learnvocabulary.testutil.TypicalWords.HI;
 import static seedu.learnvocabulary.testutil.TypicalWords.KEYWORD_MATCHING_WEIGHT;
-import static seedu.learnvocabulary.testutil.TypicalWords.LEVITATE;
 import static seedu.learnvocabulary.testutil.TypicalWords.SANE;
 import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 
@@ -68,13 +66,6 @@ public class AddCommandSystemTest extends LearnVocabularySystemTest {
         /* Case: add to empty learnvocabulary book -> added */
         deleteAllWords();
         assertCommandSuccess(SUMO);
-
-        /* Case: add a word with tags, command with parameters in random order -> added */
-        toAdd = LEVITATE;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FLOATING + MEANING_DESC
-                + NAME_DESC_LEVITATE + TAG_DESC_ABILITY;
-        assertCommandSuccess(command, toAdd);
-
         /* Case: add a word, missing tags -> added */
         assertCommandSuccess(HI);
 

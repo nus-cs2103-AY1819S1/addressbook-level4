@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_FLY;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.DESC_LEVITATE;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_NAME_LEVITATE;
-import static seedu.learnvocabulary.logic.commands.CommandTestUtil.VALID_TAG_ABILITY;
 
 import org.junit.Test;
 
@@ -35,10 +34,6 @@ public class EditWordDescriptorTest {
         // different name -> returns false
         EditCommand.EditWordDescriptor editedFly = new EditWordDescriptorBuilder(DESC_FLY)
                 .withName(VALID_NAME_LEVITATE).build();
-        assertFalse(DESC_FLY.equals(editedFly));
-
-        // different tags -> returns false
-        editedFly = new EditWordDescriptorBuilder(DESC_FLY).withTags(VALID_TAG_ABILITY).build();
         assertFalse(DESC_FLY.equals(editedFly));
     }
 }
