@@ -328,5 +328,3 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
-
-
