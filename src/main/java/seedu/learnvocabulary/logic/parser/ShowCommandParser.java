@@ -1,10 +1,9 @@
 package seedu.learnvocabulary.logic.parser;
 
-import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_ENTER_WORD;
 
 import java.util.Arrays;
 
-import seedu.learnvocabulary.logic.commands.FindCommand;
 import seedu.learnvocabulary.logic.commands.ShowCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.word.NameContainsKeywordsPredicate;
@@ -23,7 +22,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_ENTER_WORD, ShowCommand.MESSAGE_USAGE));
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");

@@ -16,8 +16,13 @@ endif::[]
 
 == Introduction
 
-LearnVocabulary is for those whmultilingual modefer to use an offline version of the dictionary for learning purposes. More importantly,
-LearnVocabulary is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, LearnVocabulary can fetch the words faster than searching it on the website. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+LearnVocabulary is for those who prefer to use an offline version of the dictionary for learning purposes.
+
+More importantly, LearnVocabulary is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+If you can type fast, LearnVocabulary can fetch the words faster than searching it on the website.
+
+Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
 
 == Quick Start
 .  Ensure you have Java version 9 or later installed in your Computer.
@@ -42,10 +47,9 @@ E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/levitate`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/levitate t/Easy` or as `n/levitate`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/WORD`, `WORD` is a parameter which can be used as `add n/levitate`.
+* Items in square brackets are optional e.g `n/WORD [t/TAG]` can be used as `n/levitate t/Easy` or as `n/levitate`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Easy`, `t/Ability t/Testing` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME m/MEANING`, `m/MEANING n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -55,7 +59,7 @@ Format: `help`
 === Adding a word: `add`
 
 Adds a word to the vocabulary list +
-Format: `add n/NAME m\MEANING [t/TAG]...`
+Format: `add n/WORD m\MEANING [t/TAG]...`
 
 [TIP]
 A word can have any number of tags provided the groups of the tags are already created. Words that are added without tags will be added to the toLearn group by default
@@ -67,12 +71,19 @@ Examples:
 
 === Learning a word: `learn`
 
-Adds a word obtained from an online dictionary to the vocabulary list
-Format `learn WORD`
+With the access of an internet connection, the user can enter `learn [word]` and the application will query the word's definition.
+
+Format: `learn happy`
+
+It will then be attached to a default tag called `toLearn`, for easier access for the user itself.
 
 Examples:
 
-* `learn ghosting`
+* `learn happy`
+
+Queries the `meaning` on dictionary.com and attaches a default tag to the word.
+
+This function does not accept multiple entries.
 
 === Listing all word : `list`
 
@@ -209,16 +220,22 @@ Selects the 1st word in the results of the `find` command.
 
 === Showing a word : `show`
 Shows the word identified by the word itself.
-Format `show WORD`
+
+Format `show WORD` or `show WORD WORD` or `show WORD WORD WORD`...
 
 ****
-* Finds the word and shows its name, meaning and tags in the command box.
+* Finds the word (or multiple words and shows the word with its meaning and tags in the command box.
 ****
 
 Examples:
 
 * `show levitate`
-Outputs the `meaning` and `name` of levitate in the command box
+
+Outputs the `meaning` and `tags` of levitate in the command box.
+
+* `show levitate fly`
+
+Outputs the `meaning` and `tags` of levitate and fly in the command box.
 
 === Trivia game: `trivia`
 A trivia game mode where it outputs meaning of words stored in vocabulary list and prompts the user to input its name.
@@ -310,6 +327,4 @@ Format: `clear`
 
 Exits the program. +
 Format: `exit`
-
-
 
