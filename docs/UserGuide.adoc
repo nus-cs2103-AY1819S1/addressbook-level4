@@ -286,7 +286,7 @@ e.g. `delete event 3`
 e.g. `edit event 1 d/Abstraction v/i3 Auditorium`
 * *Edit* : `edit todo INDEX [t/TITLE] [d/DESCRIPTION] [p/PRIORITY]` +
 e.g. `edit todo 2 t/CS2103 Project` 
-* *Find* : `find {event/todo} KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]` +
+* *Find* : `find event KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]` +
 e.g. `find event CS2103 Lecture`
 * *List* : `list {event/todo}`
 * *Help* : `help`
