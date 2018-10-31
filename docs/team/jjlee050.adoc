@@ -34,10 +34,10 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a third party library (BCrypt) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 
 _{you can add/remove categories in the list above}_
