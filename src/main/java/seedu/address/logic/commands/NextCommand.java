@@ -41,7 +41,7 @@ public class NextCommand extends Command {
 
         return new CommandResult((String.format(MESSAGE_NEXT_SUCCESS,
                 Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)) + "\n"
-                + (String.format(Messages.MESSAGE_REMAINING_IMAGES_IN_DIR, model.getDirectoryImageList().size()) + "\n"
+                + (String.format(Messages.MESSAGE_REMAINING_IMAGES_IN_DIR, model.getDirectoryImageList().size())
                 + (String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH,
                 Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE))))));
     }

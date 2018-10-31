@@ -1,3 +1,4 @@
+// @@author benedictcss
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
@@ -5,23 +6,22 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.ModelGenerator.getModelWithTestImgDirectory;
+import static seedu.address.testutil.TypicalIndexes.INDEX_EIGHT_IMAGE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_ELEVEN_IMAGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_IMAGE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_IMAGE;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_IMAGE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Rule;
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
-//import seedu.address.commons.core.Messages;
+
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
@@ -30,45 +30,30 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = getModelWithTestImgDirectory();
+    private Model expectedModel = getModelWithTestImgDirectory();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+    public void execute_validIndexImageList_success() {
 
         //assertExecutionSuccess(INDEX_FIRST_IMAGE);
-        //assertExecutionSuccess(INDEX_THIRD_IMAGE);
-        //assertExecutionSuccess(lastPersonIndex);
+        //assertExecutionSuccess(INDEX_SECOND_IMAGE);
     }
-
-    //@Test
-    //public void execute_invalidIndexUnfilteredList_failure() {
-    //    Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-
-    //    assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    //}
 
     @Test
-    public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_IMAGE);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_IMAGE);
-
-        //assertExecutionSuccess(INDEX_FIRST_IMAGE);
+    public void execute_indexExceedsTotalImageList_failure() {
+        assertEquals(model.getDirectoryImageList().size(), 7);
+        assertExecutionFailure(INDEX_EIGHT_IMAGE, Messages.MESSAGE_INDEX_END_OF_IMAGE_LIST);
     }
 
-    //@Test
-    //public void execute_invalidIndexFilteredList_failure() {
-    //    showPersonAtIndex(model, INDEX_FIRST_IMAGE);
-    //    showPersonAtIndex(expectedModel, INDEX_FIRST_IMAGE);
+    @Test
+    public void execute_indexExceedsBatchSize_failure() {
+        model.updateCurrDirectory(model.getCurrDirectory().resolve("testimgs10"));
+        assertEquals(model.getDirectoryImageList().size(), 14);
 
-    //    Index outOfBoundsIndex = INDEX_SECOND_IMAGE;
-    //    // ensures that outOfBoundIndex is still in bounds of address book list
-    //    assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
-    //    assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    //}
+        assertExecutionFailure(INDEX_ELEVEN_IMAGE, Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
+    }
 
     @Test
     public void equals() {
@@ -113,6 +98,5 @@ public class SelectCommandTest {
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
-        assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
 }
