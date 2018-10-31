@@ -11,7 +11,7 @@ import java.util.function.Function;
  */
 public class CommandResult {
 
-    public String feedbackToUser;
+    private String feedbackToUser;
 
     private List<Function<String, CommandResult>> interceptors;
 
@@ -39,6 +39,10 @@ public class CommandResult {
         return interceptors;
     }
 
+    public String getFeedbackToUser() {
+        return feedbackToUser;
+    }
+
     /**
      * Absorbs another command result into this. Interceptors list will be merged and the text of the other command
      * will be appended after a newline.
@@ -46,7 +50,7 @@ public class CommandResult {
      */
     public void absorb(CommandResult other) {
         this.interceptors.addAll(other.getIntercepters());
-        this.feedbackToUser += "\r\n" + other.feedbackToUser;
+        this.feedbackToUser += "\r\n" + other.getFeedbackToUser();
     }
 
 }

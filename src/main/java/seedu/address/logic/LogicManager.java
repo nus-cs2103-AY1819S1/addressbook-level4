@@ -48,10 +48,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        if(interceptors.size() != 0) {
+        if (interceptors.size() != 0) {
             CommandResult commandResult = null;
             for (int i = interceptors.size() - 1; i >= 0; i--) {
-                if(commandResult == null) {
+                if (commandResult == null) {
                     commandResult = interceptors.get(i).apply(commandText);
                 } else {
                     commandResult.absorb(interceptors.get(i).apply(commandText));
