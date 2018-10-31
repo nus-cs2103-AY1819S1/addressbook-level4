@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Time;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -54,6 +55,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+    }
+
+    /**
+     * Adds the tuition time {@code timeslot} in the given person {@code target} time array list.
+     * {@code target} must exist in the address book.
+     * {@code timeslot} must not clash with any other time slots in the time array list.
+     */
+    public void addTime(Person target, Time timeslot) {
+        persons.addTimeSlot(target, timeslot);
     }
 
     //// person-level operations
