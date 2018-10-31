@@ -4,7 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.testutil.TypicalDecks.DECK_F;
 import static seedu.address.ui.testutil.GuiTestAssert.assertDeckListMatching;
 
 import org.junit.Test;
@@ -14,7 +15,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.DeleteDeckCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.NewDeckCommand;
-import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.StatusBarFooter;
 
 /**
@@ -56,7 +56,7 @@ public class HelpCommandSystemTest extends AnakinSystemTest {
         getMainWindowHandle().focus();
 
         // assert that while the help window is open the UI updates correctly for a command execution
-        executeCommand(NewDeckCommand.COMMAND_WORD + " " + TypicalDecks.DECK_A);
+        executeCommand(NewDeckCommand.COMMAND_WORD + " " + PREFIX_NAME + DECK_F);
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
@@ -64,7 +64,7 @@ public class HelpCommandSystemTest extends AnakinSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteDeckCommand.COMMAND_WORD + " " + DECK_A);
+        executeCommand(DeleteDeckCommand.COMMAND_WORD + " " + PREFIX_NAME + DECK_F);
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
