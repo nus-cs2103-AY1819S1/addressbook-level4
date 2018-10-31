@@ -22,6 +22,7 @@ import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
+import seedu.address.commons.events.ui.CalendarPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToDateTimeEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
 
@@ -178,9 +179,21 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     @Subscribe
+    /**
+     * Calendar will display the period containing the specified LocalDateTime
+     */
     private void handleJumpToDateTimeEvent(JumpToDateTimeEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setDisplayedDateTime(event.targetLocalDateTime);
+    }
+
+    @Subscribe
+    /**
+     * Calendar will display the period containing the selected CalendarEvent
+     */
+    private void handleCalendarPanelSelectionChangedEvent(CalendarPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setDisplayedDateTime(event.getNewSelection().getStartLocalDateTime());
     }
 
     /**
