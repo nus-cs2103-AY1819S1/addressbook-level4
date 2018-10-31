@@ -37,6 +37,7 @@ public class TimeAddCommand extends Command {
     private String[] personToFind;
 
     private final Time toAdd;
+    private final String toFind;
 
     /**
      * Creates a TimeAddCommand to add the specified {@code Time}
@@ -44,6 +45,7 @@ public class TimeAddCommand extends Command {
     public TimeAddCommand(String personName, Time time) {
         requireNonNull(time);
         toAdd = time;
+        toFind = personName;
         personToFind = personName.split("\\s+");
     }
 
@@ -86,7 +88,7 @@ public class TimeAddCommand extends Command {
                 throw new CommandException(MESSAGE_TIME_CLASH);
             }
         }
-        targetPerson.addTime(toAdd);
+        model.addTime(toFind, toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADDED));
     }
