@@ -2,6 +2,7 @@
 <scheduler>
     <!-- Event with invalid eventName field -->
     <events>
+        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a621</uid>
         <uuid>ff1b7186-5f40-47e0-ac19-32e15c61f30e</uuid>
         <eventName> study with blank space </eventName>
         <startDateTime>2018-09-21T11:00</startDateTime>
@@ -11,5 +12,6 @@
         <venue>School of Computing</venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-09-21 11:00:00</repeatUntilDateTime>
+        <reminderDurationList>PT15M, PT1H30M</reminderDurationList>
     </events>
 </scheduler>
