@@ -77,8 +77,8 @@ public class XmlAdaptedRide {
      */
     public XmlAdaptedRide(Ride source) {
         name = source.getName().fullName;
-        daysSinceMaintenanceString = source.getDaysSinceMaintenance().toString();
-        waitingTimeString = source.getWaitingTime().toString();
+        daysSinceMaintenanceString = String.valueOf(source.getDaysSinceMaintenance().getValue());
+        waitingTimeString = String.valueOf(source.getWaitingTime().getValue());
         address = source.getAddress().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)

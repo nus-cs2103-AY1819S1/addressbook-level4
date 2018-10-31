@@ -49,7 +49,7 @@ public class Maintenance implements NumericAttribute {
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return String.valueOf(value) + " days";
     }
 
     @Override

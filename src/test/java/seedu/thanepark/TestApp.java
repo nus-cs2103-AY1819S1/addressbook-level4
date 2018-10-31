@@ -64,7 +64,7 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setThaneParkFilePath(saveFileLocation);
         return userPrefs;
     }
 
@@ -73,7 +73,7 @@ public class TestApp extends MainApp {
      */
     public ThanePark readStorageAddressBook() {
         try {
-            return new ThanePark(storage.readAddressBook().get());
+            return new ThanePark(storage.readThanePark().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the ThanePark format.", dce);
         } catch (IOException ioe) {
@@ -85,7 +85,7 @@ public class TestApp extends MainApp {
      * Returns the file path of the storage file.
      */
     public Path getStorageSaveLocation() {
-        return storage.getAddressBookFilePath();
+        return storage.getThaneParkFilePath();
     }
 
     /**

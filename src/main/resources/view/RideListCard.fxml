@@ -28,9 +28,7 @@
         <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <FlowPane fx:id="tags" />
-      <Label fx:id="daysSinceMaintenanceString" styleClass="cell_small_label" text="\$daysSinceMaintenanceString" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="waitingTimeString" styleClass="cell_small_label" text="\$waitingTimeString" />
+      <FlowPane fx:id="rideInfo" />
       <Label fx:id="statusString" styleClass="cell_status_label" text="\$statusString" />
     </VBox>
   </GridPane>
