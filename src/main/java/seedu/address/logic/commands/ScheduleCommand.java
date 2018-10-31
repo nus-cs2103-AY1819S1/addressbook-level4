@@ -92,8 +92,9 @@ public class ScheduleCommand extends Command {
         Optional<Email> email = personToSchedule.getEmail();
         Optional<Address> address = personToSchedule.getAddress();
         Set<Tag> tags = personToSchedule.getTags();
-
-        return new Person(name, phone, email, address, tags, meeting);
+        Person scheduledPerson = new Person(name, phone, email, address, tags, meeting);
+        scheduledPerson.setPicture(personToSchedule.getPicture());
+        return scheduledPerson;
     }
 
 
