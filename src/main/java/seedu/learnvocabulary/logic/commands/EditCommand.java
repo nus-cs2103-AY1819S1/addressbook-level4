@@ -43,6 +43,9 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_WORD = "This word already exists in LearnVocabulary.";
 
+    //@@author Harryqu123
+    public static final String MESSAGE_NO_GROUP = "The group typed does not exist.";
+    //@@author
     private final Index index;
     private final EditWordDescriptor editWordDescriptor;
 
@@ -69,7 +72,11 @@ public class EditCommand extends Command {
 
         Word wordToEdit = lastShownList.get(index.getZeroBased());
         Word editedWord = createEditedWord(wordToEdit, editWordDescriptor);
-
+        //@@author Harryqu123
+        if (!model.hasTag(editedWord.getTags())) {
+            throw new CommandException(MESSAGE_NO_GROUP);
+        }
+        //@@author
         if (!wordToEdit.isSameWord(editedWord) && model.hasWord(editedWord)) {
             throw new CommandException(MESSAGE_DUPLICATE_WORD);
         }
