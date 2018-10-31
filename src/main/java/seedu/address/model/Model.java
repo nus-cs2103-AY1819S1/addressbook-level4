@@ -118,6 +118,12 @@ public interface Model {
     void updateCurrentOriginalImage(Image img, Path imgPath);
 
     /**
+     * Update the current displayed original image for test.
+     * @param previewImage
+     */
+    void updateCurrentOriginalImageForTest(PreviewImage previewImage);
+
+    /**
      * update the transformationSet of the current image
      * @param transformation
      */

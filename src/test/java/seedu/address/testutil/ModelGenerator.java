@@ -60,7 +60,7 @@ public class ModelGenerator {
         BufferedImage image = getABufferedImage();
         Model model = new ModelManager(new UserPrefs());
         PreviewImage previewImage = new PreviewImage(image, new TransformationSet());
-        model.setCurrentPreviewImage(previewImage);
+        model.updateCurrentOriginalImageForTest(previewImage);
         return model;
     }
 

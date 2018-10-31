@@ -113,6 +113,15 @@ public class ModelManager extends ComponentManager implements Model {
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         canvas = new Canvas(selectedImage);
     }
+
+    /**
+     * Update the current displayed original image and
+     * reinitialize the previewImageManager with the new image, without imgPath
+     */
+    @Override
+    public void updateCurrentOriginalImageForTest(PreviewImage previewImage) {
+        canvas = new Canvas(previewImage);
+    }
     //@@author
 
     //=========== GoogleClient Accessors =============================================================
