@@ -64,6 +64,7 @@ public class Document {
     private IcNumber icNumber;
     private String mcDuration;
     private String referralContent;
+    private String noteContent;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file
@@ -198,13 +199,14 @@ public class Document {
 
         StringBuilder stringbuilder = new StringBuilder();
         stringbuilder.append("This is to certify that the above-named patient is unfit for duty for a period of ")
-                .append(numMcDays)
-                .append(" day(s), from ")
-                .append(LocalDate.now().format(formatter))
-                .append(" to ")
-                .append(LocalDate.now().plusDays(numMcDays - 1).format(formatter))
-                .append(" inclusive.<br><br>")
-                .append("This certificate is not valid for absence from court attendance.<br><br>");
+                .append("<b>" + numMcDays + "</b>")
+                .append(" <b>day(s)</b>, from ")
+                .append("<b>" + LocalDate.now().format(formatter) + "</b>")
+                .append(" <b>to</b> ")
+                .append("<b>" + LocalDate.now().plusDays(numMcDays - 1).format(formatter) + "</b>")
+                .append(" <b>inclusive.</b><br><br>")
+                .append("This certificate is not valid for absence from court attendance.<br><br>")
+                .append("<b>Issuing Doctor:</b> Dr Chester Sng" + "<br>");
         return stringbuilder.toString();
     }
 
@@ -213,10 +215,12 @@ public class Document {
      */
     String formatRlInformation() {
         StringBuilder stringbuilder = new StringBuilder();
-        stringbuilder.append("Dear Specialist, please assist the above-named patient in the following matter:<br>")
-                .append(referralContent + "<br><br>")
+        stringbuilder.append("This is to certify that the above-named patient has been referred to: ")
+                .append("<b>" + referralContent.toUpperCase() + "</b>" + "<br><br>")
+                .append("Dear Specialist, please assist the above-named patient in the following matter:<br>")
+                .append(noteContent + "<br><br>")
                 .append("Kindly do accept him under your care. Thank you very much.<br><br>")
-                .append("<b>Issuing Doctor:<b> DR CHESTER SNG" + "<br><br>");
+                .append("<b>Issuing Doctor:</b> Dr Chester Sng" + "<br>");
         return stringbuilder.toString();
     }
 
@@ -302,6 +306,10 @@ public class Document {
 
     public void setReferralContent(String referralContent) {
         this.referralContent = referralContent;
+    }
+
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent;
     }
 
     public File getFile() {
