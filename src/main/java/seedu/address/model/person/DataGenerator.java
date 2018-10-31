@@ -877,6 +877,10 @@ public class DataGenerator {
             "Verapamil Hydrochloride",
             "Warfarin",
             "Zolpidem Tartrate",
+            "Yuntongazole",
+            "Zhiyuropium",
+            "Jefferin",
+            "Jiaxinovir"
         };
 
         private Double[] doses = {
