@@ -18,7 +18,7 @@ public class User {
     public static final Password ADMIN_PASSWORD = new Password("Pa55w0rd");
     public static final Person ADMIN = new Person(new Name("Admin"), new Phone("999"),
         new Email("admin@admin.com"), new Address("Admin Address"), new Salary("0"), ADMIN_USERNAME,
-        ADMIN_PASSWORD, new HashSet<>());
+        ADMIN_PASSWORD, new HashSet<>(), new PermissionSet(PermissionSet.PresetPermission.ADMIN));
     private static User adminUser;
 
     private Person loggedInPerson;

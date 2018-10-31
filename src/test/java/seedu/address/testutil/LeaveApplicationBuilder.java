@@ -1,12 +1,11 @@
 package seedu.address.testutil;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.leaveapplication.LeaveApplication;
-import seedu.address.model.leaveapplication.LeaveId;
 import seedu.address.model.leaveapplication.LeaveStatus;
 import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.util.SampleDataUtil;
@@ -16,27 +15,27 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class LeaveApplicationBuilder {
 
-    public static final Integer DEFAULT_ID = 0;
-    public static final String DEFAULT_DESCRIPTION = "Family holiday to Thailand";
+    public static final String DEFAULT_DESCRIPTION = "Benson's brother's wedding";
     public static final StatusEnum.Status DEFAULT_STATUS = StatusEnum.Status.PENDING;
+    public static final List<LocalDate> DEFAULT_DATES = List.of(
+            LocalDate.of(2018, 10, 25),
+            LocalDate.of(2018, 10, 26)
+    );
 
-    private LeaveId leaveId;
     private Description description;
     private LeaveStatus leaveStatus;
-    private List<LocalDateTime> dates;
+    private List<LocalDate> dates;
 
     public LeaveApplicationBuilder() {
-        leaveId = new LeaveId(DEFAULT_ID);
         description = new Description(DEFAULT_DESCRIPTION);
         leaveStatus = new LeaveStatus(DEFAULT_STATUS.toString());
-        dates = new ArrayList<>();
+        dates = new ArrayList<>(DEFAULT_DATES);
     }
 
     /**
      * Initializes the LeaveApplicationBuilder with the data of {@code leaveApplicationToCopy}.
      */
     public LeaveApplicationBuilder(LeaveApplication leaveApplicationToCopy) {
-        leaveId = leaveApplicationToCopy.getId();
         description = leaveApplicationToCopy.getDescription();
         leaveStatus = leaveApplicationToCopy.getLeaveStatus();
         dates = new ArrayList<>(leaveApplicationToCopy.getDates());
@@ -54,16 +53,8 @@ public class LeaveApplicationBuilder {
      * Parses the {@code dates} into a {@code List<Date>} and set it to the {@code LeaveApplication}
      * that we are building.
      */
-    public LeaveApplicationBuilder withDates(LocalDateTime ... dates) {
+    public LeaveApplicationBuilder withDates(LocalDate ... dates) {
         this.dates = SampleDataUtil.getDateList(dates);
-        return this;
-    }
-
-    /**
-     * Sets the {@code LeaveId} of the {@code LeaveApplication} that we are building.
-     */
-    public LeaveApplicationBuilder withId(Integer leaveId) {
-        this.leaveId = new LeaveId(leaveId);
         return this;
     }
 
@@ -76,7 +67,7 @@ public class LeaveApplicationBuilder {
     }
 
     public LeaveApplication build() {
-        return new LeaveApplication(leaveId, description, leaveStatus, dates);
+        return new LeaveApplication(description, leaveStatus, dates);
     }
 
 }
