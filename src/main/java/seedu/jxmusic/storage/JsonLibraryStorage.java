@@ -48,14 +48,13 @@ public class JsonLibraryStorage implements LibraryStorage {
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
-        Library loadedLibrary = null;
+        Library loadedLibrary = new Library();
+        ObservableSet<Track> trackSet = TracksScanner.scan(Paths.get(Library.LIBRARYDIR));
         if (Files.exists(filePath)) {
             loadedLibrary = JsonFileStorage.loadDataFromFile(filePath);
         } else {
             logger.info("Library file " + filePath + " not found");
-            loadedLibrary = new Library();
         }
-        ObservableSet<Track> trackSet = TracksScanner.scan(Paths.get(Library.LIBRARYDIR));
         loadedLibrary.setTracks(trackSet);
         return loadedLibrary;
     }
