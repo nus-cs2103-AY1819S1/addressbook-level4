@@ -64,4 +64,9 @@ public class Tips {
 
         return this.tips.equals(other.tips);
     }
+
+    @Override
+    public int hashCode() {
+        return tips.hashCode();
+    }
 }

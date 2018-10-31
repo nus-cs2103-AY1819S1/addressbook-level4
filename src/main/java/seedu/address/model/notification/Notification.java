@@ -2,6 +2,8 @@ package seedu.address.model.notification;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 /**
  * Represents a notification in the expense tracker
  */
@@ -71,6 +73,11 @@ public abstract class Notification {
         return this.header.equals(notification.header)
                 && this.body.equals(notification.body)
                 && this.type.equals(notification.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(header, body, type);
     }
 
 }

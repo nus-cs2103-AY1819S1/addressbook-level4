@@ -21,7 +21,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 //@@author Snookerballs
 
 public class NotificationCommandTest {
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs(), null);
     private CommandHistory commandHistory = new CommandHistory();
 
     /**
@@ -29,13 +29,13 @@ public class NotificationCommandTest {
      */
     @BeforeEach
     public void resetModelsAndCommandHistory() {
-        this.model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+        this.model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs(), null);
         this.commandHistory = new CommandHistory();
     }
 
     @Test
     public void execute_toggleBoth_successful() throws NoUserSelectedException, CommandException {
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.toggleBothNotification(false);
         expectedModel.commitExpenseTracker();
 
@@ -75,7 +75,7 @@ public class NotificationCommandTest {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         String expectedMessage = NotificationCommand.MESSAGE_SUCCESS;
 
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.toggleTipNotification(false);
         expectedModel.commitExpenseTracker();
 
@@ -112,7 +112,7 @@ public class NotificationCommandTest {
         NotificationCommandDescriptor descriptor = new NotificationCommandDescriptor();
         String expectedMessage = NotificationCommand.MESSAGE_SUCCESS;
 
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.toggleWarningNotification(false);
         expectedModel.commitExpenseTracker();
 

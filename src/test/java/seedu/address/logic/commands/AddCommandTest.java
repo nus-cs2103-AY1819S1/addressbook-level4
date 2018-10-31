@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -25,10 +25,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
@@ -246,7 +246,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
+        public boolean loadUserData(LoginInformation loginInformation) {
             throw new AssertionError("loadUserData method should not be called.");
         }
 
@@ -276,23 +276,13 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPassword(Password password) throws NoUserSelectedException {
-            throw new AssertionError("copy method should not be called.");
+        public void setPassword(Password newPassword, String plainPassword) throws NoUserSelectedException {
+            throw new AssertionError("setPassword method should not be called.");
         }
 
         @Override
-        public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
+        public boolean isMatchPassword(Password toCheck) throws NoUserSelectedException {
             throw new AssertionError("isMatchPassword method should not be called.");
-        }
-
-        /*@Override
-        public Iterator getCategoryList() {
-            throw new AssertionError("getCategoryList should not be called.");
-        }*/
-
-        @Override
-        public void addNotification(Notification notification) throws NoUserSelectedException {
-            throw new AssertionError("addNotification should not be called.");
         }
 
         @Override
@@ -395,7 +385,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty());
+            return new ExpenseTracker(new Username("aa"), null, DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override
@@ -433,7 +423,7 @@ public class AddCommandTest {
         }
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty());
+            return new ExpenseTracker(new Username("aa"), null, DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -166,11 +167,35 @@ public class NotificationHandler implements Iterable<Notification> {
 
         NotificationHandler handler = (NotificationHandler) obj;
 
+        for(int i = 0; i < internalList.size(); i++)
+        {
+            System.out.println("N: " +  internalList.get(i));
+        }
+
+        for(int i = 0; i < handler.internalList.size(); i++)
+        {
+            System.out.println("H: " + handler.internalList.get(i));
+        }
+
+        System.out.println("N: " +lastTipSentOn);
+        System.out.println("H: " + handler.lastTipSentOn);
+
+        System.out.println("N: " + isWarningEnabled);
+        System.out.println("H: " + handler.isWarningEnabled);
+
+        System.out.println("N: " + isTipEnabled);
+        System.out.println("H: " + handler.isTipEnabled);
+
         return this.isWarningEnabled == handler.isWarningEnabled
                 && this.isTipEnabled == handler.isTipEnabled
                 && this.lastTipSentOn.getDayOfMonth() == handler.lastTipSentOn.getDayOfMonth()
                 && this.lastTipSentOn.getMonth().equals(handler.lastTipSentOn.getMonth())
                 && this.lastTipSentOn.getYear() == handler.lastTipSentOn.getYear()
                 && this.internalList.equals(handler.internalList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lastTipSentOn, isTipEnabled, isWarningEnabled, internalList);
     }
 }

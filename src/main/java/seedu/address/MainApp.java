@@ -21,6 +21,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -29,6 +30,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.notification.Tip;
 import seedu.address.model.notification.Tips;
 import seedu.address.model.user.Username;
@@ -90,23 +93,27 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * Returns a {@code ModelManager} with the data from {@code storage}'s expense tracker and {@code userPrefs}. <br>
      * A user "sample" with a sample ExpenseTracker will be added if the username does not exist.
-     * or no users will be used instead if errors occur when reading {@code storage}'s address book.
+     * or no users will be used instead if errors occur when reading {@code storage}'s expense tracker.
      */
     protected Model initModelManager(Storage storage, UserPrefs userPrefs, Tips tips) {
-        Map<Username, ReadOnlyExpenseTracker> expenseTrackers;
+        Map<Username, EncryptedExpenseTracker> expenseTrackers;
         try {
             expenseTrackers = storage.readAllExpenses(userPrefs.getExpenseTrackerDirPath());
             ReadOnlyExpenseTracker sampleExpenseTracker = SampleDataUtil.getSampleExpenseTracker();
             if (!expenseTrackers.containsKey(sampleExpenseTracker.getUsername())) {
-                expenseTrackers.put(sampleExpenseTracker.getUsername(), sampleExpenseTracker);
+                expenseTrackers.put(sampleExpenseTracker.getUsername(),
+                        EncryptionUtil.encryptTracker(sampleExpenseTracker));
             }
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
             expenseTrackers = new TreeMap<>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the files. Will be starting with no accounts");
+            expenseTrackers = new TreeMap<>();
+        } catch (IllegalValueException e) {
+            logger.warning("Sample user has invalid key. Will be starting without sample user.");
             expenseTrackers = new TreeMap<>();
         }
         return new ModelManager(expenseTrackers, userPrefs, tips);

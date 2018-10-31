@@ -1,8 +1,9 @@
 package seedu.address.model.notification;
 
 //@@Snookerballs
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a tip that will be displayed as a notification.
@@ -39,6 +40,11 @@ public class Tip {
 
     public String toString() {
         return header + " " + body;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(header, body);
     }
 
 }

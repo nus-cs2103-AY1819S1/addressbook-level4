@@ -18,6 +18,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.MassEditCommand;
 import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -63,6 +64,10 @@ public class ExpenseTrackerParser {
         case EditCommand.COMMAND_ALIAS:
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case MassEditCommand.COMMAND_ALIAS:
+        case MassEditCommand.COMMAND_WORD:
+            return new MassEditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_ALIAS:
         case SelectCommand.COMMAND_WORD:
