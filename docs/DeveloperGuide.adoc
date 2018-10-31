@@ -376,8 +376,56 @@ Aspect: How to implement ToDoList UI
 // end::ToDoList[]
 
 // tag::FuzzySearch[]
-=== Fuzzy Search for Find Event Command
+=== Fuzzy Search and Filter by Tags for Find Event Command
 ==== Current Implementation
+
+===== Model
+The Fuzzy Search enhancement for the `find event` command is achieved using the `fuzzywuzzy` API. The existing
+`TitleContainsKeywordsPredicate` was modified such that the `test` method checks if the `keyword` matches the `Title`
+of the `CalendarEvent` using a fuzzy algorithm based on Levenshtein distance between strings, and assigns an integer
+score to the match. If this score is under the `threshold` of 70, the `Predicate` will filter out the `CalendarEvent`
+from the `ObservableList`.
+
+The Filter by Tags enhancement is achieved using a second `Predicate`, the `TagsPredicate`. This `Predicate` will `test`
+the `CalendarEvent` by checking if any of its `Tags` matches with any of the user input `tags`. The `Predicate` will
+filter out all events that do not contain any of the specified tags.
+
+Finally, the `FilteredList` is wrapped in a `SortedList`, and sorted based on `FuzzySearchComparator`. This comparator
+uses the aforementioned fuzzy match score, and sorts the `CalendarEvents` in descending order of match score.
+
+
+==== GUI
+
+===== Tabbed Interface
+Since the existing `ObservableList` of `CalendarEvents` was not used in the GUI, we needed to figure out an alternative
+way to display the results for the `find event` command. We achieved this by incorporating a tabbed interface where the
+`TaskList` and the `CalendarEvent` list for the search results were shown in separate tabs.
+
+To aid our target user, who mainly uses CLI, we incorporated functionality to automatically switch to the most relevant
+tab based on the command input by the user. When the user inputs a todo list command, a `SwitchToTasksTabEvent` is
+posted to the `EventsCenter`; while when the user inputs a `find event` or `list event` command, a
+`SwitchToSearchTabEvent` is posted.
+
+The `MainWindow` handles the `SwitchToTasksTabEvent` and `SwitchToSearchTabEvent` - it switches to the appropriate tab
+when it receives either `Event`.
+
+===== Updating FilteredList/SortedList
+In the original implementation, the main list of `CalendarEvent` that is shown on the GUI is implemented using a single,
+final `FilteredList` and changing the `Predicate` as needed. The `FilteredList` itself does not change unless the
+underlying `List` of `CalendarEvent` is changed (in which case the entire `Model` is reinitialised).
+
+However, in our current implementation, we only need to display the list of `CalendarEvent` when we show the results for
+the `find event` or `list event` commands. Furthermore, since we use multiple `Predicates` as well as a `Comparator`,
+the original implementation is not usable.
+
+Hence, we modified the `ModelManager` by allowing the `FilteredList` to be changed as need be. Hence whenever an
+additional `Predicate` needs to be added, we would wrap the original `FilteredList` with a new `FilteredList` using the
+new `Predicate`. Similarly, when we needed to sort based on a `Comparator`, we would wrap the `FilteredList` with a new
+`SortedList` using the required `Comparator` using the current `FilteredList` as a base.
+
+Since this update would only occur during `find event` or `list event` commands, we modified the handling of the
+`SwitchToSearchTabEvent` by the `MainWindow` to also trigger the GUI to reload the `ObservableList`/`FilteredList`
+backing the search result panel.
 
 // end::FuzzySearch[]
 
