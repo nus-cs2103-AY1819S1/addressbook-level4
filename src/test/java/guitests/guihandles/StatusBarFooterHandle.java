@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+//@@author chivent
 import org.controlsfx.control.StatusBar;
 
 import javafx.scene.Node;

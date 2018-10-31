@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+//@@author chivent
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 

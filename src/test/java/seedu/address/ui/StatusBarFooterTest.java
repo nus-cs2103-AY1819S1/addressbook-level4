@@ -31,6 +31,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
     }
 
+    //@@author chivent
     @Test
     public void display() {
         assertStatusBarContent(LOGIN_STATUS_INITIAL, DIRECTORY_ERROR);
