@@ -5,14 +5,11 @@ import static seedu.address.testutil.TypicalLeaveApplications.BENSON_LEAVE;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
-import seedu.address.model.leaveapplication.StatusEnum;
 
 /**
  * A utility class containing a list of {@code LeaveApplicationWithEmployee} objects to be used in tests.

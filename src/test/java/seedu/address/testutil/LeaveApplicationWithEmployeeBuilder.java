@@ -28,9 +28,17 @@ public class LeaveApplicationWithEmployeeBuilder extends LeaveApplicationBuilder
 
     /**
      * Initializes the LeaveApplicationWithEmployeeBuilder with the data of {@code leaveApplicationToCopy}
+     * and the default employee
      */
     public LeaveApplicationWithEmployeeBuilder(LeaveApplication leaveApplicationToCopy) {
         this(leaveApplicationToCopy, new PersonBuilder(DEFAULT_EMPLOYEE).build());
+    }
+
+    /**
+     * Initializes the LeaveApplicationWithEmployeeBuilder with the data of {@code leaveApplicationToCopy}
+     */
+    public LeaveApplicationWithEmployeeBuilder(LeaveApplicationWithEmployee leaveApplicationToCopy) {
+        this(leaveApplicationToCopy, leaveApplicationToCopy.getEmployee());
     }
 
     /**
@@ -41,6 +49,7 @@ public class LeaveApplicationWithEmployeeBuilder extends LeaveApplicationBuilder
         super(leaveApplicationToCopy);
         this.employee = new PersonBuilder(employee).build();
     }
+
 
     /**
      * Sets the {@code Description} of the {@code LeaveApplication} that we are building.
