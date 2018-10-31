@@ -37,7 +37,6 @@ public class TaskListPanelTest extends GuiUnitTest {
 
     private TaskListPanelHandle taskListPanelHandle;
 
-    //TODO CANNOT PASS THIS TEST
     @Test
     public void display() {
         initUi(TYPICAL_TODOLIST_EVENTS);
@@ -52,7 +51,6 @@ public class TaskListPanelTest extends GuiUnitTest {
         }
     }
 
-    //TODO CANNOT PASS THIS TEST
     @Test
     public void handleJumpToListRequestEvent() {
         initUi(TYPICAL_TODOLIST_EVENTS);

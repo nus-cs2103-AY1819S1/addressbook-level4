@@ -18,7 +18,7 @@ import seedu.address.model.todolist.ToDoListEvent;
  */
 public class DeleteToDoCommand extends CommandToDo {
 
-    public static final String COMMAND_WORD = "delete_todo";
+    public static final String COMMAND_WORD = "delete todo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed todo list.\n"

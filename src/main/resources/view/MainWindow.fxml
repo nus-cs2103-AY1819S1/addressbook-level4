@@ -48,7 +48,6 @@
                         </VBox>
                     </Tab>
                 </TabPane>
-
                 <VBox prefHeight="675.0" prefWidth="900.0">
                     <VBox fx:id="monthYearPanelPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
                           prefHeight="50" prefWidth="900" VBox.vgrow="NEVER"/>
