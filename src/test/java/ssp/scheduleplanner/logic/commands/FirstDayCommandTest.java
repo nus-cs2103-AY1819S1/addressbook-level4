@@ -92,6 +92,8 @@ public class FirstDayCommandTest {
                 throw new CommandException(fds.MESSAGE_FILE_DOES_NOT_EXIST);
             }
         }
+
+        assertTrue(checkFileExist.exists());
     }
 
     @Test
@@ -108,6 +110,14 @@ public class FirstDayCommandTest {
         } catch (FileNotFoundException e) {
             throw new CommandException(fds.MESSAGE_FILE_DOES_NOT_EXIST);
         }
+
+        //check first entry first data and last entry last data if they are empty to verify if null data
+        assertTrue(storeRangeOfWeeks[0][0] != null);
+        assertTrue(storeRangeOfWeeks[16][2] != null);
+
+        //check first entry first data and last entry last data if they are empty to verify if empty data
+        assertTrue(storeRangeOfWeeks[0][0] != "");
+        assertTrue(storeRangeOfWeeks[16][2] != "");
     }
 
     @Test
