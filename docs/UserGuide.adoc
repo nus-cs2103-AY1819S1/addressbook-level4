@@ -55,13 +55,37 @@ _Figure 1 Startup Window_
 Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
+// tag::ui-walkthrough[]
 == User Interface Walkthrough
 
-This section is designed to help you familiarise with all of the user componenet in ClinicIO.
-
-// tag::ui-walkthrough[]
+This section is designed to help you familiarise with all of the user component in ClinicIO.
 
 image::user-guide-ui-walkthrough-overview.png[width="900"]
+
+=== Menu Bar
+
+Available options inside the menu bar: +
+
+* File
+** Exit
+* Help
+
+=== Command Box
+
+This component allow you to enter command input. +
+
+=== Result Display
+
+=== Patient List Panel
+
+=== Patient Card
+
+=== Display Panel
+
+=== Sync Status Bar
+
+=== User Session Status Bar
+
 
 // end::ui-walkthrough[]
 
