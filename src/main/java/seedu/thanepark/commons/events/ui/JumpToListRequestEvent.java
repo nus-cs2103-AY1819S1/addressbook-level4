@@ -1,6 +1,7 @@
 package seedu.thanepark.commons.events.ui;
 
 import seedu.thanepark.commons.core.index.Index;
+import seedu.thanepark.commons.events.BaseEvent;
 
 /**
  * Indicates a request to jump to the list of rides
