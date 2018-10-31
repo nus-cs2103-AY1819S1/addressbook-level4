@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 import java.time.LocalDateTime;
 
 /**
- * Indicates a request to jump to the list of persons
+ * Indicates a request for calendar ui to display a particular localDateTime
  */
 public class JumpToDateTimeEvent extends BaseEvent {
 

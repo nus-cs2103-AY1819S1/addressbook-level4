@@ -19,7 +19,6 @@ import javafx.util.Callback;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
-
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
@@ -28,7 +27,7 @@ import seedu.address.model.calendarevent.CalendarEvent;
 
 
 /**
- * The Ui component that is responsible for displaying a List of CalendarEvents to the user
+ * The Ui component that is responsible for displaying a Calendar CalendarEvents to the user
  */
 public class CalendarDisplay extends UiPart<Region> {
     private static final String FXML = "CalendarDisplay.fxml";
@@ -38,41 +37,40 @@ public class CalendarDisplay extends UiPart<Region> {
 
     private Agenda agenda;
     private Agenda.AppointmentGroupImpl appointmentGroup;
-
-    // keeps track of which week calendar is showing
-    private LocalDateTime currentDateTime = LocalDateTime.now();
+    private LocalDateTime currentDateTime;
 
     @FXML
     private VBox calendarDisplayBox;
 
     public CalendarDisplay(ObservableList<CalendarEvent> calendarEventList) {
         super(FXML);
-        // registerAsAnEventHandler(this); // I don't think this is needed as of now
+        registerAsAnEventHandler(this);
 
         this.calendarEventList = calendarEventList;
-        initAgenda(); // set up agenda internally
+        this.currentDateTime = LocalDateTime.now();
+        initAgenda();
         setConnections(calendarEventList);
         setControls();
 
         agenda.getStylesheets().add("view/ModifiedAgenda.css"); // "src/main/resources/view/
-
-        setDisplayedDateTime(currentDateTime); // jump to the correct location
+        setDisplayedDateTime(currentDateTime); // jump to the current time
     }
 
     /**
      * Starts up the internal Agenda Object
-     * Prevents the user from interacting directly with the calendar display
+     * Disables unwanted inbuilt functions of agenda
+     * Adds agenda control into the scene
      */
     private void initAgenda() {
         agenda = new Agenda();
 
         appointmentGroup = new Agenda.AppointmentGroupImpl().withStyleClass("group18");
 
-        // register actionCallBack, to be executed when user double click on appointment
+        // TODO: decide what action callback is best
+        // this actionCallBack is called when the user double clicks on an appointment in the display
         agenda.actionCallbackProperty().set(new Callback<Appointment, Void>() {
             @Override
             public Void call(Appointment param) {
-                // can add more functionality here
                 logger.info("User double clicked on " + param.toString());
                 CalendarEvent calendarEvent = (CalendarEvent) param;
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -84,27 +82,23 @@ public class CalendarDisplay extends UiPart<Region> {
             }
         });
 
-        // disable allowing user to create appointments by clicking on screen
         agenda.setAppointmentChangedCallback(null);
 
-        // disable dragging appointments around
         agenda.setAllowDragging(false);
 
         agenda.setEditAppointmentCallback(null);
 
-        // show 1 week
         agenda.setSkin(new AgendaWeekSkin(agenda));
 
-        // add agenda to the VBox area
         calendarDisplayBox.getChildren().add(agenda);
     }
 
     /**
-     * Passes agenda the list of CalendarEvents to display
-     * @param calendarEventList
+     * Sync the list of CalendarEvents to the calendar display
+     * @param calendarEventList the list of CalendarEvents to display
      */
     private void setConnections(ObservableList<CalendarEvent> calendarEventList) {
-        // populate calendar
+        // populate the calendar
         calendarEventList.forEach((calendarEvent -> calendarEvent.setAppointmentGroup(appointmentGroup)));
         agenda.appointments().addAll(calendarEventList);
 
@@ -156,7 +150,7 @@ public class CalendarDisplay extends UiPart<Region> {
                     break;
                 case L:
                     // for testing
-                    System.out.println("L pressed");
+                    // System.out.println("L pressed");
                     break;
                 }
             }
