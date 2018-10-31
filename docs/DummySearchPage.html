@@ -185,20 +185,20 @@
 				mapTypeId: google.maps.MapTypeId.TERRAIN
 			});
 			for (var i = 0; i < obj.result.records.length; i++) {
-				var coords = obj.result.records[i];		
+				var coords = obj.result.records[i];
 				var result = cv.computeLatLon(obj.result.records[i].y_coord, obj.result.records[i].x_coord);
 				var latLng = new google.maps.LatLng(result.lat,result.lon);
 				var marker = new google.maps.Marker({  
 					map: map, title: coords.car_park_no, position: latLng  
 				});
 				var content = "<h3>Car park no: " + coords.car_park_no + "</h3>" +
-					"<p>Address: " +  coords.address + "</p>" + 
-					"<p>Type: " +  coords.car_park_type + "</p>" + 
-					"<p>Free Parking: " +  coords.free_parking + "</p>" + 
-					"<p>Night Parking: " +  coords.night_parking + "</p>" + 
+					"<p>Address: " +  coords.address + "</p>" +
+					"<p>Type: " +  coords.car_park_type + "</p>" +
+					"<p>Free Parking: " +  coords.free_parking + "</p>" +
+					"<p>Night Parking: " +  coords.night_parking + "</p>" +
 					"<p>Parking System: " +  coords.type_of_parking_system + "</p>"
 				var infowindow = new google.maps.InfoWindow()
-				google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+				google.maps.event.addListener(marker,'click', (function(marker, content, infowindow){
 					return function() {
 						infowindow.setContent(content);
 						infowindow.open(map,marker);
@@ -207,7 +207,7 @@
 						}
 						prev_infowindow = infowindow;
 					};
-				})(marker,content,infowindow)); 
+				})(marker, content, infowindow));
 			}
 		}
 		function selectIndiv () {
@@ -220,7 +220,6 @@
 			console.log(Json);
 			map = new google.maps.Map(document.getElementById('map'), {
 				zoom: 11,
-				
 				center: new google.maps.LatLng(1.3521,103.8198),
 				mapTypeId: google.maps.MapTypeId.TERRAIN
 			});
@@ -228,14 +227,14 @@
 			var coords = Json;
 			var result = cv.computeLatLon(coords.y_coord, coords.x_coord);
 			var latLng = new google.maps.LatLng(result.lat,result.lon);
-			var marker = new google.maps.Marker({  
+			var marker = new google.maps.Marker({
 				map: map, title: coords.car_park_no, position: latLng  
 			});
 			var content = "<h3>Car park no: " + coords.car_park_no + "</h3>" +
-				"<p>Address: " +  coords.address + "</p>" + 
-				"<p>Type: " +  coords.car_park_type + "</p>" + 
-				"<p>Free Parking: " +  coords.free_parking + "</p>" + 
-				"<p>Night Parking: " +  coords.night_parking + "</p>" + 
+				"<p>Address: " +  coords.address + "</p>" +
+				"<p>Type: " +  coords.car_park_type + "</p>" +
+				"<p>Free Parking: " +  coords.free_parking + "</p>" +
+				"<p>Night Parking: " +  coords.night_parking + "</p>" +
 				"<p>Parking System: " +  coords.type_of_parking_system + "</p>"
 			var infowindow = new google.maps.InfoWindow()
 			google.maps.event.addListener(marker,'click', (function(marker,content,infowindow) {
