@@ -119,27 +119,27 @@ Examples:
 
 === Undoing previous actions : `undo`
 
-Format: `undo`: Step back to previous transformation
+Format: `undo`: Step back to the previous transformation
 
 [NOTE]
 ====
-Commands that can be undone: those commands that modify the image's transformation (`add` and `clear`).
+Commands that can be undone: those commands that modify the image's transformation (anything done with `convert`).
 ====
 
 Examples:
 
-* `convert resize 50` +
-`undo` (reverses the `convert resize 50` command) +
+* `convert blur 0x8` +
+`undo` (reverses the `convert blur 0x8` command) +
 
 === Redoing the previous actions : `redo`
 
-Format: `redo`: Step forward to previous transformation
+Format: `redo`: Step forward to previously undone transformation
 
 Examples:
 
-* `convert resize 50` +
-`undo` (reverses the `convert resize 50` command) +
-`redo` (reapplies the `convert resize 50` command) +
+* `convert blur 0x8` +
+`undo` (reverses the `convert blur 0x8` command) +
+`redo` (reapplies the `convert blur 0x8` command) +
 
 === Listing files in directory : `ls`
 
