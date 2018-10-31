@@ -113,12 +113,12 @@ List of valid flags:
 | Criteria | Flag| Parameter Structure | Valid Parameters | Example(s)
 | Car park has free parking |`f/`| `DAY START_TIME END_TIME` | `DAY`: `MON` - `SUN` +
 `START_TIME`: e.g. `7.30AM` +
-`END_TIME`: e.g. `9.30PM` | filter f/ `sun 9.00am 5.30pm`
+`END_TIME`: e.g. `9.30PM` | `filter f/ sun 9.00am 5.30pm`
 | Car park has night parking |`n/`| - | - |
-| Type of car park |`ct/`| `CAR_PARK_TYPE`| "SURFACE", "MULTISTOREY", "BASEMENT", "MECHANISED", "COVERED"| `filter ct/ covered`
+| Type of car park |`ct/`| `CAR_PARK_TYPE`| `"SURFACE", "MULTISTOREY", "BASEMENT", "MECHANISED", "COVERED"`| `filter ct/ covered`
 | Car park has available parking slot |`a/`| - | - |
 | Car park has short-term parking | `s/`| - | - |
-| Type of parking system | `ps/` |`PARKING_SYSTEM_TYPE`|"COUPON", "ELECTRONIC" | `filter ps/ coupon`
+| Type of parking system | `ps/` |`PARKING_SYSTEM_TYPE`|`"COUPON", "ELECTRONIC"` | `filter ps/ coupon`
 |===
 
 [NOTE]
