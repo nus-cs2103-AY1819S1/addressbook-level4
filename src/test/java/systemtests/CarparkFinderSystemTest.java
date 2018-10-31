@@ -7,9 +7,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.parking.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.parking.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.parking.ui.testutil.GuiTestAssert.assertListMatching;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -32,7 +32,6 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 
-import seedu.parking.MainApp;
 import seedu.parking.TestApp;
 import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.index.Index;
@@ -215,10 +214,16 @@ public abstract class CarparkFinderSystemTest {
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCarparkListPanel().navigateToCard(getCarparkListPanel().getSelectedCardIndex());
-        String selectedCardCarparkNumber = getCarparkListPanel().getHandleToSelectedCard().getCarparkNumber();
+        String selectedCardCarparkNumber = null;
+        try {
+            selectedCardCarparkNumber = getCarparkListPanel().getHandleToSelectedCard().toJson();
+            System.out.println(selectedCardCarparkNumber);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardCarparkNumber.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -279,7 +284,11 @@ public abstract class CarparkFinderSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCarparkListPanel(), getModel().getFilteredCarparkList());
-        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        try {
+            assertEquals(new URL(DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
