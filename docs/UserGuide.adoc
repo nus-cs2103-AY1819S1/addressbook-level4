@@ -381,7 +381,7 @@ Format : +
 `edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION] [s/SCHEME]` +
 
 ****
-* INDEX has to be numeric and more than 0
+* INDEX specifies the entry to edit, has to be numeric and more than 0
 * Height is numeric, be more than 0 and input is of centimetre units
 * Current weight is numeric, be more than 0 and input is of Kilogram units
 * Target Weight is numeric, be more than 0 and input is of Kilogram units
