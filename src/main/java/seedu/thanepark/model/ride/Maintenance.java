@@ -3,6 +3,9 @@ package seedu.thanepark.model.ride;
 import static java.util.Objects.requireNonNull;
 import static seedu.thanepark.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 /**
  * Represents a Ride's days since last maintenance in the park management app.
  */
@@ -11,7 +14,7 @@ public class Maintenance implements NumericAttribute {
     public static final String MESSAGE_MAINTENANCE_CONSTRAINTS =
             "Maintenance should only contain numbers with at least 1 digit long.";
     public static final String MAINTENANCE_VALIDATION_REGEX = "\\d+";
-    private int value;
+    private LocalDate lastMaintenanceDate;
 
     /**
      * Constructs a {@code Maintenance}.
@@ -21,7 +24,8 @@ public class Maintenance implements NumericAttribute {
     public Maintenance(String daysSinceMaintenanceString) {
         requireNonNull(daysSinceMaintenanceString);
         checkArgument(isValidMaintenance(daysSinceMaintenanceString), MESSAGE_MAINTENANCE_CONSTRAINTS);
-        value = Integer.parseInt(daysSinceMaintenanceString);
+        int value = Integer.parseInt(daysSinceMaintenanceString);
+        lastMaintenanceDate = LocalDate.now().minusDays((long)value);
     }
 
     /**
@@ -29,15 +33,16 @@ public class Maintenance implements NumericAttribute {
      * @param daysSinceMaintenance Days since last maintenance.
      */
     public Maintenance(int daysSinceMaintenance) {
-        value = daysSinceMaintenance;
+        lastMaintenanceDate = LocalDate.now().minusDays(daysSinceMaintenance);
     }
 
     public int getValue() {
-        return value;
+        Period period = lastMaintenanceDate.until(LocalDate.now());
+        return period.getDays();
     }
 
     public void setValue(int value) {
-        this.value = value;
+        this.lastMaintenanceDate = LocalDate.now().minusDays((long)value);
     }
 
     /**
@@ -49,19 +54,19 @@ public class Maintenance implements NumericAttribute {
 
     @Override
     public String toString() {
-        return String.valueOf(value) + " days";
+        return String.valueOf(getValue()) + " days";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Maintenance // instanceof handles nulls
-            && value == ((Maintenance) other).value); // state check
+            && lastMaintenanceDate == ((Maintenance) other).lastMaintenanceDate); // state check
     }
 
     @Override
     public int hashCode() {
-        return value;
+        return getValue();
     }
 
 }
