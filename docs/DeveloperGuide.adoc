@@ -602,7 +602,7 @@ _{Explain here how the data encryption feature will be implemented}_
 // end::dataencryption[]
 
 // tag::login[]
-=== Login
+=== User Authentication
 
 ClinicIO ensures appropriate user access rights are issued by authenticating users at login.
 
@@ -644,13 +644,32 @@ image::LoginActivityDiagram.png[width="1080"]
 
 ===== Aspect: Retrieval of password
 
-An alternative is to open an additional alert window to prompt the user for a password.
+* *Alternative 1 (current choice)*: Create a `PasswordPrefixFormatter` to handle
+`CommandBox` whenever user type 'pass/' prefix. 
 
-* Pros: Greater security as the entire password will be censored.
+** Pros: Able to mask password in order to keep password secure.
+** Cons: 
 
-* Cons: Require a new window to be opened.
+* *Alternative 2*: Open an additional alert window to prompt the user for a password.
+
+** Pros: Greater security as the entire password will be censored.
+** Cons: Require a new window to be opened.
 This will consume time depending on the system.
 In addition, this will detract from the user experience due to the shift in focus required.
+
+===== Aspect: Keep track of user session
+
+* *Alternative 1 (current choice)*: Have a `UserSession` class to handle user session
+
+** Pros : Allow developers to handle user session easily.
+** Cons : Too troublesome as user will to login to ClinicIO at every startup.
+
+* *Alternative 2*: Save user session state in a file.
+
+** Pros: More convenience for users as they does not need to login on every startup.
+** Cons: Less secure as users, who understand how ClinicIO works, could 
+edit the role of the user to have unauthorised access
+to ClinicIO.
 
 // end::login[]
 
