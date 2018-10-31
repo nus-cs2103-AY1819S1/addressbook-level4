@@ -64,7 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
         dirImageList = this.userPrefs.getAllImages();
 
         try {
-            photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
+            //photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
         } catch (Exception e) {
             logger.warning("Unable to log into user account");
         }

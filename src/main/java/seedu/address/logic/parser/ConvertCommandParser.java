@@ -4,7 +4,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.IOException;
-import java.nio.file.Path;
+import java.net.URL;
 import java.util.Arrays;
 
 import seedu.address.commons.util.ImageMagickUtil;
@@ -27,14 +27,14 @@ public class ConvertCommandParser implements Parser<ConvertCommand> {
             String[] all = args.split(" ");
             String operation = all[1];
             String[] cmds = new String[0];
-            Path filePath;
+            URL fileUrl;
             if (all.length >= 1) {
                 cmds = Arrays.copyOfRange(all, 2, all.length);
-                filePath = ImageMagickUtil.SINGLE_COMMAND_TEMPLATE_PATH;
+                fileUrl = ImageMagickUtil.SINGLE_COMMAND_TEMPLATE_PATH;
             } else {
-                filePath = ImageMagickUtil.SINGLE_COMMAND_TEMPLATE_PATH;
+                fileUrl = ImageMagickUtil.SINGLE_COMMAND_TEMPLATE_PATH;
             }
-            return new ConvertCommand(filePath, new Transformation(operation, cmds));
+            return new ConvertCommand(fileUrl, new Transformation(operation, cmds));
         } catch (ParseException | IOException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConvertCommand.MESSAGE_USAGE), pe);
