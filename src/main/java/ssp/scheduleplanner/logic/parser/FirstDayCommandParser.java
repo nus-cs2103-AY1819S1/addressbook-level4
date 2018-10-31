@@ -37,7 +37,6 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
             throw new ParseException(FirstDayCommand.MESSAGE_NOT_MONDAY);
         }
 
-
         return new FirstDayCommand(trimmedArgs);
     }
 
