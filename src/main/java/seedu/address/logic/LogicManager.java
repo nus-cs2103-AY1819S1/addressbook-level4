@@ -1,5 +1,8 @@
 package seedu.address.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -32,21 +35,45 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
 
+    private List<Function<String, CommandResult>> interceptors;
+
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+        interceptors = new ArrayList<>();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        if(interceptors.size() != 0) {
+            CommandResult commandResult = null;
+            for (int i = interceptors.size() - 1; i >= 0; i--) {
+                if(commandResult == null) {
+                    commandResult = interceptors.get(i).apply(commandText);
+                } else {
+                    commandResult.absorb(interceptors.get(i).apply(commandText));
+                }
+            }
+            interceptors.clear();
+            processCommandResult(commandResult);
+            return commandResult;
+        }
+
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            return command.execute(model, history);
+            CommandResult commandResult = command.execute(model, history);
+            processCommandResult(commandResult);
+            return commandResult;
         } finally {
             history.add(commandText);
         }
+    }
+
+    private void processCommandResult(CommandResult result) {
+        interceptors.addAll(result.getIntercepters());
     }
 
     @Override

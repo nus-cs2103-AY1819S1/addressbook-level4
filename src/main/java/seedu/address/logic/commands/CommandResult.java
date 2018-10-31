@@ -2,15 +2,52 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 /**
  * Represents the result of a command execution.
  */
 public class CommandResult {
 
-    public final String feedbackToUser;
+    public String feedbackToUser;
+
+    private List<Function<String, CommandResult>> interceptors;
 
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        interceptors = new ArrayList<>();
+    }
+
+    /**
+     * Adds an intercepter to the be processed later after this user command. If any intercepts are in the list,
+     * they will "intercept" a user input and will prevent it from being interpreted as a command.
+     * The next user input will always be given to the lambda.
+     * @param interceptor The method for the user input to pass into. Returned command result will be processed as if
+     *                    it was a normal command.
+     */
+    public void addIntercepter(Function<String, CommandResult> interceptor) {
+        interceptors.add(interceptor);
+    }
+
+    /**
+     * Gets a list of intercepts as required by this command
+     * @return A list of interceptors for the next user input.
+     */
+    public List<Function<String, CommandResult>> getIntercepters() {
+        return interceptors;
+    }
+
+    /**
+     * Absorbs another command result into this. Interceptors list will be merged and the text of the other command
+     * will be appended after a newline.
+     * @param other
+     */
+    public void absorb(CommandResult other) {
+        this.interceptors.addAll(other.getIntercepters());
+        this.feedbackToUser += "\r\n" + other.feedbackToUser;
     }
 
 }
