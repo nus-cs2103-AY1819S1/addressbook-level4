@@ -2,10 +2,14 @@ package seedu.parking.model.carpark;
 
 import static seedu.parking.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import com.google.gson.JsonObject;
 
 import seedu.parking.model.tag.Tag;
 
@@ -185,5 +189,27 @@ public class Carpark {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Returns the car park object in Json format.
+     */
+    public String toJson () throws UnsupportedEncodingException {
+        JsonObject jsonObject = new JsonObject();
+
+        jsonObject.addProperty("address", address.value);
+        jsonObject.addProperty("car_park_no", carparkNumber.value);
+        jsonObject.addProperty("y_coord", coordinate.getYCoord());
+        jsonObject.addProperty("x_coord", coordinate.getXCoord());
+        jsonObject.addProperty("lots_available", lotsAvailable.value);
+        jsonObject.addProperty("total_lots", totalLots.value);
+        jsonObject.addProperty("car_park_type", carparkType.value);
+        jsonObject.addProperty("free_parking", freeParking.value);
+        jsonObject.addProperty("night_parking", nightParking.value);
+        jsonObject.addProperty("short_term", shortTerm.value);
+        jsonObject.addProperty("type_of_parking_system", typeOfParking.value);
+        jsonObject.addProperty("postal_code", postalCode.value);
+
+        return URLEncoder.encode(jsonObject.toString(), "UTF-8");
     }
 }
