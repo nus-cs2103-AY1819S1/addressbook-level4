@@ -44,9 +44,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         waitUntilBrowserLoaded(browserPanelHandle);
 
-        URL expectedWordUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL);
-
-        String expectedWordUrlInString = expectedWordUrl.toExternalForm() + "?name="
+        String expectedWordUrlInString = SEARCH_PAGE_URL + "?name="
                 + SUMO.getName().fullName.replaceAll(" ", "%20")
                 + "&meaning=" + SUMO.getMeaning().fullMeaning.replaceAll(" ", "%20");
 

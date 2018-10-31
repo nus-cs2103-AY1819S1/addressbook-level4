@@ -21,6 +21,7 @@ import seedu.learnvocabulary.model.LearnVocabulary;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.ReadOnlyLearnVocabulary;
 import seedu.learnvocabulary.model.tag.Tag;
+import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
 import seedu.learnvocabulary.model.word.Word;
 import seedu.learnvocabulary.testutil.WordBuilder;
 
@@ -43,7 +44,7 @@ public class AddCommandTest {
     public void execute_wordAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingWordAdded modelStub = new ModelStubAcceptingWordAdded();
         Word validWord = new WordBuilder().build();
-        if(!validWord.getTags().isEmpty()) {
+        if (!validWord.getTags().isEmpty()) {
             CommandResult commandResult = new AddCommand(validWord).execute(modelStub, commandHistory);
 
             assertEquals(String.format(AddCommand.MESSAGE_NO_GROUP, validWord), commandResult.feedbackToUser);
@@ -219,6 +220,16 @@ public class AddCommandTest {
         @Override
         public void addGroup(Tag toAdd) {
 
+        }
+
+        @Override
+        public void updateTag(TagContainsKeywordsPredicate predicate) {
+
+        }
+
+        @Override
+        public Set<Tag> getTags() {
+            return null;
         }
     }
 

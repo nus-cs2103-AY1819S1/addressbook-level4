@@ -11,7 +11,6 @@ import static seedu.learnvocabulary.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.learnvocabulary.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.learnvocabulary.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -214,8 +213,8 @@ public abstract class LearnVocabularySystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getWordListPanel().navigateToCard(getWordListPanel().getSelectedCardIndex());
         Word selectedWord = getWordListPanel().getWord(getWordListPanel().getSelectedCardIndex());
-        URL expectedUrl = MainApp.class.getResource(FXML_FILE_FOLDER + SEARCH_PAGE_URL);
-        String expectedUrlInString = expectedUrl.toExternalForm() + "?name="
+        String expectedUrl = SEARCH_PAGE_URL;
+        String expectedUrlInString = expectedUrl + "?name="
                 + selectedWord.getName().fullName.replaceAll(" ", "%20")
                 + "&meaning=" + selectedWord.getMeaning().fullMeaning.replaceAll(" ", "%20");
 
