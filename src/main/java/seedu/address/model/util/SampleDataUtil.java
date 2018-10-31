@@ -7,8 +7,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArchiveList;
 import seedu.address.model.AssignmentList;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyArchiveList;
 import seedu.address.model.ReadOnlyAssignmentList;
 import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Address;
@@ -50,6 +52,17 @@ public class SampleDataUtil {
         };
     }
 
+    public static Person[] getSampleArchive() {
+        return new Person[] {
+            new Person(new Name("Bernard Chong"), new Phone("85738293"), new Email("BernardC@example.com"),
+                        new Address("Blk 50 Punggol Street, #06-40"), new Salary("1000"), new Username("Bernard Chong"),
+                        new Password("Pa55w0rd"), getProjectSet("friends")),
+            new Person(new Name("Terrence Tan"), new Phone("88272758"), new Email("TerrenceT@example.com"),
+                        new Address("Blk 30 Lorong 3 Lorong Asrama, #07-18"), new Salary("6000"),
+                        new Username("Terrence Tan"), new Password("Pa55w0rd"), getProjectSet("friends")),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -71,6 +84,14 @@ public class SampleDataUtil {
             sampleAssignmentList.addAssignment(sampleAssignment);
         }
         return sampleAssignmentList;
+    }
+
+    public static ReadOnlyArchiveList getSampleArchiveList() {
+        ArchiveList sampleAl = new ArchiveList();
+        for (Person samplePerson : getSampleArchive()) {
+            sampleAl.addPerson(samplePerson);
+        }
+        return sampleAl;
     }
 
     /**

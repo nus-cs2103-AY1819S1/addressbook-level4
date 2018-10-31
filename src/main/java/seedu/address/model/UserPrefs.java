@@ -14,6 +14,7 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path assignmentListFilePath = Paths.get("data", "assignmentlist.xml");
+    private Path archiveListFilePath = Paths.get("data", "archivelist.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -35,15 +36,23 @@ public class UserPrefs {
         return addressBookFilePath;
     }
 
+    public void setAddressBookFilePath(Path addressBookFilePath) {
+        this.addressBookFilePath = addressBookFilePath;
+    }
+  
     public Path getAssignmentListFilePath() {
         return assignmentListFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setAssignmentListFilePath(Path assignmentListFilePath) { this.assignmentListFilePath = assignmentListFilePath; }
+
+    public Path getArchiveListFilePath() {
+        return archiveListFilePath;
     }
 
-    public void setAssignmentListFilePath(Path assignmentListFilePath) { this.assignmentListFilePath = assignmentListFilePath; }
+    public void setArchiveListFilePath(Path archiveListFilePath) {
+        this.archiveListFilePath = archiveListFilePath;
+    }
 
     @Override
     public boolean equals(Object other) {

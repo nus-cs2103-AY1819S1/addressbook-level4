@@ -16,7 +16,10 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.LeaveListEvent;
+import seedu.address.commons.events.ui.ListPickerSelectionChangedEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
+import seedu.address.commons.events.ui.PersonListEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SuccessfulLoginEvent;
 import seedu.address.logic.Logic;
@@ -38,6 +41,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private LeaveListPanel leaveListPanel;
+    private PersonListPanel archivedListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -45,6 +50,7 @@ public class MainWindow extends UiPart<Stage> {
     private UserPrefs prefs;
     private HelpWindow helpWindow;
     private AssignmentListPanel assignmentListPanel;
+    private ListPicker listPicker;
 
     // Independent UI parts for login.
     private LoginIntroduction loginIntroduction;
@@ -70,6 +76,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane listPickerPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -135,8 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        fillPersonListParts();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -149,6 +157,10 @@ public class MainWindow extends UiPart<Stage> {
 
         assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
 
+        listPicker = new ListPicker();
+        listPickerPlaceholder.getChildren().add(listPicker.getRoot());
+
+        archivedListPanel = new PersonListPanel(logic.getArchivedPersonList());
     }
 
     /**
@@ -160,6 +172,26 @@ public class MainWindow extends UiPart<Stage> {
 
         loginForm = new LoginForm();
         personListPanelPlaceholder.getChildren().add(loginForm.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the person list
+     */
+    void fillPersonListParts() {
+        if (personListPanel == null) {
+            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        }
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Fills up the person list placeholder with the leave application list
+     */
+    void fillLeaveParts() {
+        if (leaveListPanel == null) {
+            leaveListPanel = new LeaveListPanel(logic.getFilteredLeaveApplicationList());
+        }
+        personListPanelPlaceholder.getChildren().add(leaveListPanel.getRoot());
     }
 
     /**
@@ -182,9 +214,30 @@ public class MainWindow extends UiPart<Stage> {
         fillLoginParts();
     }
 
+    /**
+     * Listens for a person list Event from the EventBus. This will be triggered when a PersonListEvent is pushed
+     * to the EventBus.
+     * @param personListEvent The event information
+     */
+    @Subscribe
+    void processPersonList(PersonListEvent personListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillPersonListParts();
+    }
+
+    /**
+     * Listens for a leave list Event from the EventBus. This will be triggered when a LeaveListEvent is pushed
+     * to the EventBus.
+     * @param leaveListEvent The event information
+     */
+    @Subscribe
+    void processLeaveList(LeaveListEvent leaveListEvent) {
+        removePersonListPanelPlaceholderElements();
+        fillLeaveParts();
+    }
+
     private void removeLoginWindow() {
         commandBoxPlaceholder.getChildren().remove(loginIntroduction.getRoot());
-
         personListPanelPlaceholder.getChildren().remove(loginForm.getRoot());
     }
 
@@ -194,11 +247,27 @@ public class MainWindow extends UiPart<Stage> {
     private void removeInnerElements() {
         this.releaseResources();
         browserPlaceholder.getChildren().remove(browserPanel.getRoot());
-        personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        removePersonListPanelPlaceholderElements();
         resultDisplayPlaceholder.getChildren().remove(resultDisplay.getRoot());
         statusbarPlaceholder.getChildren().remove(statusBarFooter.getRoot());
         commandBoxPlaceholder.getChildren().remove(commandBox.getRoot());
         assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
+        listPickerPlaceholder.getChildren().remove(listPicker.getRoot());
+    }
+
+    /**
+     * Removes the elements in the person list panel placeholder.
+     */
+    private void removePersonListPanelPlaceholderElements() {
+        if (personListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+        }
+        if (archivedListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+        }
+        if (leaveListPanel != null) {
+            personListPanelPlaceholder.getChildren().remove(leaveListPanel.getRoot());
+        }
     }
 
     void hide() {
@@ -267,5 +336,18 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleListPickerSelectionChangedEvent(ListPickerSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getNewSelection() == 2) {
+            personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().add(archivedListPanel.getRoot());
+        }
+        if (event.getNewSelection() == 1) {
+            personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
+            personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        }
     }
 }

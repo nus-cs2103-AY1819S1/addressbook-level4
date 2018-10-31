@@ -27,11 +27,13 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LeaveApplyCommand;
+import seedu.address.logic.commands.LeaveListCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewPermissionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.Permission;
@@ -147,6 +149,19 @@ public class AddressBookParserTest {
         LeaveApplyCommand command = (LeaveApplyCommand) parser.parseCommand(LeaveApplyCommand.COMMAND_WORD
                 + LEAVEDESCIPTION_DESC_BENSON_LEAVE + LEAVEDATES_DESC_BENSON_LEAVE);
         assertEquals(new LeaveApplyCommand(leaveApplication), command);
+    }
+
+    @Test
+    public void parseCommand_leavelist() throws Exception {
+        assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD) instanceof LeaveListCommand);
+        assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD + " 3") instanceof LeaveListCommand);
+    }
+
+    @Test
+    public void parseCommand_viewPermissionCommand() throws Exception {
+        ViewPermissionCommand command = (ViewPermissionCommand) parser.parseCommand(
+                ViewPermissionCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new ViewPermissionCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test

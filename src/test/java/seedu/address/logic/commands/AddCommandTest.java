@@ -18,9 +18,12 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArchiveList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyArchiveList;
 import seedu.address.model.ReadOnlyAssignmentList;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
@@ -110,6 +113,11 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAssignmentList getAssignmentList() { throw new AssertionError("This method should not be called."); }
+      
+        @Override
+        public ReadOnlyArchiveList getArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean hasPerson(Person person) {
@@ -142,6 +150,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getArchivedPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -150,9 +163,19 @@ public class AddCommandTest {
         public ObservableList<Assignment> getFilteredAssignmentList() {
             throw new AssertionError("This method should not be called.");
         }
+      
+        @Override
+        public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -252,5 +275,11 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
+
+        @Override
+        public ReadOnlyArchiveList getArchiveList() {
+            return new ArchiveList();
+        }
+
     }
 }

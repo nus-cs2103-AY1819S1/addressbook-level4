@@ -36,6 +36,15 @@ public class XmlFileStorage {
         }
     }
 
+    public static void saveArchiveListDataToFile(Path file, XmlSerializableArchiveList archiveList)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, archiveList);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
     /**
      * Returns address book in the file or an empty address book
      */
@@ -55,6 +64,18 @@ public class XmlFileStorage {
             FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableAssignmentList.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+   
+    /**
+     * Returns archive list in the file or an empty archive list
+     */
+    public static XmlSerializableArchiveList loadArchiveDataFromSaveFile(Path file) throws DataConversionException,
+            FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableArchiveList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

@@ -9,10 +9,13 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AssignmentListChangedEvent;
+import seedu.address.commons.events.model.ArchivedListChangedEvent;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
@@ -25,7 +28,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedAssignmentList versionedAssignmentList;
+    private final VersionedArchiveList versionedArchiveList;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<LeaveApplicationWithEmployee> filteredLeaveApplications;
+    private final FilteredList<Person> archivedPersons;
     private User loggedInUser;
 
     private final FilteredList<Assignment> filteredAssignments;
@@ -33,7 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAssignmentList assignmentList, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAssignmentList assignmentList, ReadOnlyArchiveList archiveList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
@@ -43,10 +49,13 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAssignmentList = new VersionedAssignmentList(assignmentList);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredAssignments = new FilteredList<>(versionedAssignmentList.getAssignmentList());
+        versionedArchiveList = new VersionedArchiveList(archiveList);
+        filteredLeaveApplications = new FilteredList<>(versionedAddressBook.getLeaveApplicationList());
+        archivedPersons = new FilteredList<>(versionedArchiveList.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new AssignmentList(), new UserPrefs());
+        this(new AddressBook(), new AssignmentList(), new ArchiveList(), new UserPrefs());   
     }
 
     @Override
@@ -54,6 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
         indicateAssignmentListChanged();
+        indicateArchivedListChanged();
     }
 
     @Override
@@ -64,11 +74,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAssignmentList getAssignmentList() {
         return versionedAssignmentList;
+      
+    @Override  
+    public ReadOnlyArchiveList getArchiveList() {
+        return versionedArchiveList;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateArchivedListChanged() {
+        raise(new ArchivedListChangedEvent(versionedArchiveList));
     }
 
     @Override
@@ -80,7 +99,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+        versionedArchiveList.addPerson(target);
         indicateAddressBookChanged();
+        indicateArchivedListChanged();
     }
 
     @Override
@@ -118,9 +139,31 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Person> getArchivedPersonList() {
+        return FXCollections.unmodifiableObservableList(archivedPersons);
+    }
+
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Leave Application List Accessors ============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code LeaveApplication} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
+        return FXCollections.unmodifiableObservableList(filteredLeaveApplications);
+    }
+
+    @Override
+    public void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate) {
+        requireNonNull(predicate);
+        filteredLeaveApplications.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -172,7 +215,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredLeaveApplications.equals(other.filteredLeaveApplications);
     }
 
     /** Raises an event to indicate the model has changed */

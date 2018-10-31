@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
@@ -13,6 +14,7 @@ import seedu.address.model.person.User;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -22,6 +24,9 @@ public interface Model {
 
     /** Returns the AssignmentList */
     ReadOnlyAssignmentList getAssignmentList();
+  
+    /** Returns the ArchiveList */
+    ReadOnlyArchiveList getArchiveList();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -62,11 +67,23 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the archived person list */
+    ObservableList<Person> getArchivedPersonList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered leave application list */
+    ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList();
+
+    /**
+     * Updates the filter of the filtered leave application list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.

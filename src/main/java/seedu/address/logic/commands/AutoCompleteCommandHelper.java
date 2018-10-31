@@ -19,11 +19,13 @@ public class AutoCompleteCommandHelper {
         UndoCommand.COMMAND_WORD,
         AddAssignmentCommand.COMMAND_WORD,
         ModifyPermissionCommand.COMMAND_WORD,
-        ListAssignmentCommand.COMMAND_WORD
+        ListAssignmentCommand.COMMAND_WORD,
+        ViewPermissionCommand.COMMAND_WORD
     };
 
     /**
      * This method predicts the command the user is entering.
+     *
      * @param partialWord The current characters available in command box.
      * @return The predicted command.
      */
