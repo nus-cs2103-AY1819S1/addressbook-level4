@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -13,11 +13,12 @@
         margin: 0;
         padding: 0;
       }
+
     </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
+</head>
+<body>
+<div id="map"></div>
+<script>
 			var SVY21 = (function(){
 			// Ref: http://www.linz.govt.nz/geodetic/conversion-coordinates/projection-conversions/transverse-mercator-preliminary-computations/index.aspx
 
@@ -39,7 +40,6 @@
 			this.k = 1; // scale factor
 
 			this.init = function(){
-				console.log("hi");
 				this.b = this.a * (1 - this.f);
 				this.e2 = (2 * this.f) - (this.f * this.f);
 				this.e4 = this.e2 * this.e2;
@@ -50,7 +50,6 @@
 				this.A6 = 35 * this.e6 / 3072;
 			};
 			this.init();
-
 			this.computeSVY21 = function(lat, lon){
 				//Returns a pair (N, E) representing Northings and Eastings in SVY21.
 
@@ -102,14 +101,10 @@
 
 				return {N:N, E:E};
 			};
-
-
-
 			this.calcM = function(lat, lon){
 				var latR = lat * Math.PI / 180;
 				return this.a * ((this.A0 * latR) - (this.A2 * Math.sin(2 * latR)) + (this.A4 * Math.sin(4 * latR)) - (this.A6 * Math.sin(6 * latR)));
 			};
-
 			this.calcRho = function(sin2Lat){
 				var num = this.a * (1 - this.e2);
 				var denom = Math.pow(1 - this.e2 * sin2Lat, 3. / 2.);
@@ -120,8 +115,6 @@
 				var poly = 1 - this.e2 * sin2Lat;
 				return this.a / Math.sqrt(poly);
 			};
-
-
 
 			this.computeLatLon = function(N, E){
 				// Returns a pair (lat, lon) representing Latitude and Longitude.
@@ -182,7 +175,6 @@
 				return {lat: lat / (Math.PI / 180), lon: lon / (Math.PI / 180)};
 			};
 		});
-	
 		function getJsonFromUrl() {
 			var query = location.search.substr(1);
 			var result = {};
@@ -192,17 +184,14 @@
 			});
 			return result;
 		}
-		
 		var map;
-		var prev_infowindow =false; 
-	  
+		var prev_infowindow =false;
 		function clearOverlays() {
 			for (var i = 0; i < markersArray.length; i++ ) {
 				markersArray[i].close();
 			}
 			markersArray.length = 0;
 		}
-	  
 		function initMap() {
 			var theUrl = "https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=3942";
 			var xmlHttp = new XMLHttpRequest();
@@ -252,7 +241,6 @@
 				})(marker,content,infowindow)); 
 			}
 		}
-		
 		function selectIndiv () {
 			var msg = getJsonFromUrl().json;
 			console.log(msg);
@@ -300,7 +288,6 @@
 				};
 			})(marker,content,infowindow)); 
 		}
-		
 		function handleMaps () {
 			var defaultFlag = getJsonFromUrl().isDefault;
 			if (defaultFlag == 1) {
@@ -310,9 +297,9 @@
 				selectIndiv();
 			}
 		}
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhN4_NQ94uS9Z0Ix6AfRgeXZN1rVahjBE&callback=handleMaps">
-    </script>
-  </body>
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhN4_NQ94uS9Z0Ix6AfRgeXZN1rVahjBE&callback=handleMaps">
+</script>
+</body>
 </html>
