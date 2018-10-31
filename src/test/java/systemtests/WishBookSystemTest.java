@@ -3,6 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -143,7 +144,7 @@ public abstract class WishBookSystemTest {
      * Displays all wishes with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showWishesWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FindCommand.COMMAND_WORD + " " + PREFIX_NAME + keyword);
         assertTrue(getModel().getFilteredSortedWishList().size() < getModel().getWishBook().getWishList().size());
     }
 
