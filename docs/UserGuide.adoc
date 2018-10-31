@@ -248,6 +248,7 @@ Example:
 * `join n/Derek g/CS2103T` +
 Makes the person 'Derek' to be a member of group 'CS2103T'.
 
+
 [NOTE]
 Both the person and group should exist in the MeetingBook.
 
@@ -285,7 +286,12 @@ Examples:
 === Importing data : `import`
 
 User is able to import other data. +
-Format: `import <relative filepath>`
+Default behaviour is to ignore any conflicting Person/Group entries unless `--force` option is supplied. +
+Format: `import <relative filepath>` or `import --force <relative filepath>`
+
+Example: +
+`import f/backup.xml` : Import backup.xml into MeetingBook +
+`import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
 // end::import[]
 
 // tag::export[]
@@ -313,7 +319,7 @@ Example:
 `filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
 
 ****
-User can also check the current path of MeetingBook use `filepath show`
+User can also check the current path of MeetingBook use `filepath --show`
 ****
 // end::filepath[]
 
