@@ -49,6 +49,15 @@ public class Password {
         return password;
     }
 
+    /**
+     * Checks if this password matches a certain password in plaintext
+     * @param plaintext The entered password in plaintext
+     * @return if it matches are not
+     */
+    public boolean matches(String plaintext) {
+        return password.equals(plaintext);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
