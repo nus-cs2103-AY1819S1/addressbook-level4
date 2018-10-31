@@ -95,11 +95,10 @@ Format: +
 `-ingredient`
 
 ==== Display meal planner: `-mealplanner`
-Display current meal plan. shows the planned meals for breakfast,
-lunch and dinner. Displays the calorie count for each meal, as well as the total calorie count
- for the entire day. +
+Display current Meal Planner. Shows the planned meals for breakfast,
+lunch and dinner for previously planned days. +
 Format: +
-`-plannerlist`
+`-mealplanner`
 
 ==== Exit application: `-exit`
 Format: +
