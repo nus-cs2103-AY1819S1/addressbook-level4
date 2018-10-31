@@ -10,7 +10,6 @@ import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
-import seedu.thanepark.model.ride.Status;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.tag.Tag;
 
