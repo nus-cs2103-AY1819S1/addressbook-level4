@@ -1,5 +1,6 @@
 package seedu.learnvocabulary.logic.parser;
 
+import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_ENTER_WORD;
 import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -18,7 +19,8 @@ public class ShowCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_ENTER_WORD,
+                ShowCommand.MESSAGE_USAGE));
     }
 
     @Test
