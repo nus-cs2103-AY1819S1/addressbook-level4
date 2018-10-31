@@ -64,7 +64,7 @@ public class EditExpenseDescriptorTest {
         assertFalse(DESC_GAME.equals(editedAmy));
     }
 
-    //@@Author jcjxwy
+    //@@author jcjxwy
     @Test
     public void test_createEditExpenseDescriptor_successful() {
         ArgumentMultimap testMap = prepareMap("n/test");

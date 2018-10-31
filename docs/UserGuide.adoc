@@ -255,7 +255,7 @@ Format: `delete INDEX`
 === Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
-Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]`
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG]... `
 
 ****
 *Examples:*

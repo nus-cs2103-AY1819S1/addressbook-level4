@@ -34,7 +34,6 @@ public class StringUtil {
         String preppedSentence = sentence.toLowerCase();
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
-        //@@Author jcjxwy
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(keyword -> keyword.contains(preppedWord));
     }
