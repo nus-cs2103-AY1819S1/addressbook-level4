@@ -241,6 +241,11 @@ public class ModelManager extends ComponentManager implements Model {
         canvas.addLayer(i);
     }
 
+    /**
+     * Overloads the addLayer function to handle an optional name.
+     * @param i
+     * @param name
+     */
     public void addLayer(PreviewImage i, String name) {
         canvas.addLayer(i, name);
 

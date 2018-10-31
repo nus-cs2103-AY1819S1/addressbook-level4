@@ -3,13 +3,11 @@ package seedu.address.model.canvas;
 //@@author j-lum
 import static java.util.Objects.requireNonNull;
 
-import javafx.scene.image.Image;
-import seedu.address.commons.util.ImageMagickUtil;
+import java.io.IOException;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.PreviewImage;
 import seedu.address.model.transformation.Transformation;
-
-import java.io.IOException;
 
 /**
  * Represents a layer in a canvas.

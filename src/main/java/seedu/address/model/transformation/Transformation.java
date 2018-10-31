@@ -4,7 +4,6 @@ package seedu.address.model.transformation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Represents a single transformation to a single layer in a canvas.
