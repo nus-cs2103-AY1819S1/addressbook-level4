@@ -211,12 +211,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         Person personCopy = person.copy();
         Group groupCopy = group.copy();
 
-        groupCopy.addMember(personCopy);
+        group.addMember(person);
 
-        updatePerson(person, personCopy);
-        updateGroup(group, groupCopy);
+        updatePerson(personCopy, person);
+        updateGroup(groupCopy, group);
 
-        group.addMember(person); // to satisfy the test on the input parameter
     }
 
     /**
@@ -227,10 +226,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         Person personCopy = person.copy();
         Group groupCopy = group.copy();
 
-        groupCopy.removeMember(personCopy);
+        group.removeMember(person);
 
-        updatePerson(person, personCopy);
-        updateGroup(group, groupCopy);
+        updatePerson(personCopy, person);
+        updateGroup(groupCopy, group);
     }
 
     // @@author NyxF4ll
