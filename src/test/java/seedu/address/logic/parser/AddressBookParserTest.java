@@ -27,6 +27,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LeaveApplyCommand;
+import seedu.address.logic.commands.LeaveListCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -147,6 +148,12 @@ public class AddressBookParserTest {
         LeaveApplyCommand command = (LeaveApplyCommand) parser.parseCommand(LeaveApplyCommand.COMMAND_WORD
                 + LEAVEDESCIPTION_DESC_BENSON_LEAVE + LEAVEDATES_DESC_BENSON_LEAVE);
         assertEquals(new LeaveApplyCommand(leaveApplication), command);
+    }
+
+    @Test
+    public void parseCommand_leavelist() throws Exception {
+        assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD) instanceof LeaveListCommand);
+        assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD + " 3") instanceof LeaveListCommand);
     }
 
     @Test
