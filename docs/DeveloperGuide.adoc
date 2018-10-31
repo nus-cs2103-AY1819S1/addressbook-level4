@@ -486,7 +486,7 @@ which then creates a `FindCommandParser` Object and calls `FindCommandParser#par
 . `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
 an `ArgumentMultimap` Object.
 
-. `FindCommandParser#parse()` method then calls `FindCommandParser#ensureKeywordsAreValid()` method. If any
+. `FindCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
 of the keywords doesn't conform to the correct format, `ParseException` will be thrown. If no exception is thrown, a
 `ExpenseContainsKeywordsPredicate` Object is created. It implements Predicate<Expense> interface and is used to filter
 out all the expenses which matches the keywords entered by the user.
@@ -494,11 +494,41 @@ out all the expenses which matches the keywords entered by the user.
 . A `FindCommand` Object with the `ExpenseContainsKeywordsPredicate` Object as parameter is created and returned to
 `LogicManager`.
 
-. `LogicManager` then calls `StatsCommand#execute()`,which calls `ModelManager#updateFilteredExpenseList()`
+. `LogicManager` then calls `FindCommand#execute()`,which calls `Model#updateFilteredExpenseList()`
 method to update the predicate of FilterList<Expense>. FilterList now contains new set of expenses which filtered by the
 new predicate.
 
-. Then the expense list panel will show a new set of expenses according to the keywords.
+. Then the expense list panel will show a new set of expenses according to the keywords. A `CommandResult` is then created
+and returned to `LogicManager`.
+
+=== Mass Edit
+
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram of mass edit mechanism
+image::implementation/MassEditCommandSequenceDiagram.png[width="800"]
+
+. User enters command `massedit c/school -> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
+  which then creates a `MassEditCommandParser` Object and calls `MassEditCommandParser#parse()` method.
+
+. `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+two `ArgumentMultimap` Objects.
+
+. `MassEditCommandParser#parse()` method then create a `ExpenseContainsKeywordsPredicate` Object. Then it calls `EditExpenseDescriptor#createEditExpenseDescriptor()` method to create an
+`EditExpenseDescriptor` Object which stores the fields of expenses which are going to be edited.
+
+. A `MassEditCommand` Object with the `ExpenseContainsKeywordsPredicate` and `EditExpenseDescriptor` Object as parameters is created and returned to
+`LogicManager`.
+
+. `LogicManager` then calls `MassEditCommand#execute()`,which calls `Model#updateFilteredExpenseList()`
+method to update the predicate of FilterList<Expense>. `Model#getFilteredExpenseList()` is called to return the FilterList<Expense>.
+
+. A loop starts and for each `Expense` in the FilterList<Expense>, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
+Then `Model#updateExpense` is called to replace the original `Expense` with edited `Expense`.
+
+. When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
+A `CommandResult` is then created and returned to `LogicManager`.
+
 
 // tag::UserInterfaceRedesign[]
 === User Interface Redesign

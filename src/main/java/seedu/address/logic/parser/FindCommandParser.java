@@ -12,10 +12,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
+//@@author jcjxwy
 /**
  * Parses input arguments and creates a new FindCommand object
  */
-//@@Author jcjxwy
 public class FindCommandParser implements Parser<FindCommand> {
 
     /**
