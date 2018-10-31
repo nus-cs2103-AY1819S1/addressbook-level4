@@ -53,9 +53,6 @@ public class CarparkFinderParser {
             return new SelectCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
@@ -64,41 +61,23 @@ public class CarparkFinderParser {
 
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ABBREVIATION:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
         case ExitCommand.COMMAND_ABBREVIATION:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
         case HelpCommand.COMMAND_ABBREVIATION:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            }
             return new RedoCommand();
 
         case FilterCommand.COMMAND_WORD:
@@ -107,9 +86,6 @@ public class CarparkFinderParser {
 
         case QueryCommand.COMMAND_WORD:
         case QueryCommand.COMMAND_ABBREVIATION:
-            if (!arguments.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QueryCommand.MESSAGE_USAGE));
-            }
             return new QueryCommand();
 
         case NotifyCommand.COMMAND_WORD:
