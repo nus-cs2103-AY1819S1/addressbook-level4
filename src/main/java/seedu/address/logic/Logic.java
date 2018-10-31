@@ -32,4 +32,10 @@ public interface Logic {
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /**
+     * Returns a string array of suggestions for the user for the autocomplete function
+     * @return string array of suggestions
+     */
+    String[] getAutoCompleteList();
 }
