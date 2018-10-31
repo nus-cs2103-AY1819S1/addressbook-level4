@@ -304,7 +304,7 @@ Stepp 5: Following that, the corresponding `ToDoListEvent` will be deleted and n
 * `StorageManager` -- Add `ToDoListStorage` component.
 
 ==== GUI for ToDoList feature:
-The ToDoList GUI contains two parts: 
+The ToDoList GUI contains two parts:
 
 * `TaskListPanel` -- Panel containing the list of `ToDoListEvent`.
 * `ToDoListEventCard` -- An UI component that displays information of a `ToDoListEvent`.
