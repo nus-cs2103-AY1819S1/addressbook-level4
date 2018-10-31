@@ -23,7 +23,7 @@ Piconso is for those who *prefer to use a desktop app for editing images*. More 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `piconso.jar` link:{repoURL}/releases[here].
+.  Download the latest `piconso.jar` link:https://github.com/CS2103-AY1819S1-T09-3/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
@@ -95,7 +95,6 @@ Available transformations
 
 * `rotate`: rotates an image. DIRECTION [left, right], VALUE [-180, 180]
 
-<<<<<<< HEAD
 ** Format: `convert rotate [vlaue]`
 ** Example: `convert rotate 90`
 
