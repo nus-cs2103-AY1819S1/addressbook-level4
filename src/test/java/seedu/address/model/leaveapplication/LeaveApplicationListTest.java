@@ -12,6 +12,7 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.leaveapplication.exceptions.LeaveNotFoundException;
 
 public class LeaveApplicationListTest {
