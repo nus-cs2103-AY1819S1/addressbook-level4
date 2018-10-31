@@ -36,11 +36,11 @@ public class LeaveApplicationList implements Iterable<LeaveApplicationWithEmploy
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the leave application {@code target} in the list with {@code editedLeave}.
      * {@code target} must exist in the list.
      */
-    public void setLeaveApplicationWithEmployee(LeaveApplicationWithEmployee target,
-                                                LeaveApplicationWithEmployee editedLeave) {
+    public void setLeaveApplication(LeaveApplicationWithEmployee target,
+                                    LeaveApplicationWithEmployee editedLeave) {
         requireAllNonNull(target, editedLeave);
 
         int index = internalList.indexOf(target);
@@ -62,6 +62,9 @@ public class LeaveApplicationList implements Iterable<LeaveApplicationWithEmploy
         }
     }
 
+    /**
+     * Replaces the contents of this list with {@code replacement} leave application list.
+     */
     public void setLeaveApplications(LeaveApplicationList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -70,7 +73,7 @@ public class LeaveApplicationList implements Iterable<LeaveApplicationWithEmploy
     /**
      * Replaces the contents of this list with {@code leaveApplications}.
      */
-    public void setPersons(List<LeaveApplicationWithEmployee> leaveApplications) {
+    public void setLeaveApplications(List<LeaveApplicationWithEmployee> leaveApplications) {
         requireAllNonNull(leaveApplications);
         internalList.setAll(leaveApplications);
     }
