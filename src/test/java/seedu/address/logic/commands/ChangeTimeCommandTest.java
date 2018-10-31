@@ -1,23 +1,19 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Arrays;
+
+import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.EducationFilterPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.function.Predicate;
-
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class ChangeTimeCommandTest {
 
@@ -31,22 +27,22 @@ public class ChangeTimeCommandTest {
         String second = "alice";
 
 
-        ChangeTimeCommand ChangeTimeFirstCommand = new ChangeTimeCommand(first);
-        ChangeTimeCommand ChangeTimeSecondCommand = new ChangeTimeCommand(second);
+        ChangeTimeCommand changeTimeFirstCommand = new ChangeTimeCommand(first);
+        ChangeTimeCommand changeTimeSecondCommand = new ChangeTimeCommand(second);
 
         // same object -> returns true
-        assertTrue(ChangeTimeFirstCommand.equals(ChangeTimeFirstCommand));
+        assertTrue(changeTimeFirstCommand.equals(changeTimeFirstCommand));
 
         // same values -> returns true
-        ChangeTimeCommand ChangeTimeCommandCopy = new ChangeTimeCommand(first);
-        assertTrue(ChangeTimeFirstCommand.equals(ChangeTimeCommandCopy));
+        ChangeTimeCommand changeTimeCommandCopy = new ChangeTimeCommand(first);
+        assertTrue(changeTimeFirstCommand.equals(changeTimeCommandCopy));
 
         // different types -> returns false
-        assertFalse(ChangeTimeFirstCommand.equals(1));
+        assertFalse(changeTimeFirstCommand.equals(1));
 
 
         // different person -> returns false
-        assertFalse(ChangeTimeFirstCommand.equals(ChangeTimeSecondCommand));
+        assertFalse(changeTimeFirstCommand.equals(changeTimeSecondCommand));
     }
 
     @Test
