@@ -62,7 +62,8 @@ Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]`
 
 [TIP]
-A person can have any number of tags (including 0)
+A person can have any number of tags and grades (including 0).
+You can see the details about grade attribute in the <<grade,grade feature>>
 
 Examples:
 
@@ -84,6 +85,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* You can see the details about grade attribute in the <<grade,grade feature>>
 ****
 
 Examples:
@@ -287,6 +289,38 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
+
+[[grade]]
+=== Grades attribute
+
+Grade attribute consists of two parts, exam name and exam score.
+
+[NOTE]
+====
+* The name and grade should be separated by space.
+
+* Score should be between 0 and 100.
+====
+
+Add grade:
+
+You can add some grades record for a student, both using add command and edit command.
+
+Example
+
+`add g/mid-test 100 [other part]`
+
+`edit 1 g/mid-test 100`
+
+[NOTE]
+====
+Edit grade will not delete the previous grades as tap attribute.
+====
+
+Change grade:
+
+if you need to change the score of a exam, you can use edit as well.
 
 === Analyzing grades commands `[coming in v2.0]`
 
