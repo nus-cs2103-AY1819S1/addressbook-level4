@@ -818,7 +818,7 @@ See this https://github.com/se-edu/articlelist-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: an administrator who
 
 * has a need to manage a lot of lost and found articles
 * prefer desktop apps over web equivalents
@@ -836,43 +836,30 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions | Refer to instructions when I forget how to use the commands
+|`* * *` |new administrator |see usage instructions | Refer to instructions when I forget how to use the commands
 
-|`* * *` |user |add an article | Make a new entry
+|`* * *` |administrator |add an article | Make a new entry
 
-|`* * *` |user |delete an article | Remove articles that are no longer needed
+|`* * *` |administrator |delete an article | Remove articles that are no longer needed
 
-|`* * *` |user |Set the description of the article | Identify the article
+|`* * *` |careless administrator |edit an article | Change details of an article that I made by mistake
 
-|`* * *` |user |Set the photo of the article | Identify the article
+|`* * *` |administrator |Set the photo of the article | Identify the article easily by sight
 
-|`* * *` |user |Set the properties of the article | Identify the article
+|`* * *` |detailed administrator |Show the number of listings| Keep track of the number of entries
 
-|`* * *` |user |Set the location the article was lost/found | Identify the article
+|`* * *` |detailed administrator |View the details of a selected article| See the specific details of the article
 
-|`* * *` |user |Show the number of listings| Keep track of the number of entries
+|`* * *` |administrator who received a claim request |Find articles using the name of the article| Find the article easily
 
-|`* * *` |user |View the details of a selected article| See the specific details of the article
+|`* *`   |administrator who received a claim request |Find articles with matching keywords in their description| Find the articles easily
 
-|`* * *` |user |Find articles using the name of the article| Find the article easily
+|`* * *` |administrator who received a claim request|Resolve articles that have been claimed| Separate resolved and unresolved articles
 
-|`* * *` |user |Resolve articles that have been returned| Categorize resolved articles
+|`* *`   |careless administrator |Undo the last n actions|Cancel actions I did by mistake
 
-|`* *`   |user |Find articles with matching keywords in their description| Find the articles easily
+|`* *`   |careless administrator |Redo the last n actions|Cancel undo actions that I did by mistake
 
-|`* *`   |user |Sort the article by their names| Reorganize the listings
-
-|`* *`   |user |Undo the last n actions|Cancel actions I did by mistake
-
-|`* *`   |user |Redo the last n actions|Cancel undo actions that I did by mistake
-
-|`* *`   |user |Add / remove multiple tags from an article |
-
-|`*`     |user |Sort the articles by the name of the person who lost it |
-
-|`*`     |user |Sort the articles by the name of the person who found it |
-
-|`*`     |user |Find articles with specific combination of tag|
 
 |=======================================================================
 

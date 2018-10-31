@@ -81,6 +81,7 @@ Examples:
 * `add n/Wallet d/Empty Wallet found in COM1 f/John Doe p/98765432 e/johnd@example.com`
 * `add n/Nike Bag d/Found at YIH f/Betsy Crowe t/blue e/betsycrowe@example.com p/1234567`
 
+//tag::resolvefeature[]
 ==== Resolving an article: `resolve`
 Description: Resolves the specified article from LostBUTFound.
 
@@ -94,6 +95,7 @@ Examples:
 
 * `resolve 2` resolves the second article in the list
 
+//end::resolvefeature[]
 ==== Listing all articles : `list`
 Description: Shows a list of all unresolved articles in LostBUTFound. Resolved articles will not appear in the list.
 
@@ -139,6 +141,7 @@ Examples:
 
 * `select 2` selects the second article in the list.
 
+//tag::findfeature[]
 === Finding articles
 This section will detail commands that are used to find article entries using various parameters in LostBUTFound. The list shown in the interface will only show matching article entries after executing the command.
 
@@ -208,6 +211,7 @@ Examples:
 * `findresolved Jacket` returns resolved article entries which have fields having keywords `Jacket`.
 * `findresolved Tom wallet` returns resolved article entries which have fields having keywords `Tom`, `Wallet`.
 
+//end::findfeature[]
 === Miscellaneous Commands
 This section will detail other commands that facilitate use in LostBUTFound.
 
