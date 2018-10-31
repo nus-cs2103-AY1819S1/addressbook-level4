@@ -7,16 +7,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Time;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.UniquePersonList;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Adds a time slot of a Person in the address book.
@@ -41,7 +37,6 @@ public class TimeAddCommand extends Command {
     private String[] personToFind;
 
     private final Time toAdd;
-  //  private final String toFind;
 
     /**
      * Creates a TimeAddCommand to add the specified {@code Time}
@@ -49,7 +44,6 @@ public class TimeAddCommand extends Command {
     public TimeAddCommand(String personName, Time time) {
         requireNonNull(time);
         toAdd = time;
-       // toFind = personName;
         personToFind = personName.split("\\s+");
     }
 
@@ -92,10 +86,7 @@ public class TimeAddCommand extends Command {
                 throw new CommandException(MESSAGE_TIME_CLASH);
             }
         }
-     //   model.addTime(toFind, toAdd);
-     //   model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-     //   model.commitAddressBook();
-        model.addTime(targetPerson, toAdd);
+        targetPerson.addTime(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADDED));
     }
