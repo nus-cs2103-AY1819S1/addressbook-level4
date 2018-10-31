@@ -14,7 +14,7 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 
 == Summary of contributions
 
-* *Major enhancement*: 
+* *Major enhancement*:
 ** Added *the ability to login/logout commands*
 *** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 *** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
