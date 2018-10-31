@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private LeaveListPanel leaveListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -153,6 +154,14 @@ public class MainWindow extends UiPart<Stage> {
 
         loginForm = new LoginForm();
         personListPanelPlaceholder.getChildren().add(loginForm.getRoot());
+    }
+
+    /**
+     * Replaces the person list placeholder with the leave application list placeholder
+     */
+    void fillLeaveParts() {
+        leaveListPanel = new LeaveListPanel(logic.getFilteredLeaveApplicationList());
+        personListPanelPlaceholder.getChildren().add(leaveListPanel.getRoot());
     }
 
     /**
