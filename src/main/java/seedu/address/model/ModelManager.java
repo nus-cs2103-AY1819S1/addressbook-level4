@@ -3,6 +3,8 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -12,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 
@@ -23,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<LeaveApplication> filteredLeaveApplications;
     private User loggedInUser;
 
     /**
@@ -36,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredLeaveApplications = new FilteredList<>(retrieveLeaveApplicationsFromPersons());
     }
 
     public ModelManager() {
@@ -108,6 +113,31 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Filtered Leave Application List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code LeaveApplication} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<LeaveApplication> getFilteredLeaveApplicationList() {
+        return FXCollections.unmodifiableObservableList(filteredLeaveApplications);
+    }
+
+    @Override
+    public void updateFilteredLeaveApplicationList(Predicate<LeaveApplication> predicate) {
+        requireNonNull(predicate);
+        filteredLeaveApplications.setPredicate(predicate);
+    }
+
+    private ObservableList<LeaveApplication> retrieveLeaveApplicationsFromPersons() {
+        List<LeaveApplication> leaveApplications = new ArrayList<>();
+        versionedAddressBook.getPersonList().forEach(
+                person -> person.getLeaveApplications().forEach(
+                        leaveApplication -> leaveApplications.add(leaveApplication)));
+        return FXCollections.unmodifiableObservableList(FXCollections.observableList(leaveApplications));
     }
 
     //=========== Undo/Redo =================================================================================

@@ -28,6 +28,8 @@ public class LeaveApplicationCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label employee;
+    @FXML
     private Label description;
     @FXML
     private Label id;
@@ -40,6 +42,7 @@ public class LeaveApplicationCard extends UiPart<Region> {
         super(FXML);
         this.leaveApplication = leaveApplication;
         id.setText(displayedIndex + ". ");
+        employee.setText(""); // TODO
         description.setText(leaveApplication.getDescription().value);
         status.setText(leaveApplication.getLeaveStatus().value.toString());
         leaveApplication.getDates().forEach(date -> dates.getChildren().add(new Label(DateUtil.convertToString(date))));

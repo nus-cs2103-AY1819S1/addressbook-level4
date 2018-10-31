@@ -9,7 +9,6 @@ import seedu.address.model.person.Person;
  */
 public class LeavePanelSelectionChangedEvent extends BaseEvent {
 
-
     private final LeaveApplication newSelection;
 
     public LeavePanelSelectionChangedEvent(LeaveApplication newSelection) {
