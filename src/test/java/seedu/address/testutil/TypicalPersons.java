@@ -26,6 +26,7 @@ import seedu.address.model.appointment.ConsumptionPerDay;
 import seedu.address.model.appointment.Dosage;
 import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
@@ -76,7 +77,6 @@ public class TypicalPersons {
 
     public static final Appointment APPT_FIRST = new Appointment(VALID_APPOINTMENT_ID_FIRST, VALID_DOCTOR_JOHN,
             VALID_DATE_TIME);
-
 
     private TypicalPersons() {
     } // prevents instantiation

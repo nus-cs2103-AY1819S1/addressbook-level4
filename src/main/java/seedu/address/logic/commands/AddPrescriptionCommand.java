@@ -57,7 +57,7 @@ public class AddPrescriptionCommand extends Command {
 
         // Appointment List is empty
         if (appointmentList.isEmpty()) {
-            return new CommandResult(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
+            throw new CommandException(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
         }
 
         // Invalid appointment
