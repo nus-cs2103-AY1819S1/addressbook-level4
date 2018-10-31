@@ -102,6 +102,6 @@ public class WishTest {
     public void hashCodeTest() {
         Wish aliceCopy = new WishBuilder(ALICE).build();
         assertTrue(aliceCopy.hashCode()
-        == aliceCopy.hashCode());
+                == aliceCopy.hashCode());
     }
 }

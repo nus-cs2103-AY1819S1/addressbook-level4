@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
 
 import org.junit.Test;
 
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 
 public class DateTest {

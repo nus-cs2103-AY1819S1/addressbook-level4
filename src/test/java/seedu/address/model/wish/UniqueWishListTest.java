@@ -185,7 +185,7 @@ public class UniqueWishListTest {
 
     @Test
     public void hashCodeTest() {
-        assertTrue(uniqueWishList.hashCode() ==
-                uniqueWishList.hashCode());
+        assertTrue(uniqueWishList.hashCode()
+                == uniqueWishList.hashCode());
     }
 }

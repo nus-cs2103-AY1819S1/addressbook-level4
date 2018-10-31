@@ -9,7 +9,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BO
 
 import org.junit.Test;
 
-import org.junit.jupiter.api.TestTemplate;
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.testutil.Assert;
 
@@ -84,8 +83,8 @@ public class SavedAmountTest {
         Amount savedAmount1Negative = new Amount("-" + VALID_SAVED_AMOUNT_BOB);
 
         Assert.assertThrows(IllegalArgumentException.class,
-                SavedAmount.MESSAGE_SAVED_AMOUNT_NEGATIVE,
-                () -> savedAmount0.incrementSavedAmount(savedAmount1Negative)
+                SavedAmount.MESSAGE_SAVED_AMOUNT_NEGATIVE, () ->
+                        savedAmount0.incrementSavedAmount(savedAmount1Negative)
         );
     }
 
