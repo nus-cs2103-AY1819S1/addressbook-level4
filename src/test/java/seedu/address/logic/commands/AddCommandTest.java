@@ -230,11 +230,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateImageList() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public void updateImageList(ArrayList<Path> dirImageList) {
             throw new AssertionError("This method should not be called");
         }
