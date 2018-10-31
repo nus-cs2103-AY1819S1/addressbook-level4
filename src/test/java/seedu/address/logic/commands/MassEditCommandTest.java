@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +21,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
-import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
@@ -34,7 +31,7 @@ import seedu.address.testutil.ExpenseBuilder;
 
 //@@Author jcjxwy
 public class MassEditCommandTest {
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -60,7 +57,7 @@ public class MassEditCommandTest {
         MassEditCommand command = new MassEditCommand(predicate, editExpenseDescriptor);
 
         String expectedMessage = MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS;
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = getTypicalModel();
         expectedModel.updateFilteredExpenseList(predicate);
         List<Expense> filteredList = expectedModel.getFilteredExpenseList();
         List<Expense> editedList = new ArrayList<>();
@@ -84,7 +81,7 @@ public class MassEditCommandTest {
         MassEditCommand command = new MassEditCommand(predicate, editExpenseDescriptor);
 
         String expectedMessage = MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS;
-        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs());
+        Model expectedModel = getTypicalModel();
         expectedModel.updateFilteredExpenseList(predicate);
         List<Expense> filteredList = expectedModel.getFilteredExpenseList();
         List<Expense> editedList = new ArrayList<>();

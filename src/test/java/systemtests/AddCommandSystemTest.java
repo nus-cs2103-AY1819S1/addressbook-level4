@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -50,7 +51,7 @@ import seedu.address.testutil.ExpenseUtil;
 public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
-    public void add() throws NoUserSelectedException {
+    public void add() throws NoUserSelectedException, IllegalValueException {
         Model model = getModel();
         //Set totalBudget such that it never exceeds
         model.commitExpenseTracker();
@@ -196,7 +197,7 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
      *
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(Expense toAdd) throws NoUserSelectedException {
+    private void assertCommandSuccess(Expense toAdd) throws NoUserSelectedException, IllegalValueException {
         assertCommandSuccess(ExpenseUtil.getAddCommand(toAdd), toAdd);
     }
 
@@ -206,7 +207,8 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
      *
      * @see AddCommandSystemTest#assertCommandSuccess(Expense)
      */
-    private void assertCommandSuccess(String command, Expense toAdd) throws NoUserSelectedException {
+    private void assertCommandSuccess(String command, Expense toAdd) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
         expectedModel.addExpense(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
@@ -224,7 +226,7 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see AddCommandSystemTest#assertCommandSuccess(String, Expense)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) throws
-            NoUserSelectedException {
+            NoUserSelectedException, IllegalValueException {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
@@ -244,7 +246,8 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
      *
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

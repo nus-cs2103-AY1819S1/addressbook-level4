@@ -19,6 +19,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -27,6 +28,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.user.Username;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.ExpensesStorage;
@@ -87,18 +90,22 @@ public class MainApp extends Application {
      * or no users will be used instead if errors occur when reading {@code storage}'s expense tracker.
      */
     protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Map<Username, ReadOnlyExpenseTracker> expenseTrackers;
+        Map<Username, EncryptedExpenseTracker> expenseTrackers;
         try {
             expenseTrackers = storage.readAllExpenses(userPrefs.getExpenseTrackerDirPath());
             ReadOnlyExpenseTracker sampleExpenseTracker = SampleDataUtil.getSampleExpenseTracker();
             if (!expenseTrackers.containsKey(sampleExpenseTracker.getUsername())) {
-                expenseTrackers.put(sampleExpenseTracker.getUsername(), sampleExpenseTracker);
+                expenseTrackers.put(sampleExpenseTracker.getUsername(),
+                        EncryptionUtil.encryptTracker(sampleExpenseTracker));
             }
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
             expenseTrackers = new TreeMap<>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the files. Will be starting with no accounts");
+            expenseTrackers = new TreeMap<>();
+        } catch (IllegalValueException e) {
+            logger.warning("Sample user has invalid key. Will be starting without sample user.");
             expenseTrackers = new TreeMap<>();
         }
         return new ModelManager(expenseTrackers, userPrefs);

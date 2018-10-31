@@ -10,6 +10,7 @@ import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -27,7 +28,7 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
-            UserAlreadyExistsException, NonExistentUserException;
+            UserAlreadyExistsException, NonExistentUserException, InvalidDataException;
 
     TotalBudget getMaximumBudget();
 

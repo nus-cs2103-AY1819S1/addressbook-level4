@@ -17,6 +17,7 @@ import seedu.address.logic.parser.ExpenseTrackerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -40,7 +41,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
-            UserAlreadyExistsException, NonExistentUserException {
+            UserAlreadyExistsException, NonExistentUserException, InvalidDataException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = expenseTrackerParser.parseCommand(commandText);

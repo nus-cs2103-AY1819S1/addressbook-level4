@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -23,7 +24,8 @@ import seedu.address.model.user.Username;
 public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     protected Username username;
-    protected Optional<Password> password;
+    protected Password password;
+    private String encryptionKey;
     private final UniqueExpenseList expenses;
     private TotalBudget maximumTotalBudget;
 
@@ -31,9 +33,10 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Creates an empty ExpenseTracker with the given username.
      * @param username the username of the ExpenseTracker
      */
-    public ExpenseTracker(Username username, Optional<Password> password) {
+    public ExpenseTracker(Username username, Password password, String encryptionKey) {
         this.username = username;
         this.password = password;
+        this.encryptionKey = encryptionKey;
         this.expenses = new UniqueExpenseList();
         this.maximumTotalBudget = new TotalBudget("28.00");
     }
@@ -42,7 +45,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Creates an ExpenseTracker using the Expenses in the {@code toBeCopied}
      */
     public ExpenseTracker(ReadOnlyExpenseTracker toBeCopied) {
-        this(toBeCopied.getUsername(), toBeCopied.getPassword());
+        this(toBeCopied.getUsername(), toBeCopied.getPassword().orElse(null), toBeCopied.getEncryptionKey());
         this.maximumTotalBudget = toBeCopied.getMaximumTotalBudget();
         resetData(toBeCopied);
     }
@@ -161,6 +164,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
             this.maximumTotalBudget.getCategoryBudgets());
     }
 
+    public String getEncryptionKey() {
+        return encryptionKey;
+    }
+
+    public void setEncryptionKey(String newKey) {
+        this.encryptionKey = newKey;
+    }
+
     @Override
     public Username getUsername() {
         return username;
@@ -168,15 +179,16 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     @Override
     public Optional<Password> getPassword() {
-        return password;
+        return Optional.ofNullable(password);
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
     }
 
     @Override
-    public boolean isMatchPassword(Optional<Password> toCheck) {
-        return this.password
-                .map(userPassword -> userPassword.equals(toCheck.orElse(null)))
-                // if userPassword will never be equals to null if map is called
-                .orElse(true); // If the current user has no password, then anyone is allowed
+    public boolean isMatchPassword(Password toCheck) {
+        return this.password == null || this.password.equals(toCheck);
     }
 
     public void setUsername(Username newUsername) {
@@ -200,11 +212,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         return other == this // short circuit if same object
                 || (other instanceof ExpenseTracker // instanceof handles nulls
                 && expenses.equals(((ExpenseTracker) other).expenses))
+                && this.username.equals(((ExpenseTracker) other).username)
+                && Objects.equals(this.password, ((ExpenseTracker) other).password)
+                && this.encryptionKey.equals(((ExpenseTracker) other).encryptionKey)
                 && this.maximumTotalBudget.equals(((ExpenseTracker) other).maximumTotalBudget);
     }
 
     @Override
     public int hashCode() {
-        return expenses.hashCode();
+        return Objects.hash(expenses, maximumTotalBudget, username, password, encryptionKey);
     }
 }

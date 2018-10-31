@@ -26,8 +26,10 @@ public interface ReadOnlyExpenseTracker {
     /**
      * Checks if the input password matches the password of the current user. If the user has no password, then true
      * is returned.
-     * @param password the password to check as an optional
+     * @param password the password to check
      * @return true if the user has no password or if the input password matches his/her password, or else false
      */
-    boolean isMatchPassword(Optional<Password> password);
+    boolean isMatchPassword(Password password);
+
+    String getEncryptionKey();
 }

@@ -513,6 +513,23 @@ command that changes the data. +
 
 *Q*: How do I transfer my data to another Computer? +
 *A*:  Install the app in the other computer and copy the `data` folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
+If you wish to copy only one user over, create a folder named `data` in the app directory on the other computer and copy the xml file with your username in the `data` folder of the old computer into the `data` folder of the new computer.
+
+*Q*: How is my expense data kept safe when I use this application? +
+*A*: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.
+
+*Q*: How do I manually encrypt text to edit my user XML file as a technologically-savvy user? +
+*A*: You can carry out the following steps to do so:
+
+. Open http://murmurhash.shorelabs.com/[this website] and wait for it to load.
+. Under `MurmurHash3 (32/128 bit, x86/x64)`, enter your password in the text box labelled `An ASCII Text`.
+. Under the text box from step 2, there is a dropdown menu that has `x86` selected. Click on it and select `x64`.
+. Beside the menu from step 3, there is a dropdown menu that has `32-bit` selected. Click on it and select `128-bit`.
+. Note down the string of characters on the bottom left of the text box from step 2. This is your `encryption key`.
+. Open https://www.devglan.com/online-tools/aes-encryption-decryption[this website] and wait for it to load.
+. Use the left column on the web page and enter the text you wish to encrypt.
+. Use the `encryption` key from step 5 as the `secret key` and leave the other options as default.
+. Click on the `Encrypt` button to get the encrypted text you want.
 
 == Command Summary
 

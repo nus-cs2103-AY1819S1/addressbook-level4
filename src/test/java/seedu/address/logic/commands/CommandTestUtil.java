@@ -24,6 +24,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -141,7 +142,8 @@ public class CommandTestUtil {
                 assertEquals(expectedFilteredList, actualModel.getFilteredExpenseList());
                 assertEquals(expectedCommandHistory, actualCommandHistory);
             }
-        } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException e) {
+        } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException
+                | InvalidDataException e) {
             Assert.fail("Command threw error : " + e.getMessage());
         }
     }

@@ -27,6 +27,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -175,13 +176,9 @@ public abstract class ExpenseTrackerSystemTest {
      * and the expense list panel displays the expenses in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) throws NoUserSelectedException {
+            Model expectedModel) throws NoUserSelectedException, IllegalValueException {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        System.out.println(expectedModel.getExpenseTracker().getMaximumTotalBudget().getNextRecurrence());
-        System.out.println(
-                new ExpenseTracker(expectedModel.getExpenseTracker()).getMaximumTotalBudget().getNextRecurrence());
-        System.out.println(testApp.readStorageExpenseTracker().getMaximumTotalBudget().getNextRecurrence());
         assertEquals(new ExpenseTracker(expectedModel.getExpenseTracker()), testApp.readStorageExpenseTracker());
         assertListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());
     }
