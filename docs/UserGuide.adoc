@@ -60,13 +60,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 This section is designed to help you familiarise with all of the user component in ClinicIO.
 
-Here is an example of how ClinicIO looks like: 
+Here is an example of how ClinicIO looks like:
 
 image::user-guide-ui-walkthrough-overview.png[width="900"]
 
 It consists of 8 parts: <<#Menu Bar, Menu Bar>>, <<#Command Box, Command Box>>,
 <<#Result Display, Result Display>>, <<#List Panel, List Panel>>,
-<<#Card, Card>>, <<#Display Panel, Display Panel>> 
+<<#Card, Card>>, <<#Display Panel, Display Panel>>
 <<#Sync Status Bar, Sync Status Bar>>, <<#User Session Status Bar, User Session Status Bar>>,
 each of the sections is explained as below.
 
@@ -78,7 +78,7 @@ Here are the available options currently: +
 
 * File: Provide access to file functions.
 ** Exit: Exit the program.
-* Help: Show ClinicIO tutorial. 
+* Help: Show ClinicIO tutorial.
 
 You can also press F1 to show ClinicIO tutorial.
 
