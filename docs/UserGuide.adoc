@@ -269,7 +269,12 @@ Display all existing persons on the person list display.
 === Importing data : `import`
 
 User is able to import other data. +
-Format: `import <relative filepath>`
+Default behaviour is to ignore any conflicting Person/Group entries unless `--force` option is supplied. +
+Format: `import <relative filepath>` or `import --force <relative filepath>`
+
+Example:
+`import f/backup.xml` : Import backup.xml into MeetingBook
+`import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
 
 === Exporting data : `export`
 
@@ -293,7 +298,7 @@ Example:
 `filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
 
 ****
-User can also check the current path of MeetingBook use `filepath show`
+User can also check the current path of MeetingBook use `filepath --show`
 ****
 
 === Saving the data
