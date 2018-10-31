@@ -665,7 +665,7 @@ image::ListArchivedSequenceDiagram.png[width="650"]
 === Display Tags in Sidebar
 
 Whenever the user tags a task with a new tag, the tag will be added to the sidebar panel. The user will be able to view
-all of the tags he/she has used to categorize tasks. 
+all of the tags he/she has used to categorize tasks.
 
 [coming in v1.4]
 
