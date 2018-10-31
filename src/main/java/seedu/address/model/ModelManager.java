@@ -40,7 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredLeaveApplications = new FilteredList<>(retrieveLeaveApplicationsFromPersons());
+        filteredLeaveApplications = new FilteredList<>(versionedAddressBook.getLeaveApplicationList());
     }
 
     public ModelManager() {
@@ -130,17 +130,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate) {
         requireNonNull(predicate);
         filteredLeaveApplications.setPredicate(predicate);
-    }
-
-    /**
-     * Gets a list of all leave applications from all {@code Person} in the address book.
-     */
-    private ObservableList<LeaveApplicationWithEmployee> retrieveLeaveApplicationsFromPersons() {
-        List<LeaveApplicationWithEmployee> leaveApplications = new ArrayList<>();
-        versionedAddressBook.getPersonList().forEach(person
-            -> person.getLeaveApplications().forEach(leaveApplication
-                -> leaveApplications.add(new LeaveApplicationWithEmployee(leaveApplication, person))));
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(leaveApplications));
     }
 
     //=========== Undo/Redo =================================================================================
