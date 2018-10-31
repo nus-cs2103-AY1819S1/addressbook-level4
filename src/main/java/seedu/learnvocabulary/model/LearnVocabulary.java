@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.learnvocabulary.model.tag.Tag;
-import seedu.learnvocabulary.model.word.UniqueTagList;
 import seedu.learnvocabulary.model.word.UniqueWordList;
 import seedu.learnvocabulary.model.word.Word;
 
@@ -22,7 +21,6 @@ import seedu.learnvocabulary.model.word.Word;
 public class LearnVocabulary implements ReadOnlyLearnVocabulary {
 
     private final UniqueWordList words;
-    private final UniqueTagList tags;
     private ArrayList<Word> triviaQuestionList;
     private boolean triviaMode = false;
     private int currentScore = 0;
@@ -37,7 +35,6 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
      */
     {
         words = new UniqueWordList();
-        tags = new UniqueTagList();
     }
     //@@author Harryqu123
     private final Set<Tag> addedTag = new HashSet<>() {{
@@ -250,11 +247,6 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     @Override
     public ObservableList<Word> getWordList() {
         return words.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Tag> getTagList() {
-        return tags.asUnmodifiableObservableList();
     }
 
     @Override
