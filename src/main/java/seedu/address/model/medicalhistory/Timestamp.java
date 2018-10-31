@@ -6,18 +6,25 @@ import java.time.format.FormatStyle;
 
 /**
  * Timestamp class used in the {@code Diagnosis} class.
- * Provides a timestamp of when a diagnosis was created.
+ * Provides an immutable timestamp of when a diagnosis was created.
  */
 public class Timestamp {
-    private final String timestamp;
-    private final DateTimeFormatter formatter = DateTimeFormatter
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter
             .ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
+    private final String timestamp;
 
     /**
-     * Constructs a timestamp for the medical records.
+     * Constructs an immutable timestamp for the medical records.
      */
-    Timestamp() {
-        timestamp = LocalDateTime.now().format(formatter);
+    public Timestamp() {
+        this.timestamp = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+    }
+
+    /**
+     * Constructs an immutable Timestamp based off a given {@code LocalDateTime}
+     */
+    public Timestamp(LocalDateTime ldt) {
+        this.timestamp = ldt.format(DATE_TIME_FORMATTER);
     }
 
     /**
@@ -27,10 +34,6 @@ public class Timestamp {
      */
     public String getTimestamp() {
         return this.timestamp;
-    }
-
-    public DateTimeFormatter getFormatter() {
-        return this.formatter;
     }
 
     @Override
@@ -44,5 +47,9 @@ public class Timestamp {
         }
 
         return timestamp.equals(((Timestamp) other).getTimestamp());
+    }
+
+    public String toString() {
+        return timestamp;
     }
 }
