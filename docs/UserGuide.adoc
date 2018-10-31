@@ -31,14 +31,15 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Some example commands you can try with build-in tracks and playlists:
 
 * *`playlist list`* : lists all playlists
-* **`playlist new`**`p/playlist1` : creates a new playlist named `playlist1` to the JxMusic Player.
-* *`shuffle`* : switches on shuffle mode to play tracks in random order
+* **`playlist new`**`p/playlist1 t/Marbles` : creates a new playlist named `playlist1` with mp3 file `Marbles.mp3` to the JxMusic Player.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+.  To add the tracks you want to listen using the software, open the home folder of the jar file and add th tracks you want to listen to `/library` folder.
+
 
 [[Features]]
 == Features
