@@ -11,7 +11,9 @@ import org.junit.Test;
 
 import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -27,7 +29,8 @@ public class StatsCommandTest {
     private Model expectedModel = ModelUtil.modelWithTestUser();
     private CommandHistory commandHistory = new CommandHistory();
 
-    public StatsCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public StatsCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException, ParseException {
     }
 
     @Test
@@ -55,11 +58,11 @@ public class StatsCommandTest {
     public void executeStatsSuccess() throws NoUserSelectedException {
         StatsCommand statsCommand = new StatsCommand();
         statsCommand.execute(model, commandHistory);
+
         assertTrue(model.getStatsPeriod() == StatsCommand.StatsPeriod.DAY);
 
         assertCommandSuccess(new StatsCommand(), model, commandHistory, MESSAGE_SUCCESS, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowStatsRequestEvent);
-        assertEquals(10, eventsCollectorRule.eventsCollector.getSize());
-
+        assertEquals(12, eventsCollectorRule.eventsCollector.getSize());
     }
 }

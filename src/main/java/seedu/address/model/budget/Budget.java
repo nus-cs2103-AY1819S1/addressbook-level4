@@ -116,5 +116,14 @@ public class Budget {
     }
 
 
+    //@@Snookerballs
+    /**
+     * Calculates and returns the percentage of budget used
+     * @return the percentage of budget that has been used
+     */
+    public double getBudgetPercentage() {
+        LOGGER.info("current Expenses" + currentExpenses / budgetCap);
+        return currentExpenses / budgetCap;
+    }
 
 }

@@ -34,6 +34,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -50,7 +51,7 @@ import seedu.address.testutil.ExpenseUtil;
 public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
-    public void edit() throws NoUserSelectedException {
+    public void edit() throws NoUserSelectedException, IllegalValueException {
         Model model = getModel();
         showAllExpenses();
         /* -------------- Performing edit operation while an unfiltered list is being shown ------------------- */
@@ -193,7 +194,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Expense, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Expense editedExpense) throws
-            NoUserSelectedException {
+            NoUserSelectedException, IllegalValueException {
         assertCommandSuccess(command, toEdit, editedExpense, null);
     }
 
@@ -207,7 +208,8 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Expense editedExpense,
-                                      Index expectedSelectedCardIndex) throws NoUserSelectedException {
+                                      Index expectedSelectedCardIndex)
+            throws NoUserSelectedException, IllegalValueException {
         Model expectedModel = getModel();
         expectedModel.updateExpense(expectedModel.getFilteredExpenseList().get(toEdit.getZeroBased()), editedExpense);
         expectedModel.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
@@ -223,7 +225,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) throws
-            NoUserSelectedException {
+            NoUserSelectedException, IllegalValueException {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
     }
 
@@ -242,7 +244,8 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ExpenseTrackerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-                                      Index expectedSelectedCardIndex) throws NoUserSelectedException {
+                                      Index expectedSelectedCardIndex)
+            throws NoUserSelectedException, IllegalValueException {
         executeCommand(command);
         expectedModel.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
@@ -266,7 +269,8 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
      *
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

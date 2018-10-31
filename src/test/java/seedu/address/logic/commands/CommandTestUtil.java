@@ -9,8 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MINUTES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOTIFICATION_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SECONDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TOGGLE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -52,6 +55,35 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FOOD = "Lunch";
     public static final String VALID_DATE_1990 = "01-01-1990";
     public static final String VALID_DATE_2018 = "02-10-2018";
+
+    public static final String VALID_NOTIFICATION_TOGGLE_ON = "on";
+    public static final String VALID_NOTIFICATION_TOGGLE_OFF = "off";
+    public static final String VALID_NOTIFICATION_TYPE_WARNING = "warning";
+    public static final String VALID_NOTIFICATION_TYPE_TIP = "tip";
+    public static final String VALID_NOTIFICATION_ON = PREFIX_TOGGLE
+            + VALID_NOTIFICATION_TOGGLE_ON;
+    public static final String VALID_NOTIFICATION_OFF = PREFIX_TOGGLE
+            + VALID_NOTIFICATION_TOGGLE_OFF;
+    public static final String VALID_NOTIFICATION_WARNING_ON = PREFIX_NOTIFICATION_TYPE
+            + VALID_NOTIFICATION_TYPE_WARNING + " "
+            + VALID_NOTIFICATION_ON;
+    public static final String VALID_NOTIFICATION_WARNING_OFF = PREFIX_NOTIFICATION_TYPE
+            + VALID_NOTIFICATION_TYPE_WARNING + " "
+            + VALID_NOTIFICATION_OFF;
+    public static final String VALID_NOTIFICATION_TIP_ON = PREFIX_NOTIFICATION_TYPE
+            + VALID_NOTIFICATION_TYPE_TIP + " "
+            + VALID_NOTIFICATION_ON;
+    public static final String VALID_NOTIFICATION_TIP_OFF = PREFIX_NOTIFICATION_TYPE
+            + VALID_NOTIFICATION_TYPE_TIP + " "
+            + VALID_NOTIFICATION_OFF;
+    public static final String INVALID_NOTIFICATION_WARNING_ONLY = PREFIX_NOTIFICATION_TYPE
+            + VALID_NOTIFICATION_TYPE_WARNING;
+    public static final String INVALID_NOTIFICATION_TIP_ONLY = PREFIX_NOTIFICATION_TYPE
+            + VALID_NOTIFICATION_TYPE_TIP;
+    public static final String INVALID_NOTIFICATION_TYPE = PREFIX_NOTIFICATION_TYPE + "invalid"
+            + " " + VALID_NOTIFICATION_ON;
+    public static final String INVALID_TOGGLE_TYPE = PREFIX_TOGGLE + "invalid";
+
 
     public static final String VALID_TIME_ONE = "1";
     public static final String VALID_TIME_ONE_SECOND = " " + PREFIX_SECONDS + VALID_TIME_ONE;
@@ -141,7 +173,8 @@ public class CommandTestUtil {
                 assertEquals(expectedFilteredList, actualModel.getFilteredExpenseList());
                 assertEquals(expectedCommandHistory, actualCommandHistory);
             }
-        } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException e) {
+        } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException
+                | InvalidDataException e) {
             Assert.fail("Command threw error : " + e.getMessage());
         }
     }

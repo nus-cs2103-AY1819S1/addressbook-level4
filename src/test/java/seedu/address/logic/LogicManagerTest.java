@@ -25,6 +25,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -41,11 +42,13 @@ public class LogicManagerTest {
 
     private Logic logic = new LogicManager(model);
 
-    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException, ParseException {
     }
 
     @BeforeEach
-    public void clearModel() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public void clearModel() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException, ParseException {
         model = ModelUtil.modelWithTestUser();
     }
 
@@ -193,7 +196,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage)
             throws NoUserSelectedException {
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -211,11 +214,10 @@ public class LogicManagerTest {
             assertNull(expectedException);
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (CommandException | ParseException | NoUserSelectedException | NonExistentUserException
-                | UserAlreadyExistsException e) {
+                | UserAlreadyExistsException | InvalidDataException e) {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
-        System.out.println(expectedModel.equals(model));
         assertEquals(expectedModel, model);
     }
 
@@ -230,7 +232,7 @@ public class LogicManagerTest {
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (ParseException | CommandException | NoUserSelectedException | NonExistentUserException
-                | UserAlreadyExistsException e) {
+                | UserAlreadyExistsException | InvalidDataException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }
