@@ -37,13 +37,19 @@ public class CapPanel extends UiPart<Region> {
 
     public CapPanel(ReadOnlyTranscript transcript) {
         super(FXML);
+
         currentCapValue.textProperty().bind(Bindings.convert(currentCapDouble));
         capGoalValue.textProperty().bind(capGoalString);
 
-        Platform.runLater(() -> currentCapDouble.setValue(transcript.getCurrentCap()));
+        Platform.runLater(() -> currentCapDouble.setValue(round(transcript.getCurrentCap(), 1)));
         CapGoal goal = transcript.getCapGoal();
         Platform.runLater(() -> capGoalString.setValue(goal.isSet() ? String.valueOf(goal.getValue()) : "NIL"));
         registerAsAnEventHandler(this);
+    }
+
+    private static double round (double value, int precision) {
+        int scale = (int) Math.pow(10, precision);
+        return (double) Math.round(value * scale) / scale;
     }
 
     @Subscribe
@@ -53,7 +59,9 @@ public class CapPanel extends UiPart<Region> {
         ReadOnlyTranscript transcript = event.data;
         Platform.runLater(() -> currentCapDouble.setValue(transcript.getCurrentCap()));
         CapGoal goal = transcript.getCapGoal();
-        Platform.runLater(() -> capGoalString.setValue(goal.isSet() ? String.valueOf(goal.getValue()) : "NIL"));
+        String goalValue = (goal.isSet()) ? goal.getValue() + "" : "NIL";
+        String goalIsImpossible = (goal.isSet() && goal.isImpossible()) ? " (Impossible)" : "";
+        Platform.runLater(() -> capGoalString.setValue(String.format("%s%s", goalValue, goalIsImpossible)));
     }
 
 }
