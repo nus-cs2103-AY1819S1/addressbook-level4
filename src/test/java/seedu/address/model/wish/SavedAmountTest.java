@@ -114,7 +114,6 @@ public class SavedAmountTest {
     @Test
     public void hashCodeTest() {
         SavedAmount savedAmount0 = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
-        SavedAmount savedAmount1 = new SavedAmount(VALID_SAVED_AMOUNT_BOB);
 
         assertTrue(savedAmount0.hashCode() == savedAmount0.hashCode());
     }
