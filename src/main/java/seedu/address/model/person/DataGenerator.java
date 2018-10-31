@@ -526,13 +526,10 @@ public class DataGenerator {
     }
 
     class PhoneGenerator implements Generator<Phone>{
-
         @Override
         public Phone generate() {
-            // TODO Auto-generated method stub
             return new Phone(String.format("9%07d", randomInt(1000000, 9999999)));
         }
-
     }
 
     class EmailGenerator implements Generator<Email> {
@@ -550,7 +547,6 @@ public class DataGenerator {
         public Email generate() {
             return new Email("example@" + suffixes[randomInt(0, suffixes.length)]);
         }
-
     }
 
     class AddressGenerator implements Generator<Address> {
@@ -637,7 +633,6 @@ public class DataGenerator {
                 + streetNames[randomInt(0, streetNames.length)] + ", "
                 + "#" + String.format("%02d", randomInt(1, 41)) + "-" + String.format("%02d", randomInt(1, 41)));
         }
-
     }
 
     class DrugAllergyGenerator implements Generator<Set<Tag>> {
@@ -678,7 +673,6 @@ public class DataGenerator {
 
             return toReturn;
         }
-
     }
 
     class PrescriptionListGenerator implements Generator<PrescriptionList> {
@@ -688,7 +682,6 @@ public class DataGenerator {
         private Set<String> drugNamesUsedBefore = new HashSet<>();
 
         private String[] drugNames = {
-            "Acetaminophen",
             "Acetaminophen",
             "Acyclovir",
             "Adalimumab",
@@ -932,9 +925,11 @@ public class DataGenerator {
 
         String getRandomDrugName() {
             String candidate = getRandom(drugNames);
+
             while (drugNamesUsedBefore.contains(candidate)) {
                 candidate = getRandom(drugNames);
             }
+
             drugNamesUsedBefore.add(candidate);
             return candidate;
         }
@@ -960,34 +955,38 @@ public class DataGenerator {
                 }
             }
 
+            drugNamesUsedBefore.clear();
+
             return toReturn;
         }
     }
 
     class AppointmentsListGenerator implements Generator<AppointmentsList> {
-
         @Override
         public AppointmentsList generate() {
             AppointmentsList toReturn = new AppointmentsList();
             int numAppointments = randomInt(0, 10 + 1);
 
             for (int i = 0; i < numAppointments; i++) {
-
+                // TODO
             }
 
             return toReturn;
         }
-
     }
 
     class DietCollectionGenerator implements Generator<DietCollection>{
-
         @Override
         public DietCollection generate() {
             DietCollection toReturn = new DietCollection();
+            int numDietRestrictions = randomInt(0, 5 + 1);
+
+            for (int i = 0; i < numDietRestrictions; i++) {
+                // TODO
+            }
+
             return toReturn;
         }
-
     }
 
     interface Generator<T> {
