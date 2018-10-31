@@ -70,4 +70,10 @@ public class AmountTest {
 
         assertFalse(amount1a.equals(amount2));
     }
+
+    @Test
+    public void hashCodeTest() {
+        Amount amount = new Amount("111");
+        assertTrue(amount.hashCode() == amount.hashCode());
+    }
 }
