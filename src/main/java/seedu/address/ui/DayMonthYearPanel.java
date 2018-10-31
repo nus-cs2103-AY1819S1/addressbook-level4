@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,9 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 /**
