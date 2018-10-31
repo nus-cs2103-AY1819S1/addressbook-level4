@@ -45,7 +45,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void clearCache() {
-        String cachePath = MainApp.MAIN_PATH + "/src/main/java/seedu/address/storage/cache";
+        String cachePath = MainApp.MAIN_PATH + "/cache";
         File cache = new File(cachePath);
         File[] list = cache.listFiles();
         if (list != null) {
