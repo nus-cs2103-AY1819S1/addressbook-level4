@@ -10,11 +10,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
-import javafx.scene.control.SkinBase;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -22,15 +18,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
-import jfxtras.internal.scene.control.skin.agenda.base24hour.AgendaSkinTimeScale24HourAbstract;
 import jfxtras.scene.control.agenda.Agenda;
 
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.SchedulerChangedEvent;
 import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
 import seedu.address.commons.events.ui.JumpToDateTimeEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 
