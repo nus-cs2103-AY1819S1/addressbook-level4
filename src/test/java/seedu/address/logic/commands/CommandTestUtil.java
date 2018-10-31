@@ -22,7 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
-import seedu.address.model.leaveapplication.LeaveContainsKeywordsPredicate;
+import seedu.address.model.leaveapplication.LeaveDescriptionContainsKeywordsPredicate;
 import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -191,7 +191,7 @@ public class CommandTestUtil {
         LeaveApplicationWithEmployee leaveApplication = model.getFilteredLeaveApplicationList()
                 .get(targetIndex.getZeroBased());
         final String[] splitDesc = leaveApplication.getDescription().value.split("\\s+");
-        model.updateFilteredLeaveApplicationList(new LeaveContainsKeywordsPredicate(Arrays.asList(splitDesc[0])));
+        model.updateFilteredLeaveApplicationList(new LeaveDescriptionContainsKeywordsPredicate(Arrays.asList(splitDesc[0])));
 
         assertEquals(1, model.getFilteredLeaveApplicationList().size());
     }
