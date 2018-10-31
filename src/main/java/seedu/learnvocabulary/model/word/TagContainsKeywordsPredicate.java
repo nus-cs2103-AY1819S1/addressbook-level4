@@ -2,6 +2,7 @@ package seedu.learnvocabulary.model.word;
 
 import java.util.List;
 import java.util.function.Predicate;
+
 import seedu.learnvocabulary.model.tag.Tag;
 
 //@@author Harryqu123
