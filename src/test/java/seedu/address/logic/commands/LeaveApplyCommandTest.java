@@ -79,7 +79,8 @@ public class LeaveApplyCommandTest {
         leaveApplications.add(validLeaveApplication);
         Person editedFirstPerson = new PersonBuilder(firstPerson).withLeaveApplications(leaveApplications).build();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getArchiveList(), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 
