@@ -101,6 +101,13 @@ lunch and dinner. Displays the calorie count for each meal, as well as the total
 Format: +
 `-plannerlist`
 
+==== Display health plan: `-healthplan`
+Display the current health plan, shows health plan set by the user and the days added into the plan
+which is tied to meal plans +
+Format: +
+`-healthplan`
+
+
 ==== Exit application: `-exit`
 Format: +
 `-exit`
@@ -341,13 +348,19 @@ Format: `select INDEX MEAL`
 ==== Add plan: `add`
 
 Adds a health plan under the user. +
-Required parameters are GOAL and DURATION +
+Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
+TARGET WEIGHT, DURATION AND SCHEME +
+
 Format: +
-`add GOAL DURATION` +
+`add [n/NAME] [a/AGE] [h/HEIGHT] [w/CURRENTWEIGHT] [t/TARGETWEIGHT] [d/DURATION] [s/SCHEME]` +
 
 ****
+* Height is numeric and input is of centimetre units
+* Current weight is numeric and input is of Kilogram units
+* Target Weight is numeric and input is of Kilogram units
+* AGE must be numeric
 * GOAL specifies a string input of "GAIN", "LOSS" or "MAINTAIN"
-* DURATION specifies an integer input of time in days desired by user to achieve said GOAL
+* DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
 ****
 
 ==== Delete plan: `delete`
@@ -356,42 +369,69 @@ After listing the list of health plans by user. +
 Deletes the plan selected by user. +
 Format: +
 `delete INDEX`
+****
+* INDEX has to be numeric and more than 0
+****
 
 ==== Edit plan: `edit`
 
 After listing the list of health plans by User. +
 Prompts for edit on the plan selected by the user. +
 Format : +
-`edit INDEX GOAL DURATION` +
+`edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION] [s/SCHEME]` +
 
 ****
-* INDEX specifies an integer input for entry to edit
+* INDEX has to be numeric and more than 0
+* Height is numeric, be more than 0 and input is of centimetre units
+* Current weight is numeric, be more than 0 and input is of Kilogram units
+* Target Weight is numeric, be more than 0 and input is of Kilogram units
+* AGE must be numeric and more than 0
 * GOAL specifies a string input of "GAIN", "LOSS" or "MAINTAIN"
-* DURATION specifies an integer input of time in days desired by user to achieve said GOAL
+* DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
 ****
 
-==== Add current intake item: `addIntake`
+==== Add current intake item: `addDay`
 
-After being shown the recipe list by the system +
+After being shown the meal planner list by the system +
 User selects to add to intake List +
 Format: +
-`addIntake RECIPE_INDEX`
+`addDay [p/PlanIndex] [d/DayIndex]`
 
-==== Remove current intake item: `removeIntake`
+****
+* Plan Index specifies the plan to add to, has to be more than 0 and be a valid index on the list
+* Day index specifies the day to add into the specified plan, has to be more than 0 and be a valid index on the list
+****
 
-After being shown the list of recipe from intake list +
-User selects recipe to remove +
+==== Remove current intake item: `deleteDay`
+
+After being shown the list of days from intake list +
+User selects day to remove and also the plan to remove from +
 Format: +
-`removeIntake INDEX_OF_ITEM`
+`deleteDay [p/PlanIndex] [d/DayIndex]`
 
-==== View overall intake : `viewIntake`
+****
+* Plan Index specifies the plan to delete from, has to be more than 0 and be a valid index on the list
+* Day index specifies the day to delete from the specified plan, has to be more than 0 and be a valid index on the list
+****
 
-After shown the list of Recipes by the system +
-User enters command to view overall intake +
+==== Show Meal Planner list beside Health Plan List : 'showMeal'
+
+User enters command to view the full list of meals beside the health plan list
 Format: +
-`viewIntake`
+'showMeal'
 
-==== Compare overall intake against : `compareIntake`
+==== View plan details : `showDetails`
+
+After shown the list of health plans by the system +
+User enters command to see the details of the plan specified +
+Format: +
+`showDetails INDEX`
+
+****
+* INDEX needs to be numeric more than 0 and be a valid index found on the list
+****
+
+==== Compare overall intake against : `compareIntake` [coming in V2.0]
 
 After being shown list of health plans +
 User enters command to compare against set health plan. +
