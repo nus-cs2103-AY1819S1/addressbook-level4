@@ -634,7 +634,6 @@ image::actdiagram-find.png[width="800", align="left"]
 |===
 +
 
-
 * **Alternative 2:** Filter the data when it is taken in.
 +
 [cols="1,10"]
@@ -643,7 +642,6 @@ image::actdiagram-find.png[width="800", align="left"]
 |Cons| Breaks OOP style as the parser will modify the data.
 |===
 +
-
 
 === Filter feature
 
