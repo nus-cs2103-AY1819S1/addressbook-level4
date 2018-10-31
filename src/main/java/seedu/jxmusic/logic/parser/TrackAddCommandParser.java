@@ -12,13 +12,13 @@ import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 
 /**
- * Parses input arguments and creates a new PlaylistNewCommand object
+ * Parses input arguments and creates a new TrackAddCommand object
  */
 public class TrackAddCommandParser implements Parser<TrackAddCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the PlaylistNewCommand
-     * and returns an PlaylistNewCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the TrackAddCommand
+     * and returns an TrackAddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public TrackAddCommand parse(String args) throws ParseException {

@@ -25,8 +25,8 @@ public class TrackAddCommand extends Command {
         + "Example: " + COMMAND_PHRASE
         + PREFIX_PLAYLIST + "rockPlaylist"
         + PREFIX_TRACK + "rockNRoll";
-    public static final String MESSAGE_DUPLICATE_TRACK = "This track already exists in the playlist";
-    public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist does not exist";
+    public static final String MESSAGE_DUPLICATE_TRACK = "This track already exists in the playlist: %1$s";
+    public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist %1$s does not exist";
 
     private Track trackToAdd;
     private Playlist targetPlaylist;
@@ -53,32 +53,18 @@ public class TrackAddCommand extends Command {
         return playlistCopy;
     }
 
-    /**
-     * @param playlist an existing playlist
-     * @param newTrack a new track to be added
-     * Returns boolean depending if newTrack already exists in playlist
-     */
-    private boolean trackExists(Playlist playlist, Track newTrack) {
-        for (Track track : playlist.getTracks()) {
-            if (track.getFileName().equalsIgnoreCase(newTrack.getFileName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     @Override
     public CommandResult execute(Model model) {
         Playlist updatedPlaylist;
 
         // check if playlist exists
         if (!model.hasPlaylist(targetPlaylist)) {
-            return new CommandResult(MESSAGE_PLAYLIST_DOES_NOT_EXIST);
+            return new CommandResult(String.format(MESSAGE_PLAYLIST_DOES_NOT_EXIST, targetPlaylist.getName()));
         }
         updatedPlaylist = copyPlaylist(targetPlaylist);
         // check if track exists in existing playlist
-        if (trackExists(targetPlaylist, trackToAdd)) {
-            return new CommandResult(MESSAGE_DUPLICATE_TRACK);
+        if (targetPlaylist.hasTrack(trackToAdd)) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE_TRACK, trackToAdd));
         }
         updatedPlaylist.addTrack(trackToAdd);
         model.updatePlaylist(targetPlaylist, updatedPlaylist);

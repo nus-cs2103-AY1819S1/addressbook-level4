@@ -30,7 +30,8 @@ public class TypicalPlaylists {
     public static final Playlist ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
             .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN).build();
     // for TrackAddCommand test
-    public static final Playlist NEW_ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
+    // for TrackRemoveCommand test
+    public static final Playlist TEST_ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
             .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN, VALID_TRACK_NAME_MARBLES).build();
 
     public static final String KEYWORD_MATCHING_SONG = "song"; // A keyword that matches name with "song"
@@ -53,7 +54,7 @@ public class TypicalPlaylists {
      */
     public static Library getTypicalLibraryAfterTrackAdd(Track trackToAdd) {
         Library library = new Library();
-        ArrayList<Playlist> newLibrary = new ArrayList<>(Arrays.asList(EMPTY, SFX, NEW_ANIME));
+        ArrayList<Playlist> newLibrary = new ArrayList<>(Arrays.asList(EMPTY, SFX, TEST_ANIME));
         for (Playlist playlist : newLibrary) {
             library.addPlaylist(playlist);
         }

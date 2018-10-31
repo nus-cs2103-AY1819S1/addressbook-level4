@@ -47,7 +47,7 @@ public class TrackAddCommandTest {
         trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         targetPlaylist = TypicalPlaylists.SFX;
         assertCommandSuccess(new TrackAddCommand(trackToAdd, targetPlaylist), model, commandHistory,
-                TrackAddCommand.MESSAGE_DUPLICATE_TRACK, expectedUnchangedModel);
+                String.format(TrackAddCommand.MESSAGE_DUPLICATE_TRACK, trackToAdd), expectedUnchangedModel);
     }
 
     @Test
@@ -55,7 +55,8 @@ public class TrackAddCommandTest {
         trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         targetPlaylist = new Playlist(new Name("playlistNameDoesNotExist"));
         assertCommandSuccess(new TrackAddCommand(trackToAdd, targetPlaylist), model, commandHistory,
-                TrackAddCommand.MESSAGE_PLAYLIST_DOES_NOT_EXIST, expectedUnchangedModel);
+                String.format(TrackAddCommand.MESSAGE_PLAYLIST_DOES_NOT_EXIST,
+                        targetPlaylist.getName()), expectedUnchangedModel);
     }
 }
 
