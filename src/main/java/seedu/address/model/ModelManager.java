@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.canvas.Canvas;
@@ -62,7 +61,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Directory Image List Accessors =============================================================
-
+    // @@author benedictcss
     /**
      * Returns an array list of the images from the current directory {@code dirImageList}
      * backed by the list of {@code userPrefs}
@@ -71,14 +70,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ArrayList<Path> getDirectoryImageList() {
         this.dirImageList = userPrefs.getAllImages();
         return this.dirImageList;
-    }
-
-    /**
-     * Updates the list of the images in the current directory {@code dirImageList}
-     */
-    @Override
-    public void updateImageList() {
-        userPrefs.updateImageList();
     }
 
     /**
@@ -122,6 +113,8 @@ public class ModelManager extends ComponentManager implements Model {
         currentPreviewImage = selectedImage;
         canvas.addLayer(selectedImage);
     }
+    //@@author
+
     //=========== GoogleClient Accessors =============================================================
 
     @Override
@@ -176,7 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
                 new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
     }
 
-    //=========== get/updateing preview image ==========================================================================
+    //=========== get/updating preview image ==========================================================================
 
     @Override
     public void addTransformation(Transformation transformation) {
@@ -221,16 +214,15 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return dirImageList.equals(other.dirImageList)
-                && userPrefs.equals(other.userPrefs);
+        return userPrefs.equals(other.userPrefs);
     }
 
     //=========== Update UserPrefs ==========================================================================
 
+    // @@author benedictcss
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
-        EventsCenter.getInstance().post(new ChangeDirectoryEvent(userPrefs.getCurrDirectory().toString()));
     }
 
     @Override
