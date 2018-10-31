@@ -33,7 +33,7 @@ public class RideUtil {
         sb.append(PREFIX_NAME + ride.getName().fullName + " ");
         sb.append(PREFIX_MAINTENANCE + String.valueOf(ride.getDaysSinceMaintenance().getValue()) + " ");
         sb.append(PREFIX_WAITING_TIME + String.valueOf(ride.getWaitingTime().getValue()) + " ");
-        sb.append(PREFIX_ADDRESS + ride.getAddress().value + " ");
+        sb.append(PREFIX_ADDRESS + ride.getZone().value + " ");
         ride.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -50,7 +50,7 @@ public class RideUtil {
             phone -> sb.append(PREFIX_MAINTENANCE).append(phone.getValue()).append(" "));
         descriptor.getWaitTime().ifPresent(
             email-> sb.append(PREFIX_WAITING_TIME).append(email.getValue()).append(" "));
-        descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
+        descriptor.getZone().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

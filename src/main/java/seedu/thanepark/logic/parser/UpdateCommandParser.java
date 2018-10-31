@@ -56,7 +56,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                     .getValue(PREFIX_WAITING_TIME).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            updateRideDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+            updateRideDescriptor.setZone(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateRideDescriptor::setTags);
 

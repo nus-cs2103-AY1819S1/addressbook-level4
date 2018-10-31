@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Address;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
@@ -122,15 +122,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
+        Zone expectedZone = new Zone(VALID_ADDRESS);
+        assertEquals(expectedZone, ParserUtil.parseAddress(VALID_ADDRESS));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
         String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Address expectedAddress = new Address(VALID_ADDRESS);
-        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+        Zone expectedZone = new Zone(VALID_ADDRESS);
+        assertEquals(expectedZone, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
     @Test

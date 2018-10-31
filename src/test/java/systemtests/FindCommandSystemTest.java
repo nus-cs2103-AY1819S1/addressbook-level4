@@ -120,13 +120,13 @@ public class FindCommandSystemTest extends ThaneParkSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find thanepark of ride in thane park -> 0 rides found */
-        command = FindCommand.COMMAND_WORD + " " + DUMBO.getAddress().value;
+        command = FindCommand.COMMAND_WORD + " " + DUMBO.getZone().value;
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find thanepark of ride in thane park -> 1 rides found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getAddress().value;
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getZone().value;
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();

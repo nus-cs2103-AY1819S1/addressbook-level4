@@ -13,7 +13,7 @@ import java.util.Set;
 
 import seedu.thanepark.logic.commands.FindCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Address;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
 import seedu.thanepark.model.tag.Tag;
 
@@ -38,7 +38,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_ADDRESS_FULL,
                 PREFIX_TAG, PREFIX_TAG_FULL);
 
-        Optional<Address> address = parseAndGetAddress(argMultimap);
+        Optional<Zone> address = parseAndGetAddress(argMultimap);
 
         Optional<Set<Tag>> tags = parseAndGetTags(argMultimap);
 
@@ -67,10 +67,10 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
-     * Checks if the argument multimap contains the "thanepark" or "a/" prefix and returns an Address
+     * Checks if the argument multimap contains the "thanepark" or "a/" prefix and returns an Zone
      * object if either are present.
      */
-    private Optional<Address> parseAndGetAddress(ArgumentMultimap argMultimap) throws ParseException {
+    private Optional<Zone> parseAndGetAddress(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         } else if (argMultimap.getValue(PREFIX_ADDRESS_FULL).isPresent()) {

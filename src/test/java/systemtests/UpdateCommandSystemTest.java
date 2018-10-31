@@ -41,7 +41,7 @@ import seedu.thanepark.logic.commands.RedoCommand;
 import seedu.thanepark.logic.commands.UndoCommand;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Address;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
@@ -190,7 +190,7 @@ public class UpdateCommandSystemTest extends ThaneParkSystemTest {
         /* Case: invalid thanepark -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "
                         + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
-                Address.MESSAGE_ADDRESS_CONSTRAINTS);
+                Zone.MESSAGE_ZONE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(UpdateCommand.COMMAND_WORD + " "

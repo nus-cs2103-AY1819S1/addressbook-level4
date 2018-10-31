@@ -17,7 +17,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import seedu.thanepark.logic.commands.FindCommand;
-import seedu.thanepark.model.ride.Address;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
 import seedu.thanepark.model.tag.Tag;
 
@@ -42,13 +42,13 @@ public class FindCommandParserTest {
 
         // input looking with thanepark prefix
         expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
-                Arrays.asList(PREFIX_ADDRESS.getPrefix(), "10th", "street"), Optional.of(new Address("10th street"))));
+                Arrays.asList(PREFIX_ADDRESS.getPrefix(), "10th", "street"), Optional.of(new Zone("10th street"))));
         assertParseSuccess(parser, PREFIX_ADDRESS.getPrefix() + " 10th street", expectedFindCommand);
 
         // input with thanepark in full
         expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
                 Arrays.asList(PREFIX_ADDRESS_FULL.getPrefix(), "10th", "street"),
-                Optional.of(new Address("10th street"))));
+                Optional.of(new Zone("10th street"))));
         assertParseSuccess(parser, PREFIX_ADDRESS_FULL.getPrefix() + " 10th street", expectedFindCommand);
 
         // input with single tag prefix

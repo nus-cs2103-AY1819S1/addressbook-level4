@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import seedu.thanepark.logic.commands.AddCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Address;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
@@ -43,10 +43,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Maintenance maintenance = ParserUtil.parseMaintenance(argMultimap.getValue(PREFIX_MAINTENANCE).get());
         WaitTime waitTime = ParserUtil.parseWaitingTime(argMultimap.getValue(PREFIX_WAITING_TIME).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Zone zone = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Ride ride = new Ride(name, maintenance, waitTime, address, tagList);
+        Ride ride = new Ride(name, maintenance, waitTime, zone, tagList);
 
         return new AddCommand(ride);
     }
