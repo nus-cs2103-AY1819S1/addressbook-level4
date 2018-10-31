@@ -46,7 +46,8 @@ public class ListCommand extends Command {
     public enum ListFilter {
             DUE_TODAY,
             DUE_END_OF_WEEK,
-            DUE_END_OF_MONTH;
+            DUE_END_OF_MONTH,
+            BLOCKING;
     }
 
     public ListCommand() {
