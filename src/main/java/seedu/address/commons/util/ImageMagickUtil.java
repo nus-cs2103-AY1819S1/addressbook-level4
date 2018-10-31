@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.canvas.Layer;
 import seedu.address.model.transformation.Transformation;
@@ -26,7 +27,7 @@ import seedu.address.storage.JsonConvertArgsStorage;
 public class ImageMagickUtil {
     //initialize the paths used in the imageMagic
     public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
-            ImageMagickUtil.class.getResource("/imageMagic/commandTemplate.json");
+            ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
@@ -89,17 +90,17 @@ public class ImageMagickUtil {
      */
     public static BufferedImage processImage(Path path, Transformation transformation)
             throws ParseException, IOException, InterruptedException {
-        ArrayList<String> cmds = parseArguments(SINGLE_COMMAND_TEMPLATE_PATH, transformation);
-        String modifiedFile = TMP_PATH + "/output.png";
+        ArrayList<String> cmds = parseArguments(transformation);
+        String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
         ArrayList<String> args = new ArrayList<>();
-        args.add(ImageMagickUtil.getExecuteImageMagic());
+        args.add(ImageMagickUtil.getExecuteImageMagick());
         args.add(path.toAbsolutePath().toString());
         args.add("-" + cmds.get(0));
         for (int i = 1; i < cmds.size(); i++) {
             args.add(cmds.get(i));
         }
-        args.add(modifiedFile.toString());
+        args.add(modifiedFile);
         return runProcessBuilder(args, modifiedFile);
     }
 
@@ -110,7 +111,7 @@ public class ImageMagickUtil {
      * @throws IOException
      * @throws ParseException
      */
-    private static ArrayList<String> parseArguments(Path filepath, Transformation transformation)
+    private static ArrayList<String> parseArguments(Transformation transformation)
             throws IOException, ParseException {
         ArrayList<String> trans = transformation.toList();
         String operation = trans.get(0);
@@ -131,7 +132,7 @@ public class ImageMagickUtil {
             if (!file.exists()) {
                 throw new ParseException("Invalid argument, cannot find");
             }
-            List<String> cmds = JsonConvertArgsStorage.retrieveCommandArguments(file, operation);
+            ArrayList<String> cmds = new ArrayList<>(JsonConvertArgsStorage.retrieveCommandArguments(file, operation));
             return cmds;
         }
     }
@@ -148,11 +149,12 @@ public class ImageMagickUtil {
      * @throws InterruptedException
      */
 
-    public static BufferedImage runProcessBuilder(ArrayList<String> args, String output) throws IOException, InterruptedException {
+    public static BufferedImage runProcessBuilder(ArrayList<String> args, String output)
+            throws IOException, InterruptedException {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform() == MAC) {
             Map<String, String> mp = pb.environment();
-            mp.put("DYLD_LIBRARY_PATH", ImageMagickUtil.getImageMagicPackagePath() + "ImageMagick-7.0.8/lib/");
+            mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "ImageMagick-7.0.8/lib/");
         }
         Process process = pb.start();
         process.waitFor();
@@ -160,10 +162,6 @@ public class ImageMagickUtil {
         System.out.println(tmp);
         FileInputStream is = new FileInputStream(output);
         Image modifiedImage = new Image(is);
-        InputStream error = process.getErrorStream();
-        for (int i = 0; i < error.available(); i++) {
-            System.out.println("" + error.read());
-        }
         return SwingFXUtils.fromFXImage(modifiedImage, null);
     }
 
@@ -174,8 +172,8 @@ public class ImageMagickUtil {
      */
     public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
         ArrayList<String> args = new ArrayList<>();
-        String output = TMP_PATH + "/modified.png";
-        args.add(getExecuteImageMagic());
+        String output = tmpPath + "/modified.png";
+        args.add(getExecuteImageMagick());
         args.add("-background");
         args.add(String.format("%s", c.getBackgroundColor()));
         for (Layer l: c.getLayers()) {
