@@ -131,6 +131,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void completeAppointment(Appointment appointment, Patient patient, Doctor doctor) {
+        requireNonNull(appointment);
+        requireNonNull(patient);
+        versionedAddressBook.completeAppointment(appointment, patient, doctor);
+        indicateAddressBookChanged();
+    }
+
 
     //=========== Filtered Person List Accessors =============================================================
 

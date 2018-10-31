@@ -110,12 +110,28 @@ public class Patient extends Person {
     }
 
     /**
-     * Completes the latest appointment of the patient, placing the records of the appointment in to the stack of
+     * Completes the {@code appointment} of the patient, placing the records of the appointment in to the stack of
      * appointments
      */
-    public void completeUpcomingAppointment() {
-        Appointment completedAppointment = upcomingAppointments.remove();
-        completedAppointment.completeAppointment();
-        pastAppointments.add(completedAppointment);
+    public void completeUpcomingAppointment(Appointment targetAppointment) {
+        for (Appointment app : upcomingAppointments) {
+            if (app.isSameAppointment(targetAppointment)) {
+                app.completeAppointment();
+                upcomingAppointments.remove(app);
+                pastAppointments.add(app);
+            }
+        }
+    }
+
+    /**
+     * Check if the patient contains a certain appointment by {@code appointmentId}
+     */
+    public boolean hasAppointment(int appointmentId) {
+        for (Appointment app : upcomingAppointments) {
+            if (app.getAppointmentId() == appointmentId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

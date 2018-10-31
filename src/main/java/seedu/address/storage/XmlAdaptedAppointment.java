@@ -114,7 +114,7 @@ public class XmlAdaptedAppointment {
         }
 
         Status appointmentStatus = Status.UPCOMING;
-        if (status == "COMPLETED") {
+        if (status.equals("COMPLETED")) {
             appointmentStatus = Status.COMPLETED;
         }
 

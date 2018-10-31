@@ -123,6 +123,11 @@ class RegisterPatientCommandTest {
         }
 
         @Override
+        public void completeAppointment(Appointment appointment, Patient patient, Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
