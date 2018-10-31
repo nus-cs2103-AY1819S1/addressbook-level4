@@ -50,4 +50,12 @@ public class Coordinate {
     public int hashCode() {
         return value.hashCode();
     }
+
+    public String getXCoord () {
+        return value.split(",")[0].trim();
+    }
+
+    public String getYCoord () {
+        return value.split(",")[1].trim();
+    }
 }
