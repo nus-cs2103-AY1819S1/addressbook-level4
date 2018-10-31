@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalArchiveList;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class ModifyPermissionCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
         model.setLoggedInUser(User.getAdminUser());
     }
 
@@ -78,7 +79,8 @@ public class ModifyPermissionCommandTest {
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
                 editedFirstPerson.getName(), editedFirstPerson.getPermissionSet());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 
@@ -118,7 +120,8 @@ public class ModifyPermissionCommandTest {
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
                 editedFirstPerson.getName(), editedFirstPerson.getPermissionSet());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 
@@ -159,7 +162,8 @@ public class ModifyPermissionCommandTest {
         String expectedString = String.format(ModifyPermissionCommand.MESSAGE_MODIFY_PERMISSION_SUCCESS,
                 editedFirstPerson.getName(), editedFirstPerson.getPermissionSet());
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 
