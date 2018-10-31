@@ -17,7 +17,7 @@ public class MedicineName {
      */
     public static final String MEDICINE_NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullMedicineName;
+    private final String fullMedicineName;
 
     /**
      * Constructs a {@code MedicineName}.
@@ -32,6 +32,10 @@ public class MedicineName {
 
     public MedicineName() {
         fullMedicineName = "";
+    }
+
+    public String getFullMedicineName() {
+        return fullMedicineName;
     }
 
     /**
