@@ -226,9 +226,21 @@ kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command
 
 ==== Viewing history of previous commands: `history`
 
-Display previous commands during this session. Inputted
-commands from the past are logged into the system. +
+Display previous commands during this session.
+
 Format: `history`
+
+[NOTE]
+Extended usage of `history`: +
+Use `history more` to generate a report of all cumulative command history.
+A window similar to the one below should show up.
+
+image::ui_screenshots/history-example-1.png[width="790"]
+
+[WARNING]
+ThanePark stores the command history in `commandHistory.xml`. If the storage file size exceeds 5MB,
+no new command history will be logged. Additionally, if the file format is changed, the program will
+restart the collation of history.
 
 // tag::undoredo[]
 ==== Undoing commands: `undo`
