@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which can be used as add iPhone.
-* Items in square brackets are optional e.g. in `save AMOUNT [INDEX]`, `INDEX` is an optional parameter, since the save command can be used as `save 40`.
+* Items in square brackets are optional e.g. in `list [FILTER]`, `FILTER` is an optional parameter, since the list command can be used as `list` to display all wishes in WishBook.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/broke`, `t/needs` etc.
 * The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in `add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE` and `END_DATE` parameters.
 ====
@@ -99,20 +99,22 @@ Edits the name of the wish and the tag of the 1st wish to be Macbook Pro and Bro
 * `edit 2 p/22 d/22w` +
 Edits the price and time given to accomplish the 2nd wish to 22 (in the chosen currency) and 22 weeks respectively.
 
-=== Listing all wishes : `list`
+=== Listing wishes : `list`
 
-Shows a list of all the wishes you have set, sorted by date by default. +
-Format: `list`
+Shows a list of all the wishes you have set, sorted by date by default, based on the given filter.
+If no filter is specified, all wishes in the WishBook will be listed. +
+Format: `list [FILTER]`
 
-=== Listing completed wishes : `list -c`
+Examples:
 
-Shows a list of all the wishes that have been completed, sorted by date by default. +
-Format: `list -c`
+* `list` +
+Lists all the wishes in the WishBook.
 
-=== Listing uncompleted wishes : `list -u`
+* `list -c` +
+Lists all the completed wishes in the WishBook.
 
-Shows a list of all the wishes that are still in progress, sorted by date by default. +
-Format: `list -u`
+* `list -u` +
+Lists all the uncompleted wishes in the WishBook.
 
 === Listing history of entered commands : `history -c`
 
@@ -199,6 +201,7 @@ Selects the 2nd wish in the wish list.
 `select 1` +
 Selects the 1st wish in the results of the `find` command.
 
+// tag::save[]
 === Save money for a particular wish: `save`
 
 Channels savings for a specified wish. +
@@ -224,17 +227,20 @@ Attempt to remove $100.50 from the savings for the wish at index 1.
 * `save 0 100.50` +
 Attempt save $100.50 to unusedFunds.
 
-=== Move money between wishes: 'move'
+// end::save[]
+
+// tag::move[]
+=== Move money between wishes: `move`
 
 Moves funds from one wish to another. +
 Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
 
 ****
-* `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
-* If `FROM_WISH_INDEX` is 0, AMOUNT will be channelled from unusedFunds to `TO_WISH_INDEX`.
-* If `TO_WISH_INDEX` is 0, AMOUNT will be channelled from `FROM_WISH_INDEX` to unusedFunds.
+* `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes.
+* If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from unusedFunds to `TO_WISH_INDEX`.
+* If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to unusedFunds.
 * If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
-* If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to unusedFunds.
+* If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to unusedFunds in WishBook.
 * If `AMOUNT` is negative, `AMOUNT` will not be accepted. +
 * If `AMOUNT` brings the savings amount of wish at `FROM_WISH_INDEX` to below 0, `AMOUNT` will not be accepted.
 * If wish at `FROM_WISH_INDEX` or `TO_WISH_INDEX` is already fulfilled, `AMOUNT` will not accepted.
@@ -250,6 +256,8 @@ Attempt to move $10 from unusedFunds to the wish at index 1.
 
 * `move 1 0 10` +
 Attempt to move $10 from the wish at index 1 to unusedFunds.
+
+// end::move[]
 
 === Editing a remark for a wish : `remark`
 
