@@ -27,7 +27,9 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LeaveApplyCommand;
+import seedu.address.logic.commands.LeaveApproveCommand;
 import seedu.address.logic.commands.LeaveListCommand;
+import seedu.address.logic.commands.LeaveRejectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -155,6 +157,18 @@ public class AddressBookParserTest {
     public void parseCommand_leavelist() throws Exception {
         assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD) instanceof LeaveListCommand);
         assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD + " 3") instanceof LeaveListCommand);
+    }
+
+    @Test
+    public void parseCommand_leaveapprove() throws Exception {
+        assertTrue(parser.parseCommand(LeaveApproveCommand.COMMAND_WORD) instanceof LeaveApproveCommand);
+        assertTrue(parser.parseCommand(LeaveApproveCommand.COMMAND_WORD + " 3") instanceof LeaveApproveCommand);
+    }
+
+    @Test
+    public void parseCommand_leavereject() throws Exception {
+        assertTrue(parser.parseCommand(LeaveRejectCommand.COMMAND_WORD) instanceof LeaveRejectCommand);
+        assertTrue(parser.parseCommand(LeaveRejectCommand.COMMAND_WORD + " 3") instanceof LeaveRejectCommand);
     }
 
     @Test
