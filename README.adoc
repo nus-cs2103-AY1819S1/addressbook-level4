@@ -3,7 +3,7 @@ image:docs/images/Anakin.png[width="250", align="center"]
 endif::[]
 
 ifndef::env-github[]
-image:docs/images/Anakin.png[width="200", align="center"]
+image:images/Anakin.png[width="200", align="center"]
 endif::[]
 
 = Anakin
@@ -33,13 +33,11 @@ Better than Pepper Potts!
 They did it.
 
 ifdef::env-github[]
-image:docs/images/ui-mockups/Gameplay-Question.png[width="400"]
-image:docs/images/ui-mockups/Gameplay-Answer.png[width="400"]
+image:docs/images/Ui.png[width="400"]
 endif::[]
 
 ifndef::env-github[]
-image:docs/images/ui-mockups/Gameplay-Question.png[width="400"]
-image:docs/images/ui-mockups/Gameplay-Answer.png[width="400"]
+image:images/Ui.png[width="400"]
 endif::[]
 
 
