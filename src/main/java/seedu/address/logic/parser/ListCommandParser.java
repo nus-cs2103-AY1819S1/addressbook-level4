@@ -18,6 +18,7 @@ public class ListCommandParser implements Parser<ListCommand> {
     public static final String DUE_TODAY_OPTION = "today";
     public static final String DUE_END_OF_WEEK_OPTION = "week";
     public static final String DUE_END_OF_MONTH_OPTION = "month";
+    public static final String NOT_BLOCKED_OPTION = "doable";
 
     /**
      * Parses a string that represents a list filter option.
@@ -36,6 +37,8 @@ public class ListCommandParser implements Parser<ListCommand> {
                 return Optional.of(ListCommand.ListFilter.DUE_END_OF_WEEK);
             case DUE_END_OF_MONTH_OPTION:
                 return Optional.of(ListCommand.ListFilter.DUE_END_OF_MONTH);
+            case NOT_BLOCKED_OPTION:
+                return Optional.of(ListCommand.ListFilter.NOT_BLOCKED);
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             }
