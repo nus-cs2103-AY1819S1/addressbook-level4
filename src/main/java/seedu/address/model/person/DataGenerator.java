@@ -16,6 +16,11 @@ import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.tag.Tag;
 
+//@@author snajef
+/**
+ * Generator for example data for product demo.
+ *
+ */
 public class DataGenerator {
     private final NricGenerator nricGenerator = new NricGenerator();
     private final NameGenerator nameGenerator = new NameGenerator();
@@ -68,7 +73,8 @@ public class DataGenerator {
      * inclusive of from and exclusive of to.
      */
     public int randomInt(int from, int to) {
-        return ThreadLocalRandom.current().nextInt(from, to);
+        return ThreadLocalRandom.current()
+            .nextInt(from, to);
     }
 
     /**
@@ -85,19 +91,28 @@ public class DataGenerator {
         return toReturn.minusDays(shift);
     }
 
+    /**
+     * Generates NRICs.
+     */
     class NricGenerator implements Generator<Nric> {
         private String[] prefixes = { "S", "T", "F", "G" };
-        private String[] suffixes = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", //"O",
+        private String[] suffixes = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", // "O",
             "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         private Set<Integer> generatedBefore = new HashSet<>();
 
         @Override
         public Nric generate() {
-            return new Nric(prefixes[ThreadLocalRandom.current().nextInt(0, prefixes.length)]
-                + String.format("%07d", generateNricDigits())
-                + suffixes[ThreadLocalRandom.current().nextInt(0, suffixes.length)]);
+            return new Nric(prefixes[ThreadLocalRandom.current()
+                                     .nextInt(0, prefixes.length)]
+                                         + String.format("%07d", generateNricDigits())
+                                         + suffixes[ThreadLocalRandom.current()
+                                                    .nextInt(0, suffixes.length)]);
         }
 
+        /**
+         * Generates the numerical digits for the NRIC.
+         * Guarantees no duplicate NRICs generated.
+         */
         int generateNricDigits() {
             int candidate = randomInt(6500000, 9999999);
             while (generatedBefore.contains(candidate)) {
@@ -108,6 +123,9 @@ public class DataGenerator {
         }
     }
 
+    /**
+     * Generates names.
+     */
     class NameGenerator implements Generator<Name> {
         private String[] firstNames = {
             "Emma",
@@ -520,20 +538,27 @@ public class DataGenerator {
 
         @Override
         public Name generate() {
-            return new Name(firstNames[randomInt(0, firstNames.length)] + " " + lastNames[randomInt(0, lastNames.length)]);
+            return new Name(
+                firstNames[randomInt(0, firstNames.length)] + " " + lastNames[randomInt(0, lastNames.length)]);
         }
 
     }
 
-    class PhoneGenerator implements Generator<Phone>{
+    /**
+     * Generates phone numbers.
+     */
+    class PhoneGenerator implements Generator<Phone> {
         @Override
         public Phone generate() {
             return new Phone(String.format("9%07d", randomInt(1000000, 9999999)));
         }
     }
 
+    /**
+     * Generates email addresses.
+     */
     class EmailGenerator implements Generator<Email> {
-        String[] suffixes = new String[] {
+        private String[] suffixes = new String[] {
             "gmail.com",
             "hotmail.com",
             "mail.com",
@@ -549,6 +574,9 @@ public class DataGenerator {
         }
     }
 
+    /**
+     * Generates addresses.
+     */
     class AddressGenerator implements Generator<Address> {
         private String[] streetNames = {
             "Adam Park",
@@ -629,12 +657,15 @@ public class DataGenerator {
 
         @Override
         public Address generate() {
-            return new Address(String.format("%03d", randomInt(1,1000)) + ", "
+            return new Address(String.format("%03d", randomInt(1, 1000)) + ", "
                 + streetNames[randomInt(0, streetNames.length)] + ", "
                 + "#" + String.format("%02d", randomInt(1, 41)) + "-" + String.format("%02d", randomInt(1, 41)));
         }
     }
 
+    /**
+     * Generates drug allergies.
+     */
     class DrugAllergyGenerator implements Generator<Set<Tag>> {
         private String[] drugAllergies = {
             "Amoxicillin",
@@ -661,7 +692,7 @@ public class DataGenerator {
             Set<Tag> toReturn = new HashSet<>();
 
             for (int i = 0; i < drugAllergies.length; i++) {
-                if (randomInt(0,2) == 0) {
+                if (randomInt(0, 2) == 0) {
                     continue;
                 }
                 try {
@@ -675,6 +706,9 @@ public class DataGenerator {
         }
     }
 
+    /**
+     * Generates prescriptions and stores them in a {@code PrescriptionList}.
+     */
     class PrescriptionListGenerator implements Generator<PrescriptionList> {
         // Yes, I know the generated medications won't make any sense.
         // Deal with it.
@@ -961,6 +995,9 @@ public class DataGenerator {
         }
     }
 
+    /**
+     * Generates appointments and stores them in a {@code AppointmentsList}.
+     */
     class AppointmentsListGenerator implements Generator<AppointmentsList> {
         @Override
         public AppointmentsList generate() {
@@ -975,7 +1012,10 @@ public class DataGenerator {
         }
     }
 
-    class DietCollectionGenerator implements Generator<DietCollection>{
+    /**
+     * Generates dietary restrictions and stores them in a {@code DietCollection}.
+     */
+    class DietCollectionGenerator implements Generator<DietCollection> {
         @Override
         public DietCollection generate() {
             DietCollection toReturn = new DietCollection();
@@ -989,6 +1029,12 @@ public class DataGenerator {
         }
     }
 
+    /**
+     * Generator interface.
+     * All generators should implement this.
+     *
+     * @param <T> The type of the object to be generated.
+     */
     interface Generator<T> {
         T generate();
     }

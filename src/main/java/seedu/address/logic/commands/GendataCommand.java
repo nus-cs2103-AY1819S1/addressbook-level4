@@ -11,6 +11,7 @@ import seedu.address.model.person.Person;
 
 /**
  * Resets the address book and adds new people based on a set of templates.
+ * Developer-mode only command.
  */
 public class GendataCommand extends Command {
 
@@ -51,17 +52,20 @@ public class GendataCommand extends Command {
                 && numPersons == (((GendataCommand) other).numPersons)); // state check
     }
 
+    /**
+     * Generates a person based on example data given in {@DataGenerator.java}.
+     */
     public Person generatePerson() {
         return new Person(
-                generator.generateNric(),
-                generator.generateName(),
-                generator.generatePhone(),
-                generator.generateEmail(),
-                generator.generateAddress(),
-                generator.generateDrugAllergies(),
-                generator.generatePrescriptionList(),
-                generator.generateAppointmentsList(),
-                generator.generateDietCollection()
+            generator.generateNric(),
+            generator.generateName(),
+            generator.generatePhone(),
+            generator.generateEmail(),
+            generator.generateAddress(),
+            generator.generateDrugAllergies(),
+            generator.generatePrescriptionList(),
+            generator.generateAppointmentsList(),
+            generator.generateDietCollection()
             );
     }
 }

@@ -43,7 +43,8 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final String MESSAGE_INSUFFICIENT_PERMISSIONS = "You have insufficient permissions to invoke this command!";
+    private static final String MESSAGE_INSUFFICIENT_PERMISSIONS = "You have insufficient permissions"
+        + " to invoke this command!";
     private static final String TOGGLE_DEV_MODE_COMMAND_WORD = "dev-mode";
     private boolean isDevModeEnabled = false;
     /**
