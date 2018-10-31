@@ -97,4 +97,11 @@ public class WishTest {
         editedAlice = new WishBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
+
+    @Test
+    public void hashCodeTest() {
+        Wish aliceCopy = new WishBuilder(ALICE).build();
+        assertTrue(aliceCopy.hashCode()
+        == aliceCopy.hashCode());
+    }
 }
