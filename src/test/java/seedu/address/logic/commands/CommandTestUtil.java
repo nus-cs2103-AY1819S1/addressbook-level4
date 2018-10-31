@@ -21,6 +21,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.leaveapplication.LeaveApplication;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
+import seedu.address.model.leaveapplication.LeaveContainsKeywordsPredicate;
 import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -179,4 +182,17 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Updates {@code model}'s filtered leave list to show only the leave application at the given {@code targetIndex}
+     * in the {@code model}'s address book.
+     */
+    public static void showLeaveApplicationAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredLeaveApplicationList().size());
+
+        LeaveApplicationWithEmployee leaveApplication = model.getFilteredLeaveApplicationList().get(targetIndex.getZeroBased());
+        final String[] splitDesc = leaveApplication.getDescription().value.split("\\s+");
+        model.updateFilteredLeaveApplicationList(new LeaveContainsKeywordsPredicate(Arrays.asList(splitDesc[0])));
+
+        assertEquals(1, model.getFilteredLeaveApplicationList().size());
+    }
 }

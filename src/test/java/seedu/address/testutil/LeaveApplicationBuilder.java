@@ -11,7 +11,7 @@ import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building LeaveApplication objects.
  */
 public class LeaveApplicationBuilder {
 
