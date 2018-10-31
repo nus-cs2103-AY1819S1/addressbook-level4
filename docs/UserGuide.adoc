@@ -491,6 +491,7 @@ Generates a receipt for the 5th patient in the Served Patient queue.
 ==== Generating referral letter: `refer`
 
 Generates referral letter for a Served Patient. +
+Alias: `ref` +
 Format: `refer INDEX`
 
 [TIP]
@@ -648,7 +649,7 @@ There is no need to save manually.
 |Command Word |Command Alias |Format|Example
 |mc | -  |`mc INDEX​` |`mc 1`
 |receipt |`rec`  | `receipt INDEX` |`receipt 2`
-|refer | -  |`refer INDEX` |`refer 3`
+|refer | `ref`  |`refer INDEX` |`refer 3`
 |=======================================================================
 
 === Miscellaneous
