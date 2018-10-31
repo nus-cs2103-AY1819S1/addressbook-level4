@@ -12,7 +12,7 @@ import seedu.jxmusic.logic.commands.Command;
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
 import seedu.jxmusic.logic.commands.PauseCommand;
-import seedu.jxmusic.logic.commands.PlayPlaylistCommand;
+import seedu.jxmusic.logic.commands.PlayCommand;
 import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
@@ -51,8 +51,8 @@ public class LibraryParser {
         final String arguments = matcher.group("arguments"); // ArgumentTokenizer requires space prefixed string
         switch (commandWord) {
 
-        case PlayPlaylistCommand.COMMAND_WORD:
-            return new PlayPlaylistCommand(); // todo parse (argument)
+        case PlayCommand.COMMAND_PHRASE:
+            return new PlayCommandParser().parse(arguments);
 
         case PauseCommand.COMMAND_WORD:
             return new PauseCommand(); // todo parse (argument)

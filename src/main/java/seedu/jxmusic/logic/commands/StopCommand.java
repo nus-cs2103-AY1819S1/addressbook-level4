@@ -1,7 +1,7 @@
 package seedu.jxmusic.logic.commands;
 
 import seedu.jxmusic.model.Model;
-import seedu.jxmusic.player.JxMusicPlayer;
+import seedu.jxmusic.player.PlayerManager;
 
 /**
  * Lists all persons in the jxmusic book to the user.
@@ -16,7 +16,7 @@ public class StopCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        new JxMusicPlayer().stop();
+        PlayerManager.getInstance().stop();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

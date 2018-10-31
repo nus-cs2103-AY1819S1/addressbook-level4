@@ -1,7 +1,7 @@
 package seedu.jxmusic.logic.commands;
 
 import seedu.jxmusic.model.Model;
-import seedu.jxmusic.player.JxMusicPlayer;
+import seedu.jxmusic.player.PlayerManager;
 
 /**
  * Pauses track that is currently playing
@@ -15,7 +15,7 @@ public class PauseCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        new JxMusicPlayer().pause();
+        PlayerManager.getInstance().pause();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

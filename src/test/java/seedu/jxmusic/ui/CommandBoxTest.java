@@ -11,13 +11,13 @@ import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
 import seedu.jxmusic.logic.Logic;
 import seedu.jxmusic.logic.LogicManager;
-import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.ModelManager;
 
 public class CommandBoxTest extends GuiUnitTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
+    private static final String COMMAND_THAT_SUCCEEDS = PlaylistListCommand.COMMAND_PHRASE;
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
