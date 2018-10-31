@@ -6,9 +6,6 @@ import seedu.learnvocabulary.logic.commands.ShowGroupCommand;
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
 import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
 
-import java.util.Arrays;
-
-import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 //@@author Harryqu123
 
 /**

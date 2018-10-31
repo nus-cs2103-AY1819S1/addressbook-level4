@@ -9,7 +9,6 @@ import seedu.learnvocabulary.logic.commands.exceptions.CommandException;
 import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
-import static java.util.Objects.requireNonNull;
 //@@author Harryqu123
 /**
  * Shows the list of all of the group tags
