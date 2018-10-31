@@ -31,22 +31,23 @@ public class PlaylistDelCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Playlist playlistToDelete = model.getFilteredPlaylistList().get(INDEX_FIRST_PLAYLIST.getZeroBased());
-        PlaylistDelCommand deleteCommand = new PlaylistDelCommand(INDEX_FIRST_PLAYLIST);
+        PlaylistDelCommand playlistDelCommand = new PlaylistDelCommand(INDEX_FIRST_PLAYLIST);
 
         String expectedMessage = String.format(PlaylistDelCommand.MESSAGE_DELETE_PLAYLIST_SUCCESS, playlistToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getLibrary(), new UserPrefs());
         expectedModel.deletePlaylist(playlistToDelete);
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(playlistDelCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPlaylistList().size() + 1);
-        PlaylistDelCommand deleteCommand = new PlaylistDelCommand(outOfBoundIndex);
+        PlaylistDelCommand playlistDelCommand = new PlaylistDelCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
+        assertCommandFailure(playlistDelCommand, model, commandHistory,
+                Messages.MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
     }
 
     @Test
@@ -54,7 +55,7 @@ public class PlaylistDelCommandTest {
         showPlaylistAtIndex(model, INDEX_FIRST_PLAYLIST);
 
         Playlist playlistToDelete = model.getFilteredPlaylistList().get(INDEX_FIRST_PLAYLIST.getZeroBased());
-        PlaylistDelCommand deleteCommand = new PlaylistDelCommand(INDEX_FIRST_PLAYLIST);
+        PlaylistDelCommand playlistDelCommand = new PlaylistDelCommand(INDEX_FIRST_PLAYLIST);
 
         String expectedMessage = String.format(PlaylistDelCommand.MESSAGE_DELETE_PLAYLIST_SUCCESS, playlistToDelete);
 
@@ -62,7 +63,7 @@ public class PlaylistDelCommandTest {
         expectedModel.deletePlaylist(playlistToDelete);
         showNoPlaylist(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(playlistDelCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test

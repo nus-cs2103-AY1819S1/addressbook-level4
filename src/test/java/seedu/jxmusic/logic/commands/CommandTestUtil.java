@@ -26,6 +26,10 @@ public class CommandTestUtil {
     public static final String VALID_PLAYLIST_NAME_EMPTY = "Empty playlist";
     public static final String VALID_PLAYLIST_NAME_SFX = "Sound effects playlist";
     public static final String VALID_PLAYLIST_NAME_ANIME = "Anime music";
+    public static final String VALID_PLAYLIST_NAME_INSTRUMENTAL = "Instrumental music";
+    public static final String VALID_PLAYLIST_NAME_CHILL = "Chill music";
+    public static final String VALID_PLAYLIST_NAME_ROCK = "Rock music";
+    public static final String VALID_PLAYLIST_NAME_HIPHOP = "Hip Hop music";
 
     /** for sfx playlist */
     public static final String VALID_TRACK_NAME_SOS = "SOS Morse Code";

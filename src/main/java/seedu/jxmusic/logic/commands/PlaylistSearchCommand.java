@@ -13,7 +13,7 @@ import seedu.jxmusic.model.NameContainsKeywordsPredicate;
  */
 public class PlaylistSearchCommand extends Command {
 
-    public static final String COMMAND_PHRASE = "search";
+    public static final String COMMAND_PHRASE = "playlist search";
 
     public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Searches all playlists whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"

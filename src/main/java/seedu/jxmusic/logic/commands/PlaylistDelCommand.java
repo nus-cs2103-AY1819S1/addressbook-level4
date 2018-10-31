@@ -15,7 +15,7 @@ import seedu.jxmusic.model.Playlist;
  */
 public class PlaylistDelCommand extends Command {
 
-    public static final String COMMAND_PHRASE = "delete";
+    public static final String COMMAND_PHRASE = "playlist delete";
 
     public static final String MESSAGE_USAGE = COMMAND_PHRASE
             + ": Deletes the playlist identified by the index number used in the displayed playlist list.\n"

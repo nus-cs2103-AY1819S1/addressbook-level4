@@ -36,7 +36,7 @@ import seedu.jxmusic.commons.core.EventsCenter;
 import seedu.jxmusic.commons.core.index.Index;
 //import seedu.jxmusic.logic.commands.ClearCommand;
 import seedu.jxmusic.logic.commands.ClearCommand;
-import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistSearchCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.model.Library;
@@ -143,7 +143,7 @@ public abstract class LibrarySystemTest {
      * Displays all playlists in the jxmusic player.
      */
     protected void showAllPlaylists() {
-        executeCommand(ListCommand.COMMAND_WORD);
+        executeCommand(PlaylistListCommand.COMMAND_PHRASE);
         assertEquals(getModel().getLibrary().getPlaylistList().size(), getModel().getFilteredPlaylistList().size());
     }
 

@@ -1,7 +1,11 @@
 package seedu.jxmusic.testutil;
 
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_ANIME;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_CHILL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_EMPTY;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_HIPHOP;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_INSTRUMENTAL;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_ROCK;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_SFX;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_BELL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIKEI;
@@ -28,8 +32,17 @@ public class TypicalPlaylists {
             .withTracks(VALID_TRACK_NAME_SOS, VALID_TRACK_NAME_BELL, VALID_TRACK_NAME_MARBLES).build();
     public static final Playlist ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
             .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN).build();
+    public static final Playlist INSTRUMENTAL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_INSTRUMENTAL)
+            .withTracks(VALID_TRACK_NAME_IHOJIN).build();
+    public static final Playlist CHILL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_CHILL)
+            .withTracks(VALID_TRACK_NAME_BELL).build();
+    public static final Playlist ROCK = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ROCK)
+            .withTracks(VALID_TRACK_NAME_SOS).build();
+    public static final Playlist HIPHOP = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_HIPHOP)
+            .withTracks(VALID_TRACK_NAME_MARBLES).build();
 
-    public static final String KEYWORD_MATCHING_SONG = "song"; // A keyword that matches name with "song"
+
+    public static final String KEYWORD_MATCHING_MUSIC = "music"; // A keyword that matches name with "music"
 
     private TypicalPlaylists() {} // prevents instantiation
 
@@ -45,6 +58,6 @@ public class TypicalPlaylists {
     }
 
     public static List<Playlist> getTypicalPlaylists() {
-        return new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME));
+        return new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
     }
 }

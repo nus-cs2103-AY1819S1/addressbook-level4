@@ -89,7 +89,7 @@ public class LibraryParser {
         //     return new ListCommand();
 
         case PlaylistDelCommand.COMMAND_PHRASE:
-            return new DeleteCommandParser().parse(arguments);
+            return new PlaylistDelCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_PHRASE:
             return new ClearCommand();
