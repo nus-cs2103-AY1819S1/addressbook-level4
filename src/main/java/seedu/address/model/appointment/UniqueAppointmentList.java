@@ -48,6 +48,20 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Completes a appointment in the list.
+     * The appointment must not already exist in the list.
+     */
+    public void setToComplete(Appointment toComplete) {
+        requireNonNull(toComplete);
+        int index = internalList.indexOf(toComplete);
+        if (index == -1) {
+            throw new AppointmentNotFoundException();
+        }
+        toComplete.completeAppointment();
+        internalList.set(index, toComplete);
+    }
+
+    /**
      * Replaces the appointment {@code target} in the list with {@code editedAppointment}.
      * {@code target} must exist in the list.
      * The appointment identity of {@code editedAppointment} must not be the same as another existing appointment

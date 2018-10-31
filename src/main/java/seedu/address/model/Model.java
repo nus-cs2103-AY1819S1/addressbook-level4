@@ -139,6 +139,11 @@ public interface Model {
     void deleteAppointment(Appointment appointment, Patient patient, Doctor doctor);
 
     /**
+     * Completes appointment.
+     */
+    void completeAppointment(Appointment appointment, Patient patient, Doctor doctor);
+
+    /**
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
