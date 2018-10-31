@@ -43,7 +43,6 @@ public class SelectCommand extends Command {
         requireNonNull(model);
 
         List<Path> dirImageList = model.getDirectoryImageList();
-        Image img = new Image("https://via.placeholder.com/500x500");
 
         if (targetIndex.getZeroBased() >= dirImageList.size()) {
             throw new CommandException(Messages.MESSAGE_INDEX_END_OF_IMAGE_LIST);
@@ -52,6 +51,7 @@ public class SelectCommand extends Command {
         }
 
         Path selectedImagePath = dirImageList.get(targetIndex.getZeroBased());
+        Image img = new Image("https://via.placeholder.com/500x500");
 
         try {
             String selectedImage = selectedImagePath.toString();

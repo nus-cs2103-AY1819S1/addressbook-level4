@@ -20,7 +20,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
@@ -137,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Directory Image List Accessors =============================================================
-
+    // @@author benedictcss
     /**
      * Returns an array list of the images from the current directory {@code dirImageList}
      * backed by the list of {@code userPrefs}
@@ -149,20 +148,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Updates the list of the images in the current directory {@code dirImageList}
-     */
-    @Override
-    public void updateImageList() {
-        userPrefs.updateImageList();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(returnPreviewImageList(), true));
-    }
-
-    /**
      * Updates the list of the images in the current directory {@code dirImageList} with the {@code dirImageList}
      */
     @Override
     public void updateImageList(ArrayList<Path> dirImageList) {
         userPrefs.updateImageList(dirImageList);
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(returnPreviewImageList(), true));
     }
 
     /**
@@ -202,6 +193,8 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
         EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
     }
+    //@@author
+
     //=========== GoogleClient Accessors =============================================================
 
     @Override
@@ -258,7 +251,7 @@ public class ModelManager extends ComponentManager implements Model {
         EventsCenter.getInstance().post(new TransformationEvent(false));
     }
 
-    //=========== get/updateing preview image ==========================================================================
+    //=========== get/updating preview image ==========================================================================
 
     @Override
     public void addTransformation(Transformation transformation) {
@@ -310,10 +303,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Update UserPrefs ==========================================================================
 
+    // @@author benedictcss
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
-        EventsCenter.getInstance().post(new ChangeDirectoryEvent(userPrefs.getCurrDirectory().toString()));
     }
 
     @Override
