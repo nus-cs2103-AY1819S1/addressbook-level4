@@ -108,6 +108,28 @@ Examples:
 * `find levitate` +
 Returns `levitate`
 
+=== Showing word by different group: `showgroup`
+
+(1). Shows all the existed group. +
+Format: `showgroup`
+
+****
+* the group name is not set to be four per line
+****
+
+(2). Shows word inside some particular group. +
+Format: `showgroup GROUPNAME`
+
+****
+* can only show those existed group
+****
+
+
+Examples:
+
+* `showgroup toLearn` +
+Returns all the word inside group toLearn
+
 === Deleting a word : `delete`
 
 Deletes the specified word from the vocabulary list. +
