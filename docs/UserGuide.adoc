@@ -33,18 +33,18 @@ Here are several quick tips to get the application running.
 . Copy the file to the folder you want to use as the home folder for Car Park Finder.
 . Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
 +
-.Home page
+.Home page of GUI
 image::Ui2.png[width="880"]
-The figure above is a sample display of the application.
+The figure above is a sample display of the application's GUI.
 
 +
 . Type the command in the command box and press kbd:[Enter] to execute it.
 
 Some example commands you can try:
 
-- `list` : bring up a list of all the car parks
-- `help` : show the list of available commands and how to use them
-- `exit` : exit the program
+- <<Features-List,*`list`*>>: bring up a list of all the car parks
+- <<Features-Help,*`help`*>>: show the list of available commands and how to use them
+- <<Features-Exit,*`exit`*>>: exit the program
 
 Refer to <<Features>> for details of each command.
 
@@ -62,6 +62,7 @@ parameter which can be used as `find serangoon`.
 `filter [n/] [f/] [ct/CARPARK_TYPE]` is also acceptable.
 ====
 
+[[Features-Help]]
 === Viewing help : `help`
 
 Shows the list of available commands and how to use them. +
@@ -77,6 +78,7 @@ Example(s)
 
 - `help`
 
+[[Features-Filter]]
 === Finding car parks : `find`
 
 Finds a list of available car parks. +
@@ -102,6 +104,7 @@ Example(s):
 * `find punggol`
 * `f HG83`
 
+[[Features-Select]]
 === Select car park : `select`
 
 Select the car park you wish to go to. +
@@ -130,6 +133,7 @@ Step 1. `find sengkang`
 
 Step 2.  `s 1`
 
+[[Features-History]]
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -144,6 +148,7 @@ Example(s)
 
 * `history`
 
+[[Features-Filter]]
 === Filtering car parks : `filter`
 
 Filters the list of car parks by free parking, night parking or car park type. +
@@ -178,7 +183,8 @@ Example(s):
 * `filter f/ SUN 7.30AM 5.30PM n/ ct/ SURFACE`
 * `fi ct/ BASEMENT`
 
-=== Sorting car parks : `sort`
+[[Features-Sort]]
+=== Sorting car parks : `sort` `[coming in v2.0]`
 
 Sort the list of car parks by distance or name. +
 Format: `sort FILTER_TYPE` or `so FILTER_TYPE`
@@ -200,6 +206,7 @@ Example(s):
 * `sort DISTANCE`
 * `so NAME`
 
+[[Features-List]]
 === Listing all car parks : `list`
 
 Show a list of all the car parks with their details. +
@@ -214,6 +221,7 @@ Example(s)
 
 * `list`
 
+[[Features-Add]]
 === Adding favourite car parks or location : `add` `[coming in v2.0]`
 
 Add a car park into your favorites list +
@@ -224,8 +232,8 @@ Example(s):
 * `add c/SE12`
 * `a c/SE12`
 
+[[Features-Delete]]
 === Removing from favorites list : `delete` `[coming in v2.0]`
-
 
 Remove the specified car park from your favorites list +
 Format: `delete c/CARPARK_NUMBER` or `d c/CARPARK_NUMBER`
@@ -235,6 +243,7 @@ Example(s):
 * `delete c/SE12`
 * `d c/SE12`
 
+[[Features-Query]]
 === Querying data: `query`
 
 Get car park information from data.gov.sg by querying it. +
@@ -253,7 +262,8 @@ Example(s):
 
 * `query`
 
-=== Enabling Notification : `notify` `[coming in v2.0]`
+[[Features-Notify]]
+=== Enabling Notification : `notify`
 
 Set the interval to give updates in real time for all the car parks. +
 Format: `notify TIME_SECONDS` or `n TIME_SECONDS`
@@ -268,6 +278,7 @@ Example(s):
 * `notify 60`
 * `n 60`
 
+[[Features-Weather]]
 === Updating Weather : `weather` `[coming in v2.0]`
 
 Include weather updates in the notifications by indicating on or off. +
@@ -279,6 +290,7 @@ Example(s):
 
 * `weather off`
 
+[[Features-Clear]]
 === Clearing all entries : `clear`
 
 Clears all entries from the list. +
@@ -288,6 +300,7 @@ Example(s)
 
 * `clear`
 
+[[Features-Exit]]
 === Exiting the application : `exit`
 
 Exits the application. +
@@ -309,10 +322,10 @@ Example(s)
 
 Only available in the following commands:
 
-* `Find`
-* `Select`
-* `Filter`
-* `Sort`
+* <<Features-Find,*`find`*>>
+* <<Features-Select,*`select`*>>
+* <<Features-Filter,*`filter`*>>
+* <<Features-Sort,*`sort`*>>
 
 == FAQ
 
