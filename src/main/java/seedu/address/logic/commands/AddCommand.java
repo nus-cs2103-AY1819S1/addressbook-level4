@@ -62,9 +62,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
         boolean withinBudget = model.addExpense(toAdd);
-
         model.addWarningNotification();
-
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         if (withinBudget) {

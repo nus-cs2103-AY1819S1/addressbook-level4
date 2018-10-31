@@ -20,8 +20,7 @@ public class NotificationCard extends UiPart<Region> {
     private static final String TIP_IMAGE_LOCATION = "/images/notificationIcons/tip.png";
 
     public final Notification notification;
-    @FXML
-    private HBox notificationCardPane;
+
     @FXML
     private Label header;
     @FXML

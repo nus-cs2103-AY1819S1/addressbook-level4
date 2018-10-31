@@ -24,7 +24,6 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
     private static final int BUDGET_DISPLAY_INDEX = 1;
     private static final int EXPENSE_DISPLAY_INDEX = 0;
 
-    private final TextFlow percentageDisplay;
     private final Text budgetDisplay;
     private final Text expenseDisplay;
     private final ProgressBar budgetBar;
@@ -33,7 +32,7 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
         super(budgetPanelNode);
 
         budgetBar = getChildNode(BUDGET_BAR_ID);
-        percentageDisplay = getChildNode(PERCENTAGE_DISPLAY_ID);
+        TextFlow percentageDisplay = getChildNode(PERCENTAGE_DISPLAY_ID);
         expenseDisplay = (Text) percentageDisplay.getChildren().get(EXPENSE_DISPLAY_INDEX);
         budgetDisplay = (Text) percentageDisplay.getChildren().get(BUDGET_DISPLAY_INDEX);
     }

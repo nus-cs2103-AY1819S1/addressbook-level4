@@ -20,7 +20,6 @@
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
-
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Amazing Infographic@";
@@ -308,7 +307,7 @@
 }
 
 #commandTextField {
-    -fx-background-color: #95b4b5;
+    -fx-background-color: #9ab4b5;
     -fx-background-insets: 0;
     -fx-border-color: #1b998b;
     -fx-border-insets: 0;
@@ -326,7 +325,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: #95b4b5;
+    -fx-background-color: #9ab4b5;
     -fx-background-radius: 0;
     -fx-border-color: #1b998b;
     -fx-border-width: 5;
