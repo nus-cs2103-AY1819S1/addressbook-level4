@@ -36,7 +36,7 @@ public class DeleteMedicalHistoryCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_deleteMedicalHistory_success(){
+    public void execute_deleteMedicalHistory_success() {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
 
