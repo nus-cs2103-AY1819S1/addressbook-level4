@@ -88,7 +88,8 @@ public class SelectCommandTest {
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
 
-        FilmReelSelectionChangeEvent lastEvent = (FilmReelSelectionChangeEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        FilmReelSelectionChangeEvent lastEvent =
+                (FilmReelSelectionChangeEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.index));
     }
 
