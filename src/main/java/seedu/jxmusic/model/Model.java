@@ -11,6 +11,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true **/
     Predicate<Playlist> PREDICATE_SHOW_ALL_PLAYLISTS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true **/
+    Predicate<Track> PREDICATE_SHOW_ALL_TRACKS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyLibrary newData);
 
