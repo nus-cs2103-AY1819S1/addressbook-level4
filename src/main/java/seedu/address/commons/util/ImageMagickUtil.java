@@ -154,7 +154,7 @@ public class ImageMagickUtil {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform() == MAC) {
             Map<String, String> mp = pb.environment();
-            mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "ImageMagick-7.0.8/lib/");
+            mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "/ImageMagick-7.0.8/lib/");
         }
         Process process = pb.start();
         process.waitFor();
