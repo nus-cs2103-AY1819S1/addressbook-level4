@@ -13,6 +13,7 @@ import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.thanepark.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_SECOND_RIDE;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.thanepark.testutil.TypicalRides.getTypicalThanePark;
 
 import org.junit.Test;
@@ -202,7 +203,7 @@ public class UpdateCommandTest {
         UpdateCommand editCommand = new UpdateCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new ThanePark(model.getThanePark()), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_SECOND_RIDE);
+        showPersonAtIndex(model, INDEX_THIRD_PERSON);
         Ride rideToEdit = model.getFilteredRideList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.updateRide(rideToEdit, editedRide);
         expectedModel.commitThanePark();

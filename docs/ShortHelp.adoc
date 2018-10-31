@@ -1,17 +1,19 @@
 :stylesDir: stylesheets
 :experimental:
-* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]`
-* *Delete*: `delete <index>`
-* *Exit*: `exit`
-* *Find*: `find <attraction>`
-* *Help*: `help [option]`
-* *History*: `history`
-* *Undo*: `undo`
-* *Redo*: `redo`
-* *Update*: `update <attraction> <tag> <value>`
-* *Open*: `open <attraction>`
-* *Shutdown*: `shutdown <attraction>`
-* *View*: `view <name>`
-* *Quickview*: `quickview`
-* *Filter*: `filter <tag> <condition>`
-* *tab*: `{tab}`
+* `add <attraction>`
+* `clear`
+* `delete <index>`
+* `exit`
+* `filter <tag> <condition>`
+* `find <attraction>` or `find <tag> <address>`
+* `help [option]`
+* `history`
+* `open <index>`
+* `redo`
+* `shutdown <index>`
+* `undo`
+* `update <attraction> <tag> <value>`
+* `view <index>`
+* `viewall`
+* `viewstatus <status>`
+* `{tab}`

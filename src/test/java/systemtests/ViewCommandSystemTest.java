@@ -8,7 +8,7 @@ import static seedu.thanepark.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_S
 import static seedu.thanepark.testutil.TestUtil.getLastIndex;
 import static seedu.thanepark.testutil.TestUtil.getMidIndex;
 import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
 
 import java.io.IOException;
 
@@ -59,7 +59,7 @@ public class ViewCommandSystemTest extends ThaneParkSystemTest {
         /* Case: filtered ride list, select index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_THE);
         int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
