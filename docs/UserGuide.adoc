@@ -159,8 +159,11 @@ Format: `exit`
 
 ==== Login : `login`
 
-Log in to ClinicIO. +
+You can login to ClinicIO. +
 Format: `login r/ROLE n/NAME pass/PASSWORD` +
+
+[WARNING]
+You must not be login in order to use this feature. +
 
 ****
 * Roles available to login: Doctor and Receptionist
@@ -168,6 +171,14 @@ Format: `login r/ROLE n/NAME pass/PASSWORD` +
 * Password will be censored except the last character when you entered.
 * Password can only be 6 to 12 characters long.
 ****
+
+Prior to logging in to ClinicIO, the ClinicIO user status will show that you have not logged in yet.
+
+image::user-guide-login-before.png[width="500"]
+
+Once you have login successfully, the ClinicIO user status will be updated as below.
+
+image::user-guide-login-after.png[width="500"]
 
 Examples:
 
