@@ -113,6 +113,24 @@ public class TypicalPersons {
             .withTags("POSB")
             .withPicture("/images/placeholder_image.jpg").build();
 
+    // Persons with edited tags
+    public static final Person CARL_EDITED = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
+            .withEmail("heinz@example.com").withAddress("wall street")
+            .withTags("buddies", "OCBC")
+            .withPicture("/images/placeholder_image.jpg").build();
+    public static final Person ELLE_EDITED = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
+            .withEmail("werner@example.com").withAddress("michegan ave")
+            .withTags("buddies")
+            .withPicture("/images/placeholder_image.jpg").build();
+    public static final Person HENRY_BANKER = new PersonBuilder().withName("Henry Golding").withoutPhone()
+            .withEmail("henry@example.com").withAddress("Crazy Rich Street")
+            .withTags("Singaporean", "banker")
+            .withPicture("/images/placeholder_image.jpg").build();
+    public static final Person HENRY_BUDDY = new PersonBuilder().withName("Henry Golding").withoutPhone()
+            .withEmail("henry@example.com").withAddress("Crazy Rich Street")
+            .withTags("buddies", "POSB")
+            .withPicture("/images/placeholder_image.jpg").build();
+
     // People with meetings
     public static final Person STEVE_MEETING = new PersonBuilder().withName("Steve Carell").withPhone("83365620")
             .withEmail("steve@example.com").withAddress("9th Avenue")

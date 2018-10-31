@@ -3,13 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_TAG_DELETED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_TAG_EDITED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.CARL_UNTAGGED;
-import static seedu.address.testutil.TypicalPersons.ELLE_UNTAGGED;
-import static seedu.address.testutil.TypicalPersons.GEORGE_UNTAGGED;
-import static seedu.address.testutil.TypicalPersons.HENRY_POSB;
-import static seedu.address.testutil.TypicalPersons.HENRY_SINGAPOREAN;
+import static seedu.address.testutil.TypicalPersons.CARL_EDITED;
+import static seedu.address.testutil.TypicalPersons.ELLE_EDITED;
+import static seedu.address.testutil.TypicalPersons.HENRY_BANKER;
+import static seedu.address.testutil.TypicalPersons.HENRY_BUDDY;
 import static seedu.address.testutil.TypicalPersons.getTaggedAddressBook;
 
 import java.util.Arrays;
@@ -27,9 +26,9 @@ import seedu.address.model.tag.PersonContainsTagPredicate;
 //@@author A19Sean
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code TagCommand}'s delete functionality.
+ * {@code TagCommand}'s edit functionality.
  */
-public class TagDeleteCommandTest {
+public class TagEditCommandTest {
     private Model model = new ModelManager(getTaggedAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -40,34 +39,35 @@ public class TagDeleteCommandTest {
         PersonContainsTagPredicate secondPredicate =
                 new PersonContainsTagPredicate(Collections.singletonList("OCBC"));
 
-        TagCommand deleteFirstCommand = new TagCommand(firstPredicate, TagCommand.Action.DELETE,
-                Collections.singletonList("Singaporean"));
-        TagCommand deleteSecondCommand = new TagCommand(secondPredicate, TagCommand.Action.DELETE,
-                Collections.singletonList("OCBC"));
+        TagCommand editFirstCommand = new TagCommand(firstPredicate, TagCommand.Action.EDIT,
+                Arrays.asList("Singaporean", "buddies"));
+        TagCommand editSecondCommand = new TagCommand(secondPredicate, TagCommand.Action.EDIT,
+                Arrays.asList("OCBC", "bank"));
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertTrue(editFirstCommand.equals(editFirstCommand));
 
         // same values -> returns true
-        TagCommand deleteFirstCommandCopy = new TagCommand(firstPredicate, TagCommand.Action.DELETE,
-                Collections.singletonList("Singaporean"));
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        TagCommand deleteFirstCommandCopy = new TagCommand(firstPredicate, TagCommand.Action.EDIT,
+                Arrays.asList("Singaporean", "buddies"));
+        assertTrue(editFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertFalse(editFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertFalse(editFirstCommand.equals(null));
 
-        // different tag -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        // different edits -> returns false
+        assertFalse(editFirstCommand.equals(editSecondCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noTagDeleted() {
-        String expectedMessage = String.format(MESSAGE_TAG_DELETED_OVERVIEW, 0);
-        PersonContainsTagPredicate predicate = preparePredicate(" ");
-        TagCommand command = new TagCommand(predicate, TagCommand.Action.DELETE, Collections.singletonList(" "));
+    public void execute_noTagsChanged_success() {
+        String expectedMessage = String.format(MESSAGE_TAG_EDITED_OVERVIEW, 0, "doesNotExist", "dummyTag");
+        PersonContainsTagPredicate predicate = preparePredicate("doesNotExist");
+        TagCommand command = new TagCommand(predicate, TagCommand.Action.EDIT, Arrays.asList("doesNotExist",
+                "dummyTag"));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(predicate);
@@ -78,57 +78,55 @@ public class TagDeleteCommandTest {
     }
 
     @Test
-    public void execute_singleKeyword_singleTagDeleted() {
-        String expectedMessage = String.format(MESSAGE_TAG_DELETED_OVERVIEW, 1);
+    public void execute_singleTagChanged_success() {
+        String expectedMessage = String.format(MESSAGE_TAG_EDITED_OVERVIEW, 1, "POSB", "banker");
         PersonContainsTagPredicate predicate = preparePredicate("POSB");
-        NameContainsKeywordsPredicate namePredicate = prepareNamePredicate(HENRY_SINGAPOREAN.getName().toString());
-        TagCommand command = new TagCommand(predicate, TagCommand.Action.DELETE, Collections.singletonList("POSB"));
+        NameContainsKeywordsPredicate namePredicate = prepareNamePredicate(HENRY_BANKER.getName().toString());
+        TagCommand command = new TagCommand(predicate, TagCommand.Action.EDIT, Arrays.asList("POSB", "banker"));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), HENRY_SINGAPOREAN);
+        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), HENRY_BANKER);
         expectedModel.updateFilteredPersonList(namePredicate);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(HENRY_SINGAPOREAN), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(HENRY_BANKER), model.getFilteredPersonList());
     }
 
     @Test
-    public void execute_multipleKeywords_multipleTagsDeleted() {
-        String expectedMessage = String.format(MESSAGE_TAG_DELETED_OVERVIEW, 4);
-        PersonContainsTagPredicate predicate = preparePredicate("Singaporean OCBC important");
+    public void execute_multipleTagsChanged_success() {
+        String expectedMessage = String.format(MESSAGE_TAG_EDITED_OVERVIEW, 3, "Singaporean", "buddies");
+        PersonContainsTagPredicate predicate = preparePredicate("Singaporean");
         NameContainsKeywordsPredicate namePredicate = prepareNamePredicate(
-                CARL_UNTAGGED.getName().toString() + " "
-                        + ELLE_UNTAGGED.getName().toString() + " "
-                        + GEORGE_UNTAGGED.getName().toString() + " "
-                        + HENRY_POSB.getName().toString());
-        TagCommand command = new TagCommand(predicate, TagCommand.Action.DELETE, Arrays.asList("Singaporean",
-                "OCBC", "important"));
+                CARL_EDITED.getName().toString() + " "
+                + ELLE_EDITED.getName().toString() + " "
+                + HENRY_BUDDY.getName().toString()
+        );
+        TagCommand command = new TagCommand(predicate, TagCommand.Action.EDIT, Arrays.asList("Singaporean", "buddies"));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), CARL_UNTAGGED);
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), ELLE_UNTAGGED);
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), GEORGE_UNTAGGED);
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), HENRY_POSB);
+        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), CARL_EDITED);
+        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), ELLE_EDITED);
+        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), HENRY_BUDDY);
         expectedModel.updateFilteredPersonList(namePredicate);
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL_UNTAGGED, ELLE_UNTAGGED, GEORGE_UNTAGGED, HENRY_POSB),
+        assertEquals(Arrays.asList(CARL_EDITED, ELLE_EDITED, HENRY_BUDDY),
                 model.getFilteredPersonList());
     }
 
     @Test
-    public void executeUndoRedo_tagDelete_success() {
+    public void executeUndoRedo_tagEdit_success() {
         PersonContainsTagPredicate predicate = preparePredicate("POSB");
-        NameContainsKeywordsPredicate namePredicate = prepareNamePredicate(HENRY_SINGAPOREAN.getName().toString());
-        TagCommand command = new TagCommand(predicate, TagCommand.Action.DELETE, Collections.singletonList("POSB"));
+        NameContainsKeywordsPredicate namePredicate = prepareNamePredicate(HENRY_BANKER.getName().toString());
+        TagCommand command = new TagCommand(predicate, TagCommand.Action.EDIT, Arrays.asList("POSB", "banker"));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateFilteredPersonList(predicate);
-        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), HENRY_SINGAPOREAN);
+        expectedModel.updatePerson(expectedModel.getFilteredPersonList().get(0), HENRY_BANKER);
         expectedModel.updateFilteredPersonList(namePredicate);
         expectedModel.commitAddressBook();
 

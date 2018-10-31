@@ -96,6 +96,4 @@ public class ScheduleCommand extends Command {
         scheduledPerson.setPicture(personToSchedule.getPicture());
         return scheduledPerson;
     }
-
-
 }

@@ -26,19 +26,23 @@ public class TagCommand extends Command {
     public static final String COMMAND_ALIAS = "t";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": View or delete all contacts with a specified (case-sensitive) tag."
-            + "Parameters: TAG [MORE TAGS]... [delete]\n"
+            + ": View, edit or delete all contacts with a specified (case-sensitive) tag.\n"
+            + "Parameters for view or delete functionality: TAG [MORE TAGS]... [delete]\n"
+            + "Parameters for edit functionality: edit EXISTING_TAG NEW_TAG\n"
             + "Example: " + COMMAND_WORD + " Work Friends Important\n"
             + "will list out all users with \"Work\", \"Friends\" or \"Important\" tags.\n"
             + "Example: " + COMMAND_WORD + " Work Friends Important delete\n"
-            + "will delete all \"Work\", \"Friends\" and \"Important\" tags from contacts.";
+            + "will delete all \"Work\", \"Friends\" and \"Important\" tags from contacts.\n"
+            + "Example: " + COMMAND_WORD + " edit Work Colleague\n"
+            + "will change the \"Work\" tag to \"Colleage\" for all tagged contacts.";
 
     /**
      * Enums for the possible actions that can be performed from a tag command.
      */
     public enum Action {
         FIND,
-        DELETE
+        DELETE,
+        EDIT
     }
 
     private final PersonContainsTagPredicate predicate;
@@ -78,11 +82,36 @@ public class TagCommand extends Command {
             });
             model.updateFilteredPersonList(new PersonIsUntaggedPredicate(updatedList));
             model.commitAddressBook();
+        } else if (this.action == Action.EDIT) {
+            message = Messages.MESSAGE_TAG_EDITED_OVERVIEW;
+            model.updateFilteredPersonList(predicate);
+            List<Person> currentList = new ArrayList<>(model.getFilteredPersonList());
+            List<Person> updatedList = new ArrayList<>();
+            currentList.forEach(person -> {
+                Set<Tag> personTags = new HashSet<>(person.getTags());
+                Tag tagToBeDeleted = new Tag(tags.get(0));
+                Tag tagToBeAdded = new Tag(tags.get(1));
+                if (personTags.contains(tagToBeDeleted)) {
+                    personTags.remove(tagToBeDeleted);
+                    personTags.add(tagToBeAdded);
+                }
+                Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
+                        person.getAddress(), personTags, person.getMeeting());
+                updatedList.add(editedPerson);
+                model.updatePerson(person, editedPerson);
+            });
+            model.updateFilteredPersonList(new PersonIsUntaggedPredicate(updatedList));
+            model.commitAddressBook();
         } else {
             message = Messages.MESSAGE_TAGGED_PERSONS_LISTED_OVERVIEW;
             model.updateFilteredPersonList(predicate);
         }
-        return new CommandResult(String.format(message, model.getFilteredPersonList().size()));
+        if (this.action == Action.DELETE || this.action == Action.FIND) {
+            return new CommandResult(String.format(message, model.getFilteredPersonList().size()));
+        } else {
+            return new CommandResult(String.format(message, model.getFilteredPersonList().size(), tags.get(0),
+                    tags.get(1)));
+        }
     }
 
     @Override
