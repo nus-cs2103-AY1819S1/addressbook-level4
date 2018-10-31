@@ -447,6 +447,8 @@ The Calendar Display is implemented using the *Agenda*, a rich Control under *jf
 
 As the calendar is intended to be a visual representation of the calendar events, any changes to the calendar events should be done through the command line interface. Hence, some of the built-in features that *Agenda* has to add, edit and delete events have been disabled.
 
+The Calendar display listens to the list of calendar events. When the list is changed, the calendar display will update itself accordingly.
+
 ==== Features
 
 The user can:

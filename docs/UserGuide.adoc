@@ -225,6 +225,21 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the calendar. +
 Format: `clear`
 
+=== Interact with the Calendar Display
+
+1. Double click on displayed events to open a dialog box containing the details of the event.
+
+2. Jump to the time period containing an event by selecting the event in the list of calendar events.
+
+The user can navigate the calendar display using the `arrow keys` and `T` key.
+
+1. The user can toggle between weekly view and daily view using `T` key.
+
+2. The user can view the next / previous day or week using `left` and `right` arrows keys.
+
+3. The user can scroll up and down using `up` and `down` arrow keys, or using the mouse scroll wheel.
+
+
 === Exiting the program : `exit`
 
 Exits the program. +
