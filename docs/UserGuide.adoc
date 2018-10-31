@@ -78,6 +78,20 @@ Examples:
 * `playlist search q/Fav` +
 Searches for playlists that has Fav in their names.
 
+=== Searching for a track : `track search`
+
+Searches for tracks by names. +
+Format: `track search q/QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `track search q/aliez` +
+Searches for tracks that has aliez in their names.
+
 === Creating a playlist : `playlist new`
 
 Creates a new empty playlist and saves it into the library. +
