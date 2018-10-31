@@ -42,7 +42,7 @@ Steps to set up ThanePark:
 .  Copy the file to the folder you want to use as the home folder for your ThanePark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="800"]
+image::startup.png[width="800"]
 
 Congratulations! You have successfully set up ThanePark!
 
