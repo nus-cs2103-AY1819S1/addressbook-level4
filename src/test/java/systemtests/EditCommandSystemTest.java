@@ -100,7 +100,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
         editedExpense = new ExpenseBuilder(expenseToEdit).withTags().build();
         assertCommandSuccess(command, index, editedExpense);
         /* --------------- Performing edit operation while a filtered list is being shown --------------------- */
-        /* Case: filtered expense list, edit index within bounds of address book and expense list -> edited */
+        /* Case: filtered expense list, edit index within bounds of expense tracker and expense list -> edited */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
         index = INDEX_FIRST_EXPENSE;
         assertTrue(index.getZeroBased() < getModel().getFilteredExpenseList().size());
@@ -108,7 +108,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
         expenseToEdit = getModel().getFilteredExpenseList().get(index.getZeroBased());
         editedExpense = new ExpenseBuilder(expenseToEdit).withName(VALID_NAME_IPHONE).build();
         assertCommandSuccess(command, index, editedExpense);
-        /* Case: filtered expense list, edit index within bounds of address book but out of bounds of expense list
+        /* Case: filtered expense list, edit index within bounds of expense tracker but out of bounds of expense list
          * -> rejected
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);

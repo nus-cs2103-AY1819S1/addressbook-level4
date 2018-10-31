@@ -6,14 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.address.model.expense.EditExpenseDescriptor.createEditedExpense;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.logic.CommandHistory;
@@ -22,68 +21,80 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
-
+import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
 /**
- * Edits the details of an existing expense in the expense tracker.
- */
-public class EditCommand extends Command {
-
-    public static final String COMMAND_WORD = "edit";
-    public static final String COMMAND_ALIAS = "e";
+ * Edit the details of multiple expenses in expense tracker
+ * */
+//@@Author jcjxwy
+public class MassEditCommand extends Command {
+    public static final String COMMAND_WORD = "massedit";
+    public static final String COMMAND_ALIAS = "me";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
-            + "by the index number used in the displayed expense list. "
+            + "by keywords entered by the user. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_CATEGORY + "CATEGORY] "
+            + "[" + PREFIX_COST + "ADDRESS] "
+            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_TAG + "TAG]..."
+            + " -> "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_COST + "ADDRESS] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_CATEGORY + "91234567 ";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + "lunch -> "
+            + PREFIX_CATEGORY + "Lunch ";
 
-    public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense tracker.";
+    public static final String MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS = "Edit expenses successfully.";
+    public static final String MESSAGE_NO_EXPENSE_FOUND = "No expense is found by the keywords.";
 
-    private final Index index;
+    private final ExpenseContainsKeywordsPredicate predicate;
     private final EditExpenseDescriptor editExpenseDescriptor;
 
     /**
-     * @param index of the expense in the filtered expense list to edit
+     * @param predicate predicate to filter out the intended expenses
      * @param editExpenseDescriptor details to edit the expense with
      */
-    public EditCommand(Index index, EditExpenseDescriptor editExpenseDescriptor) {
-        requireNonNull(index);
+    public MassEditCommand(ExpenseContainsKeywordsPredicate predicate, EditExpenseDescriptor editExpenseDescriptor) {
+        requireNonNull(predicate);
         requireNonNull(editExpenseDescriptor);
 
-        this.index = index;
-        this.editExpenseDescriptor = new EditExpenseDescriptor(editExpenseDescriptor);
+        this.predicate = predicate;
+        this.editExpenseDescriptor = editExpenseDescriptor;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException {
         requireNonNull(model);
         EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.LIST));
+        model.updateFilteredExpenseList(predicate);
         List<Expense> lastShownList = model.getFilteredExpenseList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
+        //Throw exception if no expense was found by the keywords
+        if (lastShownList.size() == 0) {
+            throw new CommandException(MESSAGE_NO_EXPENSE_FOUND);
         }
 
-        Expense expenseToEdit = lastShownList.get(index.getZeroBased());
-        Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
-
-        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
+        //Edit all the filtered expenses
+        List<Expense> editedList = new ArrayList<>();
+        for (int i = 0; i < lastShownList.size(); i++) {
+            Expense expense = lastShownList.get(i);
+            Expense editedExpense = createEditedExpense(expense, editExpenseDescriptor);
+            model.updateExpense(expense, editedExpense);
+            editedList.add(editedExpense);
         }
-        model.updateExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        //Show the edited expenses to the user
+        Predicate<Expense> newPredicate = e -> editedList.stream().anyMatch(newExpense -> e == newExpense);
+        model.updateFilteredExpenseList(newPredicate);
+
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
-        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+
+        return new CommandResult(MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS);
     }
 
     @Override
@@ -94,13 +105,13 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof MassEditCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
+        MassEditCommand e = (MassEditCommand) other;
+        return predicate.equals(e.predicate)
                 && editExpenseDescriptor.equals(e.editExpenseDescriptor);
     }
 

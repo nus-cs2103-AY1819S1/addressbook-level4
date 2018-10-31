@@ -56,7 +56,7 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* --------------------- Perform select operations on the shown filtered list ------------------------- */
 
-        /* Case: filtered expense list, select index within bounds of address book but out of bounds of expense list
+        /* Case: filtered expense list, select index within bounds of expense tracker but out of bounds of expense list
          * -> rejected
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
@@ -64,7 +64,7 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
 
-        /* Case: filtered expense list, select index within bounds of address book and expense list -> selected */
+        /* Case: filtered expense list, select index within bounds of expense tracker and expense list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredExpenseList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -96,7 +96,7 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty expense tracker -> rejected */
         deleteAllExpenses();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(),
                 MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
