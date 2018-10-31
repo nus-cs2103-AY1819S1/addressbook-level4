@@ -179,7 +179,7 @@ public class ExportCertCommand extends Command {
         contStream.close();
 
         // Save document as <volunteerName>.pdf to the save path
-        doc.save(PDF_SAVE_PATH + volunteerName + ".pdf");
+        doc.save(PDF_SAVE_PATH + volunteerName + "_" + volunteerId + ".pdf");
 
         // Close the document
         doc.close();
