@@ -87,7 +87,7 @@ public class Priority {
      * 1 if integer value of a is larger than b.
      */
     public static int compare(Priority a, Priority b) {
-        if (a.toInt() < b.toInt()) {
+        if (a.toInt() > b.toInt()) {
             return -1;
         } else if (a.toInt() == b.toInt()) {
             return 0;
