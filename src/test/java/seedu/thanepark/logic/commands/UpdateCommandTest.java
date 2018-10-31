@@ -144,11 +144,7 @@ public class UpdateCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_RIDE;
         // ensures that outOfBoundIndex is still in bounds of thanepark book list
-<<<<<<< HEAD:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getRideList().size());
-=======
         assertTrue(outOfBoundIndex.getZeroBased() < model.getThanePark().getRideList().size());
->>>>>>> master:src/test/java/seedu/thanepark/logic/commands/UpdateCommandTest.java
 
         UpdateCommand editCommand = new UpdateCommand(outOfBoundIndex,
                 new UpdateRideDescriptorBuilder().withName(VALID_NAME_BOB).build());
