@@ -57,15 +57,20 @@ Here are the details of the features available to the user.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find LOCATION`, `LOCATION` is a
 parameter which can be used as `find serangoon`.
-* Items in square brackets are optional e.g `filter [f/] [n/] [ct/CARPARK_TYPE]` can be used as `filter f/ n/ ct/SURFACE` or as `filter f/`.
-* Parameters can be in any order e.g. if the command specifies `filter [f/] [n/] [ct/CARPARK_TYPE]`,
-`filter [n/] [f/] [ct/CARPARK_TYPE]` is also acceptable.
+* Parameters in square brackets are optional, and can be in any order.
+
 ====
 
 === Viewing help : `help`
 
-Shows the list of available commands and how to use them. +
-Format: `help` or `h`
+Shows the list of available commands and how to use them.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`help`| `h` | `help`
+|===
 
 [NOTE]
 ====
@@ -73,19 +78,75 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
-Example(s)
+=== Filtering car parks : `filter`
 
-- `help`
+Filters the list of car parks returned by `FindCommand` by: +
+
+* Car park has available parking slots `a/`
+* Car park has short-term parking `s/`
+* Type of car park `ct/`
+* Car park has free parking between a specified time period `f/`
+* Car park has night parking `n/`
+* Type of parking system that the car park uses `ps/`
+
+[width="95%"]
+[cols="3,1,5"]
+|===
+|Format| Abbreviation | Example(s)
+|`filter [flag&parameter(s)] [flag&parameter(s)] ...`| `fi` | `filter f/ SUN 7.30AM 5.30PM ct/ SURFACE`
+
+|===
+
+[NOTE]
+`FilterCommand` and take in any number of flags, in any order.
+
+List of valid flags:
+
+[width="95%"]
+[cols="3,1,1,3,3"]
+|===
+| Criteria | Flag| Parameter Structure | Valid Parameters | Example(s)
+| Car park has free parking |`f/`| `DAY START_TIME END_TIME` | `DAY`: `MON` - `SUN` +
+`START_TIME`: e.g. `7.30AM` +
+`END_TIME`: e.g. `9.30PM` | filter f/ `sun 9.00am 5.30pm`
+| Car park has night parking |`n/`| - | - |
+| Type of car park |`ct/`| `CAR_PARK_TYPE`| "SURFACE", "MULTISTOREY", "BASEMENT", "MECHANISED", "COVERED"| `filter ct/ covered`
+| Car park has available parking slot |`a/`| - | - |
+| Car park has short-term parking | `s/`| - | - |
+| Type of parking system | `ps/` |`PARKING_SYSTEM_TYPE`|"COUPON", "ELECTRONIC" | `filter ps/ coupon`
+|===
+
+[NOTE]
+====
+`FindCommand` must be used to find a list of carparks within the location first.
+====
+
+[NOTE]
+====
+Upper and lower case characters do not matter.
+====
+
+.Filtering covered car parks
+image::filter.png[width="880"]
+
 
 === Finding car parks : `find`
 
-Finds a list of available car parks. +
-Format: `find KEYWORD [MORE_KEYWORDS]` or `f KEYWORD [MORE_KEYWORDS]`
+Find a list of car parks within a certain location.
 
-****
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`find KEYWORD`| `f` | `find serangoon` +
+`f HG83`
+|===
+
+[NOTE]
+====
 * Common words are ignored, like blk and ave.
 * Upper and lower case characters do not matter.
-****
+====
 
 .Before using find command
 image::findbefore.png[width="880"]
@@ -97,147 +158,110 @@ image::findafter.png[width="880"]
 The figure above shows what happen after executing the `find` command.
 
 
-Example(s):
-
-* `find punggol`
-* `f HG83`
-
 === Select car park : `select`
 
-Select the car park you wish to go to. +
-Format: `select INDEX` or `s INDEX`
+Select the car park you wish to go to.
 
-****
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`select INDEX`| `s` | `select 1`
+|===
+
+[NOTE]
+====
 * The index refers to the index number shown in the displayed car park list.
 * The index *must be a positive integer* `1, 2, 3, ...`
-****
+====
 
 .After using select command
 image::select.png[width="880"]
-The figure above is the outcome of the select command.
 
-Example(s):
-
-Selecting the 2nd car park in the list.
-
-Step 1. `list`
-
-Step 2. `select 2`
-
-Selecting the 1st car park in the results of the `find` command.
-
-Step 1. `find sengkang`
-
-Step 2.  `s 1`
+[NOTE]
+`ListCommand` must be executed before `SelectCommand`
 
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`history`| - | `history`
+|===
 
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-Example(s)
+=== Calculating the cost of parking : `calculate`
 
-* `history`
+Calculates the cost of parking at a selected car park between a specified time period.
 
-=== Filtering car parks : `filter`
-
-Filters the list of car parks by free parking, night parking or car park type. +
-Format: `filter [f/ DAY START_TIME END_TIME] [n/] [ct/ CARPARK_TYPE]` +
-or `fi [f/ DAY START_TIME END_TIME] [n/] [ct/ CARPARK_TYPE]`
-
-
-[NOTE]
-====
-Must have car parks beforehand. +
-Upper and lower case characters do not matter.
-====
-
-Flags:
-
-* `f/ - FREE_PARKING`
-* `n/ - NIGHT_PARKING`
-* `ct/ - CARPARK_TYPE`
-- `SURFACE`
-- `MULTI-STOREY`
-- `BASEMENT`
-- `COVERED`
-- `MECHANISED`
-
-.Filtering covered car parks
-image::filter.png[width="880"]
-
-After filtering, a smaller subset of car parks are listed.
-
-Example(s):
-
-* `filter f/ SUN 7.30AM 5.30PM n/ ct/ SURFACE`
-* `fi ct/ BASEMENT`
-
-=== Sorting car parks : `sort`
-
-Sort the list of car parks by distance or name. +
-Format: `sort FILTER_TYPE` or `so FILTER_TYPE`
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`calculate DAY START_TIME END_TIME`| cal | `calculate SUN 3.30PM 6.30PM`
+|===
 
 [NOTE]
 ====
-Must have car parks listed beforehand.
+`CalculateCommand` takes into account the free parking times of car parks.
 ====
-
-Flags:
-
-* `DISTANCE`
-* `NAME`
-* `FP (Free Parking)`
-* `NP (Night Parking)`
-
-Example(s):
-
-* `sort DISTANCE`
-* `so NAME`
 
 === Listing all car parks : `list`
 
-Show a list of all the car parks with their details. +
-Format: `list` or `l`
+Show a list of all the car parks with their details.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`list`| l | `list`
+|===
 
 .After using list command
 image::listafter.png[width="880"]
 
 After executing `list`, it will show all the car parks again.
 
-Example(s)
-
-* `list`
-
 === Adding favourite car parks or location : `add` `[coming in v2.0]`
 
-Add a car park into your favorites list +
-Format: `add c/CARPARK_NUMBER` or `a c/CARPARK_NUMBER`
+Add a car park into your favorites list.
 
-Example(s):
-
-* `add c/SE12`
-* `a c/SE12`
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`add c/CARPARK_NUMBER`| a | `add c/SE12`
+|===
 
 === Removing from favorites list : `delete` `[coming in v2.0]`
 
 
-Remove the specified car park from your favorites list +
-Format: `delete c/CARPARK_NUMBER` or `d c/CARPARK_NUMBER`
+Remove the specified car park from your favorites list.
 
-Example(s):
-
-* `delete c/SE12`
-* `d c/SE12`
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`delete c/CARPARK_NUMBER`| d | `delete c/SE12`
+|===
 
 === Querying data: `query`
 
-Get car park information from data.gov.sg by querying it. +
+Get car park information from data.gov.sg by querying it.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`query`| - | `query`
+|===
 
 [NOTE]
 ====
@@ -249,53 +273,54 @@ image::query.png[width="880"]
 
 All car parks data are refreshed, with all the bottom left panel saying when it was updated.
 
-Example(s):
-
-* `query`
-
 === Enabling Notification : `notify` `[coming in v2.0]`
 
-Set the interval to give updates in real time for all the car parks. +
-Format: `notify TIME_SECONDS` or `n TIME_SECONDS`
+Set the interval to give updates in real time for all the car parks.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`notify TIME_SECONDS`| n | `notify 60`
+|===
 
 [NOTE]
 ====
 The default value is 60 seconds. You can set within a range of 10 seconds to 1 hour.
 ====
 
-Example(s):
-
-* `notify 60`
-* `n 60`
-
 === Updating Weather : `weather` `[coming in v2.0]`
 
-Include weather updates in the notifications by indicating on or off. +
-Format: `weather TOGGLE`
+Include weather updates in the notifications by indicating on or off.
 
-Example(s):
-
-* `weather on`
-
-* `weather off`
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`weather TOGGLE`| - | `weather on`
+|===
 
 === Clearing all entries : `clear`
 
-Clears all entries from the list. +
-Format: `clear`
+Clears all entries from the list.
 
-Example(s)
-
-* `clear`
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`clear`| - | `clear`
+|===
 
 === Exiting the application : `exit`
 
-Exits the application. +
-Format: `exit`
+Exits the application.
 
-Example(s)
-
-* `exit`
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`exit`| - | `exit`
+|===
 
 == FAQ
 
@@ -367,12 +392,12 @@ Here are the summarize list of commands available to the user.
 |`f punggol`
 
 |*Filter*
-|`filter [f/FREE_PARKING] [n/NIGHT_PARKING] [ct/CARPARK_TYPE]`
-|`fi f/true n/false ct/multi`
+|`filter [flag&parameter(s)] [flag&parameter(s)] ...`
+|`fi f/ SUN 7.30AM 5.30PM ct/ SURFACE`
 
-|*Sort*
-|`sort FILTER_TYPE`
-|`so DISTANCE`
+|*Calculate*
+|`calculate DAY START_TIME END_TIME`
+|`cal SUN 3.30PM 6.30PM`
 
 |*Notify*
 |`notify`

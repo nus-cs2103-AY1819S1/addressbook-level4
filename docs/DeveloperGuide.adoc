@@ -640,7 +640,7 @@ image::ActivityDiagram-filter.png[width="700", align="left"]
 
 ==== Design Considerations
 
-===== Aspect: How location based filtering executes
+===== Aspect: How location based filtering is done
 
 * **Alternative 1 (Current choice):** Extracting the location from the previous `FindCommand` to form part of the predicate for the current `FilterCommand`
 +
@@ -661,6 +661,16 @@ A whole new set of classes and methods needs to be written to store the filtered
 |===
 
 === Calculate Feature
+
+The calculate feature helps users calculate the cost of parking at a specific car park for a specified time period.
+
+==== Overview
+
+
+==== Example
+==== Design Considerations
+===== Aspect: How calculation is done
+
 
 
 
