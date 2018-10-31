@@ -15,6 +15,7 @@ public class GroupdeleteCommand extends Command {
     public static final String COMMAND_WORD = "groupdelete";
     public static final String MESSAGE_NO_GROUP = "The group typed does not exist.";
     public static final String MESSAGE_SUCCESS = "Group %1$s has been deleted";
+    public static final String MESSAGE_USAGE = "please type in the group";
 
     private final Tag toDelete;
 
@@ -36,6 +37,12 @@ public class GroupdeleteCommand extends Command {
         model.deleteGroup(toDelete);
         model.commitLearnVocabulary();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete));
+    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof GroupdeleteCommand // instanceof handles nulls
+                && this.toDelete.equals(((GroupdeleteCommand) other).toDelete)); // state check
     }
 }
 //@@author

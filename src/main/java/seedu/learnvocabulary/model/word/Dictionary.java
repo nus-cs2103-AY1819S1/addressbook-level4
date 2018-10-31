@@ -11,7 +11,7 @@ import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
  * Self-created Dictionary.com "API"
  */
 public class Dictionary {
-    public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet to learn about words.";
+    public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet.";
     public static final String WORD_NOT_EXIST =
             "Word cannot be located online (does not exist) - try respelling it.";
     public static final String NO_WORD_OF_THE_DAY =

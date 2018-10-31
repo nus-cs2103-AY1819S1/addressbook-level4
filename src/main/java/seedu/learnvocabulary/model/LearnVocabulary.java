@@ -103,7 +103,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         }
         return false;
     }
-
+    @Override
     public Set<Tag> getTags() {
         Set<Tag> totalTag = addedTag;
         for (Word word:words) {
@@ -122,6 +122,9 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     public void deleteGroup(Tag toDelete) {
         requireNonNull(toDelete);
         final UniqueWordList wordsTemp = new UniqueWordList();
+        if (addedTag.contains(toDelete)) {
+            addedTag.remove(toDelete);
+        }
         for (Word word:words) {
             if (word.getTags().contains(toDelete)) {
                 word.deleteTags(toDelete);
