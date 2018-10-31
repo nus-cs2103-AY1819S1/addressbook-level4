@@ -27,6 +27,8 @@ public class TrackAddCommand extends Command {
     private Track trackToAdd;
     private Playlist targetPlaylist;
 
+    public TrackAddCommand() {}
+
     public TrackAddCommand(Track trackToAdd, Playlist targetPlaylist) {
         this.trackToAdd = trackToAdd;
         this.targetPlaylist = targetPlaylist;
