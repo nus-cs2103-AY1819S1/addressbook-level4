@@ -117,6 +117,7 @@ Example(s):
 * `history` +
 The command result box will display the commands that you have entered in reverse chronological order.
 
+// tag::undoreo[]
 [[command-undo]]
 ==== Undoing previous command : `undo`
 
@@ -170,6 +171,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+// tag::command-clear[]
 [[command-clear]]
 ==== Clearing all entries : `clear`
 
@@ -190,6 +192,7 @@ image::command_clear_before.png[clear bef, 800]
 image::command_clear_after.png[clear aft, 800]
 
 The figures above shows the before and after state of clearing the entries of the application.
+//end:command-clear[]
 
 [[command-exit]]
 ==== Exiting the application : `exit`
@@ -203,6 +206,7 @@ Example(s):
 * `exit` +
 Exits from the application and return to the user's desktop.
 
+// tag::command-switch[]
 [[command-switch]]
 ==== Switching panels: `switch`
 
@@ -234,6 +238,7 @@ image::command_switch_after.png[switch aft, 300]
 
 The figures above show the 2 different panels. +
 Application will first display the 'volunteers' panel and you can change the panel to display 'events' via the `switch` command.
+// end::command-switch[]
 
 === Volunteer Management
 
@@ -522,6 +527,7 @@ image::command_event_delete_before.png[Before delete, 300]
 image::command_event_delete_after.png[After delete, 300]
 --
 
+// tag::command-record[]
 === Record Management
 
 This section contains commands related to managing a volunteering record.
@@ -659,6 +665,7 @@ image::command_record_edit_after.png[delete command, 800]
 image::command_record_delete.png[delete command, 800]
 
 The figures above show the display box before and after deleting a record.
+//end::command-record[]
 
 === Miscellaneous
 
