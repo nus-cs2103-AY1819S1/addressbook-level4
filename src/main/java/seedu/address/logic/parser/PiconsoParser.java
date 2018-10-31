@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.CdCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConvertCommand;
+import seedu.address.logic.commands.CreateConvertCommand;
 import seedu.address.logic.commands.ExampleCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -65,6 +66,9 @@ public class PiconsoParser {
 
         case ConvertCommand.COMMAND_WORD:
             return new ConvertCommandParser().parse(arguments);
+
+        case CreateConvertCommand.COMMAND_WORD:
+            return new CreateConvertCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
