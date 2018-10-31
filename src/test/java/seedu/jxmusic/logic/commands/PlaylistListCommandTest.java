@@ -3,7 +3,7 @@ package seedu.jxmusic.logic.commands;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.showPlaylistAtIndex;
 import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PLAYLIST;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibrary;
 
 import org.junit.Before;
 import org.junit.Test;

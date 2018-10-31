@@ -44,6 +44,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered playlist list */
     ObservableList<Playlist> getFilteredPlaylistList();
 
+    /** Returns an unmodifiable view of the filtered track list */
+    ObservableList<Track> getFilteredTrackList();
+
     /**
      * Updates the filter of the filtered playlist list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

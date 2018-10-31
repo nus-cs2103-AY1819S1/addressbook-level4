@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
-import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import seedu.jxmusic.model.exceptions.DuplicatePlaylistException;
 import seedu.jxmusic.testutil.PlaylistBuilder;
-import seedu.jxmusic.testutil.TypicalPlaylists;
+import seedu.jxmusic.testutil.TypicalPlaylistList;
 
 public class LibraryTest {
 
@@ -43,7 +43,7 @@ public class LibraryTest {
 
     @Test
     public void resetData_withValidReadOnlyLibrary_replacesData() {
-        Library newData = TypicalPlaylists.getTypicalLibrary();
+        Library newData = TypicalPlaylistList.getTypicalLibrary();
         library.resetData(newData);
         assertEquals(newData, library);
     }
@@ -97,6 +97,7 @@ public class LibraryTest {
     private static class LibraryStub implements ReadOnlyLibrary {
         private final ObservableList<Playlist> playlists = FXCollections.observableArrayList();
         private final ObservableSet<Track> tracks = FXCollections.observableSet(new HashSet<>());
+        private final ObservableList<Track> trackList = FXCollections.observableArrayList();
 
         LibraryStub(Collection<Playlist> playlists) {
             this.playlists.setAll(playlists);
@@ -109,6 +110,10 @@ public class LibraryTest {
         @Override
         public ObservableSet<Track> getTracks() {
             return tracks;
+        }
+        @Override
+        public ObservableList<Track> getObservableTrackList() {
+            return trackList;
         }
     }
 

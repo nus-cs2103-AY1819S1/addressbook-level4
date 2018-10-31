@@ -12,6 +12,7 @@ import seedu.jxmusic.logic.parser.LibraryParser;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 
 /**
  * The main LogicManager of the app.
@@ -43,6 +44,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Playlist> getFilteredPlaylistList() {
         return model.getFilteredPlaylistList();
+    }
+
+    @Override
+    public ObservableList<Track> getFilteredTrackList() {
+        return model.getFilteredTrackList();
     }
 
     @Override
