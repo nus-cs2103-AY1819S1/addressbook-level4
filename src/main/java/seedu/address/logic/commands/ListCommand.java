@@ -65,6 +65,9 @@ public class ListCommand extends Command {
         case DUE_END_OF_MONTH:
             this.predicate = new DueDateIsBeforeEndOfMonthPredicate();
             break;
+        case BLOCKING:
+            this.predicate = new IsBlockingPredicate();
+            break;
         default:
             this.predicate = PREDICATE_SHOW_ALL_TASKS;
             break;
