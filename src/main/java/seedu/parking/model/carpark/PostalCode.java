@@ -19,7 +19,7 @@ public class PostalCode {
 
     public static final String DEFAULT_VALUE = "000000";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs an {@code PostalCode}.

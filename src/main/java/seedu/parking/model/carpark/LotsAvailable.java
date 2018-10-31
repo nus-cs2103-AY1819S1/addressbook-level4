@@ -14,7 +14,7 @@ public class LotsAvailable {
 
     public static final String LOTS_AVAIL_VALIDATION_REGEX = "\\d+";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs an {@code TotalLots}.

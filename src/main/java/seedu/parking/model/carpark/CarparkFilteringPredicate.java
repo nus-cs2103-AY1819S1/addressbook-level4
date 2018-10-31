@@ -94,16 +94,16 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
         boolean correctLocation = locationKeywords.stream()
                 .anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
-                                || StringUtil.containsWordIgnoreCase(carpark.getAddress().value, keyword)
-                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
-                                || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().value, keyword)
+                        StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().toString(), keyword)
+                                || StringUtil.containsWordIgnoreCase(carpark.getAddress().toString(), keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().toString(), keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().toString(), keyword)
                 );
 
         boolean collective = true;
 
         if (flagList.contains("n/")) {
-            boolean hasNightParking = carpark.getNightParking().value.equals("YES");
+            boolean hasNightParking = carpark.getNightParking().toString().equals("YES");
 
             collective = hasNightParking;
         }
@@ -115,7 +115,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             String startTime = flagList.get(index + 2);
             String endTime = flagList.get(index + 3);
 
-            String timePeriod = carpark.getFreeParking().value;
+            String timePeriod = carpark.getFreeParking().toString();
             boolean hasFreeParking = checkFreeParking(day, startTime, endTime, timePeriod);
 
             collective = collective && hasFreeParking;
@@ -125,7 +125,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
 
             String selectedCarparkType = flagList.get(index2 + 1).toUpperCase();
 
-            String carparkType = carpark.getCarparkType().value;
+            String carparkType = carpark.getCarparkType().toString();
             boolean isCorrectType = checkCarParkType(selectedCarparkType, carparkType);
 
             collective = collective && isCorrectType;

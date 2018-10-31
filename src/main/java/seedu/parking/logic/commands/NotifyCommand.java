@@ -2,11 +2,20 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.Messages;
 import seedu.parking.commons.core.index.Index;
+import seedu.parking.commons.events.model.DataFetchExceptionEvent;
+import seedu.parking.commons.events.ui.NewResultAvailableEvent;
+import seedu.parking.commons.events.ui.NotifyCarparkRequestEvent;
+import seedu.parking.commons.util.GsonUtil;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
 import seedu.parking.model.Model;
@@ -36,7 +45,7 @@ public class NotifyCommand extends Command {
             + ": Set when to update the car park information.\n"
             + "Example: " + COMMAND_WORD + " 60";
 
-    public static final String MESSAGE_SUCCESS = "Notification set for car park %1$d\nInterval: every %2$ds";
+    public static final String MESSAGE_SUCCESS = "Notification set for car park %1$s\nInterval: every %2$ds";
     public static final String MESSAGE_ERROR = "Cannot notify without selecting a car park first";
     public static final String MESSAGE_ERROR_CARPARK = "Unable to load car park information from database";
 
@@ -80,7 +89,36 @@ public class NotifyCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, notifyIndex.getOneBased(), targetTime));
+        CarparkNumber selectedNumber = CarparkListPanel.getSelectedCarpark().getCarparkNumber();
+        System.out.println(selectedNumber.toString());
+
+        ExecutorService threadExecutor = Executors.newSingleThreadExecutor();
+        Callable<Boolean> task = () -> {
+            try {
+                List<String> updateData = new ArrayList<>(GsonUtil.getSelectedCarparkInfo(
+                        selectedNumber.toString()));
+
+                model.getCarparkFinder().getCarparkList().parallelStream()
+                        .filter(carpark -> carpark.getCarparkNumber().equals(selectedNumber))
+                        .findFirst().ifPresent(carpark -> {
+                            carpark.setLots(new LotsAvailable(updateData.get(1)),
+                                    new TotalLots(updateData.get(2)));
+
+                        });
+                EventsCenter.getInstance().post(new NotifyCarparkRequestEvent());
+                model.commitCarparkFinder();
+                System.out.println("Lots Available: " + updateData.get(1) + " Total Lots: " + updateData.get(2));
+                EventsCenter.getInstance().post(new NewResultAvailableEvent(
+                        String.format(MESSAGE_SUCCESS, selectedNumber.toString(), targetTime)));
+            } catch (Exception e) {
+                EventsCenter.getInstance().post(new DataFetchExceptionEvent(
+                        new CommandException(MESSAGE_ERROR_CARPARK)));
+            }
+            return true;
+        };
+        threadExecutor.submit(task);
+
+        return new CommandResult("Loading...please wait...");
     }
 
     @Override

@@ -18,8 +18,9 @@ public class Carpark {
     private final Address address;
     private final CarparkNumber carparkNumber;
     private final Coordinate coordinate;
-    private final LotsAvailable lotsAvailable;
-    private final TotalLots totalLots;
+    private final PostalCode postalCode;
+    private LotsAvailable lotsAvailable;
+    private TotalLots totalLots;
 
     // Data fields
     private final CarparkType carparkType;
@@ -27,8 +28,6 @@ public class Carpark {
     private final NightParking nightParking;
     private final ShortTerm shortTerm;
     private final TypeOfParking typeOfParking;
-
-    private final PostalCode postalCode;
 
     private final Set<Tag> tags = new HashSet<>();
 
@@ -100,6 +99,16 @@ public class Carpark {
 
     public PostalCode getPostalCode() {
         return postalCode;
+    }
+
+    /**
+     * Update the values of the parking lots
+     * @param lotsAvailable how many lots are available in the car park
+     * @param totalLots total lots in the car park
+     */
+    public void setLots(LotsAvailable lotsAvailable, TotalLots totalLots) {
+        this.lotsAvailable = lotsAvailable;
+        this.totalLots = totalLots;
     }
 
     /**

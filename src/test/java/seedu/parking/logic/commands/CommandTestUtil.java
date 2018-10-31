@@ -166,7 +166,7 @@ public class CommandTestUtil {
     public static void showCarparkAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCarparkList().size());
         Carpark carpark = model.getFilteredCarparkList().get(targetIndex.getZeroBased());
-        final String[] splitName = carpark.getCarparkNumber().value.split("\\s+");
+        final String[] splitName = carpark.getCarparkNumber().toString().split("\\s+");
         model.updateFilteredCarparkList(new CarparkContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCarparkList().size());

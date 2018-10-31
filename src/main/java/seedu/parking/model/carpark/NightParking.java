@@ -18,7 +18,7 @@ public class NightParking {
      */
     public static final String NIGHT_PARK_VALIDATION_REGEX = "[^\\s].*";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs an {@code NightParking}.
