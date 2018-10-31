@@ -32,18 +32,17 @@ Here are several quick tips to get the application running.
 . Download the latest `carparkfinder.jar` https://github.com/CS2103-AY1819S1-T09-4/main/releases[here].
 . Copy the file to the folder you want to use as the home folder for Car Park Finder.
 . Double-click the file to start the application. The *Graphical User Interface (GUI)* should appear in a few seconds.
-+
-.Home page of GUI
-image:quickstart-GUI.png[width="880"]
-The figure above is a sample display of the application's GUI, which consists of
-5 regions.
 
-+
-. Type a command in the Command Box and then press kbd:[Enter] to execute it.
+The figure below is a sample display of the application's GUI, which consists of five regions.
+
+.Home page of Car Park Finder
+image::quickstart-GUI.png[width="880"]
+
+Type a command in the Command Box and then press kbd:[Enter] to execute it.
 A message will appear in the Message Box.
 
 [TIP]
-Some example commands you can try: +
+Some commands you can try: +
 <<Features-List,*`list`*>>: bring up a list of all the car parks +
 <<Features-Help,*`help`*>>: show the list of available commands and how to use them +
 <<Features-Exit,*`exit`*>>: exit the program
@@ -62,7 +61,6 @@ Here are the details of the features available to the user.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find LOCATION`, `LOCATION` is a
 parameter which can be used as `find serangoon`.
 * Parameters in square brackets are optional, and can be in any order.
-
 ====
 
 [[Features-Help]]
@@ -83,6 +81,7 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
+[[Features-Filter]]
 === Filtering car parks : `filter`
 
 Filters the list of car parks returned by `FindCommand` by: +
@@ -123,12 +122,8 @@ List of valid flags:
 
 [NOTE]
 ====
-`FindCommand` must be used to find a list of carparks within the location first.
-====
-
-[NOTE]
-====
-Upper and lower case characters do not matter.
+* `FindCommand` must be used to find a list of carparks within the location first.
+* Upper and lower case characters do not matter.
 ====
 
 .Filtering covered car parks
@@ -158,12 +153,12 @@ Find a list of car parks within a certain location.
 image::findbefore.png[width="880"]
 The figure above is a sample display of the application.
 
-
 .After using find command
 image::findafter.png[width="880"]
 The figure above shows what happen after executing the `find` command.
 
-=== Select car park : `select`
+[[Features-Select]]
+=== Selecting a car park : `select`
 
 Select the car park you wish to go to.
 
@@ -183,11 +178,13 @@ Select the car park you wish to go to.
 .After using select command
 image::select.png[width="880"]
 
+The figure above is the outcome of the select command.
+
 [NOTE]
-`ListCommand` must be executed before `SelectCommand`
+There must be car parks available for `SelectCommand` to work.
 
 [[Features-History]]
-=== Listing entered commands : `history`
+=== Show past commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 
@@ -203,6 +200,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+[[Features-List]]
 === Calculating the cost of parking : `calculate`
 
 Calculates the cost of parking at a selected car park between a specified time period.
@@ -233,35 +231,10 @@ Show a list of all the car parks with their details.
 .After using list command
 image::listafter.png[width="880"]
 
-After executing `list`, it will show all the car parks again.
-
-=== Adding favourite car parks or location : `add` `[coming in v2.0]`
-
-Add a car park into your favorites list.
-
-[width="95%"]
-[cols="2,1,3"]
-|===
-|Format| Abbreviation | Example(s)
-|`add c/CARPARK_NUMBER`| a | `add c/SE12`
-|===
-
-[[Features-Delete]]
-=== Removing from favorites list : `delete` `[coming in v2.0]`
-
-Remove the specified car park from your favorites list.
-
-[width="95%"]
-[cols="2,1,3"]
-|===
-|Format| Abbreviation | Example(s)
-|`delete c/CARPARK_NUMBER`| d | `delete c/SE12`
-|===
-
 [[Features-Query]]
 === Querying data: `query`
 
-Get car park information from data.gov.sg by querying it.
+If you want to get the latest updates for all the car parks, just type `query` into the _Command Box_. +
 
 [width="95%"]
 [cols="2,1,3"]
@@ -272,17 +245,30 @@ Get car park information from data.gov.sg by querying it.
 
 [NOTE]
 ====
-You need to run this command to get the latest information on all the car parks.
+Car Park Finder currently does not autorun this command at the start!
 ====
 
-.After using query command
-image::query.png[width="880"]
+Here are some pictures to illustrate how `query` works:
 
-All car parks data are refreshed, with all the bottom left panel saying when it was updated.
+.Before running Query Command
+image::zy_before_query.png[width="880"]
+image::zy_arrow.png[width="880"]
 
-=== Enabling Notification : `notify` `[coming in v2.0]`
+.While Query Command is running
+image::zy_during_query.png[width="880"]
+image::zy_arrow.png[width="880"]
 
-Set the interval to give updates in real time for all the car parks.
+.Result of Query Command
+image::zy_after_query.png[width="880"]
+
+All information for the car parks are refreshed, with the bottom left text telling you when it was
+last updated.
+
+[[Features-Notify]]
+=== Enabling Notification : `notify`
+
+After selecting a car park, you can get real-time notifications by typing `notify 10`, where
+10 means updating the car park information every 10 seconds.
 
 [width="95%"]
 [cols="2,1,3"]
@@ -293,19 +279,32 @@ Set the interval to give updates in real time for all the car parks.
 
 [NOTE]
 ====
-The default value is 60 seconds. You can set within a range of 10 seconds to 1 hour.
+* You need to select a car park first or this command will not work.
+* The default value is 60 seconds. You can set within a range of 10 to 600 seconds.
 ====
 
-=== Updating Weather : `weather` `[coming in v2.0]`
+Here are some pictures to illustrate how `notify` works:
 
-Include weather updates in the notifications by indicating on or off.
+.Selected Car park SK96
+image::zy_select_notify.png[width="880"]
+image::zy_arrow.png[width="880"]
 
-[width="95%"]
-[cols="2,1,3"]
-|===
-|Format| Abbreviation | Example(s)
-|`weather TOGGLE`| - | `weather on`
-|===
+.Real-time notification for SK96
+image::zy_notify_after.png[width="880"]
+image::zy_arrow.png[width="880"]
+
+.Turning notification off
+image::zy_notify_off.png[width="880"]
+
+To turn off the notification, simply set the seconds value to 0.
+
+Below are examples where notify will not work:
+
+.Invalid command format
+image::zy_notify_invalid.png[width="880"]
+
+.Invalid command format
+image::zy_notify_select.png[width="880"]
 
 [[Features-Clear]]
 === Clearing all entries : `clear`
@@ -331,13 +330,13 @@ Exits the application.
 |`exit`| - | `exit`
 |===
 
-=== Auto complete the command line
+=== Autocomplete
 
 Display the full format of an executable command line. +
 Format: `COMMAND_WORD` followed by 'Tab' key.
 Function: press 'Tab' key again to move to the next parameter.
 
-Example(s)
+Usage(s)
 
 * key in `fi` in command box and then press 'Tab' key.
 
@@ -347,6 +346,66 @@ Only available in the following commands:
 * <<Features-Select,*`select`*>>
 * <<Features-Filter,*`filter`*>>
 * <<Features-Sort,*`sort`*>>
+
+[[Features-Add]]
+=== Adding to favorites list : `add` `[coming in v2.0]`
+
+Add a car park into your favorites list.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`add c/CARPARK_NUMBER`| a | `add c/SE12`
+|===
+
+[[Features-Delete]]
+=== Removing from favorites list : `delete` `[coming in v2.0]`
+
+Remove the specified car park from your favorites list.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`delete c/CARPARK_NUMBER`| d | `delete c/SE12`
+|===
+
+[[Features-Sort]]
+=== Sorting car parks : `sort` `[coming in v2.0]`
+
+Sort the list of car parks by distance or name.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`sort TYPE`| so | `so NAME`
+|===
+
+[NOTE]
+====
+Must have car parks listed beforehand.
+====
+
+Flags:
+
+* `DISTANCE`
+* `NAME`
+* `FP (Free Parking)`
+* `NP (Night Parking)`
+
+[[Features-Weather]]
+=== Updating Weather : `weather` `[coming in v2.0]`
+
+Include weather updates in the notifications by indicating on or off.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`weather TOGGLE`| - | `weather on`
+|===
 
 == FAQ
 
@@ -360,21 +419,35 @@ Only available in the following commands:
 
 Here are a few technical terms used in the user guide.
 
-.General Commands
+.Technical Terms
 [cols="1,6"]
 |===
 |Term |Explanation
 
+|*Application Programming Interface (API)*
+|Specifies the interface through which other programs can interact with a software component. It is a contract between the component and its clients.
+
+|*Autocomplete*
+|Provides suggestions while you type into the field.
+
+|*Mainstream Operating System (OS)*
+|Windows, Linux, Unix and OS-X are operating systems used widely in the world.
+
+|*Favourites*
+|A custom list of car parks that is meant to be viewed easily.
+
 |*Flag*
 |Flag is a value that acts as a signal for a function.
-|===
 
+|*User Interface (UI)*
+|Allows the user to interact with the application through inputs and outputs of data.
+|===
 
 == Command Summary
 Here are the summarize list of commands available to the user.
 
 .General Commands
-[cols="1,4,2"]
+[cols="1,3,2"]
 |===
 |Command |Format |Example
 

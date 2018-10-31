@@ -263,7 +263,7 @@ public class GsonUtil {
      * If postal code is default, we will not display it or check against it.
      * @throws IOException if unable to open file.
      */
-    private static void loadCarparkPostalCode () throws IOException {
+    private static void loadCarparkPostalCode() throws IOException {
         postalCodeMap.clear();
         File file = new File(POSTAL_CODE_TXT);
 
@@ -328,7 +328,7 @@ public class GsonUtil {
      * FNV hashes a String array.
      * @return A long which is the hash value
      */
-    private static long fnvHash (String[] strings) {
+    private static long fnvHash(String[] strings) {
         long hash = 0xCBF29CE484222325L;
         for (String s : strings) {
             hash ^= s.hashCode();
@@ -341,7 +341,7 @@ public class GsonUtil {
      * Outputs a hashmap to a txt file.
      * @throws IOException if unable to open file.
      */
-    private static void hashmapToTxt (HashMap<Long, String> map) throws IOException {
+    private static void hashmapToTxt(HashMap<Long, String> map) throws IOException {
         FileWriter fstream;
         BufferedWriter out;
 
