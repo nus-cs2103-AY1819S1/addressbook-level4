@@ -11,7 +11,7 @@ import seedu.jxmusic.player.PlayerManager;
 
 public class SeekCommand extends Command {
 
-    public static final String COMMAND_WORD = "seek";
+    public static final String COMMAND_PHRASE = "seek";
     //should we change it to ake this can display the time? but if yes, we need to abort the static while i am not sure
     //of the effect of static
     public static final String MESSAGE_SUCCESS = "seek the player to time required";

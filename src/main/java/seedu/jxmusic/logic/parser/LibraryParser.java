@@ -59,9 +59,8 @@ public class LibraryParser {
         case StopCommand.COMMAND_WORD:
             return new StopCommand();
 
-        case SeekCommand.COMMAND_WORD:
-            //double time = arguments.toInt() sth like this, change the string to time in double
-            //return new SeekCommand(time);
+        //case SeekCommand.COMMAND_PHRASE:
+            //return new SeekCommandParser().parse(arguments);
 
         case PlaylistListCommand.COMMAND_PHRASE:
             return new PlaylistListCommand();
