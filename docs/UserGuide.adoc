@@ -490,7 +490,7 @@ KEYWORD…​`
 
 * Delete day: `delete INDEX`
 * Clear planner: `clear`
-* View recipe details: `select INDEX`
+* View recipe details: `select INDEX MEAL`
 
 *Cook-Mode Commands [coming in V2.0]*
 
