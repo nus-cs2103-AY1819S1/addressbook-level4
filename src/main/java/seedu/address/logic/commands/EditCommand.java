@@ -26,6 +26,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -115,10 +116,9 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         // Edit command does not change meeting. Use schedule to change meeting.
         Meeting updatedMeeting = personToEdit.getMeeting();
-        Person updatedPerson = new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
-                updatedTags, updatedMeeting);
-        updatedPerson.setPicture(personToEdit.getPicture());
-        return updatedPerson;
+        Picture updatedPicture = personToEdit.getPicture();
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,
+                updatedTags, updatedMeeting, updatedPicture);
     }
 
     @Override
