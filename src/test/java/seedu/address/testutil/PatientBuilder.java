@@ -71,7 +71,7 @@ public class PatientBuilder {
         address = patientToCopy.getAddress();
         remark = patientToCopy.getRemark();
         tags = new HashSet<>(patientToCopy.getTags());
-        medicalHistory = patientToCopy.getMedicalHistory();
+        medicalHistory = new MedicalHistory(patientToCopy.getMedicalHistory());
     }
 
     /**
