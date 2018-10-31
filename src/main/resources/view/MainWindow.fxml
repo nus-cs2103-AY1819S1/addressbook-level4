@@ -14,12 +14,12 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="700" minHeight="500" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/thanepark_32.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@BlueTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
@@ -28,9 +28,12 @@
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#showHelpWindow" text="Help" />
-          </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#showHelpWindow" text="Help" />
+            </Menu>
+            <Menu mnemonicParsing="false" text="About">
+                <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#showHelpWindow" text="About" />
+            </Menu>
         </MenuBar>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">

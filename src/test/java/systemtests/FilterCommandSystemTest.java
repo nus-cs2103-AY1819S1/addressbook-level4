@@ -35,7 +35,7 @@ public class FilterCommandSystemTest extends ThaneParkSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous command where ride list is displating the rides we are searching
+        /* Case: repeat previous command where ride list is displaying the rides we are searching
          * -> 3 rides found
          */
         command = FilterCommand.COMMAND_WORD + " " + PREFIX_WAITING_TIME + LESS_THAN_TEN_STRING;

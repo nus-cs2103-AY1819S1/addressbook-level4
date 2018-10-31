@@ -28,21 +28,21 @@ public class XmlThaneParkStorage implements ThaneParkStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getThaneParkFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyThanePark> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyThanePark> readThanePark() throws DataConversionException, IOException {
+        return readThanePark(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readThanePark()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyThanePark> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyThanePark> readThanePark(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
@@ -61,15 +61,15 @@ public class XmlThaneParkStorage implements ThaneParkStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyThanePark addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveThanePark(ReadOnlyThanePark addressBook) throws IOException {
+        saveThanePark(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyThanePark)}
+     * Similar to {@link #saveThanePark(ReadOnlyThanePark)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyThanePark addressBook, Path filePath) throws IOException {
+    public void saveThanePark(ReadOnlyThanePark addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

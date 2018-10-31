@@ -25,8 +25,8 @@ public class XmlAdaptedRideTest {
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = BIG.getName().toString();
-    private static final String VALID_MAINTENANCE = BIG.getDaysSinceMaintenance().toString();
-    private static final String VALID_WAIT_TIME = BIG.getWaitingTime().toString();
+    private static final String VALID_MAINTENANCE = String.valueOf(BIG.getDaysSinceMaintenance().getValue());
+    private static final String VALID_WAIT_TIME = String.valueOf(BIG.getWaitingTime().getValue());
     private static final String VALID_ADDRESS = BIG.getAddress().toString();
     private static final List<XmlAdaptedTag> VALID_TAGS = BIG.getTags().stream()
             .map(XmlAdaptedTag::new)

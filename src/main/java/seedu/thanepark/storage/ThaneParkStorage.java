@@ -16,7 +16,7 @@ public interface ThaneParkStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getThaneParkFilePath();
 
     /**
      * Returns ThanePark data as a {@link ReadOnlyThanePark}.
@@ -24,23 +24,23 @@ public interface ThaneParkStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyThanePark> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyThanePark> readThanePark() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getThaneParkFilePath()
      */
-    Optional<ReadOnlyThanePark> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyThanePark> readThanePark(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyThanePark} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyThanePark addressBook) throws IOException;
+    void saveThanePark(ReadOnlyThanePark addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyThanePark)
+     * @see #saveThanePark(ReadOnlyThanePark)
      */
-    void saveAddressBook(ReadOnlyThanePark addressBook, Path filePath) throws IOException;
+    void saveThanePark(ReadOnlyThanePark addressBook, Path filePath) throws IOException;
 
 }

@@ -19,11 +19,10 @@ public class GuiTestAssert {
      */
     public static void assertCardEquals(RideCardHandle expectedCard, RideCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getWaitingTime(), actualCard.getWaitingTime());
         assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getMaintenance(), actualCard.getMaintenance());
+        assertEquals(expectedCard.getStatusString(), actualCard.getStatusString());
         assertEquals(expectedCard.getTags(), actualCard.getTags());
+        assertEquals(expectedCard.getInfo(), actualCard.getInfo());
     }
 
     /**
@@ -31,9 +30,9 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRide(Ride expectedRide, RideCardHandle actualCard) {
         assertEquals(expectedRide.getName().fullName, actualCard.getName());
-        assertEquals(expectedRide.getDaysSinceMaintenance().toString(), actualCard.getMaintenance());
-        assertEquals(expectedRide.getWaitingTime().toString(), actualCard.getWaitingTime());
-        assertEquals(expectedRide.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedRide.getStatus().name(), actualCard.getStatusString());
+        assertEquals(expectedRide.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
         assertEquals(expectedRide.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

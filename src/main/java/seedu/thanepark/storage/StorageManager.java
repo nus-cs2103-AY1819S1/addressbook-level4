@@ -52,39 +52,39 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ ThanePark methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return thaneParkStorage.getAddressBookFilePath();
+    public Path getThaneParkFilePath() {
+        return thaneParkStorage.getThaneParkFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyThanePark> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(thaneParkStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyThanePark> readThanePark() throws DataConversionException, IOException {
+        return readThanePark(thaneParkStorage.getThaneParkFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyThanePark> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyThanePark> readThanePark(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return thaneParkStorage.readAddressBook(filePath);
+        return thaneParkStorage.readThanePark(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyThanePark addressBook) throws IOException {
-        saveAddressBook(addressBook, thaneParkStorage.getAddressBookFilePath());
+    public void saveThanePark(ReadOnlyThanePark thanePark) throws IOException {
+        saveThanePark(thanePark, thaneParkStorage.getThaneParkFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyThanePark addressBook, Path filePath) throws IOException {
+    public void saveThanePark(ReadOnlyThanePark thanePark, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        thaneParkStorage.saveAddressBook(addressBook, filePath);
+        thaneParkStorage.saveThanePark(thanePark, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(ThaneParkChangedEvent event) {
+    public void handleThaneParkChangedEvent(ThaneParkChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveThanePark(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
