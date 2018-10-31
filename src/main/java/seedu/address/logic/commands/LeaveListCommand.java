@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LeaveListEvent;
@@ -20,7 +20,7 @@ public class LeaveListCommand extends Command {
     @Override
     public CommandResult runBody(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredLeaveApplicationList(PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS);
         EventsCenter.getInstance().post(new LeaveListEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
