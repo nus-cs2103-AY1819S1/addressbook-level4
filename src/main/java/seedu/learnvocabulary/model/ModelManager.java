@@ -27,6 +27,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedLearnVocabulary versionedLearnVocabulary;
     private final FilteredList<Word> filteredWords;
+    private final FilteredList<Tag> filteredTags;
+
 
     /**
      * Initializes a ModelManager with the given LearnVocabulary and userPrefs.
@@ -39,6 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedLearnVocabulary = new VersionedLearnVocabulary(learnVocabulary);
         filteredWords = new FilteredList<>(versionedLearnVocabulary.getWordList());
+        filteredTags = new FilteredList<>(versionedLearnVocabulary.getTagList());
+
     }
 
     public ModelManager() {
@@ -144,6 +148,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Word> getFilteredWordList() {
         return FXCollections.unmodifiableObservableList(filteredWords);
+    }
+
+    @Override
+    public ObservableList<Tag> getFilteredTagList() {
+        return FXCollections.unmodifiableObservableList(filteredTags);
     }
 
     /**

@@ -52,6 +52,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered word list */
     ObservableList<Word> getFilteredWordList();
 
+    /** Returns an unmodifiable view of the filtered word list */
+    ObservableList<Tag> getFilteredTagList();
+
     /**
      * Outputs the trivia question
      *
