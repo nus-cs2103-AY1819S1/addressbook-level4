@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -52,8 +50,6 @@ public class CdCommand extends Command {
             newCurrDirectory = dir.toPath().toRealPath();
             model.updateCurrDirectory(newCurrDirectory);
             model.updateImageList();
-
-            EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList(), true));
         } catch (IOException e) {
             e.printStackTrace();
         }

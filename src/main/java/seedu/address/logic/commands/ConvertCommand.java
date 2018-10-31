@@ -8,8 +8,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.address.MainApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -63,7 +61,6 @@ public class ConvertCommand extends Command {
         try {
             //ask the model to update the transformation
             model.addTransformation(transformation);
-            EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
         } catch (Exception e) {
             throw new CommandException(e.toString());
         }
