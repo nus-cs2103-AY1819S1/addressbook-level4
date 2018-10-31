@@ -21,6 +21,34 @@ public class AmountTest {
     }
 
     @Test
+    public void negatedAmountTest() {
+        Amount amountNegative = new Amount("111");
+        assertTrue(amountNegative.getNegatedAmount().equals(new Amount("-111")));
+    }
+
+    @Test
+    public void absoluteAmountTest() {
+        Amount amountNegative = new Amount("-111");
+        assertTrue(amountNegative.getAbsoluteAmount().equals(new Amount("111")));
+    }
+
+    @Test
+    public void validAdd() {
+        Amount amount1 = new Amount("111.00");
+
+        Amount amount2 = new Amount("-30.00");
+        // at least one parameter null -> null pointer exception
+        assertThrows(NullPointerException.class, () -> Amount.add(null, amount1));
+        assertThrows(NullPointerException.class, () -> Amount.add(amount2, null));
+
+        // add is commutative -> order should not matter
+        assertTrue(Amount.add(amount1, amount2).equals(Amount.add(amount2, amount1)));
+
+        // check result
+        assertTrue(Amount.add(amount1, amount2).equals(new Amount("81.00")));
+    }
+
+    @Test
     public void equals() {
         Amount amount1a = new Amount("111");
         Amount amount1b = new Amount("111");
@@ -29,6 +57,10 @@ public class AmountTest {
         Amount amount1e = new Amount("111.00");
 
         Amount amount2 = new Amount("111.55");
+
+        assertFalse(amount1a.equals(null));
+
+        assertFalse(amount1b.equals(59456));
 
         assertTrue(amount1a.equals(amount1a));
         assertTrue(amount1a.equals(amount1b));
