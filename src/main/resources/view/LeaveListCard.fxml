@@ -25,12 +25,12 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="employee" text="\$employee" styleClass="cell_big_label" />
       </HBox>
+      <Label fx:id="datesHeading" styleClass="cell_small_label" text="Dates: " />
       <FlowPane fx:id="dates" />
       <Label fx:id="status" styleClass="cell_small_label" text="\$status" />
       <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-      <Label fx:id="employee" styleClass="cell_small_label" text="\$employee" />
     </VBox>
   </GridPane>
 </HBox>

@@ -43,9 +43,11 @@ public class LeaveApplicationCard extends UiPart<Region> {
         this.leaveApplication = leaveApplication;
         id.setText(displayedIndex + ". ");
         employee.setText(leaveApplication.getEmployee().getName().fullName);
-        description.setText(leaveApplication.getDescription().value);
-        status.setText(leaveApplication.getLeaveStatus().value.toString());
-        leaveApplication.getDates().forEach(date -> dates.getChildren().add(new Label(DateUtil.convertToString(date))));
+        description.setText("Description: " + leaveApplication.getDescription().value);
+        status.setText("Status: " + leaveApplication.getLeaveStatus().value.toString());
+        leaveApplication.getDates().forEach(date
+                -> dates.getChildren()
+                .add(new Label(DateUtil.convertToString(date) + " ")));
     }
 
     @Override
