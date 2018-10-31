@@ -74,6 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ReadOnlyAssignmentList getAssignmentList() {
         return versionedAssignmentList;
+    }
       
     @Override  
     public ReadOnlyArchiveList getArchiveList() {

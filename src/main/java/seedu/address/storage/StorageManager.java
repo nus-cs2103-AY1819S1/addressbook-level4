@@ -164,6 +164,10 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAssignmentList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 
     @Override
     @Subscribe
