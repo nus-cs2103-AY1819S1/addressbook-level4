@@ -114,7 +114,7 @@ Returns `levitate`
 Format: `showgroup`
 
 ****
-* the group name is not set to be four per line
+* the group name is now set to be four per line
 ****
 
 (2). Shows word inside some particular group. +
@@ -129,6 +129,36 @@ Examples:
 
 * `showgroup toLearn` +
 Returns all the word inside group toLearn
+
+=== Creating a new empty group: `groupadd`
+
+Creates a new group. +
+Format: `groupadd GROUPNAME`
+
+****
+* the group name cannot be dublicately added
+* after clear, all the added group would also be cleared except the default toLearn group
+****
+
+Examples:
+
+* `groupadd mustLearn` +
+Creates a new empty group called mustLearn
+
+=== deleting an existing group: `groupdelete`
+
+Deletes a existed group with all the word inside. +
+Format: `groupdelete GROUPNAME`
+
+****
+* the group must has existed
+* after clear, words which do not belong to any group would be deleted automately also
+****
+
+Examples:
+
+* `groupdelete mustLearn` +
+Deletes group mustLearn and all the words inside
 
 === Deleting a word : `delete`
 
