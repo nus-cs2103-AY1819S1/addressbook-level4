@@ -109,7 +109,8 @@ public class EditCommand extends Command {
         Set<Project> updatedProjects = editPersonDescriptor.getProjects().orElse(personToEdit.getProjects());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSalary,
-            personToEdit.getUsername(), personToEdit.getPassword(), updatedProjects);
+            personToEdit.getUsername(), personToEdit.getPassword(), updatedProjects, personToEdit.getPermissionSet(),
+                personToEdit.getLeaveApplications());
     }
 
     @Override
