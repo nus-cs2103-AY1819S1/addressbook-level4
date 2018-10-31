@@ -20,9 +20,16 @@ import seedu.clinicio.model.appointment.Date;
 //@@author arsalanc-v2
 
 /**
- * Computes occurrences for various date and time periods.
+ * Contains date and time utility methods for computing occurrences and retrieving date and time values.
  */
 public class DateTimeUtil {
+
+    /**
+     * @return a list of the number of dates that occur in various time periods.
+     */
+    public static List<Integer> todayWeekMonthYear(List<Date> dates) {
+        return Arrays.asList(today(dates), currentWeek(dates), currentMonth(dates), currentYear(dates));
+    }
 
     /**
      * @return the number of dates that match today's real life date.
@@ -73,9 +80,10 @@ public class DateTimeUtil {
     }
 
     /**
-     * @return the number of dates that match each day in the current week.
+     * @return the number of dates that match each date in the current week.
+     * Returns {@code Date} for flexibility as the day of the week can be derived from it.
      */
-    public static Map<String, Integer> eachDayOfCurrentWeek(List<Date> dates) {
+    public static Map<Date, Integer> eachDateOfCurrentWeekCount(List<Date> dates) {
         Map<Date, Integer> currentWeekCount = new HashMap<>();
         for (Date currentWeekDate : getCurrentWeekDates()) {
             currentWeekCount.put(currentWeekDate, 0);
@@ -86,14 +94,14 @@ public class DateTimeUtil {
             }
         }
 
-        return currentWeekCount.entrySet().stream()
-            .collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue));
+        return currentWeekCount;
     }
 
     /**
      * @return the number of dates that match each day in the next week.
+     * Returns {@code Date} for flexibility as the day of the week can be derived from it.
      */
-    public static Map<Date, Integer> eachDateOfNextWeek(List<Date> dates) {
+    public static Map<Date, Integer> eachDateOfNextWeekCount(List<Date> dates) {
         Map<Date, Integer> nextWeekCount = new HashMap<>();
         for (Date nextWeekDate : getNextWeekDates()) {
             nextWeekCount.put(nextWeekDate, 0);
@@ -108,8 +116,6 @@ public class DateTimeUtil {
     }
 
     /**
-     *
-     * @param dates A list of {@code Date} objects.
      * @return A Map of the number of dates that occur for each month of the current year.
      */
     public static Map<String, Integer> eachMonthOfCurrentYear(List<Date> dates) {
@@ -174,7 +180,7 @@ public class DateTimeUtil {
 
 
     /**
-     * @return A list of each date in the current week.
+     * @return A list of each date in the next week.
      */
     public static List<Date> getNextWeekDates() {
         List<Date> nextWeekDates = new ArrayList<>();
@@ -188,8 +194,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Get a list of each {@code DayOfWeek}
-     * @return
+     * @return a list of each {@code DayOfWeek}
      */
     public static List<DayOfWeek> getDaysOfWeek() {
         return Arrays.asList(DayOfWeek.values());

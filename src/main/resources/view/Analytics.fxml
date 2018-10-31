@@ -79,6 +79,7 @@
       <AnchorPane id="visualization-pane" fx:id="visualizationPane" layoutX="50.0" layoutY="299.0" prefHeight="494.0" prefWidth="929.0" styleClass="visualization-pane" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="299.0">
          <children>
             <AnchorPane fx:id="chartPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
-         </children></AnchorPane>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

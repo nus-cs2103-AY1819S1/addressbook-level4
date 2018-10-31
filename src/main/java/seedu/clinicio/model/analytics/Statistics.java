@@ -55,7 +55,7 @@ public abstract class Statistics {
     /**
      * Calculates the range of an axis given {@code values} based on an {@code offset} from the minimum and maximum
      * values.
-     * Assumes values are not negative.
+     * Assumes offset is not negative.
      */
     public Tuple<Integer, Integer> calculateAxisRange(List<Integer> values, int offset) {
         requireNonNull(values);
@@ -114,7 +114,7 @@ public abstract class Statistics {
         List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
 
         for (List<Date> datesGroup : datesGroups) {
-            Map<Date, Integer> nextWeekDateCounts = DateTimeUtil.eachDateOfNextWeek(datesGroup);
+            Map<Date, Integer> nextWeekDateCounts = DateTimeUtil.eachDateOfNextWeekCount(datesGroup);
 
             List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.entrySet().stream()
                 .map(entry -> new Tuple<DayOfWeek, Integer>(DateTimeUtil.getDayFromDate(entry.getKey()), entry

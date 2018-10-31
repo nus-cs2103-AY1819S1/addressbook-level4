@@ -32,7 +32,8 @@ public class Tuple<K, V> {
         value = newValue;
     }
 
-    public void setTuple(Tuple tuple) {
-
+    public void setTuple(Tuple<K, V> tuple) {
+        this.key = tuple.getKey();
+        this.value = tuple.getValue();
     }
 }

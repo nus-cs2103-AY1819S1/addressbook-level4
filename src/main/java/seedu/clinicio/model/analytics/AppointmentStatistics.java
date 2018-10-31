@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
@@ -90,12 +89,15 @@ public class AppointmentStatistics extends Statistics {
     /**
      * Computes the number of appointments for each day of the present week.
     */
-    private Map<String, Integer> getNumberOfCurrentWeekAppointments() {
+    private List<Tuple<String, Integer>> getNumberOfCurrentWeekAppointments() {
         List<Date> datesOfAppointments = appointments.stream()
                 .map(appt -> appt.getAppointmentDate())
                 .collect(Collectors.toList());
 
-        return DateTimeUtil.eachDayOfCurrentWeek(datesOfAppointments);
+        return DateTimeUtil.eachDateOfCurrentWeekCount(datesOfAppointments).entrySet().stream()
+            .map(entry -> new Tuple<String, Integer>(DateTimeUtil.getDayFromDate(entry.getKey()).name(),
+                entry.getValue()))
+            .collect(Collectors.toList());
     }
 
     /**
