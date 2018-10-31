@@ -2,13 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_PENDING_LEAVEAPPLICATIONS;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LeaveListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.permission.Permission;
 
 /**
  * Lists all leave applications that employees have made to the user.
