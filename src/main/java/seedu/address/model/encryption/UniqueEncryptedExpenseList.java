@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 
+//@@author JasonChong96
 /**
  * A list of encrypted expenses that enforces uniqueness between its elements and does not allow nulls.
  * An encrypted expense is considered unique by comparing using {EncryptedExpense#isSameExpense(EncryptedExpense)}.

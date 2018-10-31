@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
+//@@author JasonChong96
 public class EncryptedTagTest {
     private static final Tag FOOD_TAG = new Tag(VALID_TAG_FOOD);
     private static final Tag FRIEND_TAG = new Tag(VALID_TAG_FRIEND);

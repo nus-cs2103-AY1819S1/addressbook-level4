@@ -20,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.ExpenseBuilder;
 
+//@@author JasonChong96
 public class EncryptedExpenseTest {
 
     @Rule

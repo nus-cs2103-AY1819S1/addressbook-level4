@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 
+//@@author JasonChong96
 /**
  * Represents a Expense's tag in Expense Tracker in it's encrypted form.
  * Guarantees: immutable;

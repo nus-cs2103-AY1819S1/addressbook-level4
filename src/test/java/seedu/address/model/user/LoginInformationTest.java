@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author JasonChong96
 class LoginInformationTest {
 
     @Test

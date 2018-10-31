@@ -11,6 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.tag.Tag;
 
+//@@author JasonChong96
 /**
  * Represents an expense in Expense Tracker in it's encrypted form.
  * Guarantees: immutable;

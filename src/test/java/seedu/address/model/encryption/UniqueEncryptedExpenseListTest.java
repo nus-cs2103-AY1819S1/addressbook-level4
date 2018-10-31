@@ -16,6 +16,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 import seedu.address.testutil.ExpenseBuilder;
 
+//@@author JasonChong96
 public class UniqueEncryptedExpenseListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

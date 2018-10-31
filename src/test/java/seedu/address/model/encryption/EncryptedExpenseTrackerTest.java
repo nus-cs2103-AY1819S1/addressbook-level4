@@ -17,6 +17,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
 
+//@@author JasonChong96
 public class EncryptedExpenseTrackerTest {
 
     @Rule

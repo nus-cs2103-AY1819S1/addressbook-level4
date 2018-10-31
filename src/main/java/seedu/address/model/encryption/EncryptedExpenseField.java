@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.ExpenseField;
 
+//@@author JasonChong96
 /**
  * Represents a Expense's field in Expense Tracker in it's encrypted form.
  * Guarantees: immutable;

@@ -11,6 +11,7 @@ import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
+//@@author JasonChong96
 /**
  * Represents a user's Expense Tracker data in it's encrypted form.
  */

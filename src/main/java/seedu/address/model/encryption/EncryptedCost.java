@@ -3,6 +3,7 @@ package seedu.address.model.encryption;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Cost;
 
+//@@author JasonChong96
 /**
  * Represents a Expense's cost in Expense Tracker in it's encrypted form.
  * Guarantees: immutable;

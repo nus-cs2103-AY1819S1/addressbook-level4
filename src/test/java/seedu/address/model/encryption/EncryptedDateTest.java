@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.Assert;
 
+//@@author JasonChong96
 public class EncryptedDateTest {
     @Test
     public void constructor_fromNullString_throwsNullPointerException() {
