@@ -8,7 +8,7 @@ import seedu.learnvocabulary.model.word.TagContainsKeywordsPredicate;
 import seedu.learnvocabulary.model.tag.Tag;
 
 import static java.util.Objects.requireNonNull;
-
+//@@author Harryqu123
 public class ShowGroupCommand extends Command {
 
     public static final String COMMAND_WORD = "showgroup";
@@ -48,3 +48,4 @@ public class ShowGroupCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, predicate.getTag()));
     }
 }
+//@@author
