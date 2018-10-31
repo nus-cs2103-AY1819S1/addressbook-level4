@@ -46,20 +46,22 @@ public class GsonUtil {
     public static List<List<String>> fetchAllCarparkInfo() throws Exception {
         final boolean[] hasError = {false, false, false};
 
-        Thread first = new Thread(() -> {
-            try {
-                loadCarparkPostalCode();
-            } catch (IOException e) {
-                hasError[0] = true;
-            }
-        });
-        first.start();
+        //Thread first = new Thread(() -> {
+        //    try {
+        //        loadCarparkPostalCode();
+        //    } catch (IOException e) {
+        //        hasError[0] = true;
+        //        logger.warning("Unable to load postal code.");
+        //    }
+        //});
+        //first.start();
 
         Thread second = new Thread(() -> {
             try {
                 getCarparkData();
             } catch (IOException e) {
                 hasError[1] = true;
+                logger.warning("Unable to load car park data.");
             }
         });
         second.start();
@@ -69,11 +71,12 @@ public class GsonUtil {
                 getCarparkAvailability();
             } catch (IOException e) {
                 hasError[2] = true;
+                logger.warning("Unable to load parking lots data.");
             }
         });
         third.start();
 
-        first.join();
+        //first.join();
         second.join();
         third.join();
 
