@@ -36,7 +36,7 @@ public class XmlThaneParkStorageTest {
     }
 
     private java.util.Optional<ReadOnlyThanePark> readAddressBook(String filePath) throws Exception {
-        return new XmlThaneParkStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlThaneParkStorage(Paths.get(filePath)).readThanePark(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -80,21 +80,21 @@ public class XmlThaneParkStorageTest {
         XmlThaneParkStorage xmlAddressBookStorage = new XmlThaneParkStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyThanePark readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlAddressBookStorage.saveThanePark(original, filePath);
+        ReadOnlyThanePark readBack = xmlAddressBookStorage.readThanePark(filePath).get();
         assertEquals(original, new ThanePark(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addRide(HAUNTED);
         original.removeRide(ACCELERATOR);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlAddressBookStorage.saveThanePark(original, filePath);
+        readBack = xmlAddressBookStorage.readThanePark(filePath).get();
         assertEquals(original, new ThanePark(readBack));
 
         //Save and read without specifying file path
         original.addRide(IDA);
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        xmlAddressBookStorage.saveThanePark(original); //file path not specified
+        readBack = xmlAddressBookStorage.readThanePark().get(); //file path not specified
         assertEquals(original, new ThanePark(readBack));
 
     }
@@ -111,7 +111,7 @@ public class XmlThaneParkStorageTest {
     private void saveAddressBook(ReadOnlyThanePark addressBook, String filePath) {
         try {
             new XmlThaneParkStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveThanePark(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

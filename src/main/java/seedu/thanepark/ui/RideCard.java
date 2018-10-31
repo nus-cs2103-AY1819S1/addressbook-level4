@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.Status;
+import seedu.thanepark.ui.exceptions.AccessibilityException;
 
 /**
  * An UI component that displays information of a {@code Ride}.
@@ -32,36 +33,34 @@ public class RideCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label daysSinceMaintenanceString;
+    private FlowPane tags;
     @FXML
-    private Label address;
-    @FXML
-    private Label waitingTimeString;
+    private FlowPane rideInfo;
     @FXML
     private Label statusString;
-    @FXML
-    private FlowPane tags;
 
-    public RideCard(Ride ride, int displayedIndex) {
+    public RideCard(Ride ride, int displayedIndex) throws AccessibilityException {
         super(FXML);
         this.ride = ride;
         id.setText(displayedIndex + ". ");
         name.setText(ride.getName().fullName);
-        daysSinceMaintenanceString.setText(ride.getDaysSinceMaintenance().toString());
-        address.setText(ride.getAddress().value);
-        waitingTimeString.setText(ride.getWaitingTime().toString());
+
+        ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        rideInfo.getChildren().add(new Label(ride.getAddress().value));
+        rideInfo.getChildren().add(new Label(ride.getDaysSinceMaintenance().toString()));
+        rideInfo.getChildren().add(new Label(ride.getWaitingTime().toString()));
+
         statusString.setText(ride.getStatus().name());
         if (ride.getStatus().equals(Status.OPEN)) {
-            statusString.setStyle("-fx-background-color: #17A828");
-            //statusString.setTextFill(Color.web("#dd3333"));
+            statusString.setStyle("-fx-background-color: #27D858");
         } else if (ride.getStatus().equals(Status.SHUTDOWN)
             || ride.getStatus().equals(Status.MAINTENANCE)) {
             statusString.setStyle("-fx-background-color: #CC3045");
-            //statusString.setTextFill(Color.web("33dd33"));
         //error
         } else {
+            throw new AccessibilityException(String.format("Ride status is unknown: %1s", ride.getName().fullName));
         }
-        ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

@@ -50,7 +50,7 @@ public class WaitTime implements NumericAttribute {
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return String.valueOf(value) + " min";
     }
 
     @Override
