@@ -41,18 +41,18 @@ public class AddPrescriptionCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Appointment firstAppointmnet = model.getFilteredAppointmentList().get(0);
-        Appointment editedappointment = new Appointment(VALID_APPOINTMENT_ID_FIRST, VALID_DOCTOR_JOHN, VALID_DATE_TIME);
+        //Appointment editedappointment = new Appointment(VALID_APPOINTMENT_ID_FIRST, VALID_DOCTOR_JOHN, VALID_DATE_TIME);
         Prescription toAdd = new Prescription(VALID_APPOINTMENT_ID_FIRST,
                 new MedicineName(VALID_MEDICINE_NAME_PARACETAMOL),
                 new Dosage(VALID_DOSAGE_PARACETAMOL),
                 new ConsumptionPerDay(VALID_CONSUMPTION_PER_DAY_PARACETAMOL));
-        editedappointment.addPrescription(toAdd);
+        //editedappointment.addPrescription(toAdd);
         AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd);
 
         String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(firstAppointmnet, editedappointment);
+        //expectedModel.updateAppointment(firstAppointmnet, editedappointment);
         expectedModel.commitAddressBook();
 
         //TODO solve this test case

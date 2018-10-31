@@ -78,6 +78,18 @@ public class Appointment implements Comparable<Appointment> {
         prescriptions.add(prescription);
     }
 
+    /**
+     * already verified that prescription exists
+     */
+    public void deletePrescription(String medicineName) {
+        for (Prescription p : prescriptions) {
+            if (p.getMedicineName().toString().equals(medicineName)) {
+                prescriptions.remove(p);
+                break;
+            }
+        }
+    }
+
     public void completeAppointment() {
         status = Status.COMPLETED;
     }

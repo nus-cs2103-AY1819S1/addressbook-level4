@@ -31,7 +31,7 @@ public class AddPrescriptionCommand extends Command {
             + PREFIX_DOSAGE + "DOSAGE "
             + PREFIX_CONSUMPTION_PER_DAY + "CONSUMPTION_PER_DAY \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "563 "
+            + PREFIX_INDEX + "5 "
             + PREFIX_MEDICINE_NAME + "Paracetamol "
             + PREFIX_DOSAGE + "2 "
             + PREFIX_CONSUMPTION_PER_DAY + "3 ";
@@ -55,23 +55,26 @@ public class AddPrescriptionCommand extends Command {
         requireNonNull(model);
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
 
-        // Appointment List is empty
-        if (appointmentList.isEmpty()) {
+        // check if appointment exists
+        Appointment appointmentToEdit = null;
+        for (Appointment appointment : appointmentList) {
+            if (appointment.getAppointmentId() == toAdd.getId()) {
+                appointmentToEdit = appointment;
+                break;
+            }
+        }
+
+        // if appointment does not exist
+        if (appointmentToEdit == null) {
             throw new CommandException(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
         }
 
-        // Invalid appointment
-        if (toAdd.getId() <= 0 || toAdd.getId() > model.getAppointmentCounter()) {
-            throw new CommandException(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
-        }
-        Appointment appointmentToEdit = appointmentList.stream()
-                .filter(appt -> appt.getAppointmentId() == toAdd.getId())
-                .findFirst()
-                .orElse(null);
-
+        // check if prescri ption already exists in appointment
         if (appointmentToEdit.getPrescriptions().contains(toAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PRESCRIPTION));
         }
+
+        // adding prescription
         Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
                 appointmentToEdit.getDoctor(),
                 appointmentToEdit.getPatient(),
