@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.text.MessageFormat;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -143,8 +142,25 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
-        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        loadPage(defaultPage.toExternalForm());
+
+        StringBuilder sb = new StringBuilder();
+        try {
+            BufferedInputStream bin = new BufferedInputStream(
+                MainApp.class.getResourceAsStream(FXML_FILE_FOLDER + DEFAULT_PAGE));
+            byte[] contents = new byte[1022];
+            int bytesRead = 0;
+            while ((bytesRead = bin.read(contents)) != -1) {
+                sb.append(new String(contents, 0, bytesRead));
+            }
+            bin.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Platform.runLater(() -> {
+                browser.getEngine().loadContent(sb.toString());
+            }
+        );
     }
 
     /**
