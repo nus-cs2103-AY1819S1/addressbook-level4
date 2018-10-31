@@ -152,6 +152,8 @@ public class CalendarDisplay extends UiPart<Region> {
                     // for testing
                     // System.out.println("L pressed");
                     break;
+                default:
+                    
                 }
             }
         });
@@ -203,6 +205,9 @@ public class CalendarDisplay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Toggles between Daily and Weekly view
+     */
     public void toggleSkin() {
         if (isDaySkin()) {
             setViewToWeeklyView();
