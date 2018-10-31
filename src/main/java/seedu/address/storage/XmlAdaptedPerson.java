@@ -123,11 +123,12 @@ public class XmlAdaptedPerson {
             pastAppointments = ((Patient) source).getPastAppointments().stream()
                     .map(XmlAdaptedAppointment::new)
                     .collect(Collectors.toList());
-        }
-        if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Patient"))) {
             medicalHistory = ((Patient) source).getMedicalHistory();
+        } else if (!tagged.isEmpty() && tagged.get(0).equals(new XmlAdaptedTag("Doctor"))) {
+            upcomingAppointments = ((Doctor) source).getUpcomingAppointments().stream()
+                    .map(XmlAdaptedAppointment::new)
+                    .collect(Collectors.toList());
         }
-
     }
 
     /**
@@ -141,14 +142,14 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        final PriorityQueue<Appointment> patientUpcomingAppointments = new PriorityQueue<>();
+        final PriorityQueue<Appointment> allUpcomingAppointments = new PriorityQueue<>();
         for (XmlAdaptedAppointment upcomingAppointment : upcomingAppointments) {
-            patientUpcomingAppointments.add(upcomingAppointment.toModelType());
+            allUpcomingAppointments.add(upcomingAppointment.toModelType());
         }
 
-        final List<Appointment> patientPastAppointments = new ArrayList<>();
+        final List<Appointment> allPastAppointments = new ArrayList<>();
         for (XmlAdaptedAppointment pastAppointments : pastAppointments) {
-            patientPastAppointments.add(pastAppointments.toModelType());
+            allPastAppointments.add(pastAppointments.toModelType());
         }
 
         final MedicalHistory modelMedicalHistory = new MedicalHistory(medicalHistory.getAllergies(),
@@ -193,10 +194,11 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Doctor"))) {
-            return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
+            return new Doctor(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags,
+                    allUpcomingAppointments);
         } else if (!modelTags.isEmpty() && modelTags.toArray()[0].equals(new Tag("Patient"))) {
             return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags, "123",
-                    patientUpcomingAppointments, patientPastAppointments, modelMedicalHistory);
+                    allUpcomingAppointments, allPastAppointments, modelMedicalHistory);
         } else {
             return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemark, modelTags);
         }

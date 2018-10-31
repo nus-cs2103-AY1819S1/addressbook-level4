@@ -63,6 +63,7 @@ public class AddPrescriptionCommand extends Command {
         }
         Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
                 appointmentToEdit.getDoctor(),
+                appointmentToEdit.getPatient(),
                 appointmentToEdit.getDateTime(),
                 appointmentToEdit.getStatus(),
                 appointmentToEdit.getComments(),

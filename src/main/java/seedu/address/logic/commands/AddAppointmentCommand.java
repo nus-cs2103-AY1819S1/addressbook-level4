@@ -80,7 +80,8 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DOCTOR);
         }
 
-        Appointment appointment = new Appointment(model.getAppointmentCounter(), doctor.getName().toString(), dateTime);
+        Appointment appointment = new Appointment(model.getAppointmentCounter(), doctor.getName().toString(),
+                patient.getName().toString(), dateTime);
         doctor.addUpcomingAppointment(appointment);
         patient.addUpcomingAppointment(appointment);
         model.incrementAppointmentCounter();
