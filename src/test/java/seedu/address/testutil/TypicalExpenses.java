@@ -117,7 +117,7 @@ public class TypicalExpenses {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();
         }
-        ab.setNotificationHandler(new NotificationHandler(LocalDateTime.parse("2018-11-01T17:26:18.868275"),
+        ab.setNotificationHandler(new NotificationHandler(LocalDateTime.parse("2018-10-01T17:26:18.868275"),
                 true, true));
         ab.modifyMaximumBudget(new TotalBudget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"),
             50000));
