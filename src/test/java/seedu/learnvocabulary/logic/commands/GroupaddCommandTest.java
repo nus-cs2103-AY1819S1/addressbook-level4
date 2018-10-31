@@ -45,4 +45,5 @@ public class GroupaddCommandTest {
         assertEquals(model.getTags(), expectedModel.getTags());
     }
 }
+//
 //@@author
