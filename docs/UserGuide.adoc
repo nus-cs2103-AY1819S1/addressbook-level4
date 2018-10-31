@@ -470,10 +470,10 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 * *Clear* : `clear`
 * *Delete* : `delete INDEX/EXISTING_NAME` +
 e.g. `delete 3` +
-and `delete John Doe Kah Wai`
+or `delete John Doe Kah Wai`
 * *Edit* : `edit INDEX/EXISTING_NAME [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com` +
-and `edit John Doe n/John Chan a/525 East 80th Street, New York`
+or `edit John Doe n/John Chan a/525 East 80th Street, New York`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
@@ -483,7 +483,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Import contacts* : `import` or `import` l/FILE_PATH
+* *Import contacts* : `import` or `import l/FILE_PATH`
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
 * *Meetings* : `meetings [DD/MM/YY]`
