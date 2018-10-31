@@ -238,7 +238,7 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 Edits the expenses with the keywords specified by the user.
 Existing values of the expense will be edited according to the value of the parameters +
 
-Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`-> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
+Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] -> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 
 ****
 *Examples:*
@@ -259,6 +259,7 @@ Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`-> 
 
 [NOTE]
 ====
+* `->` can be key in by typing `-` followed by `>`.
 * At least one keyword before `->` and one keyword after `->` must be provided.
 * The order of the keywords doesn't matter.
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
