@@ -36,8 +36,9 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     {
         words = new UniqueWordList();
     }
+    //@@author Harryqu123
     private final Set<Tag> addedTag = new HashSet<>();
-
+    //@@author
     public LearnVocabulary() {}
 
     /**
@@ -75,7 +76,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
         requireNonNull(word);
         return words.contains(word);
     }
-
+    //@@author Harryqu123
     /**
      * Returns true if a tag with the same identity as {@code tag} exists in the address book.
      */
@@ -128,7 +129,7 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     public void addGroup(Tag toAdd) {
         addedTag.add(toAdd);
     }
-
+    //@@author
     /**
      * Adds a word to LearnVocabulary.
      * The word must not already exist in LearnVocabulary.
