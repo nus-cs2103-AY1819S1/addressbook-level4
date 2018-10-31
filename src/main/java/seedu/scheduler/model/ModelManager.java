@@ -179,7 +179,6 @@ public class ModelManager extends ComponentManager implements Model {
                     event.getDescription(), event.getVenue(), event.getRepeatType(), event.getRepeatUntilDateTime(),
                     event.getTags(), reminderDurationList);
             versionedScheduler.updateEvent(event, editedEvent);
-//            indicateSchedulerChanged();
             storage.handleSchedulerChangedEvent(new SchedulerChangedEvent(versionedScheduler));
         }
     }
