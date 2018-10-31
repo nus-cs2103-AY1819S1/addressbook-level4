@@ -59,7 +59,8 @@ class RegisterPatientCommandTest {
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Patient validPatient = new PatientBuilder().build();
         RegisterPatientCommand registerPatientCommand = new RegisterPatientCommand(validPatient);
-        RegisterPatientCommandTest.ModelStub modelStub = new RegisterPatientCommandTest.ModelStubWithPatient(validPatient);
+        RegisterPatientCommandTest.ModelStub modelStub =
+                new RegisterPatientCommandTest.ModelStubWithPatient(validPatient);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
