@@ -90,4 +90,15 @@ public class ModelGenerator {
         model.updateCurrentPreviewImage(getABufferedImage(), getATransformation());
         return model;
     }
+
+    /**
+     * Returns a Model at index 0, size 4 (3 undone states).
+     */
+    public static Model getModelWithUndoneStates() {
+        Model model = getModelWithThreeTransformations();
+        model.undoPreviewImage();
+        model.undoPreviewImage();
+        model.undoPreviewImage(); // Now at original state
+        return model;
+    }
 }

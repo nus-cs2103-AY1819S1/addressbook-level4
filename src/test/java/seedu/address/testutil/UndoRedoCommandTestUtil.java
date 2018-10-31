@@ -1,9 +1,14 @@
-package seedu.address.logic.commands;
+package seedu.address.testutil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
+import seedu.address.MainApp;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PreviewImage;
@@ -21,7 +26,7 @@ public class UndoRedoCommandTestUtil {
      * - model's previewImage's new index and size equal to the expected index and size.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, int expectedIndex, int expectedSize) {
+                                            String expectedMessage, int expectedIndex, int expectedSize) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
@@ -71,5 +76,21 @@ public class UndoRedoCommandTestUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Clears cache in storage folder.
+     */
+    public static void clearCache() {
+        String cachePath = MainApp.MAIN_PATH + "/src/main/java/seedu/address/storage/cache";
+        File cache = new File(cachePath);
+        File[] list = cache.listFiles();
+        if (list != null) {
+            for (File file: list) {
+                if (!file.getName().equals("dummy.txt")) {
+                    file.delete();
+                }
+            }
+        }
     }
 }
