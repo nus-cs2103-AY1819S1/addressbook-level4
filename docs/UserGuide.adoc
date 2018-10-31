@@ -376,10 +376,11 @@ Example(s):
 
 * `exportcert 2` +
 Exports PDF certificate of volunteer at specified index 2 to folder 'Volunteer Certs' in the current working directory, or directly to the Desktop.
+A success message will also be displayed in the following form: 'Certificate exported for volunteer at <INDEX> to <EXPORT FOLDER>'.
 
 Here is what the exported certificate currently looks like:
 
-.Current sample exported volunteer certificate
+.Current sample exported volunteer certificate [John Doe_1.pdf]
 [.thumb]
 image::CurrentVolunteerCert.png[width="600"]
 
@@ -388,6 +389,11 @@ Here is the intended final form of the exported certificate:
 .Intended sample exported volunteer certificate
 [.thumb]
 image::FinalVolunteerCert.png[width="600"]
+
+[NOTE]
+====
+To avoid exported file name clashes for volunteers with the same name, we have appended the volunteer ID to the filename as well. Exported file names will have the format '<VOLUNTEER NAME>_<VOLUNTEER ID>.pdf' (E.g. John Doe_1.pdf)
+====
 
 === Event Management
 
