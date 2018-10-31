@@ -5,27 +5,22 @@ import java.util.GregorianCalendar;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Task} is .
+ * Tests that a {@code Task} is not blocked. This means that it does not have a dependency.
  */
-public class IsBlockingPredicate implements Predicate<Task> {
+public class IsNotBlockedPredicate implements Predicate<Task> {
 
     @Override
-    public boolean test(Task person) {
-        /** Get time at the end of the week, Sunday 2359. */
-        Calendar date = new GregorianCalendar();
-        date.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        date.set(Calendar.HOUR_OF_DAY, 23);
-        date.set(Calendar.MINUTE, 59);
-        date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
-
-        return person.getDueDate().valueDate.before(date.getTime());
+    public boolean test(Task task) {
+      return task
+              .getDependency()
+              .getDependencyCount()
+              .equals(0);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof IsBlockingPredicate); // instanceof handles nulls
+                || (other instanceof IsNotBlockedPredicate); // instanceof handles nulls
     }
 
 }
