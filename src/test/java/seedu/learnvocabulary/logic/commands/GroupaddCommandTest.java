@@ -11,7 +11,7 @@ import seedu.learnvocabulary.model.Model;
 import seedu.learnvocabulary.model.ModelManager;
 import seedu.learnvocabulary.model.UserPrefs;
 import seedu.learnvocabulary.model.tag.Tag;
-
+//@@author Harryqu123
 public class GroupaddCommandTest {
     private Model model = new ModelManager(getTypicalLearnVocabulary(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalLearnVocabulary(), new UserPrefs());
@@ -45,3 +45,4 @@ public class GroupaddCommandTest {
         assertEquals(model.getTags(), expectedModel.getTags());
     }
 }
+//@@author
