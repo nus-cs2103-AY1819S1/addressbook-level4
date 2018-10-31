@@ -1,19 +1,14 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_INITIAL;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
 
 public class StatusBarFooterTest extends GuiUnitTest {
-
-    private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new AddressBook());
 
     private StatusBarFooterHandle statusBarFooterHandle;
 
@@ -31,7 +26,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertStatusBarContent(LOGIN_STATUS_INITIAL);
 
         // after address book is updated
-        postNow(EVENT_STUB);
+        //postNow(EVENT_STUB);
         assertStatusBarContent(LOGIN_STATUS_INITIAL);
     }
 

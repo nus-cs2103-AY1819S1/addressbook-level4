@@ -2,7 +2,6 @@ package seedu.address.logic.commands.google;
 
 //@@author chivent
 // TODO: Add test cases
-// TODO: Note in documentation that any album name with /i< in the name will fail command.
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
@@ -49,13 +48,19 @@ public class GoogleDlCommand extends GoogleCommand {
 
             if (parameter.startsWith("all")) {
                 String[] params = parameter.trim().split(" ", 2);
+
+                //get image name
                 parameter = params[1].substring(1, params[1].length() - 1);
                 model.getPhotoHandler().downloadWholeAlbum(parameter, currDir);
+
             } else if (parameter.startsWith("/a")) {
                 String[] params = parameter.trim().split(" /i<", 2);
                 String albumName = params[0].substring(3, params[0].length() - 1);
+
+                // get image name
                 parameter = params[1].substring(0, params[1].length() - 1);
                 model.getPhotoHandler().downloadAlbumImage(albumName, parameter, currDir);
+
             } else {
                 parameter = parameter.substring(1, parameter.length() - 1);
                 model.getPhotoHandler().downloadImage(parameter, currDir);
