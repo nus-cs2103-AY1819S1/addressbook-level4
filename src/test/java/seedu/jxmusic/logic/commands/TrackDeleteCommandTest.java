@@ -3,8 +3,8 @@ package seedu.jxmusic.logic.commands;
 // imports
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibraryAfterTrackAdd;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibrary;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibraryAfterTrackAdd;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ import seedu.jxmusic.model.Name;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 import seedu.jxmusic.model.UserPrefs;
-import seedu.jxmusic.testutil.TypicalPlaylists;
+import seedu.jxmusic.testutil.TypicalPlaylistList;
 
 public class TrackDeleteCommandTest {
     private Model model;
@@ -30,7 +30,7 @@ public class TrackDeleteCommandTest {
     @Before
     public void setUp() {
         trackToDelete = new Track(new Name(VALID_TRACK_NAME_MARBLES));
-        targetPlaylist = TypicalPlaylists.TEST_ANIME;
+        targetPlaylist = TypicalPlaylistList.TEST_ANIME;
         // setup library with the track to delete
         model = new ModelManager(getTypicalLibraryAfterTrackAdd(trackToDelete), new UserPrefs());
         expectedUnchangedModel = new ModelManager(model.getLibrary(), new UserPrefs());
@@ -48,7 +48,7 @@ public class TrackDeleteCommandTest {
     @Test
     public void execute_removeNonExistentTrackFromPlaylist() {
         trackToDelete = new Track(new Name(VALID_TRACK_NAME_MARBLES));
-        targetPlaylist = TypicalPlaylists.ANIME;
+        targetPlaylist = TypicalPlaylistList.ANIME;
         assertCommandSuccess(new TrackDeleteCommand(trackToDelete, targetPlaylist), model, commandHistory,
                 String.format(TrackDeleteCommand.MESSAGE_TRACK_DOES_NOT_EXIST, trackToDelete), expectedUnchangedModel);
     }

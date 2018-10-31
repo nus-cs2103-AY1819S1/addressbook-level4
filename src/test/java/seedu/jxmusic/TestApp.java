@@ -72,7 +72,7 @@ public class TestApp extends MainApp {
      */
     public Library readStorageLibrary() {
         try {
-            return new Library(storage.readLibrary().get());
+            return new Library(storage.readLibrary());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the Library format.", dce);
         } catch (IOException ioe) {

@@ -3,7 +3,7 @@ package seedu.jxmusic.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalLibrary;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibrary;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -65,7 +65,7 @@ public class StorageManagerTest {
          */
         Library original = getTypicalLibrary();
         storageManager.saveLibrary(original);
-        ReadOnlyLibrary retrieved = storageManager.readLibrary().get();
+        ReadOnlyLibrary retrieved = storageManager.readLibrary();
         assertEquals(original, new Library(retrieved));
     }
 

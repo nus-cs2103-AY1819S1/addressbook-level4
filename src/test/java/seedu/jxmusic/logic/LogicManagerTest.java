@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.jxmusic.logic.commands.CommandResult;
+//import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
@@ -32,8 +33,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
+        String playlistDelCommand = "playlist delete 9";
+        assertCommandException(playlistDelCommand, MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
     }
 
     @Test

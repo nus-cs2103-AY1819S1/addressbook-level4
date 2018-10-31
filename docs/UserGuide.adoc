@@ -27,18 +27,20 @@ JxMusic is for those who *prefer to use a desktop app for listening to music*. M
 .  Copy the file to the folder you want to use as the home folder for your JxMusic player.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui latest.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Some example commands you can try with build-in tracks and playlists:
 
 * *`playlist list`* : lists all playlists
-* **`playlist new`**`p/playlist1` : creates a new playlist named `playlist1` to the JxMusic Player.
-* *`shuffle`* : switches on shuffle mode to play tracks in random order
+* **`playlist new`**`p/playlist1 t/Marbles` : creates a new playlist named `playlist1` with mp3 file `Marbles.mp3` to the JxMusic Player.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+.  To add the tracks you want to listen using the software, open the home folder of the jar file and add th tracks you want to listen to `library` folder.
+.  Restart the file so that your new tracks could be scanned and showed in UI.
+
 
 [[Features]]
 == Features
@@ -56,13 +58,18 @@ Format: `help`
 
 === Listing all playlists : `playlist list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all playlists in the library. +
 Format: `playlist list`
+
+=== Listing all tracks : `track list`
+
+Shows a list of all tracks in the library. +
+Format: `track list`
 
 === Searching for a playlist : `playlist search`
 
 Searches for playlists by names. +
-Format: `playlist search q/QUERY`
+Format: `playlist search QUERY`
 
 ****
 * `QUERY` is a string to be searched from the names of the playlists, which doesn’t need to be an exact match.
@@ -70,8 +77,22 @@ Format: `playlist search q/QUERY`
 
 Examples:
 
-* `playlist search q/Fav` +
+* `playlist search Fav` +
 Searches for playlists that has Fav in their names.
+
+=== Searching for a track : `track search`
+
+Searches for tracks by names. +
+Format: `track search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `track search aliez` +
+Searches for tracks that has aliez in their names.
 
 === Creating a playlist : `playlist new`
 
@@ -119,7 +140,7 @@ Adds the track named "Some Song.mp3" to the "Favourites" playlist.
 === Deleting a track from a playlist : `track del`
 
 Removes a track from a playlist. The command will update the PLAYLIST even if it is currently playing. So the deleted track will not be played after its previous track finishes playing. +
-Format: `track del p/PLAYLIST i/INDEX`
+Format: `track del p/PLAYLIST INDEX`
 
 ****
 * `PLAYLIST` refers to an existing playlist’s name.
@@ -128,7 +149,7 @@ Format: `track del p/PLAYLIST i/INDEX`
 
 Examples:
 
-* `track del p/Favourites i/3` +
+* `track del p/Favourites 3` +
 Deletes the 3rd track in "Favourites" playlist.
 
 === Playing a track : `play t/`
@@ -425,7 +446,7 @@ Format: `exit`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the `library` folder it creates with the file that contains the data of your previous `library` folder.
 
 == Command Summary
 
@@ -436,8 +457,8 @@ Format: `exit`
 * *Pause track* : `pause`
 * *Continue track* : `play`
 * *Stop playing* : `stop`
-* *Seek time point* : `seek ti/TIME` +
-eg. `seek ti/01:10`
+* *Seek time point* : `seek t/TIME` +
+eg. `seek t/01:10`
 * *Step* : `step [s/SECONDS]` +
 eg. `step s/100`
 * *Stepback* : `stepback [s/SECONDS]` +
@@ -455,8 +476,8 @@ eg. `stepback s/100`
 
 === Commands for managing playlists in library
 * *List all playlists* : `playlist list`
-* *Search for playlist* : `playlist search q/QUERY` +
-eg. `playlist search q/Fav`
+* *Search for playlist* : `playlist search QUERY` +
+eg. `playlist search Fav`
 * *Create playlist* : `playlist new p/PLAYLIST` +
 eg. `playlist new p/Favourites`
 * *Delete playlist* : `playlist del p/PLAYLIST` +
@@ -464,6 +485,9 @@ eg. `playlist del p/Favourites`
 
 === Commands for managing tracks in playlist
 * *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
-eg. `track add p/Favourites n/Some Song.mp3`
-* *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
-eg. `track del p/Favourites i/1`
+eg. `track add p/Favourites t/Some Song.mp3`
+* *Delete track from playlist* : `track del p/PLAYLIST INDEX` +
+eg. `track del p/Favourites 1`
+* *List all tracks* : `track list`
+* *Search for tracks* : `track search QUERY` +
+eg. `track search Fav`
