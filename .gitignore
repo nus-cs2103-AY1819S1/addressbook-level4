@@ -3,6 +3,8 @@ build/
 .checkstyle
 .settings/
 .idea/
+.project
+.classpath
 .vscode/
 lib/*
 *.iml
