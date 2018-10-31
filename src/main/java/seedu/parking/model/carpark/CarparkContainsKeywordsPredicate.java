@@ -23,10 +23,11 @@ public class CarparkContainsKeywordsPredicate implements Predicate<Carpark> {
     public boolean test(Carpark carpark) {
         return keywords.stream()
                 .anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
-                                || StringUtil.containsWordIgnoreCase(carpark.getAddress().value, keyword)
-                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
-                                || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().value, keyword)
+                        StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().toString(), keyword)
+                                || StringUtil.containsWordIgnoreCase(carpark.getAddress().toString(), keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().toString(),
+                                keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().toString(), keyword)
                         );
     }
 

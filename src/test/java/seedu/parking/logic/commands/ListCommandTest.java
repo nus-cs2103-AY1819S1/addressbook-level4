@@ -35,12 +35,16 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        String messageSuccess = String.format(ListCommand.MESSAGE_SUCCESS,
+                model.getCarparkFinder().getCarparkList().size());
+        assertCommandSuccess(new ListCommand(), model, commandHistory, messageSuccess, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showCarparkAtIndex(model, INDEX_FIRST_CARPARK);
-        assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        String messageSuccess = String.format(ListCommand.MESSAGE_SUCCESS,
+                model.getCarparkFinder().getCarparkList().size());
+        assertCommandSuccess(new ListCommand(), model, commandHistory, messageSuccess, expectedModel);
     }
 }

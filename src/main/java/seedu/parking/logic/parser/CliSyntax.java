@@ -16,5 +16,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_SHORT_TERM = new Prefix("st/");
     public static final Prefix PREFIX_TOTAL_LOTS = new Prefix("tl/");
     public static final Prefix PREFIX_TYPE_PARK = new Prefix("tp/");
+    // following 2 are used by autocomplete mechanism, need to be combined with
+    // prefixes above.
+    public static final Prefix PREFIX_PARKING_TIME = new Prefix("f/");
+    public static final Prefix PREFIX_NIGHT_PARKING = new Prefix("n/");
+
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 }

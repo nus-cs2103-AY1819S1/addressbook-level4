@@ -3,6 +3,7 @@
 
     <carparks>
         <address>BLK 349-355 CLEMENTI AVE 2</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>C7</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>21017.6263, 33014.2438</coordinate>
@@ -18,6 +19,7 @@
     <!-- Car park with same identity as C7 -->
     <carparks>
         <address>BLK 349-355 CLEMENTI AVE 2</address>
+        <postalCode>123456</postalCode>
         <carparkNumber>C7</carparkNumber>
         <carparkType>SURFACE CAR PARK</carparkType>
         <coordinate>21017.6263, 33014.2438</coordinate>

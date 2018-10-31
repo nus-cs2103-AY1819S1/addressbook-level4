@@ -37,49 +37,49 @@ public class TypicalCarparks {
             .withAddress("BLK 349-355 CLEMENTI AVE 2").withCarparkType("SURFACE CAR PARK")
             .withCoordinate("21017.6263, 33014.2438").withLotsAvailable("0").withTotalLots("0")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").withTags("Office").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").withTags("Office").build();
     public static final Carpark BRAVO = new CarparkBuilder().withCarparkNumber("SK88")
             .withAddress("BLK 451 SENGKANG WEST WAY").withCarparkType("MULTI-STOREY CAR PARK")
             .withCoordinate("32538.8707, 41769.3259").withLotsAvailable("109").withTotalLots("369")
             .withFreeParking("NO").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").withTags("Home", "Office").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").withTags("Home", "Office").build();
     public static final Carpark CHARLIE = new CarparkBuilder().withCarparkNumber("U25")
             .withAddress("BLK 337-353/355-356 BUKIT BATOK ST 34").withCarparkType("SURFACE CAR PARK")
             .withCoordinate("18728.7311, 38350.9289").withLotsAvailable("299").withTotalLots("625")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").withTags("School").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").withTags("School").build();
     public static final Carpark DELTA = new CarparkBuilder().withCarparkNumber("SK23")
             .withAddress("BLK 121E SENGKANG EAST WAY").withCarparkType("MULTI-STOREY CAR PARK")
             .withCoordinate("36099.0459, 40907.1776").withLotsAvailable("410").withTotalLots("672")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").withTags("Office").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").withTags("Office").build();
     public static final Carpark ECHO = new CarparkBuilder().withCarparkNumber("PP5")
             .withAddress("BLK 113 TO 120 POTONG PASIR AVENUE 1").withCarparkType("SURFACE CAR PARK")
             .withCoordinate("31328.0300, 35388.2500").withLotsAvailable("92").withTotalLots("321")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("YES").withShortTerm("NO")
-            .withTypeOfParking("ELECTRONIC PARKING").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").build();
     public static final Carpark FOXTROT = new CarparkBuilder().withCarparkNumber("SE39")
             .withAddress("BLK 542A SERANGOON NORTH AVENUE 4").withCarparkType("MULTI-STOREY CAR PARK")
             .withCoordinate("32271.7043, 39500.6075").withLotsAvailable("39").withTotalLots("206")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("NO").withShortTerm("7AM-10.30PM")
-            .withTypeOfParking("ELECTRONIC PARKING").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").build();
     public static final Carpark GOLF = new CarparkBuilder().withCarparkNumber("W676")
             .withAddress("BLK 676 WOODLANDS DRIVE 71").withCarparkType("BASEMENT CAR PARK")
             .withCoordinate("24373.6740, 46827.1390").withLotsAvailable("186").withTotalLots("230")
             .withFreeParking("NO").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").build();
 
     // Manually added
     public static final Carpark HOTEL = new CarparkBuilder().withCarparkNumber("A29")
             .withAddress("BLK 347 ANG MO KIO AVENUE 3").withCarparkType("SURFACE CAR PARK")
             .withCoordinate("29713.5035, 38806.4544").withLotsAvailable("38").withTotalLots("466")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").build();
     public static final Carpark INDIA = new CarparkBuilder().withCarparkNumber("JM16")
             .withAddress("BLK 659 JURONG WEST ST 65").withCarparkType("MULTI-STOREY CAR PARK")
             .withCoordinate("13399.3160, 35488.4096").withLotsAvailable("155").withTotalLots("534")
             .withFreeParking("SUN & PH FR 7AM-10.30PM").withNightParking("YES").withShortTerm("WHOLE DAY")
-            .withTypeOfParking("ELECTRONIC PARKING").build();
+            .withTypeOfParking("ELECTRONIC PARKING").withPostalCode("123456").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Carpark JULIETT = new CarparkBuilder().withCarparkNumber(VALID_CARPARK_NUMBER_JULIETT)

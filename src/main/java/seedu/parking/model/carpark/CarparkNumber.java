@@ -5,7 +5,7 @@ import static seedu.parking.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a car park's number.
- * Guarantees: immutable; is valid as declared in {@link #isValidCarNum(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidCarparkNumber(String)}
  */
 public class CarparkNumber {
 
@@ -17,7 +17,7 @@ public class CarparkNumber {
      * The first character must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String CAR_NUM_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String CAR_NUM_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*";
 
     public final String value;
 
@@ -28,11 +28,11 @@ public class CarparkNumber {
      */
     public CarparkNumber(String carNum) {
         requireNonNull(carNum);
-        checkArgument(isValidCarNum(carNum), MESSAGE_CAR_NUM_CONSTRAINTS);
+        checkArgument(isValidCarparkNumber(carNum), MESSAGE_CAR_NUM_CONSTRAINTS);
         this.value = carNum;
     }
 
-    public static boolean isValidCarNum(String test) {
+    public static boolean isValidCarparkNumber(String test) {
         return test.matches(CAR_NUM_VALIDATION_REGEX);
     }
 

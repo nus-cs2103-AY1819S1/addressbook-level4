@@ -20,7 +20,8 @@ import seedu.parking.model.carpark.CarparkFilteringPredicate;
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
-    public static final String COMMAND_ALIAS = "fi";
+    public static final String COMMAND_ABBREVIATION = "fi";
+    public static final String FORMAT = "filter f/ DAY START_TIME END_TIME n/ ct/ CARPARK_TYPE";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Filters the list of car parks returned by the previous find command with the use of flags. Multiple flags can be used and in any order.\n"

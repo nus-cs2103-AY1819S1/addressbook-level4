@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.parking.testutil.EventsUtil.postNow;
 import static seedu.parking.testutil.TypicalCarparks.ALFA;
 import static seedu.parking.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.parking.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
 
@@ -13,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
-import seedu.parking.MainApp;
 import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
 
 public class BrowserPanelTest extends GuiUnitTest {
@@ -35,13 +33,13 @@ public class BrowserPanelTest extends GuiUnitTest {
     @Test
     public void display() throws Exception {
         // default web page
-        URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        URL expectedDefaultPageUrl = new URL(DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a car park
         postNow(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + ALFA.getCarparkNumber().value.replaceAll(" ", "%20"));
+                + ALFA.toJson().replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

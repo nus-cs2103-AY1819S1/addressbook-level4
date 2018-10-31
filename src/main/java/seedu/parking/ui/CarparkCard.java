@@ -6,6 +6,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.PostalCode;
 
 /**
  * An UI component that displays information of a {@code Carpark}.
@@ -49,28 +50,37 @@ public class CarparkCard extends UiPart<Region> {
     @FXML
     private Label parkingSystem;
     @FXML
+    private Label postalCode;
+    @FXML
     private FlowPane tags;
 
     public CarparkCard(Carpark carpark, int displayedIndex) {
         super(FXML);
         this.carpark = carpark;
         id.setText(displayedIndex + ". ");
-        carparkNumber.setText(carpark.getCarparkNumber().value);
-        address.setText(carpark.getAddress().value);
-        carparkType.setText(carpark.getCarparkType().value);
-        coordinate.setText("Coordinate: " + carpark.getCoordinate().value);
+        carparkNumber.setText(carpark.getCarparkNumber().toString());
+        address.setText(carpark.getAddress().toString());
 
-        if (carpark.getTotalLots().value.equals("0")) {
+        if (carpark.getPostalCode().toString().equals(PostalCode.DEFAULT_VALUE)) {
+            postalCode.setText("Postal Code: Not Available");
+        } else {
+            postalCode.setText("Postal Code: " + carpark.getPostalCode().toString());
+        }
+
+        carparkType.setText(carpark.getCarparkType().toString());
+        coordinate.setText("Coordinate: " + carpark.getCoordinate().toString());
+
+        if (carpark.getTotalLots().toString().equals("0")) {
             totalLots.setText("Total Lots: Not Available");
             lotsAvailable.setText("Lots Available: Not Available");
         } else {
-            totalLots.setText("Total Lots: " + carpark.getTotalLots().value);
-            lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().value);
+            totalLots.setText("Total Lots: " + carpark.getTotalLots().toString());
+            lotsAvailable.setText("Lots Available: " + carpark.getLotsAvailable().toString());
         }
 
-        freeParking.setText("Free Parking: " + carpark.getFreeParking().value);
-        nightParking.setText("Night Parking: " + carpark.getNightParking().value);
-        shortTerm.setText("Short Term Parking: " + carpark.getShortTerm().value);
+        freeParking.setText("Free Parking: " + carpark.getFreeParking().toString());
+        nightParking.setText("Night Parking: " + carpark.getNightParking().toString());
+        shortTerm.setText("Short Term Parking: " + carpark.getShortTerm().toString());
         parkingSystem.setText("Parking System: " + carpark.getTypeOfParking());
         carpark.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }

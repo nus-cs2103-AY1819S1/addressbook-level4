@@ -5,7 +5,7 @@ import static seedu.parking.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the lots available in a car park.
- * Guarantees: immutable; is valid as declared in {@link #isValidLotsAvail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidLotsAvailable(String)}
  */
 public class LotsAvailable {
 
@@ -23,14 +23,14 @@ public class LotsAvailable {
      */
     public LotsAvailable(String lotsAvail) {
         requireNonNull(lotsAvail);
-        checkArgument(isValidLotsAvail(lotsAvail), MESSAGE_LOTS_AVAIL_CONSTRAINTS);
+        checkArgument(isValidLotsAvailable(lotsAvail), MESSAGE_LOTS_AVAIL_CONSTRAINTS);
         this.value = lotsAvail;
     }
 
     /**
      * Returns true if a given string is a valid lots available number.
      */
-    public static boolean isValidLotsAvail(String test) {
+    public static boolean isValidLotsAvailable(String test) {
         return test.matches(LOTS_AVAIL_VALIDATION_REGEX);
     }
 

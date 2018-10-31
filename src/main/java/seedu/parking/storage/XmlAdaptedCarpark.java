@@ -18,6 +18,7 @@ import seedu.parking.model.carpark.Coordinate;
 import seedu.parking.model.carpark.FreeParking;
 import seedu.parking.model.carpark.LotsAvailable;
 import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
@@ -50,6 +51,8 @@ public class XmlAdaptedCarpark {
     private String totalLots;
     @XmlElement(required = true)
     private String typeOfParking;
+    @XmlElement(required = true)
+    private String postalCode;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -65,7 +68,7 @@ public class XmlAdaptedCarpark {
      */
     public XmlAdaptedCarpark(String address, String carkparkNumber, String carparkType, String coordinate,
                              String freeParking, String lotsAvailable, String nightParking, String shortTerm,
-                             String totalLots, String typeOfParking, List<XmlAdaptedTag> tagged) {
+                             String totalLots, String typeOfParking, String postalCode, List<XmlAdaptedTag> tagged) {
         this.address = address;
         this.carparkNumber = carkparkNumber;
         this.carparkType = carparkType;
@@ -76,6 +79,7 @@ public class XmlAdaptedCarpark {
         this.shortTerm = shortTerm;
         this.totalLots = totalLots;
         this.typeOfParking = typeOfParking;
+        this.postalCode = postalCode;
 
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -88,16 +92,17 @@ public class XmlAdaptedCarpark {
      * @param source future changes to this will not affect the created XmlAdaptedCarpark
      */
     public XmlAdaptedCarpark(Carpark source) {
-        this.address = source.getAddress().value;
-        this.carparkNumber = source.getCarparkNumber().value;
-        this.carparkType = source.getCarparkType().value;
-        this.coordinate = source.getCoordinate().value;
-        this.freeParking = source.getFreeParking().value;
-        this.lotsAvailable = source.getLotsAvailable().value;
-        this.nightParking = source.getNightParking().value;
-        this.shortTerm = source.getShortTerm().value;
-        this.totalLots = source.getTotalLots().value;
-        this.typeOfParking = source.getTypeOfParking().value;
+        this.address = source.getAddress().toString();
+        this.carparkNumber = source.getCarparkNumber().toString();
+        this.carparkType = source.getCarparkType().toString();
+        this.coordinate = source.getCoordinate().toString();
+        this.freeParking = source.getFreeParking().toString();
+        this.lotsAvailable = source.getLotsAvailable().toString();
+        this.nightParking = source.getNightParking().toString();
+        this.shortTerm = source.getShortTerm().toString();
+        this.totalLots = source.getTotalLots().toString();
+        this.typeOfParking = source.getTypeOfParking().toString();
+        this.postalCode = source.getPostalCode().toString();
 
         this.tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -119,7 +124,7 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     CarparkNumber.class.getSimpleName()));
         }
-        if (!CarparkNumber.isValidCarNum(carparkNumber)) {
+        if (!CarparkNumber.isValidCarparkNumber(carparkNumber)) {
             throw new IllegalValueException(CarparkNumber.MESSAGE_CAR_NUM_CONSTRAINTS);
         }
         final CarparkNumber modelCarparkNumber = new CarparkNumber(carparkNumber);
@@ -146,7 +151,7 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Coordinate.class.getSimpleName()));
         }
-        if (!Coordinate.isValidCoord(coordinate)) {
+        if (!Coordinate.isValidCoordinate(coordinate)) {
             throw new IllegalValueException(Coordinate.MESSAGE_COORD_CONSTRAINTS);
         }
         final Coordinate modelCoordinate = new Coordinate(coordinate);
@@ -164,7 +169,7 @@ public class XmlAdaptedCarpark {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     LotsAvailable.class.getSimpleName()));
         }
-        if (!LotsAvailable.isValidLotsAvail(lotsAvailable)) {
+        if (!LotsAvailable.isValidLotsAvailable(lotsAvailable)) {
             throw new IllegalValueException(LotsAvailable.MESSAGE_LOTS_AVAIL_CONSTRAINTS);
         }
         final LotsAvailable modelLotsAvailable = new LotsAvailable(lotsAvailable);
@@ -205,10 +210,19 @@ public class XmlAdaptedCarpark {
         }
         final TypeOfParking modelTypeOfParking = new TypeOfParking(typeOfParking);
 
+        if (postalCode == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    PostalCode.class.getSimpleName()));
+        }
+        if (!PostalCode.isValidPostalCode(postalCode)) {
+            throw new IllegalValueException(PostalCode.MESSAGE_POSTALCODE_CONSTRAINTS);
+        }
+        final PostalCode modelPostalCode = new PostalCode(postalCode);
+
         final Set<Tag> modelTags = new HashSet<>(carparkTags);
         return new Carpark(modelAddress, modelCarparkNumber, modelCarparkType, modelCoordinate,
                 modelFreeParking, modelLotsAvailable, modelNightParking, modelShortTerm, modelTotalLots,
-                modelTypeOfParking, modelTags);
+                modelTypeOfParking, modelPostalCode, modelTags);
     }
 
     @Override

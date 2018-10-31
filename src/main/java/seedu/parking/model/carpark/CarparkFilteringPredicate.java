@@ -117,17 +117,18 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
         // Location filtering
         boolean correctLocation = locationKeywords.stream()
                 .anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
-                                || StringUtil.containsWordIgnoreCase(carpark.getAddress().value, keyword)
-                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().value, keyword)
-                                || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().value, keyword)
+                        StringUtil.containsWordIgnoreCase(carpark.getCarparkNumber().toString(), keyword)
+                                || StringUtil.containsWordIgnoreCase(carpark.getAddress().toString(), keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getCarparkNumber().toString(),
+                                keyword)
+                                || StringUtil.containsPartialWordIgnoreCase(carpark.getAddress().toString(), keyword)
                 );
 
         // Filtering by various flags
         boolean collective = true;
 
         if (flagList.contains("n/")) {
-            boolean hasNightParking = carpark.getNightParking().value.equals("YES");
+            boolean hasNightParking = carpark.getNightParking().toString().equals("YES");
 
             collective = hasNightParking;
         }
@@ -149,6 +150,7 @@ public class CarparkFilteringPredicate implements Predicate<Carpark> {
             Date inputEnd = freeParkingParameter.getEndTime();
 
             boolean hasFreeParking = checkFreeParking(day, inputStart, inputEnd, timePeriod);
+
 
             collective = collective && hasFreeParking;
         }

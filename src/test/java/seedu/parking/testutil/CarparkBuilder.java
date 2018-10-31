@@ -12,6 +12,7 @@ import seedu.parking.model.carpark.Coordinate;
 import seedu.parking.model.carpark.FreeParking;
 import seedu.parking.model.carpark.LotsAvailable;
 import seedu.parking.model.carpark.NightParking;
+import seedu.parking.model.carpark.PostalCode;
 import seedu.parking.model.carpark.ShortTerm;
 import seedu.parking.model.carpark.TotalLots;
 import seedu.parking.model.carpark.TypeOfParking;
@@ -33,6 +34,7 @@ public class CarparkBuilder {
     public static final String DEFAULT_TOTAL_LOTS = "9000";
     public static final String DEFAULT_TYPE_OF_PARKING = "OLD SCHOOL PARKING";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_POSTALCODE = "610289";
 
     private CarparkNumber carparkNumber;
     private CarparkType carparkType;
@@ -44,6 +46,7 @@ public class CarparkBuilder {
     private TotalLots totalLots;
     private TypeOfParking typeOfParking;
     private Address address;
+    private PostalCode postalCode;
     private Set<Tag> tags;
 
     public CarparkBuilder() {
@@ -57,6 +60,7 @@ public class CarparkBuilder {
         totalLots = new TotalLots(DEFAULT_TOTAL_LOTS);
         typeOfParking = new TypeOfParking(DEFAULT_TYPE_OF_PARKING);
         address = new Address(DEFAULT_ADDRESS);
+        postalCode = new PostalCode(DEFAULT_POSTALCODE);
         tags = new HashSet<>();
     }
 
@@ -74,6 +78,7 @@ public class CarparkBuilder {
         totalLots = carparkToCopy.getTotalLots();
         typeOfParking = carparkToCopy.getTypeOfParking();
         address = carparkToCopy.getAddress();
+        postalCode = carparkToCopy.getPostalCode();
         tags = new HashSet<>(carparkToCopy.getTags());
     }
 
@@ -166,11 +171,19 @@ public class CarparkBuilder {
     }
 
     /**
+     * Sets the {@code Address} of the {@code Carpark} that we are building.
+     */
+    public CarparkBuilder withPostalCode(String postalCode) {
+        this.postalCode = new PostalCode(postalCode);
+        return this;
+    }
+
+    /**
      * Builds a {@code Carpark} that we are building.
      */
     public Carpark build() {
         return new Carpark(address, carparkNumber, carparkType, coordinate,
-            freeParking, lotsAvailable, nightParking, shortTerm, totalLots, typeOfParking, tags);
+            freeParking, lotsAvailable, nightParking, shortTerm, totalLots, typeOfParking, postalCode, tags);
     }
 
 }

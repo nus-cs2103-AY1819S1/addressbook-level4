@@ -29,6 +29,7 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+      <Label fx:id="postalCode" styleClass="cell_small_label" text="\$postalCode" />
       <Label fx:id="carparkType" styleClass="cell_small_label" text="\$carparkType" />
       <Label fx:id="coordinate" styleClass="cell_small_label" text= "\$coordinate" />
       <Label text="&#10;" />

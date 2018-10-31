@@ -2,10 +2,14 @@ package seedu.parking.model.carpark;
 
 import static seedu.parking.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import com.google.gson.JsonObject;
 
 import seedu.parking.model.tag.Tag;
 
@@ -18,15 +22,17 @@ public class Carpark {
     private final Address address;
     private final CarparkNumber carparkNumber;
     private final Coordinate coordinate;
+    private final PostalCode postalCode;
+    private LotsAvailable lotsAvailable;
+    private TotalLots totalLots;
 
     // Data fields
     private final CarparkType carparkType;
     private final FreeParking freeParking;
-    private final LotsAvailable lotsAvailable;
     private final NightParking nightParking;
     private final ShortTerm shortTerm;
-    private final TotalLots totalLots;
     private final TypeOfParking typeOfParking;
+
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -34,9 +40,10 @@ public class Carpark {
      */
     public Carpark(Address address, CarparkNumber carparkNumber, CarparkType carparkType, Coordinate coordinate,
                    FreeParking freeParking, LotsAvailable lotsAvailable, NightParking nightParking,
-                   ShortTerm shortTerm, TotalLots totalLots, TypeOfParking typeOfParking, Set<Tag> tags) {
+                   ShortTerm shortTerm, TotalLots totalLots, TypeOfParking typeOfParking, PostalCode postalCode,
+                   Set<Tag> tags) {
         requireAllNonNull(address, carparkNumber, carparkType, coordinate, freeParking, lotsAvailable,
-                nightParking, shortTerm, totalLots, typeOfParking);
+                nightParking, shortTerm, totalLots, typeOfParking, postalCode);
         this.address = address;
         this.carparkNumber = carparkNumber;
         this.lotsAvailable = lotsAvailable;
@@ -47,6 +54,7 @@ public class Carpark {
         this.shortTerm = shortTerm;
         this.totalLots = totalLots;
         this.typeOfParking = typeOfParking;
+        this.postalCode = postalCode;
 
         if (tags != null) {
             this.tags.addAll(tags);
@@ -93,6 +101,20 @@ public class Carpark {
         return typeOfParking;
     }
 
+    public PostalCode getPostalCode() {
+        return postalCode;
+    }
+
+    /**
+     * Update the values of the parking lots
+     * @param lotsAvailable how many lots are available in the car park
+     * @param totalLots total lots in the car park
+     */
+    public void setLots(LotsAvailable lotsAvailable, TotalLots totalLots) {
+        this.lotsAvailable = lotsAvailable;
+        this.totalLots = totalLots;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -105,7 +127,7 @@ public class Carpark {
      * Returns true if both car parks of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two car parks.
      */
-    public boolean isSameCarpark(Carpark otherCarpark) {
+    public boolean isSameCarpark (Carpark otherCarpark) {
         if (otherCarpark == this) {
             return true;
         }
@@ -176,5 +198,27 @@ public class Carpark {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    /**
+     * Returns the car park object in Json format.
+     */
+    public String toJson () throws UnsupportedEncodingException {
+        JsonObject jsonObject = new JsonObject();
+
+        jsonObject.addProperty("address", address.toString());
+        jsonObject.addProperty("car_park_no", carparkNumber.toString());
+        jsonObject.addProperty("y_coord", coordinate.getYCoord());
+        jsonObject.addProperty("x_coord", coordinate.getXCoord());
+        jsonObject.addProperty("lots_available", lotsAvailable.toString());
+        jsonObject.addProperty("total_lots", totalLots.toString());
+        jsonObject.addProperty("car_park_type", carparkType.toString());
+        jsonObject.addProperty("free_parking", freeParking.toString());
+        jsonObject.addProperty("night_parking", nightParking.toString());
+        jsonObject.addProperty("short_term", shortTerm.toString());
+        jsonObject.addProperty("type_of_parking_system", typeOfParking.toString());
+        jsonObject.addProperty("postal_code", postalCode.toString());
+
+        return URLEncoder.encode(jsonObject.toString(), "UTF-8");
     }
 }

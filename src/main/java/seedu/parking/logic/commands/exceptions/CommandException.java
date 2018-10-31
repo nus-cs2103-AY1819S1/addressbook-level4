@@ -1,5 +1,7 @@
 package seedu.parking.logic.commands.exceptions;
 
+import seedu.parking.logic.commands.Command;
+
 /**
  * Represents an error which occurs during execution of a {@link Command}.
  */

@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.parking.commons.core.ComponentManager;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.model.CarparkFinderChangedEvent;
+import seedu.parking.commons.events.ui.NotifyCarparkRequestEvent;
 import seedu.parking.model.carpark.Carpark;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
@@ -90,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void loadCarpark(List<Carpark> listCarkpark) {
         versionedCarparkFinder.setCarparks(listCarkpark);
+        raise(new NotifyCarparkRequestEvent());
         updateFilteredCarparkList(PREDICATE_SHOW_ALL_CARPARK);
         indicateCarparkFinderChanged();
     }
@@ -159,7 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public int compareParkingBook() {
+    public int compareCarparkFinder() {
         return versionedCarparkFinder.compare();
     }
 

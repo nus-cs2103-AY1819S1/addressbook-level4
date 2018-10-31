@@ -40,7 +40,7 @@ import seedu.parking.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -54,7 +54,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing CarparkFinder ]===========================");
+        logger.info("=============================[ Initializing Car Park Finder ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -87,14 +87,16 @@ public class MainApp extends Application {
         try {
             carparkFinderOptional = storage.readCarparkFinder();
             if (!carparkFinderOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample CarparkFinder");
+                logger.info("Data file not found. Will be starting with a sample Car Park Finder");
+            } else {
+                logger.info("Data file found. Loading from saved data");
             }
             initialData = carparkFinderOptional.orElseGet(SampleDataUtil::getSampleCarparkFinder);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty CarparkFinder");
+            logger.warning("Data file not in the correct format. Will be starting with an empty Car Park Finder");
             initialData = new CarparkFinder();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty CarparkFinder");
+            logger.warning("Problem while reading from the file. Will be starting with an empty Car Park Finder");
             initialData = new CarparkFinder();
         }
 
