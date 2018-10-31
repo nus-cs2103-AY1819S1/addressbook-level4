@@ -165,7 +165,7 @@ Format: `login r/ROLE n/NAME pass/PASSWORD` +
 ****
 * Roles available to login: Doctor and Receptionist
 * The roles are in lowercase.
-* Password will be censored when you entered.
+* Password will be censored except the last character when you entered.
 * Password can only be 6 to 12 characters long.
 ****
 
