@@ -65,6 +65,9 @@ public class LearnVocabulary implements ReadOnlyLearnVocabulary {
     public void resetData(ReadOnlyLearnVocabulary newData) {
         requireNonNull(newData);
         setWords(newData.getWordList());
+        //@@author Harryqu123
+        addedTag.clear();
+        //@@author
     }
 
     //// word-level operations
