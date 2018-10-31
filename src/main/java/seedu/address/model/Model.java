@@ -65,11 +65,6 @@ public interface Model {
     ArrayList<Path> getDirectoryImageList();
 
     /**
-     * Updates the list of images in current directory.
-     */
-    void updateImageList();
-
-    /**
      * Updates the list of images with the current image list.
      */
     void updateImageList(ArrayList<Path> dirImageList);
