@@ -1,0 +1,59 @@
+= Teo Jia Jun - Project Portfolio
+:site-section: AboutUs
+:toc:
+:toc-title:
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+[discrete]
+= PROJECT: ThanePark
+
+---
+
+== Overview
+
+This portfolio serves to document my contributions to ThanePark.
+ThanePark is a desktop application used for theme park operators to manage their rides.
+My task in ThanePark is to enhance the viewall command to view rides
+
+The user interacts with it using a Command Line Interface(CLI), and it has a Graphical
+User Interface(GUI) created with JavaFX. It is written in Java, and has about 10,000 lines of code.
+
+
+== Summary of contributions
+
+* *Major enhancement*: added the `viewstatus` command
+** What it does: allows the user to obtain a list of rides filtered by the statuses of the rides.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits:
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=viewstatus]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=viewstatus]
+

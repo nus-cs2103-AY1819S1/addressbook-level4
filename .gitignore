@@ -8,7 +8,7 @@ lib/*
 *.log
 *.log.*
 *.csv
-config.json
+/config.json
 commandHistory.xml
 report.html
 src/test/data/sandbox/
@@ -20,3 +20,4 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+echo

@@ -2,18 +2,18 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SuggestCommand.MESSAGE_SUGGEST_COMMAND_SUCCESS;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.thanepark.logic.commands.SuggestCommand.MESSAGE_SUGGEST_COMMAND_SUCCESS;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.SuggestCommand;
-import seedu.address.model.Model;
+import seedu.thanepark.logic.commands.SuggestCommand;
+import seedu.thanepark.model.Model;
 
 /**
  * Contains system tests for {@code SuggestCommand}
  */
-public class SuggestCommandSystemTest extends AddressBookSystemTest {
+public class SuggestCommandSystemTest extends ThaneParkSystemTest {
 
     @Test
     public void suggestCommand() throws Exception {
@@ -23,10 +23,11 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
         assertSuggestCommandSuccessBehavior("e", "exit");
         assertSuggestCommandSuccessBehavior("f", "find");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
-        assertSuggestCommandSuccessBehavior("q", "quickView");
+        assertSuggestCommandSuccessBehavior("o", "open");
         assertSuggestCommandSuccessBehavior("r", "redo");
+        assertSuggestCommandSuccessBehavior("s", "shutdown");
         assertSuggestCommandSuccessBehavior("u", "update", "undo");
-        assertSuggestCommandSuccessBehavior("v", "viewAll", "view");
+        assertSuggestCommandSuccessBehavior("v", "viewall", "viewstatus", "view");
 
         assertSuggestCommandFailureBehavior("b");
         assertSuggestCommandFailureBehavior("g");
@@ -36,9 +37,8 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
         assertSuggestCommandFailureBehavior("l");
         assertSuggestCommandFailureBehavior("m");
         assertSuggestCommandFailureBehavior("n");
-        assertSuggestCommandFailureBehavior("o");
         assertSuggestCommandFailureBehavior("p");
-        assertSuggestCommandFailureBehavior("s");
+        assertSuggestCommandFailureBehavior("q");
         assertSuggestCommandFailureBehavior("t");
         assertSuggestCommandFailureBehavior("w");
         assertSuggestCommandFailureBehavior("x");
@@ -69,7 +69,7 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs UI visible verification of suggest command behavior resulting in 1 or more suggested commands.
      * Logic tests are done by SuggestCommandTest
-     * @see seedu.address.logic.commands.SuggestCommandTest
+     * @see seedu.thanepark.logic.commands.SuggestCommandTest
      */
     private void assertSuggestCommandSuccessBehavior(String command, String... commandWords) throws Exception {
         String expectedResultMessage = String.format(MESSAGE_SUGGEST_COMMAND_SUCCESS,
@@ -91,7 +91,7 @@ public class SuggestCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs UI visible verification of suggest command behavior resulting in no suggested commands.
      * Logic tests are done by SuggestCommandTest
-     * @see seedu.address.logic.commands.SuggestCommandTest
+     * @see seedu.thanepark.logic.commands.SuggestCommandTest
      */
     private void assertSuggestCommandFailureBehavior(String command) {
         String expectedResultMessage = MESSAGE_UNKNOWN_COMMAND;

@@ -4,24 +4,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.ui.testutil.GuiTestAssert.assertListMatching;
+
+import java.io.IOException;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ViewCommand;
-import seedu.address.ui.HelpWindow;
-import seedu.address.ui.StatusBarFooter;
+import seedu.thanepark.logic.commands.DeleteCommand;
+import seedu.thanepark.logic.commands.HelpCommand;
+import seedu.thanepark.logic.commands.ViewCommand;
+import seedu.thanepark.ui.HelpWindow;
+import seedu.thanepark.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.
  */
-public class HelpCommandSystemTest extends AddressBookSystemTest {
+public class HelpCommandSystemTest extends ThaneParkSystemTest {
     private static final String ERROR_MESSAGE = "ATTENTION!!!! : On some computers, this test may fail when run on "
             + "non-headless mode as FxRobot#clickOn(Node, MouseButton...) clicks on the wrong location. We suspect "
             + "that this is a bug with TestFX library that we are using. If this test fails, you have to run your "
@@ -30,7 +32,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     private final GuiRobot guiRobot = new GuiRobot();
 
     @Test
-    public void openHelpWindow() {
+    public void openHelpWindow() throws IOException {
         //use accelerator
         getCommandBox().click();
         getMainMenu().openHelpWindowUsingAccelerator();
@@ -65,7 +67,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(getClass().getResource(HelpWindow.SHORT_HELP_FILE_PATH), getBrowserPanel().getLoadedUrl());
+        assertNotEquals(HelpWindow.SHORT_HELP_FILE_PATH.filePathToUrl(), getBrowserPanel().getLoadedUrl());
         assertListMatching(getPersonListPanel(), getModel().getFilteredRideList());
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
@@ -74,7 +76,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     }
 
     @Test
-    public void openHelpSummary() {
+    public void openHelpSummary() throws IOException {
         //already open on startup
         assertShortHelpDisplayed();
 
@@ -134,7 +136,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      * Asserts that the browser's url is changed to display the short help
      * @see BrowserPanelHandle#isHelpUrl()
      */
-    private void assertShortHelpDisplayed() {
+    private void assertShortHelpDisplayed() throws IOException {
         assertTrue(getMainWindowHandle().getBrowserPanel().isHelpUrl());
     }
 
@@ -142,7 +144,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      * Asserts that the browser's url is not displaying the short help
      * @see BrowserPanelHandle#isHelpUrl()
      */
-    private void assertShortHelpNotDisplayed() {
+    private void assertShortHelpNotDisplayed() throws IOException {
         assertFalse(getMainWindowHandle().getBrowserPanel().isHelpUrl());
     }
 

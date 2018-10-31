@@ -18,12 +18,20 @@ By: `CS2103-AY1819S1-W14-2`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-ThanePark is for those who *prefer to use a desktop app for managing the rides in
-your theme park!*. More importantly, ThanePark is *optimized for those who prefer
-to work with a Command Line Interface* (CLI) while still having the benefits of a
-Graphical User Interface (GUI). If you can type fast, ThanePark can get your
-contact management tasks done faster than traditional GUI apps. Interested? Jump
-to the <<Quick Start>> to get started. Enjoy!
+Welcome to ThanePark!
+ThanePark is a theme park management application that assists theme park managers and operators in obtaining ride information readily.
+Using the keyboard, you can easily access features such as creating rides, updating ride information, finding rides with short waiting time and more.
+
+Get started now by heading over to <<Quick Start>>. Enjoy!
+
+== About
+
+This user guide introduces you to ThanePark, provides detailed instructions to set up and gives you an overview of the available features.
+No prior technical knowledge is required to use ThanePark.
+
+For frequently asked questions, check out <<FAQ>>.
+
+For a brief summary of all features, check out <<Command Summary>>.
 
 == Quick Start
 
@@ -34,11 +42,14 @@ Steps to set up ThanePark:
 .  Copy the file to the folder you want to use as the home folder for your ThanePark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+image::Ui.png[width="800"]
+
+Congratulations! You have successfully set up ThanePark!
+
+Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Type some of these commands to try out ThanePark:
+
+Type some of these commands to try out ThanePark:
 
 * *`viewall`* : lists all rides in your theme park.
 
@@ -49,7 +60,7 @@ Refer to <<Features>> for details of each command.
 [[Features]]
 == Features
 
-This section contains all commands used for ThanePark.
+This section contains information of all commands used in ThanePark.
 
 ====
 *Command Format*
@@ -60,13 +71,13 @@ Example: `add <attraction>`<maintenance> `<waitTime>` `<address>`
 Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
 Example: `{tab}` is the TAB keystroke.
-* Items ending with ellipses `...` denotes variable arguments. +
+* Items ending with ellipses `...` denotes variable number of arguments. +
 Example: `history [findargs...]`
 * Parameters can be in any order +
-Example: if the command specifies
-  n/name p/address, p/address n/name is also acceptable.
+Example: if the command specifies n/name p/address, p/address n/name is also acceptable.
 
 ====
+
 
 === Manage attractions
 
@@ -86,14 +97,18 @@ Examples:
 
 ==== Delete attractions: `delete`
 
-Deletes the specified attraction from the ThanePark. +
+Deletes the specified attraction from ThanePark. +
 Format: `delete <index>`
+
+====
 
 * Deletes the ride at the specified index.
 
 * The index refers to the index number shown in the list of displayed rides.
 
 * The index must be a positive integer 1, 2, 3, …​
+
+====
 
 Examples:
 
@@ -107,31 +122,33 @@ Examples:
 
 ==== Update information of attraction: `update`
 
-Updates the information `<tag>` with `<value>` about the ride with `<name>`. +
-Format: `update <attraction> <tag> <value>`
+Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
+Format: `update <index> <tag> <value>`
 
 ==== Shutdown attraction: `shutdown`
 
-Close the ride for the day. Display statistics for the ride on that day. +
-Format: `shutdown <attraction>`
+Closes the ride for the day. Display statistics for the ride on that day. +
+Format: `shutdown <index>`
 
 ==== Open attraction: `open`
 
-Open the ride for the day. Display statistics for the ride on that day. +
-Format: `open <attraction>`
+Opens the ride for the day. Display statistics for the ride on that day. +
+Format: `open <index>`
 
 === User help and accessibility
+
 
 This section contains all commands related to managing commands.
 
 ==== Viewing help: `help`
 
-Display short summary of important commands if `option` was not supplied. Displays a full list of important commands
-with a more detailed description if more is supplied as an `option`. If a specific command is supplied as `option`, show
-greater detail of the specified command. If invalid `option` is specified, will show default help message. +
+Display short summary of important commands.  +
 Format: `help [option]`
 
-==== History of previous commands: `history`
+Displays a full list of important commands with a more detailed description if more is supplied as an `option`. If a specific command is supplied as `option`, show
+greater detail of the specified command. If invalid `option` is specified, will show default help message.
+
+==== Viewing history of previous commands: `history`
 
 Display previous commands during this session. Inputted
 commands from the past are logged into the system. +
@@ -182,7 +199,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-==== Autocomplete/Suggest: `{tab}`
+==== Suggesting commands: `{tab}`
 
 Non-tech savvy users wouldn’t need to remember commands and can
 just use `tab` s to complete their sentences, or get suggestions on what
@@ -194,72 +211,156 @@ Format: `{tab}`
 Clears all entries from the address book. +
 Format: `clear`
 
-==== Exit: `exit`
+==== Exiting ThanePark: `exit`
 
 Exits the ThanePark application. +
 Format: `exit`
 
-=== View the information of a ride
 
-This section contains all commands related to viewing specific information on rides.
+=== Manage input/output of attractions
 
-==== Viewing all available attractions: `viewall`
+This section contains all commands related to managing attractions.
 
-Display all available attractions in a list according to the number of
-people that have taken the ride for the day in alphanumeric order if
-optional fields are not specified. `status` field specifies whether the user
-want to view opened or closed rides. +
-Format: `viewall [status]`
+==== Adding attractions: `add`
 
-==== View detailed information of a specific ride: `view`
+Add an attraction by name with the information. +
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
+
+A ride can have any number of tags (including 0). +
+
+Examples:
+
+* add n/Transformers m/1 w/30 a/John street, block 123, #01-01
+* add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
+
+==== Deleting attractions: `delete`
+
+Deletes the specified attraction from the ThanePark. +
+Format: `delete <index>`
+
+* Deletes the ride at the specified index.
+
+* The index refers to the index number shown in the list of displayed rides.
+
+* The index must be a positive integer 1, 2, 3, …​
+
+Examples:
+
+* `viewall` +
+  `delete 2` +
+  Deletes the 2nd ride in ThanePark.
+
+* `find Puss in Boots' Giant Journey` +
+   `delete 1` +
+   Deletes the 1st ride in the results of the find command.
+
+==== Updating information of attraction: `update`
+
+
+Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
+
+Format: `update <index> <tag> <value>`
+
+==== Shutting down attraction: `shutdown`
+
+Close the ride for the day. Display statistics for the ride on that day. +
+Format: `shutdown <index>`
+
+==== Opening attraction: `open`
+
+Open the ride for the day. Display statistics for the ride on that day. +
+Format: `open <index>`
+
+// tag::viewstatus[]
+=== View information on the list of rides
+
+This section contains all commands related to viewing list on rides.
+
+==== Viewing all available rides: `viewall`
+
+Display all available rides in a list. +
+Format: `viewall`
+
+==== Viewing detailed information of a specific ride: `view`
 
 Display all available information about a single ride on the list of displayed rides.
 `index` field specifies the index of the ride that the user wants to view. +
 Format: `view <index>`
 
-==== Quick view information of top five most frequented rides: `quickview`
+[NOTE]
+The range of `index` should be between one and one million.
 
-Quick view information of the top 5 most frequented rides in the park. +
-Format: `quickview`
+==== Viewing rides by their status: `viewstatus`
 
-=== Storage/data management
+Display all rides according to the status of the rides. +
+Format: `viewstatus <status>`
 
-This section contains all commands related to filtering and finding rides.
+[NOTE]
+There are only three statuses that are valid, namely open, shutdown and maintenance.
 
-==== Filter: `filter`
+// end::viewstatus[]
 
-Display all rides that fits the condition in a table. +
-Can only filter conditions that have numeric values i.e. Maintenance and WaitTime +
-Can include more conditions as desired. +
+// tag::filter[]
+=== Find the relevant list of rides
+
+This section contains all commands related to finding rides that is relevant to you.
+
+==== Finding rides that fits the given condition: `filter`
+
+Display all rides that fits the condition in a table. It can only filter conditions that have numeric values i.e.
+`Maintenance` and `WaitTime`. +
 Format: `filter <tag> <condition> [[tag] [condition]...]` +
+Can include more conditions as desired. +
+
 Example:
 
-* `filter w/ < 500 w/ > 50` +
-Filters attractions with waiting time less than 500 and more than 50 minutes.
+* `filter w/ < 10` +
+Filters attractions with waiting time less than 500 minutes. If no changes were made to your application
+(i.e. no delete, add commands were done), your window should look like this: +
 
+image::ui_screenshots/filter-example-1.png[width="790"]
 
-==== Find a particular attraction: `find`
+* `filter w/ < 10 m/ > 50` +
+Filters attractions with waiting time less than 500 and maintenance of more than 50 days.
+
+image::ui_screenshots/filter-example-2.png[width="790"]
+
+==== Finding a particular attraction: `find`
 
 Find the rides that the user needs to check on. Case insensitive. +
 Can only find the name, the address, and the tags of the attractions. +
-Must include arguments when finding. +
 Format: `find <[name] [[tag][keyword]...]>` +
+Must include arguments when finding. +
+Here are some examples with images to let you follow along. +
 Examples:
 
 * `find accelerator` +
 Finds and displays the list of attractions in ThanePark with the name "accelerator".
 
+image::ui_screenshots/find-example-1.png[width="790"]
+
 * `find a/ street` +
 Finds and displays the list of attractions with addresses that contain the word "street".
+
+image::ui_screenshots/find-example-2.png[width="790"]
+
+* `find address street t/friends tag family` +
+Finds and displays the list of attractions with addresses that contain the word "street" and the tags "friends"
+and "family"
+
+image::ui_screenshots/find-example-3.png[width="790"]
+
+// end::filter[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ThanePark folder.
 
+
 == Command Summary
 
-=== Provided
+
 * *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
   e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
 * *Delete*: `delete <index>` +
@@ -271,11 +372,14 @@ Finds and displays the list of attractions with addresses that contain the word 
 * *Undo*: `undo`
 * *Redo*: `redo`
 
+
 === Added
-* *Update*: `update <attraction> <tag> <value>`
-* *Open*: `open <attraction>`
-* *Shutdown*: `shutdown <attraction>`
+* *Update*: `update <index> <tag> <value>`
+* *Open*: `open <index>`
+* *Shutdown*: `shutdown <index>`
+
 * *View*: `view <name>`
 * *Quickview*: `quickview`
 * *Filter*: `filter <tag> <condition>`
 * *tab*: `{tab}`
+

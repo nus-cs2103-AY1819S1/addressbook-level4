@@ -1,26 +1,28 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalRides.KEYWORD_MATCHING_MEIER;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_RIDE_DISPLAYED_INDEX;
+import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.thanepark.logic.commands.ViewCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.thanepark.testutil.TestUtil.getLastIndex;
+import static seedu.thanepark.testutil.TestUtil.getMidIndex;
+import static seedu.thanepark.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.thanepark.testutil.TypicalRides.KEYWORD_MATCHING_THE;
+
+import java.io.IOException;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.ViewCommand;
-import seedu.address.model.Model;
+import seedu.thanepark.commons.core.index.Index;
+import seedu.thanepark.logic.commands.RedoCommand;
+import seedu.thanepark.logic.commands.UndoCommand;
+import seedu.thanepark.logic.commands.ViewCommand;
+import seedu.thanepark.model.Model;
 
-public class ViewCommandSystemTest extends AddressBookSystemTest {
+public class ViewCommandSystemTest extends ThaneParkSystemTest {
     @Test
-    public void select() {
+    public void select() throws IOException {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
         /* Case: select the first card in the ride list, command with leading spaces and trailing spaces
@@ -54,14 +56,14 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered ride list, select index within bounds of address book but out of bounds of ride list
+        /* Case: filtered ride list, select index within bounds of thanepark book but out of bounds of ride list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getRideList().size();
+        showPersonsWithName(KEYWORD_MATCHING_THE);
+        int invalidIndex = getModel().getThanePark().getRideList().size();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
-        /* Case: filtered ride list, select index within bounds of address book and ride list -> selected */
+        /* Case: filtered ride list, select index within bounds of thanepark book and ride list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredRideList().size());
         command = ViewCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -93,7 +95,7 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("VieW 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty thanepark book -> rejected */
         deleteAllPersons();
         assertCommandFailure(ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_RIDE_DISPLAYED_INDEX);
@@ -109,11 +111,11 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see ThaneParkSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
+    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws IOException {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
@@ -140,8 +142,8 @@ public class ViewCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code RideListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see ThaneParkSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

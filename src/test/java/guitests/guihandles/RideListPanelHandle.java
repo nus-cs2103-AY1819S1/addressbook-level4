@@ -6,13 +6,13 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.ride.Ride;
+import seedu.thanepark.model.ride.Ride;
 
 /**
  * Provides a handle for {@code RideListPanel} containing the list of {@code RideCard}.
  */
 public class RideListPanelHandle extends NodeHandle<ListView<Ride>> {
-    public static final String RIDE_LIST_VIEW_ID = "#personListView";
+    public static final String RIDE_LIST_VIEW_ID = "#rideListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
@@ -25,7 +25,8 @@ public class RideListPanelHandle extends NodeHandle<ListView<Ride>> {
     /**
      * Returns a handle to the selected {@code RideCardHandle}.
      * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
+     *
+     * @throws AssertionError        if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public RideCardHandle getHandleToSelectedCard() {
@@ -99,17 +100,18 @@ public class RideListPanelHandle extends NodeHandle<ListView<Ride>> {
 
     /**
      * Returns the ride card handle of a ride associated with the {@code index} in the list.
+     *
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public RideCardHandle getRideCardHandle(int index) {
         return getAllCardNodes().stream()
                 .map(RideCardHandle::new)
-                .filter(handle -> handle.equals(getPerson(index)))
+                .filter(handle -> handle.equals(getRide(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Ride getPerson(int index) {
+    private Ride getRide(int index) {
         return getRootNode().getItems().get(index);
     }
 
