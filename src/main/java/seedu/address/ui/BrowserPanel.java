@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -29,7 +30,8 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String PROFILE_PAGE = "/ProfileWindow.html";
-    public static final String RELATIVE_PATH = "./src/main/resources/ProfileWindow.html";
+    public static final String PICUTRE_LINK = "/profile_picture/";
+    public static final String JPG = ".jpg";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -100,6 +102,7 @@ public class BrowserPanel extends UiPart<Region> {
         loadProfile(event.getPersonSelected());
     }
 
+    //@@author javenseow
     /**
      * Loads HTML page of profile.
      * @param person The person that the profile will show.
@@ -114,13 +117,17 @@ public class BrowserPanel extends UiPart<Region> {
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {
-        URL profilePage = getClass().getResource(PROFILE_PAGE);
-        System.out.println(profilePage);
-        File htmlTemplateFile = new File(RELATIVE_PATH);
         String htmlString = null;
+        String pictureString = null;
         try {
-            htmlString = FileUtils.readFileToString(htmlTemplateFile);
+        URL profilePage = MainApp.class.getResource(PROFILE_PAGE);
+        File htmlTemplateFile = new File(profilePage.toURI());
+        pictureString = MainApp.class
+                .getResource(PICUTRE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
+        htmlString = FileUtils.readFileToString(htmlTemplateFile);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         htmlString = htmlString.replace("$name", person.getName().fullName);
@@ -129,7 +136,7 @@ public class BrowserPanel extends UiPart<Region> {
         htmlString = htmlString.replace("$number", person.getPhone().value);
         htmlString = htmlString.replace("$school", person.getSchool().value);
         htmlString = htmlString.replace("$email", person.getEmail().value);
-        htmlString = htmlString.replace("$profileRoom", person.getRoom().value.toLowerCase());
+        htmlString = htmlString.replace("$profileURL", pictureString);
 
         return htmlString;
     }
