@@ -233,6 +233,40 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 * DATE should be in the format of "dd-mm-yyyy".
 ====
 
+=== Editing multiple expenses : `massedit`
+
+Edits the expenses with the keywords specified by the user.
+Existing values of the expense will be edited according to the value of the parameters +
+
+Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`-> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
+
+****
+*Examples:*
+
+* `massedit c/school -> c/food` +
+ Edits the expenses under `school` category.
+ The category of these expenses is changed to `food`.
+* `massedit n/School fee d/01-10-2018:03-10-2018 -> t/books` +
+ Edits expenses, whose names contain `school`,with date between `01-10-2018` and `03-10-2018`(inclusively).
+ The tags of these expenses are changed to `book` tag.
+* `massedit $/1.00:2.00 -> c/waste n/saving` +
+ Edits expenses with cost between 1.00 and 2.00 inclusively.
+ The category and name of these expenses are changed to `waste` and `saving` respecitvely.
+* `massedit c/shopping $/100.00 -> n/waste $/200.00` +
+ Edits the expenses with cost of `100.00` under `shopping` category.
+ The name and cost of these expenses are changed to `waste` and `200.00` respectively.
+****
+
+[NOTE]
+====
+* At least one keyword before `->` and one keyword after `->` must be provided.
+* The order of the keywords doesn't matter.
+* Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
+* COST should be a non-zero positive number with two decimal places
+* DATE should be in the format of "dd-mm-yyyy".
+* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
+====
+
 === Deleting a expense : `delete`
 
 Deletes the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed expense list
@@ -255,7 +289,7 @@ Format: `delete INDEX`
 === Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
-Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG]... `
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...] `
 
 ****
 *Examples:*
@@ -280,7 +314,7 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
 * The order of the keywords does not matter, i.e. the KEYWORD `Have lunch` is equivalent to the KEYWORD `lunch have`
 * Partial word will be matched, i.e. the NAME KEYWORD `Hav` will match the expense name `Have`
-* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have only keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid
+* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid
 ====
 
 === Listing all expenses : `list`
