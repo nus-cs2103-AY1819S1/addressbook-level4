@@ -201,8 +201,9 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         assertTrue(getModel().getScheduler().getCalendarEventList().contains(LECTURE));
         index = INDEX_FIRST_ELEMENT;
         assertFalse(getModel().getFilteredCalendarEventList().get(index.getZeroBased()).equals(LECTURE));
-        command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE + DESCRIPTION_DESC_LECTURE
-            + START_DESC_LECTURE + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
+        command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
+                + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE
+                + END_DESC_LECTURE + VENUE_DESC_LECTURE + TAG_DESC_FRIEND;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different tags
