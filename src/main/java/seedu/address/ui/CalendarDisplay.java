@@ -20,7 +20,6 @@ import jfxtras.scene.control.agenda.Agenda;
 
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.SchedulerChangedEvent;
 import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
 
@@ -148,6 +147,7 @@ public class CalendarDisplay extends UiPart<Region> {
                     viewNext();
                     indicateCalendarDisplayTimeChanged();
                     break;
+                default:
                 }
             }
         });
@@ -193,6 +193,9 @@ public class CalendarDisplay extends UiPart<Region> {
         }
     }
 
+    /**
+     * Toggles between Daily and Weekly view
+     */
     public void toggleSkin() {
         if (isDaySkin()) {
             setViewToWeeklyView();
