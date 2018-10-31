@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Sort fitlered tasks.
+     * Sort filtered tasks.
      * @return SortedList containing tasks sorted according to priority.
      */
     public SortedList<Task> sortFilteredTasks() {
