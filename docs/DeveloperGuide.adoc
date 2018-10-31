@@ -98,22 +98,37 @@ Step 3: If the user set a group name that does not exist, the system throw an ex
 **Show implementation**
 
 The show command is indicated as `Show` in `commands`, and inherits the `Command` class. It is a more advanced version of `Find` in a sense that it displays the word's definition on the Ui screen page. The reason why this was created and `Find` was left alone was because we wanted to have more abstraction in terms of code.
+
 As for `find`, perhaps the team and I can find another purpose for it.
+
 As such, `Show` was implemented with a more Ui state of mind, to ensure the user's ease of use when finding the words for display of their meanings as AddressBook level 4 did not cater to this particular arrangement.
+
 Moreover, it also encompasses multiple words, which meant that users can always pick and dump a whole bunch of words and it will filter out as needed, accordingly.
 
 Below is a description on how the select function operates:
 
 Step 1: User wants to query a bunch of words and find out their meanings, tags altogether.
 
-Step 2: `ShowCommand` checks through the entire xml file and filters out the ones being typed.
+[NOTE]
+Multiple words are allowed to be queried. This allows for more flexibility compared to the Ui option.
 
-Step 3: The result is the list of filtered words, together with their definition and tags being displated.
+Step 2: `ShowCommand` checks through the entire xml file of LearnVocabulary and filters out the ones that were keyed in.
+
+Step 3: The result is the list of filtered words, together with their definition and tags being displayed.
 
 **Learn**
 
-The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web. This command is delicate in the sense that it requires the use of Internet, should there be an absence of Internet connection, it has already been taken care of via throwing an Exception. There was a discussion to have an "Offline" version of the dictionary so that we can better attend to the tests, especially since it might be an offline environment.
+The backbone of LearnVocabulary would have to be the `Learn` command, because it allows the user to query words from the internet and parse their meanings into readable format for storage.
+
+The learn command is indicated as `Learn` in `commands`, and inherits the `Command` class. It enables the user to "learn" a word from the world wide web.
+
+This command is delicate in the sense that it requires the use of Internet, should there be an absence of Internet connection, it has already been taken care of via throwing an Exception.
+
+There was a discussion to have an "Offline" version of the dictionary so that we can better attend to the tests, especially since it might be an offline environment.
+
 However, due to the lack of resources online and the fact that the API for dictionary only allows for 250 queries, we opted to do the online version instead.
+
+It is great to also note that a fresh new copy would give the user access to a few preconfigured words at the disposal of the user.
 
 Functions added:
 
@@ -128,6 +143,9 @@ Step 1: User wants to learn this new word he just heard of, eg: Happiness
 Step 2: User would type the word followed by the command learn, eg: learn happiness
 
 Step 3: The word will be searched online, should it be successful, the word and meaning will be displayed on screen.
+
+[NOTE]
+The newly queried word would be attached with a "toLearn" tag, which allows the user to know that he/she just queried the word and can leave it for the future to learn it.
 
 Step 4: The word is then stored within the storage file.
 
@@ -235,7 +253,7 @@ System would pull up the data from storage
 
 Use case ends
 
-*Learning Support:*
+*Learn feature:*
 
 User inputs command (learn)
 
@@ -246,6 +264,14 @@ The definition of the entered word will be displayed and the user will learn it.
 The word is then saved within the storage, where it can be edited in the future if need be.
 
 Use case ends
+
+*Show feature:*
+
+User inputs command (show)
+
+User types in show [word] (or show [word1] [word2]), the word(s) will be displayed on the Ui.
+
+Use case ends.
 
 *Non functional requirements*
 
