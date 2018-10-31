@@ -25,18 +25,22 @@ similar way of how he edit a person in his address book.
 * *Other contributions*:
 
 ** Project management:
-*** Managed milestones for `v1.2` - `v1.5rc` (set milestone deadlines, close issues and milestones accordingly) on GitHub
+*** Managed milestones for `v1.2` - `v1.4` on Github
+****Opened issues
+**** Set up milestone deadlines, close issues and milestones accordingly on GitHub
 ** Enhancements to existing features:
+*** Add related classes for `EditPerson`, `EditModule` and `EditOccasion` (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/108[#108])
 *** Wrote additional tests for Undo/Redo command features to increase coverage (in progress)
 *** Did cosmetic tweaks to existing contents of the User Guide
 ** Community:
-*** PRs reviewed (with non-trivial review comments) (To Do in next milestone)
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-1/main/pull/112[#112]
 ** Tools:
-*** Integrated a third party library (Natty) to the project, eg: (https://github.com[#42])
+*** Integrated a third party library (Natty) to the project, eg: (https://github.com/[#42])
 *** Integrated a new Github plugin (CircleCI) to the team repo
 ** Documentation:
 *** Wrote user stories for v1.0
-*** Updated AboutUs.adoc to match application design
+*** Updated AboutUs.adoc to match application design (Pull requests https://github.com/CS2103-AY1819S1-W10-1/main/pull/34[#34])
 
 == Contributions to the User Guide
 
