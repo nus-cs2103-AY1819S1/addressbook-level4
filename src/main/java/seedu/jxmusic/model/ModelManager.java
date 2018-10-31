@@ -113,6 +113,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateFilteredTrackList(Predicate<Track> predicate) {
+        requireNonNull(predicate);
+        filteredTrackList.setPredicate(predicate);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

@@ -20,6 +20,7 @@ import seedu.jxmusic.logic.commands.SeekCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
 import seedu.jxmusic.logic.commands.StopCommand;
 import seedu.jxmusic.logic.commands.TrackListCommand;
+import seedu.jxmusic.logic.commands.TrackSearchCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +72,9 @@ public class LibraryParser {
 
         case TrackListCommand.COMMAND_PHRASE:
             return new TrackListCommand();
+
+        case TrackSearchCommand.COMMAND_PHRASE:
+            return new TrackSearchCommandParser().parse(arguments);
 
         // case EditCommand.COMMAND_PHRASE:
         //     return new EditCommandParser().parse(arguments);

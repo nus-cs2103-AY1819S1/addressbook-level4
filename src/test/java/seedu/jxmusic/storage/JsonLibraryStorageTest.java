@@ -33,7 +33,7 @@ public class JsonLibraryStorageTest {
         readLibrary(null);
     }
 
-    private java.util.Optional<ReadOnlyLibrary> readLibrary(String filePath) throws Exception {
+    private ReadOnlyLibrary readLibrary(String filePath) throws Exception {
         return new JsonLibraryStorage(Paths.get(filePath)).readLibrary(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -45,7 +45,7 @@ public class JsonLibraryStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readLibrary("NonExistentFile.json").isPresent());
+        assertFalse(readLibrary("NonExistentFile.json").getPlaylistList().size() > 0);
     }
 
     @Test
@@ -79,19 +79,19 @@ public class JsonLibraryStorageTest {
 
         //Save in new file and read back
         jsonLibraryStorage.saveLibrary(original, filePath);
-        ReadOnlyLibrary readBack = jsonLibraryStorage.readLibrary(filePath).get();
+        ReadOnlyLibrary readBack = jsonLibraryStorage.readLibrary(filePath);
         assertEquals(original, new Library(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.removePlaylist(SFX);
         jsonLibraryStorage.saveLibrary(original, filePath);
-        readBack = jsonLibraryStorage.readLibrary(filePath).get();
+        readBack = jsonLibraryStorage.readLibrary(filePath);
         assertEquals(original, new Library(readBack));
 
         //Save and read without specifying file path
         original.addPlaylist(SFX);
         jsonLibraryStorage.saveLibrary(original); //file path not specified
-        readBack = jsonLibraryStorage.readLibrary().get(); //file path not specified
+        readBack = jsonLibraryStorage.readLibrary(); //file path not specified
         assertEquals(original, new Library(readBack));
 
     }
