@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.HashSet;
 import java.util.logging.Logger;
+
+import org.controlsfx.control.textfield.TextFields;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -8,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.ListElementPointer;
@@ -29,6 +33,8 @@ public class CommandBox extends UiPart<Region> {
     private final Logic logic;
     private ListElementPointer historySnapshot;
 
+    private boolean isNavigatingHistory = false;
+
     @FXML
     private TextField commandTextField;
 
@@ -36,14 +42,15 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.logic = logic;
 
-        //Calls #autoCompleteWord() when new character is entered to text of command box
-        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            //Only perform auto complete if adding new characters.
-            int oldValueLengthWithoutAutoComplete = oldValue.length() - commandTextField.getSelection().getLength();
-            if (oldValueLengthWithoutAutoComplete < newValue.length()) {
-                autoCompleteWord();
+        TextFields.bindAutoCompletion(commandTextField, partialWord -> {
+            if (isNavigatingHistory) {
+                isNavigatingHistory = false;
+                return null;
             }
+
+            return AutoCompleteCommandHelper.autoCompleteWord(partialWord.getUserText());
         });
+
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -96,7 +103,7 @@ public class CommandBox extends UiPart<Region> {
         if (!historySnapshot.hasPrevious()) {
             return;
         }
-
+        isNavigatingHistory = true;
         replaceText(historySnapshot.previous());
     }
 
@@ -109,7 +116,7 @@ public class CommandBox extends UiPart<Region> {
         if (!historySnapshot.hasNext()) {
             return;
         }
-
+        isNavigatingHistory = true;
         replaceText(historySnapshot.next());
     }
 
@@ -173,24 +180,6 @@ public class CommandBox extends UiPart<Region> {
         }
 
         styleClass.add(ERROR_STYLE_CLASS);
-    }
-
-    /**
-     * Predict command user is inputting and type it in the command box.
-     */
-    private void autoCompleteWord() {
-        String prefix = commandTextField.getCharacters().toString();
-        String completeWord = AutoCompleteCommandHelper.autoCompleteWord(prefix);
-        //Return if there is no difference between prefix and completed word.
-        if (prefix.equals(completeWord)) {
-            return;
-        }
-
-        if (completeWord != null && prefix.length() > 0) {
-            //String strToInsert = completeWord.substring(prefix.length());
-            commandTextField.setText(completeWord);
-            Platform.runLater(() -> commandTextField.selectRange(prefix.length(), completeWord.length()));
-        }
     }
 
 

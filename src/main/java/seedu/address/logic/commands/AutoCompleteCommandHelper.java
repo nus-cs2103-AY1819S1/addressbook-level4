@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Helper class to auto complete commands typed into command box
  */
@@ -27,12 +31,21 @@ public class AutoCompleteCommandHelper {
      * @param partialWord The current characters available in command box.
      * @return The predicted command.
      */
-    public static String autoCompleteWord(String partialWord) {
+    public static Set<String> autoCompleteWord(String partialWord) {
+        if (partialWord == null || partialWord.equals("")) {
+            return new HashSet<>();
+        }
+
+        if (partialWord.equals(" ")) {
+            return new HashSet<>(Arrays.asList(commandWordList));
+        }
+
+        Set<String> suggestions = new HashSet<>();
         for (String s : commandWordList) {
             if (s.startsWith(partialWord)) {
-                return s;
+                suggestions.add(s);
             }
         }
-        return null;
+        return suggestions;
     }
 }
