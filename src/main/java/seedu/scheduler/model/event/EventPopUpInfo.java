@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
     private UUID uid;
+    private UUID uuid;
     private EventName eventName;
     private DateTime startDateTime;
     private DateTime endDateTime;
@@ -16,11 +17,12 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
     private Duration duration;
     private DateTime popUpDateTime;
 
-    public EventPopUpInfo(UUID uid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public EventPopUpInfo(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                           Description description, Venue venue, Duration duration) {
-        requireAllNonNull(uid, eventName, startDateTime, endDateTime, description,
+        requireAllNonNull(uid, uuid, eventName, startDateTime, endDateTime, description,
                 venue, duration);
         this.uid = uid;
+        this.uuid = uuid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -43,6 +45,11 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
 
     public UUID getUid() {
         return uid;
+    }
+
+
+    public UUID getUuid() {
+        return uuid;
     }
 
     public EventName getEventName() {

@@ -63,7 +63,8 @@ public class PopUpManager {
     }
 
     /**
-     * Add EventPopUpInfo to the popUpQueue given an Event
+     * Add Single Event
+     * EventPopUpInfo to the popUpQueue given an Event
      * @param event
      */
     public void add(Event event) {
@@ -71,7 +72,8 @@ public class PopUpManager {
     }
 
     /**
-     * Add EventPopUpInfo to the popUpQueue given a list of Event
+     * Add Recurring Event's EventPopUpInfo
+     * Add single EventPopUpInfo to the popUpQueue given a list of Event
      * @param events
      */
     public void add(Collection<Event> events) {
@@ -79,31 +81,112 @@ public class PopUpManager {
     }
 
     /**
-     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed
-     * @param event
+     * Edit Single Event's EventPopUpInfo
+     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
+     * @param target
      * @param editedEvent
      */
-    public void edit(Event event, Event editedEvent) {
-        if (!event.getReminderDurationList().equals(editedEvent.getReminderDurationList())) {
-            delete(event);
+    public void edit(Event target, Event editedEvent) {
+        if (!target.getReminderDurationList().equals(editedEvent.getReminderDurationList())) {
+            delete(target);
             add(editedEvent);
         }
     }
 
     /**
-     * Delete all eventPopUpInfo in the popUpQueue that shares the same Uid as the deleted event
-     * @param event
+     * Edit All Recurring Event's EventPopUpInfo
+     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
+     * @param target
+     * @param editedEvents
      */
-    public void delete(Event event) {
+    public void editAll(Event target, List<Event> editedEvents) {
+        Event firstEvent = editedEvents.get(0);
+        if (!target.getReminderDurationList().equals(firstEvent.getReminderDurationList())) {
+            deleteAll(target);
+            add(editedEvents);
+        }
+    }
+
+    /**
+     * Edit Upcoming Recurring Event's EventPopUpInfo
+     * Every time an Event is updated, add all future EventPopUpInfo to the queue and ignore the passed.
+     * @param target
+     * @param editedEvents
+     */
+    public void editUpcoming(Event target, List<Event> editedEvents) {
+        Event firstEvent = editedEvents.get(0);
+        if (!target.getReminderDurationList().equals(firstEvent.getReminderDurationList())) {
+            deleteUpcoming(target);
+            add(editedEvents);
+        }
+    }
+
+
+    /**
+     * Delete Single Event's EventPopUpInfo
+     * Delete all eventPopUpInfo in the popUpQueue that shares the same Uid as the deleted event
+     * @param target
+     */
+    public void delete(Event target) {
         PriorityQueue<EventPopUpInfo> newQueue = new PriorityQueue<>();
         for (EventPopUpInfo eventPopUpInfo : popUpQueue) {
-            if (!eventPopUpInfo.getUid().equals(event.getUid())) {
+            if (!eventPopUpInfo.getUid().equals(target.getUid())) {
                 newQueue.add(eventPopUpInfo);
             }
         }
         popUpQueue = newQueue;
     }
 
+    /**
+     * Delete All Recurring Event's EventPopUpInfo
+     * Delete all eventPopUpInfo in the popUpQueue that shares the same Uid as the deleted event
+     * @param target
+     */
+    public void deleteAll(Event target) {
+        PriorityQueue<EventPopUpInfo> newQueue = new PriorityQueue<>();
+        for (EventPopUpInfo eventPopUpInfo : popUpQueue) {
+            if (!isRecurringEvent(eventPopUpInfo, target)) {
+                newQueue.add(eventPopUpInfo);
+            }
+        }
+        popUpQueue = newQueue;
+    }
+
+    /**
+     * Delete upcoming EventPopUpInfo
+     * Delete all eventPopUpInfo in the popUpQueue that shares the same Uid as the deleted event
+     * @param target
+     */
+    public void deleteUpcoming(Event target) {
+        PriorityQueue<EventPopUpInfo> newQueue = new PriorityQueue<>();
+        for (EventPopUpInfo eventPopUpInfo : popUpQueue) {
+            if (!isUpcomingEvent(eventPopUpInfo, target)) {
+                newQueue.add(eventPopUpInfo);
+            }
+        }
+        popUpQueue = newQueue;
+    }
+
+    /**
+     * Check if eventPopUpInfo belongs to an upcoming event compared to target
+     * @param event
+     * @param target
+     * @return
+     */
+    private Boolean isUpcomingEvent(EventPopUpInfo event, Event target) {
+        return (event.getUuid().equals(target.getUuid())
+                        && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
+    }
+
+    /**
+     * Check if eventPopUpInfo belongs to an event that is a recurring event of target
+     * @param event
+     * @param target
+     * @return
+     */
+    private Boolean isRecurringEvent(EventPopUpInfo event, Event target) {
+        return event.getUuid().equals(target.getUuid());
+    }
 
     /**
      * Generate a list of EventPopUpInfo objects of different Durations given an Event
@@ -113,6 +196,7 @@ public class PopUpManager {
     private ArrayList<EventPopUpInfo> generatePopUpInfoListFromEvent(Event event) {
         ArrayList<EventPopUpInfo> result = new ArrayList<>();
         UUID uid = event.getUid();
+        UUID uuid = event.getUuid();
         EventName eventName = event.getEventName();
         DateTime startDateTime = event.getStartDateTime();
         DateTime endDateTime = event.getEndDateTime();
@@ -121,7 +205,8 @@ public class PopUpManager {
         ReminderDurationList reminderDurationList = event.getReminderDurationList();
 
         for (Duration duration : reminderDurationList.get()) {
-            result.add(new EventPopUpInfo(uid, eventName, startDateTime, endDateTime, description, venue, duration));
+            result.add(new EventPopUpInfo(uid, uuid, eventName, startDateTime, endDateTime, description, venue,
+                    duration));
         }
         return result;
     }
@@ -140,6 +225,7 @@ public class PopUpManager {
     }
 
     /**
+     * Main
      * checking for PopUp in the background
      */
     public void startRunning() {

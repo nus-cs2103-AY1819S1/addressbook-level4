@@ -92,6 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteRepeatingEvents(Event target) {
         versionedScheduler.removeEvents(target, event -> event.getUuid().equals(target.getUuid()));
+        popUpManager.deleteAll(target);
         indicateSchedulerChanged();
     }
 
@@ -100,6 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedScheduler.removeEvents(target, event ->
                 event.getUuid().equals(target.getUuid())
                 && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
+        popUpManager.deleteUpcoming(target);
         indicateSchedulerChanged();
     }
 
@@ -122,18 +124,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateRepeatingEvents(Event target, List<Event> editedEvents) {
         requireAllNonNull(target, editedEvents);
-
         versionedScheduler.updateEvents(target, editedEvents, event -> event.getUuid().equals(target.getUuid()));
+        popUpManager.editAll(target, editedEvents);
         indicateSchedulerChanged();
     }
 
     @Override
     public void updateUpcomingEvents(Event target, List<Event> editedEvents) {
         requireAllNonNull(target, editedEvents);
-
         versionedScheduler.updateEvents(target, editedEvents, event ->
                 event.getUuid().equals(target.getUuid())
                 && event.getStartDateTime().compareTo(target.getStartDateTime()) >= 0);
+        popUpManager.editUpcoming(target, editedEvents);
         indicateSchedulerChanged();
     }
 
