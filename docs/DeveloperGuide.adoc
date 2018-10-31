@@ -366,8 +366,11 @@ phone number and address.
 
 ==== Current Implementation
 
-The earnings feature has been implemented to retrieve the sum of all tuition fees
-from each student. A `Fee` class has been added to the list of attributes of Person class.
+The earnings feature has been implemented to retrieve the sum of tuition fees earned from all students
+between a period of time. A `Fee` class has been added to the list of attributes of Person class.
+
+* The earnings command accepts two arguments, one being the beginning date and the
+other the ending date. The total tuition fees earned between the range of dates will be displayed.
 
 * Each student's tuition fee per hour is also displayed on the PersonCard GUI. The tuition
 fee of an individual student is determined by his or her educational level and grade.
@@ -389,9 +392,7 @@ image::EarningsCommandSequenceDiagram.png[width="800"]
 
 ==== Future Implementation
 
-The earnings command will be updated to calculate the total amount of tuition fees earned between
-a range of dates. The earnings command should accept two arguments, one being the beginning and the
-other the ending date.
+
 
 ==== Design considerations
 

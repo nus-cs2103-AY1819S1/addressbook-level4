@@ -108,8 +108,10 @@ public class Time {
     /**
      * Returns number of hours of tuition
      */
-    public int getTuitionHours() {
-        return (endTime - startTime) / 100;
+    public double getTuitionHours() {
+        int startTimeInMinutes = 60 * (startTime / 100) + startTime % 100;
+        int endTimeInMinutes = 60 * (endTime / 100) + endTime % 100;
+        return (double) (endTimeInMinutes - startTimeInMinutes) / 60;
     }
 
     /**
