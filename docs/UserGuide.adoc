@@ -182,7 +182,7 @@ Format: `find KEYWORD`
 [%hardbreaks]
 Displays the cumulative achievements of a user across a specified time period on the GUI.
 Such achievements include current level, xp earned and number of tasks completed across that time period.
-Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-time`, `today`, or `this week`.
+Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all-time`, `today`, or `this week`.
 
 [%hardbreaks]
 +Example: `achievements all-time`
@@ -190,6 +190,11 @@ Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-ti
 +Example: `achievements this week`
 -Example: `achievements all time`
 -Example: `achievements TODAY`
+
+[TIP]
+Today and this week's achievements assume users do not time travel. +
+Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
+comes back from the future.
 
 == FAQ
 
