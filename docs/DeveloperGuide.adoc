@@ -387,6 +387,19 @@ Get some sense of the overall design by reading Section 2.1, “Architecture”.
 
 Take a look at Appendix A, Suggested Programming Tasks to Get Started.
 
+## 2. Design
+### 2.1 Command Component
+Command was implemented using a template model pattern. The reason for this implementation is because there is shared codes
+and invariants among all the execution of the command classes (i.e. there is a call if tasks are overdue at every call to execute).
+The common patterns in execution are implemented in the `execute` function of the command class which is declared final.
+Concrete implementations of each execute function is implemented in the `executePrimitive` function of each subclass of command.
+The implementation for executePrimitive fill the "variant" portion of the model template. Note that execute primitive is implemented as a
+abstract method in command.
+
+Simplified class diagram for the command component:
+
+image::CommandComponentClassDiagram.png[width="1200"]
+
 ## 3. Implementation
 This section describes some noteworthy details on how certain features are implemented.
 
