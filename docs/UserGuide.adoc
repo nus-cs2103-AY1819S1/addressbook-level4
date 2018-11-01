@@ -113,6 +113,7 @@ Example(s):
 * `addmh ic/S1234567A mh/Patient shows symptoms of flu. Prescribed 2 weeks of panadol, advised patient to
 rest and rehydrate.`
 
+//tag::checkin[]
 === Check-in a patient: `checkin`
 Add a person to the patient queue.
 
@@ -124,6 +125,7 @@ Format: `checkin ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
 Example(s):
 
 * `checkin ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+//end::checkin[]
 
 === Check-out a patient: `checkout`
 Remove a patient from the patient queue.
@@ -277,6 +279,7 @@ Example(s):
 
 image::viewvisitors_screenshot.png[width=800]
 
+//tag::visitorin[]
 === Sign in patient’s visitors: `visitorin`
 Sign in a visitor for a patient.
 
@@ -287,6 +290,7 @@ Example(s):
 * `visitorin ic/S1234567A v/Amy`
 
 image::visitorin_screenshot.png[width=800]
+//end::visitorin[]
 
 === Sign out patient’s visitors: `visitorout`
 Sign out a visitor for a patient.

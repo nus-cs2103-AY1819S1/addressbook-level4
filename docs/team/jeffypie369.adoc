@@ -3,19 +3,27 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Hospital Management System 2K18
+== PROJECT: HealthBase
 
 ---
 
 == Overview
+This page encompasses my contributions to HealthBase. This includes the implementation of features, refactoring and documentation.
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+HealthBase is a desktop application designed to aid in the management of a hospital. It provides patient data input and management capabilities through a command line interface for input and a graphical UI for data display. Its main features include (among others):
+
+* Patient medication data entry and retrieval
+* Patient medical history data entry and retrieval
+* Patient dietary restriction(s) data entry and retrieval
+* Patient visitor history data entry and retrieval
+* Real-time management of the number of visitors any given patient has
+* Patient appointment management for doctors
 
 == Summary of contributions
 
 * *Major enhancement*: Added `addappt` command
 ** What it does: adds an appointment for a given patient. Each appointment includes the following information: type of procedure, procedure name, date and time of appointment and the doctor-in-charge
-** Justification: this command provides a core functionality of the HMS2K18 (appointment data entry and retrieval).
+** Justification: this command provides a core functionality of the HealthBase (appointment data entry and retrieval).
 ** Highlights: this command affects existing internal representations of the Person class and required significant retooling of tests to fit the new member of the Person class. The implementation was somewhat challenging as it required an extension of the current Person data representation and storage functionality.
 * *Minor enhancement*: incorporate `appt` with the `view` command
 
@@ -58,12 +66,15 @@ include::../UserGuide.adoc[tag=checkin]
 
 include::../DeveloperGuide.adoc[tag=addappt]
 
-include::../DeveloperGuide.adoc[tag=visitorin]
-
-include::../UserGuide.adoc[tag=checkin]
-
-== PROJECT: PowerPointLabs
+== PROJECT: Accuride SG
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+An Android offline MRT app where you can get the fastest duration and the least transfers duration from one station to another.
+
+Other features include:
+
+* Last train timings
+* Link to LTA's Twitter page for updates on breakdowns/early closures (requires the Internet)
+
+

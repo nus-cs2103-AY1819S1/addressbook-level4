@@ -403,7 +403,8 @@ image::AddApptSequenceDiagram.png[width="800"]
 * **Alternative 2:** Have a switch case to handle the different types
 ** Pros: Makes the process easier to handle.
 ** Cons: Makes the code more difficult to read.
-
+//end::addappt[]
+//tag::addmh[]
 === Addmh/viewmh
 ==== Current implementation
 
