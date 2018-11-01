@@ -1,4 +1,7 @@
 = Ooi Heng Seng - Project Portfolio
+:imagesDir: images
+:stylesDir: stylesheets
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
 == Project: MeetingBook
 
@@ -14,7 +17,7 @@ It is written in Java, and has about 10kLoC.
 
 * How it looks like:
 +
-image::images/Ui.png[width="800"]
+image::Ui.png[width="800"]
 +
 * What it does: allows the user to view all information at a glance.
 * Justification: the updated user interface improves the user experience significantly because it reduces the amount of
@@ -80,7 +83,7 @@ end-users.
 === User Interface
 This section will explain the user interface of the application.
 
-image::images/UiExplanation.png[width="800"]
+image::UiExplanation.png[width="800"]
 
 . Menu bar: provides access to functions
 . Group list: displays a list of groups
@@ -130,6 +133,23 @@ Given below are sections I contributed to the Developer Guide. They showcase my 
 and the technical depth of my contributions to the project.
 ====
 
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `GroupListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
+
 === Select feature
 ==== Current Implementation
 
@@ -156,4 +176,4 @@ If a group is selected, calling `select` command with `SELECT_TYPE_PERSON` will 
 
 The following activity diagram summarizes what happens when a user executes a `select` command:
 
-image::images/SelectActivityDiagram.png[width="650"]
+image::SelectActivityDiagram.png[width="650"]
