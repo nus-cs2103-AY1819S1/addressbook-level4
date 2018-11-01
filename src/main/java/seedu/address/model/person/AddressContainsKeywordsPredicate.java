@@ -20,7 +20,7 @@ public class AddressContainsKeywordsPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         return keywords.stream()
                 .allMatch(keyword
-                        -> StringUtil.containsWordIgnoreCaseAndFuzzyAddress(person.getAddress().value, keyword));
+                    -> StringUtil.containsWordIgnoreCaseAndFuzzyAddress(person.getAddress().value, keyword));
     }
 
     @Override
