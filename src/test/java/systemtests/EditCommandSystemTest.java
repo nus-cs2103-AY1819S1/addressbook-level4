@@ -281,8 +281,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         executeCommand(command);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         assertApplicationDisplaysExpected(
-                " edit  1   n/Bob Choo   p/22222222  e/bob@example.com   " +
-                        "a/Block 123, Bobby Street 3   el/Secondary 3   g/Y1819S1_Mid 98  t/husband ",
+                " edit  1   n/Bob Choo   p/22222222  e/bob@example.com   "
+                        + "a/Block 123, Bobby Street 3   el/Secondary 3   g/Y1819S1_Mid 98  t/husband ",
                         expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
