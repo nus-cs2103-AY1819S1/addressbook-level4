@@ -49,7 +49,9 @@ public class ServedPatientListManager implements ServedPatientList {
 
     @Override
     public ServedPatient removeAtIndex(int index) {
-        return servedPatientList.remove(index);
+        ServedPatient servedPatient = servedPatientList.remove(index);
+        servedPatient.getPatient().leaveQueue();
+        return servedPatient;
     }
 
     @Override
