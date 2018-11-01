@@ -34,7 +34,7 @@ public class SurpriseCommand extends Command {
     private Index randomIndex;
     private Random rand = new Random();
 
-    public SurpriseCommand(Model model){
+    public SurpriseCommand(Model model) {
         this.model = model;
     }
 
@@ -46,7 +46,8 @@ public class SurpriseCommand extends Command {
 
         try {
             setRandomIndex();
-        }catch (ParseException pe) {
+        } catch (ParseException pe) {
+            System.out.println("temp");
         }
 
         if (randomIndex.getZeroBased() >= filteredRecipeList.size()) {
