@@ -158,7 +158,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listFiltered_nonBlocked_noDepenencies() {
+    public void execute_listFiltered_nonBlockedNoDepenencies() {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 6);
         ListCommand.ListFilter filter = ListCommand.ListFilter.NOT_BLOCKED;
         ListCommand command = new ListCommand(filter);
@@ -178,7 +178,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void execute_listFiltered_nonBlocked_completedDependencies() {
+    public void execute_listFiltered_nonBlockedCompletedDependencies() {
         ListCommand.ListFilter filter = ListCommand.ListFilter.NOT_BLOCKED;
         ListCommand command = new ListCommand(filter);
 

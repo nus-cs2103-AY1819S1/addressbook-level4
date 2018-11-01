@@ -43,7 +43,7 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILTER + "today";
 
-    private final Function<Model, Predicate<Task>>  predicateGenerator;
+    private final Function<Model, Predicate<Task>> predicateGenerator;
 
     /**
      * Denotes the kind of filters List supports.
@@ -74,7 +74,7 @@ public class ListCommand extends Command {
             this.predicateGenerator = (m) -> new IsNotBlockedPredicate(m);
             break;
         default:
-            this.predicateGenerator = (m) ->  PREDICATE_SHOW_ALL_TASKS;
+            this.predicateGenerator = (m) -> PREDICATE_SHOW_ALL_TASKS;
             break;
         }
     }

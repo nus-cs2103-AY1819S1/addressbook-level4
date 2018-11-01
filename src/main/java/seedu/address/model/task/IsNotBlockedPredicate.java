@@ -1,20 +1,20 @@
 package seedu.address.model.task;
 
 import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
+
 import seedu.address.model.Model;
 
 /**
  * Tests that a {@code Task} is not blocked. This means that it does not have a dependency.
  */
 public class IsNotBlockedPredicate implements Predicate<Task> {
-    Model model;
+    private Model model;
 
     private IsNotBlockedPredicate() {}
 
     public IsNotBlockedPredicate(Model model) {
-       this.model = model;
+        this.model = model;
     }
 
     @Override
