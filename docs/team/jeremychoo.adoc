@@ -11,22 +11,40 @@
 
 Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves.
 
-This project portfolio summarizes the contributions that I have to the project.
+This project portfolio summarizes the contributions that I have made to the project.
+
+[NOTE]
+Text with a note on a left isn't really part of the user guide, they're just questions and comments that I want to bring up during the review.
 
 == Summary of contributions
 
 The following section shows my major code contributions to OASIS.
 
-=== Major enchancement: Login feature
+=== Major enhancement: User accounts
 
-* *Major enhancement*: Added *the ability to login and logout*
-** What it does: Allows the user to login into the system using their username and password, as well as to logout.
+* *Major enhancement*: Added *full fledged functionality for user accounts*
+This feature consists of:
+
+** What it does: Allows each employee to identify themselves with a username and password, similar to most modern systems. It provides:
+*** *Username and Password* implementation for each employee.
+*** Ability to *login and logout* into each employee's accounts.
+*** A way to *secure the employee's account* through the changing of passwords.
+*** Complete modern-day security using *salted and hashed passwords* with 256-bit salts and SHA256 hashing algorithm.
+[NOTE]
+Is the bolding ok? Too much?
 ** Justification: This feature is essential in the product as only certain users are authorized to use cetain commands, thus user identification is required. This feature also helps to preserve the privacy of the users by ensuring that their data isn't publicly viewable.
-** Highlights: [Too general, try to give examples] This enhancement affects existing users and potential future UI designs to adapt around the need for the login screen. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes on many different parts of the program.
+** Highlights: Security for each user was added by clearing user-specific data after logout. The password function required a lot of new functionality to ensure that user input was not shown in the command history, which would be a huge vulnerability in the system.
+// [Too general, try to give examples] This enhancement affects existing users and potential future UI designs to adapt around the need for the login screen. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes on many different parts of the program.
+
+[NOTE]
+Not too sure what to put in highlights. The current is kind of like "edge cases, that if not considered, would be really bad, or large functionality that isn't obvious". But the true good functionality is stated above, before the highlights
 
 === Minor enchancement:
 
-* *Minor enhancement*: stfu
+* *Minor enhancement*: Allow for easier searching of employees by updated the find command to support `\*` and `\_` as wildcards. `*` as a generic wildcards for any number of characters (including 0), while `_` acts as a generic wildcard for a single character.
+
+[NOTE]
+Is it necessary to explain what * and _ represents? Or is it not clear and I should provide an example?
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -35,16 +53,25 @@ The following section shows my major code contributions to OASIS.
 ** Project management:
 *** Set up the project on GitHub, including the creation of the organization, labels, auto-publishing of docs, and the https://github.com/nus-cs2103-AY1819S1/addressbook-level4/pull/86[team PR]
 *** Managed releases `v1.0` - `v1.4` (5 releases) on GitHub
+*** Set up RepoSense for the group, allowing for code to be properly attributed https://github.com/CS2103-AY1819S1-F10-1/main/pull/35[#35]
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Provided updates to the User Guide: https://github.com/CS2103-AY1819S1-F10-1/main/pull/125[#125]
+*** Updated documentation based on errors I encountered and how to resolve it to help future contributors https://github.com/CS2103-AY1819S1-F10-1/main/pull/2[#2]
+** PR standards:
+*** All of my pull requests have referenced clearly to which issues they're attempt to address and have resulted in no loss of code coverage. Major examples: https://github.com/CS2103-AY1819S1-F10-1/main/pull/84[#84] https://github.com/CS2103-AY1819S1-F10-1/main/pull/106[#106] https://github.com/CS2103-AY1819S1-F10-1/main/pull/118[#118] https://github.com/CS2103-AY1819S1-F10-1/main/pull/119[#119]
+[NOTE]
+I kind of want to brag about this? but it's more like "this should be the standard"
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1], https://github.com[2], https://github.com[3])
+//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1])
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
+
+[NOTE]
+Ordering of bullet points in Other contributions?
 
 == Contributions to the User Guide
 
@@ -52,7 +79,10 @@ The following section shows my major code contributions to OASIS.
 |_The following sections represent my contributions to the User Guide. They demonstrate my ability to write end-user documentation._
 |===
 
-//include::../UserGuide.adoc[tag=loginlogout]
+[NOTE]
+User Guide was really more of a team effort, with lots of discussion centered around many parts of it. How to properly include?
+
+include::../UserGuide.adoc[tag=quickstart-begin]
 
 //include::../UserGuide.adoc[tag=dataencryption]
 

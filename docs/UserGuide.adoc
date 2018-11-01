@@ -25,6 +25,8 @@ The image shown below highlights the difference sections of OASIS's user interfa
 
 image::introToOASIS.png[width="900"]
 
+// tag::quickstart-begin[]
+
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
@@ -35,6 +37,7 @@ image::introToOASIS.png[width="900"]
 image::Ui.png[width="790"]
 +
 .  To login, enter in the username `Admin` and the password `Pa55w0rd`. Both values are case sensitive. These values are the default username and password combinations for the admin account, and are always available.
+// end::quickstart-begin[]
 .  After you have logged in, you should be taken to the following screen:
 +
 image::UiLoggedin.PNG[width="790"]
