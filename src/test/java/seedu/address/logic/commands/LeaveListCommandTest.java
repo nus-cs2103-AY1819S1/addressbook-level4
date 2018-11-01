@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
 import static seedu.address.logic.commands.CommandTestUtil.showLeaveApplicationForPerson;
+import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveList;
