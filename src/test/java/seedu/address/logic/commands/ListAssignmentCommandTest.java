@@ -34,12 +34,14 @@ public class ListAssignmentCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAssignmentCommand(), model, commandHistory, ListAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListAssignmentCommand(), model,
+                commandHistory, ListAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showAssignmentAtIndex(model, INDEX_FIRST_PERSON);
-        assertCommandSuccess(new ListAssignmentCommand(), model, commandHistory, ListAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListAssignmentCommand(), model,
+                commandHistory, ListAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
