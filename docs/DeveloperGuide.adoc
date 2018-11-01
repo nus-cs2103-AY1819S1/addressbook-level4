@@ -526,16 +526,23 @@ batch operation.
 
 ##### 3.2.2.2. Aspect: Handling different CompleteCommand behaviour
 
-* **Alternative 1 (current choice):** Overloading the constructors and implement the logic for
+* **Alternative 1:** Overloading the constructors and implementing the logic for
 both behaviours within.
 ** Pros: Groups possibly tightly coupled code together into a single class; thus reducing
 coupling.
-** Cons: Possibly goes against the Seperations of Concerns principle.
-* **Alternative 2 (possible enhancement):** Implementing `CompleteCommand` as a interface and
-creating two separate
-classes for each of the behaviours.
-** Pros: Clear separation of concern.
-** Cons: Harder to design properly.
+** Cons: Possibly goes against the Separations of Concerns principle.
+* **Alternative 2 (current choice)** Implementing `CompleteCommand` as an abstract class. Each class would then inherit
+and implement the abstract methods, providing different polymorphic behaviours for `CompleteCommand`. Currently, the
+two different behaviours implemented are: completion via index and completion via label.
+** Pros: Clear separation of concern, respecting the Single Responsibility Principle.
+** Cons: Harder to initially design properly.
+
+[NOTE]
+Alternative 2 was considered for `CompleteCommandParser`. However in this case, it is hard to determine whether
+the argument is meant for `CompleteLabelCommand` or `CompleteIndexCommand` until actually parsing, As such, it could be
+viewed that the job of figuring out what to parse the argument as is subsumed under the concerned of parsing. Thus
+`CompleteCommandParser` is viewed to still respect the Single Responsibility Principle, and it's separation may result in
+a high amount of coupling.
 
 ##### 3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand
 
