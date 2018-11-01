@@ -108,7 +108,7 @@ The number of repeats must be larger or equals to 2. If it is 1, it is the same 
 
 Shows a list of all tasks in the schedule planner. +
 ====
-[blue]`list task`
+[blue]`list`
 ====
 
 === Editing a Task
@@ -206,7 +206,7 @@ output: Task with index 3 delete from schedule planner.
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
-Use the `list task` command to find out the index of the task to be deleted.
+Use the `list` command to find out the index of the task to be deleted.
 
 === Archiving a Task
 
@@ -224,7 +224,7 @@ output: Task with index 4 is removed from the current list and saved in the arch
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
-Use the `list task` command to find out the index of the task to be archived.
+Use the `list` command to find out the index of the task to be archived.
 
 === Viewing Archived Tasks
 
@@ -240,7 +240,7 @@ Views tasks that are due today. +
 [blue]`listday`
 ====
 
-=== Viewing Tasks Due This Termweek
+=== Viewing Tasks Due This Term Week
 
 Views tasks that are due from current date till the closest Sunday. +
 ====
@@ -283,17 +283,8 @@ image::FirstDayCommand_UG_Aft.png[width="400"]
 
 Lists all the overdue tasks. +
 ====
-[blue]`list overdue`
+[blue]`listoverdue`
 ====
-
-=== Listing All tags
-
-Shows a list of all existing tags. +
-====
-[blue]`list tag`
-====
-
-The categories will be listed in alphabetical order.
 
 
 === Listing Used Commands
@@ -387,7 +378,7 @@ Example: +
 ====
 * **Listing All Tasks** :
 ====
-[blue]`list task`
+[blue]`list`
 ====
 
 * **Editing a Task** :
@@ -449,18 +440,10 @@ Example: +
 [blue]`firstday 130818` +
 ====
 
-* **Listing Overdue Tasks** : (Coming in v1.3)
+* **Listing Overdue Tasks** :
 ====
-[blue]`list overdue`
+[blue]`listoverdue`
 ====
-
-* **Listing All tags** :
-
-====
-[blue]`list tag`
-====
-
-
 
 * **Listing Used Commands** :
 ====
