@@ -101,4 +101,19 @@ public class BudgetIntegrationTest {
             .stream().mapToDouble(expense -> expense.getCurrentExpenses()).sum(), 0.0);
     }
 
+    @Test
+    public void delete_spendingRemoved() throws NoUserSelectedException, CommandException {
+        this.model.modifyMaximumBudget(new TotalBudget("9999.00"));
+        String oldCategory = "OldCategory";
+        Expense expenseWithCategory = new ExpenseBuilder().withCategory(oldCategory).withCost("50.00").build();
+        this.model.updateExpense(this.model.getFilteredExpenseList().get(0), expenseWithCategory);
+        double initialSpending = this.model.getMaximumBudget().getCurrentExpenses();
+        new SetCategoryBudgetCommand(new CategoryBudget(oldCategory, "999.00"))
+            .execute(this.model, this.commandHistory);
+        new DeleteCommand(INDEX_FIRST_EXPENSE).execute(this.model, this.commandHistory);
+        assertEquals(this.model.getMaximumBudget().getCurrentExpenses(), initialSpending - 50.0);
+        assertEquals(this.model.getMaximumBudget().getCategoryBudgets().toArray(new CategoryBudget[1])[0].getCurrentExpenses(), 0.0);
+
+    }
+
 }
