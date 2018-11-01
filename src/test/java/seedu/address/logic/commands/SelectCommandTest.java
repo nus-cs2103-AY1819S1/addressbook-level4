@@ -50,7 +50,7 @@ public class SelectCommandTest {
     @Test
     public void execute_indexExceedsBatchSize_failure() {
         model.updateCurrDirectory(model.getCurrDirectory().resolve("testimgs10"));
-        assertEquals(model.getDirectoryImageList().size(), 14);
+        assertEquals(model.getTotalImagesInDir(), 14);
 
         assertExecutionFailure(INDEX_ELEVEN_IMAGE, Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
     }
