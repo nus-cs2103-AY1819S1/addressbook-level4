@@ -114,7 +114,7 @@ public class PhotoHandler {
         albumMap.clear();
         ListAlbumsPagedResponse albums = photosLibraryClient.listAlbums();
         for (Album album : albums.iterateAll()) {
-            albumMap.put(getUniqueName(albumMap, album.getTitle()), album);
+            albumMap.put(getUniqueName(albumMap, album.getTitle(), null), album);
         }
     }
 
@@ -127,7 +127,8 @@ public class PhotoHandler {
         for (MediaItem item : listMediaItems.iterateAll()) {
             //only store the item if it is an image
             if (item.getMimeType().contains("image")) {
-                imageMap.put(getUniqueName(imageMap, item.getFilename()), item);
+                String mimeType = "." + item.getMimeType().replace("image/", "");
+                imageMap.put(getUniqueName(imageMap, item.getFilename(), mimeType), item);
             }
         }
     }
@@ -154,7 +155,8 @@ public class PhotoHandler {
         for (MediaItem item : listMediaItems.iterateAll()) {
             //only store the item if it is an image
             if (item.getMimeType().contains("image")) {
-                albumSpecificMap.put(getUniqueName(albumSpecificMap, item.getFilename()), item);
+                String mimeType = "." + item.getMimeType().replace("image/", "");
+                albumSpecificMap.put(getUniqueName(albumSpecificMap, item.getFilename(), mimeType), item);
             }
         }
     }
@@ -346,21 +348,31 @@ public class PhotoHandler {
     }
 
     /**
-     * As Album names can be duplicates in Google Photos, new names to display in CLI are appended with a
-     * suitable number to differentiate albums
+     * As Album/Image names can be duplicates in Google Photos, new names to display in CLI are appended with a
+     * suitable number to differentiate albums/images
      *
      * @param map   Map to be comparing to
      * @param title Key to search for
+     * @param mimeType Extension of image
      * @return new title to act as key in map
      */
-    private String getUniqueName(Map map, String title) {
+    private String getUniqueName(Map map, String title, String mimeType) {
         String newTitle = title;
+        String titleWithoutExtension;
+
+        if (mimeType != null) {
+            titleWithoutExtension = newTitle.replace(mimeType, "");
+        } else {
+            titleWithoutExtension = title;
+            mimeType = "";
+        }
         int i = 1;
         while (map.get(newTitle) != null) {
-            newTitle = title;
-            title += " (" + i + ")";
+
+            newTitle = titleWithoutExtension + " (" + i + ")" + mimeType;
             i++;
         }
+
         return newTitle;
     }
 
