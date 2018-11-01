@@ -124,13 +124,19 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     /// notification-level operations
+    /**
+     * Clears the {@code internalList} of the NotificationHandler.
+     */
+    public void clearNotifications() {
+        this.notificationHandler.clearList();
+    }
 
     /**
-     * Adds a {@code notification} to the {@code notificationHandler}
+     * Adds a {@code notification} to top of the list in the {@code notificationHandler}
      * @param notification to add
      */
-    public void addNotification(Notification notification) {
-        this.notificationHandler.add(notification);
+    public void addNotificationToTop(Notification notification) {
+        this.notificationHandler.addToTop(notification);
     }
 
     /**
