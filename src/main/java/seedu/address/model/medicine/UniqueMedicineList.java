@@ -43,7 +43,7 @@ public class UniqueMedicineList implements Iterable<Medicine> {
     /**
      * Returns true if the list contains an equivalent medicine as the given medicine name.
      */
-    public boolean hasMedicineName(Medicine toCheck) {
+    public boolean containsMedicineName(Medicine toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(medicine -> medicine.hasSameMedicineName(toCheck));
     }

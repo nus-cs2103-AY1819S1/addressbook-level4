@@ -31,10 +31,10 @@ public class AddMedicineCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New medicine added: %1$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the records";
-    public static final String MESSAGE_DUPLICATE_MEDICINE_NAME = "This medicine name is already used by another " +
-            "medicine. Check the medicine name again.";
-    public static final String MESSAGE_DUPLICATE_SERIAL_NUMBER = "This serial number is already in " +
-            "used by another medicine. Check the serial number again.";
+    public static final String MESSAGE_DUPLICATE_MEDICINE_NAME = "This medicine name is already used by another "
+            + "medicine. Check the medicine name again.";
+    public static final String MESSAGE_DUPLICATE_SERIAL_NUMBER = "This serial number is already in "
+            + "used by another medicine. Check the serial number again.";
 
     private final Medicine toAdd;
 

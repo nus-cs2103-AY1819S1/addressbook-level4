@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.medicine.UniqueMedicineList;
 import seedu.address.model.person.Patient;

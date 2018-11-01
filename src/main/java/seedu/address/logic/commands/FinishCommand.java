@@ -57,7 +57,7 @@ public class FinishCommand extends QueueCommand {
             // Add finished patient to the servedPatientList
             finishedPatient.updatePatient(editedPatient);
             servedPatientList.addServedPatient(finishedPatient);
-            
+
             // Update this patient
             model.updatePerson(notUpdatedPatient, editedPatient);
 
