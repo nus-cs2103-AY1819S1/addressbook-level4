@@ -81,6 +81,16 @@ public class Anakin implements ReadOnlyAnakin {
     }
 
     /**
+     * A method to switch card lists to prevent side effects of editing a list of cards unintentionally.
+     * Used in resetData
+     */
+    public void changeCards(List<Card> cards){
+        UniqueCardList newList = new UniqueCardList();
+        this.cards = newList;
+        this.cards.setCards(cards);
+    }
+
+    /**
      * Resets the existing data of this {@code Anakin} with {@code newData}.
      */
     public void resetData(ReadOnlyAnakin newData) {
@@ -90,7 +100,7 @@ public class Anakin implements ReadOnlyAnakin {
         setIsReviewingDeck(newData.isReviewingDeck());
 
         setDecks(newData.getDeckList());
-        setCards(newData.getCardList());
+        changeCards(newData.getCardList());
         updateDisplayedCards();
     }
 
@@ -306,9 +316,7 @@ public class Anakin implements ReadOnlyAnakin {
         isReviewingDeck = state;
     }
 
-    public void startReview() {
-        isReviewingDeck = true;
-    }
+    public void startReview() { isReviewingDeck = true; }
 
     /**
      * Concludes the end of a deck review by setting isReviewingDeck flag to false
