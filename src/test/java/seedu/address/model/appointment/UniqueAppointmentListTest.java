@@ -17,12 +17,12 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.address.testutil.AppointmentBuilder;
 
 public class UniqueAppointmentListTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private static final Appointment APPOINTMENT_ONE = new AppointmentBuilder().build();
     private static final Appointment APPOINTMENT_TWO = new AppointmentBuilder().build();
     private static final Appointment APPOINTMENT_THREE = new AppointmentBuilder().withAppointmentId(12345).build();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
     private final UniqueAppointmentList uniqueAppointmentList = new UniqueAppointmentList();
 
     @Test
