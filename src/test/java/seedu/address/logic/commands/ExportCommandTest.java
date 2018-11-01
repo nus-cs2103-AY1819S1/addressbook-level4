@@ -33,6 +33,9 @@ public class ExportCommandTest {
     }
 
     //@Test
+    /**
+     * Current test is disabled until future updates
+     */
     public void execute_export_success() throws CommandException, IOException {
         setUp();
         CommandResult result = exportCommand.execute(model, commandHistory);
