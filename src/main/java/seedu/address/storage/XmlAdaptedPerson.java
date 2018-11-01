@@ -19,6 +19,7 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,6 +45,9 @@ public class XmlAdaptedPerson {
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+
+    @XmlElement(required = true)
+    private List<XmlAdaptedTime> timeSlots = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -87,6 +91,10 @@ public class XmlAdaptedPerson {
                 .collect(Collectors.toList());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
+
+        timeSlots = source.getTime().stream()
+                .map(XmlAdaptedTime::new)
                 .collect(Collectors.toList());
     }
 
@@ -151,7 +159,14 @@ public class XmlAdaptedPerson {
         final Education modelEducation = new Education(education);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelEducation, modelGrades, modelTags);
+        Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress,
+                modelEducation, modelGrades, modelTags);
+
+        for (XmlAdaptedTime t : timeSlots) {
+            modelPerson.getTime().add(t.toModelType());
+        }
+
+        return modelPerson;
     }
 
     @Override

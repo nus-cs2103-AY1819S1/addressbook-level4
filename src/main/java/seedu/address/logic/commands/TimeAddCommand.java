@@ -89,6 +89,7 @@ public class TimeAddCommand extends Command {
             }
         }
         model.addTime(toFind, toAdd);
+        //model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS); // NEW LINE
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS_ADDED));
     }
