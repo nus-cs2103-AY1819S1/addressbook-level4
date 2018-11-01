@@ -9,6 +9,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_NAME;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -87,6 +89,8 @@ public class AddAppointmentCommand extends Command {
         model.incrementAppointmentCounter();
         model.addAppointment(appointment);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
