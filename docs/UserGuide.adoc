@@ -33,8 +33,10 @@ Follow the steps below to get started with CLInic.
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
+.Prototype of UI
 image::Ui.png[width="790"]
 +
+
 .  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -314,6 +316,7 @@ Example:
 `register 3` +
 Registers the 3rd patient in the database.
 
+.After executing the `register 3` command
 image::Register3Command.png[width="750"]
 
 
@@ -338,8 +341,15 @@ Removes the patient at the specified `INDEX`. The index refers to the index numb
 
 Examples:
 
-* `remove 5` +
-Removes the 5th patient in the queue.
+* `remove 3` +
+Removes the 3rd patient in the queue.
+
+.Before `remove 3` command
+image::BeforeRemove3Command.png[width="750"]
+
+.After `remove 3` command
+image::AfterRemove3Command.png[width="750"]
+
 * `remove S9382839X` +
 Removes patient with IC number S9382839X from the queue.
 
@@ -352,11 +362,22 @@ Format: `insert INDEX p/POSITION` or `insert IC_NUMBER p/POSITION [coming soon]`
 [TIP]
 Inserts the patient at the specified `INDEX` in the displayed patient list into the specified `POSITION` in the Waiting queue. Both the index and position *must be a positive integer* (i.e. 1, 2, 3, ...).
 
+[TIP]
+If the `POSITION` value supplied exceeds the queue length, then the patient will just be added to the back of the queue. If the queue length is 1 and the `POSITION` value is 5, the patient will be added
+to the 2nd position.
+
 Examples:
 
 * `list` +
-`insert 4 p/5` +
-Inserts the 4th patient in the database into the 5th position in the queue.
+`insert 4 p/2` +
+Inserts the 4th patient in the database into the 2nd position in the queue.
+
+.Before `insert 4 p/2` command
+image::BeforeInsert2Command.png[width="750"]
+
+.After `insert 4 p/2` command
+image::AfterInsert2Command.png[width="750"]
+
 * `insert S9123456A p/5` +
 Inserts the patient with IC number S9123456A into the 5th position in the queue.
 
@@ -366,6 +387,12 @@ Inserts the patient with IC number S9123456A into the 5th position in the queue.
 Serves the first patient in the Waiting queue. The patient being served is now the Current Patient. +
 Alias: `ser` +
 Format: `serve`
+
+.Before `serve` command
+image::BeforeServeCommand.png[width="750"]
+
+.After `serve` command
+image::AfterServeCommand.png[width="750"]
 
 [TIP]
 The medicine list will be displayed when this command is used for easy reference for medicine dispensing.

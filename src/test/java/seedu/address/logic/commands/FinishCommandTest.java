@@ -22,6 +22,7 @@ import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientListManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.CurrentPatient;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
 public class FinishCommandTest {
@@ -51,7 +52,8 @@ public class FinishCommandTest {
         ServedPatientList expectedServedPatientList = new ServedPatientListManager();
         ServedPatient expectedServedPatient = new ServedPatient(ALICE);
         expectedServedPatient.addNoteContent("test");
-        expectedServedPatientList.addServedPatient(expectedServedPatient);
+        Patient patient = expectedServedPatient.createNewPatientWithUpdatedMedicalRecord();
+        expectedServedPatientList.addServedPatient(new ServedPatient(patient));
 
         String expectedMessage = MESSAGE_SUCCESS + currentPatient.toNameAndIc();
         currentPatient.addNoteContent("test");

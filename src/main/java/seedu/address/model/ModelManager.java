@@ -129,6 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(medicine, quantityToRefill);
         versionedAddressBook.refillMedicine(medicine, quantityToRefill);
     }
+
     @Override
     public void updatePerson(Patient target, Patient editedPatient) {
         requireAllNonNull(target, editedPatient);
