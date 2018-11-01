@@ -18,6 +18,7 @@ import seedu.address.model.meeting.UniqueMeetingList;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.shared.Title;
 
 /**
@@ -74,7 +75,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
-        meetings.setMeetings(groups.stream().map(Group::getMeeting).collect(Collectors.toList()));
+        meetings.setMeetings(groups.stream().filter(group -> group.getMeeting() != null).map(Group::getMeeting)
+            .collect(Collectors.toList()));
     }
     // @@author
 
@@ -151,9 +153,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     *
      */
-    public void updatePerson(Person target, Person editedPerson) {
+    public void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException {
         requireNonNull(editedPerson);
 
         // clear membership of target & set up membership for editedPerson
@@ -167,7 +168,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replace the given group {@code target} in the list with {@code editedGroup}.
      * {@code target} must exist in the address book.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
-     *
      */
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
@@ -210,12 +210,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         Person personCopy = person.copy();
         Group groupCopy = group.copy();
 
-        groupCopy.addMember(personCopy);
+        group.addMember(person);
 
-        updatePerson(person, personCopy);
-        updateGroup(group, groupCopy);
+        updatePerson(personCopy, person);
+        updateGroup(groupCopy, group);
 
-        group.addMember(person); // to satisfy the test on the input parameter
     }
 
     /**
@@ -226,10 +225,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         Person personCopy = person.copy();
         Group groupCopy = group.copy();
 
-        groupCopy.removeMember(personCopy);
+        group.removeMember(person);
 
-        updatePerson(person, personCopy);
-        updateGroup(group, groupCopy);
+        updatePerson(personCopy, person);
+        updateGroup(groupCopy, group);
     }
 
     // @@author NyxF4ll
@@ -237,6 +236,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Sets meeting field of {@code group} in the group list to {@code meeting}.
      */
     public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
+        meetings.setMeeting(group.getMeeting(), meeting);
         groups.setMeeting(group, meeting);
     }
 
@@ -244,6 +244,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Resets meeting field of {@code group} in the group list to an empty optional.
      */
     public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
+        List<Meeting> meetings = groups.asUnmodifiableObservableList().stream().filter(g -> g.isSameGroup(group))
+            .map(Group::getMeeting).collect(Collectors.toList());
+        if (!meetings.isEmpty() && meetings.get(0) != null) {
+            this.meetings.remove(meetings.get(0));
+        }
         groups.cancelMeeting(group);
     }
     // @@author
