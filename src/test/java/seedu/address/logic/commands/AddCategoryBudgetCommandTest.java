@@ -44,7 +44,7 @@ public class AddCategoryBudgetCommandTest {
     }
 
     @Test
-    public void execute_addCategoryBudget_unsuccessful() {
+    public void execute_addCategoryBudget_unsuccessful() throws NoUserSelectedException {
         String validExcessBudget = String.format("%.2f", this.model.getMaximumBudget().getBudgetCap() + 1);
         CategoryBudget toAdd = new CategoryBudget(VALID_CATEGORY, validExcessBudget);
         AddCategoryBudgetCommand addCategoryBudgetCommand = new AddCategoryBudgetCommand(toAdd);
