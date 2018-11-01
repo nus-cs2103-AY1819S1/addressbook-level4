@@ -625,12 +625,14 @@ depend on each other.
 A topological sort can also be performed on the graph to order tasks by the number of dependencies.
 ** Cons: nil
 
-
-### 3.6 Handling Date
+### 3.6 Monitoring time
+#### 3.6.1 Current Implementation
 Time is of key importance when dealing with the `TaskManager`. We implement and represent time using the ubiquitous
 `Date` class in Java. The class `DueDate` internally uses the `Date` class, and harnesses built in capabilities such as
 date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
 accurate to the minute.
+
+A check on whether any of the tasks are overdue is done on every command. Thus,
 
 ### 3.7 List
 
