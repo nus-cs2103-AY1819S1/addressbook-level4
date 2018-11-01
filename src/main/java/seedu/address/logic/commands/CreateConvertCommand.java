@@ -70,6 +70,7 @@ public class CreateConvertCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
+            checkValidation();
             JsonConvertArgsStorage.storeArgument(name, cmds);
         } catch (IOException e) {
             throw new CommandException(e.getMessage());

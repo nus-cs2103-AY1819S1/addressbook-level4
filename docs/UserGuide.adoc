@@ -93,7 +93,7 @@ Available transformations
 ** Format: `convert sigmoidal-contrast [DegreexPercentage]`
 ** Example: `convert sigmoidal-contrast 10x10%`
 
-* `rotate`: rotates an image. DIRECTION [left, right], VALUE [-180, 180]
+* `rotate`: rotates an image. DIRECTION [left, right]
 
 ** Format: `convert rotate [vlaue]`
 ** Example: `convert rotate 90`
@@ -109,11 +109,11 @@ Examples:
 
 === Saving images : `save`
 
-Format: `save -image [IMAGE_NAME]`: saves the transformed image +
+Format: `save [IMAGE_NAME]`: saves the transformed image, supporting jpg, jpeg, png, tiff, gif
 
 Examples:
 
-* `save -image exampleImage` +
+* `save modified.png`
 
 === Undoing previous actions : `undo`
 
