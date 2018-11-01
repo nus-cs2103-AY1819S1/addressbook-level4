@@ -25,7 +25,7 @@ Anakin is a desktop flashcard management application. The user interacts with it
 ** Justification: The UI would be too cluttered if every deck displayed all the cards it contained. Instead we opted to have cards of each hidden until the user enters a deck. Only then will a user be able to see the cards of that deck.
 ** Highlights: Subsequent card level operations implemented by other team members rely on the framework provided by this feature as card creation, editing and deletion actions are only available from inside a deck.
 
-* *Minor enhancement*: added a list command for dekcs that clears the current filters and displays all decks in Anakin.
+* *Minor enhancement*: added a list command for decks that clears the current filters and displays all decks in Anakin.
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-2/main/pulls?q=is%3Apr+is%3Aclosed+author%3ALessthanfree[Functional code]] [https://github.com[Test code]]
 
@@ -34,7 +34,7 @@ Anakin is a desktop flashcard management application. The user interacts with it
 ** Project management:
 *** Managed release `v1.3` - `v1.3.1` on GitHub
 ** Enhancements to existing features:
-*** Wrote several additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote several additional tests for existing features to increase coverage from 75*% to 80*% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Drafted the first version of both the User Guide and Developer Guide
 *** Maintained the User Guide throughout development: https://github.com[#14]
