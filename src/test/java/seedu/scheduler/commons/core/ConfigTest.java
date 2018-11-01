@@ -14,7 +14,7 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Scheduler App\n"
+        String defaultConfigAsString = "App title : iScheduler Xs Max\n"
                 + "Current log level : INFO\n"
                 + "Preference file Location : preferences.json";
 
