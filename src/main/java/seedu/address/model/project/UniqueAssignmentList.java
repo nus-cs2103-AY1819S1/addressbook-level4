@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.project.exceptions.AssignmentNotFoundException;
 import seedu.address.model.project.exceptions.DuplicateAssignmentException;
 
@@ -43,7 +42,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
     public void add(Assignment toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateAssignmentException();
         }
         internalList.add(toAdd);
     }
@@ -63,7 +62,7 @@ public class UniqueAssignmentList implements Iterable<Assignment> {
         }
 
         if (!target.isSameAssignment(editedAssignment) && contains(editedAssignment)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateAssignmentException();
         }
 
         internalList.set(index, editedAssignment);
