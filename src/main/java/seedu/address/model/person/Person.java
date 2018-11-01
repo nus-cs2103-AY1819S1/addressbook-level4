@@ -76,7 +76,7 @@ public class Person {
         return tuitionFee;
     }
 
-    public ArrayList getTime() {
+    public ArrayList<Time> getTime() {
         return timeSlots;
     }
 
