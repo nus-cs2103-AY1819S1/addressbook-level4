@@ -536,6 +536,7 @@ latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to re
 the latest commit, also the `currentStatePointer` is set to point at the index of the latest
 commit in `taskManagerStateList`.
 
+image::RollbackModelSequenceDiagram.png[width="1200"]
 
 ### 3.4. Dependency Feature Modelling
 #### 3.4.1. Current Implementation
