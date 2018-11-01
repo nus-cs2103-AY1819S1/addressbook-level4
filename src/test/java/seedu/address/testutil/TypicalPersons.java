@@ -76,6 +76,7 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
+    //@@author A19Sean
     // Contacts with tags to be removed
     public static final Person CARL_TAGGED = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street")
@@ -130,6 +131,7 @@ public class TypicalPersons {
             .withEmail("henry@example.com").withAddress("Crazy Rich Street")
             .withTags("buddies", "POSB")
             .withPicture("/images/placeholder_image.jpg").build();
+    //@@author
 
     // People with meetings
     public static final Person STEVE_MEETING = new PersonBuilder().withName("Steve Carell").withPhone("83365620")
@@ -159,6 +161,7 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HENRY, IANNA, JENNY));
     }
 
+    //@@author A19Sean
     public static AddressBook getTaggedAddressBook() {
         AddressBook ab = new AddressBook();
         List<Person> scheduledPeople = new ArrayList<>(Arrays.asList(CARL_TAGGED, ELLE_TAGGED, GEORGE_TAGGED,
@@ -168,6 +171,7 @@ public class TypicalPersons {
         }
         return ab;
     }
+    //@@author
 
     public static AddressBook getScheduledAddressBook() {
         AddressBook ab = new AddressBook();
