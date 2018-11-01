@@ -13,6 +13,9 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Shows the location of a selected person in the embedded Google Maps.
+ */
 public class ShowLocationCommand extends Command {
 
     public static final String COMMAND_WORD = "showLocation";
