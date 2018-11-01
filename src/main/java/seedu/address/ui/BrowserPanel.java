@@ -116,17 +116,17 @@ public class BrowserPanel extends UiPart<Region> {
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {
-        String htmlString = null;
-        String pictureString = null;
+        String htmlString = "";
+        String pictureString = "";
         String tempString;
         try {
-        InputStream profilePage = MainApp.class.getResourceAsStream(PROFILE_PAGE);
+        InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
         BufferedReader reader = new BufferedReader(new InputStreamReader(profilePage));
         while ((tempString = reader.readLine()) != null) {
             htmlString += tempString;
         }
-        pictureString = MainApp.class.getResourceAsStream(PICTURE_LINK
-                + person.getRoom().value.toLowerCase() + JPG).toString();
+        pictureString = MainApp.class
+                .getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }

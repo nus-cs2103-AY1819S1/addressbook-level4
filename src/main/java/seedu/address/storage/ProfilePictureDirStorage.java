@@ -31,7 +31,7 @@ public class ProfilePictureDirStorage implements ProfilePictureStorage {
 
     @Override
     public BufferedImage readProfilePicture(File file) throws IOException {
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = ImageIO.read(file);
         } catch (IOException e) {
@@ -47,8 +47,8 @@ public class ProfilePictureDirStorage implements ProfilePictureStorage {
             File outputFile = new File(opPath + "/" + number.value + JPG);
             FileUtil.createIfMissing(copiedFile.toPath());
             FileUtil.createIfMissing(outputFile.toPath());
-            ImageIO.write(image, JPG, copiedFile);
-            ImageIO.write(image, JPG, outputFile);
+            ImageIO.write(image, "jpg", copiedFile);
+            ImageIO.write(image, "jpg", outputFile);
         } catch (IOException e) {
             throw e;
         }
