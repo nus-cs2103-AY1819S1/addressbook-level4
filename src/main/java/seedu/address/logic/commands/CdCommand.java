@@ -54,7 +54,7 @@ public class CdCommand extends Command {
             model.updateCurrDirectory(newCurrDirectory);
 
             EventsCenter.getInstance().post(new ChangeDirectoryEvent(model.getCurrDirectory().toString()));
-            EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList(), true));
+            EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), true));
         } catch (IOException e) {
             e.printStackTrace();
         }

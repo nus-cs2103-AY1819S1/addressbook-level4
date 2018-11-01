@@ -121,14 +121,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.dirImageList.remove(idx);
     }
 
-    /**
-     * Get preview image list (first 10 images in imageList)
-     */
-    @Override
-    public List<Path> returnPreviewImageList() {
-        return userPrefs.returnPreviewImageList();
-    }
-
     @Override
     public Path getCurrentOriginalImage() {
         return this.currentOriginalImage;

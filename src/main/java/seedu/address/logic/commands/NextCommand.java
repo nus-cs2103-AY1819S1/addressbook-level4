@@ -31,7 +31,7 @@ public class NextCommand extends Command {
         }
 
         model.updateImageListNextBatch();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), true));
 
         return new CommandResult((String.format(MESSAGE_NEXT_SUCCESS,
                 Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)) + "\n"
