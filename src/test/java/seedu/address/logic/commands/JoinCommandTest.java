@@ -8,6 +8,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_GROUP_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
+import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
@@ -92,6 +93,20 @@ public class JoinCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_PERSON_NOT_FOUND);
+        joinCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_personAlreadyInGroup_throwsCommandException() throws Exception {
+        Person duplicatePerson = ALICE.copy();
+        Group validGroup = PROJECT_2103T.copy();
+
+        JoinCommand joinCommand = new JoinCommand(duplicatePerson, validGroup);
+        ModelStubAcceptingPersonJoined modelStub = new ModelStubAcceptingPersonJoined();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(JoinCommand.MESSAGE_JOIN_FAILED, duplicatePerson.getName().fullName,
+            validGroup.getTitle().fullTitle));
         joinCommand.execute(modelStub, commandHistory);
     }
 

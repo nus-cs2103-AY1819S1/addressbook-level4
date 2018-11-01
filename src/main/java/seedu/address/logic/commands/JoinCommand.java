@@ -13,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.shared.Title;
 
 
@@ -33,6 +34,7 @@ public class JoinCommand extends Command {
             + PREFIX_GROUP + "GROUP_03";
 
     public static final String MESSAGE_JOIN_SUCCESS = "Person: %1$s added to the group: %2$s";
+    public static final String MESSAGE_JOIN_FAILED = "Person: %1$s is already in group: %2$s";
 
     private final Name personName;
     private final Title groupName;
@@ -63,6 +65,11 @@ public class JoinCommand extends Command {
 
         } else if (matchedPersonByName == null) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
+        }
+
+        if (matchedGroupByName.hasMember(matchedPersonByName)) {
+            throw new CommandException(String.format(MESSAGE_JOIN_FAILED, matchedPersonByName.getName().toString(),
+                matchedGroupByName.getTitle().fullTitle));
         }
 
         model.joinGroup(matchedPersonByName, matchedGroupByName);
