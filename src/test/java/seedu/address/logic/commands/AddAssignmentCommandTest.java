@@ -50,7 +50,7 @@ public class AddAssignmentCommandTest {
         CommandResult commandResult = new AddAssignmentCommand(validAssignment).runBody(modelStub, commandHistory);
 
         assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment),
-                commandResult.feedbackToUser);
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validAssignment), modelStub.assignmentsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
