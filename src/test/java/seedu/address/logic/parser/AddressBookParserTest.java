@@ -190,6 +190,7 @@ public class AddressBookParserTest {
         DeleteDoctorCommand command = (DeleteDoctorCommand) parser.parseCommand(
                 DeleteDoctorCommand.COMMAND_WORD + " " + PREFIX_NAME + GEORGE.getName().fullName);
         assertEquals(new DeleteDoctorCommand(GEORGE.getName()), command);
+    }
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
