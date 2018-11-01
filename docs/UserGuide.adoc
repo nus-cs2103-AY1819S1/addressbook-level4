@@ -386,10 +386,6 @@ Format: `deleteassignment INDEX`
 * To use this command, you must be logged in with "Remove Assignment" permissions.
 ****
 
-Examples:
-
-* `deleteassignment 3`
-
 == FAQ
 
 *Q*: What if I lose my password? +
