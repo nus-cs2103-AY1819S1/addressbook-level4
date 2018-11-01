@@ -51,6 +51,7 @@ public class TaskBuilder {
         description = taskToCopy.getDescription();
         labels = new HashSet<>(taskToCopy.getLabels());
         status = taskToCopy.getStatus();
+        dependency = new Dependency(taskToCopy.getDependency().getHashes());
     }
 
     /**
