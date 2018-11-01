@@ -4,7 +4,6 @@ import java.util.function.Predicate;
 
 import seedu.address.model.tag.Label;
 
-// TODO: Refactor code and rewrite class to look for labels
 /**
  * Tests that a {@code Task}'s {@code Name} matches any of the keywords given.
  */
@@ -12,7 +11,9 @@ public class LabelMatchesKeywordPredicate implements Predicate<Task> {
     private final Label keyLabel;
 
     public LabelMatchesKeywordPredicate(String keyword) {
-        Label keyLabel = new Label(keyword);
+        // Standardises keyword toLowerCase such that the label predicate
+        // is case-insensitive
+        Label keyLabel = new Label(keyword.toLowerCase());
         this.keyLabel = keyLabel;
     }
 
