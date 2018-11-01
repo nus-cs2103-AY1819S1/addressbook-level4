@@ -2,11 +2,11 @@ package seedu.clinicio.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGIES;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICAL_PROBLEMS;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATIONS_LIST;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICAL_PROBLEM;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATION;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
@@ -33,9 +33,9 @@ public class AddPatientCommand extends Command {
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_MEDICAL_PROBLEMS + "MEDICAL_PROBLEMS]..."
-            + "[" + PREFIX_MEDICATIONS_LIST + "MEDICATIONS]..."
-            + "[" + PREFIX_ALLERGIES + "ALLERGIES]..."
+            + "[" + PREFIX_MEDICAL_PROBLEM + "MEDICAL_PROBLEMS]..."
+            + "[" + PREFIX_MEDICATION + "MEDICATIONS]..."
+            + "[" + PREFIX_ALLERGY + "ALLERGIES]..."
             + "[" + PREFIX_PREFERRED_DOCTOR + "PREFERRED_DOC]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -43,7 +43,7 @@ public class AddPatientCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_MEDICAL_PROBLEMS + "High Blood Pressure, Asthma ";
+            + PREFIX_MEDICAL_PROBLEM + "High Blood Pressure, Asthma ";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
 

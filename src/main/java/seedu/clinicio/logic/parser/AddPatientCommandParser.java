@@ -2,12 +2,15 @@ package seedu.clinicio.logic.parser;
 
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICAL_PROBLEM;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATION;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 
-import java.util.Set;
 import java.util.stream.Stream;
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
@@ -29,11 +32,11 @@ public class AddPatientCommandParser implements Parser<AddPatientCommand>  {
      */
     @Override
     public AddPatientCommand parse(String args) throws ParseException {
-        // TODO: Add other prefixes
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_IC, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                        PREFIX_MEDICAL_PROBLEM, PREFIX_MEDICATION, PREFIX_ALLERGY, PREFIX_PREFERRED_DOCTOR);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_IC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
