@@ -709,7 +709,7 @@ returned to
 method to update the time when the next spendings of `totalBudget` is reset.
 
 ===== Budget by Category
-. User enters command `addCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
+. User enters command `setCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
 
 . `ExpenseTrackerParser` will then create a `AddCategoryBudgetCommandParser` Object and calls
 `AddCategoryBudgetCommandParser#parse()` method.
@@ -723,7 +723,7 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
 . From the previous step, if no exception is thrown, an `AddCategoryBudgetCommand` Object with `category` and `budget`
  is created and returned to `LogicManager`.
 
-. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#addCategoryBudget()`
+. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#setCategoryBudget()`
 method to add a `Budget` to a `Category`.
 
 ===== Notification center (Proposed)

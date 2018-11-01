@@ -75,7 +75,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a category totalBudget will result in the
      * sum of category budgets exceeding the total TotalBudget
      */
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+    public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         CategoryBudget toAdd = budget;
         toAdd.modifyExpenses(this.expenses.asUnmodifiableObservableList().stream().mapToDouble(expense -> {
             if (expense.getCategory().equals(budget.getCategory())) {
@@ -84,7 +84,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
                 return 0;
             }
         }).sum());
-        this.maximumTotalBudget.addCategoryBudget(budget);
+        this.maximumTotalBudget.setCategoryBudget(budget);
     }
 
 

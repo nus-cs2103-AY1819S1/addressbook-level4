@@ -326,10 +326,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+    public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
         NoUserSelectedException {
         requireUserSelected();
-        this.versionedExpenseTracker.addCategoryBudget(budget);
+        this.versionedExpenseTracker.setCategoryBudget(budget);
         indicateExpenseTrackerChanged();
     }
 

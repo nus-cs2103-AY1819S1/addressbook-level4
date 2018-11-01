@@ -392,7 +392,7 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 * HOURS/MINUTES/SECONDS must be a positive number.
 ====
 
-=== Adding a Category Budget: `addCategoryBudget`
+=== Adding a Category Budget: `setCategoryBudget`
 Adds a Budget to limit spending on a certain category.
 
 If spending exceeds Category budget, a warning similar to 4.10 will be shown.
@@ -400,13 +400,13 @@ If spending exceeds Category budget, a warning similar to 4.10 will be shown.
 Sum of all category budgets cannot exceed total budget of
 Expense Tracker.
 
-Format: `addCategoryBudget c/CATEGORY b/BUDGET`
+Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 
 ****
 *Example:*
 
-* `addCategoryBudget c/School b/10.00` +
-    Adds a budget of $10 to the `School` category.
+* `setCategoryBudget c/School b/10.00` +
+    Sets a budget of $10 to the `School` category.
 
 ****
 

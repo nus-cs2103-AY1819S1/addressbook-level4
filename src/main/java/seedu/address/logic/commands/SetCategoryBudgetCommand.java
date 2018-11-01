@@ -41,7 +41,7 @@ public class SetCategoryBudgetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException, CommandException {
         try {
             requireNonNull(model);
-            model.addCategoryBudget(this.toSet);
+            model.setCategoryBudget(this.toSet);
             model.commitExpenseTracker();
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet.getCategory(), this.toSet));
         } catch (CategoryBudgetExceedTotalBudgetException catBudExc) {

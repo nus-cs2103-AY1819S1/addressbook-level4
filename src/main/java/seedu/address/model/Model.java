@@ -181,7 +181,7 @@ public interface Model {
      * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a
      * category totalBudget results in the sum of all category budgets exceeding the total totalBudget.
      */
-    void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+    void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
         NoUserSelectedException;
 
     /**

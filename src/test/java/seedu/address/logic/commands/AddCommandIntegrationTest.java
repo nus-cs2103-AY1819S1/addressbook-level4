@@ -49,9 +49,9 @@ public class AddCommandIntegrationTest {
         CategoryBudgetExceedTotalBudgetException {
         Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         this.model.modifyMaximumBudget(new TotalBudget("200.00"));
-        this.model.addCategoryBudget(new CategoryBudget("Test", "3.00"));
+        this.model.setCategoryBudget(new CategoryBudget("Test", "3.00"));
         expectedModel.modifyMaximumBudget(new TotalBudget("200.00"));
-        expectedModel.addCategoryBudget(new CategoryBudget("Test", "3.00"));
+        expectedModel.setCategoryBudget(new CategoryBudget("Test", "3.00"));
         Expense validExpense = new ExpenseBuilder().withCost("1.00").withCategory("Test").build();
         expectedModel.addExpense(validExpense);
         expectedModel.commitExpenseTracker();
@@ -74,9 +74,9 @@ public class AddCommandIntegrationTest {
         CategoryBudgetExceedTotalBudgetException {
         Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         this.model.modifyMaximumBudget(new TotalBudget("200.00"));
-        this.model.addCategoryBudget(new CategoryBudget("Test", "1.00"));
+        this.model.setCategoryBudget(new CategoryBudget("Test", "1.00"));
         expectedModel.modifyMaximumBudget(new TotalBudget("200.00"));
-        expectedModel.addCategoryBudget(new CategoryBudget("Test", "1.00"));
+        expectedModel.setCategoryBudget(new CategoryBudget("Test", "1.00"));
         Expense validExpense = new ExpenseBuilder().withCost("2.00").withCategory("Test").build();
         expectedModel.addExpense(validExpense);
         expectedModel.commitExpenseTracker();

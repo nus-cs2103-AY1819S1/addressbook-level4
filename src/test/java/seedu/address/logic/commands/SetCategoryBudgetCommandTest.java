@@ -30,12 +30,12 @@ public class SetCategoryBudgetCommandTest {
     }
 
     @Test
-    public void execute_addCategoryBudget_successful() throws NoUserSelectedException,
+    public void execute_setCategoryBudget_successful() throws NoUserSelectedException,
         CategoryBudgetExceedTotalBudgetException {
         ModelManager expectedModel = getTypicalModel();
         String validBudget = String.format("%.2f", expectedModel.getMaximumBudget().getBudgetCap() - 1);
         CategoryBudget toAdd = new CategoryBudget(VALID_CATEGORY, validBudget);
-        expectedModel.addCategoryBudget(toAdd);
+        expectedModel.setCategoryBudget(toAdd);
         expectedModel.commitExpenseTracker();
         SetCategoryBudgetCommand setCategoryBudgetCommand = new SetCategoryBudgetCommand(toAdd);
         String expectedMessage = String.format(SetCategoryBudgetCommand.MESSAGE_SUCCESS,
@@ -47,15 +47,15 @@ public class SetCategoryBudgetCommandTest {
     }
 
     @Test
-    public void execute_addCategoryBudget_editSuccessful() throws NoUserSelectedException,
+    public void execute_setCategoryBudget_editSuccessful() throws NoUserSelectedException,
         CategoryBudgetExceedTotalBudgetException {
         ModelManager expectedModel = new ModelManager(this.model.getExpenseTracker(), new UserPrefs(), null);
         String validBudget = String.format("%.2f", expectedModel.getMaximumBudget().getBudgetCap() - 1);
-        this.model.addCategoryBudget(new CategoryBudget(VALID_CATEGORY, validBudget));
-        expectedModel.addCategoryBudget(new CategoryBudget(VALID_CATEGORY, validBudget));
+        this.model.setCategoryBudget(new CategoryBudget(VALID_CATEGORY, validBudget));
+        expectedModel.setCategoryBudget(new CategoryBudget(VALID_CATEGORY, validBudget));
 
         CategoryBudget toAdd = new CategoryBudget(VALID_CATEGORY, "1.00");
-        expectedModel.addCategoryBudget(toAdd);
+        expectedModel.setCategoryBudget(toAdd);
         expectedModel.commitExpenseTracker();
         SetCategoryBudgetCommand setCategoryBudgetCommand = new SetCategoryBudgetCommand(toAdd);
         String expectedMessage = String.format(SetCategoryBudgetCommand.MESSAGE_SUCCESS,
@@ -67,7 +67,7 @@ public class SetCategoryBudgetCommandTest {
     }
 
     @Test
-    public void execute_addCategoryBudget_unsuccessful() throws NoUserSelectedException {
+    public void execute_setCategoryBudget_unsuccessful() throws NoUserSelectedException {
         String validExcessBudget = String.format("%.2f", this.model.getMaximumBudget().getBudgetCap() + 1);
         CategoryBudget toAdd = new CategoryBudget(VALID_CATEGORY, validExcessBudget);
         SetCategoryBudgetCommand setCategoryBudgetCommand = new SetCategoryBudgetCommand(toAdd);

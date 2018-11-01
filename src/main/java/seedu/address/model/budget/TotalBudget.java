@@ -107,12 +107,12 @@ public class TotalBudget extends Budget {
     }
 
     /**
-     * Adds a category totalBudget. Total sum of all category budgets cannnot exceed the totalBudget cap.
+     * Adds a category totalBudget. Total sum of all category budgets cannot exceed the totalBudget cap.
      * @param budget
      * @throws CategoryBudgetExceedTotalBudgetException throws this if adding a category totalBudget exceeds the current
      * total totalBudget.
      */
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+    public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         double sumOfCurrentCategoryBudgets =
             this.categoryBudgets.stream().mapToDouble(categoryBudget -> categoryBudget.getBudgetCap()).sum();
         if (sumOfCurrentCategoryBudgets + budget.getBudgetCap() > this.getBudgetCap()) {

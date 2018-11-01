@@ -132,8 +132,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addCategoryBudget(CategoryBudget budget) {
-            throw new AssertionError("addCategoryBudget should not be called");
+        public void setCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("setCategoryBudget should not be called");
 
         }
         @Override
