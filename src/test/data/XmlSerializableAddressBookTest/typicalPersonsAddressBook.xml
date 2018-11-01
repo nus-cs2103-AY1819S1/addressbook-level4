@@ -19,9 +19,8 @@
         <username>Benson Meier</username>
         <password>Bm12345678</password>
         <leaveApplications>
-            <id>0</id>
             <description>Benson's brother's wedding</description>
-            <status>APPROVED</status>
+            <status>PENDING</status>
             <dates>2018-10-25</dates>
             <dates>2018-10-26</dates>
         </leaveApplications>
@@ -71,5 +70,11 @@
         <salary>10000</salary>
         <username>George Best</username>
         <password>Pa55w0rd</password>
+        <leaveApplications>
+            <description>Alice's family holiday</description>
+            <status>PENDING</status>
+            <dates>2018-10-23</dates>
+            <dates>2018-10-24</dates>
+        </leaveApplications>
     </persons>
 </addressbook>
