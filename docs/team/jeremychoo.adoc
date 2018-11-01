@@ -47,6 +47,8 @@ Is it necessary to explain what * and _ represents? Or is it not clear and I sho
 ** Converted the parser to use `-` instead of `/` to read arguments, similar to the command line in modern day operating systems.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+[NOTE]
+I don't understand what to do here. Do I put links to which files I changed? The PRs?
 
 * *Other contributions*:
 
