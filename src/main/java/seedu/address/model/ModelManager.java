@@ -134,6 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(deck);
         versionedAnakin.getIntoDeck(deck);
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        System.out.println("Cards: " + versionedAnakin.getCardList().toString());
         indicateAnakinChanged();
     }
 
@@ -141,6 +142,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void getOutOfDeck() {
         versionedAnakin.getOutOfDeck();
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
+        System.out.println("Cards: " + versionedAnakin.getCardList().toString());
         indicateAnakinChanged();
     }
 
@@ -236,7 +238,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void undoAnakin() {
+//        System.out.println("Inside deck: " + versionedAnakin.isInsideDeck());
+//        System.out.println("Cards before undo: " + versionedAnakin.getCardList().toString());
         versionedAnakin.undo();
+        //DEBUG
+//        System.out.println("~~~AFTER~~~");
+//        System.out.println("Inside deck: " + versionedAnakin.isInsideDeck());
+//        System.out.println("Cards after undo: " + versionedAnakin.getCardList().toString());
         indicateAnakinChanged();
     }
 
