@@ -244,14 +244,14 @@ This section describes some noteworthy details on how certain features are imple
 This feature allows the user to perform operations related to the queue. In particular, it provides the functionality to assign a patient into the queue, remove a patient from the queue and show the list of patients in the queue.
 
 ==== Current Implementation
-The Queue feature contains several operations to indirectly manipulate the two queues underlying the feature.
-The two queues are `patientQueue` and `preferenceQueue`, both of which are hidden from the end user. To the end user, there
+The Queue feature contains several operations to indirectly manipulate the two queues underlying the `patientQueue`.
+The two queues are `mainQueue` and `preferenceQueue`, both of which are hidden from the end user. To the end user, there
 exists only one queue. When a patient gets assigned to the queue without any preferred doctor, the patient will be inserted into
-the `patientQueue`. In the scenario where a patient has a preferred doctor, the patient will be inserted into the
+the `mainQueue`. In the scenario where a patient has a preferred doctor, the patient will be inserted into the
 `preferenceQueue`. +
 
 When a room is available, the system will look for the first patient in the `preferenceQueue` whose preferred doctor is in the room.
-It will then compare this patient with the frontmost patient from the `patientQueue` on their arrival time. The patient who arrives
+It will then compare this patient with the frontmost patient from the `mainQueue` on their arrival time. The patient who arrives
 earlier will get to consult the doctor. +
 
 Both queues are composed of `java#ArrayList` as it provides richer functionalities compared to `java#Queue` to manipulate items in the list.
@@ -268,7 +268,7 @@ Given below is an example usage scenario and how the queue-related operations be
 
 Step 1: The user lists all the patients using the `list` command. All patients in the ClinicIO record are be displayed. +
 
-Step 2: The user executes `enqueuepatient 5` command to assign the 5th patient in the list into the queue. This patient has no preferred doctor. Now the queue has 1 patient. Underlying the queue, the patient is assigned into `patientQueue`. The `preferenceQueue` remains empty. +
+Step 2: The user executes `enqueuepatient 5` command to assign the 5th patient in the list into the queue. This patient has no preferred doctor. Now the queue has 1 patient. Underlying the queue, the patient is assigned into `mainQueue`. The `preferenceQueue` remains empty: +
 
 image::q1.png[]
 
@@ -276,13 +276,13 @@ image::q2.png[]
 
 Step 3: The user finds all patients with names `Damith` using `find Damith` command. All patients with names `Damith` in the ClinicIO record will be displayed. +
 
-Step 4: The user executes `enqueuepatient 2` to assign the 2nd patient whose name contains `Damith` into the queue. This patient has a preferred doctor. Now the queue has 2 patients. Underlying the queue, this patient is assigned into `preferenceQueue`. +
+Step 4: The user executes `enqueuepatient 2` to assign the 2nd patient whose name contains `Damith` into the queue. This patient has a preferred doctor. Now the queue has 2 patients. Underlying the queue, this patient is assigned into `preferenceQueue`: +
 
 image::q3.png[]
 
 image::q4.png[]
 
-Step 5: The user keeps adding patients until there are 5 patients in the queue. The `patientQueue` and `preferenceQueue` look like this: +
+Step 5: The user keeps adding patients until there are 5 patients in the queue. The `mainQueue` and `preferenceQueue` look like this: +
 
 image::q5.png[]
 
@@ -305,7 +305,7 @@ Step 6: The user lists all patients in the queue by using `showqueue` command. A
 
 ===== Aspect: How dequeuepatient command executes
 
-* **Alternative 1 (current choice):** Looks for the queue (patientQueue or preferenceQueue) from which the patient is to be removed. Then searches for the patient and removes from the queue.
+* **Alternative 1 (current choice):** Looks for the queue (mainQueue or preferenceQueue) from which the patient is to be removed. Then searches for the patient and removes from the queue.
 ** Pro: Slightly faster than the other alternative.
 ** Con: May have performance issue in terms of memory usage.
 * **Alternative 2:** Naively looks for the patient in the queue, assuming Alternative 2 of `enqueuepatient` command is used (only one underlying queue).
