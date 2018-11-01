@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DifferentBloodTypeException;
+import seedu.address.model.person.medicalrecord.BloodType;
 import seedu.address.model.person.medicalrecord.MedicalRecord;
 
 /**
