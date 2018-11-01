@@ -6,7 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.calendar.GoogleCalendar;
@@ -18,8 +21,10 @@ import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.Prescription;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+
 
 /**
  * Adds a prescription to an appointment
@@ -45,14 +50,14 @@ public class AddPrescriptionCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the appointment";
     public static final String MESSAGE_APPOINTENT_DOES_NOT_EXIST = "This appointment does not exist";
 
-    private final Prescription toAdd;
+    private final Prescription prescriptionToAdd;
 
     /**
      * Creates an AddPrescriptionCommand to add the specified {@code Person}
      */
     public AddPrescriptionCommand(Prescription prescription) {
         requireAllNonNull(prescription);
-        toAdd = prescription;
+        prescriptionToAdd = prescription;
     }
 
     @Override
@@ -64,7 +69,7 @@ public class AddPrescriptionCommand extends Command {
         // check if appointment exists
         Appointment appointmentToEdit = null;
         for (Appointment appointment : appointmentList) {
-            if (appointment.getAppointmentId() == toAdd.getId()) {
+            if (appointment.getAppointmentId() == prescriptionToAdd.getId()) {
                 appointmentToEdit = appointment;
                 break;
             }
@@ -75,33 +80,69 @@ public class AddPrescriptionCommand extends Command {
             throw new CommandException(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
         }
 
-        // check if prescri ption already exists in appointment
-        if (appointmentToEdit.getPrescriptions().contains(toAdd)) {
+        // check if prescription already exists in appointment
+        if (appointmentToEdit.getPrescriptions().contains(prescriptionToAdd)) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PRESCRIPTION));
         }
 
         // adding prescription
+        ArrayList<Prescription> allPrescriptions = new ArrayList<Prescription>();
+        allPrescriptions.addAll(appointmentToEdit.getPrescriptions());
         Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
                 appointmentToEdit.getDoctor(),
                 appointmentToEdit.getPatient(),
                 appointmentToEdit.getDateTime(),
                 appointmentToEdit.getStatus(),
                 appointmentToEdit.getComments(),
-                appointmentToEdit.getPrescriptions());
-        editedAppointment.addPrescription(toAdd);
-
+                allPrescriptions);
+        editedAppointment.addPrescription(prescriptionToAdd);
         model.updateAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
-        model.commitAddressBook();
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         List<Person> personList = model.getFilteredPersonList();
-        Patient patient = (Patient) personList.stream()
-                .filter(person -> person.getName().toString().equals(editedAppointment.getPatient()))
-                .findFirst()
-                .orElse(null);
+        Doctor doctorToEdit = null;
+        Patient patientToEdit = null;
 
-        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getMedicineName()));
+        for (Person person : personList) {
+            if (person instanceof Doctor) {
+                if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
+                    doctorToEdit = (Doctor) person;
+                }
+            }
+            if (person instanceof Patient) {
+                if (appointmentToEdit.getPatient().equals(person.getName().toString())) {
+                    patientToEdit = (Patient) person;
+                }
+            }
+            if (doctorToEdit != null && patientToEdit != null) {
+                break;
+            }
+        }
+
+        if (doctorToEdit == null || patientToEdit == null) {
+            throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
+        }
+
+        //TODO update google calendar
+        Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(),
+                patientToEdit.getEmail(), patientToEdit.getAddress(), patientToEdit.getRemark(),
+                patientToEdit.getTags(), patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
+                patientToEdit.getPastAppointments(), patientToEdit.getMedicalHistory());
+
+        Doctor editedDoctor = new Doctor(doctorToEdit.getName(), doctorToEdit.getPhone(), doctorToEdit.getEmail(),
+                doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
+                doctorToEdit.getUpcomingAppointments());
+
+        patientToEdit.setAppointment(appointmentToEdit, editedAppointment);
+        doctorToEdit.setAppointment(appointmentToEdit, editedAppointment);
+        model.updatePerson(patientToEdit, editedPatient);
+        model.updatePerson(doctorToEdit, editedDoctor);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd.getMedicineName()));
     }
 
     @Override
@@ -115,7 +156,7 @@ public class AddPrescriptionCommand extends Command {
         }
 
         AddPrescriptionCommand e = (AddPrescriptionCommand) o;
-        return toAdd.equals(e.toAdd);
+        return prescriptionToAdd.equals(e.prescriptionToAdd);
 
     }
 
