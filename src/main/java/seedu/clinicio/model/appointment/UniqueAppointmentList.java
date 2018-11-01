@@ -105,7 +105,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         if (index == -1) {
             throw new AppointmentNotFoundException();
         }
-        target.isCancelled();
+        target.cancelAppointment();
         Appointment cancelledAppt = target;
         internalList.set(index, cancelledAppt);
         updateAppointmentAnalytics();
