@@ -704,8 +704,7 @@ applications to convert `.xml` file.
 ** Pros: More options for user to export Hallper data. Exported files can be read across different applications.
 ** Cons: Unused file formats. `.xml` is the format that is mainly used by Hallper so `.txt` and `.xlsx` may be
 underused or unused.
-
-// end:export[]
+// end::export[]
 
 // tag::dataencryption[]
 === [Proposed] Data encryption

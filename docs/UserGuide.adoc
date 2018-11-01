@@ -85,6 +85,7 @@ Example:
 
 * `image r/a123 f/C://Users/Files/a123.jpg`
 
+// tag::clearAll[]
 ==== Clearing all entries : `clear all`
 
 Clears all entries from Hallper. +
@@ -98,6 +99,10 @@ Example:
 
 * `clear all` +
 Clears `all` entries in Hallper.
+
+// end::clearAll[]
+
+// tag::erase[]
 
 ==== Clearing all specified tags : `erase`
 
@@ -117,6 +122,9 @@ Erases `basketball` from persons associated with this CCA. +
 * `erase basketball netball` +
 Erases `basketball` and `netball` from persons associated with these CCAs.
 
+// end::erase[]
+
+// tag::clear[]
 ==== Clearing specific entries : `clear`
 
 Clears specified entries from Hallper. +
@@ -136,6 +144,8 @@ Clears all persons associated with CCA `basketball`.
 Clears all persons associated with room `A123`.
 * `clear baseball C456` +
 Clears all persons associated with CCA `baseball` and room `C456`
+
+// end::clear[]
 
 ==== Editing a person : `edit`
 
@@ -157,6 +167,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower c/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+// tag::export[]
 ==== Exporting contact information: `export`
 
 Exports file containing existing contact information in Hallper. +
@@ -170,6 +181,8 @@ Example:
 
 * `export dst/C://Users/Files fn/data.xml` +
 Exports Hallper contacts data into `data.xml` located at `C://Users/Files`.
+
+// end::export[]
 
 ==== Deleting a person : `delete`
 
@@ -212,6 +225,7 @@ Examples:
 * `delete_cca c/netball trans/1`
 * `delete_cca c/Basketball F trans/3`
 
+// tag::import[]
 ==== Importing contact information : `import`
 
 Imports file containing contact information and updates Hallper accordingly. +
@@ -236,6 +250,8 @@ Example:
 
 * `import f/C://Users/Files/data.xml` +
 Imports `data.xml` file to be read and for database to be updated accordingly.
+
+// end::import[]
 
 === Viewing Hallper
 This section lists features related to viewing all or specific contacts in Hallper.

@@ -9,63 +9,103 @@
 
 _{#To be edited#}_
 
-== Overview
+== Introduction
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The purpose of this portfolio is to document my role in and contributions to the project Hallper.
+
+*About Hallper:* Hallper is a desktop administration application used by Junior Common Room Committee (JCRC) members of
+the halls of NUS that facilitates management of hall residents and events. Our team of 5 computer science students
+decided to create Hallper by building upon the existing AddressBook Level 4 application to improve the management
+activities for JCRC members. The user interacts with Hallper using a Command Line Interface (CLI), and Hallper
+information is displayed using a Graphic User Interface (GUI) created with JavaFX. The application is written in Java
+and contains about 60k lines of code (LoC). Some of the main features include new features such as calendar, email and
+budgeting, as well as enhancement features such as erase, search and clear commands.
+
+*My role and contributions:* I was tasked to implement a couple of features to create Hallper. There were four features
+assigned to me: clear, erase, import and export commands. Every two weeks, I reviewed the milestones that were set
+before our team embarked on building Hallper, based on the features I had to implement. This ensured that I would be
+able to complete my assigned portion of the project on time. I also helped to review my team members’ codes to check
+for coding style errors and to keep myself updated with their implementations.
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+This section lists the major and minor enhancements I have contributed to building Hallper, as well as miscellaneous
+contributions in other aspects of this project.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 1:* added the ability to *import* residents data to update Hallper
+** What it does: This feature allows the user to import xml files from the computer to update resident information stored in
+Hallper. The user can update information in various parts of Hallper based on the format of the imported file.
+** Justification: This feature improves Hallper significantly as the user can mass import resident information using a single
+command without having to key in the data one by one.
+** Highlights: This enhancement is highly case-sensitive as it requires the format of the imported file to be strictly
+followed for the data to be successfully read. However, more file formats can be added by future developers based on
+the current implementation of this command.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Major enhancement 2:* added the ability to *export* residents data from Hallper
+** What it does: This feature allows the user to export all residents data in Hallper to an xml file on the computer.
+** Justification: This feature facilitates transporting of Hallper information across various devices, accompanied by
+the import command. Residents information can also be extracted to the computer for viewing or usage outside of the
+application.
+** Highlights: This enhancement allows users to export the xml file to any valid directory on the computer.
 
-* *Other contributions*:
+* *Major enhancement 3:* added the ability to *erase* CCAs from residents in Hallper
+** What it does: This feature allows the user to erase specified CCAs from all residents in Hallper.
+** Justification: This feature speeds up the reassigning of CCAs by facilitating mass CCA erasure. Users need not go
+through the residents one by one to remove the target CCAs.
+** Highlights: This enhancement is a prelude to the import feature as it clears CCAs of the residents for reassignment
+using the import command.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+* *Minor enhancement:* improved the ability to *clear* residents from Hallper
+** What it does: This feature allows the user to clear residents associated with the specified CCAs or room number, or
+to clear the entire database.
+** Justification: This feature expands the functions of the existing clear command by allowing more flexible clearing
+options. The original clear command only allowed for clearing the entire database.
+** Highlights: This enhancement allows the user to clear residents under multiple keywords (room, CCA) using just a
+single command line as multiple keywords can be specified at once.
 
-_{you can add/remove categories in the list above}_
+* Code contributed: {links to collated code files}
+
+* Other contributions:
+** Documentation
+*** Updated commands for team members and myself in the User Guide.
+*** Updated commands for myself in Developer Guide.
+** Community
+*** Reviewed PRs at each milestone.
+
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|This section contains my contributions to the User Guide for Hallper. It has been documented and worded to facilitate mastering of features by end-users.
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=clearAll]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=clear]
+
+include::../UserGuide.adoc[tag=erase]
+
+include::../UserGuide.adoc[tag=export]
+
+include::../UserGuide.adoc[tag=import]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|This section contains my contributions to the Developer Guide for Hallper. It contains a technical documentation of my implementations of the features assigned to me as mentioned in the introduction.
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=clearAll]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=clear]
 
+include::../DeveloperGuide.adoc[tag=erase]
+
+include::../DeveloperGuide.adoc[tag=export]
+
+include::../DeveloperGuide.adoc[tag=import]
 
 == PROJECT: PowerPointLabs
 
