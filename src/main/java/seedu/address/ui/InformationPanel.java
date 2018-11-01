@@ -1,10 +1,10 @@
 package seedu.address.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,19 +18,20 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Prescription;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
 
 /**
  * The Information Panel of the App.
  */
 public class InformationPanel extends UiPart<Region> {
-    private static final String FXML = "InformationPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Patient patient;
+    private Doctor doctor;
 
     @FXML
     private Label allergiesLabel;
@@ -50,10 +51,43 @@ public class InformationPanel extends UiPart<Region> {
     @FXML
     private TableColumn<Appointment, ArrayList<Prescription>> prescriptionPastColumn;
 
-    public InformationPanel() {
-        super(FXML);
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> dateTimeColumn;
+
+    @FXML
+    private TableColumn<Appointment, LocalDateTime> dateTimePastColumn;
+
+    public InformationPanel(String fxmlPath) {
+        super(fxmlPath);
         this.patient = null;
         registerAsAnEventHandler(this);
+    }
+
+    private void setConnections() {
+        allergiesLabel.setText(" ");
+        conditionsLabel.setText(" ");
+        upcomingAppointmentTable.getItems().clear();
+        pastAppointmentTable.getItems().clear();
+    }
+
+    private void setConnections(ObservableList<Appointment> upcomingAppointmentList) {
+        upcomingAppointmentTable.getItems().clear();
+        upcomingAppointmentTable.getItems().addAll(upcomingAppointmentList);
+        dateTimeColumn.setCellFactory(column -> {
+            return new TableCell<Appointment, LocalDateTime>() {
+                @Override
+                protected void updateItem(LocalDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        setText(item.format(formatter));
+                    }
+                }
+            };
+        });
     }
 
     private void setConnections(ObservableList<String> allergiesList,
@@ -111,6 +145,36 @@ public class InformationPanel extends UiPart<Region> {
                 }
             };
         });
+        dateTimeColumn.setCellFactory(column -> {
+            return new TableCell<Appointment, LocalDateTime>() {
+                @Override
+                protected void updateItem(LocalDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        setText(item.format(formatter));
+                    }
+                }
+            };
+        });
+        dateTimePastColumn.setCellFactory(column -> {
+            return new TableCell<Appointment, LocalDateTime>() {
+                @Override
+                protected void updateItem(LocalDateTime item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        setText(item.format(formatter));
+                    }
+                }
+            };
+        });
     }
 
     /**
@@ -142,12 +206,35 @@ public class InformationPanel extends UiPart<Region> {
         setConnections(allergiesList, conditionsList, upcomingAppointmentList, pastAppointmentList);
     }
 
-    @Subscribe
-    private void handleInformationPanelChangedEvent(PersonPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        // TODO - handle doctor case
-        if (event.getNewSelection() instanceof Patient) {
-            loadPatientInformation((Patient) (event.getNewSelection()));
+    /**
+     * Loads a doctor's information on the panel.
+     */
+    private void loadDoctorInformation(Doctor doctor) {
+        Iterator<Appointment> upcomingAppointmentItr = doctor.getUpcomingAppointments().iterator();
+        ObservableList<Appointment> upcomingAppointmentList = FXCollections.observableArrayList();
+        while (upcomingAppointmentItr.hasNext()) {
+            upcomingAppointmentList.add(upcomingAppointmentItr.next());
+        }
+        setConnections(upcomingAppointmentList);
+    }
+
+    /**
+     * Clear information on the panel.
+     */
+    private void clearInformation() {
+        setConnections();
+    }
+
+    /**
+     * Changes panel between doctor and patient.
+     */
+    public void changePanel(Person person) {
+        if (person instanceof Patient) {
+            loadPatientInformation((Patient) person);
+        } else if (person instanceof Doctor) {
+            loadDoctorInformation((Doctor) person);
+        } else {
+            clearInformation();
         }
     }
 }

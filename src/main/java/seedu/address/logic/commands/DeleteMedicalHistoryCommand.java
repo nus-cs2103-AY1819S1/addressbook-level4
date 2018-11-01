@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.calendar.GoogleCalendar;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -33,8 +35,8 @@ public class DeleteMedicalHistoryCommand extends Command {
             + PREFIX_CONDITION + "CONDITIONS (separated by comma) \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_ALLERGY + "penicillin,milk "
-            + PREFIX_CONDITION + "sub-healthy,hyperglycemia ";
+            + PREFIX_ALLERGY + "penicillin, milk "
+            + PREFIX_CONDITION + "sub-healthy, hyperglycemia ";
 
     public static final String MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS = "Medical history deleted for: %1$s";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE = "This command is only for patients";
@@ -115,6 +117,8 @@ public class DeleteMedicalHistoryCommand extends Command {
         model.updatePerson(patientToEdit, editedPatient);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS, patientToEdit));
     }
 

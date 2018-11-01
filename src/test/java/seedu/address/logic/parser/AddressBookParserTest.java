@@ -5,8 +5,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +21,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteDoctorCommand;
+import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -29,6 +34,8 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewDoctorCommand;
+import seedu.address.logic.commands.ViewPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -129,6 +136,34 @@ public class AddressBookParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_viewPatientCommandWord_returnsViewPatientCommand() throws Exception {
+        ViewPatientCommand command = (ViewPatientCommand) parser.parseCommand(
+                ViewPatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName);
+        assertEquals(new ViewPatientCommand(ALICE.getName()), command);
+    }
+
+    @Test
+    public void parseCommand_viewDoctorCommandWord_returnsViewDoctorCommand() throws Exception {
+        ViewDoctorCommand command = (ViewDoctorCommand) parser.parseCommand(
+                ViewDoctorCommand.COMMAND_WORD + " " + PREFIX_NAME + GEORGE.getName().fullName);
+        assertEquals(new ViewDoctorCommand(GEORGE.getName()), command);
+    }
+
+    @Test
+    public void parseCommand_deletePatientCommandWord_returnsDeletePatientCommand() throws Exception {
+        DeletePatientCommand command = (DeletePatientCommand) parser.parseCommand(
+                DeletePatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName);
+        assertEquals(new DeletePatientCommand(ALICE.getName()), command);
+    }
+
+    @Test
+    public void parseCommand_deleteDoctorCommandWord_returnsDeleteDoctorCommand() throws Exception {
+        DeleteDoctorCommand command = (DeleteDoctorCommand) parser.parseCommand(
+                DeleteDoctorCommand.COMMAND_WORD + " " + PREFIX_NAME + GEORGE.getName().fullName);
+        assertEquals(new DeleteDoctorCommand(GEORGE.getName()), command);
     }
 
     @Test

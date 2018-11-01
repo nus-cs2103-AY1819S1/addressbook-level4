@@ -99,6 +99,9 @@ public class DeleteAppointmentCommand extends Command {
         } catch (IOException e) {
             throw new InvalidInputOutputException();
         }
+
+        patient.deleteAppointment(appointment);
+        doctor.deleteAppointment(appointment);
         model.deleteAppointment(appointment, patient, doctor);
         model.commitAddressBook();
 

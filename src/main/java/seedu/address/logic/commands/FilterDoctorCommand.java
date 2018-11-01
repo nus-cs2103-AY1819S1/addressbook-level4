@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.calendar.GoogleCalendar;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.tag.TagContainsDoctorPredicate;
@@ -24,6 +26,7 @@ public class FilterDoctorCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
