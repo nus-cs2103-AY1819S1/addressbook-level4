@@ -94,20 +94,6 @@ non-deterministic
 
 Use case ends.
 
-### Use case: Display Motivational Quote (MQ) on task completion
-#### MSS
-. User marks task as complete.
-. Application shows MQ.
-
-Use case ends.
-
-#### Extensions
-
-* 1a. User marks multiple tasks as complete.
-** 1a1. Application still shows only one MQ.
-
-Use case ends.
-
 ### Use case: List Task
 #### MSS
 . User requests to list tasks, fulfilling a (potentially empty) set of criteria.
@@ -242,29 +228,7 @@ Use case ends.
 pre-completed state and no points are earned.
 
 * 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
-
-### Use case: Display Statistics
-#### MSS
-. User requests for statistics.
-. Application fetches data and displays statistics.
-
-#### Extensions
-* 2a. There are no statistics.
-** 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
-
-Use case ends.
-
-### Use case: Failing to complete task
-#### MSS
-. User fails to complete tasks on time
-. Application displays points lost and current current points to user.
-
-#### Extensions
-* 2a. User loses enough points that it level down.
-    * 2a1. Application displays a warning message, current points, and points lost to user.
-
-Use case ends.
+** 2a1. Application displays a congratulatory message for leveling up, points earned and task(s) completed to user.
 
 ## Non-functional requirements
 - There should be no noticable lag when typing on the command line.
