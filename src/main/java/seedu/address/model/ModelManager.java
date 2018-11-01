@@ -157,7 +157,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredLeaveApplicationListForPerson(Person person) {
         requireNonNull(person);
         updateFilteredLeaveApplicationList(leaveApplication
-                -> leaveApplication.getEmployee().isSamePerson(loggedInUser.getPerson()));
+            -> leaveApplication.getEmployee().isSamePerson(loggedInUser.getPerson()));
     }
 
     //=========== Undo/Redo =================================================================================
