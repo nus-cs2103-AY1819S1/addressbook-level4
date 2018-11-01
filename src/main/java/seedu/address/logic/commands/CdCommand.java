@@ -54,13 +54,13 @@ public class CdCommand extends Command {
             model.updateCurrDirectory(newCurrDirectory);
 
             EventsCenter.getInstance().post(new ChangeDirectoryEvent(model.getCurrDirectory().toString()));
-            EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList(), true));
+            EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), true));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return new CommandResult(newCurrDirectory.toString() + "\n"
-                + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getDirectoryImageList().size())
+                + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())
                 + String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH,
                 Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)));
     }
