@@ -61,6 +61,20 @@ public class Doctor extends Person {
     }
 
     /**
+     * Updates appointment from patient's queue of upcoming appointment.
+     */
+    public void setAppointment(Appointment target, Appointment editedAppointment) {
+        int indexToBeDeleted = -1;
+        for (Appointment appt : upcomingAppointments) {
+            if (appt.getAppointmentId() == target.getAppointmentId()) {
+                indexToBeDeleted = upcomingAppointments.indexOf(appt);
+                break;
+            }
+        }
+        upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+    }
+
+    /**
      * Completes the latest appointment of the doctor, placing the records of the appointment in to the stack of
      * appointments
      */
