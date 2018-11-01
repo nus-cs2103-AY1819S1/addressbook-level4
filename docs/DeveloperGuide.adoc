@@ -404,20 +404,20 @@ This feature can only be performed by users that have `ASSIGN_PERMISSION` permis
 
 ===== Current Implementation
 
-This feature allows the user to indicate what permission to add and remove based on the prefix. 
+This feature allows the user to indicate what permission to add and remove based on the prefix.
 
 * `-a PERMISSION_TO_ADD` to add permission
 * `-r PERMISSION_TO_REMOVE` to remove permission
 
 To implement this new command syntax, `ModifyPermissionCommandParser` utilises `ArgumentTokenizer#tokenize` to generate a `ArgumentMultiMap`. The `ArgumentMultiMap` 's `key` contains the prefix, and `value` contains the list of keywords that succeeded the prefix. There will also be a `preamble` which can be used to retrieve the `index` of the targeted employee.
 
-The list of keywords is then used to create `permissionToAdd:Set<Permission>` and `permissionToRemove:Set<Permission>`, depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.  
+The list of keywords is then used to create `permissionToAdd:Set<Permission>` and `permissionToRemove:Set<Permission>`, depending on their prefix. The 2 sets, together with the index, will be then be used to create `ModifyPermissionCommand`.
 
  Might want to insert code snippet here
 
 When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
  
-The following is a sequence diagram that visualizes how this operation works. 
+The following is a sequence diagram that visualizes how this operation works.
 
 image::modifyPermissionSequenceDiagram.png[width="350]
 
