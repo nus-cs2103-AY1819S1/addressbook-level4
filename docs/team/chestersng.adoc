@@ -22,10 +22,7 @@ and medicine information and additionally manage the clinic queue.
 My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
 after every enhancement or change.
 
-
-
-
-== Summary of contributions
+== Summary of Contributions
 
 * *Major enhancement*: Implementation of *Patient Queue Management System (PQMS)*
 ** What it does: This system allows the clinic to keep track of the queue in the clinic.
@@ -35,7 +32,7 @@ are made to be as intuitive as possible.
 
 * *Minor enhancement*:
 ** Integration of `Patient` and `Document` class with PQMS through `DocumentAddCommand` and `DocumentDisplayCommand`
-** Integration of `Medicine` class and PQMS through `DispenseMedicineCommand`
+** Integration of `Patient` and `Medicine` class through `DispenseMedicineCommand`
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -53,6 +50,13 @@ are made to be as intuitive as possible.
 //*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 
+== Contributions to the GUI Design
+
+|===
+|_Given below is the mockup of the GUI that I designed. It showcases to visualise an end-product._
+|===
+
+include::../UserGuide.adoc[tag=UI]
 
 == Contributions to the User Guide
 

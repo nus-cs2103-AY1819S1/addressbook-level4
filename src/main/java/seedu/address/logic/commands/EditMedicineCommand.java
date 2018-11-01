@@ -86,7 +86,7 @@ public class EditMedicineCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
-        if(!medicineToEdit.hasSameSerialNumber(editedMedicine)) {
+        if (!medicineToEdit.hasSameSerialNumber(editedMedicine)) {
             throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
         }
 

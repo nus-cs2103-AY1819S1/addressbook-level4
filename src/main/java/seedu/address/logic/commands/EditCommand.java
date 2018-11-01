@@ -83,6 +83,11 @@ public class EditCommand extends Command {
         }
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
+
+        if (patientToEdit.isInQueue()) {
+            throw new CommandException(Messages.MESSAGE_PERSON_IN_QUEUE);
+        }
+
         Patient editedPatient = createEditedPerson(patientToEdit, editPersonDescriptor);
 
         if (!patientToEdit.isSamePerson(editedPatient) && model.hasPerson(editedPatient)) {
