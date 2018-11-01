@@ -9,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelToDo;
 import seedu.address.model.calendarevent.CalendarEvent;
 
 /**
@@ -51,5 +52,10 @@ public class DeleteEventCommand extends Command {
         return other == this // short circuit if same object
             || (other instanceof DeleteEventCommand // instanceof handles nulls
             && targetIndex.equals(((DeleteEventCommand) other).targetIndex)); // state check
+    }
+
+    @Override
+    public CommandResult execute(ModelToDo modelToDo, CommandHistory history) throws CommandException {
+        throw new CommandException(MESSAGE_INCORRECT_MODEL_CALENDAR);
     }
 }
