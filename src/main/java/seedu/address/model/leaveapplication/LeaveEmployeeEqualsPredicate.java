@@ -16,7 +16,7 @@ public class LeaveEmployeeEqualsPredicate implements Predicate<LeaveApplicationW
 
     @Override
     public boolean test(LeaveApplicationWithEmployee leaveApplication) {
-        return leaveApplication.getEmployee().equals(employee);
+        return leaveApplication.getEmployee().isSamePerson(employee);
     }
 
     @Override
