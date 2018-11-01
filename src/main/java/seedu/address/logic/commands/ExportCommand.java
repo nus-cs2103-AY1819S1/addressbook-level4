@@ -85,7 +85,7 @@ public class ExportCommand extends Command {
             address = "";
         }
         meeting = current.getMeeting().toString();
-        if(meeting.equals(NO_MEETING_MSG)) {
+        if (meeting.equals(NO_MEETING_MSG)) {
             meeting = NO_MEETING;
         }
         tags = current.getTags();
