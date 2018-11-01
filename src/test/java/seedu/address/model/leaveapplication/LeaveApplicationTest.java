@@ -62,7 +62,7 @@ public class LeaveApplicationTest {
 
     @Test
     public void toStringTest() {
-        // same expected and actual toString() output for TypicalPerson's ALICE
+        // same expected and actual toString() output for TypicalLeaveApplication's ALICE_LEAVE
         StringBuilder builder = new StringBuilder();
         builder.append(" Description: ")
                 .append("Alice family holiday")
@@ -73,12 +73,12 @@ public class LeaveApplicationTest {
                 .append(LocalDate.of(2018, 10, 24).toString());
         assertEquals(ALICE_LEAVE.toString(), builder.toString());
 
-        // same expected and actual toString() output for TypicalPerson's BENSON
+        // same expected and actual toString() output for TypicalLeaveApplication's BENSON_LEAVE
         builder = new StringBuilder();
         builder.append(" Description: ")
                 .append("Benson's brother's wedding")
                 .append(" Status: ")
-                .append(StatusEnum.Status.APPROVED.toString())
+                .append(StatusEnum.Status.PENDING.toString())
                 .append(" Dates: ")
                 .append(LocalDate.of(2018, 10, 25).toString())
                 .append(LocalDate.of(2018, 10, 26).toString());

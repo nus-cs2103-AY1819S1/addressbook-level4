@@ -15,6 +15,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
+import seedu.address.testutil.TypicalAssignment;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -25,13 +26,14 @@ public class LoginTest {
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
 
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(),
+            TypicalAssignment.getTypicalAssignmentList(), TypicalPersons.getTypicalArchiveList(), new UserPrefs());
     private Logic logic = new LogicManager(model);
 
     @Test
     public void login_admin_successful() {
-        String adminUsername = User.ADMIN_USERNAME.username;
-        String adminPassword = User.ADMIN_PASSWORD.password;
+        String adminUsername = User.ADMIN_DEFAULT_USERNAME.username;
+        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.password;
 
         EventsCenter.getInstance().post(new LoginEvent(adminUsername, adminPassword));
 

@@ -106,6 +106,7 @@ When you are ready to start coding,
 == Design
 
 [[Design-Architecture]]
+
 === Architecture
 
 .Architecture Diagram
@@ -144,6 +145,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
@@ -165,6 +167,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 The sections below give more details of each component.
 
 [[Design-Ui]]
+
 === UI component
 
 .Structure of the UI Component
@@ -183,6 +186,7 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -203,6 +207,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
+
 === Model component
 
 .Structure of the Model Component
@@ -223,6 +228,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+
 === Storage component
 
 .Structure of the Storage Component
@@ -236,6 +242,7 @@ The `Storage` component,
 * can save the Address Book data in xml format and read it back.
 
 [[Design-Commons]]
+
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
@@ -512,7 +519,7 @@ Step 4. The system list the projects.
 
 // end::project
 
-// tag::archive
+// tag::archive[]
 === View deleted employee archive feature
 Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
 
@@ -542,21 +549,21 @@ Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueAr
 
 The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
 
-image::modelStructure.PNG[width="350]
+image::modelChangeJosh.PNG[width="350]
 
 ===== Aspect: Storage
 Added a `XmlSerializableArchiveList` object to Storage component.
 
 The following diagram shows the class `XmlSerializableArchiveList` added to reflect the changes in the Storage component:
 
-image::storageStructure.PNG[width="350]
+image::storageModelChangeJosh.PNG[width="350]
 
 ===== Aspect: UI
 Added a `ArchiveDisplay` object to `MainWindow` of UI component.
 
 The following diagram shows the class `ArchiveDisplay` added to reflect the changes in the UI component:
 
-image::uiStructure.PNG[width="350]
+image::uiModelChangeJosh.PNG[width="350]
 
 ==== Design considerations
 ===== Aspect: Lifetime of objects in Archive list
@@ -575,7 +582,7 @@ image::uiStructure.PNG[width="350]
 * **Alternative 2:** Assign an archive attribute to each employee object and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
 ** Pros: Only need to change 1 attribute when an employee is deleted.
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
-// end::archive
+// end::archive[]
 
 // tag::login[]
 === Login/Logout feature
@@ -1337,14 +1344,10 @@ Use case resumes at step 2.
 
 *MSS*
 
-.  Manager login to the system.
-.  Oasis shows home page.
-.  Manager requests for list of all employees
-.  Oasis displays list of all employees
-.  Manager chooses to delete an employee in the list
-.  Oasis requests for confirmation
-.  Manager enters confirm
-.  Oasis deletes the employee and show success message
+.  Manager login to the system
+.  Oasis shows home page and displays list of employees
+.  Manager executes delete command on a selected employee
+.  Oasis deletes the employee, moves it to archive list and show success message
 +
 Use case ends.
 
@@ -1355,17 +1358,13 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The list is empty.
+* 2a. The list is empty.
 +
 Use case ends.
 
-* 5a. The chosen employee is invalid.
+* 3a. The chosen employee is invalid.
 +
-** 5a1. OASIS shows an error message.
-+
-Use case resumes at step 4.
-
-* 7a. The Manager chooses to cancel
+** 3a1. OASIS shows an error message.
 +
 Use case resumes at step 4.
 

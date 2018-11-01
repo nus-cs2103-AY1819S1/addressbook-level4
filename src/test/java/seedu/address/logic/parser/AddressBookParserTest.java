@@ -17,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -27,6 +28,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LeaveApplyCommand;
+import seedu.address.logic.commands.LeaveApproveCommand;
+import seedu.address.logic.commands.LeaveListCommand;
+import seedu.address.logic.commands.LeaveRejectCommand;
+import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -38,6 +43,9 @@ import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Assignment;
+import seedu.address.testutil.AssignmentBuilder;
+import seedu.address.testutil.AssignmentUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.LeaveApplicationBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -151,12 +159,31 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_leavelist() throws Exception {
+        assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD) instanceof LeaveListCommand);
+        assertTrue(parser.parseCommand(LeaveListCommand.COMMAND_WORD + " 3") instanceof LeaveListCommand);
+    }
+
+    @Test
+    public void parseCommand_leaveapprove() throws Exception {
+        LeaveApproveCommand command = (LeaveApproveCommand) parser.parseCommand(
+                LeaveApproveCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new LeaveApproveCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_leavereject() throws Exception {
+        LeaveRejectCommand command = (LeaveRejectCommand) parser.parseCommand(
+                LeaveRejectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals(new LeaveRejectCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
     public void parseCommand_viewPermissionCommand() throws Exception {
         ViewPermissionCommand command = (ViewPermissionCommand) parser.parseCommand(
                 ViewPermissionCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new ViewPermissionCommand(INDEX_FIRST_PERSON), command);
     }
-
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
@@ -170,6 +197,20 @@ public class AddressBookParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_addAssignment() throws Exception {
+        Assignment assignment = new AssignmentBuilder().build();
+        AddAssignmentCommand command =
+                (AddAssignmentCommand) parser.parseCommand(AssignmentUtil.getAddAssignmentCommand(assignment));
+        assertEquals(new AddAssignmentCommand(assignment), command);
+    }
+
+    @Test
+    public void parseCommand_listAssignment() throws Exception {
+        assertTrue(parser.parseCommand(ListAssignmentCommand.COMMAND_WORD) instanceof ListAssignmentCommand);
+        assertTrue(parser.parseCommand(ListAssignmentCommand.COMMAND_WORD + " 3") instanceof ListAssignmentCommand);
     }
 
 }

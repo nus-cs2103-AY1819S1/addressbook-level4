@@ -33,7 +33,7 @@ public class LoginSystemTest extends AddressBookSystemTest {
 
     @Test
     public void attemptLoginAdmin() {
-        loginHandle.attemptLogIn(User.ADMIN_USERNAME.username, User.ADMIN_PASSWORD.password);
+        loginHandle.attemptLogIn(User.ADMIN_DEFAULT_USERNAME.username, User.ADMIN_DEFUALT_PASSWORD.password);
 
         assert getModel().getLoggedInUser() != null;
         assert getModel().getLoggedInUser().isAdminUser();

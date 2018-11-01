@@ -21,6 +21,7 @@ import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
+import seedu.address.model.person.User;
 import seedu.address.model.person.Username;
 import seedu.address.model.project.Project;
 
@@ -42,6 +43,7 @@ public class LeaveApplyCommand extends Command {
             + PREFIX_LEAVE_DATE + " 2018-12-12 ";
 
     public static final String MESSAGE_SUCCESS = "New leave application created: %1$s";
+    public static final String MESSAGE_ADMIN_FAILURE = "Admin user cannot apply for leave";
 
     private final LeaveApplication leaveApplicationToAdd;
 
@@ -56,6 +58,10 @@ public class LeaveApplyCommand extends Command {
     @Override
     public CommandResult runBody(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        if (model.getLoggedInUser().equals(User.getAdminUser())) {
+            throw new CommandException(MESSAGE_ADMIN_FAILURE);
+        }
 
         Person personToAddLeave = model.getLoggedInUser().getPerson();
         Person updatedPerson = createPersonWithNewLeaveApplication(personToAddLeave, leaveApplicationToAdd);

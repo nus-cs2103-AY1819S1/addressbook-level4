@@ -3,11 +3,13 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.io.Serializable;
+
 /**
  * Represents a Person's password in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
  */
-public class Password {
+public class Password implements Serializable {
 
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
         "Passwords should contain at least 8 characters. It should contain at least 1 lowercase character, "
@@ -18,12 +20,21 @@ public class Password {
      */
     public static final String PASSWORD_VALIDATION_REGEX = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$";
 
+    public static final String DEFAULT_PASSWORD = "Pa55w0rd";
+
     public final String password;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Password} containing the default password.
+     */
+    public Password() {
+        password = DEFAULT_PASSWORD;
+    }
+
+    /**
+     * Constructs a {@code Password}.
      *
-     * @param pass A valid name.
+     * @param pass A valid password.
      */
     public Password(String pass) {
         requireNonNull(pass);
@@ -47,6 +58,15 @@ public class Password {
 
     public String getEncodedPassword() {
         return password;
+    }
+
+    /**
+     * Checks if this password matches a certain password in plaintext
+     * @param plaintext The entered password in plaintext
+     * @return if it matches are not
+     */
+    public boolean matches(String plaintext) {
+        return password.equals(plaintext);
     }
 
     @Override

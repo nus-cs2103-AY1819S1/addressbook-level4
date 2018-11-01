@@ -4,7 +4,9 @@ import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Assignment;
 
 /**
  * API of the Logic component
@@ -21,6 +23,15 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Assignment> getFilteredAssignmentList();
+
+    /** Returns an unmodifiable view of the filtered list of leave applications */
+    ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Person> getArchivedPersonList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

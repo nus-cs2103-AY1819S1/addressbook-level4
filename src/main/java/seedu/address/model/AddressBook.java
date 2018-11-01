@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+
+import seedu.address.model.leaveapplication.LeaveApplicationList;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -15,6 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final LeaveApplicationList leaveApplications;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +29,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        leaveApplications = new LeaveApplicationList();
     }
 
     public AddressBook() {}
@@ -45,6 +50,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
+        updateLeaveList();
     }
 
     /**
@@ -54,6 +60,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        updateLeaveList();
+    }
+
+    /**
+     * Updates the leave applications list
+     */
+    private void updateLeaveList() {
+        // Remove old elements
+        leaveApplications.setLeaveApplications(new LeaveApplicationList());
+
+        // Populate with new elements
+        persons.forEach(person -> person.getLeaveApplications().forEach(leaveApplication
+            -> leaveApplications.add(new LeaveApplicationWithEmployee(leaveApplication, person))));
     }
 
     //// person-level operations
@@ -72,6 +91,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        updateLeaveList();
     }
 
     /**
@@ -83,6 +103,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
+        updateLeaveList();
     }
 
     /**
@@ -91,6 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+        updateLeaveList();
     }
 
     //// util methods
@@ -107,6 +129,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<LeaveApplicationWithEmployee> getLeaveApplicationList() {
+        return leaveApplications.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
@@ -117,4 +144,5 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode();
     }
+
 }
