@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -132,7 +133,9 @@ public class MainApp extends Application {
             initialBudgetData = new BudgetBook();
         }
 
-        return new ModelManager(initialAddressData, initialBudgetData, userPrefs);
+        Set<String> emailNamesSet = storage.readEmailFiles();
+
+        return new ModelManager(initialAddressData, initialBudgetData, userPrefs, emailNamesSet);
     }
 
     private void initLogging(Config config) {

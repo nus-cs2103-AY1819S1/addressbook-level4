@@ -16,7 +16,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
+import seedu.address.commons.events.ui.ListEmailsEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ProfileViewEvent;
 import seedu.address.model.EmailModel;
@@ -67,6 +69,18 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(defaultPage.toExternalForm());
     }
 
+    //@@author EatOrBeEaten
+
+    /**
+     * Loads HTML text preview of email.
+     *
+     * @param emailModel The emailModel containing the saved email.
+     */
+    private void loadEmail(EmailModel emailModel) {
+        Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
+    }
+    //@@author
+
     /**
      * Frees resources allocated to the browser.
      */
@@ -87,12 +101,17 @@ public class BrowserPanel extends UiPart<Region> {
         loadEmail(event.getEmailModel());
     }
 
-    /**
-     * Loads HTML text preview of email.
-     * @param emailModel The emailModel containing the saved email.
-     */
-    public void loadEmail(EmailModel emailModel) {
-        Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
+    @Subscribe
+    private void handleEmailNotFoundEvent(EmailNotFoundEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
+
+    }
+
+    @Subscribe
+    private void handleListEmailsEvent(ListEmailsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
     }
 
     @Subscribe
