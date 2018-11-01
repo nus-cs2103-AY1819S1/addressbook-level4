@@ -486,7 +486,7 @@ Removes the 1st patient from the Served Patient Queue.
 
 Generates a medical certificate for the Served Patient. +
 Format: `mc INDEX`
-
+a
 [TIP]
 Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
