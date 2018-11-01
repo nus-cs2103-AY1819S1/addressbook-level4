@@ -85,6 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
+        updateFilteredGroupList(PREDICATE_SHOW_ALL_GROUPS);
         indicateAddressBookChanged();
     }
 
