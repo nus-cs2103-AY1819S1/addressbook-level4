@@ -135,4 +135,16 @@ public class Patient extends Person {
         }
         return false;
     }
+
+    /**
+     * Check if appointment clash with any upcoming appointments by {@code targetAppointment}
+     */
+    public boolean hasClashForAppointment(Appointment appointmentToCheck) {
+        for (Appointment app : upcomingAppointments) {
+            if (app.hasClashAppointment(appointmentToCheck)) {
+                return true; // There is a clash in the appointments
+            }
+        }
+        return false;
+    }
 }
