@@ -1,15 +1,16 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.DeletePrescriptionCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.MedicineName;
-
-import java.util.stream.Stream;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
+
+import java.util.stream.Stream;
+
+import seedu.address.logic.commands.DeletePrescriptionCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.MedicineName;
+
 
 /**
  * Parses input arguments and creates a new DeletePrescriptionCommand object

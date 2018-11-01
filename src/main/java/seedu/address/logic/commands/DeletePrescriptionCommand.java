@@ -74,7 +74,7 @@ public class DeletePrescriptionCommand extends Command {
         }
 
         // prescription does not exist in appointment
-        if ( prescriptionToBeDeleted == null) {
+        if (prescriptionToBeDeleted == null) {
             throw new CommandException(String.format(MESSAGE_INVALID_DELETE_PRESCRIPTION));
         }
 
