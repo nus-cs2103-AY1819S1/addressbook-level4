@@ -119,7 +119,6 @@ public class AddMedicalHistoryCommand extends Command {
         }
         if (!(allergy.equals(""))) {
             allergies.addAll(newAllergies);
-            System.out.println("add new allergy");
         }
         if (!(patientToEdit.getMedicalHistory().getAllergies().equals(null))) {
             conditions.addAll(patientToEdit.getMedicalHistory().getConditions());
