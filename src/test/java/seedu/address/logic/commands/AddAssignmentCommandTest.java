@@ -238,8 +238,6 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
-        
-
         public boolean hasAssignment(Assignment assignment) {
             requireNonNull(assignment);
             return this.assignment.isSameAssignment(assignment);
