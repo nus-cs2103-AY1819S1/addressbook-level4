@@ -253,7 +253,7 @@ Shows a list of tasks that are due from current date till the closest Sunday. +
 Example:
 ====
 input: [blue]`listweek` on the date 021118 +
-output: Shows a list of tasks from 021118 to nearest Sunday which is 041118.
+output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
 ====
 
 Before:
