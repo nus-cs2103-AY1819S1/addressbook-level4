@@ -16,10 +16,12 @@ import javafx.collections.ObservableList;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
+import seedu.scheduler.model.PopUpManager;
 import seedu.scheduler.model.ReadOnlyScheduler;
 import seedu.scheduler.model.Scheduler;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.tag.Tag;
+import seedu.scheduler.storage.Storage;
 import seedu.scheduler.testutil.EventBuilder;
 
 public class AddCommandTest {
@@ -181,6 +183,11 @@ public class AddCommandTest {
 
         @Override
         public void deleteTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void syncWithPopUpManager(PopUpManager popUpManager, Storage storage) {
             throw new AssertionError("This method should not be called.");
         }
 

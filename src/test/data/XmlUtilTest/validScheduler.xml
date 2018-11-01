@@ -11,7 +11,7 @@
         <venue>School of Computing</venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-09-21T11:00</repeatUntilDateTime>
-        <reminderDurationList>PT15M: false, PT30M: false</reminderDurationList>
+        <reminderDurationList>PT15M, PT30M</reminderDurationList>
     </events>
     <events>
         <uid>aef6b77e-20a7-4de4-8402-343fbd475fd5</uid>
@@ -24,7 +24,7 @@
         <venue></venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-10-11T03:00</repeatUntilDateTime>
-        <reminderDurationList>PT30M: false</reminderDurationList>
+        <reminderDurationList>PT30M</reminderDurationList>
     </events>
     <events>
         <uid>aef6b77e-20a7-4de4-8402-343fbd475fd6</uid>
