@@ -13,7 +13,7 @@ import seedu.address.model.person.Time;
 /**
  * Exchange Time.
  */
-public class ChangeTimeCommand extends Command {
+public class ExchangeTimeCommand extends Command {
     public static final String COMMAND_WORD = "ChangeTime";
     public static final String MESSAGE_SUCCESS = "Already changed the time between the given students with given time!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": ChangeTime. "
@@ -32,7 +32,7 @@ public class ChangeTimeCommand extends Command {
      *
      * @param args
      */
-    public ChangeTimeCommand (String args) {
+    public ExchangeTimeCommand (String args) {
         String[] stringCommand = args.trim().split(" ");
         this.nameA = stringCommand[0];
         this.numA = Integer.parseInt(stringCommand[1]);
@@ -83,11 +83,11 @@ public class ChangeTimeCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ChangeTimeCommand
-                && nameA.equals(((ChangeTimeCommand) other).nameA)
-                && nameB.equals(((ChangeTimeCommand) other).nameB)
-                && numA == ((ChangeTimeCommand) other).numA
-                && numB == ((ChangeTimeCommand) other).numB);
+                || (other instanceof ExchangeTimeCommand
+                && nameA.equals(((ExchangeTimeCommand) other).nameA)
+                && nameB.equals(((ExchangeTimeCommand) other).nameB)
+                && numA == ((ExchangeTimeCommand) other).numA
+                && numB == ((ExchangeTimeCommand) other).numB);
     }
 }
 
