@@ -361,7 +361,7 @@
     -fx-padding: 8px;
     -fx-text-fill: white;
     -fx-font-size: 12px;
-    -fx-pref-width: 775px;
+    -fx-pref-width: 520px;
 }
 
 #archiveList {
@@ -371,5 +371,15 @@
     -fx-padding: 8px;
     -fx-text-fill: white;
     -fx-font-size: 12px;
-    -fx-pref-width: 775px;
+    -fx-pref-width: 520px;
+}
+
+#assignmentList {
+    -fx-background-color: #95A5A6;
+    -fx-border-color: #95A5A6;
+    -fx-background-insets: 0,0,0,0;
+    -fx-padding: 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-pref-width: 520px;
 }
