@@ -222,13 +222,28 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      * @param tag tag to be removed.
      * @param wishes list of wishes to be searched for tag.
      */
-    private HashMap<UUID, LinkedList<Wish>> getModifiedMap(Tag tag, LinkedList<Wish> wishes, HashMap<UUID, LinkedList<Wish>> map) {
+    private HashMap<UUID, LinkedList<Wish>> getModifiedMap(Tag tag, LinkedList<Wish> wishes,
+                                                           HashMap<UUID, LinkedList<Wish>> map) {
         Wish mostRecent = getMostRecentWish(wishes);
         if (hasTag(tag, mostRecent)) {
             return getModifiedMap(tag, mostRecent, map);
         } else {
             map.put(getKey(mostRecent), wishes);
         }
+        return map;
+    }
+
+    /**
+     * Removes the given tag from the given wish.
+     * @param tag tag to be removed.
+     * @param mostRecent wish to remove the tag from.
+     */
+    private HashMap<UUID, LinkedList<Wish>> getModifiedMap(Tag tag, Wish mostRecent, HashMap<UUID,
+            LinkedList<Wish>> map) {
+        Set<Tag> updatedTags = getUpdatedTags(mostRecent, tag);
+        Wish updatedWish = getUpdatedWish(updatedTags, mostRecent);
+        LinkedList<Wish> wishList = getWishList(getKey(mostRecent));
+        map.put(getKey(mostRecent), updateWishes(wishList, updatedWish));
         return map;
     }
 
@@ -249,19 +264,6 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      */
     private boolean hasTag(Tag tag, Wish mostRecent) {
         return mostRecent.getTags().contains(tag);
-    }
-
-    /**
-     * Removes the given tag from the given wish.
-     * @param tag tag to be removed.
-     * @param mostRecent wish to remove the tag from.
-     */
-    private HashMap<UUID, LinkedList<Wish>> getModifiedMap(Tag tag, Wish mostRecent, HashMap<UUID, LinkedList<Wish>> map) {
-        Set<Tag> updatedTags = getUpdatedTags(mostRecent, tag);
-        Wish updatedWish = getUpdatedWish(updatedTags, mostRecent);
-        LinkedList<Wish> wishList = getWishList(getKey(mostRecent));
-        map.put(getKey(mostRecent), updateWishes(wishList, updatedWish));
-        return map;
     }
 
     /**
