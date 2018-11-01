@@ -84,7 +84,8 @@ public class PersonCard extends UiPart<Region> {
         // set profile picture
         Image image;
 
-        if (!Picture.isValidPicture(person.getPicture().picture)) {
+        if (!Picture.isValidPicture(person.getPicture().picture)
+            || person.getPicture().picture.equals(Picture.DEFAULT_PICTURE_URL.getPath())) {
             try {
                 image = new Image(Picture.DEFAULT_PICTURE_URL.openStream());
             } catch (IOException io) {

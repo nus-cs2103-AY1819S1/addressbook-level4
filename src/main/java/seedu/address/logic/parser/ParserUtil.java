@@ -151,18 +151,15 @@ public class ParserUtil {
      */
     public static Picture parseFileLocation(String fileLocation) throws ParseException {
         requireNonNull(fileLocation);
-//        fileLocation = "file:/C:/Users/Denzel/Downloads/InsuRen/insuren.jar!/images/placeholder_image.jpg";
         String trimmedFileLocation = fileLocation.trim();
-        String formattedPath = Picture.getPath(trimmedFileLocation);
-        System.out.println("ParseFileLocation FormattedPath: " + formattedPath);
 
-        if (!Picture.isValidPicture(formattedPath)) {
-            if (Picture.isValidPictureInDirectory(formattedPath)) {
-                return new Picture(Picture.getDirectoryPath(formattedPath));
+        if (!Picture.isValidPicture(trimmedFileLocation)) {
+            if (Picture.isValidPictureInDirectory(trimmedFileLocation)) {
+                return new Picture(Picture.getDirectoryPath(trimmedFileLocation));
             }
             throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
         }
-        return new Picture(formattedPath);
+        return new Picture(Picture.getPath(trimmedFileLocation));
     }
 
     /**
