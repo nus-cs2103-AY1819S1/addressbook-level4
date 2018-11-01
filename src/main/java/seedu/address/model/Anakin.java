@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.deck.Deck.NULLDECK;
 
 import java.util.Iterator;
 import java.util.List;
@@ -37,6 +38,8 @@ public class Anakin implements ReadOnlyAnakin {
 
     // Manager to handle imports/exports
     private PortManager portManager;
+
+    private Deck currentDeck = NULLDECK;
 
     /*
     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -81,13 +84,17 @@ public class Anakin implements ReadOnlyAnakin {
     }
 
     /**
-     * A method to switch card lists to prevent side effects of editing a list of cards unintentionally.
+     * Sets the currentDeck
+     */
+
+    public void setCurrentDeck(Deck deck){this.currentDeck = deck;}
+    /**
+     * A method to clear card lists to prevent side effects of editing a list of cards unintentionally.
      * Used in resetData
      */
-    public void changeCards(List<Card> cards){
+    public void clearCards() {
         UniqueCardList newList = new UniqueCardList();
         this.cards = newList;
-        this.cards.setCards(cards);
     }
 
     /**
@@ -96,12 +103,20 @@ public class Anakin implements ReadOnlyAnakin {
     public void resetData(ReadOnlyAnakin newData) {
         requireNonNull(newData);
 
+        //Debug
+        System.out.println("Bef: Currently in : " + currentDeck.getName().fullName);
+        System.out.println("Bef: Current Cards : " + cards.internalList.toString());
+
         setIsInsideDeck(newData.isInsideDeck());
         setIsReviewingDeck(newData.isReviewingDeck());
-
         setDecks(newData.getDeckList());
-        changeCards(newData.getCardList());
+        setCurrentDeck(newData.getCurrentDeck());
+        setCards(currentDeck.getCards().asUnmodifiableObservableList());
         updateDisplayedCards();
+
+        //DEBUG
+        System.out.println("Aft: Currently in : " + currentDeck.getName().fullName);
+        System.out.println("Aft: Current Cards : " + cards.internalList.toString());
     }
 
     /**
@@ -139,6 +154,7 @@ public class Anakin implements ReadOnlyAnakin {
             throw new IllegalOperationWhileReviewingDeckException();
         }
         isInsideDeck = true;
+        currentDeck = deck;
         cards = deck.getCards();
         updateDisplayedCards();
     }
@@ -151,7 +167,8 @@ public class Anakin implements ReadOnlyAnakin {
             throw new IllegalOperationWhileReviewingDeckException();
         }
         isInsideDeck = false;
-        cards = new UniqueCardList();
+        currentDeck = NULLDECK;
+        clearCards();
         updateDisplayedCards();
     }
 
@@ -316,7 +333,9 @@ public class Anakin implements ReadOnlyAnakin {
         isReviewingDeck = state;
     }
 
-    public void startReview() { isReviewingDeck = true; }
+    public void startReview() {
+        isReviewingDeck = true;
+    }
 
     /**
      * Concludes the end of a deck review by setting isReviewingDeck flag to false
@@ -374,12 +393,16 @@ public class Anakin implements ReadOnlyAnakin {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Anakin // instanceof handles nulls
-                && decks.equals(((Anakin) other).decks));
+            || (other instanceof Anakin // instanceof handles nulls
+            && decks.equals(((Anakin) other).decks));
     }
 
     @Override
     public int hashCode() {
         return decks.hashCode();
+    }
+
+    public Deck getCurrentDeck(){
+        return currentDeck;
     }
 }
