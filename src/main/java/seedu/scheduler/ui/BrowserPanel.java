@@ -40,6 +40,9 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Run an action later.
+     */
     private void runDelayAction(Runnable runnable) {
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
