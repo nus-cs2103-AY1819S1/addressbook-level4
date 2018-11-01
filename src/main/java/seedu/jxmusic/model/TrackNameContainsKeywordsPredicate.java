@@ -18,7 +18,8 @@ public class TrackNameContainsKeywordsPredicate implements Predicate<Track> {
     @Override
     public boolean test(Track track) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(track.getFileNameWithoutExtension(), keyword));
+                .anyMatch(keyword ->
+                        StringUtil.containsSubstringIgnoreCase(track.getFileNameWithoutExtension(), keyword));
     }
 
     @Override
