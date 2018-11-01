@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
@@ -42,7 +43,7 @@ Steps to set up ThanePark:
 .  Copy the file to the folder you want to use as the home folder for your ThanePark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="800"]
+image::startup.png[width="800"]
 
 Congratulations! You have successfully set up ThanePark!
 
@@ -70,10 +71,11 @@ Example: `add <attraction>`<maintenance> `<waitTime>` `<zone>`
 * Items in square brackets `[]` denotes optional field. +
 Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
-Example: `{tab}` is the TAB keystroke.
+Example: `{tab}` is the kbd:[TAB] keystroke.
 * Items ending with ellipses `...` denotes variable number of arguments. +
 Example: `history [findargs...]`
-* Parameters can be in any order +
+
+* Parameters with prefix `/` can be in any order +
 Example: if the command specifies n/name p/zone, p/zone n/name is also acceptable.
 
 ====
@@ -135,24 +137,136 @@ Format: `shutdown <index>`
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
-=== User help and accessibility
 
+==== Clearing all entries : `clear`
 
-This section contains all commands related to managing commands.
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Get help and accessibility
+
+This section contains all commands related to providing user help and accessibility.
 
 ==== Viewing help: `help`
 
-Display short summary of important commands.  +
-Format: `help [option]`
+Display short summary of important commands. A summarized help
+sheet should appear as shown below.
 
-Displays a full list of important commands with a more detailed description if more is supplied as an `option`. If a specific command is supplied as `option`, show
-greater detail of the specified command. If invalid `option` is specified, will show default help message.
+image::ui_screenshots/history-example-1.png[width="790"]
+
+Format: `help`
+
+[NOTE]
+Extended usage of `help` command: `help [option]`. If invalid `[option]`
+is specified, an error message will be shown (soon a default help message will be shown).
+
+* `help more`: Opens the help window to show full usage of ThanePark.
+
+image::ui_screenshots/history-example-1.png[width="790"]
+
+* `help <command word>`: Opens the help window and scrolls to specified command word usage.
+Example: `help add`
+
+image::ui_screenshots/history-example-1.png[width="790"]
+
+// tag::autocomplete[]
+
+==== Suggesting commands: `{tab}`
+
+Displays suggested list of commands when kbd:[TAB] is pressed. +
+Format: kbd:[TAB]
+
+[WARNING]
+The full functionality of suggesting commands can be quite heavy.
+Skip to <<suggest_examples, examples>> to view common usage.
+
+[NOTE]
+Extended usage of suggesting commands:
+[width="59%",cols="20%,<40%,<40%",options="header",]
+|=======================================================================
+|Action |State of application |Expected Output
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *Only 1* command word match to first prefix in `CommandBox` a|
+* Strip all text behind first prefix in `CommandBox`.
+* Replace prefix with matching command word in `CommandBox`.
+* Display matching command word in result panel.
+
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Display all matching command words in result panel.
+* No change in `CommandBox`.
+
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *No* command word match to first prefix in `CommandBox` a|
+* No visible change is reflected.
+
+|kbd:[TAB] a|
+* `CommandBox` contains nothing a|
+* No visible change is reflected.
+
+|kbd:[TAB] a|
+* `CommandBox` starts with a complete command word a|
+* Strip all text behind command word in `CommandBox`.
+* Command in `CommandBox` will not be executed.
+* Command word will be shown in result panel.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *Only 1* command word match to first prefix in `CommandBox` a|
+* Strip all text behind first prefix in `CommandBox`.
+* Replace prefix with matching command word in `CommandBox`.
+* Display matching command word in result panel.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Display all matching command words in result panel.
+* Remove all text in `CommandBox`.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *No* command word match to first prefix in `CommandBox` a|
+* Error is shown in result panel.
+* `CommandBox` text turns red.
+
+|kbd:[ENTER] a|
+* `CommandBox` starts with a complete command word
+* Command arguments are *invalid* a|
+* Suggested command usage is shown in result panel.
+* `CommandBox` text turns red.
+|=======================================================================
+
+[#suggest_examples]
+Examples:
+
+* `he` +
+kbd:[TAB] (Completes the `help` command word.) +
+
+* `histor more` +
+kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command) +
+
+// end::autocomplete[]
 
 ==== Viewing history of previous commands: `history`
 
-Display previous commands during this session. Inputted
-commands from the past are logged into the system. +
+Display previous commands during this session.
+
 Format: `history`
+
+[NOTE]
+Extended usage of `history`: +
+Use `history more` to generate a report of all cumulative command history.
+A window similar to the one below should show up.
+
+image::ui_screenshots/history-example-1.png[width="790"]
+
+[WARNING]
+ThanePark stores the command history in `commandHistory.xml`. If the storage file size exceeds 5MB,
+no new command history will be logged. Additionally, if the file format is changed, the program will
+restart the collation of history.
 
 // tag::undoredo[]
 ==== Undoing commands: `undo`
@@ -166,7 +280,7 @@ Examples:
 `list` +
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
+* `view 1` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -199,77 +313,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-==== Suggesting commands: `{tab}`
-
-Non-tech savvy users wouldn’t need to remember commands and can
-just use `tab` s to complete their sentences, or get suggestions on what
-commands start with their specified prefix. +
-Format: `{tab}`
-
-==== Clearing all entries : `clear`
-
-Clears all entries from the zone book. +
-Format: `clear`
-
 ==== Exiting ThanePark: `exit`
 
 Exits the ThanePark application. +
 Format: `exit`
-
-
-=== Manage input/output of attractions
-
-This section contains all commands related to managing attractions.
-
-==== Adding attractions: `add`
-
-Add an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
-
-A ride can have any number of tags (including 0). +
-
-Examples:
-
-* add n/Transformers m/1 w/30 a/John street, block 123, #01-01
-* add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
-
-==== Deleting attractions: `delete`
-
-Deletes the specified attraction from the ThanePark. +
-Format: `delete <index>`
-
-* Deletes the ride at the specified index.
-
-* The index refers to the index number shown in the list of displayed rides.
-
-* The index must be a positive integer 1, 2, 3, …​
-
-Examples:
-
-* `viewall` +
-  `delete 2` +
-  Deletes the 2nd ride in ThanePark.
-
-* `find Puss in Boots' Giant Journey` +
-   `delete 1` +
-   Deletes the 1st ride in the results of the find command.
-
-==== Updating information of attraction: `update`
-
-
-Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
-
-Format: `update <index> <tag> <value>`
-
-==== Shutting down attraction: `shutdown`
-
-Close the ride for the day. Display statistics for the ride on that day. +
-Format: `shutdown <index>`
-
-==== Opening attraction: `open`
-
-Open the ride for the day. Display statistics for the ride on that day. +
-Format: `open <index>`
 
 // tag::viewstatus[]
 === View information on the list of rides
@@ -381,5 +428,5 @@ image::ui_screenshots/find-example-3.png[width="790"]
 * *View*: `view <name>`
 * *Quickview*: `quickview`
 * *Filter*: `filter <tag> <condition>`
-* *tab*: `{tab}`
+* *tab*: kbd:[TAB]
 

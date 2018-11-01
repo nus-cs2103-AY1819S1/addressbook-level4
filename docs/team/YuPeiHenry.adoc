@@ -9,33 +9,39 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop zone book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+ThanePark is a *theme park management* application primarily designed for theme park operators.
+ThanePark caters for *keyboard-oriented* users by integrating primary functionalities into a *Command Line Interface* (CLI),
+yet it displays useful information at a glance through utilisation of JavaFX to render the *Graphical User Interface* (GUI).
+Currently it only supports operation on desktops/laptops.
+It is primarily written in Java and jointly developed by 4 aspiring Software Engineers in *NUS CS2103 module*.
 
 == Summary of contributions
 
-* *Major enhancement*: added
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Developed features that improve the accessibility of the ThanePark application to *improve user productivity*.
+** What it does: It facilitates finding help on specific commands, assist users in completing commands,
+provide a mechanism to log and retrieve command history and gives users important information at a glance.
+** Justification: The primary role of theme park operators is to manage the ride they are stationed at.
+By making the application easier to use, operators will not find using the application a chore, can quickly
+perform required actions and focus on managing their ride.
+** Highlights: This enhancement affects existing commands and can be easily extended on addition of new commands. There
+is an added challenge of reducing dependencies across the `Logic`, `Model`, `Storage` and `UI` components of ThanePark.
+** Credits: https://github.com/tipsy/j2html[j2html] library to aid formatting of HTML reports.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated the GUI color scheme (Pull requests )
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#48], https://github.com[#82], https://github.com[#78]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W14-2/main/pull/12[#12], https://github.com/CS2103-AY1819S1-W14-2/main/pull/48[#48], https://github.com/CS2103-AY1819S1-W14-2/main/pull/82[#82], https://github.com/CS2103-AY1819S1-W14-2/main/pull/99[#99]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[94], https://github.com[89])
 *** Reported bugs and suggestions for other teams in the class (examples:  <Wait for bug hunting PE>)
 ** Tools:
 *** Set up Travis CI, coveralls and autodoc to the project
-*** Integrated a third party library (j2html) to the project (https://github.com[#79])
+*** Integrated a third party library (j2html) to the project (https://github.com/CS2103-AY1819S1-W14-2/main/pull/79[#79])
 
 == Contributions to the User Guide
 
@@ -52,5 +58,5 @@ include::../UserGuide.adoc[tag=autocompletesuggest]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=autocompletesuggest]
+include::../DeveloperGuide.adoc[tag=autocomplete]
 
