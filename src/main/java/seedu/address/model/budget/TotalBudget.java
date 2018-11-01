@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import seedu.address.model.Model;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
@@ -127,6 +126,12 @@ public class TotalBudget extends Budget {
         return new HashSet<>(this.categoryBudgets.stream()
             .map(cBudget -> new CategoryBudget(cBudget))
             .collect(Collectors.toSet()));
+    }
+
+    @Override
+    public void clearSpending() {
+        super.clearSpending();
+        this.categoryBudgets.forEach(expense -> expense.clearSpending());
     }
 
     @Override

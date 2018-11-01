@@ -93,4 +93,12 @@ public class BudgetIntegrationTest {
         }
     }
 
+    @Test
+    public void clear_budgetSpendingCleared() throws NoUserSelectedException {
+        new ClearCommand().execute(this.model, this.commandHistory);
+        assertEquals(this.model.getMaximumBudget().getCurrentExpenses(), 0.0);
+        assertEquals(this.model.getMaximumBudget().getCategoryBudgets()
+            .stream().mapToDouble(expense -> expense.getCurrentExpenses()).sum(), 0.0);
+    }
+
 }
