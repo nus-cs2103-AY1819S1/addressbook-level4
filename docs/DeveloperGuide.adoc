@@ -344,7 +344,19 @@ Permission have to be stored in the addressbook where the information for `Perso
 image::permissionStorage.png[width="350]
 
 ===== Aspect: Logic
-Commands will be required to create a `requiredPermission:PermissionSet` object, and populate it with all `Permission` the command requires user to have to execute the command.
+Commands will be required to populate a `requiredPermission:PermissionSet` object with all `Permission` the command requires user to have to execute the command.
+
+The following is an example on how to assign permission to a Command.
+
+.AddCommand.java
+[source,java]
+----
+public AddCommand(Person person) {
+    requireNonNull(person);
+    requiredPermission.addPermissions(Permission.ADD_EMPLOYEE);
+    toAdd = person;
+}
+----
 
 Given below is an example scenario of how commands will be executed.
 
@@ -370,7 +382,7 @@ image::permissionCommandActivityDiagram.png[width="450"]
 
 ** Pros: Easy to control the commands a user can access.
 
-** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users.
+** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS. 
 
 * Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
 The commands executable by the user will depend on their class.
@@ -378,6 +390,26 @@ The commands executable by the user will depend on their class.
 ** Pros: Easy to implement. Only require small modification in existing classes.
 
 ** Cons: Commands cannot be freely assigned to users as it is now dependent on which subclass the user is. E.g. we cannot create an `Employee` with a subset of the commands available to `Manager`.
+
+=== Supporting features for Permission System
+
+The following are features that have been implemented to support the Permission System.
+
+==== Modify Permissions of employee
+
+This feature allows the user to change the Permission that have been allocated to an employee. 
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission. 
+
+==== View Permissions of employee
+
+This feature allows the user to view the permissions that have been allocated to an employee.
+
+[NOTE]
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission. 
+
+
 // end::permission
 
 // tag::project
