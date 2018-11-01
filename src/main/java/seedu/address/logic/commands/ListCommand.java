@@ -4,10 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.ListCommandParser.DUE_END_OF_MONTH_OPTION;
 import static seedu.address.logic.parser.ListCommandParser.DUE_END_OF_WEEK_OPTION;
 import static seedu.address.logic.parser.ListCommandParser.DUE_TODAY_OPTION;
-import static seedu.address.logic.parser.ListCommandParser.PREFIX_DUE_BEFORE;
+import static seedu.address.logic.parser.ListCommandParser.NOT_BLOCKED_OPTION;
+import static seedu.address.logic.parser.ListCommandParser.PREFIX_FILTER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
+import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
@@ -31,13 +34,15 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists tasks. "
             + "Parameters: "
-            + "[" + PREFIX_DUE_BEFORE + "DUE BEFORE " + "]\n"
-            + "Allowed values for \"DUE BEFORE\": "
+            + "[" + PREFIX_FILTER + "FILTER OPTION " + "]\n"
+            + "Allowed values for \"FILTER OPTION\": "
             + DUE_TODAY_OPTION + ", "
             + DUE_END_OF_WEEK_OPTION + ", "
-            + DUE_END_OF_MONTH_OPTION + ", " + "\n"
+            + DUE_END_OF_MONTH_OPTION + ", "
+            + NOT_BLOCKED_OPTION + ", "
+            + "\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DUE_BEFORE + "today";
+            + PREFIX_FILTER + "today";
 
     private final Predicate<Task> predicate;
 
