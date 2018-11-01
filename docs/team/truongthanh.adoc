@@ -66,14 +66,17 @@ given question and answer.
  https://github.com/CS2103-AY1819S1-T09-2/main/pull/171[#171])
 
 ** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 79.5% to 84%
 ** Documentation:
 *** Update developer guide (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/91[#91])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T09-2/main/pull/165[#165]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T09-2/main/pull/165[#165],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/189[#189]
 *** Reported bugs and suggestions in the issue tracker of the project
 (Issues:  https://github.com/CS2103-AY1819S1-T09-2/main/issues/161[#161],
  https://github.com/CS2103-AY1819S1-T09-2/main/issues/162[#162],
- https://github.com/CS2103-AY1819S1-T09-2/main/issues/163[#163])
+ https://github.com/CS2103-AY1819S1-T09-2/main/issues/163[#163],
+ https://github.com/CS2103-AY1819S1-T09-2/main/issues/191[#191])
 
 
 == Contributions to the User Guide
