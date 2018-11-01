@@ -18,6 +18,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.NextCommand;
+import seedu.address.logic.commands.PrevCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -55,6 +56,9 @@ public class PiconsoParser {
 
         case NextCommand.COMMAND_WORD:
             return new NextCommand();
+
+        case PrevCommand.COMMAND_WORD:
+            return new PrevCommand();
 
         case LsCommand.COMMAND_WORD:
             return new LsCommand();

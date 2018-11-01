@@ -13,22 +13,22 @@ import seedu.address.model.Model;
 /**
  * Lists the next batch of photos in the directory.
  */
-public class NextCommand extends Command {
+public class PrevCommand extends Command {
 
-    public static final String COMMAND_WORD = "next";
+    public static final String COMMAND_WORD = "prev";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the next batch of photos for viewing.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the previous batch of photos for viewing.\n"
             + "Example: " + COMMAND_WORD;
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.numOfRemainingImagesInDir() <= SelectCommand.BATCH_SIZE) {
-            throw new CommandException(Messages.MESSAGE_NO_MORE_NEXT_IMAGES);
+        if (model.getCurrBatchPointer() < SelectCommand.BATCH_SIZE) {
+            throw new CommandException(Messages.MESSAGE_NO_MORE_PREV_IMAGES);
         }
 
-        model.updateImageListNextBatch();
+        model.updateImageListPrevBatch();
         EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), true));
 
         return new CommandResult((String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())
