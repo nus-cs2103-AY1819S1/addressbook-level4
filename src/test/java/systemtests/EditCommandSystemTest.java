@@ -82,8 +82,7 @@ public class EditCommandSystemTest extends SchedulePlannerSystemTest {
 
         /* Case: edit a task with new values same as another task's values but with different name -> edited */
         assertTrue(getModel().getSchedulePlanner().getTaskList().contains(BOB));
-        index = INDEX_FIRST_TASK;
-        assertEquals(getModel().getFilteredTaskList().get(index.getZeroBased()), BOB);
+        index = INDEX_SECOND_TASK;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + DATE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedTask = new TaskBuilder(BOB).withName(VALID_NAME_AMY).build();
@@ -170,30 +169,6 @@ public class EditCommandSystemTest extends SchedulePlannerSystemTest {
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_TASK.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
-
-
-        /*---------------------------------Performing valid edit-----------------------------------------*/
-        /* commented off as the follow commands are valid as task are unique */
-        /* Case: edit a task with new values same as another task's values but with different tags -> rejected */
-
-        //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DATE_DESC_BOB +
-        // EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
-        //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
-
-        /* Case: edit a task with new values same as another task's values but with different address -> rejected */
-        //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DATE_DESC_BOB +
-        // EMAIL_DESC_BOB + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
-
-        /* Case: edit a task with new values same as another task's values but with different date -> rejected */
-        //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DATE_DESC_AMY +
-        // EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
-
-        /* Case: edit a task with new values same as another task's values but with different email -> rejected */
-        //command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + DATE_DESC_BOB +
-        // EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_TASK);
 
     }
 

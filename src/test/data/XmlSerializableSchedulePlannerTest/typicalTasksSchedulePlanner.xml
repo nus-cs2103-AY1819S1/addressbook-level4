@@ -18,8 +18,8 @@
     </tasks>
     <tasks>
         <name>Carl Kurz</name>
-        <date>120823</date>
-        <priority>1</priority>
+        <date>131018</date>
+        <priority>2</priority>
         <venue>wall street</venue>
         <tagged>owesMoney</tagged>
     </tasks>
@@ -32,20 +32,20 @@
     </tasks>
     <tasks>
         <name>Elle Meyer</name>
-        <date>120823</date>
+        <date>141018</date>
         <priority>1</priority>
         <venue>michegan ave</venue>
     </tasks>
     <tasks>
         <name>Fiona Kunz</name>
-        <date>120823</date>
-        <priority>1</priority>
+        <date>131018</date>
+        <priority>2</priority>
         <venue>little tokyo</venue>
     </tasks>
     <tasks>
         <name>George Best</name>
-        <date>120823</date>
-        <priority>1</priority>
+        <date>141018</date>
+        <priority>3</priority>
         <venue>4th street</venue>
     </tasks>
 </scheduleplanner>
