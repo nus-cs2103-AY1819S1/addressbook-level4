@@ -52,7 +52,7 @@ Responsibilities:
 '''
 
 === Tang Yurou
-image::yurou2.png[width="150", align="left"]
+image::yurou.jpg[width="150", align="left"]
 {empty}[https://github.com/YurouTang[github]]
 
 Role: Developer +
@@ -70,7 +70,7 @@ image::delong.jpg[width="150", align="left"]
 Role: Developer +
 Responsibilities:
 
-* Logic
+* UX Enhancement
 * Testing
 
 '''
