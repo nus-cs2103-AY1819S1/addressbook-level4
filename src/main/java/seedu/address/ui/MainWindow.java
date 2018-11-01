@@ -245,13 +245,13 @@ public class MainWindow extends UiPart<Stage> {
      * Removes the elements built in fillInnerParts() to reset to a blank screen.
      */
     private void removeInnerElements() {
+
         this.releaseResources();
         browserPlaceholder.getChildren().remove(browserPanel.getRoot());
         removePersonListPanelPlaceholderElements();
         resultDisplayPlaceholder.getChildren().remove(resultDisplay.getRoot());
         statusbarPlaceholder.getChildren().remove(statusBarFooter.getRoot());
         commandBoxPlaceholder.getChildren().remove(commandBox.getRoot());
-        assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
         listPickerPlaceholder.getChildren().remove(listPicker.getRoot());
     }
 

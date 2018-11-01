@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalAssignment.OASIS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -15,8 +16,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.project.Assignment;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ArchiveListBuilder;
+import seedu.address.testutil.AssignmentBuilder;
+import seedu.address.testutil.AssignmentListBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -57,13 +61,15 @@ public class ModelManagerTest {
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         ArchiveList archiveList = new ArchiveListBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AssignmentList assignmentList = new AssignmentListBuilder().withAssignment(OASIS).withAssignment(OASIS).build();
         AddressBook differentAddressBook = new AddressBook();
         ArchiveList differentArchiveList = new ArchiveList();
+        AssignmentList differentAssignmentList = new AssignmentList();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, archiveList, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, archiveList, userPrefs);
+        modelManager = new ModelManager(addressBook, assignmentList, archiveList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, assignmentList, archiveList, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -76,12 +82,14 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentArchiveList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, differentAssignmentList,
+                differentArchiveList, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, archiveList, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, assignmentList,
+                archiveList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -90,6 +98,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, archiveList, differentUserPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(addressBook, assignmentList,
+                archiveList, differentUserPrefs)));
     }
 }

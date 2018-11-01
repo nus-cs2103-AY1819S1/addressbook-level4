@@ -15,6 +15,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
+import seedu.address.testutil.TypicalAssignment;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -26,7 +27,7 @@ public class LoginTest {
 
 
     private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(),
-            TypicalPersons.getTypicalArchiveList(), new UserPrefs());
+            TypicalAssignment.getTypicalAssignmentList(), TypicalPersons.getTypicalArchiveList(), new UserPrefs());
     private Logic logic = new LogicManager(model);
 
     @Test

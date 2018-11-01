@@ -23,6 +23,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.project.Assignment;
 import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableAssignmentList;
 
 public class AssignmentListPanelTest extends GuiUnitTest {
 
@@ -82,9 +83,9 @@ public class AssignmentListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Assignment> createBackingList(int assignmentCount) throws Exception {
         Path xmlFile = createXmlFileWithAssignments(assignmentCount);
-        XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getAssignmentList());
+        XmlSerializableAssignmentList xmlAssignmentList =
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAssignmentList.class);
+        return FXCollections.observableArrayList(xmlAssignmentList.toModelType().getAssignmentList());
     }
 
     /**
@@ -93,14 +94,14 @@ public class AssignmentListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithAssignments(int assignmentCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<assignmentlist>\n");
         for (int i = 0; i < assignmentCount; i++) {
             builder.append("<assignments>\n");
-            builder.append("<projectName>").append(i).append("a</rojectName>\n");
+            builder.append("<assignmentName>").append(i).append("a</assignmentName>\n");
             builder.append("<author>000</author>\n");
             builder.append("<description>a@aa</description>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</assignmentlist>\n");
 
         Path manyAssignmentsFile = TEST_DATA_FOLDER.resolve("manyAssignments.xml");
         FileUtil.createFile(manyAssignmentsFile);

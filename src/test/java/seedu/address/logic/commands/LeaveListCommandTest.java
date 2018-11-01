@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showLeaveApplicationAtIndex;
+import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveList;
@@ -25,8 +26,10 @@ public class LeaveListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), getTypicalArchiveList(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(),
+                getTypicalArchiveList(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), getTypicalAssignmentList(),
+                getTypicalArchiveList(), new UserPrefs());
     }
 
     @Test

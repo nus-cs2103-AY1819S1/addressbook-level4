@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.AddressBook;
+import seedu.address.model.AssignmentList;
+import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 
 public class TypicalAssignment {
@@ -14,6 +17,17 @@ public class TypicalAssignment {
             .withDescription("Home Security Camera.").build();
 
     private TypicalAssignment() {} // prevents instantiation
+
+    /**
+     * Returns an {@code AddressBook} with all the typical persons.
+     */
+    public static AssignmentList getTypicalAssignmentList() {
+        AssignmentList aList = new AssignmentList();
+        for (Assignment assignment : getTypicalAssignments()) {
+            aList.addAssignment(assignment);
+        }
+        return aList;
+    }
 
     public static List<Assignment> getTypicalAssignments() {
         return new ArrayList<>(Arrays.asList(OASIS, FALCON));
