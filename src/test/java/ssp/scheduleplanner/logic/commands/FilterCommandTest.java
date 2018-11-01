@@ -5,10 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static ssp.scheduleplanner.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
 import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static ssp.scheduleplanner.testutil.TypicalTasks.ALICE;
-import static ssp.scheduleplanner.testutil.TypicalTasks.BENSON;
-import static ssp.scheduleplanner.testutil.TypicalTasks.CARL;
-import static ssp.scheduleplanner.testutil.TypicalTasks.DANIEL;
 import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
 import java.util.Arrays;
@@ -74,7 +70,7 @@ public class FilterCommandTest {
         FilterCommand command = new FilterCommand(predicate);
         expectedModel.updateFilteredTaskList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL), model.getFilteredTaskList());
+        assertEquals(expectedModel.getFilteredTaskList(), model.getFilteredTaskList());
     }
 
     /**

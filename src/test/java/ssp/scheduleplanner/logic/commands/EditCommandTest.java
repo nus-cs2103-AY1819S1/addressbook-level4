@@ -115,18 +115,6 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateTaskFilteredList_failure() {
-        showTaskAtIndex(model, INDEX_FIRST_TASK);
-
-        // edit task in filtered list into a duplicate in address book
-        Task taskInList = model.getSchedulePlanner().getTaskList().get(INDEX_SECOND_TASK.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_TASK,
-                new EditTaskDescriptorBuilder(taskInList).build());
-
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_TASK);
-    }
-
-    @Test
     public void execute_invalidTaskIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
         EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withName(VALID_NAME_BOB).build();

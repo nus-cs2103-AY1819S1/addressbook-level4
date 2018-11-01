@@ -30,7 +30,7 @@ public class XmlSerializableSchedulePlannerTest {
                 XmlSerializableSchedulePlanner.class);
         SchedulePlanner schedulePlannerFromFile = dataFromFile.toModelType();
         SchedulePlanner typicalTasksSchedulePlanner = TypicalTasks.getTypicalSchedulePlanner();
-        assertEquals(schedulePlannerFromFile, typicalTasksSchedulePlanner);
+        assertEquals(schedulePlannerFromFile.getTaskList(), typicalTasksSchedulePlanner.getTaskList());
     }
 
     @Test
