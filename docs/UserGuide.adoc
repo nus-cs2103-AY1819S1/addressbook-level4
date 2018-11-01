@@ -60,6 +60,7 @@ Refer to <<Features>> for the details of each command.
 TIP: Features are sorted by their command word in lexicographical order.
 
 
+//tag::addappt[]
 === Add appointment for patient: `addappt`
 Add a scheduled appointment for a patient.
 
@@ -71,6 +72,7 @@ Example(s):
 
 The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THERAPEUTIC), `SRG` (SURGICAL).
 *Other inputs will not be allowed.*
+//end::addappt[]
 
 === Add patient’s dietary needs: `adddiet`
 Add a patient’s dietary needs into the system.
@@ -273,6 +275,8 @@ Example(s):
 
 * `viewvisitors ic/S1234567A`
 
+image::viewvisitors_screenshot.png[width=800]
+
 === Sign in patient’s visitors: `visitorin`
 Sign in a visitor for a patient.
 
@@ -280,7 +284,9 @@ Format: `visitorin ic/PATIENT_NRIC v/VISITOR_NAME`
 
 Example(s):
 
-* `visitorin ic/S1234567A v/Sara Ann Nicholas`
+* `visitorin ic/S1234567A v/Amy`
+
+image::visitorin_screenshot.png[width=800]
 
 === Sign out patient’s visitors: `visitorout`
 Sign out a visitor for a patient.
@@ -289,7 +295,9 @@ Format: `visitorout ic/PATIENT_NRIC v/VISITOR_NAME`
 
 Example(s):
 
-* `visitorout ic/S1234567A v/Sara Ann Nicholas`
+* `visitorout ic/S1234567A v/Amy`
+
+image::visitorout_screenshot.png[width=800]
 
 === Cancel appointment for patient: `xappt`
 Cancels a scheduled appointment for a patient.

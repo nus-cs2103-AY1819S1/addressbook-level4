@@ -337,20 +337,20 @@ This is done by adding appointment-related information to a given person, repres
 This allows for users to track the upcoming appointments for every patient.
 
 The adding of appointment-related information is facilitated by the following classes:
+
 * `AppointmentsList`, a list of
 ** `Appointment`, each of which have a
 *** `Type`
 
 A more detailed description of the classes follows below:
+
 * `AppointmentsList`
 ** Every `Person` has an `AppointmentsList`, the purpose of which is to store all `Appointment` belonging to a `Person`.
 ** A wrapper class around the internal representation of a list of appointments that exposes only a few select methods in the `List` API.
 *** The methods relevant to the `addappt` command from the API are: `add`.
-
 * `Appointment`
 ** Class encapsulating all the information about a particular appointment.
 *** These information include the type of appointment (enum Type), name of the procedure, date and time of the appointment and the name of the doctor-in-charge of the appointment
-
 * `Type`
 ** An enumeration that covers all the different types of medical procedures. The four types are:
 *** `PROPAEDEUTIC`, with `PROP` as abbreviation
@@ -364,9 +364,9 @@ At the end of the explanation is a link:{repoURL}/src/main/docs/images/AddApptSe
 The user executes `addappt ic/S1234567A type/SRG pn/Heart Bypass dt/27-04-2019 1030 doc/Dr. Pepper`.
 This command has the following intent: Record the following appointment to a patient with NRIC = S1234567A:
 
-[cols="1,2a,1", options="header"]
+[cols="1,2a,2,2", options="header"]
 |===
-|Appointment type |Procedure name |Date and time |Doctor-in-charge
+|Appt. type |Procedure name |Date and time |Doctor-in-charge
 
 |`SRG`
 |Heart Bypass
@@ -538,6 +538,65 @@ image::AdddietSequenceDiagram.png[width="800"]
 ** Cons: Makes it harder to handle duplicates.
 
 // end::adddiet[]
+=== Visitorin/Viewvisitors/Visitorout
+
+==== Current implementation
+There three commands related to manage patients' visitors. +
+
+The `visitorin` command allows user to add visitors into patient's visitorList. Every patient will has his/her own `VisitorList` and
+the maximum number of visitors for a patient is set to be 5 in order to provide patient's a comfortable resting environment. +
+
+The `viewvisitors` command allows user to view a patient's current visitors in his/her `VisitorList`. It displays all the visitors from the requested patient's
+`visitorList` in order of entry. +
+
+The `visitorout` command allows user to remove a visitor from patient's `VisitorList`.
+
+===== Classes associated
+The three commands are executed mainly depends on the classes of `VisitorList` and `Visitor`. Each `Person` object contains a
+`VisitorList`. The `visitorin` and `visitorout` commands are created to add/remove a `Visitor` in the required `Person` 's `VisitorList`.
+The `viewvisitors` command display the `Person` 's `VisitorList`.
+
+* `VisitorList`, a list of
+** `Visitor` s
+
+A more detailed description of the classes involved is as follows:
+
+* `Visitor`
+** This class encapsulates the given name of the visitor.
+** `String` represent the visitor name.
+
+* `VisitorList`
+** Using `List` type of structure to store all the `Visitor` s stored for a particular patient
+
+==== Commands Execution
+To illustrate how the three commands work, examples are given below.
+
+* `visitorin ic/S1234567A v/Jane`
+** The command inputs are passed to an instance of the `LogicManager` class.
+** `AddressBookParser` parses the command word (`visitorin`) and executes `VisitorInCommandParser::parse`.
+** `VisitorInCommandParser::parse` construct and a `Visitor` (Jane), `Nric` (S1234567A) of the patient provided by the user and then returns `VisitorinCommand` object.
+** In `VisitorinCommand`, new `Visitor` object is created and added to a copy of the required `Person` object's `VisitorList`
+*** The new `Person` object is updated to the model by `Model#updatePerson` method.
+*** A new CommandResult object is returned and the execution ends.
+
+
+* `viewvisitor ic/S1234567A`
+** Similar to the `visitorin` command, `ViewvisitorsCommandParser::parse` the required patient's ic(S1234567A) and returns a `ViewvisitorsCommand` object
+** `ViewvisitorsCommand` retrieves the person with the required patient's ic and construct a copy of selected patient's VisitorList for display
+*** A new CommandResult object is returned and the execution ends.
+
+
+* `visitorout ic/S1234567A v/Jane`
+** Similar to the `visitorin` command, `VisitoroutCommandParser::parse` construct and a `Visitor` (Jane), `Nric` (S1234567A) of the patient provided by the user and then returns `VisitoroutCommand` object.
+** In `VisitoroutCommand`, new `Visitor` object is created and removed from the copy of the required `Person` object's `VisitorList`
+*** The new `Person` object is updated to the model by `Model#updatePerson` method.
+*** A new CommandResult object is returned and the execution ends.
+
+Here are the three sequence diagrams below:
+
+image::VisitorinSequenceDiagram.png[width="800"]
+image::ViewvisitorsSequenceDiagram.png[width="800"]
+image::VisitoroutSequenceDiagram.png[width="800"]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
