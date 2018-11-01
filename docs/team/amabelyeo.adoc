@@ -9,7 +9,15 @@
 
 == 1. Overview
 
-SocialCare morphs the given AddressBook - Level 4 application into a volunteer management system that allows Social Welfare Organisations to better manage their volunteers & events, and gain further statistical insights from the data. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This portfolio page documents my involvement in SocialCare, a project done as part of the CS21303T Software Engineering module taught in NUS.
+
+SocialCare is a desktop application made for social welfare organizations.
+The application is designed to help manage volunteers and events effectively.
+Users interact with the application using a Command Line Interface (CLI).
+In addition, SocialCare has a Graphical User Interface (GUI) to display information in a user-friendly manner.
+
+My role as a developer for SocialCare is to implement a *record management feature*, whereby users are able to create
+volunteering records for volunteers.
 
 == 2. Summary of contributions
 
@@ -50,7 +58,6 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=quick-start]
 include::../UserGuide.adoc[tag=command-clear]
 include::../UserGuide.adoc[tag=command-switch]
 include::../UserGuide.adoc[tag=command-record]
