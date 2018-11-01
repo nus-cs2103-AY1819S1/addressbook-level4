@@ -126,22 +126,6 @@ Examples:
 
 * `delete 3`
 
-=== Sort employee display list : `sort`
-
-Lists all employees, using a given criteria.
-
-Format: `sort -CRITERIA`
-
-There are many different criteria like name, department, etc.
-
-* To sort by name, replace CRITERIA with n
-* To sort by department, replace CRITERIA with d
-
-Examples:
-
-* `sort -d`
-* `sort -n`
-
 === List details of employee : `select`
 
 Lists the detailed information of an employee. This is the same result as if the person is clicked in the GUI.
@@ -184,22 +168,6 @@ Examples:
 * `find jian yu`
 
 * `find doe`
-
-=== Filter employees by criteria : `filter`
-
-Displays employees with details that match certain criteria specified.
-
-Format: `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]`
-
-****
-* Replace `CRITERIA` with `n` to filter by name.
-* Replace `CRITERIA` with `d` to filter by department.
-* Replace `FILTER_CRITERIA` with the name or department you want to filter.
-****
-Examples:
-
-* `filter -n Tan`
-* `filter -n Albert -d Marketing`
 
 === Edit details : `edit`
 
@@ -251,16 +219,6 @@ Format: `passwd`
 
 [WARNING]
 Passwords should not to be supplied in the command line (makes it vulnerable to viewing it through history.)
-
-=== View deleted employee archive : `archive`
-
-Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
-
-Format: `archive`
-
-****
-* To use this command, you must be logged in with "Department Manager" permissions.
-****
 
 === Undoing previous command : `undo`
 
@@ -334,6 +292,48 @@ Exits the program, automatically saving data and logging you out.
 Format: `exit`
 
 == Future Commands (Currently not implemented yet)
+
+=== Sort employee display list : `sort`
+
+Lists all employees, using a given criteria.
+
+Format: `sort -CRITERIA`
+
+There are many different criteria like name, department, etc.
+
+* To sort by name, replace CRITERIA with n
+* To sort by department, replace CRITERIA with d
+
+Examples:
+
+* `sort -d`
+* `sort -n`
+
+=== Filter employees by criteria : `filter`
+
+Displays employees with details that match certain criteria specified.
+
+Format: `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]`
+
+****
+* Replace `CRITERIA` with `n` to filter by name.
+* Replace `CRITERIA` with `d` to filter by department.
+* Replace `FILTER_CRITERIA` with the name or department you want to filter.
+****
+Examples:
+
+* `filter -n Tan`
+* `filter -n Albert -d Marketing`
+
+=== View deleted employee archive : `archive`
+
+Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
+
+Format: `archive`
+
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+****
 
 === Restoring employee to active list: `restore`
 
