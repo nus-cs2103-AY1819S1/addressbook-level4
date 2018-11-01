@@ -128,7 +128,7 @@ image::user-guide-help-window-after.png[width="500"]
 
 ==== Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+You can view all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
 [NOTE]
@@ -138,13 +138,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the clinic record. +
+You can clears all entries from the clinic record. +
 Format: `clear`
 
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
-Restores the clinic record to the state before the previous _undoable_ command was executed. +
+You can restores ClinicIO to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -170,7 +170,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 ==== Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+You can reverses the most recent `undo` command. +
 Format: `redo`
 
 Examples:
@@ -193,11 +193,13 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Exiting the program : `exit`
 
-Exits the program. +
+You can exit ClinicIO. +
 Format: `exit`
 
 // tag::authenticationcommands[]
 === User Authentication Commands
+
+User Authentication  
 
 ==== Login : `login`
 
@@ -241,6 +243,8 @@ Format: `logout`
 
 // tag::patientcommands[]
 === Patient Management Commands
+
+User Authentication 
 
 ==== Adding a patient: `addpatient` `[coming in v2.0]`
 
