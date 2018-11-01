@@ -143,45 +143,6 @@ public class ParserUtil {
         return tagSet;
     }
 
-    /**
-     * Parses a {@code String groupTag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
-     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
-     * and will be deprecated progressively when Group implementation is updated.
-     *
-     * @throws ParseException if the given {@code groupTag} is invalid.
-     */
-    @Deprecated
-    public static Tag parseGroupTag(String groupTag) throws ParseException {
-        requireNonNull(groupTag);
-        String trimmedGroupTag = groupTag.trim();
-        if (!Tag.isValidTagName(trimmedGroupTag)) {
-            throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
-        }
-        return new Tag(trimmedGroupTag);
-    }
-
-    /**
-     * Parses a {@code Collection<String> groupTags} into a {@code Set<Tag>}
-     *
-     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
-     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
-     * and will be deprecated progressively when Group implementation is updated.
-     */
-    @Deprecated
-    public static Set<Tag> parseGroupTags(Collection<String> groupTags) throws ParseException {
-        if (groupTags == null || groupTags.isEmpty()) {
-            return null;
-        }
-        final Set<Tag> groupTagSet = new HashSet<>();
-        for (String groupTagName : groupTags) {
-            groupTagSet.add(parseGroupTag(groupTagName));
-        }
-        return groupTagSet;
-    }
-
     /* @@author NyxF4ll */
     /**
      * Parse a {@code String} representation of a timestamp into a {@code TimeStamp} object.

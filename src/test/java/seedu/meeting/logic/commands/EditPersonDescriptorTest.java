@@ -6,7 +6,6 @@ import static seedu.meeting.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.meeting.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.meeting.logic.commands.CommandTestUtil.VALID_GROUPTAG_PROJECT;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -54,10 +53,6 @@ public class EditPersonDescriptorTest {
 
         // different tags -> returns false
         editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
-
-        // different group tags -> returns false
-        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY).withTags(VALID_GROUPTAG_PROJECT).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

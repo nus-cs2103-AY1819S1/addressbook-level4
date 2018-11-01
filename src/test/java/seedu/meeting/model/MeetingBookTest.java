@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.meeting.logic.commands.CommandTestUtil.VALID_GROUPTAG_CCA;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.meeting.testutil.TypicalGroups.GROUP_2101;
 import static seedu.meeting.testutil.TypicalGroups.PROJECT_2103T;
@@ -33,7 +32,6 @@ import seedu.meeting.model.person.Person;
 import seedu.meeting.model.person.exceptions.DuplicatePersonException;
 import seedu.meeting.model.person.exceptions.PersonNotFoundException;
 import seedu.meeting.model.shared.Title;
-import seedu.meeting.model.tag.Tag;
 import seedu.meeting.testutil.GroupBuilder;
 import seedu.meeting.testutil.PersonBuilder;
 
@@ -66,11 +64,11 @@ public class MeetingBookTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .withGrouptags(VALID_GROUPTAG_CCA).build();
+            .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         // HACK
         // TODO: change to correctly take in groups
-        MeetingBookStub newData = new MeetingBookStub(newPersons, editedAlice.getGroupTags());
+        MeetingBookStub newData = new MeetingBookStub(newPersons);
 
         thrown.expect(DuplicatePersonException.class);
         meetingBook.resetData(newData);
@@ -102,6 +100,7 @@ public class MeetingBookTest {
     @Test
     public void addGroup_groupInMeetingBook_returnsTrue() {
         MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addPerson(ALICE);
         meetingBook.addGroup(PROJECT_2103T);
         assertTrue(meetingBook.hasGroup(PROJECT_2103T));
     }
@@ -281,11 +280,8 @@ public class MeetingBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
-        private final ObservableList<Tag> groupTags = FXCollections.observableArrayList();
-
-        MeetingBookStub(Collection<Person> persons, Collection<Tag> groups) {
+        MeetingBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
-            this.groupTags.setAll(groups);
         }
 
         @Override
