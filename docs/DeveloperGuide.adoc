@@ -952,6 +952,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 _This feature is coming in v2.0._
 // end::weather[]
 
+// tag::dataencryption[]
 === [Proposed] Data Encryption
 
 The car park data and user data will be encrypted to prevent users from editing and manipulating them.
@@ -969,6 +970,7 @@ The two main files it will encrypt are:
 ==== Example
 
 _This feature is coming in v2.0._
+// end::dataencryption[]
 
 == Documentation
 
