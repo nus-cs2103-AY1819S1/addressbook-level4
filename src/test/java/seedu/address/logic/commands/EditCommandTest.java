@@ -219,7 +219,9 @@ public class EditCommandTest {
 
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder().withUsername(personToEdit.getUsername().username)
-                .withPassword(personToEdit.getPassword().password).build();
+                .withPassword(personToEdit.getPassword().password)
+                .withLeaveApplications(personToEdit.getLeaveApplications())
+                .build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);

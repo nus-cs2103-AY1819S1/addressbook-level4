@@ -22,6 +22,7 @@ import seedu.address.model.ArchiveList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveList;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.testutil.PersonBuilder;
@@ -150,6 +151,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

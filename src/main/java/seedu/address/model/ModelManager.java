@@ -9,10 +9,12 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ArchivedListChangedEvent;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 
@@ -25,6 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedArchiveList versionedArchiveList;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<LeaveApplicationWithEmployee> filteredLeaveApplications;
     private final FilteredList<Person> archivedPersons;
     private User loggedInUser;
 
@@ -40,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedArchiveList = new VersionedArchiveList(archiveList);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredLeaveApplications = new FilteredList<>(versionedAddressBook.getLeaveApplicationList());
         archivedPersons = new FilteredList<>(versionedArchiveList.getPersonList());
     }
 
@@ -133,6 +137,23 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Filtered Leave Application List Accessors ============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code LeaveApplication} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
+        return FXCollections.unmodifiableObservableList(filteredLeaveApplications);
+    }
+
+    @Override
+    public void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate) {
+        requireNonNull(predicate);
+        filteredLeaveApplications.setPredicate(predicate);
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -182,7 +203,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredLeaveApplications.equals(other.filteredLeaveApplications);
     }
 
 }
