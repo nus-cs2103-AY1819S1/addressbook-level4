@@ -78,7 +78,7 @@ public class LeaveApplicationTest {
         builder.append(" Description: ")
                 .append("Benson's brother's wedding")
                 .append(" Status: ")
-                .append(StatusEnum.Status.APPROVED.toString())
+                .append(StatusEnum.Status.PENDING.toString())
                 .append(" Dates: ")
                 .append(LocalDate.of(2018, 10, 25).toString())
                 .append(LocalDate.of(2018, 10, 26).toString());
