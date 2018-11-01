@@ -23,10 +23,15 @@ public class IsNotBlockedPredicate implements Predicate<Task> {
                 .getDependency()
                 .getHashes()
                 .stream()
-                .map(hash -> model.getTaskManager().getTaskList().filtered(t -> String.valueOf(t.hashCode()).equals(hash)).get(0))
+                .peek(x -> System.out.println(x))
+                .map(hash -> model
+                        .getTaskManager()
+                        .getTaskList()
+                        .filtered(t -> String.valueOf(t.hashCode()).equals(hash))
+                        .get(0))
                 .filter(t -> !t.isStatusCompleted())
-                .toArray()
-                .length == 0;
+                .collect(Collectors.toList())
+                .size() == 0;
     }
 
     @Override
