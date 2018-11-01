@@ -23,6 +23,7 @@ public class AutoCompleteCommandHelper {
         PasswordCommand.COMMAND_WORD,
         RedoCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD,
+        SelfEditCommand.COMMAND_WORD,
         UndoCommand.COMMAND_WORD,
         ViewPermissionCommand.COMMAND_WORD
     };
