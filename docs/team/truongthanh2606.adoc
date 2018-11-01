@@ -114,5 +114,7 @@ include::../DeveloperGuide.adoc[tag=modelcomponent]
 
 include::../DeveloperGuide.adoc[tag=cardleveloperation]
 
+include::../DeveloperGuide.adoc[tag=handleinvalidcommands]
+
 include::../DeveloperGuide.adoc[tag=keepcardspanelupdatedbyui]
 
