@@ -1,5 +1,6 @@
 package seedu.clinicio.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ALLERGIES;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -15,6 +16,7 @@ import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.patient.Patient;
 
 //@@author jjlee050
 /**
@@ -45,9 +47,19 @@ public class AddPatientCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
 
+    private Patient toAdd;
+    
+    public AddPatientCommand(Patient toAdd) {
+        requireNonNull(toAdd);
+        this.toAdd = toAdd;
+    }
+    
     @Override
     public CommandResult execute(Model model, CommandHistory history, Analytics analytics)
             throws CommandException {
-        return new CommandResult(MESSAGE_USAGE);
+        // TODO: Find if there is patient record in ClinicIO
+        //model.addPatient(toAdd);
+        model.commitClinicIo();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

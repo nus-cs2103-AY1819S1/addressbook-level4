@@ -56,7 +56,7 @@ public class ClinicIoParser {
             return new AddCommandParser().parse(arguments);
 
         case AddPatientCommand.COMMAND_WORD:
-            return new AddPatientCommand();
+            return new AddPatientCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
