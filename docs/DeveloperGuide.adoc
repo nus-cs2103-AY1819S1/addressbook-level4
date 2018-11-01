@@ -17,7 +17,255 @@ endif::[]
 ## Disclaimer
 This guide was adapted from relevant parts of the developer guide from AB4 (https://github.com/nus-cs2103-AY1819S1/addressbook-level4). This project and AB4 are distributed under the MIT license.
 
+<<<<<<< HEAD
 
+=======
+## Appendix A: Target User Profile
+
+Tech savvy students who need to keep their tasks organized and motivate themselves to complete them.
+
+The target age group is from 15 years old to 25 years old.
+
+Attributable to our target demographic are the following qualities:
+
+==== Setting up CI
+
+  * Adept with technology
+  * Inclined to vicariously project a virtual avatar's experience unto themselves
+  * Inclined against keeping data on physical mediums
+  * Perpetually experiencing the continuous bombardment of deadlines from assignments
+
+## Appendix B: Value proposition
+
+By offering a gamified experience, we hope to be able to improve the user experience and keep users motivated in completing their tasks.
+
+## Appendix C: User Stories
+Priorities: High (must have) - * * *, Medium (nice to have) - * *, Low (unlikely to have) - *
+|===
+| Priority   | As a ...  | I want to ... | So that I can ...
+| * * * | organised student | apply lables to my task | focus on tasks
+| * * * | forgetful student | alerted of important deadlines | not forget about tasks
+| * * * | busy person | easily prioritise tasks | get important things out of the way first
+| * * * | organised student | have tasks organised by categories that they are under | manage
+different aspects of life better
+| * * * | proactive individual | view the day's task at a glance | I know what I need to do
+| * * * | user | see task organized between todos and dones | better organisation
+| * * * | user | see a list of tasks that needs attention at present time| I may pay attention to
+them first
+| * * | long-sighted quantitative person |  overview of my past tasks of the week | I can track
+my progress and evaluate how I am doing.
+|* * | user | have rewards for completing tasks | continue doing tasks
+|* *| user | see list of tasks that need my attention most at the present time | pay attention to
+ them first
+| * * | user | see QOTD for basic motivation | motivation
+| * * | user that is demoralized easily | get positive encouragement |stay motivated
+| * * | user | negative reinforcement  | stay motivated
+|* *| user | statistics function | keep track of progress
+| * * | user | insights function | keep track of progress
+|* *| competitive user | compete with friends | challenge myself and peers
+| * | person without arms | have the computer interpret my words | type with my toes
+| * | person who hates rules | enter tasks in a specified format and computer should interpret for me | easy addition of tasks
+| * | visual person | colour coding in tasks | visually discern between tasks
+| * | user | feedback on completion of tasks | better plan ways to handle tasks
+| * | lazy student | provide intuitive information about the chaining to tasks | easy to tell end of task
+| * | user | customize persona | make tasks seem more personal
+| * | unmotivated student | see tasks creatively explosively destroy themselves | derive more enjoyment
+|===
+
+## Appendix D: Use cases
+Only features that require more than a few steps to implement will be shown.
+
+### Use case: Display Welcome Screen
+#### MSS
+.  User logs in successfully
+.  Application fetches QOTD and shows it.
+.  Application then displays **10** tasks sorted by ascending deadline.
+
+Use case ends.
+
+#### Extensions
+
+* 3a. There are less than **10** tasks available
+** 3a1. Let the number of tasks available be `n`, then `n` tasks will be shown.
+
+Use case ends.
+
+* 3b. There are multiple tasks with the same deadline.
+** 3b1. Tie will be broken by the lexicographic order of Task name
+** 3b2. If multiple tasks have the same lexicographic order, the outputted task will be
+non-deterministic
+
+Use case ends.
+
+### Use case: List Task
+#### MSS
+. User requests to list tasks, fulfilling a (potentially empty) set of criteria.
+. Application shows a list of corresponding tasks.
+
+Use case ends.
+
+#### Extensions
+* 1a. No matches found.
+** 1a1. Application informs user that no tasks matching the specified criteria have been found.
+
+Use case ends.
+
+### Use case: Add task
+#### MSS
+. User requests to add a task in the list
+. Application adds the task
+
+Use case ends.
+
+#### Extensions
+* 1a. The task already exists.
+** 1a1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+* 1b. The user enters the add command in a wrong format.
+** 1b1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+### Use case: Add dependency for task
+#### MSS
+. User requests to add a dependency between tasks
+. Application adds the task dependency
+
+Use case ends.
+
+#### Extensions
+* 1a. The additional task dependency creates a cyclic dependency
+** 1a1. Application shows an error message, rejects the additional task dependency
+
+Use case resumes at step 1 in MSS.
+
+* 1b. The user enters the add dependency command in a wrong format.
+** 1b1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+### Use case: Remove dependency for task
+#### MSS
+. User requests to remove a dependency between tasks
+. Application removes the task dependency
+
+Use case ends.
+
+#### Extensions
+* 1a. The user enters the remove dependency command in a wrong format.
+** 1a1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+### Use case: Delete task
+#### MSS
+. User requests to delete a task with a particular index
+. Application deletes the task
+
+Use case ends.
+
+#### Extensions
+* 1a. A task with the specified index does not exist.
+** 1a1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+* 1b. The task with the specified index is already deleted.
+** 1b1. Application shows an error message.
+
+Use case resumes at step 1 in MSS.
+
+### Use case: Viewing Command History
+#### MSS
+. User requests to view command history.
+. Application displays command history.
+
+Use case ends.
+
+#### Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no command history.
+
+Use case ends.
+
+### Use case: Undoing Last Command
+#### MSS
+. User requests undoing last command.
+. Application resets state to before last state-changing command.
+
+Use case ends.
+
+#### Extensions
+* 1a. Command history is empty.
+** 1a1. Application informs user that there is no past history to undo.
+
+Use case ends.
+
+### Use case: Redoing Last Command
+#### MSS
+. User requests redoing last command.
+. Application resets state to before last state-changing command was undone.
+
+Use case ends.
+
+#### Extensions
+* 1a. The immediately preceding command (ignoring redone undos) is not an undo command
+** 1a1. Application informs user that there is no undo to redo.
+
+Use case ends.
+
+### Use case: Completing Task (Single)
+#### MSS
+. User marks task as complete.
+. Application displays a default congratulatory message, reports points earned and task completed to user.
+
+#### Extensions
+* 1a. An error occurs, causes one of the task to not be completed
+** 1a1. Application displays error message, no points are earned either.
+
+* 2a. User earns enough points to level up
+** 2a1. Application displays a congratulatory message for leveling up, points earned and task completed to user.
+
+### Use case: Completing Task (Batch via `Label`)
+#### MSS
+. User marks a batch of tasks with the same specified `Label` as complete.
+. Application displays a default congratulatory message, reports points earned and task(s) completed to user.
+
+#### Extensions
+* 1a. An error occurs, causes one of the tasks to not be able to be completed
+** 1a1. Application displays an error message, resetting the batch of tasks to their
+pre-completed state and no points are earned.
+
+* 2a. User earns enough points to level up
+** 2a1. Application displays a congratulatory message for leveling up, points earned and task(s) completed to user.
+
+## Non-functional requirements
+- There should be no noticeable lag when typing on the command line.
+- Should work on any mainstream OS as long as it has Java 9 or higher installed.
+- Storage of application data will be in a text file.
+- Should be able to hold up to 1000 tasks without a noticeable decline in performance.
+- Should not take more than 3 seconds to complete a command.
+- System should be maintainable with proper documentation.
+- Proper feedback to user when error occurs.
+
+## Glossary
+
+A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.
+
+|===
+| Word         | Meaning
+
+|   Task
+| A piece of work to be completed and is registered by the user
+
+| Application  |  Refers to the CLI application registered by the user
+|Mainstream OS    | Windows, Linux, Unix, OS-X
+|Points | A unit of measurement to measure current experience
+| Level | A larger unit of measurement to measure experience.
+|===
+>>>>>>> 31aa2286d06fa242c54f7e313e50857c67192db3
 
 ## 1. Setting up
 
@@ -224,8 +472,8 @@ this week` commands to specify their choices.
 ### 3.2. Batch Completion via Label feature
 #### 3.2.1. Current Implementation
 
-The batch completion mechanism is facilitated by `CompleteCommand`.
-It extends `Command` and encapsulates the internal logic of finding task and completing multiple
+The batch completion mechanism is facilitated by `CompleteLabelCommand`.
+It extends `CompleteCommand` and encapsulates the internal logic of finding task and completing multiple
 tasks atomically.
 
 Additionally, in order to facilitate the finding of task and completing tasks atomically, the
@@ -233,7 +481,7 @@ following auxiliary classes have been created / extended as a result:
 
 * `LabelMatchesKeywordPredicate` -- Extension of the functional interface `Predicate<E>`
 ** This class is required to encapsulate the logic of determining if a task has a `Label` matching
-the desired `Label`.
+the desired `Label` (case-insensitive).
 
 *Updated*
 
@@ -249,14 +497,13 @@ These are the methods in the CompleteCommand class supporting the batch completi
 * `#completeOneTaskReturnStringOfTasks(Task, Model)`
 
 [NOTE]
-The `CompleteCommand` class has two overloaded constructors, one taking in a
-`Task<Predicate>` and another taking in an `Index` to support polymorphic behavior for both a
-single operation and batch operation.
-These operations are exposed in the `CompleteCommand` class via `CompleteCommand#execute(...)`.
+The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
+`Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
+takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-_Premise: The application has several tasks tagger with the `Label::many`._
+_Premise: The application has several tasks tagged with the label: many._
 
 Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
 
@@ -288,8 +535,8 @@ it's status to `COMPLETED`
 
 * **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
 otherwise `Model#commit()`
-** Pros: This implementation defensively codes for scenarios where exceptions are thrown, thus
-ensuring that no half-done batch operation may left.
+** Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
+ensuring that there are no partially-done batch operation resulting in harder to debug state.
 ** Cons: Increases coupling of components.
 * **Alternative 2:** Doing a check on all tasks and only proceeding to update the model and
 commit if deemed that all tasks can be completed successfully else throw an exception.
@@ -299,23 +546,31 @@ batch operation.
 
 ##### 3.2.2.2. Aspect: Handling different CompleteCommand behaviour
 
-* **Alternative 1 (current choice):** Overloading the constructors and implement the logic for
+* **Alternative 1:** Overloading the constructors and implementing the logic for
 both behaviours within.
 ** Pros: Groups possibly tightly coupled code together into a single class; thus reducing
 coupling.
-** Cons: Possibly goes against the Seperations of Concerns principle.
-* **Alternative 2 (possible enhancement):** Implementing `CompleteCommand` as a interface and
-creating two separate
-classes for each of the behaviours.
-** Pros: Clear separation of concern.
-** Cons: Harder to design properly.
+** Cons: Possibly goes against the Separations of Concerns principle.
+* **Alternative 2 (current choice)** Implementing `CompleteCommand` as an abstract class. Each class would then inherit
+and implement the abstract methods, providing different polymorphic behaviours for `CompleteCommand`. Currently, the
+two different behaviours implemented are: completion via index and completion via label.
+** Pros: Clear separation of concern, respecting the Single Responsibility Principle.
+** Cons: Harder to initially design properly.
+
+[NOTE]
+Alternative 2 was considered for `CompleteCommandParser`. However in this case, it is hard to determine whether
+the argument is meant for `CompleteLabelCommand` or `CompleteIndexCommand` until actually parsing, As such, it could be
+viewed that the job of figuring out what to parse the argument as is subsumed under the concerned of parsing. Thus
+`CompleteCommandParser` is viewed to still respect the Single Responsibility Principle, and it's separation may result in
+a high amount of coupling.
 
 ##### 3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand
 
 * **Alternative 1 (current choice):** As an explicit implemented class
 `LabelMatchesKeywordPredicate`.
-** Pros: Notion of equality can be overload, making testing for equality in every class composing
- the class able to check for structural equality.
+** Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
+`LabelMatchesKeywordPredicate`. In sum, it allows for the checking of structural equality rather than just referential
+equality.
 ** Cons: Creation of an extra class requires more understanding by developers to pick up the
 quirks as opposed to commonly recognised _Alternative 2_
 * **Alternative 2:** Declaration of predicate as an anonymous function
@@ -337,6 +592,9 @@ latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to re
 the latest commit, also the `currentStatePointer` is set to point at the index of the latest
 commit in `taskManagerStateList`.
 
+image::RollbackModelSequenceDiagram.png[width="1200"]
+
+_Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for brevity_
 
 ### 3.4. Dependency Feature Modelling
 #### 3.4.1. Current Implementation
