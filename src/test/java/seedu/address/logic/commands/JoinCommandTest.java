@@ -8,7 +8,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_GROUP_NOT_FOUND;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
-import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import java.util.ArrayList;
