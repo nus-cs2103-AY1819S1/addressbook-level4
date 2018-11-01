@@ -196,7 +196,8 @@ public class MainApp extends Application {
     }
 
     private PopUpManager initPopUpManager() {
-        popUp = new PopUpManager(model.getScheduler());
+        popUp = PopUpManager.getInstance();
+        popUp.syncPopUpInfo(model.getScheduler());
         return popUp;
     }
 
@@ -210,6 +211,7 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Scheduler ] =============================");
+        model.syncWithPopUpManager(PopUpManager.getInstance(), storage);
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

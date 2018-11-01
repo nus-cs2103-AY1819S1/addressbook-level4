@@ -11,7 +11,7 @@
         <venue>Jack's House</venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-01-01T17:00</repeatUntilDateTime>
-        <reminderDurationList>PT15M: false, PT1H30M: false</reminderDurationList>
+        <reminderDurationList>PT15M, PT1H30M</reminderDurationList>
         <tagged>Talk</tagged>
         <tagged>Personal</tagged>
     </events>
@@ -25,7 +25,7 @@
         <venue>Jane Street</venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-01-02T15:00</repeatUntilDateTime>
-        <reminderDurationList>PT30M: false</reminderDurationList>
+        <reminderDurationList>PT30M</reminderDurationList>
         <tagged>Work</tagged>
         <tagged>Interview</tagged>
     </events>
@@ -151,7 +151,7 @@
         <venue>Jim's House</venue>
         <repeatType>YEARLY</repeatType>
         <repeatUntilDateTime>2020-12-31T01:00</repeatUntilDateTime>
-        <reminderDurationList>PT30M: false, PT1H30M: false</reminderDurationList>
+        <reminderDurationList>PT30M, PT1H30M</reminderDurationList>
         <tagged>Celebration</tagged>
     </events>
     <events>
@@ -164,7 +164,7 @@
         <venue>Jim's House</venue>
         <repeatType>YEARLY</repeatType>
         <repeatUntilDateTime>2020-12-31T01:00</repeatUntilDateTime>
-        <reminderDurationList>PT30M: false, PT1H30M: false</reminderDurationList>
+        <reminderDurationList>PT30M, PT1H30M</reminderDurationList>
         <tagged>Celebration</tagged>
     </events>
     <events>
@@ -177,7 +177,7 @@
         <venue>Jim's House</venue>
         <repeatType>YEARLY</repeatType>
         <repeatUntilDateTime>2020-12-31T01:00</repeatUntilDateTime>
-        <reminderDurationList>PT30M: false, PT1H30M: false</reminderDurationList>
+        <reminderDurationList>PT30M, PT1H30M</reminderDurationList>
         <tagged>Celebration</tagged>
     </events>
     <events>

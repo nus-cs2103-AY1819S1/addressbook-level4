@@ -1,16 +1,14 @@
 package seedu.scheduler.model.event;
 
-import static java.lang.Boolean.FALSE;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * Represents a list of duration object for reminder times
@@ -18,13 +16,15 @@ import java.util.Map;
 public class ReminderDurationList {
 
     public static final String EMPTY_VALUE = "NONE";
-    private Map<Duration, Boolean> values = new HashMap<>();
+    public static final String NO_REMINDER_DISPLAY = "No Reminder";
+    public static final String REMINDER_DISPLAY_SUFFIX = " before the start time";
+    private Set<Duration> values = new HashSet<>();
+
 
     /**
      * Default constructor for ReminderDurationList
      */
     public ReminderDurationList(){
-
     }
 
     /**
@@ -34,24 +34,33 @@ public class ReminderDurationList {
      */
     public ReminderDurationList(Collection<Duration> reminderDurations) {
         requireNonNull(reminderDurations);
-        for (Duration duration: reminderDurations) {
-            values.put(duration, FALSE);
-        }
+        values = new HashSet<>(reminderDurations);
+
     }
 
+    /**
+     * Read a string stored in data file and convert to ReminderDurationList
+     * @param durationList
+     */
     public ReminderDurationList(String durationList) {
         if (!durationList.equals(ReminderDurationList.EMPTY_VALUE)) {
-            List<String> keyValuePairs = Arrays.asList(durationList.split(","));
-            for (String keyValueString: keyValuePairs) {
-                ArrayList<String> durationValue = new ArrayList<>(Arrays.asList(keyValueString.split(":")));
-                values.put(Duration.parse(durationValue.get(0).trim()),
-                        Boolean.parseBoolean(durationValue.get(1).trim()));
+            List<String> durations = Arrays.asList(durationList.split(","));
+            for (String durationValue: durations) {
+                values.add(Duration.parse(durationValue.trim()));
             }
         }
     }
 
-    public Map<Duration, Boolean> get () {
+    public Set<Duration> get() {
         return values;
+    }
+
+    /**
+     * Check if ReminderDurationList is empty
+     * @return if ReminderDurationList is empty
+     */
+    public Boolean isEmpty() {
+        return values.isEmpty();
     }
 
     /**
@@ -62,17 +71,16 @@ public class ReminderDurationList {
         return values.size();
     }
 
+
+
     /**
-     * add input duration object to the last of the list
+     * add input duration object to the set
      * @param duration
      */
     public void add(Duration duration) {
-        values.put(duration, FALSE);
+        values.add(duration);
     }
 
-    public void add(Duration duration, boolean status) {
-        values.put(duration, status);
-    }
 
     /**
      * Get string input for the event
@@ -84,9 +92,23 @@ public class ReminderDurationList {
         }
 
         String output = "";
-        for (Duration duration: values.keySet()) {
+        for (Duration duration: values) {
             output += PREFIX_EVENT_REMINDER_DURATION + duration.toString().replace("PT", "");
         }
+        return output;
+
+    }
+
+    /**
+     * Get string display in event panel for the event
+     * @return string input
+     */
+    public String getDisplayString() {
+        if (values.isEmpty()) {
+            return NO_REMINDER_DISPLAY;
+        }
+        String output = toString().replace("PT", "");
+        output += REMINDER_DISPLAY_SUFFIX;
         return output;
 
     }
@@ -97,8 +119,8 @@ public class ReminderDurationList {
         if (values.size() == 0) {
             output = EMPTY_VALUE;
         } else {
-            for (Duration duration: values.keySet()) {
-                output += duration.toString() + ": " + values.get(duration).toString() + ", ";
+            for (Duration duration: values) {
+                output += duration.toString() + ", ";
             }
             output = output.substring(0, output.length() - 2);
         }

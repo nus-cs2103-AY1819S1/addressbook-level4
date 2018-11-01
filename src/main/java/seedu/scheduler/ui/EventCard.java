@@ -38,6 +38,8 @@ public class EventCard extends UiPart<Region> {
     private Label venue;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label reminderDurationList;
 
     public EventCard(Event event, int displayedIndex) {
         super(FXML);
@@ -48,6 +50,7 @@ public class EventCard extends UiPart<Region> {
         endDateTime.setText(event.getEndDateTime().getPrettyString());
         endDateTime.setText(event.getEndDateTime().getPrettyString());
         venue.setText(event.getVenue().value);
+        reminderDurationList.setText(event.getReminderDurationList().getDisplayString());
         event.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

@@ -11,6 +11,7 @@
         <venue>School of Computing</venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-09-21 11:00:00</repeatUntilDateTime>
+        <reminderDurationList>PT15M, PT1H30M</reminderDurationList>
     </events>
     <!-- Event with invalid eventName field -->
     <events>
@@ -23,5 +24,6 @@
         <venue></venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-10-11 01:00:00</repeatUntilDateTime>
+        <reminderDurationList>PT15M, PT1H30M</reminderDurationList>
     </events>
 </addressbook>
