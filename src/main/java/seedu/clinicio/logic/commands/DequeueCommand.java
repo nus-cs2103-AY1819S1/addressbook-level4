@@ -14,8 +14,7 @@ import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 
-
-
+//@@author iamjackslayer
 /**
  * Removes a given patient from the queue.
  */
