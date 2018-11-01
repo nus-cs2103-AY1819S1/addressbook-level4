@@ -90,6 +90,12 @@ public interface Model {
     void updateFilteredLeaveApplicationList(Predicate<LeaveApplicationWithEmployee> predicate);
 
     /**
+     * Updates the filter of the filtered leave application list to filter by the given {@code person}.
+     * @throws NullPointerException if {@code person} is null.
+     */
+    void updateFilteredLeaveApplicationListForPerson(Person person);
+
+    /**
      * Returns true if the model has previous address book states to restore.
      */
     boolean canUndoAddressBook();

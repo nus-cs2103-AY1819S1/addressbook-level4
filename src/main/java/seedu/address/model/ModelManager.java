@@ -168,6 +168,13 @@ public class ModelManager extends ComponentManager implements Model {
         filteredLeaveApplications.setPredicate(predicate);
     }
 
+    @Override
+    public void updateFilteredLeaveApplicationListForPerson(Person person) {
+        requireNonNull(person);
+        updateFilteredLeaveApplicationList(leaveApplication
+            -> leaveApplication.getEmployee().isSamePerson(loggedInUser.getPerson()));
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

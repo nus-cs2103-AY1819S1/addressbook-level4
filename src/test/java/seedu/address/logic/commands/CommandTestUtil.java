@@ -26,6 +26,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.leaveapplication.LeaveDescriptionContainsKeywordsPredicate;
+import seedu.address.model.leaveapplication.LeaveEmployeeEqualsPredicate;
 import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -212,5 +213,15 @@ public class CommandTestUtil {
                 Arrays.asList(splitDesc[0])));
 
         assertEquals(1, model.getFilteredLeaveApplicationList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered leave list to show only the leave application for a given {@code Person}
+     * in the {@code model}'s address book.
+     */
+    public static void showLeaveApplicationForPerson(Model model, Person person) {
+        assertTrue(model.hasPerson(person));
+
+        model.updateFilteredLeaveApplicationList(new LeaveEmployeeEqualsPredicate(person));
     }
 }
