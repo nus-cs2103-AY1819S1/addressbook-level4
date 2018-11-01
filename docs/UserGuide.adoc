@@ -143,6 +143,20 @@ Examples:
 
 * `select 3`
 
+=== Add an assignment : `addassignment`
+
+Adds an assignment into the system.
+
+Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION`
+
+****
+* To use this command, you must be logged in with "Create assignment" permissions.
+****
+Examples:
+
+* `addassignment -an KRYPTONE -au Jhonny English -d Data encription application.`
+* `addassignment -n IRobot -au Tom Smith -d Autonomous robotic vacuum cleaner which has intelligent programming.`
+
 === Apply for leave : `leaveapply`
 
 Apply for leave on specific dates.
@@ -390,6 +404,30 @@ Format: `leavesummary`
 View income summary for the month.
 
 Format: `summary`
+
+=== Listing all assignments: `listassignment`
+
+Shows a list of all assignments in the system.
+
+Format: `listassignment`
+
+****
+* To use this command, you must be logged in with "View Assignment" permissions.
+****
+
+=== Removing an assignment: `deleteassignment`
+
+Removes an assignment from the system.
+
+Format: `deleteassignment INDEX`
+
+****
+* To use this command, you must be logged in with "Remove Assignment" permissions.
+****
+
+Examples:
+
+* `deleteassignment 3`
 
 == FAQ
 
