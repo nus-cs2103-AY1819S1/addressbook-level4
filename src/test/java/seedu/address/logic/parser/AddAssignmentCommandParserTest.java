@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_OAS
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_OASIS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddAssignmentCommand;
