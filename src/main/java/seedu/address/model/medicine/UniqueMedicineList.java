@@ -1,4 +1,3 @@
-/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import static java.util.Objects.requireNonNull;
@@ -44,7 +43,7 @@ public class UniqueMedicineList implements Iterable<Medicine> {
     /**
      * Returns true if the list contains an equivalent medicine as the given medicine name.
      */
-    public boolean contains(MedicineName toCheck) {
+    public boolean containsMedicineName(Medicine toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(medicine -> medicine.hasSameMedicineName(toCheck));
     }
