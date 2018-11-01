@@ -17,6 +17,8 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs {
 
+    private static int currBatchPointer = 0;
+
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path currDirectory = Paths.get(System.getProperty("user.home"));
@@ -57,14 +59,14 @@ public class UserPrefs {
      */
     public void updateUserPrefs(Path newCurrDirectory) {
         this.currDirectory = newCurrDirectory;
-        updateImageList();
+        initImageList();
     }
 
     /**
      * Update the list of images {@code imageList} with the images found in current directory
      * {@code currDirectory}
      */
-    public void updateImageList() {
+    public void initImageList() {
         File currFileDir = new File(currDirectory.toString());
         File[] currFiles = currFileDir.listFiles();
         ArrayList<Path> dirImageList = new ArrayList<>();
@@ -86,11 +88,38 @@ public class UserPrefs {
     }
 
     /**
-     * Update the list of images {@code imageList} with the images found in current directory
-     * {@code currDirectory}
+     * Returns the total number of images in {@code imageList}
      */
-    public void updateImageList(ArrayList<Path> dirImageList) {
-        imageList = dirImageList;
+    public int getTotalImagesInDir() {
+        return imageList.size();
+    }
+
+    /**
+     * Returns the {@code currBatchPointer}
+     */
+    public int numOfRemainingImagesInDir() {
+        return getTotalImagesInDir() - getCurrBatchPointer();
+    }
+
+    /**
+     * Returns the current batch pointer in {@code UserPrefs}
+     */
+    public int getCurrBatchPointer() {
+        return currBatchPointer;
+    }
+
+    /**
+     * Update the {@code currBatchPointer} to the next 10 images
+     */
+    public void updateImageListNextBatch() {
+        currBatchPointer += 10;
+    }
+
+    /**
+     * Update the {@code currBatchPointer} to the prev 10 images
+     */
+    public void updateImageListPrevBatch() {
+        currBatchPointer -= 10;
     }
 
     /**
@@ -105,8 +134,8 @@ public class UserPrefs {
         }
     }
 
-    public ArrayList<Path> getAllImages() {
-        return imageList;
+    public List<Path> getCurrImageListBatch() {
+        return imageList.subList(currBatchPointer, Math.min(currBatchPointer + 10, getTotalImagesInDir()));
     }
     // @@author
 
