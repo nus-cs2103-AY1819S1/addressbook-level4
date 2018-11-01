@@ -102,7 +102,7 @@ Task <INDEX>, <TASK_NAME> was created.
 
 ==== Deleting a Task: `delete`
 [%hardbreaks]
-Deletes a task from the task manager
+Deletes a task and task dependencies to it from the task manager
 Format: `delete INDEX`
 +Example: `delete 1`
 -Example: `delete task`

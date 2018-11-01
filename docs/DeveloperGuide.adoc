@@ -632,7 +632,20 @@ Time is of key importance when dealing with the `TaskManager`. We implement and 
 date comparison. The precision of time for tasks is to the minute, that is the `AddCommand` can accept a `DueDate`
 accurate to the minute.
 
-A check on whether any of the tasks are overdue is done on every command. Thus,
+A check on whether any of the tasks are overdue is done before the execution of every command/
+
+##### 3.6.2 Design Considerations
+###### Aspect: Implementing the check on whether a task is overdue
+* **Alternative 1 (current choice):** Run a check before the execution of every command
+** Pros: From a user experience perspective, the user should not expect there to be a commit to state every time a task is overdue. i.e. An undo command
+should never undo an overdue. Simple implementation prevents race conditions (refer to cons of alternative 2).
+** Cons: If a user does not input a command, the task state will not be updated. (Mitigated by the fact that
+the number of commands that a person uses likely occurs at a higher rate than the number of tasks itself).
+* **Alternative 2:** Run a cron job that checks at a regular interval if the task is overdue
+** Pros: The overdue state of the task is definitely current
+** Cons: Potential race condition and might introduce latency to the application.
+
+
 
 ### 3.7 List
 
