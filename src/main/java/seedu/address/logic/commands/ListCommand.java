@@ -8,9 +8,7 @@ import static seedu.address.logic.parser.ListCommandParser.NOT_BLOCKED_OPTION;
 import static seedu.address.logic.parser.ListCommandParser.PREFIX_FILTER;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
-import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;

@@ -69,13 +69,14 @@ public class Dependency {
      * Returns the number of dependencies present.
      * @return an Integer representing the number of dependencies present.
      */
-    public Integer getDependencyCount() { return hashes.size(); }
+    public Integer getDependencyCount() {
+        return hashes.size();
+    }
 
-
-        /**
-         * Returns the hashes of all the tasks specified in the dependency
-         * @return set of all hashes
-         */
+    /**
+     * Returns the hashes of all the tasks specified in the dependency
+     * @return set of all hashes
+     */
     public Dependency updateHash(String oldHash, String newHash) {
         Set<String> newValue = new HashSet<>(hashes);
         newValue.remove(oldHash);

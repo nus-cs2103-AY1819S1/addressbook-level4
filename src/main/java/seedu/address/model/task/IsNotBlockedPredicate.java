@@ -1,7 +1,5 @@
 package seedu.address.model.task;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.function.Predicate;
 
 /**
@@ -11,10 +9,10 @@ public class IsNotBlockedPredicate implements Predicate<Task> {
 
     @Override
     public boolean test(Task task) {
-      return task
-              .getDependency()
-              .getDependencyCount()
-              .equals(0);
+        return task
+                .getDependency()
+                .getDependencyCount()
+                .equals(0);
     }
 
     @Override
