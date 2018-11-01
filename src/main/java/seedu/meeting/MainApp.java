@@ -10,6 +10,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
 import seedu.meeting.commons.core.Config;
 import seedu.meeting.commons.core.EventsCenter;
 import seedu.meeting.commons.core.LogsCenter;
@@ -26,8 +27,8 @@ import seedu.meeting.model.ModelManager;
 import seedu.meeting.model.ReadOnlyMeetingBook;
 import seedu.meeting.model.UserPrefs;
 import seedu.meeting.model.util.SampleDataUtil;
-import seedu.meeting.storage.MeetingBookStorage;
 import seedu.meeting.storage.JsonUserPrefsStorage;
+import seedu.meeting.storage.MeetingBookStorage;
 import seedu.meeting.storage.Storage;
 import seedu.meeting.storage.StorageManager;
 import seedu.meeting.storage.UserPrefsStorage;

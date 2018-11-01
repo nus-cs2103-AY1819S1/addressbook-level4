@@ -24,8 +24,8 @@ import seedu.meeting.model.person.Name;
 import seedu.meeting.model.person.Person;
 import seedu.meeting.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.meeting.model.shared.Title;
-import seedu.meeting.testutil.MeetingBookBuilder;
 import seedu.meeting.testutil.GroupBuilder;
+import seedu.meeting.testutil.MeetingBookBuilder;
 import seedu.meeting.testutil.PersonBuilder;
 
 public class ModelManagerTest {

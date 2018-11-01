@@ -11,9 +11,9 @@ import static seedu.meeting.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.meeting.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.meeting.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.meeting.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import org.junit.Test;
 

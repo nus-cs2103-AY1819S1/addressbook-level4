@@ -6,9 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_GROUPTAG_CCA;
 import static seedu.meeting.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.meeting.testutil.TypicalGroups.GROUP_2101;
 import static seedu.meeting.testutil.TypicalGroups.PROJECT_2103T;
+import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.meeting.testutil.TypicalPersons.ALICE;
 import static seedu.meeting.testutil.TypicalPersons.BOB;
 

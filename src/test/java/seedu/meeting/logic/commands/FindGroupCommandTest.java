@@ -6,11 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.meeting.commons.core.Messages.MESSAGE_GROUPS_FOUND_OVERVIEW;
 import static seedu.meeting.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.meeting.testutil.TypicalGroups.GROUP_2101;
 import static seedu.meeting.testutil.TypicalGroups.NUS_BASKETBALL;
 import static seedu.meeting.testutil.TypicalGroups.NUS_COMPUTING;
 import static seedu.meeting.testutil.TypicalGroups.PROJECT_2103T;
+import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import java.util.Arrays;
 import java.util.Collections;

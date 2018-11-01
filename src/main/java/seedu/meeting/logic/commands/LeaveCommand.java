@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.meeting.commons.core.Messages.MESSAGE_GROUP_NOT_FOUND;
 import static seedu.meeting.commons.core.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.meeting.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.meeting.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.meeting.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.meeting.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.meeting.logic.CommandHistory;
 import seedu.meeting.logic.commands.exceptions.CommandException;

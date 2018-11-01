@@ -8,7 +8,6 @@ import static seedu.meeting.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.meeting.logic.commands.CommandTestUtil.showGroupAtIndex;
 import static seedu.meeting.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.meeting.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_MEETING;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -18,6 +17,7 @@ import static seedu.meeting.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_THIRD_GROUP;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_THIRD_MEETING;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import java.util.Arrays;
 

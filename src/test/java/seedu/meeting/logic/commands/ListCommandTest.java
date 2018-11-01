@@ -3,9 +3,9 @@ package seedu.meeting.logic.commands;
 import static seedu.meeting.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.meeting.logic.commands.CommandTestUtil.showGroupAtIndex;
 import static seedu.meeting.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.meeting.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import java.util.Arrays;
 import java.util.Collections;
