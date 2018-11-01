@@ -45,7 +45,7 @@ public class Stock {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Stock // instanceof handles nulls
-                && value == (((Stock) other).value)); // state check
+                && value.equals(((Stock) other).value)); // state check
     }
 
     @Override

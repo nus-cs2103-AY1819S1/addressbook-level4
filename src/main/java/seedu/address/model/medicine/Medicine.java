@@ -124,8 +124,7 @@ public class Medicine {
         return otherMedicine.getMedicineName().equals(getMedicineName())
                 && otherMedicine.getMinimumStockQuantity().equals(getMinimumStockQuantity())
                 && otherMedicine.getPricePerUnit().equals(getPricePerUnit())
-                && otherMedicine.getSerialNumber().equals(getSerialNumber())
-                && otherMedicine.getStock().equals(getStock());
+                && otherMedicine.getSerialNumber().equals(getSerialNumber());
     }
 
     @Override

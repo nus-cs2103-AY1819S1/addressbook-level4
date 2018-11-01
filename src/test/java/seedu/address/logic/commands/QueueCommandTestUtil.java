@@ -80,9 +80,6 @@ public class QueueCommandTestUtil {
         try {
             CommandResult result = queueCommand.execute(model, actualPatientQueue, actualCurrentPatient,
                     actualServedPatientList, actualCommandHistory);
-
-            System.out.println(actualServedPatientList.getPatientsAsList().get(0).getPatient());
-            System.out.println(expectedServedPatientList.getPatientsAsList().get(0).getPatient());
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedPatientQueue, actualPatientQueue);
             assertEquals(expectedCurrentPatient, actualCurrentPatient);
@@ -115,6 +112,10 @@ public class QueueCommandTestUtil {
         try {
             CommandResult result = queueCommand.execute(actualModel, actualPatientQueue, actualCurrentPatient,
                     actualServedPatientList, actualCommandHistory);
+
+
+            System.out.println(expectedModel.getFilteredMedicineList());
+            System.out.println(actualModel.getFilteredMedicineList());
 
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedPatientQueue, actualPatientQueue);

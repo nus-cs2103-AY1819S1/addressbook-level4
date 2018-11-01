@@ -71,7 +71,7 @@ public class AddMedicalRecordCommand extends Command {
         try {
             Patient patientToAddMedicalRecord = lastShownList.get(index.getZeroBased());
             if (patientToAddMedicalRecord.isInQueue()) {
-              throw new CommandException(Messages.MESSAGE_PERSON_IN_QUEUE);
+                throw new CommandException(Messages.MESSAGE_PERSON_IN_QUEUE);
             }
             Patient editedPatient = createNewPatientWithUpdatedMedicalRecord(patientToAddMedicalRecord, toAdd);
 
