@@ -22,10 +22,7 @@ and medicine information and additionally manage the clinic queue.
 My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
 after every enhancement or change.
 
-
-
-
-== Summary of contributions
+== Summary of Contributions
 
 * *Major enhancement*: Implementation of *Patient Queue Management System (PQMS)*
 ** What it does: This system allows the clinic to keep track of the queue in the clinic.

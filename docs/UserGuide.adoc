@@ -381,7 +381,7 @@ image::AfterInsert2Command.png[width="750"]
 * `insert S9123456A p/5` +
 Inserts the patient with IC number S9123456A into the 5th position in the queue.
 
-
+[[serve]]
 ==== Serving the first patient in Waiting queue: `serve`
 
 Serves the first patient in the Waiting queue. The patient being served is now the Current Patient. +
@@ -405,6 +405,9 @@ Alias: `ad` +
 Format: `adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
 
 [TIP]
+There must be a Current Patient. Use the <<serve, `serve`>> command first.
+
+[TIP]
 At least one of the optional parameters must be provided.
 
 [TIP]
@@ -418,9 +421,16 @@ At least the note field must be added before executing the <<finish, `finish`>> 
 
 Examples:
 
-* `adddocument mc/3 n/This patient complains of headache for the past 3 days` +
+* `adddocument mc/3 n/Headache for the past 2 days` +
 Adds MC duration and notes to the Current Patient.
-* `adddocument r/Ng Teng Fong Hospital` +
+
+.Before `adddocument mc/3 n/Headache for the past 2 days` command
+image::BeforeAddDocumentCommand.png[width="750"]
+
+.After `adddocument mc/3 n/Headache for the past 2 days` command
+image::AfterAddDocumentCommand.png[width="750"]
+
+* `ad r/Suspected ligament tear. Suggest to do MRI ASAP.` +
 Adds referral to the Current Patient.
 
 ==== Displaying document contents for Current Patient: `displaydocuments`
@@ -442,7 +452,14 @@ Examples:
 
 * `dispensemedicine 1 amt/10` +
 10 units of the 1st medicine in the displayed medicine list will be added to the Current Patient. +
-* `dispensemedicine 5 amt/2` +
+
+.Before `dispensemedicine 1 amt/10`
+image::BeforeDispenseMedicineCommand.png[width="750"]
+
+.After `dispensemedicine 1 amt/10`
+image::AfterDispenseMedicineCommand.png[width="750"]
+
+* `dm 5 amt/2` +
 2 units of the 5th medicine in the displayed medicine list will be added to the Current Patient.
 
 [[finish]]
