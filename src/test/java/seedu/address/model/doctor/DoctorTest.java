@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.doctor;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
@@ -11,7 +11,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Status;
-import seedu.address.model.doctor.Doctor;
 import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.DoctorBuilder;
 
@@ -80,6 +79,11 @@ public class DoctorTest {
         doctor.addUpcomingAppointment(moreAppointmentNotAdded);
 
         doctor.completeUpcomingAppointment(appointmentToAdd);
+        for (Appointment app : doctor.getUpcomingAppointments()) {
+            assertFalse(app.getStatus().equals(Status.COMPLETED));
+        }
+
+        doctor.completeUpcomingAppointment(anotherAppointmentToAdd);
         for (Appointment app : doctor.getUpcomingAppointments()) {
             assertFalse(app.getStatus().equals(Status.COMPLETED));
         }

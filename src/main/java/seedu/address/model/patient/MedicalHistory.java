@@ -55,7 +55,7 @@ public class MedicalHistory {
             return false;
         } else {
             MedicalHistory r = (MedicalHistory) o;
-            return allergies.equals(r.getAllergies()) && conditions.equals(r.conditions);
+            return allergies.equals(r.getAllergies()) && conditions.equals(r.getConditions());
         }
     }
 }
