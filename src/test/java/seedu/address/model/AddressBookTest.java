@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUPTAG_CCA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
@@ -33,7 +32,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.shared.Title;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -66,11 +64,11 @@ public class AddressBookTest {
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .withGrouptags(VALID_GROUPTAG_CCA).build();
+            .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         // HACK
         // TODO: change to correctly take in groups
-        AddressBookStub newData = new AddressBookStub(newPersons, editedAlice.getGroupTags());
+        AddressBookStub newData = new AddressBookStub(newPersons);
 
         thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
@@ -281,11 +279,8 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
-        private final ObservableList<Tag> groupTags = FXCollections.observableArrayList();
-
-        AddressBookStub(Collection<Person> persons, Collection<Tag> groups) {
+        AddressBookStub(Collection<Person> persons) {
             this.persons.setAll(persons);
-            this.groupTags.setAll(groups);
         }
 
         @Override
