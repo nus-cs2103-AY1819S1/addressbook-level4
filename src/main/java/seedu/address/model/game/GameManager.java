@@ -15,7 +15,7 @@ public class GameManager {
     private GameMode gameMode;
 
     public GameManager() {
-        this.gameMode = new FlatMode();
+        this.gameMode = new DecreasingMode();
     }
 
     public GameManager(GameMode gameMode) {
