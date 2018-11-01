@@ -250,6 +250,22 @@ Shows a list of tasks that are due from current date till the closest Sunday. +
 [blue]`listweek`
 ====
 
+Example:
+====
+input: [blue]`listweek` on the date 021118 +
+output: Shows a list of tasks from 021118 to nearest Sunday which is 041118.
+====
+
+Before:
+====
+image::ListWeekCommand_UG_Before.png[width="300"]
+====
+
+After:
+====
+image::ListWeekCommand_UG_After.png[width="400"]
+====
+
 === Generating Academic Calendar Weeks
 
 Generates the entire academic calendar weeks with description, based on the first academic day and stores it in storage.
