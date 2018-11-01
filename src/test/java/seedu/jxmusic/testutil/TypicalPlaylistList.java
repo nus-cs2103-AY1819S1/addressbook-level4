@@ -19,6 +19,7 @@ import java.util.List;
 
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 
 /**
  * A utility class containing a list of {@code Playlist} objects to be used in tests.
@@ -32,6 +33,9 @@ public class TypicalPlaylistList {
             .withTracks(VALID_TRACK_NAME_SOS, VALID_TRACK_NAME_BELL, VALID_TRACK_NAME_MARBLES).build();
     public static final Playlist ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
             .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN).build();
+    // for TrackAddCommand, TrackRemoveCommand test
+    public static final Playlist TEST_ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
+            .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN, VALID_TRACK_NAME_MARBLES).build();
     public static final Playlist INSTRUMENTAL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_INSTRUMENTAL)
             .withTracks(VALID_TRACK_NAME_IHOJIN).build();
     public static final Playlist CHILL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_CHILL)
@@ -52,6 +56,19 @@ public class TypicalPlaylistList {
     public static Library getTypicalLibrary() {
         Library library = new Library();
         for (Playlist playlist : getTypicalPlaylistList()) {
+            library.addPlaylist(playlist);
+        }
+        return library;
+    }
+
+    /**
+     * Returns an {@code Library} with all the typical playlists after adding an additional track.
+     */
+    public static Library getTypicalLibraryAfterTrackAdd(Track trackToAdd) {
+        Library library = new Library();
+        ArrayList<Playlist> newLibrary = new ArrayList<>(
+                Arrays.asList(EMPTY, SFX, TEST_ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+        for (Playlist playlist : newLibrary) {
             library.addPlaylist(playlist);
         }
         return library;
