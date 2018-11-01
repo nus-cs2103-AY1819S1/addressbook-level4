@@ -24,7 +24,7 @@ NOTE: This operation can only be executed by an employee with `ASSIGN_PERMISSION
 authorization. Usage of permission allows the admins to easily ensure that previously stated criteria is met.
 ** Highlights: This enhancement requires modification to different components of the application, Model, Storage and Logic.
 Therefore, implementation was challenging as it requires in-depth knowledge of the different components. However, usage of this
-enhancement is made to be simple,needing only 1 line of code to be added into any new Command class to ensure that
+enhancement is made to be simple, simply needing only 1 line of code to be added into any new Command class to ensure that
 it can only be executed by authorized employees.
 
 === Major Enhancement: Added ability to modify the permissions granted to an employee
@@ -44,7 +44,6 @@ NOTE: This operation can only be executed by an employee with `ASSIGN_PERMISSION
 ** What it does: Display the list of permissions that an employee have.
 ** Justification: Users might not remember the permissions that have been assigned to an employee. This enhancement
 give them a method to check it easily.
-** Highlights: Easy to do.
 
 === Minor Enhancement: Added Command Auto-Complete feature
 
