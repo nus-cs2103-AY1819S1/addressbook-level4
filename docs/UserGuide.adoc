@@ -175,6 +175,13 @@ Examples::
 
 :sectnums:
 
+=== [Partial Implementation] Adding a tag : `addTag` [by v1.4]
+This is the command format for adding tags.
+
+*Note:* This feature has NOT been fully implemented yet. However, do feel free to play around with it and to report any bugs/problems as well :)
+
+_It will be FULLY implemented by v1.4._
+
 === Listing all events : `list`
 
 Shows a list of all events in the scheduler. +
