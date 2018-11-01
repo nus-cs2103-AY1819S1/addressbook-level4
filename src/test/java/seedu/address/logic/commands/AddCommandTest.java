@@ -23,10 +23,12 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.GoogleCalendarStub;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
+    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -45,7 +47,8 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory,
+                GOOGLE_CALENDAR_STUB);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -60,7 +63,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        addCommand.execute(modelStub, commandHistory, GOOGLE_CALENDAR_STUB);
     }
 
     @Test

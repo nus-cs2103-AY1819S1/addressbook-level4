@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.calendar.GoogleCalendar;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -34,7 +35,8 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
+            throws CommandException {
         requireNonNull(model);
 
         List<Person> filteredPersonList = model.getFilteredPersonList();

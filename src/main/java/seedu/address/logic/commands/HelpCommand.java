@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.calendar.GoogleCalendar;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
@@ -18,7 +19,7 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar) {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }

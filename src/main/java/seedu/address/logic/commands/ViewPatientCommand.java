@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.List;
 
+import seedu.address.calendar.GoogleCalendar;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
@@ -38,7 +39,8 @@ public class ViewPatientCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
+            throws CommandException {
         requireNonNull(model);
         List<Person> personList = model.getFilteredPersonList();
         Patient patient = (Patient) personList.stream()

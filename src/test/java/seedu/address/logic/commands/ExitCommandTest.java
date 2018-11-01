@@ -11,9 +11,12 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.testutil.GoogleCalendarStub;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class ExitCommandTest {
+    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -22,7 +25,7 @@ public class ExitCommandTest {
 
     @Test
     public void execute_exit_success() {
-        CommandResult result = new ExitCommand().execute(model, commandHistory);
+        CommandResult result = new ExitCommand().execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
         assertEquals(MESSAGE_EXIT_ACKNOWLEDGEMENT, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);

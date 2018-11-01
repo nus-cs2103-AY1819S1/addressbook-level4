@@ -3,13 +3,18 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Iterator;
 import java.util.List;
 
+import seedu.address.calendar.GoogleCalendar;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.InvalidInputOutputException;
+import seedu.address.model.appointment.exceptions.InvalidSecurityAccessException;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
@@ -42,7 +47,8 @@ public class CompleteAppointmentCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
+            throws CommandException {
         requireNonNull(model);
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
         List<Person> personList = model.getFilteredPersonList();
@@ -82,6 +88,14 @@ public class CompleteAppointmentCommand extends Command {
 
         if (patient == null || doctor == null) {
             throw new CommandException(MESSAGE_INVALID_APPOINTMENT_INDEX);
+        }
+
+        try {
+            googleCalendar.deleteAppointment(doctor.getName().toString(), appointment);
+        } catch (GeneralSecurityException e) {
+            throw new InvalidSecurityAccessException();
+        } catch (IOException e) {
+            throw new InvalidInputOutputException();
         }
 
         model.completeAppointment(appointment, patient, doctor);

@@ -27,6 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.GoogleCalendarStub;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -34,6 +35,7 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
+    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -163,7 +165,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
 
         // edit -> first person edited
-        editCommand.execute(model, commandHistory);
+        editCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
 
         //KIV
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
@@ -209,7 +211,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
 
         // edit -> edits second person in unfiltered person list / first person in filtered person list
-        editCommand.execute(model, commandHistory);
+        editCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
 
         //KIV
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
