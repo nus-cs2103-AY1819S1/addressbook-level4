@@ -225,6 +225,11 @@ Format: `filterByEducation [education level]`
 * filter result: list the person's name whose education level is the same as input.
 ****
 
+Examples:
+
+* `filterByEducation Secondary`
+returns a list of students whose Education level is Secondary.
+
 [NOTE]
 ====
 If no students qualify the filter criteria, an empty list is returned along with
@@ -241,6 +246,11 @@ Format: `filterByGrade [minimum grade] [maximum grade]`
 maximum grade.
 ****
 
+Examples:
+
+* `filterByGrade 50 100`
+returns a list of students whose has grade within 50 and 100.
+
 [NOTE]
 ====
 If no students qualify the filter criteria, an empty list is returned along with
@@ -256,9 +266,14 @@ Format: `filterByTime [given TimeSlot]`
 * filter result: A student who has a lesson at the given timeslot
 ****
 
+Examples:
+
+* `filterByTime mon 1300 1400`
+returns the student whose has tuition time in monday 1300-1400.
+
 [NOTE]
 ====
-If no students qualify the filter criteria, an empty list is returned along with
+If no student qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
 
@@ -272,9 +287,15 @@ Format: `EditTime [student name] [old timeslot] [new timeslot]`
 * filter result: list the person's name who takes class at given time.
 ****
 
+Examples:
+
+* `EditTime n/Alice ts/mon 1300 1400 ts/tue 1300 1400`
+Edit the time slot of Alice into new time slot tue 1300-1400.
+
 [NOTE]
 ====
-If no one is qualified then shows cannot find.
+If the new time slot already token by others then cannot edit anymore.
+If the old time does not exit then cannot edit.
 ====
 
 

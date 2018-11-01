@@ -70,7 +70,7 @@ public class Education {
             educationalLevel = EducationalLevel.Secondary;
             break;
 
-        case "jc":
+        case "JC":
         default:
             educationalLevel = EducationalLevel.JC;
             break;

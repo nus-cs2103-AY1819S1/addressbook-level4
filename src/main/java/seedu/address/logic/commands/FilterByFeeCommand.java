@@ -61,7 +61,7 @@ public class FilterByFeeCommand extends FilterCommand {
             personNameList.add(ppl.getName().fullName);
         }
 
-        return new CommandResult("The person whose fee is higher than " + limit + " : " + personNameList.toString());
+        return new CommandResult("The person whose fee is not less than " + limit + " : " + personNameList.toString());
     }
 
     @Override

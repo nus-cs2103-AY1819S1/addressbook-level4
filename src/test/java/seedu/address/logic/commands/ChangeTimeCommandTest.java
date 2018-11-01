@@ -49,7 +49,7 @@ public class ChangeTimeCommandTest {
     public void executeZeroKeywordsNoPersonFound() {
         String expectedMessage = String.format("Cannot find the student, please enter valid name");
         ChangeTimeCommand command = new ChangeTimeCommand("Alllice 100 Bob 0");
-        assertEquals(expectedMessage,command.execute(model,commandHistory).feedbackToUser);
+        assertEquals(expectedMessage, command.execute(model, commandHistory).feedbackToUser);
     }
 
 

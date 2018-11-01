@@ -22,7 +22,7 @@ public class FilterByEducationCommand extends FilterCommand {
 
     public static final String MESSAGE_SUCCESS = "Already filtered by Education!";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit a tutorial time slot of a person. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": FilterByEducation. "
             + "Parameters: "
             + "Education Level";
 
