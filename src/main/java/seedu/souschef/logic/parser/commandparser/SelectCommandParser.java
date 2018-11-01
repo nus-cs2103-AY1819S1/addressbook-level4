@@ -18,7 +18,6 @@ import seedu.souschef.model.recipe.Recipe;
  * Parses input arguments and creates a new SelectCommand object
  */
 public class SelectCommandParser {
-
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand
      * and returns an SelectCommand object for execution.

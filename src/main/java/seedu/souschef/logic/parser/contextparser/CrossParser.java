@@ -48,7 +48,6 @@ public class CrossParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case CrossFindCommand.COMMAND_WORD:
-
             return new CrossFindCommandParser().parse(crossRecipeModel, ingredientModel, arguments);
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseIndex(crossRecipeModel, arguments);
