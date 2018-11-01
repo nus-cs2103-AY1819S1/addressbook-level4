@@ -16,7 +16,8 @@ public class Messages {
     public static final String MESSAGE_TOTAL_IMAGES_IN_DIR = "Total number of images in directory: %d\n";
     public static final String MESSAGE_REMAINING_IMAGES_IN_DIR = "Total number of remaining images: %d\n";
     public static final String MESSAGE_CURRENT_IMAGES_IN_BATCH = "Current number of images in batch: %d\n";
-    public static final String MESSAGE_NO_MORE_IMAGES = "No more images in the current directory.";
+    public static final String MESSAGE_NO_MORE_NEXT_IMAGES = "No more images in the current directory.";
+    public static final String MESSAGE_NO_MORE_PREV_IMAGES = "Already at start of list.";
 
     /* Error messages for Google OAuth */
     public static final String MESSAGE_INVALID_ALBUM_REQUESTED = "The album name provided is invalid";
