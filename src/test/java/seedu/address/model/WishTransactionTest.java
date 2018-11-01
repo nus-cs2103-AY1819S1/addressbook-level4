@@ -149,12 +149,29 @@ public class WishTransactionTest {
     @Test
     public void removeTagFromAllShouldBeSuccessful() {
         Set<Tag> tags = getTypicalWishes().get(0).getTags();
-
         tags.forEach(tag -> populatedWishTransaction.removeTagFromAll(tag));
         populatedWishTransaction.getWishMap().entrySet()
                 .forEach(entry -> {
                     assertFalse(entry.getValue().peekLast().getTags().contains(tags));
                 });
+    }
+
+    @Test
+    public void wishMapShouldBeSetSuccessfully() {
+        emptyWishTransaction.setWishMap(populatedWishTransaction.getWishMap());
+        assertEquals(emptyWishTransaction.getWishMap(), populatedWishTransaction.getWishMap());
+    }
+
+    @Test
+    public void wishMapIsEmptyShouldTestCorrectly() {
+        assertTrue(emptyWishTransaction.isEmpty());
+        assertFalse(populatedWishTransaction.isEmpty());
+    }
+
+    @Test
+    public void shouldBeEqual() {
+        assertTrue(populatedWishTransaction.equals(getTypicalWishTransaction()));
+        assertTrue(emptyWishTransaction.equals(new WishTransaction()));
     }
 
     /**
