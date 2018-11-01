@@ -1,8 +1,8 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS_FULL;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -42,14 +42,14 @@ public class FindCommandParserTest {
 
         // input looking with thanepark prefix
         expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
-                Arrays.asList(PREFIX_ADDRESS.getPrefix(), "10th", "street"), Optional.of(new Zone("10th street"))));
-        assertParseSuccess(parser, PREFIX_ADDRESS.getPrefix() + " 10th street", expectedFindCommand);
+                Arrays.asList(PREFIX_ZONE.getPrefix(), "10th", "street"), Optional.of(new Zone("10th street"))));
+        assertParseSuccess(parser, PREFIX_ZONE.getPrefix() + " 10th street", expectedFindCommand);
 
         // input with thanepark in full
         expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
-                Arrays.asList(PREFIX_ADDRESS_FULL.getPrefix(), "10th", "street"),
+                Arrays.asList(PREFIX_ZONE_FULL.getPrefix(), "10th", "street"),
                 Optional.of(new Zone("10th street"))));
-        assertParseSuccess(parser, PREFIX_ADDRESS_FULL.getPrefix() + " 10th street", expectedFindCommand);
+        assertParseSuccess(parser, PREFIX_ZONE_FULL.getPrefix() + " 10th street", expectedFindCommand);
 
         // input with single tag prefix
         List<String> list = Arrays.asList(PREFIX_TAG.getPrefix(), "friends");

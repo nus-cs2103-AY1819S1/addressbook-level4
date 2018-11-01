@@ -14,12 +14,12 @@ import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
 import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.Status;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**

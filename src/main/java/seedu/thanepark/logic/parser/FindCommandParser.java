@@ -1,10 +1,10 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS_FULL;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,8 +13,8 @@ import java.util.Set;
 
 import seedu.thanepark.logic.commands.FindCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -35,7 +35,7 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ADDRESS, PREFIX_ADDRESS_FULL,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ZONE, PREFIX_ZONE_FULL,
                 PREFIX_TAG, PREFIX_TAG_FULL);
 
         Optional<Zone> address = parseAndGetAddress(argMultimap);
@@ -71,10 +71,10 @@ public class FindCommandParser implements Parser<FindCommand> {
      * object if either are present.
      */
     private Optional<Zone> parseAndGetAddress(ArgumentMultimap argMultimap) throws ParseException {
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
-        } else if (argMultimap.getValue(PREFIX_ADDRESS_FULL).isPresent()) {
-            return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS_FULL).get()));
+        if (argMultimap.getValue(PREFIX_ZONE).isPresent()) {
+            return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ZONE).get()));
+        } else if (argMultimap.getValue(PREFIX_ZONE_FULL).isPresent()) {
+            return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ZONE_FULL).get()));
         }
         return Optional.empty();
     }

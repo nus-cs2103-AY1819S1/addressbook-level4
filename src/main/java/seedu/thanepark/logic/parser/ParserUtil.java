@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.commons.util.StringUtil;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**

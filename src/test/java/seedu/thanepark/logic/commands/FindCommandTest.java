@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS_FULL;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
@@ -106,14 +106,14 @@ public class FindCommandTest {
     public void execute_address_multipleRidesFound() {
         String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 1);
         Zone zone = new Zone("10th Street");
-        String userInput = PREFIX_ADDRESS + zone.value;
+        String userInput = PREFIX_ZONE + zone.value;
         RideContainsKeywordsPredicate predicate = preparePredicate(userInput, zone);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(DUMBO), model.getFilteredRideList());
 
-        userInput = PREFIX_ADDRESS_FULL + zone.value;
+        userInput = PREFIX_ZONE_FULL + zone.value;
         predicate = preparePredicate(userInput, zone);
         command = new FindCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);

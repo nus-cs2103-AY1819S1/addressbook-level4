@@ -1,11 +1,11 @@
 package seedu.thanepark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 import static seedu.thanepark.model.Model.PREDICATE_SHOW_ALL_RIDES;
 
 import java.util.Collections;
@@ -20,11 +20,11 @@ import seedu.thanepark.commons.util.CollectionUtil;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
 import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -41,7 +41,7 @@ public class UpdateCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_MAINTENANCE + "MAINTENANCE] "
             + "[" + PREFIX_WAITING_TIME + "WAITING_TIME] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_ZONE + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MAINTENANCE + "90 "

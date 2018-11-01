@@ -3,7 +3,7 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BIG;
@@ -126,7 +126,7 @@ public class FindCommandSystemTest extends ThaneParkSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find thanepark of ride in thane park -> 1 rides found */
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_ADDRESS + DUMBO.getZone().value;
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_ZONE + DUMBO.getZone().value;
         ModelHelper.setFilteredList(expectedModel, DUMBO);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
