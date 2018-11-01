@@ -12,7 +12,7 @@
 The purpose of this project portfolio page is to showcase my work done and contributions made throughout the project.
 
 ClinicIO is a project from CS2103T intended for students
-to learn Software Engineering at an entry-level.   
+to learn Software Engineering at an entry-level.
 
 ClinicIO is a clinic management desktop application so that a receptionist can manage a clinic with ease and efficiency.
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
