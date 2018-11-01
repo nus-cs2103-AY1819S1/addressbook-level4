@@ -9,8 +9,6 @@ import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 
 import java.nio.file.Paths;
 
-import java.util.Optional;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,6 +17,8 @@ import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -33,7 +33,8 @@ public class ModelManagerTest {
     private ModelManager modelManager = (ModelManager) ModelUtil.modelWithTestUser();
     private ModelManager modelManagerLoggedOut = new ModelManager();
 
-    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public ModelManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException, ParseException {
     }
 
     @Test
@@ -143,6 +144,47 @@ public class ModelManagerTest {
         modelManagerLoggedOut.updateExpenseStatsPredicate(unused -> true);
     }
 
+    @Test
+    public void addWarningNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.addWarningNotification();
+    }
+
+    @Test
+    public void addTipNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.addTipNotification();
+    }
+
+    @Test
+    public void getNotificationList_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getNotificationList();
+    }
+
+    @Test
+    public void toggleTipNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.toggleTipNotification(false);
+    }
+
+    @Test
+    public void toggleWarningNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.toggleWarningNotification(false);
+    }
+
+    @Test
+    public void toggleBothNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.toggleBothNotification(false);
+    }
+
+    @Test
+    public void getNotification_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getNotificationHandler();
+    }
 
     @Test
     public void getStatsPeriodReturnsCorrectStatsPeriod() {
@@ -176,12 +218,12 @@ public class ModelManagerTest {
     public void equals() throws NoUserSelectedException {
         ExpenseTracker expenseTracker =
                 new ExpenseTrackerBuilder().withExpense(SCHOOLFEE).withExpense(ICECREAM).build();
-        ExpenseTracker differentExpenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty());
+        ExpenseTracker differentExpenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, null, null);
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(expenseTracker, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(expenseTracker, userPrefs);
+        modelManager = new ModelManager(expenseTracker, userPrefs, null);
+        ModelManager modelManagerCopy = new ModelManager(expenseTracker, userPrefs, null);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -194,20 +236,21 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different expenseTracker -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentExpenseTracker, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(differentExpenseTracker, userPrefs, null)));
 
         // different filteredList -> returns false
         ArgumentMultimap keywordsMap = ArgumentTokenizer.tokenize(" n/"
                 + SCHOOLFEE.getName().expenseName, PREFIX_NAME);
         modelManager.updateFilteredExpenseList(new ExpenseContainsKeywordsPredicate(keywordsMap));
-        assertFalse(modelManager.equals(new ModelManager(expenseTracker, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(expenseTracker, userPrefs, null)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
 
+
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setExpenseTrackerDirPath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(expenseTracker, differentUserPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(expenseTracker, differentUserPrefs, null)));
     }
 }

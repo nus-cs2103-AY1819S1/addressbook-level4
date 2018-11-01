@@ -12,7 +12,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
@@ -41,6 +43,9 @@ public class BudgetPanel extends UiPart<Region> {
     @FXML
     private Text expenseDisplay;
 
+    @FXML
+    private TextFlow percentageDisplay;
+
     private double currentExpenses;
     private double currentBudgetCap;
 
@@ -50,6 +55,12 @@ public class BudgetPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
         currentExpenses = 0;
         currentBudgetCap = 0;
+        budgetDisplay = new Text("/$0");
+        expenseDisplay = new Text("$0");
+        budgetDisplay.setStyle("-fx-fill: #555555;");
+        budgetDisplay.setFont(Font.font("Amazing Infographic@", 30));
+        expenseDisplay.setFont(Font.font("Amazing Infographic@", 30));
+        percentageDisplay.getChildren().addAll(expenseDisplay, budgetDisplay);
         update(totalBudget);
     }
 

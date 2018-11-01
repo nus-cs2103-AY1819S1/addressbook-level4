@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -9,10 +9,14 @@ import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -61,6 +65,7 @@ public interface Model {
     /**
      * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
+     * @throws NoUserSelectedException if there is no user selected in this Model
      */
     void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException;
 
@@ -119,11 +124,15 @@ public interface Model {
      */
     void commitExpenseTracker() throws NoUserSelectedException;
 
+    //@@author JasonChong96
+    //=========== Login =================================================================================
+
     /**
      * Selects the ExpenseTracker of the user with the input username to be used.
      * Returns true if successful, false if the input password is incorrect.
      */
-    boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException;
+    boolean loadUserData(LoginInformation loginInformation)
+            throws NonExistentUserException, InvalidDataException;
 
     /**
      * Logs out the user in the model.
@@ -152,6 +161,7 @@ public interface Model {
     /**
      * Updates the expense stats
      * @throws NullPointerException if {@code predicate} is null.
+     * @throws NoUserSelectedException if there is no user selected in this Model
      */
     void updateExpenseStatsPredicate (Predicate<Expense> predicate) throws NoUserSelectedException;
 
@@ -163,7 +173,7 @@ public interface Model {
     /**
      * Returns the existing maximum totalBudget for the current user
      */
-    TotalBudget getMaximumBudget();
+    TotalBudget getMaximumBudget() throws NoUserSelectedException;
 
     /**
      * Adds Category totalBudget into the expense tracker
@@ -188,8 +198,9 @@ public interface Model {
     /**
      * Sets the password of the currently logged in user as the new password given.
      * @param newPassword the new password to be set
+     * @param plainPassword the string representation of the new password to be set
      */
-    void setPassword(Password newPassword) throws NoUserSelectedException;
+    void setPassword(Password newPassword, String plainPassword) throws NoUserSelectedException;
 
     /**
      * Checks if the given password matches that of the currently logged in user. If the user does not have any password
@@ -197,5 +208,59 @@ public interface Model {
      * @param toCheck the password to check as an optional
      * @return true if the password to check matches that of the currently logged in user, false if it doesn't
      */
-    boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException;
+    boolean isMatchPassword(Password toCheck) throws NoUserSelectedException;
+
+    /**
+     * Adds a notification of type {@code WarningNotification}to the list of notification
+     * @return true if successfully added
+     * @throws NoUserSelectedException
+     */
+    boolean addWarningNotification() throws NoUserSelectedException;
+
+    /**
+     * Adds a notification of type {@code TipNotification}to the list of notification
+     * @return true if successfully added.
+     * @throws NoUserSelectedException
+     */
+    boolean addTipNotification() throws NoUserSelectedException;
+
+    /**
+     * Returns an {@code ObservableList} of current notifications
+     * @return an {@code ObservableList} of current notifications
+     * @throws NoUserSelectedException
+     */
+    ObservableList<Notification> getNotificationList() throws NoUserSelectedException;
+
+    /**
+     * Toggles the ability to add {@code TipNotifications}
+     * @param toggleOption to toggle to
+     * @throws NoUserSelectedException
+     */
+    void toggleTipNotification(boolean toggleOption) throws NoUserSelectedException;
+
+    /**
+     * Toggles the ability to add {@code WarningNotifications}
+     * @param toggleOption to toggle to
+     * @throws NoUserSelectedException
+     */
+    void toggleWarningNotification(boolean toggleOption) throws NoUserSelectedException;
+
+    /**
+     * Toggles the ability to add {@code WarningNotifications} and {@code TipNotification}
+     * @param toggleOption to toggle to
+     * @throws NoUserSelectedException
+     */
+    void toggleBothNotification(boolean toggleOption) throws NoUserSelectedException;
+
+    /**
+     * Returns notificationHandler.
+     */
+    NotificationHandler getNotificationHandler() throws NoUserSelectedException;
+
+    /**
+     * Modify NotificationHandler.
+     */
+    void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+            throws NoUserSelectedException;
+
 }

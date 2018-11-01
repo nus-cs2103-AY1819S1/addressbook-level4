@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
@@ -23,6 +24,8 @@ import javafx.collections.ObservableList;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
@@ -33,7 +36,8 @@ public class ExpenseTrackerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final ExpenseTracker expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty());
+    private final ExpenseTracker expenseTracker = new ExpenseTracker(ModelUtil.TEST_USERNAME, null,
+            DEFAULT_ENCRYPTION_KEY);
 
     @Test
     public void constructor() {
@@ -51,6 +55,7 @@ public class ExpenseTrackerTest {
     public void resetData_withValidReadOnlyExpenseTracker_replacesData() {
         ExpenseTracker newData = getTypicalExpenseTracker();
         expenseTracker.resetData(newData);
+        newData.setUsername(ModelUtil.TEST_USERNAME);
         assertEquals(newData, expenseTracker);
         assertEquals(newData.getMaximumTotalBudget(), expenseTracker.getMaximumTotalBudget());
     }
@@ -98,12 +103,18 @@ public class ExpenseTrackerTest {
         expenseTracker.getExpenseList().remove(0);
     }
 
+    @Test
+    public void setNotifications_nullList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        expenseTracker.setNotifications(null);
+    }
 
     /**
      * A stub ReadOnlyExpenseTracker whose expenses list can violate interface constraints.
      */
     private static class ExpenseTrackerStub implements ReadOnlyExpenseTracker {
         private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
+        private final ObservableList<Notification> notifications = FXCollections.observableArrayList();
 
         ExpenseTrackerStub(Collection<Expense> expenses) {
             this.expenses.setAll(expenses);
@@ -125,16 +136,28 @@ public class ExpenseTrackerTest {
         }
 
         @Override
+        public ObservableList<Notification> getNotificationList() {
+            return notifications;
+        }
+
+        @Override
+        public NotificationHandler getNotificationHandler() {
+            return new NotificationHandler();
+        }
+
+        @Override
         public Optional<Password> getPassword() {
             return Optional.empty();
         }
 
         @Override
-        public boolean isMatchPassword(Optional<Password> password) {
+        public boolean isMatchPassword(Password password) {
             return true;
         }
+
+        @Override
+        public String getEncryptionKey() {
+            return "";
+        }
     }
-
-
-
 }

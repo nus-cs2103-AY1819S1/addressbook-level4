@@ -4,6 +4,10 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -12,8 +16,10 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -36,6 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
     private static final int MIN_WIDTH = 900;
     private static final int MIN_HEIGHT = 800;
+    private static final double INITIALIZE_ANIMATION_TIME = 0.5;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -77,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane leftPanelPlaceholder;
 
     @FXML
-    private AnchorPane statisticsSplitPane;
+    private AnchorPane statisticsPane;
 
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -166,8 +173,8 @@ public class MainWindow extends UiPart<Stage> {
      * Swaps the panel from list to statistics
      */
     public void swapToStat() {
-        leftPanelPlaceholder.getChildren().clear();
-        leftPanelPlaceholder.getChildren().add(statisticsSplitPane);
+        Platform.runLater(() -> leftPanelPlaceholder.getChildren().clear());
+        Platform.runLater(() -> leftPanelPlaceholder.getChildren().add(statisticsPane));
     }
 
     //@@author snookerballs
@@ -189,8 +196,10 @@ public class MainWindow extends UiPart<Stage> {
         BudgetPanel budgetpanel = new BudgetPanel(logic.getMaximumBudget());
         budgetPanelPlaceholder.getChildren().add(budgetpanel.getRoot());
 
-        NotificationPanel notificationPanel = new NotificationPanel();
+        NotificationPanel notificationPanel = new NotificationPanel(logic.getNotificationList());
         notificationPanelPlaceholder.getChildren().add(notificationPanel.getRoot());
+
+        CategoriesPanel categoriesPanel = new CategoriesPanel();
 
         statisticsPanel = new StatisticsPanel(
                 logic.getExpenseStats(),
@@ -198,26 +207,52 @@ public class MainWindow extends UiPart<Stage> {
                 logic.getStatsMode(),
                 logic.getPeriodAmount()
         );
-        CategoriesPanel categoriesPanel = new CategoriesPanel();
 
-        statisticsSplitPane = new AnchorPane();
-        statisticsSplitPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
-        statisticsSplitPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
-        statisticsSplitPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
+        statisticsPane = new AnchorPane();
+        statisticsPane.setTopAnchor(statisticsPanel.getRoot(), 0.0);
+        statisticsPane.setTopAnchor(categoriesPanel.getRoot(), 350.00);
+        statisticsPane.getChildren().addAll(statisticsPanel.getRoot(), categoriesPanel.getRoot());
 
         swapToStat();
+        fadeInPanels();
 
     }
 
     /**
      * Hides the bottom part of the UI which shows entries in the ExpenseTracker and sync information.
+     *
+     */
+    private void fadeInPanels() {
+        leftPanelPlaceholder.setOpacity(0.0);
+        budgetPanelPlaceholder.setOpacity(0.0);
+        notificationPanelPlaceholder.setOpacity(0.0);
+        Timeline timeline = new Timeline();
+        addFadeInAnimation(leftPanelPlaceholder, 0.0, timeline);
+        addFadeInAnimation(budgetPanelPlaceholder, 0.2, timeline);
+        addFadeInAnimation(notificationPanelPlaceholder, 0.4, timeline);
+        timeline.playFromStart();
+    }
+
+    /**
+     *
+     */
+    public void addFadeInAnimation(Pane pane, double startTime, Timeline timeline) {
+        KeyFrame start = new KeyFrame(Duration.seconds(startTime), new KeyValue(pane.opacityProperty(),
+                0.0));
+        KeyFrame end = new KeyFrame(Duration.seconds(INITIALIZE_ANIMATION_TIME + startTime), new KeyValue(
+                pane.opacityProperty(), 1.0));
+        timeline.getKeyFrames().addAll(start, end);
+    }
+
+    /**
+     * Hides the bottom part of the UI which shows entries in the AddressBook and sync information.
      */
     private void hideLoggedInUi() {
         splitPane.setManaged(false);
         splitPane.setVisible(false);
-        getPrimaryStage().setHeight(225);
-        getPrimaryStage().setMaxHeight(225);
-        getPrimaryStage().setMinHeight(225);
+        getPrimaryStage().setHeight(200);
+        getPrimaryStage().setMaxHeight(200);
+        getPrimaryStage().setMinHeight(200);
         statusbarPlaceholder.setManaged(false);
     }
 

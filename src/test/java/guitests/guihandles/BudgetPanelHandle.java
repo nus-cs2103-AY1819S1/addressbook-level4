@@ -4,6 +4,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 //@@author snookerballs
 /**
@@ -12,14 +13,16 @@ import javafx.scene.text.Text;
 public class BudgetPanelHandle extends NodeHandle<Region> {
     public static final String BUDGET_PANEL_ID = "#budgetPanel";
     public static final String BUDGET_BAR_ID = "#budgetBar";
-    private static final String EXPENSE_DISPLAY_ID = "#expenseDisplay";
-    private static final String BUDGET_DISPLAY_ID = "#budgetDisplay";
+    private static final String PERCENTAGE_DISPLAY_ID = "#percentageDisplay";
 
     private static final String BUDGET_DISPLAY_PREFIX = "/ $";
     private static final String EXPENSE_DISPLAY_PREFIX = "$";
 
     private static final String RED_HEXCODE = "#ae3b3b";
     private static final String GREEN_HEXCODE = "#61a15a";
+
+    private static final int BUDGET_DISPLAY_INDEX = 1;
+    private static final int EXPENSE_DISPLAY_INDEX = 0;
 
     private final Text budgetDisplay;
     private final Text expenseDisplay;
@@ -29,8 +32,9 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
         super(budgetPanelNode);
 
         budgetBar = getChildNode(BUDGET_BAR_ID);
-        budgetDisplay = getChildNode(BUDGET_DISPLAY_ID);
-        expenseDisplay = getChildNode(EXPENSE_DISPLAY_ID);
+        TextFlow percentageDisplay = getChildNode(PERCENTAGE_DISPLAY_ID);
+        expenseDisplay = (Text) percentageDisplay.getChildren().get(EXPENSE_DISPLAY_INDEX);
+        budgetDisplay = (Text) percentageDisplay.getChildren().get(BUDGET_DISPLAY_INDEX);
     }
 
     public Text getBudgetDisplay() {

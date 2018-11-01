@@ -23,8 +23,11 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException {
         requireNonNull(model);
+        // TODO: Move code to Model class for better adherence to OOP principles
         ExpenseTracker newExpenseTracker =
-                new ExpenseTracker(model.getExpenseTracker().getUsername(), model.getExpenseTracker().getPassword());
+                new ExpenseTracker(model.getExpenseTracker().getUsername(),
+                        model.getExpenseTracker().getPassword().orElse(null),
+                        model.getExpenseTracker().getEncryptionKey());
         TotalBudget clearedSpendingTotalBudget = model.getMaximumBudget();
         model.resetData(newExpenseTracker);
         clearedSpendingTotalBudget.clearSpending();

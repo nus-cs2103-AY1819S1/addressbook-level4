@@ -2,7 +2,9 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -12,6 +14,8 @@ import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -22,18 +26,23 @@ import seedu.address.model.user.Username;
 public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     protected Username username;
-    protected Optional<Password> password;
+    protected Password password;
+    private String encryptionKey;
     private final UniqueExpenseList expenses;
     private TotalBudget maximumTotalBudget;
+
+    private NotificationHandler notificationHandler;
 
     /**
      * Creates an empty ExpenseTracker with the given username.
      * @param username the username of the ExpenseTracker
      */
-    public ExpenseTracker(Username username, Optional<Password> password) {
+    public ExpenseTracker(Username username, Password password, String encryptionKey) {
         this.username = username;
         this.password = password;
+        this.encryptionKey = encryptionKey;
         this.expenses = new UniqueExpenseList();
+        this.notificationHandler = new NotificationHandler();
         this.maximumTotalBudget = new TotalBudget("28.00");
     }
 
@@ -41,7 +50,8 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * Creates an ExpenseTracker using the Expenses in the {@code toBeCopied}
      */
     public ExpenseTracker(ReadOnlyExpenseTracker toBeCopied) {
-        this(toBeCopied.getUsername(), toBeCopied.getPassword());
+        this(toBeCopied.getUsername(), toBeCopied.getPassword().orElse(null), toBeCopied.getEncryptionKey());
+        this.notificationHandler = toBeCopied.getNotificationHandler();
         this.maximumTotalBudget = toBeCopied.getMaximumTotalBudget();
         resetData(toBeCopied);
     }
@@ -104,9 +114,74 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      */
     public void resetData(ReadOnlyExpenseTracker newData) {
         requireNonNull(newData);
-
         this.setExpenses(newData.getExpenseList());
         this.maximumTotalBudget = newData.getMaximumTotalBudget();
+        this.setNotificationHandler(newData.getNotificationHandler());
+    }
+
+    /// notification-level operations
+
+    /**
+     * Adds a {@code notification} to the {@code notificationHandler}
+     * @param notification to add
+     */
+    public void addNotification(Notification notification) {
+        this.notificationHandler.add(notification);
+    }
+
+    /**
+     * Replaces the contents of the notification list with {@code expenses}.
+     * {@code expenses} must not contain duplicate notification lists.
+     */
+    public void setNotifications(ObservableList<Notification> notifications) {
+        this.notificationHandler.setNotifications(notifications);
+    }
+
+    public void setNotificationHandler(NotificationHandler notificationHandler) {
+        this.notificationHandler = notificationHandler;
+    }
+
+    /**
+     * Checks if a {@code WarningNotification} object should be added to the list.
+     * @return true if {@code WarningNotification} should be added, false otherwise.
+     */
+    public boolean checkIfAddWarningNotification(TotalBudget budget) {
+        return notificationHandler.isTimeToSendWarning(budget);
+    }
+
+    /**
+     * Checks if a {@code TipNotification} object should be added to the list.
+     * @return true if {@code TipNotification} should be added, false otherwise.
+     */
+    public boolean checkIfAddTipNotification() {
+        return notificationHandler.isTimeToSendTip();
+    }
+
+    /**
+     * Toggle the ability to send {@code TipNotification}
+     * @param option to toggle to.
+     */
+    public void toggleTipNotification(boolean option) {
+        notificationHandler.setTipEnabled(option);
+    }
+
+    /**
+     * Toggle the ability to send {@code WarningNotification}
+     * @param option to toggle to.
+     */
+    public void toggleWarningNotification(boolean option) {
+        notificationHandler.setWarningEnabled(option);
+    }
+
+    public NotificationHandler getNotificationHandler() {
+        return notificationHandler;
+    }
+
+    /**
+     * Modify notificationHandler {@code WarningNotification}
+     */
+    public void modifyNotificationHandler(LocalDateTime date, boolean isTipEnabled, boolean isWarningEnabled) {
+        notificationHandler.modifyNotificationHandler(date, isTipEnabled, isWarningEnabled);
     }
 
     //// expense-level operations
@@ -157,6 +232,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
             this.maximumTotalBudget.getCategoryBudgets());
     }
 
+    public String getEncryptionKey() {
+        return encryptionKey;
+    }
+
+    public void setEncryptionKey(String newKey) {
+        this.encryptionKey = newKey;
+    }
+
     @Override
     public Username getUsername() {
         return username;
@@ -164,15 +247,16 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
     @Override
     public Optional<Password> getPassword() {
-        return password;
+        return Optional.ofNullable(password);
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
     }
 
     @Override
-    public boolean isMatchPassword(Optional<Password> toCheck) {
-        return this.password
-                .map(userPassword -> userPassword.equals(toCheck.orElse(null)))
-                // if userPassword will never be equals to null if map is called
-                .orElse(true); // If the current user has no password, then anyone is allowed
+    public boolean isMatchPassword(Password toCheck) {
+        return this.password == null || this.password.equals(toCheck);
     }
 
     public void setUsername(Username newUsername) {
@@ -192,15 +276,26 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     @Override
+    public ObservableList<Notification> getNotificationList() {
+        return notificationHandler.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ExpenseTracker // instanceof handles nulls
                 && expenses.equals(((ExpenseTracker) other).expenses))
+                && this.notificationHandler.equals(((ExpenseTracker) other).notificationHandler)
+                && this.username.equals(((ExpenseTracker) other).username)
+                && Objects.equals(this.password, ((ExpenseTracker) other).password)
+                && this.encryptionKey.equals(((ExpenseTracker) other).encryptionKey)
                 && this.maximumTotalBudget.equals(((ExpenseTracker) other).maximumTotalBudget);
+
     }
 
     @Override
     public int hashCode() {
-        return expenses.hashCode();
+        return Objects.hash(expenses, maximumTotalBudget, username, password, encryptionKey);
     }
+
 }

@@ -94,7 +94,6 @@ public class ParserUtil {
         return new Cost(trimmedAddress);
     }
 
-
     /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
@@ -227,12 +226,12 @@ public class ParserUtil {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    //@@author jcjxwy
     /**
      *  Check whether all the keywords are valid.
      * @throws ParseException if any keyword entered by user does not conform the expected format, or user enters
      * multiple keywords for Name/Category/Cost/Date.
      * */
-    //@@Author jcjxwy
     public static void ensureKeywordsAreValid(ArgumentMultimap keywordsMap) throws ParseException {
         List<String> nameKeywords = keywordsMap.getAllValues(PREFIX_NAME);
         List<String> categoryKeywords = keywordsMap.getAllValues(PREFIX_CATEGORY);
@@ -341,5 +340,4 @@ public class ParserUtil {
             }
         }
     }
-
 }

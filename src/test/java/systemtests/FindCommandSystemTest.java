@@ -20,6 +20,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -32,7 +33,7 @@ import seedu.address.model.tag.Tag;
 public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
-    public void find() throws NoUserSelectedException {
+    public void find() throws NoUserSelectedException, IllegalValueException {
         showAllExpenses();
         /* Case: find multiple expenses in expense tracker, command with leading spaces and trailing spaces
          * -> 2 expenses found
@@ -183,7 +184,8 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, Model expectedModel) throws NoUserSelectedException {
+    private void assertCommandSuccess(String command, Model expectedModel) throws NoUserSelectedException,
+            IllegalValueException {
         String expectedResultMessage = String.format(
                 MESSAGE_EXPENSES_LISTED_OVERVIEW, expectedModel.getFilteredExpenseList().size());
 
@@ -202,7 +204,8 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
      * error style.
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

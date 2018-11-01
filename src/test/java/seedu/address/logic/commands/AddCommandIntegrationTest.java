@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,14 +28,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+        model = getTypicalModel();
         commandHistory = new CommandHistory();
     }
 
     @Test
     public void execute_newExpense_withinBudget() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().withCost("1.00").build();
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.addExpense(validExpense);
         expectedModel.commitExpenseTracker();
 
@@ -62,10 +62,9 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newExpense_budgetExceed() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().withCost("9999.99").build();
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.addExpense(validExpense);
         expectedModel.commitExpenseTracker();
-
         assertCommandSuccess(new AddCommand(validExpense), model, commandHistory,
             AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, expectedModel);
     }

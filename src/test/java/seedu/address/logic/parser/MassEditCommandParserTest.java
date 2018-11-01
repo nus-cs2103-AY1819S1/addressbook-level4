@@ -16,7 +16,7 @@ import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
-//@@Author jcjxwy
+//@@author jcjxwy
 public class MassEditCommandParserTest {
 
     private static final String MESSAGE_INVALID_FORMAT =
