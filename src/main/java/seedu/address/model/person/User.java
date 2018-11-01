@@ -6,9 +6,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-import com.sun.istack.logging.Logger;
-
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.PermissionSet;
@@ -71,8 +68,8 @@ public class User {
      */
     public static boolean matchesAdminLogin(String username, String password) {
         User adminUser = getAdminUser();
-        return adminUser.getUsername().username.equals(username) &&
-            adminUser.getPassword().matches(password);
+        return adminUser.getUsername().username.equals(username)
+            && adminUser.getPassword().matches(password);
     }
 
     public Person getPerson() {

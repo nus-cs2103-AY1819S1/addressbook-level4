@@ -197,6 +197,9 @@ public class MainApp extends Application {
         System.exit(0);
     }
 
+    /**
+     * Commits the user preferences into file.
+     */
     public void saveUserPrefs() {
         try {
             storage.saveUserPrefs(userPrefs);
