@@ -100,6 +100,7 @@ public class AddressBookTest {
     @Test
     public void addGroup_groupInAddressBook_returnsTrue() {
         AddressBook addressBook = new AddressBook();
+        addressBook.addPerson(ALICE);
         addressBook.addGroup(PROJECT_2103T);
         assertTrue(addressBook.hasGroup(PROJECT_2103T));
     }
