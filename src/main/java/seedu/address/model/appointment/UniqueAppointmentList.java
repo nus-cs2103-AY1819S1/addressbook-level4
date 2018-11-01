@@ -18,7 +18,7 @@ import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
  * as to ensure that the appointment being added or updated is unique in terms of identity in the UniqueAppointmentList.
  * However, the removal of a appointment uses Appointment#equals(Object) so as to ensure that the appointment with
  * exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Appointment#isSameAppointment(Appointment)
@@ -88,9 +88,17 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
      */
     public void remove(Appointment toRemove) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        Appointment appointmentToBeDeletedInList = null;
+        for (Appointment appt : internalList) {
+            if (appt.getAppointmentId() == toRemove.getAppointmentId()) {
+                appointmentToBeDeletedInList = appt;
+            }
+        }
+        if (appointmentToBeDeletedInList == null) {
             throw new AppointmentNotFoundException();
         }
+
+        internalList.remove(appointmentToBeDeletedInList);
     }
 
     public void setAppointments(UniqueAppointmentList replacement) {
