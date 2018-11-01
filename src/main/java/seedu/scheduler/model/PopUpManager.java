@@ -31,10 +31,12 @@ public class PopUpManager {
     private static final Logger logger = LogsCenter.getLogger(PopUpManager.class);
     private static PopUpManager instance;
     private PriorityQueue<EventPopUpInfo> popUpQueue;
+    private Boolean flag;
     // private static ArrayList<EventPopUpInfo> pastPopUps;
 
     private PopUpManager() {
         popUpQueue = new PriorityQueue<>();
+        flag = false;
         //pastPopUps = new ArrayList<>();
     }
 
@@ -59,7 +61,19 @@ public class PopUpManager {
      */
     public void syncPopUpInfo(ReadOnlyScheduler readOnlyScheduler) {
         ObservableList<Event> eventList = readOnlyScheduler.getEventList();
-        popUpQueue.addAll(generatePopUpInfoListFromEvents(eventList));
+        popUpQueue.addAll(generateAllPopUpInfoListFromEvents(eventList));
+    }
+
+    /**
+     * Undo, Redo
+     * This method will be called when undo and redo is called
+     * The popUpQueue will be cleaned up and reInitialise, ONLY future reminders will be added
+     * @param readOnlyScheduler
+     */
+    public void reInitialise(ReadOnlyScheduler readOnlyScheduler) {
+        popUpQueue.clear();
+        ObservableList<Event> eventList = readOnlyScheduler.getEventList();
+        popUpQueue.addAll(generateFuturePopUpInfoListFromEvents(eventList));
     }
 
     /**
@@ -68,7 +82,7 @@ public class PopUpManager {
      * @param event
      */
     public void add(Event event) {
-        popUpQueue.addAll(generatePopUpInfoListFromEvent(event));
+        popUpQueue.addAll(generateFuturePopUpInfoListFromEvent(event));
     }
 
     /**
@@ -77,7 +91,7 @@ public class PopUpManager {
      * @param events
      */
     public void add(Collection<Event> events) {
-        popUpQueue.addAll(generatePopUpInfoListFromEvents(events));
+        popUpQueue.addAll(generateFuturePopUpInfoListFromEvents(events));
     }
 
     /**
@@ -120,7 +134,6 @@ public class PopUpManager {
             add(editedEvents);
         }
     }
-
 
     /**
      * Delete Single Event's EventPopUpInfo
@@ -193,7 +206,7 @@ public class PopUpManager {
      * @param event
      * @return
      */
-    private ArrayList<EventPopUpInfo> generatePopUpInfoListFromEvent(Event event) {
+    private ArrayList<EventPopUpInfo> generateAllPopUpInfoListFromEvent(Event event) {
         ArrayList<EventPopUpInfo> result = new ArrayList<>();
         UUID uid = event.getUid();
         UUID uuid = event.getUuid();
@@ -216,12 +229,56 @@ public class PopUpManager {
      * @param events
      * @return
      */
-    private ArrayList<EventPopUpInfo> generatePopUpInfoListFromEvents(Collection<Event> events) {
+    private ArrayList<EventPopUpInfo> generateAllPopUpInfoListFromEvents(Collection<Event> events) {
         ArrayList<EventPopUpInfo> result = new ArrayList<>();
         for (Event event : events) {
-            result.addAll(generatePopUpInfoListFromEvent(event));
+            result.addAll(generateAllPopUpInfoListFromEvent(event));
         }
         return result;
+    }
+
+    /**
+     * Generate a list of EventPopUpInfo objects with PopUpTime in the FUTURE from 1 event
+     * @param event
+     * @return
+     */
+    private ArrayList<EventPopUpInfo> generateFuturePopUpInfoListFromEvent(Event event) {
+        ArrayList<EventPopUpInfo> rawList = generateAllPopUpInfoListFromEvent(event);
+        ArrayList<EventPopUpInfo> result = new ArrayList<>();
+        for (EventPopUpInfo eventPopUpInfo : rawList) {
+            DateTime now = getNow();
+            if (!eventPopUpInfo.getPopUpDateTime().isPast(now)) {
+                result.add(eventPopUpInfo);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Generate a list of EventPopUpInfo objects with PopUpTime in the FUTURE from a list of events
+     * @param events
+     * @return
+     */
+    private ArrayList<EventPopUpInfo> generateFuturePopUpInfoListFromEvents(Collection<Event> events) {
+        ArrayList<EventPopUpInfo> rawList = generateAllPopUpInfoListFromEvents(events);
+        ArrayList<EventPopUpInfo> result = new ArrayList<>();
+        for (EventPopUpInfo eventPopUpInfo : rawList) {
+            DateTime now = getNow();
+            if (!eventPopUpInfo.getPopUpDateTime().isPast(now)) {
+                result.add(eventPopUpInfo);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Util function that returns now in DateTime format
+     * @return
+     */
+    private DateTime getNow() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTime currentDateTime = new DateTime(now);
+        return currentDateTime;
     }
 
     /**
@@ -233,26 +290,28 @@ public class PopUpManager {
             @Override
             public Void call() {
                 while (true) {
-                    LocalDateTime now = LocalDateTime.now();
-                    DateTime currentDateTime = new DateTime(now);
+                    DateTime currentDateTime = getNow();
                     // logger.info("Checking current event popUp info queue...");
 
                     // check the event queue date time
-                    if (!popUpQueue.isEmpty()) {
-                        DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
-                        //logger.info(frontEventDateTime.toString());
-                        while (frontEventDateTime.isPast(currentDateTime)) {
-                            EventPopUpInfo currentPopUp = popUpQueue.peek();
-                            displayPopUp("Past Reminder!", currentPopUp.getDescription().toString());
-                            // pastPopUps.add(currentPopUp);
-                            popUpQueue.remove();
-                            if (!popUpQueue.isEmpty()) {
-                                frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
-                            } else {
-                                break;
+                    if (!flag) {
+                        if (!popUpQueue.isEmpty()) {
+                            DateTime frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
+                            //logger.info(frontEventDateTime.toString());
+                            while (frontEventDateTime.isPast(currentDateTime)) {
+                                EventPopUpInfo currentPopUp = popUpQueue.peek();
+                                displayPopUp("Past Reminder",
+                                        currentPopUp.getPastPopUpDisplay());
+                                // pastPopUps.add(currentPopUp);
+                                popUpQueue.remove();
+                                if (!popUpQueue.isEmpty()) {
+                                    frontEventDateTime = popUpQueue.peek().getPopUpDateTime();
+                                } else {
+                                    break;
+                                }
                             }
+                            flag = true;
                         }
-
                     }
 
                     if (!popUpQueue.isEmpty()) {
@@ -261,7 +320,7 @@ public class PopUpManager {
                         //logger.info(frontEventDateTime.toString());
                         while (frontEventDateTime.isClose(currentDateTime)) {
                             EventPopUpInfo currentPopUp = popUpQueue.peek();
-                            displayPopUp("Time's Up!", currentPopUp.getDescription().toString());
+                            displayPopUp(currentPopUp.getEventName().toString(), currentPopUp.getPopUpDisplay());
                             // pastPopUps.add(currentPopUp);
                             popUpQueue.remove();
                             if (!popUpQueue.isEmpty()) {

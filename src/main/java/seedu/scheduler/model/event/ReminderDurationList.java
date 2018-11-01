@@ -16,7 +16,10 @@ import java.util.Set;
 public class ReminderDurationList {
 
     public static final String EMPTY_VALUE = "NONE";
+    public static final String NO_REMINDER_DISPLAY = "No Reminder";
+    public static final String REMINDER_DISPLAY_SUFFIX = " before the start time";
     private Set<Duration> values = new HashSet<>();
+
 
     /**
      * Default constructor for ReminderDurationList
@@ -92,6 +95,20 @@ public class ReminderDurationList {
         for (Duration duration: values) {
             output += PREFIX_EVENT_REMINDER_DURATION + duration.toString().replace("PT", "");
         }
+        return output;
+
+    }
+
+    /**
+     * Get string display in event panel for the event
+     * @return string input
+     */
+    public String getDisplayString() {
+        if (values.isEmpty()) {
+            return NO_REMINDER_DISPLAY;
+        }
+        String output = toString().replace("PT", "");
+        output += REMINDER_DISPLAY_SUFFIX;
         return output;
 
     }
