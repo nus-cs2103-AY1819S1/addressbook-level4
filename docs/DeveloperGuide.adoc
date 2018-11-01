@@ -472,7 +472,7 @@ Step 3. The validated new command will be stored in the json for in the PicosonC
 
  - As in the processing process, it could be slow, and it is for one image only, then, in the mass images processing, multiple threads might be needed.
 
-=== Google features
+=== Google Features
 ==== Overall Introduction
 The Google commands allow for access to https://developers.google.com/photos/library/guides/get-started-java[Google Photos] through a logged-in instance of the user, and are held up by two main components.
 
@@ -488,10 +488,12 @@ There are 5 main google-related commands, with the first two commands to login/l
 * `GoogleDlCommand` - Downloads the specified image(s) from Google Photos to the user's currently viewed local directory.
 * `GoogleUploadCommand` - Uploads the specified image(s) from the user's currently viewed local directory to Google Photos.
 
+To use Google Photos API in Piconso, we have connected and generated `client_credentials.json` via our own Google Account to enable usage of the API. It is suggested that you https://developers.google.com/photos/library/guides/get-started-java[configure] Piconso to use Google Photos Library API with your own account rather than the provided.
 ==== Login (login) Command
 
 ===== Current Implementation
-The Login command currently authenticates a user via Google OAuth. To learn more about the implementation of OAuth methods, you may refer to https://developers.google.com/identity/protocols/OAuth2#installed[O-Auth Explanation] and https://developers.google.com/api-client-library/java/google-api-java-client/oauth2#installed_applications[Google API examples]. As the workings of Google OAuth are rather complicated, it is suggested that you go through the examples/documentations in those links.
+The Login command currently authenticates a user via Google OAuth. To learn more about the implementation of OAuth methods, you may refer to https://developers.google.com/identity/protocols/OAuth2#installed[O-Auth Explanation] and https://developers.google.com/api-client-library/java/google-api-java-client/oauth2#installed_applications[Google API examples]. As the workings of Google OAuth are rather complicated, it is suggested that you go through the examples/documentations in those links. +
++
 Below are some examples on how the login command will work.
 
 [NOTE]
@@ -503,21 +505,29 @@ Step 1. The user executes a `login` command.
 
 Step 2. The login command calls `Model#getPhotoHandler()` and checks if a PhotoHandler instance already exists, if false, it calls `PhotoLibraryClientFactory#createClient()` to set up the requirements for log in and redirects the user to the browser.
 
-Step 3. PhotoLibraryClientFactory instance then calls `PhotoLibraryClientFactory#createPhotosLibraryClient()` and `PhotoLibraryClientFactory#getUserEmail() to instantiate a `PhotoHandler` instance
+Step 3. The returned refresh token is stored, and PhotoLibraryClientFactory instance then calls `PhotoLibraryClientFactory#createPhotosLibraryClient()` and `PhotoLibraryClientFactory#getUserEmail() to instantiate a `PhotoHandler` instance
 
 Step 4. The `PhotoHandler` instance is set by model as Model#photoLibrary, and confirmation of login is sent to user.
 
 The following sequence diagram illustrates how the above steps work:
 
 .Sequence Diagram for Login Command
-image::LoginSequenceDiagram.png[width="800"]
+image::LoginSequenceDiagram.png[width="2000"]
 
 WARNING: Currently, the user MUST go through with the login process once activated, else Piconso will freeze. Suggestions are to implement asynchronous login
 
+===== Scenario 2: Implicit login, where Piconso auto logs in user upon re-launch
 
-==== Other google commands
+Step 1: Upon Piconso start up, `PhotoLibraryClientFactory#loginUserIfPossible()` is run by `ModelManager`
+Step 2: The method checks for stored credentials (refresh token), and logs in the user if it exists via `PhotoLibraryClientFactory#createClient()`, else the log in process is skipped.
 
-{To be updated in v1.3}
+In both scenarios, whenever a refresh token is found stored the user is logged in without having to face browser re-direct again. At no point in any scenario will we be storing a user's actual credentials, the only thing we will store is a refresh token that allows us to keep a user logged in, actual credentials are handled by Google OAuth +
++
+
+==== Logout (logout) Command
+
+===== Current Implementation
+
 
 
 == Documentation
