@@ -33,7 +33,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String playlistDelCommand = "playlist delete 9";
+        String playlistDelCommand = "playlist del 9";
         assertCommandException(playlistDelCommand, MESSAGE_INVALID_PLAYLIST_DISPLAYED_INDEX);
     }
 
