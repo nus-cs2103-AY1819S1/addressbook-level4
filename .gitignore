@@ -20,4 +20,6 @@ src/main/resources/docs/
 out/
 config.json
 reposense/config.json
+tokens
+StoredCredentials
 
