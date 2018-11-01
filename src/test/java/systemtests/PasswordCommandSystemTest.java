@@ -107,6 +107,21 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
     }
 
     @Test
+    public void adminPasswordDoesntMeetRequirements() {
+        Password currentPassword = getModel().getLoggedInUser().getPassword();
+
+        attemptPasswordChange(currentPassword.password);
+        //ensure password hasn't changed
+        assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
+
+        executeCommand("12345678");
+        assert getResultDisplay().getText().equals(Password.MESSAGE_PASSWORD_CONSTRAINTS);
+        assert !(eventsCollectorRule.eventsCollector.isAny(AdminPasswordModificationEvent.class));
+        assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
+        verifyHistoryDoesNotContain(currentPassword.password, "12345678");
+    }
+
+    @Test
     public void userChangeSuccess() {
         loginAsUser();
 
