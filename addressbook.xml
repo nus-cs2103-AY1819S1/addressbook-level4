@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
     <tasks>
-        <name>a Tutorial</name>
-        <date>111018</date>
-        <priority>1</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
-    </tasks>
-    <tasks>
-        <name>z Tutorial</name>
-        <date>111018</date>
-        <priority>1</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
-    </tasks>
-    <tasks>
-        <name>f Tutorial</name>
-        <date>111018</date>
-        <priority>2</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
-    </tasks>
-    <tasks>
-        <name>d Tutorial</name>
+        <name>CS2103T Tutorial</name>
         <date>111018</date>
         <priority>3</priority>
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
     </tasks>
     <tasks>
-        <name>m Tutorial</name>
-        <date>111018</date>
+        <name>CS2103 Tutorial</name>
+        <date>121018</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
+    <tasks>
+        <name>CS Tutorial</name>
+        <date>121018</date>
+        <priority>1</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103T Tutorial</name>
+        <date>101018</date>
         <priority>1</priority>
         <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
