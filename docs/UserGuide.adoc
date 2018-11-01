@@ -168,7 +168,8 @@ Example: `help add`
 
 image::ui_screenshots/history-example-1.png[width="790"]
 
-// tag::autocompletesuggest[]
+// tag::autocomplete[]
+
 ==== Suggesting commands: `{tab}`
 
 Displays suggested list of commands when kbd:[TAB] is pressed. +
@@ -176,7 +177,7 @@ Format: kbd:[TAB]
 
 [WARNING]
 The full functionality of suggesting commands can be quite heavy.
-Skip to <<suggest_examples>> to view common usage.
+Skip to <<suggest_examples, examples>> to view common usage.
 
 [NOTE]
 Extended usage of suggesting commands:
@@ -185,20 +186,20 @@ Extended usage of suggesting commands:
 |Action |State of application |Expected Output
 |kbd:[TAB] a|
 * `CommandBox` contains half complete command
-* **Only 1** command word match to first prefix in `CommandBox` a|
+* *Only 1* command word match to first prefix in `CommandBox` a|
 * Strip all text behind first prefix in `CommandBox`.
 * Replace prefix with matching command word in `CommandBox`.
 * Display matching command word in result panel.
 
 |kbd:[TAB] a|
 * `CommandBox` contains half complete command
-* **More than 1** command word match to first prefix in `CommandBox` a|
+* *More than 1* command word match to first prefix in `CommandBox` a|
 * Display all matching command words in result panel.
 * No change in `CommandBox`.
 
 |kbd:[TAB] a|
 * `CommandBox` contains half complete command
-* **No** command word match to first prefix in `CommandBox` a|
+* *No* command word match to first prefix in `CommandBox` a|
 * No visible change is reflected.
 
 |kbd:[TAB] a|
@@ -213,26 +214,26 @@ Extended usage of suggesting commands:
 
 |kbd:[ENTER] a|
 * `CommandBox` contains half complete command
-* **Only 1** command word match to first prefix in `CommandBox` a|
+* *Only 1* command word match to first prefix in `CommandBox` a|
 * Strip all text behind first prefix in `CommandBox`.
 * Replace prefix with matching command word in `CommandBox`.
 * Display matching command word in result panel.
 
 |kbd:[ENTER] a|
 * `CommandBox` contains half complete command
-* **More than 1** command word match to first prefix in `CommandBox` a|
+* *More than 1* command word match to first prefix in `CommandBox` a|
 * Display all matching command words in result panel.
 * Remove all text in `CommandBox`.
 
 |kbd:[ENTER] a|
 * `CommandBox` contains half complete command
-* **No** command word match to first prefix in `CommandBox` a|
+* *No* command word match to first prefix in `CommandBox` a|
 * Error is shown in result panel.
 * `CommandBox` text turns red.
 
 |kbd:[ENTER] a|
 * `CommandBox` starts with a complete command word
-* Command arguments are **invalid** a|
+* Command arguments are *invalid* a|
 * Suggested command usage is shown in result panel.
 * `CommandBox` text turns red.
 |=======================================================================
@@ -246,7 +247,7 @@ kbd:[TAB] (Completes the `help` command word.) +
 * `histor more` +
 kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command) +
 
-// end::autocompletesuggest[]
+// end::autocomplete[]
 
 ==== Viewing history of previous commands: `history`
 

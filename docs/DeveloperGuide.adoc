@@ -394,10 +394,29 @@ AttributePredicate to test the attribute
 // end::filter[]
 
 
-// tag::autocompletesuggest[]
-=== Autocomplete/Suggest Feature
+=== Accessibility feature
+
+// tag::autocomplete[]
 ==== Current Implementation
 
+The accessibility feature is responsible for making ThanePark application easier to use.
+It can be decomposed into the following components: +
+
+* <<accessibility_help, *Help*>>
+* <<accessibility_autocomplete, *Autocomplete/Suggest*>>
+* <<accessibility_history, *Command History retrieval*>>
+* <<accessibility_UI, *UI changes*>>
+
+[#accessibility_help]
+The *help* mechanism is facilitated by the `ShowHelpRequestEvent`.
+When the user executes a `HelpCommand`, the required level of help is encoded in `ShowHelpRequest`.
+This event is subscribed to by `MainWindow`, which will load the respective help page in the required window
+(`BrowserPanel` or `HistoryWindow`). These interactions are illustrated in the class diagram below:
+
+.Class Diagram of help mechanism
+image::AutocompleteSuggestActivityDiagram1.png[width="800"]
+
+[#accessibility_autocomplete]
 The *autocomplete/suggest* mechanism is facilitated by `SuggestCommand`.
 It extends `Command` and serves as a special kind of `Command` that cannot be directly invoked by the `LogicManager`.
 A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
@@ -416,6 +435,24 @@ These matching `Command` s are reflected in both `CommandResult` and `ShowHelpRe
 .Activity Diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram3.png[width="800"]
 
+[#accessibility_history]
+The *history* mechanism is facilitated by `CommandHistory` and `CommandsLogCenter`.
+`CommandHistory` maintains the history as a list of user inputs during the session,
+and interfaces with `CommandsLogCenter` to handle the retrieval and persistent storage
+of user inputs executed across sessions.
+
+Given below are 2 example usage scenarios to illustrate the behavior of the *history* mechanism.
+
+* Example scenario 1: User requests for current session's history. +
+Step 1. User executes `history`. +
+Step 2. The list of user inputs in the current session is retrieved from `CommandHistory`. +
+Step 3. A `NewResultAvailableEvent` is raised within the `Logic` component.
+Step 4. The result panel displays the list of user inputs upon notification by the event.
+
+* Example scenario 2: User requests for cumulative history. +
+
+When the cumulative history of all commands is requested,
+
 ==== Design Considerations
 
 ===== Aspect: Handling kbd:[Tab] autocomplete
@@ -430,7 +467,7 @@ Event types in the application.
 
 ** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
 for result listing of results in `ResultDisplay`.
-// end::autocompletesuggest[]
+// end::autocomplete[]
 
 // tag::viewstatus[]
 === View Status Feature
