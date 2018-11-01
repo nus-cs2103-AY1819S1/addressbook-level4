@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.VolunteerPanelSelectionChangedEvent;
 import seedu.address.commons.util.BirthdayUtil;
+import seedu.address.commons.util.GenderUtil;
 import seedu.address.model.record.Record;
 import seedu.address.model.volunteer.Volunteer;
 
@@ -48,7 +49,7 @@ public class VolunteerPanel extends UiPart<Region> {
 
     private void setLabelText(Volunteer volunteer) {
         volunteerNameLabel.setText(volunteer.getName().fullName);
-        volunteerGenderLabel.setText(volunteer.getGender().value);
+        volunteerGenderLabel.setText(GenderUtil.getFriendlyGenderFromVolunteerGender(volunteer.getGender()));
         volunteerBirthdayLabel.setText(BirthdayUtil.getFriendlyDateFromVolunteerBirthday(volunteer.getBirthday()));
         volunteerPhoneLabel.setText(volunteer.getPhone().value);
         volunteerEmailLabel.setText(volunteer.getEmail().value);

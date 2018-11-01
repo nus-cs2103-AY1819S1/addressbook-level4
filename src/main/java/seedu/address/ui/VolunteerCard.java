@@ -6,6 +6,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.BirthdayUtil;
+import seedu.address.commons.util.GenderUtil;
 import seedu.address.model.volunteer.Volunteer;
 
 /**
@@ -49,7 +50,7 @@ public class VolunteerCard extends UiPart<Region> {
         this.volunteer = volunteer;
         id.setText(displayedIndex + ". ");
         name.setText(volunteer.getName().fullName);
-        gender.setText(volunteer.getGender().value);
+        gender.setText(GenderUtil.getFriendlyGenderFromVolunteerGender(volunteer.getGender()));
         gender.setVisible(false);
         birthday.setText(BirthdayUtil.getFriendlyDateFromVolunteerBirthday(volunteer.getBirthday()));
         birthday.setVisible(false);
