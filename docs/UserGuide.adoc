@@ -23,7 +23,7 @@ Office Assistance Specialized Integration System (OASIS) is for users who prefer
 === An Introduction to OASIS
 The image shown below highlights the difference sections of OASIS's user interface:
 
-image::IntroToOASIS.png[width="900"]
+image::introToOASIS.png[width="900"]
 
 == Quick Start
 
