@@ -138,7 +138,7 @@ Examples:
 
 === Redoing the previous actions : `redo`
 
-Format: `redo`: Step forward to previously undone transformation
+Format: `redo`: Step forward to the previously undone transformation
 
 Examples:
 
