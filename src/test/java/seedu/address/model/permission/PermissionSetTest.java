@@ -67,6 +67,7 @@ public class PermissionSetTest {
         assertTrue(permissionSet.addPermissions((permissionsToAdd)));
 
         //permissions already in set -> false
+        permissionSet = new PermissionSet(permissionsToAdd);
         assertFalse(permissionSet.addPermissions((permissionsToAdd)));
     }
 
@@ -229,10 +230,10 @@ public class PermissionSetTest {
         assertTrue(testPermissionSet.containsAll(Permission.REMOVE_EMPLOYEE, Permission.ADD_EMPLOYEE));
 
         PermissionSet duplicatePermissionSet = new PermissionSet();
-        duplicatePermissionSet.addAll(testPermissionSet);
+        duplicatePermissionSet.addPermissions(testPermissionSet);
 
         PermissionSet morePermissionSet = new PermissionSet();
-        morePermissionSet.addAll(testPermissionSet);
+        morePermissionSet.addPermissions(testPermissionSet);
         morePermissionSet.addPermissions(Permission.ASSIGN_PERMISSION);
 
         //Same permissionSet --> true
@@ -242,4 +243,27 @@ public class PermissionSetTest {
         //have permission not included --> false
         assertFalse(testPermissionSet.containsAll(morePermissionSet));
     }
+
+    @Test
+    public void equals() {
+        PermissionSet pSet = new PermissionSet(PermissionSet.PresetPermission.ADMIN);
+
+        // same values -> returns true
+        PermissionSet pSetCopy = new PermissionSet(pSet);
+        assertTrue(pSet.equals(pSetCopy));
+
+        // same object -> returns true
+        assertTrue(pSet.equals(pSet));
+
+        // null -> returns false
+        assertFalse(pSet.equals(null));
+
+        // different type -> returns false
+        assertFalse(pSet.equals(5));
+
+        // different permissions -> returns false
+        PermissionSet pSetDiff = new PermissionSet(PermissionSet.PresetPermission.MANAGER);
+        assertFalse(pSet.equals(pSetDiff));
+    }
+
 }
