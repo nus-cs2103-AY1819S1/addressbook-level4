@@ -46,7 +46,7 @@ public class SelectCommand extends Command {
 
         List<Path> dirImageList = model.getDirectoryImageList();
 
-        if (targetIndex.getZeroBased() >= dirImageList.size()) {
+        if (targetIndex.getZeroBased() >= model.numOfRemainingImagesInDir()) {
             throw new CommandException(Messages.MESSAGE_INDEX_END_OF_IMAGE_LIST);
         } else if (targetIndex.getZeroBased() >= BATCH_SIZE) {
             throw new CommandException(Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
