@@ -17,6 +17,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.User;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.storage.XmlSerializableArchiveList;
@@ -76,6 +77,7 @@ public class TestApp extends MainApp {
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setAdminPassword(User.ADMIN_DEFUALT_PASSWORD);
         return userPrefs;
     }
 

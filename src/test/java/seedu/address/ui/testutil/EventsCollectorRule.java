@@ -82,5 +82,19 @@ public class EventsCollectorRule implements TestRule {
         public boolean isEmpty() {
             return events.isEmpty();
         }
+
+        /**
+         * Checks if any of the events that has been raised is of a specific type
+         * @param eventClass The class type to check for
+         * @return true if there has been such an event, false otherwise.
+         */
+        public boolean isAny(Class eventClass) {
+            for (BaseEvent event : events) {
+                if (eventClass.isInstance(event)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

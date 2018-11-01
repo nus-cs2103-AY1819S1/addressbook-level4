@@ -24,6 +24,7 @@ import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.ModifyPermissionCommand;
+import seedu.address.logic.commands.PasswordCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -116,6 +117,9 @@ public class AddressBookParser {
 
         case ListAssignmentCommand.COMMAND_WORD:
             return new ListAssignmentCommand();
+
+        case PasswordCommand.COMMAND_WORD:
+            return new PasswordCommand();
 
         case ViewPermissionCommand.COMMAND_WORD:
             return new ViewPermissionCommandParser().parse(arguments);

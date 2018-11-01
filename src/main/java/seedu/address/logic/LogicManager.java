@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -7,6 +9,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.ProcessCommand;
 import seedu.address.commons.events.ui.FailedLoginEvent;
 import seedu.address.commons.events.ui.LoginEvent;
 import seedu.address.commons.events.ui.LogoutEvent;
@@ -34,21 +37,45 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
 
+    private List<ProcessCommand<String, CommandResult, CommandException>> interceptors;
+
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+        interceptors = new ArrayList<>();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+
+        if (interceptors.size() != 0) {
+            CommandResult commandResult = null;
+            for (int i = interceptors.size() - 1; i >= 0; i--) {
+                if (commandResult == null) {
+                    commandResult = interceptors.get(i).apply(commandText);
+                } else {
+                    commandResult.absorb(interceptors.get(i).apply(commandText));
+                }
+            }
+            interceptors.clear();
+            processCommandResult(commandResult);
+            return commandResult;
+        }
+
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            return command.execute(model, history);
+            CommandResult commandResult = command.execute(model, history);
+            processCommandResult(commandResult);
+            return commandResult;
         } finally {
             history.add(commandText);
         }
+    }
+
+    private void processCommandResult(CommandResult result) {
+        interceptors.addAll(result.getIntercepters());
     }
 
     @Override
@@ -92,10 +119,10 @@ public class LogicManager extends ComponentManager implements Logic {
             return;
         }
 
-        Username username = new Username(loginEvent.getUsername());
-        Password password = new Password(loginEvent.getPassword());
+        String username = loginEvent.getUsername();
+        String password = loginEvent.getPassword();
 
-        if (username.equals(User.ADMIN_USERNAME) && password.equals(User.ADMIN_PASSWORD)) {
+        if (User.matchesAdminLogin(username, password)) {
             User admin = User.getAdminUser();
             model.setLoggedInUser(admin);
             raise(new SuccessfulLoginEvent(admin));
@@ -107,8 +134,8 @@ public class LogicManager extends ComponentManager implements Logic {
 
         boolean someoneFound = false;
         for (Person p : people) {
-            if (p.getUsername().equals(username)) {
-                if (p.getPassword().equals(password)) {
+            if (p.getUsername().username.equals(username)) {
+                if (p.getPassword().matches(password)) {
                     User loggedInUser = new User(p);
                     model.setLoggedInUser(loggedInUser);
                     raise(new SuccessfulLoginEvent(loggedInUser));
