@@ -149,8 +149,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
         for (Person p : group.getMembersView()) {
             Person edited = persons.getPersonByName(p.getName());
-            edited.addGroup(group);
-            persons.setPerson(p, edited);
+            if (!edited.hasGroup(group)) {
+                edited.addGroup(group);
+                persons.setPerson(p, edited);
+            }
         }
     }
 
