@@ -31,7 +31,7 @@ class EraseCommandTest {
         List<String> target = new ArrayList<>();
         List<Person> original = new ArrayList<>();
         List<Person> erased = new ArrayList<>();
-        String targetTag = "track";
+        String targetTag = "Basketball";
         target.add(targetTag);
         EraseCommand eraseCommand = new EraseCommand(target);
 
@@ -39,7 +39,7 @@ class EraseCommandTest {
 
 
         ModelManager expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new BudgetBook(), new UserPrefs());
+            new BudgetBook(), new UserPrefs(), model.getExistingEmails());
         List<Person> fullList = model.getFilteredPersonList();
 
         for (Person p : fullList) {

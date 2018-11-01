@@ -16,7 +16,15 @@ endif::[]
 
 By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
+== Introduction
+
+Hallper is a desktop application aimed at serving <<jcrc,JCRCs>> of the Halls of NUS.
+Hallper follows an event-driven architecture, and is designed to work on any <<mainstream-os,mainstream OS>>.
+This guide provides you with information on how to contribute to Hallper, whether you are a new or experienced developer.
+
 == Setting up
+
+This section tells you how to set up your computer before you can start working on Hallper.
 
 === Prerequisites
 
@@ -104,6 +112,8 @@ When you are ready to start coding:
 
 == Design
 
+This section describes the architecture and components of the application.
+
 [[Design-Architecture]]
 === Architecture
 
@@ -120,19 +130,20 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * At app launch: Initialising the components in the correct sequence, and connecting them up with each other.
 * At shut down: Shutting down the components and invoking cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+Two of those classes play important roles at the architecture level:
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components:
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Ui,*`UI`*>>: Controls the UI of the App.
+* <<Design-Logic,*`Logic`*>>: Executes commands.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -173,9 +184,11 @@ image::UiClassDiagram.png[width="800"]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
 
-The `UI` component,
+The `UI` component:
 
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -191,10 +204,15 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
+The `Logic` component consists of all the `Command` and `Parser` classes.
+It makes use of `AddressBookParser` to parse all user commands.
+
+A typical flow in the `Logic` component is given below:
+
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -209,12 +227,14 @@ image::ModelClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model` component consists of classes that model objects e.g. `Person`, `Calender`, `Email`, etc.
+It does not depend on any of the other three components.
+
+The `Model` component:
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -229,15 +249,20 @@ image::StorageClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
-The `Storage` component,
+The `Storage` component consists of classes which are responsible for saving and reading files.
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+The `Storage` component:
+
+* saves `UserPref` objects in json format and reads it back.
+* saves the Address Book data in xml format and reads it back.
+* saves emails in eml format and reads it back.
+* saves calendars in ics format and reads it back.
+* saves the Budget Book data in xml format and reads it back.
 
 [[Design-Commons]]
-=== Common classes
+=== Commons
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+`Commons` consists of classes used by multiple components and are located in the `seedu.addressbook.commons` package.
 
 == Implementation
 
@@ -259,22 +284,28 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+===== Command: undo
+
+1) The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the
+initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+2) The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls
+`Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+3) The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`,
+causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+4) The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo`
+command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -285,16 +316,22 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
+===== Command: redo
+
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
 If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+*Things to Note*
+
+* Not all commands can undo or redo. Some commands, such as `list`, do not modify the address book and
+will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+* Some commands such as `clear`, will calls `Model#commitAddressBook()`. In this case, the `currentStatePointer` is
+not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -311,7 +348,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -319,12 +356,12 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Pros: Do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 //tag::compose[]
-=== Compose feature
+=== Compose email feature
 ==== Current Implementation
 
 The Compose feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
@@ -332,39 +369,46 @@ It allows `.eml` files to be saved onto the computer.
 The feature is facilitated by `EmailModel` and `EmailDirStorage`.
 It implements the following operations:
 
-* `EmailModel#saveEmail(Email email)` -- Stores each newly composed email in the `EmailModel`.
+* `EmailModel#saveComposedEmail(Email email)` -- Stores each newly composed email in the `EmailModel`.
 * `EmailDirStorage#saveEmail(EmailModel email)` -- Saves the newly composed email in the `EmailModel` to the computer.
 
-These operations are exposed in the `Model` interface as `Model#saveEmail(Email email)`, and in the `Storage` interface as `Storage#saveEmail(EmailModel email)` respectively.
+These operations are exposed in the `Model` interface as `Model#saveComposedEmail(Email email)`, and in the `Storage` interface as `Storage#saveEmail(EmailModel email)` respectively.
 
 Given below is an example usage scenario and how the Compose feature behaves at each step:
 
-. The user executes the `Compose` command, which creates an email.
-The `Compose` command calls `Model#saveEmail(Email email)`, saving the email to `EmailModel`.
+Step 1. The user executes either the `ComposeEmailList` command or `ComposeEmailIndex` command, which creates an email.
+The `ComposeEmailList`/`ComposeEmailIndex` command calls `Model#saveComposedEmail(Email email)`, saving the email to `EmailModel`.
 
-. Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new email is saved to the `EmailModel`.
+Step 2. Once the email is saved in the `EmailModel`, the `ModelManager` raises an `EmailSavedEvent`, to indicate that a new
+ email is saved to the `EmailModel`.
 
-. The `EmailSavedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleEmailSavedEvent(EmailSavedEvent event)`, which then calls `EmailDirStorage#saveEmail(EmailModel email)`.
+Step 3. The `EmailSavedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleEmailSavedEvent
+(EmailSavedEvent event)`, which then calls `EmailDirStorage#saveEmail(EmailModel email)`.
 This saves the email to a specified local directory.
 
-. A preview of the email is displayed on the main window.
+Step 4. A preview of the email is displayed on the main window.
 
 ==== Design Considerations
 
-===== Aspect: File format
+===== Aspect: Method to create emails
 
-The `.eml` file format is compliant with the RFC-822 format, which is industry recognised, and can be opened and viewed using many applications.
-`.eml` files can also contain attachments.
-
-===== Aspect: Using http://www.simplejavamail.org/#/about[Simple Java Mail]
-
-http://www.simplejavamail.org/#/about[Simple Java Mail] contains various methods to conveniently create emails.
-It can also be used to send emails if Hallper is extended to include online capabilities.
+* **Alternative 1 (current choice):** Use http://www.simplejavamail.org/#/about[Simple Java Mail].
+** Pros: http://www.simplejavamail.org/#/about[Simple Java Mail] contains various methods to conveniently create emails.
 The library is easy to understand so any new developer can easily extend the current features.
+** Cons: The design of created emails is limited to the http://www.simplejavamail.org/#/about[Simple Java Mail] API.
+* **Alternative 2:** Write a custom email builder.
+** Pros: The design of created emails can be freely manipulated.
+** Cons: Much more code has to be written.
 
-===== Aspect: HTML Text
+===== Aspect: Text type
 
-User input for email content is saved as HTML Text so that users with HTML Text Formatting knowledge can easily format the body of the email.
+* **Alternative 1 (current choice):** HTML text
+** Pros: Users with HTML knowledge can manipulate the content of the email.
+** Cons: Users unfamiliar with HTML minimally has to learn how the `<br>` tag works.
+* **Alternative 2:** Plain text
+** Pros: Plain text is easily understood by almost any user.
+** Cons: The design of the email content is limited.
+
 //end::compose[]
 
 // tag::calendar[]
@@ -372,10 +416,14 @@ User input for email content is saved as HTML Text so that users with HTML Text 
 ==== Current Implementation
 
 The calendar feature in Hallper is implemented using a third-party dependency, https://github.com/ical4j/ical4j[iCal4j].
-It allows `.ics` files to be saved onto the computer. Calendars in Hallper are created as monthly calendars, a `Map<Year, Set<Month>>` in `CalendarModel` keeps a record of existing calendars in Hallper.
-It implements the following command:
+It creates `.ics` files and saves them onto the local computer. Calendars in Hallper are created as monthly
+calendars, a `Map<Year, Set<Month>>` in `CalendarModel` keeps a record of existing calendars in Hallper.
+It implements the following commands:
 
 * `create_calendar` -- Creates a monthly calendar and store it in local memory.
+* `add_all_day_event` -- Adds an all day event into the monthly calendar specified.
+* `add_event` -- Adds an event of a specified time frame into the monthly calendar.
+* `delete_event` -- Deletes an existing event in the monthly calendar.
 
 ===== Create_Calendar Command
 This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
@@ -387,21 +435,131 @@ It implements the following operations:
 
 These operations are exposed in the 'Model` interface as `Model#createCalendar(Year year, Month month)`, `Model#isExistingCalendar(Year year, Month month)` and in the `Storage` interface as `Storage#createCalendar(Calendar calendar, String calendarName)` respectively.
 
-Given below is an example usage scenario and how the create_calendar command behaves at each step:
+Given below is an example usage scenario and how the `create_calendar` command behaves at each step:
 
-. The user executes the `create_calendar` command by specifying the `Month` and `Year`.
-The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the calendar already exists. Else the command will then call `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
+. The user executes the `create_calendar` command by specifying the month and year.
+The `create_calendar` command then calls `Model#isExistingCalendar(Year year, Month month)`, to check whether the
+calendar already exists inside Hallper. If it exists, the command does nothing and reflects to the user that the
+calendar already exists. Else, the command calls `Model#createCalendar(Year year, Month month)`, initializing a calendar object inside `CalendarModel`.
 
-. Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`, to indicate that a calendar object has been initialized in the `CalendarModel`.
+. Once the calendar object is initialized in the `CalendarModel`, the `ModelManager` raises a `CalendarCreatedEvent`,
+ to indicate that a calendar object has been initialized in the `CalendarModel`.
 
-. The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarCreatedEvent(CalendarCreatedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+. The `CalendarCreatedEvent` goes to the `EventsCenter`, and is then handled by
+`StorageManager#handleCalendarCreatedEvent(CalendarCreatedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
 This saves the calendar to a specified local directory.
+
+===== Add Event Commands
+The `add_all_day_event` and `add_event` command have many similarities, they differ only by their parameters and the number of checks called to verify the validity of the event to be added. Events in Hallper are created as VEvent objects as implemented in the https://github.com/ical4j/ical4j[iCal4j] library.
+Both commands are facilitated by `CalendarModel` and `IcsCalendarStorage`. It implements the following operations:
+
+* `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)` -- Creates an all day event object and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)` -- Creates an event object with the specified time frame and saves it inside the loaded calendar in `CalendarModel`.
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isValidTime(int hour, int min)` -- Checks if the hour and minutes are valid in accordance to the 24 hour format.
+* `CalendarModel#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` -- Checks that the end date and time doesn't occur before the start date and time.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#createAllDayEvent(Year year, Month month, int date, String title)`
+* `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isValidTime(int hour, int min)`
+* `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
+
+====== Add_All_Day_Event Command
+Given below is an example usage scenario and how the `add_all_day_event` command behaves at each step:
+
+. The user executes the `add_all_day_event` command by specifying the month, year, date and title.
+The `add_all_day_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`, to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+Else, the command calls `Model#createAllDayEvent(Year year, Month month, int date, String title)`, which calls `CalendarModel#createAllDayEvent(Year year, Month month, int date, String title)`.
+
+. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+
+. The `ModelManager` then raises a `AllDayEventAddedEvent`, to indicate an all day event has been created in the `CalendarModel`.
+
+. The `AllDayEventAddedEvent` goes to the `EventsCenter`, and is then handled by
+`StorageManager#handleAllDayEventAddedEvent(AllDayEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+====== Add_Event Command
+Given below is an example usage scenario and how the `add_event` command behaves at each step:
+
+. The user executes the `add_event` command by specifying the month, year, starting date, starting time, ending date, ending time and title.
+The `add_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)`,
+`Model#isValidTime(int hour, int min)` and `Model#isValidTimeFrame(int startDate, int startHour, int startMin, int endDate, int endHour, int endMin)` to perform checks on whether the
+request to create event is valid. If it fails any one of the checks, the command does nothing and reflects to the user that the request to create event is not valid.
+Else, the command calls `Model#createEvent(Year year, Month month, int startDate, int startHour, int startMin, int endDate, int endHour, int endMin, String title)`, which calls `CalendarModel#loadCalendar(Year year, Month month)`.
+
+. `CalendarModel` first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`.
+
+. Once the calendar object is loaded in the `CalendarModel`, it creates an event object and loads it with all the relevant information.
+
+. The `ModelManager` then raises a `CalendarEventAddedEvent`, to indicate an event with a specified time frame has been created in the `CalendarModel`.
+
+. The `CalendarEventAddedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventAddedEvent(CalendarEventAddedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
+
+===== Delete_Event Command
+This command is facilitated by `CalendarModel` and `IcsCalendarStorage`.
+It implements the following operations:
+
+* `CalendarModel#loadCalendar(Year year, Month month)` -- Loads the monthly calendar specified into `CalendarModel`.
+* `CalendarModel#deleteEvent(Year year, Month month)` -- Deletes an existing event in the monthly calendar.
+* `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` -- Retrieves the event object from the calendar.
+* `CalendarModel#isSameEvent(int startDate, int endDate, String title, VEvent event)` -- Checks whether the requested event to be deleted is the same event object in the calendar.
+* `CalendarModel#isExistingCalendar(Year year, Month month)` -- Checks if the calendar already exists in Hallper.
+* `CalendarModel#isValidDate(Year year, Month month, int date)` -- Checks if the date is a valid date in accordance to the Gregorian calendar.
+* `CalendarModel#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` -- Checks if an event exists in the monthly calendar.
+* `IcsCalendarStorage#loadCalendar(String calendarName)` -- Loads the specified calendar from the local directory into local memory.
+* `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)` -- Saves the calendar passed from `CalendarModel` to the local directory.
+
+These operations are exposed in the `Model` and `Storage` interface as :
+
+* `Model#loadCalendar(Year year, Month month)`
+* `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Model#isExistingCalendar(Year year, Month month)`
+* `Model#isValidDate(Year year, Month month, int date)`
+* `Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)`
+* `Storage#loadCalendar(String calendarName)`
+* `Storage#createCalendar(Calendar calendar, String calendarName)`
+
+Given below is an example usage scenario and how the `delete_event` command behaves at each step:
+
+. The user executes the `delete_event` command by specifying the month, year, starting date, ending date, and title.
+The `delete_event` command then calls `Model#isExistingCalendar(Year year, Month month)`, `Model#isValidDate(Year year, Month month, int date)` and
+`Model#isExistingEvent(Year year, Month month, int startDate, int endDate, String title)` to perform checks on whether the request to delete event is valid.
+If it fails any one of the checks, the command does nothing and reflects to the user that the request to delete event is not valid. Else, the `Model#isExistingEvent` check will retrieve the event and load it inside the `CalendarModel`. It then calls `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)`.
+
+. The `Model#isExistingEvent` check first calls `CalendarModel#loadCalendar(Year year, Month month)` to load the calendar into `CalendarModel`. Once the calendar object is loaded in the `CalendarModel`, it then calls `CalendarModel#retrieveEvent(int startDate, int endDate, String title)` to retrieve the event and store it inside the `CalendarModel` as event to be deleted.
+
+. The call to `Model#deleteEvent(Year year, Month month, int startDate, int endDate, String title)` calls `CalendarModel#deleteEvent(Year year, Month month)` which removes the event to be deleted in `CalendarModel` from the monthly calendar.
+
+. The `ModelManager` then raises a `CalendarEventDeletedEvent`, to indicate an event has been deleted in the `CalendarModel`.
+
+. The `CalendarEventDeletedEvent` goes to the `EventsCenter`, and is then handled by `StorageManager#handleCalendarEventDeletedEvent(CalendarEventDeletedEvent event)`, which then calls `IcsCalendarStorage#createCalendar(Calendar calendar, String calendarName)`.
+This saves the updated calendar back to the local directory.
 
 ==== Design Considerations
 
 ===== Aspect: File format
 
-The `.ics` file format is compliant with the RFC 5545 format, which is industry recognised, and can be opened and viewed using many applications, including Microsoft Outlook, Google Calendar, and Apple Calendar.
+* **Pro:** The `.ics` file format is compliant with the RFC 5545 format, which is industry recognised, and can be opened
+ and viewed using many applications, including Microsoft Outlook, Google Calendar, and Apple Calendar.
+* **Con:** `.ics` file alone is not very useful. User needs to import the events created into users' preferred
+calender application manually and consistently. More implementations will be required to make `.ics` files useful in
+Hallper.
 
 ===== Aspect: Using https://github.com/ical4j/ical4j[iCal4j]
 
@@ -409,8 +567,148 @@ https://github.com/ical4j/ical4j[iCal4j] contains various methods that make crea
 The library is widely used and easy to understand so any new develeper can easily extend the current features.
 // end::calendar[]
 
+// tag::createcca[]
+=== Create CCA feature
+==== Current Implementation
+
+The `create` mechanism is facilitated by `BudgetBook` and `BudgetBookStorage`.
+When a CCA is created, it is stored in a `UniqueCcaList` in the `BudgetBook`, and in a `.xml` file in the local
+directory. It implements the following command:
+
+* `BudgetBook#addCca(Cca toAdd)` -- Adds a non existing CCA into the `BudgetBook` in `Model`.
+* `BudgetBook#commitBudgetBook()` -- Save a current version of the budget book in the `VersionedBudgetBook`.
+
+These operations are exposed in the `Model` interface as `Model#addCca(Cca cca)`, `Model#hasCca(CcaName name)`,
+`Model#hasCca(Cca cca)` and `Model#commitBudgetBook()`.
+
+Given below is an example usage scenario and how the create cca mechanism behaves at each step.
+
+. The user create a new CCA by including the `CCA name` and the 'budget` allocated to the CCA.
+
+. `create` command checks for existing CCA name using `BudgetBook#hasCca(Cca toAdd)`. If a CCA with the same
+name exists, the CCA is not created. Otherwise, it is added into the `BudgetBook` in the `Model`.
+
+. `BudgetBook#addCca(Cca cca)` then invokes `ModelManger#indicateBudgetBookChange()` to raise a
+`BudgetBookChangedEvent`, which is handled by `EventsCenter`.
+
+. `BudgetBookChangedEvent` is then handled by `StorageManager#handleBudgetBookChangedEvent(BudgetBookChangedEvent
+event)`. `StorageManager#saveBudgetBook(ReadOnlyBudgetBook data)` is then called to write the update the existing
+`ccabook.xml` file with the new CCA.
+
+==== Design Considerations
+
+===== Aspect: Choice of local storage format
+
+* **Alternative 1 (current choice):** Saves in `.xml` format.
+** Pros: Easy to create, understand, move and translate into other environments. International data standard for
+storing information.
+** Cons: Parsing XML software is slow and cumbersome. Use large amounts of memory due to the verbosity and incur cost
+ of parsing large XML files.
+* **Alternative 2:** Save in `.json` format.
+** Pros: Faster in parsing information.
+** Cons: Limited in terms of what objects can be modeled.
+
+// end::createcca[]
+
+// tag::import[]
+=== Import feature
+==== Current Implementation
+The import feature allows `.xml` files of different formats to be imported from the computer.
+
+It implements the following operations and classes:
+
+* `ImportCommand#parseFile()` -- Parses specified path into document for reading.
+* `ImportAddressBook#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update
+Hallper data.
+* `ImportCcaList#execute(Document doc, Model model)` -- Imports `.xml` file from the specified path to update Hallper
+contacts' CCAs.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#addMultiplePersons()`
+and `Model#updateMultiplePersons`.
+
+Given below is an example usage scenario and how the import mechanism behaves at each step.
+
+. The user imports `.xml` file by specifying the path of the file.
+
+. `ImportCommandParser` checks for the validity of the path and `.xml` file format. If `.xml` file has an invalid
+format, the specified file will not be imported.
+
+. `ImportCommand#parseFile()` then prepares the file for reading by parsing into a document.
+
+. `ImportCommand.execute(Model model, CommandHistory history)` then invokes `ImportAddressBook#execute(Document doc,
+Model model)` to read the document.
+
+. After the document data is read,  `ImportAddressBook#execute(Document doc, Model model)` then invokes
+`ModelManager#addMultiplePersons(List<Person> personList)` to update Hallper's internal list and
+`ModelManager#indicateAddressBookChanged()`, which raises an `AddressBookChangedEvent` which is handled by
+`EventsCenter`.
+
+. `AddressBookChangedEvent` is then handled by
+`StorageManager#handleAddressBookChangedEvent(AddressBookChangedEvent event)`.
+`StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
+with the new contacts.
+
+==== Design Considerations
+
+===== Aspect: Choice of component to read imported file
+
+* **Alternative 1 (current choice):** Reads file in `Logic`.
+** Pros: Easy to change parsing of `.xml` file when `.xml` file format changes. New `.xml` file formats can be added
+without disrupting the existing parsers.
+** Cons: Importing from the computer is a storage-related feature but the reading of the file is located outside of
+Storage component.
+
+* **Alternative 2:** Reads file in `Storage`.
+** Pros: Proper grouping of import implementation inside related component.
+** Cons: More complicated implementation if more `.xml` file formats are added to be parsed in the future.
+
+// end::import[]
+
+// tag::export[]
+=== Export feature
+==== Current Implementation
+The export feature allows Hallper data to be exported as an `xml` file to the computer.
+
+It implements the following operation:
+
+* `ExportCommand#execute(Model model, CommandHistory history)` -- Exports current Hallper data as an `xml` file to
+the specified path.
+
+This operation is exposed in the `Model` interface as `Model#exportAddressBook(Path filePath)`.
+
+Given below is an example usage scenario and how the export mechanism behaves at each step.
+
+. The user exports an 'xml' file by specifying the destination path and name of the exported file.
+
+. `ExportCommandParser` checks for the validity of the path and file name. If path or file name are invalid, Hallper
+data will not be exported. Otherwise, path and filename will be parsed into a single, full path.
+
+. `ExportCommand#execute(Model model, CommandHistory history)` then invokes
+`ModelManager#exportAddressBook(Path filePath)` which raises an `ExportAddressBookEvent`.
+
+. `ExportAddressBookEvent` is then handled by
+`StorageManager#handleExportAddressBookEvent(ExportAddressBookEvent event)`.
+`StorageManager#exportAddressBook(ReadOnlyAddressBook addressBook, Path path)` is then called to export Hallper's
+storage data to the specified path.
+
+==== Design Considerations
+
+===== Aspect: Choice of export format
+
+* **Alternative 1 (current choice):** Export `.xml` format only.
+** Pros: Easy for user to update and re-import the `.xml` file. Standardised format for Hallper-related data files.
+** Cons: Difficult to convert/transfer data to other applications due to limited export format. Need to use external
+applications to convert `.xml` file.
+
+* **Alternative 2:** Export `.xml`, `.txt` and `.xlsx` formats.
+** Pros: More options for user to export Hallper data. Exported files can be read across different applications.
+** Cons: Unused file formats. `.xml` is the format that is mainly used by Hallper so `.txt` and `.xlsx` may be
+underused or unused.
+
+// end:export[]
+
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
+=== [Proposed] Data encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
@@ -418,18 +716,22 @@ _{Explain here how the data encryption feature will be implemented}_
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+`java.util.logging` package is used for logging. The `LogsCenter` class is used to manage the logging levels and
+logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+* Logging level can be controlled using the `logLevel` setting in the configuration file (See
+<<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the
+specified logging level
+* Current log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+* `SEVERE` : Detect critical problem which may possibly cause the termination of the application.
+* `WARNING` : Able to continue, but with caution.
+* `INFO` : Show information on the noteworthy actions by the App.
+* `FINE` : Display eetails that is not usually noteworthy but may be useful in debugging e.g. print the actual list
+instead of just its size.
 
 [[Implementation-Configuration]]
 === Configuration
@@ -443,16 +745,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to PDF format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -467,7 +769,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -497,7 +799,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -525,7 +827,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -543,7 +845,10 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+Testing is a crucial part of developing your application.
+Testing allows you to verify the correctness and usability of your app, before releasing it to users.
+
+=== Running tests
 
 There are three ways to run tests.
 
@@ -584,7 +889,7 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
@@ -592,22 +897,24 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 == Dev Ops
 
-=== Build Automation
+This section describes the tools used for building, testing, and releasing the application.
+
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -616,7 +923,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
@@ -943,6 +1250,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |JCRC member |compose emails |ease the process of sending emails to groups of hall residents
 
+|`* * *` |JCRC member |delete emails |remove email files that I no longer need
+
+|`* * *` |JCRC member |list all emails |see what emails exist
+
+|`* * *` |JCRC member |view emails |see the contents of an email
+
 |`* * *` |JCRC member |publish calenders |prevent clashes between events and inform hall residents of upcoming events
 
 |`* * *` |JCRC Finance Director |keep track of each CCA's budget |prevent problems during an audit
@@ -1053,10 +1366,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. JCRC member requests to clear persons with specific tag
+* 1a. JCRC member requests to clear persons with specific tag(s)
 +
 [none]
-** 1a1. Hallper clears all persons with specified tag
+** 1a1. Hallper clears all persons with specified tag(s)
 +
 Use case ends.
 
@@ -1065,10 +1378,28 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to import contacts
-2. Hallper requests for file location
-3. JCRC member enters file location
-4. Hallper imports contacts
+1. JCRC member requests to import contacts from file location
+2. Hallper imports contacts
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. File is invalid
++
+[none]
+** 3a1. Hallper shows error message
++
+Use case ends.
+
+[discrete]
+=== Use case: Export contacts
+
+*MSS*
+
+1. JCRC member requests to export contacts to location
+2. Hallper exports contacts to location
 +
 Use case ends.
 
@@ -1087,22 +1418,101 @@ Use case ends.
 
 *MSS*
 
-1. JCRC member requests to erase a specific tag
-2. Hallper erases specified tag from all persons
+1. JCRC member requests to erase specific tag(s)
+2. Hallper erases specified tag(s) from all persons
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Tag does not exist
++
+[none]
+** 3a1. Hallper shows error message
 +
 Use case ends.
 
 [discrete]
-=== Use case: Compose email
+=== Use case: Compose email (index)
 
 *MSS*
 
-1. JCRC member requests to compose email
-2. Hallper requests for all details of email (Sender, recipient, subject, content, attachment)
-3. JCRC member enters all details
-4. Hallper saves an output file in the computer
+1. JCRC member requests to list persons.
+2. Hallper shows list of persons.
+3. JCRC member requests to compose an email to specific people in the list
+4. Hallper requests for all details of email (Sender, indexes, subject, content)
+5. JCRC member enters all details
+6. Hallper saves an output file in the computer
 +
 Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 5a. The given index is invalid.
++
+[none]
+** 5a1. Hallper shows an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: Compose email (list)
+
+*MSS*
+
+1. JCRC member requests to list persons
+2. Hallper shows list of persons
+3. JCRC member requests to compose an email to the current list of persons
+4. Hallper requests for all details of email (Sender, subject, content)
+5. JCRC member enters all details
+6. Hallper saves an output file in the computer
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: List emails
+
+*MSS*
+
+1. JCRC member requests to list emails
+2. Hallper shows list of all emails
++
+Use case ends.
+
+[discrete]
+=== Use case: View email
+
+*MSS*
+
+1. JCRC member requests to view an email
+2. Hallper requests for email subject
+3. JCRC member enters subject
+4. Hallper displays email with given subject
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Email with given subject does not exist.
++
+[none]
+** 3a1. Hallper shows an error message.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Select person
@@ -1423,9 +1833,9 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+*  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
+*  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+*  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -1433,10 +1843,16 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, OS-X.
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
+
+[[cca]] CCA::
+Co-Curricular Activity that residents can join within their respective halls.
+
+[[jcrc]] JCRC::
+Junior Common Room Committee in charge of administrative duties within their respective halls.
 
 [appendix]
 == Product Survey
@@ -1479,7 +1895,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a Person
 
 . Deleting a person while all persons are listed
 
@@ -1493,7 +1909,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 

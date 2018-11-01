@@ -3,6 +3,7 @@ package seedu.address;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -35,6 +36,8 @@ import seedu.address.storage.EmailDirStorage;
 import seedu.address.storage.EmailStorage;
 import seedu.address.storage.IcsCalendarStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ProfilePictureDirStorage;
+import seedu.address.storage.ProfilePictureStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -48,7 +51,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 2, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -73,9 +76,10 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
         BudgetBookStorage budgetBookStorage = new XmlBudgetBookStorage(userPrefs.getBudgetBookFilePath());
         EmailStorage emailStorage = new EmailDirStorage(userPrefs.getEmailPath());
+        ProfilePictureStorage profilePictureStorage = new ProfilePictureDirStorage(userPrefs.getProfilePicturePath());
         CalendarStorage calendarStorage = new IcsCalendarStorage(userPrefs.getCalendarPath());
         storage = new StorageManager(addressBookStorage, budgetBookStorage, userPrefsStorage, calendarStorage,
-            emailStorage);
+            emailStorage, profilePictureStorage);
 
         initLogging(config);
 
@@ -102,28 +106,35 @@ public class MainApp extends Application {
         ReadOnlyBudgetBook initialBudgetData;
         try {
             addressBookOptional = storage.readAddressBook();
-            budgetBookOptional = storage.readBudgetBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
+            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialAddressData = new AddressBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialAddressData = new AddressBook();
+        }
+
+        try {
+            budgetBookOptional = storage.readBudgetBook();
             if (!budgetBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BudgetBook");
             }
-            initialAddressData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialBudgetData = budgetBookOptional.orElseGet(SampleDataUtil::getSampleBudgetBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             logger.warning("Data file not in the correct format. Will be starting with an empty BudgetBook");
-            initialAddressData = new AddressBook();
             initialBudgetData = new BudgetBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             logger.warning("Data file not in the correct format. Will be starting with an empty BudgetBook");
-            initialAddressData = new AddressBook();
             initialBudgetData = new BudgetBook();
         }
 
-        return new ModelManager(initialAddressData, initialBudgetData, userPrefs);
+        Set<String> emailNamesSet = storage.readEmailFiles();
+
+        return new ModelManager(initialAddressData, initialBudgetData, userPrefs, emailNamesSet);
     }
 
     private void initLogging(Config config) {
