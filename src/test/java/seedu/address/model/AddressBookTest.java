@@ -26,10 +26,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.shared.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.GroupBuilder;
@@ -91,21 +93,21 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void addPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
         addressBook.removePerson(ALICE); //reset
     }
 
     @Test
-    public void hasGroup_groupInAddressBook_returnsTrue() {
+    public void addGroup_groupInAddressBook_returnsTrue() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(PROJECT_2103T);
         assertTrue(addressBook.hasGroup(PROJECT_2103T));
     }
 
     @Test
-    public void hasPerson_personIsRemoved_returnsFalse() {
+    public void removePerson_personIsRemoved_returnsFalse() {
         AddressBook addressBook = new AddressBook();
         addressBook.addPerson(BOB);
         addressBook.removePerson(BOB);
@@ -113,7 +115,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasGroup_groupIsRemoved_returnsFalse() {
+    public void removeGroup_groupIsRemoved_returnsFalse() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(PROJECT_2103T);
         addressBook.removeGroup(PROJECT_2103T);
@@ -121,7 +123,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_personIsUpdated_returnsTrue() {
+    public void updatePerson_personIsUpdated_returnsTrue() {
         AddressBook addressBook = new AddressBook();
         addressBook.addPerson(ALICE);
         addressBook.updatePerson(ALICE, BOB);
@@ -129,7 +131,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasPerson_personIsUpdated_returnsFalse() {
+    public void updatePerson_personIsUpdated_returnsFalse() {
         AddressBook addressBook = new AddressBook();
         addressBook.addPerson(ALICE);
         addressBook.updatePerson(ALICE, BOB);
@@ -137,7 +139,7 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasGroup_groupIsUpdated_returnsTrue() {
+    public void updateGroup_groupIsUpdated_returnsTrue() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
@@ -145,11 +147,32 @@ public class AddressBookTest {
     }
 
     @Test
-    public void hasGroup_groupIsUpdated_returnsFalse() {
+    public void updateGroup_groupIsUpdated_returnsFalse() {
         AddressBook addressBook = new AddressBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
         assertFalse(addressBook.hasGroup(GROUP_2101));
+    }
+
+    @Test
+    public void joinGroup_personNotExist_throwsPersonNotFoundException() {
+        thrown.expect(PersonNotFoundException.class);
+        AddressBook addressBook = new AddressBook();
+        Person outsider = new PersonBuilder().withName("outsider").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addGroup(group);
+        addressBook.joinGroup(outsider, group);
+    }
+
+    @Test
+    public void joinGroup_groupNotExist_throwsGroupNotFoundException() {
+        thrown.expect(GroupNotFoundException.class);
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withName("Derek").build();
+        Group other = new GroupBuilder().withTitle("outlier").build();
+        addressBook.addPerson(person);
+        addressBook.joinGroup(person, other);
+
     }
 
     @Test
@@ -160,7 +183,6 @@ public class AddressBookTest {
         addressBook.addPerson(person);
         addressBook.addGroup(group);
         addressBook.joinGroup(person, group);
-        //assertTrue(group.hasMember(person));
         assertTrue(person.hasGroup(group));
     }
 
@@ -173,6 +195,41 @@ public class AddressBookTest {
         addressBook.addGroup(group);
         addressBook.joinGroup(person, group);
         assertTrue(group.hasMember(person));
+    }
+
+    @Test
+    public void leaveGroup_personNotExist_throwsPersonNotFoundException() {
+        thrown.expect(PersonNotFoundException.class);
+        AddressBook addressBook = new AddressBook();
+        Person outsider = new PersonBuilder().withName("outsider").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addGroup(group);
+        addressBook.leaveGroup(outsider, group);
+    }
+
+
+    @Test
+    public void leaveGroup_personNotInGroup_returnsFalse() {
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withName("Derek").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addPerson(person);
+        addressBook.addGroup(group);
+        addressBook.joinGroup(person, group);
+        addressBook.leaveGroup(person, group);
+        assertFalse(person.hasGroup(group));
+    }
+
+    @Test
+    public void leaveGroup_groupHasNoPerson_returnsFalse() {
+        AddressBook addressBook = new AddressBook();
+        Person person = new PersonBuilder().withName("Derek").build();
+        Group group = new GroupBuilder().withTitle("class").build();
+        addressBook.addPerson(person);
+        addressBook.addGroup(group);
+        addressBook.joinGroup(person, group);
+        addressBook.leaveGroup(person, group);
+        assertFalse(group.hasMember(person));
     }
 
     @Test
