@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
@@ -17,6 +16,11 @@ import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.cca.Budget;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
+import seedu.address.model.cca.Outstanding;
+import seedu.address.model.cca.Spent;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -24,6 +28,10 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Date;
+import seedu.address.model.transaction.Entry;
+import seedu.address.model.transaction.Remarks;
 import seedu.address.testutil.PersonBuilder;
 
 //@@author kengwoon
@@ -52,7 +60,7 @@ public class ImportCommandTest {
     }
 
     @Test
-    public void execute_invalidFileFormat() {
+    public void execute_invalidFileFormat_failure() {
         ImportCommand importCommand = new ImportCommand(
             new File("./src/test/data/ImportCommandTest/invalidFormat.xml").toPath());
 
@@ -99,6 +107,27 @@ public class ImportCommandTest {
         expectedModel.updatePerson(original, edited);
         expectedModel.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
         expectedModel.commitAddressBook();
+
+        assertCommandSuccess(importCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validBudgetBookFile_success() {
+        String fileName = "budgetBookImports.xml";
+        File file = new File("./src/test/data/ImportCommandTest/" + fileName);
+        ImportCommand importCommand = new ImportCommand(file.toPath());
+
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
+        Set<Entry> entries = new HashSet<>();
+        entries.add(new Entry(2, new Date("20.06.2014"), new Amount(-400), new Remarks("Hockey Camp")));
+        Cca newCca = new Cca(new CcaName("Hockey"), new Name("MrYanDao"), new Name("XiaoMing"), new Budget(500),
+                new Spent(300), new Outstanding(200), entries);
+        expectedModel.addCca(newCca);
+        expectedModel.updateFilteredCcaList(Model.PREDICATE_SHOW_ALL_CCAS);
+        expectedModel.commitBudgetBook();
 
         assertCommandSuccess(importCommand, model, commandHistory, expectedMessage, expectedModel);
     }

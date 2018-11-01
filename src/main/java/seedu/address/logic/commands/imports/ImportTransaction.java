@@ -27,19 +27,18 @@ import seedu.address.model.transaction.Remarks;
  */
 public class ImportTransaction {
 
-    private Document doc;
-    private Model model;
-    private CommandHistory history;
-    private List<CcaName> ccaList;
-    private Set<Entry> entries;
-
     private static final String HEADER = "transactions";
     private static final String CCA_NAME = "name";
     private static final String DATE = "date";
     private static final String AMOUNT = "amount";
     private static final String REMARKS = "log";
+    private static final int INDEX = 0;
 
-    private final int INDEX = 0;
+    private Document doc;
+    private Model model;
+    private CommandHistory history;
+    private List<CcaName> ccaList;
+    private Set<Entry> entries;
 
     public ImportTransaction(Document doc, Model model, CommandHistory history) {
         this.doc = doc;

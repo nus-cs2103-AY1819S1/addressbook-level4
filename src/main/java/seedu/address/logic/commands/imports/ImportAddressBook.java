@@ -26,11 +26,6 @@ import seedu.address.model.tag.Tag;
  */
 public class ImportAddressBook {
 
-    private Document doc;
-    private Model model;
-    private List<Person> personList;
-    private Set<Tag> tags;
-
     private static final String HEADER = "persons";
     private static final String NAME = "name";
     private static final String PHONE = "phone";
@@ -38,9 +33,12 @@ public class ImportAddressBook {
     private static final String ROOM = "room";
     private static final String SCHOOL = "school";
     private static final String TAG = "tagged";
+    private static final int INDEX = 0;
 
-    private final int INDEX = 0;
-
+    private Document doc;
+    private Model model;
+    private List<Person> personList;
+    private Set<Tag> tags;
 
     public ImportAddressBook(Document doc, Model model) {
         this.doc = doc;

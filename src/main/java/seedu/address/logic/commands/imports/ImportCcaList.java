@@ -22,14 +22,14 @@ import seedu.address.model.tag.Tag;
  */
 public class ImportCcaList {
 
+    private static final String HEADER = "cca";
+    private static final String NAME = "name";
+    private static final String ROOM = "room";
+
     private List<String> roomsList;
     private Document doc;
     private Model model;
     private String cca;
-
-    private static final String HEADER = "cca";
-    private static final String NAME = "name";
-    private static final String ROOM = "room";
 
     public ImportCcaList(Document doc, Model model) {
         this.roomsList = new ArrayList<>();

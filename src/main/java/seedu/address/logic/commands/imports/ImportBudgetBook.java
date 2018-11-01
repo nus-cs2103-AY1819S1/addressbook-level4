@@ -24,10 +24,7 @@ import seedu.address.model.transaction.Entry;
  */
 public class ImportBudgetBook {
 
-    private Document doc;
-    private Model model;
-    private List<Cca> ccaList;
-    private Set<Entry> entries;
+
 
     private static final String HEADER = "ccas";
     private static final String CCA_NAME = "name";
@@ -41,8 +38,13 @@ public class ImportBudgetBook {
     private static final String DATE = "date";
     private static final String AMOUNT = "amount";
     private static final String REMARKS = "log";
+    private static final int INDEX = 0;
 
-    private final int INDEX = 0;
+    private Document doc;
+    private Model model;
+    private List<Cca> ccaList;
+    private Set<Entry> entries;
+
 
 
     public ImportBudgetBook(Document doc, Model model) {
