@@ -202,6 +202,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateMultipleCcas(List<Cca> target, List<Cca> editedCca) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void exportAddressBook(Path filePath) {
             throw new AssertionError("This method should not be called.");
         }

@@ -135,6 +135,12 @@ public interface Model {
     void updateCca(Cca target, Cca editedCca);
 
     /**
+     * Replaces the given Ccas {@code target} with {@code editedCca}.
+     * The person identity of {@code editedPerson} must not be the same as another existing Cca in the budget book.
+     */
+    void updateMultipleCcas(List<Cca> target, List<Cca> editedCca);
+
+    /**
      * Replaces the given persons {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.

@@ -9,9 +9,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import seedu.address.logic.TransactionMath;
-import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
@@ -36,13 +34,15 @@ public class ImportTransaction {
 
     private Document doc;
     private Model model;
-    private List<CcaName> ccaList;
+    private List<Cca> ccaList;
+    private List<Cca> editedList;
     private Set<Entry> entries;
 
     public ImportTransaction(Document doc, Model model) {
         this.doc = doc;
         this.model = model;
         this.ccaList = new ArrayList<>();
+        this.editedList = new ArrayList<>();
         this.entries = new HashSet<>();
     }
 
@@ -52,6 +52,7 @@ public class ImportTransaction {
     public void execute() throws CommandException {
         List<Cca> lastShownList = model.getFilteredCcaList();
         ccaList.clear();
+        editedList.clear();
         NodeList nList = doc.getElementsByTagName(HEADER);
 
         for (int i = 0; i < nList.getLength(); i++) {
@@ -67,7 +68,7 @@ public class ImportTransaction {
                 Remarks remarks = new Remarks(element.getElementsByTagName(REMARKS).item(INDEX).getTextContent());
 
                 if (!model.hasCca(ccaName)) {
-                    throw new CommandException(AddTransactionCommand.MESSAGE_NON_EXISTENT_CCA);
+                    continue;
                 }
 
                 int index = 0;
@@ -84,10 +85,12 @@ public class ImportTransaction {
                 Cca updatedCca = ccaToUpdate.addNewTransaction(newEntry);
                 updatedCca = TransactionMath.updateDetails(updatedCca);
 
-                model.updateCca(ccaToUpdate, updatedCca);
-                model.updateFilteredCcaList(Model.PREDICATE_SHOW_ALL_CCAS);
+                ccaList.add(ccaToUpdate);
+                editedList.add(updatedCca);
             }
         }
+        model.updateMultipleCcas(ccaList, editedList);
+        model.updateFilteredCcaList(Model.PREDICATE_SHOW_ALL_CCAS);
         model.commitBudgetBook();
     }
 

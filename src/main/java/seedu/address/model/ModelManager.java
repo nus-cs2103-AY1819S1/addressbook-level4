@@ -235,6 +235,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author kengwoon
     @Override
+    public void updateMultipleCcas(List<Cca> target, List<Cca> editedCca) {
+        for (int i = 0; i < target.size(); i++) {
+            updateCca(target.get(i), editedCca.get(i));
+        }
+        indicateBudgetBookChanged();
+    }
+
+    //@@author kengwoon
+    @Override
     public void updateMultiplePersons(List<Person> target, List<Person> editedPerson) {
         for (int i = 0; i < target.size(); i++) {
             updatePerson(target.get(i), editedPerson.get(i));
