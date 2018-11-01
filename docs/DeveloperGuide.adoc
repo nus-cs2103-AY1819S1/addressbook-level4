@@ -452,8 +452,8 @@ with events.
 ### 3.2. Batch Completion via Label feature
 #### 3.2.1. Current Implementation
 
-The batch completion mechanism is facilitated by `CompleteCommand`.
-It extends `Command` and encapsulates the internal logic of finding task and completing multiple
+The batch completion mechanism is facilitated by `CompleteLabelCommand`.
+It extends `CompleteCommand` and encapsulates the internal logic of finding task and completing multiple
 tasks atomically.
 
 Additionally, in order to facilitate the finding of task and completing tasks atomically, the
@@ -461,7 +461,7 @@ following auxiliary classes have been created / extended as a result:
 
 * `LabelMatchesKeywordPredicate` -- Extension of the functional interface `Predicate<E>`
 ** This class is required to encapsulate the logic of determining if a task has a `Label` matching
-the desired `Label`.
+the desired `Label` (case-insensitive).
 
 *Updated*
 
@@ -477,10 +477,9 @@ These are the methods in the CompleteCommand class supporting the batch completi
 * `#completeOneTaskReturnStringOfTasks(Task, Model)`
 
 [NOTE]
-The `CompleteCommand` class has two overloaded constructors, one taking in a
-`Task<Predicate>` and another taking in an `Index` to support polymorphic behavior for both a
-single operation and batch operation.
-These operations are exposed in the `CompleteCommand` class via `CompleteCommand#execute(...)`.
+The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
+`Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
+takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
