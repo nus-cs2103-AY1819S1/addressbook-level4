@@ -153,6 +153,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean justEnteredDeck() {
+        return versionedAnakin.justEnteredDeck();
+    }
+
+    @Override
     public void startReview() {
         versionedAnakin.startReview();
         indicateAnakinChanged();
