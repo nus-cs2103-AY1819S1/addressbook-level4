@@ -14,7 +14,7 @@ import seedu.scheduler.model.tag.Tag;
  */
 public class AddTagCommand extends Command {
 
-    public static final String COMMAND_WORD = "addtag";
+    public static final String COMMAND_WORD = "addTag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the scheduler. "
             + "Parameters: "
