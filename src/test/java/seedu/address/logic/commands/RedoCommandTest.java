@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandModuleTestUtil.deleteFirstModule;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.deleteFirstOccasion;
-import static seedu.address.logic.commands.CommandPersonTestUtil.deleteFirstPerson;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandPersonTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalModules.getTypicalModulesAddressBook;
 import static seedu.address.testutil.TypicalOccasions.getTypicalOccasionsAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersonsAddressBook;
@@ -66,11 +66,13 @@ public class RedoCommandTest {
         // Person level
         // multiple redoable states in model
         expectedModelforPerson.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelforPerson, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelforPerson);
+        assertCommandSuccess(new RedoCommand(), modelforPerson, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelforPerson);
 
         // single redoable state in model
         expectedModelforPerson.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelforPerson, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelforPerson);
+        assertCommandSuccess(new RedoCommand(), modelforPerson, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelforPerson);
 
         // no redoable state in model
         assertCommandFailure(new RedoCommand(), modelforPerson, commandHistory, RedoCommand.MESSAGE_FAILURE);
@@ -78,11 +80,13 @@ public class RedoCommandTest {
         // Module Level
         // multiple redoable states in model
         expectedModelforModule.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelforModule, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelforModule);
+        assertCommandSuccess(new RedoCommand(), modelforModule, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelforModule);
 
         // single redoable state in model
         expectedModelforModule.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelforModule, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelforModule);
+        assertCommandSuccess(new RedoCommand(), modelforModule, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelforModule);
 
         // no redoable state in model
         assertCommandFailure(new RedoCommand(), modelforModule, commandHistory, RedoCommand.MESSAGE_FAILURE);
@@ -90,11 +94,13 @@ public class RedoCommandTest {
         // Occasion level
         // multiple redoable states in model
         expectedModelforOccasion.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelforOccasion, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelforOccasion);
+        assertCommandSuccess(new RedoCommand(), modelforOccasion, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelforOccasion);
 
         // single redoable state in model
         expectedModelforOccasion.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), modelforOccasion, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModelforOccasion);
+        assertCommandSuccess(new RedoCommand(), modelforOccasion, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModelforOccasion);
 
         // no redoable state in model
         assertCommandFailure(new RedoCommand(), modelforOccasion, commandHistory, RedoCommand.MESSAGE_FAILURE);

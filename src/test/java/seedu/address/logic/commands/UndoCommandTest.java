@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandModuleTestUtil.deleteFirstModule;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.deleteFirstOccasion;
-import static seedu.address.logic.commands.CommandPersonTestUtil.deleteFirstPerson;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandPersonTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandPersonTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalModules.getTypicalModulesAddressBook;
 import static seedu.address.testutil.TypicalOccasions.getTypicalOccasionsAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersonsAddressBook;
@@ -53,33 +53,39 @@ public class UndoCommandTest {
     public void execute() {
         // multiple undoable states in model
         expectedModelforPerson.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelforPerson, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelforPerson);
+        assertCommandSuccess(new UndoCommand(), modelforPerson, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelforPerson);
 
         // single undoable state in model
         expectedModelforPerson.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelforPerson, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelforPerson);
+        assertCommandSuccess(new UndoCommand(), modelforPerson, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelforPerson);
 
         // no undoable states in model
         assertCommandFailure(new UndoCommand(), modelforPerson, commandHistory, UndoCommand.MESSAGE_FAILURE);
 
         // multiple undoable states in model
         expectedModelforModule.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelforModule, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelforModule);
+        assertCommandSuccess(new UndoCommand(), modelforModule, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelforModule);
 
         // single undoable state in model
         expectedModelforModule.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelforModule, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelforModule);
+        assertCommandSuccess(new UndoCommand(), modelforModule, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelforModule);
 
         // no undoable states in model
         assertCommandFailure(new UndoCommand(), modelforModule, commandHistory, UndoCommand.MESSAGE_FAILURE);
 
         // multiple undoable states in model
         expectedModelforOccasion.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelforOccasion, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelforOccasion);
+        assertCommandSuccess(new UndoCommand(), modelforOccasion, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelforOccasion);
 
         // single undoable state in model
         expectedModelforOccasion.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), modelforOccasion, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModelforOccasion);
+        assertCommandSuccess(new UndoCommand(), modelforOccasion, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModelforOccasion);
 
         // no undoable states in model
         assertCommandFailure(new UndoCommand(), modelforOccasion, commandHistory, UndoCommand.MESSAGE_FAILURE);
