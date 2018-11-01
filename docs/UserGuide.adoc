@@ -56,14 +56,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help` +
 Aliases: `hel` OR `he` OR `h` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 === Adding an event : `add`
 
 Adds an event to the scheduler. +
 Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
 Aliases: `ad` OR `a` in place of `add` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 [TIP]
 An event can have any number of tags and reminders(including 0).
@@ -174,14 +174,14 @@ Examples::
 Shows a list of all events in the scheduler. +
 Format: `list` +
 Aliases: `lis` OR `li` OR `l` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 === Editing an event : `edit`
 
 Edits an existing event in the scheduler. +
 Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]...` +
 Aliases: `edi` OR `ed` in place of `edit` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 ****
 * Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list. The index *must be a positive integer* 1, 2, 3, ...
@@ -207,7 +207,7 @@ Clear all the event's reminder times.
 Finds events whose event names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]` +
 Aliases: `fin` OR `fi` OR `f` in place of `find` +
-_Coming in V1.3: Commands can be typed case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 ****
 * The search is case insensitive. e.g `work` will match `Work`
@@ -229,7 +229,7 @@ Returns any event having event names `Study` or `Hard`
 Deletes the specified event from the scheduler. +
 Format: `delete INDEX` +
 Aliases: `delet` OR `dele` OR `del` OR `de` or `d` in place of `delete` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 ****
 * Deletes the event at the specified `INDEX`.
@@ -251,7 +251,7 @@ Deletes the 1st event in the results of the `find` command.
 Selects the event identified by the index number used in the displayed event list. +
 Format: `select INDEX` +
 Aliases: `selec` OR `sele` OR `sel` OR `se` OR `s` in place of `select` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 ****
 * Selects the event and loads the Google search page the event at the specified `INDEX`.
@@ -273,7 +273,7 @@ Selects the 1st event in the results of the `find` command.
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history` +
 Aliases: `histor` OR `histo` OR `hist` OR `his` OR `hi` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 [NOTE]
 ====
@@ -286,7 +286,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Restores the scheduler to the state before the previous _undoable_ command was executed. +
 Format: `undo` +
 Aliases: `und` OR `un` OR `u` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 [NOTE]
 ====
@@ -314,7 +314,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 Reverses the most recent `undo` command. +
 Format: `redo` +
 Aliases: `red` OR `re` OR `r` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 Examples:
 
@@ -339,14 +339,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear` +
 Aliases: `clea` OR `cle` OR `cl` OR `c` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 === Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit` +
 Aliases: `exi` OR `ex` OR `e` +
-_Coming in V1.3: Command format is case-insensitive_
+_Coming in V1.4: Command format can be typed case-insensitive_
 
 === Saving the data
 
@@ -383,11 +383,16 @@ Step 4:
 - A success message appears after the completion of addition of events.
 ****
 
+=== Auto-Completion of Commands
+As you may have already noticed, our GUI supports auto-completion which suggests possible commands when you type certain (or _certain combinations_ of) alphabetical characters.
+
+_Note: It even works for command aliases!_
+
 === Post Events to Google Calendar : `postGCEvents` `[coming in v1.3]`
 Post events from your local scheduler and merge your local events with Google Calendar events (login is required). +
 Format: `postGCEvents`
 
-=== Case-Insensitive Invoking of Commands `[coming in v1.3]`
+=== Case-Insensitive Invoking of Commands `[coming in v1.4]`
 Commands can be invoked in case-insensitive format. For example, typing `hElP` can invoke the `help` command. +
 Only applicable to these commands: `add`, `clear`, `delete`, `edit`, `exit`, `find`, `help`, `history`, `list`, `redo`, `select` and `undo`
 
