@@ -32,4 +32,9 @@ public class RemarkTest {
         // different remark objects with different values
         assertFalse(SAMPLE_REMARK_1.equals(SAMPLE_REMARK_2));
     }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(SAMPLE_REMARK_1.hashCode() == SAMPLE_REMARK_1.hashCode());
+    }
 }
