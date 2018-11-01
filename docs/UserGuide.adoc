@@ -83,6 +83,7 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
+// tag::filterug[]
 === Filtering car parks : `filter`
 
 Filters the list of car parks returned by `FindCommand` by: +
@@ -133,7 +134,7 @@ Upper and lower case characters do not matter.
 
 .Filtering covered car parks
 image::filter.png[width="880"]
-
+// end::filterug[]
 
 [[Features-Find]]
 === Finding car parks : `find`
@@ -203,6 +204,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::calculateug[]
 === Calculating the cost of parking : `calculate`
 
 Calculates the cost of parking at a selected car park between a specified time period.
@@ -218,6 +220,7 @@ Calculates the cost of parking at a selected car park between a specified time p
 ====
 `CalculateCommand` takes into account the free parking times of car parks.
 ====
+// end::calculateug[]
 
 === Listing all car parks : `list`
 
