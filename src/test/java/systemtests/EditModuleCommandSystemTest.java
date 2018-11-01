@@ -3,19 +3,19 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_CS2100;
-import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.ACADEMICYEAR_DESC_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.ACADEMICYEAR_DESC_ST2131;
-import static seedu.address.logic.commands.CommandModuleTestUtil.INVALID_SEMESTER_FIVE;
 import static seedu.address.logic.commands.CommandModuleTestUtil.INVALID_ACADEMICYEAR_DESC;
 import static seedu.address.logic.commands.CommandModuleTestUtil.INVALID_MODULECODE_DESC;
 import static seedu.address.logic.commands.CommandModuleTestUtil.INVALID_MODULETITLE_DESC;
+import static seedu.address.logic.commands.CommandModuleTestUtil.INVALID_SEMESTER_FIVE;
 import static seedu.address.logic.commands.CommandModuleTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandModuleTestUtil.MODULECODE_DESC_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.MODULECODE_DESC_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.MODULETITLE_DESC_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.MODULETITLE_DESC_ST2131;
+import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_CS2100;
+import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.TAG_DESC_BINARY;
 import static seedu.address.logic.commands.CommandModuleTestUtil.TAG_DESC_CALCULUS;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ACADEMICYEAR_CS2100;
@@ -29,8 +29,8 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalModules.CS2100;
-import static seedu.address.testutil.TypicalModules.ST2131;
 import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MA1101R;
+import static seedu.address.testutil.TypicalModules.ST2131;
 
 import org.junit.Test;
 
@@ -41,8 +41,8 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.module.AcademicYear;
-import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
@@ -61,9 +61,9 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_MODULE;
-        String command = " " + EditModuleCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + MODULECODE_DESC_ST2131
-                + "  " + MODULETITLE_DESC_ST2131 + " " + ACADEMICYEAR_DESC_ST2131 + "  " + SEMESTER_DESC_ST2131
-                + " " + TAG_DESC_CALCULUS + " ";
+        String command = " " + EditModuleCommand.COMMAND_WORD + "  " + index.getOneBased() + "  "
+                + MODULECODE_DESC_ST2131 + "  " + MODULETITLE_DESC_ST2131 + " " + ACADEMICYEAR_DESC_ST2131
+                + "  " + SEMESTER_DESC_ST2131 + " " + TAG_DESC_CALCULUS + " ";
         Module editedModule = new ModuleBuilder(ST2131).withTags(VALID_TAG_CALCULUS).build();
         assertCommandSuccess(command, index, editedModule);
 
@@ -80,28 +80,28 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a module with new values same as existing values -> edited */
-        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131 + MODULETITLE_DESC_ST2131
-                + ACADEMICYEAR_DESC_ST2131
-                + SEMESTER_DESC_ST2131 + TAG_DESC_CALCULUS;
+        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131
+                + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_CALCULUS;
         assertCommandSuccess(command, index, ST2131);
 
         /* Case: edit a module with new values same as another module's values but with different name -> edited */
         assertTrue(getModel().getAddressBook().getModuleList().contains(ST2131));
         index = INDEX_SECOND_MODULE;
         assertNotEquals(getModel().getFilteredModuleList().get(index.getZeroBased()), ST2131);
-        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_CS2100 + MODULETITLE_DESC_ST2131
-                + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY;
-        editedModule = new ModuleBuilder(ST2131).withModuleCode(VALID_MODULECODE_CS2100).withTags(VALID_TAG_BINARY).build();
+        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_CS2100
+                + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY;
+        editedModule = new ModuleBuilder(ST2131).withModuleCode(VALID_MODULECODE_CS2100)
+                .withTags(VALID_TAG_BINARY).build();
         assertCommandSuccess(command, index, editedModule);
 
         /* Case: edit a module with new values same as another module's values but with different phone and email
          * -> edited
          */
         index = INDEX_SECOND_MODULE;
-        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131 + MODULETITLE_DESC_CS2100
-                + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_ST2131 + TAG_DESC_CALCULUS;
-        editedModule = new ModuleBuilder(ST2131).withModuleTitle(VALID_MODULETITLE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100)
-                .withTags(VALID_TAG_CALCULUS).build();
+        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131
+                + MODULETITLE_DESC_CS2100 + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_ST2131 + TAG_DESC_CALCULUS;
+        editedModule = new ModuleBuilder(ST2131).withModuleTitle(VALID_MODULETITLE_CS2100)
+                .withAcademicYear(VALID_ACADEMICYEAR_CS2100).withTags(VALID_TAG_CALCULUS).build();
         assertCommandSuccess(command, index, editedModule);
 
         /* Case: clear tags -> cleared */
@@ -132,14 +132,14 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
 
         /* --------------------- Performing edit operation while a module card is selected --------------------- */
 
-        /* Case: selects first card in the module list, edit a module -> edited, card selection remains unchanged but
-         * browser url changes
+        /* Case: selects first card in the module list, edit a module -> edited, card selection
+         * remains unchanged but browser url changes
          */
         showAllModules();
         index = INDEX_FIRST_MODULE;
         selectModule(index);
-        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_CS2100 + MODULETITLE_DESC_CS2100
-                + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100 + TAG_DESC_BINARY;
+        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_CS2100
+                + MODULETITLE_DESC_CS2100 + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100 + TAG_DESC_BINARY;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new module's name
         assertCommandSuccess(command, index, CS2100, index);
@@ -192,8 +192,8 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getModuleList().contains(ST2131));
         index = INDEX_FIRST_MODULE;
         assertFalse(getModel().getFilteredModuleList().get(index.getZeroBased()).equals(ST2131));
-        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131 +
-                MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY
+        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131
+                + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY
                 + TAG_DESC_CALCULUS;
         assertCommandFailure(command, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
 

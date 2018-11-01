@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_ONE;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONLOCATION_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONLOCATION_TWO;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_ONE;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_TAG_SLEEP;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_TAG_STUDY;
 
@@ -25,7 +25,7 @@ public class TypicalOccasions {
     public static final Occasion OCCASION_ONE = new OccasionBuilder().withOccasionName(VALID_OCCASIONNAME_ONE)
             .withOccasionDate(VALID_OCCASIONDATE_ONE).withOccasionLocation(VALID_OCCASIONLOCATION_ONE)
             .withTags(VALID_TAG_STUDY).build();
-    public static final Occasion OCCASION_TWO  = new OccasionBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
+    public static final Occasion OCCASION_TWO = new OccasionBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
             .withOccasionDate(VALID_OCCASIONDATE_TWO).withOccasionLocation(VALID_OCCASIONLOCATION_TWO)
             .withTags(VALID_TAG_SLEEP).build();
 

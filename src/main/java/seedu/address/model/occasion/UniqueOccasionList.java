@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
 import seedu.address.model.occasion.exceptions.OccasionNotFoundException;
-import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
 
 /**
  * A list of occasions that enforces uniqueness between its elements and does not allow nulls.

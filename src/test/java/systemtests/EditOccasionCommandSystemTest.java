@@ -3,31 +3,30 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONLOCATION_DESC_TWO;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONLOCATION_DESC_ONE;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.INVALID_OCCASIONDATE_DESC;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.INVALID_OCCASIONLOCATION_DESC;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.INVALID_OCCASIONNAME_DESC;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.INVALID_OCCASIONDATE_DESC;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONNAME_DESC_TWO;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONNAME_DESC_ONE;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONDATE_DESC_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONDATE_DESC_ONE;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONDATE_DESC_TWO;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONLOCATION_DESC_ONE;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONLOCATION_DESC_TWO;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONNAME_DESC_ONE;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.OCCASIONNAME_DESC_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.TAG_DESC_SLEEP;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.TAG_DESC_STUDY;
+import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONLOCATION_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_TWO;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_ONE;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_TWO;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_TAG_SLEEP;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_TAG_STUDY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OCCASION;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OCCASION;
+import static seedu.address.testutil.TypicalOccasions.KEYWORD_MATCHING_CONCERT;
 import static seedu.address.testutil.TypicalOccasions.OCCASION_ONE;
 import static seedu.address.testutil.TypicalOccasions.OCCASION_TWO;
-import static seedu.address.testutil.TypicalOccasions.KEYWORD_MATCHING_CONCERT;
 
 import org.junit.Test;
 
@@ -39,8 +38,8 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
-import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.occasion.OccasionLocation;
+import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.OccasionBuilder;
 import seedu.address.testutil.OccasionUtil;
@@ -84,18 +83,21 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getOccasionList().contains(OCCASION_ONE));
         index = INDEX_SECOND_OCCASION;
         assertNotEquals(getModel().getFilteredOccasionList().get(index.getZeroBased()), OCCASION_ONE);
-        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_TWO + OCCASIONDATE_DESC_ONE
-                + OCCASIONLOCATION_DESC_ONE + TAG_DESC_SLEEP;
-        editedOccasion = new OccasionBuilder(OCCASION_ONE).withOccasionName(VALID_OCCASIONNAME_TWO).withTags(VALID_TAG_SLEEP).build();
+        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_TWO
+                + OCCASIONDATE_DESC_ONE + OCCASIONLOCATION_DESC_ONE + TAG_DESC_SLEEP;
+        editedOccasion = new OccasionBuilder(OCCASION_ONE).withOccasionName(VALID_OCCASIONNAME_TWO)
+                .withTags(VALID_TAG_SLEEP).build();
         assertCommandSuccess(command, index, editedOccasion);
 
         /* Case: edit a occasion with new values same as another occasion's values but with different location and date
          * -> edited
          */
         index = INDEX_SECOND_OCCASION;
-        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_ONE + OCCASIONDATE_DESC_TWO
+        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_ONE
+                + OCCASIONDATE_DESC_TWO
                 + OCCASIONLOCATION_DESC_TWO + TAG_DESC_STUDY;
-        editedOccasion = new OccasionBuilder(OCCASION_ONE).withOccasionDate(VALID_OCCASIONDATE_TWO).withOccasionLocation(VALID_OCCASIONLOCATION_TWO)
+        editedOccasion = new OccasionBuilder(OCCASION_ONE).withOccasionDate(VALID_OCCASIONDATE_TWO)
+                .withOccasionLocation(VALID_OCCASIONLOCATION_TWO)
                 .withTags(VALID_TAG_STUDY).build();
         assertCommandSuccess(command, index, editedOccasion);
 
@@ -129,13 +131,14 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
 
         /* --------------------- Performing edit operation while a occasion card is selected --------------------- */
 
-        /* Case: selects first card in the occasion list, edit a occasion -> edited, card selection remains unchanged but
-         * browser url changes
+        /* Case: selects first card in the occasion list, edit a occasion -> edited, card selection remains
+         * unchanged but browser url changes
          */
         showAllOccasions();
         index = INDEX_FIRST_OCCASION;
         selectOccasion(index);
-        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_TWO + OCCASIONDATE_DESC_TWO
+        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_TWO
+                + OCCASIONDATE_DESC_TWO
                 + OCCASIONLOCATION_DESC_TWO + TAG_DESC_SLEEP;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new occasion's name
@@ -185,12 +188,13 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getAddressBook().getOccasionList().contains(OCCASION_ONE));
         index = INDEX_FIRST_OCCASION;
         assertFalse(getModel().getFilteredOccasionList().get(index.getZeroBased()).equals(OCCASION_ONE));
-        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_ONE +
-                OCCASIONDATE_DESC_ONE + OCCASIONLOCATION_DESC_ONE + TAG_DESC_STUDY;
+        command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_ONE
+                + OCCASIONDATE_DESC_ONE + OCCASIONLOCATION_DESC_ONE + TAG_DESC_STUDY;
         assertCommandFailure(command, EditOccasionCommand.MESSAGE_DUPLICATE_OCCASION);
 
-        /* Case: edit a occasion with new values same as another occasion's values but with different tags -> rejected */
-        // TODO: fix bug, tagging system prob.
+        /* Case: edit a occasion with new values same as another occasion's values but with different tags ->
+        rejected */
+        // TODO: fix bug.
         command = EditOccasionCommand.COMMAND_WORD + " " + index.getOneBased() + OCCASIONNAME_DESC_ONE
                 + OCCASIONDATE_DESC_ONE + OCCASIONLOCATION_DESC_ONE + TAG_DESC_SLEEP;
         assertCommandFailure(command, EditOccasionCommand.MESSAGE_DUPLICATE_OCCASION);
@@ -219,11 +223,13 @@ public class EditOccasionCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Occasion editedOccasion,
                                       Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.updateOccasion(expectedModel.getFilteredOccasionList().get(toEdit.getZeroBased()), editedOccasion);
+        expectedModel.updateOccasion(expectedModel.getFilteredOccasionList().get(toEdit.getZeroBased()),
+                editedOccasion);
         expectedModel.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditOccasionCommand.MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion), expectedSelectedCardIndex);
+                String.format(EditOccasionCommand.MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion),
+                expectedSelectedCardIndex);
     }
 
     /**

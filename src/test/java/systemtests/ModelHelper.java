@@ -6,9 +6,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
+import seedu.address.model.person.Person;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.
@@ -28,12 +28,26 @@ public class ModelHelper {
     }
 
     /**
+     * @see ModelHelper#setFilteredPersonList(Model, List)
+     */
+    public static void setFilteredPersonList(Model model, Person... toDisplay) {
+        setFilteredPersonList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
      * Updates {@code model}'s filtered module list to display only {@code toDisplay}.
      */
     public static void setFilteredModuleList(Model model, List<Module> toDisplay) {
         Optional<Predicate<Module>> predicate =
                 toDisplay.stream().map(ModelHelper::getModulePredicateMatching).reduce(Predicate::or);
         model.updateFilteredModuleList(predicate.orElse(PREDICATE_MATCHING_NO_MODULES));
+    }
+
+    /**
+     * @see ModelHelper#setFilteredPersonList(Model, List)
+     */
+    public static void setFilteredModuleList(Model model, Module... toDisplay) {
+        setFilteredModuleList(model, Arrays.asList(toDisplay));
     }
 
     /**
@@ -48,8 +62,8 @@ public class ModelHelper {
     /**
      * @see ModelHelper#setFilteredPersonList(Model, List)
      */
-    public static void setFilteredPersonList(Model model, Person... toDisplay) {
-        setFilteredPersonList(model, Arrays.asList(toDisplay));
+    public static void setFilteredOccasionList(Model model, Occasion... toDisplay) {
+        setFilteredOccasionList(model, Arrays.asList(toDisplay));
     }
 
     /**
