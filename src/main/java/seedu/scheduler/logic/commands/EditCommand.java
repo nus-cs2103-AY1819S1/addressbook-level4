@@ -66,7 +66,7 @@ public class EditCommand extends Command {
     private final Flag[] flags;
 
     /**
-     * @param index of the event in the filtered event list to edit
+     * @param index               of the event in the filtered event list to edit
      * @param editEventDescriptor details to edit the event with
      */
     public EditCommand(Index index, EditEventDescriptor editEventDescriptor, Flag... flags) {
@@ -88,10 +88,23 @@ public class EditCommand extends Command {
         }
 
         Event eventToEdit;
-
+        //for Sync with Google START
+        eventToEdit = lastShownList.get(index.getZeroBased());
+        Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToEdit);
+        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
+        //for Sync with Google
+        if (flags.length == 0) {
+            connectToGoogleCalendar.updateSingleGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
+        } else if (flags[0].equals(FLAG_UPCOMING)) {
+            connectToGoogleCalendar.updateUpcomingGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
+        } else {
+            connectToGoogleCalendar.updateAllGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
+        }
+        //for Sync with Google END
         if (flags.length == 0) {
             eventToEdit = lastShownList.get(index.getZeroBased());
-            Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+            editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
             model.updateEvent(eventToEdit, editedEvent);
         } else {
             eventToEdit = lastShownList.get(index.getZeroBased());
@@ -112,15 +125,12 @@ public class EditCommand extends Command {
 
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
-        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToEdit);
-        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
-        connectToGoogleCalendar.updateGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName()));
     }
 
     /**
-     * Creates and returns a {@code Event} with the details of {@code eventToEdit}
-     * edited with {@code editEventDescriptor}.
+     * Creates and returns a {@code Event} with the details of {@code eventToEdit} edited with {@code
+     * editEventDescriptor}.
      */
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
@@ -144,8 +154,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code List<Event>} with repeated events generated with details from
-     * {@code editEventDescriptor}.
+     * Creates and returns a {@code List<Event>} with repeated events generated with details from {@code
+     * editEventDescriptor}.
      */
     private static List<Event> createEditedEvents(Event eventToEdit, Event firstEventToEdit,
                                                   EditEventDescriptor editEventDescriptor) {
@@ -157,7 +167,7 @@ public class EditCommand extends Command {
         EventName updatedEventName = editEventDescriptor.getEventName().orElse(eventToEdit.getEventName());
         DateTime updatedStartDateTime = new DateTime(firstEventToEdit.getStartDateTime().value
                 .plus(Duration.between(eventToEdit.getStartDateTime().value,
-                editEventDescriptor.getStartDateTime().orElse(eventToEdit.getStartDateTime()).value)));
+                        editEventDescriptor.getStartDateTime().orElse(eventToEdit.getStartDateTime()).value)));
         DateTime updatedEndDateTime = new DateTime(firstEventToEdit.getEndDateTime().value
                 .plus(Duration.between(eventToEdit.getEndDateTime().value,
                         editEventDescriptor.getEndDateTime().orElse(eventToEdit.getEndDateTime()).value)));
@@ -176,9 +186,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates a predicate which is use to get the first instance of {@code eventToEdit}.
-     * The criteria for first instance of {@code eventToEdit} is found in the edited repeat type from
-     * {@code editEventDescriptor}.
+     * Creates a predicate which is use to get the first instance of {@code eventToEdit}. The criteria for first
+     * instance of {@code eventToEdit} is found in the edited repeat type from {@code editEventDescriptor}.
      */
     private static Predicate<Event> getFirstInstancePredicate(Event eventToEdit,
                                                               EditEventDescriptor editEventDescriptor) {
@@ -225,8 +234,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the event with. Each non-empty field value will replace the
-     * corresponding field value of the event.
+     * Stores the details to edit the event with. Each non-empty field value will replace the corresponding field value
+     * of the event.
      */
     public static class EditEventDescriptor {
         private UUID uid;
@@ -241,11 +250,11 @@ public class EditCommand extends Command {
         private Set<Tag> tags;
         private ReminderDurationList reminderDurationList;
 
-        public EditEventDescriptor() {}
+        public EditEventDescriptor() {
+        }
 
         /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * Copy constructor. A defensive copy of {@code tags} is used internally.
          */
         public EditEventDescriptor(EditEventDescriptor toCopy) {
             setUid(toCopy.uid);
@@ -342,8 +351,7 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
+         * Sets {@code tags} to this object's {@code tags}. A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
@@ -358,9 +366,8 @@ public class EditCommand extends Command {
         }
 
         /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException} if modification is
+         * attempted. Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
