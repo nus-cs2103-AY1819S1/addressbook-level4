@@ -12,8 +12,9 @@ public class Prescription {
     private Dosage dosage;
     private ConsumptionPerDay consumptionPerDay;
 
-    public Prescription(int id, MedicineName medicineName, Dosage dosage, ConsumptionPerDay consumptionPerDay) {
-        this.id = id;
+    public Prescription(int appointmentId, MedicineName medicineName, Dosage dosage,
+                        ConsumptionPerDay consumptionPerDay) {
+        this.id = appointmentId;
         this.medicineName = medicineName;
         this.dosage = dosage;
         this.consumptionPerDay = consumptionPerDay;
@@ -79,14 +80,12 @@ public class Prescription {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getId())
-                .append(" ID: ")
+        builder.append("Medicine Name: ")
                 .append(getMedicineName())
-                .append(" Medicine Name: ")
-                .append(getDosage())
                 .append(" Dosage: ")
-                .append(getConsumptionPerDay())
-                .append(" Consumption Per Day: ");
+                .append(getDosage())
+                .append(" Consumption Per Day: ")
+                .append(getConsumptionPerDay());
         return builder.toString();
     }
 }

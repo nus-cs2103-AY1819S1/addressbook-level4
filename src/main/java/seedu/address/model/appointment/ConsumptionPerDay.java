@@ -10,7 +10,7 @@ public class ConsumptionPerDay {
     public static final String MESSAGE_CONSTRAINTS =
             "ConsumptionPerDay should only contain numbers, and it must be greater than 0";
     public static final String CONSUMPTION_PER_DAY_VALIDATION_REGEX = "^[1-9][0-9]*$";
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code consumptionPerDay}.
@@ -23,8 +23,8 @@ public class ConsumptionPerDay {
         value = consumptionPerDay;
     }
 
-    public ConsumptionPerDay() {
-        value = "";
+    public String getValue() {
+        return value;
     }
 
     /**

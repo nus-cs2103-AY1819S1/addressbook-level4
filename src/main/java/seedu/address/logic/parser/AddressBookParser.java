@@ -12,6 +12,7 @@ import seedu.address.logic.commands.AddMedicalHistoryCommand;
 import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CompleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.DeleteMedicalHistoryCommand;
@@ -31,6 +32,7 @@ import seedu.address.logic.commands.RegisterPatientCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewDoctorCommand;
 import seedu.address.logic.commands.ViewPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -132,8 +134,14 @@ public class AddressBookParser {
         case DeleteAppointmentCommand.COMMAND_WORD:
             return new DeleteAppointmentCommandParser().parse(arguments);
 
+        case CompleteAppointmentCommand.COMMAND_WORD:
+            return new CompleteAppointmentCommandParser().parse(arguments);
+
         case ViewPatientCommand.COMMAND_WORD:
             return new ViewPatientCommandParser().parse(arguments);
+
+        case ViewDoctorCommand.COMMAND_WORD:
+            return new ViewDoctorCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -1,18 +1,26 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOCTOR_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_NAME;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import seedu.address.calendar.GoogleCalendar;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.exceptions.InvalidInputOutputException;
+import seedu.address.model.appointment.exceptions.InvalidSecurityAccessException;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
@@ -38,6 +46,10 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New appointment added";
     public static final String MESSAGE_INVALID_PATIENT = "This patient does not exist in the HealthBook";
     public static final String MESSAGE_INVALID_DOCTOR = "This doctor does not exist in the HealthBook";
+    public static final String MESSAGE_DOCTOR_CLASH_APPOINTMENT =
+            "This doctor already have an appointment in that time slot.";
+    public static final String MESSAGE_PATIENT_CLASH_APPOINTMENT =
+            "This patient already have an appointment in that time slot.";
     // TODO - add messages for various cases (e.g. conflict in schedule) here when google calendar is up
 
     private final Name patientName;
@@ -55,7 +67,8 @@ public class AddAppointmentCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
+            throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
         Patient patient = null;
@@ -82,11 +95,29 @@ public class AddAppointmentCommand extends Command {
 
         Appointment appointment = new Appointment(model.getAppointmentCounter(), doctor.getName().toString(),
                 patient.getName().toString(), dateTime);
+
+        try {
+            googleCalendar.addAppointment(doctor.getName().toString(), appointment);
+        } catch (GeneralSecurityException e) {
+            throw new InvalidSecurityAccessException();
+        } catch (IOException e) {
+            throw new InvalidInputOutputException();
+        }
+
+        if (doctor.hasClashForAppointment(appointment)) {
+            throw new CommandException(MESSAGE_DOCTOR_CLASH_APPOINTMENT);
+        }
+        if (patient.hasClashForAppointment(appointment)) {
+            throw new CommandException(MESSAGE_PATIENT_CLASH_APPOINTMENT);
+        }
+
         doctor.addUpcomingAppointment(appointment);
         patient.addUpcomingAppointment(appointment);
         model.incrementAppointmentCounter();
         model.addAppointment(appointment);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.GoogleCalendarStub;
 
 /**
  * Contains helper methods for testing commands.
@@ -48,6 +49,8 @@ public class CommandTestUtil {
     public static final String VALID_CONDITION = "healthy";
     public static final String VALID_ALLERGY_TO_DELETE = "egg";
     public static final String VALID_CONDITION_TO_DELETE = "sub-health";
+    public static final String VALID_NAME_ALICE = "Alice Pauline";
+    public static final String VALID_NAME_BENSON = "Benson Meier";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -102,9 +105,11 @@ public class CommandTestUtil {
 
     public static final String NON_EXIST_ALLERGY = "non_exist_allergy";
     public static final String NON_EXIST_CONDITION = "non_exist_condition";
+    public static final String NON_EXIST_NAME = "non exist name";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final GoogleCalendarStub GOOGLE_CALENDAR_STUB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -113,6 +118,7 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
     }
 
     /**
@@ -125,7 +131,7 @@ public class CommandTestUtil {
                                             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            CommandResult result = command.execute(actualModel, actualCommandHistory, GOOGLE_CALENDAR_STUB);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -151,7 +157,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            command.execute(actualModel, actualCommandHistory);
+            command.execute(actualModel, actualCommandHistory, GOOGLE_CALENDAR_STUB);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
@@ -183,5 +189,4 @@ public class CommandTestUtil {
         model.deletePerson(firstPerson);
         model.commitAddressBook();
     }
-
 }

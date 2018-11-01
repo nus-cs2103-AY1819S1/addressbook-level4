@@ -10,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-import seedu.address.calendar.CalendarManager;
+import seedu.address.calendar.GoogleCalendar;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -51,15 +53,16 @@ public class RegisterDoctorCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
+            throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(doctorToRegister)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-        CalendarManager calendarManager = new CalendarManager();
+
         try {
-            calendarManager.registerDoctor(doctorToRegister.getName().toString());
+            googleCalendar.registerDoctor(doctorToRegister.getName().toString());
         } catch (IOException e) {
             throw new CommandException(MESSAGE_WRONG_INPUT);
         } catch (GeneralSecurityException e) {
@@ -67,6 +70,8 @@ public class RegisterDoctorCommand extends Command {
         }
         model.addDoctor(doctorToRegister);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS, doctorToRegister));
     }
 

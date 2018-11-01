@@ -3,18 +3,21 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
+import seedu.address.calendar.GoogleCalendar;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -26,48 +29,62 @@ public class DeleteMedicalHistoryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": delete medical history for a person to the address book. "
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: "
+            + PREFIX_NAME + "NAME "
             + PREFIX_ALLERGY + "ALLERGIES (separated by comma) "
             + PREFIX_CONDITION + "CONDITIONS (separated by comma) \n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_ALLERGY + "penicillin,milk "
-            + PREFIX_CONDITION + "sub-healthy,hyperglycemia ";
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + "John Doe "
+            + PREFIX_ALLERGY + "penicillin, milk "
+            + PREFIX_CONDITION + "sub-healthy, hyperglycemia ";
 
     public static final String MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS = "Medical history deleted for: %1$s";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE = "This command is only for patients";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY = "Non Exist Allergy: ";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION = "Non Exist Condition: ";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
+    public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME =
+            " does not exist in the healthbook";
 
-    private final Index index;
+
+    private final Name name;
     private String allergy;
     private String condition;
 
     /**
      * Creates an DeleteMedicalHistoryCommand for the specified {@code Person}
      */
-    public DeleteMedicalHistoryCommand(Index index, String allergy, String condition) {
-        requireNonNull(index);
-        this.index = index;
+    public DeleteMedicalHistoryCommand(Name name, String allergy, String condition) {
+        requireNonNull(name);
+        this.name = name;
         this.condition = condition;
         this.allergy = allergy;
 
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
+            throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Person personToEdit = null;
+        boolean personExist = false;
+        for (Person person : lastShownList) {
+            if (person.getName().equals(name)) {
+                personToEdit = person;
+                personExist = true;
+                break;
+            }
         }
-        Person personToEdit = lastShownList.get(index.getZeroBased());
+        if (!personExist) {
+            throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME);
+        }
 
         if (!(personToEdit.getTags().contains(new Tag("Patient")))) {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE);
         }
-        Patient patientToEdit = (Patient) lastShownList.get(index.getZeroBased());
+        Patient patientToEdit = (Patient) personToEdit;
         if (allergy.equals("") && condition.equals("")) {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
         }
@@ -100,6 +117,8 @@ public class DeleteMedicalHistoryCommand extends Command {
         model.updatePerson(patientToEdit, editedPatient);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
         return new CommandResult(String.format(MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS, patientToEdit));
     }
 
@@ -111,7 +130,7 @@ public class DeleteMedicalHistoryCommand extends Command {
             return false;
         } else {
             DeleteMedicalHistoryCommand r = (DeleteMedicalHistoryCommand) o;
-            return index.equals(r.index) && allergy.equals(r.allergy) && condition.equals(r.condition);
+            return name.equals(r.name) && allergy.equals(r.allergy) && condition.equals(r.condition);
         }
 
     }

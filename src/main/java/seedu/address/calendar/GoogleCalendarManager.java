@@ -35,7 +35,7 @@ import seedu.address.model.appointment.Appointment;
 /**
  * Manages all information transaction between doctor's google calendar and HealthBook.
  */
-public class CalendarManager {
+public class GoogleCalendarManager implements GoogleCalendar {
     private static final String APPLICATION_NAME = "HealthBook";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
@@ -47,12 +47,7 @@ public class CalendarManager {
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_EVENTS);
     private static final String CREDENTIALS_FILE_PATH = "credentials.json";
 
-    /**
-     * Creates an authorized Credential object.
-     * @param httpTransport The network HTTP Transport.
-     * @return An authorized Credential object.
-     * @throws IOException If the credentials.json file cannot be found.
-     */
+    @Override
     public Credential getCredentials(final NetHttpTransport httpTransport, String userName) throws IOException {
         /// Load client secrets.
         InputStream in = getClass().getClassLoader().getResourceAsStream(CREDENTIALS_FILE_PATH);
@@ -63,17 +58,14 @@ public class CalendarManager {
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
             httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
             .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
-            .setAccessType("online")
+            .setAccessType("offline")
             .build();
 
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize(userName);
     }
 
-    /**
-     * Register the oAuth token for the respective doctors.
-     */
-    /** */
+    @Override
     public void registerDoctor(String userName) throws IOException, GeneralSecurityException {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport, userName))
@@ -81,11 +73,7 @@ public class CalendarManager {
                 .build();
     }
 
-    /**
-     * Adds an appointment event to the primary calendar of the respective doctors.
-     * This includes an encoded calendar event Id based on the {@code appointment}'s id
-     */
-    /** */
+    @Override
     public void addAppointment(String userName, Appointment appointment) throws IOException, GeneralSecurityException {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         Calendar service = new Calendar.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport, userName))
@@ -115,11 +103,13 @@ public class CalendarManager {
         appointmentToAdd.setSummary("Appointment with " + appointment.getPatient());
 
         // Find existing event with same eventId. Deleted eventId is not deleted entirely but cancelled and hidden
-        Event event;
+        Event event = null;
         try {
             event = service.events().get("primary", eventIdEncoded).execute();
         } catch (GoogleJsonResponseException e) {
-            event = null;
+            if (e.getDetails().getCode() == 400) { // No Event Found
+                event = null;
+            }
         }
 
         if (event == null) {
@@ -130,11 +120,7 @@ public class CalendarManager {
         }
     }
 
-    /**
-     * Delete an appointment event to the primary calendar of the respective doctors.
-     * Delete using an encoded calendar event Id based on the {@code appointment}'s id
-     */
-    /** */
+    @Override
     public void deleteAppointment(String userName, Appointment appointment)
             throws IOException, GeneralSecurityException {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
@@ -146,7 +132,15 @@ public class CalendarManager {
         String eventId = "healthbook" + Integer.toString(appointment.getAppointmentId());
         String eventIdEncoded = BaseEncoding.base32Hex().encode(eventId.getBytes(Charsets.US_ASCII)).toLowerCase();
 
-        // Delete Event
-        service.events().delete("primary", eventIdEncoded).execute();
+        try {
+            // Delete Event
+            service.events().delete("primary", eventIdEncoded).execute();
+        } catch (GoogleJsonResponseException e) {
+            if (e.getDetails().getCode() == 410) {
+                return;
+            }
+        }
+
+
     }
 }

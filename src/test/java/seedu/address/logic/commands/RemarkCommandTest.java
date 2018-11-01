@@ -23,13 +23,15 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
+import seedu.address.testutil.GoogleCalendarStub;
 import seedu.address.testutil.PersonBuilder;
-
 
 /**
  * Contains integration tests and unit tests for RemarkCommand.
  */
 public class RemarkCommandTest {
+
+    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -119,7 +121,7 @@ public class RemarkCommandTest {
         expectedModel.commitAddressBook();
 
         // remark -> first person remark edited
-        remarkCommand.execute(model, commandHistory);
+        remarkCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
@@ -163,7 +165,7 @@ public class RemarkCommandTest {
         expectedModel.commitAddressBook();
 
         // edit -> edits second person in unfiltered person list / first person in filtered person list
-        remarkCommand.execute(model, commandHistory);
+        remarkCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();

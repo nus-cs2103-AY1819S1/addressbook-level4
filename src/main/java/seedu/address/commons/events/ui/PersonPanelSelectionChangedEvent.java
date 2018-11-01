@@ -15,6 +15,10 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
         this.newSelection = newSelection;
     }
 
+    public PersonPanelSelectionChangedEvent() {
+        this.newSelection = null;
+    }
+
     @Override
     public String toString() {
         return getClass().getSimpleName();

@@ -3,6 +3,8 @@ package seedu.address.logic;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import seedu.address.calendar.GoogleCalendar;
+import seedu.address.calendar.GoogleCalendarManager;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -22,11 +24,13 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
+    private final GoogleCalendar googleCalendar;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+        googleCalendar = new GoogleCalendarManager();
     }
 
     @Override
@@ -34,7 +38,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            return command.execute(model, history);
+            return command.execute(model, history, googleCalendar);
         } finally {
             history.add(commandText);
         }

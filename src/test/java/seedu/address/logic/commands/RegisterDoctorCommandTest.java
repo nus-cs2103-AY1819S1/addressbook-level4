@@ -26,10 +26,12 @@ import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.DoctorBuilder;
+import seedu.address.testutil.GoogleCalendarStub;
 
 class RegisterDoctorCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -48,7 +50,8 @@ class RegisterDoctorCommandTest {
                 new RegisterDoctorCommandTest.ModelStubAcceptingDoctorAdded();
         Doctor validDoctor = new DoctorBuilder().build();
 
-        CommandResult commandResult = new RegisterDoctorCommand(validDoctor).execute(modelStub, commandHistory);
+        CommandResult commandResult = new RegisterDoctorCommand(validDoctor).execute(modelStub, commandHistory,
+                GOOGLE_CALENDAR_STUB);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDoctor), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validDoctor), modelStub.doctorsAdded);
@@ -63,7 +66,7 @@ class RegisterDoctorCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        registerDoctorCommand.execute(modelStub, commandHistory);
+        registerDoctorCommand.execute(modelStub, commandHistory, GOOGLE_CALENDAR_STUB);
     }
 
     @Test
@@ -118,6 +121,11 @@ class RegisterDoctorCommandTest {
 
         @Override
         public void deleteAppointment(Appointment appointment, Patient patient, Doctor doctor) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void completeAppointment(Appointment appointment, Patient patient, Doctor doctor) {
             throw new AssertionError("This method should not be called.");
         }
 
