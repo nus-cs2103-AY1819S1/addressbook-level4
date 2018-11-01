@@ -25,6 +25,7 @@ import seedu.address.logic.commands.ModifyPermissionCommand;
 import seedu.address.logic.commands.PasswordCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelfEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewPermissionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -115,6 +116,9 @@ public class AddressBookParser {
 
         case ViewPermissionCommand.COMMAND_WORD:
             return new ViewPermissionCommandParser().parse(arguments);
+
+        case SelfEditCommand.COMMAND_WORD:
+            return new SelfEditCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
