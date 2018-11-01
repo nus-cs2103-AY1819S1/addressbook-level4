@@ -1,12 +1,12 @@
 {
-  "ignoreGlobList": ["**.adoc", "collate**"],
+  "ignoreGlobList": ["**.adoc", "collate**", "imageMagic**"],
   "formats": ["gradle", "jade", "java", "js", "md", "scss", "yml", "xml"],
   "authors":
   [
     {
       "githubId": "j-lum",
       "displayName": "Jeffry",
-      "authorNames": ["j-lum"]
+      "authorNames": ["Jeffry Lum"]
     },
     {
       "githubId": "benedictcss",
