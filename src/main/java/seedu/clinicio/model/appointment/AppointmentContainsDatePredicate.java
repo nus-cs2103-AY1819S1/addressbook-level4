@@ -1,21 +1,21 @@
 package seedu.clinicio.model.appointment;
 
-import seedu.clinicio.commons.util.StringUtil;
-import seedu.clinicio.model.person.Person;
+//@@author gingivitiss
 
-import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * Tests that an {@code Appointment}'s {@code Date} matches any of the keywords given.
+ */
 public class AppointmentContainsDatePredicate implements Predicate<Appointment> {
-    private final List<String> date;
+    private final Date date;
 
-    public AppointmentContainsKeywordsPredicate(List<String> appointment) {
-        this.date = date;
+    public AppointmentContainsDatePredicate(String[] date) {
+        this.date = new Date(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
     }
 
     @Override
     public boolean test(Appointment appointment) {
-        return date.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(appointment.getAppointmentDate(), keyword));
+        return date.equals(appointment.getAppointmentDate());
     }
 }
