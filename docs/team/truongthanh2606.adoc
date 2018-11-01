@@ -23,8 +23,8 @@ It is written in Java, and has about 10 kLoC.
 **** Allows Anakin to have a unique list of decks, each deck contains a unique list of cards.
 **** Allows UI to observe both the deck list and card list so that it can update its deck panel and
 card panel when user execute different commands.
-**** Allows Logic component to execute its set of commands by providing a complete Model which can
- support those operations.
+**** Allows Logic component to execute its set of commands by providing a complete Model interface,
+which can support those operations.
 
 *** Justification: The new model component executes the logic of all commands, determines
  how objects like deck and card interacts with each other and
@@ -69,8 +69,9 @@ card panel when user execute different commands.
 *** Wrote additional tests for existing features to increase coverage from 79.5% to 84%
 ** Documentation:
 *** Update developer guide (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/91[#91],
-https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164]
-https://github.com/CS2103-AY1819S1-T09-2/main/pull/195[#195])
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/195[#195],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/199[#199])
 *** Update user guide (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164],
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/195[#195])
 
