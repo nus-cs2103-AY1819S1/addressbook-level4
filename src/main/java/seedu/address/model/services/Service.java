@@ -6,10 +6,10 @@ package seedu.address.model.services;
  */
 public enum Service {
 
-    CONSULTATION(new ServicePrice("30")),
-    BLOOD_TEST(new ServicePrice("20")),
-    URINE_TEST(new ServicePrice("20")),
-    MINOR_SURGERY(new ServicePrice("40"));
+    CONSULTATION(new ServicePrice("30.00")),
+    BLOOD_TEST(new ServicePrice("20.00")),
+    URINE_TEST(new ServicePrice("20.00")),
+    MINOR_SURGERY(new ServicePrice("40.00"));
 
     private ServicePrice price;
 
