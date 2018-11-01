@@ -119,7 +119,7 @@ Format:
 
 ==== Adding/Removing a dependency to a Task: `dependency`
 [%hardbreaks]
-Adds/removes a dependency to a task dependant to the task dependee (toggles)
+Adds/removes a dependency to a task dependant to the task dependee (toggling task dependency)
 Format:
 `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
