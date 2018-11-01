@@ -144,7 +144,7 @@ public class ParserUtil {
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!Name.isValidName(trimmedDescription)) {
+        if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
         return new Description(trimmedDescription);

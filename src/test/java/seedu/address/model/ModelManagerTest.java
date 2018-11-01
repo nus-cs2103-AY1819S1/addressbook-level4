@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalAssignment.FALCON;
 import static seedu.address.testutil.TypicalAssignment.OASIS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -59,7 +60,7 @@ public class ModelManagerTest {
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         ArchiveList archiveList = new ArchiveListBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AssignmentList assignmentList = new AssignmentListBuilder().withAssignment(OASIS).withAssignment(OASIS).build();
+        AssignmentList assignmentList = new AssignmentListBuilder().withAssignment(OASIS).withAssignment(FALCON).build();
         AddressBook differentAddressBook = new AddressBook();
         ArchiveList differentArchiveList = new ArchiveList();
         AssignmentList differentAssignmentList = new AssignmentList();
