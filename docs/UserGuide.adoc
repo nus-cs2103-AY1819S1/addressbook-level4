@@ -131,6 +131,7 @@ image::filter.png[width="880"]
 
 
 [[Features-Find]]
+// tag::find[]
 === Finding car parks : `find`
 
 Find a list of car parks within a certain location.
@@ -156,6 +157,45 @@ The figure above is a sample display of the application.
 .After using find command
 image::findafter.png[width="880"]
 The figure above shows what happen after executing the `find` command.
+// end::find[]
+
+[[Features-Undo]]
+// tag::undo[]
+=== Undoing commands: `undo`
+Restores the car park finder to the state before the previous undoable command was executed.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`undo`| `-` | `find sengkang`,`list`,`undo` +
+`find sengkang`,`filter n\`,`undo`,`undo`
+|===
+
+[NOTE]
+====
+* You can only `undo` when you have ran a commands.
+* Undoable commands: those commands that modify the car park finder’s content (`clear`, `find`, `filter` and `query`).
+====
+// end::undo[]
+
+[[Features-Redo]]
+// tag::redo[]
+=== Redoing commands : `redo`
+Reverses the most recent `undo` command.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`redo`| `-` | `find sengkang`,`undo`,`redo`
+|===
+
+[NOTE]
+====
+* You can only `redo` after an `undo` command.
+====
+// end::redo[]
 
 [[Features-Select]]
 === Selecting a car park : `select`
