@@ -1,6 +1,7 @@
 //@@author chantca95
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;
@@ -40,11 +41,7 @@ public class ExportCommandTest {
         File produced = new File(EXPORTED_FILE_NAME);
         File expected = EXPECTED_FILE_NAME.toFile();
         boolean isTwoEqual = compareFiles(produced, expected);
-        try {
-            assert (isTwoEqual);
-        } catch (AssertionError ae) {
-            System.out.println(ae);
-        }
+        assertTrue(isTwoEqual);
     }
 
     /**
