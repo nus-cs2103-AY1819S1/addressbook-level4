@@ -530,7 +530,6 @@ image::command_event_delete_before.png[Before delete, 300]
 image::command_event_delete_after.png[After delete, 300]
 --
 
-// tag::command-record[]
 === Record Management
 
 This section contains commands related to managing a volunteering record.
@@ -541,6 +540,7 @@ This section contains commands related to managing a volunteering record.
 * The other commands under this section can only be accessed after executing the `manage` command.
 ****
 
+// tag::command-record[]
 [[command-record-manage]]
 ==== Viewing event's volunteer records: `manage`
 
@@ -608,6 +608,7 @@ Expected display box is shown in the figure below.
 
 .Output of `add 1 h/5 r/Driver`
 image::command_record_add_after2.png[add command, 600]
+//end::command-record[]
 
 [[command-record-edit]]
 ==== Updating volunteer record: `edit`
@@ -668,7 +669,6 @@ image::command_record_edit_after.png[delete command, 600]
 image::command_record_delete.png[delete command, 600]
 
 The figures above show the display box before and after deleting a record.
-//end::command-record[]
 
 === Miscellaneous
 
