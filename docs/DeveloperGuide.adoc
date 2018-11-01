@@ -157,12 +157,6 @@ Use case resumes at step 1 in MSS.
 
 Use case resumes at step 1 in MSS.
 
-* 1c. The dependency already exists in the model
-** 1c1. Application shows an error message, rejects the additional task dependency
-
-Use case resumes at step 1 in MSS.
-
-
 ### Use case: Remove dependency for task
 #### MSS
 . User requests to remove a dependency between tasks
@@ -175,12 +169,6 @@ Use case ends.
 ** 1a1. Application shows an error message.
 
 Use case resumes at step 1 in MSS.
-
-* 1c. The dependency already exists in the model
-** 1c1. Application shows an error message, rejects the additional task dependency
-
-Use case resumes at step 1 in MSS.
-
 
 ### Use case: Delete task
 #### MSS
