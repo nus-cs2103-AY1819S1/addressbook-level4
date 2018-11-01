@@ -48,7 +48,9 @@ Anakin is a desktop flashcard management application. The user interacts with it
 |_I contributed and maintained almost the entirety of the Anakin UserGuide, except for the `sort` and `locate` feature documentation._
 |===
 
-include::../UserGuide.adoc[Anakin Userguide]
+include::../UserGuide.adoc[tag=import]
+
+include::../UserGuide.adoc[tag=export]
 
 == Contributions to the Developer Guide
 
@@ -56,6 +58,6 @@ include::../UserGuide.adoc[Anakin Userguide]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=Logic]
+include::../DeveloperGuide.adoc[tag=logic]
 
-include::../DeveloperGuide.adoc[tag=Import/Export Implementation]
+include::../DeveloperGuide.adoc[tag=importexportimplementation]
