@@ -47,9 +47,13 @@ Follow the steps below to get started with CLInic.
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
+
 .Prototype of UI
+//tag::UI[]
 image::Ui.png[width="790"]
+//end::UI[]
 +
+
 
 .  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.

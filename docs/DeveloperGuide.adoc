@@ -471,8 +471,7 @@ which lists the medicine that are below their Minimum Stock Quantity.
 === Patient Queue Management System
 The Patient Queue Management System (PQMS) consists of three main classes: `PatientQueue`, `CurrentPatient` and `ServedPatientQueue`. A patient that
 registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
-he is done with seeing the doctor, he will be put into the `ServedPatientQueue` to await payment and document processing.
-Given below is an example usage scenario and how the PQMS is used in each step.
+he is done with seeing the doctor, he will become a `ServedPatient` and put into the  `ServedPatientQueue` to await payment and document processing.
 
 The PQMS consists of the `register`, `insert`, `remove`, `serve`, `docAdd`, `docDisplay`, `dispenseMedicine`, `finish`, `payment` and `Document` commands.
 
@@ -620,6 +619,8 @@ image::RegisterSequenceDiagram.png[width="1000"]
 
 The other commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
 
+Given below is an example usage scenario and how the PQMS is used in each step.
+
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
 .Registering 3 patients
@@ -631,11 +632,11 @@ The patient is now the `CurrentPatient`.
 .Serve patient
 image::PQMSCurrentPatient.png[650, 250]
 
-Step 3. The user executes various commands to add information to the `CurrentPatient`. These information will be used for document
+Step 3. The user executes the `DocumentAdd` command to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
 
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
-the `ServedPatientQueue`. Afterwards, the user executes `serve` to get the next patient.
+the `ServedPatientQueue`. Afterwards, the user executes `serve` to serve the next patient in `PatientQueue`.
 
 .Finish serving patient
 image::PQMSServedPatientQueue.png[650, 250]
@@ -644,7 +645,6 @@ Step 5. The user executes various commands to generate necessary documents for t
 
 Step 6. The user finally executes `payment` command to generate the receipt and ends the patient's visit to the clinic, removing
 him from the `ServedPatientQueue`.
-//end::pqms[]
 
 ==== Design Considerations
 
@@ -659,7 +659,7 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 * `CurrentPatient` inherits from `ServedPatient`. `ServedPatient` inherits from `Patient`.
 ** Pros: Proper relationship between three classes.
 ** Cons: Cannot cast `Patient` to `ServedPatient` or `CurrentPatient` for usage in PQMS.
-
+//end::pqms[]
 
 // tag::documentpreamble[]
 === Document
