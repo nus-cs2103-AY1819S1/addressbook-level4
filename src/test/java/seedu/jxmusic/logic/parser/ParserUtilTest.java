@@ -27,8 +27,8 @@ public class ParserUtilTest {
     private static final String INVALID_TRACK_FILE_NOT_SUPPORTED = "unsupported";
 
     private static final String VALID_PLAYLIST_NAME = "Favourites";
-    private static final String VALID_TRACK_1 = "haikei goodbye sayonara";
-    private static final String VALID_TRACK_2 = "ihojin no yaiba";
+    private static final String VALID_TRACK_1 = "Haikei Goodbye Sayonara";
+    private static final String VALID_TRACK_2 = "Ihojin no Yaiba";
 
     private static final String WHITESPACE = " \t\r\n";
 

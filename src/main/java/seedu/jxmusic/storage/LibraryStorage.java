@@ -2,7 +2,6 @@ package seedu.jxmusic.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Optional;
 
 import seedu.jxmusic.commons.exceptions.DataConversionException;
 import seedu.jxmusic.model.ReadOnlyLibrary;
@@ -23,12 +22,12 @@ public interface LibraryStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyLibrary> readLibrary() throws DataConversionException, IOException;
+    ReadOnlyLibrary readLibrary() throws DataConversionException, IOException;
 
     /**
      * @see #getLibraryFilePath()
      */
-    Optional<ReadOnlyLibrary> readLibrary(Path filePath) throws DataConversionException, IOException;
+    ReadOnlyLibrary readLibrary(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyLibrary} to the storage.

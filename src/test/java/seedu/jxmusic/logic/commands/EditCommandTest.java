@@ -13,7 +13,7 @@
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.showPersonAtIndex;
 //import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 //import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalAddressBook;
 //
 //import org.junit.Test;
 //

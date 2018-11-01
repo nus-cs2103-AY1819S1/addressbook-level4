@@ -22,7 +22,7 @@ public class PlaylistCardTest extends GuiUnitTest {
         assertCardDisplay(playlistCard, playlistWithNoTracks, 1);
 
         // with tracks
-        Playlist playlistWithTracks = new PlaylistBuilder().withTracks("haikei goodbye sayonara").build();
+        Playlist playlistWithTracks = new PlaylistBuilder().withTracks("Haikei Goodbye Sayonara").build();
         playlistCard = new PlaylistCard(playlistWithTracks, 2);
         uiPartRule.setUiPart(playlistCard);
         assertCardDisplay(playlistCard, playlistWithTracks, 2);

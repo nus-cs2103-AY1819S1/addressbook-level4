@@ -10,8 +10,8 @@ import org.junit.Test;
 import seedu.jxmusic.logic.commands.SelectCommand;
 
 /**
- * Test scope: similar to {@code DeleteCommandParserTest}.
- * @see DeleteCommandParserTest
+ * Test scope: similar to {@code PlaylistDelCommandParserTest}.
+ * @see PlaylistDelCommandParserTest
  */
 public class SelectCommandParserTest {
 

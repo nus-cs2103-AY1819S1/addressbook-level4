@@ -21,6 +21,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Library library;
     private final FilteredList<Playlist> filteredPlaylists;
+    private final FilteredList<Track> filteredTrackList;
 
     /**
      * Initializes a ModelManager with the given library and userPrefs.
@@ -33,6 +34,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         library = new Library(readOnlyLibrary);
         filteredPlaylists = new FilteredList<>(library.getPlaylistList());
+        filteredTrackList = new FilteredList<>(library.getObservableTrackList());
+        //ObservableList<Track> trackListFromSet = FXCollections.observableArrayList(library.getTracks());
+        //filteredTrackList = new FilteredList<>(trackListFromSet);
     }
 
     public ModelManager() {
@@ -93,10 +97,25 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredPlaylists);
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code tracks} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Track> getFilteredTrackList() {
+        return FXCollections.unmodifiableObservableList(filteredTrackList);
+    }
+
     @Override
     public void updateFilteredPlaylistList(Predicate<Playlist> predicate) {
         requireNonNull(predicate);
         filteredPlaylists.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredTrackList(Predicate<Track> predicate) {
+        requireNonNull(predicate);
+        filteredTrackList.setPredicate(predicate);
     }
 
     @Override

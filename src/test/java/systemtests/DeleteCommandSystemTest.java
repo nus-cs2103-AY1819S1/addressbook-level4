@@ -3,24 +3,24 @@
 //import static org.junit.Assert.assertTrue;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 //import static seedu.jxmusic.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-//import static seedu.jxmusic.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+//import static seedu.jxmusic.logic.commands.PlaylistDelCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 //import static seedu.jxmusic.testutil.TestUtil.getLastIndex;
 //import static seedu.jxmusic.testutil.TestUtil.getMidIndex;
 //import static seedu.jxmusic.testutil.TestUtil.getPerson;
 //import static seedu.jxmusic.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.KEYWORD_MATCHING_SONG;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.KEYWORD_MATCHING_SONG;
 //
 //import org.junit.Test;
 //
 //import seedu.jxmusic.commons.core.Messages;
 //import seedu.jxmusic.commons.core.index.Index;
-//import seedu.jxmusic.logic.commands.DeleteCommand;
+//import seedu.jxmusic.logic.commands.PlaylistDelCommand;
 //import seedu.jxmusic.model.Model;
 //
 //public class DeleteCommandSystemTest extends LibrarySystemTest {
 //
 //    private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
-//            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+//            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, PlaylistDelCommand.MESSAGE_USAGE);
 //
 //    @Test
 //    public void delete() {
@@ -29,7 +29,8 @@
 //
 //        /* Case: delete the first playlist in the list, command with leading spaces and trailing spaces -> deleted */
 //        Model expectedModel = getModel();
-//        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "     ";
+//        String command = "     " + PlaylistDelCommand.COMMAND_PHRASE + "      " +
+// INDEX_FIRST_PERSON.getOneBased() + "     ";
 //        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
 //        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //        assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -40,12 +41,12 @@
 //        assertCommandSuccess(lastPersonIndex);
 //
 //        /* Case: undo deleting the last playlist in the list -> last playlist restored */
-//        command = UndoCommand.COMMAND_WORD;
+//        command = UndoCommand.COMMAND_PHRASE;
 //        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
 //        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 //
 //        /* Case: redo deleting the last playlist in the list -> last playlist deleted again */
-//        command = RedoCommand.COMMAND_WORD;
+//        command = RedoCommand.COMMAND_PHRASE;
 //        removePerson(modelBeforeDeletingLast, lastPersonIndex);
 //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
 //        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
@@ -68,7 +69,7 @@
 //         */
 //        showPersonsWithName(KEYWORD_MATCHING_SONG);
 //        int invalidIndex = getModel().getAddressBook().getPlaylistList().size();
-//        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
+//        command = PlaylistDelCommand.COMMAND_PHRASE + " " + invalidIndex;
 //        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
 //        /* --------------------- Performing delete operation while a playlist card is selected ----------------------
@@ -81,7 +82,7 @@
 //        Index selectedIndex = getLastIndex(expectedModel);
 //        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
 //        selectPerson(selectedIndex);
-//        command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
+//        command = PlaylistDelCommand.COMMAND_PHRASE + " " + selectedIndex.getOneBased();
 //        deletedPerson = removePerson(expectedModel, selectedIndex);
 //        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
@@ -90,24 +91,24 @@
 // */
 //
 //        /* Case: invalid index (0) -> rejected */
-//        command = DeleteCommand.COMMAND_WORD + " 0";
+//        command = PlaylistDelCommand.COMMAND_PHRASE + " 0";
 //        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 //
 //        /* Case: invalid index (-1) -> rejected */
-//        command = DeleteCommand.COMMAND_WORD + " -1";
+//        command = PlaylistDelCommand.COMMAND_PHRASE + " -1";
 //        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 //
 //        /* Case: invalid index (size + 1) -> rejected */
 //        Index outOfBoundsIndex = Index.fromOneBased(
 //                getModel().getAddressBook().getPlaylistList().size() + 1);
-//        command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
+//        command = PlaylistDelCommand.COMMAND_PHRASE + " " + outOfBoundsIndex.getOneBased();
 //        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
 //        /* Case: invalid arguments (alphabets) -> rejected */
-//        assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+//        assertCommandFailure(PlaylistDelCommand.COMMAND_PHRASE + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 //
 //        /* Case: invalid arguments (extra argument) -> rejected */
-//        assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+//        assertCommandFailure(PlaylistDelCommand.COMMAND_PHRASE + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 //
 //        /* Case: mixed case command word -> rejected */
 //        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
@@ -124,7 +125,8 @@
 //    }
 //
 //    /**
-//     * Deletes the playlist at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+//     * Deletes the playlist at {@code toDelete} by creating a default {@code PlaylistDelCommand}
+// using {@code toDelete} and
 //     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
 //     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
 //     */
@@ -134,7 +136,8 @@
 //        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //
 //        assertCommandSuccess(
-//                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+//                PlaylistDelCommand.COMMAND_PHRASE + " " + toDelete.getOneBased(), expectedModel,
+// expectedResultMessage);
 //    }
 //
 //    /**

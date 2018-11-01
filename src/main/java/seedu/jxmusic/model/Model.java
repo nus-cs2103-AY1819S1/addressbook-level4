@@ -11,6 +11,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true **/
     Predicate<Playlist> PREDICATE_SHOW_ALL_PLAYLISTS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true **/
+    Predicate<Track> PREDICATE_SHOW_ALL_TRACKS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyLibrary newData);
 
@@ -44,9 +47,18 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered playlist list */
     ObservableList<Playlist> getFilteredPlaylistList();
 
+    /** Returns an unmodifiable view of the filtered track list */
+    ObservableList<Track> getFilteredTrackList();
+
     /**
      * Updates the filter of the filtered playlist list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPlaylistList(Predicate<Playlist> predicate);
+
+    /**
+     * Updates the filter of the filtered track list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredTrackList(Predicate<Track> predicate);
 }

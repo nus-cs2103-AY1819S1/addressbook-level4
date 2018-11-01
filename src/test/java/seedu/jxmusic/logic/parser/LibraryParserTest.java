@@ -11,12 +11,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.jxmusic.logic.commands.ClearCommand;
-import seedu.jxmusic.logic.commands.DeleteCommand;
 import seedu.jxmusic.logic.commands.ExitCommand;
 import seedu.jxmusic.logic.commands.HelpCommand;
-import seedu.jxmusic.logic.commands.ListCommand;
+import seedu.jxmusic.logic.commands.PlaylistDelCommand;
+import seedu.jxmusic.logic.commands.PlaylistListCommand;
 import seedu.jxmusic.logic.commands.PlaylistNewCommand;
 import seedu.jxmusic.logic.commands.SelectCommand;
+import seedu.jxmusic.logic.commands.TrackListCommand;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.testutil.PlaylistBuilder;
@@ -45,9 +46,9 @@ public class LibraryParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PLAYLIST.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PLAYLIST), command);
+        PlaylistDelCommand command = (PlaylistDelCommand) parser.parseCommand(
+                PlaylistDelCommand.COMMAND_PHRASE + " " + INDEX_FIRST_PLAYLIST.getOneBased());
+        assertEquals(new PlaylistDelCommand(INDEX_FIRST_PLAYLIST), command);
     }
 
     @Test
@@ -59,10 +60,11 @@ public class LibraryParserTest {
     // @Test
     // public void parseCommand_find() throws Exception {
     //     List<String> keywords = Arrays.asList("foo", "bar", "baz");
-    //     System.out.println(FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-    //     FindCommand command = (FindCommand) parser.parseCommand(
-    //             FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-    //     assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    //     System.out.println(PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect
+    // (Collectors.joining(" ")));
+    //     PlaylistSearchCommand command = (PlaylistSearchCommand) parser.parseCommand(
+    //             PlaylistSearchCommand.COMMAND_PHRASE + " " + keywords.stream().collect(Collectors.joining(" ")));
+    //     assertEquals(new PlaylistSearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     // }
 
     @Test
@@ -72,9 +74,15 @@ public class LibraryParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    public void parseCommand_playlistList() throws Exception {
+        assertTrue(parser.parseCommand(PlaylistListCommand.COMMAND_PHRASE) instanceof PlaylistListCommand);
+        assertTrue(parser.parseCommand(PlaylistListCommand.COMMAND_PHRASE + " 3") instanceof PlaylistListCommand);
+    }
+
+    @Test
+    public void parseCommand_trackList() throws Exception {
+        assertTrue(parser.parseCommand(TrackListCommand.COMMAND_PHRASE) instanceof TrackListCommand);
+        assertTrue(parser.parseCommand(TrackListCommand.COMMAND_PHRASE + " 3") instanceof TrackListCommand);
     }
 
     @Test

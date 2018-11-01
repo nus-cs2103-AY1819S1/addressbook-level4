@@ -56,9 +56,20 @@ public class Playlist {
      */
     public void addTrack(Track track) {
         if (track == null) {
-            throw new NullPointerException("track must not be null");
+            throw new NullPointerException("Track must not be null");
         }
         tracks.add(track);
+    }
+
+    /**
+     * Deletes a track from the playlist
+     * @param track to be deleted from the playlist, must not be null
+     */
+    public boolean deleteTrack(Track track) {
+        if (track == null) {
+            throw new NullPointerException("Track must not be null");
+        }
+        return tracks.remove(track);
     }
 
     /**
@@ -72,6 +83,33 @@ public class Playlist {
 
         return otherPlaylist != null
                 && otherPlaylist.getName().equals(getName());
+    }
+
+    /**
+     * Returns a copy of this playlist
+     */
+    public Playlist copy() {
+        List<Track> tracks = this.getTracks();
+        Name nameCopy = this.getName();
+        Playlist copy = new Playlist(nameCopy);
+        for (Track track : tracks) {
+            copy.addTrack(track);
+        }
+        return copy;
+    }
+
+    /**
+     * Checks if playlist has a specific track
+     * @param targetTrack Track to check for
+     * @return true if track is in playlist
+     */
+    public boolean hasTrack(Track targetTrack) {
+        for (Track track : getTracks()) {
+            if (track.getFileName().equalsIgnoreCase(targetTrack.getFileName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -103,8 +141,12 @@ public class Playlist {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Tracks: ");
-        tracks.forEach(builder::append);
+                .append('\n')
+                .append("Tracks: \n");
+        tracks.forEach(t -> {
+            builder.append(t)
+                    .append('\n');
+        });
         return builder.toString();
     }
 

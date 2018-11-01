@@ -7,10 +7,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableSet;
 import seedu.jxmusic.commons.core.LogsCenter;
 import seedu.jxmusic.commons.exceptions.DataConversionException;
 import seedu.jxmusic.commons.util.FileUtil;
@@ -36,7 +35,7 @@ public class JsonLibraryStorage implements LibraryStorage {
     }
 
     @Override
-    public Optional<ReadOnlyLibrary> readLibrary() throws DataConversionException, IOException {
+    public ReadOnlyLibrary readLibrary() throws DataConversionException, IOException {
         return readLibrary(filePath);
     }
 
@@ -45,24 +44,19 @@ public class JsonLibraryStorage implements LibraryStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyLibrary> readLibrary(Path filePath) throws DataConversionException,
+    public ReadOnlyLibrary readLibrary(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
-        if (!Files.exists(filePath)) {
-            logger.info("Library file " + filePath + " not found");
-            return Optional.empty();
-        }
-
-        Library loadedLibrary = null;
-        try {
+        Library loadedLibrary = new Library();
+        ObservableSet<Track> trackSet = TracksScanner.scan(Paths.get(Library.LIBRARYDIR));
+        if (Files.exists(filePath)) {
             loadedLibrary = JsonFileStorage.loadDataFromFile(filePath);
-            Set<Track> trackSet = TracksScanner.scan(Paths.get(Library.LIBRARYDIR));
-            loadedLibrary.setTracks(trackSet);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } else {
+            logger.info("Library file " + filePath + " not found");
         }
-        return Optional.of(loadedLibrary);
+        loadedLibrary.setTracks(trackSet);
+        return loadedLibrary;
     }
 
     @Override

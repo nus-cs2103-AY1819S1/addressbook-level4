@@ -106,6 +106,20 @@ Examples:
 * `playlist search Fav` +
 Searches for playlists that has Fav in their names.
 
+=== Searching for a track : `track search`
+
+Searches for tracks by names. +
+Format: `track search QUERY`
+
+****
+* `QUERY` is a string to be searched from the names of the tracks, which doesn’t need to be an exact match.
+****
+
+Examples:
+
+* `track search aliez` +
+Searches for tracks that has aliez in their names.
+
 === Creating a playlist : `playlist new`
 
 Creates a new playlist with specific tracks and saves it into the library. +
@@ -153,7 +167,7 @@ Adds the track named "Some Song.mp3" to the "Favourites" playlist.
 === Deleting a track from a playlist : `track del`
 
 Removes a track from a playlist. The command will update the PLAYLIST even if it is currently playing. So the deleted track will not be played after its previous track finishes playing. +
-Format: `track del p/PLAYLIST i/INDEX`
+Format: `track del p/PLAYLIST INDEX`
 
 ****
 * `PLAYLIST` refers to an existing playlist’s name.
@@ -162,7 +176,7 @@ Format: `track del p/PLAYLIST i/INDEX`
 
 Examples:
 
-* `track del p/Favourites i/3` +
+* `track del p/Favourites 3` +
 Deletes the 3rd track in "Favourites" playlist.
 
 === Playing a track : `play t/`
@@ -499,8 +513,8 @@ eg. `playlist del INDEX`
 === Commands for managing tracks in playlist
 * *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
 eg. `track add p/Favourites t/Some Song.mp3`
-* *Delete track from playlist* : `track del p/PLAYLIST i/INDEX` +
-eg. `track del p/Favourites i/1`
+* *Delete track from playlist* : `track del p/PLAYLIST INDEX` +
+eg. `track del p/Favourites 1`
 * *List all tracks* : `track list`
 * *Search for tracks* : `track search QUERY` +
 eg. `track search Fav`

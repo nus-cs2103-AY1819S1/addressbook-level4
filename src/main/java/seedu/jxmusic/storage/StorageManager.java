@@ -57,12 +57,12 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyLibrary> readLibrary() throws DataConversionException, IOException {
+    public ReadOnlyLibrary readLibrary() throws DataConversionException, IOException {
         return readLibrary(libraryStorage.getLibraryFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyLibrary> readLibrary(Path filePath) throws DataConversionException, IOException {
+    public ReadOnlyLibrary readLibrary(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return libraryStorage.readLibrary(filePath);
     }

@@ -3,7 +3,7 @@ package seedu.jxmusic.logic.commands;
 import javafx.util.Duration;
 
 import seedu.jxmusic.model.Model;
-import seedu.jxmusic.player.JxMusicPlayer;
+import seedu.jxmusic.player.PlayerManager;
 
 /**
  * Seeks the player to a new playback time.
@@ -26,7 +26,7 @@ public class SeekCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        new JxMusicPlayer().seek(time);
+        PlayerManager.getInstance().seek(time);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

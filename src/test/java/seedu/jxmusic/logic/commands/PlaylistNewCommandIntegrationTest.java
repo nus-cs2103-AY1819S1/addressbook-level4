@@ -2,7 +2,7 @@
 //
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.jxmusic.testutil.TypicalPlaylists.getTypicalAddressBook;
+//import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalAddressBook;
 //
 //import org.junit.Before;
 //import org.junit.Test;
