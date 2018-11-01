@@ -215,12 +215,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoScheduler() {
         versionedScheduler.undo();
+        popUpManager.reInitialise(versionedScheduler);
         indicateSchedulerChanged();
     }
 
     @Override
     public void redoScheduler() {
         versionedScheduler.redo();
+        popUpManager.reInitialise(versionedScheduler);
         indicateSchedulerChanged();
     }
 

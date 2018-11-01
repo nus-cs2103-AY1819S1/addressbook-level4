@@ -36,6 +36,7 @@ public class ParserUtil {
     public static final Parser NATTY_PARSER = new Parser();
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_FAILED_DATE_TIME_PARSE = "Natural language date time parsing failed";
+    public static final String MESSAGE_FAILED_DURATION_PARSE = "Reminder Time is not valid. Please enter xxHxxMxxS";
     public static final String MESSAGE_FAILED_REPEAT_TYPE_PARSE = "Repeat type is not valid";
     public static final String MESSAGE_FAILED_FLAG_PARSE = "Input flag is not valid";
     public static final String EMPTY_STRING = "";
@@ -186,7 +187,15 @@ public class ParserUtil {
         parseDuration = "PT".concat(parseDuration.replace("d", "D"));
         parseDuration = parseDuration.replace("h", "H");
         parseDuration = parseDuration.replace("min", "m").toUpperCase();
-        return Duration.parse(parseDuration);
+        parseDuration = parseDuration.replace("sec", "s").toUpperCase();
+        try {
+            Duration duration = Duration.parse(parseDuration);
+            return duration;
+        } catch (Exception e) {
+            throw new ParseException(String.format(MESSAGE_FAILED_DURATION_PARSE));
+        }
+
+
     }
 
     /**

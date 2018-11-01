@@ -79,13 +79,37 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
         return duration;
     }
 
+    public DateTime getPopUpDateTime () {
+        return popUpDateTime;
+    }
+
+    /**
+     * get Display for events that are past
+     * @return
+     */
+    public String getPastPopUpDisplay() {
+        String result = "";
+        result = result + "Event Name: " + eventName.toString() + "\n" + startDateTime.getPrettyString() + " - " +
+                endDateTime.getPrettyString();
+        return result;
+     }
+
+    /**
+     * get Display for events
+     * @return
+     */
+    public String getPopUpDisplay() {
+        String result = "";
+        result = result + "Venue: " + venue.toString() + "\n" + startDateTime.getPrettyString() +
+                " - " + endDateTime.getPrettyString();
+        return result;
+    }
+
     public int compareTo(EventPopUpInfo other) {
         return this.popUpDateTime.compareTo(other.popUpDateTime);
     }
 
-    public DateTime getPopUpDateTime () {
-        return popUpDateTime;
-    }
+
 
     @Override
     public boolean equals(Object other) {
