@@ -44,7 +44,8 @@ public class DeletePrescriptionCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
+            throws CommandException {
         requireNonNull(model);
         List<Appointment> appointmentList = model.getFilteredAppointmentList();
 
