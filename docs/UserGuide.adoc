@@ -286,41 +286,62 @@ Examples:
 === Importing data : `import`
 
 User is able to import other data. +
+
 Default behaviour is to ignore any conflicting Person/Group entries unless `--force` option is supplied. +
+
 Format: `import <relative filepath>` or `import --force <relative filepath>`
 
 Example: +
-`import f/backup.xml` : Import backup.xml into MeetingBook +
-`import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
+
+* `import f/backup.xml` : Import backup.xml into MeetingBook +
+* `import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
+
+The image below shows the result after successfully executing the command.
+
+image::importSuccessfulOutput.png[width="450"]
 // end::import[]
 
 // tag::export[]
 === Exporting data : `export`
 
 User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
-Format: +
-`Export all groups, meetings and persons : export * <relative filepath>` +
-`Export all meetings and persons of a specific group: export #[Group] <relative filepath>`
 
-`export f/<filepath>`
+Format: `export  f/<relative filepath>` +
+// Future implementation
+//`Export all meetings and persons of a specific group: export #[Group] <relative filepath>`
 
-Example:
-`export f/backup.xml` : Export MeetingBook as `backup.xml`.
+Example: +
+
+* `export f/backup.xml` : Export MeetingBook as `backup.xml`. +
+
+The image below shows the result after successfully executing the command.
+
+image::exportSuccessfulOutput.png[width="450"]
+
+
+
 // end::export[]
 
 // tag::filepath[]
 === Changing Storage Location: `filepath`
 
 Change the storage location of MeetingBook. +
-Format: +
-`filepath f/<filepath>`
+
+Format: `filepath f/<filepath>`
 
 Example:
-`filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
+
+* `filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
 
 ****
-User can also check the current path of MeetingBook use `filepath --show`
+[NOTE]
+User can also check the current path where MeetingBook store its data using `filepath --show` command. +
+
+The image below shows the result after successfully executing the command.
+
+image::filepath--showOutput.png[width="450"]
 ****
+
 // end::filepath[]
 
 === Saving the data

@@ -714,20 +714,24 @@ image::SelectActivityDiagram.png[width="650"]
 === Export feature
 ==== Current Implementation
 ===== Overview
-The export mechanism is facilitated by `ExportCommand`. `ExportCommandParser` is responsible for parsing the input arguments. +
+The export mechanism is facilitated by `ExportCommand`. `ExportCommandParser` is responsible for parsing the input arguments. The end result of this command is a Xtensible Markup Language (XML) file containing data of MeetingBook when is executed successfully. +
 [NOTE]
 If there is no filepath provided, `export` command will return an invalid message, which the usage information to the user.
 
 The following sequence diagram shows how export operation works:
 
-image::ExportCommandSeqDiagram.png[width="1000"]
-//TODO Explain XML
+.Sequence diagram of ExportCommand
+image::exportCommandSeqDiagram.png[width="1000"]
+
 The program will raise a `AddressBookExportEvent` to `EventCenter`. `StorageManager` which subscribed to the `EventCenter` which will trigger `handleAddressBookExportEvent` when received `AddressBookExportEvent`. This method will then export the data as a XML file using `Model#exportAddressBook`.
 
-===== Exporting to XML
-As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted into XML-like syntax before it can be successfully saved.
-``Object``s are parsed using their respective `XMLAdapted` classes which contain directions for it to parse into XML-like syntax.
+===== Export to a XML file
+Translating from `MeetingBookStorage` to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
+As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted into Java Architecture for XML Binding (JAXB)-friendly version before it can be successfully saved.
+``Object``s are modelled using their respective `XMLAdapted` classes which contain directions for it to parse into JAXB-friendly version. `Marshal` Object will then marshal all the JAXB-friendly version of `Person`, `Meeting`, `Group` and assemble it into a XML file.
 
+.Class diagram of XmlAdapted classes and their associations
+image::xmlAdaptedClassDiagram.png[]
 
 
 ==== Design Consideration
@@ -747,6 +751,36 @@ As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these informa
 These scenarios create unnecessary complications when we want to attempt undoing the operation. Therefore, we choose to not allow the command to be undoable.
 
 // end::export[]
+
+// tag::import[]
+=== Import feature
+==== Current Implementation
+===== Overview
+The import command allow the user to import a XML file containing of MeetingBook data into his MeetingBook.
+This is facilitated by is facilitated by `ImportCommand`. `ImportCommandParser` is responsible for parsing the input arguments.
+The end result of this command is entries of `Person`, `Group`, `Meeting` added into the current MeetingBook.
+
+===== Import from XML file
+Translation from XML formatted file to `XmlSerializableMeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
+As MeetingBook consists `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted back into Java Architecture for XML Binding (JAXB)-friendly version before it can then modelled into its respective classes (i.e. `xmlAdaptedPerson` modelled back into `Person` object).
+Each ``Object``s has their respective `XMLAdapted` class which contain directions to model back from JAXB-friendly version . `Unmarshal` Object is solely responsible for disassemble the XML file into  JAXB-friendly versions of `Person`, `Meeting`, `Group`.
+
+.Class diagram of XmlAdapted classes and their associations
+image::xmlAdaptedClassDiagram.png[]
+
+==== Design Consideration
+===== Aspect: Handling of conflict files
+* **Alternative 1 (current choice):** Either ignore or overwrite conflicting files.
+*** Pros: Easy to handle conflicting cases.
+*** Cons: Loss of data as information is destroyed or lost when importing.
+When we choose to ignore, we lose data from the XML file as they are not imported in.
+If we were to overwrite conflicting files, we lose information in our current MeetingBook as they are overwritten by the imported data.
+* **Alternative 2:**  Append an arbitrary number to the name of `Person`/`Group`.
+*** Pros: No loss of data when importing.
+*** Cons: End up with lots of data with arbitrary number appended to it.
+This may cause confusion to the user as there is many similar entries of the `Person`/`Group` object only to  be differ by an arbitrary number.
+This will also cause `find` command to not work as expected. `find` command currently matches exact search term and the arbitrary number appended cause it to no longer match the name of the `Object`.
+// end::import[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
