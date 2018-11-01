@@ -33,7 +33,7 @@ public class JoinCommand extends Command {
             + PREFIX_GROUP + "GROUP_03";
 
     public static final String MESSAGE_JOIN_SUCCESS = "Person: %1$s added to the group: %2$s";
-    public static final String MESSAGE_JOIN_FAILED = "Person: %1$s is already in group: %2$s";
+    public static final String MESSAGE_PERSON_ALREADY_IN_GROUP = "Person is already in group";
 
     private final Name personName;
     private final Title groupName;
@@ -67,8 +67,7 @@ public class JoinCommand extends Command {
         }
 
         if (matchedGroupByName.hasMember(matchedPersonByName)) {
-            throw new CommandException(String.format(MESSAGE_JOIN_FAILED, matchedPersonByName.getName().toString(),
-                matchedGroupByName.getTitle().fullTitle));
+            throw new CommandException(MESSAGE_PERSON_ALREADY_IN_GROUP);
         }
 
         model.joinGroup(matchedPersonByName, matchedGroupByName);

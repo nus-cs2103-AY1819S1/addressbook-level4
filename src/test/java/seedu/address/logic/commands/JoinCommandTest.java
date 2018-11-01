@@ -105,8 +105,7 @@ public class JoinCommandTest {
         ModelStubAcceptingPersonJoined modelStub = new ModelStubAcceptingPersonJoined();
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(String.format(JoinCommand.MESSAGE_JOIN_FAILED, duplicatePerson.getName().fullName,
-            validGroup.getTitle().fullTitle));
+        thrown.expectMessage(JoinCommand.MESSAGE_PERSON_ALREADY_IN_GROUP);
         joinCommand.execute(modelStub, commandHistory);
     }
 
