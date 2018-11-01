@@ -147,18 +147,57 @@ Examples:
 
 Apply for leave on specific dates.
 
-Format: `leave add -de DESCRIPTION -da DATE [-da DATE]`
+Format: `leave add -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required)
-* The user must specify at least 1 `DATE`.
-* The leave will be applied for all the dates specified under -da
+* You must specify at least 1 `DATE`. Your leave will be applied for all the dates specified after each `-da`.
 * If the `DATE` is of an illegal format, the command will be rejected.
 ****
 
 Examples:
 
-* `leaveapply -de Family holiday -da 2018-10-18 2018-10-19 `
+* `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
+
+=== View a list of leave applications : `leavelist`
+
+Displays a list leave applications that you have made.
+
+Format: `leavelist`
+
+****
+* If you have the "View Employee Leave" permissions, all other employee leave applications will be shown too.
+****
+
+=== Approve a leave application : `leaveapprove`
+
+Sets the status of a leave application to the "Approved" status.
+
+Format: `leaveapprove [INDEX]`
+
+****
+* Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* To use this command, you must have "Leave Approve" permissions.
+****
+
+Examples:
+
+* `leaveapprove 2`
+
+=== Reject a leave application : `leavereject`
+
+Sets the status of a leave application to the "Rejected" status.
+
+Format: `leavereject [INDEX]`
+
+****
+* Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* To use this command, you must have "Leave Approve" permissions.
+****
+
+Examples:
+
+* `leavereject 1`
 
 === Search employees by name : `find`
 
@@ -369,7 +408,7 @@ Format: `summary`
  |Command | Format | Example
  |Help|help|help
  |History|history|history
- |list all employee|list|list
+ |List all employees|list|list
  |Sort employee display list| sort -CRITERIA| sort -d
  |Select an employee|select INDEX | select 1
  |Search employees by name|find NAME| find Joshua
@@ -377,6 +416,8 @@ Format: `summary`
  -d Development
  |Change password|passwd|passwd
  |View archived employees|archive|archive
+ |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
+ |View leave application list|leavelist|leavelist
  |Undo commands|undo|undo
  |Redo commands|Redo|Redo
  |Logout from the system|logout|logout
@@ -398,5 +439,7 @@ Format: `summary`
  |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
  modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
  |View all Permissions of employee| ASSIGN_PERMISSION| viewpermission INDEX|viewpermission 1
+ |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
+ |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
 |=========================================================
 
