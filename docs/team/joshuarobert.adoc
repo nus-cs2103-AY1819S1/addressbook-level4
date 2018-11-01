@@ -12,21 +12,43 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
 == Summary of contributions
 The following section shows my major code contributions to OASIS.
 
- * *Major enhancement*: Added *the ability to delete employees and add them to the archive list*
-** What it does: Allows a user with "Department Manager" permissions to delete an employee and it will be automatically added to the archive list which can be viewed at a later time.
-** Justification:
-** Highlights:
-* *Minor enhancement*:
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
-* *Other contributions*:
+=== Major enhancement: Added *the ability to delete employees and add them to the archive list*
+==== Behaviour:
+Allows a user with `Department Manager` permissions to delete an employee and it will be automatically added to the `archivelist` which can be viewed at a later time.
+
+User can then view the `archivelist` by clicking on "ArchiveList" button on the List Picker Panel as shown below:
+
+image::viewArchive.png[width="700"]
+
+==== Justification:
+We want the Users to have the option of deleting an employee from the system but keeping his/her information incase of future need for it.
+
+Having the `archivelist` achieves that for us, an employee will remain in the system even after being deleted from the `archivelist`.
+
+Our users will also be able to permanently delete employee information if they choose to by deleting them from the `archivelist`.
+
+Lastly, if there is a need to restore the employee back to the `activelist` a user with the right permissions can restore the employee from the `archivelist` to the `activelist`.
+
+==== Highlights:
+
+
+=== Minor enhancement:
+
+==== Code contributed:
+** [https://github.com[Functional code]]
+** [https://github.com[Test code]]
+
+==== *Other contributions*:
 ** Project management:
-*** Sample
+*** Managed releases v1.1 - v1.2 on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme for every Person card (Pull requests https://github.com[#1])
+*** Updated the GUI color scheme for every `Person` card (Pull requests https://github.com[#1])
+*** Updated the GUI to show a `ListPicker` to toggle between active and archive list. (Pull requests)
 ** Documentation:
 *** Input initial contents of User Guide: https://github.com[#1]
+*** Updated class diagrams for `UI` and `Model` component in the Developer Guide.
 ** Community:
-*** List picker menu feature that I added was adopted by several other class mates ()
+*** `Listpicker` menu feature that I added was adopted by several other class mates ()
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
 
