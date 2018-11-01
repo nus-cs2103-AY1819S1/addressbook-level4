@@ -103,20 +103,13 @@ public class Anakin implements ReadOnlyAnakin {
     public void resetData(ReadOnlyAnakin newData) {
         requireNonNull(newData);
 
-        //Debug
-        System.out.println("Bef: Currently in : " + currentDeck.getName().fullName);
-        System.out.println("Bef: Current Cards : " + cards.internalList.toString());
-
+        setEnteredDeck(newData.justEnteredDeck());
         setIsInsideDeck(newData.isInsideDeck());
         setIsReviewingDeck(newData.isReviewingDeck());
         setDecks(newData.getDeckList());
         setCurrentDeck(newData.getCurrentDeck());
-        setCards(currentDeck.getCards().asUnmodifiableObservableList());
+        setCards(newData.getCardList());
         updateDisplayedCards();
-
-        //DEBUG
-        System.out.println("Aft: Currently in : " + currentDeck.getName().fullName);
-        System.out.println("Aft: Current Cards : " + cards.internalList.toString());
     }
 
     /**
@@ -171,6 +164,7 @@ public class Anakin implements ReadOnlyAnakin {
         currentDeck = NULLDECK;
         clearCards();
         updateDisplayedCards();
+        jedfalse();
     }
 
 
@@ -423,4 +417,7 @@ public class Anakin implements ReadOnlyAnakin {
         justEnteredDeck = false;
     }
 
+    public void setEnteredDeck(boolean b) {
+        justEnteredDeck = b;
+    }
 }
