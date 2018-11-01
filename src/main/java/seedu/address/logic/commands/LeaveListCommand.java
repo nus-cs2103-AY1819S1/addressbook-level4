@@ -31,8 +31,7 @@ public class LeaveListCommand extends Command {
                 .getGrantedPermission().contains(Permission.VIEW_EMPLOYEE_LEAVE)) {
             model.updateFilteredLeaveApplicationList(PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS);
         } else {
-            model.updateFilteredLeaveApplicationList(leaveApplication
-                -> leaveApplication.getEmployee().isSamePerson(loggedInUser.getPerson()));
+            model.updateFilteredLeaveApplicationListForPerson(loggedInUser.getPerson());
         }
 
         EventsCenter.getInstance().post(new LeaveListEvent());
