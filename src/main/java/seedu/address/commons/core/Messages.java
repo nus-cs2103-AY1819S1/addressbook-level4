@@ -12,5 +12,9 @@ public class Messages {
     public static final String MESSAGE_MEDICINES_LISTED_OVERVIEW = "%1$d medicines listed!";
     public static final String MESSAGE_DIFFERENT_BLOOD_TYPE = "Changing blood type of patient is not allowed!";
 
+    public static final String MESSAGE_MEDICINES_LISTED_OVERVIEW = "%1$d medicines listed!";
     public static final String MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX = "The medicine index provided is invalid!";
+
+    public static final String MESSAGE_PERSON_IN_QUEUE = "%1$s is currently in the queue. "
+            + "Remove %1$s from the queue first.";
 }

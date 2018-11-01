@@ -47,14 +47,14 @@ public class FinishCommand extends QueueCommand {
 
         String currentPatientNameIc = currentPatient.toNameAndIc();
         ServedPatient finishedPatient = currentPatient.finishServing();
-
-        // Add finished patient to the servedPatientList
-        servedPatientList.addServedPatient(finishedPatient);
-
+      
         try {
             // Create a new patient object with the updated medical record
             Patient editedPatient = finishedPatient.createNewPatientWithUpdatedMedicalRecord();
 
+            // Add finished patient to the servedPatientList
+            servedPatientList.addServedPatient(finishedPatient);
+            
             // Update this patient
             model.updatePerson(finishedPatient.getPatient(), editedPatient);
 
