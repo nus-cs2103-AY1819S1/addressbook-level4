@@ -7,6 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
@@ -205,13 +206,15 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      */
     @Override
     public void removeTagFromAll(Tag tag) {
+        HashMap<UUID, LinkedList<Wish>> copiedWishMap = new HashMap<>();
         for (Map.Entry<UUID, LinkedList<Wish>> entries : wishMap.entrySet()) {
             LinkedList<Wish> wishes = entries.getValue();
             // associated wish has a recorded history
             if (wishes != null) {
-                removeTagIfPresent(tag, wishes);
+                copiedWishMap = getModifiedMap(tag, wishes, copiedWishMap);
             }
         }
+        setWishMap(copiedWishMap);
     }
 
     /**
@@ -219,11 +222,14 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      * @param tag tag to be removed.
      * @param wishes list of wishes to be searched for tag.
      */
-    private void removeTagIfPresent(Tag tag, LinkedList<Wish> wishes) {
+    private HashMap<UUID, LinkedList<Wish>> getModifiedMap(Tag tag, LinkedList<Wish> wishes, HashMap<UUID, LinkedList<Wish>> map) {
         Wish mostRecent = getMostRecentWish(wishes);
         if (hasTag(tag, mostRecent)) {
-            removeTag(tag, mostRecent);
+            return getModifiedMap(tag, mostRecent, map);
+        } else {
+            map.put(getKey(mostRecent), wishes);
         }
+        return map;
     }
 
     /**
@@ -250,10 +256,23 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      * @param tag tag to be removed.
      * @param mostRecent wish to remove the tag from.
      */
-    private void removeTag(Tag tag, Wish mostRecent) {
-        Set<Tag> updatedTags = mostRecent.getTags();
-        updatedTags.remove(tag);
-        updateWish(mostRecent, getUpdatedWish(updatedTags, mostRecent));
+    private HashMap<UUID, LinkedList<Wish>> getModifiedMap(Tag tag, Wish mostRecent, HashMap<UUID, LinkedList<Wish>> map) {
+        Set<Tag> updatedTags = getUpdatedTags(mostRecent, tag);
+        Wish updatedWish = getUpdatedWish(updatedTags, mostRecent);
+        LinkedList<Wish> wishList = getWishList(getKey(mostRecent));
+        map.put(getKey(mostRecent), updateWishes(wishList, updatedWish));
+        return map;
+    }
+
+    /**
+     * Retrieves the updated tag set belonging to a given wish.
+     * @param mostRecent the given wish.
+     * @param tag the tag to be removed from the old tag set.
+     * @return the new tag set without the given {@code tag}.
+     */
+    private Set<Tag> getUpdatedTags(Wish mostRecent, Tag tag) {
+        Set<Tag> oldTags = mostRecent.getTags();
+        return oldTags.stream().filter(t->(!t.equals(tag))).collect(Collectors.toSet());
     }
 
     /**

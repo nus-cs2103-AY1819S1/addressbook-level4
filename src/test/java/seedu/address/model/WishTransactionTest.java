@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishes;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,13 +33,15 @@ public class WishTransactionTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private WishTransaction wishTransaction;
+    private WishTransaction emptyWishTransaction;
+    private WishTransaction populatedWishTransaction;
     private Wish wish1;
     private Wish wish2;
 
     @Before
     public void init() {
-        wishTransaction = new WishTransaction();
+        emptyWishTransaction = new WishTransaction();
+        populatedWishTransaction = getTypicalWishTransaction();
         Set<Tag> tagSet = new HashSet<>();
         tagSet.add(new Tag("wish1"));
         this.wish1 = Wish.createWish(new Name("wish1"),
@@ -55,11 +61,33 @@ public class WishTransactionTest {
     }
 
     @Test
-    public void addWish_success() {
-        wishTransaction.addWish(wish1);
+    public void constructorShouldCreateCorrectObject() {
+        assertEquals(emptyWishTransaction.getWishMap(), new HashMap<>());
+        assertEquals(populatedWishTransaction, getPopulatedWishTransaction());
+        assertEquals(new WishTransaction(populatedWishTransaction), populatedWishTransaction);
+        assertEquals(populatedWishTransaction, new WishTransaction(getTypicalWishBook()));
+        assertEquals(populatedWishTransaction, new WishTransaction(populatedWishTransaction.getWishMap()));
+    }
+
+    private WishTransaction getPopulatedWishTransaction() {
+        WishTransaction wishTransaction = new WishTransaction();
+        getTypicalWishes().stream()
+                .forEach(wish -> wishTransaction.addWish(wish));
+        return wishTransaction;
+    }
+
+    @Test
+    public void shouldHaveExactCopy() {
+        assertEquals(emptyWishTransaction, emptyWishTransaction.getCopy(emptyWishTransaction));
+        assertEquals(populatedWishTransaction, populatedWishTransaction.getCopy(populatedWishTransaction));
+    }
+
+    @Test
+    public void addWishShouldBeSuccessful() {
+        emptyWishTransaction.addWish(wish1);
         assertTrue(isSameSize(wish1, 1));
-        assertTrue(wishmapContainsKey(wishTransaction, wish1));
-        assertTrue(wishmapContainsWish(wishTransaction, wish1));
+        assertTrue(wishmapContainsKey(emptyWishTransaction, wish1));
+        assertTrue(wishmapContainsWish(emptyWishTransaction, wish1));
     }
 
     private boolean wishmapContainsKey(WishTransaction wishTransaction, Wish wish) {
@@ -73,58 +101,69 @@ public class WishTransactionTest {
     @Test
     public void allowMultipleWishesOfSameName() {
         assertNotEquals(wish1.getId(), wish2.getId());
-        wishTransaction.addWish(wish1);
-        wishTransaction.addWish(wish2);
+        emptyWishTransaction.addWish(wish1);
+        emptyWishTransaction.addWish(wish2);
         // should not be mapped to same key
         assertFalse(isSameSize(wish1, 2));
 
         // should contain 2 new distinct wishes
-        assertEquals(wishTransaction.getWishMap().size(), 2);
-        assertTrue(wishmapContainsKey(wishTransaction, wish1));
-        assertTrue(wishmapContainsKey(wishTransaction, wish2));
-        assertTrue(wishmapContainsWish(wishTransaction, wish1));
-        assertTrue(wishmapContainsWish(wishTransaction, wish2));
+        assertEquals(emptyWishTransaction.getWishMap().size(), 2);
+        assertTrue(wishmapContainsKey(emptyWishTransaction, wish1));
+        assertTrue(wishmapContainsKey(emptyWishTransaction, wish2));
+        assertTrue(wishmapContainsWish(emptyWishTransaction, wish1));
+        assertTrue(wishmapContainsWish(emptyWishTransaction, wish2));
     }
 
     @Test
-    public void removeWish_success() {
-        wishTransaction.addWish(wish1);
-        wishTransaction.removeWish(wish1);
+    public void removeWishShouldBeSuccessful() {
+        emptyWishTransaction.addWish(wish1);
+        emptyWishTransaction.removeWish(wish1);
         assertFalse(isFound(wish1));
     }
 
     @Test
-    public void removeNonExistentialWish_shouldFail() {
-        assertFalse(wishmapContainsKey(wishTransaction, wish1));
-        int prevSize = wishTransaction.wishMap.size();
-        wishTransaction.removeWish(wish1);
-        assertEquals(prevSize, wishTransaction.wishMap.size());
+    public void removeNonExistentialWishShouldFail() {
+        assertFalse(wishmapContainsKey(emptyWishTransaction, wish1));
+        int prevSize = emptyWishTransaction.wishMap.size();
+        emptyWishTransaction.removeWish(wish1);
+        assertEquals(prevSize, emptyWishTransaction.wishMap.size());
     }
 
     @Test
-    public void updateWish_success() {
-        wishTransaction.addWish(wish1);
-        wishTransaction.updateWish(wish1, wish2);
-        assertTrue(wishmapContainsKey(wishTransaction, wish2));
-        assertTrue(wishmapContainsWish(wishTransaction, wish2));
+    public void updateWishShouldBeSuccessful() {
+        emptyWishTransaction.addWish(wish1);
+        emptyWishTransaction.updateWish(wish1, wish2);
+        assertTrue(wishmapContainsKey(emptyWishTransaction, wish2));
+        assertTrue(wishmapContainsWish(emptyWishTransaction, wish2));
     }
 
     @Test
-    public void resetData_success() {
-        wishTransaction.addWish(wish1);
+    public void resetDataShouldBeSuccessful() {
+        emptyWishTransaction.addWish(wish1);
         assertTrue(isFound(wish1));
-        wishTransaction.resetData();
+        emptyWishTransaction.resetData();
         assertFalse(isFound(wish1));
-        assertTrue(wishTransaction.wishMap.isEmpty());
+        assertTrue(emptyWishTransaction.wishMap.isEmpty());
+    }
+
+    @Test
+    public void removeTagFromAllShouldBeSuccessful() {
+        Set<Tag> tags = getTypicalWishes().get(0).getTags();
+
+        tags.forEach(tag -> populatedWishTransaction.removeTagFromAll(tag));
+        populatedWishTransaction.getWishMap().entrySet()
+                .forEach(entry -> {
+                    assertFalse(entry.getValue().peekLast().getTags().contains(tags));
+                });
     }
 
     /**
-     * Checks if wishTransaction contains the given wish.
-     * @param wish wish to check if is contained within wishTransaction.
+     * Checks if emptyWishTransaction contains the given wish.
+     * @param wish wish to check if is contained within emptyWishTransaction.
      * @return true if wish is found, false otherwise.
      */
     private boolean isFound(Wish wish) {
-        return wishTransaction.getWishMap().containsKey(getKey(wish));
+        return emptyWishTransaction.getWishMap().containsKey(getKey(wish));
     }
 
     /**
@@ -133,7 +172,7 @@ public class WishTransactionTest {
      * @return true if size of list is expected, false otherwise.
      */
     private boolean isSameSize(Wish queried, int size) {
-        List<Wish> wishes = wishTransaction.getWishMap().get(getKey(queried));
+        List<Wish> wishes = emptyWishTransaction.getWishMap().get(getKey(queried));
         return wishes.size() == size;
     }
 
