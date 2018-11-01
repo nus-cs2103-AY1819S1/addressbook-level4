@@ -11,40 +11,40 @@
     <tasks>
         <name>Benson Meier</name>
         <date>130921</date>
-        <priority>2</priority>
+        <priority>1</priority>
         <venue>311, Clementi Ave 2, #02-25</venue>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </tasks>
     <tasks>
         <name>Carl Kurz</name>
-        <date>110434</date>
-        <priority>3</priority>
+        <date>120823</date>
+        <priority>1</priority>
         <venue>wall street</venue>
         <tagged>owesMoney</tagged>
     </tasks>
     <tasks>
         <name>Daniel Meier</name>
-        <date>070503</date>
+        <date>120823</date>
         <priority>1</priority>
         <venue>10th street</venue>
         <tagged>friends</tagged>
     </tasks>
     <tasks>
         <name>Elle Meyer</name>
-        <date>040602</date>
-        <priority>2</priority>
+        <date>120823</date>
+        <priority>1</priority>
         <venue>michegan ave</venue>
     </tasks>
     <tasks>
         <name>Fiona Kunz</name>
-        <date>030512</date>
-        <priority>3</priority>
+        <date>120823</date>
+        <priority>1</priority>
         <venue>little tokyo</venue>
     </tasks>
     <tasks>
         <name>George Best</name>
-        <date>030295</date>
+        <date>120823</date>
         <priority>1</priority>
         <venue>4th street</venue>
     </tasks>

@@ -32,25 +32,25 @@ public class TypicalTasks {
             .withPriority("1").withDate("130921")
             .withTags("owesMoney", "friends").build();
     public static final Task CARL = new TaskBuilder().withName("Carl Kurz")
-            .withDate("110434")
+            .withDate("120823")
             .withPriority("1")
             .withVenue("wall street")
             .withTags("owesMoney").build();
     public static final Task DANIEL = new TaskBuilder().withName("Daniel Meier")
-            .withDate("070503")
+            .withDate("120823")
             .withPriority("1")
             .withVenue("10th street")
             .withTags("friends").build();
     public static final Task ELLE = new TaskBuilder().withName("Elle Meyer")
-            .withDate("040602")
+            .withDate("120823")
             .withPriority("1")
             .withVenue("michegan ave").build();
     public static final Task FIONA = new TaskBuilder().withName("Fiona Kunz")
-            .withDate("030512")
+            .withDate("120823")
             .withPriority("1")
             .withVenue("little tokyo").build();
     public static final Task GEORGE = new TaskBuilder().withName("George Best")
-            .withDate("030295")
+            .withDate("120823")
             .withPriority("1")
             .withVenue("4th street").build();
 

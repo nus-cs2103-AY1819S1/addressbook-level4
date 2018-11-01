@@ -62,7 +62,7 @@ e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 
 === Viewing Help
 
-Open user guide page. +
+Opens the user guide page. +
 ====
 [blue]`help` +
 ====
@@ -82,15 +82,27 @@ Input: [blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 Outcome: Adds a task named [blue]`exam` with priority level [blue]`3`,
 tag [blue]`CS3241` and deadline of 10th October 2018, venue at mpsh1.
 ====
-The priority level must be an integer between 1 to 3, where 3 denotes highest priority.
+The priority level must be a number between 1 to 3, where 1 denotes highest priority.
 [WARNING]
-Ensure that you have included the name, priority level and deadline for tasks except exam.
+Ensure that you have included the name, priority level and deadline for tasks.
 
 [TIP]
 Tags are optional, you do not need to add them.
 
+=== Adding a Recurring Task
 
+Adds copies of the same task to the same day of a given number of weeks. +
+====
+[blue]`repeat [r/REPEATS] [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+====
+Example: +
+====
+Input: [blue]`add r/3 n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 
+Outcome: Adds 3 tasks named [blue]`exam` with priority level [blue]`3`,
+tag [blue]`CS3241`, venue at mpsh1, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
+====
+The number of repeats must be larger or equals to 2. If it is 1, it is the same as adding a normal task.
 
 === Listing All Tasks
 
@@ -108,8 +120,8 @@ Edits an existing task in the schedule planner. +
 Example:
 
 ====
-input: [blue]`edit 3 p/1 d/121019` +
-output: Priority of existing task with index 3 to 1, and its deadline is changed to 12th October 2019 .
+Input: [blue]`edit 3 p/1 d/121019` +
+Outcome: Priority of existing task with index 3 to 1, and its deadline is changed to 12th October 2019 .
 ====
 
 
@@ -138,7 +150,7 @@ in current list.
 
 === Finding Tasks by Name
 
-Find tasks whoes names match with given keyword. +
+Finds tasks whose names match with given keyword. +
 ====
 [blue]`find KEYWORD`
 ====
@@ -159,8 +171,8 @@ You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS
 
 
 
-=== Filter Tasks by Tag (Coming in v1.3)
-Find tasks that has tag match with given keyword tags
+=== Filter Tasks by Tag
+Finds tasks whose tag matches with given keyword. +
 ====
 [blue]`filter KEYWORD`
 ====
@@ -180,7 +192,7 @@ will return all tasks with tag matching with at least one of the provided tags i
 
 === Deleting a Task
 
-Delete the specified task from the schedule planner. +
+Deletes the specified task from the schedule planner. +
 
 ====
 [blue]`delete task INDEX`
@@ -194,31 +206,55 @@ output: Task with index 3 delete from schedule planner.
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
-Use the `list task` command to find out the index of the task to be modified.
+Use the `list task` command to find out the index of the task to be deleted.
 
+=== Archiving a Task
+
+Archives the specified task from the schedule planner. This is different from deleting a task as you may view the archived tasks later. +
+
+====
+[blue]`archive INDEX`
+====
+
+Example:
+====
+input: [blue]`archive 4` +
+output: Task with index 4 is removed from the current list and saved in the archived list.
+====
+The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
+The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
+[TIP]
+Use the `list task` command to find out the index of the task to be archived.
+
+=== Viewing Archived Tasks
+
+Views archived tasks. +
+====
+[blue]`listarchived`
+====
 
 === Viewing Tasks Due Today
 
-View tasks that are due today. +
+Views tasks that are due today. +
 ====
 [blue]`listday`
 ====
 
 === Viewing Tasks Due This Termweek
 
-View tasks that are due from current date till the closest Sunday. +
+Views tasks that are due from current date till the closest Sunday. +
 ====
 [blue]`listweek`
 ====
 
 === Generating academic calendar weeks
 
-Generate the entire academic calendar calendar with description based on the first academic day and store in storage.
+Generates the entire academic calendar calendar with description based on the first academic day and stores it in storage.
 
-Currently, the generated academic calendar is adapted from the academic calender of National university of Singapore
+Currently, the generated academic calendar is adapted from the academic calender of National University of Singapore
 (NUS).
 
-Whenever user launch the application within the academic calendar's dates, the application title
+Whenever you launch the application within the academic calendar's dates, the application title
 will append that particular week's description. +
 
 ====
@@ -243,7 +279,7 @@ After:
 image::FirstDayCommand_UG_Aft.png[width="400"]
 ====
 
-=== Listing Overdue Tasks (Coming in v1.3)
+=== Listing Overdue Tasks
 
 Lists all the overdue tasks. +
 ====
@@ -339,14 +375,16 @@ _{explain how the user can enable/disable data encryption}_
 ====
 [blue]`help` +
 ====
-* *Adding task* :
+* *Adding Tasks* :
 ====
 [blue]`add [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
-
 Example: +
-[blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
+[blue]`add n/do tutorial p/1 t/cs2100 d/121019 v/home` +
 ====
-
+* *Adding Recurring Tasks* :
+====
+[blue]`repeat [r/REPEATS] [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+====
 * **Listing All Tasks** :
 ====
 [blue]`list task`
@@ -368,19 +406,31 @@ Example: +
 Example: +
 [blue]`find tutorial` +
 ====
-* **Filter Tasks by Tag** : (Coming in v1.3)
+* **Filter Tasks by Tag** :
 ====
 [blue]`filter KEYWORD` +
 
 Example: +
 [blue]`filter tutorial`
 ====
-* **Deleting Task** :
+* **Deleting Tasks** :
 ====
-[blue]`delete task INDEX` +
+[blue]`delete INDEX` +
 
 Example: +
-[blue]`delete task 1` +
+[blue]`delete 1` +
+====
+* **Archiving Tasks** :
+
+====
+[blue]`archive INDEX` +
+
+Example: +
+[blue]`archive 1` +
+====
+* **Viewing Archived Tasks** :
+====
+[blue]`listarchived` +
 ====
 * **Viewing Tasks Due Today** :
 ====

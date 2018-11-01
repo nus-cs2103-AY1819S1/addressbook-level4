@@ -121,4 +121,21 @@ public class Date {
         return value.hashCode();
     }
 
+    /**
+     * Compare two dates.
+     * @param a
+     * @param b
+     * @return -1 if a is an earlier date than b, 0 if a and b are equal,
+     * 1 if a is a later date than b.
+     */
+    public static int compare(Date a, Date b) {
+        if (a.yymmdd < b.yymmdd) {
+            return -1;
+        } else if (a.yymmdd == b.yymmdd) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
 }

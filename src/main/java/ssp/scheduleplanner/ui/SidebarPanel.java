@@ -4,11 +4,14 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.ui.NewResultAvailableEvent;
 import ssp.scheduleplanner.logic.ListElementPointer;
@@ -40,6 +43,9 @@ public class SidebarPanel extends UiPart<Region> {
     @FXML
     private Accordion modules;
 
+    @FXML
+    private Text categorieslabel;
+
     private ToggleGroup group;
 
     public SidebarPanel(Logic logic) {
@@ -50,6 +56,10 @@ public class SidebarPanel extends UiPart<Region> {
         today.setToggleGroup(group);
         week.setToggleGroup(group);
         exams.setToggleGroup(group);
+        categorieslabel.setFill(Color.WHITE);
+        today.setAlignment(Pos.BASELINE_LEFT);
+        week.setAlignment(Pos.BASELINE_LEFT);
+        exams.setAlignment(Pos.BASELINE_LEFT);
     }
 
     /**

@@ -82,7 +82,7 @@ public class EditCommandSystemTest extends SchedulePlannerSystemTest {
 
         /* Case: edit a task with new values same as another task's values but with different name -> edited */
         assertTrue(getModel().getSchedulePlanner().getTaskList().contains(BOB));
-        index = INDEX_SECOND_TASK;
+        index = INDEX_FIRST_TASK;
         assertEquals(getModel().getFilteredTaskList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + DATE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;

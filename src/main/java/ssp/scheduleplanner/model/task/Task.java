@@ -133,9 +133,12 @@ public class Task {
      * 1 if Task a has higher priority.
      */
     public static int compare(Task a, Task b) {
-        int result = Priority.compare(a.getPriority(), b.getPriority());
+        int result = Date.compare(a.getDate(), b.getDate());
         if (result == 0) {
-            result = Name.compare(a.getName(), b.getName());
+            result = Priority.compare(a.getPriority(), b.getPriority());
+            if (result == 0) {
+                result = Name.compare(a.getName(), b.getName());
+            }
         }
         return result;
     }

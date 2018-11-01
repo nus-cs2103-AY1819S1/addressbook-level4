@@ -210,7 +210,7 @@ image::UiClassDiagram.png[width="800"]
 *API* : link:{repoURL}/src/main/java//ui/Ui.java[`Ui.java`]
 
 The UI consists of `MainWindow`, which is made up of `CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc.
+`StatusBarFooter`, `SidebarPanel` etc.
 
 All these, including `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -283,7 +283,7 @@ The `Storage` component does the following:
 
 Classes used by multiple components are in the `ssp.scheduleplanner.commons` package.
 
-== Implementation
+== Current Implementation
 
 This section elaborates on how certain features are implemented.
 
@@ -305,7 +305,7 @@ Additionally, it implements the following operations:
 
 These operations are exposed in `Model` interface as `Model#commitSchedulePlanner()`, `Model#undoSchedulePlanner()` and `Model#redoSchedulePlanner()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step:
 
 Step 1. The user launches the application for the first time. `VersionedSchedulePlanner` will be initialized with the
  initial schedule planner state, with `currentStatePointer` pointing to that single schedule planner state.
@@ -368,7 +368,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** The entire schedule planner is saved
+* **Alternative 1 (current choice):** The entire schedule planner is saved.
 ** Pros: It is easy to implement.
 ** Cons: It may have performance issues in terms of memory usage.
 * **Alternative 2:** Each individual command knows how to undo/redo by itself.
@@ -381,7 +381,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: It is easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both
 `HistoryManager` and `VersionedSchedulePlanner`.
-* **Alternative 2:** `HistoryManager` is used for undo/redo
+* **Alternative 2:** `HistoryManager` is used for undo/redo.
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: It requires dealing with commands that have already been undone: We must remember to skip these commands. It violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
@@ -609,12 +609,12 @@ The `filter` command allows the user to filter tasks in the schedule planner acc
 search for multiple tags at once, and the schedule planner returns a list of tasks containing any of the tags
 specified by the user.
 
-==== Implementation
+==== Current Implementation
 
 The filter mechanism utilises "FilterCommandParser" to parse the user command into separate tags e.g `filter tag1
  tag2` will search for tasks with either tags `tag1`, `tag2`, or both.
 
-Given below is an example usage scenario and how the filter mechanism behaves at each step.
+Given below is an example usage scenario and how the filter mechanism behaves at each step:
 
 Step 1. The user executes the command `filter tutorial CS2100`
 
@@ -638,6 +638,56 @@ for the tags 'tutorial' and 'CS2100'. `FilterCommand.execute()` returns a list o
 ** Cons: It is inconsistent with the original implementation of the 'find' command. It is more difficult to implement.
 
 //end::filtertags[]
+
+//tag::listarchivedtasks[]
+
+=== List Archived Tasks
+
+The `listarchived` command allows the user to view the list of all archived tasks. Whenever the user completes a task,
+he/she will archive it. When archived, the task will be moved from the task list into a separate archive list that stores
+all completed tasks. If the user wishes to view all of his/her completed tasks, the `listarchived` command will display
+all of the archived tasks.
+
+==== Current Implementation
+
+Model contains two UniqueTaskLists - tasks and archivedTasks - each containing the tasks and archived tasks respectively.
+
+Given below is an example usage scenario and how the list archived mechanism behaves at each step:
+
+Step 1. The user executes the command `listarchived`.
+
+Step 2. The `listarchived` command raises a new ChangeViewEvent.
+
+Step 3. UI responds to the ChangeViewEvent and displays the archived list instead of task list.
+
+The following sequence diagram shows how the list archive operation works:
+
+image::ListArchivedSequenceDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How archived tasks are stored
+
+* **Alternative 1 (current choice):** The archived tasks are stored in a separate UniqueTaskList from other tasks.
+** Pros:
+** Cons: Two UniqueTaskLists is needed to be stored.
+
+* **Alternative 2:** Each task contains a new boolean field 'isArchived' for whether it is archived. To list archived, filter through the tasks list by using 'isArchived'.
+** Pros: Only one UniqueTaskList is needed to be stored.
+** Cons: For all other list/filter operations, an extra step for filtering out archived tasks is required.
+
+//end::listarchivedtasks[]
+
+//tag::displaytagsinsidebar[]
+
+=== Display Tags in Sidebar
+
+Whenever the user tags a task with a new tag, the tag will be added to the sidebar panel. The user will be able to view
+all of the tags he/she has used to categorize tasks.
+
+[coming in v1.4]
+
+//end::displaytagsinsidebar[]
 
 == Documentation
 
