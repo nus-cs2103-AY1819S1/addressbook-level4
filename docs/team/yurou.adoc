@@ -3,45 +3,58 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: Car Park Finder
 
 ---
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The Car Park Finder is an application to find a HDB (Housing Development Board) car
+park that is suited to your needs as easily as possible. The application uses a
+Command Line Interface (CLI), hence you could find the car park you need with the
+convenience of simply typing. If you use the computer frequently and commute by
+driving, this application is for you!
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1*: added the *Filter command*
+** What it does: allow users to filter car parks at a certain location based on six criteria:
+*** Car park has available parking slots
+*** Car park has short-term parking
+*** Type of car park
+*** Car park has free parking between a specified time period
+*** Car park has night parking
+*** Type of parking system that the car park uses
+** Justification: This feature would be really helpful to users because it
+would be too time consuming for users to scroll through every car park in the
+location to find a suitable car park. The feature helps to narrow down a long
+list of car parks in the location to just those that meets the criteria of the user
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Highlights:
+*** Filter command needs to integrate with Find command to accomplish location-based
+filtering.
+*** Moreover, the command also needs to work with varying number of flags, i.e.
+users can choose how many criteria they would like to filter by, and input them in any order.
+Each criteria may also have different input parameters.
+*** If users were to forget what flags there are and what parameters are required
+for each flag, error messages would guide them to execute the commands correctly.
+
+* *Major enhancement 2*: added the *Calculate command*
+** What it does: Allow users to calculate the cost of parking at a car park.
+** Justification: Users might want to know how much it cost to park their car, and choose between using their car and
+other transport options e.g. taking public transport.
+
+* *Minor enhancement*: Revised the list of command messages to suite the needs of the commands better.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Ensure consistency in format and clear language use in Developer Guide and User Guide: https://github.com/CS2103-AY1819S1-T09-4/main/pull/68[#68] https://github.com/CS2103-AY1819S1-T09-4/main/pull/90[#90]
+*** Updated contents of the User Guide and Developer Guide with new features: https://github.com/CS2103-AY1819S1-T09-4/main/pull/9[#9] https://github.com/CS2103-AY1819S1-T09-4/main/pull/11[#11] https://github.com/CS2103-AY1819S1-T09-4/main/pull/38[#38]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Check on the integration of the various commands of the project.
 
 == Contributions to the User Guide
 
@@ -50,7 +63,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=filterug]
 
+include::../UserGuide.adoc[tag=calculateug]
 
 == Contributions to the Developer Guide
 
@@ -58,8 +73,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=filter]
 
-
+include::../DeveloperGuide.adoc[tag=calculate]
 
 == PROJECT: PowerPointLabs
 
