@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Occasion with invalid date field -->
+    <occasions>
+        <occasionName>Christmas Day!</occasionName>
+        <occasionDateTime isPrivate="false">2018-12-25</occasionDateTime>
+        <location isPrivate="false">NIL</location>
+    </occasions>
+</addressbook>

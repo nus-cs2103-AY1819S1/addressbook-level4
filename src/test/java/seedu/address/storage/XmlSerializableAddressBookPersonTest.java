@@ -14,7 +14,7 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalPersons;
 
-public class XmlSerializableAddressBookTest {
+public class XmlSerializableAddressBookPersonTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableAddressBookTest");
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
