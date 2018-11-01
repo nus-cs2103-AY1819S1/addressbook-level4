@@ -30,9 +30,6 @@ public class PersonBuilder {
     private Set<Tag> tags;
     private UniqueGroupList groups;
 
-    @Deprecated
-    private Set<Tag> groupTags;
-
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
@@ -40,7 +37,6 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         groups = new UniqueGroupList();
-        groupTags = new HashSet<>();
     }
 
     /**
@@ -53,7 +49,6 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
         groups = new UniqueGroupList();
-        groupTags = new HashSet<>(personToCopy.getGroupTags());
     }
 
     /**
@@ -78,15 +73,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withGroup(Group group) {
         this.groups.add(group);
-        return this;
-    }
-
-    /**
-     * Parses the {@code groupTags} into a {@code Set<Tag>} and
-     * set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withGrouptags(String ... groupTags) {
-        this.groupTags = SampleDataUtil.getTagSet(groupTags);
         return this;
     }
 
@@ -120,11 +106,6 @@ public class PersonBuilder {
      * @return The new person
      */
     public Person build() {
-        Person person = new Person(name, phone, email, address, tags, groups);
-        if (!groupTags.isEmpty()) {
-            person.setGroupTags(groupTags);
-        }
-        return person;
+        return new Person(name, phone, email, address, tags, groups);
     }
-
 }

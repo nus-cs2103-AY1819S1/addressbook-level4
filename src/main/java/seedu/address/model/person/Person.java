@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated,
- * immutable, except groupTags and UniqueGroupList.
+ * immutable, except UniqueGroupList.
  */
 public class Person {
 
@@ -37,9 +37,6 @@ public class Person {
     // Group field
     private final UniqueGroupList groups = new UniqueGroupList();
     // @@author
-
-    @Deprecated
-    private Set<Tag> groupTags = new HashSet<>();
 
     /**
      * Name, phone, email, address and tags must be present and not null.
@@ -70,24 +67,6 @@ public class Person {
         this.groups.setGroups(groups);
     }
     // @@author
-
-    /**
-     * @deprecated The groupTag is replaced by UniqueGroupList for
-     * storing the group related information.
-     */
-    @Deprecated
-    public Person(Name name, Phone phone, Email email, Address address,
-                  Set<Tag> tags, Set<Tag> groupTags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        if (groupTags != null && !groupTags.isEmpty()) {
-            this.groupTags.addAll(groupTags);
-        }
-    }
 
     public Name getName() {
         return name;
@@ -191,39 +170,6 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set that indicate which groups the person is in.
-     * It throws {@code UnsupportedOperationException} if modification is attempted.
-     */
-    @Deprecated
-    public Set<Tag> getGroupTags() {
-        return Collections.unmodifiableSet(groupTags);
-    }
-
-    /**
-     * Add multiple group tags to the person.
-     *
-     * NOTE: this class is created temporarily to create the initial working UI as {@code Group} functionality is
-     * still being developed. In the meantime, this class will be used instead to showcase how the UI will look like,
-     * and will be deprecated progressively when Group implementation is updated.
-     *
-     * @param groups The collection of groups that this person is in
-     */
-    @Deprecated
-    public void setGroupTags(Set<Tag> groups) {
-        this.groupTags.addAll(groups);
-    }
-
-    /**
-     * Add a group tag to the person.
-     *
-     * @param group The group that this person is in
-     */
-    @Deprecated
-    public void setGroupTag(Tag group) {
-        this.groupTags.add(group);
-    }
-
-    /**
      * Create a copy of this person.
      */
     public Person copy() {
@@ -265,14 +211,13 @@ public class Person {
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getTags().equals(getTags())
-                && otherPerson.getGroupTags().equals(getGroupTags())
                 /*&& otherPerson.getGroups().equals(getGroups())*/;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, groupTags, groups);
+        return Objects.hash(name, phone, email, address, tags, groups);
     }
 
     @Override
@@ -287,8 +232,6 @@ public class Person {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
-        builder.append(" Group tags: ");
-        getGroupTags().forEach(builder::append);
         return builder.toString();
     }
 
