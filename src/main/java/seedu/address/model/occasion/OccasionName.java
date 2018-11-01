@@ -18,10 +18,9 @@ public class OccasionName {
     /*
      * The name of an occasion should consist of any number of alphanumeric
      * characters and spaces.
-     * The name should not start or end with spaces.
      * Length of the name should be restricted between 3 - 30.
      */
-    public static final String OCCASIONNAME_VALIDATION_REGEX = "(?! )(?!.*? $)[a-zA-Z0-9 ]{3,30}";
+    public static final String OCCASIONNAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{3,30}";
 
     public final String fullOccasionName;
 
