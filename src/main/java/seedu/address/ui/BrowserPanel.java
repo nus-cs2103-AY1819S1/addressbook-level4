@@ -126,7 +126,7 @@ public class BrowserPanel extends UiPart<Region> {
                 htmlString += tempString;
             }
             //pictureString = MainApp.class
-                    //.getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
+            //.getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
