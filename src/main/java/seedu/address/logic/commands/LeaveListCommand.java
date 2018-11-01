@@ -17,6 +17,9 @@ public class LeaveListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all leave applications";
 
+    public LeaveListCommand() {
+    }
+
     @Override
     public CommandResult runBody(Model model, CommandHistory history) {
         requireNonNull(model);
