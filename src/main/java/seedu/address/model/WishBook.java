@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -135,7 +136,7 @@ public class WishBook implements ReadOnlyWishBook {
         ArrayList<Wish> modifiedWishes = new ArrayList<>();
 
         for (Wish wish : wishes.asUnmodifiableObservableList()) {
-            Set<Tag> modifiedTags = wish.getTags();
+            Set<Tag> modifiedTags = new HashSet(wish.getTags());
             modifiedTags.removeIf(t -> t == tag);
 
             Wish modifiedWish = new Wish(wish.getName(),

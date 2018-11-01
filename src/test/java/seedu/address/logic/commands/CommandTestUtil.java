@@ -19,9 +19,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.WishBook;
-import seedu.address.model.wish.NameContainsKeywordsPredicate;
 import seedu.address.model.wish.Remark;
 import seedu.address.model.wish.Wish;
+import seedu.address.model.wish.WishContainsKeywordsPredicate;
 import seedu.address.testutil.EditWishDescriptorBuilder;
 
 /**
@@ -168,7 +168,8 @@ public class CommandTestUtil {
 
         Wish wish = model.getFilteredSortedWishList().get(targetIndex.getZeroBased());
         final String[] splitName = wish.getName().fullName.split("\\s+");
-        model.updateFilteredWishList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredWishList(new WishContainsKeywordsPredicate(Arrays.asList(splitName[0]), Arrays.asList(),
+                Arrays.asList(), true));
 
         assertEquals(1, model.getFilteredSortedWishList().size());
     }

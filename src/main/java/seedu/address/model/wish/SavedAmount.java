@@ -3,6 +3,8 @@ package seedu.address.model.wish;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.text.DecimalFormat;
+
 import seedu.address.commons.core.amount.Amount;
 
 /**
@@ -16,6 +18,7 @@ public class SavedAmount {
     public static final String MESSAGE_SAVED_AMOUNT_TOO_LARGE = "Current saved amount for wish is too large!";
     public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[-+]?[0-9]+([.]{1}[0-9]{1,2})?";
     public final Double value;
+    private DecimalFormat currencyFormat = new DecimalFormat("#.##");
 
     /**
      * Constructs a {@code SavedAmount}.
@@ -34,16 +37,17 @@ public class SavedAmount {
     }
 
     /**
-     * Constructs a {@code SavedAmount} from an increment {@code SavedAmount}.
+     * Constructs a {@code SavedAmount} from an increment {@code Amount}.
      *
-     * @param change A valid savedAmount to increment the current savedAmount with.
+     * @param change A valid {@code Amount} to increment this {@code SavedAmount}.
+     * @return Incremented {@code SavedAmount}.
      */
     public SavedAmount incrementSavedAmount(Amount change) {
         if (this.value + change.value < 0.0) {
             throw new IllegalArgumentException(MESSAGE_SAVED_AMOUNT_NEGATIVE);
         }
 
-        return new SavedAmount("" + (this.value + change.value));
+        return new SavedAmount(currencyFormat.format(this.value + change.value));
     }
 
     /**
