@@ -30,8 +30,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_DUEDATE_AMY = "12-11-18";
-    public static final String VALID_DUEDATE_BOB = "02-11-18";
+    public static final String VALID_DUEDATE_AMY = "12-11-19";
+    public static final String VALID_DUEDATE_BOB = "02-11-19";
     public static final String VALID_PRIORITY_VALUE_AMY = "1";
     public static final String VALID_PRIORITY_VALUE_BOB = "2";
     public static final String VALID_DESCRIPTION_AMY = "Description of Task A";
