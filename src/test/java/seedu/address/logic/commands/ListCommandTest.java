@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_TASKS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showTaskAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalTasks.J_TASK;
 import static seedu.address.testutil.TypicalTasks.K_TASK;
 import static seedu.address.testutil.TypicalTasks.getTypicalTaskManager;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,6 +27,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.task.DueDateIsBeforeEndOfMonthPredicate;
 import seedu.address.model.task.DueDateIsBeforeEndOfWeekPredicate;
 import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
+import seedu.address.model.task.IsNotBlockedPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.model.util.DateFormatUtil;
 import seedu.address.testutil.TaskBuilder;
@@ -152,5 +155,25 @@ public class ListCommandTest {
         assertCommandSuccess(command, modelWithExtremeTemporalTasks, commandHistory,
                 expectedMessage, expectedModelWithPastTask);
         assertEquals(Arrays.asList(J_TASK, taskDueThisMonth), modelWithExtremeTemporalTasks.getFilteredTaskList());
+    }
+
+    @Test
+    public void execute_listFiltered_nonBlocked() {
+        String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 6);
+        ListCommand.ListFilter filter = ListCommand.ListFilter.NOT_BLOCKED;
+        ListCommand command = new ListCommand(filter);
+
+        // Add dependency model
+        Task dependantTask = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        Task dependeeTask = model.getFilteredTaskList().get(INDEX_SECOND_TASK.getZeroBased());
+        Task newTask = DependencyCommand.createDependantTask(dependantTask, dependeeTask);
+        model.updateTask(dependantTask, newTask);
+
+        // Build expected model
+        expectedModel.updateFilteredTaskList(x -> !x.equals(dependantTask));
+
+        Assert.assertNotEquals(model.getFilteredTaskList(), expectedModel.getFilteredTaskList());
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(model.getFilteredTaskList(), expectedModel.getFilteredTaskList());
     }
 }
