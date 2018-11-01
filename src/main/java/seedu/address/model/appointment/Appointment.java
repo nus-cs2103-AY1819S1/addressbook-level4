@@ -98,6 +98,29 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
+     * Returns true if {@code appointments} has the clash with appointmentId.
+     */
+    public boolean hasClashAppointment(Appointment toCheck) {
+        LocalDateTime lowerBound = this.dateTime;
+        LocalDateTime upperBound = this.dateTime.plusMinutes(30);
+        LocalDateTime timeToCheckStart = toCheck.getDateTime();
+        LocalDateTime timeToCheckEnd = toCheck.getDateTime().plusMinutes(30);
+
+        // Check if start of appointment toCheck is between current appointment.
+        if (timeToCheckStart.equals(lowerBound)
+                || (timeToCheckStart.isAfter(lowerBound) && timeToCheckStart.isBefore(upperBound))) {
+            return true;
+        }
+
+        // Check if end of appointment toCheck is between current appointment.
+        if (timeToCheckEnd.equals(upperBound)
+                || (timeToCheckEnd.isAfter(lowerBound) && timeToCheckEnd.isBefore(upperBound))) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      *  Returns 1 if {@code appointment} is earlier than other appointment
      */
     @Override
