@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:repoURL: https://github.com/CS2103-AY1819S1-W16-2/main/pull
 
 == PROJECT: SocialCare
 
@@ -16,8 +17,11 @@ The application is designed to help manage volunteers and events effectively.
 Users interact with the application using a Command Line Interface (CLI).
 In addition, SocialCare has a Graphical User Interface (GUI) to display information in a user-friendly manner.
 
-My role as a developer for SocialCare is to implement a *record management feature*, whereby users are able to create
-volunteering records for volunteers.
+My role as a developer for SocialCare is to implement a *record management feature*, which enables users to do the following:
+
+* Assign volunteers to event
+* Update volunteering records for volunteers
+* Delete volunteering records of volunteer
 
 == 2. Summary of contributions
 
@@ -34,22 +38,17 @@ volunteering records for volunteers.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Set up the team repository on GitHub
+*** Assigned and tracked project tasks
+*** Ensured that project deliverables are done on time and in the right format
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: link:{repoURL}/76/[#76], link:{repoURL}/129/[#129]
+*** Rewrote the quick start section of the User Guide: link:{repoURL}/154/[#154]
+*** Revised content for the Logic component in the Developer Guide: link:{repoURL}/93/[#93]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed PRs for team members (with non-trivial review comments): link:{repoURL}/58/[#58], link:{repoURL}/109/[#109], link:{repoURL}/114/[#114]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated Travis to the Github repository
 
 == 3. Contributions to the User Guide
 
