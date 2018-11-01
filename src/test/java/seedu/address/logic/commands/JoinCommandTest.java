@@ -97,19 +97,6 @@ public class JoinCommandTest {
     }
 
     @Test
-    public void execute_personAlreadyInGroup_throwsCommandException() throws Exception {
-        Person duplicatePerson = ALICE.copy();
-        Group validGroup = PROJECT_2103T.copy();
-
-        JoinCommand joinCommand = new JoinCommand(duplicatePerson, validGroup);
-        ModelStubAcceptingPersonJoined modelStub = new ModelStubAcceptingPersonJoined();
-
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(JoinCommand.MESSAGE_PERSON_ALREADY_IN_GROUP);
-        joinCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
     public void equals() {
         Group network = new GroupBuilder().withTitle("CS2105").build();
         Person hardy = new PersonBuilder().withName("hardy").build();
