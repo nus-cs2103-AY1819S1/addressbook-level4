@@ -121,6 +121,7 @@ Examples:
 * `save -image exampleImage` +
 * `save -set exampleSet`
 
+// tag::undoredo[]
 === Undoing previous actions : `undo`
 
 Format: `undo`: Step back to the previous transformation
@@ -144,6 +145,7 @@ Examples:
 * `convert blur 0x8` +
 `undo` (reverses the `convert blur 0x8` command) +
 `redo` (reapplies the `convert blur 0x8` command) +
+// end::undoredo[]
 
 === Listing files in directory : `ls`
 
