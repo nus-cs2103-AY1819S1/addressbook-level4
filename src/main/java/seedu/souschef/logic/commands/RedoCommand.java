@@ -3,7 +3,7 @@ package seedu.souschef.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 
@@ -23,7 +23,7 @@ public class RedoCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) throws CommandException {
+    public CommandResult execute(History history) throws CommandException {
         requireNonNull(model);
 
         if (!model.canRedoAppContent()) {

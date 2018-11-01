@@ -15,12 +15,12 @@ import javafx.stage.Stage;
 import seedu.souschef.commons.core.Config;
 import seedu.souschef.commons.core.GuiSettings;
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.events.ui.BrowserUiChangedEvent;
 import seedu.souschef.commons.events.ui.ExitAppRequestEvent;
 import seedu.souschef.commons.events.ui.ShowHelpRequestEvent;
 import seedu.souschef.logic.Logic;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.UserPrefs;
-
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -36,7 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private DetailPanel detailPanel;
     private GenericListPanel<? extends UniqueType> generalListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -121,8 +121,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        detailPanel = new DetailPanel();
+        browserPlaceholder.getChildren().add(detailPanel.getRoot());
 
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
@@ -145,35 +145,87 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setTitle(appTitle);
     }
 
+    /**
+     *  ui call to switch to recipe panel
+     */
     protected void switchToRecipeListPanel() {
+        hideBrowserSidePanel();
         generalListPanel = new RecipeListPanel(logic.getFilteredRecipeList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadDefaultRecipePage();
     }
 
+
+    /**
+     *  ui call to switch to ingredient panel
+     */
     protected void switchToIngredientListPanel() {
+        hideBrowserSidePanel();
         generalListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
+    }
+
+    protected void switchToCrossRecipeListPanel() {
+        generalListPanel = new CrossRecipeListPanel(logic.getFilteredCrossRecipeList());
+        generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadDefaultICrossPage();
     }
 
     /**
      *  method to switch to healthplan list for the healthplan context
      */
     protected void switchToHealthPlanListPanel() {
+        hideBrowserSidePanel();
         generalListPanel = new HealthPlanListPanel(logic.getFilteredHealthPlanList());
-        logger.info(String.valueOf(logic.getFilteredHealthPlanList().size()));
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
     }
 
+    /**
+     * method to show the details of a specified plan
+     */
+    protected void showHealthPlanDetails(int index) {
+        hideBrowserSidePanel();
+        generalListPanel = new HealthPlanDetailsPanel(logic.getFilteredHealthPlanList(), index);
+        browserPlaceholder.getChildren().add(generalListPanel.getRoot());
+
+    }
+
+    /**
+     * function call to show meal list on the browser panel end
+     */
+    protected void showMealPlanListPanel() {
+        hideBrowserSidePanel();
+        generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
+        browserPlaceholder.getChildren().add(generalListPanel.getRoot());
+    }
+
+    /**
+     *  ui call to hide browser side panel
+     */
+    protected void hideBrowserSidePanel() {
+        browserPlaceholder.getChildren().remove(generalListPanel.getRoot());
+
+    }
+
+    /**
+     *  ui call to switch to meal list panel
+     */
     protected void switchToMealPlanListPanel() {
+        hideBrowserSidePanel();
         generalListPanel = new MealPlanListPanel(logic.getMealPlanList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
     }
     /**
      *  method to switch to favourite list for the favourite context
      */
     protected void switchToFavouritesListPanel() {
+        hideBrowserSidePanel();
         generalListPanel = new FavouritesPanel(logic.getFilteredFavouritesList());
         generalListPanelPlaceholder.getChildren().add(generalListPanel.getRoot());
+        detailPanel.loadBlankPage();
     }
 
     /**
@@ -224,13 +276,22 @@ public class MainWindow extends UiPart<Stage> {
         return generalListPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
     }
+
+    @Subscribe
+    protected void handleBrowserUiChangedEvent(BrowserUiChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getType().equals("healthplanDetails")) {
+            showHealthPlanDetails(event.getIndex());
+        } else if (event.getType().equals("mealPlanList")) {
+            showMealPlanListPanel();
+        } else if (event.getType().equals("hide")) {
+            hideBrowserSidePanel();
+        }
+    }
+
 }

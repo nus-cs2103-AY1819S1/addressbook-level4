@@ -6,7 +6,7 @@ import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 import java.util.logging.Logger;
 
 import seedu.souschef.commons.core.LogsCenter;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 import seedu.souschef.model.favourite.Favourites;
@@ -32,7 +32,7 @@ public class AddFavouriteCommand <T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         requireNonNull(model);
         Recipe recipe = model.getAppContent().getObservableRecipeList().get(Integer.parseInt(argument.trim()));
         logger.info(recipe.getName().fullName);
@@ -41,6 +41,7 @@ public class AddFavouriteCommand <T extends UniqueType> extends Command {
 
         model.add(favourite);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, history.getContext().toLowerCase()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
+                history.getKeyword()));
     }
 }

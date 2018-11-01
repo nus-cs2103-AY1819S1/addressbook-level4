@@ -1,18 +1,25 @@
 package seedu.souschef.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_INGREDIENT_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.souschef.commons.core.LogsCenter;
-
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
-
 import seedu.souschef.model.healthplan.Age;
 import seedu.souschef.model.healthplan.CurrentHeight;
 import seedu.souschef.model.healthplan.CurrentWeight;
@@ -20,9 +27,13 @@ import seedu.souschef.model.healthplan.Duration;
 import seedu.souschef.model.healthplan.HealthPlanName;
 import seedu.souschef.model.healthplan.Scheme;
 import seedu.souschef.model.healthplan.TargetWeight;
-
+import seedu.souschef.model.ingredient.IngredientAmount;
+import seedu.souschef.model.ingredient.IngredientName;
+import seedu.souschef.model.ingredient.IngredientPortion;
+import seedu.souschef.model.ingredient.IngredientServingUnit;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
+import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.tag.Tag;
 
@@ -118,6 +129,84 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String instruction} into an Instruction value.
+     * Leading and trailing whitespaces will be trimmed.
+     * Unrelated PREFIXs will be removed.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static String parseInstructionText(String instruction) throws ParseException {
+        requireNonNull(instruction);
+
+        String trimmedInstruction = instruction.trim();
+
+        //Remove ingredients prefix
+        trimmedInstruction = trimmedInstruction.replaceAll(PREFIX_INGREDIENT.getPrefix(), "");
+
+        if (!Instruction.isValidInstruction(trimmedInstruction)) {
+            throw new ParseException(Instruction.MESSAGE_INSTRUCTION_CONSTRAINTS);
+        }
+        return trimmedInstruction;
+    }
+
+    /**
+     * Parses a {@code String ingredients} into a set of ingredient portions.
+     * PREFIX will be removed.
+     * Each ingredient string will be parsed into ingredient name, amount and unit.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    public static Set<IngredientPortion> parseIngredients(String instruction) throws ParseException {
+        requireNonNull(instruction);
+        Set<IngredientPortion> ingredients = new HashSet<>();
+
+        String trimmedInstruction = instruction.trim();
+        List<String> rawIngredients = new ArrayList<>(Arrays.asList(trimmedInstruction.split("#")));
+        // Ingredient only comes after the prefix.
+        rawIngredients.remove(0);
+
+        //Contains no hash tag
+        if (rawIngredients.size() < 1) {
+            return ingredients;
+        }
+        Iterator<String> it = rawIngredients.iterator();
+        while (it.hasNext()) {
+            String rawIngredient = it.next();
+            IngredientPortion ip = parseIngredient(rawIngredient.trim().replace("#", ""));
+            ingredients.add(ip);
+        }
+        return ingredients;
+    }
+
+    /**
+     * Parses a {@code String ingredient} into a ingredient portion.
+     * Ingredient string will be parsed into ingredient name, amount and unit.
+     *
+     * @throws ParseException if the given {@code email} is invalid.
+     */
+    private static IngredientPortion parseIngredient(String rawIngredient) throws ParseException {
+        Pattern pattern = Pattern
+                .compile(IngredientPortion.INGREDIENTPORTION_VALIDATION_REGEX);
+        Matcher matcher = pattern.matcher(rawIngredient);
+        if (!matcher.find()) {
+            throw new ParseException(IngredientPortion.MESSAGE_INGREDIENTPORTION_CONSTRAINTS);
+        }
+        if (!IngredientServingUnit.isValid(matcher.group("unit"))) {
+            throw new ParseException(IngredientServingUnit.MESSAGE_UNIT_CONSTRAINTS
+                    + " Use following values: " + IngredientServingUnit.allUnits());
+        }
+        IngredientName name = new IngredientName(matcher.group("name").trim());
+        double amount;
+        try {
+            amount = Double.parseDouble(matcher.group("amt"));
+        } catch (NumberFormatException ne) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
+        }
+        IngredientAmount amt = new IngredientAmount(amount);
+        IngredientServingUnit unit = new IngredientServingUnit(matcher.group("unit"));
+        return new IngredientPortion(name, unit, amt);
+    }
 
     /**
      * parse plan names for commands
@@ -212,12 +301,5 @@ public class ParserUtil {
         }
         return Scheme.valueOf(trimmedScheme);
     }
-
-
-
-
-
-
-
 
 }

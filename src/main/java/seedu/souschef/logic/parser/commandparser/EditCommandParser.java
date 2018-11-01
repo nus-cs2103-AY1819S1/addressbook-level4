@@ -5,6 +5,7 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_HEALTHPLAN_USAGE
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_INGREDIENT_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_EDIT_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_INSTRUCTION_INDEX;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_AGE;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
@@ -12,17 +13,23 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
+import static seedu.souschef.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.util.Pair;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.logic.EditHealthPlanDescriptor;
 import seedu.souschef.logic.EditRecipeDescriptor;
@@ -44,9 +51,12 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientAmount;
 import seedu.souschef.model.ingredient.IngredientDate;
 import seedu.souschef.model.ingredient.IngredientName;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
+import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
+import seedu.souschef.model.recipe.Instruction;
 import seedu.souschef.model.recipe.Name;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
@@ -64,7 +74,8 @@ public class EditCommandParser implements CommandParser<EditCommand> {
     public EditCommand<Recipe> parseRecipe(Model model, String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DIFFICULTY, PREFIX_COOKTIME,
+                        PREFIX_TAG, PREFIX_STEP, PREFIX_INSTRUCTION);
 
         Index index;
 
@@ -75,6 +86,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         }
 
         EditRecipeDescriptor editRecipeDescriptor = new EditRecipeDescriptor();
+
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editRecipeDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -82,12 +94,32 @@ public class EditCommandParser implements CommandParser<EditCommand> {
             editRecipeDescriptor.setDifficulty(ParserUtil.parseDifficulty(
                     argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
+
+        CookTime cookTime = new CookTime("PT0M");
         if (argMultimap.getValue(PREFIX_COOKTIME).isPresent()) {
-            editRecipeDescriptor.setCooktime(ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get()));
+            cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get());
+            editRecipeDescriptor.setCooktime(cookTime);
+        }
+
+        if (argMultimap.getValue(PREFIX_INSTRUCTION).isPresent() && argMultimap.getValue(PREFIX_STEP).isPresent()) {
+            Index step = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STEP).get());
+            String instructionText = ParserUtil
+                    .parseInstructionText(argMultimap.getValue(PREFIX_INSTRUCTION).get());
+            Set<IngredientPortion> ingredients = ParserUtil
+                            .parseIngredients(argMultimap.getValue(PREFIX_INSTRUCTION).get());
+            Instruction instruction = new Instruction(instructionText, cookTime, ingredients);
+            editRecipeDescriptor.setInstruction(step, instruction);
+            editRecipeDescriptor.setCooktime(null);
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editRecipeDescriptor::setTags);
 
-        if (!editRecipeDescriptor.isAnyFieldEdited()) {
+        if (argMultimap.getValue(PREFIX_STEP).isPresent() && !argMultimap.getValue(PREFIX_INSTRUCTION).isPresent()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_INSTRUCTION_EDITED);
+        }
+        if (!argMultimap.getValue(PREFIX_STEP).isPresent() && argMultimap.getValue(PREFIX_INSTRUCTION).isPresent()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_INSTRUCTION_EDITED);
+        }
+        if (!editRecipeDescriptor.isFieldEditedSpecific()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
@@ -132,44 +164,53 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         Ingredient toEdit = lastShownList.get(index);
 
-        IngredientName name = toEdit.getName();
-        IngredientAmount amount = toEdit.getAmount();
-        IngredientServingUnit unit = toEdit.getUnit();
-        IngredientDate date = toEdit.getDate();
+        String name;
+        Double amount;
+        String servingUnit;
+        Date date;
+
+        IngredientName ingredientName = toEdit.getName();
+        IngredientAmount ingredientAmount = toEdit.getAmount();
+        IngredientServingUnit ingredientServingUnit = toEdit.getUnit();
+        IngredientDate ingredientDate = toEdit.getDate();
 
         for (int i = 1; i < tokens.length; i += 2) {
             if (tokens[i].equals("name")) {
-                name = new IngredientName(tokens[i + 1]);
-                if (!name.isValid()) {
+                name = tokens[i + 1];
+                if (!IngredientName.isValid(name)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
                 }
+                ingredientName = new IngredientName(name);
             } else if (tokens[i].equals("amount")) {
                 try {
-                    amount = new IngredientAmount(tokens[i + 1]);
+                    amount = Double.parseDouble(tokens[i + 1]);
                 } catch (NumberFormatException e) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
                 }
+                ingredientAmount = new IngredientAmount(amount);
             } else if (tokens[i].equals("unit")) {
-                unit = new IngredientServingUnit(tokens[i + 1]);
-                if (!unit.isValid()) {
+                servingUnit = tokens[i + 1];
+                if (!IngredientServingUnit.isValid(servingUnit)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
                 }
+                ingredientServingUnit = new IngredientServingUnit(servingUnit);
             } else if (tokens[i].equals("date")) {
                 try {
-                    date = new IngredientDate(tokens[i + 1]);
+                    date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[i + 1]);
                 } catch (java.text.ParseException pe) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
                 }
+                ingredientDate = new IngredientDate(date);
             } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_EDIT_INGREDIENT_USAGE));
             }
         }
 
-        Ingredient edited = new Ingredient(name, amount, unit, date);
+        Ingredient edited = new Ingredient(ingredientName, ingredientAmount, ingredientServingUnit, ingredientDate);
 
         return new EditCommand<>(model, toEdit, edited);
     }
@@ -267,15 +308,29 @@ public class EditCommandParser implements CommandParser<EditCommand> {
      * Creates and returns a {@code Recipe} with the details of {@code toEdit}
      * edited with {@code editRecipeDescriptor}.
      */
-    private static Recipe createEditedRecipe(Recipe toEdit, EditRecipeDescriptor editRecipeDescriptor) {
+    private static Recipe createEditedRecipe(Recipe toEdit, EditRecipeDescriptor editRecipeDescriptor)
+        throws ParseException {
         assert toEdit != null;
 
         Name updatedName = editRecipeDescriptor.getName().orElse(toEdit.getName());
         Difficulty updatedPhone = editRecipeDescriptor.getDifficulty().orElse(toEdit.getDifficulty());
         CookTime updatedEmail = editRecipeDescriptor.getCooktime().orElse(toEdit.getCookTime());
         Set<Tag> updatedTags = editRecipeDescriptor.getTags().orElse(toEdit.getTags());
+        List<Instruction> instructions = new ArrayList<>(toEdit.getInstructions());
 
-        return new Recipe(updatedName, updatedPhone, updatedEmail, updatedTags);
+        Pair<Index, Instruction> updatedInstruction = editRecipeDescriptor.getInstruction().orElse(null);
+        if (updatedInstruction != null) {
+            if (updatedInstruction.getKey().getOneBased() > 0
+                    && updatedInstruction.getKey().getOneBased() <= instructions.size()) {
+                instructions.set(updatedInstruction.getKey().getZeroBased(), updatedInstruction.getValue());
+            } else if (updatedInstruction.getKey().getOneBased() == instructions.size() + 1) {
+                instructions.add(updatedInstruction.getValue());
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_INSTRUCTION_INDEX));
+            }
+        }
+
+        return new Recipe(updatedName, updatedPhone, updatedEmail, instructions, updatedTags);
     }
 
     /**
@@ -300,8 +355,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         Scheme updatedScheme = editHealthPlanDescriptor.getScheme().orElse(toEdit.getScheme());
 
+        //list of meals shouldnt be edited at edit pane
+        ArrayList<Day> mealsToSet = toEdit.getMealPlans();
+
         return new HealthPlan(updatedHealthPlanName, updatedTargetWeight, updatedCurrentWeight,
-                updatedCurrentHeight, updatedAge, updatedDuration, updatedScheme);
+                updatedCurrentHeight, updatedAge, updatedDuration, updatedScheme, mealsToSet);
 
     }
 

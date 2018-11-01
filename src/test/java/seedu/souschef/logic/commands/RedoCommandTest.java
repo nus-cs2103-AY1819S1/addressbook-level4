@@ -8,7 +8,7 @@ import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
@@ -20,7 +20,7 @@ public class RedoCommandTest {
             new UserPrefs()).getRecipeModel();
     private final Model<Recipe> expectedModel =
             new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
-    private final CommandHistory commandHistory = new CommandHistory();
+    private final History history = new History();
 
     @Before
     public void setUp() {
@@ -40,13 +40,13 @@ public class RedoCommandTest {
     public void execute() {
         // multiple redoable states in recipeModel
         expectedModel.redoAppContent();
-        assertCommandSuccess(new RedoCommand(model), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(model), model, history, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in recipeModel
         expectedModel.redoAppContent();
-        assertCommandSuccess(new RedoCommand(model), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(model), model, history, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in recipeModel
-        assertCommandFailure(new RedoCommand(model), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(model), model, history, RedoCommand.MESSAGE_FAILURE);
     }
 }

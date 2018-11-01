@@ -6,7 +6,7 @@ import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
@@ -19,7 +19,7 @@ import seedu.souschef.testutil.RecipeBuilder;
 public class AddCommandIntegrationTest {
 
     private Model<Recipe> model;
-    private CommandHistory commandHistory = new CommandHistory();
+    private History history = new History();
 
     @Before
     public void setUp() {
@@ -34,7 +34,7 @@ public class AddCommandIntegrationTest {
         expectedModel.add(validRecipe);
         expectedModel.commitAppContent();
 
-        assertCommandSuccess(new AddCommand<Recipe>(model, validRecipe), model, commandHistory,
+        assertCommandSuccess(new AddCommand<Recipe>(model, validRecipe), model, history,
                 String.format(AddCommand.MESSAGE_ADD_SUCCESS, "recipe", validRecipe), expectedModel);
     }
 

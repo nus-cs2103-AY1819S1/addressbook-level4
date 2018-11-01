@@ -75,7 +75,7 @@ public class UiManager extends ComponentManager implements Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        mainWindow.releaseResources();
+        //mainWindow.releaseResources();
     }
 
     @Override
@@ -86,6 +86,11 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void switchToIngredientListPanel() {
         this.mainWindow.switchToIngredientListPanel();
+    }
+
+    @Override
+    public void switchToCrossRecipeListPanel() {
+        this.mainWindow.switchToCrossRecipeListPanel();
     }
 
     @Override
@@ -101,6 +106,21 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void switchToFavouritesListPanel() {
         this.mainWindow.switchToFavouritesListPanel();
+    }
+
+    @Override
+    public void showMealPlanListPanel() {
+        this.mainWindow.showMealPlanListPanel();
+    }
+
+    @Override
+    public void hideBrowserSidePanel() {
+        this.mainWindow.hideBrowserSidePanel();
+    }
+
+    @Override
+    public void showHealthPlanDetails(int index) {
+        this.mainWindow.showHealthPlanDetails(index);
     }
 
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {

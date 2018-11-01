@@ -1,29 +1,29 @@
 package seedu.souschef.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
-import seedu.souschef.logic.CommandHistory;
-import seedu.souschef.model.AppContent;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.UniqueType;
 
 /**
- * Clears the address book.
+ * Clears contents inside model.
  */
-public class ClearCommand extends Command {
+public class ClearCommand<T extends UniqueType> extends Command {
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Clears the %1$s.";
+
+    public static final String MESSAGE_CLEAR_SUCCESS = "%1$s cleared.";
 
     private final Model model;
 
-    public ClearCommand(Model model) {
+    public ClearCommand(Model<T> model) {
         this.model = model;
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
-        requireNonNull(model);
-        model.resetData(new AppContent());
+    public CommandResult execute(History history) {
+        this.model.resetList();
         model.commitAppContent();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_CLEAR_SUCCESS, history.getKeyword()));
     }
 }

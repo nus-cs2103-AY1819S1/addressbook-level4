@@ -1,6 +1,5 @@
 package seedu.souschef.model.recipe;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.AppUtil.checkArgument;
 
 import java.time.Duration;
@@ -24,7 +23,9 @@ public class CookTime {
      * @param duration A valid cook time.
      */
     public CookTime(String duration) {
-        requireNonNull(duration);
+        if (duration == null) {
+            duration = "PT0M";
+        }
         checkArgument(isValidCookTime(duration), MESSAGE_COOKTIME_CONSTRAINTS);
         value = Duration.parse(duration);
     }

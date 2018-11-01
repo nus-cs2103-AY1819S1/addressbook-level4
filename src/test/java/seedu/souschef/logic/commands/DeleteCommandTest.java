@@ -4,7 +4,7 @@ package seedu.souschef.logic.commands;
 
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
@@ -18,7 +18,7 @@ import seedu.souschef.model.recipe.Recipe;
 public class DeleteCommandTest {
 
     private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
-    private CommandHistory commandHistory = new CommandHistory();
+    private History history = new History();
 
     /*@Test
     public void execute_validIndexUnfilteredList_success() {

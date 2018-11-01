@@ -4,11 +4,16 @@ import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.souschef.model.UniqueType;
+import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.tag.Tag;
 
 /**
@@ -25,20 +30,19 @@ public class Recipe extends UniqueType {
     // Data fields
     private final ArrayList<Instruction> instructions = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final HashMap<IngredientDefinition, IngredientPortion> ingredients = new HashMap<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Recipe(Name name, Difficulty difficulty, CookTime cooktime, Set<Tag> tags) {
+    public Recipe(Name name, Difficulty difficulty, CookTime cooktime, List<Instruction> instructions, Set<Tag> tags) {
         requireAllNonNull(name, difficulty, cooktime, tags);
         this.name = name;
         this.cookTime = cooktime;
         this.difficulty = difficulty;
+        this.instructions.addAll(instructions);
+        tabulateIngredients();
         this.tags.addAll(tags);
-
-        //this.instructions.addAll(instructions);
-
-        this.instructions.add(new Instruction("Instruction placeholder 123.", new HashSet<>()));
     }
 
     public Name getName() {
@@ -53,8 +57,8 @@ public class Recipe extends UniqueType {
         return difficulty;
     }
 
-    public ArrayList<Instruction> getInstructions() {
-        return instructions;
+    public List<Instruction> getInstructions() {
+        return Collections.unmodifiableList(instructions);
     }
 
     /**
@@ -63,6 +67,26 @@ public class Recipe extends UniqueType {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Map<IngredientDefinition, IngredientPortion> getIngredients() {
+        return ingredients;
+    }
+
+    /**
+     * Tabulate all ingredients from each instruction step.
+     */
+    private void tabulateIngredients() {
+        for (Instruction instruction : instructions) {
+            for (IngredientPortion portion : instruction.ingredients) {
+                IngredientDefinition key = new IngredientDefinition(portion.getName());
+                if (ingredients.containsKey(key)) {
+                    ingredients.replace(key, ingredients.get(key).addAmount(portion.convertToCommonUnit()));
+                } else {
+                    ingredients.put(key, portion.convertToCommonUnit());
+                }
+            }
+        }
     }
 
     /**

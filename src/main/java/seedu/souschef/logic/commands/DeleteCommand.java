@@ -1,9 +1,8 @@
 package seedu.souschef.logic.commands;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
-import seedu.souschef.model.planner.DayComparator;
 
 /**
  * Deletes a recipe identified using it's displayed index from the address book.
@@ -23,11 +22,11 @@ public class DeleteCommand<T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         model.delete(toDelete);
-        model.sort(new DayComparator());
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, history.getContext().toLowerCase(), toDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS,
+                history.getKeyword(), toDelete));
     }
 
     @Override

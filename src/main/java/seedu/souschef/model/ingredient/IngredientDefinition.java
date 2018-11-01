@@ -12,6 +12,10 @@ public class IngredientDefinition extends UniqueType {
         this.name = name;
     }
 
+    public IngredientDefinition(String name) {
+        this.name = new IngredientName(name);
+    }
+
     public IngredientName getName() {
         return name;
     }
@@ -55,6 +59,11 @@ public class IngredientDefinition extends UniqueType {
 
         return otherIngredient != null
                 && otherIngredient.getName().equals(getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 
     public String toString() {

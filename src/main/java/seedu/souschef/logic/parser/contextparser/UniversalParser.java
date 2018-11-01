@@ -4,12 +4,13 @@ import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Pattern;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.Command;
 import seedu.souschef.logic.commands.ContextCommand;
 import seedu.souschef.logic.commands.ExitCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.HistoryCommand;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.ui.Ui;
 
@@ -32,28 +33,36 @@ public class UniversalParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(CommandHistory history, String userInput, Ui ui) throws ParseException {
+    public Command parseCommand(History history, String userInput, Ui ui) throws ParseException {
         final String commandWord = userInput.substring(1);
         switch (commandWord) {
-        case "recipe":
+
+
+        case RecipeParser.COMMAND_WORD:
             ui.switchToRecipeListPanel();
-            return new ContextCommand("Recipe");
+            return new ContextCommand(Context.RECIPE);
 
-        case "ingredientmanager":
+        case IngredientParser.COMMAND_WORD:
             ui.switchToIngredientListPanel();
-            return new ContextCommand("Ingredient");
+            return new ContextCommand(Context.INGREDIENT);
 
-        case "healthplan":
+        case CrossParser.COMMAND_WORD:
+            ui.switchToCrossRecipeListPanel();
+            return new ContextCommand(Context.CROSS);
+
+        case HealthPlanParser.COMMAND_WORD:
             ui.switchToHealthPlanListPanel();
-            return new ContextCommand("Health Plan");
+            return new ContextCommand(Context.HEALTH_PLAN);
 
-        case "mealplanner":
+
+        case MealPlannerParser.COMMAND_WORD:
             ui.switchToMealPlanListPanel();
-            return new ContextCommand("Meal Planner");
+            return new ContextCommand(Context.MEAL_PLANNER);
 
-        case "favourite":
+
+        case FavouritesParser.COMMAND_WORD:
             ui.switchToFavouritesListPanel();
-            return new ContextCommand("Favourites");
+            return new ContextCommand(Context.FAVOURITES);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

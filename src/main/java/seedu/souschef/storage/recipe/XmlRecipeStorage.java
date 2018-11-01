@@ -53,7 +53,6 @@ public class XmlRecipeStorage extends XmlFeatureStorage {
         xmlRecipeBook = new XmlSerializableRecipe(
                 (XmlSerializableRecipe) XmlFileStorage.loadDataFromSaveFile(filePath, "recipe"));
         try {
-
             return Optional.of(xmlRecipeBook.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());

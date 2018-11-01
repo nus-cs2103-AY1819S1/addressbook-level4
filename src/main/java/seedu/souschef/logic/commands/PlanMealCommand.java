@@ -1,6 +1,6 @@
 package seedu.souschef.logic.commands;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.DayComparator;
@@ -35,7 +35,7 @@ public class PlanMealCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         meal.setRecipe(toAdd);
         if (dayIsPresent) {
             model.update(toPlan, toPlan);

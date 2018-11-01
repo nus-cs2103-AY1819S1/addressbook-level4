@@ -10,11 +10,6 @@ import seedu.souschef.testutil.Assert;
 public class CookTimeTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new CookTime(null));
-    }
-
-    @Test
     public void constructor_invalidCookTime_throwsIllegalArgumentException() {
         String invalidCookTime = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new CookTime(invalidCookTime));

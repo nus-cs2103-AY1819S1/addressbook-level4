@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.souschef.model.ingredient.Ingredient;
+import seedu.souschef.model.ingredient.IngredientPortion;
 
 /**
  * Represents a Recipe's cook time in the application content.
@@ -20,23 +20,29 @@ public class Instruction {
     public static final String INSTRUCTION_VALIDATION_REGEX = "^(\\S)(\\s|\\S)*";
     public final String value;
     public final CookTime cookTime;
-    public final Set<Ingredient> ingredients = new HashSet<>();
+    public final Set<IngredientPortion> ingredients = new HashSet<>();
 
     /**
      * Constructs a {@code CookTime}.
      *
      * @param instruction A valid cook time.
      */
-    public Instruction(String instruction, String time, Set<Ingredient> ingredients) {
+    public Instruction(String instruction, CookTime time, Set<IngredientPortion> ingredients) {
         requireNonNull(instruction);
         checkArgument(isValidInstruction(instruction), MESSAGE_INSTRUCTION_CONSTRAINTS);
         value = instruction;
-        cookTime = new CookTime(time);
+        cookTime = time;
         this.ingredients.addAll(ingredients);
     }
 
-    public Instruction(String instruction, Set<Ingredient> ingredients) {
-        this(instruction, "PT0M", ingredients);
+    public Instruction(String instruction, Set<IngredientPortion> ingredients) {
+        this(instruction, new CookTime("PT0M"), ingredients);
+    }
+
+    public Instruction(String instruction) {
+        checkArgument(isValidInstruction(instruction), MESSAGE_INSTRUCTION_CONSTRAINTS);
+        this.value = instruction;
+        cookTime = new CookTime("PT0M");
     }
 
     /**

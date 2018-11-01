@@ -16,7 +16,7 @@ import org.junit.Test;
 import seedu.souschef.commons.core.Messages;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
@@ -33,7 +33,7 @@ public class SelectCommandTest {
     private Model<Recipe> model = new ModelSetCoordinator(getTypicalAddressBook(), new UserPrefs()).getRecipeModel();
     private Model<Recipe> expectedModel = new ModelSetCoordinator(getTypicalAddressBook(),
             new UserPrefs()).getRecipeModel();
-    private CommandHistory commandHistory = new CommandHistory();
+    private History history = new History();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -101,7 +101,7 @@ public class SelectCommandTest {
         SelectCommand selectCommand = new SelectCommand(model, index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_RECIPE_SUCCESS, index.getOneBased());
 
-        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(selectCommand, model, history, expectedMessage, expectedModel);
 
         JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
@@ -113,7 +113,7 @@ public class SelectCommandTest {
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(model, index);
-        assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
+        assertCommandFailure(selectCommand, model, history, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
     }
 }

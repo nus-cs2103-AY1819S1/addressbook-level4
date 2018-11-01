@@ -3,7 +3,7 @@ package seedu.souschef.logic.commands;
 import java.util.function.Predicate;
 
 import seedu.souschef.commons.core.Messages;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
 
@@ -24,11 +24,11 @@ public class FindCommand<T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) {
+    public CommandResult execute(History history) {
         model.updateFilteredList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_LISTED_OVERVIEW, model.getFilteredList().size(),
-                        history.getContext().toLowerCase()));
+                        history.getKeyword()));
     }
 
     @Override

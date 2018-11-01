@@ -5,6 +5,7 @@ import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
+import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.model.tag.Tag;
 
@@ -25,6 +26,12 @@ public interface ReadOnlyAppContent {
      * This list will not contain any duplicate ingredients.
      */
     ObservableList<Ingredient> getObservableIngredientList();
+
+    /**
+     * Returns an unmodifiable view of the respective list.
+     * This list will not contain any duplicate inventory recipes.
+     */
+    ObservableList<CrossRecipe> getObservableCrossRecipeList();
 
     /**
      * Returns an unmodifiable view of the plan list.

@@ -1,6 +1,5 @@
 package seedu.souschef.model.ingredient;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,8 +15,24 @@ public class IngredientDate {
         this.date = date;
     }
 
-    public IngredientDate(String date) throws ParseException {
-        this.date = (new SimpleDateFormat("MM-dd-yyyy")).parse(date);
+    public Date getValue() {
+        return date;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IngredientDate)) {
+            return false;
+        }
+
+        IngredientDate otherDate = (IngredientDate) other;
+
+        return otherDate != null
+                && this.date.equals(otherDate.date);
     }
 
     public String toString() {

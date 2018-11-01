@@ -2,8 +2,10 @@ package seedu.souschef.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -13,6 +15,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.commons.events.model.AppContentChangedEvent;
 import seedu.souschef.commons.events.storage.DataSavingExceptionEvent;
 import seedu.souschef.commons.exceptions.DataConversionException;
+import seedu.souschef.logic.parser.Context;
 import seedu.souschef.model.AppContent;
 import seedu.souschef.model.ReadOnlyAppContent;
 import seedu.souschef.model.UserPrefs;
@@ -30,23 +33,24 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private FeatureStorage featureStorage;
     private UserPrefsStorage userPrefsStorage;
-    private ArrayList<FeatureStorage> listOfFeatureStorage;
+    private Map<Context, FeatureStorage> listOfFeatureStorage;
     private AppContent appContent;
 
     public StorageManager(UserPrefsStorage userPrefsStorage, UserPrefs userPrefs, AppContent appContent) {
         super();
         this.appContent = appContent;
         this.userPrefsStorage = userPrefsStorage;
-        this.listOfFeatureStorage = new ArrayList<>();
+        this.listOfFeatureStorage = new HashMap<>();
 
         FeatureStorage recipeStorage = new XmlRecipeStorage(userPrefs.getRecipeFilePath());
         FeatureStorage ingredientStorage = new XmlIngredientStorage(userPrefs.getIngredientFilePath());
         FeatureStorage healthPlanStorage = new XmlHealthPlanStorage(userPrefs.getHealthplanPath());
         FeatureStorage mealPlanStorage = new XmlMealPlanStorage(userPrefs.getMealPlanPath());
-        listOfFeatureStorage.add(recipeStorage);
-        listOfFeatureStorage.add(ingredientStorage);
-        listOfFeatureStorage.add(healthPlanStorage);
-        listOfFeatureStorage.add(mealPlanStorage);
+
+        listOfFeatureStorage.put(Context.RECIPE, recipeStorage);
+        listOfFeatureStorage.put(Context.INGREDIENT, ingredientStorage);
+        listOfFeatureStorage.put(Context.HEALTH_PLAN, healthPlanStorage);
+        listOfFeatureStorage.put(Context.MEAL_PLANNER, mealPlanStorage);
         this.featureStorage = recipeStorage;
     }
 
@@ -55,13 +59,11 @@ public class StorageManager extends ComponentManager implements Storage {
         super();
         this.featureStorage = featureStorage;
         this.userPrefsStorage = userPrefsStorage;
-        this.listOfFeatureStorage = new ArrayList<>();
+        this.listOfFeatureStorage = new HashMap<>();
     }
 
     public StorageManager () {
-        this.listOfFeatureStorage = new ArrayList<>();
-
-
+        this.listOfFeatureStorage = new HashMap<>();
     }
 
     // ================ UserPrefs methods ==============================
@@ -89,15 +91,9 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Storage include(FeatureStorage feature) {
-        this.listOfFeatureStorage.add(feature);
-        return this;
-    }
-
-    public ArrayList<FeatureStorage> getListOfFeatureStorage() {
+    public Map<Context, FeatureStorage> getListOfFeatureStorage() {
         return listOfFeatureStorage;
     }
-
 
     public void setMainFeatureStorage(FeatureStorage featureStorage) {
         this.featureStorage = featureStorage;
@@ -117,32 +113,30 @@ public class StorageManager extends ComponentManager implements Storage {
         return featureStorage.readFeature(filePath);
     }
 
+    /**
+     * Read data for a specific feature if available in its default file path.
+     * If not, retrieve sample data from the supplier.
+     * @param context Specify the feature to be read.
+     * @param sampleSupplier Supply sample data as backup.
+     */
+    private void readFeature(Context context, Supplier<ReadOnlyAppContent> sampleSupplier) throws
+            DataConversionException, IOException {
+        if (listOfFeatureStorage.containsKey(context)) {
+            this.featureStorage = listOfFeatureStorage.get(context);
+            this.appContent.includeData(readFeature(this.featureStorage.getFeatureFilePath())
+                    .orElseGet(sampleSupplier));
+        }
+    }
 
     @Override
     public Optional<ReadOnlyAppContent> readAll() throws DataConversionException, IOException {
-        ArrayList<FeatureStorage> temp = this.listOfFeatureStorage;
-        AppContent readOnlyAppContent = this.appContent;
+        readFeature(Context.RECIPE, SampleDataUtil::getSampleAddressBook);
+        readFeature(Context.INGREDIENT, SampleDataUtil::getSampleIngredients);
+        readFeature(Context.HEALTH_PLAN, SampleDataUtil::getSampleHealthPlans);
+        readFeature(Context.MEAL_PLANNER, SampleDataUtil::getSampleDays);
+        featureStorage = listOfFeatureStorage.get(Context.RECIPE);
 
-        for (FeatureStorage f: temp) {
-            if (f instanceof XmlRecipeStorage) {
-                this.featureStorage = f;
-                //to implement changes for specific feature storage types.
-                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath())
-                        .orElseGet(SampleDataUtil::getSampleAddressBook));
-            } else if (f instanceof XmlIngredientStorage) {
-                this.featureStorage = f;
-                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
-            } else if (f instanceof XmlHealthPlanStorage) {
-                this.featureStorage = f;
-                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
-            } else if (f instanceof XmlMealPlanStorage) {
-                this.featureStorage = f;
-                readOnlyAppContent.includeData(readFeature(f.getFeatureFilePath()).get());
-            }
-            //reset the first to main
-            this.featureStorage = temp.get(0);
-        }
-        return Optional.of(readOnlyAppContent);
+        return Optional.of(this.appContent);
     }
 
     @Override
@@ -156,28 +150,23 @@ public class StorageManager extends ComponentManager implements Storage {
         if (this.featureStorage instanceof XmlRecipeStorage) {
             XmlRecipeStorage temp = new XmlRecipeStorage(filePath);
             temp.saveFeature(appContent, filePath);
-
         } else if (this.featureStorage instanceof XmlIngredientStorage) {
             XmlIngredientStorage temp = new XmlIngredientStorage(filePath);
             temp.saveFeature(appContent, filePath);
-
         } else if (this.featureStorage instanceof XmlHealthPlanStorage) {
             XmlHealthPlanStorage temp = new XmlHealthPlanStorage(filePath);
             temp.saveFeature(appContent, filePath);
-
         } else if (this.featureStorage instanceof XmlMealPlanStorage) {
             XmlMealPlanStorage temp = new XmlMealPlanStorage(filePath);
             temp.saveFeature(appContent, filePath);
         }
     }
 
-
     @Override
     @Subscribe
     public void handleAppContentChangedEvent(AppContentChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-
             saveFeature(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));

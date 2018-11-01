@@ -1,5 +1,6 @@
 package seedu.souschef.model.ingredient;
 
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.souschef.model.UniqueType;
@@ -12,8 +13,48 @@ public class Ingredient extends IngredientPortion {
     private final IngredientDate date;
 
     public Ingredient(IngredientName name, IngredientAmount amount, IngredientServingUnit unit, IngredientDate date) {
-        super(name, amount, unit);
+        super(name, unit, amount);
         this.date = date;
+    }
+
+    public Ingredient(String name, String unit, Double amount, Date date) {
+        super(name, unit, amount);
+        this.date = new IngredientDate(date);
+    }
+
+    @Override
+    public Ingredient addAmount(Object other) {
+        Ingredient otherIngredient = (Ingredient) other;
+        double total = this.getAmount().getValue() + otherIngredient.getAmount().getValue();
+        return new Ingredient(getName(), new IngredientAmount(total), getUnit(), getDate());
+    }
+
+    @Override
+    public Ingredient subtractAmount(Object other) {
+        Ingredient otherIngredient = (Ingredient) other;
+        double total = this.getAmount().getValue() - otherIngredient.getAmount().getValue();
+        if (total <= 0) {
+            total = 0.0;
+        }
+        return new Ingredient(getName(), new IngredientAmount(total), getUnit(), getDate());
+    }
+
+    @Override
+    public Ingredient multiplyAmount(double numberOfServings) {
+        double amount = getAmount().getValue() * numberOfServings;
+        return new Ingredient(getName(), new IngredientAmount(amount), getUnit(), getDate());
+    }
+
+    @Override
+    public Ingredient convertToCommonUnit() {
+        IngredientServingUnitDefinition definition = IngredientServingUnit.DICTIONARY.get(this.getUnit().toString());
+        IngredientName ingredientName = getName();
+        IngredientServingUnit ingredientUnit = new IngredientServingUnit(definition.getCommonUnit());
+        IngredientAmount ingredientAmount = new IngredientAmount(getAmount().getValue().doubleValue()
+                * definition.getConversionValue().doubleValue());
+        IngredientDate ingredientDate = date;
+
+        return new Ingredient(ingredientName, ingredientAmount, ingredientUnit, ingredientDate);
     }
 
     public IngredientDate getDate() {
@@ -36,7 +77,10 @@ public class Ingredient extends IngredientPortion {
         Ingredient otherIngredient = (Ingredient) other;
 
         return otherIngredient != null
-                && otherIngredient.getName().equals(getName());
+                && otherIngredient.getName().equals(getName())
+                && otherIngredient.getAmount().equals(getAmount())
+                && otherIngredient.getUnit().equals(getUnit())
+                && otherIngredient.getDate().equals(getDate());
     }
 
     /**

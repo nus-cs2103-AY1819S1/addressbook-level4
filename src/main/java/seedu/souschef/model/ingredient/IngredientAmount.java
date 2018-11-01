@@ -12,8 +12,24 @@ public class IngredientAmount {
         this.amount = amount;
     }
 
-    public IngredientAmount(String amount) throws NumberFormatException {
-        this.amount = Double.parseDouble(amount);
+    public Double getValue() {
+        return amount;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof IngredientAmount)) {
+            return false;
+        }
+
+        IngredientAmount otherAmount = (IngredientAmount) other;
+
+        return otherAmount != null
+                && this.amount == otherAmount.amount;
     }
 
     public String toString() {

@@ -2,7 +2,7 @@ package seedu.souschef.logic.commands;
 
 import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.UniqueType;
@@ -15,6 +15,7 @@ public class EditCommand<T extends UniqueType> extends Command {
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_EDIT_SUCCESS = "Edited %1$s: %2$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_INSTRUCTION_EDITED = "Instruction field must be provided to edit.";
 
     private final Model model;
     private final T toEdit;
@@ -32,11 +33,12 @@ public class EditCommand<T extends UniqueType> extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) throws CommandException {
+    public CommandResult execute(History history) throws CommandException {
         model.update(toEdit, edited);
         model.updateFilteredList(PREDICATE_SHOW_ALL);
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS, history.getContext().toLowerCase(), edited));
+        return new CommandResult(String.format(MESSAGE_EDIT_SUCCESS,
+                history.getKeyword(), edited));
     }
 
     @Override

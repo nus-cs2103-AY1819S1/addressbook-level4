@@ -8,7 +8,7 @@ import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
@@ -20,7 +20,7 @@ public class UndoCommandTest {
             new UserPrefs()).getRecipeModel();
     private final Model<Recipe> expectedModel = new ModelSetCoordinator(getTypicalAddressBook(),
             new UserPrefs()).getRecipeModel();
-    private final CommandHistory commandHistory = new CommandHistory();
+    private final History history = new History();
 
     @Before
     public void setUp() {
@@ -36,13 +36,13 @@ public class UndoCommandTest {
     public void execute() {
         // multiple undoable states in recipeModel
         expectedModel.undoAppContent();
-        assertCommandSuccess(new UndoCommand(model), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(model), model, history, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in recipeModel
         expectedModel.undoAppContent();
-        assertCommandSuccess(new UndoCommand(model), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(model), model, history, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in recipeModel
-        assertCommandFailure(new UndoCommand(model), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(model), model, history, UndoCommand.MESSAGE_FAILURE);
     }
 }

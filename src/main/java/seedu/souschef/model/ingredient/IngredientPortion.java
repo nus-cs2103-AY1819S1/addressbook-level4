@@ -6,21 +6,73 @@ import seedu.souschef.model.UniqueType;
  * ingredient class that stores ingredient name, amount, serving unit.
  */
 public class IngredientPortion extends IngredientDefinition {
-    private final IngredientAmount amount;
+    public static final String MESSAGE_INGREDIENTPORTION_CONSTRAINTS =
+            "Ingredient portion should have \"#ingredient name amount unit\", where amount should be a number.";
+    public static final String INGREDIENTPORTION_VALIDATION_REGEX =
+            "^(?<name>(\\p{Alpha}|\\s)+)(?<amt>(((\\d)+.(\\d)+)|((\\d)+)))\\s(?<unit>(\\p{Alpha})+)(?<ins>(.*))";
     private final IngredientServingUnit unit;
+    private final IngredientAmount amount;
 
-    public IngredientPortion(IngredientName name, IngredientAmount amount, IngredientServingUnit unit) {
+    public IngredientPortion(IngredientName name, IngredientServingUnit unit, IngredientAmount amount) {
         super(name);
-        this.amount = amount;
         this.unit = unit;
+        this.amount = amount;
+    }
+
+    public IngredientPortion(String name, String unit, Double amount) {
+        super(name);
+        this.unit = new IngredientServingUnit(unit);
+        this.amount = new IngredientAmount(amount);
+    }
+
+    public IngredientServingUnit getUnit() {
+        return unit;
     }
 
     public IngredientAmount getAmount() {
         return amount;
     }
 
-    public IngredientServingUnit getUnit() {
-        return unit;
+    /**
+     * Add amount between ingredients
+     */
+    public IngredientPortion addAmount(Object other) {
+        IngredientPortion otherIngredient = (IngredientPortion) other;
+        double total = this.getAmount().getValue() + otherIngredient.getAmount().getValue();
+        return new IngredientPortion(getName(), getUnit(), new IngredientAmount(total));
+    }
+
+    /**
+     * Subtract amount between ingredients
+     */
+    public IngredientPortion subtractAmount(Object other) {
+        IngredientPortion otherIngredient = (IngredientPortion) other;
+        double total = this.getAmount().getValue() - otherIngredient.getAmount().getValue();
+        if (total <= 0) {
+            total = 0.0;
+        }
+        return new IngredientPortion(getName(), getUnit(), new IngredientAmount(total));
+    }
+
+    /**
+     * multiply double to ingredient amount
+     */
+    public IngredientPortion multiplyAmount(double numberOfServings) {
+        double amount = getAmount().getValue() * numberOfServings;
+        return new IngredientPortion(getName(), getUnit(), new IngredientAmount(amount));
+    }
+
+    /**
+     * Convert amount of Ingredient to common unit
+     */
+    public IngredientPortion convertToCommonUnit() {
+        IngredientServingUnitDefinition definition = IngredientServingUnit.DICTIONARY.get(this.getUnit().toString());
+        IngredientName ingredientName = getName();
+        IngredientServingUnit ingredientUnit = new IngredientServingUnit(definition.getCommonUnit());
+        IngredientAmount ingredientAmount =
+                new IngredientAmount(amount.getValue().doubleValue() * definition.getConversionValue().doubleValue());
+
+        return new IngredientPortion(ingredientName, ingredientUnit, ingredientAmount);
     }
 
     /**

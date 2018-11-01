@@ -8,7 +8,7 @@ import seedu.souschef.commons.core.EventsCenter;
 import seedu.souschef.commons.core.Messages;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.events.ui.JumpToListRequestEvent;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.logic.commands.exceptions.CommandException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.recipe.Recipe;
@@ -36,7 +36,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CommandHistory history) throws CommandException {
+    public CommandResult execute(History history) throws CommandException {
         requireNonNull(model);
 
         List<Recipe> filteredRecipeList = model.getFilteredList();
@@ -47,7 +47,6 @@ public class SelectCommand extends Command {
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_RECIPE_SUCCESS, targetIndex.getOneBased()));
-
     }
 
     @Override

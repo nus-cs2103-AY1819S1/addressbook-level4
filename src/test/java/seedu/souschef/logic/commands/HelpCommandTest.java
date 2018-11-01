@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.souschef.commons.events.ui.ShowHelpRequestEvent;
-import seedu.souschef.logic.CommandHistory;
+import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.recipe.Recipe;
@@ -20,11 +20,11 @@ public class HelpCommandTest {
 
     private Model<Recipe> model = new ModelSetCoordinator().getRecipeModel();
     private Model<Recipe> expectedModel = new ModelSetCoordinator().getRecipeModel();
-    private CommandHistory commandHistory = new CommandHistory();
+    private History history = new History();
 
     @Test
     public void execute_help_success() {
-        assertCommandSuccess(new HelpCommand(), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
+        assertCommandSuccess(new HelpCommand(), model, history, SHOWING_HELP_MESSAGE, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowHelpRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }

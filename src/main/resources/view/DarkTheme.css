@@ -136,6 +136,10 @@
      -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.scroll-pane .viewport {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
@@ -348,4 +352,39 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.details-title {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+}
+
+.details-label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+}
+
+.details-text {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+}
+
+.shop-label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: yellow;
+    -fx-alignment: center-left;
+}
+
+.shop-text {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: yellow;
+    -fx-alignment: center-left;
 }
