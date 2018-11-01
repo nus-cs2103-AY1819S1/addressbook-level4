@@ -53,7 +53,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(patients);
     }
 
-    //@@author 99percentile
     /**
      * Replaces the contents of the medicine list with {@code medicines}.
      * {@code medicines} must not contain duplicate medicines.
@@ -121,11 +120,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
+     * Returns true if a medicine with the same medicine name as {@code medicine} exists in the records.
      */
-    public boolean hasMedicine(MedicineName medicineName) {
-        requireNonNull(medicineName);
-        return medicines.contains(medicineName);
+    public boolean hasMedicineName(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.containsMedicineName(medicine);
+    }
+
+    /**
+     * Returns true if a medicine with the same serial number as {@code medicine} exists in the records.
+     */
+    public boolean hasSerialNumber(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.notUniqueSerialNumber(medicine);
     }
 
     /**
@@ -187,7 +194,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
-    //@@author 99percentile
     @Override
     public ObservableList<Medicine> getMedicineList() {
         return medicines.asUnmodifiableObservableList();

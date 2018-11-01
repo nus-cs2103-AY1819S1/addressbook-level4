@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STOCK;
 import java.util.List;
 import java.util.Optional;
 
+import javafx.scene.web.HTMLEditorSkin;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -51,6 +52,8 @@ public class EditMedicineCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the address book.";
     public static final String MESSAGE_USED_SERIAL_NUMBER = "This serial number is already in " +
             "used by another medicine. Check the serial number again.";
+    public static final String MESSAGE_DUPLICATE_MEDICINE_NAME = "This medicine name is already used by another " +
+            "medicine. Check the medicine name again.";
 
     private final Index index;
     private final MedicineDescriptor medicineDescriptor;
@@ -85,6 +88,10 @@ public class EditMedicineCommand extends Command {
 
         if(!medicineToEdit.hasSameSerialNumber(editedMedicine)) {
             throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
+        }
+
+        if(!medicineToEdit.hasSameMedicineName(editedMedicine)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
         }
 
         model.updateMedicine(medicineToEdit, editedMedicine);
