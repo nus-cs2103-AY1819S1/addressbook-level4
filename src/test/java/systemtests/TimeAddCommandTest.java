@@ -25,16 +25,16 @@ public class TimeAddCommandTest {
         Time testTime2 = new Time("tue 1500 1700");
 
         TimeAddCommand FirstTimeAddCommand = new TimeAddCommand(testName1, testTime1);
-        TimeAddCommand SecondTimeAddCommand = new TimeAddCommand(testName2, testTime1);
-        TimeAddCommand ThirdTimeAddCommand = new TimeAddCommand(testName1, testTime2);
+        TimeAddCommand secondTimeAddCommand = new TimeAddCommand(testName2, testTime1);
+        TimeAddCommand thirdTimeAddCommand = new TimeAddCommand(testName1, testTime2);
 
         //same object -> returns true
         assertTrue(FirstTimeAddCommand.equals(FirstTimeAddCommand));
 
         //different person with same time slot -> returns false;
-        assertFalse(FirstTimeAddCommand.equals(SecondTimeAddCommand));
+        assertFalse(FirstTimeAddCommand.equals(secondTimeAddCommand));
 
         //same person with different time slot -> returns false;
-        assertFalse(FirstTimeAddCommand.equals(ThirdTimeAddCommand));
+        assertFalse(FirstTimeAddCommand.equals(thirdTimeAddCommand));
     }
 }
