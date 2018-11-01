@@ -1,64 +1,22 @@
 package seedu.address.model;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
-import seedu.address.model.person.Person;
 import seedu.address.model.transformation.Transformation;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
-
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyAddressBook newData);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void updatePerson(Person target, Person editedPerson);
-
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
     /**
      * Get PhotoHandler, directs user to login if yet to be logged in.
      */
@@ -107,22 +65,37 @@ public interface Model {
     /**
      * Retrieves the list of images in current directory.
      */
-    ArrayList<Path> getDirectoryImageList();
+    List<Path> getDirectoryImageList();
 
     /**
-     * Updates the list of images with the current image list.
+     * Returns the total number of images in current directory
      */
-    void updateImageList(ArrayList<Path> dirImageList);
+    int getTotalImagesInDir();
+
+    /**
+     * Returns the current batch pointer
+     */
+    int numOfRemainingImagesInDir();
+
+    /**
+     * Returns the current batch pointer in {@code UserPrefs}
+     */
+    int getCurrBatchPointer();
+
+    /**
+     * Updates the batch pointer to the next 10 images.
+     */
+    void updateImageListNextBatch();
+
+    /**
+     * Updates the batch pointer to the previous 10 images.
+     */
+    void updateImageListPrevBatch();
 
     /**
      * Removes the image of the given index in the list.
      */
     void removeImageFromList(int idx);
-
-    /**
-     * Get preview image list (first 10 images in imageList)
-     */
-    List<Path> returnPreviewImageList();
 
     /**
      * Retrieves the current displayed original image.
@@ -159,8 +132,22 @@ public interface Model {
     void updateCurrentOriginalImage(Image img, Path imgPath);
 
     /**
+     * Update the current displayed original image for test.
+     * @param previewImage
+     */
+    void updateCurrentOriginalImageForTest(PreviewImage previewImage);
+
+    /**
      * update the transformationSet of the current image
      * @param transformation
      */
-    void addTransformation(Transformation transformation);
+    void addTransformation(Transformation transformation) throws ParseException, InterruptedException, IOException;
+
+    void addLayer(PreviewImage i, String name);
+
+    void addLayer(PreviewImage i);
+
+    void removeLayer(Index i);
+
+    Canvas getCanvas();
 }

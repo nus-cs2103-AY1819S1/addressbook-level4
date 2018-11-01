@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -60,9 +58,9 @@ public class ModelGenerator {
      */
     public static Model getDefaultModel() {
         BufferedImage image = getABufferedImage();
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(new UserPrefs());
         PreviewImage previewImage = new PreviewImage(image, new TransformationSet());
-        model.setCurrentPreviewImage(previewImage);
+        model.updateCurrentOriginalImageForTest(previewImage);
         return model;
     }
 
@@ -107,7 +105,7 @@ public class ModelGenerator {
      * Returns a Model with current directory testimgs.
      */
     public static Model getModelWithTestImgDirectory() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(new UserPrefs());
         model.updateCurrDirectory(Paths.get(MainApp.MAIN_PATH + "/src/test/resources/testimgs"));
         return model;
     }

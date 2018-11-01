@@ -1,10 +1,8 @@
 package seedu.address.model.transformation;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ImageMagickUtil;
 
 //@@author j-lum
 
@@ -54,17 +52,7 @@ public class TransformationSet {
         cursor = Index.fromOneBased(transformations.size());
     }
 
-    /**
-     * Gathers all the transformations.
-     *
-     * @return a ProcessBuilder instance that will can be used to call ImageMagick
-     */
-    public ProcessBuilder toProcessBuilder() {
-        ArrayList<String> arguments = new ArrayList<>();
-        arguments.add(ImageMagickUtil.getExecuteImageMagick());
-        for (Transformation t : transformations) {
-            arguments.add(t.toString());
-        }
-        return new ProcessBuilder(arguments);
+    public LinkedList<Transformation> getTransformations() {
+        return transformations;
     }
 }

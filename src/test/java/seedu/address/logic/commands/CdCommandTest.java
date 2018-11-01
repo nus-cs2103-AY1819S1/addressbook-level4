@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,8 +20,8 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code CdCommand}.
  */
 public class CdCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(new UserPrefs());
+    private Model expectedModel = new ModelManager(new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

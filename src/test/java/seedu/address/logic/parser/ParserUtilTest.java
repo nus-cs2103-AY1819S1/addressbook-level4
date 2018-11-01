@@ -1,3 +1,4 @@
+/* TODO: Left as an example, to be deleted/replaced.
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
@@ -8,35 +9,15 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_IMAGE;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
-
-    private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
-    private static final String VALID_ADDRESS = "123 Main Street #0505";
-    private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
-
     private static final String WHITESPACE = " \t\r\n";
 
     @Rule
@@ -206,3 +187,4 @@ public class ParserUtilTest {
         assertEquals(expectedTagSet, actualTagSet);
     }
 }
+*/

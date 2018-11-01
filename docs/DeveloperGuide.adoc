@@ -211,9 +211,6 @@ If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false
 The Select Command allow users to select the images in a batch of 10 images within the directory for image-editing.
 This command is further facilitated by the Next Command.
 
-The Next Command retrieves the next 10 images in the image list for users to select.
-The image selected will then be displayed on the GUI.
-
 ==== Current Implementation
 The implementation of the Select/Next feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
 and contains the following operations:
@@ -223,16 +220,10 @@ Select feature:
  * `Model#getDirectoryImageList()` -- Retrieves the stored list of images in UserPrefs.
  * `Model#updateCurrentOriginalImage(Image, Path)` -- Updates the model with the current selected images.
 
-Next feature:
+The `Model` calls upon `UserPrefs` to retrieve the `imageList` of the current
+batch. The `UserPrefs` class implements the following operation:
 
- * `Model#updateImageList()` -- Retrieves the list with all the images from `UserPrefs`.
- * `Model#updateImageList(ArrayList<Path>)` -- Updates the list with the new list of images.
- * `Model#removeImageFromList(int)` -- Remove image from the list of images.
-
-The `Model` calls upon `UserPrefs` which stores and facilitates the updates and retrieval of `imageList` in the current
-directory. The `UserPrefs` class implements the following operation:
-
-* `UserPrefs#getAllImages()` -- Returns all the user's images current directory.
+* `UserPrefs#getCurrImageListBatch()` -- Returns the current batch of images.
 * `UserPrefs#updateImageList()` -- Retrieves all the images in the current directory.
 * `UserPrefs#updateImageList(ArrayList<Path>)` -- Updates `imageList` with the new `imageList`.
 
@@ -245,51 +236,88 @@ Given below is an example usage scenario and how the select and next mechanism b
 Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
 as the user's home directory.
 
-Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command calls
-`Model#updateImageList()` to initialise the `imageList` with all the images within Desktop.
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+the `imageList` with all the images within Desktop.
 
-image::SelectNextCommand1.png[width=800]
+image::SelectCommand1.png[width=800]
 
 Step 3. The user executes `select 1` command to select the first image in the first batch of 10 images. The select
-command calls `Model#getDirectoryImageList()` to retrieve all the images within Desktop. The first image is then
-retrieved and displayed on the GUI.
+command calls `Model#getDirectoryImageList()` to retrieve the first batch of images within Desktop. The first image is
+then retrieved and displayed on the GUI.
 
-image::SelectNextCommand2.png[width=800]
+image::SelectCommand2.png[width=800]
 
-Step 4. The user executes `next` command to access the next batch of 10 images from the list. The next command calls
-`Model#removeImageFromList(int)` to remove the first 10 images in the current `imageList` and calls
-`Model#updateImageList(ArrayList<Path>)` to update `UserPrefs` with the new `imageList`.
+Step 4. The user then executes `select 5` command to select the fifth image in the batch of 10 images. The fifth image
+is then retrieved similarly and displayed on the GUI.
 
-image::SelectNextCommand3.png[width=800]
+image::SelectCommand3.png[width=800]
 
 The following sequence diagram shows how the select command works:
 
 image::SelectSequenceDiagram.png[width=800]
-
-The following sequence diagram shows how the next command works:
-
-image::NextSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 ===== Aspect: How select executes
 
 * *Alternative 1 (current choice)*: Select images within the BATCH_SIZE.
 ** Pros: Users work on a small size of images.
-** Cons: Hard to retrieve images from end of list.
+** Cons: Limited to the batch size.
 
 * *Alternative 2* : Select images within the `imageList` size.
 ** Pros: Easy to retrieve images anywhere in the list.
 ** Cons: Can be very messy if the `imageList` size is too large.
 
-===== Aspect: How next executes
+=== Next/Prev feature
 
-* *Alternative 1 (current choice)*: Removes first 10 images and updates `imageList` in `UserPrefs`.
-** Pros: Easy to implement and to access current batch.
-** Cons: Users unable to access previous images.
+The Next Command retrieves the next 10 images in the image list.
 
-* *Alternative 2* : Update the current start pointer for each batch.
-** Pros: Users would be able to access previous batches.
-** Cons: Hard to implement and keep track of the current start pointer.
+On the contrary, the Previous Command retrieves the previous 10 images in the image list.
+
+==== Current Implementation
+The implementation of the Next/Previous feature is also similar to the `Cd Command`. It is facilitated by the `ModelManager`
+and contains the operations: `Model#updateImageListNextBatch()` and `Model#updateImageListPrevBatch()`.
+
+The `Model` calls upon `UserPrefs` which stores and facilitates the retrieval of the current
+batch of images using the `currBatchPointer`. The `UserPrefs` class implements the following operation:
+
+* `UserPrefs#updateImageListNextBatch()` -- Adds the `currBatchPointer` by 10.
+* `UserPrefs#updateImageListPrevBatch()` -- Minus the `currBatchPointer` by 10.
+
+Given below is an example usage scenario and how the next/previous mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `UserPrefs` will be initialized with the `currDirectory`
+as the user's home directory.
+
+Step 2. The user executes `cd Desktop` command to navigate into the Desktop directory. The cd command will initialise
+the `imageList` with all the images within Desktop.
+
+image::SelectCommand1.png[width=800]
+
+Step 3. The user executes `next` command to retrieve the next 10 images within Desktop.
+
+image::NextPrevCommand2.png[width=800]
+
+Step 4. The user executes `prev` command to retrieve the previous 10 images within Desktop.
+
+image::NextPrevCommand3.png[width=800]
+
+The following sequence diagram shows how the next command works:
+
+image::NextSequenceDiagram.png[width=800]
+
+The following sequence diagram shows how the prev command works:
+
+image::PrevSequenceDiagram.png[width=800]
+
+===== Aspect: How next/previous executes
+
+* *Alternative 1 (current choice)*: Keeps track of current batch with a pointer.
+** Pros: Easy to access current batch images.
+** Cons: Efficiency might be lower for directories with many images.
+
+* *Alternative 2* : Separate images in batches and store in array.
+** Pros: Fast to access next/previous batches.
+** Cons: Harder to handle changes in a batch (e.g. image got deleted) within the array.
 
 === Undo/Redo feature
 ==== Current Implementation
