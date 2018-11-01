@@ -16,6 +16,7 @@ import org.xml.sax.SAXException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.imports.ImportAddressBook;
+import seedu.address.logic.commands.imports.ImportBudgetBook;
 import seedu.address.logic.commands.imports.ImportCcaList;
 import seedu.address.model.Model;
 
@@ -65,6 +66,9 @@ public class ImportCommand extends Command {
             break;
         case IMPORT_CCA_LIST:
             new ImportCcaList(doc, model).execute();
+            break;
+        case IMPORT_BUDGETBOOK:
+            new ImportBudgetBook(doc, model).execute();
             break;
         default:
             throw new CommandException(MESSAGE_PARSE_ERR);

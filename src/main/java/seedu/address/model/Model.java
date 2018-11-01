@@ -109,6 +109,11 @@ public interface Model {
     void addCca(Cca cca);
 
     /**
+     * Adds the given Ccas in list.
+     */
+    void addMultipleCcas(List<Cca> ccaList);
+
+    /**
      * Adds the given persons in list.
      * {@code personList} must not contain persons already exist in the address book.
      */

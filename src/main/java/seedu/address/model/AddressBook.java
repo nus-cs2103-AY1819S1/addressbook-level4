@@ -76,9 +76,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
     }
 
+    //@@author kengwoon
     /**
      * Adds persons to the address book.
-     * Exisiting persons will be ignored.
+     * Existing persons will be ignored.
      */
     public void addMultiplePersons(List<Person> personList) {
         persons.addMultiplePersons(personList);

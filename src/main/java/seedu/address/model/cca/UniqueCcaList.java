@@ -55,6 +55,20 @@ public class UniqueCcaList implements Iterable<Cca> {
         internalCcaList.add(toAdd);
     }
 
+    //@@author kengwoon
+
+    /**
+     * Adds a cca to the list.
+     */
+    public void addMultipleCcas(List<Cca> toAdd) {
+        requireNonNull(toAdd);
+        for (Cca p : toAdd) {
+            if (!contains(p)) {
+                internalCcaList.add(p);
+            }
+        }
+    }
+
     /**
      * Replaces the {@code target} Cca in the unique Cca list with {@code editedCca}.
      * {@code target} Cca must exist in the unique Cca list.

@@ -210,6 +210,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateBudgetBookChanged();
     }
 
+    //@@author kengwoon
+    @Override
+    public void addMultipleCcas(List<Cca> ccaList) {
+        versionedBudgetBook.addMultipleCcas(ccaList);
+        indicateBudgetBookChanged();
+    }
+
     @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
