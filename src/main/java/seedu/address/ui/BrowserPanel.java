@@ -120,13 +120,13 @@ public class BrowserPanel extends UiPart<Region> {
         String pictureString = "";
         String tempString;
         try {
-        InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(profilePage));
-        while ((tempString = reader.readLine()) != null) {
-            htmlString += tempString;
-        }
-        pictureString = MainApp.class
-                .getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
+            InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(profilePage));
+            while ((tempString = reader.readLine()) != null) {
+                htmlString += tempString;
+            }
+            pictureString = MainApp.class
+                    .getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
