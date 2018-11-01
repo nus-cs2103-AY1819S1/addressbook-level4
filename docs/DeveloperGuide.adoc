@@ -29,6 +29,8 @@ This document describes the design, implemented features and possible features t
 
 == Setting up
 
+It is time to start, follow the instructions below to get your developing environment ready.
+
 === Prerequisites
 
 . *JDK `9`* or later
