@@ -159,12 +159,13 @@ public class AddressBookParserTest {
                 new ConsumptionPerDay(VALID_CONSUMPTION_PER_DAY_PARACETAMOL));
         AddPrescriptionCommand command = (AddPrescriptionCommand) parser.parseCommand(
                 AddPrescriptionCommand.COMMAND_WORD + " " + PREFIX_INDEX + VALID_APPOINTMENT_ID_FIRST
-        + " " + PREFIX_MEDICINE_NAME + VALID_MEDICINE_NAME_PARACETAMOL
-        + " " + PREFIX_DOSAGE + VALID_DOSAGE_PARACETAMOL
-        + " " + PREFIX_CONSUMPTION_PER_DAY + VALID_CONSUMPTION_PER_DAY_PARACETAMOL);
+                        + " " + PREFIX_MEDICINE_NAME + VALID_MEDICINE_NAME_PARACETAMOL
+                        + " " + PREFIX_DOSAGE + VALID_DOSAGE_PARACETAMOL
+                        + " " + PREFIX_CONSUMPTION_PER_DAY + VALID_CONSUMPTION_PER_DAY_PARACETAMOL);
         assertEquals(new AddPrescriptionCommand(prescription), command);
     }
-    
+
+    @Test
     public void parseCommand_viewPatientCommandWord_returnsViewPatientCommand() throws Exception {
         ViewPatientCommand command = (ViewPatientCommand) parser.parseCommand(
                 ViewPatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName);
