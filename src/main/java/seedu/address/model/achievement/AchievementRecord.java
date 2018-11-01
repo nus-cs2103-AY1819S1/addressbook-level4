@@ -268,7 +268,12 @@ public class AchievementRecord {
     private void checkDayBreakPoint() {
         Calendar date = new GregorianCalendar();
         if (date.before(nextDayBreakPoint)) {
-            return;
+
+            // check that current time is within one day before nextWeekBreakPoint
+            date.add(Calendar.DAY_OF_MONTH, 1);
+            if (date.after(nextDayBreakPoint)) {
+                return;
+            }
         }
         nextDayBreakPoint = null;
         setUpAchievementByDay();
@@ -282,7 +287,12 @@ public class AchievementRecord {
     private void checkWeekBreakPoint() {
         Calendar date = new GregorianCalendar();
         if (date.before(nextWeekBreakPoint)) {
-            return;
+
+            // check that current time is within one week before nextWeekBreakPoint
+            date.add(Calendar.DAY_OF_MONTH, 7);
+            if (date.after(nextWeekBreakPoint)) {
+                return;
+            }
         }
         nextWeekBreakPoint = null;
         setUpAchievementByWeek();
