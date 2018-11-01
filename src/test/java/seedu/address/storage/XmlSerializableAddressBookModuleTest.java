@@ -16,7 +16,8 @@ import seedu.address.testutil.TypicalModules;
 
 public class XmlSerializableAddressBookModuleTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableAddressBookPersonTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "XmlSerializableAddressBookTest");
     private static final Path TYPICAL_MODULES_FILE = TEST_DATA_FOLDER.resolve("typicalModulesAddressBook.xml");
     private static final Path INVALID_MODULE_FILE = TEST_DATA_FOLDER.resolve("invalidModuleAddressBook.xml");
     private static final Path DUPLICATE_MODULE_FILE = TEST_DATA_FOLDER.resolve("duplicateModuleAddressBook.xml");

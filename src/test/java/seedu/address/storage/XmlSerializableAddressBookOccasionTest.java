@@ -16,7 +16,8 @@ import seedu.address.testutil.TypicalOccasions;
 
 public class XmlSerializableAddressBookOccasionTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableAddressBookPersonTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
+            "XmlSerializableAddressBookTest");
     private static final Path TYPICAL_OCCASIONS_FILE = TEST_DATA_FOLDER.resolve("typicalOccasionsAddressBook.xml");
     private static final Path INVALID_OCCASION_FILE = TEST_DATA_FOLDER.resolve("invalidOccasionAddressBook.xml");
     private static final Path DUPLICATE_OCCASION_FILE = TEST_DATA_FOLDER.resolve("duplicateOccasionAddressBook.xml");
