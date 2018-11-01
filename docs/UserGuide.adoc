@@ -200,7 +200,7 @@ Format: `exit`
 === User Authentication
 
 ClinicIO's User Authentication ensure that clinic staff are provided with correct
-access rights.  
+access rights. 
 
 Here are the list of commands:
 
@@ -247,10 +247,10 @@ Format: `logout`
 // tag::patientcommands[]
 === Patient Management
 
-ClinicIO provides a centralised patient management system 
+ClinicIO provides a centralised patient management system
 to allow you to manage the clinic's patient record more efficiently.
 
-Here are the list of comamnds:
+Here are the list of commands:
 
 ==== Adding a patient: `addpatient` `[coming in v2.0]`
 
