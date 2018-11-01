@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
@@ -70,8 +69,6 @@ public class CommandTestUtil {
     public static final String VALID_DATE_BENSON = "03 10 2018";
     public static final String VALID_TIME_AMY = "13 00";
     public static final String VALID_TIME_BENSON = "15 00";
-    public static final String VALID_IC_AMY = "D222222E";
-    public static final String VALID_IC_BENSON = "R2221234E";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -88,8 +85,6 @@ public class CommandTestUtil {
     public static final String DATE_DESC_BENSON = " " + PREFIX_DATE + VALID_DATE_BENSON;
     public static final String TIME_DESC_AMY = " " + PREFIX_TIME + VALID_TIME_AMY;
     public static final String TIME_DESC_BENSON = " " + PREFIX_TIME + VALID_DATE_BENSON;
-    public static final String IC_DESC_AMY = " " + PREFIX_IC + VALID_IC_AMY;
-    public static final String IC_DESC_BENSON = " " + PREFIX_IC + VALID_IC_BENSON;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -100,7 +95,6 @@ public class CommandTestUtil {
 
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "*2 8u 2000";
     public static final String INVALID_TIME_DESC = " " + PREFIX_TIME + "j0 39";
-    public static final String INVALID_IC_DESC = " " + PREFIX_IC + "j213";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

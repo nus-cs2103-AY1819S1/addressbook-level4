@@ -1,6 +1,5 @@
 package seedu.clinicio.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -69,7 +68,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
         assertFalse(modelManager.hasAppointment(appt));
     }
 
@@ -91,21 +90,15 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
         modelManager.addAppointment(appt);
         assertTrue(modelManager.hasAppointment(appt));
     }
 
     @Test
-    public void getStaff_staffInClinicIO_returnsStaff() {
-        modelManager.addStaff(ADAM);
-        assertEquals(ADAM, modelManager.getStaff(ADAM));
-    }
-
-    @Test
-    public void getStaff_nullStaff_throwsNullPointerException() {
+    public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.getStaff(null);
+        modelManager.checkStaffCredentials(null);
     }
 
     @Test

@@ -111,7 +111,7 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public Staff getStaff(Staff staff) {
+        public boolean checkStaffCredentials(Staff staff) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -144,12 +144,6 @@ public class AddCommandTest {
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        //@@author jjlee050
-        @Override
-        public void updateStaff(Staff target, Staff editedStaff) {
             throw new AssertionError("This method should not be called.");
         }
 

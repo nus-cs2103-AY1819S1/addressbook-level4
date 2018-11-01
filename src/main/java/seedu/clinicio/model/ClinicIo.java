@@ -12,6 +12,7 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.UniqueAppointmentList;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.consultation.UniqueConsultationList;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.UniquePersonList;
 import seedu.clinicio.model.staff.Password;
@@ -147,7 +148,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
      * The person must not already exist in the ClinicIO.
      */
     public void addPerson(Person p) {
-        persons.add(p);
+        persons.add(Patient.buildFromPerson(p));
     }
 
     /**

@@ -13,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 
 import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
+
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 import seedu.clinicio.logic.commands.DequeueCommand;
 import seedu.clinicio.logic.commands.EnqueueCommand;
@@ -177,6 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void addAppointment(Appointment appt) {
         versionedClinicIo.addAppointment(appt);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        indicateClinicIoChanged();
     }
 
     //@author arsalanc-v2
