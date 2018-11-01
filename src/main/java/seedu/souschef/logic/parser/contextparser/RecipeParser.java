@@ -18,6 +18,7 @@ import seedu.souschef.logic.commands.FindCommand;
 import seedu.souschef.logic.commands.HelpCommand;
 import seedu.souschef.logic.commands.ListCommand;
 import seedu.souschef.logic.commands.SelectCommand;
+import seedu.souschef.logic.commands.SurpriseCommand;
 import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.EditCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
@@ -82,6 +83,9 @@ public class RecipeParser {
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parseIndex(recipeModel, arguments);
+
+        case SurpriseCommand.COMMAND_WORD:
+            return new SurpriseCommand(recipeModel);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

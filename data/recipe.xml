@@ -4,49 +4,48 @@
         <name>Chicken Burger</name>
         <difficulty>1</difficulty>
         <cooktime>PT15M</cooktime>
-        <tagged>Western</tagged>
         <instructions>
             <instruction>Mix ground chicken, 1/4 cup bread crumbs, onion, egg, garlic, salt, and black pepper in a bowl. Moisten hands and shape chicken mixture, 2 tablespoons at a time, into flat, oval-shaped patties.</instruction>
             <ingredients>
-                <name>Chicken</name>
-                <amount>200</amount>
+                <name>onion</name>
+                <amount>1.0</amount>
+                <unit>piece</unit>
+            </ingredients>
+            <ingredients>
+                <name>garlic</name>
+                <amount>1.0</amount>
+                <unit>clove</unit>
+            </ingredients>
+            <ingredients>
+                <name>chicken</name>
+                <amount>200.0</amount>
                 <unit>gram</unit>
             </ingredients>
             <ingredients>
-                <name>BreakCrumbs</name>
+                <name>salt</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>egg</name>
+                <amount>1.0</amount>
+                <unit>piece</unit>
+            </ingredients>
+            <ingredients>
+                <name>blackpepper</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>breakcrumbs</name>
                 <amount>0.25</amount>
                 <unit>cup</unit>
-            </ingredients>
-            <ingredients>
-                <name>BlackPepper</name>
-                <amount>1</amount>
-                <unit>pinch</unit>
-            </ingredients>
-            <ingredients>
-                <name>Salt</name>
-                <amount>1</amount>
-                <unit>pinch</unit>
-            </ingredients>
-            <ingredients>
-                <name>Onion</name>
-                <amount>1</amount>
-                <unit>piece</unit>
-            </ingredients>
-            <ingredients>
-                <name>Egg</name>
-                <amount>1</amount>
-                <unit>piece</unit>
-            </ingredients>
-            <ingredients>
-                <name>Garlic</name>
-                <amount>1</amount>
-                <unit>clove</unit>
             </ingredients>
         </instructions>
         <instructions>
             <instruction>Spread remaining 1/4 cup bread crumbs into a shallow dish. Roll patties in bread crumbs to coat.</instruction>
             <ingredients>
-                <name>BreakCrumbs</name>
+                <name>breakcrumbs</name>
                 <amount>0.25</amount>
                 <unit>cup</unit>
             </ingredients>
@@ -54,8 +53,8 @@
         <instructions>
             <instruction>Heat olive oil in a large skillet over medium-high heat.</instruction>
             <ingredients>
-                <name>OliveOil</name>
-                <amount>1</amount>
+                <name>oliveoil</name>
+                <amount>1.0</amount>
                 <unit>tablespoon</unit>
             </ingredients>
         </instructions>
@@ -63,28 +62,28 @@
             <instruction>Cook patties in hot oil until deep brown in color on the bottom, 5 to 6 minutes. Turn patties and cook until other side is browned, 3 to 4 minutes more.</instruction>
             <cooktime>PT6M</cooktime>
         </instructions>
+        <tagged>Western</tagged>
     </recipes>
     <recipes>
         <name>Roti Prata</name>
         <difficulty>2</difficulty>
         <cooktime>PT30M</cooktime>
-        <tagged>Indian</tagged>
         <instructions>
             <instruction>Sift flour, add salt and water to make dough.</instruction>
             <ingredients>
-                <name>Flour</name>
-                <amount>300</amount>
-                <unit>gram</unit>
-            </ingredients>
-            <ingredients>
-                <name>Water</name>
+                <name>water</name>
                 <amount>0.5</amount>
                 <unit>cup</unit>
             </ingredients>
             <ingredients>
-                <name>Salt</name>
-                <amount>1</amount>
+                <name>salt</name>
+                <amount>1.0</amount>
                 <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>flour</name>
+                <amount>300.0</amount>
+                <unit>gram</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -93,12 +92,12 @@
         </instructions>
         <instructions>
             <instruction>Add 2 tsp melted ghee or butter and continue kneading for a further 5 minutes.</instruction>
+            <cooktime>PT5M</cooktime>
             <ingredients>
                 <name>ghee</name>
-                <amount>2</amount>
+                <amount>2.0</amount>
                 <unit>teaspoon</unit>
             </ingredients>
-            <cooktime>PT5M</cooktime>
         </instructions>
         <instructions>
             <instruction>Roll into a ball, place in a bowl, and cover with a damp cloth. Leave aside in a warm place for 30 minutes.</instruction>
@@ -123,71 +122,71 @@
         <instructions>
             <instruction>Heat one teaspoon of ghee or butter on a metal griddle or heavy iron pan.</instruction>
             <ingredients>
-                <name>Ghee</name>
-                <amount>1</amount>
+                <name>ghee</name>
+                <amount>1.0</amount>
                 <unit>teaspoon</unit>
             </ingredients>
         </instructions>
         <instructions>
             <instruction>Fry each prata dough until brown on both sides.</instruction>
         </instructions>
+        <tagged>Indian</tagged>
     </recipes>
     <recipes>
         <name>Takoyaki</name>
         <difficulty>5</difficulty>
         <cooktime>PT20M</cooktime>
-        <tagged>Japanese</tagged>
         <instructions>
             <instruction>In a large bowl, mix well Dashi, eggs, soy sauce, salt, and flour with a whisk.</instruction>
             <ingredients>
-                <name>Dashi</name>
-                <amount>480</amount>
+                <name>dashi</name>
+                <amount>480.0</amount>
                 <unit>ml</unit>
             </ingredients>
             <ingredients>
-                <name>Egg</name>
-                <amount>2</amount>
-                <unit>piece</unit>
-            </ingredients>
-            <ingredients>
-                <name>SoySauce</name>
-                <amount>1</amount>
-                <unit>teaspoon</unit>
-            </ingredients>
-            <ingredients>
-                <name>Salt</name>
+                <name>salt</name>
                 <amount>0.25</amount>
                 <unit>teaspoon</unit>
             </ingredients>
             <ingredients>
-                <name>Flour</name>
-                <amount>1</amount>
+                <name>flour</name>
+                <amount>1.0</amount>
                 <unit>cup</unit>
+            </ingredients>
+            <ingredients>
+                <name>soysauce</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
+            </ingredients>
+            <ingredients>
+                <name>egg</name>
+                <amount>2.0</amount>
+                <unit>piece</unit>
             </ingredients>
         </instructions>
         <instructions>
             <instruction>Heat a Takoyaki pan with oil to very hot, just until the oil begins to smoke. Use enough oil to coat the pan using a paper towel so that the batter won't stick. Then pour batter to fill the holes of the pan.</instruction>
             <ingredients>
-                <name>Oil</name>
-                <amount>1</amount>
+                <name>oil</name>
+                <amount>1.0</amount>
                 <unit>teaspoon</unit>
             </ingredients>
         </instructions>
         <instructions>
             <instruction>Drop octopus pieces in the batter in each hole, and sprinkle chopped green onions and ginger all over the pan.</instruction>
             <ingredients>
-                <name>Octopus</name>
-                <amount>170</amount>
-                <unit>gram</unit>
-            </ingredients>
-            <ingredients>
-                <name>GreenOnion</name>
-                <amount>3</amount>
+                <name>greenonion</name>
+                <amount>3.0</amount>
                 <unit>piece</unit>
             </ingredients>
             <ingredients>
-                <name>Ginger</name>
-                <amount>2</amount>
+                <name>octopus</name>
+                <amount>170.0</amount>
+                <unit>gram</unit>
+            </ingredients>
+            <ingredients>
+                <name>ginger</name>
+                <amount>2.0</amount>
                 <unit>tablespoon</unit>
             </ingredients>
         </instructions>
@@ -198,20 +197,21 @@
         <instructions>
             <instruction>Place the cooked Takoyaki on a plate and pour Takoyaki sauce and mayo over them (to taste). Finish the dish by sprinkling the Takoyaki with Aonori (green dried seaweed) and Katsuobushi (dried bonito flakes).</instruction>
             <ingredients>
-                <name>Mayo</name>
-                <amount>1</amount>
-                <unit>tablespoon</unit>
+                <name>bonitoflakes</name>
+                <amount>1.0</amount>
+                <unit>pinch</unit>
             </ingredients>
             <ingredients>
-                <name>DriedSeaweed</name>
-                <amount>1</amount>
+                <name>driedseaweed</name>
+                <amount>1.0</amount>
                 <unit>teaspoon</unit>
             </ingredients>
             <ingredients>
-                <name>BonitoFlakes</name>
-                <amount>1</amount>
-                <unit>pinch</unit>
+                <name>mayo</name>
+                <amount>1.0</amount>
+                <unit>tablespoon</unit>
             </ingredients>
         </instructions>
+        <tagged>Japanese</tagged>
     </recipes>
 </souschef>
