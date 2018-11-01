@@ -19,6 +19,7 @@ import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.LsCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.google.GoogleCommand;
@@ -70,6 +71,9 @@ public class PiconsoParser {
 
         case CreateConvertCommand.COMMAND_WORD:
             return new CreateConvertCommandParser().parse(arguments);
+
+        case SaveCommand.COMMAND_WORD:
+            return new SaveCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();

@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
-import java.net.URL;
 
 import javafx.embed.swing.SwingFXUtils;
 import seedu.address.commons.core.EventsCenter;
@@ -12,7 +11,6 @@ import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.transformation.Transformation;
 
@@ -32,19 +30,10 @@ public class ConvertCommand extends Command {
     private Transformation transformation;
     /**
      * the constructor take the path of the JSON file of the detail of the convert operation
-     * @param fileUrl the path to the JSON file
      * @param transformation contains the operation to be processed to the image
      */
-    public ConvertCommand(URL fileUrl, Transformation transformation) throws ParseException {
-        if (!isFileExist(fileUrl)) {
-            throw new ParseException("no file found");
-        }
+    public ConvertCommand(Transformation transformation) {
         this.transformation = transformation;
-    }
-
-    private static boolean isFileExist(URL fileUrl) {
-        /*return new File(fileUrl.toString()).exists();*/
-        return true;
     }
 
     /**
