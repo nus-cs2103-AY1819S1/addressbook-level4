@@ -21,3 +21,4 @@ classes/
 src/main/resources/docs/
 out/
 .gitattributes
+META-INF
