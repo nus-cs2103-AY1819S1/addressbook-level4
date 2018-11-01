@@ -98,11 +98,6 @@ public interface Model {
     void removeImageFromList(int idx);
 
     /**
-     * Get preview image list (first 10 images in imageList)
-     */
-    List<Path> returnPreviewImageList();
-
-    /**
      * Retrieves the current displayed original image.
      */
     Path getCurrentOriginalImage();

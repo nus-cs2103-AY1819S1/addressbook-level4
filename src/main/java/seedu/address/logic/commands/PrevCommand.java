@@ -31,7 +31,7 @@ public class PrevCommand extends Command {
         }
 
         model.updateImageListPrevBatch();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.returnPreviewImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), true));
 
         return new CommandResult((String.format(MESSAGE_PREV_SUCCESS, model.getDirectoryImageList().size()) + "\n"
                 + (String.format(Messages.MESSAGE_REMAINING_IMAGES_IN_DIR, model.numOfRemainingImagesInDir())

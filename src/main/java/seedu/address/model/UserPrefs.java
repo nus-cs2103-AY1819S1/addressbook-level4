@@ -122,18 +122,6 @@ public class UserPrefs {
         currBatchPointer -= 10;
     }
 
-    /**
-     * Get preview image list (first 10 images in imageList)
-     */
-    public List<Path> returnPreviewImageList() {
-
-        if (imageList.size() > 10) {
-            return imageList.subList(0, 10);
-        } else {
-            return imageList;
-        }
-    }
-
     public List<Path> getCurrImageListBatch() {
         return imageList.subList(currBatchPointer, Math.min(currBatchPointer + 10, getTotalImagesInDir()));
     }
