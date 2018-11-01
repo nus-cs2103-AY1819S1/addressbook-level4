@@ -18,201 +18,201 @@ import seedu.address.testutil.MeetingBookBuilder;
 
 public class VersionedMeetingBookTest {
 
-    private final ReadOnlyMeetingBook addressBookWithAmy = new MeetingBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyMeetingBook addressBookWithBob = new MeetingBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyMeetingBook addressBookWithCarl = new MeetingBookBuilder().withPerson(CARL).build();
-    private final ReadOnlyMeetingBook emptyAddressBook = new MeetingBookBuilder().build();
+    private final ReadOnlyMeetingBook meetingBookWithAmy = new MeetingBookBuilder().withPerson(AMY).build();
+    private final ReadOnlyMeetingBook meetingBookWithBob = new MeetingBookBuilder().withPerson(BOB).build();
+    private final ReadOnlyMeetingBook meetingBookWithCarl = new MeetingBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyMeetingBook emptyMeetingBook = new MeetingBookBuilder().build();
 
     @Test
-    public void commit_singleAddressBook_noStatesRemovedCurrentStateSaved() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(emptyAddressBook);
+    public void commit_singleMeetingBook_noStatesRemovedCurrentStateSaved() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(emptyMeetingBook);
 
         versionedMeetingBook.commit();
-        assertAddressBookListStatus(versionedMeetingBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        assertMeetingBookListStatus(versionedMeetingBook,
+                Collections.singletonList(emptyMeetingBook),
+                emptyMeetingBook,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void commit_multipleMeetingBookPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
 
         versionedMeetingBook.commit();
-        assertAddressBookListStatus(versionedMeetingBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
-                addressBookWithBob,
+        assertMeetingBookListStatus(versionedMeetingBook,
+                Arrays.asList(emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob),
+                meetingBookWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void commit_multipleAddressBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void commit_multipleMeetingBookPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 2);
 
         versionedMeetingBook.commit();
-        assertAddressBookListStatus(versionedMeetingBook,
-                Collections.singletonList(emptyAddressBook),
-                emptyAddressBook,
+        assertMeetingBookListStatus(versionedMeetingBook,
+                Collections.singletonList(emptyMeetingBook),
+                emptyMeetingBook,
                 Collections.emptyList());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtEndOfStateList_returnsTrue() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleMeetingBookPointerAtEndOfStateList_returnsTrue() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
 
         assertTrue(versionedMeetingBook.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleMeetingBookPointerAtStartOfStateList_returnsTrue() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 1);
 
         assertTrue(versionedMeetingBook.canUndo());
     }
 
     @Test
-    public void canUndo_singleAddressBook_returnsFalse() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(emptyAddressBook);
+    public void canUndo_singleMeetingBook_returnsFalse() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(emptyMeetingBook);
 
         assertFalse(versionedMeetingBook.canUndo());
     }
 
     @Test
-    public void canUndo_multipleAddressBookPointerAtStartOfStateList_returnsFalse() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canUndo_multipleMeetingBookPointerAtStartOfStateList_returnsFalse() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 2);
 
         assertFalse(versionedMeetingBook.canUndo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerNotAtEndOfStateList_returnsTrue() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleMeetingBookPointerNotAtEndOfStateList_returnsTrue() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 1);
 
         assertTrue(versionedMeetingBook.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtStartOfStateList_returnsTrue() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleMeetingBookPointerAtStartOfStateList_returnsTrue() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 2);
 
         assertTrue(versionedMeetingBook.canRedo());
     }
 
     @Test
-    public void canRedo_singleAddressBook_returnsFalse() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(emptyAddressBook);
+    public void canRedo_singleMeetingBook_returnsFalse() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(emptyMeetingBook);
 
         assertFalse(versionedMeetingBook.canRedo());
     }
 
     @Test
-    public void canRedo_multipleAddressBookPointerAtEndOfStateList_returnsFalse() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void canRedo_multipleMeetingBookPointerAtEndOfStateList_returnsFalse() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
 
         assertFalse(versionedMeetingBook.canRedo());
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtEndOfStateList_success() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleMeetingBookPointerAtEndOfStateList_success() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
 
         versionedMeetingBook.undo();
-        assertAddressBookListStatus(versionedMeetingBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        assertMeetingBookListStatus(versionedMeetingBook,
+                Collections.singletonList(emptyMeetingBook),
+                meetingBookWithAmy,
+                Collections.singletonList(meetingBookWithBob));
     }
 
     @Test
-    public void undo_multipleAddressBookPointerNotAtStartOfStateList_success() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleMeetingBookPointerNotAtStartOfStateList_success() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 1);
 
         versionedMeetingBook.undo();
-        assertAddressBookListStatus(versionedMeetingBook,
+        assertMeetingBookListStatus(versionedMeetingBook,
                 Collections.emptyList(),
-                emptyAddressBook,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+                emptyMeetingBook,
+                Arrays.asList(meetingBookWithAmy, meetingBookWithBob));
     }
 
     @Test
-    public void undo_singleAddressBook_throwsNoUndoableStateException() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(emptyAddressBook);
+    public void undo_singleMeetingBook_throwsNoUndoableStateException() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(emptyMeetingBook);
 
         assertThrows(VersionedMeetingBook.NoUndoableStateException.class, versionedMeetingBook::undo);
     }
 
     @Test
-    public void undo_multipleAddressBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void undo_multipleMeetingBookPointerAtStartOfStateList_throwsNoUndoableStateException() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 2);
 
         assertThrows(VersionedMeetingBook.NoUndoableStateException.class, versionedMeetingBook::undo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleMeetingBookPointerNotAtEndOfStateList_success() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 1);
 
         versionedMeetingBook.redo();
-        assertAddressBookListStatus(versionedMeetingBook,
-                Arrays.asList(emptyAddressBook, addressBookWithAmy),
-                addressBookWithBob,
+        assertMeetingBookListStatus(versionedMeetingBook,
+                Arrays.asList(emptyMeetingBook, meetingBookWithAmy),
+                meetingBookWithBob,
                 Collections.emptyList());
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtStartOfStateList_success() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleMeetingBookPointerAtStartOfStateList_success() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 2);
 
         versionedMeetingBook.redo();
-        assertAddressBookListStatus(versionedMeetingBook,
-                Collections.singletonList(emptyAddressBook),
-                addressBookWithAmy,
-                Collections.singletonList(addressBookWithBob));
+        assertMeetingBookListStatus(versionedMeetingBook,
+                Collections.singletonList(emptyMeetingBook),
+                meetingBookWithAmy,
+                Collections.singletonList(meetingBookWithBob));
     }
 
     @Test
-    public void redo_singleAddressBook_throwsNoRedoableStateException() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(emptyAddressBook);
+    public void redo_singleMeetingBook_throwsNoRedoableStateException() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(emptyMeetingBook);
 
         assertThrows(VersionedMeetingBook.NoRedoableStateException.class, versionedMeetingBook::redo);
     }
 
     @Test
-    public void redo_multipleAddressBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(
-                emptyAddressBook, addressBookWithAmy, addressBookWithBob);
+    public void redo_multipleMeetingBookPointerAtEndOfStateList_throwsNoRedoableStateException() {
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(
+                emptyMeetingBook, meetingBookWithAmy, meetingBookWithBob);
 
         assertThrows(VersionedMeetingBook.NoRedoableStateException.class, versionedMeetingBook::redo);
     }
 
     @Test
     public void equals() {
-        VersionedMeetingBook versionedMeetingBook = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
+        VersionedMeetingBook versionedMeetingBook = prepareMeetingBookList(meetingBookWithAmy, meetingBookWithBob);
 
         // same values -> returns true
-        VersionedMeetingBook copy = prepareAddressBookList(addressBookWithAmy, addressBookWithBob);
+        VersionedMeetingBook copy = prepareMeetingBookList(meetingBookWithAmy, meetingBookWithBob);
         assertTrue(versionedMeetingBook.equals(copy));
 
         // same object -> returns true
@@ -225,12 +225,12 @@ public class VersionedMeetingBookTest {
         assertFalse(versionedMeetingBook.equals(1));
 
         // different state list -> returns false
-        VersionedMeetingBook differentAddressBookList = prepareAddressBookList(addressBookWithBob, addressBookWithCarl);
-        assertFalse(versionedMeetingBook.equals(differentAddressBookList));
+        VersionedMeetingBook differentMeetingBookList = prepareMeetingBookList(meetingBookWithBob, meetingBookWithCarl);
+        assertFalse(versionedMeetingBook.equals(differentMeetingBookList));
 
         // different current pointer index -> returns false
-        VersionedMeetingBook differentCurrentStatePointer = prepareAddressBookList(
-                addressBookWithAmy, addressBookWithBob);
+        VersionedMeetingBook differentCurrentStatePointer = prepareMeetingBookList(
+                meetingBookWithAmy, meetingBookWithBob);
         shiftCurrentStatePointerLeftwards(versionedMeetingBook, 1);
         assertFalse(versionedMeetingBook.equals(differentCurrentStatePointer));
     }
@@ -240,7 +240,7 @@ public class VersionedMeetingBookTest {
      * states before {@code versionedMeetingBook#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
      * and states after {@code versionedMeetingBook#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
      */
-    private void assertAddressBookListStatus(VersionedMeetingBook versionedMeetingBook,
+    private void assertMeetingBookListStatus(VersionedMeetingBook versionedMeetingBook,
                                              List<ReadOnlyMeetingBook> expectedStatesBeforePointer,
                                              ReadOnlyMeetingBook expectedCurrentState,
                                              List<ReadOnlyMeetingBook> expectedStatesAfterPointer) {
@@ -253,15 +253,15 @@ public class VersionedMeetingBookTest {
         }
 
         // check states before pointer are correct
-        for (ReadOnlyMeetingBook expectedAddressBook : expectedStatesBeforePointer) {
-            assertEquals(expectedAddressBook, new MeetingBook(versionedMeetingBook));
+        for (ReadOnlyMeetingBook expectedMeetingBook : expectedStatesBeforePointer) {
+            assertEquals(expectedMeetingBook, new MeetingBook(versionedMeetingBook));
             versionedMeetingBook.redo();
         }
 
         // check states after pointer are correct
-        for (ReadOnlyMeetingBook expectedAddressBook : expectedStatesAfterPointer) {
+        for (ReadOnlyMeetingBook expectedMeetingBook : expectedStatesAfterPointer) {
             versionedMeetingBook.redo();
-            assertEquals(expectedAddressBook, new MeetingBook(versionedMeetingBook));
+            assertEquals(expectedMeetingBook, new MeetingBook(versionedMeetingBook));
         }
 
         // check that there are no more states after pointer
@@ -272,15 +272,15 @@ public class VersionedMeetingBookTest {
     }
 
     /**
-     * Creates and returns a {@code VersionedMeetingBook} with the {@code addressBookStates} added into it, and the
+     * Creates and returns a {@code VersionedMeetingBook} with the {@code meetingBookStates} added into it, and the
      * {@code VersionedMeetingBook#currentStatePointer} at the end of list.
      */
-    private VersionedMeetingBook prepareAddressBookList(ReadOnlyMeetingBook... addressBookStates) {
-        assertFalse(addressBookStates.length == 0);
+    private VersionedMeetingBook prepareMeetingBookList(ReadOnlyMeetingBook... meetingBookStates) {
+        assertFalse(meetingBookStates.length == 0);
 
-        VersionedMeetingBook versionedMeetingBook = new VersionedMeetingBook(addressBookStates[0]);
-        for (int i = 1; i < addressBookStates.length; i++) {
-            versionedMeetingBook.resetData(addressBookStates[i]);
+        VersionedMeetingBook versionedMeetingBook = new VersionedMeetingBook(meetingBookStates[0]);
+        for (int i = 1; i < meetingBookStates.length; i++) {
+            versionedMeetingBook.resetData(meetingBookStates[i]);
             versionedMeetingBook.commit();
         }
 

@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 // @@author Derek-Hardy
 /**
- * Represents a Group's or a Meeting's name in the address book.
+ * Represents a Group's or a Meeting's name in the MeetingBook.
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  *
  * {@author Derek-Hardy}

@@ -61,13 +61,13 @@ public class MeetCommand extends Command {
 
         if (meeting != null) {
             handleNonEmptyArgumentMeetCommand(model);
-            model.commitAddressBook();
+            model.commitMeetingBook();
             return new CommandResult(String.format(MESSAGE_MEET_COMMAND_SUCCESS,
                     group.getTitle(), meeting.getTitle()));
 
         } else {
             handleEmptyArgumentMeetCommand(model);
-            model.commitAddressBook();
+            model.commitMeetingBook();
             return new CommandResult(String.format(MESSAGE_MEETING_CANCELLED, group.getTitle()));
         }
     }

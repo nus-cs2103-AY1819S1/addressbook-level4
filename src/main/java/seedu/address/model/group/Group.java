@@ -17,7 +17,7 @@ import seedu.address.model.shared.Title;
 
 // @@author Derek-Hardy
 /**
- * Represents a Group for participants in the address book.
+ * Represents a Group for participants in the MeetingBook.
  * The person will be able to keep a list of groups that he/she has enrolled.
  * The group will also keep track of a list of its members.
  * Every group will contain one and only one meeting. The newly added meeting will always

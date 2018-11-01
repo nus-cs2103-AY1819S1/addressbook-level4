@@ -10,13 +10,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Export existing address book to user-defined path
+ * Export existing MeetingBook to user-defined path
  */
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
     public static final String MESSAGE_EXPORT_SUCCESS = "Export process has been successful.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the address book to specific filepath. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the MeetingBook to specific filepath. "
             + "Parameters: "
             + PREFIX_PATH + "FilePath\n"
             + "Example: " + COMMAND_WORD + " "
@@ -32,7 +32,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        model.exportAddressBook(this.filepath);
+        model.exportMeetingBook(this.filepath);
         return new CommandResult(MESSAGE_EXPORT_SUCCESS);
     }
 

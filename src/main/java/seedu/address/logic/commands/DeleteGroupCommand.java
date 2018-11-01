@@ -12,7 +12,7 @@ import seedu.address.model.shared.Title;
 
 // @@author Derek-Hardy
 /**
- * Deletes a group identified using it's displayed title from the address book.
+ * Deletes a group identified using it's displayed title from the MeetingBook.
  */
 public class DeleteGroupCommand extends Command {
 
@@ -48,7 +48,7 @@ public class DeleteGroupCommand extends Command {
         }
 
         model.removeGroup(matchedGroupByName);
-        model.commitAddressBook();
+        model.commitMeetingBook();
         return new CommandResult(String.format(MESSAGE_DELETE_GROUP_SUCCESS, matchedGroupByName));
     }
 

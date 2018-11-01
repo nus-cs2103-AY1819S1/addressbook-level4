@@ -18,13 +18,13 @@ import seedu.address.model.shared.Title;
 
 
 /**
- * Join a person into a group existed in the address book.
+ * Join a person into a group existed in the MeetingBook.
  */
 public class JoinCommand extends Command {
 
     public static final String COMMAND_WORD = "join";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person into a group in the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person into a group in the MeetingBook. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_GROUP + "GROUP\n"
@@ -66,7 +66,7 @@ public class JoinCommand extends Command {
         }
 
         model.joinGroup(matchedPersonByName, matchedGroupByName);
-        model.commitAddressBook();
+        model.commitMeetingBook();
         return new CommandResult(String.format(MESSAGE_JOIN_SUCCESS, matchedPersonByName, matchedGroupByName));
     }
 

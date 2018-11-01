@@ -92,7 +92,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the MeetingBook.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -101,7 +101,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     // @@author Derek-Hardy
     /**
-     * Returns true if a group with the same identity as {@code group} exists in the address book.
+     * Returns true if a group with the same identity as {@code group} exists in the MeetingBook.
      */
     public boolean hasGroup(Group group) {
         requireNonNull(group);
@@ -126,8 +126,8 @@ public class MeetingBook implements ReadOnlyMeetingBook {
     // @@author
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the MeetingBook.
+     * The person must not already exist in the MeetingBook.
      *
      * Note: The tag field is deprecated. When indicating a group, use the
      * Group class instead
@@ -138,8 +138,8 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     // @@author Derek-Hardy
     /**
-     * Adds a group to the address book.
-     * The group must not already exist in the address book.
+     * Adds a group to the MeetingBook.
+     * The group must not already exist in the MeetingBook.
      */
     public void addGroup(Group group) {
         groups.add(group);
@@ -150,8 +150,8 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the MeetingBook.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the MeetingBook.
      *
      */
     public void updatePerson(Person target, Person editedPerson) {
@@ -166,8 +166,8 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replace the given group {@code target} in the list with {@code editedGroup}.
-     * {@code target} must exist in the address book.
-     * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
+     * {@code target} must exist in the MeetingBook.
+     * The group identity of {@code editedGroup} must not be the same as another existing group in the MeetingBook.
      *
      */
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
@@ -181,7 +181,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Removes {@code key} from this {@code MeetingBook}.
-     * {@code key} must exist in the address book.
+     * {@code key} must exist in the MeetingBook.
      */
     public void removePerson(Person key) {
         requireNonNull(key);
@@ -191,7 +191,7 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Removes {@code group} from this {@code MeetingBook}.
-     * {@code group} must exist in the address book.
+     * {@code group} must exist in the MeetingBook.
      *
      */
     public void removeGroup(Group group) {

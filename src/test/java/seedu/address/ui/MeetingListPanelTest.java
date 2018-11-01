@@ -86,9 +86,9 @@ public class MeetingListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Meeting> createBackingList(int meetingCount) throws Exception {
         Path xmlFile = createXmlFileWithMeetings(meetingCount);
-        XmlSerializableMeetingBook xmlAddressBook =
+        XmlSerializableMeetingBook xmlMeetingBook =
             XmlUtil.getDataFromFile(xmlFile, XmlSerializableMeetingBook.class);
-        List<Meeting> meetingList = xmlAddressBook.toModelType().getGroupList()
+        List<Meeting> meetingList = xmlMeetingBook.toModelType().getGroupList()
             .stream().map(Group::getMeeting).collect(Collectors.toList());
         return FXCollections.observableArrayList(meetingList);
     }
@@ -100,7 +100,7 @@ public class MeetingListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithMeetings(int meetingCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<meetingbook>\n");
         for (int i = 0; i < meetingCount; i++) {
             builder.append("<groups>\n");
             builder.append("<title>").append(i).append("</title>\n");
@@ -113,7 +113,7 @@ public class MeetingListPanelTest extends GuiUnitTest {
             builder.append("</meeting>\n");
             builder.append("</groups>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</meetingbook>\n");
 
         Path manyMeetingsFile = Paths.get(TEST_DATA_FOLDER + "manyMeetings.xml");
         FileUtil.createFile(manyMeetingsFile);

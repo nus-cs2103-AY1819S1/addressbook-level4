@@ -41,53 +41,53 @@ public interface Model {
     /**
      * Returns the MeetingBook
      */
-    ReadOnlyMeetingBook getAddressBook();
+    ReadOnlyMeetingBook getMeetingBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the MeetingBook.
      */
     boolean hasPerson(Person person);
 
     /**
      * Deletes the given person.
-     * The person must exist in the address book.
+     * The person must exist in the MeetingBook.
      */
     void deletePerson(Person target);
 
     /**
      * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * {@code person} must not already exist in the MeetingBook.
      */
     void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * {@code target} must exist in the MeetingBook.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the MeetingBook.
      */
     void updatePerson(Person target, Person editedPerson);
 
     /**
      * Replace the given group {@code target} in the list with {@code editedGroup}.
-     * {@code target} must exist in the address book.
-     * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
+     * {@code target} must exist in the MeetingBook.
+     * The group identity of {@code editedGroup} must not be the same as another existing group in the MeetingBook.
      */
     void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException;
 
     // @@author Derek-Hardy
     /**
-     * Add a group object {@code group} to the address book.
-     * The group must not already exist in the address book.
+     * Add a group object {@code group} to the MeetingBook.
+     * The group must not already exist in the MeetingBook.
      *
-     * @param group The new group to be added into address book
+     * @param group The new group to be added into MeetingBook
      */
     void addGroup(Group group);
 
     /**
-     * Remove a group {@code group} from the address book.
-     * Report error message if the given group does not exist inside the address book.
+     * Remove a group {@code group} from the MeetingBook.
+     * Report error message if the given group does not exist inside the MeetingBook.
      *
-     * @param group The group to be removed from address book
+     * @param group The group to be removed from MeetingBook
      */
     void removeGroup(Group group);
 
@@ -110,7 +110,7 @@ public interface Model {
 
     // @@author NyxF4ll
     /**
-     * Returns true if a group with the same identity as {@code group} exists in the address book.
+     * Returns true if a group with the same identity as {@code group} exists in the MeetingBook.
      */
     boolean hasGroup(Group group);
 
@@ -179,39 +179,39 @@ public interface Model {
     void updateSortedPersonList(PersonPropertyComparator personPropertyComparator);
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous MeetingBook states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoMeetingBook();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone MeetingBook states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoMeetingBook();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's MeetingBook to its previous state.
      */
-    void undoAddressBook();
+    void undoMeetingBook();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's MeetingBook to its previously undone state.
      */
-    void redoAddressBook();
+    void redoMeetingBook();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current MeetingBook state for undo/redo.
      */
-    void commitAddressBook();
+    void commitMeetingBook();
 
     /**
-     * Export the current address book.
+     * Export the current MeetingBook.
      */
-    void exportAddressBook(Path filepath);
+    void exportMeetingBook(Path filepath);
 
     /**
-     * Import the current address book.
+     * Import the current MeetingBook.
      */
-    void importAddressBook(ReadOnlyMeetingBook importAddressBook, boolean overwrite);
+    void importMeetingBook(ReadOnlyMeetingBook importMeetingBook, boolean overwrite);
 
     /**
      * Change User Preferences.
@@ -221,5 +221,5 @@ public interface Model {
     /**
      * Get Current Address Book File Path.
      */
-    Path getAddressBookFilePath();
+    Path getMeetingBookFilePath();
 }

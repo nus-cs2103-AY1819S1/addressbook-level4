@@ -28,21 +28,21 @@ public class XmlMeetingBookStorage implements MeetingBookStorage {
         this.filePath = filePath;
     }
 
-    public Path getAddressBookFilePath() {
+    public Path getMeetingBookFilePath() {
         return filePath;
     }
 
     @Override
-    public Optional<ReadOnlyMeetingBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyMeetingBook> readMeetingBook() throws DataConversionException, IOException {
+        return readMeetingBook(filePath);
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readMeetingBook()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyMeetingBook> readAddressBook(Path filePath) throws DataConversionException,
+    public Optional<ReadOnlyMeetingBook> readMeetingBook(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
 
@@ -51,9 +51,9 @@ public class XmlMeetingBookStorage implements MeetingBookStorage {
             return Optional.empty();
         }
 
-        XmlSerializableMeetingBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
+        XmlSerializableMeetingBook xmlMeetingBook = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
-            return Optional.of(xmlAddressBook.toModelType());
+            return Optional.of(xmlMeetingBook.toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -61,24 +61,24 @@ public class XmlMeetingBookStorage implements MeetingBookStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMeetingBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveMeetingBook(ReadOnlyMeetingBook meetingBook) throws IOException {
+        saveMeetingBook(meetingBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyMeetingBook)}
+     * Similar to {@link #saveMeetingBook(ReadOnlyMeetingBook)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyMeetingBook addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveMeetingBook(ReadOnlyMeetingBook meetingBook, Path filePath) throws IOException {
+        requireNonNull(meetingBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableMeetingBook(addressBook));
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableMeetingBook(meetingBook));
     }
 
     @Override
-    public void deleteAddressBook(Path filePath) throws IOException {
+    public void deleteMeetingBook(Path filePath) throws IOException {
         FileUtil.deleteFile(filePath);
     }
 

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import org.junit.Test;
 
@@ -16,20 +16,20 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyMeetingBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
+        expectedModel.commitMeetingBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyMeetingBook_success() {
+        Model model = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
         expectedModel.resetData(new MeetingBook());
-        expectedModel.commitAddressBook();
+        expectedModel.commitMeetingBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

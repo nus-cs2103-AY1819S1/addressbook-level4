@@ -55,10 +55,10 @@ public class ImportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         XmlMeetingBookStorage importedXmlAddressStorage = new XmlMeetingBookStorage(importPath);
-        Optional<ReadOnlyMeetingBook> importedAddressBook;
+        Optional<ReadOnlyMeetingBook> importedMeetingBook;
         try {
-            importedAddressBook = importedXmlAddressStorage.readAddressBook();
-            if (!importedAddressBook.isPresent()) {
+            importedMeetingBook = importedXmlAddressStorage.readMeetingBook();
+            if (!importedMeetingBook.isPresent()) {
                 return new CommandResult(MESSAGE_FAIL_NOFILE);
             }
         } catch (DataConversionException e) {
@@ -69,8 +69,8 @@ public class ImportCommand extends Command {
             return new CommandResult(MESSAGE_FAIL_NOFILE);
         }
 
-        model.importAddressBook(importedAddressBook.get(), overwrite);
-        model.commitAddressBook();
+        model.importMeetingBook(importedMeetingBook.get(), overwrite);
+        model.commitMeetingBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, importPath.toString()));
     }
 

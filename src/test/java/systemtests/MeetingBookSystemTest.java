@@ -78,7 +78,7 @@ public abstract class MeetingBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected MeetingBook getInitialData() {
-        return TypicalMeetingBook.getTypicalAddressBook();
+        return TypicalMeetingBook.getTypicalMeetingBook();
     }
 
     /**
@@ -130,11 +130,11 @@ public abstract class MeetingBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all persons in the MeetingBook.
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD + " " + ListCommand.COMMAND_PARAM_PERSON);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getMeetingBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
     /**
@@ -142,7 +142,7 @@ public abstract class MeetingBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindPersonCommand.COMMAND_WORD + " " + FindPersonCommand.FIND_PERSON_PARAM + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getMeetingBook().getPersonList().size());
     }
 
     /**
@@ -154,11 +154,11 @@ public abstract class MeetingBookSystemTest {
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all persons in the MeetingBook.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        assertEquals(0, getModel().getMeetingBook().getPersonList().size());
     }
 
     /**
@@ -170,7 +170,7 @@ public abstract class MeetingBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new MeetingBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new MeetingBook(expectedModel.getMeetingBook()), testApp.readStorageMeetingBook());
     }
 
     /**

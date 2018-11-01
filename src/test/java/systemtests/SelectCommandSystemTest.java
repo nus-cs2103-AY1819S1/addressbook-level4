@@ -58,14 +58,14 @@ public class SelectCommandSystemTest extends MeetingBookSystemTest {
 
         /* --------------------- Perform select operations on the shown filtered person list ------------------------ */
 
-        /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
+        /* Case: filtered person list, select index within bounds of MeetingBook but out of bounds of person list
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getMeetingBook().getPersonList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " p/" + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /* Case: filtered person list, select index within bounds of address book and person list -> selected */
+        /* Case: filtered person list, select index within bounds of MeetingBook and person list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
         command = SelectCommand.COMMAND_WORD + " p/" + validIndex.getOneBased();

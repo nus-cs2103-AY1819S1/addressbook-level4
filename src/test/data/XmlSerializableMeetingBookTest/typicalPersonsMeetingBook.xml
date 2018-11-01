@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- MeetingBook save file which contains the same Person values as in TypicalAddressBook#getTypicalAddressBook() -->
-<addressbook>
+<meetingbook>
     <persons>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
@@ -97,4 +97,4 @@
             <description>Urgent meeting on the project direction</description>
         </meeting>
     </groups>
-</addressbook>
+</meetingbook>

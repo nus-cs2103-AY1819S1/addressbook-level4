@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUPTAG_CCA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -40,24 +40,24 @@ public class MeetingBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final MeetingBook addressBook = new MeetingBook();
+    private final MeetingBook meetingBook = new MeetingBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), meetingBook.getPersonList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        meetingBook.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        MeetingBook newData = getTypicalAddressBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+    public void resetData_withValidReadOnlyMeetingBook_replacesData() {
+        MeetingBook newData = getTypicalMeetingBook();
+        meetingBook.resetData(newData);
+        assertEquals(newData, meetingBook);
     }
 
     @Test
@@ -71,116 +71,116 @@ public class MeetingBookTest {
         MeetingBookStub newData = new MeetingBookStub(newPersons, editedAlice.getGroupTags());
 
         thrown.expect(DuplicatePersonException.class);
-        addressBook.resetData(newData);
+        meetingBook.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        meetingBook.hasPerson(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasPerson_personNotInMeetingBook_returnsFalse() {
+        assertFalse(meetingBook.hasPerson(ALICE));
     }
 
     @Test
-    public void hasGroup_groupNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasGroup(PROJECT_2103T));
+    public void hasGroup_groupNotInMeetingBook_returnsFalse() {
+        assertFalse(meetingBook.hasGroup(PROJECT_2103T));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
-        addressBook.removePerson(ALICE); //reset
+    public void hasPerson_personInMeetingBook_returnsTrue() {
+        meetingBook.addPerson(ALICE);
+        assertTrue(meetingBook.hasPerson(ALICE));
+        meetingBook.removePerson(ALICE); //reset
     }
 
     @Test
-    public void hasGroup_groupInAddressBook_returnsTrue() {
-        MeetingBook addressBook = new MeetingBook();
-        addressBook.addGroup(PROJECT_2103T);
-        assertTrue(addressBook.hasGroup(PROJECT_2103T));
+    public void hasGroup_groupInMeetingBook_returnsTrue() {
+        MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addGroup(PROJECT_2103T);
+        assertTrue(meetingBook.hasGroup(PROJECT_2103T));
     }
 
     @Test
     public void hasPerson_personIsRemoved_returnsFalse() {
-        MeetingBook addressBook = new MeetingBook();
-        addressBook.addPerson(BOB);
-        addressBook.removePerson(BOB);
-        assertFalse(addressBook.hasPerson(BOB));
+        MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addPerson(BOB);
+        meetingBook.removePerson(BOB);
+        assertFalse(meetingBook.hasPerson(BOB));
     }
 
     @Test
     public void hasGroup_groupIsRemoved_returnsFalse() {
-        MeetingBook addressBook = new MeetingBook();
-        addressBook.addGroup(PROJECT_2103T);
-        addressBook.removeGroup(PROJECT_2103T);
-        assertFalse(addressBook.hasGroup(PROJECT_2103T));
+        MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addGroup(PROJECT_2103T);
+        meetingBook.removeGroup(PROJECT_2103T);
+        assertFalse(meetingBook.hasGroup(PROJECT_2103T));
     }
 
     @Test
     public void hasPerson_personIsUpdated_returnsTrue() {
-        MeetingBook addressBook = new MeetingBook();
-        addressBook.addPerson(ALICE);
-        addressBook.updatePerson(ALICE, BOB);
-        assertTrue(addressBook.hasPerson(BOB));
+        MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addPerson(ALICE);
+        meetingBook.updatePerson(ALICE, BOB);
+        assertTrue(meetingBook.hasPerson(BOB));
     }
 
     @Test
     public void hasPerson_personIsUpdated_returnsFalse() {
-        MeetingBook addressBook = new MeetingBook();
-        addressBook.addPerson(ALICE);
-        addressBook.updatePerson(ALICE, BOB);
-        assertFalse(addressBook.hasPerson(ALICE));
+        MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addPerson(ALICE);
+        meetingBook.updatePerson(ALICE, BOB);
+        assertFalse(meetingBook.hasPerson(ALICE));
     }
 
     @Test
     public void hasGroup_groupIsUpdated_returnsTrue() {
-        MeetingBook addressBook = new MeetingBook();
-        addressBook.addGroup(GROUP_2101);
-        addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
-        assertTrue(addressBook.hasGroup(PROJECT_2103T));
+        MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addGroup(GROUP_2101);
+        meetingBook.updateGroup(GROUP_2101, PROJECT_2103T);
+        assertTrue(meetingBook.hasGroup(PROJECT_2103T));
     }
 
     @Test
     public void hasGroup_groupIsUpdated_returnsFalse() {
-        MeetingBook addressBook = new MeetingBook();
-        addressBook.addGroup(GROUP_2101);
-        addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
-        assertFalse(addressBook.hasGroup(GROUP_2101));
+        MeetingBook meetingBook = new MeetingBook();
+        meetingBook.addGroup(GROUP_2101);
+        meetingBook.updateGroup(GROUP_2101, PROJECT_2103T);
+        assertFalse(meetingBook.hasGroup(GROUP_2101));
     }
 
     @Test
     public void joinGroup_personInGroup_returnsTrue() {
-        MeetingBook addressBook = new MeetingBook();
+        MeetingBook meetingBook = new MeetingBook();
         Person person = new PersonBuilder().withName("Derek").build();
         Group group = new GroupBuilder().withTitle("class").build();
-        addressBook.addPerson(person);
-        addressBook.addGroup(group);
-        addressBook.joinGroup(person, group);
+        meetingBook.addPerson(person);
+        meetingBook.addGroup(group);
+        meetingBook.joinGroup(person, group);
         //assertTrue(group.hasMember(person));
         assertTrue(person.hasGroup(group));
     }
 
     @Test
     public void joinGroup_groupHasPerson_returnsTrue() {
-        MeetingBook addressBook = new MeetingBook();
+        MeetingBook meetingBook = new MeetingBook();
         Person person = new PersonBuilder().withName("Derek").build();
         Group group = new GroupBuilder().withTitle("class").build();
-        addressBook.addPerson(person);
-        addressBook.addGroup(group);
-        addressBook.joinGroup(person, group);
+        meetingBook.addPerson(person);
+        meetingBook.addGroup(group);
+        meetingBook.joinGroup(person, group);
         assertTrue(group.hasMember(person));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
+    public void hasPerson_personWithSameIdentityFieldsInMeetingBook_returnsTrue() {
+        meetingBook.addPerson(ALICE);
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(meetingBook.hasPerson(editedAlice));
     }
 
     @Test
@@ -188,8 +188,8 @@ public class MeetingBookTest {
         Person person = new PersonBuilder().withName("Pakorn").build();
         Name name = new Name("Pakorn");
 
-        addressBook.addPerson(person);
-        Person match = addressBook.getPersonByName(name);
+        meetingBook.addPerson(person);
+        Person match = meetingBook.getPersonByName(name);
 
         assertTrue(match.equals(person));
     }
@@ -199,8 +199,8 @@ public class MeetingBookTest {
         Group group = new GroupBuilder().withTitle("tutorial").build();
         Title title = new Title("tutorial");
 
-        addressBook.addGroup(group);
-        Group match = addressBook.getGroupByTitle(title);
+        meetingBook.addGroup(group);
+        Group match = meetingBook.getGroupByTitle(title);
 
         assertTrue(match.equals(group));
     }
@@ -208,13 +208,13 @@ public class MeetingBookTest {
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        meetingBook.getPersonList().remove(0);
     }
 
     @Test
     public void getGroupList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getGroupList().remove(0);
+        meetingBook.getGroupList().remove(0);
     }
 
     /**

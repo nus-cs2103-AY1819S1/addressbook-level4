@@ -15,7 +15,7 @@ public class TypicalMeetingBook {
     /**
      * Returns an {@code MeetingBook} with all the typical persons and groups.
      */
-    public static MeetingBook getTypicalAddressBook() {
+    public static MeetingBook getTypicalMeetingBook() {
         MeetingBook ab = new MeetingBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);

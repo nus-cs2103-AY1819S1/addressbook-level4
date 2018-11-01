@@ -17,13 +17,13 @@ import seedu.address.model.shared.Title;
 
 
 /**
- * Remove a person from a group existed in the address book.
+ * Remove a person from a group existed in the MeetingBook.
  */
 public class LeaveCommand extends Command {
 
     public static final String COMMAND_WORD = "leave";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a person from a group in the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a person from a group in the MeetingBook. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_NAME + "GROUP\n"
@@ -65,7 +65,7 @@ public class LeaveCommand extends Command {
         }
 
         model.leaveGroup(matchedPersonByName, matchedGroupByName);
-        model.commitAddressBook();
+        model.commitMeetingBook();
         return new CommandResult(String.format(MESSAGE_LEAVE_SUCCESS, matchedPersonByName, matchedGroupByName));
     }
 

@@ -16,7 +16,7 @@ public interface MeetingBookStorage {
     /**
      * Returns the file path of the data file.
      */
-    Path getAddressBookFilePath();
+    Path getMeetingBookFilePath();
 
     /**
      * Returns MeetingBook data as a {@link ReadOnlyMeetingBook}.
@@ -24,28 +24,28 @@ public interface MeetingBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyMeetingBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyMeetingBook> readMeetingBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getMeetingBookFilePath()
      */
-    Optional<ReadOnlyMeetingBook> readAddressBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyMeetingBook> readMeetingBook(Path filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyMeetingBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param meetingBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyMeetingBook addressBook) throws IOException;
+    void saveMeetingBook(ReadOnlyMeetingBook meetingBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyMeetingBook)
+     * @see #saveMeetingBook(ReadOnlyMeetingBook)
      */
-    void saveAddressBook(ReadOnlyMeetingBook addressBook, Path filePath) throws IOException;
+    void saveMeetingBook(ReadOnlyMeetingBook meetingBook, Path filePath) throws IOException;
 
     /**
      * Delete MeetingBook in the storage.
      * @throws IOException if file is unable to be written.
      */
-    void deleteAddressBook(Path filePath) throws IOException;
+    void deleteMeetingBook(Path filePath) throws IOException;
 }

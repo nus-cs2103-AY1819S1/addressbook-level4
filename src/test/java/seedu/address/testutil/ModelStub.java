@@ -30,7 +30,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public ReadOnlyMeetingBook getAddressBook() {
+    public ReadOnlyMeetingBook getMeetingBook() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -145,37 +145,37 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoMeetingBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoMeetingBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoMeetingBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoMeetingBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitMeetingBook() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void exportAddressBook(Path filepath) {
+    public void exportMeetingBook(Path filepath) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void importAddressBook(ReadOnlyMeetingBook importAddressBook, boolean overwrite) {
+    public void importMeetingBook(ReadOnlyMeetingBook importMeetingBook, boolean overwrite) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -185,7 +185,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getMeetingBookFilePath() {
         throw new AssertionError("This method should not be called.");
     }
 }

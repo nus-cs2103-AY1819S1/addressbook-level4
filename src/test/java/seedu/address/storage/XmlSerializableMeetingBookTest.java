@@ -17,9 +17,9 @@ import seedu.address.testutil.TypicalMeetingBook;
 public class XmlSerializableMeetingBookTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableMeetingBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.xml");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsMeetingBook.xml");
+    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonMeetingBook.xml");
+    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonMeetingBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -28,9 +28,9 @@ public class XmlSerializableMeetingBookTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         XmlSerializableMeetingBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
                 XmlSerializableMeetingBook.class);
-        MeetingBook addressBookFromFile = dataFromFile.toModelType();
-        MeetingBook typicalPersonsAddressBook = TypicalMeetingBook.getTypicalAddressBook();
-        assertEquals(addressBookFromFile, typicalPersonsAddressBook);
+        MeetingBook meetingBookFromFile = dataFromFile.toModelType();
+        MeetingBook typicalPersonsMeetingBook = TypicalMeetingBook.getTypicalMeetingBook();
+        assertEquals(meetingBookFromFile, typicalPersonsMeetingBook);
     }
 
     @Test

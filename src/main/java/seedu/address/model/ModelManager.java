@@ -27,7 +27,7 @@ import seedu.address.model.shared.Title;
 
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the MeetingBook data.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -40,15 +40,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final SortedList<Person> sortedPersons;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given meetingBook and userPrefs.
      */
-    public ModelManager(ReadOnlyMeetingBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMeetingBook meetingBook, UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(meetingBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with MeetingBook: " + meetingBook + " and user prefs " + userPrefs);
 
-        versionedMeetingBook = new VersionedMeetingBook(addressBook);
+        versionedMeetingBook = new VersionedMeetingBook(meetingBook);
         filteredPersons = new FilteredList<>(versionedMeetingBook.getPersonList());
         filteredGroups = new FilteredList<>(versionedMeetingBook.getGroupList());
         filteredMeetings = new FilteredList<>(versionedMeetingBook.getMeetingList());
@@ -63,16 +63,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyMeetingBook newData) {
         versionedMeetingBook.resetData(newData);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
-    public ReadOnlyMeetingBook getAddressBook() {
+    public ReadOnlyMeetingBook getMeetingBook() {
         return versionedMeetingBook;
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateMeetingBookChanged() {
         raise(new MeetingBookChangedEvent(versionedMeetingBook));
     }
 
@@ -85,14 +85,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deletePerson(Person target) {
         versionedMeetingBook.removePerson(target);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
     public void addPerson(Person person) {
         versionedMeetingBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedMeetingBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
@@ -108,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedGroup);
 
         versionedMeetingBook.updateGroup(target, editedGroup);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
 
@@ -119,28 +119,28 @@ public class ModelManager extends ComponentManager implements Model {
     public void addGroup(Group group) {
         requireNonNull(group);
         versionedMeetingBook.addGroup(group);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
     public void removeGroup(Group group) {
         requireNonNull(group);
         versionedMeetingBook.removeGroup(group);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
     public void joinGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedMeetingBook.joinGroup(person, group);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
     public void leaveGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedMeetingBook.leaveGroup(person, group);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     // @@author
@@ -173,13 +173,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
         versionedMeetingBook.setMeeting(group, meeting);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
     public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
         versionedMeetingBook.cancelMeeting(group);
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
     // @@author
 
@@ -241,55 +241,55 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoMeetingBook() {
         return versionedMeetingBook.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoMeetingBook() {
         return versionedMeetingBook.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoMeetingBook() {
         versionedMeetingBook.undo();
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoMeetingBook() {
         versionedMeetingBook.redo();
-        indicateAddressBookChanged();
+        indicateMeetingBookChanged();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitMeetingBook() {
         versionedMeetingBook.commit();
     }
 
     // ================= Export/Import =======================================================================
 
     @Override
-    public void exportAddressBook(Path filepath) {
+    public void exportMeetingBook(Path filepath) {
         raise(new MeetingBookExportEvent(versionedMeetingBook, filepath));
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getMeetingBookFilePath() {
+        return userPrefs.getMeetingBookFilePath();
     }
 
     @Override
     public void changeUserPrefs(Path filepath) {
-        Path currentPath = userPrefs.getAddressBookFilePath();
-        userPrefs.setAddressBookFilePath(filepath);
+        Path currentPath = userPrefs.getMeetingBookFilePath();
+        userPrefs.setMeetingBookFilePath(filepath);
         raise(new UserPrefsChangeEvent(userPrefs, versionedMeetingBook, currentPath, filepath));
     }
 
     @Override
-    public void importAddressBook(ReadOnlyMeetingBook importedAddressBook, boolean overwrite) {
-        versionedMeetingBook.merge(importedAddressBook, overwrite);
-        indicateAddressBookChanged();
+    public void importMeetingBook(ReadOnlyMeetingBook importedMeetingBook, boolean overwrite) {
+        versionedMeetingBook.merge(importedMeetingBook, overwrite);
+        indicateMeetingBookChanged();
     }
 
     @Override

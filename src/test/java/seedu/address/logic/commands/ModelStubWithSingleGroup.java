@@ -67,12 +67,12 @@ public class ModelStubWithSingleGroup extends ModelStub {
     }
 
     @Override
-    public ReadOnlyMeetingBook getAddressBook() {
+    public ReadOnlyMeetingBook getMeetingBook() {
         return new MeetingBook();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitMeetingBook() {
         // called by {@code MeetCommand#execute()} and several others.
     }
 

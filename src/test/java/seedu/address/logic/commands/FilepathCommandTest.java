@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,8 +30,8 @@ public class FilepathCommandTest {
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private UserPrefs userPrefs = new UserPrefs();
-    private Model model = new ModelManager(getTypicalAddressBook(), userPrefs);
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMeetingBook(), userPrefs);
+    private Model expectedModel = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -46,7 +46,7 @@ public class FilepathCommandTest {
     public void execute_showFilepath_success() {
         FilepathCommand filepathCommand = new FilepathCommand(null);
         assertCommandSuccess(filepathCommand, model, commandHistory,
-                String.format(FilepathCommand.MESSAGE_SHOWPATH_SUCCESS, userPrefs.getAddressBookFilePath()),
+                String.format(FilepathCommand.MESSAGE_SHOWPATH_SUCCESS, userPrefs.getMeetingBookFilePath()),
                 expectedModel);
     }
 

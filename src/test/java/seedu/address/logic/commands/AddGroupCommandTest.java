@@ -122,12 +122,12 @@ public class AddGroupCommandTest {
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitMeetingBook() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyMeetingBook getAddressBook() {
+        public ReadOnlyMeetingBook getMeetingBook() {
             return new MeetingBook();
         }
     }

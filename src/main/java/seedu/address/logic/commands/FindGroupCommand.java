@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.group.Group;
 
 /**
- * Finds and lists all groups in address book whose name contains any of the argument keywords.
+ * Finds and lists all groups in MeetingBook whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindGroupCommand extends FindCommand<Group> {

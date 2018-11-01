@@ -55,45 +55,45 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ MeetingBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return meetingBookStorage.getAddressBookFilePath();
+    public Path getMeetingBookFilePath() {
+        return meetingBookStorage.getMeetingBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyMeetingBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(meetingBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyMeetingBook> readMeetingBook() throws DataConversionException, IOException {
+        return readMeetingBook(meetingBookStorage.getMeetingBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyMeetingBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyMeetingBook> readMeetingBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return meetingBookStorage.readAddressBook(filePath);
+        return meetingBookStorage.readMeetingBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMeetingBook addressBook) throws IOException {
-        saveAddressBook(addressBook, meetingBookStorage.getAddressBookFilePath());
+    public void saveMeetingBook(ReadOnlyMeetingBook meetingBook) throws IOException {
+        saveMeetingBook(meetingBook, meetingBookStorage.getMeetingBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyMeetingBook addressBook, Path filePath) throws IOException {
+    public void saveMeetingBook(ReadOnlyMeetingBook meetingBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        meetingBookStorage.saveAddressBook(addressBook, filePath);
+        meetingBookStorage.saveMeetingBook(meetingBook, filePath);
     }
 
     @Override
-    public void deleteAddressBook(Path filePath) throws IOException {
-        logger.fine("Deleting addressbook at: " + filePath);
-        meetingBookStorage.deleteAddressBook(filePath);
+    public void deleteMeetingBook(Path filePath) throws IOException {
+        logger.fine("Deleting MeetingBook at: " + filePath);
+        meetingBookStorage.deleteMeetingBook(filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(MeetingBookChangedEvent event) {
+    public void handleMeetingBookChangedEvent(MeetingBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveMeetingBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
@@ -101,10 +101,10 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookExportEvent(MeetingBookExportEvent event) {
+    public void handleMeetingBookExportEvent(MeetingBookExportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Exporting data and saving to file"));
         try {
-            saveAddressBook(event.data, event.path);
+            saveMeetingBook(event.data, event.path);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
@@ -115,8 +115,8 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleUserPrefsChangeEvent(UserPrefsChangeEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Updating User Prefs"));
         try {
-            saveAddressBook(event.data, event.newPath);
-            deleteAddressBook(event.oldPath);
+            saveMeetingBook(event.data, event.newPath);
+            deleteMeetingBook(event.oldPath);
             saveUserPrefs(event.userPrefs);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));

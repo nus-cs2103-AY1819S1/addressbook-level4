@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 
 /**
- * Finds and lists all meetings in address book whose title contains any of the argument keywords.
+ * Finds and lists all meetings in MeetingBook whose title contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindMeetingCommand extends FindCommand<Meeting> {

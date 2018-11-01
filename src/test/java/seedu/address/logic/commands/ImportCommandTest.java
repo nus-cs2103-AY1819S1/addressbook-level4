@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,23 +23,23 @@ import seedu.address.ui.testutil.EventsCollectorRule;
  */
 public class ImportCommandTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
-    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
+    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validMeetingBook.xml");
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
 
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_import_success() throws IOException, DataConversionException {
         ImportCommand importCommand = new ImportCommand(VALID_FILE);
         XmlMeetingBookStorage expectedStorage = new XmlMeetingBookStorage(VALID_FILE);
-        expectedModel.importAddressBook(expectedStorage.readAddressBook().get(), false);
-        expectedModel.commitAddressBook();
+        expectedModel.importMeetingBook(expectedStorage.readMeetingBook().get(), false);
+        expectedModel.commitMeetingBook();
         assertCommandSuccess(importCommand, model, commandHistory,
                 String.format(ImportCommand.MESSAGE_SUCCESS, VALID_FILE.toString()), expectedModel);
     }

@@ -45,7 +45,7 @@ public class CancelCommand extends Command {
 
         try {
             model.cancelMeeting(group);
-            model.commitAddressBook();
+            model.commitMeetingBook();
             return new CommandResult(String.format(MESSAGE_CANCEL_COMMAND_SUCCESS, group.getTitle()));
         } catch (GroupNotFoundException gnfe) {
             throw new CommandException(MESSAGE_GROUP_NOT_FOUND);

@@ -94,9 +94,9 @@ public class GroupListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Group> createBackingList(int groupCount) throws Exception {
         Path xmlFile = createXmlFileWithGroups(groupCount);
-        XmlSerializableMeetingBook xmlAddressBook =
+        XmlSerializableMeetingBook xmlMeetingBook =
             XmlUtil.getDataFromFile(xmlFile, XmlSerializableMeetingBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getGroupList());
+        return FXCollections.observableArrayList(xmlMeetingBook.toModelType().getGroupList());
     }
 
     /**
@@ -106,7 +106,7 @@ public class GroupListPanelTest extends GuiUnitTest {
     private Path createXmlFileWithGroups(int groupCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
-        builder.append("<addressbook>\n");
+        builder.append("<meetingbook>\n");
         for (int i = 0; i < groupCount; i++) {
             builder.append("<persons>\n");
             builder.append("<name>").append(i).append("b</name>\n");
@@ -116,7 +116,7 @@ public class GroupListPanelTest extends GuiUnitTest {
             builder.append("<grouped>").append(i).append("g</grouped>\n");
             builder.append("</persons>\n");
         }
-        builder.append("</addressbook>\n");
+        builder.append("</meetingbook>\n");
 
         Path manyGroupsFile = Paths.get(TEST_DATA_FOLDER + "manyGroups.xml");
         FileUtil.createFile(manyGroupsFile);

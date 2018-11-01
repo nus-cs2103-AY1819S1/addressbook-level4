@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyMeetingBook getSampleAddressBook() {
+    public static ReadOnlyMeetingBook getSampleMeetingBook() {
         MeetingBook sampleAb = new MeetingBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);

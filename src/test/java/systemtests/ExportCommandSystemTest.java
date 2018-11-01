@@ -134,7 +134,7 @@ public class ExportCommandSystemTest extends MeetingBookSystemTest {
     }
 
     /**
-     * Assert if the exported address book is the same as the original saved address book by checking
+     * Assert if the exported MeetingBook is the same as the original saved MeetingBook by checking
      * its content.
      *
      * @param path path to the exported file

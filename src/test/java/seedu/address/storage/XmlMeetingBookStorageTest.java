@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
@@ -31,13 +31,13 @@ public class XmlMeetingBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_throwsNullPointerException() throws Exception {
+    public void readMeetingBook_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        readAddressBook(null);
+        readMeetingBook(null);
     }
 
-    private java.util.Optional<ReadOnlyMeetingBook> readAddressBook(String filePath) throws Exception {
-        return new XmlMeetingBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyMeetingBook> readMeetingBook(String filePath) throws Exception {
+        return new XmlMeetingBookStorage(Paths.get(filePath)).readMeetingBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -48,14 +48,14 @@ public class XmlMeetingBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readMeetingBook("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readMeetingBook("NotXmlFormatMeetingBook.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -63,101 +63,101 @@ public class XmlMeetingBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readMeetingBook_invalidPersonMeetingBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidPersonAddressBook.xml");
+        readMeetingBook("invalidPersonMeetingBook.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readMeetingBook_invalidAndValidPersonMeetingBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAddressBook.xml");
+        readMeetingBook("invalidAndValidPersonMeetingBook.xml");
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        MeetingBook original = getTypicalAddressBook();
-        XmlMeetingBookStorage xmlAddressBookStorage = new XmlMeetingBookStorage(filePath);
+    public void readAndSaveMeetingBook_allInOrder_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempMeetingBook.xml");
+        MeetingBook original = getTypicalMeetingBook();
+        XmlMeetingBookStorage xmlMeetingBookStorage = new XmlMeetingBookStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyMeetingBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlMeetingBookStorage.saveMeetingBook(original, filePath);
+        ReadOnlyMeetingBook readBack = xmlMeetingBookStorage.readMeetingBook(filePath).get();
         assertEquals(original, new MeetingBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(BENSON);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        xmlMeetingBookStorage.saveMeetingBook(original, filePath);
+        readBack = xmlMeetingBookStorage.readMeetingBook(filePath).get();
         assertEquals(original, new MeetingBook(readBack));
 
         //Save and read without specifying file path
         original.addPerson(IDA);
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        xmlMeetingBookStorage.saveMeetingBook(original); //file path not specified
+        readBack = xmlMeetingBookStorage.readMeetingBook().get(); //file path not specified
         assertEquals(original, new MeetingBook(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
+    public void saveMeetingBook_nullMeetingBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveMeetingBook(null, "SomeFile.xml");
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code meetingBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyMeetingBook addressBook, String filePath) {
+    private void saveMeetingBook(ReadOnlyMeetingBook meetingBook, String filePath) {
         try {
             new XmlMeetingBookStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveMeetingBook(meetingBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 
     /**
-     * Delete {@code addressBook} at the specified {@code filePath}.
+     * Delete {@code meetingBook} at the specified {@code filePath}.
      */
-    private void deleteAddressBook(String filePath) {
+    private void deleteMeetingBook(String filePath) {
         try {
             new XmlMeetingBookStorage(Paths.get(filePath))
-                    .deleteAddressBook(addToTestDataPathIfNotNull(filePath));
+                    .deleteMeetingBook(addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error deleting to the file.", ioe);
         }
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_throwsNullPointerException() {
+    public void saveMeetingBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new MeetingBook(), null);
+        saveMeetingBook(new MeetingBook(), null);
     }
 
     @Test
-    public void deleteAddressBook_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        MeetingBook original = getTypicalAddressBook();
-        XmlMeetingBookStorage xmlAddressBookStorage = new XmlMeetingBookStorage(filePath);
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
+    public void deleteMeetingBook_success() throws Exception {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempMeetingBook.xml");
+        MeetingBook original = getTypicalMeetingBook();
+        XmlMeetingBookStorage xmlMeetingBookStorage = new XmlMeetingBookStorage(filePath);
+        xmlMeetingBookStorage.saveMeetingBook(original, filePath);
 
-        xmlAddressBookStorage.deleteAddressBook(filePath);
+        xmlMeetingBookStorage.deleteMeetingBook(filePath);
         boolean afterDelete = Files.exists(filePath);
         assertFalse("Delete Address Book Fail!", afterDelete);
     }
 
     @Test
-    public void deleteAddressBook_nullFilePath_throwsNullPointerException() {
+    public void deleteMeetingBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        deleteAddressBook(null);
+        deleteMeetingBook(null);
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        XmlMeetingBookStorage xmlAddressBookStorage = new XmlMeetingBookStorage(filePath);
-        assertEquals(xmlAddressBookStorage.getAddressBookFilePath(), filePath);
+    public void getMeetingBookFilePath() {
+        Path filePath = testFolder.getRoot().toPath().resolve("TempMeetingBook.xml");
+        XmlMeetingBookStorage xmlMeetingBookStorage = new XmlMeetingBookStorage(filePath);
+        assertEquals(xmlMeetingBookStorage.getMeetingBookFilePath(), filePath);
     }
 }

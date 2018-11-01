@@ -3,7 +3,7 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -34,9 +34,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlMeetingBookStorage addressBookStorage = new XmlMeetingBookStorage(getTempFilePath("ab"));
+        XmlMeetingBookStorage meetingBookStorage = new XmlMeetingBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(meetingBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -59,38 +59,38 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void meetingBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link XmlMeetingBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlMeetingBookStorageTest} class.
          */
-        MeetingBook original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyMeetingBook retrieved = storageManager.readAddressBook().get();
+        MeetingBook original = getTypicalMeetingBook();
+        storageManager.saveMeetingBook(original);
+        ReadOnlyMeetingBook retrieved = storageManager.readMeetingBook().get();
         assertEquals(original, new MeetingBook(retrieved));
     }
 
     @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
+    public void getMeetingBookFilePath() {
+        assertNotNull(storageManager.getMeetingBookFilePath());
     }
 
     @Test
-    public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
+    public void handleMeetingBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlMeetingBookStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookChangedEvent(new MeetingBookChangedEvent(new MeetingBook()));
+        storage.handleMeetingBookChangedEvent(new MeetingBookChangedEvent(new MeetingBook()));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
     @Test
-    public void handleExportAddressBookEvent_exceptionThrown_eventRaised() {
+    public void handleExportMeetingBookEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the export method is called
         Storage storage = new StorageManager(new XmlMeetingBookStorageExceptionThrowingStub(Paths.get("dummy")),
                 new JsonUserPrefsStorage(Paths.get("dummy")));
-        storage.handleAddressBookExportEvent(new MeetingBookExportEvent(new MeetingBook(), Paths.get("dummy")));
+        storage.handleMeetingBookExportEvent(new MeetingBookExportEvent(new MeetingBook(), Paths.get("dummy")));
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
@@ -114,12 +114,12 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyMeetingBook addressBook, Path filePath) throws IOException {
+        public void saveMeetingBook(ReadOnlyMeetingBook meetingBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
 
         @Override
-        public void deleteAddressBook(Path filePath) throws IOException {
+        public void deleteMeetingBook(Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

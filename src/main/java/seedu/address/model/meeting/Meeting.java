@@ -9,7 +9,7 @@ import seedu.address.model.shared.Description;
 import seedu.address.model.shared.Title;
 
 /**
- * Represents a Meeting for people in the same group in the address book.
+ * Represents a Meeting for people in the same group in the MeetingBook.
  * Guarantees: Title, date, location and description are present and not null.
  * Field values are validated, immutable.
  *

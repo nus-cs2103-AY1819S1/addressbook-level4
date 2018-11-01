@@ -13,7 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SOME;
 import java.util.function.Predicate;
 
 /**
- * Finds and lists all entities in address book whose property contains any of the argument keywords.
+ * Finds and lists all entities in MeetingBook whose property contains any of the argument keywords.
  * Keyword matching is case insensitive.
  * @param <E> The type of the entity.
  */

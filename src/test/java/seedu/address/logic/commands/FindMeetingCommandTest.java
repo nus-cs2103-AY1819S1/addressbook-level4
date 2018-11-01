@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_MEETINGS_FOUND_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.address.testutil.TypicalMeetings.DISCUSSION;
 import static seedu.address.testutil.TypicalMeetings.REHEARSAL;
 import static seedu.address.testutil.TypicalMeetings.URGENT;
@@ -25,8 +25,8 @@ import seedu.address.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 
 public class FindMeetingCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

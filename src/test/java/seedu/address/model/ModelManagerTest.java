@@ -41,18 +41,18 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasPerson_personNotInMeetingBook_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
     @Test
-    public void addPerson_personInAddressBook_returnsTrue() {
+    public void addPerson_personInMeetingBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
     @Test
-    public void deletePerson_personNotInAddressBook_returnsFalse() {
+    public void deletePerson_personNotInMeetingBook_returnsFalse() {
         Person person = new PersonBuilder().withName("Derek").build();
         modelManager.addPerson(person);
         modelManager.deletePerson(person);
@@ -60,7 +60,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updatePerson_personInAddressBook_returnsTrue() {
+    public void updatePerson_personInMeetingBook_returnsTrue() {
         Person derek = new PersonBuilder().withName("Derek").build();
         modelManager.addPerson(ALICE);
         modelManager.updatePerson(ALICE, derek);
@@ -68,7 +68,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updatePerson_personNotInAddressBook_returnsFalse() {
+    public void updatePerson_personNotInMeetingBook_returnsFalse() {
         Person derek = new PersonBuilder().withName("Derek").build();
         modelManager.addPerson(ALICE);
         modelManager.updatePerson(ALICE, derek);
@@ -76,20 +76,20 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasGroup_groupNotInAddressBook_returnsFalse() {
+    public void hasGroup_groupNotInMeetingBook_returnsFalse() {
         Group group = new GroupBuilder().withTitle("Not here").build();
         assertFalse(modelManager.hasGroup(group));
     }
 
     @Test
-    public void addGroup_groupInAddressBook_returnsTrue() {
+    public void addGroup_groupInMeetingBook_returnsTrue() {
         Group group = new GroupBuilder().withTitle("class").build();
         modelManager.addGroup(group);
         assertTrue(modelManager.hasGroup(group));
     }
 
     @Test
-    public void deleteGroup_groupNotInAddressBook_returnsFalse() {
+    public void deleteGroup_groupNotInMeetingBook_returnsFalse() {
         Group group = new GroupBuilder().withTitle("class").build();
         modelManager.addGroup(group);
         modelManager.removeGroup(group);
@@ -97,7 +97,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updateGroup_groupInAddressBook_returnsTrue() {
+    public void updateGroup_groupInMeetingBook_returnsTrue() {
         Group randomChat = new GroupBuilder().withTitle("chat").build();
         Group formalDiscussion = new GroupBuilder().withTitle("discuss").build();
         modelManager.addGroup(randomChat);
@@ -106,7 +106,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void updateGroup_groupNotInAddressBook_returnsFalse() {
+    public void updateGroup_groupNotInMeetingBook_returnsFalse() {
         Group randomChat = new GroupBuilder().withTitle("chat").build();
         Group formalDiscussion = new GroupBuilder().withTitle("discuss").build();
         modelManager.addGroup(randomChat);
@@ -207,13 +207,13 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        MeetingBook addressBook = new MeetingBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        MeetingBook differentAddressBook = new MeetingBook();
+        MeetingBook meetingBook = new MeetingBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        MeetingBook differentMeetingBook = new MeetingBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(meetingBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(meetingBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -225,21 +225,21 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+        // different meetingBook -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentMeetingBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new PersonNameContainsKeywordsPredicate(
             Collections.emptyList(), Arrays.asList(keywords), Collections.emptyList()));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
+        assertFalse(modelManager.equals(new ModelManager(meetingBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setMeetingBookFilePath(Paths.get("differentFilePath"));
+        assertTrue(modelManager.equals(new ModelManager(meetingBook, differentUserPrefs)));
     }
 }

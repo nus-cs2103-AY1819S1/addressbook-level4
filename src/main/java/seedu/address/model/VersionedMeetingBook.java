@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedMeetingBook extends MeetingBook {
 
-    private final List<ReadOnlyMeetingBook> addressBookStateList;
+    private final List<ReadOnlyMeetingBook> meetingBookStateList;
     private int currentStatePointer;
 
     public VersionedMeetingBook(ReadOnlyMeetingBook initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new MeetingBook(initialState));
+        meetingBookStateList = new ArrayList<>();
+        meetingBookStateList.add(new MeetingBook(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,48 +25,48 @@ public class VersionedMeetingBook extends MeetingBook {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new MeetingBook(this));
+        meetingBookStateList.add(new MeetingBook(this));
         currentStatePointer++;
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        meetingBookStateList.subList(currentStatePointer + 1, meetingBookStateList.size()).clear();
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the MeetingBook to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(meetingBookStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the MeetingBook to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(meetingBookStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has MeetingBook states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has MeetingBook states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < meetingBookStateList.size() - 1;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class VersionedMeetingBook extends MeetingBook {
 
         // state check
         return super.equals(otherVersionedMeetingBook)
-                && addressBookStateList.equals(otherVersionedMeetingBook.addressBookStateList)
+                && meetingBookStateList.equals(otherVersionedMeetingBook.meetingBookStateList)
                 && currentStatePointer == otherVersionedMeetingBook.currentStatePointer;
     }
 
@@ -94,7 +94,7 @@ public class VersionedMeetingBook extends MeetingBook {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of meetingBookState list, unable to undo.");
         }
     }
 
@@ -103,7 +103,7 @@ public class VersionedMeetingBook extends MeetingBook {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of meetingBookState list, unable to redo.");
         }
     }
 }

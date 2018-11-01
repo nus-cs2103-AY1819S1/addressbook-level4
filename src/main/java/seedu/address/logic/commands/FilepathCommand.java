@@ -11,14 +11,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Change the filepath of addressbook of where addressbook will be saved.
+ * Change the filepath of MeetingBook of where MeetingBook will be saved.
  */
 public class FilepathCommand extends Command {
     public static final String COMMAND_WORD = "filepath";
     public static final String OPTION_SHOW = "--show";
 
-    public static final String MESSAGE_CHANGEPATH_SUCCESS = "Addressbook now will be saved at: %s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": change current saving location of addressbook "
+    public static final String MESSAGE_CHANGEPATH_SUCCESS = "MeetingBook now will be saved at: %s";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": change current saving location of MeetingBook "
             + "to the new specific location. "
             + "Parameters: "
             + PREFIX_PATH + "FilePath or " + OPTION_SHOW + "\n"
@@ -26,7 +26,7 @@ public class FilepathCommand extends Command {
             + PREFIX_PATH + "newHome.xml\n"
             + "Example: " + COMMAND_WORD + " "
             + OPTION_SHOW + " : Show the current storage path.";
-    public static final String MESSAGE_SHOWPATH_SUCCESS = "Addressbook is stored at %s";
+    public static final String MESSAGE_SHOWPATH_SUCCESS = "MeetingBook is stored at %s";
     private Path filepath;
 
     public FilepathCommand(Path filePath) {
@@ -38,7 +38,7 @@ public class FilepathCommand extends Command {
         requireNonNull(model);
 
         if (filepath == null) {
-            Path currentPath = model.getAddressBookFilePath();
+            Path currentPath = model.getMeetingBookFilePath();
             return new CommandResult(String.format(MESSAGE_SHOWPATH_SUCCESS, currentPath.toString()));
         }
 

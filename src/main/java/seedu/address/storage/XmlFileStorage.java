@@ -9,23 +9,23 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.XmlUtil;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores MeetingBook data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given MeetingBook data to the specified file.
      */
-    public static void saveDataToFile(Path file, XmlSerializableMeetingBook addressBook)
+    public static void saveDataToFile(Path file, XmlSerializableMeetingBook meetingBook)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, meetingBook);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns MeetingBook in the file or an empty MeetingBook
      */
     public static XmlSerializableMeetingBook loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {

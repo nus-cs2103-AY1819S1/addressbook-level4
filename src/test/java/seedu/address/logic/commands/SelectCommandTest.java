@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showGroupAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showMeetingAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEETING;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -45,8 +45,8 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -80,8 +80,8 @@ public class SelectCommandTest {
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        // ensures that outOfBoundIndex is still in bounds of MeetingBook list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getMeetingBook().getPersonList().size());
 
         assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.PERSON,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -193,8 +193,8 @@ public class SelectCommandTest {
         showGroupAtIndex(expectedModel, INDEX_FIRST_GROUP);
 
         Index outOfBoundsIndex = INDEX_SECOND_GROUP;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getGroupList().size());
+        // ensures that outOfBoundIndex is still in bounds of MeetingBook list
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getMeetingBook().getGroupList().size());
 
         assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.GROUP,
                 Messages.MESSAGE_INVALID_GROUP_DISPLAYED_INDEX);
@@ -232,7 +232,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_THIRD_MEETING;
 
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getMeetingList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getMeetingBook().getMeetingList().size());
 
         assertExecutionFailure(outOfBoundsIndex, SelectCommand.SelectCommandType.MEETING,
             Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);

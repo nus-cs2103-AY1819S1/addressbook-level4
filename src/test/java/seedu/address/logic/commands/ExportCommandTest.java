@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalMeetingBook;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,8 +28,8 @@ public class ExportCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalMeetingBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

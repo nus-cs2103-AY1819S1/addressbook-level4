@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 /**
  * An Immutable MeetingBook that is serializable to XML format
  */
-@XmlRootElement(name = "addressbook")
+@XmlRootElement(name = "meetingbook")
 public class XmlSerializableMeetingBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
@@ -47,28 +47,28 @@ public class XmlSerializableMeetingBook {
     }
 
     /**
-     * Converts this addressbook into the model's {@code MeetingBook} object.
+     * Converts this MeetingBook into the model's {@code MeetingBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson}.
      */
     public MeetingBook toModelType() throws IllegalValueException {
-        MeetingBook addressBook = new MeetingBook();
+        MeetingBook meetingBook = new MeetingBook();
         for (XmlAdaptedPerson p : persons) {
             Person person = p.toModelType();
-            if (addressBook.hasPerson(person)) {
+            if (meetingBook.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
-            addressBook.addPerson(person);
+            meetingBook.addPerson(person);
         }
         for (XmlAdaptedGroup g : groups) {
             Group group = g.toModelType();
-            if (addressBook.hasGroup(group)) {
+            if (meetingBook.hasGroup(group)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_GROUP);
             }
-            addressBook.addGroup(group);
+            meetingBook.addGroup(group);
         }
-        return addressBook;
+        return meetingBook;
     }
 
     @Override
