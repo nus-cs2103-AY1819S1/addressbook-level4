@@ -78,7 +78,7 @@ public class ViewDoctorCommandTest {
      */
     private void assertExecutionSuccess(Doctor Doctor) {
         ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(Doctor.getName());
-        String expectedMessage = String.format(ViewDoctorCommand.MESSAGE_SUCCESS, Doctor.getName());
+        String expectedMessage = String.format(ViewDoctorCommand.MESSAGE_SUCCESS, Doctor.getName().toString());
 
         assertCommandSuccess(viewDoctorCommand, model, commandHistory, expectedMessage, expectedModel);
 

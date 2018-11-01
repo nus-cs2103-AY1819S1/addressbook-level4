@@ -4,8 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_ID_FIRST;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONSUMPTION_PER_DAY_PARACETAMOL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
@@ -21,12 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.ConsumptionPerDay;
 import seedu.address.model.appointment.Dosage;
 import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
-import seedu.address.model.doctor.Doctor;
 import seedu.address.model.person.Person;
 
 /**
