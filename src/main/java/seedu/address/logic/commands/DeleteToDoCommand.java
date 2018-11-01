@@ -31,7 +31,7 @@ public class DeleteToDoCommand extends Command {
 
     public DeleteToDoCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        isToDoCommand = true;
+        super.isToDoCommand = true;
     }
 
     @Override

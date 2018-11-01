@@ -40,7 +40,7 @@ public class AddToDoCommand extends Command {
     public AddToDoCommand(ToDoListEvent toDoListEvent) {
         requireNonNull(toDoListEvent);
         toAdd = toDoListEvent;
-        isToDoCommand = true;
+        super.isToDoCommand = true;
     }
 
     @Override

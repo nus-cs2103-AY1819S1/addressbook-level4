@@ -197,7 +197,7 @@ public class LogicManagerTest {
                                        String expectedMessage, ModelToDo expectedModel) {
 
         try {
-            CommandResult result = logic.executeToDo(inputCommand);
+            CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (CommandException | ParseException e) {
