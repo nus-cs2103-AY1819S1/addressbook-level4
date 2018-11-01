@@ -1,5 +1,6 @@
 package seedu.address.model.wish;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -8,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BO
 
 import org.junit.Test;
 
+import seedu.address.commons.core.amount.Amount;
 import seedu.address.testutil.Assert;
 
 public class SavedAmountTest {
@@ -59,8 +61,31 @@ public class SavedAmountTest {
     }
 
     @Test
-    public void incrementSavedAmount() {
-        SavedAmount savedAmount0 = new SavedAmount(VALID_SAVED_AMOUNT_BOB);
+    public void isSameAmount() {
+        Amount amount = new Amount(VALID_SAVED_AMOUNT_BOB);
+        SavedAmount savedAmount = new SavedAmount(VALID_SAVED_AMOUNT_BOB);
+        assertEquals(amount, savedAmount.getAmount());
+    }
+
+    @Test
+    public void incrementSavedAmountIsValid() {
+        SavedAmount savedAmount0 = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        SavedAmount savedAmount1 = new SavedAmount(VALID_SAVED_AMOUNT_BOB);
+
+        SavedAmount sum = savedAmount0.incrementSavedAmount(savedAmount1.getAmount());
+        SavedAmount expected = new SavedAmount("23.23");
+        assertTrue(sum.equals(expected));
+    }
+
+    @Test
+    public void invalidIncrementSavedAmount() {
+        SavedAmount savedAmount0 = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        Amount savedAmount1Negative = new Amount("-" + VALID_SAVED_AMOUNT_BOB);
+
+        Assert.assertThrows(IllegalArgumentException.class,
+                SavedAmount.MESSAGE_SAVED_AMOUNT_NEGATIVE, () ->
+                        savedAmount0.incrementSavedAmount(savedAmount1Negative)
+        );
     }
 
     @Test
@@ -83,5 +108,18 @@ public class SavedAmountTest {
 
         // different type
         assertFalse(savedAmount1.equals(new Name(VALID_NAME_AMY)));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        SavedAmount savedAmount0 = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+
+        assertTrue(savedAmount0.hashCode() == savedAmount0.hashCode());
+    }
+
+    @Test
+    public void toStringTest() {
+        SavedAmount savedAmount0 = new SavedAmount(VALID_SAVED_AMOUNT_AMY);
+        assertTrue(savedAmount0.toString().equals(VALID_SAVED_AMOUNT_AMY));
     }
 }

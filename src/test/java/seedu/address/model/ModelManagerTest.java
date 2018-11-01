@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 import static seedu.address.testutil.TypicalWishes.ALICE;
 import static seedu.address.testutil.TypicalWishes.BENSON;
@@ -13,6 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.tag.Tag;
 import seedu.address.model.wish.WishContainsKeywordsPredicate;
 import seedu.address.testutil.WishBookBuilder;
 
@@ -37,6 +39,18 @@ public class ModelManagerTest {
     public void hasWish_wishInWishBook_returnsTrue() {
         modelManager.addWish(ALICE);
         assertTrue(modelManager.hasWish(ALICE));
+    }
+
+    @Test
+    public void hasTagAfterRemoveTag() {
+        Tag tag = new Tag(VALID_TAG_FRIEND);
+        modelManager.addWish(BENSON);
+        modelManager.deleteTag(tag);
+        assertFalse(modelManager
+                .getWishBook()
+                .getWishList()
+                .filtered(wish ->
+                        wish.getTags().contains(tag)).size() > 0);
     }
 
     @Test

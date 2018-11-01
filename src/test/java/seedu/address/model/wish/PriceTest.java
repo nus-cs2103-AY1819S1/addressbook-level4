@@ -3,6 +3,8 @@ package seedu.address.model.wish;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -38,5 +40,17 @@ public class PriceTest {
         assertTrue(Price.isValidPrice("93121534")); // no decimal digit
         assertTrue(Price.isValidPrice("1.0")); // one decimal digit
         assertTrue(Price.isValidPrice("1.02")); // two decimal digits
+    }
+
+    @Test
+    public void toStringTest() {
+        Price price = new Price(VALID_PRICE_AMY);
+        assertTrue(price.toString().equals(VALID_PRICE_AMY));
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(new Price(VALID_PRICE_AMY).hashCode()
+                == new Price(VALID_PRICE_AMY).hashCode());
     }
 }
