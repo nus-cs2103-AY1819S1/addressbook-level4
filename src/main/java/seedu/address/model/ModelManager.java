@@ -54,7 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         dirImageList = this.userPrefs.getCurrImageListBatch();
 
         try {
-            //photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
+            photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
         } catch (Exception e) {
             logger.warning("Unable to log into user account");
         }
@@ -99,6 +99,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public int getCurrBatchPointer() {
         return userPrefs.getCurrBatchPointer();
+    }
+
+    /**
+     * Update entire image list in {@code UserPrefs}
+     */
+    @Override
+    public void updateEntireImageList() {
+        userPrefs.initImageList();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     /**

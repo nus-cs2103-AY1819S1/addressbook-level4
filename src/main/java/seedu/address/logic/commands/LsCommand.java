@@ -27,7 +27,6 @@ public class LsCommand extends Command {
         StringBuffer fileNames = new StringBuffer();
 
         File dir = new File(model.getCurrDirectory().toString());
-        int count = 0;
 
         try {
             File[] fileList = dir.listFiles();
