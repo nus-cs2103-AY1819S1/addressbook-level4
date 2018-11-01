@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.scheduler.model.event.Event;
 import seedu.scheduler.model.tag.Tag;
+import seedu.scheduler.storage.Storage;
 
 /**
  * The API of the Model component.
@@ -105,6 +106,11 @@ public interface Model {
      * Saves the current scheduler state for undo/redo.
      */
     void commitScheduler();
+
+    /**
+     * Sync the ReminderDurationList with popUpManager
+     */
+    void syncWithPopUpManager(PopUpManager popUpManager, Storage storage);
 
     /**
      * Returns true if a tag with the same identity as {@code tag} exists in the scheduler.

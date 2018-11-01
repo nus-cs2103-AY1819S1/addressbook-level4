@@ -11,5 +11,6 @@
         <venue>School of Computing</venue>
         <repeatType>NONE</repeatType>
         <repeatUntilDateTime>2018-09-21 11:00:00</repeatUntilDateTime>
+        <reminderDurationList>PT15M, PT1H30M</reminderDurationList>
     </events>
 </scheduler>

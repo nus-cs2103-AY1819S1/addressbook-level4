@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -38,7 +39,8 @@ public class AddCommand extends Command {
             + PREFIX_END_DATE_TIME + "tomorrow 3am "
             + PREFIX_DESCRIPTION + "Studying time "
             + PREFIX_TAG + "study "
-            + PREFIX_TAG + "ad-hoc";
+            + PREFIX_TAG + "adhoc"
+            + PREFIX_EVENT_REMINDER_DURATION + "1h";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the scheduler";
