@@ -1,34 +1,30 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.google.PhotosLibraryClientFactory;
-import seedu.address.model.person.Person;
 import seedu.address.model.transformation.Transformation;
 
 /**
@@ -37,12 +33,9 @@ import seedu.address.model.transformation.Transformation;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
-    private ArrayList<Path> dirImageList;
+    private List<Path> dirImageList;
     private Path currentOriginalImage;
     private PhotoHandler photoLibrary;
-    private PreviewImage currentPreviewImage;
     private Canvas canvas;
 
     private final UserPrefs userPrefs;
@@ -50,18 +43,15 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(UserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
-
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        logger.fine("Initializing with user prefs " + userPrefs);
 
         this.userPrefs = userPrefs;
-        this.userPrefs.updateImageList();
-        dirImageList = this.userPrefs.getAllImages();
+        this.userPrefs.initImageList();
+        dirImageList = this.userPrefs.getCurrImageListBatch();
 
         try {
             //photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
@@ -72,67 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
-    }
-
-    @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
-    }
-
-    /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.updatePerson(target, editedPerson);
-        indicateAddressBookChanged();
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        this(new UserPrefs());
     }
 
     //=========== Directory Image List Accessors =============================================================
@@ -142,18 +72,50 @@ public class ModelManager extends ComponentManager implements Model {
      * backed by the list of {@code userPrefs}
      */
     @Override
-    public ArrayList<Path> getDirectoryImageList() {
-        this.dirImageList = userPrefs.getAllImages();
+    public List<Path> getDirectoryImageList() {
+        this.dirImageList = userPrefs.getCurrImageListBatch();
         return this.dirImageList;
     }
 
     /**
-     * Updates the list of the images in the current directory {@code dirImageList} with the {@code dirImageList}
+     * Returns the total number of images in current directory
      */
     @Override
-    public void updateImageList(ArrayList<Path> dirImageList) {
-        userPrefs.updateImageList(dirImageList);
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(returnPreviewImageList(), true));
+    public int getTotalImagesInDir() {
+        return userPrefs.getTotalImagesInDir();
+    }
+
+    /**
+     * Returns the current number of remaining pictures in {@code UserPrefs}
+     */
+    @Override
+    public int numOfRemainingImagesInDir() {
+        return userPrefs.numOfRemainingImagesInDir();
+    }
+
+    /**
+     * Returns the current batch pointer in {@code UserPrefs}
+     */
+    @Override
+    public int getCurrBatchPointer() {
+        return userPrefs.getCurrBatchPointer();
+    }
+
+    /**
+     * Updates the batch pointer in {@code UserPrefs}
+     */
+    @Override
+    public void updateImageListNextBatch() {
+        userPrefs.updateImageListNextBatch();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+    }
+
+    /**
+     * Updates the batch pointer in {@code UserPrefs}
+     */
+    public void updateImageListPrevBatch() {
+        userPrefs.updateImageListPrevBatch();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     /**
@@ -162,14 +124,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void removeImageFromList(int idx) {
         this.dirImageList.remove(idx);
-    }
-
-    /**
-     * Get preview image list (first 10 images in imageList)
-     */
-    @Override
-    public List<Path> returnPreviewImageList() {
-        return userPrefs.returnPreviewImageList();
     }
 
     @Override
@@ -183,15 +137,20 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void updateCurrentOriginalImage(Image img, Path imgPath) {
-        canvas = new Canvas();
         currentOriginalImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
-        currentPreviewImage = selectedImage;
-        canvas.addLayer(selectedImage);
+        canvas = new Canvas(selectedImage);
 
         EventsCenter.getInstance().post(new ClearHistoryEvent());
-        EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
-        EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
+    }
+
+    /**
+     * Update the current displayed original image and
+     * reinitialize the previewImageManager with the new image, without imgPath
+     */
+    @Override
+    public void updateCurrentOriginalImageForTest(PreviewImage previewImage) {
+        canvas = new Canvas(previewImage);
     }
     //@@author
 
@@ -225,62 +184,66 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Undo/Redo =================================================================================
     @Override
     public boolean canUndoPreviewImage() {
-        return currentPreviewImage.canUndo();
+        return getCurrentPreviewImage().canUndo();
     }
 
     @Override
     public boolean canRedoPreviewImage() {
-        return currentPreviewImage.canRedo();
+        return getCurrentPreviewImage().canRedo();
     }
 
     @Override
     public void undoPreviewImage() {
-        currentPreviewImage.undo();
-        BufferedImage newImage = currentPreviewImage.getImage();
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        getCurrentPreviewImage().undo();
+        BufferedImage newImage = getCurrentPreviewImage().getImage();
         EventsCenter.getInstance().post(new TransformationEvent(true));
     }
 
     @Override
     public void redoPreviewImage() {
-        currentPreviewImage.redo();
-        BufferedImage newImage = currentPreviewImage.getImage();
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        getCurrentPreviewImage().redo();
+        BufferedImage newImage = getCurrentPreviewImage().getImage();
         EventsCenter.getInstance().post(new TransformationEvent(false));
     }
 
     //=========== get/updating preview image ==========================================================================
 
-    @Override
-    public void addTransformation(Transformation transformation) {
-        //need to check the availability of adding a new transformation
-        //need to get the current layer and update the transformationSet
+    /**
+     * Adds a transformation to current layer
+     * @param transformation transformation to add
+     * @throws ParseException
+     * @throws InterruptedException
+     * @throws IOException
+     */
+    public void addTransformation(Transformation transformation) throws
+        ParseException, InterruptedException, IOException {
+        canvas.getCurrentLayer().addTransformation(transformation);
         EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
-        return;
     }
 
     @Override
     public PreviewImage getCurrentPreviewImage() {
-        return currentPreviewImage;
+        return canvas.getCurrentLayer().getImage();
     }
 
     @Override
     public void setCurrentPreviewImage(PreviewImage previewImage) {
-        currentPreviewImage = previewImage;
+        setCurrentPreviewImage(previewImage);
     }
 
     @Override
     public Path getCurrentPreviewImagePath() {
-        return currentPreviewImage.getCurrentPath();
+        return getCurrentPreviewImage().getCurrentPath();
     }
 
     //@@author lancelotwillow
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
-        currentPreviewImage.commit(image);
-        currentPreviewImage.addTransformation(transformation);
+        getCurrentPreviewImage().addTransformation(transformation);
+        getCurrentPreviewImage().commit(image);
+        EventsCenter.getInstance().post(
+                new ChangeImageEvent(
+                        SwingFXUtils.toFXImage(getCurrentPreviewImage().getImage(), null), "preview"));
     }
 
     @Override
@@ -297,8 +260,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+        return userPrefs.equals(other.userPrefs);
     }
 
     //=========== Update UserPrefs ==========================================================================
@@ -307,6 +269,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
+        EventsCenter.getInstance().post(new ChangeDirectoryEvent(getCurrDirectory().toString()));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     @Override
@@ -317,5 +281,30 @@ public class ModelManager extends ComponentManager implements Model {
     //LOL
     public void testCache() {
 
+    }
+
+
+    //=========== Canvas and layers ==========================================================================
+
+    public void addLayer(PreviewImage i) {
+        canvas.addLayer(i);
+    }
+
+    /**
+     * Overloads the addLayer function to handle an optional name.
+     * @param i
+     * @param name
+     */
+    public void addLayer(PreviewImage i, String name) {
+        canvas.addLayer(i, name);
+
+    }
+
+    public void removeLayer(Index i) {
+        canvas.removeLayer(i);
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
     }
 }

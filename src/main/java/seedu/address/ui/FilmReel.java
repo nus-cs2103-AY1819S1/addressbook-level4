@@ -24,7 +24,7 @@ import seedu.address.commons.events.ui.UpdateFilmReelEvent;
  */
 public class FilmReel extends UiPart<Region> {
     private static final String FXML = "FilmReelPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(HistoryListPanel.class);
     private ObservableList<Path> items = FXCollections.observableArrayList();
 
     @FXML
@@ -34,7 +34,6 @@ public class FilmReel extends UiPart<Region> {
         super(FXML);
 
         imageListView.setItems(items);
-        //imageListView.setOrientation(Orientation.HORIZONTAL);
         imageListView.setCellFactory(listView -> new FilmReelCell());
         registerAsAnEventHandler(this);
     }
@@ -51,7 +50,7 @@ public class FilmReel extends UiPart<Region> {
         items.removeAll();
         items.setAll(event.paths);
 
-        if (event.refresh) {
+        if (event.refreshSelection) {
             imageListView.scrollTo(0);
             imageListView.getSelectionModel().clearSelection();
         }
