@@ -139,8 +139,8 @@ The existing tags of the task will be removed when tag is edited. If input is
 [blue]`edit 3 t/project`, then the tag of task 3 will be [blue]`project` only.
 
 [TIP]
-To remove all tags of a existing task, you can just type [blue]`t/`.
-If input is [blue]`task 3 t/`, all the tags of task 3 will be removed.
+To remove all tags of a existing task, you can just type [blue]`c/`.
+If input is [blue]`task 3 c/`, all the tags of task 3 will be removed.
 
 
 
@@ -251,8 +251,7 @@ Views tasks that are due from current date till the closest Sunday. +
 
 === Generating Academic Calendar Weeks
 
-Generates the entire academic calendar weeks with description, based on the first academic day and stores the data in
-storage.
+Generates the entire academic calendar weeks with description, based on the first academic day and stores it in storage.
 
 Currently, the generated academic calendar is adapted from the academic calender of National University of Singapore
 (NUS).
