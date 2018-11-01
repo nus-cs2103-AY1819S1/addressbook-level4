@@ -1,4 +1,4 @@
-= image:UserGuideHeader.png[width="790"]
+= image:UserGuideHeader.png[width="900"]
 :site-section: UserGuide
 :toc:
 :toc-title:
