@@ -221,13 +221,18 @@ Format: `find NAME`
 
 ****
 * NAME can be any name or parts of name.
+* You can use the * character to match any number of characters (0 or more)
+* You can also use the _ character to match any single character
+* Find is case insensitive
 ****
 
 Examples:
 
-* `find jian yu`
+* `find jian yu`: Displays everyone that has 'jian' or 'yu' in their name
 
-* `find doe`
+* `find d*` Displays everyone whose's names start with d.
+
+* 'find T_m' Displays 'Tom' and 'Tim', but not 'Tian'
 
 === Filter employees by criteria : `filter`
 
