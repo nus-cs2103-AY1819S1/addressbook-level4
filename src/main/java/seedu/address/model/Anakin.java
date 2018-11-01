@@ -27,6 +27,7 @@ public class Anakin implements ReadOnlyAnakin {
     private final UniqueDeckList decks;
 
     private boolean isInsideDeck;
+    private boolean justEnteredDeck;
     // Represent the current list of cards (when user get into a deck)
     private UniqueCardList cards;
 
@@ -54,8 +55,7 @@ public class Anakin implements ReadOnlyAnakin {
         portManager = new PortManager();
     }
 
-    public Anakin() {
-    }
+    public Anakin() { }
 
     /**
      * Creates an Anakin using the Decks in the {@code toBeCopied}
@@ -154,6 +154,7 @@ public class Anakin implements ReadOnlyAnakin {
             throw new IllegalOperationWhileReviewingDeckException();
         }
         isInsideDeck = true;
+        justEnteredDeck = true;
         currentDeck = deck;
         cards = deck.getCards();
         updateDisplayedCards();
@@ -181,6 +182,11 @@ public class Anakin implements ReadOnlyAnakin {
         return isInsideDeck;
     }
 
+    @Override
+    public boolean justEnteredDeck() {
+        return justEnteredDeck;
+    }
+
     //// deck-level operations
 
     /**
@@ -200,6 +206,7 @@ public class Anakin implements ReadOnlyAnakin {
             throw new IllegalOperationWhileReviewingDeckException();
         }
         decks.add(d);
+        jedfalse();
     }
 
     /**
@@ -214,6 +221,7 @@ public class Anakin implements ReadOnlyAnakin {
         requireNonNull(editedDeck);
 
         decks.setDeck(target, editedDeck);
+        jedfalse();
     }
 
     /**
@@ -229,6 +237,7 @@ public class Anakin implements ReadOnlyAnakin {
             cards = new UniqueCardList();
             updateDisplayedCards();
         }
+        jedfalse();
     }
 
     /**
@@ -256,6 +265,7 @@ public class Anakin implements ReadOnlyAnakin {
         if (decks.contains(targetDeck)) {
             throw new DuplicateDeckException();
         }
+        jedfalse();
         return targetDeck;
     }
 
@@ -290,6 +300,7 @@ public class Anakin implements ReadOnlyAnakin {
         }
         cards.add(c);
         updateDisplayedCards();
+        jedfalse();
     }
 
     /**
@@ -304,6 +315,7 @@ public class Anakin implements ReadOnlyAnakin {
         }
         cards.setCard(target, editedCard);
         updateDisplayedCards();
+        jedfalse();
     }
 
     /**
@@ -320,6 +332,7 @@ public class Anakin implements ReadOnlyAnakin {
         }
         cards.remove(key);
         updateDisplayedCards();
+        jedfalse();
     }
 
     /**
@@ -405,4 +418,9 @@ public class Anakin implements ReadOnlyAnakin {
     public Deck getCurrentDeck(){
         return currentDeck;
     }
+
+    private void jedfalse(){
+        justEnteredDeck = false;
+    }
+
 }
