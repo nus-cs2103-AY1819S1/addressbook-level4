@@ -249,7 +249,7 @@ Format: `logout`
 You must login as a receptionist in order to use this feature. +
 // end::loginReceptionist[]
 
-Adds a patient to the clinic record. +
+You can add a patient to the clinic record. +
 Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
 
 [TIP]
@@ -265,12 +265,12 @@ Examples:
 
 ==== Listing all patients : `listpatient` `[coming in v2.0]`
 
-Shows a list of all patients in the clinic record. +
+You can view a list of all patients in the clinic record. +
 Format: `listpatient`
 
 ==== Editing a patient : `editpatient` `[coming in v2.0]`
 
-Edits an existing patient in the clinic record. +
+You can edit an existing patient in the clinic record. +
 Format: `editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
 
 ****
@@ -293,7 +293,7 @@ Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing t
 
 ==== Locating patients by name: `findpatient` `[coming in v2.0]`
 
-Finds patients whose names contain any of the given keywords. +
+You can find patients whose names contain any of the given keywords. +
 Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -313,7 +313,7 @@ Returns any patient having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting a patient : `deletepatient` `[coming in v2.0]`
 
-Deletes the specified patient from the clinic record. +
+You can delete the specified patient from the clinic record. +
 Format: `deletepatient INDEX`
 
 ****
