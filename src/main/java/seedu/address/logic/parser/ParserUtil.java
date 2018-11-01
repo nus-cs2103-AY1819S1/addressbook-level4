@@ -153,10 +153,15 @@ public class ParserUtil {
         requireNonNull(fileLocation);
         String trimmedFileLocation = fileLocation.trim();
 
+        if (trimmedFileLocation.equals(Picture.DEFAULT_PICTURE_URL.getPath())) {
+            return new Picture(trimmedFileLocation);
+        }
+
         if (!Picture.isValidPicture(trimmedFileLocation)) {
             if (Picture.isValidPictureInDirectory(trimmedFileLocation)) {
                 return new Picture(Picture.getDirectoryPath(trimmedFileLocation));
             }
+            // not valid and not in directory
             throw new ParseException(Picture.MESSAGE_PICTURE_CONSTRAINTS);
         }
         return new Picture(Picture.getPath(trimmedFileLocation));
