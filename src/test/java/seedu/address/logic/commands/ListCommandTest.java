@@ -27,7 +27,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.task.DueDateIsBeforeEndOfMonthPredicate;
 import seedu.address.model.task.DueDateIsBeforeEndOfWeekPredicate;
 import seedu.address.model.task.DueDateIsBeforeTodayPredicate;
-import seedu.address.model.task.IsNotBlockedPredicate;
 import seedu.address.model.task.Task;
 import seedu.address.model.util.DateFormatUtil;
 import seedu.address.testutil.TaskBuilder;
