@@ -318,6 +318,11 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+=== Word of the day : `word`
+
+Displays the current word of the day and its meaning from Dictionary.com. (Requires a working internet connection).
+Format: `word`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
