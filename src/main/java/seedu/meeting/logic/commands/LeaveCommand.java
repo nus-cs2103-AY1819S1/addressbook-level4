@@ -5,6 +5,7 @@ import static seedu.meeting.commons.core.Messages.MESSAGE_GROUP_NOT_FOUND;
 import static seedu.meeting.commons.core.Messages.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.meeting.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.meeting.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.meeting.logic.parser.CliSyntax.PREFIX_GROUP;
 
 import seedu.meeting.logic.CommandHistory;
 import seedu.meeting.logic.commands.exceptions.CommandException;
@@ -26,10 +27,10 @@ public class LeaveCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a person from a group in the MeetingBook. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_NAME + "GROUP\n"
+            + PREFIX_GROUP + "GROUP\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Derek Hardy "
-            + PREFIX_NAME + "GROUP_03";
+            + PREFIX_GROUP + "GROUP_03";
 
     public static final String MESSAGE_LEAVE_SUCCESS = "Person: %1$s removed from the group: %1$s";
 

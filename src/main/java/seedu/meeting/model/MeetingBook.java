@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+
 import seedu.meeting.model.group.Group;
 import seedu.meeting.model.group.UniqueGroupList;
 import seedu.meeting.model.group.exceptions.GroupHasNoMeetingException;
@@ -18,6 +19,7 @@ import seedu.meeting.model.meeting.UniqueMeetingList;
 import seedu.meeting.model.person.Name;
 import seedu.meeting.model.person.Person;
 import seedu.meeting.model.person.UniquePersonList;
+import seedu.meeting.model.person.exceptions.PersonNotFoundException;
 import seedu.meeting.model.shared.Title;
 
 /**
@@ -150,11 +152,16 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
+<<<<<<< HEAD:src/main/java/seedu/meeting/model/MeetingBook.java
      * {@code target} must exist in the MeetingBook.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the MeetingBook.
      *
+=======
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+>>>>>>> master:src/main/java/seedu/address/model/AddressBook.java
      */
-    public void updatePerson(Person target, Person editedPerson) {
+    public void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException {
         requireNonNull(editedPerson);
 
         // clear membership of target & set up membership for editedPerson
@@ -166,9 +173,14 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replace the given group {@code target} in the list with {@code editedGroup}.
+<<<<<<< HEAD:src/main/java/seedu/meeting/model/MeetingBook.java
      * {@code target} must exist in the MeetingBook.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the MeetingBook.
      *
+=======
+     * {@code target} must exist in the address book.
+     * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
+>>>>>>> master:src/main/java/seedu/address/model/AddressBook.java
      */
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
@@ -211,12 +223,11 @@ public class MeetingBook implements ReadOnlyMeetingBook {
         Person personCopy = person.copy();
         Group groupCopy = group.copy();
 
-        groupCopy.addMember(personCopy);
+        group.addMember(person);
 
-        updatePerson(person, personCopy);
-        updateGroup(group, groupCopy);
+        updatePerson(personCopy, person);
+        updateGroup(groupCopy, group);
 
-        group.addMember(person); // to satisfy the test on the input parameter
     }
 
     /**
@@ -227,10 +238,10 @@ public class MeetingBook implements ReadOnlyMeetingBook {
         Person personCopy = person.copy();
         Group groupCopy = group.copy();
 
-        groupCopy.removeMember(personCopy);
+        group.removeMember(person);
 
-        updatePerson(person, personCopy);
-        updateGroup(group, groupCopy);
+        updatePerson(personCopy, person);
+        updateGroup(groupCopy, group);
     }
 
     // @@author NyxF4ll

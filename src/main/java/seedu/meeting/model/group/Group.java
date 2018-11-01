@@ -85,7 +85,8 @@ public class Group {
         this.title = title;
         this.description = Optional.empty();
         this.meeting = Optional.of(meeting);
-        this.members = members;
+        this.members = new UniquePersonList();
+        this.members.setPersons(members);
     }
 
     /**
@@ -101,7 +102,8 @@ public class Group {
         this.title = title;
         this.description = Optional.of(description);
         this.meeting = Optional.empty();
-        this.members = members;
+        this.members = new UniquePersonList();
+        this.members.setPersons(members);
     }
 
     /**
@@ -119,7 +121,8 @@ public class Group {
         this.title = title;
         this.description = description;
         this.meeting = meeting;
-        this.members = members;
+        this.members = new UniquePersonList();
+        this.members.setPersons(members);
     }
 
 
