@@ -18,7 +18,10 @@ By: `CS2103-AY1819S1-F11-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-iScheduler Xs Max is for those who *prefer to use a desktop app for scheduling personal events*. More importantly, this version is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, we can get your event scheduling tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+iScheduler Xs Max is for those who *prefer to use a desktop app for scheduling personal events*. More importantly,
+this version is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having
+the benefits of a Graphical User Interface (GUI). If you can type fast, we can get your event scheduling tasks done
+faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -61,18 +64,23 @@ _Coming in V1.4: Command format can be typed case-insensitive_
 === Adding an event : `add`
 
 Adds an event to the scheduler. +
-Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
+Format: `add event n/EVENT_NAME [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]... [re/REMINDER_TIME]… ` +
 Aliases: `ad` OR `a` in place of `add` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
 [TIP]
+
+
 An event can have any number of tags and reminders(including 0).
 If you want multiple tags and reminders, we need to use `[t/]` and [`re/`] for multiple times
 
+****
 * `DATETIME` is the natural language of date and time in English.
 * `REPEAT_TYPE` should be chosen from either daily, weekly or monthly.
 * `TAG` should be chosen from the list of tags. Tags can be expressed as an integer(index) or in alphabets.
-* `REMINDER_TIME` is in the format of XX `H` XX `M` XX `S` (case-insensitive), which represents the duration before the `START_DATETIME` that we want to have a pop-up alert.
+* `REMINDER_TIME` (in `xxHxxMxxS`) represents the duration before the `START_DATETIME` that you want a pop-up alert.
+* Only future reminders will be added. Please refer to <<Pop Up Feature>>.
+****
 
 Examples:
 
@@ -185,7 +193,7 @@ _Coming in V1.4: Command format can be typed case-insensitive_
 === Editing an event : `edit`
 
 Edits existing events in the scheduler. +
-Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]... [-a | -u]` +
+Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]... [re/REMINDER_TIME]... [-a | -u]` +
 Aliases: `edi` OR `ed` in place of `edit` +
 _Coming in V1.4: Command format can be typed case-insensitive_
 
@@ -198,8 +206,8 @@ Only one option can exists at any one time. Either `-a` or `-u`.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the event will be removed i.e adding of tags is not cumulative.
 * You can remove all the event's tags by typing `t/` without specifying any tags after it.
-* When editing reminder times, the existing reminder times of the event will be removed i.e adding of reminder times is not cumulative.
-* You can remove all the event's reminder times by typing `re/` without specifying any tags after it.
+* The logic for editing reminder times is the same as tags
+* Only future reminders will be edited. Please refer to <<Pop Up Feature>>.
 * Repeating events can be edited together using a valid option.
 * `REPEAT_TYPE` and `REPEAT_UNTIL_DATETIME` cannot be edited for events without a valid option.
 ****
@@ -383,6 +391,29 @@ Exits the program. +
 Format: `exit` +
 Aliases: `exi` OR `ex` OR `e` +
 _Coming in V1.4: Command format can be typed case-insensitive_
+
+=== Pop Up Feature
+A window will pop up if you have set reminder for an event. +
+Eg: If you set 30min for an event that starts at 11:00, a window will pop up at 11:30 (+-1min) if the app is open. +
+Format: it is currently integrated with <<Adding an event : `add`>> and <<Editing an event : `edit`>> command. For the correct format for time, please refer to <<Reminder time format>>
+
+[TIP]
+====
+Every time you open the app, it will also pop up past reminders since the last time you close the app.
+====
+
+
+[NOTE]
+====
+When you use a command that involves many changes of reminder time (add/edit/undo/redo), please give a few seconds for the system to sync before you close the app.
+====
+
+****
+* If you have not set any reminder for the event or the reminder has already popped up previously, it will display as "No reminder".
+* When the reminder pops up, the reminder time displayed for the event will NOT change instantaneously. It will refresh the next time the app is opened.
+* When you add/edit pop up times, only the future ones will be added. +
+Eg. you add a reminder that is supposed to pop up an hour ago, it will reflect in the display but will not pop up as past reminders/in the future.
+****
 
 === Saving the data
 
