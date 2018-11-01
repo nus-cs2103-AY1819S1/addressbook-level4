@@ -38,6 +38,22 @@ public class NextCardCommandTest {
     }
 
     @Test
+    public void executeNextCardLastIndexSuccess() {
+        Deck deckToReview = TypicalCards.getTypicalDeck();
+        model.getIntoDeck(deckToReview);
+        model.startReview();
+        model.setIndexOfCurrentCard(model.getFilteredCardList().size() - 1);
+
+        NextCardCommand nextCardCommand = new NextCardCommand();
+        String expectedMessage = String.format(NextCardCommand.MESSAGE_SUCCESS);
+
+        ModelManager expectedModel = new ModelManager(model.getAnakin(), new UserPrefs());
+        expectedModel.setIndexOfCurrentCard(0);
+
+        assertCommandSuccess(nextCardCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void executeNextCardFail() {
         Deck deckToReview = TypicalCards.getTypicalDeck();
         model.getIntoDeck(deckToReview);

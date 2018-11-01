@@ -23,7 +23,7 @@ public class EndReviewCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void executeReviewSuccess() {
+    public void executeEndReviewSuccess() {
         Deck deckToReview = TypicalCards.getTypicalDeck();
         model.getIntoDeck(deckToReview);
         model.startReview();
