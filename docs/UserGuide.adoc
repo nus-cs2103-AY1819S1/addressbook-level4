@@ -152,7 +152,7 @@ condition:
 Shows a list of all tasks.
 
 Format:
-`list [b/DUE_BEFORE]`, where DUE_BEFORE must be any of the following:
+`list [f/FILTER]`, where FILTER must be any of the following:
 
  * `today`
 
@@ -160,14 +160,16 @@ Format:
 
  * `month`
 
+ * `doable`
+
 +Example:
 `list`
 
 +Example:
-`list b/today`
+`list f/today`
 
 -Example:
-`list b/alltime`
+`list f/alltime`
 ```
 1. finish math tutorial  DueDate: 01-10-18 1300 Description: before exam PriorityValue: 2 Status: IN PROGRESS
 2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: FINISHED
