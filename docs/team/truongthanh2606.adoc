@@ -23,8 +23,8 @@ It is written in Java, and has about 10 kLoC.
 **** Allows Anakin to have a unique list of decks, each deck contains a unique list of cards.
 **** Allows UI to observe both the deck list and card list so that it can update its deck panel and
 card panel when user execute different commands.
-**** Allows Logic component to execute more commands by providing a complete Model interface with
-methods that support those operations.
+**** Allows Logic component to execute its set of commands by providing a complete Model interface,
+which can support those operations.
 
 *** Justification: The new model component executes the logic of all commands, determines
  how objects like deck and card interacts with each other and
@@ -41,9 +41,6 @@ methods that support those operations.
 
 * *Minor enhancements:*
 
-** *Implement `newcard` command*: create a new card inside the current deck with the
-given question and answer.
-
 ** *Implement `sort` command*
 
 *** What can `sort` command do:
@@ -52,6 +49,9 @@ given question and answer.
 
 *** Justification: This allows user to manage their data better and to find
  deck or card easily.
+
+ ** *Implement `newdeck` command*
+
 
 * *Other contributions*:
 
@@ -68,7 +68,13 @@ given question and answer.
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage from 79.5% to 84%
 ** Documentation:
-*** Update developer guide (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/91[#91])
+*** Update developer guide (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/91[#91],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/195[#195],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/199[#199])
+*** Update user guide (Pull request https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/195[#195])
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T09-2/main/pull/165[#165],
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/189[#189]
@@ -76,7 +82,12 @@ https://github.com/CS2103-AY1819S1-T09-2/main/pull/189[#189]
 (Issues:  https://github.com/CS2103-AY1819S1-T09-2/main/issues/161[#161],
  https://github.com/CS2103-AY1819S1-T09-2/main/issues/162[#162],
  https://github.com/CS2103-AY1819S1-T09-2/main/issues/163[#163],
- https://github.com/CS2103-AY1819S1-T09-2/main/issues/191[#191])
+ https://github.com/CS2103-AY1819S1-T09-2/main/issues/191[#191],
+ https://github.com/CS2103-AY1819S1-T09-2/main/issues/193[#193])
+*** Resolved issues suggested by other team members in the issue tracker of the project
+(Pull request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/156[#156],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164])
+
 
 
 == Contributions to the User Guide
@@ -86,8 +97,6 @@ https://github.com/CS2103-AY1819S1-T09-2/main/pull/189[#189]
 |===
 
 include::../UserGuide.adoc[tag=newdeck]
-
-include::../UserGuide.adoc[tag=newcard]
 
 include::../UserGuide.adoc[tag=sort]
 
@@ -105,6 +114,8 @@ include::../UserGuide.adoc[tag=find]
 include::../DeveloperGuide.adoc[tag=modelcomponent]
 
 include::../DeveloperGuide.adoc[tag=cardleveloperation]
+
+include::../DeveloperGuide.adoc[tag=handleinvalidcommands]
 
 include::../DeveloperGuide.adoc[tag=keepcardspanelupdatedbyui]
 

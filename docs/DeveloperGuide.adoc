@@ -218,6 +218,38 @@ image::NewcardSequenceDiagram.png[width="790", align="left"]
 
 // end::cardleveloperation[]
 
+// tag::handleinvalidcommands[]
+=== Handle invalid commands
+
+==== Current implementation
+
+* Deck-level operations (`newdeck`, `editdeck`, `deldeck`, `exportdeck`, `importdeck`)
+ are disabled when user is inside a deck.
+* These commands are blocked while executing commands (in Logic component) by
+checking the state of Anakin through Model interface.
+
+==== Design consideration
+
+* *Alternative 1 (current choice):* Implement the logic of command-checking in
+Logic component
+
+** Pros:
+*** Reduce possible bugs caused by executing deck-level commands while inside
+a deck.
+*** Model component handles less invalid commands.
+*** Exceptions are thrown and handled inside Logic components instead of being passed
+from Model to Logic.
+** Cons: Increase coupling between Logic and Model component.
+
+* *Alternative 2:* Handle all commands logic in Model component
+
+** Pros: Lower degree of dependency between Logic and Model (aka low coupling), thus
+make the process of maintenance, integration and testing easier.
+** Cons: Model has to check for invalid commands according to its
+state
+
+// end::handleinvalidcommands[]
+
 === Deck-level operations
 
 ==== Current implementation
