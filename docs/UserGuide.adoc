@@ -102,7 +102,7 @@ Task <INDEX>, <TASK_NAME> was created.
 
 ==== Deleting a Task: `delete`
 [%hardbreaks]
-Deletes a task from the task manager
+Deletes a task and task dependencies to it from the task manager
 Format: `delete INDEX`
 +Example: `delete 1`
 -Example: `delete task`
@@ -217,6 +217,8 @@ comes back from the future.
 ** *Add* : `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 
 ** *Delete* : `delete INDEX`
+
+** *Dependency* : `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
 
 ** *Edit* : `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
 
