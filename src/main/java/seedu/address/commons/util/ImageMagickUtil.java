@@ -15,8 +15,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.canvas.Canvas;
-import seedu.address.model.canvas.Layer;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.storage.JsonConvertArgsStorage;
 
@@ -166,32 +164,6 @@ public class ImageMagickUtil {
     }
 
     /**
-     * Creates a ProcessBuilder instance to merge/flatten layers.
-     * @param c - A canvas to be processed
-     * @return a buffered image with a merged canvas.
-     */
-    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
-        ArrayList<String> args = new ArrayList<>();
-        String output = tmpPath + "/modified.png";
-        args.add(getExecuteImageMagick());
-        args.add("-background");
-        args.add(String.format("%s", c.getBackgroundColor()));
-        for (Layer l: c.getLayers()) {
-            args.add("-page");
-            args.add(String.format("+%d+%d", l.getX(), l.getY()));
-            args.add(String.format("%s", l.getImage().getCurrentPath()));
-        }
-        if (c.isCanvasAuto()) {
-            args.add("-layers");
-            args.add(" merge");
-        } else {
-            args.add("-flatten");
-        }
-        args.add(output);
-        return runProcessBuilder(args, output);
-    }
-
-    /**
      * copy the imageMagick outside of the jarfile in order to call it.
      * @param userPrefs
      * @throws IOException
@@ -227,6 +199,10 @@ public class ImageMagickUtil {
             commandFolder.mkdir();
         }
         zipFile.delete();
+    }
+
+    public static String getTmpPath() {
+        return tmpPath;
     }
 
 }

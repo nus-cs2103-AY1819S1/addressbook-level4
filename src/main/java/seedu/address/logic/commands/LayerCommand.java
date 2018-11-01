@@ -5,16 +5,18 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeImageEvent;
-import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -35,6 +37,8 @@ public class LayerCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + ADD_SUBCOMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_IMAGE_SUCCESS = "Added image: %1$s to a new layer.";
+
+    private static final Logger logger = LogsCenter.getLogger(LayerCommand.class);
 
     private final Index targetIndex;
 
@@ -69,9 +73,12 @@ public class LayerCommand extends Command {
             model.addLayer(new PreviewImage(SwingFXUtils.fromFXImage(img, null)));
             EventsCenter.getInstance().post(
                     new ChangeImageEvent(
-                            SwingFXUtils.toFXImage(ImageMagickUtil.processCanvas(model.getCanvas()), null), "preview"));
-        } catch (Exception e) {
-            System.out.println(e);
+                            SwingFXUtils.toFXImage(
+                                    model.getCanvas().processCanvas(), null), "preview"));
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
+        } catch (InterruptedException e) {
+            logger.severe(e.getMessage());
         }
 
 
