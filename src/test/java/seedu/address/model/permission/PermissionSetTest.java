@@ -67,6 +67,7 @@ public class PermissionSetTest {
         assertTrue(permissionSet.addPermissions((permissionsToAdd)));
 
         //permissions already in set -> false
+        permissionSet = new PermissionSet(permissionsToAdd);
         assertFalse(permissionSet.addPermissions((permissionsToAdd)));
     }
 
