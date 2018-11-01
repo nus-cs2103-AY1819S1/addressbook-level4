@@ -23,6 +23,12 @@ public class LabelMatchesKeywordPredicateTest {
         LabelMatchesKeywordPredicate firstPredicateCopy = new LabelMatchesKeywordPredicate(firstDummyKeyword);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
+        // same keywords, case insensitive -> returns true
+        String firstDummyKeywordCaseInsensitive = "hAbiBI";
+        LabelMatchesKeywordPredicate firstPredicateCaseInsensitive =
+            new LabelMatchesKeywordPredicate(firstDummyKeywordCaseInsensitive);
+        assertTrue(firstPredicate.equals(firstPredicateCaseInsensitive));
+
         // different types -> returns false
         assertFalse(firstPredicate.equals(1));
 
