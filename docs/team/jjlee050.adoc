@@ -32,6 +32,8 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 
 ** Project management:
 *** Setup organisation/team repo
+*** Setup Travis CI, AppVeyor, Codacy and Coveralls
+*** Setup project website with Netlify
 *** Managed issue tracker
 *** Managed project schedule tracking
 *** Managed releases `v1.1`, `v1.2`, `v1.2.1`, `v1.3`, `v1.4` (5 releases) on GitHub
@@ -47,7 +49,6 @@ ClinicIO can be used to manage patient records, queues, medical inventory, appoi
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
 *** Integrated a third party library (BCrypt) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (TravisCI) to the team repo
 
 == 3. Contributions to the User Guide
 
