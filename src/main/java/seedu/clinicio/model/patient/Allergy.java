@@ -5,7 +5,7 @@ import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Allergy in the ClinicIO.
- * Guarantees: immutable; name is valid as declared in {@link #isValidAllergies(String)}
+ * Guarantees: immutable; name is valid as declared in {@link #isValidAllergy(String)}
  */
 public class Allergy {
     public static final String MESSAGE_ALLERGY_CONSTRAINTS = "Allergy should be alphanumeric";
@@ -20,14 +20,14 @@ public class Allergy {
      */
     public Allergy(String allergy) {
         requireNonNull(allergy);
-        checkArgument(isValidAllergies(allergy), MESSAGE_ALLERGY_CONSTRAINTS);
+        checkArgument(isValidAllergy(allergy), MESSAGE_ALLERGY_CONSTRAINTS);
         this.allergy = allergy;
     }
 
     /**
      * Returns true if a given string is a valid allergies.
      */
-    public static boolean isValidAllergies(String test) {
+    public static boolean isValidAllergy(String test) {
         return test.matches(ALLERGY_VALIDATION_REGEX);
     }
 

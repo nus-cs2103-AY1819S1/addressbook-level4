@@ -16,6 +16,8 @@ import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.doctor.Id;
 import seedu.clinicio.model.doctor.Password;
+import seedu.clinicio.model.patient.Allergy;
+import seedu.clinicio.model.patient.MedicalProblem;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -209,4 +211,58 @@ public class ParserUtil {
         Patient
         return patient;
     }*/
+
+    /**
+     * Parses {@code Collection<String> medicalProblems} into a {@code Set<MedicalProblem>}.
+     */
+    public static Set<MedicalProblem> parseMedicalProblems(Collection<String> medicalProblems) throws ParseException {
+        requireNonNull(medicalProblems);
+        final Set<MedicalProblem> medicalProblemSet = new HashSet<>();
+        for (String medicalProblem : medicalProblems) {
+            medicalProblemSet.add(parseMedicalProblem(medicalProblem));
+        }
+        return medicalProblemSet;
+    }
+
+    /**
+     * Parses a {@code String medicalProblem} into a {@code MedicalProblem}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medicalProblem} is invalid.
+     */
+    public static MedicalProblem parseMedicalProblem(String medicalProblem) throws ParseException {
+        requireNonNull(medicalProblem);
+        String trimmedMedicalProblem = medicalProblem.trim();
+        if (!MedicalProblem.isValidMedProb(trimmedMedicalProblem)) {
+            throw new ParseException(MedicalProblem.MESSAGE_MED_PROB_CONSTRAINTS);
+        }
+        return new MedicalProblem(trimmedMedicalProblem);
+    }
+
+    /**
+     * Parses {@code Collection<String> allergies} into a {@code Set<Allergy>}.
+     */
+    public static Set<Allergy> parseAllergies(Collection<String> allergies) throws ParseException {
+        requireNonNull(allergies);
+        final Set<Allergy> allergiesSet = new HashSet<>();
+        for (String allergy : allergies) {
+            allergiesSet.add(parseAllergy(allergy));
+        }
+        return allergiesSet;
+    }
+
+    /**
+     * Parses a {@code String medicalProblem} into a {@code MedicalProblem}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medicalProblem} is invalid.
+     */
+    public static Allergy parseAllergy(String allergy) throws ParseException {
+        requireNonNull(allergy);
+        String trimmedAllergy = allergy.trim();
+        if (!Allergy.isValidAllergy(trimmedAllergy)) {
+            throw new ParseException(MedicalProblem.MESSAGE_MED_PROB_CONSTRAINTS);
+        }
+        return new Allergy(trimmedAllergy);
+    }
 }
