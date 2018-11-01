@@ -5,30 +5,31 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.Arrays;
 
-import seedu.address.logic.commands.FindPhoneCommand;
+import seedu.address.logic.commands.FindAddressCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.PhoneContainsKeywordsPredicate;
+import seedu.address.model.person.AddressContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindPhoneCommand object
+ * Parses input arguments and creates a new FindAddressCommand object
  */
-public class FindPhoneCommandParser implements Parser<FindPhoneCommand> {
+public class FindAddressCommandParser implements Parser<FindAddressCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindPhoneCommand parse(String args) throws ParseException {
+    public FindAddressCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPhoneCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindAddressCommand.MESSAGE_USAGE));
         }
 
-        String[] phoneKeywords = trimmedArgs.split("\\s+");
+        String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindPhoneCommand(new PhoneContainsKeywordsPredicate(Arrays.asList(phoneKeywords)));
+        return new FindAddressCommand(new AddressContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
-
 }
 //@@author LZYAndy
