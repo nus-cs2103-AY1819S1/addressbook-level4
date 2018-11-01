@@ -424,14 +424,14 @@ Serves the first patient in the Waiting queue. The patient being served is now t
 Alias: `ser` +
 Format: `serve`
 
+[TIP]
+Upon successful call of this command, the medicine list will be displayed.
+
 .Before `serve` command
 image::BeforeServeCommand.png[width="750"]
 
 .After `serve` command
 image::AfterServeCommand.png[width="750"]
-
-[TIP]
-The medicine list will be displayed when this command is used for easy reference for dispensing medicine.
 
 [[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
@@ -469,7 +469,7 @@ image::BeforeAddDocumentCommand.png[width="750"]
 .After `adddocument mc/3 n/Headache for the past 2 days` command
 image::AfterAddDocumentCommand.png[width="750"]
 
-* `ad r/Suspected ligament tear. Suggest to do MRI ASAP.` +
+* `ad r/Ng Teng Fong Hospital` +
 Adds referral to the Current Patient.
 
 ==== Displaying document contents for Current Patient: `displaydocuments`
@@ -526,6 +526,13 @@ Examples:
 
 * `payment 3` +
 Removes the 3rd patient from the Served Patient Queue.
+
+.Before `payment 3` command
+image::BeforePaymentCommand.png[width="750"]
+
+.After `payment 3` command
+image::AfterPaymentCommand.png[width="750"]
+
 * `pay 1` +
 Removes the 1st patient from the Served Patient Queue.
 
