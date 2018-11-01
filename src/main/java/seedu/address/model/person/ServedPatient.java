@@ -7,6 +7,7 @@ import java.util.Map;
 
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
+import seedu.address.model.person.exceptions.DifferentBloodTypeException;
 import seedu.address.model.person.medicalrecord.Note;
 
 /**
@@ -108,7 +109,7 @@ public class ServedPatient {
     /**
      * Creates a note from the noteContent and dispensedMedicines and saves to the patient's medicalRecord.
      */
-    public Patient createNewPatientWithUpdatedMedicalRecord() {
+    public Patient createNewPatientWithUpdatedMedicalRecord() throws DifferentBloodTypeException {
         Note noteToSave = new Note(this.noteContent, this.medicineAllocated);
         Patient editedPatient = new Patient(this.patient, this.patient.getMedicalRecord());
         editedPatient.addNoteMedicalRecord(noteToSave);
