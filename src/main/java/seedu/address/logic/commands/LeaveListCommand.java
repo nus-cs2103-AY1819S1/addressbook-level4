@@ -2,17 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS;
-import static seedu.address.model.Model.PREDICATE_SHOW_PENDING_LEAVEAPPLICATIONS;
-
-import java.util.function.Predicate;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LeaveListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
-import seedu.address.model.leaveapplication.StatusEnum;
-import seedu.address.model.person.Person;
+import seedu.address.model.permission.Permission;
 import seedu.address.model.person.User;
 
 /**
@@ -32,10 +27,10 @@ public class LeaveListCommand extends Command {
         requireNonNull(model);
 
         User loggedInUser = model.getLoggedInUser();
-        if (loggedInUser.equals(User.getAdminUser())) {
-            model.updateFilteredLeaveApplicationList(PREDICATE_SHOW_PENDING_LEAVEAPPLICATIONS);
+        if (loggedInUser.equals(User.getAdminUser()) || loggedInUser.getPerson().getPermissionSet()
+                .getGrantedPermission().contains(Permission.VIEW_EMPLOYEE_LEAVE)) {
+            model.updateFilteredLeaveApplicationList(PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS);
         } else {
-            // Not the admin user, so show only this uer's own leave applications
             model.updateFilteredLeaveApplicationList(leaveApplication
                 -> leaveApplication.getEmployee().equals(loggedInUser.getPerson()));
         }
