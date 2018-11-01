@@ -58,7 +58,8 @@ public class XmlSerializableClinicIo {
      * Converts this ClinicIO into the model's {@code ClinicIo} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson} & {@code XmlAdaptedStaff} & & {@code XmlAdaptedReceptionist}.
+     * {@code XmlAdaptedPerson} & {@code XmlAdaptedStaff}
+     * & {@code XmlAdaptedReceptionist} & {@code XmlAdaptedAppointment}.
      */
     public ClinicIo toModelType() throws IllegalValueException {
         ClinicIo clinicIo = new ClinicIo();
