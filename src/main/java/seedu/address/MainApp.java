@@ -14,6 +14,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.storage.AdminPasswordModificationEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
@@ -27,6 +28,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Password;
+import seedu.address.model.person.User;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.ArchiveListStorage;
@@ -77,6 +80,8 @@ public class MainApp extends Application {
         logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
+
+        User.buildAdmin(User.ADMIN_DEFAULT_USERNAME, userPrefs.getAdminPassword());
 
         initEventsCenter();
     }
@@ -198,14 +203,34 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping OASIS ] =============================");
         ui.stop();
+        saveUserPrefs();
+        Platform.exit();
+        System.exit(0);
+    }
+
+    /**
+     * Commits the user preferences into file.
+     */
+    public void saveUserPrefs() {
         try {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-        Platform.exit();
-        System.exit(0);
     }
+
+    @Subscribe
+    public void modifyAdminPassword(AdminPasswordModificationEvent adminPasswordModificationEvent) {
+        Password newPassword = adminPasswordModificationEvent.newPassword;
+        userPrefs.setAdminPassword(newPassword);
+        User.buildAdmin(User.ADMIN_DEFAULT_USERNAME, newPassword);
+        //Reset logged in admin
+        model.setLoggedInUser(User.getAdminUser());
+
+        //Update saved admin passsword immediately
+        saveUserPrefs();
+    }
+
 
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
