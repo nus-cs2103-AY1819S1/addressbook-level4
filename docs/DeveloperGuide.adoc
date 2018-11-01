@@ -479,7 +479,7 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 // end::viewarangeoftasks[]
 
 // tag::generateacademiccalendar[]
-=== Generate academic calendar weeks
+=== Generate Academic Calendar Weeks
 
 In order to enable users to better monitor their tasks in the schedule planner by knowing what is the current
 academic week, we added `firstday` command.
@@ -570,10 +570,14 @@ image::FirstDayCommand_UG_Aft.png[width="400"]
 `CommandException` will be thrown if data from `rangeOfWeek.xml` could not be converted or if `rangeOfWeek.xml` does
 not exist.
 
+{empty} +
+
 The following sequence diagram illustrates how the mechanism works:
 
 .Sequence diagram of FirstDay Command
 image::FirstDayCommand_DG_SequenceDiagram.png[width="800"]
+
+{empty} +
 
 .Sequence diagram of launching MainApp
 image::LaunchMainApp_DG_SequenceDiagram.png[width="800"]
