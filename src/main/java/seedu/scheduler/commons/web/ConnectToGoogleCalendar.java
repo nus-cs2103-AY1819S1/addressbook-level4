@@ -218,31 +218,6 @@ public class ConnectToGoogleCalendar {
         return gEvent;
     }
 
-    private com.google.api.services.calendar.model.Event setRepeatAttribute(
-            com.google.api.services.calendar.model.Event gEvent, Event toAddEvent,
-            String commandMessage) {
-        String googleRecurringEventId = toAddEvent.getUuid()
-                .toString()
-                .replaceAll("-", "");
-        gEvent = gEvent.setICalUID(googleRecurringEventId);
-
-        String eventRepeatType = String.valueOf(toAddEvent.getRepeatType());
-        seedu.scheduler.model.event.DateTime eventUntilDt = toAddEvent.getRepeatUntilDateTime();
-        String eventUntilDate = eventUntilDt.getPrettyString()
-                //local:2019-01-01 18:51:52
-                .replaceAll("-", "")
-                //local:20190101 18:51:52
-                .replaceFirst(" ", "T")
-                //local:20190101T18:51:52
-                .replaceAll(":", "")
-                //local:20190101T185152
-                .concat("Z");
-
-        //Google format:20110701T170000Z
-        gEvent.setRecurrence(Arrays.asList(commandMessage));
-        return gEvent;
-    }
-
     private com.google.api.services.calendar.model.Event setCommonAttributes(
             com.google.api.services.calendar.model.Event gEvent, Event toAddEvent) {
 
@@ -398,7 +373,8 @@ public class ConnectToGoogleCalendar {
                 e.printStackTrace();
             }
 
-            for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
+            for (com.google.api.services.calendar.model.Event
+                    event : allEventsOnGoogle.getItems()) {
                 if (Objects.equals(event.getICalUID(), eventUuId)) {
                     eventIds.add(event.getId());
                     repeatedEventsFound = true;
@@ -557,15 +533,13 @@ public class ConnectToGoogleCalendar {
 
         if (!isRepeatEvent) {
             if (!found) {
-                //nothing
+                logger.warning("Event not found! Update failed!");
             } else {
                 assert gEvent != null;
                 com.google.api.services.calendar.model.Event updatedgEvent = null;
-                com.google.api.services.calendar.model.Event event = null;
                 gEvent = setCommonAttributes(gEvent, editedEvent);
 
                 try {
-                    event = service.events().get("primary", gEventId).execute();
                     updatedgEvent = service.events().update("primary", gEventId, gEvent).execute();
                     assert updatedgEvent != null;
                     updatedgEvent.getUpdated();
@@ -578,9 +552,7 @@ public class ConnectToGoogleCalendar {
         //for recurring event
         List<String> eventIds = new ArrayList<>();
         String recurringEventId = null;
-        boolean repeatedEventsFound = false;
         Events allEventsOnGoogle = null;
-        DateTime originalDate = null;
 
         //For repeated events
         if (isRepeatEvent) {
@@ -598,7 +570,6 @@ public class ConnectToGoogleCalendar {
             for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
                 if (Objects.equals(event.getICalUID(), eventUuId)) {
                     eventIds.add(event.getId());
-                    repeatedEventsFound = true;
                     recurringEventId = event.getRecurringEventId();
 
                 }
@@ -692,7 +663,6 @@ public class ConnectToGoogleCalendar {
             for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
                 if (Objects.equals(event.getICalUID(), eventUuId)) {
                     eventIds.add(event.getId());
-                    repeatedEventsFound = true;
                     recurringEventId = event.getRecurringEventId();
 
                 }
@@ -765,10 +735,8 @@ public class ConnectToGoogleCalendar {
                     gEvent.setEnd(new EventDateTime().setDateTime(end).setTimeZone("Singapore"));
 
 
-                    com.google.api.services.calendar.model.Event
-                            updatedEvent = service
-                            .events()
-                            .update("primary", recurringEventId, gEvent).execute();
+                    service.events()
+                           .update("primary", recurringEventId, gEvent).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -821,9 +789,7 @@ public class ConnectToGoogleCalendar {
         //for recurring event
         List<String> eventIds = new ArrayList<>();
         String recurringEventId = null;
-        boolean repeatedEventsFound = false;
         Events allEventsOnGoogle = null;
-        DateTime originalDate = null;
 
         //For repeated events
         if (isRepeatEvent) {
@@ -841,7 +807,6 @@ public class ConnectToGoogleCalendar {
             for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
                 if (Objects.equals(event.getICalUID(), eventUuId)) {
                     eventIds.add(event.getId());
-                    repeatedEventsFound = true;
                     recurringEventId = event.getRecurringEventId();
 
                 }
@@ -867,7 +832,6 @@ public class ConnectToGoogleCalendar {
                 e.printStackTrace();
             }
             if (instanceIndex > 0) {
-                instances = null;
                 try {
                     assert recurringEventId != null;
                     instances = service.events()
@@ -894,7 +858,6 @@ public class ConnectToGoogleCalendar {
                     gEvent = service.events()
                             .get("primary",
                                     Objects.requireNonNull(recurringEventId)).execute();
-                    //gEvent = setCommonAttributes(gEvent, editedEvent);
                     gEvent = setRepeatAttribute(gEvent, editedEvent);
 
                     gEvent.setSummary(editedEvent.getEventName().toString());
@@ -914,10 +877,8 @@ public class ConnectToGoogleCalendar {
                     gEvent.setEnd(new EventDateTime().setDateTime(end).setTimeZone("Singapore"));
 
 
-                    com.google.api.services.calendar.model.Event
-                            updatedEvent = service
-                            .events()
-                            .update("primary", recurringEventId, gEvent).execute();
+                    service.events()
+                           .update("primary", recurringEventId, gEvent).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

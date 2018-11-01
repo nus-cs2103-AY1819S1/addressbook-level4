@@ -37,7 +37,7 @@ public class EventFormatUtil {
         List<Event> eventsToAddToLocal = new ArrayList<>();
 
         for (com.google.api.services.calendar.model.Event googleEvent : listOfGoogleEvents) {
-            Event newEvent = googleEventToLocalEventConverter(googleEvent);
+            Event newEvent = convertGeventToLocalEvent(googleEvent);
             eventsToAddToLocal.add(newEvent);
         }
         return eventsToAddToLocal;
@@ -82,7 +82,7 @@ public class EventFormatUtil {
      *
      * @return Event   The local Event.
      */
-    public Event googleEventToLocalEventConverter(
+    public Event convertGeventToLocalEvent(
             com.google.api.services.calendar.model.Event googleEvent) {
 
         DateTime start = googleEvent.getStart().getDateTime();
