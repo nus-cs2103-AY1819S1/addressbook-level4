@@ -25,7 +25,13 @@ JxMusic is for those who *prefer to use a desktop app for listening to music*. M
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `jxmusic.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your JxMusic player.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Open a terminal in the folder, enter the command `java -jar jxmusic.jar`.
+    - The command should generate a `library` folder next to the jar file containing several sample mp3 files.
+    - Otherwise, enter `unzip jxmusic.jar "library/*"`
+    - Alternatively, download the library.zip file and unzip it next to the jar.
+    - Ensure that you have the library folder with the sample mp3 files otherwise jxmusic won't start.
+    - Then run `java -jar jxmusic.jar`
+.  The GUI should appear in a few seconds.
 +
 image::Ui latest.png[width="790"]
 +
@@ -35,12 +41,32 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`playlist list`* : lists all playlists
 * **`playlist new`**`p/playlist1 t/Marbles` : creates a new playlist named `playlist1` with mp3 file `Marbles.mp3` to the JxMusic Player.
+* **`playlist play`**`p/playlist1` : plays the `playlist1`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-.  To add the tracks you want to listen using the software, open the home folder of the jar file and add th tracks you want to listen to `library` folder.
+.  To add the new tracks to the library, add the mp3 files to the `library` folder.
 .  Restart the file so that your new tracks could be scanned and showed in UI.
 
+****
+List of currently working commands as of v1.3
+
+* `help`
+* `playlist list`
+* `playlist search`
+* `playlist new`
+* `playlist del`
+* `track list`
+* `track search`
+* `play t/`
+* `play p/`
+* `pause`
+* `play`
+* `stop`
+* `clear`
+* `exit`
+
+****
 
 [[Features]]
 == Features
@@ -82,31 +108,32 @@ Searches for playlists that has Fav in their names.
 
 === Creating a playlist : `playlist new`
 
-Creates a new empty playlist and saves it into the library. +
-Format: `playlist new p/PLAYLIST`
+Creates a new playlist with specific tracks and saves it into the library. +
+Format: `playlist new p/PLAYLIST [t/TRACK]...`
 
 ****
 * `PLAYLIST` refers to the playlist’s name.
+* `TRACK` refers to the track’s name.
 ****
 
 Examples:
 
-* `playlist new p/Favourites` +
-Creates a new playlist with the name Favourites.
+* `playlist new p/Favourites t/Some Song t/Some Song 2` +
+Creates a new playlist with the name Favourites and adds the tracks named Some Song and Some Song 2.
 
 === Deleting a playlist : `playlist del`
 
 Removes an existing playlist from the library. If the playlist is currently playing, it will stop and the playlist will be removed. +
-Format: `playlist del p/PLAYLIST`
+Format: `playlist del INDEX`
 
 ****
-* `PLAYLIST` refers to the playlist’s name.
+* `INDEX` refers to the playlist’s index in the playlist panel.
 ****
 
 Examples:
 
-* `playlist del p/Favourites` +
-Deletes the playlist named "Favourites" if it exists.
+* `playlist del 1` +
+Deletes the first playlist in the panel if it exists.
 
 === Adding a track into a playlist : `track add`
 
@@ -421,7 +448,7 @@ Switches off shuffling mode.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the library. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -464,10 +491,10 @@ eg. `stepback s/100`
 * *List all playlists* : `playlist list`
 * *Search for playlist* : `playlist search QUERY` +
 eg. `playlist search Fav`
-* *Create playlist* : `playlist new p/PLAYLIST` +
-eg. `playlist new p/Favourites`
-* *Delete playlist* : `playlist del p/PLAYLIST` +
-eg. `playlist del p/Favourites`
+* *Create playlist* : `playlist new p/PLAYLIST [t/TRACK]...` +
+eg. `playlist new p/Favourites t/Some Song t/Some Song 2`
+* *Delete playlist* : `playlist del INDEX` +
+eg. `playlist del INDEX`
 
 === Commands for managing tracks in playlist
 * *Add track to playlist* : `track add p/PLAYLIST t/TRACK` +
