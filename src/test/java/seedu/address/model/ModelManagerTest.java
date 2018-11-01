@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.User;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ArchiveListBuilder;
 
@@ -85,6 +86,8 @@ public class ModelManagerTest {
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.setLoggedInUser(new User(ALICE));
+        modelManager.updateFilteredLeaveApplicationListForPerson(ALICE);
         modelManager.updateFilteredLeaveApplicationList(PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS);
 
         // different userPrefs -> returns true
