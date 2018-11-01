@@ -43,7 +43,7 @@ public class ViewDoctorCommandTest {
     @Test
     public void execute_invalidDoctorUnfilteredList_failure() {
         // invalid name
-        assertCommandFailure(new ViewDoctorCommand(new Name("JASKLFJA12412445")),
+        assertCommandFailure(new ViewDoctorCommand(new Name("JACKIE")),
                 model, commandHistory, ViewDoctorCommand.MESSAGE_INVALID_DOCTOR);
 
         // not Doctor
