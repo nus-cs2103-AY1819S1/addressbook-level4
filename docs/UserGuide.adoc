@@ -188,8 +188,10 @@ Selects the wish identified by the index number used in the displayed wish list.
 Format: `select INDEX`
 
 ****
-* Selects the wish and loads the webpage at the `url` specific to that wish at the specified `INDEX`.
+* Selects the wish and displays content relevant to that wish in the view.
+* Webpage at the `url` specific to that wish at the specified `INDEX` will be loaded in the view.
 * If there is no internet connection, the webpage will not be loaded.
+* Savings history view will also reflect the savings history for the selected wish, if the selected wish is valid.
 * `INDEX` refers to the index number shown in the displayed wish list.
 * `INDEX` *must be a positive integer* `1, 2, 3, ...`
 ****

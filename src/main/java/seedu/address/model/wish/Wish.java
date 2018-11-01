@@ -39,17 +39,9 @@ public class Wish {
     public Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount,
                 Remark remark, Set<Tag> tags, UUID id) {
         requireAllNonNull(name, price, date, url, tags);
-        if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
-            fulfilled = true;
-        } else {
-            fulfilled = false;
-        }
 
-        if (isCurrDateGreaterThanOrEqualToDate(date)) {
-            expired = true;
-        } else {
-            expired = false;
-        }
+        fulfilled = isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price);
+        expired = isCurrDateGreaterThanOrEqualToDate(date);
 
         this.name = name;
         this.price = price;
@@ -67,17 +59,9 @@ public class Wish {
      */
     private Wish(Name name, Price price, Date date, Url url, SavedAmount savedAmount, Remark remark, Set<Tag> tags) {
         requireAllNonNull(name, price, date, url, tags);
-        if (isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price)) {
-            fulfilled = true;
-        } else {
-            fulfilled = false;
-        }
 
-        if (isCurrDateGreaterThanOrEqualToDate(date)) {
-            expired = true;
-        } else {
-            expired = false;
-        }
+        fulfilled = isSavedAmountGreaterThanOrEqualToPrice(savedAmount, price);
+        expired = isCurrDateGreaterThanOrEqualToDate(date);
 
         this.name = name;
         this.price = price;

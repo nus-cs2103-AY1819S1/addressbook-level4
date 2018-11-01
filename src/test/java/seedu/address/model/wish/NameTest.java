@@ -3,6 +3,8 @@ package seedu.address.model.wish;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
@@ -37,5 +39,11 @@ public class NameTest {
         assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertTrue(new Name(VALID_NAME_AMY).hashCode()
+                == new Name(VALID_NAME_AMY).hashCode());
     }
 }
