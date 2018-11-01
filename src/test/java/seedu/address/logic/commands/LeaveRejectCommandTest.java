@@ -16,7 +16,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -33,9 +32,9 @@ import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests
- * for LeaveApproveCommand.
+ * for LeaveRejectCommand.
  */
-public class LeaveApproveCommandTest {
+public class LeaveRejectCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -47,7 +46,7 @@ public class LeaveApproveCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        LeaveApproveCommand leaveApproveCommand = new LeaveApproveCommand(INDEX_FIRST_PERSON);
+        LeaveRejectCommand leaveRejectCommand = new LeaveRejectCommand(INDEX_FIRST_PERSON);
         Person originalPerson = new PersonBuilder(model.getFilteredPersonList()
                 .get(INDEX_SECOND_PERSON.getZeroBased())).build();
         List<LeaveApplication> leaveApplications = originalPerson.getLeaveApplications();
@@ -57,24 +56,24 @@ public class LeaveApproveCommandTest {
                 model.getArchiveList(), new UserPrefs());
         String originalUsername = originalPerson.getUsername().username;
         String originalPassword = originalPerson.getPassword().password;
-        leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.APPROVED).build();
+        leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.REJECTED).build();
         leaveApplications = new ArrayList<>(Arrays.asList(leaveApplication));
         Person editedPerson = new PersonBuilder(originalPerson).withUsername(originalUsername)
                 .withPassword(originalPassword).withLeaveApplications(leaveApplications).build();
 
-        String expectedMessage = String.format(LeaveApproveCommand.MESSAGE_LEAVE_APPROVE_SUCCESS, leaveApplication);
+        String expectedMessage = String.format(LeaveRejectCommand.MESSAGE_LEAVE_REJECT_SUCCESS, leaveApplication);
 
         expectedModel.updatePerson(originalPerson, editedPerson);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(leaveApproveCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(leaveRejectCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_filteredList_success() {
         showLeaveApplicationAtIndex(model, INDEX_FIRST_PERSON);
 
-        LeaveApproveCommand leaveApproveCommand = new LeaveApproveCommand(INDEX_FIRST_PERSON);
+        LeaveRejectCommand leaveRejectCommand = new LeaveRejectCommand(INDEX_FIRST_PERSON);
         Person originalPerson = new PersonBuilder(model.getFilteredPersonList()
                 .get(INDEX_SECOND_PERSON.getZeroBased())).build();
         List<LeaveApplication> leaveApplications = originalPerson.getLeaveApplications();
@@ -86,25 +85,25 @@ public class LeaveApproveCommandTest {
 
         String originalUsername = originalPerson.getUsername().username;
         String originalPassword = originalPerson.getPassword().password;
-        leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.APPROVED).build();
+        leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.REJECTED).build();
         leaveApplications = new ArrayList<>(Arrays.asList(leaveApplication));
         Person editedPerson = new PersonBuilder(originalPerson).withUsername(originalUsername)
                 .withPassword(originalPassword).withLeaveApplications(leaveApplications).build();
 
-        String expectedMessage = String.format(LeaveApproveCommand.MESSAGE_LEAVE_APPROVE_SUCCESS, leaveApplication);
+        String expectedMessage = String.format(LeaveRejectCommand.MESSAGE_LEAVE_REJECT_SUCCESS, leaveApplication);
 
         expectedModel.updatePerson(originalPerson, editedPerson);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(leaveApproveCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(leaveRejectCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidLeaveIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredLeaveApplicationList().size() + 1);
-        LeaveApproveCommand leaveApproveCommand = new LeaveApproveCommand(outOfBoundIndex);
+        LeaveRejectCommand leaveRejectCommand = new LeaveRejectCommand(outOfBoundIndex);
 
-        assertCommandFailure(leaveApproveCommand, model, commandHistory,
+        assertCommandFailure(leaveRejectCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_LEAVE_DISPLAYED_INDEX);
     }
 
@@ -119,14 +118,14 @@ public class LeaveApproveCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getLeaveApplicationList().size());
 
-        LeaveApproveCommand editCommand = new LeaveApproveCommand(outOfBoundIndex);
+        LeaveRejectCommand editCommand = new LeaveRejectCommand(outOfBoundIndex);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_LEAVE_DISPLAYED_INDEX);
     }
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        LeaveApproveCommand leaveApproveCommand = new LeaveApproveCommand(INDEX_FIRST_PERSON);
+        LeaveRejectCommand leaveRejectCommand = new LeaveRejectCommand(INDEX_FIRST_PERSON);
 
         Person originalPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         List<LeaveApplication> leaveApplications = originalPerson.getLeaveApplications();
@@ -134,7 +133,7 @@ public class LeaveApproveCommandTest {
 
         String originalUsername = originalPerson.getUsername().username;
         String originalPassword = originalPerson.getPassword().password;
-        leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.APPROVED).build();
+        leaveApplication = new LeaveApplicationBuilder(leaveApplication).withStatus(StatusEnum.Status.REJECTED).build();
         leaveApplications = new ArrayList<>(Arrays.asList(leaveApplication));
         Person editedPerson = new PersonBuilder(originalPerson).withUsername(originalUsername)
                 .withPassword(originalPassword).withLeaveApplications(leaveApplications).build();
@@ -144,8 +143,8 @@ public class LeaveApproveCommandTest {
         expectedModel.updatePerson(originalPerson, editedPerson);
         expectedModel.commitAddressBook();
 
-        // edit -> first leave approved
-        leaveApproveCommand.execute(model, commandHistory);
+        // edit -> first leave rejected
+        leaveRejectCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state
         expectedModel.undoAddressBook();
@@ -159,7 +158,7 @@ public class LeaveApproveCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredLeaveApplicationList().size() + 1);
-        LeaveApproveCommand editCommand = new LeaveApproveCommand(outOfBoundIndex);
+        LeaveRejectCommand editCommand = new LeaveRejectCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_LEAVE_DISPLAYED_INDEX);
@@ -171,10 +170,10 @@ public class LeaveApproveCommandTest {
 
     @Test
     public void equals() {
-        final LeaveApproveCommand standardCommand = new LeaveApproveCommand(INDEX_FIRST_PERSON);
+        final LeaveRejectCommand standardCommand = new LeaveRejectCommand(INDEX_FIRST_PERSON);
 
         // same values -> returns true
-        LeaveApproveCommand commandWithSameValues = new LeaveApproveCommand(INDEX_FIRST_PERSON);
+        LeaveRejectCommand commandWithSameValues = new LeaveRejectCommand(INDEX_FIRST_PERSON);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -187,7 +186,7 @@ public class LeaveApproveCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new LeaveApproveCommand(INDEX_SECOND_PERSON)));
+        assertFalse(standardCommand.equals(new LeaveRejectCommand(INDEX_SECOND_PERSON)));
     }
 
 }
