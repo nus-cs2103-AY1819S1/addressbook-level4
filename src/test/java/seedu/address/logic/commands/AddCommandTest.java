@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import javafx.collections.ObservableList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
+
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.logic.CommandHistory;
@@ -32,6 +32,8 @@ import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
+
+import javafx.collections.ObservableList;
 
 public class AddCommandTest {
 
