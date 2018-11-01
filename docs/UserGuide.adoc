@@ -601,14 +601,14 @@ Expected display box is shown in the figure below.
 
 .Output of `add 1`
 image::command_record_add_after1.png[add command, 600]
-
+//end::command-record[]
 * `add 1 h/5 r/Driver` +
 Adds a volunteer at index 1 to the event with 5 hours and remarks of 'Driver'. +
 Expected display box is shown in the figure below.
 
 .Output of `add 1 h/5 r/Driver`
 image::command_record_add_after2.png[add command, 600]
-//end::command-record[]
+
 
 [[command-record-edit]]
 ==== Updating volunteer record: `edit`
