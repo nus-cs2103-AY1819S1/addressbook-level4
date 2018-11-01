@@ -81,6 +81,9 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
+
+// tag::filterug[]
+
 [[Features-Filter]]
 === Filtering car parks : `filter`
 
@@ -112,12 +115,12 @@ List of valid flags:
 | Criteria | Flag| Parameter Structure | Valid Parameters | Example(s)
 | Car park has free parking |`f/`| `DAY START_TIME END_TIME` | `DAY`: `MON` - `SUN` +
 `START_TIME`: e.g. `7.30AM` +
-`END_TIME`: e.g. `9.30PM` | filter f/ `sun 9.00am 5.30pm`
+`END_TIME`: e.g. `9.30PM` | `filter f/ sun 9.00am 5.30pm`
 | Car park has night parking |`n/`| - | - |
-| Type of car park |`ct/`| `CAR_PARK_TYPE`| "SURFACE", "MULTISTOREY", "BASEMENT", "MECHANISED", "COVERED"| `filter ct/ covered`
+| Type of car park |`ct/`| `CAR_PARK_TYPE`| `"SURFACE", "MULTISTOREY", "BASEMENT", "MECHANISED", "COVERED"`| `filter ct/ covered`
 | Car park has available parking slot |`a/`| - | - |
 | Car park has short-term parking | `s/`| - | - |
-| Type of parking system | `ps/` |`PARKING_SYSTEM_TYPE`|"COUPON", "ELECTRONIC" | `filter ps/ coupon`
+| Type of parking system | `ps/` |`PARKING_SYSTEM_TYPE`|`"COUPON", "ELECTRONIC"` | `filter ps/ coupon`
 |===
 
 [NOTE]
@@ -128,7 +131,7 @@ List of valid flags:
 
 .Filtering covered car parks
 image::filter.png[width="880"]
-
+// end::filterug[]
 
 [[Features-Find]]
 === Finding car parks : `find`
@@ -200,7 +203,10 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-[[Features-List]]
+
+// tag::calculateug[]
+
+[[Features-Calculate]]
 === Calculating the cost of parking : `calculate`
 
 Calculates the cost of parking at a selected car park between a specified time period.
@@ -216,6 +222,7 @@ Calculates the cost of parking at a selected car park between a specified time p
 ====
 `CalculateCommand` takes into account the free parking times of car parks.
 ====
+// end::calculateug[]
 
 === Listing all car parks : `list`
 
