@@ -11,14 +11,15 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.ui.testutil.EventsCollectorRule;
 import seedu.address.testutil.GoogleCalendarStub;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class ExitCommandTest {
+    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
     private Model model = new ModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
