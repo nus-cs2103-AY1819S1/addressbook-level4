@@ -102,12 +102,12 @@ public class ListWeekCommandTest {
         //131018 is a saturday -> task from 131018 and 141018 will remain.
         Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         Model modelCheck = new ModelManager();
-        Task validTaskSat = new TaskBuilder().withDate("131018").build();
-        Task validTaskSun = new TaskBuilder().withDate("141018").build();
+        Task validTaskSat = new TaskBuilder().withDate("201018").build();
+        Task validTaskSun = new TaskBuilder().withDate("211018").build();
 
         List<String> dateList = new ArrayList<String>();
-        dateList.add("131018");
-        dateList.add("141018");
+        dateList.add("201018");
+        dateList.add("211018");
 
         model.addTask(validTaskSat);
         model.addTask(validTaskSun);
@@ -116,10 +116,10 @@ public class ListWeekCommandTest {
 
         model.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
 
-        //assertTrue(model.getFilteredTaskList().equals(modelCheck.getFilteredTaskList()));
-        //assertTrue(model.getFilteredTaskList().contains(validTaskSat));
-        //assertTrue(model.getFilteredTaskList().contains(validTaskSun));
-        //assertEquals(model.getFilteredTaskList(), modelCheck.getFilteredTaskList());
+        assertTrue(model.getFilteredTaskList().equals(modelCheck.getFilteredTaskList()));
+        assertTrue(model.getFilteredTaskList().contains(validTaskSat));
+        assertTrue(model.getFilteredTaskList().contains(validTaskSun));
+        assertEquals(model.getFilteredTaskList(), modelCheck.getFilteredTaskList());
     }
 
     @Test
