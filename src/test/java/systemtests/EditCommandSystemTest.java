@@ -117,7 +117,7 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered event list, edit index within bounds of scheduler and event list -> edited */
-        showEventsWithEventName(KEYWORD_MATCHING_STARTUP);
+        showEventsWithEventName("MA3220");
         index = INDEX_FIRST_EVENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredEventList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + VENUE_DESC_MA3220;

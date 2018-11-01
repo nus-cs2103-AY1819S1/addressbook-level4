@@ -33,6 +33,7 @@ public class Event {
     private final DateTime repeatUntilDateTime;
     private final Set<Tag> tags = new HashSet<>();
     private ReminderDurationList reminderDurationList;
+
     /**
      * Original Constructor
      * Every field must be present and not null
@@ -89,8 +90,17 @@ public class Event {
                 venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
     }
 
-
-
+    /**
+     * Does not take in reminderDurationList and uid and uuid
+     */
+    public Event(EventName eventName, DateTime startDateTime, DateTime endDateTime,
+                 Description description, Venue venue,
+                 RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
+                 ReminderDurationList reminderDurationList) {
+        this(UUID.randomUUID(), UUID.randomUUID(), eventName, startDateTime, endDateTime,
+                description, venue, repeatType, repeatUntilDateTime,
+                tags, reminderDurationList);
+    }
 
     public UUID getUid() {
         return uid;
