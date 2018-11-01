@@ -48,8 +48,7 @@ public class BrowserPanel extends UiPart<Region> {
                         runnable.run();
                     }
                 },
-                //45000
-                1
+                45000
         );
     }
 
