@@ -9,7 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import seedu.address.model.Model;
 import seedu.address.model.cca.Budget;
 import seedu.address.model.cca.Cca;
@@ -30,6 +29,21 @@ public class ImportBudgetBook {
     private List<Cca> ccaList;
     private Set<Entry> entries;
 
+    private final String HEADER = "ccas";
+    private final String CCA_NAME = "name";
+    private final String HEAD = "head";
+    private final String VICEHEAD = "viceHead";
+    private final String BUDGET = "budget";
+    private final String SPENT = "spent";
+    private final String OUTSTANDING = "outstanding";
+    private final String TRANSACTION_HEADER = "transaction";
+    private final String ENTRY_NUM = "entryNum";
+    private final String DATE = "date";
+    private final String AMOUNT = "amount";
+    private final String REMARKS = "log";
+
+    private final int INDEX = 0;
+
 
     public ImportBudgetBook(Document doc, Model model) {
         this.doc = doc;
@@ -45,35 +59,33 @@ public class ImportBudgetBook {
     public void execute() {
         //List<Cca> fullList = model.getBudgetBook().getCcaList();
         ccaList.clear();
-        NodeList nList = doc.getElementsByTagName("ccas");
+        NodeList nList = doc.getElementsByTagName(HEADER);
         for (int i = 0; i < nList.getLength(); i++) {
             Node node = nList.item(i);
             entries.clear();
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
-                //(CcaName name, Name head, Name viceHead, Budget budget, Spent spent, Outstanding outstanding,
-                //               Set<Entry> transactionEntries)
-                CcaName ccaname = new CcaName(element.getElementsByTagName("name").item(0).getTextContent());
-                Name head = new Name(element.getElementsByTagName("head").item(0).getTextContent());
-                Name viceHead = new Name(element.getElementsByTagName("viceHead").item(0).getTextContent());
-                Budget budget = new Budget(Integer.parseInt(element.getElementsByTagName("budget")
-                                                                    .item(0).getTextContent()));
-                Spent spent = new Spent(Integer.parseInt(element.getElementsByTagName("spent")
-                                                                    .item(0).getTextContent()));
-                Outstanding outstanding = new Outstanding(Integer.parseInt(element.getElementsByTagName("outstanding")
-                                                                                    .item(0).getTextContent()));
-                NodeList transactionsList = element.getElementsByTagName("transaction");
+                CcaName ccaname = new CcaName(element.getElementsByTagName(CCA_NAME).item(INDEX).getTextContent());
+                Name head = new Name(element.getElementsByTagName(HEAD).item(INDEX).getTextContent());
+                Name viceHead = new Name(element.getElementsByTagName(VICEHEAD).item(INDEX).getTextContent());
+                Budget budget = new Budget(Integer.parseInt(element.getElementsByTagName(BUDGET)
+                                                                    .item(INDEX).getTextContent()));
+                Spent spent = new Spent(Integer.parseInt(element.getElementsByTagName(SPENT)
+                                                                    .item(INDEX).getTextContent()));
+                Outstanding outstanding = new Outstanding(Integer.parseInt(element.getElementsByTagName(OUTSTANDING)
+                                                                                    .item(INDEX).getTextContent()));
+                NodeList transactionsList = element.getElementsByTagName(TRANSACTION_HEADER);
                 for (int j = 0; j < transactionsList.getLength(); j++) {
                     Node trans = transactionsList.item(j);
                     if (trans.getNodeType() == Node.ELEMENT_NODE) {
                         Element transElement = (Element) trans;
 
-                        String entryNum = transElement.getElementsByTagName("entryNum")
-                                                                        .item(0).getTextContent();
-                        String date = transElement.getElementsByTagName("date").item(0).getTextContent();
-                        String amount = transElement.getElementsByTagName("amount").item(0).getTextContent();
-                        String log = transElement.getElementsByTagName("log").item(0).getTextContent();
+                        String entryNum = transElement.getElementsByTagName(ENTRY_NUM)
+                                                                        .item(INDEX).getTextContent();
+                        String date = transElement.getElementsByTagName(DATE).item(INDEX).getTextContent();
+                        String amount = transElement.getElementsByTagName(AMOUNT).item(INDEX).getTextContent();
+                        String log = transElement.getElementsByTagName(REMARKS).item(INDEX).getTextContent();
 
                         entries.add(new Entry(entryNum, date, amount, log));
                     }
@@ -82,5 +94,6 @@ public class ImportBudgetBook {
             }
         }
         model.addMultipleCcas(ccaList);
+        model.commitBudgetBook();
     }
 }

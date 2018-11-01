@@ -31,6 +31,16 @@ public class ImportAddressBook {
     private List<Person> personList;
     private Set<Tag> tags;
 
+    private final String HEADER = "persons";
+    private final String NAME = "name";
+    private final String PHONE = "phone";
+    private final String EMAIL = "email";
+    private final String ROOM = "room";
+    private final String SCHOOL = "school";
+    private final String TAG = "tagged";
+
+    private final int INDEX = 0;
+
 
     public ImportAddressBook(Document doc, Model model) {
         this.doc = doc;
@@ -52,12 +62,12 @@ public class ImportAddressBook {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
-                Name name = new Name(element.getElementsByTagName("name").item(0).getTextContent());
-                Phone phone = new Phone(element.getElementsByTagName("phone").item(0).getTextContent());
-                Email email = new Email(element.getElementsByTagName("email").item(0).getTextContent());
-                Room room = new Room(element.getElementsByTagName("room").item(0).getTextContent());
-                School school = new School(element.getElementsByTagName("school").item(0).getTextContent());
-                NodeList tagged = element.getElementsByTagName("tagged");
+                Name name = new Name(element.getElementsByTagName(NAME).item(INDEX).getTextContent());
+                Phone phone = new Phone(element.getElementsByTagName(PHONE).item(INDEX).getTextContent());
+                Email email = new Email(element.getElementsByTagName(EMAIL).item(INDEX).getTextContent());
+                Room room = new Room(element.getElementsByTagName(ROOM).item(INDEX).getTextContent());
+                School school = new School(element.getElementsByTagName(SCHOOL).item(INDEX).getTextContent());
+                NodeList tagged = element.getElementsByTagName(TAG);
                 if (tagged.getLength() != 0) {
                     for (int j = 0; j < tagged.getLength(); j++) {
                         tags.add(new Tag(tagged.item(j).getTextContent()));
@@ -70,5 +80,6 @@ public class ImportAddressBook {
             }
         }
         model.addMultiplePersons(personList);
+        model.commitAddressBook();
     }
 }

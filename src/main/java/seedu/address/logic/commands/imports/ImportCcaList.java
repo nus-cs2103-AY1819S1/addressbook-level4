@@ -27,6 +27,10 @@ public class ImportCcaList {
     private Model model;
     private String cca;
 
+    private final String HEADER = "cca";
+    private final String NAME = "name";
+    private final String ROOM = "room";
+
     public ImportCcaList(Document doc, Model model) {
         this.roomsList = new ArrayList<>();
         this.doc = doc;
@@ -40,7 +44,7 @@ public class ImportCcaList {
     public void execute() {
         List<Person> originalList = new ArrayList<>();
         List<Person> editedList = new ArrayList<>();
-        NodeList nList = doc.getElementsByTagName("cca");
+        NodeList nList = doc.getElementsByTagName(HEADER);
         for (int i = 0; i < nList.getLength(); i++) {
             List<Person> fullList = model.getAddressBook().getPersonList();
             originalList.clear();
@@ -49,8 +53,8 @@ public class ImportCcaList {
             Node node = nList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
-                this.cca = element.getAttribute("name");
-                NodeList nodeList = element.getElementsByTagName("room");
+                this.cca = element.getAttribute(NAME);
+                NodeList nodeList = element.getElementsByTagName(ROOM);
                 for (int j = 0; j < nodeList.getLength(); j++) {
                     roomsList.add(nodeList.item(j).getTextContent());
                 }
@@ -66,6 +70,7 @@ public class ImportCcaList {
                 model.updateMultiplePersons(originalList, editedList);
             }
         }
+        model.commitAddressBook();
     }
 
     /**
