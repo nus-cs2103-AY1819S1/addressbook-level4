@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import javax.imageio.ImageIO;
 
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.person.Room;
 
 //@@author javenseow
@@ -14,10 +15,13 @@ import seedu.address.model.person.Room;
  */
 public class ProfilePictureDirStorage implements ProfilePictureStorage {
 
+    private static final String JPG = ".jpg";
     private Path dirPath;
+    private Path opPath;
 
-    public ProfilePictureDirStorage(Path dirPath) {
+    public ProfilePictureDirStorage(Path dirPath, Path opPath) {
         this.dirPath = dirPath;
+        this.opPath = opPath;
     }
 
     @Override
@@ -39,8 +43,12 @@ public class ProfilePictureDirStorage implements ProfilePictureStorage {
     @Override
     public void saveProfilePicture(BufferedImage image, Room number) throws IOException {
         try {
-            File copiedFile = new File(dirPath + "/" + number.value + ".jpg");
-            ImageIO.write(image, "jpg", copiedFile);
+            File copiedFile = new File(dirPath + "/" + number.value + JPG);
+            File outputFile = new File(opPath + "/" + number.value + JPG);
+            FileUtil.createIfMissing(copiedFile.toPath());
+            FileUtil.createIfMissing(outputFile.toPath());
+            ImageIO.write(image, JPG, copiedFile);
+            ImageIO.write(image, JPG, outputFile);
         } catch (IOException e) {
             throw e;
         }
