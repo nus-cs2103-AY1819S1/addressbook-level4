@@ -117,7 +117,7 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private String loadProfileHtml(Person person) {
         String htmlString = "";
-        String pictureString = "";
+        //String pictureString = "";
         String tempString;
         try {
             InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
@@ -125,8 +125,8 @@ public class BrowserPanel extends UiPart<Region> {
             while ((tempString = reader.readLine()) != null) {
                 htmlString += tempString;
             }
-            pictureString = MainApp.class
-                    .getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
+            //pictureString = MainApp.class
+                    //.getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public class BrowserPanel extends UiPart<Region> {
         htmlString = htmlString.replace("$number", person.getPhone().value);
         htmlString = htmlString.replace("$school", person.getSchool().value);
         htmlString = htmlString.replace("$email", person.getEmail().value);
-        htmlString = htmlString.replace("$profileURL", pictureString);
+        //htmlString = htmlString.replace("$profileURL", pictureString);
 
         return htmlString;
     }
