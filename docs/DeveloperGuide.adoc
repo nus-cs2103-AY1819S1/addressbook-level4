@@ -344,7 +344,7 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 Step 1. The user selects an image with the `select` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the selected image. The `currentStatePointer` pointing to that state.
 
 [NOTE]
-A `Canvas` can already be initialised, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
+A `Canvas` can already be initialized, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
 
 
 image::undoRedo1.png[width="800"]
@@ -356,7 +356,7 @@ If a command fails its execution, it will not call `Model#updateCurrentPreviewIm
 
 image::undoRedo2.png[width="800"]
 
-Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state, then calls `Model#getCurrentPreviewImage()` to update the UI's preview image pane.
+Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state. After which, a `ChangeImageEvent` posted with the new image state by calling `PreviewImage#getImage()` to update the UI's preview image pane.
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#canUndoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
@@ -364,7 +364,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial state, then 
 image::undoRedo3.png[width="800"]
 
 
-Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize` - 1), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
+Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize - 1`), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
 
 image::undoRedo4.png[width="800"]
 
@@ -396,7 +396,7 @@ image::undoRedoActivityDiagram.png[width="800"]
 ** Cons: Uses user's storage space for caching.
 * **Alternative 2:** Save only the command, and reverse/reapply transformation for each undo/redo.
 ** Pros: Will not need to use user's data storage.
-** Cons: Transformations on images take significantly more time as compared to reading and writing cache. Also, reversing of transformations are not possible for commands like blur and colorspace.
+** Cons: Transformations on images take significantly more time as compared to reading and writing cache. Also, reversing of transformations are not possible for commands like `blur` and `colorspace`.
 // end::undoredo[]
 
 
