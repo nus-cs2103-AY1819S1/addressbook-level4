@@ -46,6 +46,10 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New appointment added";
     public static final String MESSAGE_INVALID_PATIENT = "This patient does not exist in the HealthBook";
     public static final String MESSAGE_INVALID_DOCTOR = "This doctor does not exist in the HealthBook";
+    public static final String MESSAGE_DOCTOR_CLASH_APPOINTMENT =
+            "This doctor already have an appointment in that time slot.";
+    public static final String MESSAGE_PATIENT_CLASH_APPOINTMENT =
+            "This patient already have an appointment in that time slot.";
     // TODO - add messages for various cases (e.g. conflict in schedule) here when google calendar is up
 
     private final Name patientName;
@@ -98,6 +102,13 @@ public class AddAppointmentCommand extends Command {
             throw new InvalidSecurityAccessException();
         } catch (IOException e) {
             throw new InvalidInputOutputException();
+        }
+
+        if (doctor.hasClashForAppointment(appointment)) {
+            throw new CommandException(MESSAGE_DOCTOR_CLASH_APPOINTMENT);
+        }
+        if (patient.hasClashForAppointment(appointment)) {
+            throw new CommandException(MESSAGE_PATIENT_CLASH_APPOINTMENT);
         }
 
         doctor.addUpcomingAppointment(appointment);
