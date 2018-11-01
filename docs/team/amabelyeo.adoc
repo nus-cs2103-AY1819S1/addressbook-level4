@@ -6,8 +6,6 @@
 
 == PROJECT: SocialCare
 
----
-
 == 1. Overview
 
 This portfolio page documents my involvement in SocialCare, a project done as part of the CS21303T Software Engineering module taught in NUS.
@@ -17,7 +15,7 @@ The application is designed to help manage volunteers and events effectively.
 Users interact with the application using a Command Line Interface (CLI).
 In addition, SocialCare has a Graphical User Interface (GUI) to display information in a user-friendly manner.
 
-My role as a developer for SocialCare is to implement a *record management feature*, which enables users to do the following:
+My role as a developer for SocialCare is to implement *record management functions*, which enables users to do the following:
 
 * Assign volunteers to event
 * Update volunteering records for volunteers
