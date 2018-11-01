@@ -56,8 +56,10 @@ e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, [blue]`NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
-* Items in square brackets are optional e.g [blue]`n/NAME [c/CATEGORY]` can be used as [blue]`n/do CS2100 tutorial c/CS2100` or as [blue]`n/do CS2100 tutorial`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`[c/CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), [blue]`c/tutorial`, [blue]`c/tutorial c/CS2100` etc.
+* Items in square brackets are optional e.g [blue]`n/NAME [t/TAG]` can be used as [blue]`n/do CS2100 tutorial
+t/CS2100` or as [blue]`n/do CS2100 tutorial`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`[t/TAG]...` can be used
+ as `{nbsp}` (i.e. 0 times), [blue]`t/tutorial`, [blue]`t/tutorial t/CS2100` etc.
 * Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
 ****
 
@@ -248,9 +250,9 @@ Shows a list of tasks that are due from current date till the closest Sunday. +
 [blue]`listweek`
 ====
 
-=== Generating academic calendar weeks
+=== Generating Academic Calendar Weeks
 
-Generates the entire academic calendar calendar with description based on the first academic day and stores it in storage.
+Generates the entire academic calendar weeks with description, based on the first academic day and stores it in storage.
 
 Currently, the generated academic calendar is based on the academic calender of National University of Singapore
 (NUS). It may not be compatible with academic calendars from other institutions.
@@ -266,9 +268,18 @@ Example:
 ====
 input: [blue]`firstday 130818` +
 output: When user launch the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
-semester 1), the application title will append "week 10".
+semester 1), the application title will append "Week 10".
 ====
-The [blue]`ddmmyy` refers to the date format of day, month and year.
+The [blue]`ddmmyy` refers to the date format of day, month and year. It must complies the following three rules in
+order:
+
+1. The [blue]`ddmmyy` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
+will be
+rejected as they are considered as more than one set of date.
+
+2. The [blue]`ddmmyy` must be a valid date within 21st century.
+
+3. The [blue]`ddmmyy` must be a Monday.
 
 Before:
 ====
@@ -427,7 +438,7 @@ Example: +
 ====
 [blue]`listweek`
 ====
-* **Generating academic calendar weeks** :
+* **Generating Academic Calendar Weeks** :
 ====
 [blue]`firstday ddmmyy`
 
