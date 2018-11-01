@@ -5,8 +5,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +21,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteDoctorCommand;
+import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -134,8 +139,23 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_viewPatientCommandWord_returnsViewPatientCommand() throws Exception {
-        assertTrue(parser.parseCommand(ViewPatientCommand.COMMAND_WORD) instanceof ViewPatientCommand);
-        assertTrue(parser.parseCommand("view-patient n/John Doe") instanceof ViewPatientCommand);
+        ViewPatientCommand command = (ViewPatientCommand) parser.parseCommand(
+                ViewPatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName); 
+        assertEquals(new ViewPatientCommand(ALICE.getName()), command);
+    }
+
+    @Test
+    public void parseCommand_deletePatientCommandWord_returnsDeletePatientCommand() throws Exception {
+        DeletePatientCommand command = (DeletePatientCommand) parser.parseCommand(
+                DeletePatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName);
+        assertEquals(new DeletePatientCommand(ALICE.getName()), command);
+    }
+
+    @Test
+    public void parseCommand_deleteDoctorCommandWord_returnsDeleteDoctorCommand() throws Exception {
+        DeleteDoctorCommand command = (DeleteDoctorCommand) parser.parseCommand(
+                DeleteDoctorCommand.COMMAND_WORD + " " + PREFIX_NAME + GEORGE.getName().fullName);
+        assertEquals(new DeleteDoctorCommand(GEORGE.getName()), command);
     }
 
     @Test
