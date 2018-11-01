@@ -3,15 +3,17 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: CLInic
 
 ---
 
 == Overview
 
-CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application. CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the programming language and uses JavaFX, HTML and CSS for the GUI.
+Hello, I am Syahiran. I am currently in my third year in the National University of Singapore (NUS), where I am majoring in Computer Science (CS). As part of the Introduction to Software Engineering module (CS2103T), I worked with four other students from CS to develop a database management system called CLInic.
 
-My task in
+CLInic is a desktop application created to automate daily administrative tasks like updating medical records, checking medicine inventory and generating receipts for small clinics. The CLI in CLInic is an acronym for "Command Line Interface" (an interface for typing commands directly into the application) which is the main feature of the application.
+
+This project portforlio serves to document my contributions to this project, which you can find in the sections below.
 
 == Summary of contributions
 
@@ -50,5 +52,12 @@ include::../UserGuide.adoc[tag=undoredo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=document]
+. Implementation of the `MedicalCertificate` class
+
+include::../DeveloperGuide.adoc[tag=mc]
+
+[start = 2]
+. Implementation of the `ReferralLetter` class
+
+include::../DeveloperGuide.adoc[tag=referralletter]
 

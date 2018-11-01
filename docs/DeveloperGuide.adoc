@@ -445,13 +445,14 @@ Given below is are examples of how the medicine class is used:
 
 Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 
-Scenario 2. A new shipment of medicine has arrived. The user uses `editMedicine` command
+Scenario 2. A new shipment of medicine has arrived. The user uses `restock` command
 to update the new stock levels of exiting medicine.
 
-Scenario 3. When a patient is allocated medicine, during payment a `receipt` command is executed by the user to fetch the prices
-for the medicine that is allocated, in addition, the stock level of the medicine is updated too.
+Scenario 3. When a patient is allocated medicine, the 'dispensemedicine' command is entered.
+During payment a `receipt` command is executed by the user to fetch the prices
+for the medicine that is allocated, in addition, the stock level of the medicine is updated.
 
-Scenario 4. During closing or whenever needed, the user checks for the stock level. The user executes the `checkStock` command
+Scenario 4. The user needs to check for the stock level of every medicine. The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
 
 ==== Design Considerations
@@ -459,11 +460,11 @@ which lists the medicine that are below their Minimum Stock Quantity.
 ===== Aspect: Execution of the command
 
 * **Alternative 1 (current choice):** Stores the medicine in a list.
-** Pros: Similar format with the list with patients.
+** Pros: Consistent format with the list with patients.
 ** Cons: Need to search through the list to find a medicine.
 * **Alternative 2:** Stores the medicine in a hash map.
 ** Pros: Quick reference for object given index.
-** Cons: Messy implementation with long methods everywhere.
+** Cons: Difficult to sort the medicine.
 //end::medicine[]
 
 // tag::pqms[]
@@ -508,13 +509,15 @@ Step 6. The user finally executes `payment` command to generate the receipt and 
 him from the `ServedPatientQueue`.
 //end::pqms[]
 
-// tag::document[]
+// tag::documentpreamble[]
 === Document
 ==== Current Implementation
 The `Document`  class represents all documents that can be issued by the clinic. The `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
 It specifies what general information these documents should have and how they should be formatted. It can be thought of as the formatting template for all the information
 belonging to its inheriting classes.
+//end::documentpreamble[]
 
+// tag::receipt[]
 ===== Implementation of `Receipt`
 The `Receipt` class structure is as follows:
 
@@ -543,7 +546,9 @@ Executing `receipt` with an invalid index will **not** result in the generation 
 
 .Result of executing `receipt` with an invalid index.
 image::ServedPatientListEmptyReceipt.png[width="650"]
+// end::receipt[]
 
+// tag::mc[]
 ===== Implementation of `MedicalCertificate`
 The `MedicalCertificate` class structure is as follows:
 
@@ -566,7 +571,9 @@ Step 2. The user executes `mc 1` command to generate a `MedicalCertificate` with
 
 [WARNING]
 Executing `mc` with an invalid index will **not** result in the generation of a `MedicalCertificate`.
+// end::mc[]
 
+// tag::referralletter[]
 ===== Implementation of `ReferralLetter`
 The `ReferralLetter` class structure is as follows:
 
@@ -588,7 +595,9 @@ Step 2. The user executes `refer 1` command to generate a `ReferralLetter` with 
 
 [WARNING]
 Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.
+// end::referralletter[]
 
+// tag::documentconsiderations[]
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
 * **Alternative 1 (current choice)**: Using a typical class to implement `Document`. +
@@ -600,12 +609,12 @@ Executing `refer` with an invalid index will **not** result in the generation of
 * **Alternative 2**: Using an `interface` to implement `Document`.
 ** Pros:
 *** The classes implementing `Document` can be converted to `enums`, which ensures that the inputs fed to these classes are valid.
-**** For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for **1,000,000 days**!
+**** For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
 ** Cons:
 *** Unable to standardise the way the implementing classes implement the `generate` method.
 **** This can potentially allow the inheriting classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
 **** Even if all the information are present, they might be formatted differently.
-//end::document[]
+// end::documentconsiderations[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
