@@ -83,7 +83,7 @@ Example: if the command specifies n/name p/address, p/address n/name is also acc
 
 This section contains all commands related to managing attractions.
 
-==== Add attractions: `add`
+==== Adding attractions: `add`
 
 Add an attraction by name with the information. +
 Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
@@ -95,7 +95,7 @@ Examples:
 * add n/Transformers m/1 w/30 a/John street, block 123, #01-01
 * add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
 
-==== Delete attractions: `delete`
+==== Deleting attractions: `delete`
 
 Deletes the specified attraction from ThanePark. +
 Format: `delete <index>`
@@ -120,22 +120,22 @@ Examples:
    `delete 1` +
    Deletes the 1st ride in the results of the find command.
 
-==== Update information of attraction: `update`
+==== Updating information of attraction: `update`
 
 Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
 Format: `update <index> <tag> <value>`
 
-==== Shutdown attraction: `shutdown`
+==== Shutting down attraction: `shutdown`
 
 Closes the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <index>`
 
-==== Open attraction: `open`
+==== Opening attraction: `open`
 
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
-=== User help and accessibility
+=== Manage commands
 
 
 This section contains all commands related to managing commands.
@@ -278,13 +278,15 @@ This section contains all commands related to viewing list on rides.
 
 ==== Viewing all available rides: `viewall`
 
-Display all available rides in a list. +
+Display all available rides in a list.
+
 Format: `viewall`
 
 ==== Viewing detailed information of a specific ride: `view`
 
 Display all available information about a single ride on the list of displayed rides.
-`index` field specifies the index of the ride that the user wants to view. +
+`index` field specifies the index of the ride that the user wants to view.
+
 Format: `view <index>`
 
 [NOTE]
@@ -292,7 +294,8 @@ The range of `index` should be between one and one million.
 
 ==== Viewing rides by their status: `viewstatus`
 
-Display all rides according to the status of the rides. +
+Display all rides according to the status of the rides.
+
 Format: `viewstatus <status>`
 
 [NOTE]
