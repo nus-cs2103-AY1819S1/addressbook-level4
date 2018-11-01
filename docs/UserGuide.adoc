@@ -313,6 +313,10 @@ Example:
 * `list` +
 `register 3` +
 Registers the 3rd patient in the database.
+
+image::Register3Command.png[width="750"]
+
+
 * `find david` +
 `register 1` +
 Registers the 1st patient in the resulting list of the `find` command.

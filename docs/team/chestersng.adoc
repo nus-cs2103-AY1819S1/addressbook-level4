@@ -9,17 +9,21 @@
 
 == Overview
 
+This project portfolio serves to document my contributions to CLInic, a CS2103T (Introduction to Software Engineering) project as part of my
+Computer Science curriculum in NUS.
+
 CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application.
 CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
-programming language and uses JavaFX, HTML and CSS for the GUI.
-
-My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
-after every enhancement or change.
+primary programming language and uses JavaFX, HTML and CSS for the GUI.
 
 The project scope for CLInic is to morph the given `addressbook-level4` into a clinic management application that allows users to manage patient
 and medicine information and additionally manage the clinic queue.
 
-The team consists of four year-2 and one year-3 student in School of Computing, NUS.
+My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
+after every enhancement or change.
+
+
+
 
 == Summary of contributions
 
