@@ -1,24 +1,34 @@
 = Yeo Zhuan Yu - Project Portfolio
 :site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+
 
 image::zhuanyu.png[width="150", align="left"]
 {empty}[https://github.com/ZhuanYu[github]]
 
-== PROJECT: Car Park Finder
+Hello! My name is Zhuan Yu and I am a second year Computer Science undergraduate. As an aspiring programmer, I want to
+show people about the joy of coding through samples of my work.
 
----
+I am currently a developer for _Car Park Finder_, a team project to be completed as part of the module CS2103T Software Engineering in NUS.
+
+== PROJECT: Car Park Finder
+:sectnums:
 
 == Overview
 
 _Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
 HDB (Housing Development Board) car parks in Singapore. +
 
-Our application allows you to view vital information such as lots availability for each car park, so that you can plan ahead of your trip. +
+Our application allows you to view vital information such as lots availability for each car park, so that you can
+plan ahead of your trip.
 
-If you use the computer frequently
-and commute by driving, try out _Car Park Finder_ https://github.com/CS2103-AY1819S1-T09-4/main/releases[now]. No installation is required and all you need to do to get started is to type away!
+If you use the computer frequently and commute by driving, why not try out
+https://github.com/CS2103-AY1819S1-T09-4/main/releases[_Car Park Finder_]. No installation is required and getting
+started is as simple as typing out a text message.
 
 == Summary of contributions
 

@@ -19,6 +19,7 @@ import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Address;
 import seedu.parking.model.carpark.Carpark;
+import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 import seedu.parking.model.carpark.CarparkNumber;
 import seedu.parking.model.carpark.CarparkType;
 import seedu.parking.model.carpark.Coordinate;
@@ -71,7 +72,7 @@ public class QueryCommand extends Command {
         Callable<Boolean> task = () -> {
             try {
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
-                model.resetData(new CarparkFinder());
+                model.updateFilteredCarparkList(unused -> false);
                 List<List<String>> carparkData = new ArrayList<>(GsonUtil.fetchAllCarparkInfo());
                 List<Carpark> allCarparks = new ArrayList<>(readCarpark(carparkData));
                 model.loadCarpark(allCarparks);
@@ -80,9 +81,7 @@ public class QueryCommand extends Command {
                 EventsCenter.getInstance().post(new NewResultAvailableEvent(String.format(MESSAGE_SUCCESS, updated)));
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
             } catch (Exception e) {
-                if (model.canUndoCarparkFinder()) {
-                    model.undoCarparkFinder();
-                }
+                model.updateFilteredCarparkList(unused -> true);
                 EventsCenter.getInstance().post(new DataFetchExceptionEvent(
                         new CommandException(MESSAGE_ERROR_CARPARK)));
             }
