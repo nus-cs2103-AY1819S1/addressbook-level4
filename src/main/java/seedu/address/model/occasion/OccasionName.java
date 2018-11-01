@@ -12,7 +12,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class OccasionName {
 
     public static final String MESSAGE_OCCASIONNAME_CONSTRAINTS = "Occasion "
-        + "names should only contain alphanumeric characters and spaces with length ranges from 3 to 30" +
+        + "names should only contain alphanumeric characters and spaces with length ranges from 3 to 30"
         + ", and it should not be blank.";
 
     /*
