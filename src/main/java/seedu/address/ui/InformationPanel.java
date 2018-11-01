@@ -72,7 +72,7 @@ public class InformationPanel extends UiPart<Region> {
         pastAppointmentTable.getItems().clear();
         upcomingAppointmentTable.getItems().addAll(upcomingAppointmentList);
     }
-    
+
     private void setConnections(ObservableList<String> allergiesList,
                                 ObservableList<String> conditionsList,
                                 ObservableList<Appointment> upcomingAppointmentList,
