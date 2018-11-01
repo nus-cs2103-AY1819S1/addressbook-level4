@@ -18,6 +18,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.exceptions.DifferentBloodTypeException;
 import seedu.address.model.person.medicalrecord.MedicalRecord;
 
 /**
@@ -67,21 +68,26 @@ public class AddMedicalRecordCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Patient patientToAddMedicalRecord = lastShownList.get(index.getZeroBased());
-        Patient editedPatient = createNewPatientWithUpdatedMedicalRecord(patientToAddMedicalRecord, toAdd);
+        try {
+            Patient patientToAddMedicalRecord = lastShownList.get(index.getZeroBased());
+            Patient editedPatient = createNewPatientWithUpdatedMedicalRecord(patientToAddMedicalRecord, toAdd);
 
-        model.updatePerson(patientToAddMedicalRecord, editedPatient);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+            model.updatePerson(patientToAddMedicalRecord, editedPatient);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.commitAddressBook();
 
-        EventsCenter.getInstance().post(new ShowPatientListEvent());
-        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
+            EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
+
+            EventsCenter.getInstance().post(new ShowPatientListEvent());
+        } catch (DifferentBloodTypeException dbte) {
+            throw new CommandException(Messages.MESSAGE_DIFFERENT_BLOOD_TYPE);
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    private static Patient createNewPatientWithUpdatedMedicalRecord(Patient patientToAddMedicalRecord,
-                                                                    MedicalRecord medicalRecordToAdd) {
+    private static Patient createNewPatientWithUpdatedMedicalRecord(
+            Patient patientToAddMedicalRecord, MedicalRecord medicalRecordToAdd) throws DifferentBloodTypeException {
         return new Patient(patientToAddMedicalRecord, medicalRecordToAdd);
     }
 

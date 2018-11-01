@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.CommandHistory;
@@ -13,6 +14,7 @@ import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
+import seedu.address.model.person.exceptions.DifferentBloodTypeException;
 
 
 /**
@@ -50,11 +52,16 @@ public class FinishCommand extends QueueCommand {
         // Add finished patient to the servedPatientList
         servedPatientList.addServedPatient(finishedPatient);
 
-        // Create a new patient object with the updated medical record
-        Patient editedPatient = finishedPatient.createNewPatientWithUpdatedMedicalRecord();
+        try {
+            // Create a new patient object with the updated medical record
+            Patient editedPatient = finishedPatient.createNewPatientWithUpdatedMedicalRecord();
 
-        // Update this patient
-        model.updatePerson(finishedPatient.getPatient(), editedPatient);
+            // Update this patient
+            model.updatePerson(finishedPatient.getPatient(), editedPatient);
+
+        } catch (DifferentBloodTypeException dbte) {
+            throw new CommandException(Messages.MESSAGE_DIFFERENT_BLOOD_TYPE);
+        }
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
         EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
