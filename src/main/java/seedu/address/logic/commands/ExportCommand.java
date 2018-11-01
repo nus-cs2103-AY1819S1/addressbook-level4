@@ -24,6 +24,7 @@ public class ExportCommand extends Command {
     public static final String COMMAND_ALIAS = "x";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " destinationFilename.csv";
     public static final String MESSAGE_SUCCESS = "Contacts successfully exported.";
+    public static final String MESSAGE_DUPLICATE_FILE = "A file already exists with that name. Choose a new name.";
 
     private String fileName;
 
