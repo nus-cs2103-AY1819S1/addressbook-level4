@@ -27,8 +27,8 @@ import seedu.address.model.transaction.Remarks;
  */
 public class ImportTransaction {
 
-    private static final String HEADER = "transactions";
-    private static final String CCA_NAME = "name";
+    private static final String HEADER = "transaction";
+    private static final String CCA_NAME = "cca";
     private static final String DATE = "date";
     private static final String AMOUNT = "amount";
     private static final String REMARKS = "log";

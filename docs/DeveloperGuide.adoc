@@ -691,12 +691,12 @@ then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `Addre
 with the new persons list.
 
 === Design Considerations
-==== Aspect: Identifying persons associated with CCAs to be erased
+==== Aspect: Algorithm to identify persons associated with CCAs to be erased
 * **Alternative 1 (current choice):** Loop through current internal list to extract associated persons.
 ** Pros: The implementation of the extraction algorithm is straightforward and will not miss out any persons.
 ** Cons: The execution time will be slow for large quantity of persons in the internal list.
 
-* **Alternative 2:** Store persons in a multilayer linked list.
+* **Alternative 2:** Store persons in a multilayer linked list data structure.
 ** Pros: The number of CCAs are fewer than the number of persons in the database, so it would be faster to search for the
 target CCAs in the first layer of the linked list and obtain the entire second layer list of persons associated with the CCA.
 ** Cons: The implementation is rather complicated and requires other commands such as add, edit and delete to be modified

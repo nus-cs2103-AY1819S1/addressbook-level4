@@ -96,8 +96,6 @@ include::../UserGuide.adoc[tag=import]
 |This section contains my contributions to the Developer Guide for Hallper. It contains a technical documentation of my implementations of the features assigned to me as mentioned in the introduction.
 |===
 
-include::../DeveloperGuide.adoc[tag=clearAll]
-
 include::../DeveloperGuide.adoc[tag=clear]
 
 include::../DeveloperGuide.adoc[tag=erase]

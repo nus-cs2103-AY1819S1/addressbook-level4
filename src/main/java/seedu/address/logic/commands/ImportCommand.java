@@ -43,7 +43,7 @@ public class ImportCommand extends Command {
     public static final String IMPORT_ADDRESSBOOK = "addressbook";
     public static final String IMPORT_CCA_LIST = "list";
     public static final String IMPORT_BUDGETBOOK = "ccabook";
-    public static final String IMPORT_TRANSACTION = "transactions";
+    public static final String IMPORT_TRANSACTION = "entries";
 
     private final Path path;
 
