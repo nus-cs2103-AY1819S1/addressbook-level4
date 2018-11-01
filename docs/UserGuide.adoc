@@ -1,4 +1,4 @@
-= OASIS - User Guide
+image::UserGuiderHeader.png[width="790"]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -113,7 +113,7 @@ Removes an employee from the system.
 Format: `delete INDEX`
 
 ****
-* To use this command, you must be logged in with "Remove Employee" permissions.
+* To use this command, you must be logged in with "Department Manager" permissions.
 * All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archive.
 ****
 
@@ -329,6 +329,21 @@ Exits the program, automatically saving data and logging you out.
 Format: `exit`
 
 == Future Commands (Currently not implemented yet)
+
+=== Restoring employee to active list: `restore`
+
+Restores an employee to active list from the archived list.
+
+Format: `restore INDEX`
+
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+* All resotred employee will be taken back to the active list.
+****
+
+Examples:
+
+* `restore 1`
 
 === List effectiveness of sector by profit : `sector`
 
