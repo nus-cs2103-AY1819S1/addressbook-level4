@@ -41,9 +41,10 @@ public class JsonConvertArgsStorage {
         for (int i = 1; i <= cmds.size(); i++) {
             ObjectNode currentoperation = mapper.createObjectNode();
             currentoperation.put("name", cmds.get(i - 1).toList().get(0));
-            currentoperation.put("num", cmds.size() - 1);
+            int argNum = cmds.get(i - 1).toList().size() - 1;
+            currentoperation.put("num", argNum);
             ObjectNode argument = mapper.createObjectNode();
-            for (int j = 1; j < cmds.size(); j++) {
+            for (int j = 1; j <= argNum; j++) {
                 argument.put("arg" + j, cmds.get(i - 1).toList().get(j));
             }
             currentoperation.putPOJO("args", argument);

@@ -26,8 +26,6 @@ import seedu.address.storage.JsonConvertArgsStorage;
  */
 public class ImageMagickUtil {
     //initialize the paths used in the imageMagic
-    public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
-            ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
@@ -89,7 +87,7 @@ public class ImageMagickUtil {
      * @throws InterruptedException
      */
     public static BufferedImage processImage(Path path, Transformation transformation)
-            throws ParseException, IOException, InterruptedException {
+            throws ParseException, IOException, InterruptedException, IllegalArgumentException {
         ArrayList<String> cmds = parseArguments(transformation);
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
@@ -150,7 +148,7 @@ public class ImageMagickUtil {
      */
 
     public static BufferedImage runProcessBuilder(ArrayList<String> args, String output)
-            throws IOException, InterruptedException {
+            throws IOException, InterruptedException, IllegalArgumentException {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform() == MAC) {
             Map<String, String> mp = pb.environment();
@@ -158,6 +156,9 @@ public class ImageMagickUtil {
         }
         Process process = pb.start();
         process.waitFor();
+        if (process.exitValue() != 0) {
+            throw new IllegalArgumentException("the argument for the current is invalid");
+        }
         List<String> tmp = pb.command();
         System.out.println(tmp);
         FileInputStream is = new FileInputStream(output);
@@ -193,6 +194,7 @@ public class ImageMagickUtil {
 
     /**
      * copy the imageMagick outside of the jarfile in order to call it.
+     * @author lancelotwillow
      * @param userPrefs
      * @throws IOException
      * @throws InterruptedException
