@@ -112,7 +112,10 @@ public class BudgetIntegrationTest {
             .execute(this.model, this.commandHistory);
         new DeleteCommand(INDEX_FIRST_EXPENSE).execute(this.model, this.commandHistory);
         assertEquals(this.model.getMaximumBudget().getCurrentExpenses(), initialSpending - 50.0);
-        assertEquals(this.model.getMaximumBudget().getCategoryBudgets().toArray(new CategoryBudget[1])[0].getCurrentExpenses(), 0.0);
+        assertEquals(this.model.getMaximumBudget()
+            .getCategoryBudgets()
+            .toArray(new CategoryBudget[1])[0]
+            .getCurrentExpenses(), 0.0);
 
     }
 

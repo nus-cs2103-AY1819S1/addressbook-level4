@@ -144,7 +144,7 @@ public class TotalBudget extends Budget {
             if (cBudget.getCategory().equals(expense.getCategory())) {
                 if (!cBudget.addExpense(expense)) {
                     categoryBudgetNotExceeded.getAndIncrement();
-                };
+                }
             }
         });
         return this.currentExpenses <= this.budgetCap && categoryBudgetNotExceeded.get() < 1;

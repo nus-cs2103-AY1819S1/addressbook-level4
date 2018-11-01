@@ -36,7 +36,8 @@ public class Budget {
         checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
         this.budgetCap = Double.parseDouble(budget);
         this.currentExpenses =
-            model.getExpenseTracker().getExpenseList().stream().mapToDouble(expense -> expense.getCost().getCostValue()).sum();
+            model.getExpenseTracker().getExpenseList()
+                .stream().mapToDouble(expense -> expense.getCost().getCostValue()).sum();
 
     }
 
