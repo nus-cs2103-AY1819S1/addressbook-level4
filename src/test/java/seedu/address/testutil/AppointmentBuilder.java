@@ -52,7 +52,7 @@ public class AppointmentBuilder {
         dateTime = appointmentToCopy.getDateTime();
         status = appointmentToCopy.getStatus();
         comments = appointmentToCopy.getComments();
-        prescriptions = appointmentToCopy.getPrescriptions();
+        prescriptions = new ArrayList<>(appointmentToCopy.getPrescriptions());
     }
 
     /**

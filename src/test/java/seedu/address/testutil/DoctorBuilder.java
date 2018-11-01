@@ -27,7 +27,6 @@ public class DoctorBuilder {
     public static final String DEFAULT_REMARK = "Likes to swim";
 
 
-
     private Name name;
     private Phone phone;
     private Email email;
@@ -49,7 +48,7 @@ public class DoctorBuilder {
     }
 
     /**
-     * Initializes the PatientBuilder with the data of {@code personToCopy}.
+     * Initializes the DoctorBuilder with the data of {@code personToCopy}.
      */
     public DoctorBuilder(Doctor doctorToCopy) {
         name = doctorToCopy.getName();
@@ -58,10 +57,11 @@ public class DoctorBuilder {
         address = doctorToCopy.getAddress();
         remark = doctorToCopy.getRemark();
         tags = new HashSet<>(doctorToCopy.getTags());
+        upcomingAppointments = doctorToCopy.getUpcomingAppointments();
     }
 
     /**
-     * Sets the {@code Name} of the {@code Patient} that we are building.
+     * Sets the {@code Name} of the {@code Doctor} that we are building.
      */
     public DoctorBuilder withName(String name) {
         this.name = new Name(name);
@@ -69,15 +69,15 @@ public class DoctorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Patient} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Doctor} that we are building.
      */
-    public DoctorBuilder withTags(String ... tags) {
+    public DoctorBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Sets the {@code Address} of the {@code Patient} that we are building.
+     * Sets the {@code Address} of the {@code Doctor} that we are building.
      */
     public DoctorBuilder withAddress(String address) {
         this.address = new Address(address);
@@ -85,7 +85,7 @@ public class DoctorBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Patient} that we are building.
+     * Sets the {@code Phone} of the {@code Doctor} that we are building.
      */
     public DoctorBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
@@ -93,7 +93,7 @@ public class DoctorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Patient} that we are building.
+     * Sets the {@code Email} of the {@code Doctor} that we are building.
      */
     public DoctorBuilder withEmail(String email) {
         this.email = new Email(email);
@@ -101,14 +101,29 @@ public class DoctorBuilder {
     }
 
     /**
-     * Sets the {@code Remark} of the {@code Patient} that we are building.
+     * Sets the {@code Remark} of the {@code Doctor} that we are building.
      */
     public DoctorBuilder withRemark(String remark) {
         this.remark = new Remark(remark);
         return this;
     }
 
+    /**
+     * Adds an {@code Appointment} of the {@code Doctor} that we are building
+     */
+    public DoctorBuilder withAppointment(Appointment appointment) {
+        upcomingAppointments.add(appointment);
+        return this;
+    }
+
+    /**
+     * Constructor
+     */
     public Doctor build() {
-        return new Doctor(name, phone, email, address, remark, tags);
+        Doctor doctor = new Doctor(name, phone, email, address, remark, tags);
+        for (Appointment appointment : upcomingAppointments) {
+            doctor.addUpcomingAppointment(appointment);
+        }
+        return doctor;
     }
 }
