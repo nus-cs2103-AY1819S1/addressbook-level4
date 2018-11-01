@@ -357,7 +357,7 @@ Selects the 1st Cassandra as displayed in the list resulting from the `find Cass
 // tag::datacommands[]
 === Data Commands
 
-==== Displaying patient statistics : `patientstats`
+==== Displaying patient statistics : `patientstats` `[coming in v2.0]`
 Displays the following information about patients:
 ****
 * A summary of the number of patients over various time periods.
@@ -372,7 +372,6 @@ Displays the following information about appointments:
 ****
 * A summary of the number of scheduled appointments over various time periods.
 * The availability of appointment slots as compared to the number of scheduled appointments.
-* The proportion of appointments that are follow-ups, as opposed to walk-in.
 ****
 Format: `appointmentstats`
 
@@ -385,7 +384,7 @@ Displays the following information about doctors:
 ****
 Format: `doctorstats`
 
-==== Displaying medicine statistics : `medstats`
+==== Displaying medicine statistics : `medstats` `[coming in v2.0]`
 
 Displays the following information about medicines:
 ****
