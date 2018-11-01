@@ -5,7 +5,7 @@
 :stylesDir: stylesheets
 
 iScheduler Xs Max was developed by the https://github.com/CS2103-AY1819S1-F11-1[F11-1] team. +
-It was developed with reference to the work of the se-edu team. +
+It was developed with reference to the work of the https://github.com/se-edu/[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
