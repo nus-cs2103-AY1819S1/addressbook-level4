@@ -33,13 +33,13 @@ public class MeetCommand extends Command {
             + "[" + PREFIX_DESCRIPTION + "MEETING_DESCRIPTION]\n"
 
             + "Example: " + COMMAND_WORD + " CS2103 "
-            + PREFIX_NAME + "Demo Rehearsal"
+            + PREFIX_NAME + "Demo Rehearsal "
             + PREFIX_TIMESTAMP + "15-10-2017@12:31 "
             + PREFIX_LOCATION + "6 College Avenue East "
             + PREFIX_DESCRIPTION + "Meeting to prepare for the upcoming software demo";
 
-    public static final String MESSAGE_MEET_COMMAND_SUCCESS = "%1$s group meeting titled %2$s added to scheduler";
-    public static final String MESSAGE_MEETING_CANCELLED = "Meeting for group %1$s cancelled";
+    public static final String MESSAGE_MEET_COMMAND_SUCCESS = "%1$s group meeting titled %2$s added to scheduler.";
+    public static final String MESSAGE_MEETING_CANCELLED = "Meeting for group %1$s cancelled.";
     public static final String MESSAGE_GROUP_HAS_NO_MEETING = "Error: Group does not have a meeting to be cancelled.";
     public final Group group;
     public final Meeting meeting;

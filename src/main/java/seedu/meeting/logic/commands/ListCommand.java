@@ -30,9 +30,9 @@ public class ListCommand extends Command {
     public static final String COMMAND_PARAM_MEETING = "meeting";
     public static final String COMMAND_PARAM_MEETING_SHORT = "m";
 
-    public static final String MESSAGE_SUCCESS_PERSON = "Listed all persons";
-    public static final String MESSAGE_SUCCESS_GROUP = "Listed all groups";
-    public static final String MESSAGE_SUCCESS_MEETING = "Listed all meetings";
+    public static final String MESSAGE_SUCCESS_PERSON = "Listed all persons.";
+    public static final String MESSAGE_SUCCESS_GROUP = "Listed all groups.";
+    public static final String MESSAGE_SUCCESS_MEETING = "Listed all meetings.";
 
     public static final String MESSAGE_USAGE = "";
 

@@ -20,7 +20,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "addMember";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the MeetingBook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the MeetingBook. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

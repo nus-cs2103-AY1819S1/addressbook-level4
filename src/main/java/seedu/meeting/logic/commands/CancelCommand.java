@@ -25,7 +25,7 @@ public class CancelCommand extends Command {
 
             + "Example: " + COMMAND_WORD + " CS2103 ";
 
-    public static final String MESSAGE_CANCEL_COMMAND_SUCCESS = "Meeting for group %1$s cancelled";
+    public static final String MESSAGE_CANCEL_COMMAND_SUCCESS = "Meeting for group %1$s cancelled.";
     public static final String MESSAGE_GROUP_HAS_NO_MEETING = "Error: Group does not have a meeting to be cancelled.";
 
     public final Group group;

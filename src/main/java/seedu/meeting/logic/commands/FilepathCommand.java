@@ -19,14 +19,14 @@ public class FilepathCommand extends Command {
 
     public static final String MESSAGE_CHANGEPATH_SUCCESS = "MeetingBook now will be saved at: %s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": change current saving location of MeetingBook "
-            + "to the new specific location. "
+            + "to the new specific location.\n"
             + "Parameters: "
             + PREFIX_PATH + "FilePath or " + OPTION_SHOW + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PATH + "newHome.xml\n"
             + "Example: " + COMMAND_WORD + " "
             + OPTION_SHOW + " : Show the current storage path.";
-    public static final String MESSAGE_SHOWPATH_SUCCESS = "MeetingBook is stored at %s";
+    public static final String MESSAGE_SHOWPATH_SUCCESS = "MeetingBook is stored at %s.";
     private Path filepath;
 
     public FilepathCommand(Path filePath) {

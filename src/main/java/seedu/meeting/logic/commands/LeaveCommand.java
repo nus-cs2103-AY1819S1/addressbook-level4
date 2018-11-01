@@ -24,7 +24,7 @@ public class LeaveCommand extends Command {
 
     public static final String COMMAND_WORD = "leave";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a person from a group in the MeetingBook. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes a person from a group in the MeetingBook.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_GROUP + "GROUP\n"
