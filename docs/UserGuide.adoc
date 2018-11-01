@@ -141,8 +141,8 @@ The existing tags of the task will be removed when tag is edited. If input is
 [blue]`edit 3 t/project`, then the tag of task 3 will be [blue]`project` only.
 
 [TIP]
-To remove all tags of a existing task, you can just type [blue]`c/`.
-If input is [blue]`task 3 c/`, all the tags of the task with `INDEX` 3 will be removed.
+To remove all tags of a existing task, you can just type [blue]`t/`.
+If input is [blue]`task 3 t/`, all the tags of the task with `INDEX` 3 will be removed.
 
 
 
