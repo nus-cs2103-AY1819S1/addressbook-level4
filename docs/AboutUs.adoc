@@ -32,7 +32,7 @@ image::elliottan.png[width="150", align="left"]
 {empty}[http://github.com/elliottan[github]]
 
 Role: Developer +
-Responsibilities: Storage, Data
+Responsibilities: Storage, Data +
 Secondary Responsibilities: Model
 
 '''
@@ -48,10 +48,11 @@ Responsibilities: UI
 
 === Joshua Robert
 image::jroberts91.png[width="150", align="left"]
-{empty}[http://github.com/jroberts91[github]]
+{empty}[http://github.com/jroberts91[github]] [http://github.com/CS2103-AY1819S1-F10-1/main/blob/master/docs/team/joshuarobert.adoc[portfolio]]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI, Logic +
+Secondary: Storage
 
 '''
 

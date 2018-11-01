@@ -18,7 +18,6 @@ public class PermissionSet {
      */
     public enum PresetPermission {
         ADMIN {
-
             /**
              * @return a set of permission that represent the permission an admin should have.
              */
@@ -32,14 +31,11 @@ public class PermissionSet {
                 preset.add(Permission.CREATE_PROJECT);
                 preset.add(Permission.VIEW_PROJECT);
                 preset.add(Permission.ASSIGN_PROJECT);
-                preset.add(Permission.CREATE_DEPARTMENT);
-                preset.add(Permission.ASSIGN_DEPARTMENT);
                 preset.add(Permission.ASSIGN_PERMISSION);
                 return preset;
             }
         },
         MANAGER {
-
             /**
              * @return a set of permission that represent the permission a manager should have.
              */
@@ -53,13 +49,10 @@ public class PermissionSet {
                 preset.add(Permission.CREATE_PROJECT);
                 preset.add(Permission.VIEW_PROJECT);
                 preset.add(Permission.ASSIGN_PROJECT);
-                preset.add(Permission.CREATE_DEPARTMENT);
-                preset.add(Permission.ASSIGN_DEPARTMENT);
                 return preset;
             }
         },
         EMPLOYEE {
-
             /**
              * @return a set of permission that represent the permission an employee should have.
              */
@@ -77,6 +70,21 @@ public class PermissionSet {
         permissionSet = new HashSet<>();
     }
 
+    public PermissionSet(Permission... pList) {
+        permissionSet = new HashSet<>();
+        addPermissions(pList);
+    }
+
+    public PermissionSet(PermissionSet pSet) {
+        permissionSet = new HashSet<>();
+        addPermissions(pSet);
+    }
+
+    public PermissionSet(Set<Permission> pList) {
+        permissionSet = new HashSet<>();
+        addPermissions(pList);
+    }
+
     /**
      * Constructor to build a permission set with a preset permission list.
      *
@@ -88,29 +96,59 @@ public class PermissionSet {
 
     /**
      * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
-     * No permissions modified if operation fails.
      *
      * @param pList list of permission to add
-     * @return true if success, otherwise false.
+     * @return true if permissionSet modified, otherwise false.
      */
     public boolean addPermissions(Permission... pList) {
         if (pList == null) {
             return false;
         }
-
-        Set<Permission> duplicate = new HashSet<>(permissionSet);
+        boolean isEdited = false;
         for (Permission p : pList) {
             if (p == null) {
-                return false;
+                continue;
             }
 
-            //If adding fails
-            if (!duplicate.add(p)) {
-                return false;
+            if (permissionSet.add(p)) {
+                isEdited = true;
             }
         }
-        permissionSet = duplicate;
-        return true;
+        return isEdited;
+    }
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     *
+     * @param pList set of permission to add
+     * @return true if permissionSet modified, otherwise false.
+     */
+    public boolean addPermissions(Set<Permission> pList) {
+        if (pList == null) {
+            return false;
+        }
+        boolean isEdited = false;
+        for (Permission p : pList) {
+            if (p == null) {
+                continue;
+            }
+
+            if (permissionSet.add(p)) {
+                isEdited = true;
+            }
+        }
+        return isEdited;
+    }
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     * Add all elements in the specified PermissionSet to this PermissionSet.
+     *
+     * @param pSet the specified PermissionSet
+     * @return true if successful, otherwise false.
+     */
+    public boolean addPermissions(PermissionSet pSet) {
+        return this.permissionSet.addAll(pSet.permissionSet);
     }
 
     /**
@@ -124,15 +162,34 @@ public class PermissionSet {
         if (pList == null) {
             return false;
         }
-
-        Set<Permission> duplicate = new HashSet<>(permissionSet);
+        boolean isEdited = false;
         for (Permission p : pList) {
-            if (!duplicate.remove(p)) {
-                return false;
+            if (permissionSet.remove(p)) {
+                isEdited = true;
             }
         }
-        permissionSet = duplicate;
-        return true;
+        return isEdited;
+    }
+
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     * No permissions modified if operation fails.
+     *
+     * @param pList set of permission to remove
+     * @return true if success, otherwise false.
+     */
+    public boolean removePermissions(Set<Permission> pList) {
+        if (pList == null) {
+            return false;
+        }
+        boolean isEdited = false;
+        for (Permission p : pList) {
+            if (permissionSet.remove(p)) {
+                isEdited = true;
+            }
+        }
+        return isEdited;
     }
 
     /**
@@ -179,13 +236,34 @@ public class PermissionSet {
     }
 
     /**
-     * Add all elements in the specified PermissionSet to this PermissionSet.
+     * Check if permission set contains all permission in a {@code pSet}
      *
-     * @param pSet the specified PermissionSet
-     * @return true if successful, otherwise false.
+     * @param pSet the PermissionSet to check
+     * @return true if permission found, otherwise false.
      */
-    public boolean addAll(PermissionSet pSet) {
-        return this.permissionSet.addAll(pSet.permissionSet);
+    public boolean containsAll(PermissionSet pSet) {
+        return containsAll(pSet.permissionSet.toArray(new Permission[0]));
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        getGrantedPermission().forEach(builder::append);
+        return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof PermissionSet)) {
+            return false;
+        }
+
+        Set<Permission> otherPermissionSet = ((PermissionSet) obj).permissionSet;
+        return permissionSet.equals(otherPermissionSet);
     }
 
 }

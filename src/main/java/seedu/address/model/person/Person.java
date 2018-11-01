@@ -2,12 +2,15 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.project.Project;
 
@@ -28,51 +31,45 @@ public class Person {
     private final Set<Project> projects = new HashSet<>();
     private final Optional<ProfilePic> profilePic;
     private final PermissionSet permissionSet = new PermissionSet();
+    private final Username username;
+    private final Password password;
+    private final List<LeaveApplication> leaveApplications;
 
     /**
-     * Every field must be present and not null.
+     * Constructors: every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects) {
-        requireAllNonNull(name, phone, email, address, salary, projects);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.salary = salary;
-        this.address = address;
-        this.projects.addAll(projects);
-        this.profilePic = Optional.empty();
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects) {
+        this(name, phone, email, address, salary, username, password, projects, new PermissionSet());
     }
 
-    /**
-     * Every field must be present and not null.
-     */
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet) {
-        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.salary = salary;
-        this.address = address;
-        this.projects.addAll(projects);
-        this.permissionSet.addAll(permissionSet);
-        this.profilePic = Optional.empty();
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet) {
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, new ArrayList<>());
     }
 
-    /**
-     * Overriden constructor that allows specification of a profile picture
-     */
-    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Set<Project> projects,
-                  PermissionSet permissionSet, Optional<ProfilePic> profilePic) {
-        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet);
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet,
+                  List<LeaveApplication> leaveApplications) {
+        this(name, phone, email, address, salary, username, password, projects, permissionSet, leaveApplications,
+                Optional.empty());
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Salary salary, Username username,
+                  Password password, Set<Project> projects, PermissionSet permissionSet,
+                  List<LeaveApplication> leaveApplications, Optional<ProfilePic> profilePic) {
+        requireAllNonNull(name, phone, email, address, salary, projects, permissionSet, profilePic, leaveApplications);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.salary = salary;
         this.address = address;
         this.projects.addAll(projects);
-        this.permissionSet.addAll(permissionSet);
+        this.permissionSet.addPermissions(permissionSet);
         this.profilePic = profilePic;
+        this.username = username;
+        this.password = password;
+        this.leaveApplications = leaveApplications;
     }
 
     public Name getName() {
@@ -100,7 +97,7 @@ public class Person {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable project set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Project> getProjects() {
@@ -114,6 +111,22 @@ public class Person {
      */
     public PermissionSet getPermissionSet() {
         return permissionSet;
+    }
+
+    public Username getUsername() {
+        return username;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
+    /**
+     * Returns an immutable leave applications list, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public List<LeaveApplication> getLeaveApplications() {
+        return Collections.unmodifiableList(leaveApplications);
     }
 
     /**
@@ -151,13 +164,17 @@ public class Person {
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getSalary().equals(getSalary())
                 && otherPerson.getProjects().equals(getProjects())
-                && otherPerson.getProfilePic().equals(getProfilePic());
+                && otherPerson.getProfilePic().equals(getProfilePic())
+                && otherPerson.getUsername().equals(getUsername())
+                && otherPerson.getPassword().equals(getPassword())
+                && otherPerson.getLeaveApplications().equals(getLeaveApplications());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, salary, projects, profilePic);
+        return Objects.hash(name, phone, email, address, salary, projects, profilePic, username, password,
+            leaveApplications);
     }
 
     @Override
@@ -172,10 +189,16 @@ public class Person {
                 .append(getAddress())
                 .append(" Salary: ")
                 .append(getSalary())
+                .append(" Username; ")
+                .append(getUsername())
+                .append(" Password: ")
+                .append(getPassword())
                 .append(" Profile Pic: ")
                 .append(getProfilePic().orElse(new ProfilePic("[no pic]")))
                 .append(" Projects: ");
         getProjects().forEach(builder::append);
+        builder.append(" Leave Applications: ");
+        getLeaveApplications().forEach(builder::append);
         return builder.toString();
     }
 

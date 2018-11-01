@@ -41,6 +41,8 @@ public class XmlUtilTest {
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
     private static final String VALID_SALARY = "10000";
+    private static final String VALID_USERNAME = "Hans Muster";
+    private static final String VALID_PASSWORD = "Hans1234";
     private static final List<XmlAdaptedProject> VALID_PROJECTS =
             Collections.singletonList(new XmlAdaptedProject("friends"));
 
@@ -82,7 +84,8 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_PROJECTS);
+                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
+                VALID_PROJECTS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -91,7 +94,8 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_PROJECTS);
+                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
+                VALID_PROJECTS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -100,7 +104,8 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_PROJECTS);
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
+                VALID_PROJECTS);
         assertEquals(expectedPerson, actualPerson);
     }
 

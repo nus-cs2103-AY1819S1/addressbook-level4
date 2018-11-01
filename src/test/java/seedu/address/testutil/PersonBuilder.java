@@ -1,15 +1,21 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
+import seedu.address.model.person.Username;
 import seedu.address.model.project.Project;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -23,14 +29,19 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_SALARY = "10000";
+    public static final String DEFAULT_USERNAME = "Alice Pauline";
+    public static final String DEFAULT_PASSWORD = "Pa55w0rd";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Salary salary;
     private Address address;
+    private Username username;
+    private Password password;
     private Set<Project> projects;
     private PermissionSet pSet;
+    private List<LeaveApplication> leaveApplications;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -38,8 +49,11 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         salary = new Salary(DEFAULT_SALARY);
         address = new Address(DEFAULT_ADDRESS);
+        username = new Username(DEFAULT_USERNAME);
+        password = new Password(DEFAULT_PASSWORD);
         projects = new HashSet<>();
         pSet = new PermissionSet();
+        leaveApplications = new ArrayList<>();
     }
 
     /**
@@ -51,8 +65,11 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         salary = personToCopy.getSalary();
         address = personToCopy.getAddress();
+        username = personToCopy.getUsername();
+        password = personToCopy.getPassword();
         projects = new HashSet<>(personToCopy.getProjects());
         pSet = personToCopy.getPermissionSet();
+        leaveApplications = personToCopy.getLeaveApplications();
     }
 
     /**
@@ -105,6 +122,22 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Username} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withUsername(String username) {
+        this.username = new Username(username);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Password} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPassword(String password) {
+        this.password = new Password(password);
+        return this;
+    }
+
+    /**
      * Sets the {@code PermissionSet} of the {@code Person} that we are building.
      */
     public PersonBuilder withPermissionSet(PermissionSet pSet) {
@@ -113,10 +146,19 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code List<LeaveApplication>} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withLeaveApplications(List<LeaveApplication> leaveApplications) {
+        this.leaveApplications = new ArrayList<>(leaveApplications);
+        return this;
+    }
+
+    /**
      * Build the person object.
      */
     public Person build() {
-        return new Person(name, phone, email, address, salary, projects, pSet);
+        return new Person(name, phone, email, address, salary, username, password, projects, pSet, leaveApplications,
+                Optional.empty());
     }
 
 }

@@ -3,15 +3,20 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEAVE_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -19,9 +24,14 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
+import seedu.address.model.leaveapplication.LeaveDescriptionContainsKeywordsPredicate;
+import seedu.address.model.leaveapplication.LeaveEmployeeEqualsPredicate;
 import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Assignment;
+import seedu.address.model.project.AssignmentContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -41,11 +51,17 @@ public class CommandTestUtil {
     public static final String VALID_PROJECT_FALCON = "FALCON";
     public static final String VALID_SALARY_AMY = "10000";
     public static final String VALID_SALARY_BOB = "12000";
+    public static final String VALID_DESCRIPTION_OASIS = "Project management system for all.";
+    public static final String VALID_DESCRIPTION_FALCON = "Home security camera.";
+    public static final String VALID_USERNAME_AMY = "Amy Bee";
+    public static final String VALID_USERNAME_BOB = "Bob Choo";
+    public static final String VALID_PASSWORD_AMY = "Pa55w0rd";
+    public static final String VALID_PASSWORD_BOB = "Pa55w0rd";
 
-    public static final Integer VALID_LEAVEID_BOB_LEAVE = 2;
     public static final String VALID_DESCRIPTION_BOB_LEAVE = "Bob's wedding anniversary";
     public static final StatusEnum.Status VALID_LEAVESTATUS_BOB_LEAVE = StatusEnum.Status.REJECTED;
-    public static final Date VALID_LEAVEDATE_BOB_LEAVE = new Date(1539216000);
+    public static final String VALID_LEAVEDATE_STRING_BOB_LEAVE = "2018-10-30";
+    public static final LocalDate VALID_LEAVEDATE_BOB_LEAVE = LocalDate.of(2018, 10, 30);
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + " " + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + " " + VALID_NAME_BOB;
@@ -59,6 +75,29 @@ public class CommandTestUtil {
     public static final String PROJECT_DESC_FALCON = " " + PREFIX_PROJECT + " " + VALID_PROJECT_FALCON;
     public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + " " + VALID_SALARY_AMY;
     public static final String SALARY_DESC_BOB = " " + PREFIX_SALARY + " " + VALID_SALARY_BOB;
+    public static final String NAME_ASSIGNMENT_DESC_OASIS = " " + PREFIX_ASSIGNMENT_NAME + " " + VALID_PROJECT_OASIS;
+    public static final String AUTHOR_ASSIGNMENT_DESC_OASIS = " " + PREFIX_AUTHOR + " " + VALID_NAME_AMY;
+    public static final String ASSIGNMENT_DESC_OASIS =
+            " " + PREFIX_ASSIGNMENT_DESCRIPTION + " " + VALID_DESCRIPTION_OASIS;
+    public static final String NAME_ASSIGNMENT_DESC_FALCON = " " + PREFIX_ASSIGNMENT_NAME + " " + VALID_PROJECT_FALCON;
+    public static final String AUTHOR_ASSIGNMENT_DESC_FALCON = " " + PREFIX_AUTHOR + " " + VALID_NAME_BOB;
+    public static final String ASSIGNMENT_DESC_FALCON =
+            " " + PREFIX_ASSIGNMENT_DESCRIPTION + " " + VALID_DESCRIPTION_FALCON;
+
+    public static final String LEAVEDESCIPTION_DESC_ALICE_LEAVE = " " + PREFIX_LEAVE_DESCRIPTION
+            + " " + "Alice family holiday";
+    public static final String LEAVEDESCIPTION_DESC_BENSON_LEAVE = " " + PREFIX_LEAVE_DESCRIPTION
+            + " " + "Benson's brother's wedding";
+    public static final String LEAVEDESCIPTION_DESC_BOB_LEAVE = " " + PREFIX_LEAVE_DESCRIPTION
+            + " " + VALID_DESCRIPTION_BOB_LEAVE;
+    public static final String LEAVEDATES_DESC_ALICE_LEAVE = " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-23" + " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-24";
+    public static final String LEAVEDATES_DESC_BENSON_LEAVE = " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-25" + " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-26";
+    public static final String LEAVEDATES_DESC_BOB_LEAVE = " "
+            + PREFIX_LEAVE_DATE + " " + "2018-10-30";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " " + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + " " + "911a"; // 'a' not allowed in phones
@@ -66,6 +105,15 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_PROJECT_DESC = " " + PREFIX_PROJECT + " " + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY; // empty string not allowed for salary
+    public static final String INVALID_ASSIGNMENT_NAME_DESC =
+            " " + PREFIX_ASSIGNMENT_NAME + " " + "Alibabaa&"; // '&' not allowed in names
+    public static final String INVALID_ASSIGNMENT_AUTHOR_DESC =
+            " " + PREFIX_AUTHOR + " " + "911a&"; // '&' not allowed in author
+
+    public static final String INVALID_LEAVEDESCIPTION_DESC = " " + PREFIX_LEAVE_DESCRIPTION + " "
+            + " "; // blank description not allowed
+    public static final String INVALID_LEAVEDATES_DESC = " " + PREFIX_LEAVE_DATE + " "
+            + "2018-10-123"; // wrong date format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -95,7 +143,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
-            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (CommandException ce) {
@@ -145,6 +193,20 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the assignment at the given {@code targetIndex} in the
+     * {@code model}'s assignment list.
+     */
+    public static void showAssignmentAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAssignmentList().size());
+
+        Assignment assignment = model.getFilteredAssignmentList().get(targetIndex.getZeroBased());
+        final String[] splitName = assignment.getProjectName().fullProjectName.split("\\s+");
+        model.updateFilteredAssignmentList(new AssignmentContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredAssignmentList().size());
+    }
+
+    /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
@@ -153,4 +215,29 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Updates {@code model}'s filtered leave list to show only the leave application at the given {@code targetIndex}
+     * in the {@code model}'s address book.
+     */
+    public static void showLeaveApplicationAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredLeaveApplicationList().size());
+
+        LeaveApplicationWithEmployee leaveApplication = model.getFilteredLeaveApplicationList()
+                .get(targetIndex.getZeroBased());
+        final String[] splitDesc = leaveApplication.getDescription().value.split("\\s+");
+        model.updateFilteredLeaveApplicationList(new LeaveDescriptionContainsKeywordsPredicate(
+                Arrays.asList(splitDesc[0])));
+
+        assertEquals(1, model.getFilteredLeaveApplicationList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered leave list to show only the leave application for a given {@code Person}
+     * in the {@code model}'s address book.
+     */
+    public static void showLeaveApplicationForPerson(Model model, Person person) {
+        assertTrue(model.hasPerson(person));
+
+        model.updateFilteredLeaveApplicationList(new LeaveEmployeeEqualsPredicate(person));
+    }
 }

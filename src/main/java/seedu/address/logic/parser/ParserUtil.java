@@ -2,19 +2,27 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leaveapplication.Description;
+import seedu.address.model.leaveapplication.LeaveStatus;
+import seedu.address.model.permission.Permission;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.project.Project;
+import seedu.address.model.project.ProjectName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -26,6 +34,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -112,10 +121,40 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String projectName} into an {@code ProjectName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code projectName} is invalid.
+     */
+    public static ProjectName parseProjectName(String projectName) throws ParseException {
+        requireNonNull(projectName);
+        String trimmedProjectName = projectName.trim();
+        if (!ProjectName.isValidName(trimmedProjectName)) {
+            throw new ParseException(ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
+        }
+        return new ProjectName(trimmedProjectName);
+    }
+
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String project} into a {@code Project}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code project} is invalid.
      */
     public static Project parseProject(String project) throws ParseException {
         requireNonNull(project);
@@ -127,7 +166,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> projects} into a {@code Set<Project>}.
      */
     public static Set<Project> parseProjects(Collection<String> projects) throws ParseException {
         requireNonNull(projects);
@@ -136,5 +175,74 @@ public class ParserUtil {
             projectSet.add(parseProject(tagName));
         }
         return projectSet;
+    }
+
+    /**
+     * Parses a {@code String leaveStatus} into an {@code LeaveStatus}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code leaveStatus} is invalid.
+     */
+    public static LeaveStatus parseLeaveStatus(String leaveStatus) throws ParseException {
+        requireNonNull(leaveStatus);
+        String trimmedLeaveStatus = leaveStatus.trim();
+        if (!LeaveStatus.isValidStatus(trimmedLeaveStatus)) {
+            throw new ParseException(LeaveStatus.MESSAGE_STATUS_CONSTRAINTS);
+        }
+        return new LeaveStatus(trimmedLeaveStatus);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code LocalDate}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static LocalDate parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateUtil.isValidDateFormat(trimmedDate)) {
+            throw new ParseException(DateUtil.MESSAGE_DATE_CONSTRANTS);
+        }
+        return DateUtil.convertToDate(trimmedDate);
+    }
+
+    /**
+     * Parses {@code Collection<String> dates} into a {@code List<LocalDate>}.
+     */
+    public static List<LocalDate> parseDates(Collection<String> dates) throws ParseException {
+        requireNonNull(dates);
+        final List<LocalDate> datelist = new ArrayList<>();
+        for (String date : dates) {
+            datelist.add(parseDate(date));
+        }
+        return datelist;
+    }
+
+    /**
+     * Parses a {@code String permission} into a {@code Permission}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code Permission} is invalid.
+     */
+    public static Permission parsePermission(String permission) throws ParseException {
+        requireNonNull(permission);
+        String trimmedPermission = permission.trim();
+        if (!Permission.isValidPermission(trimmedPermission)) {
+            throw new ParseException(Permission.MESSAGE_INVALID_PERMISSION);
+        }
+        return Permission.valueOf(permission);
+    }
+
+    /**
+     * Parses {@code Collection<String> permissions} into a {@code Set<Permission>}.
+     */
+    public static Set<Permission> parsePermissions(Collection<String> permissions) throws ParseException {
+        requireNonNull(permissions);
+        final Set<Permission> permissionSet = new HashSet<>();
+        for (String permissionName : permissions) {
+            permissionSet.add(parsePermission(permissionName));
+        }
+        return permissionSet;
     }
 }

@@ -2,12 +2,16 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.FailedLoginEvent;
 import seedu.address.commons.events.ui.LoginEvent;
 
 /**
@@ -44,7 +48,21 @@ public class LoginForm extends UiPart<Region> {
         usernameLabel.setText(USERNAME);
         passwordLabel.setText(PASSWORD);
 
-        loginButton.setOnAction(e -> raise(new LoginEvent(usernameField.getText(), passwordField.getText())));
+        loginButton.setOnAction(e -> processLogin());
         registerAsAnEventHandler(this);
+    }
+
+    @FXML
+    public void onPasswordEnter(ActionEvent ae) {
+        processLogin();
+    }
+
+    public void processLogin() {
+        raise(new LoginEvent(usernameField.getText(), passwordField.getText()));
+    }
+
+    @Subscribe
+    public void onFailedLogin(FailedLoginEvent failedLoginEvent) {
+        signInResult.setText(failedLoginEvent.getMessage());
     }
 }

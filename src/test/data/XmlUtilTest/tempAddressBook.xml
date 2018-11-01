@@ -10,5 +10,7 @@
 
 
         <city></city>
+        <username>John Doe</username>
+        <password>Pa55w0rd</password>
     </persons>
 </addressbook>

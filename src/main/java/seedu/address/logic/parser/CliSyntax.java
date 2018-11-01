@@ -13,8 +13,17 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("-a");
     public static final Prefix PREFIX_PROJECT = new Prefix("-t");
 
-    /* Prefix for project*/
-    public static final Prefix PREFIX_PROJECT_NAME = new Prefix("-pn");
+    /* Prefix for assignment*/
+    public static final Prefix PREFIX_ASSIGNMENT_NAME = new Prefix("-an");
     public static final Prefix PREFIX_AUTHOR = new Prefix("-au");
-    public static final Prefix PREFIX_PROJECT_TAG = new Prefix("-d");
+    public static final Prefix PREFIX_ASSIGNMENT_DESCRIPTION = new Prefix("-d");
+    public static final Prefix PREFIX_PROJECT_TAG = new Prefix("-pj");
+
+    /* Prefix definitions for leave application feature */
+    public static final Prefix PREFIX_LEAVE_DESCRIPTION = new Prefix("-de");
+    public static final Prefix PREFIX_LEAVE_DATE = new Prefix("-da");
+
+    /* Prefix for permission*/
+    public static final Prefix PREFIX_ADD_PERMISSION = new Prefix("-a");
+    public static final Prefix PREFIX_REMOVE_PERMISSION = new Prefix("-r");
 }
