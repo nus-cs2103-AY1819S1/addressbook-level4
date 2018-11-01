@@ -85,6 +85,7 @@ public class UserPrefs {
         }
         Collections.sort(dirImageList);
         imageList = dirImageList;
+        currBatchPointer = 0;
     }
 
     /**

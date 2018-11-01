@@ -17,8 +17,6 @@ public class PrevCommand extends Command {
 
     public static final String COMMAND_WORD = "prev";
 
-    public static final String MESSAGE_PREV_SUCCESS = "Currently viewing previous %d images.";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the previous batch of photos for viewing.\n"
             + "Example: " + COMMAND_WORD;
 
@@ -33,8 +31,9 @@ public class PrevCommand extends Command {
         model.updateImageListPrevBatch();
         EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), true));
 
-        return new CommandResult((String.format(MESSAGE_PREV_SUCCESS, model.getDirectoryImageList().size()) + "\n"
-                + (String.format(Messages.MESSAGE_REMAINING_IMAGES_IN_DIR, model.numOfRemainingImagesInDir())
+        return new CommandResult((String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())
+                + (String.format(Messages.MESSAGE_CURRENT_BATCH_IN_IMAGE_LIST, model.getCurrBatchPointer() + 1,
+                model.getCurrBatchPointer() + Math.min(model.numOfRemainingImagesInDir(), SelectCommand.BATCH_SIZE))
                 + (String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH, model.getDirectoryImageList().size())))));
     }
 }
