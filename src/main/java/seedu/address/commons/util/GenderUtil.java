@@ -18,8 +18,7 @@ public class GenderUtil {
     public static String getFriendlyGenderFromVolunteerGender(Gender gender) {
         if (gender.value.equals(GENDER_FEMALE_VALIDATION_REGEX)) {
             formattedGender = GENDER_FEMALE_FORMAT;
-        }
-        else if (gender.value.equals(GENDER_MALE_VALIDATION_REGEX)) {
+        } else if (gender.value.equals(GENDER_MALE_VALIDATION_REGEX)) {
             formattedGender = GENDER_MALE_FORMAT;
         }
         return formattedGender;
