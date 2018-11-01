@@ -12,12 +12,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
-
-import javafx.collections.ObservableList;
 import seedu.address.commons.events.model.EmailLoadedEvent;
 import seedu.address.commons.events.storage.CalendarLoadedEvent;
 import seedu.address.logic.CommandHistory;
@@ -108,6 +107,11 @@ public class AddCommandTest {
 
         @Override
         public void addCca(Cca cca) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMultipleCcas(List<Cca> ccaList) {
             throw new AssertionError("This method should not be called.");
         }
 
