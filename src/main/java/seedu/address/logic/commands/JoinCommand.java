@@ -32,7 +32,7 @@ public class JoinCommand extends Command {
             + PREFIX_NAME + "Derek Hardy "
             + PREFIX_GROUP + "GROUP_03";
 
-    public static final String MESSAGE_JOIN_SUCCESS = "Person: %1$s added to the group: %1$s";
+    public static final String MESSAGE_JOIN_SUCCESS = "Person: %1$s added to the group: %2$s";
 
     private final Name personName;
     private final Title groupName;
@@ -67,7 +67,8 @@ public class JoinCommand extends Command {
 
         model.joinGroup(matchedPersonByName, matchedGroupByName);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_JOIN_SUCCESS, matchedPersonByName, matchedGroupByName));
+        return new CommandResult(String.format(MESSAGE_JOIN_SUCCESS, matchedPersonByName.getName().toString(),
+            matchedGroupByName.getTitle().fullTitle));
     }
 
     @Override
