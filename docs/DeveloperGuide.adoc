@@ -608,29 +608,23 @@ ClinicIO ensures appropriate user access rights are issued by authenticating use
 
 ==== Current Implementation
 
-The login mechanism facilitated by using `UniqueDoctorList` or `UniqueReceptionistList` to retrieve a list of doctors or receptionist based on the user's role. +
+ClinicIO The login mechanism facilitated by using `UniqueStaffList` to retrieve a list of staffs. +
 
-These operations are exposed in the Model interface as Model#hasDoctor() and Model#getDoctor() for doctors
-or Model#hasReceptionist() and Model#getReceptionist() for receptionists respectively.
+These operations are exposed in the Model interface as Model#hasStaff() and Model#checkStaffCred()  respectively.
 
-Given below is an scenario to illustrate the login authentication at each step: +
+Given below is a scenario to illustrate the login authentication at each step: +
 
-. The user executes the `login` command by specifying the role, name and password. The `login` command determines the type of role entered by the user.
+Step 1: The user executes the `login` command by specifying the role, name and password. The `login` command determines the type of role entered by the user. +
 
-. If the role is doctor,
+Step 2: The `login` command call `Model#hasStaff()` to ensure that this staff record exist inside ClinicIO. +
 
-.. The `login` command call `Model#hasDoctor()` to ensure that this doctor exist inside ClinicIO.
-.. Once ClinicIO check if user exists, the `login` command call `Model#getDoctor` to retrieve the doctor found in `UniqueDoctorList`.
-.. The `login` command verifies a password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by the user.
-.. To indicate successful completion of verification, the `login` command raises a `SuccessfulLoginEvent`.
+Step 3: Once ClinicIO check if staff exists, the `login` command call `Model#checkStaffCred()` to retrieve the doctor found in `UniqueStaffList`. +
 
-. If the role is receptionist,
+Step 4: The `login` command verifies a password using `HashUtil#verifyPassword()` with the given doctor's password and password entered by the user. +
 
-.. the `login` command invokes `Model#hasReceptionist()` to ensure that this receptionist exists inside ClinicIO.
-.. Once ClinicIO has checked that the user exists, the `login` command invokes `Model#getReceptionist()` to retrieve the receptionist found in `UniqueReceptionistList`.
-.. The `login` command verifies a password using `HashUtil#verifyPassword()` with the given receptionist's password and password entered by the user.
+Step 5: To indicate successful completion of verification, the `login` command raises a `LoginSuccessEvent`. +
 
-. Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made.
+Step 6: Once verification has been made successfully, the `login` command raise an `SuccessfulLoginEvent` to indicate that a successful attempt to login has been made. +
 
 The following sequence diagram shows how the login authentication works:
 
