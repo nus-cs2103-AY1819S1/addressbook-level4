@@ -5,10 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
-import javafx.embed.swing.SwingFXUtils;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ChangeImageEvent;
-import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -66,10 +62,6 @@ public class ConvertCommand extends Command {
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
                     transformation);
             model.updateCurrentPreviewImage(modifiedImage, transformation);
-            EventsCenter.getInstance().post(
-                    new ChangeImageEvent(
-                            SwingFXUtils.toFXImage(model.getCurrentPreviewImage().getImage(), null), "preview"));
-            EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
         } catch (Exception e) {
             throw new CommandException(e.toString());
         }

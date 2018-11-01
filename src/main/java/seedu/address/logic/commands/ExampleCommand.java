@@ -6,11 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import javafx.embed.swing.SwingFXUtils;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.ChangeImageEvent;
-import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -49,9 +45,6 @@ public class ExampleCommand extends Command {
             imagePath = model.getCurrentPreviewImagePath();
             BufferedImage modifiedImage = processImage(targetIndex, imagePath);
             model.updateCurrentPreviewImage(modifiedImage, transformationDone);
-            EventsCenter.getInstance().post(
-                    new ChangeImageEvent(SwingFXUtils.toFXImage(modifiedImage, null), "preview"));
-            EventsCenter.getInstance().post(new TransformationEvent(transformationDone.toString()));
             return new CommandResult(String.format(MESSAGE_EXAMPLE_SUCCESS, targetIndex.getOneBased()));
         } catch (IOException | InterruptedException | ParseException e) {
             throw new CommandException(e.toString());

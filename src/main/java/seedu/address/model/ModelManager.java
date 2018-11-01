@@ -15,7 +15,11 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
+import seedu.address.commons.events.ui.ClearHistoryEvent;
+import seedu.address.commons.events.ui.TransformationEvent;
+import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
@@ -103,14 +107,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateImageListNextBatch() {
         userPrefs.updateImageListNextBatch();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     /**
      * Updates the batch pointer in {@code UserPrefs}
      */
-    @Override
     public void updateImageListPrevBatch() {
         userPrefs.updateImageListPrevBatch();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     /**
@@ -135,6 +140,8 @@ public class ModelManager extends ComponentManager implements Model {
         currentOriginalImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         canvas = new Canvas(selectedImage);
+
+        EventsCenter.getInstance().post(new ClearHistoryEvent());
     }
 
     /**
@@ -189,24 +196,29 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoPreviewImage() {
         getCurrentPreviewImage().undo();
         BufferedImage newImage = getCurrentPreviewImage().getImage();
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        EventsCenter.getInstance().post(new TransformationEvent(true));
     }
 
     @Override
     public void redoPreviewImage() {
         getCurrentPreviewImage().redo();
         BufferedImage newImage = getCurrentPreviewImage().getImage();
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        EventsCenter.getInstance().post(new TransformationEvent(false));
     }
 
     //=========== get/updating preview image ==========================================================================
 
-    @Override
+    /**
+     * Adds a transformation to current layer
+     * @param transformation transformation to add
+     * @throws ParseException
+     * @throws InterruptedException
+     * @throws IOException
+     */
     public void addTransformation(Transformation transformation) throws
-            ParseException, InterruptedException, IOException {
+        ParseException, InterruptedException, IOException {
         canvas.getCurrentLayer().addTransformation(transformation);
+        EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
     }
 
     @Override
@@ -229,6 +241,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
         getCurrentPreviewImage().addTransformation(transformation);
         getCurrentPreviewImage().commit(image);
+        EventsCenter.getInstance().post(
+                new ChangeImageEvent(
+                        SwingFXUtils.toFXImage(getCurrentPreviewImage().getImage(), null), "preview"));
     }
 
     @Override
@@ -254,6 +269,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
+        EventsCenter.getInstance().post(new ChangeDirectoryEvent(getCurrDirectory().toString()));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     @Override
