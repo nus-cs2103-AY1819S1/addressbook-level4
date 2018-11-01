@@ -1,7 +1,6 @@
 //@@author chantca95
 package seedu.address.logic.commands;
 
-import static seedu.address.model.meeting.Meeting.NO_MEETING;
 import static seedu.address.model.meeting.Meeting.NO_MEETING_MSG;
 
 import java.io.FileNotFoundException;
@@ -87,7 +86,7 @@ public class ExportCommand extends Command {
         }
         meeting = current.getMeeting().toString();
         if (meeting.equals(NO_MEETING_MSG)) {
-            meeting = NO_MEETING;
+            meeting = "";
         }
         tags = current.getTags();
         for (Tag currentTag : tags) {
