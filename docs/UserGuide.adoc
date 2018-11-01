@@ -97,7 +97,7 @@ Available transformations
 ** Format: `convert sigmoidal-contrast [DegreexPercentage]`
 ** Example: `convert sigmoidal-contrast 10x10%`
 
-* `rotate`: rotates an image. DIRECTION [left, right], VALUE [-180, 180]
+* `rotate`: rotates an image. DIRECTION [left, right]
 
 ** Format: `convert rotate [vlaue]`
 ** Example: `convert rotate 90`
@@ -111,15 +111,13 @@ Examples:
 
 * `create blurR blur|0x8 rotate|90`
 
-=== Saving images/transformation set : `save`
+=== Saving images : `save`
 
-Format: `save -image [IMAGE_NAME]`: saves the transformed image +
-Format: `save -set [SET_NAME]`: saves the transformation set added thus far as a new transformation type
+Format: `save [IMAGE_NAME]`: saves the transformed image, supporting jpg, jpeg, png, tiff, gif
 
 Examples:
 
-* `save -image exampleImage` +
-* `save -set exampleSet`
+* `save modified.png`
 
 // tag::undoredo[]
 === Undoing previous actions : `undo`
