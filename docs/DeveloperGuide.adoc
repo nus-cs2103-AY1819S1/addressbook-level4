@@ -467,7 +467,7 @@ Step 4. The system list the projects.
 
 // end::project
 
-// tag::archive
+// tag::archive[]
 === View deleted employee archive feature
 Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
 
@@ -530,7 +530,7 @@ image::uiModelChangeJosh.PNG[width="350]
 * **Alternative 2:** Assign an archive attribute to each employee object and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
 ** Pros: Only need to change 1 attribute when an employee is deleted.
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
-// end::archive
+// end::archive[]
 
 // tag::login[]
 === Login/Logout feature

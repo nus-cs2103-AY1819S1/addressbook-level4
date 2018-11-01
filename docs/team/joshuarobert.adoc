@@ -1,0 +1,52 @@
+= Joshua Robert - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: OASIS
+ ---
+== Overview
+ Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves.
+ This project portfolio summarizes the contributions that I have to the project.
+
+== Summary of contributions
+ The following section shows my major code contributions to OASIS.
+
+=== Major enchancement: Archive feature
+ * *Major enhancement*: Added *the feature to delete employees and add them to the archive list*
+** What it does: Allows a user with "Department Manager" permissions to delete an employee and it will be automatically added to the archive list which can be viewed at a later time.
+** Justification:
+** Highlights:
+
+=== Minor enchancement:
+* *Minor enhancement*:
+* *Code contributed*: [https://github.com[Test code]]_
+* *Other contributions*:
+** Project management:
+*** Sample
+** Enhancements to existing features:
+*** Sample (Pull requests https://github.com[#1])
+** Documentation:
+*** Sample https://github.com[#1]
+** Community:
+*** Sample
+** Tools:
+*** Integrated Travis CI, AppVeyor and Coveralls to the team repo
+
+== Contributions to the User Guide
+
+|===
+|_The following sections represent my contributions to the User Guide. They demonstrate my ability to write end-user documentation._
+|===
+
+//include::../UserGuide.adoc[tag=archive]
+//include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_The next section serves to showcase my additions to the Developer Guide. They act as an exhibit to show my capability in writing good technical documentation, along with the technical depth of my contributions._
+|===
+
+include::../DeveloperGuide.adoc[tag=archive]
+// include::../DeveloperGuide.adoc[tag=da/taencryption]
