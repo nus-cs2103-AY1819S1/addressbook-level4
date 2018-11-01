@@ -56,7 +56,8 @@ public class TypicalPersons {
             .withUsername("Fiona Kunz").withPassword("FionaI5H0t").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
-            .withUsername("George Best").withPassword("Pa55w0rd").build();
+            .withUsername("George Best").withPassword("Pa55w0rd")
+            .withLeaveApplications(Arrays.asList(TypicalLeaveApplications.ALICE_LEAVE)).build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")

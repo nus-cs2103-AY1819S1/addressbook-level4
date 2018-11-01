@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
+import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.project.Assignment;
@@ -16,6 +17,8 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS = unused -> true;
     Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
+    Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_PENDING_LEAVEAPPLICATIONS =
+        leaveApplication -> leaveApplication.getLeaveStatus().value.equals(StatusEnum.Status.PENDING);
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
