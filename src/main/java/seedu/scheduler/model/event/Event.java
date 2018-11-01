@@ -11,8 +11,8 @@ import java.util.UUID;
 import seedu.scheduler.model.tag.Tag;
 
 /**
- * Represents an Event in the scheduler. Guarantees: details are present and not null, field values are validated,
- * immutable.
+ * Represents an Event in the scheduler.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event {
 
@@ -35,7 +35,8 @@ public class Event {
     private ReminderDurationList reminderDurationList;
 
     /**
-     * Original Constructor Every field must be present and not null
+     * Original Constructor
+     * Every field must be present and not null
      */
     public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
@@ -57,7 +58,8 @@ public class Event {
     }
 
     /**
-     * Does not take in uid. Will generate a random uid Used every time a new event is created
+     * Does not take in uid. Will generate a random uid
+     * Used every time a new event is created
      */
     public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
@@ -142,7 +144,8 @@ public class Event {
 
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
@@ -156,7 +159,8 @@ public class Event {
     }
 
     /**
-     * Returns true if both event have the same uuid. This defines a weaker notion of equality between two events.
+     * Returns true if both event have the same uuid.
+     * This defines a weaker notion of equality between two events.
      * Identifies recurring events as the same event
      */
     public boolean isSameEvent(Event otherEvent) {
@@ -169,8 +173,8 @@ public class Event {
     }
 
     /**
-     * Returns true if both events have the same identity and data fields. This defines a stronger notion of equality
-     * between two events.
+     * Returns true if both events have the same identity and data fields.
+     * This defines a stronger notion of equality between two events.
      */
     @Override
     public boolean equals(Object other) {
