@@ -332,8 +332,9 @@ public class ConnectToGoogleCalendar {
      *
      * @param eventToDelete a local Event.
      * @param instanceIndex the instance index for recurring event.
+     * @param totalInstance
      */
-    public void deleteUpcomingOnGoogleCal(Event eventToDelete, int instanceIndex) {
+    public void deleteUpcomingOnGoogleCal(Event eventToDelete, int instanceIndex, int totalInstance) {
         Calendar service = getCalendar();
         List<String> eventIds = new ArrayList<>();
         String recurringEventId = null;
@@ -391,15 +392,18 @@ public class ConnectToGoogleCalendar {
         } else {
             assert recurringEventId != null;
             //Case: Delete upcoming
-            for (String eventId : eventIds) {
-                try {
-                    service.events().delete("primary", eventId).execute();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            Events instances = null;
+            try {
+                instances = service.events().instances("primary", recurringEventId).execute();
+                assert instances != null;
+                for (int i = instanceIndex; i <= totalInstance; i++) {
+                    com.google.api.services.calendar.model.Event instance = instances.getItems().get(i);
+                    instance.setStatus("cancelled");
+                    service.events().update("primary", instance.getId(), instance).execute();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-
         }
     }
 
@@ -736,7 +740,7 @@ public class ConnectToGoogleCalendar {
 
 
                     service.events()
-                           .update("primary", recurringEventId, gEvent).execute();
+                            .update("primary", recurringEventId, gEvent).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -878,7 +882,7 @@ public class ConnectToGoogleCalendar {
 
 
                     service.events()
-                           .update("primary", recurringEventId, gEvent).execute();
+                            .update("primary", recurringEventId, gEvent).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
