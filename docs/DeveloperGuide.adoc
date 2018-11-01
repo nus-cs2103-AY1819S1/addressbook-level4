@@ -208,19 +208,19 @@ Use case ends.
 ### Use case: Completing Task (Single)
 #### MSS
 . User marks task as complete.
-. Application reports both points earned and current points to user.
+. Application displays a default congratulatory message, reports points earned and task completed to user.
 
 #### Extensions
 * 1a. An error occurs, causes one of the task to not be completed
 ** 1a1. Application displays error message, no points are earned either.
 
 * 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+** 2a1. Application displays a congratulatory message for leveling up, points earned and task completed to user.
 
 ### Use case: Completing Task (Batch via `Label`)
 #### MSS
 . User marks a batch of tasks with the same specified `Label` as complete.
-. Application reports both points earned and current points to user.
+. Application displays a default congratulatory message, reports points earned and task(s) completed to user.
 
 #### Extensions
 * 1a. An error occurs, causes one of the tasks to not be able to be completed
