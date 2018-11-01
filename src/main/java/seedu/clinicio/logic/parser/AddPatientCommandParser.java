@@ -12,13 +12,10 @@ import java.util.stream.Stream;
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
-import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
-import seedu.clinicio.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddPatientCommand object
