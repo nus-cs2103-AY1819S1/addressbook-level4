@@ -34,9 +34,8 @@ public class SelfEditCommand extends Command {
         + PREFIX_EMAIL + " johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String ADMIN_EDIT_ERROR = "You're currently logged in as admin, not as an employee!\nAdmin"
-        + " cannot be edit. Perhaps you meant edit instead?";
+        + " cannot be edited. Perhaps you meant edit instead?";
 
     private EditCommand.EditPersonDescriptor editPersonDescriptor;
 

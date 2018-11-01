@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.SelfEditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -45,7 +46,8 @@ public class SelfEditCommandParser implements Parser<SelfEditCommand> {
         parseProjectsForEdit(argMultimap.getAllValues(PREFIX_PROJECT)).ifPresent(editPersonDescriptor::setProjects);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(SelfEditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                SelfEditCommand.MESSAGE_USAGE));
         }
 
         return new SelfEditCommand(editPersonDescriptor);
