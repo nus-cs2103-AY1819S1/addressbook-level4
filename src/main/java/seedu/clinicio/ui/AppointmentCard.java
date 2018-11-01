@@ -42,8 +42,10 @@ public class AppointmentCard extends UiPart<Region> {
         name.setText(appointment.getPatient().getName().toString());
         status.setText(appointment.statusToString());
         type.setText(appointment.typeToString());
-        if (appointment.getAssignedStaff().isPresent()) {
-            staff.setText(appointment.getAssignedStaff().get().getName().toString());
+        if (!appointment.getAssignedStaff().isPresent()) {
+            staff.setText("Doctor: None assigned");
+        } else {
+            staff.setText("Doctor: " + appointment.getAssignedStaff().get().toString());
         }
     }
 

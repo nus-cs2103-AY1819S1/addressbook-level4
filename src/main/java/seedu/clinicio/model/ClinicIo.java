@@ -95,6 +95,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
         setStaffs(newData.getStaffList());
+        setAppointments(newData.getAppointmentList());
     }
 
     //========== Person-level operations =====================================================================
@@ -270,6 +271,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     public void removeConsultation(Consultation key) {
         consultations.remove(key);
     }
+
     //========== Util methods ================================================================================
 
     @Override
