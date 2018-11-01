@@ -206,7 +206,7 @@ Exits from the application and return to the user's desktop.
 [[command-switch]]
 ==== Switching panels: `switch`
 
-Switches the panel to display to volunteers or events +
+Switches the panel to display either volunteers or events +
 
 Format: `switch -CONTEXT_ID`
 
@@ -220,20 +220,11 @@ Format: `switch -CONTEXT_ID`
 Example(s):
 
 * `switch -e` +
-Updates the panel to display the list of events.
+Updates the panel displaying the list of volunteers to display the list of events. +
+The following figure shows the expected panel before and after entering the `switch` command.
 
-[.clearfix]
---
-[.left]
-.Before panel displaying volunteers
-image::command_switch_before.png[switch bef, 300]
-[.left]
-.After panel displaying events
-image::command_switch_after.png[switch aft, 300]
---
-
-The figures above show the 2 different panels. +
-Application will first display the 'volunteers' panel and you can change the panel to display 'events' via the `switch` command.
+.Panel display changing from volunteers to events
+image::command_switch.png[switch, 600]
 
 === Volunteer Management
 
