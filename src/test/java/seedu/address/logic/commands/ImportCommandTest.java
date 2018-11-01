@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
@@ -33,6 +32,7 @@ import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Entry;
 import seedu.address.model.transaction.Remarks;
+import seedu.address.testutil.CcaBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 //@@author kengwoon
@@ -127,6 +127,30 @@ public class ImportCommandTest {
         Cca newCca = new Cca(new CcaName("Hockey"), new Name("MrYanDao"), new Name("XiaoMing"), new Budget(500),
                 new Spent(300), new Outstanding(200), entries);
         expectedModel.addCca(newCca);
+        expectedModel.updateFilteredCcaList(Model.PREDICATE_SHOW_ALL_CCAS);
+        expectedModel.commitBudgetBook();
+
+        assertCommandSuccess(importCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validTransactionsFile_success() {
+        String fileName = "transactionImports.xml";
+        File file = new File("./src/test/data/ImportCommandTest/" + fileName);
+        ImportCommand importCommand = new ImportCommand(file.toPath());
+
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, fileName);
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+                new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
+        Index indexLastCca = Index.fromOneBased(model.getFilteredCcaList().size());
+        Cca originalCca = model.getFilteredCcaList().get(indexLastCca.getZeroBased());
+        Set<Entry> entries = originalCca.getEntries();
+        int entryNum = originalCca.getEntrySize() + 1;
+        entries.add(new Entry(entryNum, new Date("20.06.2014"), new Amount(-400), new Remarks("Floorball Camp")));
+        CcaBuilder ccaInFile = new CcaBuilder(originalCca);
+        Cca editedCca = ccaInFile.withTransaction(entries).build();
+        expectedModel.updateCca(originalCca, editedCca);
         expectedModel.updateFilteredCcaList(Model.PREDICATE_SHOW_ALL_CCAS);
         expectedModel.commitBudgetBook();
 
