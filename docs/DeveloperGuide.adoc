@@ -723,10 +723,11 @@ The following sequence diagram shows how export operation works:
 .Sequence diagram of ExportCommand
 image::exportCommandSeqDiagram.png[width="1000"]
 
-The program will raise a `AddressBookExportEvent` to `EventCenter`. `StorageManager` which subscribed to the `EventCenter` which will trigger `handleAddressBookExportEvent` when received `AddressBookExportEvent`. This method will then export the data as a XML file using `Model#exportAddressBook`.
+The program will raise a `AddressBookExportEvent` to `EventCenter`. `StorageManager` which subscribed to the `EventCenter` will trigger `StorageManager#handleAddressBookExportEvent` when received `AddressBookExportEvent`.
+This method will then attempt to export the data as a XML file using `Model#exportAddressBook`.
 
 ===== Export to a XML file
-Translating from `MeetingBookStorage` to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
+Translation from MeetingBook to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
 As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted into Java Architecture for XML Binding (JAXB)-friendly version before it can be successfully saved.
 ``Object``s are modelled using their respective `XMLAdapted` classes which contain directions for it to parse into JAXB-friendly version. `Marshal` Object will then marshal all the JAXB-friendly version of `Person`, `Meeting`, `Group` and assemble it into a XML file.
 
@@ -761,9 +762,10 @@ This is facilitated by is facilitated by `ImportCommand`. `ImportCommandParser` 
 The end result of this command is entries of `Person`, `Group`, `Meeting` added into the current MeetingBook.
 
 ===== Import from XML file
-Translation from XML formatted file to `XmlSerializableMeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
+Translation from XML formatted file to `MeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
 As MeetingBook consists `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted back into Java Architecture for XML Binding (JAXB)-friendly version before it can then modelled into its respective classes (i.e. `xmlAdaptedPerson` modelled back into `Person` object).
-Each ``Object``s has their respective `XMLAdapted` class which contain directions to model back from JAXB-friendly version . `Unmarshal` Object is solely responsible for disassemble the XML file into  JAXB-friendly versions of `Person`, `Meeting`, `Group`.
+Each ``Object``s has their respective `XMLAdapted` class which contain directions to model back from JAXB-friendly version . `Unmarshal` Object is solely responsible for disassemble the XML file into  JAXB-friendly versions of `Person`, `Meeting`, `Group`, which will then be feed as parameters to create another instance of `MeetingBook`.
+The imported `MeetingBook` will then merge with the current `MeetingBook` using `MeetingBook#merge`.
 
 .Class diagram of XmlAdapted classes and their associations
 image::xmlAdaptedClassDiagram.png[]
