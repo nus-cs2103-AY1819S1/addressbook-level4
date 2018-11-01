@@ -23,7 +23,7 @@ import seedu.clinicio.model.tag.Tag;
  * A patient may or may not have a preferredDoctor, consultation, medical history and appointment.
  */
 public class Patient extends Person {
-    private Set<MedicalProblem> medicalProblemss = new HashSet<>();
+    private Set<MedicalProblem> medicalProblems = new HashSet<>();
     private Set<Allergy> allergies = new HashSet<>();
     private Optional<Doctor> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
