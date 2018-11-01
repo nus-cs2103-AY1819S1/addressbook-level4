@@ -26,7 +26,7 @@ public class FilepathCommand extends Command {
             + PREFIX_PATH + "newHome.xml\n"
             + "Example: " + COMMAND_WORD + " "
             + OPTION_SHOW + " : Show the current storage path.";
-    public static final String MESSAGE_SHOWPATH_SUCCESS = "MeetingBook is stored at %s.";
+    public static final String MESSAGE_SHOWPATH_SUCCESS = "MeetingBook is stored at ./%s.";
     private Path filepath;
 
     public FilepathCommand(Path filePath) {

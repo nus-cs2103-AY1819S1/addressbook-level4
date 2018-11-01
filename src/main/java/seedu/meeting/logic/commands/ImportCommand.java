@@ -32,7 +32,7 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PATH + "backup\n"
             + COMMAND_WORD + " " + OPTION_OVERWRITE + PREFIX_PATH + "backup";
-    public static final String MESSAGE_FAIL_DATA = "Data file not in the correct format. ";
+    public static final String MESSAGE_FAIL_DATA = "Data file provided is not in the correct format. ";
     public static final String MESSAGE_FAIL_NOFILE = "File does not exists.";
 
     private static final Logger logger = LogsCenter.getLogger(XmlMeetingBookStorage.class);
