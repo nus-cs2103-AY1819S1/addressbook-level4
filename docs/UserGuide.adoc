@@ -237,7 +237,9 @@ Adds `Paracetamol` (under _Drug Allergy_) and `Diabetes` (under _Past Diseases_)
 Adds `B+` (under _Blood Type_) to the `MedicalRecord` of the 3rd patient.
 // end::addmedicalrecordcommand[]
 
-// tag::patient[]
+// end::patient[]
+
+[[medicine]]
 // tag::medicine[]
 === Medicine Inventory Management
 
