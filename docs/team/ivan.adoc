@@ -38,7 +38,7 @@ Unlike them, Piconso offers the same features, in a much more simplified manner.
 ** Community:
 *** PRs reviewed: https://github.com/CS2103-AY1819S1-T09-3/main/pull/37[#37], https://github.com/CS2103-AY1819S1-T09-3/main/pull/55[#55], https://github.com/CS2103-AY1819S1-T09-3/main/pull/57[#57], https://github.com/CS2103-AY1819S1-T09-3/main/pull/61[#61]
 ** Tools:
-*** Set up Travis to provide Continuous Integration and auto-publishing of documentation
+*** Set up Travis(Continuous Integration) to perform automated testing of test cases and auto-publishing of documentation
 
 == Contributions to the User Guide
 
