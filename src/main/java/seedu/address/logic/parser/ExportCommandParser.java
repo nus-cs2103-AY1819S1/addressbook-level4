@@ -15,7 +15,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
      * Checks if the user's given file name contains the .csv suffix, and displays an error message if it does not.
      */
     public ExportCommand parse(String fileName) throws ParseException {
-        
+
         int length = fileName.length();
         //checks whether the user's input ends with .csv
         if (length < 5) {
