@@ -8,7 +8,7 @@
 
 
 image::zhuanyu.png[width="150", align="left"]
-{empty}[https://github.com/ZhuanYu[github]]
+{empty}[https://github.com/ZhuanYu[GitHub]]
 
 Hello! My name is Zhuan Yu and I am a second year Computer Science undergraduate. As an aspiring programmer, I want to
 show people about the joy of coding through samples of my work.

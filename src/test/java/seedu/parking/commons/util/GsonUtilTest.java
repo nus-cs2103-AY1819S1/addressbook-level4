@@ -1,9 +1,9 @@
 package seedu.parking.commons.util;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static seedu.parking.commons.util.GsonUtil.fetchAllCarparkInfo;
-import static seedu.parking.commons.util.GsonUtil.getCarparkPostalData;
+//import static seedu.parking.commons.util.GsonUtil.getCarparkPostalData;
 
 import java.io.IOException;
 
