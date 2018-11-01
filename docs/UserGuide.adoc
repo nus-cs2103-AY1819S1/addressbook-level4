@@ -45,14 +45,14 @@ This section will explain the user interface of the application.
 
 image::UiExplanation.png[width="790"]
 
-1. Menu bar
-2. Group list: display a list of groups
-3. Meeting list: display a list of meetings
-4. Person list: display a list of person
-5. Command box:
-6. Result display
-7. MeetingBook update status
-8. MeetingBook save path
+. Menu bar
+. Group list: displays a list of groups
+. Meeting list: displays a list of meetings
+. Person list: displays a list of person
+. Command box: receives command from user and execute
+. Result display: displays the result of command executed
+. Update status: displays the update status of current session
+. Save path: displays current data save path
 
 [[Features]]
 == Features
