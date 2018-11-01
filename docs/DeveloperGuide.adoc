@@ -231,10 +231,10 @@ pre-completed state and no points are earned.
 ** 2a1. Application displays a congratulatory message for leveling up, points earned and task(s) completed to user.
 
 ## Non-functional requirements
-- There should be no noticable lag when typing on the command line.
+- There should be no noticeable lag when typing on the command line.
 - Should work on any mainstream OS as long as it has Java 9 or higher installed.
 - Storage of application data will be in a text file.
-- Should be able to hold up to 1000 tasks without a noticable decline in performance.
+- Should be able to hold up to 1000 tasks without a noticeable decline in performance.
 - Should not take more than 3 seconds to complete a command.
 - System should be maintainable with proper documentation.
 - Proper feedback to user when error occurs.
