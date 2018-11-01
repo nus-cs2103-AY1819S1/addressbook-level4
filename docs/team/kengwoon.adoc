@@ -71,11 +71,10 @@ single command line as multiple keywords can be specified at once.
 *** Updated commands for team members and myself in the User Guide.
 *** Updated commands for myself in Developer Guide.
 ** Community
-*** Reviewed PRs at each milestone.
+*** Reviewed pull requests by team members at each milestone.
 
 
 == Contributions to the User Guide
-
 
 |===
 |This section contains my contributions to the User Guide for Hallper. It has been documented and worded to facilitate mastering of features by end-users.
