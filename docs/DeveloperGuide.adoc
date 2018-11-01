@@ -538,6 +538,8 @@ commit in `taskManagerStateList`.
 
 image::RollbackModelSequenceDiagram.png[width="1200"]
 
+_Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for brevity_
+
 ### 3.4. Dependency Feature Modelling
 #### 3.4.1. Current Implementation
 The dependency mechanism is facilitated by an embedded dependency object. This object internally represents dependency with
