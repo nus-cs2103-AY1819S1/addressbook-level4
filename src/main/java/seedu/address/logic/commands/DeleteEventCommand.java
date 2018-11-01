@@ -48,14 +48,14 @@ public class DeleteEventCommand extends Command {
     }
 
     @Override
+    public CommandResult execute(ModelToDo modelToDo, CommandHistory history) throws CommandException {
+        throw new CommandException(MESSAGE_INCORRECT_MODEL_CALENDAR);
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof DeleteEventCommand // instanceof handles nulls
             && targetIndex.equals(((DeleteEventCommand) other).targetIndex)); // state check
-    }
-
-    @Override
-    public CommandResult execute(ModelToDo modelToDo, CommandHistory history) throws CommandException {
-        throw new CommandException(MESSAGE_INCORRECT_MODEL_CALENDAR);
     }
 }

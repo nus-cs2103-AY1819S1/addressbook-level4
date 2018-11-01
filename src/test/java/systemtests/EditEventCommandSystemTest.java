@@ -30,8 +30,6 @@ import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditEventCommand;
@@ -48,9 +46,12 @@ import seedu.address.testutil.PersonUtil;
 
 public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
-    // @Test // TODO pass test
+    // @Test
+    /**
+     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
+     * TODO remember to import org.JUnit.Test
+     */
     public void edit() {
-        // TODO: not passing due to gui changes
         Model model = getModel();
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */

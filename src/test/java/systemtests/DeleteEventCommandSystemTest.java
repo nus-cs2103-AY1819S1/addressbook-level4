@@ -10,8 +10,6 @@ import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteEventCommand;
@@ -25,9 +23,12 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
         String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE);
 
-    // @Test // TODO pass test
+    // @Test
+    /**
+     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
+     * TODO remember to import org.JUnit.Test
+     */
     public void delete() {
-        // TODO: not passing due to gui changes
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
         /* Case: delete the first calendarevent in the list, command with leading spaces and trailing spaces ->

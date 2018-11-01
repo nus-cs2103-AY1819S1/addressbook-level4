@@ -12,8 +12,6 @@ import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.FindEventCommand;
@@ -24,9 +22,12 @@ import seedu.address.model.tag.Tag;
 
 public class FindEventCommandSystemTest extends SchedulerSystemTest {
 
-    // @Test // TODO pass test
+    // @Test
+    /**
+     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
+     * TODO remember to import org.JUnit.Test
+     */
     public void find() {
-        // TODO: not passing due to gui changes
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 3 persons found
          */
