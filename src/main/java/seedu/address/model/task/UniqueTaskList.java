@@ -134,7 +134,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public void updateOverdue() {
         for (int i = 0; i < internalList.size(); i++) {
             Task task = internalList.get(i);
-            if (task.isStatusOverdue() && !task.isStatusCompleted()) {
+            if (task.isOverdue() && !task.isStatusCompleted()) {
                 Task updatedTask = createOverdueTask(task);
                 setTask(task, updatedTask);
             }
