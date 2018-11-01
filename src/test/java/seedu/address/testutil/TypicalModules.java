@@ -54,7 +54,7 @@ public class TypicalModules {
             .withSemester("2")
             .withTags("Statistics").build();
 
-    public static final String KEYWORD_MATCHING_MA1101R = "MA1101R"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MA1101R = "MA1101R"; // A keyword that matches MA1101R
 
     private TypicalModules() {} // prevents instantiation
 

@@ -19,9 +19,9 @@ public class ModelHelper {
     private static final Predicate<Occasion> PREDICATE_MATCHING_NO_OCCASIONS = unused -> false;
 
     /**
-     * Updates {@code model}'s filtered list to display only {@code toDisplay}.
+     * Updates {@code model}'s filtered personlist to display only {@code toDisplay}.
      */
-    public static void setFilteredList(Model model, List<Person> toDisplay) {
+    public static void setFilteredPersonList(Model model, List<Person> toDisplay) {
         Optional<Predicate<Person>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
@@ -46,10 +46,10 @@ public class ModelHelper {
     }
 
     /**
-     * @see ModelHelper#setFilteredList(Model, List)
+     * @see ModelHelper#setFilteredPersonList(Model, List)
      */
-    public static void setFilteredList(Model model, Person... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
+    public static void setFilteredPersonList(Model model, Person... toDisplay) {
+        setFilteredPersonList(model, Arrays.asList(toDisplay));
     }
 
     /**

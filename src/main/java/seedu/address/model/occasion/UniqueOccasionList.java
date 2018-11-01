@@ -1,12 +1,15 @@
 package seedu.address.model.occasion;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
+import seedu.address.model.occasion.exceptions.OccasionNotFoundException;
 import seedu.address.model.occasion.exceptions.DuplicateOccasionException;
 
 /**
@@ -26,7 +29,7 @@ public class UniqueOccasionList implements Iterable<Occasion> {
      */
     public boolean contains(Occasion occasionToCheck) {
         requireNonNull(occasionToCheck);
-        return internalList.stream().anyMatch(occasionToCheck::equals);
+        return internalList.stream().anyMatch(occasionToCheck::isSameOccasion);
     }
 
     /**
@@ -44,12 +47,21 @@ public class UniqueOccasionList implements Iterable<Occasion> {
     /**
      * Replaces the occasion {@code target} in the list with {@code editedOccasion}.
      * {@code target} must exist in the list.
-     * The occasion identity of {@code editedModule} must not be the same as another existing occasion in the list.
+     * The occasion identity of {@code editedOccasion} must not be the same as another existing occasion in the list.
      */
     public void setOccasion(Occasion target, Occasion editedOccasion) {
-        // TODO fill up implementation.
-        // Will leave upto the implementer of the
-        // update feature to do.
+        requireAllNonNull(target, editedOccasion);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new OccasionNotFoundException();
+        }
+
+        if (!target.isSameOccasion(editedOccasion) && contains(editedOccasion)) {
+            throw new DuplicateOccasionException();
+        }
+
+        internalList.set(index, editedOccasion);
     }
 
     /**

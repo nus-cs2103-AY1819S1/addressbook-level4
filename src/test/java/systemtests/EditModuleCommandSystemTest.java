@@ -30,6 +30,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
 import static seedu.address.testutil.TypicalModules.CS2100;
 import static seedu.address.testutil.TypicalModules.ST2131;
+import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MA1101R;
 
 import org.junit.Test;
 
@@ -113,7 +114,7 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------ */
 
         /* Case: filtered module list, edit index within bounds of address book and module list -> edited */
-        // showModulesWithModuleCode(KEYWORD_MATCHING_MEIER);
+        showModulesWithTitle(KEYWORD_MATCHING_MA1101R);
         index = INDEX_FIRST_MODULE;
         assertTrue(index.getZeroBased() < getModel().getFilteredModuleList().size());
         command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + " " + MODULECODE_DESC_ST2131;
@@ -124,12 +125,10 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered module list, edit index within bounds of address book but out of bounds of module list
          * -> rejected
          */
-        // showModulesWithTitle(KEYWORD_MATCHING_MA1101R); // TODO
-        /*
+        showModulesWithTitle(KEYWORD_MATCHING_MA1101R);
         int invalidIndex = getModel().getAddressBook().getModuleList().size();
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + invalidIndex + MODULECODE_DESC_ST2131,
                 Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
-                */
 
         /* --------------------- Performing edit operation while a module card is selected --------------------- */
 
@@ -156,7 +155,7 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditModuleCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        int invalidIndex = getModel().getFilteredModuleList().size() + 1;
+        invalidIndex = getModel().getFilteredModuleList().size() + 1;
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + invalidIndex + MODULECODE_DESC_ST2131,
                 Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX);
 
@@ -172,15 +171,15 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased()
                 + INVALID_MODULECODE_DESC, ModuleCode.MESSAGE_MODULECODE_CONSTRAINTS);
 
-        /* Case: invalid phone -> rejected */
+        /* Case: invalid moduleTitle -> rejected */
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased()
                 + INVALID_MODULETITLE_DESC, ModuleTitle.MESSAGE_MODULETITLE_CONSTRAINTS);
 
-        /* Case: invalid email -> rejected */
+        /* Case: invalid academicYear -> rejected */
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased()
                 + INVALID_ACADEMICYEAR_DESC, AcademicYear.MESSAGE_ACADEMICYEAR_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid semester -> rejected */
         assertCommandFailure(EditModuleCommand.COMMAND_WORD + " " + INDEX_FIRST_MODULE.getOneBased()
                 + INVALID_SEMESTER_FIVE, Semester.MESSAGE_SEMESTER_CONSTRAINTS);
 
@@ -200,7 +199,7 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a module with new values same as another module's values but with different tags -> rejected */
         command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_ST2131
-                + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_CALCULUS;
+                + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY;
         assertCommandFailure(command, EditModuleCommand.MESSAGE_DUPLICATE_MODULE);
 
     }

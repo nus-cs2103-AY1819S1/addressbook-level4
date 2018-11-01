@@ -161,24 +161,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Occasion List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Occasion} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Occasion> getFilteredOccasionList() {
-        return FXCollections.unmodifiableObservableList(filteredOccasions);
-    }
-
-    @Override
-    public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
-        requireNonNull(predicate);
-        filteredOccasions.setPredicate(predicate);
-    }
-
-
     //=========== Filtered Module List Accessors =============================================================
 
     /**
@@ -194,6 +176,23 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredModuleList(Predicate<Module> predicate) {
         requireNonNull(predicate);
         filteredModules.setPredicate(predicate);
+    }
+
+    //=========== Filtered Occasion List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Occasion} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Occasion> getFilteredOccasionList() {
+        return FXCollections.unmodifiableObservableList(filteredOccasions);
+    }
+
+    @Override
+    public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
+        requireNonNull(predicate);
+        filteredOccasions.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
