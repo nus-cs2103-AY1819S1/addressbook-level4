@@ -63,7 +63,8 @@ public class JoinCommandTest {
 
         CommandResult commandResult = new JoinCommand(validPerson, validGroup).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(JoinCommand.MESSAGE_JOIN_SUCCESS, validPerson, validGroup),
+        assertEquals(String.format(JoinCommand.MESSAGE_JOIN_SUCCESS, validPerson.getName().fullName,
+            validGroup.getTitle().fullTitle),
                 commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
