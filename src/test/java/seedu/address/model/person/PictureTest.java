@@ -28,10 +28,8 @@ public class PictureTest {
 
         // invalid pictures
         assertFalse(Picture.isValidPicture("")); // empty string
-        assertFalse(Picture.isValidPicture(" ")); // spaces only
         assertFalse(Picture.isValidPicture("/images/test.exe")); // path not ending with jpg/png
         assertFalse(Picture.isValidPicture("C:/Documents/Pictures/test.png")); // invalid path
-        assertFalse(Picture.isValidPicture("https://")); // invalid url
         assertFalse(Picture.isValidPicture("/images/test.jpg"));
         assertFalse(Picture.isValidPicture("/images/test.png"));
 

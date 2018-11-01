@@ -31,7 +31,6 @@ public class PictureCommand extends Command {
         + PREFIX_FILE_LOCATION + "johndoe.jpg";
 
     public static final String MESSAGE_SUCCESS = "Added picture for Person: %1$s";
-    public static final String MESSAGE_INVALID_PICTURE = "The image file could not be found.";
 
     private final Index index;
     private final Picture picture;
