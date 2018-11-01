@@ -319,69 +319,85 @@ image::PrevSequenceDiagram.png[width=800]
 ** Pros: Fast to access next/previous batches.
 ** Cons: Harder to handle changes in a batch (e.g. image got deleted) within the array.
 
+// tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `PreviewImageManager`.
-It is a single instance containing a list of `PreviewImage` and a `currentStatePointer`. Each `PreviewImage` stores a `BufferedImage` and a `TransformationSet`.
+The undo/redo works on the `currentLayer` the user is working on. Each `Layer` contains a `PreviewImage` which facilitates the undo/redo mechanism.
+The mechanism works by caching the original image and transformed images in a temporary `cache` folder, and using `currentStatePointer` as a pointer together with `currentSize` as an indicator to manage the caching.
+Undoing and redoing will shift the `currentStatePointer` accordingly while each transformation commits the image by writing to the `cache` folder (purging redundant images if needed).
+
+[NOTE]
+To work with multiple layers, each `Layer` has a single `PreviewImage` which is initialized with a unique `LayerId`, so that the `PreviewImage` can cache its images safely without conflicting image names.
+
 Additionally, it implements the following operations:
 
-* `PreviewImageManager#commit()` -- Saves the newly transformed `PreviewImage` state in the history list.
-* `PreviewImageManager#undo()` -- Restores the previous `PreviewImage` state from its history.
-* `PreviewImageManager#redo()` -- Restores a previously undone `PreviewImage` state from its history.
+* `PreviewImage#commit()` -- Writes the newly transformed `BufferedImage` into the `cache` folder (purge redundant images if needed).
+* `PreviewImage#getImage()` -- Returns the current `BufferedImage` state of the `previewImage` by reading from the `cache` folder.
+* `PreviewImage#undo()` -- Shifts the `currentStatePointer` to the left, pointing to the previous state.
+* `PreviewImage#redo()` -- Shifts the `currentStatePointer` to the right, pointing to a previously undone state.
 
-These operations are exposed in the `Model` interface as `Model#commitPreviewImageManager()`, `Model#undoPreviewImageManager()` and `Model#redoPreviewImageManager()` respectively.
+These operations are exposed in the `Model` interface as `Model#updateCurrentPreviewImage()`, `Model#undoPreviewImage()` and `Model#redoPreviewImage()`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user selects an image with the `select` command. The `PreviewImageManager` is initialized with the selected image, with the `currentStatePointer` pointing to that `PreviewImage` state.
+Step 1. The user selects an image with the `select` command. The `Canvas` is initialized with a new `Layer` which initializes its own `PreviewImage` with the selected image. The `currentStatePointer` pointing to that state.
+
+[NOTE]
+A `Canvas` can already be initialised, meaning this is an additional layer being added. The `Layer` and `PreviewImage` gets initialized the same way.
+
 
 image::undoRedo1.png[width="800"]
 
-Step 2. The user execute a series of transformations. Each time, the newly transformend image is stored as a `PreviewImage` and added to the `previewImageStateList`. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
+Step 2. The user executes a series of transformations. Each time, the newly transformed `BufferedImage` is stored by writing it to the `cache` folder. The `currentStatePointer` is also incremented. Eg. `hue`, `mirror`, `blur`
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitPreviewImageManager()`, so nothing will be saved into the `previewImageStateList`.
+If a command fails its execution, it will not call `Model#updateCurrentPreviewImage()`, so nothing will be cached.
 
 image::undoRedo2.png[width="800"]
 
-Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImageManager()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state, and restores the model's `previewImage` to that image.
+Step 3. The user wants to undo the previous action by using the `undo` command. It will call `Model#undoPreviewImage()` which will shift the `currentStatePointer` once to the left, pointing it to the previous `PreviewImage` state, then calls `Model#getCurrentPreviewImage()` to update the UI's preview image pane.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous `PreviewImage` states to restore. The `undo` command uses `Model#canUndoPreviewImageManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial state, then there are no previous states to restore. The `undo` command uses `Model#canUndoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 image::undoRedo3.png[width="800"]
 
 
-Step 4. The user executes another transformation, which calls `Model#commitPreviewImageManager`. Since the `currentStatePointer` is not pointing at the end of the `previewImageStateList`, and the states after the `currentStatePointer` will not make sense, all `PreviewImage` states after the pointer will be purged.
+Step 4. The user executes another transformation, which calls `Model#updateCurrentPreviewImage`. Since the `currentStatePointer` is not pointing at the end state (`currentSize` - 1), and the states after the `currentStatePointer` will not make sense, all states after the pointer will be purged.
 
 image::undoRedo4.png[width="800"]
 
-Step 5. The user decides to undo several actions. The user uses the `undo` command followed by the number of actions to undo eg.`2`. The `currentStatePointer` derements accordingly. The model's `previewImage` is to the pointed state.
-
-image::undoRedo5.png[width="800"]
+//Step 5. The user decides to undo several actions. The user uses the `undo` command followed by the number of actions to undo eg.`2`. The `currentStatePointer` derements accordingly. The model's `previewImage` is to the pointed state.
+//
+//image::undoRedo5.png[width="800"]
 
 The following sequence diagram shows how the undo operation works:
 
 image::undoRedoSequenceDiagram.png[width="800"]
 
-The redo command does the opposite — it calls `Model#redoPreviewImageManager()`, which shifts the currentStatePointer once to the right, pointing to the previously undone state, and updates the model's `previewImage` to that image.
+The redo command does the opposite — it calls `Model#redoPreviewImage()`, which shifts the currentStatePointer once to the right, pointing to the previously undone state.
 
 [NOTE]
-If the `currentStatePointer` is at index `previewImageStateList.size() - 1`, pointing to the last `PreviewImage` state, then there are no undone `PreviewImage` states to restore. The `redo` command uses `Model#canReddoPreviewImageManager()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `currentSize - 1`, pointing to the `PreviewImage's` last state, then there are no undone states to restore. The `redo` command uses `Model#canReddoPreviewImage()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes a new transformation:
 
 image::undoRedoActivityDiagram.png[width="800"]
 
 
-
 ==== Design Considerations
 
- - An alternative to this implementation will be to store the transformations, and actually reverse the execution of each transformation. However, it could be time consuming and complicated especially for complex transformations. As such, Piconso stores the list of modified images. In order to regulate memory usage, Piconso limits the number of actions to undo to 10.
+===== Aspect: How undo & redo executes
 
- - During mass editing of images, only the first image will be previewed and have its states stored. Undo/redo will work as if 1 image is being edited. When the user has finalised his transformations, only then will the transformations be applied to the whole set.
+* **Alternative 1 (current choice):** Saves each newly transformed image (including original).
+** Pros: Easy to implement.
+** Cons: Uses user's storage space for caching.
+* **Alternative 2:** Save only the command, and reverse/reapply transformation for each undo/redo.
+** Pros: Will not need to use user's data storage.
+** Cons: Transformations on images take significantly more time as compared to reading and writing cache. Also, reversing of transformations are not possible for commands like blur and colorspace.
+// end::undoredo[]
 
 
 === Transmission feature
