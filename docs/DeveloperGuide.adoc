@@ -483,7 +483,7 @@ takes in an `Index` to support polymorphic behavior for both a single operation 
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-_Premise: The application has several tasks tagger with the `Label::many`._
+_Premise: The application has several tasks tagged with the label: many._
 
 Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
 
@@ -515,8 +515,8 @@ it's status to `COMPLETED`
 
 * **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
 otherwise `Model#commit()`
-** Pros: This implementation defensively codes for scenarios where exceptions are thrown, thus
-ensuring that no half-done batch operation may left.
+** Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
+ensuring that there are no partially-done batch operation resulting in harder to debug state.
 ** Cons: Increases coupling of components.
 * **Alternative 2:** Doing a check on all tasks and only proceeding to update the model and
 commit if deemed that all tasks can be completed successfully else throw an exception.
@@ -548,8 +548,9 @@ a high amount of coupling.
 
 * **Alternative 1 (current choice):** As an explicit implemented class
 `LabelMatchesKeywordPredicate`.
-** Pros: Notion of equality can be overload, making testing for equality in every class composing
- the class able to check for structural equality.
+** Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
+`LabelMatchesKeywordPredicate`. In sum, it allows for the checking of structural equality rather than just referential
+equality.
 ** Cons: Creation of an extra class requires more understanding by developers to pick up the
 quirks as opposed to commonly recognised _Alternative 2_
 * **Alternative 2:** Declaration of predicate as an anonymous function
