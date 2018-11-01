@@ -90,7 +90,7 @@ public class EventsCollectorRule implements TestRule {
          */
         public boolean isAny(Class eventClass) {
             for (BaseEvent event : events) {
-                if(eventClass.isInstance(event)) {
+                if (eventClass.isInstance(event)) {
                     return true;
                 }
             }

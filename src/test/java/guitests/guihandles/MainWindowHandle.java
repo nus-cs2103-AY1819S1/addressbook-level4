@@ -25,6 +25,11 @@ public class MainWindowHandle extends StageHandle {
         refreshAllQueries();
     }
 
+    /**
+     * Refreshes all set items (browserPlaceholder, personListPanel etc.) by querying the DOM again.
+     * This should be called if the objects was removed and then recreated, i.e. if a logout then login even was
+     * performed.
+     */
     public void refreshAllQueries() {
         browserPlaceholder = getChildNode("#browserPlaceholder");
         personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
