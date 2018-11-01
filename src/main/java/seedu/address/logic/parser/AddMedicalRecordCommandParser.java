@@ -51,7 +51,11 @@ public class AddMedicalRecordCommandParser implements Parser<AddMedicalRecordCom
 
         BloodType bloodType = new BloodType("");
         if (argMultimap.getValue(PREFIX_BLOODTYPE).isPresent()) {
-            bloodType = new BloodType(argMultimap.getValue(PREFIX_BLOODTYPE).get());
+            try {
+                bloodType = new BloodType(argMultimap.getValue(PREFIX_BLOODTYPE).get());
+            } catch (IllegalArgumentException iae) {
+                throw new ParseException(BloodType.MESSAGE_BLOODTYPE_CONSTRAINTS);
+            }
         }
 
         List<Disease> diseaseList = new ArrayList<>();
