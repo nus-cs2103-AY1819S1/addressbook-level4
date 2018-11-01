@@ -74,11 +74,11 @@ Examples:
 
 ==== Adding a picture to resident detail : `image`
 
-Uploads the image of resident staying in the specified room to Hallper. +
+Uploads the image of resident staying in the specified room to Hallper and opens the profile page of the resident (*without the profile picture*). +
 Format: `image r/ROOM f/FILEPATH`
 
 ****
-* The image must be in *`.jpg`* or *`.png`*.
+* The image must be in *`.jpg`*.
 ****
 
 Example:
@@ -251,12 +251,14 @@ Format: `search KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
+* `search SoC` +
+Searches Hallper and lists all residents that are studying in `SoC`.
 * `search basketball` +
-Searches Hallper and lists all contacts associated with `basketball`.
+Searches Hallper and lists all residents that are in `basketball`.
 * `search A123` +
-Searches Hallper and lists all contacts associated with `A123`.
-* `search basketball A123` +
-Searches Hallper and lists all contacts associated with `basketball` and `A123`.
+Searches Hallper and lists all residents that are staying in room `A123`.
+* `search basketball A123 Soc` +
+Searches Hallper and lists all residents that are in `basketball`, staying in room`A123` and studying in `SoC`.
 
 ==== Locating persons by name: `find`
 Finds persons whose names contain any of the given keywords. +
