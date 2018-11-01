@@ -62,6 +62,7 @@ public class ModelManagerTest {
         ArchiveList archiveList = new ArchiveListBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AssignmentList assignmentList = new AssignmentListBuilder().withAssignment(OASIS).withAssignment(FALCON).build();
         AddressBook differentAddressBook = new AddressBook();
+
         ArchiveList differentArchiveList = new ArchiveList();
         AssignmentList differentAssignmentList = new AssignmentList();
         UserPrefs userPrefs = new UserPrefs();

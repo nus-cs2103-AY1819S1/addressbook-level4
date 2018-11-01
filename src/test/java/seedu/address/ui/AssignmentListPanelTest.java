@@ -1,20 +1,11 @@
 package seedu.address.ui;
 
-import static java.time.Duration.ofMillis;
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalAssignment.getTypicalAssignments;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysAssignment;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.junit.Test;
-
-import guitests.guihandles.AssignmentCardHandle;
 import guitests.guihandles.AssignmentListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
