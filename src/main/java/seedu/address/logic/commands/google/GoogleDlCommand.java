@@ -23,15 +23,20 @@ public class GoogleDlCommand extends GoogleCommand {
 
     private static final String TYPE = COMMAND_WORD + " dl";
     public static final String MESSAGE_USAGE = "Usage of google download (requires an internet connection): "
-            + "\n- " + TYPE + " <IMAGE_NAME>: " + "Downloads specified image from Google Photos"
-            + "\n\tExample: " + TYPE + " <mountain.png>, usage inclusive of <> "
+            + "\n- " + TYPE + " /i<IMAGE_NAME>: " + "Downloads specified image from Google Photos"
+            + "\n\tExample: " + TYPE + " /i<mountain.png>, usage inclusive of <> "
             + "\n- " + TYPE + " /a<ALBUM_NAME> /i<IMAGE_NAME>: " + "Downloads specified image"
             + "from specified album in Google sPhotos"
-            + "\n\tExample: " + TYPE + " /a<Vacation> <mountain.png>, usage inclusive of <>"
-            + "\n- " + TYPE + " all <ALBUM_NAME>: " + "Downloads all images from specified album, "
+            + "\n\tExample: " + TYPE + " /a<Vacation> /i<mountain.png>, usage inclusive of <>"
+            + "\n- " + TYPE + " /a<ALBUM_NAME>: " + "Downloads all images from specified album, "
             + "takes a longer time depending on number of images"
-            + "\n\tExample: " + TYPE + " all " + "<Vacation>, usage inclusive of <> \n\n"
+            + "\n\tExample: " + TYPE + " /a<Vacation>, usage inclusive of <> \n\n"
             + "!!WARNING: Any files with duplicate naming existing in the folder WILL be replaced";
+
+    /**
+     * Index to start from when parsing a image or album name
+     */
+    private static final int START_INDEX = 3;
 
     public GoogleDlCommand(String parameter) {
         super(parameter);
@@ -43,28 +48,29 @@ public class GoogleDlCommand extends GoogleCommand {
 
         String org = parameter;
         try {
-
             String currDir = model.getCurrDirectory().toString();
 
-            if (parameter.startsWith("all")) {
-                String[] params = parameter.trim().split(" ", 2);
-
-                //get image name
-                parameter = params[1].substring(1, params[1].length() - 1);
-                model.getPhotoHandler().downloadWholeAlbum(parameter, currDir);
-
-            } else if (parameter.startsWith("/a")) {
+            if (parameter.startsWith("/a")) {
                 String[] params = parameter.trim().split(" /i<", 2);
-                String albumName = params[0].substring(3, params[0].length() - 1);
+                if (params.length > 1) {
+                    String albumName = params[0].substring(START_INDEX, params[0].length() - 1);
 
-                // get image name
-                parameter = params[1].substring(0, params[1].length() - 1);
-                model.getPhotoHandler().downloadAlbumImage(albumName, parameter, currDir);
+                    // get image name
+                    parameter = params[1].substring(0, params[1].length() - 1);
+                    model.getPhotoHandler().downloadAlbumImage(albumName, parameter, currDir);
+                } else {
+                    parameter = parameter.substring(START_INDEX, parameter.length() - 1);
+                    model.getPhotoHandler().downloadWholeAlbum(parameter, currDir);
+                }
 
-            } else {
-                parameter = parameter.substring(1, parameter.length() - 1);
+            } else if (parameter.startsWith("/i")) {
+                parameter = parameter.substring(START_INDEX, parameter.length() - 1);
                 model.getPhotoHandler().downloadImage(parameter, currDir);
+            } else {
+                throw new Exception(parameter);
             }
+
+            model.updateEntireImageList();
 
         } catch (Exception ex) {
 

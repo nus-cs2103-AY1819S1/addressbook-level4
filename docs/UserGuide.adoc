@@ -190,14 +190,14 @@ All photos will be downloaded to the currently opened local directory. +
 Any files with duplicate naming existing in the targeted directory *WILL* be replaced
 ====
 
-Format: `g dl <[IMAGE_NAME]>`: downloads specified image from Google Photos +
-Format: `g dl all <[ALBUM_NAME]>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
+Format: `g dl /i<[IMAGE_NAME]>`: downloads specified image from Google Photos +
+Format: `g dl /a<[ALBUM_NAME]>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
 Format: `g dl /a<[ALBUM_NAME]> /i<[IMAGE_NAME]>`: lists a specific photo from a specific album in Google Photos.
 
 Examples:
 
-* `g dl <Beach.png>` -> Downloads Beach.png +
-* `g dl all <Vacation>` -> Downloads all photos from Vacation album +
+* `g dl /i<Beach.png>` -> Downloads Beach.png +
+* `g dl /a<Vacation>` -> Downloads all photos from Vacation album +
 * `g dl /a<Vacation> /i<Beach.png>` -> Downloads Beach.png from Vacation album +
 
 ==== Uploading photos to Google Photos: `g ul`
@@ -230,8 +230,8 @@ Format: `exit`: closes the application
 == Command Summary
 
 * *Help* : `help` +
-* *Select* : `select [IMAGE_NAME]` +
-e.g. `select exampleImage.jpg` +
+* *Select* : `select [INDEX]` +
+e.g. `select 1` +
 * *Next* : `next` +
 * *Previous* : `prev` +
 * *Convert* `convert [TRANSFORMATION]` +
@@ -244,7 +244,7 @@ e.g. `save exampleImage.jpg` +
 * *Cd* : `cd [DIRECTORY_NAME]` +
 * *Login* : `login` +
 * *Google List* : `g ls OR g ls /a OR g ls <ALBUM_NAME>` +
-* *Download* : `g dl <IMAGE_NAME> OR g dl all <ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +
+* *Download* : `g dl /i<IMAGE_NAME> OR g dl /a<ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +
 * *Upload* : `g ul <IMAGE_NAME> OR g ul all` +
 * *Logout* : `logout` +
 * *Exit* : `exit`
