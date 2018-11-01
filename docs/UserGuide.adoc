@@ -438,7 +438,7 @@ Format: `clear`
 === Adding tuition time of a student : `addtime`
 
 Adds a tuition time slot for a student in the address book.
-Format: `addtime [n/NAME] [ts/TIME]`
+Format: `addtime n/NAME ts/TIME`
 
 * The student with the name `NAME` must be already be in the address book.
 * Adds the tuition time `TIME` for the student called `NAME`.
@@ -452,7 +452,7 @@ Adds the tuition timing for John Doe that is on Monday which starts at 1300hour 
 === Deleting tuition time of a student : `deletetime`
 
 Deletes a tuition time slot for a student in the address book.
-Format: `deletetime [n/NAME] [ts/TIME]`
+Format: `deletetime n/NAME ts/TIME`
 
 * The student with the name `NAME` must be already be in the address book.
 * `TIME` must already exist in the student's tuition timings.
