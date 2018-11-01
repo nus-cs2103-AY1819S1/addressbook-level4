@@ -84,7 +84,7 @@ public class EditCommand extends Command {
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
 
-        if(patientToEdit.isInQueue()) {
+        if (patientToEdit.isInQueue()) {
             throw new CommandException(Messages.MESSAGE_PERSON_IN_QUEUE);
         }
 
