@@ -138,7 +138,7 @@ Format: `complete INDEX` or `complete t/LABEL`
 -Example:
 `complete 1 l/urgent` (Behavior is not clear)
 
-_Note that completion via label is case-sensitive_
+_Note that completion via label is case-insensitive_
 
 * You can complete multiple tasks at once through the use of the format complete `l/LABEL`
 * Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
