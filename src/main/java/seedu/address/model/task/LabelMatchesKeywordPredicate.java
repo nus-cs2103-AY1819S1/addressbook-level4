@@ -39,8 +39,9 @@ public class LabelMatchesKeywordPredicate implements Predicate<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof LabelMatchesKeywordPredicate // instanceof handles nulls
-                && keyLabel.equals(((LabelMatchesKeywordPredicate) other).keyLabel)); // state check
+            || (other instanceof LabelMatchesKeywordPredicate // instanceof handles nulls
+            && keyLabel
+            .equals(((LabelMatchesKeywordPredicate) other).keyLabel)); // state check
     }
 
 }
