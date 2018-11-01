@@ -159,6 +159,14 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void executeDeleteSelf_failure() {
+        User loggedInUser = new User(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        model.setLoggedInUser(loggedInUser);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        assertCommandFailure(deleteCommand, model, commandHistory, DeleteCommand.MESSAGE_DELETE_SELF_FAILURE);
+    }
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
