@@ -642,7 +642,30 @@ Since the admin account would cause the system to be very insecure if it's passw
 ** Pros: Somewhat harder to find. Ensures that admin password remains even when the data files are deleted.
 ** Cons: The admin password would not transfer over systems for the average user. It would be difficult and require technical knowledge of the user to get it to transfer.
 
-// end::undoredo[]
+==== passwd Command
+
+To change the password, a passwd command is required. However, this command is very different from the other commands. Specifically, it requires a chain of input, and subsequent inputs from the user should not be stored in history (otherwise the user's password are easily retrievable).
+
+This is, however, not easy to handle. This command history is automatically populated by `LogicManager`, which `Command.execute` does not have access to. To complicate things further, `CommandParser` doesn't handle exceptions like storing a command for future use, or redirecting user input to a specific Command.
+
+To resolve this issue, `CommandResult` is extended to hold interceptors - a list of `ProcessCommand`. `ProcessCommand` is a functional interface, similar to Function except that it can throw a specific error as well. To implement passwd, it returns an implementor of `ProcessCommand` to `CommandResult`, which forwards it to `LogicManager`.
+
+`LogicManager` now accepts `ProcessCommand` from `CommandResult`, adding them to a list. As long as there exists at least one `ProcessCommand`, further messages are pushed to `ProcessCommand` instead of processed normally, and they aren't added to history.
+
+Other possible design considerations are shown below.
+
+==== Design Considerations
+
+===== Aspect: How to implement the passwd Command
+
+* **Alternative 1 (current choice):** Build a foundation of `ProcessCommand` that will intercept user input and process it instead. If it does so, `LogicManager` doesn't add the command to history.
+** Pros: Doesn't increase coupling unnecessarily. Allows other functions to utilize this, allowing other commands to also easily extend to a chain of user inputs.
+** Cons: Harder to implement. Somewhat hard to understand, as it requires knowledge of lambdas and functional interfaces.
+* **Alternative 2:** Apply a hack for passwd where `LogicManager` checks that if a passwd command is ongoing, it redirects there instead.
+** Pros: Easy to implement.
+** Cons: Greatly increases coupling. If further commands were to require the same functionality, this hack would need to be done again for that function.
+
+// end::login[]
 
 === Logging
 
