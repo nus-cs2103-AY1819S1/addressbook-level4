@@ -99,29 +99,28 @@
         <tagged>CS2100</tagged>
         <tagged>Lab</tagged>
     </tasks>
+	    <tasks>
+        <name>CS2103 PE</name>
+        <date>021118</date>
+        <priority>3</priority>
+        <venue>NUS</venue>
+        <tagged>PE</tagged>
+        <tagged>CS2103</tagged>
+    </tasks>
     <tasks>
         <name>Do CS2105 lab</name>
-        <date>021118</date>
+        <date>041118</date>
         <priority>3</priority>
         <venue>NUS</venue>
         <tagged>CS2105</tagged>
         <tagged>Lab</tagged>
     </tasks>
-    <tasks>
-        <name>CS2103 PE</name>
-        <date>021118</date>
+	    <tasks>
+        <name>GEQ1000 Quiz</name>
+        <date>051118</date>
         <priority>3</priority>
-        <venue>NUS</venue>
-        <tagged>CS2103</tagged>
-        <tagged>PE</tagged>
-    </tasks>
-    <tasks>
-        <name>TGIF</name>
-        <date>021118</date>
-        <priority>3</priority>
-        <venue>NUS</venue>
-        <tagged>Life</tagged>
-        <tagged>Party</tagged>
+        <venue>home</venue>
+        <tagged>GEQ1000</tagged>
     </tasks>
     <tasks>
         <name>Watch CS2106 lecture</name>
@@ -135,7 +134,7 @@
         <name>Do GEH1034 tutorial</name>
         <date>111118</date>
         <priority>2</priority>
-        <venue>Hoe</venue>
+        <venue>Home</venue>
         <tagged>GEH1034</tagged>
         <tagged>Tutorial</tagged>
     </tasks>
