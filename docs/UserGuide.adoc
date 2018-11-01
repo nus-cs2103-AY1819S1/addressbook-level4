@@ -214,17 +214,18 @@ You must not be login in order to use this feature. +
 * Password can only be 6 to 12 characters long.
 ****
 
-Prior to logging in to ClinicIO, the ClinicIO user status will show that you have not logged in yet.
+Prior to logging in to ClinicIO, the ClinicIO user status will show that you have not logged in yet (Shown as below):
 
 image::user-guide-login-before.png[width="500"]
 
-Once you have login successfully, the ClinicIO user status will be updated as below.
+Once you have login successfully, the ClinicIO user status will be updated as below:
 
 image::user-guide-login-after.png[width="500"]
 
 Examples:
 
 * `login r/doctor n/Adam Bell pass/------1` +
+
 * `login r/receptionist n/Mary Jane pass/------3` +
 
 ==== Log out of the program : `logout` `[coming in v2.0]`
@@ -234,7 +235,7 @@ Examples:
 You must login in order to use this feature. +
 // end::loginUser[]
 
-Log out of the program. +
+You can log out of ClinicIO. +
 Format: `logout`
 // end::authenticationcommands[]
 
