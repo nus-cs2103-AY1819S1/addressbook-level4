@@ -51,7 +51,7 @@ public class ViewPatientCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, patient));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, patient.getName()));
     }
 
     @Override
