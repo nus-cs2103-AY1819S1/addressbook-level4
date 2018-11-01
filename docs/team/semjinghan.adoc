@@ -4,11 +4,11 @@
 :stylesDir: ../stylesheets
 :pullURL: https://github.com/CS2103-AY1819S1-W16-2/main/pull
 
-:sectnums:
+
 == PROJECT: SocialCare
 
 ---
-
+:sectnums:
 == Overview
 
 This portfolio documents my involvement in the SocialCare project, under the CS2103T Software Engineering module in NUS.
