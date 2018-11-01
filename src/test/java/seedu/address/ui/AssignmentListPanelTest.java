@@ -99,8 +99,9 @@ public class AssignmentListPanelTest extends GuiUnitTest {
         for (int i = 0; i < assignmentCount; i++) {
             builder.append("<assignments>\n");
             builder.append("<assignmentName>").append(i).append("a</assignmentName>\n");
-            builder.append("<author>000</author>\n");
+            builder.append("<author>Amy Bee</author>\n");
             builder.append("<description>a@aa</description>\n");
+            builder.append("</assignments>\n");
         }
         builder.append("</assignmentlist>\n");
 

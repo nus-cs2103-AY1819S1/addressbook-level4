@@ -25,6 +25,7 @@ import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 import seedu.address.model.project.Assignment;
+import seedu.address.model.project.exceptions.DuplicateAssignmentException;
 import seedu.address.testutil.AssignmentBuilder;
 
 public class AddAssignmentCommandTest {
@@ -63,7 +64,7 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommandTest.ModelStub modelStub =
                 new AddAssignmentCommandTest.ModelStubWithAssignment(validAssignment);
 
-        thrown.expect(CommandException.class);
+        thrown.expect(DuplicateAssignmentException.class);
         thrown.expectMessage(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT);
         addAssignmentCommand.execute(modelStub, commandHistory);
     }
