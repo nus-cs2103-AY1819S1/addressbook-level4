@@ -6,7 +6,8 @@
 
 == PROJECT: SocialCare
 
-== 1. Overview
+:sectnums:
+== Overview
 
 This portfolio page documents my involvement in SocialCare, a project done as part of the CS21303T Software Engineering module taught in NUS.
 
@@ -21,7 +22,7 @@ My role as a developer for SocialCare is to implement *record management functio
 * Update volunteering records for volunteers
 * Delete volunteering records of volunteer
 
-== 2. Summary of Contributions
+== Summary of Contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
@@ -48,7 +49,7 @@ My role as a developer for SocialCare is to implement *record management functio
 ** Tools:
 *** Integrated Travis to the Github repository
 
-== 3. Contributions to the User Guide
+== Contributions to the User Guide
 
 
 |===
@@ -58,7 +59,7 @@ My role as a developer for SocialCare is to implement *record management functio
 include::../UserGuide.adoc[tag=command-switch]
 include::../UserGuide.adoc[tag=command-record]
 
-== 4. Contributions to the Developer Guide
+== Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
