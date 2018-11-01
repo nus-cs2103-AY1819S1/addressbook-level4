@@ -35,6 +35,7 @@ Interested? Jump to <<Quick Start>> to get started.
 
 Enjoy!
 
+// tag::quick-start[]
 == Quick Start
 This section contains information on how you can run SocialCare on your desktop.
 
@@ -73,6 +74,8 @@ SocialCare allows you to manage both volunteers and events. The panel will updat
 <<command-switch>> for more details.
 
 You can refer to <<Features>> for details of each command.
+
+//end::quick-start[]
 
 [[Features]]
 == Features

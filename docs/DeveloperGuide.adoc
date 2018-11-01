@@ -346,7 +346,10 @@ image::command_switch_sd.png[switch SD, 800]
 |Cons| Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
 |===
 +
+
+
 // end::command-switch[]
+
 
 // tag::undoredo[]
 ==== Undo/Redo feature
@@ -680,8 +683,10 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 
 This section describes the details on how the record management features are implemented.
 
+
 //tag::command-manage[]
-==== Manage function
+[[Implementation-Manage]]
+==== Manage command
 
 The `manage` command is used in the 'event' context to manage the volunteering records for an event. +
 
