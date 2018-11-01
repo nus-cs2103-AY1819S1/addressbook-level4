@@ -42,7 +42,7 @@ public class XmlAdaptedWishWrapperTest {
 
     @Test
     public void shouldBeEqual() {
-        assertTrue(emptyWrapper.equals(new XmlAdaptedWishWrapper(new LinkedList<>())));
+        assertTrue(emptyWrapper.equals(new XmlAdaptedWishWrapper()));
         assertTrue(populatedWrapper.equals(new XmlAdaptedWishWrapper(xmlAdaptedWishes)));
     }
 }

@@ -14,6 +14,10 @@ public class XmlAdaptedWishWrapper {
     @XmlElementWrapper
     private LinkedList<XmlAdaptedWish> xmlAdaptedWishes;
 
+    public XmlAdaptedWishWrapper() {
+        this.xmlAdaptedWishes = new LinkedList<>();
+    }
+
     public XmlAdaptedWishWrapper(LinkedList<XmlAdaptedWish> xmlAdaptedWishes) {
         requireNonNull(xmlAdaptedWishes);
         this.xmlAdaptedWishes = xmlAdaptedWishes;
@@ -25,11 +29,17 @@ public class XmlAdaptedWishWrapper {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof XmlAdaptedWishWrapper) || hasSameNumberOfWishes((XmlAdaptedWishWrapper) obj)) {
+        if (!(obj instanceof XmlAdaptedWishWrapper) || !(hasSameNumberOfWishes((XmlAdaptedWishWrapper) obj))) {
             return false;
         }
+
+        if (((XmlAdaptedWishWrapper) obj).xmlAdaptedWishes.isEmpty() && xmlAdaptedWishes.isEmpty()) {
+            return true;
+        }
+
         Iterator<XmlAdaptedWish> otherIterator = ((XmlAdaptedWishWrapper) obj).getXmlAdaptedWishes().listIterator();
         Iterator<XmlAdaptedWish> thisIterator = xmlAdaptedWishes.listIterator();
+
         while (otherIterator.hasNext()) {
             if (!thisIterator.next().equals(otherIterator.next())) {
                 return false;
