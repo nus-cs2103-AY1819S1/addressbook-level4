@@ -17,9 +17,11 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -261,11 +263,11 @@ public class ConnectToGoogleCalendar {
 
         ReminderDurationList reminderDurationList = toAddEvent.getReminderDurationList();
         List<EventReminder> reminderOverrides = new ArrayList<>();
-        Map<Duration, Boolean> reminderMap = reminderDurationList.get();
+        Set<Duration> reminderMap = reminderDurationList.get();
         Reminders reminder = new Reminders();
 
         reminder.setUseDefault(false);
-        for (Duration key : reminderMap.keySet()) {
+        for (Duration key : reminderMap) {
             EventReminder eventReminder = new EventReminder();
             eventReminder.setMethod("popup");
             eventReminder.setMinutes(Math.toIntExact(key.toMinutes()));
@@ -349,15 +351,156 @@ public class ConnectToGoogleCalendar {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
 
+    /**
+     * Deletes upcoming repeat events in the Google Calendar.
+     *
+     * @param eventToDelete a local Event.
+     * @param instanceIndex the instance index for recurring event.
+     */
+    public void deleteUpcomingOnGoogleCal(Event eventToDelete, int instanceIndex) {
+        Calendar service = getCalendar();
+        List<String> eventIds = new ArrayList<>();
+        String recurringEventId = null;
+        boolean repeatedEventsFound = false;
+        Events allEventsOnGoogle = null;
+
+        boolean isRepeatEvent;
+        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
+            isRepeatEvent = false;
+        } else {
+            isRepeatEvent = true;
+        }
+
+        //For single event
+        if (!isRepeatEvent) {
+            eventIds.add(eventToDelete.getUid()
+                    .toString()
+                    .replaceAll("-", ""));
+        }
+
+        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
+            try {
+                service.events().delete("primary", eventIds.get(0)).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //For repeated events
+        if (isRepeatEvent) {
+            String eventUuId = eventToDelete.getUuid()
+                    .toString()
+                    .replaceAll("-", "");
+            try {
+                allEventsOnGoogle = getSingleEvents(service);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+
+            for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
+                if (Objects.equals(event.getICalUID(), eventUuId)) {
+                    eventIds.add(event.getId());
+                    repeatedEventsFound = true;
+                    recurringEventId = event.getRecurringEventId();
+                }
+            }
+        }
+
+        if (!repeatedEventsFound) {
+            //No such event online
+            logger.warning("There is no such event on Google Calendar!"
+                    + "Delete on Google Calendar is NOT done!");
+            return;
+        } else {
+            assert recurringEventId != null;
             //Case: Delete All
-            //        for (String eventId : eventIds) {
-            //            try {
-            //                service.events().delete("primary", eventId).execute();
-            //            } catch (IOException e) {
-            //                e.printStackTrace();
-            //            }
-            //        }
+            for (String eventId : eventIds) {
+                try {
+                    service.events().delete("primary", eventId).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+        }
+    }
+
+    /**
+     * Deletes all repeat event instances in the Google Calendar.
+     *
+     * @param eventToDelete a local Event.
+     * @param instanceIndex the instance index for recurring event.
+     */
+    public void deleteAllOnGoogleCal(Event eventToDelete, int instanceIndex) {
+        Calendar service = getCalendar();
+        List<String> eventIds = new ArrayList<>();
+        String recurringEventId = null;
+        boolean repeatedEventsFound = false;
+        Events allEventsOnGoogle = null;
+
+        boolean isRepeatEvent;
+        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
+            isRepeatEvent = false;
+        } else {
+            isRepeatEvent = true;
+        }
+
+        //For single event
+        if (!isRepeatEvent) {
+            eventIds.add(eventToDelete.getUid()
+                    .toString()
+                    .replaceAll("-", ""));
+        }
+
+        if (eventToDelete.getRepeatType() == RepeatType.NONE) {
+            try {
+                service.events().delete("primary", eventIds.get(0)).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //For repeated events
+        if (isRepeatEvent) {
+            String eventUuId = eventToDelete.getUuid()
+                    .toString()
+                    .replaceAll("-", "");
+            try {
+                allEventsOnGoogle = getSingleEvents(service);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+
+            for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
+                if (Objects.equals(event.getICalUID(), eventUuId)) {
+                    eventIds.add(event.getId());
+                    repeatedEventsFound = true;
+                    recurringEventId = event.getRecurringEventId();
+                }
+            }
+        }
+
+        //No such event online
+        if (!repeatedEventsFound) {
+            logger.warning("There is no such event on Google Calendar!"
+                    + "Delete on Google Calendar is NOT done!");
+            return;
+        } else {
+            assert recurringEventId != null;
+            //Case: Delete All
+            for (String eventId : eventIds) {
+                try {
+                    service.events().delete("primary", eventId).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         }
     }
 

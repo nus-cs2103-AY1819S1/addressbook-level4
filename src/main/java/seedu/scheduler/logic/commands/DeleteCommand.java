@@ -55,19 +55,22 @@ public class DeleteCommand extends Command {
         }
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
+        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToDelete);
+
         if (flags.length == 0) {
+            connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
             model.deleteEvent(eventToDelete);
         } else {
             if (flags[0].equals(FLAG_UPCOMING)) {
+                connectToGoogleCalendar.deleteUpcomingOnGoogleCal(eventToDelete, instanceIndex);
                 model.deleteUpcomingEvents(eventToDelete);
             } else { //will catch FLAG_ALL
+                connectToGoogleCalendar.deleteAllOnGoogleCal(eventToDelete, instanceIndex);
                 model.deleteRepeatingEvents(eventToDelete);
-            }
+                }
         }
 
         model.commitScheduler();
-        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToDelete);
-        connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete.getEventName()));
     }
 
