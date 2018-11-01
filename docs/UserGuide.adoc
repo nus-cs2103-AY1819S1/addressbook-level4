@@ -176,7 +176,7 @@ All commands will require a stable internet connection.
 
 Format: `g ls`: lists all photos in your Google Photos, takes a longer amount of time depending on the number of images stored. +
 Format: `g ls /a`: lists all albums in your Google Photos. +
-Format: `g ls <[ALBUM_NAME]>`: lists all photos in specified album from Google Photos.
+Format: `g ls <ALBUM_NAME>`: lists all photos in specified album from Google Photos.
 
 Examples:
 
@@ -190,9 +190,9 @@ All photos will be downloaded to the currently opened local directory. +
 Any files with duplicate naming existing in the targeted directory *WILL* be replaced
 ====
 
-Format: `g dl /i<[IMAGE_NAME]>`: downloads specified image from Google Photos +
-Format: `g dl /a<[ALBUM_NAME]>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
-Format: `g dl /a<[ALBUM_NAME]> /i<[IMAGE_NAME]>`: lists a specific photo from a specific album in Google Photos.
+Format: `g dl /i<IMAGE_NAME>`: downloads specified image from Google Photos +
+Format: `g dl /a<ALBUM_NAME>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
+Format: `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: lists a specific photo from a specific album in Google Photos.
 
 Examples:
 
