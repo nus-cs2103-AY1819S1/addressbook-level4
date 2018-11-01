@@ -211,7 +211,7 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         logger.info("============================ [ Stopping Scheduler ] =============================");
-        model.syncWithPopUpManager(PopUpManager.getInstance(), storage);
+        // model.syncWithPopUpManager(PopUpManager.getInstance(), storage);
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);

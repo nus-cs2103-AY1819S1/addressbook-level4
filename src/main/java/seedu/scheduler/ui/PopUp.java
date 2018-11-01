@@ -1,4 +1,5 @@
 package seedu.scheduler.ui;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,6 +32,7 @@ public class PopUp {
         closeButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10, 20, 20, 20));
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
 

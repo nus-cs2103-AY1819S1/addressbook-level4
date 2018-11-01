@@ -61,7 +61,7 @@ public class PopUpManager {
      */
     public void syncPopUpInfo(ReadOnlyScheduler readOnlyScheduler) {
         ObservableList<Event> eventList = readOnlyScheduler.getEventList();
-        popUpQueue.addAll(generateAllPopUpInfoListFromEvents(eventList));
+        popUpQueue.addAll(generateFuturePopUpInfoListFromEvents(eventList));
     }
 
     /**
@@ -72,8 +72,7 @@ public class PopUpManager {
      */
     public void reInitialise(ReadOnlyScheduler readOnlyScheduler) {
         popUpQueue.clear();
-        ObservableList<Event> eventList = readOnlyScheduler.getEventList();
-        popUpQueue.addAll(generateFuturePopUpInfoListFromEvents(eventList));
+        syncPopUpInfo(readOnlyScheduler);
     }
 
     /**
