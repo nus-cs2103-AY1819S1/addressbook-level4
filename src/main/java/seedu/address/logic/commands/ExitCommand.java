@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Task Manager as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting WatchOver as requested ...";
 
     @Override
     public CommandResult executePrimitive(Model model, CommandHistory history) {

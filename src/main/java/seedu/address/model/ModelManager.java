@@ -112,10 +112,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskManager.updateTask(target, updatedTask);
 
         // Calculate difference between new task XP and old task XP
-        int oldXp = versionedTaskManager.appraiseTaskXp(target);
-        int newXp = versionedTaskManager.appraiseTaskXp(updatedTask);
 
-        int xpDiff = newXp - oldXp;
+        int xpDiff = versionedTaskManager.appraiseXpChange(target, updatedTask);
 
         // Update with new XP difference
         versionedTaskManager.addXp(xpDiff);
