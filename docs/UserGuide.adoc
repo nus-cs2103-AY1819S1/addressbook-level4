@@ -281,19 +281,25 @@ Shorthand: `i`
 * Improperly formatted contacts and/or duplicate contacts will be ignored.
 ****
 
-Example:
+Example (user does not provide a file path):
 
 * `import`
 * A file browser will pop up as shown below:
 +
 image::import.png[width="790"]
 
-Example (user gives a file path):
+Example (user provides a file path):
 
-* `import l/D:/AddressbookCorrect.csv`
-* Regardless which method is used, InsuRen will load contacts from the given csv file
-* Each contact in these files must have the name, phone number, email and address fields filled up in that order.
-* Any invalid entries will be ignored.
+* FOR WINDOWS:
+** `import l/D:/AddressbookCorrect.csv` (absolute pathing) or
+** `import l/AddressbookCorrect.csv` (relative pathing - if you save the .csv file in the same directory as the .jar file).
+* FOR MAC:
+** `import l//FILEPATH` (absolute pathing - note the double slashes) or
+** `import l/AddressbookCorrect.csv` (relative pathing).
+* Regardless which method is used, InsuRen will load contacts from the given csv file.
+* Each contact's Name, Phone, Email, Address, Meeting and Tag(s) fields must be keyed in the csv in that order.
+* All fields are optional, and can be left blank, except for Name.
+* Any invalid entries (contacts with no name) will be ignored.
 * Examples of properly formatted csv files are shown below.
 
 +
@@ -307,6 +313,8 @@ Exports the current contact list into a csv file whose name is given as the seco
  can be found in the root directory of the project. +
 Format: `export DESTINATION_FILE_NAME.csv`
 
+Shorthand: `x`
+
 ****
 * InsuRen will copy all contacts and format them into a csv file, with each row representing a unique contact.
 * InsuRen will throw an error message if given file name is invalid (has no .csv suffix).
@@ -314,8 +322,8 @@ Format: `export DESTINATION_FILE_NAME.csv`
 
 Example:
 
-* `export contactList28Nov.csv` +
-InsuRen contacts are exported to `contactList28Nov.csv`
+* `export 28Nov.csv` +
+InsuRen contacts are exported to `28Nov.csv`
 +
 image::exportedCsv.png[width="790"]
 
@@ -328,7 +336,10 @@ Shorthand: `sch`
 
 ****
 * InsuRen will add the meeting to your list of meetings, as well as mark the person with the meeting.
-* If the day is invalid, an error will be thrown.
+* You may use any special characters such as '/' and '-', or whitespace to seperate the entries. As long as the relative order
+of the numbers is DDMMYYHHMM, InsuRen will save it.
+* Meetings can be scheduled on any valid date in the past (to keep a record) or in the future (as a reminder).
+* If the date is invalid (i.e. it is not a real date), an error will be thrown.
 * If there are any meetings scheduled at the same time, it will be flagged out.
 ****
 
@@ -342,7 +353,7 @@ InsuRen will record that a meeting is scheduled on 12 March 2019, 0930 with the 
 Displays the details of the meeting at the input date and time. +
 Format: `meetings [DD/MM/YY]`
 
-shorthand: `mtngs`
+shorthand: `m`
 ****
 * If there are meetings scheduled on the queried date, the details of the clients the meetings are scheduled with
 are displayed.
@@ -470,10 +481,10 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 * *Clear* : `clear`
 * *Delete* : `delete INDEX/EXISTING_NAME` +
 e.g. `delete 3` +
-and `delete John Doe Kah Wai`
+or `delete John Doe Kah Wai`
 * *Edit* : `edit INDEX/EXISTING_NAME [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com` +
-and `edit John Doe n/John Chan a/525 East 80th Street, New York`
+or `edit John Doe n/John Chan a/525 East 80th Street, New York`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
@@ -483,7 +494,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Import contacts* : `import` or `import` l/FILE_PATH
+* *Import contacts* : `import` or `import l/FILE_PATH`
 * *Export email addresses* : `export DESTINATION_DIRECTORY`
 * *Schedule* : `schedule INDEX m/DD/MM/YY HHMM`
 * *Meetings* : `meetings [DD/MM/YY]`

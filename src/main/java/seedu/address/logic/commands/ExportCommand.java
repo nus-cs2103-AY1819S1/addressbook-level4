@@ -1,6 +1,8 @@
 //@@author chantca95
 package seedu.address.logic.commands;
 
+import static seedu.address.model.meeting.Meeting.NO_MEETING_MSG;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -21,6 +23,7 @@ public class ExportCommand extends Command {
     public static final String COMMAND_ALIAS = "x";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " destinationFilename.csv";
     public static final String MESSAGE_SUCCESS = "Contacts successfully exported.";
+    public static final String MESSAGE_DUPLICATE_FILE = "A file already exists with that name. Choose a new name.";
 
     private String fileName;
 
@@ -82,6 +85,9 @@ public class ExportCommand extends Command {
             address = "";
         }
         meeting = current.getMeeting().toString();
+        if (meeting.equals(NO_MEETING_MSG)) {
+            meeting = "";
+        }
         tags = current.getTags();
         for (Tag currentTag : tags) {
             String currString = currentTag.toString();

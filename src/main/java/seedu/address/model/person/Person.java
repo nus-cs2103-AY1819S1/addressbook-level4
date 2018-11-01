@@ -61,7 +61,26 @@ public class Person {
         this.meeting = meeting;
     }
 
+    //@@author AyushChatto
+    /**
+     * Constructor for retaining pictures.
+     */
+    public Person(Name name, Optional<Phone> phone, Optional<Email> email, Optional<Address> address,
+                  Set<Tag> tags, Meeting meeting, Picture picture) {
+        requireAllNonNull(name, phone, email, address, tags, meeting);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.picture = picture;
+        this.tags.addAll(tags);
+        this.meeting = meeting;
+    }
+
     public Name getName() {
+
+
+
         return name;
     }
 
