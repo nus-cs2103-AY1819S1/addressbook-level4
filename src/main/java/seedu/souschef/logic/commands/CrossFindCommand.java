@@ -23,9 +23,10 @@ import seedu.souschef.model.recipe.Recipe;
  * Command to perform inventory command.
  */
 public class CrossFindCommand extends Command {
-    public static final String COMMAND_WORD = "recipe";
+    public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = "Usage to be added later."; //
+    public static final String MESSAGE_USAGE = "view NUMBER_OF_SERVINGS include [inventory] KEYWORD... "
+            + "prioritize [inventory] KEYWORD...";
 
     private final Model<CrossRecipe> crossRecipeModel;
     private final Model<Ingredient> ingredientModel;
