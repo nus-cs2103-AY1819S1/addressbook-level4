@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -31,9 +29,9 @@ public class QueueDisplay extends UiPart<Region> {
 
     private static final String FXML = "QueueDisplay.fxml";
 
-    private static WebViewScript webViewScript;
-
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private WebViewScript webViewScript;
 
     @FXML
     private WebView display;

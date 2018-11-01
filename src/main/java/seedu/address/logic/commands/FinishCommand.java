@@ -64,7 +64,6 @@ public class FinishCommand extends QueueCommand {
         }
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
-        EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
 
         return new CommandResult(MESSAGE_SUCCESS + currentPatientNameIc);
     }

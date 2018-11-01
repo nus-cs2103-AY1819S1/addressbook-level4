@@ -5,6 +5,9 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.scene.web.WebView;
 
+/**
+ * Manager class for the webview script runner.
+ */
 public class WebViewScriptManager implements WebViewScript {
 
     private WebView webView;
@@ -15,6 +18,10 @@ public class WebViewScriptManager implements WebViewScript {
         this.counter = 0;
     }
 
+    /**
+     * This function will run script that is passed as argument.
+     * @param script script to run.
+     */
     public void runScript(String script) {
         int currentCounter = this.counter;
         this.webView.getEngine().getLoadWorker().stateProperty().addListener((
