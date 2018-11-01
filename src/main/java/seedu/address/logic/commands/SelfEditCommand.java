@@ -45,7 +45,6 @@ public class SelfEditCommand extends Command {
     public SelfEditCommand(EditCommand.EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(editPersonDescriptor);
 
-        requiredPermission.addPermissions(Permission.EDIT_EMPLOYEE);
         this.editPersonDescriptor = new EditCommand.EditPersonDescriptor(editPersonDescriptor);
     }
 

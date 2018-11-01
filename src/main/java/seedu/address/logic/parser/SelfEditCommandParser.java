@@ -18,13 +18,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.project.Project;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new SelfEditCommand object
  */
 public class SelfEditCommandParser implements Parser<SelfEditCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SelfEditCommand
+     * and returns an SelfEditCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SelfEditCommand parse(String args) throws ParseException {
