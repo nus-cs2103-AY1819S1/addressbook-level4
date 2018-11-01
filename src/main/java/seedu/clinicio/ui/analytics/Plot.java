@@ -10,6 +10,7 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import seedu.clinicio.model.analytics.data.CircularDoublyLinkedList;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
@@ -46,16 +47,14 @@ public class Plot {
     /**
      * Updates {@code chartPane} with the appropriate visualizations, if they exist.
      */
-    public static void updateVisualization(List<VisualizationData> allVisualizationData, Pane chartPane) {
+    public static void updateVisualization(CircularDoublyLinkedList<VisualizationData> allVisualizationData, Pane
+        chartPane) {
         if (allVisualizationData.size() < 1) {
             chartPane.setStyle("-fx-background-color: #fff");
             return;
         }
 
-        // TO CHANGE
-        for (VisualizationData data : allVisualizationData) {
-            plotChart(data, chartPane);
-        }
+        plotChart(allVisualizationData.getFirst(), chartPane);
     }
 
     /**

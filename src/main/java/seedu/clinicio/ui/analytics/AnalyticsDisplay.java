@@ -1,17 +1,22 @@
 package seedu.clinicio.ui.analytics;
 
+import javafx.scene.input.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
+import seedu.clinicio.model.analytics.data.CircularDoublyLinkedList;
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.Tuple;
+import seedu.clinicio.model.analytics.data.VisualizationData;
 import seedu.clinicio.ui.UiPart;
 
 //@@author arsalanc-v2
@@ -49,7 +54,9 @@ public class AnalyticsDisplay extends UiPart<Region> {
     @FXML
     private AnchorPane chartPane;
 
+
     private List<Tuple<Label, Label>> summaryLabels;
+    private StatData allDataToDisplay;
 
     public AnalyticsDisplay() {
         super(FXML);
@@ -65,13 +72,50 @@ public class AnalyticsDisplay extends UiPart<Region> {
         );
     }
 
+    public void setEventListeners(CircularDoublyLinkedList<VisualizationData> data) {
+        analyticsPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                analyticsPane.requestFocus();
+            }
+        });
+
+        analyticsPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                switch (event.getCode()) {
+                case RIGHT:
+                    Plot.plotChart(data.getNext(), chartPane);
+                    System.out.println("rightr");
+                    break;
+
+                case LEFT:
+                    Plot.plotChart(data.getPrevious(), chartPane);
+                    System.out.println("leftl");
+                    break;
+                }
+            }
+        });
+    }
+
     @Subscribe
     public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        StatData allDataToDisplay = event.getAllData();
+        setEventListeners(event.getAllData().getVisualizationData());
+        allDataToDisplay = event.getAllData();
         chartPane.getChildren().clear();
         chartPane.setStyle("-fx-background-color: #6593F5");
-        Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
+        CircularDoublyLinkedList<VisualizationData> allVisualizationData = allDataToDisplay.getVisualizationData();
+        Plot.plotChart(allVisualizationData.getFirst(), chartPane);
         Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         analyticsPane.setVisible(true);
+        analyticsPane.requestFocus();
+    }
+
+    public boolean isVisible() {
+        return analyticsPane.isVisible();
+    }
+
+    public void setVisible(boolean visibility) {
+        analyticsPane.setVisible(visibility);
     }
 }

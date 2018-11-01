@@ -47,9 +47,7 @@ public class Analytics {
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * @return the appropriate statistics data based on the type of statistics supplied.
      */
     public StatData getAllStatisticsOfType(StatisticType type) {
         switch (type) {

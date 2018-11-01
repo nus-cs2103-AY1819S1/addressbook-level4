@@ -10,6 +10,7 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.ui.NewResultAvailableEvent;
 
@@ -36,6 +37,7 @@ public class ResultDisplay extends UiPart<Region> {
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         Platform.runLater(() -> displayed.setValue(event.message));
+
     }
 
 }

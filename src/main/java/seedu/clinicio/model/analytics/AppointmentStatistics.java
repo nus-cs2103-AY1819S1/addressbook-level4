@@ -51,7 +51,7 @@ public class AppointmentStatistics extends Statistics {
 
     /**
      * @return the total number of appointments.
-    */
+     */
     private int getNumberOfAppointments() {
         return appointments.size();
     }
@@ -87,8 +87,8 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
-     * Computes the number of appointments for each day of the present week.
-    */
+     * Retrieves the number of appointments for each day of the present week.
+     */
     private List<Tuple<String, Integer>> getNumberOfCurrentWeekAppointments() {
         List<Date> datesOfAppointments = appointments.stream()
                 .map(appt -> appt.getAppointmentDate())
@@ -101,7 +101,7 @@ public class AppointmentStatistics extends Statistics {
     }
 
     /**
-     * Computes data to plot the supply of appointments against their demand.
+     * Computes data to plot the supply of appointments against their demand for the following week.
      */
     public void plotAppointmentSupplyDemand() {
         // get the subset of appointments that are scheduled for next week.

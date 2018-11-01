@@ -11,7 +11,7 @@ import seedu.clinicio.model.analytics.ChartType;
  * A convenient wrapper for summary and visualization data for a particular class of statistics.
  * There can only be one set of summary data.
  * There can be multiple visualizations.
- * Lists of tuples are used to indicate ordering and avoid mutating {@code HashMap} keys
+ * Lists of tuples are used to represent ordering.
  */
 public class StatData {
 
@@ -19,10 +19,10 @@ public class StatData {
     public static final int DEFAULT_SUMMARY_VALUE = 0;
 
     private SummaryData summaryData;
-    private List<VisualizationData> allVisualizationData;
+    private CircularDoublyLinkedList<VisualizationData> allVisualizationData;
 
     public StatData() {
-        allVisualizationData = new ArrayList<>();
+        allVisualizationData = new CircularDoublyLinkedList<>();
     }
 
     /**
@@ -102,7 +102,7 @@ public class StatData {
         return summaryData;
     }
 
-    public List<VisualizationData> getVisualizationData() {
+    public CircularDoublyLinkedList<VisualizationData> getVisualizationData() {
         return allVisualizationData;
     }
 }
