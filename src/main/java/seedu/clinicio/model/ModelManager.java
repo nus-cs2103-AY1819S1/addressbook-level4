@@ -145,6 +145,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void cancelAppointment(Appointment target) {
         versionedClinicIo.cancelAppointment(target);
+        //TODO: Abstract out once Patient is fully implemented.
+        target.getPatient().setAppointment(target);
+        versionedClinicIo.removeAppointment(target);
         indicateClinicIoChanged();
     }
 
@@ -263,7 +266,6 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedClinicIo.checkStaffCredentials(staff);
     }
 
-    //=========== Undo/Redo =================================================================================
     //=========== Filtered Appointment List Accessors ========================================================
 
     //@@author gingivitiss

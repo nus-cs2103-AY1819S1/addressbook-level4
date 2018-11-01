@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.clinicio.logic.commands.AddApptCommand;
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AveragesCommand;
+import seedu.clinicio.logic.commands.CancelApptCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.Command;
 import seedu.clinicio.logic.commands.DeleteCommand;
@@ -61,6 +62,9 @@ public class ClinicIoParser {
 
         case ListApptCommand.COMMAND_WORD:
             return new ListApptCommandParser().parse(arguments);
+
+        case CancelApptCommand.COMMAND_WORD:
+            return new CancelApptCommandParser().parse(arguments);
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
