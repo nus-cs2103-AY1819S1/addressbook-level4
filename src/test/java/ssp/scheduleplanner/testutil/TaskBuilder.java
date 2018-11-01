@@ -18,7 +18,6 @@ public class TaskBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_DATE = "111155";
-    //public static final String DEFAULT_PRIORITY = "alice@gmail.com";
     public static final String DEFAULT_PRIORITY = "1";
     public static final String DEFAULT_VENUE = "123, Jurong West Ave 6, #08-111";
 
