@@ -47,6 +47,9 @@ public class LabelMatchesKeywordPredicateTest {
 
         // Multiple Labels
         assertTrue(predicate.test(new TaskBuilder().withLabels("Urgent", "Critical", "VeryReallyUrgent").build()));
+
+        // Case-Insensitive Variations
+        assertTrue(predicate.test(new TaskBuilder().withLabels("UrGeNt").build()));
     }
 
     @Test
