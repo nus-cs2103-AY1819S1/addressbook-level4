@@ -140,12 +140,12 @@ Format: `complete INDEX` or `complete t/LABEL`
 -Example:
 `complete 1 l/urgent` (Behavior is not clear)
 
-_Note that completion via label is case-sensitive_
-
+* Completion via label is case-insensitive
 * You can complete multiple tasks at once through the use of the format complete `l/LABEL`
 * Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
 condition:
 ** Has at least one task which is labelled `x` and status is not "COMPLETED"
+* On completion of tasks that leads to a level-up, the levelling up would be reported.
 
 ==== Listing Tasks: `list`
 [%hardbreaks]
@@ -221,3 +221,8 @@ Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-ti
 
 ** *Find* : `find KEYWORD`
 ** *Achievements* : `achievements TIME_SPAN`
+
+== Features to be included by v2.0
+* `Complete` displays a organic random congratulatory message upon task completion.
+** Current implementation displays a generic standard congratulatory message/message of positive affirmation.
+* Completed Tasks should be automatically hidden from view.

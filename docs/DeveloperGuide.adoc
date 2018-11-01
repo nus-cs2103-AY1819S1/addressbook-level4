@@ -94,20 +94,6 @@ non-deterministic
 
 Use case ends.
 
-### Use case: Display Motivational Quote (MQ) on task completion
-#### MSS
-. User marks task as complete.
-. Application shows MQ.
-
-Use case ends.
-
-#### Extensions
-
-* 1a. User marks multiple tasks as complete.
-** 1a1. Application still shows only one MQ.
-
-Use case ends.
-
 ### Use case: List Task
 #### MSS
 . User requests to list tasks, fulfilling a (potentially empty) set of criteria.
@@ -230,19 +216,19 @@ Use case ends.
 ### Use case: Completing Task (Single)
 #### MSS
 . User marks task as complete.
-. Application reports both points earned and current points to user.
+. Application displays a default congratulatory message, reports points earned and task completed to user.
 
 #### Extensions
 * 1a. An error occurs, causes one of the task to not be completed
 ** 1a1. Application displays error message, no points are earned either.
 
 * 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
+** 2a1. Application displays a congratulatory message for leveling up, points earned and task completed to user.
 
 ### Use case: Completing Task (Batch via `Label`)
 #### MSS
 . User marks a batch of tasks with the same specified `Label` as complete.
-. Application reports both points earned and current points to user.
+. Application displays a default congratulatory message, reports points earned and task(s) completed to user.
 
 #### Extensions
 * 1a. An error occurs, causes one of the tasks to not be able to be completed
@@ -250,35 +236,13 @@ Use case ends.
 pre-completed state and no points are earned.
 
 * 2a. User earns enough points to level up
-** 2a1. Application displays a congratulatory message, current points, and points earned to user.
-
-### Use case: Display Statistics
-#### MSS
-. User requests for statistics.
-. Application fetches data and displays statistics.
-
-#### Extensions
-* 2a. There are no statistics.
-** 2a1. Application displays a flavour text explaining that the user needs to complete a task first to get statistics.
-
-Use case ends.
-
-### Use case: Failing to complete task
-#### MSS
-. User fails to complete tasks on time
-. Application displays points lost and current current points to user.
-
-#### Extensions
-* 2a. User loses enough points that it level down.
-    * 2a1. Application displays a warning message, current points, and points lost to user.
-
-Use case ends.
+** 2a1. Application displays a congratulatory message for leveling up, points earned and task(s) completed to user.
 
 ## Non-functional requirements
-- There should be no noticable lag when typing on the command line.
+- There should be no noticeable lag when typing on the command line.
 - Should work on any mainstream OS as long as it has Java 9 or higher installed.
 - Storage of application data will be in a text file.
-- Should be able to hold up to 1000 tasks without a noticable decline in performance.
+- Should be able to hold up to 1000 tasks without a noticeable decline in performance.
 - Should not take more than 3 seconds to complete a command.
 - System should be maintainable with proper documentation.
 - Proper feedback to user when error occurs.
@@ -491,8 +455,8 @@ this week` commands to specify their choices.
 ### 3.2. Batch Completion via Label feature
 #### 3.2.1. Current Implementation
 
-The batch completion mechanism is facilitated by `CompleteCommand`.
-It extends `Command` and encapsulates the internal logic of finding task and completing multiple
+The batch completion mechanism is facilitated by `CompleteLabelCommand`.
+It extends `CompleteCommand` and encapsulates the internal logic of finding task and completing multiple
 tasks atomically.
 
 Additionally, in order to facilitate the finding of task and completing tasks atomically, the
@@ -500,7 +464,7 @@ following auxiliary classes have been created / extended as a result:
 
 * `LabelMatchesKeywordPredicate` -- Extension of the functional interface `Predicate<E>`
 ** This class is required to encapsulate the logic of determining if a task has a `Label` matching
-the desired `Label`.
+the desired `Label` (case-insensitive).
 
 *Updated*
 
@@ -516,14 +480,13 @@ These are the methods in the CompleteCommand class supporting the batch completi
 * `#completeOneTaskReturnStringOfTasks(Task, Model)`
 
 [NOTE]
-The `CompleteCommand` class has two overloaded constructors, one taking in a
-`Task<Predicate>` and another taking in an `Index` to support polymorphic behavior for both a
-single operation and batch operation.
-These operations are exposed in the `CompleteCommand` class via `CompleteCommand#execute(...)`.
+The `CompleteLabelCommand` class inherits from the `CompleteCommand` class. It takes in a
+`Task<Predicate>` while another subclass of `CompleteCommand`, `CompleteIndexCommand`
+takes in an `Index` to support polymorphic behavior for both a single operation and batch operation.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-_Premise: The application has several tasks tagger with the `Label::many`._
+_Premise: The application has several tasks tagged with the label: many._
 
 Step 1. The user executes `complete l/many` command to complete all the tasks labelled `many`.
 
@@ -555,8 +518,8 @@ it's status to `COMPLETED`
 
 * **Alternative 1 (current choice):** Calling `Model#rollback()` when an exception is caught,
 otherwise `Model#commit()`
-** Pros: This implementation defensively codes for scenarios where exceptions are thrown, thus
-ensuring that no half-done batch operation may left.
+** Pros: This implementation defensively codes for scenarios where CommandExceptions are thrown, thus
+ensuring that there are no partially-done batch operation resulting in harder to debug state.
 ** Cons: Increases coupling of components.
 * **Alternative 2:** Doing a check on all tasks and only proceeding to update the model and
 commit if deemed that all tasks can be completed successfully else throw an exception.
@@ -566,23 +529,31 @@ batch operation.
 
 ##### 3.2.2.2. Aspect: Handling different CompleteCommand behaviour
 
-* **Alternative 1 (current choice):** Overloading the constructors and implement the logic for
+* **Alternative 1:** Overloading the constructors and implementing the logic for
 both behaviours within.
 ** Pros: Groups possibly tightly coupled code together into a single class; thus reducing
 coupling.
-** Cons: Possibly goes against the Seperations of Concerns principle.
-* **Alternative 2 (possible enhancement):** Implementing `CompleteCommand` as a interface and
-creating two separate
-classes for each of the behaviours.
-** Pros: Clear separation of concern.
-** Cons: Harder to design properly.
+** Cons: Possibly goes against the Separations of Concerns principle.
+* **Alternative 2 (current choice)** Implementing `CompleteCommand` as an abstract class. Each class would then inherit
+and implement the abstract methods, providing different polymorphic behaviours for `CompleteCommand`. Currently, the
+two different behaviours implemented are: completion via index and completion via label.
+** Pros: Clear separation of concern, respecting the Single Responsibility Principle.
+** Cons: Harder to initially design properly.
+
+[NOTE]
+Alternative 2 was considered for `CompleteCommandParser`. However in this case, it is hard to determine whether
+the argument is meant for `CompleteLabelCommand` or `CompleteIndexCommand` until actually parsing, As such, it could be
+viewed that the job of figuring out what to parse the argument as is subsumed under the concerned of parsing. Thus
+`CompleteCommandParser` is viewed to still respect the Single Responsibility Principle, and it's separation may result in
+a high amount of coupling.
 
 ##### 3.2.2.3. Aspect: Representation of predicate to be stored by CompleteCommand
 
 * **Alternative 1 (current choice):** As an explicit implemented class
 `LabelMatchesKeywordPredicate`.
-** Pros: Notion of equality can be overload, making testing for equality in every class composing
- the class able to check for structural equality.
+** Pros: Notion of equality can be overloaded. This allows for proper checking of equality in every class composing the
+`LabelMatchesKeywordPredicate`. In sum, it allows for the checking of structural equality rather than just referential
+equality.
 ** Cons: Creation of an extra class requires more understanding by developers to pick up the
 quirks as opposed to commonly recognised _Alternative 2_
 * **Alternative 2:** Declaration of predicate as an anonymous function
@@ -604,6 +575,9 @@ latest commit. Internally, `VersionedTaskManager#resetDate(...)` is called to re
 the latest commit, also the `currentStatePointer` is set to point at the index of the latest
 commit in `taskManagerStateList`.
 
+image::RollbackModelSequenceDiagram.png[width="1200"]
+
+_Internal calls of `VersionedTaskManager.resetData(...)` has been omitted for brevity_
 
 ### 3.4. Dependency Feature Modelling
 #### 3.4.1. Current Implementation
