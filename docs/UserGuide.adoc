@@ -197,9 +197,12 @@ You can exit ClinicIO. +
 Format: `exit`
 
 // tag::authenticationcommands[]
-=== User Authentication Commands
+=== User Authentication
 
-User Authentication  
+ClinicIO's User Authentication ensure that clinic staff are provided with correct
+access rights.  
+
+Here are the list of commands:
 
 ==== Login : `login`
 
@@ -207,7 +210,7 @@ You can login to ClinicIO. +
 Format: `login r/ROLE n/NAME pass/PASSWORD` +
 
 [WARNING]
-You must not be login in order to use this feature. +
+Do not use this feature if you are already logged in. +
 
 ****
 * Roles available to login: Doctor and Receptionist
@@ -242,9 +245,12 @@ Format: `logout`
 // end::authenticationcommands[]
 
 // tag::patientcommands[]
-=== Patient Management Commands
+=== Patient Management
 
-User Authentication 
+ClinicIO provides a centralised patient management system 
+to allow you to manage the clinic's patient record more efficiently.
+
+Here are the list of comamnds:
 
 ==== Adding a patient: `addpatient` `[coming in v2.0]`
 
