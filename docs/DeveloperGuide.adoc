@@ -389,7 +389,7 @@ image::permissionCommandActivityDiagram.png[width="450"]
 
 ** Pros: Easy to control the commands a user can access.
 
-** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS. 
+** Cons: Need to ensure that there is at least 1 user that can assign permissions to other users. Implementation requires knowledge of multiple components of OASIS.
 
 * Alternative 2 : Create subclass of `Person` to be used to identify the role of the user. E.g. `Employee` and `Manager` class.
 The commands executable by the user will depend on their class.
@@ -404,10 +404,10 @@ The following are features that have been implemented to support the Permission 
 
 ==== Modify Permissions of employee
 
-This feature allows the user to change the Permission that have been allocated to an employee. 
+This feature allows the user to change the Permission that have been allocated to an employee.
 
 [NOTE]
-This feature can only be performed by users that have `ASSIGN_PERMISSION` permission. 
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
 
 ===== Current Implementation
 
@@ -423,7 +423,7 @@ The list of keywords is then used to create `permissionToAdd:Set<Permission>` an
  Might want to insert code snippet here
 
 When `ModifyPermissionCommand` is executed, it will then modify the permission of targeted employee, adding permission in `permissionToAdd` and removing permissions in `permissionToRemove`.
- 
+
 The following is a sequence diagram that visualizes how this operation works.
 
 image::modifyPermissionSequenceDiagram.png[width="350]
@@ -434,7 +434,7 @@ image::modifyPermissionSequenceDiagram.png[width="350]
 This feature allows the user to view the permissions that have been allocated to an employee.
 
 [NOTE]
-This feature can only be performed by users that have `ASSIGN_PERMISSION` permission. 
+This feature can only be performed by users that have `ASSIGN_PERMISSION` permission.
 
 
 // end::permission
