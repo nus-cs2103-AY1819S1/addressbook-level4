@@ -213,6 +213,8 @@ Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-ti
 
 ** *Delete* : `delete INDEX`
 
+** *Dependency* : `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
+
 ** *Edit* : `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
 
 ** *Complete* : `complete INDEX` or `complete l/LABEL`
