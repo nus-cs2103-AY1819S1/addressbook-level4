@@ -44,7 +44,6 @@ public class AddCommandTest {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
-
     @Test
     public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
@@ -119,16 +118,11 @@ public class AddCommandTest {
         @Override
         public boolean addExpense(Expense expense) {
             throw new AssertionError("addExpense method should not be called.");
-        }
-        @Override
+        }        @Override
         public void setRecurrenceFrequency(long seconds) {
             throw new AssertionError("setRecurrenceFrequency should not be called");
         }
-        @Override
-        public void modifyCategoryBudget(CategoryBudget budget) {
-            throw new AssertionError("modifyCategoryBudget should not be called");
 
-        }
         @Override
         public void addCategoryBudget(CategoryBudget budget) {
             throw new AssertionError("addCategoryBudget should not be called");

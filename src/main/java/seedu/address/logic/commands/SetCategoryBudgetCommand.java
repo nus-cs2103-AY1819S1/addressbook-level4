@@ -16,11 +16,11 @@ import seedu.address.model.exceptions.NoUserSelectedException;
  * Adds a Category TotalBudget into the expense tracker.
  */
 
-public class AddCategoryBudgetCommand extends Command {
-    public static final String COMMAND_WORD = "addCategoryBudget";
-    public static final String COMMAND_ALIAS = "acb";
+public class SetCategoryBudgetCommand extends Command {
+    public static final String COMMAND_WORD = "setCategoryBudget";
+    public static final String COMMAND_ALIAS = "scb";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Category Budget cap for one of the "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a Category Budget cap for one of the "
         + "Categories in the expense tracker "
         + "Parameters: " + PREFIX_CATEGORY + "CATEGORY " + PREFIX_BUDGET + "MONEY (Must be a positive float with 2 "
         + "decimal places)\n"
@@ -28,11 +28,11 @@ public class AddCategoryBudgetCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "%s TotalBudget set to %1$s";
 
-    public static final String EXCEED_MESSAGE = "The sum of your category budgets cannot exceed your total totalBudget";
+    public static final String EXCEED_MESSAGE = "The sum of your category budgets cannot exceed your total budget";
 
     private CategoryBudget toSet;
 
-    public AddCategoryBudgetCommand(CategoryBudget budget) {
+    public SetCategoryBudgetCommand(CategoryBudget budget) {
         requireNonNull(budget);
         this.toSet = budget;
     }
@@ -52,7 +52,7 @@ public class AddCategoryBudgetCommand extends Command {
     @Override
 
     public boolean equals (Object budget) {
-        AddCategoryBudgetCommand cBudgetCommand = (AddCategoryBudgetCommand) budget;
+        SetCategoryBudgetCommand cBudgetCommand = (SetCategoryBudgetCommand) budget;
         return this.toSet.equals(cBudgetCommand.toSet);
     }
 

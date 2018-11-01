@@ -113,7 +113,6 @@ public class ModelManager extends ComponentManager implements Model {
         if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        System.out.println("indicate expense tracker changed");
         System.out.println(this.versionedExpenseTracker.getMaximumTotalBudget().getCategoryBudgets());
         raise(new ExpenseTrackerChangedEvent(versionedExpenseTracker));
     }
@@ -136,7 +135,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean addExpense(Expense expense) throws NoUserSelectedException {
         boolean budgetNotExceeded = versionedExpenseTracker.addExpense(expense);
-
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         indicateExpenseTrackerChanged();
         return budgetNotExceeded;
@@ -231,12 +229,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateExpenseTrackerChanged();
     }
 
-    @Override
-    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
-        NoUserSelectedException {
-        this.versionedExpenseTracker.modifyCategoryBudget(budget);
-        indicateExpenseTrackerChanged();
-    }
 
     @Override
     public TotalBudget getMaximumBudget() {

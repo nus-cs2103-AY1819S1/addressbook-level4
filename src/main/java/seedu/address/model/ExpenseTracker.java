@@ -69,18 +69,8 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
 
         this.maximumTotalBudget.addCategoryBudget(budget);
-        System.out.println("Expense tracker class");
-        System.out.println(this.maximumTotalBudget.getCategoryBudgets());
     }
 
-    /**
-     * Modifies an existing category totalBudget.
-     * @param budget
-     * @throws CategoryBudgetDoesNotExist Throws this if category totalBudget does not exist
-     */
-    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
-        this.maximumTotalBudget.modifyCategoryBudget(budget);
-    }
 
     /**
      * Sets the recurrence frequency for resetting the totalBudget and spending.

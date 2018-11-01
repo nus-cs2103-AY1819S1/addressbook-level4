@@ -176,15 +176,6 @@ public interface Model {
         NoUserSelectedException;
 
     /**
-     * Modifies an existing Category TotalBudget in the expense tracker
-     * @param budget a valid {@code CategoryBudget}
-     * @throws CategoryBudgetDoesNotExist Throws this if attempting to modify a {@code CategoryBudget} that does not
-     * exist
-     */
-    void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
-        NoUserSelectedException;
-
-    /**
      * Sets the totalBudget to reset and store spending data after a certain amount of time
      * @param seconds The recurrence frequency
      */

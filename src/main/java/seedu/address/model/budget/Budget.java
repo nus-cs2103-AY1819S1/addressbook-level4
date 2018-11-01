@@ -46,6 +46,11 @@ public class Budget {
         this.currentExpenses = currentExpenses;
     }
 
+    public Budget(Budget budget) {
+        this.budgetCap = budget.getBudgetCap();
+        this.currentExpenses = budget.getCurrentExpenses();
+    }
+
 
     /**
      * Returns true if a given string is a valid totalBudget.

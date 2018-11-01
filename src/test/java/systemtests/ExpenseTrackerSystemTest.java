@@ -178,10 +178,6 @@ public abstract class ExpenseTrackerSystemTest {
             Model expectedModel) throws NoUserSelectedException {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        System.out.println(expectedModel.getExpenseTracker().getMaximumTotalBudget().getNextRecurrence());
-        System.out.println(
-                new ExpenseTracker(expectedModel.getExpenseTracker()).getMaximumTotalBudget().getNextRecurrence());
-        System.out.println(testApp.readStorageExpenseTracker().getMaximumTotalBudget().getNextRecurrence());
         assertEquals(new ExpenseTracker(expectedModel.getExpenseTracker()), testApp.readStorageExpenseTracker());
         assertListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());
     }

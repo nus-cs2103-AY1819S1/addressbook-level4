@@ -4,9 +4,10 @@ package seedu.address.model.budget;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
-import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
 
 
@@ -118,32 +119,22 @@ public class TotalBudget extends Budget {
         if (sumOfCurrentCategoryBudgets + budget.getBudgetCap() > this.getBudgetCap()) {
             throw new CategoryBudgetExceedTotalBudgetException(budget, this);
         }
-        this.categoryBudgets.add(budget);
-        System.out.println("Category budget added");
-        System.out.println(this.getCategoryBudgets());
-    }
-
-    /**
-     * Modifies a category totalBudget currently in the set of category budgets.
-     * @param budget
-     */
-    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
-        if (this.categoryBudgets.remove(budget)) {
-            throw new CategoryBudgetDoesNotExist(budget);
-        }
+        this.categoryBudgets.remove(budget);
         this.categoryBudgets.add(budget);
     }
 
     public HashSet<CategoryBudget> getCategoryBudgets() {
-        return new HashSet<>(this.categoryBudgets);
+        return new HashSet<>(this.categoryBudgets.stream()
+            .map(cBudget -> new CategoryBudget(cBudget))
+            .collect(Collectors.toSet()));
     }
 
     @Override
     public boolean addExpense(Expense expense) {
+
         this.currentExpenses += expense.getCost().getCostValue();
 
         AtomicInteger categoryBudgetNotExceeded = new AtomicInteger(0);
-
         this.categoryBudgets.forEach(cBudget -> {
             if (cBudget.getCategory().equals(expense.getCategory())) {
                 if (!cBudget.addExpense(expense)) {
@@ -153,6 +144,45 @@ public class TotalBudget extends Budget {
         });
         return this.currentExpenses <= this.budgetCap && categoryBudgetNotExceeded.get() < 1;
     }
+
+    @Override
+    public void removeExpense(Expense expense) {
+
+        super.removeExpense(expense);
+        Category cat = expense.getCategory();
+        CategoryBudget toModify = null;
+        CategoryBudget[] cBudgetArray = this.categoryBudgets.toArray(new CategoryBudget[1]);
+        for (int i = 0; i < cBudgetArray.length; i++) {
+            if (cBudgetArray[i].getCategory().equals(cat)) {
+                toModify = cBudgetArray[i];
+            }
+        }
+        if (toModify != null) {
+            toModify.removeExpense(expense);
+        }
+    }
+
+    @Override
+    public void alterSpending(Expense target, Expense editedExpense) {
+        super.alterSpending(target, editedExpense);
+        CategoryBudget toRemove = null;
+        CategoryBudget toAdd = null;
+        CategoryBudget[] cBudgetArray = this.categoryBudgets.toArray(new CategoryBudget[1]);
+        for (int i = 0; i < cBudgetArray.length; i++) {
+            if (cBudgetArray[i].getCategory().equals(target.getCategory())) {
+                toRemove = cBudgetArray[i];
+            }
+            if (cBudgetArray[i].getCategory().equals(editedExpense.getCategory())) {
+                toAdd = cBudgetArray[i];
+            }
+        }
+        if (toRemove != null && toAdd != null) {
+            toRemove.removeExpense(target);
+            toAdd.addExpense(editedExpense);
+        }
+
+    }
+
 
     @Override
     public boolean equals(Object budget) {
