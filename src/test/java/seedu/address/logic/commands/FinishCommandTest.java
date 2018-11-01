@@ -53,7 +53,8 @@ public class FinishCommandTest {
         ServedPatient expectedServedPatient = new ServedPatient(ALICE);
         expectedServedPatient.addNoteContent("test");
         Patient patient = expectedServedPatient.createNewPatientWithUpdatedMedicalRecord();
-        expectedServedPatientList.addServedPatient(new ServedPatient(patient));
+        expectedServedPatient.updatePatient(patient);
+        expectedServedPatientList.addServedPatient(expectedServedPatient);
 
         String expectedMessage = MESSAGE_SUCCESS + currentPatient.toNameAndIc();
         currentPatient.addNoteContent("test");

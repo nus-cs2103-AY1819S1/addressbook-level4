@@ -69,8 +69,8 @@ public class LogicManager extends ComponentManager implements Logic {
             if (command instanceof DisplayQueueCommand
                     || command instanceof RegisterCommand
                     || command instanceof DisplayServedPatientsCommand
-                    || command instanceof RemoveCommand
                     || command instanceof InsertCommand
+                    || command instanceof RemoveCommand
                     || command instanceof FinishCommand) {
                 raise(new ShowQueueInformationEvent(patientQueue, servedPatientList, currentPatient));
             }

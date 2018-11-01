@@ -131,6 +131,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds a medicine to the records.
      * The medicine must not already exist in the record.
+     * Serial number must not be in use.
      */
     public void addMedicine(Medicine m) {
         medicines.add(m);

@@ -47,9 +47,13 @@ Follow the steps below to get started with CLInic.
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
+
 .Prototype of UI
+//tag::UI[]
 image::Ui.png[width="790"]
+//end::UI[]
 +
+
 
 .  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -417,11 +421,15 @@ image::AfterInsert2Command.png[width="750"]
 * `ins 3 p/5` +
 Inserts the 3rd patient into the 5th position in the patient queue.
 
-==== Serving the first patient in Waiting Queue: `serve`
+[[serve]]
+==== Serving the first patient in Waiting queue: `serve`
 
-Serves the first patient in the Waiting Queue. The patient being served is now the Current Patient. +
+Serves the first patient in the Waiting queue. The patient being served is now the Current Patient. +
 Alias: `ser` +
 Format: `serve`
+
+[TIP]
+Upon successful call of this command, the medicine list will be displayed.
 
 .Before `serve` command
 image::BeforeServeCommand.png[width="750"]
@@ -429,15 +437,15 @@ image::BeforeServeCommand.png[width="750"]
 .After `serve` command
 image::AfterServeCommand.png[width="750"]
 
-[TIP]
-The medicine list will be displayed when this command is used for easy reference for dispensing medicine.
-
 [[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
 
 Adds document contents to the Current Patient. +
 Alias: `ad` +
 Format: `adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
+
+[TIP]
+There must be a Current Patient. Use the <<serve, `serve`>> command first.
 
 [TIP]
 At least one of the optional parameters must be provided.
@@ -456,12 +464,17 @@ The parameter for `mc/` must be a *non-zero, positive integer*!
 
 Examples:
 
-* `adddocument mc/3 n/This patient complains of headaches for the past 2 days` +
-Adds a MC duration of 3 days and a note to the current patient being served reflecting the patient suffering from headaches for the past 2 days.
+* `adddocument mc/3 n/Headache for the past 2 days` +
+Adds MC duration and notes to the Current Patient.
+
+.Before `adddocument mc/3 n/Headache for the past 2 days` command
+image::BeforeAddDocumentCommand.png[width="750"]
+
+.After `adddocument mc/3 n/Headache for the past 2 days` command
+image::AfterAddDocumentCommand.png[width="750"]
+
 * `ad r/Ng Teng Fong Hospital` +
-Adds a referral letter to the current patient being served to seek further health care at `Ng Teng Fong Hospital` as recommended by the doctor in the current clinic..
-* `ad mc/hello`
-MC duration is *not updated* as the parameter provided is invalid.
+Adds referral to the Current Patient.
 
 ==== Displaying document contents for Current Patient: `displaydocuments`
 
@@ -481,9 +494,16 @@ Dispenses medicine at the specified `MEDICINE_INDEX` to the Current Patient. The
 Examples:
 
 * `dispensemedicine 1 amt/10` +
-Adds `10` units of the 1st medicine in the displayed medicine list to the current patient being served. +
+10 units of the 1st medicine in the displayed medicine list will be added to the Current Patient. +
+
+.Before `dispensemedicine 1 amt/10`
+image::BeforeDispenseMedicineCommand.png[width="750"]
+
+.After `dispensemedicine 1 amt/10`
+image::AfterDispenseMedicineCommand.png[width="750"]
+
 * `dm 5 amt/2` +
-Adds `2` units of the 5th medicine in the displayed medicine list to the current patient being served.
+2 units of the 5th medicine in the displayed medicine list will be added to the Current Patient.
 
 [[finish]]
 ==== Finishing service of the Current Patient: `finish`
@@ -510,6 +530,13 @@ Examples:
 
 * `payment 3` +
 Removes the 3rd patient from the Served Patient Queue.
+
+.Before `payment 3` command
+image::BeforePaymentCommand.png[width="750"]
+
+.After `payment 3` command
+image::AfterPaymentCommand.png[width="750"]
+
 * `pay 1` +
 Removes the 1st patient from the Served Patient Queue.
 

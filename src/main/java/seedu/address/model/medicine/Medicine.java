@@ -93,10 +93,17 @@ public class Medicine {
     }
 
     /**
-     * Returns true if both medicines has the same name.
+     * Returns true if both medicines have the same name.
      */
     public boolean hasSameMedicineName(MedicineName otherMedicine) {
         return otherMedicine.equals(this.medicineName);
+    }
+
+    /**
+     * Returns true if both medicines have the same name.
+     */
+    public boolean hasSameSerialNumber(Medicine otherMedicine) {
+        return getSerialNumber().value.equals(otherMedicine.getSerialNumber().value);
     }
 
     /**
@@ -117,7 +124,8 @@ public class Medicine {
         return otherMedicine.getMedicineName().equals(getMedicineName())
                 && otherMedicine.getMinimumStockQuantity().equals(getMinimumStockQuantity())
                 && otherMedicine.getPricePerUnit().equals(getPricePerUnit())
-                && otherMedicine.getSerialNumber().equals(getSerialNumber());
+                && otherMedicine.getSerialNumber().equals(getSerialNumber())
+                && otherMedicine.getStock().equals(getStock());
     }
 
     @Override

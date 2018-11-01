@@ -48,6 +48,7 @@ public class FinishCommand extends QueueCommand {
         String currentPatientNameIc = currentPatient.toNameAndIc();
         ServedPatient finishedPatient = currentPatient.finishServing();
 
+<<<<<<< HEAD
         // Create a new patient object with the updated medical record
         Patient editedPatient = finishedPatient.createNewPatientWithUpdatedMedicalRecord();
 
@@ -65,6 +66,24 @@ public class FinishCommand extends QueueCommand {
 //        } catch (DifferentBloodTypeException dbte) {
 //            throw new CommandException(Messages.MESSAGE_DIFFERENT_BLOOD_TYPE);
 //        }
+=======
+        try {
+            Patient notUpdatedPatient = finishedPatient.getPatient();
+
+            // Create a new patient object with the updated medical record
+            Patient editedPatient = finishedPatient.createNewPatientWithUpdatedMedicalRecord();
+
+            // Add finished patient to the servedPatientList
+            finishedPatient.updatePatient(editedPatient);
+            servedPatientList.addServedPatient(finishedPatient);
+            
+            // Update this patient
+            model.updatePerson(notUpdatedPatient, editedPatient);
+
+        } catch (DifferentBloodTypeException dbte) {
+            throw new CommandException(Messages.MESSAGE_DIFFERENT_BLOOD_TYPE);
+        }
+>>>>>>> 23953203544867d84518ffac9311639a04d5489b
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
 

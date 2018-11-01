@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.medicine.exceptions.DuplicateMedicineException;
 import seedu.address.model.medicine.exceptions.InsufficientStockException;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
+import seedu.address.model.medicine.exceptions.SerialNumberInUseException;
 
 /**
  * A list of medicines that enforces uniqueness between its elements and does not allow nulls.
@@ -49,13 +50,25 @@ public class UniqueMedicineList implements Iterable<Medicine> {
     }
 
     /**
+     * Returns true if the list contains a serial number as the medicine given argument.
+     */
+    public boolean notUniqueSerialNumber(Medicine toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::hasSameSerialNumber);
+    }
+
+    /**
      * Adds a medicine to the list.
      * The medicine must not already exist in the list.
+     * Serial number must not be in use.
      */
     public void add(Medicine toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateMedicineException();
+        }
+        if (notUniqueSerialNumber(toAdd)) {
+            throw new SerialNumberInUseException();
         }
         internalList.add(toAdd);
     }
