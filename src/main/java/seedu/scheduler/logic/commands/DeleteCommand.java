@@ -7,6 +7,8 @@ import java.util.List;
 
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
+import seedu.scheduler.commons.util.EventFormatUtil;
+import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.logic.parser.Flag;
@@ -33,7 +35,8 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 -a";
 
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
     private final Index targetIndex;
     private final Flag[] flags;
 
@@ -52,12 +55,17 @@ public class DeleteCommand extends Command {
         }
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
+        int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToDelete);
+
         if (flags.length == 0) {
+            connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
             model.deleteEvent(eventToDelete);
         } else {
             if (flags[0].equals(FLAG_UPCOMING)) {
+                connectToGoogleCalendar.deleteUpcomingOnGoogleCal(eventToDelete, instanceIndex);
                 model.deleteUpcomingEvents(eventToDelete);
             } else { //will catch FLAG_ALL
+                connectToGoogleCalendar.deleteAllOnGoogleCal(eventToDelete, instanceIndex);
                 model.deleteRepeatingEvents(eventToDelete);
             }
         }

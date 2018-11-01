@@ -334,6 +334,11 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
+[NOTE]
+====
+Current version only supports the local changes, Google Calendar is NOT undoable.
+====
+
 Restores the scheduler to the state before the previous _undoable_ command was executed. +
 Format: `undo` +
 Aliases: `und` OR `un` OR `u` +
@@ -361,6 +366,11 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `delete 1` command) +
 
 === Redoing the previously undone command : `redo`
+
+[NOTE]
+====
+Current version only supports the local changes, Google Calendar is NOT redoable.
+====
 
 Reverses the most recent `undo` command. +
 Format: `redo` +
@@ -452,14 +462,15 @@ Step 4:
 - A success message appears after the completion of addition of events.
 ****
 
+=== Post Events to Google Calendar : `postGCEvents` `[coming in v1.4]`
+
+Post events from your local scheduler and merge your local events with Google Calendar events (login is required). +
+Format: `postGCEvents`
+
 === Auto-Completion of Commands
 As you may have already noticed, our GUI supports auto-completion which suggests possible commands when you type certain (or _certain combinations_ of) alphabetical characters.
 
 _Note: It even works for command aliases!_
-
-=== Post Events to Google Calendar : `postGCEvents` `[coming in v1.3]`
-Post events from your local scheduler and merge your local events with Google Calendar events (login is required). +
-Format: `postGCEvents`
 
 === Case-Insensitive Invoking of Commands `[coming in v1.4]`
 Commands can be invoked in case-insensitive format. For example, typing `hElP` can invoke the `help` command. +

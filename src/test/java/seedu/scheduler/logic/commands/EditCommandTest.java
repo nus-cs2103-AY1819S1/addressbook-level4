@@ -53,21 +53,20 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastEvent = Index.fromOneBased(model.getFilteredEventList().size());
-        Event lastEvent = model.getFilteredEventList().get(indexLastEvent.getZeroBased());
+        Event firstEvent = model.getFilteredEventList().get(INDEX_FIRST_EVENT.getZeroBased());
 
-        EventBuilder eventInList = new EventBuilder(lastEvent);
+        EventBuilder eventInList = new EventBuilder(firstEvent);
         Event editedEvent = eventInList.withEventName(VALID_EVENT_NAME_MA2101)
                 .build();
 
         EditEventDescriptor descriptor = new EditEventDescriptorBuilder().withEventName(VALID_EVENT_NAME_MA2101)
                 .build();
-        EditCommand editCommand = new EditCommand(indexLastEvent, descriptor);
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_EVENT, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, lastEvent.getEventName());
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EVENT_SUCCESS, firstEvent.getEventName());
 
         Model expectedModel = new ModelManager(new Scheduler(model.getScheduler()), new UserPrefs());
-        expectedModel.updateEvent(lastEvent, editedEvent);
+        expectedModel.updateEvent(firstEvent, editedEvent);
         expectedModel.commitScheduler();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);

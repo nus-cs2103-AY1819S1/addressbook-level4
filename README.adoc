@@ -37,7 +37,7 @@ endif::[]
 == Latest Features
 * Supports repeating events.
 * Supports tag management.
-* Syncs with Google services.
+* Syncs with Google Calendar.
 * Pop-up alert.
 
 == Site Map

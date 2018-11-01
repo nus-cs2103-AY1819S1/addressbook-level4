@@ -8,6 +8,9 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURAT
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Collections;
+
+import seedu.scheduler.commons.web.ConnectToGoogleCalendar;
 import seedu.scheduler.logic.CommandHistory;
 import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
@@ -42,6 +45,9 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the scheduler";
 
+    private final ConnectToGoogleCalendar connectToGoogleCalendar =
+            new ConnectToGoogleCalendar();
+
     private final Event toAdd;
 
     /**
@@ -62,6 +68,7 @@ public class AddCommand extends Command {
 
         model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         model.commitScheduler();
+        connectToGoogleCalendar.pushToGoogleCal(Collections.singletonList(toAdd));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
