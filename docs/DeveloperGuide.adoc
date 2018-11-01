@@ -844,7 +844,7 @@ Use case ends.
 
 Use case ends.
 
-## Non-functional requirements
+## Appendix E: Non-functional requirements
 - There should be no noticable lag when typing on the command line.
 - Should work on any mainstream OS as long as it has Java 9 or higher installed.
 - Storage of application data will be in a text file.
@@ -853,7 +853,7 @@ Use case ends.
 - System should be maintainable with proper documentation.
 - Proper feedback to user when error occurs.
 
-## Glossary
+## Appendix F: Glossary
 
 A glossary serves to ensure that all stakeholders have a common understanding of the noteworthy terms, abbreviation, acronyms etc.
 
