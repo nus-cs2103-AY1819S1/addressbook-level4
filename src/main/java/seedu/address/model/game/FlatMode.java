@@ -16,6 +16,13 @@ public class FlatMode extends GameMode {
         this(25, 50);
     }
 
+    /**
+     * Sets the game mode to award {@code completedXp} XP for tasks completed on time, and
+     * to award {@code overdueXp} for overdue tasks completed.
+     *
+     * @param overdueXp The XP to award to overdue tasks.
+     * @param completedXp The XP to award to tasks completed on time.
+     */
     FlatMode(int overdueXp, int completedXp) {
         this.overdueXp = overdueXp;
         this.completedXp = completedXp;
@@ -37,7 +44,7 @@ public class FlatMode extends GameMode {
             return completedXp;
         }
 
-        // At this point, taskFrom.isStatusOverdue() && taskTo.isCompleted()
+        // At this point, then taskFrom.isStatusOverdue() && taskTo.isCompleted() is True
         return overdueXp;
 
     }

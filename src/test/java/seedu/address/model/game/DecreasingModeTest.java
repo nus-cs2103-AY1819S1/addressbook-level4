@@ -58,7 +58,7 @@ public class DecreasingModeTest {
     }
 
     @Test
-    public void constructorTest() {
+    public void constructor_called_noException() {
         DecreasingMode dm1 = new DecreasingMode();
         DecreasingMode dm2 = new DecreasingMode(7, 50, 100);
     }

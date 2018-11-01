@@ -24,13 +24,13 @@ public class FlatModeTest {
     }
 
     @Test
-    public void constructorTest() {
+    public void constructor_called_noException() {
         FlatMode fm1 = new FlatMode();
         FlatMode fm2 = new FlatMode(50, 100);
     }
 
     @Test
-    public void null_appraiseXpChange() {
+    public void appraiseXpChange_null_raiseNullPointerException() {
 
         Task task = new TaskBuilder().build();
 

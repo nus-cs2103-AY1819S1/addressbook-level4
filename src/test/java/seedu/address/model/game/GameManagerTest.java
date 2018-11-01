@@ -29,7 +29,7 @@ public class GameManagerTest {
     }
 
     @Test
-    public void constructorTest() {
+    public void constructor_called_noException() {
         GameManager gm1 = new GameManager();
         GameManager gm2 = new GameManager(new GameModeStub());
     }

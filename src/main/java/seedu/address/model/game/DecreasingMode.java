@@ -7,7 +7,7 @@ import seedu.address.model.task.Task;
 // @@author chikchengyao
 
 /**
- * Offers a mode where full XP is awarded for tasks done more than a certain time period
+ * Offers a mode where full XP is awarded for tasks done earlier than a certain time period
  * before the deadline, measured in days.
  */
 public class DecreasingMode extends GameMode {
@@ -20,6 +20,15 @@ public class DecreasingMode extends GameMode {
         this(7, 25, 50);
     }
 
+    /**
+     * Sets the game mode to award {@code completedXp} to tasks completed at least
+     * {@code daysBefore} days before the deadline, linearly decreasing to {@overdueXp}
+     * for tasks completed at or after the deadline.
+     *
+     * @param daysBefore  The time period of falling XP.
+     * @param overdueXp   The minimum XP, awarded to overdue tasks.
+     * @param completedXp The maximum XP, awarded to tasks completed early.
+     */
     DecreasingMode(int daysBefore, int overdueXp, int completedXp) {
         this.daysBefore = daysBefore;
         this.overdueXp = overdueXp;
@@ -52,7 +61,7 @@ public class DecreasingMode extends GameMode {
 
     /**
      * Gets Date object representing the current time, for comparison to the due date.
-     *
+     * <p>
      * Separated out to facilitate mock dates during testing.
      *
      * @return A Date object representing the time now.
