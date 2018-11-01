@@ -20,9 +20,15 @@ public class ListCommandParserTest {
     @Test
     public void parse_validArgs_returnsListCommand() {
         assertParseSuccess(parser, "", new ListCommand());
-        assertParseSuccess(parser, filterPrefix + "today", new ListCommand(ListCommand.ListFilter.DUE_TODAY));
-        assertParseSuccess(parser, filterPrefix + "week", new ListCommand(ListCommand.ListFilter.DUE_END_OF_WEEK));
-        assertParseSuccess(parser, filterPrefix + "month", new ListCommand(ListCommand.ListFilter.DUE_END_OF_MONTH));
+
+        assertParseSuccess(parser, filterPrefix + ListCommandParser.DUE_TODAY_OPTION,
+                new ListCommand(ListCommand.ListFilter.DUE_TODAY));
+        assertParseSuccess(parser, filterPrefix + ListCommandParser.DUE_END_OF_WEEK_OPTION,
+                new ListCommand(ListCommand.ListFilter.DUE_END_OF_WEEK));
+        assertParseSuccess(parser, filterPrefix + ListCommandParser.DUE_END_OF_MONTH_OPTION,
+                new ListCommand(ListCommand.ListFilter.DUE_END_OF_MONTH));
+        assertParseSuccess(parser, filterPrefix + ListCommandParser.NOT_BLOCKED_OPTION,
+                new ListCommand(ListCommand.ListFilter.NOT_BLOCKED));
     }
 
     @Test
