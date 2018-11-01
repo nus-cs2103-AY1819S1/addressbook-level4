@@ -353,21 +353,26 @@ image::UndoRedoActivityDiagram.png[width="800"]
 //tag::filter[]
 
 === Filter Feature
+
+This section documents how filter is implemented and how it works.
+
 ==== Current Implementation
+The execution of filter is simple and linear as the following activity diagram would show:
+
 .Activity Diagram for the Filter Feature
 image::FilterActivityDiagram.png[width="800"]
 
-The following diagram will show how the filter diagram works: +
+The following sequence diagram will show how the filter diagram works: +
 
 .Sequence Diagram for the Filter Feature
 image::FilterSequenceDiagram.png[width="800"]
 
-The filter function is being implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
+The filter function is implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
 `ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
 parse the arguments from the user input.
 
 It checks if there are any of the maintenance or waiting time prefix in the arguments. If any of the prefixes are present,
-an `AttributePredicate` is created with the operator (‘<’ or ‘>’) and the attribute they are checking for (ie
+an `AttributePredicate` is created with the operator (‘<', ‘>’, '< =' or '> =') and the attribute they are checking for (ie
 `Maintenance` or `WaitTime`). The AttributePredicates are added to a list. The user can add any amount of predicates that
 they want, like 3 predicates e.g. `filter w/< 50 w/ > 5 m/>10` and the list would contain 3 predicates and if the user
 decides to input only one predicate, the list will only contain one.
@@ -375,7 +380,7 @@ decides to input only one predicate, the list will only contain one.
 A new `RideContainsConditionPredicate` is instantiated with the list of AttributePredicates. The `FilterCommandParser` will
 return a new `FilterCommand` with the `RideContainsConditionPredicate` in it.
 
-The LogicManager execute the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
+The `LogicManager` execute the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
 the list of rides and it will check if the ride fulfils the required predicate(s). After that a list of filtered rides
 would be returned after each ride is tested with the predicate.
 
@@ -384,11 +389,11 @@ would be returned after each ride is tested with the predicate.
 ===== Aspect: Data structure to support filter commands
 * **Alternative 1(Current Choice):** Abstracting attributes that contain numeric values into a separate class and creating a
 AttributePredicate to test the attribute
-** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
-** Cons: Need to implement more classes to handle
+** Pros: More numeric attributes can be easily added  and minimal changes are required to filter new attributes
+** Cons: More classes would need to be implemented to handle the
 
 * **Alternative 2:** Gives the entire string condition to the RideContainsConditionPredicate to test.
-** Pros: Easier to implement as classes no need to abstracted
+** Pros: This would be easier to implement as classes no need to abstracted
 ** Cons: RideContainsConditionPredicate would carry out parsing functions which would make it less cohesive
 
 // end::filter[]
