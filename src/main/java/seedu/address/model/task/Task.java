@@ -94,8 +94,8 @@ public class Task {
         return status == Status.OVERDUE;
     }
 
-    public boolean isOverdue() {
-        return this.dueDate.isOverdue();
+    public boolean isStatusInProgress() {
+        return status == Status.IN_PROGRESS;
     }
 
     /**
