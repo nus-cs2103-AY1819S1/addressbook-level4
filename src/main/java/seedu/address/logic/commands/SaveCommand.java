@@ -52,11 +52,11 @@ public class SaveCommand extends Command {
             if (saveFile.exists()) {
                 throw new IllegalArgumentException("the file already exists");
             }
-            BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
             String[] parts = fileName.split("\\.");
             if (parts.length != 2 || !isFormatValid(parts[1])) {
                 throw new IllegalArgumentException("the file name is not valid");
             }
+            BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
             ImageIO.write(savedImage, parts[1], saveFile);
         } catch (IllegalArgumentException | IOException e) {
             throw new CommandException(e.toString());
