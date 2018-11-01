@@ -20,7 +20,6 @@ public class ServedPatient {
     private String referralContent;
     private String mcContent;
     private Map<Medicine, QuantityToDispense> medicineAllocated;
-    // add more fields as required
 
     /**
      * Constructs a servedPatient object from a patient object to extract all the information
@@ -128,6 +127,7 @@ public class ServedPatient {
     public void updatePatient(Patient patient) {
         this.patient = patient;
     }
+
     /**
      * @return a console-friendly representation of the patient.
      */
