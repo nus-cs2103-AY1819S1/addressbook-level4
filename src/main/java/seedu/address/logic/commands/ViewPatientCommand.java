@@ -53,4 +53,11 @@ public class ViewPatientCommand extends Command {
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
         return new CommandResult(String.format(MESSAGE_SUCCESS, patient));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ViewPatientCommand // instanceof handles nulls
+                && name.equals(((ViewPatientCommand) other).name)); // state check
+    }
 }

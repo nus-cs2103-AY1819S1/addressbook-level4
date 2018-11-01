@@ -21,6 +21,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Prescription;
+import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 
 /**
@@ -31,6 +32,7 @@ public class InformationPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Patient patient;
+    private Doctor doctor;
 
     @FXML
     private Label allergiesLabel;
@@ -56,6 +58,21 @@ public class InformationPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    private void setConnections() {
+        allergiesLabel.setText(" ");
+        conditionsLabel.setText(" ");
+        upcomingAppointmentTable.getItems().clear();
+        pastAppointmentTable.getItems().clear();
+    }
+
+    private void setConnections(ObservableList<Appointment> upcomingAppointmentList) {
+        allergiesLabel.setText(" ");
+        conditionsLabel.setText(" ");
+        upcomingAppointmentTable.getItems().clear();
+        pastAppointmentTable.getItems().clear();
+        upcomingAppointmentTable.getItems().addAll(upcomingAppointmentList);
+    }
+    
     private void setConnections(ObservableList<String> allergiesList,
                                 ObservableList<String> conditionsList,
                                 ObservableList<Appointment> upcomingAppointmentList,
@@ -142,12 +159,52 @@ public class InformationPanel extends UiPart<Region> {
         setConnections(allergiesList, conditionsList, upcomingAppointmentList, pastAppointmentList);
     }
 
+    /**
+     * Loads a doctor's information on the panel.
+     */
+    private void loadDoctorInformation(Doctor doctor) {
+//        Iterator<String> allergiesItr = patient.getMedicalHistory().getAllergies().iterator();
+//        Iterator<String> conditionsItr = patient.getMedicalHistory().getConditions().iterator();
+        Iterator<Appointment> upcomingAppointmentItr = doctor.getUpcomingAppointments().iterator();
+//        Iterator<Appointment> pastAppointmentItr = doctor.getPastAppointments().iterator();
+
+//        ObservableList<String> allergiesList = FXCollections.observableArrayList();
+//        ObservableList<String> conditionsList = FXCollections.observableArrayList();
+        ObservableList<Appointment> upcomingAppointmentList = FXCollections.observableArrayList();
+//        ObservableList<Appointment> pastAppointmentList = FXCollections.observableArrayList();
+
+//        while (allergiesItr.hasNext()) {
+//            allergiesList.add(allergiesItr.next());
+//        }
+//        while (conditionsItr.hasNext()) {
+//            conditionsList.add(conditionsItr.next());
+//        }
+        while (upcomingAppointmentItr.hasNext()) {
+            upcomingAppointmentList.add(upcomingAppointmentItr.next());
+        }
+//        while (pastAppointmentItr.hasNext()) {
+//            pastAppointmentList.add(pastAppointmentItr.next());
+//        }
+        setConnections(upcomingAppointmentList);
+    }
+
+    /**
+     * Clear information on the panel.
+     */
+    private void clearInformation() {
+        setConnections();
+    }
+
     @Subscribe
     private void handleInformationPanelChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         // TODO - handle doctor case
         if (event.getNewSelection() instanceof Patient) {
             loadPatientInformation((Patient) (event.getNewSelection()));
+        } else if (event.getNewSelection() instanceof Doctor) {
+            loadDoctorInformation((Doctor) event.getNewSelection());
+        } else {
+            clearInformation();
         }
     }
 }

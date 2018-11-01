@@ -9,12 +9,16 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
 import java.util.List;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentId;
 import seedu.address.model.appointment.Prescription;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
 
 /**
  * Adds a prescription to an appointment
@@ -42,7 +46,7 @@ public class AddPrescriptionCommand extends Command {
     private final Prescription toAdd;
 
     /**
-     *Creates an AddPrescriptionCommand to add the specified {@code Person}
+     * Creates an AddPrescriptionCommand to add the specified {@code Person}
      */
     public AddPrescriptionCommand(Prescription prescription) {
         requireAllNonNull(prescription);
@@ -73,6 +77,14 @@ public class AddPrescriptionCommand extends Command {
         model.updateAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         model.commitAddressBook();
+
+        List<Person> personList = model.getFilteredPersonList();
+        Patient patient = (Patient) personList.stream()
+                .filter(person -> person.getName().toString().equals(editedAppointment.getPatient()))
+                .findFirst()
+                .orElse(null);
+
+        EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(patient));
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getMedicineName()));
     }
 
