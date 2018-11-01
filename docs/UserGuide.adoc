@@ -336,7 +336,10 @@ Shorthand: `sch`
 
 ****
 * InsuRen will add the meeting to your list of meetings, as well as mark the person with the meeting.
-* If the day is invalid, an error will be thrown.
+* You may use any special characters such as '/' and '-', or whitespace to seperate the entries. As long as the relative order
+of the numbers is DDMMYYHHMM, InsuRen will save it.
+* Meetings can be scheduled on any valid date in the past (to keep a record) or in the future (as a reminder).
+* If the date is invalid (i.e. it is not a real date), an error will be thrown.
 * If there are any meetings scheduled at the same time, it will be flagged out.
 ****
 
