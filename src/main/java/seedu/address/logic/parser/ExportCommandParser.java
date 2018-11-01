@@ -21,6 +21,6 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         if (!fileName.substring(length - 4, length).equals(".csv")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
         }
-        return new ExportCommand(fileName);
+        return new ExportCommand(fileName.trim());
     }
 }
