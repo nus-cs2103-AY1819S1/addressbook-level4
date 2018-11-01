@@ -55,7 +55,8 @@ public class Anakin implements ReadOnlyAnakin {
         portManager = new PortManager();
     }
 
-    public Anakin() { }
+    public Anakin() {
+    }
 
     /**
      * Creates an Anakin using the Decks in the {@code toBeCopied}
@@ -87,7 +88,10 @@ public class Anakin implements ReadOnlyAnakin {
      * Sets the currentDeck
      */
 
-    public void setCurrentDeck(Deck deck){this.currentDeck = deck;}
+    public void setCurrentDeck(Deck deck) {
+        this.currentDeck = deck;
+    }
+
     /**
      * A method to clear card lists to prevent side effects of editing a list of cards unintentionally.
      * Used in resetData
@@ -409,11 +413,11 @@ public class Anakin implements ReadOnlyAnakin {
         return decks.hashCode();
     }
 
-    public Deck getCurrentDeck(){
+    public Deck getCurrentDeck() {
         return currentDeck;
     }
 
-    private void jedfalse(){
+    private void jedfalse() {
         justEnteredDeck = false;
     }
 
