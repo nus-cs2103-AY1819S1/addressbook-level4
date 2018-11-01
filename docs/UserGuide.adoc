@@ -147,7 +147,7 @@ Examples:
 
 Apply for leave on specific dates.
 
-Format: `leave add -de DESCRIPTION -da DATE [-da DATE]`
+Format: `leave add -de DESCRIPTION -da DATE [-da DATE]...`
 
 ****
 * Format of date: YYYY-MM-DD (Dashes are required)
