@@ -140,7 +140,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_viewPatientCommandWord_returnsViewPatientCommand() throws Exception {
         ViewPatientCommand command = (ViewPatientCommand) parser.parseCommand(
-                ViewPatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName); 
+                ViewPatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName);
         assertEquals(new ViewPatientCommand(ALICE.getName()), command);
     }
 

@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -16,9 +17,12 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -34,15 +38,11 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    // private BrowserPanel browserPanel;
     private InformationPanel informationPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-
-    // @FXML
-    // private StackPane browserPlaceholder;
 
     @FXML
     private StackPane informationPlaceholder;
@@ -123,10 +123,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        // browserPanel = new BrowserPanel();
-        // browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
-        informationPanel = new InformationPanel();
+        informationPanel = new InformationPanel("InformationPanel.fxml");
         informationPlaceholder.getChildren().add(informationPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -198,13 +195,24 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
-    //    void releaseResources() {
-    //        browserPanel.freeResources();
-    //    }
-
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleInformationPanelChangedEvent(PersonPanelSelectionChangedEvent event) throws IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        if (event.getNewSelection() instanceof Patient) {
+            informationPanel = new InformationPanel("InformationPanel.fxml");
+            informationPlaceholder.getChildren().add(informationPanel.getRoot());
+            informationPanel.changePanel(event.getNewSelection());
+        }
+        if (event.getNewSelection() instanceof Doctor) {
+            informationPanel = new InformationPanel("InformationPanelDoctor.fxml");
+            informationPlaceholder.getChildren().add(informationPanel.getRoot());
+            informationPanel.changePanel(event.getNewSelection());
+        }
     }
 }
