@@ -246,7 +246,7 @@ Format: `logout`
 
 // tag::loginReceptionist[]
 [WARNING]
-You must login as an receptionist in order to use this feature. +
+You must login as a receptionist in order to use this feature. +
 // end::loginReceptionist[]
 
 Adds a patient to the clinic record. +
