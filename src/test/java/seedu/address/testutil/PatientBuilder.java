@@ -41,7 +41,7 @@ public class PatientBuilder {
     private Set<Tag> tags;
     private String telegramId;
     private MedicalHistory medicalHistory;
-    private PriorityQueue<Appointment> upcomingAppointments;
+    private List<Appointment> upcomingAppointments;
     private List<Appointment> pastAppointments;
 
 
@@ -57,7 +57,7 @@ public class PatientBuilder {
         telegramId = DEFAULT_TELEGRAM_ID;
         medicalHistory = new MedicalHistory(new ArrayList<String>(Arrays.asList(VALID_ALLERGY)),
                 new ArrayList<String>(Arrays.asList(VALID_CONDITION)));
-        upcomingAppointments = new PriorityQueue<>();
+        upcomingAppointments = new ArrayList<>();
         pastAppointments = new ArrayList<>();
     }
 

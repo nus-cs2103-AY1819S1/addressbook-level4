@@ -142,7 +142,7 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        final PriorityQueue<Appointment> allUpcomingAppointments = new PriorityQueue<>();
+        final List<Appointment> allUpcomingAppointments = new ArrayList<>();
         for (XmlAdaptedAppointment upcomingAppointment : upcomingAppointments) {
             allUpcomingAppointments.add(upcomingAppointment.toModelType());
         }

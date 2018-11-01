@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.address.calendar.GoogleCalendar;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -18,7 +19,7 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar) {
         requireNonNull(history);
         List<String> previousCommands = history.getHistory();
 

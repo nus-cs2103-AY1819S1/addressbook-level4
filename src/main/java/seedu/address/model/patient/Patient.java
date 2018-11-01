@@ -2,7 +2,6 @@ package seedu.address.model.patient;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
@@ -22,7 +21,7 @@ public class Patient extends Person {
     // Variables
     private String telegramId;
     private MedicalHistory medicalHistory;
-    private PriorityQueue<Appointment> upcomingAppointments;
+    private List<Appointment> upcomingAppointments;
     private List<Appointment> pastAppointments;
 
     // Constructor
@@ -31,13 +30,13 @@ public class Patient extends Person {
                    Set<Tag> tags, String telegramId) {
         super(name, phone, email, address, remark, tags);
         setTelegramId(telegramId);
-        upcomingAppointments = new PriorityQueue<>();
+        upcomingAppointments = new ArrayList<>();
         pastAppointments = new ArrayList<>();
         this.medicalHistory = new MedicalHistory();
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
-                   Set<Tag> tags, String telegramId, PriorityQueue<Appointment> upcomingAppointments,
+                   Set<Tag> tags, String telegramId, List<Appointment> upcomingAppointments,
                    List<Appointment> pastAppointments) {
         super(name, phone, email, address, remark, tags);
         setTelegramId(telegramId);
@@ -47,7 +46,7 @@ public class Patient extends Person {
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Remark remark,
-                   Set<Tag> tags, String telegramId, PriorityQueue<Appointment> upcomingAppointments,
+                   Set<Tag> tags, String telegramId, List<Appointment> upcomingAppointments,
                    List<Appointment> pastAppointments, MedicalHistory medicalHistory) {
         super(name, phone, email, address, remark, tags);
         setTelegramId(telegramId);
@@ -57,7 +56,7 @@ public class Patient extends Person {
 
     }
 
-    public PriorityQueue<Appointment> getUpcomingAppointments() {
+    public List<Appointment> getUpcomingAppointments() {
         return upcomingAppointments;
     }
 
@@ -114,13 +113,15 @@ public class Patient extends Person {
      * appointments
      */
     public void completeUpcomingAppointment(Appointment targetAppointment) {
+        Appointment appointmentToRemove = null;
         for (Appointment app : upcomingAppointments) {
             if (app.isSameAppointment(targetAppointment)) {
-                app.completeAppointment();
-                upcomingAppointments.remove(app);
-                pastAppointments.add(app);
+                appointmentToRemove = app;
             }
         }
+        appointmentToRemove.completeAppointment();
+        upcomingAppointments.remove(appointmentToRemove);
+        pastAppointments.add(appointmentToRemove);
     }
 
     /**
