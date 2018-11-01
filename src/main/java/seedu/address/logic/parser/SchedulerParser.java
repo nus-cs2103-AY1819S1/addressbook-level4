@@ -81,7 +81,7 @@ public class SchedulerParser {
             return new AddToDoCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
-        return new SelectCommandParser().parse(arguments);
+            return new SelectCommandParser().parse(arguments);
 
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
