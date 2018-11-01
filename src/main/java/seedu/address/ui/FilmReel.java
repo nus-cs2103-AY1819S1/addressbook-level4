@@ -34,7 +34,6 @@ public class FilmReel extends UiPart<Region> {
         super(FXML);
 
         imageListView.setItems(items);
-        //imageListView.setOrientation(Orientation.HORIZONTAL);
         imageListView.setCellFactory(listView -> new FilmReelCell());
         registerAsAnEventHandler(this);
     }
@@ -51,7 +50,7 @@ public class FilmReel extends UiPart<Region> {
         items.removeAll();
         items.setAll(event.paths);
 
-        if (event.refresh) {
+        if (event.refreshSelection) {
             imageListView.scrollTo(0);
             imageListView.getSelectionModel().clearSelection();
         }
