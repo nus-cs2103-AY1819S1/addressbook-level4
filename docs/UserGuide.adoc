@@ -1,4 +1,4 @@
-= OASIS - User Guide
+= image:UserGuideHeader.png[width="900"]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -20,17 +20,26 @@ By: `Nus School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Li
 
 Office Assistance Specialized Integration System (OASIS) is for users who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves. More importantly, OASIS is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, OASIS can get your employee management tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quickstart” to get started. Enjoy!
 
+=== An Introduction to OASIS
+The image shown below highlights the difference sections of OASIS's user interface:
+
+image::introToOASIS.png[width="900"]
+
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
 .  Download the latest oasis.jar.
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
+.  Double-click the file to start the app. The following Graphical User Interface (GUI) should appear in a few seconds:
 +
 image::Ui.png[width="790"]
 +
 .  To login, enter in the username `Admin` and the password `Pa55w0rd`. Both values are case sensitive. These values are the default username and password combinations for the admin account, and are always available.
-.  After you have logged in, type a command in the command box and press Enter to execute it. +
+.  After you have logged in, you should be taken to the following screen:
++
+image::UiLoggedin.PNG[width="790"]
++
+.  Now you can type a command in the command box and press Enter to execute it. +
 e.g. typing help and pressing Enter will open the help window.
 .  Some example commands you can try:
 
@@ -109,29 +118,13 @@ Removes an employee from the system.
 Format: `delete INDEX`
 
 ****
-* To use this command, you must be logged in with "Remove Employee" permissions.
+* To use this command, you must be logged in with "Department Manager" permissions.
 * All removed employees will be stored in the archive, when employee in archive is removed again it will be taken out of archive.
 ****
 
 Examples:
 
 * `delete 3`
-
-=== Sort employee display list : `sort`
-
-Lists all employees, using a given criteria.
-
-Format: `sort -CRITERIA`
-
-There are many different criteria like name, department, etc.
-
-* To sort by name, replace CRITERIA with n
-* To sort by department, replace CRITERIA with d
-
-Examples:
-
-* `sort -d`
-* `sort -n`
 
 === List details of employee : `select`
 
@@ -234,22 +227,6 @@ Examples:
 
 * 'find T_m' Displays 'Tom' and 'Tim', but not 'Tian'
 
-=== Filter employees by criteria : `filter`
-
-Displays employees with details that match certain criteria specified.
-
-Format: `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]`
-
-****
-* Replace `CRITERIA` with `n` to filter by name.
-* Replace `CRITERIA` with `d` to filter by department.
-* Replace `FILTER_CRITERIA` with the name or department you want to filter.
-****
-Examples:
-
-* `filter -n Tan`
-* `filter -n Albert -d Marketing`
-
 === Edit details : `edit`
 
 Changes the users details (such as contact information).
@@ -300,16 +277,6 @@ Format: `passwd`
 
 [WARNING]
 Passwords should not to be supplied in the command line (makes it vulnerable to viewing it through history.)
-
-=== View deleted employee archive : `archive`
-
-Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
-
-Format: `archive`
-
-****
-* To use this command, you must be logged in with "Department Manager" permissions.
-****
 
 === Undoing previous command : `undo`
 
@@ -383,6 +350,63 @@ Exits the program, automatically saving data and logging you out.
 Format: `exit`
 
 == Future Commands (Currently not implemented yet)
+
+=== Sort employee display list : `sort`
+
+Lists all employees, using a given criteria.
+
+Format: `sort -CRITERIA`
+
+There are many different criteria like name, department, etc.
+
+* To sort by name, replace CRITERIA with n
+* To sort by department, replace CRITERIA with d
+
+Examples:
+
+* `sort -d`
+* `sort -n`
+
+=== Filter employees by criteria : `filter`
+
+Displays employees with details that match certain criteria specified.
+
+Format: `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]`
+
+****
+* Replace `CRITERIA` with `n` to filter by name.
+* Replace `CRITERIA` with `d` to filter by department.
+* Replace `FILTER_CRITERIA` with the name or department you want to filter.
+****
+Examples:
+
+* `filter -n Tan`
+* `filter -n Albert -d Marketing`
+
+=== View deleted employee archive : `archive`
+
+Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
+
+Format: `archive`
+
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+****
+
+=== Restoring employee to active list: `restore`
+
+Restores an employee to active list from the archived list.
+
+Format: `restore INDEX`
+
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+* All resotred employee will be taken back to the active list.
+****
+
+Examples:
+
+* `restore 1`
 
 === List effectiveness of sector by profit : `sector`
 
