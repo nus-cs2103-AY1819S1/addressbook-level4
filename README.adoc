@@ -19,15 +19,17 @@ endif::[]
 
 Above shows the UI layout
 
-* Shows original image and rendered preview
+* Shows original image and rendered preview.
+* Shows first 10 images in current directory.
+* Shows history of transformations performed.
 * Command console and cin for input of commands.
 
 == Features
 
-* Several traditional image-editing features such as crop, blur, sharpen, etc.
-* Mass editing several images at once
-* Direct access to images on Google Photos (download and upload)
+* Several traditional image-editing features such as crop, blur etc.
 * Capability to define own custom transformation set.
+* Mass editing several images at once
+* Direct access to images on Google Photos (download and upload).
 * A wide range of edit text-commands that remove the need for a mouse.
 
 == Site Map

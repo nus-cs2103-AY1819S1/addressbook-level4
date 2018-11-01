@@ -6,7 +6,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,7 +15,11 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
+import seedu.address.commons.events.ui.ClearHistoryEvent;
+import seedu.address.commons.events.ui.TransformationEvent;
+import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
@@ -30,7 +33,7 @@ import seedu.address.model.transformation.Transformation;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private ArrayList<Path> dirImageList;
+    private List<Path> dirImageList;
     private Path currentOriginalImage;
     private PhotoHandler photoLibrary;
     private Canvas canvas;
@@ -47,8 +50,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.userPrefs = userPrefs;
-        this.userPrefs.updateImageList();
-        dirImageList = this.userPrefs.getAllImages();
+        this.userPrefs.initImageList();
+        dirImageList = this.userPrefs.getCurrImageListBatch();
 
         try {
             //photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
@@ -69,17 +72,50 @@ public class ModelManager extends ComponentManager implements Model {
      * backed by the list of {@code userPrefs}
      */
     @Override
-    public ArrayList<Path> getDirectoryImageList() {
-        this.dirImageList = userPrefs.getAllImages();
+    public List<Path> getDirectoryImageList() {
+        this.dirImageList = userPrefs.getCurrImageListBatch();
         return this.dirImageList;
     }
 
     /**
-     * Updates the list of the images in the current directory {@code dirImageList} with the {@code dirImageList}
+     * Returns the total number of images in current directory
      */
     @Override
-    public void updateImageList(ArrayList<Path> dirImageList) {
-        userPrefs.updateImageList(dirImageList);
+    public int getTotalImagesInDir() {
+        return userPrefs.getTotalImagesInDir();
+    }
+
+    /**
+     * Returns the current number of remaining pictures in {@code UserPrefs}
+     */
+    @Override
+    public int numOfRemainingImagesInDir() {
+        return userPrefs.numOfRemainingImagesInDir();
+    }
+
+    /**
+     * Returns the current batch pointer in {@code UserPrefs}
+     */
+    @Override
+    public int getCurrBatchPointer() {
+        return userPrefs.getCurrBatchPointer();
+    }
+
+    /**
+     * Updates the batch pointer in {@code UserPrefs}
+     */
+    @Override
+    public void updateImageListNextBatch() {
+        userPrefs.updateImageListNextBatch();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+    }
+
+    /**
+     * Updates the batch pointer in {@code UserPrefs}
+     */
+    public void updateImageListPrevBatch() {
+        userPrefs.updateImageListPrevBatch();
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     /**
@@ -88,14 +124,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void removeImageFromList(int idx) {
         this.dirImageList.remove(idx);
-    }
-
-    /**
-     * Get preview image list (first 10 images in imageList)
-     */
-    @Override
-    public List<Path> returnPreviewImageList() {
-        return userPrefs.returnPreviewImageList();
     }
 
     @Override
@@ -112,6 +140,8 @@ public class ModelManager extends ComponentManager implements Model {
         currentOriginalImage = imgPath;
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         canvas = new Canvas(selectedImage);
+
+        EventsCenter.getInstance().post(new ClearHistoryEvent());
     }
 
     /**
@@ -166,24 +196,29 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoPreviewImage() {
         getCurrentPreviewImage().undo();
         BufferedImage newImage = getCurrentPreviewImage().getImage();
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        EventsCenter.getInstance().post(new TransformationEvent(true));
     }
 
     @Override
     public void redoPreviewImage() {
         getCurrentPreviewImage().redo();
         BufferedImage newImage = getCurrentPreviewImage().getImage();
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(SwingFXUtils.toFXImage(newImage, null), "preview"));
+        EventsCenter.getInstance().post(new TransformationEvent(false));
     }
 
     //=========== get/updating preview image ==========================================================================
 
-    @Override
+    /**
+     * Adds a transformation to current layer
+     * @param transformation transformation to add
+     * @throws ParseException
+     * @throws InterruptedException
+     * @throws IOException
+     */
     public void addTransformation(Transformation transformation) throws
-            ParseException, InterruptedException, IOException {
+        ParseException, InterruptedException, IOException {
         canvas.getCurrentLayer().addTransformation(transformation);
+        EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
     }
 
     @Override
@@ -206,6 +241,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
         getCurrentPreviewImage().addTransformation(transformation);
         getCurrentPreviewImage().commit(image);
+        EventsCenter.getInstance().post(
+                new ChangeImageEvent(
+                        SwingFXUtils.toFXImage(getCurrentPreviewImage().getImage(), null), "preview"));
     }
 
     @Override
@@ -231,6 +269,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
+        EventsCenter.getInstance().post(new ChangeDirectoryEvent(getCurrDirectory().toString()));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
     }
 
     @Override
