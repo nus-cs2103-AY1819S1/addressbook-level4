@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -24,6 +25,8 @@ public class User {
     public static final Salary ADMIN_SALARY = new Salary("0");
     public static final Set<Project> ADMIN_PROJECTS = new HashSet<>();
     public static final PermissionSet ADMIN_PERMISSIONS = new PermissionSet(PermissionSet.PresetPermission.ADMIN);
+    public static final Optional<ProfilePic> ADMIN_PROFILEPIC = Optional.empty();
+    public static final List<LeaveApplication> ADMIN_LEAVEAPPLICATIONS = new ArrayList<>();
 
     private static User adminUser;
 
@@ -42,7 +45,7 @@ public class User {
      */
     public static void buildAdmin(Username newUsername, Password newPassword) {
         Person adminPerson = new Person(ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, ADMIN_ADDRESS, ADMIN_SALARY,
-            newUsername, newPassword, ADMIN_PROJECTS, ADMIN_PERMISSIONS);
+            newUsername, newPassword, ADMIN_PROJECTS, ADMIN_PERMISSIONS, ADMIN_LEAVEAPPLICATIONS, ADMIN_PROFILEPIC);
         adminUser = new User(adminPerson);
         adminUser.isAdminUser = true;
     }
