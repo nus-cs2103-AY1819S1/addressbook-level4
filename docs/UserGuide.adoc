@@ -397,19 +397,14 @@ A window will pop up if you have set reminder for an event. +
 Eg: If you set 30min for an event that starts at 11:00, a window will pop up at 11:30 (+-1min) if the app is open. +
 Format: it is currently integrated with <<Adding an event : `add`>> and <<Editing an event : `edit`>> command. For the correct format for time, please refer to <<Reminder time format>>
 
-[TIP]
-====
-Every time you open the app, it will also pop up past reminders since the last time you close the app.
-====
-
-
 [NOTE]
 ====
 When you use a command that involves many changes of reminder time (add/edit/undo/redo), please give a few seconds for the system to sync before you close the app.
 ====
 
 ****
-* If you have not set any reminder for the event or the reminder has already popped up previously, it will display as "No reminder".
+* If you have not set any reminder for the event, it will display as "No Reminder".
+* When you open the app, it will NOT pop up past reminders since the last time you close the app.
 * When the reminder pops up, the reminder time displayed for the event will NOT change instantaneously. It will refresh the next time the app is opened.
 * When you add/edit pop up times, only the future ones will be added. +
 Eg. you add a reminder that is supposed to pop up an hour ago, it will reflect in the display but will not pop up as past reminders/in the future.
