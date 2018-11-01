@@ -490,21 +490,21 @@ Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueAr
 
 The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
 
-image::modelStructure.PNG[width="350]
+image::modelChangeJosh.PNG[width="350]
 
 ===== Aspect: Storage
 Added a `XmlSerializableArchiveList` object to Storage component.
 
 The following diagram shows the class `XmlSerializableArchiveList` added to reflect the changes in the Storage component:
 
-image::storageStructure.PNG[width="350]
+image::storageModelChangeJosh.PNG[width="350]
 
 ===== Aspect: UI
 Added a `ArchiveDisplay` object to `MainWindow` of UI component.
 
 The following diagram shows the class `ArchiveDisplay` added to reflect the changes in the UI component:
 
-image::uiStructure.PNG[width="350]
+image::uiModelChangeJosh.PNG[width="350]
 
 ==== Design considerations
 ===== Aspect: Lifetime of objects in Archive list
@@ -1285,14 +1285,10 @@ Use case resumes at step 2.
 
 *MSS*
 
-.  Manager login to the system.
-.  Oasis shows home page.
-.  Manager requests for list of all employees
-.  Oasis displays list of all employees
-.  Manager chooses to delete an employee in the list
-.  Oasis requests for confirmation
-.  Manager enters confirm
-.  Oasis deletes the employee and show success message
+.  Manager login to the system
+.  Oasis shows home page and displays list of employees
+.  Manager executes delete command on a selected employee
+.  Oasis deletes the employee, moves it to archive list and show success message
 +
 Use case ends.
 
@@ -1303,17 +1299,13 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The list is empty.
+* 2a. The list is empty.
 +
 Use case ends.
 
-* 5a. The chosen employee is invalid.
+* 3a. The chosen employee is invalid.
 +
-** 5a1. OASIS shows an error message.
-+
-Use case resumes at step 4.
-
-* 7a. The Manager chooses to cancel
+** 3a1. OASIS shows an error message.
 +
 Use case resumes at step 4.
 
