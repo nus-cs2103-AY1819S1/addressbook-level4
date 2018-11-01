@@ -384,7 +384,7 @@ Step 4:
 ****
 
 === Auto-Completion of Commands
-As you may have already noticed, our GUI supports auto-completion which suggests possible commands when you type any alphabetical characters.
+As you may have already noticed, our GUI supports auto-completion which suggests possible commands when you type certain (or _certain combinations_ of) alphabetical characters.
 
 _Note: It even works for command aliases!_
 
