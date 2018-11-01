@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUPTAG_CCA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalGroups.GROUP_2101;
 import static seedu.address.testutil.TypicalGroups.PROJECT_2103T;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -35,12 +35,12 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddressBookTest {
+public class MeetingBookTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final MeetingBook addressBook = new MeetingBook();
 
     @Test
     public void constructor() {
@@ -55,7 +55,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        MeetingBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -68,7 +68,7 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         // HACK
         // TODO: change to correctly take in groups
-        AddressBookStub newData = new AddressBookStub(newPersons, editedAlice.getGroupTags());
+        MeetingBookStub newData = new MeetingBookStub(newPersons, editedAlice.getGroupTags());
 
         thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
@@ -99,14 +99,14 @@ public class AddressBookTest {
 
     @Test
     public void hasGroup_groupInAddressBook_returnsTrue() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         addressBook.addGroup(PROJECT_2103T);
         assertTrue(addressBook.hasGroup(PROJECT_2103T));
     }
 
     @Test
     public void hasPerson_personIsRemoved_returnsFalse() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         addressBook.addPerson(BOB);
         addressBook.removePerson(BOB);
         assertFalse(addressBook.hasPerson(BOB));
@@ -114,7 +114,7 @@ public class AddressBookTest {
 
     @Test
     public void hasGroup_groupIsRemoved_returnsFalse() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         addressBook.addGroup(PROJECT_2103T);
         addressBook.removeGroup(PROJECT_2103T);
         assertFalse(addressBook.hasGroup(PROJECT_2103T));
@@ -122,7 +122,7 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personIsUpdated_returnsTrue() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         addressBook.addPerson(ALICE);
         addressBook.updatePerson(ALICE, BOB);
         assertTrue(addressBook.hasPerson(BOB));
@@ -130,7 +130,7 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personIsUpdated_returnsFalse() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         addressBook.addPerson(ALICE);
         addressBook.updatePerson(ALICE, BOB);
         assertFalse(addressBook.hasPerson(ALICE));
@@ -138,7 +138,7 @@ public class AddressBookTest {
 
     @Test
     public void hasGroup_groupIsUpdated_returnsTrue() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
         assertTrue(addressBook.hasGroup(PROJECT_2103T));
@@ -146,7 +146,7 @@ public class AddressBookTest {
 
     @Test
     public void hasGroup_groupIsUpdated_returnsFalse() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         addressBook.addGroup(GROUP_2101);
         addressBook.updateGroup(GROUP_2101, PROJECT_2103T);
         assertFalse(addressBook.hasGroup(GROUP_2101));
@@ -154,7 +154,7 @@ public class AddressBookTest {
 
     @Test
     public void joinGroup_personInGroup_returnsTrue() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         Person person = new PersonBuilder().withName("Derek").build();
         Group group = new GroupBuilder().withTitle("class").build();
         addressBook.addPerson(person);
@@ -166,7 +166,7 @@ public class AddressBookTest {
 
     @Test
     public void joinGroup_groupHasPerson_returnsTrue() {
-        AddressBook addressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBook();
         Person person = new PersonBuilder().withName("Derek").build();
         Group group = new GroupBuilder().withTitle("class").build();
         addressBook.addPerson(person);
@@ -218,15 +218,15 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyMeetingBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class MeetingBookStub implements ReadOnlyMeetingBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Group> groups = FXCollections.observableArrayList();
 
         private final ObservableList<Tag> groupTags = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons, Collection<Tag> groups) {
+        MeetingBookStub(Collection<Person> persons, Collection<Tag> groups) {
             this.persons.setAll(persons);
             this.groupTags.setAll(groups);
         }

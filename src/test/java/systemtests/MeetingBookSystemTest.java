@@ -33,16 +33,16 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.AddressBook;
+import seedu.address.model.MeetingBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalAddressBook;
+import seedu.address.testutil.TypicalMeetingBook;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * A system test class for MeetingBook, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
-public abstract class AddressBookSystemTest {
+public abstract class MeetingBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -77,8 +77,8 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
-    protected AddressBook getInitialData() {
-        return TypicalAddressBook.getTypicalAddressBook();
+    protected MeetingBook getInitialData() {
+        return TypicalMeetingBook.getTypicalAddressBook();
     }
 
     /**
@@ -170,7 +170,7 @@ public abstract class AddressBookSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new MeetingBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
     }
 
     /**

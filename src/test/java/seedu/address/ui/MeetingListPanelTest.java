@@ -23,7 +23,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.group.Group;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableMeetingBook;
 
 public class MeetingListPanelTest extends GuiUnitTest {
     private static final ObservableList<Meeting> TYPICAL_MEETINGS;
@@ -86,8 +86,8 @@ public class MeetingListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Meeting> createBackingList(int meetingCount) throws Exception {
         Path xmlFile = createXmlFileWithMeetings(meetingCount);
-        XmlSerializableAddressBook xmlAddressBook =
-            XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        XmlSerializableMeetingBook xmlAddressBook =
+            XmlUtil.getDataFromFile(xmlFile, XmlSerializableMeetingBook.class);
         List<Meeting> meetingList = xmlAddressBook.toModelType().getGroupList()
             .stream().map(Group::getMeeting).collect(Collectors.toList());
         return FXCollections.observableArrayList(meetingList);

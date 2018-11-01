@@ -3,16 +3,16 @@ package seedu.address.commons.events.model;
 import java.nio.file.Path;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingBook;
 
 
-/** Indicates the AddressBook in the model has triggered for export*/
-public class AddressBookExportEvent extends BaseEvent {
+/** Indicates the MeetingBook in the model has triggered for export*/
+public class MeetingBookExportEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyMeetingBook data;
     public final Path path;
 
-    public AddressBookExportEvent(ReadOnlyAddressBook data, Path path) {
+    public MeetingBookExportEvent(ReadOnlyMeetingBook data, Path path) {
         this.data = data;
         this.path = path;
     }

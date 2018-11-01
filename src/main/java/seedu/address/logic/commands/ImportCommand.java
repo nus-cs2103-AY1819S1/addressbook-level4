@@ -12,8 +12,8 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.model.ReadOnlyMeetingBook;
+import seedu.address.storage.XmlMeetingBookStorage;
 
 /**
  * Import MeetingBook XML Files into MeetingBook
@@ -35,7 +35,7 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_FAIL_DATA = "Data file not in the correct format. ";
     public static final String MESSAGE_FAIL_NOFILE = "File does not exists.";
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlMeetingBookStorage.class);
 
     private boolean overwrite;
 
@@ -54,8 +54,8 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        XmlAddressBookStorage importedXmlAddressStorage = new XmlAddressBookStorage(importPath);
-        Optional<ReadOnlyAddressBook> importedAddressBook;
+        XmlMeetingBookStorage importedXmlAddressStorage = new XmlMeetingBookStorage(importPath);
+        Optional<ReadOnlyMeetingBook> importedAddressBook;
         try {
             importedAddressBook = importedXmlAddressStorage.readAddressBook();
             if (!importedAddressBook.isPresent()) {

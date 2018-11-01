@@ -54,11 +54,11 @@ import seedu.address.testutil.GroupUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class MeetingBookParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final MeetingBookParser parser = new MeetingBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

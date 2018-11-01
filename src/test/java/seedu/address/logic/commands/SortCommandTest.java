@@ -17,13 +17,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.util.PersonPropertyComparator;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.MeetingBookBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SortCommand}.
  */
 class SortCommandTest {
-    private Model model = new ModelManager(new AddressBookBuilder().withPerson(CARL).withPerson(BENSON)
+    private Model model = new ModelManager(new MeetingBookBuilder().withPerson(CARL).withPerson(BENSON)
             .withPerson(ALICE).build(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 

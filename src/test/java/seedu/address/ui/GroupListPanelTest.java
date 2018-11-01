@@ -22,7 +22,7 @@ import seedu.address.commons.events.ui.JumpToGroupListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.group.Group;
-import seedu.address.storage.XmlSerializableAddressBook;
+import seedu.address.storage.XmlSerializableMeetingBook;
 
 public class GroupListPanelTest extends GuiUnitTest {
     private static final ObservableList<Group> TYPICAL_GROUPS =
@@ -94,8 +94,8 @@ public class GroupListPanelTest extends GuiUnitTest {
      */
     private ObservableList<Group> createBackingList(int groupCount) throws Exception {
         Path xmlFile = createXmlFileWithGroups(groupCount);
-        XmlSerializableAddressBook xmlAddressBook =
-            XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        XmlSerializableMeetingBook xmlAddressBook =
+            XmlUtil.getDataFromFile(xmlFile, XmlSerializableMeetingBook.class);
         return FXCollections.observableArrayList(xmlAddressBook.toModelType().getGroupList());
     }
 

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -15,7 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.storage.XmlMeetingBookStorage;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
@@ -37,7 +37,7 @@ public class ImportCommandTest {
     @Test
     public void execute_import_success() throws IOException, DataConversionException {
         ImportCommand importCommand = new ImportCommand(VALID_FILE);
-        XmlAddressBookStorage expectedStorage = new XmlAddressBookStorage(VALID_FILE);
+        XmlMeetingBookStorage expectedStorage = new XmlMeetingBookStorage(VALID_FILE);
         expectedModel.importAddressBook(expectedStorage.readAddressBook().get(), false);
         expectedModel.commitAddressBook();
         assertCommandSuccess(importCommand, model, commandHistory,

@@ -36,12 +36,12 @@ public interface Model {
     /**
      * Clears existing backing model and replaces with the provided new data.
      */
-    void resetData(ReadOnlyAddressBook newData);
+    void resetData(ReadOnlyMeetingBook newData);
 
     /**
-     * Returns the AddressBook
+     * Returns the MeetingBook
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyMeetingBook getAddressBook();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
@@ -93,7 +93,7 @@ public interface Model {
 
     /**
      * Join a {@code person} into a {@code group}.
-     * Both person and group must exist in the {@code AddressBook}.
+     * Both person and group must exist in the {@code MeetingBook}.
      *
      */
     void joinGroup(Person person, Group group);
@@ -211,7 +211,7 @@ public interface Model {
     /**
      * Import the current address book.
      */
-    void importAddressBook(ReadOnlyAddressBook importAddressBook, boolean overwrite);
+    void importAddressBook(ReadOnlyMeetingBook importAddressBook, boolean overwrite);
 
     /**
      * Change User Preferences.

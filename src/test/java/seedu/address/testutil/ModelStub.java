@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
@@ -25,12 +25,12 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyMeetingBook newData) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyMeetingBook getAddressBook() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -175,7 +175,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void importAddressBook(ReadOnlyAddressBook importAddressBook, boolean overwrite) {
+    public void importAddressBook(ReadOnlyMeetingBook importAddressBook, boolean overwrite) {
         throw new AssertionError("This method should not be called.");
     }
 

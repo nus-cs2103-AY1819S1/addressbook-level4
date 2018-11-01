@@ -318,7 +318,7 @@ Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
 
 // tag::addgroup/deletegroup[]
 === AddGroup and DeleteGroup feature
-The AddGroup and DeleteGroup commands modify the `UniqueGroupList` in the `versionedAddressBook`.
+The AddGroup and DeleteGroup commands modify the `UniqueGroupList` in the `versionedMeetingBook`.
 This section shows how the addGroup and deleteGroup commands are implemented.
 
 ==== `addGroup` command usage
@@ -349,14 +349,14 @@ Example: `deleteGroup n/CS2101`: removes the existing group with title 'CS2101' 
 image::DeleteGroupCommand.png[width="350"]
 
 ==== Implementation of `addGroup` and `deleteGroup` commands
-The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups
+The `versionedMeetingBook` maintains a `UniqueGroupList` to keep track of all groups
 that exist in this MeetingBook. The commands thus modify and update this list of groups through `ModelManager`.
 // end::addgroup/deletegroup[]
 
 // tag::join/leave[]
 === Join and Leave feature
 The Join and Leave commands modify the relationship between groups existed in the `UniqueGroupList` and
-people in the `UniquePersonList` maintained by `versionedAddressBook. This section provides description of the usage
+people in the `UniquePersonList` maintained by `versionedMeetingBook. This section provides description of the usage
 and implementation of these commands.
 
 ==== `join` command usage
@@ -390,7 +390,7 @@ Example: `leave n/Ben g/CS2103T`: removes the person `Ben` from the group `CS210
 image::LeaveCommand.png[width="500"]
 
 ==== Implementation of `join` and `leave` commands
-The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups that exist in this MeetingBook.
+The `versionedMeetingBook` maintains a `UniqueGroupList` to keep track of all groups that exist in this MeetingBook.
 It also maintains a `UniquePersonList` to keep track of all people that exist in this MeetingBook.
 The commands thus modify and update a pair of person and group, as specified by user input, in their respective list
 through `ModelManager`.
@@ -507,7 +507,7 @@ image::addressbookObject.png[width="350"]
 
 *Enhancements:*
 
-* `versionedAddressBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
+* `versionedMeetingBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
 * `Group` can be created or removed from the MeetingBook.
 * `Meeting` can be scheduled or cancelled from the MeetingBook.
 * When a `Group` is removed from the MeetingBook, all members will be removed from this group.
@@ -566,8 +566,8 @@ Example: `find mary john`: This command will filter the displayed list such that
 `FilteredList<Person>`. +
 
 Illustrated in the figure below, `sortedPersons` list wraps the `filteredPersons` list and
-`filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedAddressBook`.
-`persons` list in `versionedAddressBook` contains all the persons stored in the MeetingBook.
+`filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedMeetingBook`.
+`persons` list in `versionedMeetingBook` contains all the persons stored in the MeetingBook.
 
 image::sortedList-filteredList-persons.png[width="400"]
 

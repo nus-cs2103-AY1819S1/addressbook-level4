@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.MeetingBook;
+import seedu.address.model.ReadOnlyMeetingBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
@@ -67,8 +67,8 @@ public class ModelStubWithSingleGroup extends ModelStub {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return new AddressBook();
+    public ReadOnlyMeetingBook getAddressBook() {
+        return new MeetingBook();
     }
 
     @Override

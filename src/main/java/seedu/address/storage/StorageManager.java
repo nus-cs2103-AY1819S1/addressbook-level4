@@ -9,27 +9,27 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.AddressBookExportEvent;
+import seedu.address.commons.events.model.MeetingBookChangedEvent;
+import seedu.address.commons.events.model.MeetingBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyMeetingBook;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of MeetingBook data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private MeetingBookStorage meetingBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(MeetingBookStorage meetingBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.meetingBookStorage = meetingBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -52,45 +52,45 @@ public class StorageManager extends ComponentManager implements Storage {
 
 
 
-    // ================ AddressBook methods ==============================
+    // ================ MeetingBook methods ==============================
 
     @Override
     public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+        return meetingBookStorage.getAddressBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyMeetingBook> readAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(meetingBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyMeetingBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return meetingBookStorage.readAddressBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveAddressBook(ReadOnlyMeetingBook addressBook) throws IOException {
+        saveAddressBook(addressBook, meetingBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyMeetingBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        meetingBookStorage.saveAddressBook(addressBook, filePath);
     }
 
     @Override
     public void deleteAddressBook(Path filePath) throws IOException {
         logger.fine("Deleting addressbook at: " + filePath);
-        addressBookStorage.deleteAddressBook(filePath);
+        meetingBookStorage.deleteAddressBook(filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleAddressBookChangedEvent(MeetingBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);
@@ -101,7 +101,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookExportEvent(AddressBookExportEvent event) {
+    public void handleAddressBookExportEvent(MeetingBookExportEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Exporting data and saving to file"));
         try {
             saveAddressBook(event.data, event.path);

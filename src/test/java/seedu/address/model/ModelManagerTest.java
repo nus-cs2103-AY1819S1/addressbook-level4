@@ -24,7 +24,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.address.model.shared.Title;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.MeetingBookBuilder;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -207,8 +207,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        MeetingBook addressBook = new MeetingBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        MeetingBook differentAddressBook = new MeetingBook();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true

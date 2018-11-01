@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalMeetingBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
@@ -18,11 +18,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.MeetingBook;
+import seedu.address.model.ReadOnlyMeetingBook;
 
-public class XmlAddressBookStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAddressBookStorageTest");
+public class XmlMeetingBookStorageTest {
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlMeetingBookStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -36,8 +36,8 @@ public class XmlAddressBookStorageTest {
         readAddressBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyMeetingBook> readAddressBook(String filePath) throws Exception {
+        return new XmlMeetingBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -77,26 +77,26 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        AddressBook original = getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        MeetingBook original = getTypicalAddressBook();
+        XmlMeetingBookStorage xmlAddressBookStorage = new XmlMeetingBookStorage(filePath);
 
         //Save in new file and read back
         xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        ReadOnlyMeetingBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        assertEquals(original, new MeetingBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(BENSON);
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new MeetingBook(readBack));
 
         //Save and read without specifying file path
         original.addPerson(IDA);
         xmlAddressBookStorage.saveAddressBook(original); //file path not specified
         readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        assertEquals(original, new MeetingBook(readBack));
 
     }
 
@@ -109,9 +109,9 @@ public class XmlAddressBookStorageTest {
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+    private void saveAddressBook(ReadOnlyMeetingBook addressBook, String filePath) {
         try {
-            new XmlAddressBookStorage(Paths.get(filePath))
+            new XmlMeetingBookStorage(Paths.get(filePath))
                     .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
@@ -123,7 +123,7 @@ public class XmlAddressBookStorageTest {
      */
     private void deleteAddressBook(String filePath) {
         try {
-            new XmlAddressBookStorage(Paths.get(filePath))
+            new XmlMeetingBookStorage(Paths.get(filePath))
                     .deleteAddressBook(addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error deleting to the file.", ioe);
@@ -133,14 +133,14 @@ public class XmlAddressBookStorageTest {
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveAddressBook(new AddressBook(), null);
+        saveAddressBook(new MeetingBook(), null);
     }
 
     @Test
     public void deleteAddressBook_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        AddressBook original = getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        MeetingBook original = getTypicalAddressBook();
+        XmlMeetingBookStorage xmlAddressBookStorage = new XmlMeetingBookStorage(filePath);
         xmlAddressBookStorage.saveAddressBook(original, filePath);
 
         xmlAddressBookStorage.deleteAddressBook(filePath);
@@ -157,7 +157,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void getAddressBookFilePath() {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlMeetingBookStorage xmlAddressBookStorage = new XmlMeetingBookStorage(filePath);
         assertEquals(xmlAddressBookStorage.getAddressBookFilePath(), filePath);
     }
 }

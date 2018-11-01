@@ -14,8 +14,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.MeetingBook;
+import seedu.address.model.ReadOnlyMeetingBook;
 import seedu.address.model.group.Group;
 import seedu.address.testutil.GroupBuilder;
 import seedu.address.testutil.ModelStub;
@@ -127,8 +127,8 @@ public class AddGroupCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyMeetingBook getAddressBook() {
+            return new MeetingBook();
         }
     }
 }

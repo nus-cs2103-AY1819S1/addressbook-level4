@@ -3,20 +3,20 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalGroups.getTypicalGroups;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.MeetingBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
- * A utility class that returns a typical {@code AddressBook} object to be used in tests.
+ * A utility class that returns a typical {@code MeetingBook} object to be used in tests.
  * {@author jeffreyooi}
  */
-public class TypicalAddressBook {
+public class TypicalMeetingBook {
     /**
-     * Returns an {@code AddressBook} with all the typical persons and groups.
+     * Returns an {@code MeetingBook} with all the typical persons and groups.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static MeetingBook getTypicalAddressBook() {
+        MeetingBook ab = new MeetingBook();
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }

@@ -8,16 +8,16 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.MeetingBook;
+import seedu.address.model.ReadOnlyMeetingBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable MeetingBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook {
+public class XmlSerializableMeetingBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_GROUP = "Groups list contains duplicate group(s).";
@@ -29,10 +29,10 @@ public class XmlSerializableAddressBook {
     private List<XmlAdaptedGroup> groups;
 
     /**
-     * Creates an empty XmlSerializableAddressBook.
+     * Creates an empty XmlSerializableMeetingBook.
      * This empty constructor is required for marshalling.
      */
-    public XmlSerializableAddressBook() {
+    public XmlSerializableMeetingBook() {
         persons = new ArrayList<>();
         groups = new ArrayList<>();
     }
@@ -40,20 +40,20 @@ public class XmlSerializableAddressBook {
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+    public XmlSerializableMeetingBook(ReadOnlyMeetingBook src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         groups.addAll(src.getGroupList().stream().map(XmlAdaptedGroup::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
+     * Converts this addressbook into the model's {@code MeetingBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedPerson}.
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
+    public MeetingBook toModelType() throws IllegalValueException {
+        MeetingBook addressBook = new MeetingBook();
         for (XmlAdaptedPerson p : persons) {
             Person person = p.toModelType();
             if (addressBook.hasPerson(person)) {
@@ -77,10 +77,10 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-        if (!(other instanceof XmlSerializableAddressBook)) {
+        if (!(other instanceof XmlSerializableMeetingBook)) {
             return false;
         }
-        return (persons.equals(((XmlSerializableAddressBook) other).persons)
-                && groups.equals(((XmlSerializableAddressBook) other).groups));
+        return (persons.equals(((XmlSerializableMeetingBook) other).persons)
+                && groups.equals(((XmlSerializableMeetingBook) other).groups));
     }
 }

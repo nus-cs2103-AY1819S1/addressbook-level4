@@ -24,7 +24,7 @@ import seedu.address.model.shared.Title;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson, .isSameGroup comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class MeetingBook implements ReadOnlyMeetingBook {
 
     private final UniquePersonList persons;
 
@@ -47,12 +47,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     // @@author
 
-    public AddressBook() {}
+    public MeetingBook() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an MeetingBook using the Persons in the {@code toBeCopied}
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public MeetingBook(ReadOnlyMeetingBook toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -80,9 +80,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     // @@author
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code MeetingBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyMeetingBook newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
@@ -180,7 +180,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
+     * Removes {@code key} from this {@code MeetingBook}.
      * {@code key} must exist in the address book.
      */
     public void removePerson(Person key) {
@@ -190,7 +190,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code group} from this {@code AddressBook}.
+     * Removes {@code group} from this {@code MeetingBook}.
      * {@code group} must exist in the address book.
      *
      */
@@ -204,7 +204,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Join a person in the {@code AddressBook} to an existing {@code group} in the {@code AddressBook}.
+     * Join a person in the {@code MeetingBook} to an existing {@code group} in the {@code MeetingBook}.
      */
     public void joinGroup(Person person, Group group) {
         requireAllNonNull(person, group);
@@ -220,7 +220,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Remove an existing member from a existing {@code group} in {@code AddressBook}.
+     * Remove an existing member from a existing {@code group} in {@code MeetingBook}.
      */
     public void leaveGroup(Person person, Group group) {
         requireAllNonNull(person, group);
@@ -287,13 +287,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Merge another MeetingBook into current MeetingBook.
      *
      */
-    public void merge(ReadOnlyAddressBook imported, boolean overwrite) {
+    public void merge(ReadOnlyMeetingBook imported, boolean overwrite) {
         // If Both book contains same entries
         if (equals(imported)) {
             return;
         }
-        if (imported instanceof AddressBook) {
-            AddressBook importedBook = (AddressBook) imported;
+        if (imported instanceof MeetingBook) {
+            MeetingBook importedBook = (MeetingBook) imported;
             Iterator<Person> personItr = importedBook.persons.iterator();
             while (personItr.hasNext()) {
                 Person importPerson = personItr.next();
@@ -327,9 +327,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons))
-                && groups.equals(((AddressBook) other).groups);
+                || (other instanceof MeetingBook // instanceof handles nulls
+                && persons.equals(((MeetingBook) other).persons))
+                && groups.equals(((MeetingBook) other).groups);
     }
 
     @Override

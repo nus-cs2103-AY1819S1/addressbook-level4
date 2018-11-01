@@ -13,8 +13,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.AddressBookExportEvent;
+import seedu.address.commons.events.model.MeetingBookChangedEvent;
+import seedu.address.commons.events.model.MeetingBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
@@ -32,7 +32,7 @@ import seedu.address.model.shared.Title;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedMeetingBook versionedMeetingBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Group> filteredGroups;
     private final FilteredList<Meeting> filteredMeetings;
@@ -42,55 +42,55 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyMeetingBook addressBook, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
-        filteredGroups = new FilteredList<>(versionedAddressBook.getGroupList());
-        filteredMeetings = new FilteredList<>(versionedAddressBook.getMeetingList());
+        versionedMeetingBook = new VersionedMeetingBook(addressBook);
+        filteredPersons = new FilteredList<>(versionedMeetingBook.getPersonList());
+        filteredGroups = new FilteredList<>(versionedMeetingBook.getGroupList());
+        filteredMeetings = new FilteredList<>(versionedMeetingBook.getMeetingList());
         this.userPrefs = userPrefs;
         sortedPersons = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new MeetingBook(), new UserPrefs());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        versionedAddressBook.resetData(newData);
+    public void resetData(ReadOnlyMeetingBook newData) {
+        versionedMeetingBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyMeetingBook getAddressBook() {
+        return versionedMeetingBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+        raise(new MeetingBookChangedEvent(versionedMeetingBook));
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
+        return versionedMeetingBook.hasPerson(person);
     }
 
     @Override
     public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
+        versionedMeetingBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
+        versionedMeetingBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
@@ -99,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
+        versionedMeetingBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
 
@@ -107,7 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireAllNonNull(target, editedGroup);
 
-        versionedAddressBook.updateGroup(target, editedGroup);
+        versionedMeetingBook.updateGroup(target, editedGroup);
         indicateAddressBookChanged();
     }
 
@@ -118,28 +118,28 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addGroup(Group group) {
         requireNonNull(group);
-        versionedAddressBook.addGroup(group);
+        versionedMeetingBook.addGroup(group);
         indicateAddressBookChanged();
     }
 
     @Override
     public void removeGroup(Group group) {
         requireNonNull(group);
-        versionedAddressBook.removeGroup(group);
+        versionedMeetingBook.removeGroup(group);
         indicateAddressBookChanged();
     }
 
     @Override
     public void joinGroup(Person person, Group group) {
         requireAllNonNull(person, group);
-        versionedAddressBook.joinGroup(person, group);
+        versionedMeetingBook.joinGroup(person, group);
         indicateAddressBookChanged();
     }
 
     @Override
     public void leaveGroup(Person person, Group group) {
         requireAllNonNull(person, group);
-        versionedAddressBook.leaveGroup(person, group);
+        versionedMeetingBook.leaveGroup(person, group);
         indicateAddressBookChanged();
     }
 
@@ -148,23 +148,23 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author NyxF4ll
     @Override
     public boolean hasGroup(Group group) {
-        return versionedAddressBook.getGroupList().stream().anyMatch(group::isSameGroup);
+        return versionedMeetingBook.getGroupList().stream().anyMatch(group::isSameGroup);
     }
 
     @Override
     public ObservableList<Group> getGroupList() {
-        return versionedAddressBook.getGroupList();
+        return versionedMeetingBook.getGroupList();
     }
     // @@author
 
     @Override
     public Group getGroupByTitle(Title title) {
-        return versionedAddressBook.getGroupByTitle(title);
+        return versionedMeetingBook.getGroupByTitle(title);
     }
 
     @Override
     public Person getPersonByName(Name name) {
-        return versionedAddressBook.getPersonByName(name);
+        return versionedMeetingBook.getPersonByName(name);
     }
 
     //=========== Meetings ===================================================================================
@@ -172,13 +172,13 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author NyxF4ll
     @Override
     public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
-        versionedAddressBook.setMeeting(group, meeting);
+        versionedMeetingBook.setMeeting(group, meeting);
         indicateAddressBookChanged();
     }
 
     @Override
     public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
-        versionedAddressBook.cancelMeeting(group);
+        versionedMeetingBook.cancelMeeting(group);
         indicateAddressBookChanged();
     }
     // @@author
@@ -187,7 +187,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedMeetingBook}
      */
     @Override
     @Deprecated // Use getSortedPersonList() to obtain the list for display.
@@ -242,36 +242,36 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+        return versionedMeetingBook.canUndo();
     }
 
     @Override
     public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+        return versionedMeetingBook.canRedo();
     }
 
     @Override
     public void undoAddressBook() {
-        versionedAddressBook.undo();
+        versionedMeetingBook.undo();
         indicateAddressBookChanged();
     }
 
     @Override
     public void redoAddressBook() {
-        versionedAddressBook.redo();
+        versionedMeetingBook.redo();
         indicateAddressBookChanged();
     }
 
     @Override
     public void commitAddressBook() {
-        versionedAddressBook.commit();
+        versionedMeetingBook.commit();
     }
 
     // ================= Export/Import =======================================================================
 
     @Override
     public void exportAddressBook(Path filepath) {
-        raise(new AddressBookExportEvent(versionedAddressBook, filepath));
+        raise(new MeetingBookExportEvent(versionedMeetingBook, filepath));
     }
 
     @Override
@@ -283,12 +283,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void changeUserPrefs(Path filepath) {
         Path currentPath = userPrefs.getAddressBookFilePath();
         userPrefs.setAddressBookFilePath(filepath);
-        raise(new UserPrefsChangeEvent(userPrefs, versionedAddressBook, currentPath, filepath));
+        raise(new UserPrefsChangeEvent(userPrefs, versionedMeetingBook, currentPath, filepath));
     }
 
     @Override
-    public void importAddressBook(ReadOnlyAddressBook importedAddressBook, boolean overwrite) {
-        versionedAddressBook.merge(importedAddressBook, overwrite);
+    public void importAddressBook(ReadOnlyMeetingBook importedAddressBook, boolean overwrite) {
+        versionedMeetingBook.merge(importedAddressBook, overwrite);
         indicateAddressBookChanged();
     }
 
@@ -306,7 +306,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedMeetingBook.equals(other.versionedMeetingBook)
                 && sortedPersons.equals(other.sortedPersons);
     }
 
