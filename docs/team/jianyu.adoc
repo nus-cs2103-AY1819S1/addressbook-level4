@@ -13,7 +13,7 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
 
 == Summary of contributions
 
-The following section shows my code contribution for OASIS. 
+The following section shows my code contribution for OASIS.
 
 === Major Enhancement: Added ability to control the commands each employee can perform through usage of Permissions.
 
@@ -47,7 +47,8 @@ give them a method to check it easily.
 
 === Minor Enhancement: Added Command Auto-Complete feature
 
-** What it does: When user type in the command box, OASIS will predict the command that user is trying to execute, and auto complete the command.
+** What it does: When user type in the command box, OASIS will predict what commands the user is going to run, and display a drop down list containing all suggestions.
+**Justification: Users might not be able to memorize every commands. Having this enhancement will make it easier for them to find the commands they want to execute.
 
 === Others
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
