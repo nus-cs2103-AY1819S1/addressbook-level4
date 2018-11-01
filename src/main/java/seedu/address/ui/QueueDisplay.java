@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -30,7 +31,7 @@ public class QueueDisplay extends UiPart<Region> {
 
     private static final String FXML = "QueueDisplay.fxml";
 
-    private static int counter = 0;
+    private static WebViewScript webViewScript;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -39,6 +40,9 @@ public class QueueDisplay extends UiPart<Region> {
 
     public QueueDisplay() {
         super(FXML);
+
+        // Init web view script runner
+        this.webViewScript = new WebViewScriptManager(this.display);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
@@ -49,27 +53,6 @@ public class QueueDisplay extends UiPart<Region> {
 
     public void loadPage(String url) {
         Platform.runLater(() -> display.getEngine().load(url));
-    }
-
-    /**
-     * This function runs the executes some javascript in the html file.
-     * @param script script to run
-     * @param scriptCounter Ensure that only the script called is ran using an index counter.
-     */
-    private void runScript(String script, int scriptCounter) {
-        display.getEngine().getLoadWorker().stateProperty().addListener((
-                ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
-            if (newValue != Worker.State.SUCCEEDED) {
-                // Browser not loaded, return.
-                return;
-            }
-            if (counter != scriptCounter) {
-                return;
-            }
-            System.out.println("Script to be run: " + script);
-            Platform.runLater(() -> display.getEngine().executeScript(script));
-            counter++;
-        });
     }
 
     /**
@@ -91,7 +74,7 @@ public class QueueDisplay extends UiPart<Region> {
         List<ServedPatient> servedPatients = servedPatientList == null ? null : servedPatientList.getPatientsAsList();
 
         String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
-        runScript(getScriptForQueueDisplay(patientQueueList, currentPatientString, servedPatients), counter);
+        this.webViewScript.runScript(getScriptForQueueDisplay(patientQueueList, currentPatientString, servedPatients));
         loadPage(queueDisplayPage);
     }
 
@@ -100,41 +83,24 @@ public class QueueDisplay extends UiPart<Region> {
      */
     private String getScriptForQueueDisplay(List<Patient> patientQueueList, String currentPatientString,
                                             List<ServedPatient> servedPatientList) {
-        String script = "loadQueueDisplay(";
-        for (int index = 0; index < 6; index++) {
-            try {
-                script += "'";
-                script += patientQueueList.get(index).getIcNumber().value.substring(5, 9);
-            } catch (IndexOutOfBoundsException ioobe) {
-                script += "empty";
-            } catch (NullPointerException npe) {
-                script += "empty";
-            } finally {
-                script += "', ";
-            }
-        }
-        script = script.substring(0, script.length() - 2);
+        List<String> patientQueueIcList = patientQueueList == null ? null : patientQueueList
+                .stream()
+                .map(patient -> patient.getIcNumber().value.substring(5, 9))
+                .collect(Collectors.toList());
 
+        List<String> servedPatientIcList = servedPatientList == null ? null : servedPatientList
+                .stream()
+                .map(servedPatient -> servedPatient.getIcNumber().value.substring(5, 9))
+                .collect(Collectors.toList());
+
+        String script = "loadQueueDisplay(";
+        script += convertListToScriptArgs(patientQueueIcList);
         script += ", '";
         script += currentPatientString;
         script += "', ";
-
-        for (int index = 0; index < 6; index++) {
-            try {
-                script += "'";
-                script += servedPatientList.get(index).getIcNumber().value.substring(5, 9);
-            } catch (IndexOutOfBoundsException ioobe) {
-                script += "empty";
-            } catch (NullPointerException npe) {
-                script += "empty";
-            } finally {
-                script += "', ";
-            }
-        }
-        script = script.substring(0, script.length() - 2);
-
+        script += convertListToScriptArgs(servedPatientIcList);
         script += ");";
-        System.out.println(script);
+
         return script;
     }
 
@@ -149,5 +115,28 @@ public class QueueDisplay extends UiPart<Region> {
     private void handleQueueUpdatedEvent(QueueUpdatedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadQueueDisplay(event.getPatientQueue(), event.getServedPatientList(), event.getCurrentPatient());
+    }
+
+    /**
+     * Converts a list of strings into javascript function args.
+     */
+    private String convertListToScriptArgs(List<String> list) {
+        String script = "";
+        for (int index = 0; index < 6; index++) {
+            try {
+                script += "'";
+                script += list.get(index);
+            } catch (IndexOutOfBoundsException ioobe) {
+                script += "empty";
+            } catch (NullPointerException npe) {
+                script += "empty";
+            } finally {
+                script += "', ";
+            }
+        }
+
+        assert(script.length() >= 2);
+
+        return script.substring(0, script.length() - 2);
     }
 }
