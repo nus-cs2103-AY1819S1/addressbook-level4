@@ -21,7 +21,7 @@ My role as a developer for SocialCare is to implement *record management functio
 * Update volunteering records for volunteers
 * Delete volunteering records of volunteer
 
-== 2. Summary of contributions
+== 2. Summary of Contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.

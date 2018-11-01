@@ -189,10 +189,10 @@ Resets the application to a clean state. The panel is also updated to reflect th
 
 
 .Before clearing entries
-image::command_clear_before.png[clear bef, 800]
+image::command_clear_before.png[clear bef, 400]
 
 .After clearing entries
-image::command_clear_after.png[clear aft, 800]
+image::command_clear_after.png[clear aft, 400]
 
 The figures above shows the before and after state of clearing the entries of the application.
 //end::command-clear[]
@@ -560,7 +560,7 @@ The figure above shows the 'event' panel that you will see before executing the 
 The circled numbers indicate the EVENT_INDEX that you have to enter.
 
 .Managing the selected event
-image::command_manage_view.png[manage, 800]
+image::command_manage_view.png[manage, 400]
 
 The figure above shows the screen you will see after executing the `manage` command successfully.
 
@@ -591,7 +591,7 @@ The circled numbers from the figure above indicate the VOLUNTEER_INDEX that you 
 Example(s):
 
 .Before adding a volunteer
-image::command_record_add.png[add command, 800]
+image::command_record_add.png[add command, 400]
 
 The figure above shows how the screen looks like before executing the commands below.
 
@@ -600,14 +600,14 @@ Adds a volunteer at index 1 to the event with 0 hours. +
 Expected display box is shown in the figure below.
 
 .Output of `add 1`
-image::command_record_add_after1.png[add command, 800]
+image::command_record_add_after1.png[add command, 400]
 
 * `add 1 h/5 r/Driver` +
 Adds a volunteer at index 1 to the event with 5 hours and remarks of 'Driver'. +
 Expected display box is shown in the figure below.
 
 .Output of `add 1 h/5 r/Driver`
-image::command_record_add_after2.png[add command, 800]
+image::command_record_add_after2.png[add command, 400]
 
 [[command-record-edit]]
 ==== Updating volunteer record: `edit`
@@ -622,7 +622,7 @@ Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 ****
 
 .The VOLUNTEER_INDEX
-image::command_record_edit_volunteerIndex.png[volunteer index, 800]
+image::command_record_edit_volunteerIndex.png[volunteer index, 400]
 
 The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
 
@@ -632,10 +632,10 @@ Example(s):
 Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
 
 .Before updating the volunteer record
-image::command_record_edit.png[edit command, 800]
+image::command_record_edit.png[edit command, 400]
 
 .Output of `edit 2 h/5 r/Emcee`
-image::command_record_edit_after.png[edit command, 800]
+image::command_record_edit_after.png[edit command, 400]
 
 The figures above show the display box before and after editing a record.
 
@@ -651,7 +651,7 @@ Format: `delete VOLUNTEER_INDEX`
 ****
 
 .The VOLUNTEER_INDEX
-image::command_record_edit_volunteerIndex.png[delete record, 800]
+image::command_record_edit_volunteerIndex.png[delete record, 400]
 
 The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
 
@@ -662,10 +662,10 @@ Example(s):
 Deletes the volunteer record at index 1.
 
 .Before deleting the volunteer record
-image::command_record_edit_after.png[delete command, 800]
+image::command_record_edit_after.png[delete command, 400]
 
 .Output of `delete 1`
-image::command_record_delete.png[delete command, 800]
+image::command_record_delete.png[delete command, 400]
 
 The figures above show the display box before and after deleting a record.
 //end::command-record[]
