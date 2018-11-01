@@ -82,7 +82,8 @@ public class EventFormatUtil {
      *
      * @return Event   The local Event.
      */
-    public Event googleEventToLocalEventConverter(com.google.api.services.calendar.model.Event googleEvent) {
+    public Event googleEventToLocalEventConverter(
+            com.google.api.services.calendar.model.Event googleEvent) {
 
         DateTime start = googleEvent.getStart().getDateTime();
         if (start == null) {
@@ -166,6 +167,7 @@ public class EventFormatUtil {
                 break;
             default:
                 repeatType = RepeatType.NONE;
+                break;
             }
             switch (recurrenceText.length) {
             case 2:

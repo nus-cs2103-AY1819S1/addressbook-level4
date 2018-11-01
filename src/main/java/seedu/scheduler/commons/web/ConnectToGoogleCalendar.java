@@ -17,9 +17,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -197,7 +195,7 @@ public class ConnectToGoogleCalendar {
         String googleRecurringEventId = toAddEvent.getUuid()
                 .toString()
                 .replaceAll("-", "");
-        gEvent = gEvent.setICalUID(googleRecurringEventId);
+        com.google.api.services.calendar.model.Event gEvent2 = gEvent.setICalUID(googleRecurringEventId);
 
         String eventRepeatType = String.valueOf(toAddEvent.getRepeatType());
         seedu.scheduler.model.event.DateTime eventUntilDt = toAddEvent.getRepeatUntilDateTime();
@@ -216,7 +214,7 @@ public class ConnectToGoogleCalendar {
                 + ";UNTIL="
                 + eventUntilDate;
         //Google format:20110701T170000Z
-        gEvent.setRecurrence(Arrays.asList(commandMessage));
+        gEvent2.setRecurrence(Arrays.asList(commandMessage));
         return gEvent;
     }
 
@@ -416,7 +414,7 @@ public class ConnectToGoogleCalendar {
             return;
         } else {
             assert recurringEventId != null;
-            //Case: Delete All
+            //Case: Delete upcoming
             for (String eventId : eventIds) {
                 try {
                     service.events().delete("primary", eventId).execute();
@@ -510,7 +508,9 @@ public class ConnectToGoogleCalendar {
      * @param eventToEdit a local Event.
      * @param editedEvent an edited local Event.
      */
-    public void updateSingleGoogleEvent(Event eventToEdit, Event editedEvent, int instanceIndex, int totalInstance) {
+    public void updateSingleGoogleEvent(
+            Event eventToEdit, Event editedEvent,
+            int instanceIndex, int totalInstance) {
         assert eventToEdit != null;
         assert editedEvent != null;
         Calendar service = getCalendar();
@@ -556,7 +556,9 @@ public class ConnectToGoogleCalendar {
         }
 
         if (!isRepeatEvent) {
-            if (found) {
+            if (!found) {
+                //nothing
+            } else {
                 assert gEvent != null;
                 com.google.api.services.calendar.model.Event updatedgEvent = null;
                 com.google.api.services.calendar.model.Event event = null;
@@ -630,7 +632,9 @@ public class ConnectToGoogleCalendar {
      * @param eventToEdit a local Event.
      * @param editedEvent an edited local Event.
      */
-    public void updateAllGoogleEvent(Event eventToEdit, Event editedEvent, int instanceIndex, int totalInstance) {
+    public void updateAllGoogleEvent(
+            Event eventToEdit, Event editedEvent,
+            int instanceIndex, int totalInstance) {
         assert eventToEdit != null;
         assert editedEvent != null;
         Calendar service = getCalendar();
@@ -778,7 +782,8 @@ public class ConnectToGoogleCalendar {
      * @param eventToEdit a local Event.
      * @param editedEvent an edited local Event.
      */
-    public void updateUpcomingGoogleEvent(Event eventToEdit, Event editedEvent, int instanceIndex, int totalInstance) {
+    public void updateUpcomingGoogleEvent(Event eventToEdit, Event editedEvent,
+                                          int instanceIndex, int totalInstance) {
         assert eventToEdit != null;
         assert editedEvent != null;
         Calendar service = getCalendar();

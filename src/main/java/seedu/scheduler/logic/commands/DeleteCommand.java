@@ -67,7 +67,7 @@ public class DeleteCommand extends Command {
             } else { //will catch FLAG_ALL
                 connectToGoogleCalendar.deleteAllOnGoogleCal(eventToDelete, instanceIndex);
                 model.deleteRepeatingEvents(eventToDelete);
-                }
+            }
         }
 
         model.commitScheduler();
