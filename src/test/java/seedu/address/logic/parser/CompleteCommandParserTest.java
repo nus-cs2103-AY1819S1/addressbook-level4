@@ -47,9 +47,11 @@ public class CompleteCommandParserTest {
         assertParseFailure(parser, "l/friends", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             CompleteCommand.MESSAGE_USAGE));
 
-        // Mix of Label and Index symbols
+        // Mix of Label and Index symbols (check both permutation of symbols)
         assertParseFailure(parser, "1 l/friends", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             CompleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "l/friends 1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                CompleteCommand.MESSAGE_USAGE));
 
         // Multiple Index symbols
         assertParseFailure(parser, "1 2", String.format(MESSAGE_INVALID_COMMAND_FORMAT,

@@ -14,10 +14,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ListCommandParser implements Parser<ListCommand> {
 
     /** Used to get the "due before" filter option */
-    public static final Prefix PREFIX_DUE_BEFORE = new Prefix("b/");
+    public static final Prefix PREFIX_FILTER = new Prefix("f/");
+
     public static final String DUE_TODAY_OPTION = "today";
     public static final String DUE_END_OF_WEEK_OPTION = "week";
     public static final String DUE_END_OF_MONTH_OPTION = "month";
+    public static final String NOT_BLOCKED_OPTION = "doable";
 
     /**
      * Parses a string that represents a list filter option.
@@ -36,6 +38,8 @@ public class ListCommandParser implements Parser<ListCommand> {
                 return Optional.of(ListCommand.ListFilter.DUE_END_OF_WEEK);
             case DUE_END_OF_MONTH_OPTION:
                 return Optional.of(ListCommand.ListFilter.DUE_END_OF_MONTH);
+            case NOT_BLOCKED_OPTION:
+                return Optional.of(ListCommand.ListFilter.NOT_BLOCKED);
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
             }
@@ -52,9 +56,10 @@ public class ListCommandParser implements Parser<ListCommand> {
      */
     public ListCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DUE_BEFORE);
+                ArgumentTokenizer.tokenize(args, PREFIX_FILTER);
 
-        Optional<ListCommand.ListFilter> listFilter = parseListFilter(argMultimap.getValue(PREFIX_DUE_BEFORE));
+        Optional<ListCommand.ListFilter> listFilter =
+                parseListFilter(argMultimap.getValue(PREFIX_FILTER));
 
         return listFilter
                 .flatMap(filter -> Optional.of(new ListCommand(filter)))

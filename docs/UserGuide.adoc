@@ -102,7 +102,7 @@ Task <INDEX>, <TASK_NAME> was created.
 
 ==== Deleting a Task: `delete`
 [%hardbreaks]
-Deletes a task from the task manager
+Deletes a task and task dependencies to it from the task manager
 Format: `delete INDEX`
 +Example: `delete 1`
 -Example: `delete task`
@@ -140,19 +140,19 @@ Format: `complete INDEX` or `complete t/LABEL`
 -Example:
 `complete 1 l/urgent` (Behavior is not clear)
 
-_Note that completion via label is case-sensitive_
-
+* Completion via label is case-insensitive
 * You can complete multiple tasks at once through the use of the format complete `l/LABEL`
 * Note that the label needs to be valid. Validity for a label, `x`, is defined by the following
 condition:
 ** Has at least one task which is labelled `x` and status is not "COMPLETED"
+* On completion of tasks that leads to a level-up, the levelling up would be reported.
 
 ==== Listing Tasks: `list`
 [%hardbreaks]
 Shows a list of all tasks.
 
 Format:
-`list [b/DUE_BEFORE]`, where DUE_BEFORE must be any of the following:
+`list [f/FILTER]`, where FILTER must be any of the following:
 
  * `today`
 
@@ -160,14 +160,16 @@ Format:
 
  * `month`
 
+ * `doable`
+
 +Example:
 `list`
 
 +Example:
-`list b/today`
+`list f/today`
 
 -Example:
-`list b/alltime`
+`list f/alltime`
 ```
 1. finish math tutorial  DueDate: 01-10-18 1300 Description: before exam PriorityValue: 2 Status: IN PROGRESS
 2. Attack Food  DueDate: 01-10-18 Description: what did food do PriorityValue: 88 Status: FINISHED
@@ -184,7 +186,7 @@ Format: `find KEYWORD`
 [%hardbreaks]
 Displays the cumulative achievements of a user across a specified time period on the GUI.
 Such achievements include current level, xp earned and number of tasks completed across that time period.
-Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-time`, `today`, or `this week`.
+Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all-time`, `today`, or `this week`.
 
 [%hardbreaks]
 +Example: `achievements all-time`
@@ -192,6 +194,11 @@ Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-ti
 +Example: `achievements this week`
 -Example: `achievements all time`
 -Example: `achievements TODAY`
+
+[TIP]
+Today and this week's achievements assume users do not time travel. +
+Once a day/week is passed, its achievements cannot be retrieved again by `achievements today/this week` if the user ever
+comes back from the future.
 
 == FAQ
 
@@ -213,6 +220,8 @@ Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-ti
 
 ** *Delete* : `delete INDEX`
 
+** *Dependency* : `dependency INDEX_DEPENDANT INDEX_DEPENDEE`
+
 ** *Edit* : `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
 
 ** *Complete* : `complete INDEX` or `complete l/LABEL`
@@ -221,3 +230,8 @@ Format: `achievements TIME_SPAN`, a valid TIME_SPAN may take the vale of `all-ti
 
 ** *Find* : `find KEYWORD`
 ** *Achievements* : `achievements TIME_SPAN`
+
+== Features to be included by v2.0
+* `Complete` displays a organic random congratulatory message upon task completion.
+** Current implementation displays a generic standard congratulatory message/message of positive affirmation.
+* Completed Tasks should be automatically hidden from view.
