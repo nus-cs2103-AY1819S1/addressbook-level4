@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
@@ -33,10 +34,10 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),
-            new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(),
-            new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(),
+            getTypicalArchiveList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(),
+            getTypicalArchiveList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before

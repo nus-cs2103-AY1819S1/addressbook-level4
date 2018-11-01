@@ -50,7 +50,7 @@ public class PersonCard extends UiPart<Region> {
         salary.setText(person.getSalary().value);
         email.setText(person.getEmail().value);
         address.setText(person.getAddress().value);
-        person.getProjects().forEach(proj -> project.getChildren().add(new Label(proj.projectName)));
+        person.getProjects().forEach(proj -> project.getChildren().add(new Label(proj.getProjectName())));
     }
 
     @Override

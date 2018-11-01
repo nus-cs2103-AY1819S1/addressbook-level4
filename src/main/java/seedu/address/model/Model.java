@@ -7,6 +7,7 @@ import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
+import seedu.address.model.project.Assignment;
 
 /**
  * The API of the Model component.
@@ -15,6 +16,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS = unused -> true;
+    Predicate<Assignment> PREDICATE_SHOW_ALL_ASSIGNMENTS = unused -> true;
     Predicate<LeaveApplicationWithEmployee> PREDICATE_SHOW_PENDING_LEAVEAPPLICATIONS =
         leaveApplication -> leaveApplication.getLeaveStatus().value.equals(StatusEnum.Status.PENDING);
 
@@ -23,6 +25,9 @@ public interface Model {
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+
+    /** Returns the AssignmentList */
+    ReadOnlyAssignmentList getAssignmentList();
 
     /** Returns the ArchiveList */
     ReadOnlyArchiveList getArchiveList();
@@ -114,6 +119,42 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /*---------------------------------------------------------------*/
+
+    /**
+     * Returns true if a assignment with the same identity as {@code assignment} exists in the address book.
+     */
+    boolean hasAssignment(Assignment assignment);
+
+    /**
+     * Deletes the given assignment.
+     * The assignment must exist in the address book.
+     */
+    void deleteAssignment(Assignment target);
+
+    /**
+     * Adds the given assignment.
+     * {@code assignment} must not already exist in the address book.
+     */
+    void addAssignment(Assignment assignment);
+
+    /**
+     * Replaces the given assignment {@code target} with {@code editedAssignment}.
+     * {@code target} must exist in the address book.
+     * The assignment identity of {@code editedAssignment} must not be the same as another existing
+     * assignment in the address book.
+     */
+    void updateAssignment(Assignment target, Assignment editedAssignment);
+
+    /** Returns an unmodifiable view of the filtered assignment list */
+    ObservableList<Assignment> getFilteredAssignmentList();
+
+    /**
+     * Updates the filter of the filtered assignment list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredAssignmentList(Predicate<Assignment> predicate);
 
     /**
      * Updates the address book to remove all undo and redo saved versions, as if it had been re-initalized.

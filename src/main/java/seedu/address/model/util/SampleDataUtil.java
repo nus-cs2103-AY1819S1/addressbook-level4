@@ -8,8 +8,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ArchiveList;
+import seedu.address.model.AssignmentList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveList;
+import seedu.address.model.ReadOnlyAssignmentList;
+import seedu.address.model.leaveapplication.Description;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -18,7 +21,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.person.Username;
+import seedu.address.model.project.Assignment;
 import seedu.address.model.project.Project;
+import seedu.address.model.project.ProjectName;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -66,6 +71,23 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
+    public static Assignment[] getSampleAssignments() {
+        return new Assignment[] {
+            new Assignment(new ProjectName("OASIS"), new Name("Amy Bee"),
+                    new Description("Project Management System.")),
+            new Assignment(new ProjectName("Falcon"), new Name("Bob Choo"),
+                    new Description("Home Security System."))
+        };
+    }
+
+    public static ReadOnlyAssignmentList getSampleAssignmentList() {
+        AssignmentList sampleAssignmentList = new AssignmentList();
+        for (Assignment sampleAssignment : getSampleAssignments()) {
+            sampleAssignmentList.addAssignment(sampleAssignment);
+        }
+        return sampleAssignmentList;
+    }
+
     public static ReadOnlyArchiveList getSampleArchiveList() {
         ArchiveList sampleAl = new ArchiveList();
         for (Person samplePerson : getSampleArchive()) {
@@ -73,6 +95,7 @@ public class SampleDataUtil {
         }
         return sampleAl;
     }
+
     /**
      * Returns a project set containing the list of strings given.
      */

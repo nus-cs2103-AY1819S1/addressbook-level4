@@ -15,6 +15,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path assignmentListFilePath = Paths.get("data", "assignmentlist.xml");
     private Password adminPassword;
     private Path archiveListFilePath = Paths.get("data", "archivelist.xml");
 
@@ -41,6 +42,14 @@ public class UserPrefs {
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getAssignmentListFilePath() {
+        return assignmentListFilePath;
+    }
+
+    public void setAssignmentListFilePath(Path assignmentListFilePath) {
+        this.assignmentListFilePath = assignmentListFilePath;
     }
 
     public Password getAdminPassword() {

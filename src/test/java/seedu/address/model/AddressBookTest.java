@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.project.Assignment;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -96,6 +97,7 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Assignment> assignments = FXCollections.observableArrayList();
         private final ObservableList<LeaveApplicationWithEmployee> leaveApplications =
                 FXCollections.observableArrayList();
 

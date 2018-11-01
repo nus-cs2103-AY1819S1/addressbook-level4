@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showLeaveApplicationAtIndex;
+import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -37,7 +38,8 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class LeaveRejectCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(),
+            getTypicalArchiveList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -53,7 +55,7 @@ public class LeaveRejectCommandTest {
         List<LeaveApplication> leaveApplications = originalPerson.getLeaveApplications();
         LeaveApplication leaveApplication = leaveApplications.get(0);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
         String originalUsername = originalPerson.getUsername().username;
         String originalPassword = originalPerson.getPassword().password;
@@ -80,7 +82,7 @@ public class LeaveRejectCommandTest {
         List<LeaveApplication> leaveApplications = originalPerson.getLeaveApplications();
         LeaveApplication leaveApplication = leaveApplications.get(0);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
         showLeaveApplicationAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
@@ -139,7 +141,7 @@ public class LeaveRejectCommandTest {
         Person editedPerson = new PersonBuilder(originalPerson).withUsername(originalUsername)
                 .withPassword(originalPassword).withLeaveApplications(leaveApplications).build();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(originalPerson, editedPerson);
         expectedModel.commitAddressBook();
