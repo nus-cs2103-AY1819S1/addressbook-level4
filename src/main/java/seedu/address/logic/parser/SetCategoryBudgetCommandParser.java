@@ -11,9 +11,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.budget.CategoryBudget;
 
 /**
- * Parses input arguments and creates a new AddCategoryBudgetCommandParser object
+ * Parses input arguments and creates a new SetCategoryBudgetCommandParser object
  */
-public class AddCategoryBudgetCommandParser implements Parser<SetCategoryBudgetCommand> {
+public class SetCategoryBudgetCommandParser implements Parser<SetCategoryBudgetCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand

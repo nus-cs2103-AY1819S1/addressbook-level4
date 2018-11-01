@@ -130,7 +130,7 @@ public class ExpenseTrackerParser {
 
         case SetCategoryBudgetCommand.COMMAND_WORD:
         case SetCategoryBudgetCommand.COMMAND_ALIAS:
-            return new AddCategoryBudgetCommandParser().parse(arguments);
+            return new SetCategoryBudgetCommandParser().parse(arguments);
 
         case SetPasswordCommand.COMMAND_WORD:
         case SetPasswordCommand.COMMAND_ALIAS:

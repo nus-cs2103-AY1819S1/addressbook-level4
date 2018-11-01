@@ -17,8 +17,8 @@ import seedu.address.logic.commands.SetCategoryBudgetCommand;
 import seedu.address.model.budget.CategoryBudget;
 
 
-public class AddCategoryBudgetParserTest {
-    private AddCategoryBudgetCommandParser parser = new AddCategoryBudgetCommandParser();
+public class SetCategoryBudgetParserTest {
+    private SetCategoryBudgetCommandParser parser = new SetCategoryBudgetCommandParser();
 
     @Test
     public void parse_validCategoryBudget_returnsAddCategoryBudgetCommand() {
