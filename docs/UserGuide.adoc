@@ -69,18 +69,21 @@ _Coming in V1.3: Command format is case-insensitive_
 An event can have any number of tags and reminders(including 0).
 If you want multiple tags and reminders, we need to use `[t/]` and [`re/`] for multiple times
 
-* `DATETIME` is the natural language of date and time in English. (see 3.2.1 - 3.2.4)
+* `DATETIME` is the natural language of date and time in English.
 * `REPEAT_TYPE` should be chosen from either daily, weekly or monthly.
 * `TAG` should be chosen from the list of tags. Tags can be expressed as an integer(index) or in alphabets.
-* `REMINDER_TIME` is in the format of XX `H` XX `M` XX `S` (case-insensitive), which represents the duration before the `START_DATETIME` that we want to have a pop-up alert. (see 3.2.5)
+* `REMINDER_TIME` is in the format of XX `H` XX `M` XX `S` (case-insensitive), which represents the duration before the `START_DATETIME` that we want to have a pop-up alert.
 
 Examples:
 
 * `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/MONTHLY ru/next friday 3pm t/adhoc re/30M`
 * `add n/CS2103 Lecture s/23 September 2018 6pm e/24 September 2018 rt/WEEKLY ru/next monday t/timetable re/1H30M`
 
-Below are the supported formats of date and time:
+Below are the supported formats of date, time and reminder times:
 
+:sectnums!:
+
+==== Date and time formats
 ==== Explicit dates
 Formal dates::
 Formal dates are expressed in integer values month, day and year separated by / or -.
@@ -158,7 +161,8 @@ Examples::
 | 6 seconds from 1030 | 6 seconds after 1030
 |===
 
-==== Reminder Times
+==== Reminder time format
+==== Reminder times
 
 Examples::
 |===
@@ -169,6 +173,8 @@ Examples::
 | 48h            | 2 days before `START_DATETIME`
 |===
 
+:sectnums:
+
 === Listing all events : `list`
 
 Shows a list of all events in the scheduler. +
@@ -178,10 +184,13 @@ _Coming in V1.3: Command format is case-insensitive_
 
 === Editing an event : `edit`
 
-Edits an existing event in the scheduler. +
-Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]...` +
+Edits existing events in the scheduler. +
+Format: `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG]... [-a | -u]` +
 Aliases: `edi` OR `ed` in place of `edit` +
 _Coming in V1.3: Command format is case-insensitive_
+
+[TIP]
+Only one option can exists at any one time. Either `-a` or `-u`.
 
 ****
 * Edits the event at the specified `INDEX`. The index refers to the index number shown in the displayed event list. The index *must be a positive integer* 1, 2, 3, ...
@@ -191,17 +200,31 @@ _Coming in V1.3: Command format is case-insensitive_
 * You can remove all the event's tags by typing `t/` without specifying any tags after it.
 * When editing reminder times, the existing reminder times of the event will be removed i.e adding of reminder times is not cumulative.
 * You can remove all the event's reminder times by typing `re/` without specifying any tags after it.
+* Repeating events can be edited together using a valid option.
+* `REPEAT_TYPE` and `REPEAT_UNTIL_DATETIME` cannot be edited for events without a valid option.
 ****
+
+The supported formats of date, time and reminder times are identical to that of <<Adding an event : `add`, Adding an event>>. +
+Refer to <<Date and time formats>> and <<Reminder time format>>.
+
+:sectnums!:
+==== Options
+`-a` +
+Tell the command to select all the repeating events that are associated with the event selected.
+
+`-u` +
+Tell the command to select the upcoming events that are associated with the event selected.
 
 Examples:
 
-* `edit 1 n/Do not study again d/will not study ever again` +
-Edits the event name and description of the 1st event to be `Do not study again` and `will not study ever again` respectively.
-* `edit 2 n/Play t/` +
-Edits the event name of the 2nd event to be `Play` and clears all existing tags.
-* `edit 2 re/` +
-Clear all the event's reminder times.
+* `edit 1 n/Study with John d/Study for Mathematics exam` +
+Edits the event name and description of the 1st event to be `Study with John` and `Study for Mathematics exam` respectively.
+* `edit 2 n/Play t/ -a` +
+Edits the repeating event's name of the 2nd event to be `Play` and clears all existing tags.
+* `edit 2 re/ -u` +
+Clear all the upcoming event's reminder times.
 
+:sectnums:
 === Locating events by event name: `find`
 
 Finds events whose event names contain any of the given keywords. +
@@ -227,15 +250,22 @@ Returns any event having event names `Study` or `Hard`
 === Deleting an event : `delete`
 
 Deletes the specified event from the scheduler. +
-Format: `delete INDEX` +
+Format: `delete INDEX [-a | -u]` +
 Aliases: `delet` OR `dele` OR `del` OR `de` or `d` in place of `delete` +
 _Coming in V1.3: Command format is case-insensitive_
+
+[TIP]
+Only one option can exists at any one time. Either `-a` or `-u`.
 
 ****
 * Deletes the event at the specified `INDEX`.
 * The index refers to the index number shown in the displayed event list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* Repeating events can be deleted together using a valid option.
 ****
+
+Supported options are identical to those found in <<Editing an event : `edit`, Editing an event>>. +
+Refer to <<Options>>.
 
 Examples:
 
@@ -245,6 +275,12 @@ Deletes the 2nd event in the scheduler.
 * `find Study` +
 `delete 1` +
 Deletes the 1st event in the results of the `find` command.
+* `list` +
+`delete 3 -a` +
+Deletes the 3rd event and its repeating events from the scheduler.
+* `list` +
+`delete 4 -u` +
+Deletes the 4th event and its upcoming events from the scheduler.
 
 === Selecting an event : `select`
 
@@ -407,8 +443,8 @@ _{explain how the user can enable/disable data encryption}_
 * *Add event* `add event n/EVENT_NAME [s/EVENT_START_DATE_TIME] [e/EVENT_END_DATE_TIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DATETIME] [t/TAG]…` +
 e.g. `add n/Study With Yoko s/tomorrow at 3pm d/Study again and again rt/monthly t/ad-hoc`
 
-* *Edit event* `edit event INDEX [r/editForRecurring = 0] [s/startTime] [e/endTime] [d/description] [v/venue] [t/tag] [p/priority]…` +
-e.g. `edit 2 n/Play r/0 s/26-11-2018 11:am e/26-11-2018 2:00pm d/Study for exam v/library t/study p/3`
+* *Edit event* `edit INDEX [n/EVENT_NAME] [s/START_DATETIME] [e/END_DATETIME] [d/DESCRIPTION] [v/VENUE] [rt/REPEAT_TYPE] [ru/REPEAT_UNTIL_DAETIME] [t/TAG] [-a | -u]...` +
+e.g. `edit 1 n/Study with John d/Study for Mathematics exam` +
 
 * *Find event* `add event KEYWORD [MORE_KEYWORDS]` +
 e.g. `Find exam`
@@ -427,8 +463,8 @@ e.g. `listtag`
 
 * *Clear* : `clear`
 
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
+* *Delete event* : `delete INDEX [-a | -u]` +
+e.g. `delete 3 -a`
 
 * *Help* : `help`
 
