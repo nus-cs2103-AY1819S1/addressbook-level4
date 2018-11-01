@@ -9,8 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.TransactionMath;
 import seedu.address.logic.commands.AddTransactionCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -37,14 +35,12 @@ public class ImportTransaction {
 
     private Document doc;
     private Model model;
-    private CommandHistory history;
     private List<CcaName> ccaList;
     private Set<Entry> entries;
 
-    public ImportTransaction(Document doc, Model model, CommandHistory history) {
+    public ImportTransaction(Document doc, Model model) {
         this.doc = doc;
         this.model = model;
-        this.history = history;
         this.ccaList = new ArrayList<>();
         this.entries = new HashSet<>();
     }
