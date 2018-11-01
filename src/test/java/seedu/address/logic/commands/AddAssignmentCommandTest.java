@@ -44,13 +44,14 @@ public class AddAssignmentCommandTest {
 
     @Test
     public void execute_assignmentAcceptedByModel_addSuccessful() throws Exception {
-        AddAssignmentCommandTest.ModelStubAcceptingAssignmentAdded modelStub
-                = new AddAssignmentCommandTest.ModelStubAcceptingAssignmentAdded();
+        AddAssignmentCommandTest.ModelStubAcceptingAssignmentAdded modelStub =
+                new AddAssignmentCommandTest.ModelStubAcceptingAssignmentAdded();
         Assignment validAssignment = new AssignmentBuilder().build();
 
         CommandResult commandResult = new AddAssignmentCommand(validAssignment).runBody(modelStub, commandHistory);
 
-        assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment), commandResult.feedbackToUser);
+        assertEquals(String.format(AddAssignmentCommand.MESSAGE_SUCCESS, validAssignment),
+                commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validAssignment), modelStub.assignmentsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -59,7 +60,8 @@ public class AddAssignmentCommandTest {
     public void execute_duplicateAssignment_throwsCommandException() throws Exception {
         Assignment validAssignment = new AssignmentBuilder().build();
         AddAssignmentCommand addAssignmentCommand = new AddAssignmentCommand(validAssignment);
-        AddAssignmentCommandTest.ModelStub modelStub = new AddAssignmentCommandTest.ModelStubWithAssignment(validAssignment);
+        AddAssignmentCommandTest.ModelStub modelStub =
+                new AddAssignmentCommandTest.ModelStubWithAssignment(validAssignment);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT);
@@ -106,14 +108,19 @@ public class AddAssignmentCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAssignmentList getAssignmentList() { throw new AssertionError("This method should not be called."); }
+        public ReadOnlyAssignmentList getAssignmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
-        public ReadOnlyArchiveList getArchiveList() { throw new AssertionError("This method should not be called."); }
+        public ReadOnlyArchiveList getArchiveList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public boolean hasPerson(Person person) {

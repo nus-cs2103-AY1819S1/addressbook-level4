@@ -9,6 +9,9 @@ import seedu.address.model.AssignmentList;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 
+/**
+ * A utility class containing a list of {@code Assignment} objects to be used in tests.
+ */
 public class TypicalAssignment {
 
     public static final Assignment OASIS = new AssignmentBuilder().withAssignmentName("OASIS").withAuthor("Amy Bee")

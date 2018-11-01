@@ -25,8 +25,8 @@ import seedu.address.model.ReadOnlyArchiveList;
 import seedu.address.model.ReadOnlyAssignmentList;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
-import seedu.address.model.project.Assignment;
 import seedu.address.model.person.User;
+import seedu.address.model.project.Assignment;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -112,7 +112,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAssignmentList getAssignmentList() { throw new AssertionError("This method should not be called."); }
+        public ReadOnlyAssignmentList getAssignmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ReadOnlyArchiveList getArchiveList() {

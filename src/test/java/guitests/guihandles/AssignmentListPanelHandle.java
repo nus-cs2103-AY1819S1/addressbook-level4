@@ -13,7 +13,7 @@ import seedu.address.model.project.Assignment;
  */
 public class AssignmentListPanelHandle extends NodeHandle<ListView<Assignment>> {
 
-    public static final String Assignment_LIST_VIEW_ID = "#assignmentListView";
+    public static final String ASSIGNMENT_LIST_VIEW_ID = "#assignmentListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 

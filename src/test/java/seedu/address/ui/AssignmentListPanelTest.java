@@ -22,7 +22,6 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.project.Assignment;
-import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.storage.XmlSerializableAssignmentList;
 
 public class AssignmentListPanelTest extends GuiUnitTest {
@@ -58,14 +57,15 @@ public class AssignmentListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        AssignmentCardHandle expectedAssignment = assignmentListPanelHandle.getAssignmentCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        AssignmentCardHandle expectedAssignment
+                = assignmentListPanelHandle.getAssignmentCardHandle(INDEX_SECOND_PERSON.getZeroBased());
         AssignmentCardHandle selectedAssignment = assignmentListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedAssignment, selectedAssignment);
     }
 
     /**
-     * Verifies that creating and deleting large number of assignments in {@code AssignmentListPanel} requires lesser than
-     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
+     * Verifies that creating and deleting large number of assignments in {@code AssignmentListPanel} requires
+     * lesser than {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
     public void performanceTest() throws Exception {
@@ -89,7 +89,8 @@ public class AssignmentListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Returns a .xml file containing {@code assignmentCount} assignments. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code assignmentCount} assignments.
+     * This file will be deleted when the JVM terminates.
      */
     private Path createXmlFileWithAssignments(int assignmentCount) throws Exception {
         StringBuilder builder = new StringBuilder();
@@ -119,6 +120,6 @@ public class AssignmentListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(assignmentListPanel);
 
         assignmentListPanelHandle = new AssignmentListPanelHandle(getChildNode(assignmentListPanel.getRoot(),
-                AssignmentListPanelHandle.Assignment_LIST_VIEW_ID));
+                AssignmentListPanelHandle.ASSIGNMENT_LIST_VIEW_ID));
     }
 }

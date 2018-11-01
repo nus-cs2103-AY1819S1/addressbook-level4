@@ -16,10 +16,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.project.Assignment;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.ArchiveListBuilder;
-import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.AssignmentListBuilder;
 
 public class ModelManagerTest {

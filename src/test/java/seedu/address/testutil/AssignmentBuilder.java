@@ -5,6 +5,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.project.Assignment;
 import seedu.address.model.project.ProjectName;
 
+/**
+ * A utility class to help with building Assignment objects.
+ */
 public class AssignmentBuilder {
     public static final String DEFAULT_ASSIGNMENT_NAME = "OASIS";
     public static final String DEFAULT_AUTHOR = "Amy Bee";

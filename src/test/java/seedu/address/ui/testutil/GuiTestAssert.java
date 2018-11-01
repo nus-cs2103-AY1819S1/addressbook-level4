@@ -27,6 +27,16 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(AssignmentCardHandle expectedCard, AssignmentCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getProjectName(), actualCard.getProjectName());
+        assertEquals(expectedCard.getAuthor(), actualCard.getAuthor());
+        assertEquals(expectedCard.getDescription(), actualCard.getDescription());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
@@ -77,15 +87,5 @@ public class GuiTestAssert {
         assertEquals(expectedAssignment.getProjectName().fullProjectName, actualCard.getProjectName());
         assertEquals(expectedAssignment.getAuthor().fullName, actualCard.getAuthor());
         assertEquals(expectedAssignment.getDescription().value, actualCard.getDescription());
-    }
-
-    /**
-     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
-     */
-    public static void assertCardEquals(AssignmentCardHandle expectedCard, AssignmentCardHandle actualCard) {
-        assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getProjectName(), actualCard.getProjectName());
-        assertEquals(expectedCard.getAuthor(), actualCard.getAuthor());
-        assertEquals(expectedCard.getDescription(), actualCard.getDescription());
     }
 }

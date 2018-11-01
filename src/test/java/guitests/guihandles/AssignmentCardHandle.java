@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 
 /**

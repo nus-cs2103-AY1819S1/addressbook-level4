@@ -1,8 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.ArchiveList;
 import seedu.address.model.AssignmentList;
-import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 
 /**
