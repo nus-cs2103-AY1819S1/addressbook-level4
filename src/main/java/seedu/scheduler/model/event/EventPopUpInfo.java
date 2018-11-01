@@ -89,10 +89,10 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
      */
     public String getPastPopUpDisplay() {
         String result = "";
-        result = result + "Event Name: " + eventName.toString() + "\n" + startDateTime.getPrettyString() + " - " +
-                endDateTime.getPrettyString();
+        result = result + "Event Name: " + eventName.toString() + "\n" + startDateTime.getPrettyString() + " - "
+                + endDateTime.getPrettyString();
         return result;
-     }
+    }
 
     /**
      * get Display for events
@@ -100,8 +100,8 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
      */
     public String getPopUpDisplay() {
         String result = "";
-        result = result + "Venue: " + venue.toString() + "\n" + startDateTime.getPrettyString() +
-                " - " + endDateTime.getPrettyString();
+        result = result + "Venue: " + venue.toString() + "\n" + startDateTime.getPrettyString()
+                + " - " + endDateTime.getPrettyString();
         return result;
     }
 
