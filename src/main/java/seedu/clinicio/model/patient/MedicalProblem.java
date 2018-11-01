@@ -3,8 +3,6 @@ package seedu.clinicio.model.patient;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 
-import seedu.clinicio.model.tag.Tag;
-
 /**
  * Represents a MedicalProblem in the ClinicIO.
  * Guarantees: immutable; name is valid as declared in {@link #isValidMedProb(String)}
