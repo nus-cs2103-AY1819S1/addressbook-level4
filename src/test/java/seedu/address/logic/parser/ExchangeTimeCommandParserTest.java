@@ -6,22 +6,22 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.ChangeTimeCommand;
+import seedu.address.logic.commands.ExchangeTimeCommand;
 
-public class ChangeTimeCommandParserTest {
-    private ChangeTimeCommandParser parser = new ChangeTimeCommandParser();
+public class ExchangeTimeCommandParserTest {
+    private ExchangeTimeCommandParser parser = new ExchangeTimeCommandParser();
 
     @Test
     public void parseEmptyArgThrowsParseException() {
         assertParseFailure(parser, " ", String.format(
-                MESSAGE_INVALID_COMMAND_FORMAT, ChangeTimeCommand.MESSAGE_USAGE));
+                MESSAGE_INVALID_COMMAND_FORMAT, ExchangeTimeCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parseValidArgsReturnsFindCommand() {
         // no leading and trailing whitespaces
-        ChangeTimeCommand expectedFindCommand =
-                new ChangeTimeCommand("Alice 0 Bob 0");
+        ExchangeTimeCommand expectedFindCommand =
+                new ExchangeTimeCommand("Alice 0 Bob 0");
         assertParseSuccess(parser, "Alice 0 Bob 0", expectedFindCommand);
 
     }
