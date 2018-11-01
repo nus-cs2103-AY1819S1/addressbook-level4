@@ -74,6 +74,7 @@ The only valid types are `PROP` (PROPAEDEUTIC), `DIAG` (DIAGNOSTIC), `THP` (THER
 *Other inputs will not be allowed.*
 //end::addappt[]
 
+//tag::adddiet[]
 === Add patient’s dietary needs: `adddiet`
 Add a patient’s dietary needs into the system.
 
@@ -86,6 +87,7 @@ Format: `adddiet ic/NRIC alg/ALLERGY1 alg/ALLERGY2 cr/CULTURAL_REQUIREMENT pd/PH
 Example(s):
 
 * `adddiet ic/S1234567A alg/Egg alg/Crab cr/Halal pd/Hands cannot move.`
+//tag::adddiet[]
 
 //tag::addmeds[]
 === Add patient medication: `addmeds`
@@ -191,32 +193,31 @@ Example(s):
 //tag::view[]
 [#view-command]
 === View patient’s information: `view`
-View a patient’s information. Exactly what information is displayed depends on the choice of view.
+View a patient’s information in the panel on the right. Exactly what information is displayed depends on the choice of view.
 
 Format: `view VIEW_NAME`
-
-This command switches the user's view (indicated in Fig. 2 below) to a chosen view. +
-
-.Indication of the location of the user view
-image::highlightUserViewLocation.png[width=800]
 
 Current choices for views include:
 
 * default (This is the default blank view, which is displayed when the application is started.)
 * meds (Medication view, contains information about the patient's medications.)
 
-Listed below are images of each view.
+This command switches the user's view (right panel of the UI, indicated in Fig. 3 below) to a chosen view. +
 
-.Default view
-image::blankPanel.png[width=800]
-
-.Medication view
-image::medsView.png[width=800]
+.Indication of the location of the user view
+image::highlightUserViewLocation.png[width=800]
 
 Example(s):
 
 * `view default`
+
+.Default view
+image::blankPanel.png[width=800]
+
 * `view meds`
+
+.Medication view
+image::medsView.png[width=800]
 
 //end::view[]
 
