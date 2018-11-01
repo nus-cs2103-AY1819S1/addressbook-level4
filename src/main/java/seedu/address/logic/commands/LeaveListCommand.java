@@ -32,7 +32,7 @@ public class LeaveListCommand extends Command {
             model.updateFilteredLeaveApplicationList(PREDICATE_SHOW_ALL_LEAVEAPPLICATIONS);
         } else {
             model.updateFilteredLeaveApplicationList(leaveApplication
-                -> leaveApplication.getEmployee().equals(loggedInUser.getPerson()));
+                -> leaveApplication.getEmployee().isSamePerson(loggedInUser.getPerson()));
         }
 
         EventsCenter.getInstance().post(new LeaveListEvent());
