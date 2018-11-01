@@ -678,7 +678,27 @@ The Current Date is retrieved using Java's `Calendar`, and is adjusted to be the
 depending on the `ListCommand` 's option. A predicate is then created to check if a given `Task` is before this date.
 This predicate is passed as an argument to update filtered Tasks.
 
-### 3.8. Logging
+### 3.8 Game Manager
+
+#### 3.8.1 Current Implementation
+
+The GameManager class is responsible for the gamification aspects of WatchOver.
+
+image::GameManagerSequenceDiagram.png[width="1200"]
+
+#### 3.8.2 Design Considerations
+
+##### 3.8.2.1 Aspect: Location of Implementation
+
+* **Alternative 1(current choice):** Using a separate GameManager class to calculate awarded XP.
+** Pros: It is modular and isolated from the rest of the logic, resulting in higher maintainability.
+** Cons: Verbose.
+
+* **Alternative 2:** Embedding XP calculation logic within task completion logic.
+** Pros: XP awards is primarily used when completing tasks. Placing code here would have relevant code closer together.
+** Cons: It is not directly linked to the process of completing a task, and hence should be a separate class.
+
+### 3.9. Logging
 We are using java.util.logging package for logging. The LogsCenter class is used to manage the logging levels and logging destinations.
 
 The logging level can be controlled using the logLevel setting in the configuration file (See Section 3.4, “Configuration”)
@@ -697,7 +717,7 @@ INFO : Information showing the noteworthy actions by the App
 
 FINE : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-### 3.9. Configuration
+### 3.10. Configuration
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: config.json).
 
 ## 4. Documentation
