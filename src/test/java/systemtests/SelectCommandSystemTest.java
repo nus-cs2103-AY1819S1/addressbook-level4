@@ -1,26 +1,26 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_GROUP_SUCCESS;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
-import static seedu.address.testutil.TestUtil.getGroupLastIndex;
-import static seedu.address.testutil.TestUtil.getGroupMidIndex;
-import static seedu.address.testutil.TestUtil.getPersonLastIndex;
-import static seedu.address.testutil.TestUtil.getPersonMidIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.meeting.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.meeting.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.meeting.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.meeting.logic.commands.SelectCommand.MESSAGE_SELECT_GROUP_SUCCESS;
+import static seedu.meeting.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.meeting.testutil.TestUtil.getGroupLastIndex;
+import static seedu.meeting.testutil.TestUtil.getGroupMidIndex;
+import static seedu.meeting.testutil.TestUtil.getPersonLastIndex;
+import static seedu.meeting.testutil.TestUtil.getPersonMidIndex;
+import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_GROUP;
+import static seedu.meeting.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.meeting.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
+import seedu.meeting.commons.core.index.Index;
+import seedu.meeting.logic.commands.RedoCommand;
+import seedu.meeting.logic.commands.SelectCommand;
+import seedu.meeting.logic.commands.UndoCommand;
+import seedu.meeting.model.Model;
 
 public class SelectCommandSystemTest extends MeetingBookSystemTest {
     @Test

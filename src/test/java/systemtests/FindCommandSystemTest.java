@@ -1,26 +1,26 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_FOUND_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.meeting.commons.core.Messages.MESSAGE_PERSONS_FOUND_OVERVIEW;
+import static seedu.meeting.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.meeting.testutil.TypicalPersons.BENSON;
+import static seedu.meeting.testutil.TypicalPersons.CARL;
+import static seedu.meeting.testutil.TypicalPersons.DANIEL;
+import static seedu.meeting.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.FindPersonCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.tag.Tag;
+import seedu.meeting.commons.core.index.Index;
+import seedu.meeting.logic.commands.DeleteCommand;
+import seedu.meeting.logic.commands.FindCommand;
+import seedu.meeting.logic.commands.FindPersonCommand;
+import seedu.meeting.logic.commands.RedoCommand;
+import seedu.meeting.logic.commands.UndoCommand;
+import seedu.meeting.model.Model;
+import seedu.meeting.model.tag.Tag;
 
 public class FindCommandSystemTest extends MeetingBookSystemTest {
 

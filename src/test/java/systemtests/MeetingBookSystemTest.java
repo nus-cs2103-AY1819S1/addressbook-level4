@@ -3,10 +3,10 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertGroupListMatching;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.meeting.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.meeting.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.meeting.ui.testutil.GuiTestAssert.assertGroupListMatching;
+import static seedu.meeting.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,17 +26,17 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindPersonCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.MeetingBook;
-import seedu.address.model.Model;
-import seedu.address.testutil.TypicalMeetingBook;
-import seedu.address.ui.CommandBox;
+import seedu.meeting.TestApp;
+import seedu.meeting.commons.core.EventsCenter;
+import seedu.meeting.commons.core.index.Index;
+import seedu.meeting.logic.commands.ClearCommand;
+import seedu.meeting.logic.commands.FindPersonCommand;
+import seedu.meeting.logic.commands.ListCommand;
+import seedu.meeting.logic.commands.SelectCommand;
+import seedu.meeting.model.MeetingBook;
+import seedu.meeting.model.Model;
+import seedu.meeting.testutil.TypicalMeetingBook;
+import seedu.meeting.ui.CommandBox;
 
 /**
  * A system test class for MeetingBook, which provides access to handles of GUI components and helper methods

@@ -1,8 +1,8 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATH;
+import static seedu.meeting.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.meeting.logic.parser.CliSyntax.PREFIX_PATH;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,8 +15,8 @@ import java.util.Arrays;
 import org.junit.After;
 import org.junit.Test;
 
-import seedu.address.logic.commands.ExportCommand;
-import seedu.address.model.Model;
+import seedu.meeting.logic.commands.ExportCommand;
+import seedu.meeting.model.Model;
 
 
 public class ExportCommandSystemTest extends MeetingBookSystemTest {
