@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -12,11 +14,8 @@ public class XmlAdaptedWishWrapper {
     @XmlElementWrapper
     private LinkedList<XmlAdaptedWish> xmlAdaptedWishes;
 
-    public XmlAdaptedWishWrapper() {
-        this.xmlAdaptedWishes = new LinkedList<>();
-    }
-
     public XmlAdaptedWishWrapper(LinkedList<XmlAdaptedWish> xmlAdaptedWishes) {
+        requireNonNull(xmlAdaptedWishes);
         this.xmlAdaptedWishes = xmlAdaptedWishes;
     }
 

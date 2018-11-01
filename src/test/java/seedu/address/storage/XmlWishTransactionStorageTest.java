@@ -30,6 +30,11 @@ public class XmlWishTransactionStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
+    public void shouldSetFilePathCorrectly() {
+        assertEquals(new XmlWishTransactionStorage(TEST_DATA_FOLDER).getWishTransactionFilePath(), TEST_DATA_FOLDER);
+    }
+
+    @Test
     public void readWishTransaction_nullFilePath_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         readWishTransaction(null);
