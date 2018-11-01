@@ -86,9 +86,9 @@ Example:
 * `image r/a123 f/C://Users/Files/a123.jpg`
 
 // tag::clearAll[]
-==== Clearing all entries : `clear all`
+==== Clearing all residents : `clear all`
 
-Clears all entries from Hallper. +
+Clears all residents from Hallper. +
 Format: `clear all`
 
 ****
@@ -98,79 +98,79 @@ Format: `clear all`
 Example:
 
 * `clear all` +
-Clears `all` entries in Hallper.
+Clears `all` residents in Hallper.
 
 // end::clearAll[]
 
-// tag::erase[]
-
-==== Clearing all specified tags : `erase`
-
-Clears all specified tags from all persons from Hallper. +
-Format: `erase CCA...`
-
-****
-* Erases the CCA specified for all associated persons.
-* The CCA specified must be an existing CCA.
-* Multiple CCAs can be specified at once.
-****
-
-Example:
-
-* `erase basketball` +
-Erases `basketball` from persons associated with this CCA. +
-* `erase basketball netball` +
-Erases `basketball` and `netball` from persons associated with these CCAs.
-
-// end::erase[]
-
 // tag::clear[]
-==== Clearing specific entries : `clear`
+==== Clearing specific residents : `clear`
 
-Clears specified entries from Hallper. +
+Clears residents associated with specified CCAs from Hallper. +
 Format: `clear KEYWORD...`
 
 ****
-* Clears persons associated with KEYWORD.
-* KEYWORD refers to either a CCA or ROOM.
-* Multiple KEYWORDS can be specified at once in any order.
+* Clears residents associated with specified KEYWORD.
+* KEYWORD refers to either a CCA or a ROOM.
+* Multiple KEYWORDS can be specified at once, in any order.
 ****
 
 Example:
 
 * `clear basketball` +
-Clears all persons associated with CCA `basketball`.
+Clears all residents associated with CCA `basketball`.
 * `clear A123` +
-Clears all persons associated with room `A123`.
+Clears all residents associated with room `A123`.
 * `clear baseball C456` +
-Clears all persons associated with CCA `baseball` and room `C456`
+Clears all residents associated with CCA `baseball` and room `C456`
 
 // end::clear[]
 
-==== Editing a person : `edit`
+==== Editing a resident : `edit`
 
-Edits an existing person in Hallper. +
+Edits an existing resident in Hallper. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/CCA]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the resident at the specified `INDEX`. The index refers to the index number shown in the displayed resident list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `c/` without specifying any tags after it.
+* When editing CCAs, the existing CCAs of the resident will be removed i.e adding of CCAs is not cumulative.
+* You can remove all the resident's CCAs by typing `c/` without specifying any CCAs after it.
 ****
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+Edits the phone number and email address of the 1st resident to be `91234567` and `johndoe@example.com` respectively.
 * `edit 2 n/Betsy Crower c/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Edits the name of the 2nd resident to be `Betsy Crower` and clears all existing CCAs.
+
+// tag::erase[]
+
+==== Erasing specified CCAs : `erase`
+
+Erases all specified CCA(s) from all residents from Hallper. +
+Format: `erase CCA...`
+
+****
+* Erases the CCA specified for all associated residents.
+* The CCA specified must be an existing CCA.
+* You can erase multiple CCAs by specifying the CCAs all at once.
+****
+
+Example:
+
+* `erase basketball` +
+Erases `basketball` from residents associated with this CCA. +
+* `erase basketball netball` +
+Erases `basketball` and `netball` from residents associated with these CCAs.
+
+// end::erase[]
 
 // tag::export[]
 ==== Exporting contact information: `export`
 
-Exports file containing existing contact information in Hallper. +
+Exports file containing existing residents information in Hallper. +
 Formate: `export dst/PATH fn/FILENAME`
 
 ****
@@ -180,18 +180,18 @@ Formate: `export dst/PATH fn/FILENAME`
 Example:
 
 * `export dst/C://Users/Files fn/data.xml` +
-Exports Hallper contacts data into `data.xml` located at `C://Users/Files`.
+Exports Hallper residents information into `data.xml` located at `C://Users/Files`.
 
 // end::export[]
 
-==== Deleting a person : `delete`
+==== Deleting a resident : `delete`
 
-Deletes the specified person from Hallper. +
+Deletes the specified resident from Hallper. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the resident at the specified `INDEX`.
+* The index refers to the index number shown in the displayed resident list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -199,10 +199,10 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in Hallper.
+Deletes the 2nd resident in Hallper.
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st resident in the results of the `find` command.
 
 ==== Deleting a transaction entry : `delete_trans`
 
@@ -228,28 +228,35 @@ Examples:
 // tag::import[]
 ==== Importing contact information : `import`
 
-Imports file containing contact information and updates Hallper accordingly. +
+Imports file containing residents information and updates Hallper accordingly. +
 Format: `import f/FILEPATH`
 
 ****
-* Allows for the mass upload of contact information.
-* Allows for the mass upload of CCA lists.
+* Allows for the mass upload of resident(s) information.
+* Allows for the mass upload of CCA(s) list.
+* Allows for the mass upload of budget book information.
+* Allows for the mass upload of CCA transaction(s).
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
-
-File formats for imported `.xml` files are as shown below.
+File formats for imported `.xml` files are as shown below:
 
 image::AddressBookExample.png[width="790"]
-_Figure 4.1.7.1: Contacts information `.xml` file format._
+_Figure 4.1.10.1: Resident information format._
 
 image::CCAListExample.png[width="790"]
-_Figure 4.1.7.2: CCA list `.xml` file format._
+_Figure 4.1.10.2: CCA list format._
+
+image::BudgetBookExample.png[width="790"]
+_Figure 4.1.10.3: Budget book information format._
+
+image::TransactionsExample.png[width="790"]
+_Figure 4.1.10.4: Transaction information format._
 
 Example:
 
 * `import f/C://Users/Files/data.xml` +
-Imports `data.xml` file to be read and for database to be updated accordingly.
+Imports `data.xml` file to be read and for Hallper to be updated accordingly.
 
 // end::import[]
 

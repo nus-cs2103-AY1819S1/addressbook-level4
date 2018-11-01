@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
@@ -148,7 +147,7 @@ public class ImportCommandTest {
                 new BudgetBook(model.getBudgetBook()), new UserPrefs(), model.getExistingEmails());
         Index indexLastCca = Index.fromOneBased(model.getFilteredCcaList().size());
         Cca originalCca = model.getFilteredCcaList().get(indexLastCca.getZeroBased());
-        Set<Entry> entries = originalCca.getEntries();
+        Set<Entry> entries = new HashSet<>(originalCca.getEntries());
         int entryNum = originalCca.getEntrySize() + 1;
         entries.add(new Entry(entryNum, new Date("20.06.2014"), new Amount(-400), new Remarks("Floorball Camp")));
         CcaBuilder ccaInFile = new CcaBuilder(originalCca);
