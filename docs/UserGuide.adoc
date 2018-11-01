@@ -230,8 +230,8 @@ Format: `exit`: closes the application
 == Command Summary
 
 * *Help* : `help` +
-* *Select* : `select [IMAGE_NAME]` +
-e.g. `select exampleImage.jpg` +
+* *Select* : `select [INDEX]` +
+e.g. `select 1` +
 * *Next* : `next` +
 * *Previous* : `prev` +
 * *Convert* `convert [TRANSFORMATION]` +

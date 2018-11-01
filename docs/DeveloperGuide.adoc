@@ -207,15 +207,13 @@ If the `newCurrDirectory` is not a directory, i.e. `isDirectory()` returns false
 ** Pros: Do not need to append and check, and just check if it exists in HashSet.
 ** Cons: Does not update existing path if user deletes a directory.
 
-=== Select/Next feature
+=== Select feature
 The Select Command allow users to select the images in a batch of 10 images within the directory for image-editing.
 This command is further facilitated by the Next Command.
 
 ==== Current Implementation
-The implementation of the Select/Next feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
+The implementation of the Select feature is largely similar to the `Cd Command`. It is facilitated by the `ModelManager`
 and contains the following operations:
-
-Select feature:
 
  * `Model#getDirectoryImageList()` -- Retrieves the stored list of images in UserPrefs.
  * `Model#updateCurrentOriginalImage(Image, Path)` -- Updates the model with the current selected images.
@@ -224,8 +222,6 @@ The `Model` calls upon `UserPrefs` to retrieve the `imageList` of the current
 batch. The `UserPrefs` class implements the following operation:
 
 * `UserPrefs#getCurrImageListBatch()` -- Returns the current batch of images.
-* `UserPrefs#updateImageList()` -- Retrieves all the images in the current directory.
-* `UserPrefs#updateImageList(ArrayList<Path>)` -- Updates `imageList` with the new `imageList`.
 
 The `Model#updateCurrentOriginalImage(Image, Path)` operation stores the path of the selected image and the
 `PreviewImage` instance of it as `currOriginalImage` and `currentPreviewImage` respectively within the `ModelManager`.
@@ -245,12 +241,12 @@ Step 3. The user executes `select 1` command to select the first image in the fi
 command calls `Model#getDirectoryImageList()` to retrieve the first batch of images within Desktop. The first image is
 then retrieved and displayed on the GUI.
 
-image::SelectCommand2.png[width=800]
+image::SelectCommand2.png[width=500]
 
 Step 4. The user then executes `select 5` command to select the fifth image in the batch of 10 images. The fifth image
 is then retrieved similarly and displayed on the GUI.
 
-image::SelectCommand3.png[width=800]
+image::SelectCommand3.png[width=450]
 
 The following sequence diagram shows how the select command works:
 
