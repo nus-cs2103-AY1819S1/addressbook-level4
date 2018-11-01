@@ -101,6 +101,10 @@ public abstract class AddressBookSystemTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
+    public void refreshAllQueries() {
+        mainWindowHandle.refreshAllQueries();
+    }
+
     public MainWindowHandle getMainWindowHandle() {
         return mainWindowHandle;
     }

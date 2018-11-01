@@ -223,6 +223,9 @@ public class MainApp extends Application {
     public void modifyAdminPassword(AdminPasswordModificationEvent adminPasswordModificationEvent) {
         Password newPassword = adminPasswordModificationEvent.newPassword;
         userPrefs.setAdminPassword(newPassword);
+        User.buildAdmin(User.ADMIN_DEFAULT_USERNAME, newPassword);
+        //Reset logged in admin
+        model.setLoggedInUser(User.getAdminUser());
 
         //Update saved admin passsword immediately
         saveUserPrefs();
