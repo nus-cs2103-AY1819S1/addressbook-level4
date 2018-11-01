@@ -5,7 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.*;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.BENSON;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,8 +73,8 @@ public class ViewPatientCommandTest {
     }
 
     /**
-     * Executes a {@code ViewPatientCommand} with the given {@code name}, and checks 
-     * that {@code PersonPanelSelectionChangedEvent is raised with the correct name.
+     * Executes a {@code ViewPatientCommand} with the given {@code name}, and checks
+     * that {@code PersonPanelSelectionChangedEvent} is raised with the correct name.
      */
     private void assertExecutionSuccess(Patient patient) {
         ViewPatientCommand viewPatientCommand = new ViewPatientCommand(patient.getName());
@@ -79,12 +82,13 @@ public class ViewPatientCommandTest {
 
         assertCommandSuccess(viewPatientCommand, model, commandHistory, expectedMessage, expectedModel);
 
-        PersonPanelSelectionChangedEvent lastEvent = (PersonPanelSelectionChangedEvent) eventsCollectorRule.eventsCollector.getMostRecent();
+        PersonPanelSelectionChangedEvent lastEvent =
+                (PersonPanelSelectionChangedEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(patient, lastEvent.getNewSelection());
     }
 
     /**
-     * Executes a {@code ViewPatientCommand} with the given {@code name}, and checks that a {@code CommandException}
+     * Executes a {@code ViewPatientCommand} with the given {@code name}, and checks that a {@co    de CommandException}
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Person person, String expectedMessage) {
