@@ -50,6 +50,7 @@ public class UserPrefs {
 
     public void setAssignmentListFilePath(Path assignmentListFilePath) {
         this.assignmentListFilePath = assignmentListFilePath;
+    }
 
     public Password getAdminPassword() {
         return adminPassword;
