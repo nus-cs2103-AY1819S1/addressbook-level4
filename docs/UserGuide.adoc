@@ -29,21 +29,22 @@ endif::[]
 By: `Team T12-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
-Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*. SSP is *optimised for those who prefer to work with a Command Line Interface* (CLI) while retaining the benefits of a Graphical User Interface (GUI). If you can type fast, SSP can get your schedule management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*. SSP is optimised for users who prefer to type rather than click. In fact, if you type efficiently, this application will be much faster than regular to-do applications. Move on to the <<Quick Start>> to get started.
 
 
 == Quick Start
-.  Install Java `9` if you do not have, download it from link:{https://www.oracle.com/technetwork/java/javase/downloads/index.html}[here]. +
+.  Install Java `9` if you do not have it. It is available link:{https://www.oracle.com/technetwork/java/javase/downloads/index.html}[here]. +
 [WARNING]
 The application may not run correctly on Java `10` or Java `11`.
 
 .  Download the latest `studentscheduleplanner.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder that you want to use as the home folder for your planner.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+
+.The menu that you should see once you open the application.
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
@@ -68,7 +69,6 @@ Opens the user guide page. +
 ====
 
 
-
 === Adding a Task
 
 Adds a task to the schedule planner. +
@@ -82,12 +82,11 @@ Input: [blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 Outcome: Adds a task named [blue]`exam` with priority level [blue]`3`,
 tag [blue]`CS3241` and deadline of 10th October 2018, venue at mpsh1.
 ====
-The priority level must be a number between 1 to 3, where 1 denotes highest priority.
-[WARNING]
-Ensure that you have included the name, priority level and deadline for tasks.
+The priority level must be a number between 1 to 3, where 3 denotes highest priority.
 
-[TIP]
-Tags are optional, you do not need to add them.
+[WARNING]
+A task strictly requires a name, priority level and deadline. Tags are optional.
+
 
 === Adding a Recurring Task
 
@@ -97,12 +96,15 @@ Adds copies of the same task to the same day of a given number of weeks. +
 ====
 Example: +
 ====
-Input: [blue]`add r/3 n/exam p/3 t/CS3241 d/101018 v/mpsh1`
+Input: [blue]`add r/3 n/Lecture p/3 t/CS3241 d/101018 v/mpsh1`
 
-Outcome: Adds 3 tasks named [blue]`exam` with priority level [blue]`3`,
-tag [blue]`CS3241`, venue at mpsh1, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
+Outcome: Adds 3 tasks named [blue]`Lecture` with priority level [blue]`3`,
+tag [blue]`CS3241`, venue at [blue]`mpsh1`, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
 ====
-The number of repeats must be larger or equals to 2. If it is 1, it is the same as adding a normal task.
+The number of repeats should be an integer that is greater or equals to 1. Setting the repeat as 1 has the same effect as using the `add` command.
+
+[TIP]
+Use this command to schedule tasks that you carry out regularly.
 
 === Listing All Tasks
 
@@ -138,14 +140,13 @@ The existing tags of the task will be removed when tag is edited. If input is
 
 [TIP]
 To remove all tags of a existing task, you can just type [blue]`c/`.
-If input is [blue]`task 3 c/`, all the tags of task 3 will be removed.
+If input is [blue]`task 3 c/`, all the tags of the task with `INDEX` 3 will be removed.
 
 
 
 [TIP]
 Use the [blue]`list task`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified.
-For example, you can use [blue]`listday` to list out tasks due today, and userefer to the tasks according to index used
-in current list.
+For example, you can use [blue]`listday` to list out the tasks due today, and choose the index of the task that you want to edit.
 
 
 === Finding Tasks by Name
@@ -179,10 +180,10 @@ Finds tasks whose tag matches with given keyword. +
 Example:
 ====
 input: [blue]`filter tutorial` +
-output: All tasks that has tag matching with [blue]`tutorial` are listed out.
+output: All tasks that has the tag [blue]`tutorial` are listed out.
 ====
 
-The search is case insensitive. e.g [blue]`apples` will match [blue]`Apples`.
+The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
 
 
 [TIP]
@@ -228,21 +229,21 @@ Use the `list task` command to find out the index of the task to be archived.
 
 === Viewing Archived Tasks
 
-Views archived tasks. +
+Shows a list of archived tasks. +
 ====
 [blue]`listarchived`
 ====
 
 === Viewing Tasks Due Today
 
-Views tasks that are due today. +
+Shows a list of tasks that are due today. +
 ====
 [blue]`listday`
 ====
 
 === Viewing Tasks Due This Termweek
 
-Views tasks that are due from current date till the closest Sunday. +
+Shows a list of tasks that are due from current date till the closest Sunday. +
 ====
 [blue]`listweek`
 ====
@@ -251,8 +252,8 @@ Views tasks that are due from current date till the closest Sunday. +
 
 Generates the entire academic calendar calendar with description based on the first academic day and stores it in storage.
 
-Currently, the generated academic calendar is adapted from the academic calender of National University of Singapore
-(NUS).
+Currently, the generated academic calendar is based on the academic calender of National University of Singapore
+(NUS). It may not be compatible with academic calendars from other institutions.
 
 Whenever you launch the application within the academic calendar's dates, the application title
 will append that particular week's description. +
@@ -281,7 +282,7 @@ image::FirstDayCommand_UG_Aft.png[width="400"]
 
 === Listing Overdue Tasks
 
-Lists all the overdue tasks. +
+Shows a list all the overdue tasks. +
 ====
 [blue]`list overdue`
 ====
@@ -298,7 +299,7 @@ The categories will be listed in alphabetical order.
 
 === Listing Used Commands
 
-Lists all the commands that you have entered in reverse chronological order. +
+Shows a list of all the commands that you have entered in reverse chronological order. +
 ====
 [blue]`history`
 ====
@@ -308,7 +309,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
+
 === Undoing Previous Command
 Restores the schedule planner to the state before the previous _undoable_ command was executed. +
 
@@ -362,12 +363,6 @@ Exits the application. +
 
 Data in the Student Schedule Planner is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting Data Files (Coming in v2.0)
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 
 == Command Summary
