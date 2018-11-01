@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalCcas.getTypicalBudgetBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.File;
@@ -49,7 +50,8 @@ public class ImportCommandTest {
     private static final String VALID_PERSON_ROOM = "C234";
     private static final String VALID_PERSON_SCHOOL = "Computing";
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalBudgetBook(), new UserPrefs(),
+            new HashSet<>());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
