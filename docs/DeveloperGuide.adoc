@@ -394,8 +394,8 @@ completed by the user today and this week. To facilitate the tracking of the tim
 tasks completed by today and this week), `AchievementRecord` also stores the dates when the time-based achievement fields should
 be reset. +
  +
-`AchievementRecord` also contains a field `displayOption` that specifies which set of achievement information should be 
-displayed on UI. The field is updated through the `achievements all-time`, `achievements today` or 
+`AchievementRecord` also contains a field `displayOption` that specifies which set of achievement information should be
+displayed on UI. The field is updated through the `achievements all-time`, `achievements today` or
 `achievement this week` commands. +
  +
 The storage of the `AchievementRecord` is facilitated by `XmlAdaptedAchievementRecord` which is saved together with
@@ -461,7 +461,7 @@ with events.
      ** Cons: Logic is duplicated twice. For example, we would need to implement a `VersionedAchievementRecord` besides
      the current `VersionedTaskManager` to support undo/redo. A lot of overhead will result from the communication
      between `TaskManager` and `AchievementRecord` as well.
-     
+
 Aspect: Managing display option of `AchievementRecord`. +
 
 * Alternative 1 (current choice): Use and additional field `displayOption` in `AchievementRecord` to keep track of
