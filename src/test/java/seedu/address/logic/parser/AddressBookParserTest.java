@@ -34,6 +34,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewDoctorCommand;
 import seedu.address.logic.commands.ViewPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -142,6 +143,13 @@ public class AddressBookParserTest {
         ViewPatientCommand command = (ViewPatientCommand) parser.parseCommand(
                 ViewPatientCommand.COMMAND_WORD + " " + PREFIX_NAME + ALICE.getName().fullName);
         assertEquals(new ViewPatientCommand(ALICE.getName()), command);
+    }
+
+    @Test
+    public void parseCommand_viewDoctorCommandWord_returnsViewDoctorCommand() throws Exception {
+        ViewDoctorCommand command = (ViewDoctorCommand) parser.parseCommand(
+                ViewDoctorCommand.COMMAND_WORD + " " + PREFIX_NAME + GEORGE.getName().fullName);
+        assertEquals(new ViewDoctorCommand(GEORGE.getName()), command);
     }
 
     @Test
