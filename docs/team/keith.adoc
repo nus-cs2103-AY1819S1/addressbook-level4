@@ -3,8 +3,18 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Car park Finder
+image::keith.png[width="150", align="left"]
+{empty}https://github.com/dlworldpeace[Github] | https://www.linkedin.com/in/fong-keith[LinkedIn] | https://lexzt.github.io[Website]
 
+* Role - Team Leader
+* Responsibilities
+** UI
+** Scheduling & tracking
+** Threading
+
+---
+= PROJECT: Car park Finder
+---
 == Overview
 
 Car park finder is a desktop address book application to find HDB (Housing Development Board) car parks in Singapore.
@@ -17,11 +27,11 @@ If you *use the computer frequently* and *commute by driving*, you would find ou
 ** What it does: Allows the user to search for partial instances of words without needed to type everything.
 ** Justification: This feature improves the product significantly because a user can type lesser and the app should provide the same data still.
 ** Highlights:  This enhancement affects the existing commands and commands to be added in the future. I also wrote extra code which allowed us to re-use in the future.
-** Credits: [https://github.com/cgcai/SVY21[SVY21 to WGS84]].
 
 * *Minor enhancements*:
 ** Pulled postal code information using coordinates data by querying an API to convert it to store in a file for quick loading.
-** Updated HTML,CSS and Javascript for google maps display, with real time updates from each individual commands.
+** Updated HTML,CSS and Javascript for google maps display with real time updates from each individual commands.
+** Credits: [https://github.com/cgcai/SVY21[SVY21 to WGS84]].
 
 * *Code contributed*:
 [https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/main/java/seedu/parking/commons/util/StringUtil.java[String Util]],
@@ -32,7 +42,7 @@ If you *use the computer frequently* and *commute by driving*, you would find ou
 
 
 * *Other contributions*:
-** Project management
+** Project management:
 *** Morphed the code from address book to car park.
 https://github.com/CS2103-AY1819S1-T09-4/main/pull/1[#1],
 https://github.com/CS2103-AY1819S1-T09-4/main/pull/5[#5]
@@ -54,6 +64,9 @@ https://github.com/CS2103-AY1819S1-T09-4/main/pull/76[#76])
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/28[#28],
+https://github.com/CS2103-AY1819S1-T09-4/main/pull/37[#37]
+
 
 
 == Contributions to the User Guide
@@ -80,9 +93,9 @@ include::../DeveloperGuide.adoc[tag=dataencryption]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-== Portfolio : Individual website
-
----
-
-https://lexzt.github.io[Website]
+//== Portfolio : Individual website
+//
+//---
+//
+//https://lexzt.github.io[Website]
 
