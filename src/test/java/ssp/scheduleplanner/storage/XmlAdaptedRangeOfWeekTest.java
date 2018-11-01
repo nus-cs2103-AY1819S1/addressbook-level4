@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import ssp.scheduleplanner.commons.exceptions.IllegalValueException;
-import ssp.scheduleplanner.model.rangeOfWeek.RangeOfWeek;
+import ssp.scheduleplanner.model.rangeofweek.RangeOfWeek;
 import ssp.scheduleplanner.model.task.Date;
 import ssp.scheduleplanner.testutil.Assert;
 
