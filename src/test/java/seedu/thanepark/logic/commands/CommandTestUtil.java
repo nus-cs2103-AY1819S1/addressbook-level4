@@ -2,11 +2,11 @@ package seedu.thanepark.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 
 import java.util.ArrayList;
 import java.util.Arrays;

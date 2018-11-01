@@ -1,10 +1,10 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
