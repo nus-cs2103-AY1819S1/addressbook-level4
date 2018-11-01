@@ -39,10 +39,13 @@ import seedu.address.logic.commands.FindModuleCommand;
 import seedu.address.logic.commands.FindOccasionCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.ListModuleCommand;
+import seedu.address.logic.commands.ListOccasionCommand;
 import seedu.address.logic.commands.ListPersonCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.testutil.TypicalModules;
+import seedu.address.testutil.TypicalOccasions;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
@@ -88,7 +91,11 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalPersonsAddressBook();
+        AddressBook thisOne = new AddressBook();
+        thisOne.setPersons(TypicalPersons.getTypicalPersonsAddressBook().getPersonList());
+        thisOne.setModules(TypicalModules.getTypicalModulesAddressBook().getModuleList());
+        thisOne.setOccasions(TypicalOccasions.getTypicalOccasionsAddressBook().getOccasionList());
+        return thisOne;
     }
 
     /**
@@ -185,7 +192,6 @@ public abstract class AddressBookSystemTest {
      * Displays all modules with any parts of their titles matching {@code keyword} (case-insensitive).
      */
     protected void showModulesWithTitle(String keyword) {
-        // TODO: -> FindModuleCommand
         executeCommand(FindModuleCommand.COMMAND_WORD + " mc/" + " " + keyword);
         assertTrue(getModel().getFilteredModuleList().size() < getModel().getAddressBook().getModuleList().size());
     }
@@ -200,7 +206,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Deletes all moduless in the address book.
+     * Deletes all modules in the address book.
      */
     protected void deleteAllModules() {
         executeCommand(ClearCommand.COMMAND_WORD);
@@ -211,8 +217,7 @@ public abstract class AddressBookSystemTest {
      * Displays all occasions in the address book.
      */
     protected void showAllOccasions() {
-        // TODO: -> ListOccasionCommand
-        executeCommand(ListPersonCommand.COMMAND_WORD);
+        executeCommand(ListOccasionCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getOccasionList().size(), getModel().getFilteredOccasionList().size());
     }
 
@@ -220,7 +225,6 @@ public abstract class AddressBookSystemTest {
      * Displays all occasions with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showOccasionsWithName(String keyword) {
-        // TODO: -> FindOccasionCommand
         executeCommand(FindOccasionCommand.COMMAND_WORD + " on/" + " " + keyword);
         assertTrue(getModel().getFilteredOccasionList().size() < getModel().getAddressBook().getOccasionList().size());
     }
@@ -230,7 +234,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void selectOccasion(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        // TODO: -> getOccasionListPanel implemented.
+        // TODO: -> getOccasionListPanel implemented. Need to morph select command.
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 

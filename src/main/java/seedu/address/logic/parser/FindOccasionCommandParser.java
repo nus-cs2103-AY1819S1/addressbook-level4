@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -25,23 +25,23 @@ public class FindOccasionCommandParser implements Parser<FindOccasionCommand> {
      */
     public FindOccasionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_OCCASION_LOCATION);
-        if (!anyPrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_OCCASION_LOCATION)
+                ArgumentTokenizer.tokenize(args, PREFIX_OCCASIONNAME, PREFIX_OCCASIONDATE, PREFIX_OCCASIONLOCATION);
+        if (!anyPrefixesPresent(argMultimap, PREFIX_OCCASIONNAME, PREFIX_OCCASIONDATE, PREFIX_OCCASIONLOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOccasionCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_OCCASION_NAME).isPresent()) {
-            String[] occasionNameKeyWords = argMultimap.getValue(PREFIX_OCCASION_NAME).get().trim().split("\\s+");
+        if (argMultimap.getValue(PREFIX_OCCASIONNAME).isPresent()) {
+            String[] occasionNameKeyWords = argMultimap.getValue(PREFIX_OCCASIONNAME).get().trim().split("\\s+");
             return new FindOccasionCommand(
                     new OccasionNameContainsKeywordsPredicate(Arrays.asList(occasionNameKeyWords)));
-        } else if (argMultimap.getValue(PREFIX_OCCASION_DATE).isPresent()) {
-            String[] occasionDateKeyWords = argMultimap.getValue(PREFIX_OCCASION_DATE).get().trim().split("\\s+");
+        } else if (argMultimap.getValue(PREFIX_OCCASIONDATE).isPresent()) {
+            String[] occasionDateKeyWords = argMultimap.getValue(PREFIX_OCCASIONDATE).get().trim().split("\\s+");
             return new FindOccasionCommand(
                     new OccasionDateContainsKeywordsPredicate(Arrays.asList(occasionDateKeyWords)));
         } else {
             String[] occasionLocationKeyWords =
-                    argMultimap.getValue(PREFIX_OCCASION_LOCATION).get().trim().split("\\s+");
+                    argMultimap.getValue(PREFIX_OCCASIONLOCATION).get().trim().split("\\s+");
             return new FindOccasionCommand(
                     new OccasionLocationContainsKeywordsPredicate(Arrays.asList(occasionLocationKeyWords)));
         }
