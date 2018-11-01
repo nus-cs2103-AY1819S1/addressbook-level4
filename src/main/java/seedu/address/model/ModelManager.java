@@ -17,13 +17,13 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookExportEvent;
 import seedu.address.commons.events.model.UserPrefsChangeEvent;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonPropertyComparator;
 import seedu.address.model.shared.Title;
-
 
 
 /**
@@ -133,12 +133,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void joinGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedAddressBook.joinGroup(person, group);
+        indicateAddressBookChanged();
     }
 
     @Override
     public void leaveGroup(Person person, Group group) {
         requireAllNonNull(person, group);
         versionedAddressBook.leaveGroup(person, group);
+        indicateAddressBookChanged();
     }
 
     // @@author
@@ -164,6 +166,22 @@ public class ModelManager extends ComponentManager implements Model {
     public Person getPersonByName(Name name) {
         return versionedAddressBook.getPersonByName(name);
     }
+
+    //=========== Meetings ===================================================================================
+
+    // @@author NyxF4ll
+    @Override
+    public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
+        versionedAddressBook.setMeeting(group, meeting);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
+        versionedAddressBook.cancelMeeting(group);
+        indicateAddressBookChanged();
+    }
+    // @@author
 
     //=========== Filtered Person List Accessors =============================================================
 

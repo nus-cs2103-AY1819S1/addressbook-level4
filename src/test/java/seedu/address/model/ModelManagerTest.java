@@ -1,8 +1,11 @@
 package seedu.address.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalGroups.GROUP_2101;
+import static seedu.address.testutil.TypicalMeetings.URGENT;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -15,6 +18,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
@@ -151,6 +156,48 @@ public class ModelManagerTest {
         modelManager.leaveGroup(watson, game);
         assertFalse(watson.hasGroup(game));
     }
+
+    // @@author NyxF4ll
+    @Test
+    public void setMeeting_groupExists_success() {
+        modelManager.addGroup(GROUP_2101.copy());
+        modelManager.setMeeting(GROUP_2101, URGENT);
+        assertEquals(modelManager.getGroupByTitle(GROUP_2101.getTitle()).getMeeting(), URGENT);
+    }
+
+    @Test
+    public void setMeeting_groupDoesNotExists_throwsGroupNotFoundException() {
+        thrown.expect(GroupNotFoundException.class);
+        modelManager.setMeeting(GROUP_2101, URGENT);
+    }
+
+    @Test
+    public void cancelMeeting_hasMeeting_success() {
+        Group editedGroup = GROUP_2101.copy();
+        editedGroup.setMeeting(URGENT);
+
+        modelManager.addGroup(editedGroup);
+        modelManager.cancelMeeting(editedGroup);
+
+        assertFalse(editedGroup.hasMeeting());
+    }
+
+    @Test
+    public void cancelMeeting_groupDoesNotExists_throwsGroupNotFoundException() {
+        thrown.expect(GroupNotFoundException.class);
+        modelManager.cancelMeeting(GROUP_2101);
+    }
+
+    @Test
+    public void cancelMeeting_groupHasNoMeeting_throwsGroupHasNoMeetingException() {
+        thrown.expect(GroupHasNoMeetingException.class);
+
+        Group groupWithoutMeeting = new Group(GROUP_2101.getTitle());
+
+        modelManager.addGroup(groupWithoutMeeting);
+        modelManager.cancelMeeting(groupWithoutMeeting);
+    }
+    // @@author
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {

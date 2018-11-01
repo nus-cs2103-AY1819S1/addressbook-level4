@@ -28,9 +28,10 @@ public class ImportCommand extends Command {
             + "Parameters: [Options] "
             + PREFIX_PATH + "FilePath\n"
             + "Options: "
-            + OPTION_OVERWRITE + " overwrite any conflicting Person/Group"
+            + OPTION_OVERWRITE + " overwrite any conflicting Person/Group +"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PATH + "backup\n";
+            + PREFIX_PATH + "backup\n"
+            + COMMAND_WORD + " " + OPTION_OVERWRITE + PREFIX_PATH + "backup";
     public static final String MESSAGE_FAIL_DATA = "Data file not in the correct format. ";
     public static final String MESSAGE_FAIL_NOFILE = "File does not exists.";
 

@@ -8,12 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 
 // @@author NyxF4ll
@@ -40,7 +40,7 @@ public class MeetCommand extends Command {
 
     public static final String MESSAGE_MEET_COMMAND_SUCCESS = "%1$s group meeting titled %2$s added to scheduler";
     public static final String MESSAGE_MEETING_CANCELLED = "Meeting for group %1$s cancelled";
-
+    public static final String MESSAGE_GROUP_HAS_NO_MEETING = "Error: Group does not have a meeting to be cancelled.";
     public final Group group;
     public final Meeting meeting;
 
@@ -59,32 +59,40 @@ public class MeetCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        // This must be changed after find group command is implemented.
-        List<Group> groupList = model.getGroupList();
-
-        if (!model.hasGroup(group)) {
-            throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
-        }
-
-        Group groupToEdit = groupList.stream().filter(group::isSameGroup).findFirst().get();
-        Group editedGroup = groupToEdit.copy();
-
         if (meeting != null) {
-            editedGroup.setMeeting(meeting);
-
-            model.updateGroup(groupToEdit, editedGroup);
-
+            handleNonEmptyArgumentMeetCommand(model);
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_MEET_COMMAND_SUCCESS,
-                    groupToEdit.getTitle().toString(), meeting.getTitle().toString()));
+                    group.getTitle(), meeting.getTitle()));
 
         } else {
-            editedGroup.cancelMeeting();
-
-            model.updateGroup(groupToEdit, editedGroup);
-
+            handleEmptyArgumentMeetCommand(model);
             model.commitAddressBook();
-            return new CommandResult(String.format(MESSAGE_MEETING_CANCELLED, groupToEdit.getTitle()));
+            return new CommandResult(String.format(MESSAGE_MEETING_CANCELLED, group.getTitle()));
+        }
+    }
+
+    /**
+     * Method to handle meet command with arguments.
+     */
+    private void handleNonEmptyArgumentMeetCommand(Model model) throws CommandException {
+        try {
+            model.setMeeting(group, meeting);
+        } catch (GroupNotFoundException gnfe) {
+            throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
+        }
+    }
+
+    /**
+     * Method to handle meet command without arguments.
+     */
+    private void handleEmptyArgumentMeetCommand(Model model) throws CommandException {
+        try {
+            model.cancelMeeting(group);
+        } catch (GroupNotFoundException gnfe) {
+            throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
+        } catch (GroupHasNoMeetingException gnme) {
+            throw new CommandException(MESSAGE_GROUP_HAS_NO_MEETING);
         }
     }
 

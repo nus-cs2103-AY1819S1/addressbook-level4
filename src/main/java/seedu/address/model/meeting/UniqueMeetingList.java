@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -61,6 +62,9 @@ public class UniqueMeetingList implements Iterable<Meeting> {
                 internalList.add(index, editedMeeting);
             }
         }
+
+        // restore ordering
+        Collections.sort(internalList);
     }
 
     /**
@@ -72,6 +76,9 @@ public class UniqueMeetingList implements Iterable<Meeting> {
         if (!internalList.remove(toRemove)) {
             throw new MeetingNotFoundException();
         }
+
+        // restore ordering
+        Collections.sort(internalList);
     }
 
     /**
@@ -84,6 +91,9 @@ public class UniqueMeetingList implements Iterable<Meeting> {
     public void setMeetings(List<Meeting> meetings) {
         requireNonNull(meetings);
         internalList.setAll(meetings);
+
+        // restore ordering
+        Collections.sort(internalList);
     }
 
     @Override

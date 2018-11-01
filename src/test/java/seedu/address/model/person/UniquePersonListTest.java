@@ -193,6 +193,12 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void getPersonByName_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniquePersonList.getPersonByName(null);
+    }
+
+    @Test
     public void getPersonByName_equals_returnsTrue() {
         Person person = new PersonBuilder().withName("Pakorn").build();
         Name name = new Name("Pakorn");
@@ -201,6 +207,17 @@ public class UniquePersonListTest {
         Person match = uniquePersonList.getPersonByName(name);
 
         assertTrue(match.equals(person));
+    }
+
+    @Test
+    public void getPersonByName_noMatch_returnsTrue() {
+        Person person = new PersonBuilder().withName("DerekZ").build();
+        Name name = new Name("DerekZXJ");
+
+        uniquePersonList.add(person);
+        Person match = uniquePersonList.getPersonByName(name);
+
+        assertTrue(match == null);
     }
 
     @Test

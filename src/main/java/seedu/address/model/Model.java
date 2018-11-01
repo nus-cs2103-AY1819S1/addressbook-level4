@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Name;
@@ -150,6 +151,15 @@ public interface Model {
      */
     ObservableList<Person> getSortedPersonList();
 
+    /**
+     * Sets meeting field of {@code group} in the group list to {@code meeting}.
+     */
+    public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException;
+
+    /**
+     * Resets meeting field of {@code group} in the group list to an empty optional.
+     */
+    public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException;
 
     /**
      * Updates the filter of the filtered meeting list to filter by the given {@code predicate}

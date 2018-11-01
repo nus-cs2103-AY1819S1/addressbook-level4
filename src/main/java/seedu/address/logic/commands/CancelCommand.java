@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.core.Messages.MESSAGE_GROUP_NOT_FOUND;
 
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 
 // @@author NyxF4ll
 /**
@@ -26,8 +26,7 @@ public class CancelCommand extends Command {
             + "Example: " + COMMAND_WORD + " CS2103 ";
 
     public static final String MESSAGE_CANCEL_COMMAND_SUCCESS = "Meeting for group %1$s cancelled";
-    public static final String MESSAGE_GROUP_HAS_NO_MEETING = "Cancel command can only be called on a group "
-            + "with meeting.";
+    public static final String MESSAGE_GROUP_HAS_NO_MEETING = "Error: Group does not have a meeting to be cancelled.";
 
     public final Group group;
 
@@ -44,26 +43,15 @@ public class CancelCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        // This must be changed after find group command is implemented.
-        List<Group> groupList = model.getGroupList();
-
-        if (!model.hasGroup(group)) {
+        try {
+            model.cancelMeeting(group);
+            model.commitAddressBook();
+            return new CommandResult(String.format(MESSAGE_CANCEL_COMMAND_SUCCESS, group.getTitle()));
+        } catch (GroupNotFoundException gnfe) {
             throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
-        }
-
-        Group groupToEdit = groupList.stream().filter(group::isSameGroup).findFirst().get();
-        if (!groupToEdit.hasMeeting()) {
+        } catch (GroupHasNoMeetingException gnme) {
             throw new CommandException(MESSAGE_GROUP_HAS_NO_MEETING);
         }
-
-        Group editedGroup = groupToEdit.copy();
-
-        editedGroup.cancelMeeting();
-
-        model.updateGroup(groupToEdit, editedGroup);
-
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_CANCEL_COMMAND_SUCCESS, groupToEdit.getTitle()));
     }
 
     @Override

@@ -15,10 +15,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Pakorn Ueareeworakul
 image::nyxf4ll.png[width="150", align="left"]
-{empty}[https://github.com/NyxF4ll[github]]
+{empty}[https://github.com/NyxF4ll[github]][<<NyxF4ll#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Model
+Responsibilities: Meeting
 
 '''
 
@@ -45,7 +45,7 @@ image::derek-hardy.png[width="150", align="left"]
 {empty}[https://github.com/Derek-Hardy[github]]
 
 Role: Developer +
-Responsibilities: Logic
+Responsibilities: Group
 
 '''
 

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
+import seedu.address.model.group.exceptions.GroupHasNoMeetingException;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.UniqueMeetingList;
@@ -73,7 +74,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
-        meetings.setMeetings(groups.stream().map(Group::getMeeting).collect(Collectors.toList()));
+        meetings.setMeetings(groups.stream().filter(group -> group.getMeeting() != null).map(Group::getMeeting)
+            .collect(Collectors.toList()));
     }
     // @@author
 
@@ -231,6 +233,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         updateGroup(group, groupCopy);
     }
 
+    // @@author NyxF4ll
+    /**
+     * Sets meeting field of {@code group} in the group list to {@code meeting}.
+     */
+    public void setMeeting(Group group, Meeting meeting) throws GroupNotFoundException {
+        meetings.setMeeting(group.getMeeting(), meeting);
+        groups.setMeeting(group, meeting);
+    }
+
+    /**
+     * Resets meeting field of {@code group} in the group list to an empty optional.
+     */
+    public void cancelMeeting(Group group) throws GroupNotFoundException, GroupHasNoMeetingException {
+        List<Meeting> meetings = groups.asUnmodifiableObservableList().stream().filter(g -> g.isSameGroup(group))
+            .map(Group::getMeeting).collect(Collectors.toList());
+        if (!meetings.isEmpty() && meetings.get(0) != null) {
+            this.meetings.remove(meetings.get(0));
+        }
+        groups.cancelMeeting(group);
+    }
     // @@author
 
     //// util methods
