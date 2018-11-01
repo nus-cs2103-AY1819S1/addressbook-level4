@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 
 /**
  * the command to save the current preview
+ *
  * @author lancelotwillow
  */
 public class SaveCommand extends Command {
@@ -37,8 +38,9 @@ public class SaveCommand extends Command {
     }
 
     /**
-     * build a new processbuilder and initialize witht the commands need to the convert command
-     * @param model {@code Model} which the command should operate on.
+     * Build a new processbuilder and initialize with the commands need to the convert command
+     *
+     * @param model   {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
      * @return
      * @throws CommandException
@@ -50,18 +52,20 @@ public class SaveCommand extends Command {
             Path currentDir = model.getCurrDirectory();
             File saveFile = new File(currentDir.toString() + "/" + fileName);
             if (saveFile.exists()) {
-                throw new IllegalArgumentException("the file already exists");
+                return new CommandResult("An image with the same name already exists in this directory! \n\n"
+                        + MESSAGE_USAGE);
             }
             String[] parts = fileName.split("\\.");
             if (parts.length != 2 || !isFormatValid(parts[1])) {
-                throw new IllegalArgumentException("the file name is not valid");
+                return new CommandResult("Image name/format provided invalid. \n\n" + MESSAGE_USAGE);
             }
             BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
             ImageIO.write(savedImage, parts[1], saveFile);
         } catch (IllegalArgumentException | IOException e) {
             throw new CommandException(e.toString());
         }
-        return new CommandResult("the image is successfully saved");
+        model.updateEntireImageList();
+        return new CommandResult(String.format("%s successfully saved!", fileName));
     }
 
     private boolean isFormatValid(String format) {

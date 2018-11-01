@@ -83,6 +83,11 @@ public interface Model {
     int getCurrBatchPointer();
 
     /**
+     * Updates entire image list.
+     */
+    void updateEntireImageList();
+
+    /**
      * Updates the batch pointer to the next 10 images.
      */
     void updateImageListNextBatch();
