@@ -445,13 +445,14 @@ Given below is are examples of how the medicine class is used:
 
 Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 
-Scenario 2. A new shipment of medicine has arrived. The user uses `editMedicine` command
+Scenario 2. A new shipment of medicine has arrived. The user uses `restock` command
 to update the new stock levels of exiting medicine.
 
-Scenario 3. When a patient is allocated medicine, during payment a `receipt` command is executed by the user to fetch the prices
-for the medicine that is allocated, in addition, the stock level of the medicine is updated too.
+Scenario 3. When a patient is allocated medicine, the 'dispensemedicine' command is entered.
+During payment a `receipt` command is executed by the user to fetch the prices
+for the medicine that is allocated, in addition, the stock level of the medicine is updated.
 
-Scenario 4. During closing or whenever needed, the user checks for the stock level. The user executes the `checkStock` command
+Scenario 4. The user needs to check for the stock level of every medicine. The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
 
 ==== Design Considerations
@@ -459,11 +460,11 @@ which lists the medicine that are below their Minimum Stock Quantity.
 ===== Aspect: Execution of the command
 
 * **Alternative 1 (current choice):** Stores the medicine in a list.
-** Pros: Similar format with the list with patients.
+** Pros: Consistent format with the list with patients.
 ** Cons: Need to search through the list to find a medicine.
 * **Alternative 2:** Stores the medicine in a hash map.
 ** Pros: Quick reference for object given index.
-** Cons: Messy implementation with long methods everywhere.
+** Cons: Difficult to sort the medicine.
 //end::medicine[]
 
 // tag::pqms[]

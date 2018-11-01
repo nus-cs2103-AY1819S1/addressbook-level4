@@ -7,11 +7,12 @@
 
 == Introduction
 Hello, I am Yu Cong. I am currently studying Computer Science as my major in the School of Computing, National University of Singapore.
-I formed a team with 4 other students to create CLInic as part of the project requirement under the CS2103T module as part of my university education.
+I formed a team with 4 other students to create CLInic as part of the project requirement under the CS2103T module (Introduction to Software Engineering)
+as part of my university education.
 
 // write clearly this is to showcase contributions
 This project portfolio serves to document my contributions to this project. You can see my contributions to
-the <<Summary of contributions, code contribution>>, the <<Contributions to the User Guide, user guide>> and the <<Contributions to the Developer Guide, developer guide>> below.
+the <<Summary of Contributions, code contribution>>, the <<Contributions to the User Guide, user guide>> and the <<Contributions to the Developer Guide, developer guide>> below.
 
 CLInic is a desktop application made for clinics who wish to automate their daily operations.
 The CLI in CLInic is an acronym for Command Line Interface, which is the main method to use this application.
@@ -25,7 +26,7 @@ Examples of the main features include:
 . Realistic model of clinic's daily operation and commands to cater to clinics.
 . Customised receipts, medical certificates and referral letters for different clinics.
 
-== Summary of contributions
+== Summary of Contributions
 //preface to this section to inform reader purpose of this section
 In this section, you can find the major and minor enhancement that I made to CLInic:
 
@@ -45,7 +46,11 @@ In this section, you can find the major and minor enhancement that I made to CLI
 ** Proof-read all code written to adhere to standard Java writing style.
 ** Advised my team to apply knowledge learnt in lecture wherever necessary.
 ** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
+** Created the trailer for our project release.
 
+* *Future contributions*
+** Implement sort command for medicine
+** Add tags to medicine, to allow flexible management of controlled drugs
 
 == Contributions to the User Guide
 

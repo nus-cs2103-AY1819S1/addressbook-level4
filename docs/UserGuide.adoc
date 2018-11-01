@@ -326,7 +326,7 @@ Finds the details of the medicines tagged with the keyword `chlorpheniramine`.
 Lists all medicines that are low in supply. +
 Alias: `cs` +
 Format: `checkstock`
-// tag::medicine[]
+// end::medicine[]
 
 [[pqms]]
 // tag::pqms[]
