@@ -31,13 +31,13 @@ public class ImportAddressBook {
     private List<Person> personList;
     private Set<Tag> tags;
 
-    private final String HEADER = "persons";
-    private final String NAME = "name";
-    private final String PHONE = "phone";
-    private final String EMAIL = "email";
-    private final String ROOM = "room";
-    private final String SCHOOL = "school";
-    private final String TAG = "tagged";
+    private static final String HEADER = "persons";
+    private static final String NAME = "name";
+    private static final String PHONE = "phone";
+    private static final String EMAIL = "email";
+    private static final String ROOM = "room";
+    private static final String SCHOOL = "school";
+    private static final String TAG = "tagged";
 
     private final int INDEX = 0;
 
@@ -55,7 +55,7 @@ public class ImportAddressBook {
     public void execute() {
         List<Person> fullList = model.getAddressBook().getPersonList();
         personList.clear();
-        NodeList nList = doc.getElementsByTagName("persons");
+        NodeList nList = doc.getElementsByTagName(HEADER);
         for (int i = 0; i < nList.getLength(); i++) {
             Node node = nList.item(i);
             tags.clear();

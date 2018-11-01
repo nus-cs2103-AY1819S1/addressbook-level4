@@ -33,11 +33,11 @@ public class ImportTransaction {
     private List<CcaName> ccaList;
     private Set<Entry> entries;
 
-    private final String HEADER = "transactions";
-    private final String CCA_NAME = "name";
-    private final String DATE = "date";
-    private final String AMOUNT = "amount";
-    private final String REMARKS = "log";
+    private static final String HEADER = "transactions";
+    private static final String CCA_NAME = "name";
+    private static final String DATE = "date";
+    private static final String AMOUNT = "amount";
+    private static final String REMARKS = "log";
 
     private final int INDEX = 0;
 
@@ -65,7 +65,8 @@ public class ImportTransaction {
 
                 CcaName ccaName = new CcaName(element.getElementsByTagName(CCA_NAME).item(INDEX).getTextContent());
                 Date date = new Date(element.getElementsByTagName(DATE).item(INDEX).getTextContent());
-                Amount amount = new Amount(Integer.parseInt(element.getElementsByTagName(AMOUNT).item(INDEX).getTextContent()));
+                Amount amount = new Amount(Integer.parseInt(element.getElementsByTagName(AMOUNT).item(INDEX)
+                                                .getTextContent()));
                 Remarks remarks = new Remarks(element.getElementsByTagName(REMARKS).item(INDEX).getTextContent());
 
                 if (!model.hasCca(ccaName)) {

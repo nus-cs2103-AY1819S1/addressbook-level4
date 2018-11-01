@@ -29,18 +29,18 @@ public class ImportBudgetBook {
     private List<Cca> ccaList;
     private Set<Entry> entries;
 
-    private final String HEADER = "ccas";
-    private final String CCA_NAME = "name";
-    private final String HEAD = "head";
-    private final String VICEHEAD = "viceHead";
-    private final String BUDGET = "budget";
-    private final String SPENT = "spent";
-    private final String OUTSTANDING = "outstanding";
-    private final String TRANSACTION_HEADER = "transaction";
-    private final String ENTRY_NUM = "entryNum";
-    private final String DATE = "date";
-    private final String AMOUNT = "amount";
-    private final String REMARKS = "log";
+    private static final String HEADER = "ccas";
+    private static final String CCA_NAME = "name";
+    private static final String HEAD = "head";
+    private static final String VICEHEAD = "viceHead";
+    private static final String BUDGET = "budget";
+    private static final String SPENT = "spent";
+    private static final String OUTSTANDING = "outstanding";
+    private static final String TRANSACTION_HEADER = "transaction";
+    private static final String ENTRY_NUM = "entryNum";
+    private static final String DATE = "date";
+    private static final String AMOUNT = "amount";
+    private static final String REMARKS = "log";
 
     private final int INDEX = 0;
 

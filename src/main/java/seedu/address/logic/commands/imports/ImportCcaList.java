@@ -27,9 +27,9 @@ public class ImportCcaList {
     private Model model;
     private String cca;
 
-    private final String HEADER = "cca";
-    private final String NAME = "name";
-    private final String ROOM = "room";
+    private static final String HEADER = "cca";
+    private static final String NAME = "name";
+    private static final String ROOM = "room";
 
     public ImportCcaList(Document doc, Model model) {
         this.roomsList = new ArrayList<>();
