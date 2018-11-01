@@ -20,6 +20,7 @@ import ssp.scheduleplanner.logic.commands.HistoryCommand;
 import ssp.scheduleplanner.logic.commands.ListArchivedCommand;
 import ssp.scheduleplanner.logic.commands.ListCommand;
 import ssp.scheduleplanner.logic.commands.ListDayCommand;
+import ssp.scheduleplanner.logic.commands.ListMonthCommand;
 import ssp.scheduleplanner.logic.commands.ListOverdueCommand;
 import ssp.scheduleplanner.logic.commands.ListWeekCommand;
 import ssp.scheduleplanner.logic.commands.RedoCommand;
@@ -91,6 +92,9 @@ public class SchedulePlannerParser {
 
         case ListDayCommand.COMMAND_WORD:
             return new ListDayCommand();
+
+        case ListMonthCommand.COMMAND_WORD:
+            return new ListMonthCommand();
 
         case ListOverdueCommand.COMMAND_WORD:
             return new ListOverdueCommand();
