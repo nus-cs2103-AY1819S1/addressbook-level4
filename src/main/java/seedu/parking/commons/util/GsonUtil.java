@@ -46,20 +46,22 @@ public class GsonUtil {
     public static List<List<String>> fetchAllCarparkInfo() throws Exception {
         final boolean[] hasError = {false, false, false};
 
-        Thread first = new Thread(() -> {
-            try {
-                loadCarparkPostalCode();
-            } catch (IOException e) {
-                hasError[0] = true;
-            }
-        });
-        first.start();
+        //Thread first = new Thread(() -> {
+        //    try {
+        //        loadCarparkPostalCode();
+        //    } catch (IOException e) {
+        //        hasError[0] = true;
+        //        logger.warning("Unable to load postal code.");
+        //    }
+        //});
+        //first.start();
 
         Thread second = new Thread(() -> {
             try {
                 getCarparkData();
             } catch (IOException e) {
                 hasError[1] = true;
+                logger.warning("Unable to load car park data.");
             }
         });
         second.start();
@@ -69,11 +71,12 @@ public class GsonUtil {
                 getCarparkAvailability();
             } catch (IOException e) {
                 hasError[2] = true;
+                logger.warning("Unable to load parking lots data.");
             }
         });
         third.start();
 
-        first.join();
+        //first.join();
         second.join();
         third.join();
 
@@ -263,7 +266,7 @@ public class GsonUtil {
      * If postal code is default, we will not display it or check against it.
      * @throws IOException if unable to open file.
      */
-    private static void loadCarparkPostalCode () throws IOException {
+    private static void loadCarparkPostalCode() throws IOException {
         postalCodeMap.clear();
         File file = new File(POSTAL_CODE_TXT);
 
@@ -328,7 +331,7 @@ public class GsonUtil {
      * FNV hashes a String array.
      * @return A long which is the hash value
      */
-    private static long fnvHash (String[] strings) {
+    private static long fnvHash(String[] strings) {
         long hash = 0xCBF29CE484222325L;
         for (String s : strings) {
             hash ^= s.hashCode();
@@ -341,7 +344,7 @@ public class GsonUtil {
      * Outputs a hashmap to a txt file.
      * @throws IOException if unable to open file.
      */
-    private static void hashmapToTxt (HashMap<Long, String> map) throws IOException {
+    private static void hashmapToTxt(HashMap<Long, String> map) throws IOException {
         FileWriter fstream;
         BufferedWriter out;
 
