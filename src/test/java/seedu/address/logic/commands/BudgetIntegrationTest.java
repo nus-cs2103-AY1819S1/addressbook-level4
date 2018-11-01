@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import org.junit.Test;
@@ -12,8 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -24,12 +22,12 @@ import seedu.address.testutil.ExpenseBuilder;
 
 
 public class BudgetIntegrationTest {
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+        model = getTypicalModel();
         commandHistory = new CommandHistory();
     }
 

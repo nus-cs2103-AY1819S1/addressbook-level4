@@ -155,15 +155,15 @@ public class TotalBudget extends Budget {
 
         super.removeExpense(expense);
         Category cat = expense.getCategory();
-        CategoryBudget toModify = null;
-        CategoryBudget[] cBudgetArray = this.categoryBudgets.toArray(new CategoryBudget[1]);
-        for (int i = 0; i < cBudgetArray.length; i++) {
-            if (cBudgetArray[i].getCategory().equals(cat)) {
-                toModify = cBudgetArray[i];
+        CategoryBudget toDelete = null;
+        List<CategoryBudget> cBudgetList = this.categoryBudgets.stream().collect(Collectors.toList());
+        for (int i = 0; i < cBudgetList.size(); i++) {
+            if (cBudgetList.get(i).getCategory().equals(cat)) {
+                toDelete = cBudgetList.get(i);
             }
         }
-        if (toModify != null) {
-            toModify.removeExpense(expense);
+        if (toDelete != null) {
+            toDelete.removeExpense(expense);
         }
     }
 

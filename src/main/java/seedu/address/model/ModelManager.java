@@ -142,7 +142,6 @@ public class ModelManager extends ComponentManager implements Model {
         } catch (IllegalValueException e) {
             throw new IllegalStateException("Illegal value in expense tracker");
         }
-        raise(new ExpenseTrackerChangedEvent(versionedExpenseTracker));
     }
 
     @Override

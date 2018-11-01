@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -48,7 +49,7 @@ public class SetCategoryBudgetCommandTest {
     @Test
     public void execute_addCategoryBudget_editSuccessful() throws NoUserSelectedException,
         CategoryBudgetExceedTotalBudgetException {
-        ModelManager expectedModel = new ModelManager(this.model.getExpenseTracker(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(this.model.getExpenseTracker(), new UserPrefs(), null);
         String validBudget = String.format("%.2f", expectedModel.getMaximumBudget().getBudgetCap() - 1);
         this.model.addCategoryBudget(new CategoryBudget(VALID_CATEGORY, validBudget));
         expectedModel.addCategoryBudget(new CategoryBudget(VALID_CATEGORY, validBudget));
@@ -66,7 +67,7 @@ public class SetCategoryBudgetCommandTest {
     }
 
     @Test
-    public void execute_addCategoryBudget_unsuccessful() {
+    public void execute_addCategoryBudget_unsuccessful() throws NoUserSelectedException {
         String validExcessBudget = String.format("%.2f", this.model.getMaximumBudget().getBudgetCap() + 1);
         CategoryBudget toAdd = new CategoryBudget(VALID_CATEGORY, validExcessBudget);
         SetCategoryBudgetCommand setCategoryBudgetCommand = new SetCategoryBudgetCommand(toAdd);

@@ -23,7 +23,7 @@ import seedu.address.testutil.ExpenseBuilder;
  */
 public class AddCommandIntegrationTest {
 
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @BeforeEach
@@ -47,7 +47,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newExpense_withinCategoryBudget() throws NoUserSelectedException,
         CategoryBudgetExceedTotalBudgetException {
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         this.model.modifyMaximumBudget(new TotalBudget("200.00"));
         this.model.addCategoryBudget(new CategoryBudget("Test", "3.00"));
         expectedModel.modifyMaximumBudget(new TotalBudget("200.00"));
@@ -72,7 +72,7 @@ public class AddCommandIntegrationTest {
     @Test
     public void execute_newExpense_categoryBudgetExceed() throws NoUserSelectedException,
         CategoryBudgetExceedTotalBudgetException {
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         this.model.modifyMaximumBudget(new TotalBudget("200.00"));
         this.model.addCategoryBudget(new CategoryBudget("Test", "1.00"));
         expectedModel.modifyMaximumBudget(new TotalBudget("200.00"));
