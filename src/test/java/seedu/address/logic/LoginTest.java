@@ -30,8 +30,8 @@ public class LoginTest {
 
     @Test
     public void login_admin_successful() {
-        String adminUsername = User.ADMIN_USERNAME.username;
-        String adminPassword = User.ADMIN_PASSWORD.password;
+        String adminUsername = User.ADMIN_DEFAULT_USERNAME.username;
+        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.password;
 
         EventsCenter.getInstance().post(new LoginEvent(adminUsername, adminPassword));
 

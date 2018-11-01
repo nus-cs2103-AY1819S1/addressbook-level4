@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.storage.AdminPasswordModificationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -43,6 +45,7 @@ public class PasswordCommand extends Command {
                     }
 
                     if (currentUser.isAdminUser()) {
+                        EventsCenter.getInstance().post(new AdminPasswordModificationEvent(new Password(newPassword)));
                         return new CommandResult(SHOWING_PASSWORD_MESSAGE);
                     }
 
