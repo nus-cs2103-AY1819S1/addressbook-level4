@@ -17,8 +17,6 @@ public class NextCommand extends Command {
 
     public static final String COMMAND_WORD = "next";
 
-    public static final String MESSAGE_NEXT_SUCCESS = "Currently viewing next %d images.";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Retrieves the next batch of photos for viewing.\n"
             + "Example: " + COMMAND_WORD;
 
@@ -33,9 +31,9 @@ public class NextCommand extends Command {
         model.updateImageListNextBatch();
         EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), true));
 
-        return new CommandResult((String.format(MESSAGE_NEXT_SUCCESS,
-                Math.min(model.getDirectoryImageList().size(), SelectCommand.BATCH_SIZE)) + "\n"
-                + (String.format(Messages.MESSAGE_REMAINING_IMAGES_IN_DIR, model.numOfRemainingImagesInDir())
+        return new CommandResult((String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())
+                + (String.format(Messages.MESSAGE_CURRENT_BATCH_IN_IMAGE_LIST, model.getCurrBatchPointer() + 1,
+                model.getCurrBatchPointer() + Math.min(model.numOfRemainingImagesInDir(), SelectCommand.BATCH_SIZE))
                 + (String.format(Messages.MESSAGE_CURRENT_IMAGES_IN_BATCH, model.getDirectoryImageList().size())))));
     }
 }
