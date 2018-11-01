@@ -2,6 +2,7 @@ package seedu.clinicio.model.patient;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -22,6 +23,8 @@ import seedu.clinicio.model.tag.Tag;
  * A patient may or may not have a preferredDoctor, consultation, medical history and appointment.
  */
 public class Patient extends Person {
+    private Set<MedicalProblem> medicalProblemss = new HashSet<>();
+    private Set<Allergy> allergies = new HashSet<>();
     private Optional<Doctor> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
 
