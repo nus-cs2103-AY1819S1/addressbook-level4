@@ -56,7 +56,7 @@ public class UniqueMedicineList implements Iterable<Medicine> {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::hasSameSerialNumber);
     }
-    
+
     /**
      * Adds a medicine to the list.
      * The medicine must not already exist in the list.
