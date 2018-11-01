@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArchiveList;
 import seedu.address.model.permission.Permission;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.person.Person;
@@ -55,7 +56,8 @@ public class TypicalPersons {
             .withUsername("Fiona Kunz").withPassword("FionaI5H0t").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("123, Jurong West Ave 6, #08-111").withSalary("10000")
-            .withUsername("George Best").withPassword("Pa55w0rd").build();
+            .withUsername("George Best").withPassword("Pa55w0rd")
+            .withLeaveApplications(Arrays.asList(TypicalLeaveApplications.ALICE_LEAVE)).build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
@@ -75,6 +77,15 @@ public class TypicalPersons {
             .withProjects(VALID_PROJECT_OASIS).withUsername(VALID_USERNAME_BOB).withPassword(VALID_PASSWORD_BOB)
             .build();
 
+    public static final Person JORDAN = new PersonBuilder().withName("Jordan Tan").withPhone("82829392")
+            .withEmail("Jordan@example.com").withAddress("Highroad").withSalary("12000")
+            .withProjects(VALID_PROJECT_OASIS).withUsername("Jordan Tan").withPassword("Pa55w0rd")
+            .build();
+    public static final Person BARRY = new PersonBuilder().withName("Barry Lim").withPhone("82738273")
+            .withEmail("Barry@example.com").withAddress("Highstreet").withSalary("12000")
+            .withProjects(VALID_PROJECT_OASIS).withUsername("Barry Lim").withPassword("Pa55w0rd")
+            .build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {
@@ -91,7 +102,19 @@ public class TypicalPersons {
         return ab;
     }
 
+    public static ArchiveList getTypicalArchiveList() {
+        ArchiveList al = new ArchiveList();
+        for (Person person: getTypicalArchivedPersons()) {
+            al.addPerson(person);
+        }
+        return al;
+    }
+
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Person> getTypicalArchivedPersons() {
+        return new ArrayList<>(Arrays.asList(JORDAN, BARRY));
     }
 }
