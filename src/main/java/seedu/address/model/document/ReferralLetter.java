@@ -18,5 +18,6 @@ public class ReferralLetter extends Document {
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
         setReferralContent(servedPatient.getReferralContent());
+        setNoteContent(servedPatient.getNoteContent());
     }
 }

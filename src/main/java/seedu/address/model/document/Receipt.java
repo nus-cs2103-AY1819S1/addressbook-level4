@@ -16,7 +16,7 @@ import seedu.address.model.services.Service;
 public class Receipt extends Document {
     public static final String FILE_TYPE = "Receipt";
 
-    private float totalPrice = 0;
+    private float totalPrice;
     private Map<Medicine, QuantityToDispense> allocatedMedicine;
     private ArrayList<Service> servicesRendered;
 
@@ -25,19 +25,25 @@ public class Receipt extends Document {
      * @param servedPatient the patient who has already consulted the doctor.
      */
     public Receipt(ServedPatient servedPatient) {
+        totalPrice = 0;
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
         allocatedMedicine = servedPatient.getMedicineAllocated();
         servicesRendered = new ArrayList<>();
+        servicesRendered.add(Service.CONSULTATION);
     }
 
     public float getTotalPrice() {
         return totalPrice;
     }
 
-    public void increaseTotalPriceBy(int increment) {
+    public void increaseTotalPriceBy(float increment) {
         totalPrice += increment;
+    }
+
+    public void resetPrice() {
+        totalPrice = 0;
     }
 
     public Map<Medicine, QuantityToDispense> getAllocatedMedicine() {
