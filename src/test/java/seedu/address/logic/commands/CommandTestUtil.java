@@ -30,6 +30,8 @@ import seedu.address.model.leaveapplication.LeaveEmployeeEqualsPredicate;
 import seedu.address.model.leaveapplication.StatusEnum;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Assignment;
+import seedu.address.model.project.AssignmentContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -188,6 +190,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the assignment at the given {@code targetIndex} in the
+     * {@code model}'s assignment list.
+     */
+    public static void showAssignmentAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAssignmentList().size());
+
+        Assignment assignment = model.getFilteredAssignmentList().get(targetIndex.getZeroBased());
+        final String[] splitName = assignment.getProjectName().fullProjectName.split("\\s+");
+        model.updateFilteredAssignmentList(new AssignmentContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredAssignmentList().size());
     }
 
     /**
