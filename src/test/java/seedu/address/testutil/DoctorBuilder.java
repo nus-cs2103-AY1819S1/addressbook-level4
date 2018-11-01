@@ -1,7 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.PriorityQueue;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
@@ -33,7 +34,7 @@ public class DoctorBuilder {
     private Address address;
     private Remark remark;
     private Set<Tag> tags;
-    private PriorityQueue<Appointment> upcomingAppointments;
+    private List<Appointment> upcomingAppointments;
 
 
     public DoctorBuilder() {
@@ -44,7 +45,7 @@ public class DoctorBuilder {
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
         tags.add(new Tag(DEFAULT_TAG));
-        upcomingAppointments = new PriorityQueue<>();
+        upcomingAppointments = new ArrayList<>();
     }
 
     /**

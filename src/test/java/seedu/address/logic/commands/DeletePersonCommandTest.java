@@ -19,6 +19,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
+import seedu.address.testutil.GoogleCalendarStub;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -26,6 +27,7 @@ import seedu.address.model.person.Name;
  */
 public class DeletePersonCommandTest {
 
+    private static final GoogleCalendarStub GOOGLE_CALENDAR_STUB = new GoogleCalendarStub();
     private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctor(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -91,7 +93,7 @@ public class DeletePersonCommandTest {
         expectedModel.commitAddressBook();
 
         // delete -> first person deleted
-        deletePatientCommand.execute(model, commandHistory);
+        deletePatientCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
@@ -112,7 +114,7 @@ public class DeletePersonCommandTest {
         expectedModel.commitAddressBook();
 
         // delete -> first person deleted
-        deleteDoctorCommand.execute(model, commandHistory);
+        deleteDoctorCommand.execute(model, commandHistory, GOOGLE_CALENDAR_STUB);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
