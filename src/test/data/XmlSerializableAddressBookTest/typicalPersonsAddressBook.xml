@@ -71,7 +71,7 @@
         <username>George Best</username>
         <password>Pa55w0rd</password>
         <leaveApplications>
-            <description>Alice's family holiday</description>
+            <description>Alice family holiday</description>
             <status>PENDING</status>
             <dates>2018-10-23</dates>
             <dates>2018-10-24</dates>
