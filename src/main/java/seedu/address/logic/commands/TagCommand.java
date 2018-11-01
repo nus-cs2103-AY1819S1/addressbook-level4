@@ -75,7 +75,7 @@ public class TagCommand extends Command {
                     }
                 }
                 Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                        person.getAddress(), personTags, person.getMeeting());
+                        person.getAddress(), personTags, person.getMeeting(), person.getPicture());
                 updatedList.add(editedPerson);
                 model.updatePerson(person, editedPerson);
             });
@@ -95,7 +95,7 @@ public class TagCommand extends Command {
                     personTags.add(tagToBeAdded);
                 }
                 Person editedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(),
-                        person.getAddress(), personTags, person.getMeeting());
+                        person.getAddress(), personTags, person.getMeeting(), person.getPicture());
                 updatedList.add(editedPerson);
                 model.updatePerson(person, editedPerson);
             });

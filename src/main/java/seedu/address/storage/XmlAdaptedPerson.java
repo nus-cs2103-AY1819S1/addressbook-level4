@@ -142,9 +142,7 @@ public class XmlAdaptedPerson {
         final Picture modelPicture = new Picture(picture);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        Person person = new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMeeting);
-        person.setPicture(modelPicture);
-        return person;
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMeeting, modelPicture);
     }
 
     @Override

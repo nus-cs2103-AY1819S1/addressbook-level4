@@ -19,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Picture;
 import seedu.address.model.tag.Tag;
 
 //@@author AyushChatto
@@ -92,7 +93,9 @@ public class ScheduleCommand extends Command {
         Optional<Email> email = personToSchedule.getEmail();
         Optional<Address> address = personToSchedule.getAddress();
         Set<Tag> tags = personToSchedule.getTags();
-
-        return new Person(name, phone, email, address, tags, meeting);
+        Picture picture = personToSchedule.getPicture();
+        return new Person(name, phone, email, address, tags, meeting, picture);
     }
+
+
 }
