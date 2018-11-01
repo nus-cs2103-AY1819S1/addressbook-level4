@@ -26,8 +26,6 @@ public class DoctorBuilder {
     public static final String DEFAULT_TAG = "Doctor";
     public static final String DEFAULT_REMARK = "Likes to swim";
 
-
-
     private Name name;
     private Phone phone;
     private Email email;

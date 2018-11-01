@@ -43,7 +43,6 @@ public class Appointment implements Comparable<Appointment> {
         } else {
             this.prescriptions = new ArrayList<>();
         }
-
     }
 
     public int getAppointmentId() {

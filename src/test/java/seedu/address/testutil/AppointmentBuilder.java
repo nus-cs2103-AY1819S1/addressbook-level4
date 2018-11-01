@@ -114,4 +114,8 @@ public class AppointmentBuilder {
         this.comments = comments;
         return this;
     }
+
+    public Appointment build() {
+        return new Appointment(appointmentId.getAppointmentId(), doctor, patient, dateTime);
+    }
 }
