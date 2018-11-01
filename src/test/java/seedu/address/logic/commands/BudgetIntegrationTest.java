@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 //@@author winsonhys
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +17,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
+import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
 
 
@@ -50,6 +54,43 @@ public class BudgetIntegrationTest {
         CategoryBudget cBudget = this.model.getMaximumBudget().getCategoryBudgets().toArray(new CategoryBudget[1])[0];
         assertTrue(cBudget.getCurrentExpenses() == 2);
 
+    }
+
+    @Test
+    public void editExpense_budgetUpdated() throws CommandException, NoUserSelectedException {
+        double initialExpenses = this.model.getMaximumBudget().getCurrentExpenses();
+        double initialFirstExpenseCost = model.getFilteredExpenseList().get(0).getCost().getCostValue();
+        Expense editedExpense = new ExpenseBuilder().withCost("3.00").build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
+        new EditCommand(INDEX_FIRST_EXPENSE, descriptor).execute(this.model, this.commandHistory);
+        assertTrue(this.model.getMaximumBudget().getCurrentExpenses() == initialExpenses - initialFirstExpenseCost + 3);
+
+    }
+
+    @Test
+    public void editExpense_categoryBudgetUpdated_categoryEdited() throws CommandException,
+        NoUserSelectedException {
+        this.model.modifyMaximumBudget(new TotalBudget("9999.00"));
+        String categoryName = "NewCategory";
+        String oldCategory = "OldCategory";
+        Expense expenseWithCategory = new ExpenseBuilder().withCategory(oldCategory).withCost("50.00").build();
+        this.model.updateExpense(this.model.getFilteredExpenseList().get(0), expenseWithCategory);
+        Expense editedExpense = new ExpenseBuilder().withCategory(categoryName).withCost("3.00").build();
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
+        new SetCategoryBudgetCommand(new CategoryBudget(oldCategory, "999.00"))
+            .execute(this.model, this.commandHistory);
+        new SetCategoryBudgetCommand(new CategoryBudget(categoryName, "999.00"))
+            .execute(this.model, this.commandHistory);
+        new EditCommand(INDEX_FIRST_EXPENSE, descriptor).execute(this.model, this.commandHistory);
+        CategoryBudget[] cBudgetArray =
+            this.model.getMaximumBudget().getCategoryBudgets().toArray(new CategoryBudget[1]);
+        for (CategoryBudget cBudget : cBudgetArray) {
+            if (cBudget.getCategory().categoryName == categoryName) {
+                assertEquals(cBudget.getCurrentExpenses(), 3.0);
+            } else {
+                assertEquals(cBudget.getCurrentExpenses(), 0.0);
+            }
+        }
     }
 
 }

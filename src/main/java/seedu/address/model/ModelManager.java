@@ -113,7 +113,6 @@ public class ModelManager extends ComponentManager implements Model {
         if (versionedExpenseTracker == null) {
             throw new NoUserSelectedException();
         }
-        System.out.println(this.versionedExpenseTracker.getMaximumTotalBudget().getCategoryBudgets());
         raise(new ExpenseTrackerChangedEvent(versionedExpenseTracker));
     }
 
@@ -225,7 +224,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
         NoUserSelectedException {
         this.versionedExpenseTracker.addCategoryBudget(budget);
-        System.out.println(this.versionedExpenseTracker.getMaximumTotalBudget().getCategoryBudgets());
         indicateExpenseTrackerChanged();
     }
 

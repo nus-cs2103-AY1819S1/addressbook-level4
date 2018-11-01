@@ -3,9 +3,11 @@ package seedu.address.model.budget;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import seedu.address.model.Model;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
@@ -114,8 +116,6 @@ public class TotalBudget extends Budget {
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         double sumOfCurrentCategoryBudgets =
             this.categoryBudgets.stream().mapToDouble(categoryBudget -> categoryBudget.getBudgetCap()).sum();
-        System.out.println(sumOfCurrentCategoryBudgets);
-        System.out.println(budget.getBudgetCap());
         if (sumOfCurrentCategoryBudgets + budget.getBudgetCap() > this.getBudgetCap()) {
             throw new CategoryBudgetExceedTotalBudgetException(budget, this);
         }
@@ -167,20 +167,21 @@ public class TotalBudget extends Budget {
         super.alterSpending(target, editedExpense);
         CategoryBudget toRemove = null;
         CategoryBudget toAdd = null;
-        CategoryBudget[] cBudgetArray = this.categoryBudgets.toArray(new CategoryBudget[1]);
-        for (int i = 0; i < cBudgetArray.length; i++) {
-            if (cBudgetArray[i].getCategory().equals(target.getCategory())) {
-                toRemove = cBudgetArray[i];
+        List<CategoryBudget> cBudgetArray = this.categoryBudgets.stream().collect(Collectors.toList());
+        for (int i = 0; i < cBudgetArray.size(); i++) {
+            if (cBudgetArray.get(i).getCategory().equals(target.getCategory())) {
+                toRemove = cBudgetArray.get(i);
             }
-            if (cBudgetArray[i].getCategory().equals(editedExpense.getCategory())) {
-                toAdd = cBudgetArray[i];
+            if (cBudgetArray.get(i).getCategory().equals(editedExpense.getCategory())) {
+                toAdd = cBudgetArray.get(i);
             }
         }
-        if (toRemove != null && toAdd != null) {
+        if (toRemove != null) {
             toRemove.removeExpense(target);
+        }
+        if (toAdd != null) {
             toAdd.addExpense(editedExpense);
         }
-
     }
 
 

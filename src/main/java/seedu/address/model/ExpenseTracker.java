@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
-import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
@@ -67,7 +66,14 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * sum of category budgets exceeding the total TotalBudget
      */
     public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
-
+        CategoryBudget toAdd = budget;
+        toAdd.modifyExpenses(this.expenses.asUnmodifiableObservableList().stream().mapToDouble(expense -> {
+            if (expense.getCategory().equals(budget.getCategory())) {
+                return expense.getCost().getCostValue();
+            } else {
+                return 0;
+            }
+        }).sum());
         this.maximumTotalBudget.addCategoryBudget(budget);
     }
 

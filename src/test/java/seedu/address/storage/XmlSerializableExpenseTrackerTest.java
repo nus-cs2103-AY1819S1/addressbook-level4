@@ -31,8 +31,6 @@ public class XmlSerializableExpenseTrackerTest {
                 XmlSerializableExpenseTracker.class);
         ExpenseTracker expenseTrackerFromFile = dataFromFile.toModelType();
         ExpenseTracker typicalExpensesExpenseTracker = TypicalExpenses.getTypicalExpenseTracker();
-        System.out.println(expenseTrackerFromFile.getMaximumTotalBudget().getNumberOfSecondsToRecurAgain() + " "
-            + typicalExpensesExpenseTracker.getMaximumTotalBudget().getNumberOfSecondsToRecurAgain());
         assertEquals(expenseTrackerFromFile, typicalExpensesExpenseTracker);
         assertEquals(expenseTrackerFromFile.getMaximumTotalBudget(),
             typicalExpensesExpenseTracker.getMaximumTotalBudget());
