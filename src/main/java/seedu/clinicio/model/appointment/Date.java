@@ -150,6 +150,12 @@ public class Date {
             && targetDate.isBefore(nextWeekMonday);
     }
 
+    /**
+     * Returns a simple string
+     * @param other
+     * @return
+     */
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
