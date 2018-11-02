@@ -1,22 +1,21 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.UndoRedoCommandTestUtil.clearCache;
+
+import java.awt.image.BufferedImage;
+import java.nio.file.Path;
 
 import org.junit.After;
 import org.junit.Test;
 
 import seedu.address.model.transformation.Transformation;
-import seedu.address.model.transformation.TransformationSet;
 import seedu.address.testutil.PreviewImageGenerator;
 
-import java.awt.image.BufferedImage;
-import java.nio.file.Path;
-import java.util.LinkedList;
 
 //@@author ihwk1996
 
