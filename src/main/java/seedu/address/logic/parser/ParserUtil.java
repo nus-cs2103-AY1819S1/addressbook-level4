@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -74,7 +75,7 @@ public class ParserUtil {
 
         if (args.length < min || args.length > max) {
             throw new ParseException("Invalid number of arguments!"
-                    + "Number of arguments should be more than or equal to "
+                    + " Number of arguments should be more than or equal to "
                     + min
                     + " and less than or equal to "
                     + max);
@@ -98,10 +99,19 @@ public class ParserUtil {
                     .map(Objects::toString)
                     .collect(Collectors.joining(", "));
 
-            throw new ParseException("Invalid number of arguments!"
-                    + "Number of arguments should be "
+            throw parseException("Invalid number of arguments! Number of arguments should be "
                     + allowedNumOfArgs);
         }
+    }
+
+    /**
+     *
+     * @param usage
+     * @return
+     */
+    public static ParseException parseException(String usage) {
+        String messageError = String.format(MESSAGE_INVALID_COMMAND_FORMAT, usage);
+        return new ParseException(messageError);
     }
 
     //@@author alexkmj
