@@ -31,7 +31,7 @@ Responsibilities: Documentation
 
 === Jamie Chow Wen Juan
 image::snookerballs.png[width="150", align="left"]
-{empty}[https://github.com/Snookerballs[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Snookerballs[github]] [<<jaime#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI

@@ -201,7 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddWarningNotification(getMaximumBudget());
         if (isNotificationAdded) {
-            this.versionedExpenseTracker.addNotification(new WarningNotification(getMaximumBudget()));
+            this.versionedExpenseTracker.addNotificationToTop(new WarningNotification(getMaximumBudget()));
             indicateExpenseTrackerChanged();
         }
         return isNotificationAdded;
@@ -215,7 +215,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddTipNotification();
         if (isNotificationAdded) {
-            this.versionedExpenseTracker.addNotification(new TipNotification(tips));
+            this.versionedExpenseTracker.addNotificationToTop(new TipNotification(tips));
             indicateExpenseTrackerChanged();
         }
         return isNotificationAdded;
@@ -275,6 +275,15 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NoUserSelectedException();
         }
         this.versionedExpenseTracker.modifyNotificationHandler(time, isTipEnabled, isWarningEnabled);
+    }
+
+    @Override
+    public void clearNotifications() throws NoUserSelectedException {
+        if (!hasSelectedUser()) {
+            throw new NoUserSelectedException();
+        }
+
+        versionedExpenseTracker.clearNotifications();
     }
 
     //=========== Undo/Redo =================================================================================

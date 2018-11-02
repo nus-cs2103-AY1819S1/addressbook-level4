@@ -263,4 +263,8 @@ public interface Model {
     void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
             throws NoUserSelectedException;
 
+    /**
+     * Clears the list in notificationHandler
+     */
+    void clearNotifications() throws NoUserSelectedException;
 }

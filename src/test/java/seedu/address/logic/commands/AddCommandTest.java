@@ -323,6 +323,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void clearNotifications() throws NoUserSelectedException {
+            throw new AssertionError("clearNotifications method should not be called.");
+        }
+
+        @Override
         public TotalBudget getMaximumBudget() {
             throw new AssertionError("getMaximumTotalBudget method should not be called.");
 
