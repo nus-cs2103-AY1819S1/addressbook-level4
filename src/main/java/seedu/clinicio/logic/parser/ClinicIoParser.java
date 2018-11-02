@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import seedu.clinicio.logic.commands.AddApptCommand;
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AppointmentStatisticsCommand;
+import seedu.clinicio.logic.commands.CancelApptCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.Command;
 import seedu.clinicio.logic.commands.DeleteCommand;

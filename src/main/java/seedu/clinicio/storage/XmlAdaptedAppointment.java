@@ -2,8 +2,6 @@ package seedu.clinicio.storage;
 
 //@@gingivitiss
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -29,8 +27,6 @@ public class XmlAdaptedAppointment {
     @XmlElement(required = true)
     private XmlAdaptedPerson patient;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
     @XmlElement
     private int type;
     @XmlElement

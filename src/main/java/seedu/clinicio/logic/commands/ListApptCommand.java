@@ -32,7 +32,7 @@ public class ListApptCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(

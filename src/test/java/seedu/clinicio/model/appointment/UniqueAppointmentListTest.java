@@ -17,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
@@ -142,7 +143,7 @@ public class UniqueAppointmentListTest {
     public void cancelAppointment_existingAppointment_cancelsAppointment() {
         uniqueAppointmentList.add(AMY_APPT);
         uniqueAppointmentList.cancelAppointment(AMY_APPT);
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
         Appointment cancelledAppt = AMY_APPT;
         cancelledAppt.cancelAppointment();
         expectedUniqueAppointmentList.add(cancelledAppt);
