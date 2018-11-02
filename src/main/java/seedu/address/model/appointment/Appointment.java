@@ -146,4 +146,24 @@ public class Appointment implements Comparable<Appointment> {
             return 0;
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Appointment)) {
+            return false;
+        }
+
+        Appointment otherAppointment = (Appointment) other;
+        return otherAppointment.getAppointmentId() == getAppointmentId()
+                && otherAppointment.getDoctor().equals(getDoctor())
+                && otherAppointment.getPatient().equals(getPatient())
+                && otherAppointment.getDateTime().equals(getDateTime())
+                && otherAppointment.getStatus().equals(getStatus())
+                && otherAppointment.getComments().equals(getComments())
+                && otherAppointment.getPrescriptions().equals(getPrescriptions());
+    }
 }

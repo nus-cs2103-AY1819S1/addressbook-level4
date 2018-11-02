@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import java.util.List;
@@ -89,7 +90,7 @@ public class AddPrescriptionCommandTest {
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();
-        //assertCommandSuccess(addPrescriptionCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(addPrescriptionCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
