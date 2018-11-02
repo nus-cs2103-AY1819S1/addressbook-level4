@@ -111,10 +111,6 @@ public class LibraryTest {
         public ObservableSet<Track> getTracks() {
             return tracks;
         }
-        @Override
-        public ObservableList<Track> getObservableTrackList() {
-            return trackList;
-        }
     }
 
 }
