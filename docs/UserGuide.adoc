@@ -81,6 +81,18 @@ Examples:
 
 `login n/John Doe pass/password123`
 
+==== Log out a user : `logout`
+
+Logs out the user from EventOrganiser.
+
+Format:
+
+`logout`
+
+Examples:
+
+`logout`
+
 ==== List all users : `listUsers`
 
 Shows a list of all users in the event organiser. +
@@ -564,6 +576,8 @@ e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 12
 * *Login*  `login n/NAME pass/PASSWORD`
 e.g. `login n/John Doe pass/password`
 
+* *Logout*  `logout`
+
 * *List User* : `listUsers`
 
 * *Find User By Name* : `findUserByName KEYWORD [MORE_KEYWORDS]` +
@@ -590,7 +604,7 @@ e.g.`select 2`
 * *History* : `history`
 
 * *Free time between persons*: `maxSchedule INDEX INDEX ...` +
-e.g. `maxSchedule 0 1 2 3`
+e.g. `maxSchedule 1 2 3`
 
 === Event organiser commands
 ​* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
