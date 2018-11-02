@@ -19,9 +19,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
-        
-        /* Case: mixed case command word -> rejected */
-        command = "FiNd Meier";
 
     }
 
