@@ -422,49 +422,27 @@ Format: `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE st/START_TIME et/END_TI
 
 Example(s):
 
-.Before adding an event
-image::command_event_add_before.png[add command, 200]
+The figure below shows how the panel looks like before executing the example(s) below.
 
-The figure above shows how the panel looks like before executing the commands below.
+.Panel before adding an event
+image::command_event_add_before.png[add command, 300]
+
 
 * `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home` +
 +
-Adds an event with the following properties:
+Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
-[options="header", cols="1,3"]
-|===
-|Property   |Value
-|Name       |Flag day
-|Location   |Yishun MRT
-|Start Date |31-10-2018
-|End Date   |31-10-2018
-|Start Time |09:00
-|End Time   |15:00
-|Description|For the children's home
-|===
-.Output of `add`
-image::command_event_add_after1.png[add command, 200]
-
+.Result of `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home`
+image::command_event_add_before_after1.png[add command, 600]
 
 * `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser
 t/charity`
 +
-Adds an event with the following properties:
+Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
-[options="header", cols="1,3"]
-|===
-|Property   |Value
-|Name       |Fundraising
-|Location   |Tampines Street 31
-|Start Date |15-11-2018
-|End Date   |17-11-2018
-|Start Time |13:00
-|End Time   |18:00
-|Description|Raising funds
-|Tags       |fundraiser, charity
-|===
-.Output of `add`
-image::command_event_add_after2.png[add command, 200]
+.Result of `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser t/charity`
+image::command_event_add_before_after2.png[add command, 600]
+
 
 [[command-event-list]]
 ==== Listing all events : `list`
@@ -472,8 +450,8 @@ image::command_event_add_after2.png[add command, 200]
 Lists all events in the system and display them in the panel. +
 
 Format: `list` +
-Displays all events in the system in the panel. +
-The figure below shows the expected panel after executing the `list` command.
+Displays all existing events in the system in the panel. +
+The figure below shows a panel displaying all existing events after executing the `list` command.
 
 .Output of `list`
 image::command_event_list.png[list command, 200]
@@ -495,40 +473,37 @@ Format: `edit EVENT_INDEX [n/NAME] [l/LOCATION] [sd/START_DATE] [ed/END_DATE] [s
 
 Example(s):
 
+The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
+
+.Panel before editing an event, EVENT_INDEX is indicated in the circles
+image::command_event_edit_before.png[add command, 300]
+
 * `edit 1 n/Charity Fun Run t/` +
 Edits the name of event at index 1 and removes all tags.
+The expected result is shown in the figure below.
++
+.Result of `edit 1 n/Charity Fun Run t/`
+image::command_event_edit_before_after.png[Before edit, 600]
 
-The figures below show the before and after results of an edit command.
-
---
-.Before entering the edit command
-image::command_event_edit_before.png[Before edit, 200]
-
-.The targeted event is updated to reflect the new values after entering the edit command
-image::command_event_edit_after.png[After edit, 200]
---
 
 [[command-event-delete]]
 ==== Deleting event: `delete`
 
-Deletes details of an existing event in the system when in the 'event' context. +
+Deletes an existing event in the system when in the 'event' context. +
 
 Format: `delete EVENT_INDEX`
 
 Example(s):
 
-* `delete 2` +
-Deletes the details of the event specified at index 2.
+The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
 
-The figures below show the before and after results of a delete command.
+* `delete 3` +
+Deletes the event specified at index 3.
+The expected result is shown in the figure below.
++
+.Result of `delete 3`
+image::command_event_delete_before_after.png[Before delete, 600]
 
---
-.The event at index 2 is targeted before entering the delete command
-image::command_event_delete_before.png[Before delete, 200]
-
-.The targeted event is deleted after entering the delete command
-image::command_event_delete_after.png[After delete, 200]
---
 
 === Record Management
 
