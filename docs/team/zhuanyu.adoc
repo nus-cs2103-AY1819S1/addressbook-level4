@@ -32,6 +32,14 @@ started is as simple as typing out a text message.
 
 == Summary of contributions
 
+My task for _Car Park Finder_ is to implement real-time updates and notification of car parks, which allows users to:
+
+* Find car parks based on their postal code, address or number
+* Filter car parks using information like night parking as flags
+* View and click on car parks in the Google Map found inside _Car Park Finder_
+
+'''
+
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
