@@ -580,7 +580,7 @@ Example(s):
 [NOTE]
 The following examples are entered after executing the following commands: +
 1. `switch -e` (update panel to display events) +
-2. `manage 1` (manage the event at index 1 in the panel. See figure below for expected screen.)
+2. `manage 1` (manage the event at index 1 in the panel. See figure below for expected screen)
 
 .After executing `manage 1`
 image::command_record_add.png[add command, 600]
@@ -622,10 +622,9 @@ image::command_record_edit_volunteerIndex.png[volunteer index, 600]
 
 Example(s):
 
-The figures below show the display box before and after editing a record.
-
 * `edit 2 h/5 r/Emcee` +
-Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
+Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'. +
+The figures below show the display box before and after editing a record.
 
 .Before updating the volunteer record
 image::command_record_edit.png[edit command, 600]
