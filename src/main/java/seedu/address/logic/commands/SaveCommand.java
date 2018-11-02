@@ -55,11 +55,11 @@ public class SaveCommand extends Command {
                 return new CommandResult("An image with the same name already exists in this directory! \n\n"
                         + MESSAGE_USAGE);
             }
-            BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
             String[] parts = fileName.split("\\.");
             if (parts.length != 2 || !isFormatValid(parts[1])) {
                 return new CommandResult("Image name/format provided invalid. \n\n" + MESSAGE_USAGE);
             }
+            BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
             ImageIO.write(savedImage, parts[1], saveFile);
         } catch (IllegalArgumentException | IOException e) {
             throw new CommandException(e.toString());
