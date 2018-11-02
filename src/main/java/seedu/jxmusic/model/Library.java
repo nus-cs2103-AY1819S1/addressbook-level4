@@ -2,7 +2,6 @@ package seedu.jxmusic.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class Library implements ReadOnlyLibrary {
     public static final String LIBRARYDIR = "library/";
     private final UniquePlaylistList playlists;
     private final ObservableSet<Track> tracks;
-    private final ObservableList<Track> trackList;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -31,7 +29,6 @@ public class Library implements ReadOnlyLibrary {
     {
         playlists = new UniquePlaylistList();
         tracks = FXCollections.observableSet(new HashSet<>());
-        trackList = FXCollections.observableList(new ArrayList<>());
 
     }
 
@@ -58,11 +55,6 @@ public class Library implements ReadOnlyLibrary {
         return tracks;
     }
 
-    @Override
-    public ObservableList<Track> getObservableTrackList() {
-        return trackList;
-    }
-
     /**
      * Replaces the contents of the playlist list with {@code playlists}.
      * @param playlists must not contain duplicate playlists.
@@ -82,24 +74,13 @@ public class Library implements ReadOnlyLibrary {
     }
 
     /**
-     * Replaces the contents of the track list with {@code tracks}.
-     * @param tracks the new track ObservableSet. Cannot be null but can be empty.
-     */
-    public void setTrackList(ObservableSet<Track> tracks) {
-        requireNonNull(tracks);
-        this.trackList.clear();
-        this.trackList.addAll(tracks);
-    }
-
-
-    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
         setPlaylists(newData.getPlaylistList());
         setTracks(newData.getTracks());
-        setTrackList(newData.getTracks());
+        //setTrackList(newData.getTracks());
     }
 
     //// playlist-level operations
