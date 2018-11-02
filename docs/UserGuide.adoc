@@ -438,6 +438,12 @@ Format: `getGCEvents`
 
 [NOTE]
 ====
+For now, those events downloaded from Google are not compatible with local commands:edit, delete.
+They will be suppported in v1.4.
+====
+
+[NOTE]
+====
 This command will have to access your Google Calendar data, Google authentication is required.
 ====
 
