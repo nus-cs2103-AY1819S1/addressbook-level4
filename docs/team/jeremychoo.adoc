@@ -9,9 +9,9 @@
 
 == Overview
 
+Office Assistance Specialized Integration System (OASIS) is an all-in-one app for companies to perform employee management. Users who are fast typers will benefit due to it's access to all commands with a CLI. OASIS provides features to manage employee's leave applications, projects and user accounts for each employee.
 
 This project portfolio summarizes the contributions that I have made to the project.
-Office Assistance Specialized Integration System (OASIS) is an all-in-one app for companies to perform employee management. Users who are fast typers will benefit due to it's access to all commands with a CLI . OASIS provides features to manage employee's leave applications, projects and user accounts for each employee.
 
 [NOTE]
 Text with a note on a left isn't really part of the portfolio, they're just questions and comments that I want to bring up during the review.
