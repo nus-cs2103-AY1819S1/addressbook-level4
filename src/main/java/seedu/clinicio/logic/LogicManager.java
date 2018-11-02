@@ -59,7 +59,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<Appointment> getFilteredAppointmentList() {
         return model.getFilteredAppointmentList();
     }
-
+    
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
