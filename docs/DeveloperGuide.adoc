@@ -472,6 +472,7 @@ Step 3. The validated new command will be stored in the json for in the PiconsoC
 
  - As in the processing process, it could be slow, and it is for one image only, then, in the mass images processing, multiple threads might be needed.
 
+// tag::google[]
 === Google Features
 ==== Overall Introduction
 The Google commands allow for access to https://developers.google.com/photos/library/guides/get-started-java[Google Photos] through a logged-in instance of the user, and are held up by two main components.
@@ -480,7 +481,7 @@ The Google commands allow for access to https://developers.google.com/photos/lib
 * `PhotoHandler` - Mainly consists of a `PhotoLibraryClient` instance and user's logged in state. Performs all explicit calls to Google Photos through the `PhotosLibraryClient` instance.
 ** The `PhotoHandler` instance is later accessed through `Model#getPhotoHandler()` and `Model#setPhotoHandler()``.
 
-There are 5 main google-related commands, with the first two commands to login/logout a user, and the latter 3 being overloaded command types with `GoogleCommand` as the parent class.
+There are 5 main google-related commands, with the first two commands to login/logout a user, and the latter 3 being overloaded command types with `GoogleCommand` as the abstract parent class.
 
 * `LoginCommand` - Logs in user to their Google Account.
 * `LogoutCommand` - Logs a user out of their Google Account.
@@ -490,9 +491,10 @@ There are 5 main google-related commands, with the first two commands to login/l
 
 To use Google Photos API in Piconso, we have connected and generated `client_credentials.json` via our own Google Account to enable usage of the API. It is suggested that you https://developers.google.com/photos/library/guides/get-started-java[configure] Piconso to use Google Photos Library API with your own account rather than the provided. +
 If you are not familiar with how Google Photos work, it would be advisable to first try out Google Photos as a consumer before proceeding.
-==== Login (login) Command
 
-===== Current Implementation
+=== Login(login) Command
+
+==== Current Implementation
 The Login command currently authenticates a user via Google OAuth. To learn more about the implementation of OAuth methods, you may refer to https://developers.google.com/identity/protocols/OAuth2#installed[O-Auth Explanation] and https://developers.google.com/api-client-library/java/google-api-java-client/oauth2#installed_applications[Google API examples]. As the workings of Google OAuth are rather complicated, it is suggested that you go through the examples/documentations in those links. +
 
 Below are some examples on how the login command will work.
@@ -500,7 +502,7 @@ Below are some examples on how the login command will work.
 [NOTE]
 If connection to the internet is lost at any point during authentication with Google's server, login will fail and an error message will be sent to user as feedback.
 
-===== Scenario 1: Explicit `login` command executed, user not logged in yet.
+==== Scenario 1: Explicit `login` command executed, user not logged in yet.
 
 Step 1. The user executes a `login` command.
 
@@ -517,7 +519,7 @@ image::LoginSequenceDiagram.png[width="2000"]
 
 WARNING: Currently, the user MUST go through with the login process once activated else Piconso will freeze. Suggestions are to implement asynchronous login in v1.4 or by v2.0
 
-===== Scenario 2: Implicit login, where Piconso auto logs in user upon re-launch
+==== Scenario 2: Implicit login, where Piconso auto logs in user upon re-launch
 
 Step 1: Upon Piconso start up, `PhotoLibraryClientFactory#loginUserIfPossible()` is run by `ModelManager` +
 Step 2: The method checks for stored credentials (refresh token), and logs in the user if it exists via `PhotoLibraryClientFactory#createClient()`, else the log in process is skipped.
@@ -527,22 +529,22 @@ In both scenarios, whenever a refresh token is found stored the user is logged i
 ==== Logout (logout) Command
 The logout command works in a simple manner. It deletes the stored credential file if it exists, and does nothing if it does not. Upon deleting the file, the user will no longer have a refresh token to stay logged in, and thus is effectively logged out.
 
-==== Google Ls (list) Command
+=== GoogleLsCommand (list)
 
 [NOTE]
 For all Google Commands (excluding login and logout), they will be called by commands appended with a g (i.e `g ls`, `g dl image.png`). +
 As such, they will a `g` command will always be passed through a `GoogleCommandParser` before launching their respective command.
 
-===== Current Implementation
+==== Current Implementation
 The GoogleLsCommand allows users to browse through their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
 
-*`g ls` -> Lists all photos in user's Google Photos, takes a longer amount of time depending on the number of images stored. +
-*`g ls /a` -> Lists all albums in user's Google Photos. +
-*`g ls <ALBUM_NAME>` -> Lists all photos in specified album from Google Photos.
+`g ls` -> Lists all photos in user's Google Photos, takes a longer amount of time depending on the number of images stored. +
+`g ls /a` -> Lists all albums in user's Google Photos. +
+`g ls <ALBUM_NAME>` -> Lists all photos in specified album from Google Photos.
 
 As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleLsCommand itself.
 
-===== Example: `g ls`, where user wants to list all albums in Google Photos.
+==== Example: `g ls`, where user wants to list all albums in Google Photos.
 
 Step 1. The user executes a `g ls /a` command.
 
@@ -554,12 +556,12 @@ Step 4. The entire list is converted into a String, and returned to the `Command
 
 The following sequence diagram illustrates how the above steps work:
 
-.Sequence Diagram for Google Ls Command
+.Sequence Diagram for GoogleLsCommand
 {IMAGE TO BE ADDED}
 
 The process is similar for the other 2 variants, except images or images from a specific album are retrieved instead. All retrieved results are always stored in their respective maps. i.e A Map for Albums, one for images, and another for images from a specific Album.
 
-===== Design Considerations
+==== Design Considerations
 * 1. Performance Issues
 ** The larger the amount of pictures stored in Google Photos, the longer amount of time a `g ls` command will take.
 *** Current Solution: A fair warning of this issue is provided in the User Guide for users, and alternative command `g ls <ALBUM_NAME>` has been provided to encourage the user to input narrower searches
@@ -568,15 +570,44 @@ The process is similar for the other 2 variants, except images or images from a 
 * 2. Duplicated Naming
 ** Google Photos allows for multiples images and albums to be stored with the same name, making it difficult to list item names as names might overlap.
 *** Alternative 1 (Current): Before storing names of images/albums into the map, names are checked against the map for duplicates, and are appended with a suitable index if a file/album with the same name is found. This ensures that all files/albums are uniquely named.
+**** Con: If there are multiple images with the same name, the process of any `g ls` will take a much longer time to run.
+
 *** Alternative 2: Instead of storing the name of the image/album as the key inside the Map, the unique ID (that is retrieved together with the files from Google) can be used instead. This approach was however avoided for convenience of the user (ID too complicated to input)
 
 * 3. Album Traversal
-** Alternative 1:
-** Alternative 2:
+** Alternative 1: Treat the album as a category, thus `g ls <ALBUM_NAME>` acts as a filter that filters photos by category.
+*** Con: The command to download from an album needs to be extended such that users need to specify in which album the image to download is in.
 
+** Alternative 2: Handle the concept of albums like directories, such that a user can cd in and out of an album. This was avoided for fear of causing confusion in users (having to view both google and local directories concurrently).
 
+=== GoogleDlCommand (download)
 
+Step 1. The user executes a `g ls /a` command.
 
+Step 2. The command goes through parsing, firstly by `GoogleCommandParser` and secondly filtered by GoogleLsCommand. It is determined to be for listing albums, and `model.getPhotoHandler().returnAllAlbumsList()` is called.
+
+Step 3. Within that method, it makes a request to Google Photos, retrieves a list of `Album`s, and stores them in a `Map<String, Album>` with each key being the album name.
+
+Step 4. The entire list is converted into a String, and returned to the `CommandBox` ui as feedback to the user
+
+[NOTE]
+For all upload/download related commands, the amount of time taken to process the task varies with the number of images to upload/download.
+
+==== Current Implementation
+The GoogleDlCommand allows users to browse through their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
+
+`g dl /i<IMAGE_NAME>`: Downloads specified image from Google Photos +
+`g dl /a<ALBUM_NAME>`: Downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
+`g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: Downloads a specific photo from a specific album in Google Photos.
+
+As such, parsing will be done twice. Once by GoogleCommandParser, and another within GoogleDlCommand itself.
+
+{To be updated}
+
+=== GoogleUploadCommand (upload)
+
+{to be updated}
+// end::google[]
 == Documentation
 
 We use asciidoc for writing documentation.

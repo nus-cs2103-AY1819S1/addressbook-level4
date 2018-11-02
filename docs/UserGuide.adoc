@@ -192,7 +192,7 @@ Any files with duplicate naming existing in the targeted directory *WILL* be rep
 
 Format: `g dl /i<IMAGE_NAME>`: downloads specified image from Google Photos +
 Format: `g dl /a<ALBUM_NAME>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
-Format: `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: lists a specific photo from a specific album in Google Photos.
+Format: `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: downloads a specific photo from a specific album in Google Photos.
 
 Examples:
 
