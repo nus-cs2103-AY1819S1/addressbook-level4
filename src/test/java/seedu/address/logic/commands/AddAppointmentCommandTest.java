@@ -4,9 +4,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.*;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.BENSON;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.CARL;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.HELENA;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import java.time.LocalDateTime;
+
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -30,7 +37,7 @@ public class AddAppointmentCommandTest {
         Appointment toAdd = new Appointment(10000, HELENA.getName().toString(),
                 CARL.getName().toString(), LocalDateTime.of(2018, 10, 17, 18, 0));
         AddAppointmentCommand addAppointmentCommand =
-                new AddAppointmentCommand(CARL.getName(), HELENA.getName(), 
+                new AddAppointmentCommand(CARL.getName(), HELENA.getName(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
 
         String expectedMessage = AddAppointmentCommand.MESSAGE_SUCCESS;
@@ -49,7 +56,7 @@ public class AddAppointmentCommandTest {
         AddAppointmentCommand addAppointmentCommand =
                 new AddAppointmentCommand(patientName, GEORGE.getName(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
-        
+
         assertCommandFailure(addAppointmentCommand,
                 model, commandHistory, AddAppointmentCommand.MESSAGE_INVALID_PATIENT);
     }
@@ -105,7 +112,7 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void equals() {
-        AddAppointmentCommand addAppointmentFirstCommand = 
+        AddAppointmentCommand addAppointmentFirstCommand =
                 new AddAppointmentCommand(ALICE.getName(), GEORGE.getName(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
         AddAppointmentCommand addAppointmentSecondCommand =
