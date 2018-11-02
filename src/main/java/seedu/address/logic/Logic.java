@@ -31,7 +31,7 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
             UserAlreadyExistsException, NonExistentUserException, InvalidDataException;
 
-    TotalBudget getMaximumBudget();
+    TotalBudget getMaximumBudget() throws NoUserSelectedException;
 
     /**
      * @return an unmodifiable view of the filtered list of expenses

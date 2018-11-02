@@ -59,7 +59,7 @@ public class LogicManager extends ComponentManager implements Logic {
 
     //@@author winsonhys
     @Override
-    public TotalBudget getMaximumBudget() {
+    public TotalBudget getMaximumBudget() throws NoUserSelectedException {
         return model.getMaximumBudget();
     }
 

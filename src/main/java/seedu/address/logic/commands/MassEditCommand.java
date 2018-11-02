@@ -23,10 +23,10 @@ import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
+//@@author jcjxwy
 /**
  * Edit the details of multiple expenses in expense tracker
  * */
-//@@Author jcjxwy
 public class MassEditCommand extends Command {
     public static final String COMMAND_WORD = "massedit";
     public static final String COMMAND_ALIAS = "me";

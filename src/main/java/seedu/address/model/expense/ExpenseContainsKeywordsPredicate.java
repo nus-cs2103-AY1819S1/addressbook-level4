@@ -15,10 +15,10 @@ import seedu.address.commons.util.StringUtil;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 
+//@@author jcjxwy
 /**
  * Tests that a {@code Expense}'s {@code Name, Category, Cost, Date, Tag} matches all of the keywords given.
  */
-//@@Author jcjxwy
 public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     private final ArgumentMultimap keywords;
 
