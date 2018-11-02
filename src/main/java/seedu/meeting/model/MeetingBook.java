@@ -180,14 +180,9 @@ public class MeetingBook implements ReadOnlyMeetingBook {
 
     /**
      * Replace the given group {@code target} in the list with {@code editedGroup}.
-<<<<<<< HEAD:src/main/java/seedu/meeting/model/MeetingBook.java
      * {@code target} must exist in the MeetingBook.
      * The group identity of {@code editedGroup} must not be the same as another existing group in the MeetingBook.
      *
-=======
-     * {@code target} must exist in the address book.
-     * The group identity of {@code editedGroup} must not be the same as another existing group in the address book.
->>>>>>> master:src/main/java/seedu/address/model/AddressBook.java
      */
     public void updateGroup(Group target, Group editedGroup) throws GroupNotFoundException {
         requireNonNull(editedGroup);
