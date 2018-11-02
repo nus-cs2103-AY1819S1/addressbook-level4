@@ -616,7 +616,7 @@ Given below is a scenario to illustrate the login authentication at each step: +
 
 Step 1: The user executes the `login` command by specifying the role, name and password. The `login` command determines the type of role entered by the user. +
 
-Step 2: The `login` command call `Model#hasStaff()` to ensure that this staff record exist inside ClinicIO. +
+Step 2: The `login` command calls `Model#hasStaff()` to ensure that this staff record exist inside ClinicIO. +
 
 Step 3: Once ClinicIO check if staff exists, the `login` command call `Model#checkStaffCred()` to retrieve the doctor found in `UniqueStaffList`. +
 
