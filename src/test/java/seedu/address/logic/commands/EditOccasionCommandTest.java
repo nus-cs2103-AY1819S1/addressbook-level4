@@ -26,8 +26,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
-import seedu.address.testutil.OccasionDescriptorBuilder;
 import seedu.address.testutil.OccasionBuilder;
+import seedu.address.testutil.OccasionDescriptorBuilder;
+
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
