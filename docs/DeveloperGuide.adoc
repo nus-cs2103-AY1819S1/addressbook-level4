@@ -465,6 +465,9 @@ The following sequence diagram illustrates how the mechanism works:
 .Sequence Diagram of ListWeek Command
 image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
 
+.Sequence Diagram of ListMonth Command
+image::ListMonthCommandSequenceDiagram.png[]
+
 ==== Design Considerations
 
 ===== Aspect: How does listday and listweek function
