@@ -25,7 +25,7 @@ public interface Storage extends LibraryStorage, UserPrefsStorage {
     Path getLibraryFilePath();
 
     @Override
-    Optional<ReadOnlyLibrary> readLibrary() throws DataConversionException, IOException;
+    ReadOnlyLibrary readLibrary() throws DataConversionException, IOException;
 
     @Override
     void saveLibrary(ReadOnlyLibrary library) throws IOException;

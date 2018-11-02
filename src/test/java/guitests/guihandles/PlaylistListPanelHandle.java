@@ -67,7 +67,7 @@ public class PlaylistListPanelHandle extends NodeHandle<ListView<Playlist>> {
      */
     public void navigateToCard(Playlist playlist) {
         if (!getRootNode().getItems().contains(playlist)) {
-            throw new IllegalArgumentException("Person does not exist.");
+            throw new IllegalArgumentException("Playlist does not exist.");
         }
 
         guiRobot.interact(() -> {

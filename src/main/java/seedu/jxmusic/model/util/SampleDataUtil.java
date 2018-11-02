@@ -42,6 +42,22 @@ public class SampleDataUtil {
     }
 
     /**
+     * Populates the library with sample playlists
+     * @param tracksOnlyLibrary library that only has tracks
+     * @return
+     */
+    public static ReadOnlyLibrary populateSamplePlaylists(ReadOnlyLibrary tracksOnlyLibrary) {
+        Library tracksOnlyLib = ((Library) tracksOnlyLibrary);
+        for (Playlist samplePlaylist : getSamplePlaylists()) {
+            tracksOnlyLib.addPlaylist(samplePlaylist);
+        }
+        for (Playlist p : tracksOnlyLib.getPlaylistList()) {
+            System.out.println(p);
+        }
+        return tracksOnlyLib;
+    }
+
+    /**
      * Returns a tag set containing the list of strings given.
      */
     public static List<Track> getTrackList(String... strings) {
