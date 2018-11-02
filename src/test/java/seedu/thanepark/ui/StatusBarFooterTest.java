@@ -18,6 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
+
 import seedu.thanepark.commons.events.model.ThaneParkChangedEvent;
 import seedu.thanepark.model.ThanePark;
 

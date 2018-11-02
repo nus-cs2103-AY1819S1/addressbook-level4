@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.thanepark.commons.exceptions.IllegalValueException;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.testutil.Assert;
 
 public class XmlAdaptedRideTest {
@@ -27,7 +27,7 @@ public class XmlAdaptedRideTest {
     private static final String VALID_NAME = BIG.getName().toString();
     private static final String VALID_MAINTENANCE = String.valueOf(BIG.getDaysSinceMaintenance().getValue());
     private static final String VALID_WAIT_TIME = String.valueOf(BIG.getWaitingTime().getValue());
-    private static final String VALID_ADDRESS = BIG.getAddress().toString();
+    private static final String VALID_ADDRESS = BIG.getZone().toString();
     private static final List<XmlAdaptedTag> VALID_TAGS = BIG.getTags().stream()
             .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
@@ -88,7 +88,7 @@ public class XmlAdaptedRideTest {
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedRide person =
                 new XmlAdaptedRide(VALID_NAME, VALID_MAINTENANCE, VALID_WAIT_TIME, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
+        String expectedMessage = Zone.MESSAGE_ZONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -96,7 +96,7 @@ public class XmlAdaptedRideTest {
     public void toModelType_nullAddress_throwsIllegalValueException() {
         XmlAdaptedRide person = new XmlAdaptedRide(VALID_NAME,
                 VALID_MAINTENANCE, VALID_WAIT_TIME, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Zone.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

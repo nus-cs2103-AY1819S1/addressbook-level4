@@ -8,6 +8,7 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
+
 import seedu.thanepark.TestApp;
 import seedu.thanepark.model.ReadOnlyThanePark;
 
