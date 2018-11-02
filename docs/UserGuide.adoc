@@ -45,6 +45,16 @@ Steps to set up ThanePark:
 +
 image::startup.png[width="800"]
 
+If you left click on the any ride in the list, it will show the ride information in a window
+similar to below:
+
+image::Ui.png[width="800"]
+
+[WARNING]
+You will not be able to customise the image for rides. This feature will only be implemented in `v2.0`.
+Similarly, the `About` button on the navigation bar opens a help window.
+
+
 Congratulations! You have successfully set up ThanePark!
 
 Type the command in the command box and press kbd:[Enter] to execute it. +
