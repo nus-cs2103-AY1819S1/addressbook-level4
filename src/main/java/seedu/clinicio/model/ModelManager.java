@@ -3,6 +3,7 @@ package seedu.clinicio.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,8 +15,10 @@ import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
 
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
-
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
+import seedu.clinicio.logic.commands.DequeueCommand;
+import seedu.clinicio.logic.commands.EnqueueCommand;
+import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.analytics.data.StatData;
@@ -27,7 +30,7 @@ import seedu.clinicio.model.patientqueue.MainQueue;
 import seedu.clinicio.model.patientqueue.PreferenceQueue;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
-
+import seedu.clinicio.model.util.PatientComparator;
 /**
  * Represents the in-memory model of the ClinicIO data.
  */
@@ -167,7 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addPerson(Person person) {
-        versionedClinicIo.addPerson(person);
+        versionedClinicIo.addPerson(Patient.buildFromPerson(person));
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateClinicIoChanged();
     }
@@ -194,13 +197,54 @@ public class ModelManager extends ComponentManager implements Model {
         versionedClinicIo.add(consultation);
         updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
     }
-    //========== Update ======================================================================================
 
+    //========== Update ======================================================================================
+    //@@author iamjackslayer
     @Override
-    public void enqueue(Person patient) {
+    public void enqueue(Patient patient) throws CommandException {
+        if (patient.isQueuing()) {
+            throw new CommandException(String.format(EnqueueCommand.MESSAGE_PATIENT_IS_CURRENTLY_QUEUING,
+                    patient.getName()));
+        }
+        if (patient.hasPreferredDoctor()) {
+            enqueueIntoPreferenceQueue(patient);
+        } else {
+            enqueueIntoMainQueue(patient);
+        }
+
+        patient.setIsQueuing();
+    }
+
+    //@@author iamjackslayer
+    @Override
+    public void dequeue(Patient patient) throws CommandException {
+        if (!patient.isQueuing()) {
+            throw new CommandException(String.format(DequeueCommand.MESSAGE_PATIENT_IS_NOT_CURRENTLY_QUEUING,
+                    patient.getName()));
+        }
+
+        // makes sure patient is not in both mainQueue and preferenceQueue.
+        assert(!(mainQueue.getList().contains(patient) && preferenceQueue.getList().contains(patient)));
+
+        if (mainQueue.getList().contains(patient)) {
+            mainQueue.getList().remove(patient);
+        } else if (preferenceQueue.getList().contains(patient)) {
+            preferenceQueue.getList().remove(patient);
+        }
+
+        patient.setIsNotQueuing();
+    }
+
+    /**
+     * Enqueues patient who is consulting a particular doctor into the 'main' queue.
+     * @param patient
+     */
+    @Override
+    public void enqueueIntoMainQueue(Person patient) {
         mainQueue.add(patient);
     }
 
+    //@@author iamjackslayer
     /**
      * Enqueues patient who is consulting a particular staff into the 'special' queue.
      * @param patient
@@ -247,6 +291,19 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
+
+    //@@author iamjackslayer
+    @Override
+    public ObservableList<Person> getAllPatientsInQueue() {
+        ArrayList<Person> allPatientsInQueue = new ArrayList(mainQueue.getList());
+        allPatientsInQueue.addAll(preferenceQueue.getList());
+
+        PatientComparator<Person> comparator = new PatientComparator<>();
+        allPatientsInQueue.sort(comparator);
+        return FXCollections.unmodifiableObservableList(
+                new FilteredList<>(FXCollections.observableList(allPatientsInQueue)));
+    }
+
     //=========== Filtered Staff List Accessors =============================================================
 
     //@@author jjlee050

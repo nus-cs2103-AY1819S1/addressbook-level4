@@ -25,6 +25,7 @@ import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
@@ -152,6 +153,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Person> getAllPatientsInQueue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //@@author jjlee050
         @Override
         public ObservableList<Staff> getFilteredStaffList() {
@@ -196,7 +202,17 @@ public class AddCommandTest {
 
         //@@author iamjackslayer
         @Override
-        public void enqueue(Person patient) {
+        public void enqueue(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void dequeue(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void enqueueIntoMainQueue(Person patient) {
             throw new AssertionError("This method should not be called.");
         }
 

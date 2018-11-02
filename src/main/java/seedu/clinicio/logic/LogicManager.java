@@ -59,6 +59,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<Appointment> getFilteredAppointmentList() {
         return model.getFilteredAppointmentList();
     }
+  
+    public ObservableList<Person> getAllPatientsInQueue() {
+        return model.getAllPatientsInQueue();
+    }
 
     @Override
     public ListElementPointer getHistorySnapshot() {

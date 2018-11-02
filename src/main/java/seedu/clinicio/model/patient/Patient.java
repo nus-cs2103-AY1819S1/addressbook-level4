@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
@@ -25,8 +26,11 @@ import seedu.clinicio.model.tag.Tag;
  * A patient may or may not have a preferredDoctor, consultation, medical history and appointment.
  */
 public class Patient extends Person {
+
+    private boolean isQueuing = false;
     private Optional<Staff> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
+    private Time arrivalTime;
     private List<Appointment> appointmentHistory;
     private List<Consultation> consultationHistory;
 
@@ -53,6 +57,21 @@ public class Patient extends Person {
     }
 
     /**
+     * Marks the patient with "isQueing" status.
+     */
+    public void setIsQueuing() {
+        isQueuing = true;
+    }
+
+    /**
+     * Marks the patient with "isNotQueing" status.
+     */
+    public void setIsNotQueuing() {
+        isQueuing = false;
+    }
+
+    /**
+     * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
      * Returns the patient's preferred staff wrapped in {@link Optional}. The patient may not have one.
      * @return an Optional {@link Staff}.
      */
@@ -90,10 +109,16 @@ public class Patient extends Person {
 
     /**
      * Adds a {@code Consultation} to the patient's record.
+     * A consultation must be set whenever a Patient obj is created.
+     * @param consultation consultation of the patient.
      */
     public void addConsultation(Consultation consultation) {
         requireNonNull(consultation);
-        consultationHistory.add(consultation);
+        this.consultationHistory.add(consultation);
+    }
+
+    public Time getArrivalTime() {
+        return arrivalTime;
     }
 
     /**
@@ -144,6 +169,14 @@ public class Patient extends Person {
                 && (otherPatient.getPhone().equals(getPhone()) || otherPatient.getEmail().equals(getEmail()))
                 && otherPatient.getPreferredDoctor().equals(getPreferredDoctor())
                 && otherPatient.getAppointment().equals(getAppointment());
+    }
+
+    /**
+     * Checks if the patient is in the queue. Note that there is only one queue on a higher conceptual level.
+     * @return true if the patient is in the queue. Otherwise returns false.
+     */
+    public boolean isQueuing() {
+        return isQueuing;
     }
 
     /**

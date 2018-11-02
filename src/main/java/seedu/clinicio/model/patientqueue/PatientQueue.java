@@ -1,7 +1,6 @@
 package seedu.clinicio.model.patientqueue;
 
 import java.util.ArrayList;
-
 /**
  * The patient queue to be inherited by a main queue and a preference queue.
  */
@@ -19,4 +18,7 @@ public abstract class PatientQueue<E> {
         return !list.isEmpty();
     }
 
+    public ArrayList<E> getList() {
+        return list;
+    }
 }
