@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
@@ -18,7 +19,7 @@ import seedu.address.model.transformation.TransformationSet;
  */
 public class PreviewImage {
 
-    private static final String TESTPATH;
+    private static final String CACHE_PATH;
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final TransformationSet transformationSet;
     private int height;
@@ -30,7 +31,7 @@ public class PreviewImage {
     static {
         File cache = new File("cache");
         cache.mkdir();
-        TESTPATH = cache.getPath();
+        CACHE_PATH = cache.getPath();
     }
 
     public PreviewImage(BufferedImage image) {
@@ -67,6 +68,10 @@ public class PreviewImage {
 
     public int getCurrentSize() {
         return currentSize;
+    }
+
+    public static Path getCacheFolder() {
+        return Paths.get(CACHE_PATH);
     }
 
     /**
@@ -121,7 +126,7 @@ public class PreviewImage {
         try {
             currentSize++;
             currentIndex++;
-            File out = new File(TESTPATH + "/Layer" + layerId + "-" + currentIndex + ".png");
+            File out = new File(CACHE_PATH + "/Layer" + layerId + "-" + currentIndex + ".png");
             ImageIO.write(image, "png", out);
         } catch (IOException e) {
             logger.warning("Exception occ :" + e.getMessage());
@@ -135,7 +140,7 @@ public class PreviewImage {
     private void purgeAndCommit(BufferedImage image) {
         int numDeleted = 0;
         for (int i = currentIndex + 1; i < currentSize; i++) {
-            File toDelete = new File(TESTPATH + "/Layer" + layerId + "-" + i + ".png");
+            File toDelete = new File(CACHE_PATH + "/Layer" + layerId + "-" + i + ".png");
             toDelete.delete();
             numDeleted++;
         }
@@ -151,7 +156,7 @@ public class PreviewImage {
     public BufferedImage getImage() {
         BufferedImage imageFromCache = null;
         try {
-            File in = new File(TESTPATH + "/Layer" + layerId + "-" + currentIndex + ".png");
+            File in = new File(CACHE_PATH + "/Layer" + layerId + "-" + currentIndex + ".png");
             imageFromCache = ImageIO.read(in);
         } catch (IOException e) {
             logger.warning("Reading from cache successful.");
@@ -164,7 +169,7 @@ public class PreviewImage {
      * Get the current image path from cache.
      */
     public Path getCurrentPath() {
-        File f = new File(TESTPATH + "/Layer" + layerId + "-" + currentIndex + ".png");
+        File f = new File(CACHE_PATH + "/Layer" + layerId + "-" + currentIndex + ".png");
         return f.toPath();
     }
 
