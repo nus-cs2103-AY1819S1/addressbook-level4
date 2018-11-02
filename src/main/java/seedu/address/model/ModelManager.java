@@ -84,6 +84,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void deleteTime(String target, Time timeslot) {
+        versionedAddressBook.deleteTime(target, timeslot);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 

@@ -5,14 +5,14 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.TimeAddCommand;
+import seedu.address.logic.commands.AddTimeCommand;
 
-public class TimeAddCommandParserTest {
-    private TimeAddCommandParser parser = new TimeAddCommandParser();
+public class AddTimeCommandParserTest {
+    private AddTimeCommandParser parser = new AddTimeCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                TimeAddCommand.MESSAGE_USAGE));
+                AddTimeCommand.MESSAGE_USAGE));
     }
 }

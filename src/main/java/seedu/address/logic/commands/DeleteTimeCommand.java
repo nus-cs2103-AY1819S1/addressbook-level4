@@ -17,7 +17,7 @@ import seedu.address.model.person.Time;
  * Deletes a time slot of a Person in the address book.
  */
 public class DeleteTimeCommand extends Command {
-    public static final String COMMAND_WORD = "deletetime";
+    public static final String COMMAND_WORD = "deleteTime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a tutorial time slot of a person. "
             + "Parameters: "
@@ -35,12 +35,15 @@ public class DeleteTimeCommand extends Command {
 
     private final Time toDelete;
 
+    private final String toFind;
+
     /**
      * Creates a DeleteTimeCommand to delete the specified {@code Time}
      */
     public DeleteTimeCommand(String personName, Time time) {
         requireNonNull(time);
         toDelete = time;
+        toFind = personName;
         personToFind = personName.split("\\s+");
     }
 
@@ -57,7 +60,8 @@ public class DeleteTimeCommand extends Command {
         if (!model.hasPerson(targetPerson)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
-        targetPerson.getTime().remove(toDelete);
+        model.deleteTime(toFind, toDelete);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS_DELETED));
     }
 

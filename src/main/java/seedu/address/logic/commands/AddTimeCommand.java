@@ -17,8 +17,8 @@ import seedu.address.model.person.Time;
 /**
  * Adds a time slot of a Person in the address book.
  */
-public class TimeAddCommand extends Command {
-    public static final String COMMAND_WORD = "addtime";
+public class AddTimeCommand extends Command {
+    public static final String COMMAND_WORD = "addTime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tutorial time slot of a person. "
             + "Parameters: "
@@ -40,9 +40,9 @@ public class TimeAddCommand extends Command {
     private final String toFind;
 
     /**
-     * Creates a TimeAddCommand to add the specified {@code Time}
+     * Creates a AddTimeCommand to add the specified {@code Time}
      */
-    public TimeAddCommand(String personName, Time time) {
+    public AddTimeCommand(String personName, Time time) {
         requireNonNull(time);
         toAdd = time;
         toFind = personName;
