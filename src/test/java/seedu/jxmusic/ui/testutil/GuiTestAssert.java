@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 import guitests.guihandles.PlaylistCardHandle;
 import guitests.guihandles.PlaylistListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.TrackCardHandle;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -17,10 +19,18 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(PlaylistCardHandle expectedCard, PlaylistCardHandle actualCard) {
+    public static void assertPlaylistCardEquals(PlaylistCardHandle expectedCard, PlaylistCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getTracks(), actualCard.getTracks());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertTrackCardEquals(TrackCardHandle expectedCard, TrackCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getName(), actualCard.getName());
     }
 
     /**
@@ -30,6 +40,13 @@ public class GuiTestAssert {
         assertEquals(expectedPlaylist.getName().nameString, actualCard.getName());
         assertEquals(expectedPlaylist.getTracks().stream().map(track -> track.getFileNameWithoutExtension())
                         .collect(Collectors.toList()), actualCard.getTracks());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedTrack}.
+     */
+    public static void assertCardDisplaysTrack(Track expectedTrack, TrackCardHandle actualCard) {
+        assertEquals(expectedTrack.getFileName(), actualCard.getName() + ".mp3");
     }
 
     /**

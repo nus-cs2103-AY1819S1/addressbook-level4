@@ -8,8 +8,8 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIK
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_MARBLES;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_SOS;
-import static seedu.jxmusic.testutil.TypicalPlaylists.ANIME;
-import static seedu.jxmusic.testutil.TypicalPlaylists.SFX;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.ANIME;
+import static seedu.jxmusic.testutil.TypicalPlaylistList.SFX;
 
 import org.junit.Rule;
 import org.junit.Test;

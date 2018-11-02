@@ -10,6 +10,7 @@ import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.commons.util.StringUtil;
 import seedu.jxmusic.logic.parser.exceptions.ParseException;
 import seedu.jxmusic.model.Name;
+import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 //import seedu.jxmusic.model.tag.Tag;
 
@@ -81,5 +82,25 @@ public class ParserUtil {
             trackList.add(parseTrack(trackName));
         }
         return trackList;
+    }
+
+    /**
+     * Parses a {@code String playlistName} into a {@code Playlist}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code playlist} is invalid.<br/>
+     * Possible exception messages:<br/>
+     * Name.MESSAGE_NAME_CONSTRAINTS<br/>
+     * Playlist.MESSAGE_FILE_NOT_EXIST<br/>
+     * Playlist.MESSAGE_FILE_NOT_SUPPORTED
+     */
+    public static Playlist parsePlaylist(String playlistName) throws ParseException {
+        requireNonNull(playlistName);
+        String trimmedPlaylistName = playlistName.trim();
+        try {
+            return new Playlist(new Name(trimmedPlaylistName));
+        } catch (IllegalArgumentException ex) {
+            throw new ParseException(ex.getMessage());
+        }
     }
 }
