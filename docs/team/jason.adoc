@@ -69,6 +69,7 @@ https://github.com/nus-cs2103-AY1819S1/forum/issues/58[2])
 |===
 == Features
 include::../UserGuide.adoc[tag=useraccounts]
+
 == Frequently Asked Questions
 include::../UserGuide.adoc[tag=dataencryption]
 
