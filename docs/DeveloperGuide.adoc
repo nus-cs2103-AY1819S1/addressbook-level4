@@ -608,7 +608,7 @@ ClinicIO ensures appropriate user access rights are issued by authenticating use
 
 ==== Current Implementation
 
-ClinicIO The login mechanism facilitated by using `UniqueStaffList` to retrieve a list of staffs. +
+ClinicIO's login mechanism is facilitated by `UniqueStaffList` to retrieve a list of staff. +
 
 These operations are exposed in the Model interface as Model#hasStaff() and Model#checkStaffCred()  respectively.
 
