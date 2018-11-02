@@ -550,7 +550,8 @@ The logout command works in a simple manner. It deletes the stored credential fi
 
 [NOTE]
 For all Google Commands (excluding login and logout), they will be called by commands appended with a g (i.e `g ls`, `g dl image.png`). +
-As such, they will a `g` command will always be passed through a `GoogleCommandParser` before launching their respective command.
+
+Thus a `g` command will always be passed through a `GoogleCommandParser` before launching its respective command os launched.
 
 ==== Current Implementation
 The GoogleLsCommand allows users to browse through their stored images on Google Photos. Currently, it is overloaded with three types of commands the user can type
