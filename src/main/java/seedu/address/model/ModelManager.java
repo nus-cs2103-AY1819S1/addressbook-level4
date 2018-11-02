@@ -15,6 +15,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.AllTransformationEvent;
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
@@ -204,15 +205,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoPreviewImage() {
         getCurrentPreviewImage().undo();
-        BufferedImage newImage = getCurrentPreviewImage().getImage();
         EventsCenter.getInstance().post(new TransformationEvent(true));
     }
 
     @Override
     public void redoPreviewImage() {
         getCurrentPreviewImage().redo();
-        BufferedImage newImage = getCurrentPreviewImage().getImage();
         EventsCenter.getInstance().post(new TransformationEvent(false));
+    }
+
+    @Override
+    public void undoAllPreviewImage() {
+        getCurrentPreviewImage().undoAll();
+        EventsCenter.getInstance().post(new AllTransformationEvent(true));
+    }
+
+    @Override
+    public void redoAllPreviewImage() {
+        getCurrentPreviewImage().redoAll();
+        EventsCenter.getInstance().post(new AllTransformationEvent(false));
     }
 
     //=========== get/updating preview image ==========================================================================
@@ -286,12 +297,6 @@ public class ModelManager extends ComponentManager implements Model {
     public Path getCurrDirectory() {
         return this.userPrefs.getCurrDirectory();
     }
-
-    //LOL
-    public void testCache() {
-
-    }
-
 
     //=========== Canvas and layers ==========================================================================
 
