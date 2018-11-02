@@ -16,9 +16,18 @@ endif::[]
 
 By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
 
+= About this guide
+
+This guide provides an overview of ClinicIO and walks you through the installation process.
+In addition, this guide provides in-depth documentation for all features.
+
+This guide assume that readers has certain developers knowledge.
+
 == Setting up
 
 === Prerequisites
+
+Before you start setting up the project, these are the list of prerequisites that you need to install: +
 
 . *JDK `9`* or later
 +
