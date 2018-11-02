@@ -77,10 +77,10 @@ public class EditCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = Patient.buildFromPerson(createEditedPerson(personToEdit, editPersonDescriptor));
+        Patient editedPerson = Patient.buildFromPerson(createEditedPerson(personToEdit, editPersonDescriptor));
 
         if (((Patient) personToEdit).isQueuing()) {
-            ((Patient) editedPerson).setIsQueuing();
+            editedPerson.setIsQueuing();
         }
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {

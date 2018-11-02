@@ -9,7 +9,6 @@ import seedu.clinicio.commons.core.index.Index;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 
 //@@author iamjackslayer
 /**
