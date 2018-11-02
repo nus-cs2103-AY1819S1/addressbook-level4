@@ -11,6 +11,8 @@ import seedu.address.model.PreviewImage;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.model.transformation.TransformationSet;
 
+//@@author ihwk1996
+
 /**
  * A utility class to generate PreviewImages for testing.
  */
@@ -55,6 +57,14 @@ public class PreviewImageGenerator {
     public static PreviewImage getDefaultPreviewImage() {
         BufferedImage image = getABufferedImage();
         return new PreviewImage(image, new TransformationSet());
+    }
+
+    /**
+     * Returns a default initialised PreviewImage with its secondary constructor.
+     */
+    public static PreviewImage getDefaultPreviewImageWithSecondaryConstructor() {
+        BufferedImage image = getABufferedImage();
+        return new PreviewImage(image);
     }
 
     /**
