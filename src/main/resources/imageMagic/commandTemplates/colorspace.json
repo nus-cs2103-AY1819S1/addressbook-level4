@@ -1,1 +1,1 @@
-{"name":"colorspace","num":"1","args":{"arg1":"sRGB/RGB/GRAY/LAB/CMYK"}}
+{"name":"colorspace","num":"1","args":{"arg1":"sRGB/RGB/GRAY/LAB/CMYK"}, "patterns":{"pattern1":"(?i)sRGB|RGB|GRAY|LAB|CMYK"}}
