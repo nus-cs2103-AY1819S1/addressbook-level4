@@ -29,6 +29,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SuggestionCommand;
 import seedu.address.logic.commands.TimeAddCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -133,6 +134,8 @@ public class AddressBookParser {
 
         case ExchangeTimeCommand.COMMAND_WORD:
             return new ExchangeTimeCommandParser().parse(arguments);
+        case SuggestionCommand.COMMAND_WORD:
+            return new SuggestionCommandParser().parse(arguments);
 
         default:
 
