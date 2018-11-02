@@ -35,7 +35,6 @@ main purpose of an expense tracker.
 
 * *Minor enhancement*:
 
-. Added a `history` command that allows the user to navigate to previous commands using up/down keys.
 . Added a `setRecurrenceFrequency` command that allows the user to reset their spending at a frequency of their choice.
 . Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
