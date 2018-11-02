@@ -18,7 +18,6 @@ public class ExitCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         ImageMagickUtil.getTempFolderPath().toFile().delete();
-        //PreviewImage.getCacheFolder().toFile().delete();
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
