@@ -691,7 +691,7 @@ The `n/` parameter can be omitted. In this case, all types of notifications will
 The budget feature allows the user to set a budget for their expenses.
 If the user's total expenses exceeds their budget, a warning will be shown to the user.
 
-The current implementation for `totalBudget` tracking is described as below.
+The current implementation for budget tracking is described as below.
 
 ===== Setting a Budget
 

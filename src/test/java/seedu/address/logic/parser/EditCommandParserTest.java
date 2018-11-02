@@ -5,7 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -78,7 +78,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure(parser,
                 "1" + INVALID_CATEGORY_DESC, Category.MESSAGE_CATEGORY_CONSTRAINTS); // invalid category
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Cost.MESSAGE_COST_CONSTRAINTS); // invalid address
+        assertParseFailure(parser, "1" + INVALID_COST_DESC, Cost.MESSAGE_COST_CONSTRAINTS); // invalid address
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid category
