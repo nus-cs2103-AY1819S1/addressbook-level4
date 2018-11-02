@@ -1,11 +1,11 @@
 package seedu.thanepark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
@@ -24,13 +24,13 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_MAINTENANCE + "MAINTENANCE "
             + PREFIX_WAITING_TIME + "WAITING TIME "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_ZONE + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Transformers "
             + PREFIX_MAINTENANCE + "3 "
             + PREFIX_WAITING_TIME + "45 "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_ZONE + "311, Clementi Ave 2, #02-25 "
             + PREFIX_TAG + "4D "
             + PREFIX_TAG + "indoor";
 

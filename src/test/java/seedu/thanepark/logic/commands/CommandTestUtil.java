@@ -2,11 +2,11 @@ package seedu.thanepark.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,8 +43,8 @@ public class CommandTestUtil {
     public static final String MAINTENANCE_DESC_BOB = " " + PREFIX_MAINTENANCE + VALID_MAINTENANCE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_WAITING_TIME + VALID_WAIT_TIME_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_WAITING_TIME + VALID_WAIT_TIME_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ZONE + VALID_ADDRESS_AMY;
+    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ZONE + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -52,7 +52,7 @@ public class CommandTestUtil {
     // 'a' not allowed in days since maintenance
     public static final String INVALID_MAINTENANCE_DESC = " " + PREFIX_MAINTENANCE + "911a";
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_WAITING_TIME + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ZONE; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

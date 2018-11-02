@@ -64,9 +64,9 @@ After you have installed the correct software, follow the steps below to setup y
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors.
-Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]
-and link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Open link:{repoURL}/src/main/java/seedu/zone/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson.java`] and link:{repoURL}/src/main/java/seedu/zone/ui/MainWindow.java[`MainWindow.java`] and check for any code errors.
+Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/zone/commons/util/XmlUtilTest.java[`XmlUtilTest.java`]
+and link:{repoURL}/src/test/java/seedu/zone/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 +
 [WARNING]
 Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
@@ -140,7 +140,7 @@ Given below is a quick overview of each component:
 [[Design-Main]]
 === Main component
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/zone/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -195,11 +195,11 @@ The `UI` component is responsible for any UI-related functionality of the App.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/zone/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/zone/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -217,7 +217,7 @@ The `Logic` component is responsible for handling and executing command logic.
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/zone/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -237,7 +237,7 @@ The `Model` component stores an internal representation of the state of the appl
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/zone/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -259,7 +259,7 @@ The `Storage` component is responsible for reading data from, and writing data t
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/zone/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -278,50 +278,50 @@ The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` -- Saves the current zone book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous zone book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone zone book state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial zone book state, and the `currentStatePointer` pointing to that single zone book state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the zone book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the zone book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted zone book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified zone book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the zone book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous zone book state, and restores the zone book to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial zone book state, then there are no previous zone book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the zone book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest zone book state, then there are no undone zone book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the zone book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all zone book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -333,7 +333,7 @@ image::UndoRedoActivityDiagram.png[width="800"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire zone book.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -342,7 +342,7 @@ image::UndoRedoActivityDiagram.png[width="800"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of zone book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
@@ -353,21 +353,26 @@ image::UndoRedoActivityDiagram.png[width="800"]
 //tag::filter[]
 
 === Filter Feature
+
+This section documents how filter is implemented and how it works.
+
 ==== Current Implementation
+The execution of filter is simple and linear as the following activity diagram would show:
+
 .Activity Diagram for the Filter Feature
 image::FilterActivityDiagram.png[width="800"]
 
-The following diagram will show how the filter diagram works: +
+The following sequence diagram will show how the filter diagram works: +
 
 .Sequence Diagram for the Filter Feature
 image::FilterSequenceDiagram.png[width="800"]
 
-The filter function is being implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
+The filter function is implemented with the help of `FilterCommand` and `AttributePredicate` class. When the
 `ThaneParkParser` parses the user input and finds the filter command word `filter` it calls a new `FilterCommandParser` to
 parse the arguments from the user input.
 
 It checks if there are any of the maintenance or waiting time prefix in the arguments. If any of the prefixes are present,
-an `AttributePredicate` is created with the operator (‘<’ or ‘>’) and the attribute they are checking for (ie
+an `AttributePredicate` is created with the operator (‘<', ‘>’, '< =' or '> =') and the attribute they are checking for (ie
 `Maintenance` or `WaitTime`). The AttributePredicates are added to a list. The user can add any amount of predicates that
 they want, like 3 predicates e.g. `filter w/< 50 w/ > 5 m/>10` and the list would contain 3 predicates and if the user
 decides to input only one predicate, the list will only contain one.
@@ -375,7 +380,7 @@ decides to input only one predicate, the list will only contain one.
 A new `RideContainsConditionPredicate` is instantiated with the list of AttributePredicates. The `FilterCommandParser` will
 return a new `FilterCommand` with the `RideContainsConditionPredicate` in it.
 
-The LogicManager execute the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
+The `LogicManager` execute the command, and the `RideContainsConditionPredicate` will be set as the predicate to filter
 the list of rides and it will check if the ride fulfils the required predicate(s). After that a list of filtered rides
 would be returned after each ride is tested with the predicate.
 
@@ -384,37 +389,77 @@ would be returned after each ride is tested with the predicate.
 ===== Aspect: Data structure to support filter commands
 * **Alternative 1(Current Choice):** Abstracting attributes that contain numeric values into a separate class and creating a
 AttributePredicate to test the attribute
-** Pros: Easier to add more numeric attributes and minimal changes required to filter new attributes
-** Cons: Need to implement more classes to handle
+** Pros: More numeric attributes can be easily added  and minimal changes are required to filter new attributes
+** Cons: More classes would need to be implemented to handle the
 
 * **Alternative 2:** Gives the entire string condition to the RideContainsConditionPredicate to test.
-** Pros: Easier to implement as classes no need to abstracted
+** Pros: This would be easier to implement as classes no need to abstracted
 ** Cons: RideContainsConditionPredicate would carry out parsing functions which would make it less cohesive
 
 // end::filter[]
 
 
-// tag::autocompletesuggest[]
-=== Autocomplete/Suggest Feature
+=== Accessibility feature
+
+// tag::accessibility[]
 ==== Current Implementation
 
+The accessibility feature is responsible for making ThanePark application easier to use.
+It can be decomposed into the following components: +
+
+* <<accessibility_help, *Help*>>
+* <<accessibility_autocomplete, *Autocomplete/Suggest*>>
+* <<accessibility_history, *Command History retrieval*>>
+* <<accessibility_UI, *UI changes*>>
+
+[#accessibility_help]
+===== Help
+The *help* mechanism is facilitated by the `ShowHelpRequestEvent`.
+When the user executes a `HelpCommand`, the required level of help is encoded in `ShowHelpRequest`.
+This event is subscribed to by `MainWindow`, which will load the respective help page in the required window
+(`BrowserPanel` or `HistoryWindow`). These interactions are illustrated in the class diagram below:
+
+.Class diagram of help mechanism
+image::AutocompleteSuggestActivityDiagram1.png[width="800"]
+
+[#accessibility_autocomplete]
+===== Autocomplete
 The *autocomplete/suggest* mechanism is facilitated by `SuggestCommand`.
 It extends `Command` and serves as a special kind of `Command` that cannot be directly invoked by the `LogicManager`.
 A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
 or when kbd:[TAB] is pressed inside the *Command Box*. See the 2 figures below:
 
-.Activity Diagram of user executing command
+.Activity diagram of user executing command
 image::AutocompleteSuggestActivityDiagram1.png[width="800"]
 
-.Activity Diagram of user pressing tab
+.Activity diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram2.png[width="800"]
 
 The application will then proceed with executing the `SuggestCommand`, which returns prefix-matched `Command` s.
 These matching `Command` s are reflected in both `CommandResult` and `ShowHelpRequestEvent`, which will in turn update
 `ResultDisplay` and `CommandBox` text. See figure below:
 
-.Activity Diagram of user pressing tab
+.Activity diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram3.png[width="800"]
+
+[#accessibility_history]
+===== History
+The *history* mechanism is facilitated by `CommandHistory` and `CommandsLogCenter`.
+`CommandHistory` maintains the history as a list of user inputs during the session,
+and interfaces with `CommandsLogCenter` to handle the retrieval and persistent storage
+of user inputs executed across sessions.
+
+Given below are 2 example usage scenarios to illustrate the behavior of the *history* mechanism.
+
+* Example scenario 1: User requests for current session's history. +
+Step 1. User executes `history`. +
+Step 2. The list of user inputs in the current session is retrieved from `CommandHistory`. +
+Step 3. A `NewResultAvailableEvent` is raised within the `Logic` component.
+Step 4. The result panel displays the list of user inputs upon notification by the event.
+
+* Example scenario 2: User requests for cumulative history. +
+
+When the cumulative history of all commands is requested,
 
 ==== Design Considerations
 
@@ -430,7 +475,7 @@ Event types in the application.
 
 ** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
 for result listing of results in `ResultDisplay`.
-// end::autocompletesuggest[]
+// end::accessibility[]
 
 // tag::viewstatus[]
 === View Status Feature
@@ -675,7 +720,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/zone/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -1144,8 +1189,8 @@ Use case resumes at step 1.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[attraction-ride]] Attraction/ride:
+[[attraction-ride]] Attraction/ Ride::
 An attraction/ride that is meant for visitors to patronize.
 
-[[themepark]] Theme/ Amusement park:
+[[themepark]] Theme/ Amusement park::
 A place with rides for visitors to patronise.

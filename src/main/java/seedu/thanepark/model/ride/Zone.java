@@ -5,37 +5,37 @@ import static seedu.thanepark.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Ride's thanepark in the thanepark book.
- * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidZone(String)}
  */
-public class Address {
+public class Zone {
 
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
+    public static final String MESSAGE_ZONE_CONSTRAINTS =
             "Addresses can take any values, and it should not be blank";
 
     /*
      * The first character of the thanepark must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
+    public static final String ZONE_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Zone}.
      *
-     * @param address A valid thanepark.
+     * @param zone A valid thanepark.
      */
-    public Address(String address) {
-        requireNonNull(address);
-        checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
-        value = address;
+    public Zone(String zone) {
+        requireNonNull(zone);
+        checkArgument(isValidZone(zone), MESSAGE_ZONE_CONSTRAINTS);
+        value = zone;
     }
 
     /**
      * Returns true if a given string is a valid email.
      */
-    public static boolean isValidAddress(String test) {
-        return test.matches(ADDRESS_VALIDATION_REGEX);
+    public static boolean isValidZone(String test) {
+        return test.matches(ZONE_VALIDATION_REGEX);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class Address {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Address // instanceof handles nulls
-                && value.equals(((Address) other).value)); // state check
+                || (other instanceof Zone // instanceof handles nulls
+                && value.equals(((Zone) other).value)); // state check
     }
 
     @Override
