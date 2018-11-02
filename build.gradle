@@ -82,7 +82,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'scheduleplanner.jar'
+    archiveName = 'studentscheduleplanner.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
