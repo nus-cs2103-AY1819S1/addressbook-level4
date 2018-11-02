@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 
 import org.junit.Before;
@@ -36,6 +37,12 @@ public class XmlWishTransactionsTest extends XmlWishTransactions {
         WishTransaction typicalWishTransaction = getTypicalWishTransaction();
         XmlWishTransactions xmlWishTransactions = new XmlWishTransactions(typicalWishTransaction);
         assertEquals(xmlWishTransactions.toModelType(), typicalWishTransaction);
+    }
+
+    @Test
+    public void shouldBeEqual() {
+        assertTrue(emptyXmlWishTransactions.equals(new XmlWishTransactions()));
+        assertTrue(populatedXmlWishTransactions.equals(new XmlWishTransactions(getTypicalWishTransaction())));
     }
 
 }

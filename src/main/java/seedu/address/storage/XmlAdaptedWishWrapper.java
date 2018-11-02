@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -17,6 +19,7 @@ public class XmlAdaptedWishWrapper {
     }
 
     public XmlAdaptedWishWrapper(LinkedList<XmlAdaptedWish> xmlAdaptedWishes) {
+        requireNonNull(xmlAdaptedWishes);
         this.xmlAdaptedWishes = xmlAdaptedWishes;
     }
 
@@ -26,11 +29,17 @@ public class XmlAdaptedWishWrapper {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof XmlAdaptedWishWrapper) || hasSameNumberOfWishes((XmlAdaptedWishWrapper) obj)) {
+        if (!(obj instanceof XmlAdaptedWishWrapper) || !(hasSameNumberOfWishes((XmlAdaptedWishWrapper) obj))) {
             return false;
         }
+
+        if (((XmlAdaptedWishWrapper) obj).xmlAdaptedWishes.isEmpty() && xmlAdaptedWishes.isEmpty()) {
+            return true;
+        }
+
         Iterator<XmlAdaptedWish> otherIterator = ((XmlAdaptedWishWrapper) obj).getXmlAdaptedWishes().listIterator();
         Iterator<XmlAdaptedWish> thisIterator = xmlAdaptedWishes.listIterator();
+
         while (otherIterator.hasNext()) {
             if (!thisIterator.next().equals(otherIterator.next())) {
                 return false;
