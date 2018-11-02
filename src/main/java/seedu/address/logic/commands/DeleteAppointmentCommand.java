@@ -41,7 +41,7 @@ public class DeleteAppointmentCommand extends Command {
     private final int appointmentId;
 
     /**
-     * Creates an AddAppointmentCommand to add the specified {@code Appointment}
+     * Creates an DeleteAppointmentCommand to add the specified {@code Appointment}
      */
     public DeleteAppointmentCommand(int appointmentId) {
         requireAllNonNull(appointmentId);
@@ -112,7 +112,7 @@ public class DeleteAppointmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddAppointmentCommand // instanceof handles nulls
+                || (other instanceof DeleteAppointmentCommand // instanceof handles nulls
                 && (appointmentId == ((DeleteAppointmentCommand) other).appointmentId));
     }
 }
