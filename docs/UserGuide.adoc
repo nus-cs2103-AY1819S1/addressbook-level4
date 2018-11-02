@@ -153,6 +153,7 @@ Format: `ls`: lists files in the current directory
 
 Format: `cd [DIRECTORY_NAME]`: changes directory
 
+// tag::google[]
 === Logging in to Google Photos: `login`
 
 Format: `login`: allows you to log in to Google Photos
@@ -217,6 +218,8 @@ Examples:
 === Logging out of Google Photos: `logout`
 
 Format: `logout`: logs you out of Google Photos
+
+// tag::google[]
 
 === Exiting the application: `exit`
 
