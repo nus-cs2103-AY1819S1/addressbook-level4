@@ -58,13 +58,13 @@ public class ChangeDeckCommand extends Command {
 
         List<Deck> currentDeckList = model.getFilteredDeckList();
 
-        if (this.isCdOut) { // `cd ..`
+        if (this.isCdOut) {
             if (!model.isInsideDeck()) {
                 throw new CommandException(Messages.MESSAGE_NOT_INSIDE_DECK);
             }
             model.getOutOfDeck();
             return new CommandResult(String.format(MESSAGE_EXIT_SUCCESS));
-        } else {    // `cd`
+        } else {
             if (targetIndex.getZeroBased() >= currentDeckList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
             }

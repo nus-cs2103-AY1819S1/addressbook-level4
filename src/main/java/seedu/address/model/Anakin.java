@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.deck.Deck.NULLDECK;
 
 import java.util.Iterator;
 import java.util.List;
@@ -11,11 +10,8 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
-import seedu.address.model.deck.anakinexceptions.CardNotFoundException;
 import seedu.address.model.deck.anakinexceptions.DeckImportException;
-import seedu.address.model.deck.anakinexceptions.DeckNotFoundException;
 import seedu.address.model.deck.anakinexceptions.DuplicateDeckException;
-import seedu.address.model.deck.anakinexceptions.IllegalOperationWhileReviewingDeckException;
 import seedu.address.model.deck.anakinexceptions.NotReviewingDeckException;
 import seedu.address.storage.portmanager.PortManager;
 
