@@ -259,5 +259,8 @@ public class AppointmentTest {
         //diff status
         appt2.cancelAppointment();
         assertFalse(appt2.equals(appt3));
+
+        //instance of
+        assertFalse(appt2.equals(validDate));
     }
 }
