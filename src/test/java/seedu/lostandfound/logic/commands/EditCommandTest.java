@@ -3,11 +3,11 @@ package seedu.lostandfound.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.showArticleAtIndex;
@@ -58,11 +58,11 @@ public class EditCommandTest {
         Article lastArticle = model.getFilteredArticleList().get(indexLastArticle.getZeroBased());
 
         ArticleBuilder articleInList = new ArticleBuilder(lastArticle);
-        Article editedArticle = articleInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
+        Article editedArticle = articleInList.withName(VALID_NAME_MOUSE).withPhone(VALID_PHONE_MOUSE)
+                .withTags(VALID_TAG_BLUE).build();
 
-        EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
+        EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_MOUSE)
+                .withPhone(VALID_PHONE_MOUSE).withTags(VALID_TAG_BLUE).build();
         EditCommand editCommand = new EditCommand(indexLastArticle, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
@@ -92,9 +92,9 @@ public class EditCommandTest {
         showArticleAtIndex(model, INDEX_FIRST_ARTICLE);
 
         Article articleInFilteredList = model.getFilteredArticleList().get(INDEX_FIRST_ARTICLE.getZeroBased());
-        Article editedArticle = new ArticleBuilder(articleInFilteredList).withName(VALID_NAME_BOB).build();
+        Article editedArticle = new ArticleBuilder(articleInFilteredList).withName(VALID_NAME_MOUSE).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_ARTICLE,
-                new EditArticleDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditArticleDescriptorBuilder().withName(VALID_NAME_MOUSE).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_ARTICLE_SUCCESS, editedArticle);
 
@@ -129,7 +129,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidArticleIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredArticleList().size() + 1);
-        EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_MOUSE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
@@ -147,7 +147,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getArticleList().getArticleList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditArticleDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditArticleDescriptorBuilder().withName(VALID_NAME_MOUSE).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
     }
@@ -177,7 +177,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredArticleList().size() + 1);
-        EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditArticleDescriptor descriptor = new EditArticleDescriptorBuilder().withName(VALID_NAME_MOUSE).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> article list state not added into model
@@ -222,10 +222,10 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_ARTICLE, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_ARTICLE, DESC_POWERBANK);
 
         // same values -> returns true
-        EditArticleDescriptor copyDescriptor = new EditArticleDescriptor(DESC_AMY);
+        EditArticleDescriptor copyDescriptor = new EditArticleDescriptor(DESC_POWERBANK);
         EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_ARTICLE, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -239,10 +239,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_ARTICLE, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_ARTICLE, DESC_POWERBANK)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_ARTICLE, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_ARTICLE, DESC_MOUSE)));
     }
 
 }

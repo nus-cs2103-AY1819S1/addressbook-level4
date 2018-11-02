@@ -30,7 +30,7 @@ public class FinderPanel extends UiPart<Region> {
     }
 
     private void loadFinder(Article article) {
-        Platform.runLater(() -> finder.setText(article.getName().fullName));
+        Platform.runLater(() -> finder.setText(article.getFinder().fullName));
     }
 
     @Subscribe

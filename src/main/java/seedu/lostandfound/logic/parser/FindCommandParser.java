@@ -12,6 +12,7 @@ import seedu.lostandfound.commons.core.LogsCenter;
 import seedu.lostandfound.logic.commands.FindCommand;
 import seedu.lostandfound.logic.parser.exceptions.ParseException;
 import seedu.lostandfound.model.article.DescriptionContainsKeywordsPredicate;
+import seedu.lostandfound.model.article.FinderContainsKeywordsPredicate;
 import seedu.lostandfound.model.article.NameContainsKeywordsPredicate;
 
 /**
@@ -47,6 +48,10 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         case "-d":
             return new FindCommand(new DescriptionContainsKeywordsPredicate(listKeywords));
+
+        case "-f":
+            return new FindCommand(new FinderContainsKeywordsPredicate(listKeywords));
+
         default:
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));

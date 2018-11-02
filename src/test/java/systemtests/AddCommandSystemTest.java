@@ -1,33 +1,36 @@
 package systemtests;
 
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_FINDER_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_BLUE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_RED;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
-import static seedu.lostandfound.testutil.TypicalArticles.AMY;
-import static seedu.lostandfound.testutil.TypicalArticles.BOB;
-import static seedu.lostandfound.testutil.TypicalArticles.CARL;
-import static seedu.lostandfound.testutil.TypicalArticles.HOON;
-import static seedu.lostandfound.testutil.TypicalArticles.IDA;
+import static seedu.lostandfound.testutil.TypicalArticles.BAG;
 import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
+import static seedu.lostandfound.testutil.TypicalArticles.NECKLACE;
+import static seedu.lostandfound.testutil.TypicalArticles.POWERBANK;
+import static seedu.lostandfound.testutil.TypicalArticles.SHIRT;
+import static seedu.lostandfound.testutil.TypicalArticles.WATCH;
 
 import org.junit.Test;
 
@@ -57,9 +60,10 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
         /* Case: add a article without tags to a non-empty article list, command with leading spaces and trailing spaces
          * -> added
          */
-        Article toAdd = AMY;
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + DESCRIPTION_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        Article toAdd = POWERBANK;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_POWERBANK + "  " + FINDER_DESC_POWERBANK
+                + PHONE_DESC_POWERBANK + " " + EMAIL_DESC_POWERBANK + "   " + DESCRIPTION_DESC_POWERBANK + "   "
+                + TAG_DESC_RED + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -74,82 +78,91 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add a article with all fields same as another article in the article list except name -> added */
-        toAdd = new ArticleBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY
-                + TAG_DESC_FRIEND;
+        toAdd = new ArticleBuilder(POWERBANK).withName(VALID_NAME_MOUSE).build();
+        command = AddCommand.COMMAND_WORD + NAME_DESC_MOUSE + PHONE_DESC_POWERBANK + EMAIL_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK + TAG_DESC_RED;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a article with all fields same as another article in the article list except phone and email
          * -> added
          */
-        toAdd = new ArticleBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new ArticleBuilder(POWERBANK).withPhone(VALID_PHONE_MOUSE).withEmail(VALID_EMAIL_MOUSE).build();
         command = ArticleUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty article list -> added */
         deleteAllArticles();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(BAG);
 
         /* Case: add a article with tags, command with parameters in random order -> added */
-        toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + DESCRIPTION_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+        toAdd = MOUSE;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_BLUE + PHONE_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + NAME_DESC_MOUSE
+                + FINDER_DESC_MOUSE + TAG_DESC_RED + EMAIL_DESC_MOUSE;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a article, missing tags -> added */
-        assertCommandSuccess(HOON);
+        assertCommandSuccess(SHIRT);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the article list before adding -> added */
         showArticlesWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(IDA);
+        assertCommandSuccess(NECKLACE);
 
         /* ------------------------ Perform add operation while a article card is selected -------------------------- */
 
         /* Case: selects first card in the article list, add a article -> added, card selection remains unchanged */
         selectArticle(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(WATCH);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate article -> rejected */
-        command = ArticleUtil.getAddCommand(HOON);
+        command = ArticleUtil.getAddCommand(SHIRT);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: add a duplicate article except with different phone -> rejected */
-        toAdd = new ArticleBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
+        toAdd = new ArticleBuilder(SHIRT).withPhone(VALID_PHONE_MOUSE).build();
         command = ArticleUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: add a duplicate article except with different email -> rejected */
-        toAdd = new ArticleBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new ArticleBuilder(SHIRT).withEmail(VALID_EMAIL_MOUSE).build();
         command = ArticleUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: add a duplicate article except with different description -> rejected */
-        toAdd = new ArticleBuilder(HOON).withDescription(VALID_DESCRIPTION_BOB).build();
+        toAdd = new ArticleBuilder(SHIRT).withDescription(VALID_DESCRIPTION_MOUSE).build();
         command = ArticleUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: add a duplicate article except with different tags -> rejected */
-        command = ArticleUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = ArticleUtil.getAddCommand(SHIRT) + " " + PREFIX_TAG.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_POWERBANK + EMAIL_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + EMAIL_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DESCRIPTION_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing description -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + EMAIL_DESC_POWERBANK;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        /* Case: missing finder -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK
+                + DESCRIPTION_DESC_POWERBANK + EMAIL_DESC_POWERBANK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -157,24 +170,33 @@ public class AddCommandSystemTest extends ArticleListSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_POWERBANK + EMAIL_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + INVALID_PHONE_DESC + EMAIL_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK;
         assertCommandFailure(command, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + DESCRIPTION_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK + INVALID_EMAIL_DESC
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_DESCRIPTION_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK + EMAIL_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + INVALID_DESCRIPTION_DESC;
         assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
 
+        /* Case: invalid finder -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK + EMAIL_DESC_POWERBANK
+                + INVALID_FINDER_DESC + DESCRIPTION_DESC_POWERBANK;
+        assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
+
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + DESCRIPTION_DESC_AMY
-                + INVALID_TAG_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK + EMAIL_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }
 

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.lostandfound.commons.core.Messages.MESSAGE_ARTICLES_LISTED_OVERVIEW;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.lostandfound.testutil.TypicalArticles.CARL;
+import static seedu.lostandfound.testutil.TypicalArticles.WATCH;
 import static seedu.lostandfound.testutil.TypicalArticles.getTypicalArticleList;
 
 import java.util.Arrays;
@@ -17,6 +17,7 @@ import seedu.lostandfound.logic.CommandHistory;
 import seedu.lostandfound.model.Model;
 import seedu.lostandfound.model.ModelManager;
 import seedu.lostandfound.model.UserPrefs;
+import seedu.lostandfound.model.article.FinderContainsKeywordsPredicate;
 import seedu.lostandfound.model.article.NameContainsKeywordsPredicate;
 
 /**
@@ -57,7 +58,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noArticleFound() {
         String expectedMessage = String.format(MESSAGE_ARTICLES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate("-n  ");
+        FinderContainsKeywordsPredicate predicate = preparePredicate("-n  ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredArticleList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -67,17 +68,17 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_oneArticleFound() {
         String expectedMessage = String.format(MESSAGE_ARTICLES_LISTED_OVERVIEW, 1);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Carl Kurz Kurz");
+        FinderContainsKeywordsPredicate predicate = preparePredicate("Carl Kurz Kurz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredArticleList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL), model.getFilteredArticleList());
+        assertEquals(Arrays.asList(WATCH), model.getFilteredArticleList());
     }
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private FinderContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new FinderContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

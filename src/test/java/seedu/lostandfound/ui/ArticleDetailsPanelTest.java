@@ -2,7 +2,7 @@ package seedu.lostandfound.ui;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.lostandfound.testutil.EventsUtil.postNow;
-import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
+import static seedu.lostandfound.testutil.TypicalArticles.BAG;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class ArticleDetailsPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() {
-        selectionChangedEventStub = new ArticlePanelSelectionChangedEvent(ALICE);
+        selectionChangedEventStub = new ArticlePanelSelectionChangedEvent(BAG);
 
         guiRobot.interact(() -> articleDetailsPanel = new ArticleDetailsPanel());
         uiPartRule.setUiPart(articleDetailsPanel);
@@ -35,7 +35,7 @@ public class ArticleDetailsPanelTest extends GuiUnitTest {
 
         // associated details of an article
         postNow(selectionChangedEventStub);
-        String expectedArticleDetails = ALICE.getName().fullName;
+        String expectedArticleDetails = BAG.getName().fullName;
 
         assertEquals(expectedArticleDetails, articleDetailsPanelHandle.getLoadedDetails());
     }
