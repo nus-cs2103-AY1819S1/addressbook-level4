@@ -22,7 +22,7 @@ Responsibilities: Model and Logic
 
 === Jonathan Tan Jit Ming
 image::jonathantjm.png[width="150", align="left"]
-{empty}[https://github.com/jonathantjm[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jonathantjm[github]] [<<jonathan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation
@@ -40,7 +40,7 @@ Responsibilities: UI
 
 === Jiang Chen
 image::jcjxwy.png[width="150", align="left"]
-{empty}[https://github.com/jcjxwy[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jcjxwy[github]] [<<jiangchen#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration
