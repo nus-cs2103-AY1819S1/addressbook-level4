@@ -6,7 +6,6 @@ import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 
 /**
  * Reverts the {@code model}'s ClinicIO to its previously undone state.
@@ -18,7 +17,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (!model.canRedoClinicIo()) {
