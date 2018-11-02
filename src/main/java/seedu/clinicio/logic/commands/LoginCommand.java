@@ -6,15 +6,14 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ROLE;
 
-import java.util.List;
-
+import seedu.clinicio.commons.core.EventsCenter;
+import seedu.clinicio.commons.core.UserSession;
+import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
 import seedu.clinicio.logic.CommandHistory;
+import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.Password;
-import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
 
@@ -31,77 +30,42 @@ public class LoginCommand extends Command {
             + "[" + PREFIX_ROLE + "ROLE]"
             + "[" + PREFIX_NAME + "NAME]"
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
-            + "Example: login r/doctor n/Adam Bell pass/doctor1";
+            + "Example: login r/staff n/Adam Bell pass/doctor1";
 
+    public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
+    public static final String MESSAGE_LOGIN_ALREADY = "You have already logged in.";
+    public static final String MESSAGE_NO_RECORD_FOUND = "No staff records found.";
     public static final String MESSAGE_SUCCESS = "Login successful.";
-    public static final String MESSAGE_FAILURE = "Login failed. Please try again.";
 
-    private final Person toAuthenticate;
+    private final Staff toAuthenticate;
 
     /**
-     * Creates an LoginCommand to add the specified {@code Person}.
-     * This {@code Person} could possibly be a doctor or receptionist.
+     * Creates an LoginCommand to add the specified {@code Staff}.
+     * This {@code Staff} could possibly be a staff or receptionist.
      */
-    public LoginCommand(Person person) {
-        requireNonNull(person);
-        toAuthenticate = person;
+    public LoginCommand(Staff staff) {
+        requireNonNull(staff);
+        toAuthenticate = staff;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (toAuthenticate instanceof Doctor) {
-            List<Doctor> doctorsList = model.getFilteredDoctorList();
-            if (checkDoctorCred(doctorsList)) {
-                return new CommandResult(MESSAGE_SUCCESS);
-            }
-        }
-        return new CommandResult(MESSAGE_FAILURE);
-    }
-
-    /**
-     * Check through ClinicIO for valid {@code Doctor} credentials.
-     * @param doctorsList A list of doctors in ClinicIO.
-     * @return Returns true if doctor has valid credentials in ClinicIO.
-     */
-    public boolean checkDoctorCred(List<Doctor> doctorsList) {
-        requireNonNull(doctorsList);
-
-        Doctor anotherDoctor = (Doctor) toAuthenticate;
-        Doctor doctorFound = searchDoctor(doctorsList, anotherDoctor);
-
-        if (doctorFound == null) {
-            return false;
-        }
-        return Password.isSameAsHashPassword(
-                anotherDoctor.getPassword().toString(),
-                doctorFound.getPassword().toString());
-    }
-
-    /**
-     * Search through {@code Model} doctor list for doctor.
-     * @param doctorsList A list of doctors in ClinicIO.
-     * @param doctorToSearch The doctor to search inside the list of doctors.
-     * @return The doctor found in the list of doctors. Return null if doctor is not found.
-     */
-    public Doctor searchDoctor(List<Doctor> doctorsList, Doctor doctorToSearch) {
-        requireNonNull(doctorsList);
-        requireNonNull(doctorToSearch);
-
-        Doctor doctorFound = null;
-        try {
-            for (Doctor d : doctorsList) {
-                if ((d.getName().equals(doctorToSearch.getName()))) {
-                    doctorFound = d;
-                    break;
-                }
-            }
-        } catch (ClassCastException ex) {
-            throw new ClassCastException();
+        if (!model.hasStaff(toAuthenticate)) {
+            throw new CommandException(MESSAGE_NO_RECORD_FOUND);
+        } else if (UserSession.isLogin()) {
+            return new CommandResult(MESSAGE_LOGIN_ALREADY);
         }
 
-        return doctorFound;
+        boolean isAuthenticatedSuccess = model.checkStaffCredentials(toAuthenticate);
+        if (!isAuthenticatedSuccess) {
+            return new CommandResult(MESSAGE_FAILURE);
+        }
+
+        UserSession.createSession(toAuthenticate);
+        EventsCenter.getInstance().post(new LoginSuccessEvent(toAuthenticate));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

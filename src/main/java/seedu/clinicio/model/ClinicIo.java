@@ -7,31 +7,29 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.UniqueAppointmentList;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.consultation.UniqueConsultationList;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.UniqueDoctorList;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.UniquePersonList;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
+import seedu.clinicio.model.staff.UniqueStaffList;
 
 /**
  * Wraps all data at the ClinicIO level
- * Duplicates are not allowed (by .isSamePerson and .isSameDoctor comparison)
+ * Duplicates are not allowed (by .isSamePerson and .isSameStaff comparison)
  */
 public class ClinicIo implements ReadOnlyClinicIo {
 
-    //@@author arsalanc-v2
-    private final Analytics analytics;
     private final UniquePersonList persons;
     //@@author jjlee050
-    private final UniqueDoctorList doctors;
+    private final UniqueStaffList staffs;
     //@@author gingivitiss
     private final UniqueAppointmentList appointments;
     private final UniqueConsultationList consultations;
-
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -41,13 +39,11 @@ public class ClinicIo implements ReadOnlyClinicIo {
      *   among constructors.
      */
     {
-        //@@author arsalanc-v2
-        analytics = new Analytics();
         persons = new UniquePersonList();
         //@@author jjlee050
-        doctors = new UniqueDoctorList();
+        staffs = new UniqueStaffList();
         //@@author gingivitiss
-        appointments = new UniqueAppointmentList(analytics);
+        appointments = new UniqueAppointmentList();
         consultations = new UniqueConsultationList();
     }
 
@@ -73,11 +69,19 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author jjlee050
     /**
-     * Replaces the contents of the doctor list with {@code doctors}.
-     * {@code doctors} must not contain duplicate doctors.
+     * Replaces the contents of the staff list with {@code staff}.
+     * {@code staff} must not contain duplicate staff.
      */
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors.setDoctors(doctors);
+    public void setStaffs(List<Staff> staff) {
+        this.staffs.setStaffs(staff);
+    }
+
+    /**
+     * Replaces the contents of the appointment list with {@code appointments}.
+     * {@code appointments} must not contain duplicate persons.
+     */
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments.setAppointments(appointments);
     }
 
     /**
@@ -86,7 +90,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     public void resetData(ReadOnlyClinicIo newData) {
         requireNonNull(newData);
         setPersons(newData.getPersonList());
-        setDoctors(newData.getDoctorList());
+        setStaffs(newData.getStaffList());
     }
 
     //========== Person-level operations =====================================================================
@@ -101,11 +105,11 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author jjlee050
     /**
-     * Returns true if a doctor with the same identity as {@code doctor} exists in the ClinicIO.
+     * Returns true if a staff with the same identity as {@code staff} exists in the ClinicIO.
      */
-    public boolean hasDoctor(Doctor doctor) {
-        requireNonNull(doctor);
-        return doctors.contains(doctor);
+    public boolean hasStaff(Staff staff) {
+        requireNonNull(staff);
+        return staffs.contains(staff);
     }
 
     //@@author gingivitiss
@@ -139,16 +143,15 @@ public class ClinicIo implements ReadOnlyClinicIo {
      * The person must not already exist in the ClinicIO.
      */
     public void addPerson(Person p) {
-        persons.add(p);
+        persons.add(Patient.buildFromPerson(p));
     }
 
-    //author jjlee050
     /**
-     * Adds a doctor to the ClinicIO.
-     * The doctor must not already exist in the ClinicIO.
+     * Adds a staff to the ClinicIO.
+     * The staff must not already exist in the ClinicIO.
      */
-    public void addDoctor(Doctor d) {
-        doctors.add(d);
+    public void addStaff(Staff d) {
+        staffs.add(d);
     }
 
     //@@author gingivitiss
@@ -170,6 +173,20 @@ public class ClinicIo implements ReadOnlyClinicIo {
     }
 
     /**
+     * Authenticate staff with staff record in ClinicIO.
+     * This staff must exist inside ClinicIO.
+     */
+    public boolean checkStaffCredentials(Staff staff) {
+        requireNonNull(staff);
+        Staff staffRecord = staffs.getStaff(staff);
+
+        return Password.verifyPassword(
+                staff.getPassword().password,
+                staffRecord.getPassword().password
+        );
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the ClinicIO.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the ClinicIO.
@@ -181,13 +198,13 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author jjlee050
     /**
-     * Replaces the given doctor {@code target} in the list with {@code editedDoctor}.
+     * Replaces the given staff {@code target} in the list with {@code editedStaff}.
      * {@code target} must exist in the ClinicIO.
-     * The doctor identity of {@code editedDoctor} must not be the same as another existing doctor in the ClinicIO.
+     * The staff identity of {@code editedStaff} must not be the same as another existing staff in the ClinicIO.
      */
-    public void updateDoctor(Doctor target, Doctor editedDoctor) {
-        requireNonNull(editedDoctor);
-        doctors.setDoctor(target, editedDoctor);
+    public void updateStaff(Staff target, Staff editedStaff) {
+        requireNonNull(editedStaff);
+        staffs.setStaff(target, editedStaff);
     }
 
     //@@author gingivitiss
@@ -220,15 +237,6 @@ public class ClinicIo implements ReadOnlyClinicIo {
      */
     public void removePerson(Person key) {
         persons.remove(key);
-    }
-
-    //@@author jjlee050
-    /**
-     * Removes {@code key} from this {@code ClinicIo}.
-     * {@code key} must exist in the ClinicIO.
-     */
-    public void removeDoctor(Doctor key) {
-        doctors.remove(key);
     }
 
     //@@author gingivitiss
@@ -264,7 +272,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
     public String toString() {
         //@@author jjlee050
         return persons.asUnmodifiableObservableList().size() + " persons & "
-                + doctors.asUnmodifiableObservableList().size() + " doctors &"
+                + staffs.asUnmodifiableObservableList().size() + " staffs &"
                 + appointments.asUnmodifiableObservableList().size() + "appointments ";
         // TODO: refine later
     }
@@ -276,8 +284,8 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author jjlee050
     @Override
-    public ObservableList<Doctor> getDoctorList() {
-        return doctors.asUnmodifiableObservableList();
+    public ObservableList<Staff> getStaffList() {
+        return staffs.asUnmodifiableObservableList();
     }
 
     //@@author gingivitiss
@@ -297,13 +305,13 @@ public class ClinicIo implements ReadOnlyClinicIo {
         return other == this // short circuit if same object
                 || (other instanceof ClinicIo // instanceof handles nulls
                 && persons.equals(((ClinicIo) other).persons)
-                && doctors.equals(((ClinicIo) other).doctors)
+                && staffs.equals(((ClinicIo) other).staffs)
                 && appointments.equals(((ClinicIo) other).appointments));
     }
 
     @Override
     public int hashCode() {
         //@@author jjlee050
-        return Objects.hash(persons.hashCode(), doctors.hashCode(), appointments.hashCode());
+        return Objects.hash(persons.hashCode(), staffs.hashCode(), appointments.hashCode());
     }
 }

@@ -1,6 +1,7 @@
 package seedu.clinicio.logic.parser;
 
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 import static seedu.clinicio.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.clinicio.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
@@ -8,8 +9,10 @@ import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import org.junit.Test;
 
 import seedu.clinicio.logic.commands.LoginCommand;
-import seedu.clinicio.model.person.Person;
-import seedu.clinicio.testutil.DoctorBuilder;
+
+import seedu.clinicio.model.staff.Staff;
+
+import seedu.clinicio.testutil.StaffBuilder;
 
 //@@author jjlee050
 public class LoginCommandParserTest {
@@ -29,12 +32,14 @@ public class LoginCommandParserTest {
     @Test
     public void parse_validArgs_returnsLoginCommand() {
         // no leading and trailing whitespaces
-        Person expectedDoctor = new DoctorBuilder(ADAM).withPassword("doctor1", false).build();
-        LoginCommand expectedLoginCommand = new LoginCommand(expectedDoctor);
-        assertParseSuccess(parser, " r/doctor n/" + ADAM.getName() + " pass/doctor1", expectedLoginCommand);
+        Staff expectedStaff = new StaffBuilder(ADAM).withPassword(VALID_PASSWORD_ADAM, false).build();
+        LoginCommand expectedLoginCommand = new LoginCommand(expectedStaff);
+        assertParseSuccess(parser, " r/doctor n/" + ADAM.getName()
+                + " pass/" + VALID_PASSWORD_ADAM, expectedLoginCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n r/doctor \n \t n/" + ADAM.getName() + " \t pass/doctor1", expectedLoginCommand);
+        assertParseSuccess(parser, " \n r/doctor \n \t n/" + ADAM.getName() + " \t pass/"
+                + VALID_PASSWORD_ADAM, expectedLoginCommand);
 
         // TODO: Add receptionist
     }

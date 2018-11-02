@@ -1,5 +1,8 @@
 package seedu.clinicio.model.util;
 
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,14 +12,13 @@ import java.util.stream.Collectors;
 import seedu.clinicio.commons.util.HashUtil;
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.Id;
-import seedu.clinicio.model.doctor.Password;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 
 /**
@@ -49,12 +51,16 @@ public class SampleDataUtil {
     }
 
     //@@author jjlee050
-    public static List<Doctor> getSampleDoctors() {
+    public static List<Staff> getSampleStaffs() {
         return new ArrayList<>(Arrays.asList(
-                new Doctor(new Id(1), new Name("Adam Bell"),
+                new Staff(DOCTOR, new Name("Adam Bell"),
                         new Password(HashUtil.hashToString("doctor1"), true)),
-                new Doctor(new Id(2), new Name("Chip Dale"),
-                        new Password(HashUtil.hashToString("doctor2"), true))));
+                new Staff(DOCTOR, new Name("Chip Dale"),
+                        new Password(HashUtil.hashToString("doctor2"), true)),
+                new Staff(RECEPTIONIST, new Name("Alan Lee"),
+                        new Password(HashUtil.hashToString("reception1"), true)),
+                new Staff(RECEPTIONIST, new Name("Frank Tay"),
+                        new Password(HashUtil.hashToString("reception2"), true))));
     }
 
     public static ReadOnlyClinicIo getSampleClinicIo() {
@@ -63,9 +69,10 @@ public class SampleDataUtil {
             sampleClinicIo.addPerson(samplePerson);
         }
         //@@author jjlee050
-        for (Doctor sampleDoctor : getSampleDoctors()) {
-            sampleClinicIo.addDoctor(sampleDoctor);
+        for (Staff sampleStaff : getSampleStaffs()) {
+            sampleClinicIo.addStaff(sampleStaff);
         }
+
         return sampleClinicIo;
     }
 

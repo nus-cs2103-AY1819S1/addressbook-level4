@@ -16,7 +16,7 @@ import seedu.clinicio.model.consultation.exceptions.DuplicateConsultationExcepti
  * A list of consultations that enforces uniqueness between its elements and does not allow nulls.
  * A person is considered unique by comparing using {@code Consultation#isSameConsultation(Consultation)}. As such,
  * adding and updating of consultations uses Consultation#isSameConsultation(Consultation) for equality so as to
- * ensure that the consultation being added or updated is unique in terms of identity in the UniqueDoctorList. However,
+ * ensure that the consultation being added or updated is unique in terms of identity in the UniqueStaffList. However,
  * the removal of a consultation uses Consultation#equals(Object) so as to ensure that the consultation with exactly
  * the same fields will be removed.
  * Supports a minimal set of list operations.

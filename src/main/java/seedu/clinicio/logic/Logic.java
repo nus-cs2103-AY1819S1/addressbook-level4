@@ -6,8 +6,8 @@ import seedu.clinicio.logic.commands.CommandResult;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * API of the Logic component
@@ -25,8 +25,10 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
-    /** Returns an unmodifiable view of the filtered list of doctors */
-    ObservableList<Doctor> getFilteredDoctorList();
+    /** Returns an unmodifiable view of the filtered list of staffs */
+    ObservableList<Staff> getFilteredStaffList();
+
+    ObservableList<Person> getAllPatientsInQueue();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

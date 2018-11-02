@@ -1,13 +1,15 @@
 package seedu.clinicio.testutil;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
-import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.BENSON_AS_PATIENT;
+
+import java.util.Optional;
 
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author gingivitiss
 /**
@@ -17,17 +19,17 @@ public class AppointmentBuilder {
 
     public static final Date DEFAULT_DATE = new Date(1, 1, 2018);
     public static final Time DEFAULT_TIME = new Time(16, 30);
-    public static final Patient DEFAULT_PATIENT = ALICE_AS_PATIENT;
+    public static final Patient DEFAULT_PATIENT = BENSON_AS_PATIENT;
     public static final int DEFAULT_TYPE = 0;
     public static final int DEFAULT_STATUS = 1;
-    public static final Doctor DEFAULT_DOCTOR = ADAM;
+    public static final Optional<Staff> DEFAULT_STAFF = Optional.of(ADAM);
 
     private Date date;
     private Time time;
     private Patient patient;
     private int type;
     private int status;
-    private Doctor doctor;
+    private Optional<Staff> staff;
 
     public AppointmentBuilder() {
         date = DEFAULT_DATE;
@@ -35,7 +37,7 @@ public class AppointmentBuilder {
         patient = DEFAULT_PATIENT;
         type = DEFAULT_TYPE;
         status = DEFAULT_STATUS;
-        doctor = DEFAULT_DOCTOR;
+        staff = DEFAULT_STAFF;
     }
 
     /**
@@ -47,7 +49,7 @@ public class AppointmentBuilder {
         patient = appointmentToCopy.getPatient();
         type = appointmentToCopy.getAppointmentType();
         status = appointmentToCopy.getAppointmentStatus();
-        doctor = appointmentToCopy.getAssignedDoctor();
+        staff = appointmentToCopy.getAssignedStaff();
     }
 
     /**
@@ -77,12 +79,25 @@ public class AppointmentBuilder {
     /**
      * Sets the {@code Doctor} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public AppointmentBuilder withStaff(Staff staff) {
+        this.staff = Optional.of(staff);
         return this;
     }
 
+    /**
+     * Sets the type of the {@code Appointment} we are building.
+     */
+    public AppointmentBuilder withType(int type) {
+        this.type = type;
+        return this;
+    }
+
+    /**
+     * Returns a new build appointment.
+     */
     public Appointment build() {
-        return new Appointment(date, time, patient, type, doctor);
+        Appointment newappt = new Appointment(date, time, patient, type);
+        newappt.setAssignedStaff(staff.get());
+        return newappt;
     }
 }

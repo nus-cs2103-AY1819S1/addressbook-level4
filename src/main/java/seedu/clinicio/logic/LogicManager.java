@@ -14,9 +14,8 @@ import seedu.clinicio.logic.parser.ClinicIoParser;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * The main LogicManager of the app.
@@ -26,13 +25,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
-    private final Analytics analytics;
     private final ClinicIoParser clinicIoParser;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
-        analytics = new Analytics();
         clinicIoParser = new ClinicIoParser();
     }
 
@@ -41,7 +38,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = clinicIoParser.parseCommand(commandText);
-            return command.execute(model, history, analytics);
+            return command.execute(model, history);
         } finally {
             history.add(commandText);
         }
@@ -53,8 +50,13 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Doctor> getFilteredDoctorList() {
-        return model.getFilteredDoctorList();
+    public ObservableList<Staff> getFilteredStaffList() {
+        return model.getFilteredStaffList();
+    }
+
+    @Override
+    public ObservableList<Person> getAllPatientsInQueue() {
+        return model.getAllPatientsInQueue();
     }
 
     @Override

@@ -47,14 +47,24 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
-    <doctors>
-        <id>1</id>
+    <staffs>
+        <role>DOCTOR</role>
         <name>Adam Bell</name>
         <password>$2b$08$kjCPCAJ5eEpDD5qh49JNMuG7DmWmmJLuKAWtegLty9T.ri/9bF3ti</password>
-    </doctors>
-    <doctors>
-        <id>2</id>
+    </staffs>
+    <staffs>
+        <role>DOCTOR</role>
         <name>Ben Hill</name>
         <password>$2b$08$KyxDFM2P0SF3KE5QjJ6si.cyZ4jMRuTxBvg2.Ly7pxUzhQrCLGvUW</password>
-    </doctors>
+    </staffs>
+    <staffs>
+        <role>RECEPTIONIST</role>
+        <name>Alan Lee</name>
+        <password>$2a$08$L0jw35.qOdt7p5TdMQ4bIuSPvvX8D3UOGY4wCaWSWNUQjsnsJWcSO</password>
+    </staffs>
+    <staffs>
+        <role>RECEPTIONIST</role>
+        <name>Frank Tay</name>
+        <password>$2a$08$y9vtjkky9/YxP3WRXtgb3.7ECtblD8c0YsNXX4CrM8p49XjwUkwh6</password>
+    </staffs>
 </clinicio>

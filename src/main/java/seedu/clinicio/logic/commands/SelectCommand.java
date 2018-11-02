@@ -11,8 +11,6 @@ import seedu.clinicio.commons.events.ui.JumpToListRequestEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
-
 import seedu.clinicio.model.person.Person;
 
 /**
@@ -36,7 +34,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         List<Person> filteredPersonList = model.getFilteredPersonList();

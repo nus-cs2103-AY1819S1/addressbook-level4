@@ -13,7 +13,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
     public static final Prefix PREFIX_TIME = new Prefix("tm/");
-    public static final Prefix PREFIX_IC = new Prefix("ic/");
     public static final Prefix PREFIX_TYPE = new Prefix("tp/");
 
     /* Patient Prefix definitions */

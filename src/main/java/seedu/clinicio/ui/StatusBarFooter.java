@@ -1,7 +1,5 @@
 package seedu.clinicio.ui;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -14,7 +12,10 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
+import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -23,6 +24,9 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
+
+    public static final String USER_SESSION_STATUS_INITIAL = "You are not logged in";
+    public static final String USER_SESSION_STATUS_UPDATED = "Logged in: %s (Role: %s)";
 
     /**
      * Used to generate time stamps.
@@ -41,13 +45,13 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private StatusBar syncStatus;
     @FXML
-    private StatusBar saveLocationStatus;
+    private StatusBar userSessionStatus;
 
 
-    public StatusBarFooter(Path saveLocation) {
+    public StatusBarFooter() {
         super(FXML);
         setSyncStatus(SYNC_STATUS_INITIAL);
-        setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
+        setUserSessionStatus(USER_SESSION_STATUS_INITIAL);
         registerAsAnEventHandler(this);
     }
 
@@ -65,8 +69,8 @@ public class StatusBarFooter extends UiPart<Region> {
         return clock;
     }
 
-    private void setSaveLocation(String location) {
-        Platform.runLater(() -> saveLocationStatus.setText(location));
+    private void setUserSessionStatus(String userSession) {
+        Platform.runLater(() -> userSessionStatus.setText(userSession));
     }
 
     private void setSyncStatus(String status) {
@@ -79,5 +83,14 @@ public class StatusBarFooter extends UiPart<Region> {
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+    }
+
+    @Subscribe
+    public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
+        Staff currentUser = UserSession.getCurrentSession();
+        logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent,
+                "You are now logged in as " + currentUser));
+        setUserSessionStatus(String.format(USER_SESSION_STATUS_UPDATED,
+                currentUser.getName(), currentUser.getRole()));
     }
 }

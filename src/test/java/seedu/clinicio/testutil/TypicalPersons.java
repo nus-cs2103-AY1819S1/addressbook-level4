@@ -5,17 +5,25 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ADAM;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_ALAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_BEN;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ID_ADAM;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ID_BEN;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_CAT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_DAISY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_HASH_PASSWORD_FRANK;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ALAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_CAT;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_DAISY;
+import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_FRANK;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.clinicio.model.staff.Role.DOCTOR;
+import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +31,9 @@ import java.util.List;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -83,19 +91,33 @@ public class TypicalPersons {
     public static final Patient AMY_AS_PATIENT = PatientBuilder.buildFromPerson(AMY)
             .build();
 
-    // Manually added (Doctor)
-    public static final Doctor ADAM = new DoctorBuilder().withId(VALID_ID_ADAM).withName(VALID_NAME_ADAM)
+    // Manually added (Staff)
+    public static final Staff ADAM = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_ADAM)
             .withPassword(VALID_HASH_PASSWORD_ADAM, true).build();
-    public static final Doctor BEN = new DoctorBuilder().withId(VALID_ID_BEN).withName(VALID_NAME_BEN)
+    public static final Staff BEN = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_BEN)
             .withPassword(VALID_HASH_PASSWORD_BEN, true).build();
+
+    //Not inside ClinicIO
+    public static final Staff CAT = new StaffBuilder().withRole(DOCTOR).withName(VALID_NAME_CAT)
+            .withPassword(VALID_HASH_PASSWORD_CAT, true).build();
+
+    public static final Staff ALAN = new StaffBuilder().withRole(RECEPTIONIST).withName(VALID_NAME_ALAN)
+            .withPassword(VALID_HASH_PASSWORD_ALAN, true).build();
+    public static final Staff FRANK = new StaffBuilder().withRole(RECEPTIONIST).withName(VALID_NAME_FRANK)
+            .withPassword(VALID_HASH_PASSWORD_FRANK, true).build();
+
+    //Not inside ClinicIO
+    public static final Staff DAISY = new StaffBuilder().withRole(RECEPTIONIST).withName(VALID_NAME_DAISY)
+            .withPassword(VALID_HASH_PASSWORD_DAISY, true).build();
+
 
     // Appointments
     public static final Appointment AMY_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(13, 00).withPatient(AMY_AS_PATIENT).withDoctor(ADAM).build();
+            .withTime(13, 00).withType(1).withPatient(AMY_AS_PATIENT).withStaff(ADAM).build();
     public static final Appointment BENSON_APPT = new AppointmentBuilder().withDate(3, 10, 2018)
-            .withTime(17, 45).withPatient(BENSON_AS_PATIENT).withDoctor(ADAM).build();
+            .withTime(17, 45).withType(1).withPatient(BENSON_AS_PATIENT).withStaff(ADAM).build();
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
-            .withTime(18, 00).withPatient(CARL_AS_PATIENT).withDoctor(ADAM).build();
+            .withTime(18, 00).withType(1).withPatient(CARL_AS_PATIENT).withStaff(ADAM).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
@@ -110,8 +132,8 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             clinicIo.addPerson(person);
         }
-        for (Doctor doctor : getTypicalDoctors()) {
-            clinicIo.addDoctor(doctor);
+        for (Staff staff : getTypicalStaffs()) {
+            clinicIo.addStaff(staff);
         }
         /*
         for (Appointment appointment : getTypicalAppointments()) {
@@ -125,9 +147,10 @@ public class TypicalPersons {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
-    public static List<Doctor> getTypicalDoctors() {
-        return new ArrayList<>(Arrays.asList(ADAM, BEN));
+    public static List<Staff> getTypicalStaffs() {
+        return new ArrayList<>(Arrays.asList(ADAM, BEN, ALAN, FRANK));
     }
+
 
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));
