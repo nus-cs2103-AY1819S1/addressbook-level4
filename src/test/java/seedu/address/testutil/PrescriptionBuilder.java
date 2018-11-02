@@ -9,7 +9,7 @@ import seedu.address.model.appointment.Prescription;
  * A utility class to help with building Prescription objects
  */
 public class PrescriptionBuilder {
-    public static final int DEFAULT_APPOINTMENT_ID = 12345;
+    public static final int DEFAULT_APPOINTMENT_ID = 10000;
     public static final String DEFAULT_MEDICINE_NAME = "Paracetamol";
     public static final String DEFAULT_DOSAGE = "2";
     public static final String DEFAULT_CONSUMPTION_PER_DAY = "3";

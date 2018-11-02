@@ -69,8 +69,8 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
-    public static final int VALID_APPOINTMENT_ID_FIRST = 1;
-    public static final int VALID_APPOINTMENT_ID_SECOND = 2;
+    public static final int VALID_APPOINTMENT_ID_FIRST = 10000;
+    public static final int VALID_APPOINTMENT_ID_SECOND = 10001;
     public static final String VALID_MEDICINE_NAME_PARACETAMOL = "Paracetamol";
     public static final String VALID_MEDICINE_NAME_VICODIN = "Vicodin";
     public static final String VALID_DOSAGE_PARACETAMOL = "2";

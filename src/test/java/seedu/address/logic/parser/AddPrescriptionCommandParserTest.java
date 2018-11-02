@@ -27,16 +27,14 @@ import seedu.address.model.appointment.ConsumptionPerDay;
 import seedu.address.model.appointment.Dosage;
 import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
+import seedu.address.testutil.PrescriptionBuilder;
 
 public class AddPrescriptionCommandParserTest {
     private AddPrescriptionCommandParser parser = new AddPrescriptionCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Prescription expectedPrescription = new Prescription(VALID_APPOINTMENT_ID_FIRST,
-                new MedicineName(VALID_MEDICINE_NAME_PARACETAMOL),
-                new Dosage(VALID_DOSAGE_PARACETAMOL),
-                new ConsumptionPerDay(VALID_CONSUMPTION_PER_DAY_PARACETAMOL));
+        Prescription expectedPrescription = new PrescriptionBuilder().build();
 
         // multiple appointment id - last id accepted
         assertParseSuccess(parser, APPOINTMENT_ID_DESC_SECOND + APPOINTMENT_ID_DESC_FIRST
