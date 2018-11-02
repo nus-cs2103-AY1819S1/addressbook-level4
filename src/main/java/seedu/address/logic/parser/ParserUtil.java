@@ -156,7 +156,7 @@ public class ParserUtil {
         requireNonNull(time);
         String trimmedTime = time.trim();
         if (!Time.isValidTime(trimmedTime)) {
-            throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+            throw new ParseException(Time.MESSAGE_TIME_CONSTRAINTS);
         }
         return new Time(trimmedTime);
     }
