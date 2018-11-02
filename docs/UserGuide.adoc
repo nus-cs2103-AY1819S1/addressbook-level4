@@ -321,6 +321,8 @@ Grade attribute consists of two parts, exam name and exam score.
 * The name and grade should be separated by space.
 
 * Score should be between 0 and 100.
+
+* Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
 ====
 
 Add grade:
@@ -426,10 +428,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Adding tuition time of a student : `addtime`
+=== Adding tuition time of a student : `addTime`
 
 Adds a tuition time slot for a student in the address book.
-Format: `addtime [n/NAME] [ts/TIME]`
+Format: `addTime [n/NAME] [ts/TIME]`
 
 * The student with the name `NAME` must be already be in the address book.
 * Adds the tuition time `TIME` for the student called `NAME`.
@@ -437,13 +439,13 @@ Format: `addtime [n/NAME] [ts/TIME]`
 
 Example:
 
-* `addtime n/John Doe ts/mon 1300 1500` +
+* `addTime n/John Doe ts/mon 1300 1500` +
 Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
-=== Deleting tuition time of a student : `deletetime`
+=== Deleting tuition time of a student : `deleteTime`
 
 Deletes a tuition time slot for a student in the address book.
-Format: `deletetime [n/NAME] [ts/TIME]`
+Format: `deleteTime [n/NAME] [ts/TIME]`
 
 * The student with the name `NAME` must be already be in the address book.
 * `TIME` must already exist in the student's tuition timings.
@@ -451,7 +453,7 @@ Format: `deletetime [n/NAME] [ts/TIME]`
 
 Example:
 
-* `deletetime n/John Doe ts/mon 1300 1500` +
+* `deleteTime n/John Doe ts/mon 1300 1500` +
 Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
 === Exiting the program : `exit`

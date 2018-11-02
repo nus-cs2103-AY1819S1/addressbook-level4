@@ -97,7 +97,12 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Adds time slot {@code timeslot} into person {@code target} time array list.
+     * Adds tuition time {@code timeslot} into person's {@code target} time array list.
      */
     void addTime(String target, Time timeslot);
+
+    /**
+     * Deletes tuition time {@code timeslot} from the person's {@code target} time array list.
+     */
+    void deleteTime(String target, Time timeslot);
 }

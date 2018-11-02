@@ -76,12 +76,21 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds the tuition time {@code timeslot} in the given person {@code target} time array list.
+     * Adds the tuition time {@code timeslot} to the given person {@code target} time array list.
      * {@code target} must exist in the address book.
      * {@code timeslot} must not clash with any other time slots in the time array list.
      */
     public void addTime(String target, Time timeslot) {
         persons.addTimeSlot(target, timeslot);
+    }
+
+    /**
+     * Deletes the tuition time {@code timeslot} from the given person's {@code target} time array list.
+     * {@code target} must exist in the address book.
+     * {@code timeslot} must exist in the given person's {@code target} time array list.
+     */
+    public void deleteTime(String target, Time timeslot) {
+        persons.deleteTimeSlot(target, timeslot);
     }
 
     /**
