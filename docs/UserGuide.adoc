@@ -90,7 +90,7 @@ Example: if the command specifies n/name p/address, p/address n/name is also acc
 ====
 
 
-=== Manage attractions
+=== Manage Attractions
 
 This section contains all commands related to managing attractions.
 
@@ -455,26 +455,35 @@ image::ui_screenshots/find-example-3.png[width="790"]
 
 == Command Summary
 
+[width="100%",cols="20%,<80%",options="header",]
+|=======================================================================
+|Action |Syntax
 
-* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
+2+|*Manage Attractions*
+
+|*Add* |`add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
   e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
-* *Delete*: `delete <index>` +
+|*Delete* |`delete <index>` +
   e.g. delete 3
-* *Exit*: `exit`
-* *Find*: `find <attraction>`
-* *Help*: `help [option]`
-* *History*: `history`
-* *Undo*: `undo`
-* *Redo*: `redo`
+|*Update* |`update <index> <tag> <value>`
+|*Shutdown* |`shutdown <index>`
+|*Open* |`open <index>`
+|*Clear* |`clear`
 
+2+|*Get help and accessibility*
+|*Help* |`help [option]`
+|*Autocomplete* |kbd:[TAB]
+|*History* |`history [option]`
+|*Undo* |`undo`
+|*Redo* |`redo`
+|*Exit* |`exit`
 
-=== Added
-* *Update*: `update <index> <tag> <value>`
-* *Open*: `open <index>`
-* *Shutdown*: `shutdown <index>`
+2+|*View information on the list of rides*
+|*View all* |`viewall`
+|*View* |`view`
+|*View status* |`viewstatus <name>`
 
-* *View*: `view <name>`
-* *Quickview*: `quickview`
-* *Filter*: `filter <tag> <condition>`
-* *tab*: kbd:[TAB]
-
+2+|*Find the relevant list of rides*|
+|*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`
+|*Find* |`find <[name] [[tag][keyword]…​]>`
+|=======================================================================
