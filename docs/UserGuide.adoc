@@ -233,6 +233,7 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 * DATE should be in the format of "dd-mm-yyyy".
 ====
 
+// tag::massedit[]
 === Editing multiple expenses : `massedit`
 
 Edits the expenses with the keywords specified by the user.
@@ -268,6 +269,8 @@ Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] -> 
 * Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
 ====
 
+// end::massedit[]
+
 === Deleting a expense : `delete`
 
 Deletes the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed expense list
@@ -287,6 +290,7 @@ Format: `delete INDEX`
 * The index *must be a non-zero positive integer* and must correspond to an expense in the expense list.
 ====
 
+// tag::find[]
 === Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
@@ -317,6 +321,8 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.
 * Partial word will be matched, i.e. the NAME KEYWORD `Hav` will match the expense name `Have`
 * Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid
 ====
+
+// end::find[]
 
 === Listing all expenses : `list`
 

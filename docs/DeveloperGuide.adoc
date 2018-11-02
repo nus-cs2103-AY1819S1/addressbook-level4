@@ -510,6 +510,7 @@ which informs the user that there are no expenditures
 ** Cons: Not in aligned with architecture. Need to consider application startup when there are no events posted.
 // end::statistics[]
 
+// tag::find[]
 === Find
 
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -538,6 +539,9 @@ new predicate.
 . Then the expense list panel will show a new set of expenses according to the keywords. A `CommandResult` is then created
 and returned to `LogicManager`.
 
+// end::find[]
+
+// tag::massedit[]
 === Mass Edit
 
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -566,6 +570,7 @@ Then `Model#updateExpense` is called to replace the original `Expense` with edit
 . When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
 A `CommandResult` is then created and returned to `LogicManager`.
 
+// end::massedit[]
 
 // tag::UserInterfaceRedesign[]
 === User Interface Redesign
