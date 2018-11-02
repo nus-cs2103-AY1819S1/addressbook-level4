@@ -97,7 +97,7 @@ public class PatientTest {
     public void completeAppointment() {
         Patient patient = new PatientBuilder().build();
         Appointment appointmentToComplete = new AppointmentBuilder().build();
-        Appointment anotherAppointmentToComplete = new AppointmentBuilder().withComments("Hello").build();
+        Appointment anotherAppointmentToComplete = new AppointmentBuilder().withAppointmentId(124).build();
         Appointment moreAppointmentNotComplete = new AppointmentBuilder().withAppointmentId(123).build();
 
         patient.addUpcomingAppointment(appointmentToComplete);
