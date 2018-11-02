@@ -48,7 +48,7 @@ public class AddPrescriptionCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecified_success() {
         Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
         Prescription toAdd = new PrescriptionBuilder().withAppointmentId(firstAppointment.getAppointmentId()).build();
 
@@ -102,6 +102,17 @@ public class AddPrescriptionCommandTest {
 
         assertCommandFailure(addPrescriptionCommand, model, commandHistory,
                 addPrescriptionCommand.MESSAGE_DUPLICATE_PRESCRIPTION);
+    }
+
+    @Test
+    public void execute_invalidAppointmentId_failure() {
+        int outOfBoundsIndex = 1000000;
+        Prescription prescriptionWithOOBIndex = new PrescriptionBuilder().withAppointmentId(outOfBoundsIndex).build();
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(prescriptionWithOOBIndex);
+
+        assertCommandFailure(addPrescriptionCommand, model, commandHistory,
+                addPrescriptionCommand.MESSAGE_APPOINTENT_DOES_NOT_EXIST);
+
     }
 
     @Test

@@ -74,7 +74,6 @@ public class AddPrescriptionCommand extends Command {
                 break;
             }
         }
-        System.out.println(appointmentToEdit.getAppointmentId());
 
         // if appointment does not exist
         if (appointmentToEdit == null) {
