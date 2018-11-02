@@ -236,7 +236,6 @@ Shows a list of archived tasks. +
 [blue]`listarchived`
 ====
 
-// tag::listday[]
 === Viewing Tasks Due Today
 
 Shows a list of tasks that are due today. +
