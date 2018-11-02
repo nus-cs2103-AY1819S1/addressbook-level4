@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTimeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -20,6 +21,7 @@ import seedu.address.logic.commands.FilterByEducationCommand;
 import seedu.address.logic.commands.FilterByFeeCommand;
 import seedu.address.logic.commands.FilterByGradeCommand;
 import seedu.address.logic.commands.FilterByTimeCommand;
+import seedu.address.logic.commands.FindAddressCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEmailCommand;
 import seedu.address.logic.commands.FindPhoneCommand;
@@ -82,6 +84,11 @@ public class AddressBookParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        //@@author LZYAndy
+        case FindAddressCommand.COMMAND_WORD:
+            return new FindAddressCommandParser().parse(arguments);
+        //@@author LZYAndy
+
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
@@ -108,8 +115,8 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case TimeAddCommand.COMMAND_WORD:
-            return new TimeAddCommandParser().parse(arguments);
+        case AddTimeCommand.COMMAND_WORD:
+            return new AddTimeCommandParser().parse(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
