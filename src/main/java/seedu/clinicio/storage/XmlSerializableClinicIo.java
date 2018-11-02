@@ -11,6 +11,7 @@ import seedu.clinicio.commons.exceptions.IllegalValueException;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
@@ -56,7 +57,7 @@ public class XmlSerializableClinicIo {
     public ClinicIo toModelType() throws IllegalValueException {
         ClinicIo clinicIo = new ClinicIo();
         for (XmlAdaptedPerson p : persons) {
-            Person person = p.toModelType();
+            Person person = Patient.buildFromPerson(p.toModelType());
             if (clinicIo.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
