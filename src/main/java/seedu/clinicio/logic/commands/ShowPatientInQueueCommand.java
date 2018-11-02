@@ -25,7 +25,7 @@ public class ShowPatientInQueueCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(model.PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE);
         model.commitClinicIo();
