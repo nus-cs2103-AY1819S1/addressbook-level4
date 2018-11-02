@@ -162,6 +162,9 @@ public class EditModuleCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
     }
 
+    /**
+     * Throws command exception if new module already exist in module list.
+     */
     private void newModuleNotExist(Model model, Module editedModule) throws CommandException {
         boolean identifierChanged = newCode != null || newYear != null || newSemester != null;
 
