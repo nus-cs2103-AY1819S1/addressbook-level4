@@ -123,7 +123,7 @@ public class EditCardCommandTest {
     }
 
     @Test
-    public void execute_duplicateAnakinCardFilteredList_failure() {
+    public void execute_duplicateCardFilteredList_failure() {
         //showCardAtIndex(model, INDEX_FIRST_CARD);
 
         // edit card in filtered list into a duplicate in address book
