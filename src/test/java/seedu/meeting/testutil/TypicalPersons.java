@@ -69,6 +69,7 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE.copy(), BENSON.copy(), CARL.copy(), DANIEL.copy(), ELLE.copy(),
+            FIONA.copy(), GEORGE.copy()));
     }
 }

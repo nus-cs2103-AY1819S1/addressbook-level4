@@ -32,7 +32,7 @@ public class LeaveCommand extends Command {
             + PREFIX_NAME + "Derek Hardy "
             + PREFIX_GROUP + "GROUP_03";
 
-    public static final String MESSAGE_LEAVE_SUCCESS = "Person: %1$s removed from the group: %1$s";
+    public static final String MESSAGE_LEAVE_SUCCESS = "Person: %1$s removed from the group: %2$s";
 
     private final Name personName;
     private final Title groupName;
@@ -67,7 +67,8 @@ public class LeaveCommand extends Command {
 
         model.leaveGroup(matchedPersonByName, matchedGroupByName);
         model.commitMeetingBook();
-        return new CommandResult(String.format(MESSAGE_LEAVE_SUCCESS, matchedPersonByName, matchedGroupByName));
+        return new CommandResult(String.format(MESSAGE_LEAVE_SUCCESS, matchedPersonByName.getName().fullName,
+            matchedGroupByName.getTitle().fullTitle));
     }
 
     @Override
