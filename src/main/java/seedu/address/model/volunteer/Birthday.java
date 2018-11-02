@@ -5,6 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Represents an Volunteer's birthday in the application.
@@ -12,7 +15,7 @@ import java.text.SimpleDateFormat;
  */
 public class Birthday {
     public static final String MESSAGE_BIRTHDAY_CONSTRAINTS =
-            "Birthday dates can take in DD-MM-YYYY input, and should not be blank";
+            "Birthday dates can take in DD-MM-YYYY input, should be a valid date , and should not be blank";
 
     /*
      * First character of DD must be 0-3
@@ -20,6 +23,8 @@ public class Birthday {
      * Regex not enough to check for valid dates. Need to use a SimpleDateFormat parser as well.
      */
     public static final String BIRTHDAY_VALIDATION_REGEX = "[0-3]\\d-[01]\\d-\\d{4}";
+    public static final int BIRTHDAY_VALIDATION_DIFFERENCE = 7;
+    public static final int BIRTHDAY_MONTH_CORRECTION = 1;
 
     public final String value;
 
@@ -31,6 +36,7 @@ public class Birthday {
     public Birthday(String birthday) {
         requireNonNull(birthday);
         checkArgument(isValidBirthday(birthday), MESSAGE_BIRTHDAY_CONSTRAINTS);
+        checkArgument(isLessThanOrEqualToValidBirthday(birthday), MESSAGE_BIRTHDAY_CONSTRAINTS);
         value = birthday;
     }
 
@@ -54,23 +60,22 @@ public class Birthday {
     }
 
     /**
-     * Returns true if current date falls on an earlier date or on the same date as the other date.
+     * Returns true if current date falls on an earlier date or on the same date as the valid date.
      */
-    public boolean isLessThanOrEqualTo(Birthday otherBirthday) {
-        if (otherBirthday == this) {
-            return true;
-        }
+    public static boolean isLessThanOrEqualToValidBirthday(String test) {
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
 
-        String[] birthdayParts = this.toString().split("-");
+        String[] birthdayParts = test.split("-");
         //parseInt ignores leading zeros like 01 or 09 when converting from String to int
         int year = Integer.parseInt(birthdayParts[2]);
         int month = Integer.parseInt(birthdayParts[1]);
         int day = Integer.parseInt(birthdayParts[0]);
 
-        String[] otherBirthdayParts = otherBirthday.toString().split("-");
-        int otherYear = Integer.parseInt(otherBirthdayParts[2]);
-        int otherMonth = Integer.parseInt(otherBirthdayParts[1]);
-        int otherDay = Integer.parseInt(otherBirthdayParts[0]);
+        int otherYear = calendar.get(Calendar.YEAR) - BIRTHDAY_VALIDATION_DIFFERENCE;
+        int otherMonth = calendar.get(Calendar.MONTH) + BIRTHDAY_MONTH_CORRECTION;
+        int otherDay = calendar.get(Calendar.DAY_OF_MONTH);
 
         if (year > otherYear) {
             //start year is more than end year
