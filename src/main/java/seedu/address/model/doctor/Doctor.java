@@ -71,7 +71,9 @@ public class Doctor extends Person {
                 break;
             }
         }
-        upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+        if (!(indexToBeDeleted == -1)) {
+            upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -117,16 +118,35 @@ public class Patient extends Person {
 
     /**
      * Updates appointment from patient's queue of upcoming appointment.
+     * Currently only for prescription
      */
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         int indexToBeDeleted = -1;
+        boolean inUpComingAppointments = false;
+        boolean inPastAppointments = false;
+
         for (Appointment appt : upcomingAppointments) {
             if (appt.getAppointmentId() == target.getAppointmentId()) {
                 indexToBeDeleted = upcomingAppointments.indexOf(appt);
+                inUpComingAppointments = true;
                 break;
             }
         }
-        upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+
+        if (indexToBeDeleted == -1 && !inUpComingAppointments) {
+            for (Appointment pastAppt : pastAppointments) {
+                if (pastAppt.getAppointmentId() == target.getAppointmentId()) {
+                    indexToBeDeleted = pastAppointments.indexOf(pastAppt);
+                    inPastAppointments = true;
+                    break;
+                }
+            }
+        }
+        if (inUpComingAppointments) {
+            upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+        } else if (inPastAppointments) {
+            pastAppointments.set(indexToBeDeleted, editedAppointment);
+        }
     }
 
 
