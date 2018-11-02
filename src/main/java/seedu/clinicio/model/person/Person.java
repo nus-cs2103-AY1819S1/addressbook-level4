@@ -74,9 +74,10 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
+        boolean isSame = otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return isSame;
     }
 
     /**

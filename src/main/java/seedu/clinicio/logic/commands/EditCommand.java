@@ -21,6 +21,7 @@ import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -77,7 +78,11 @@ public class EditCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        Person editedPerson = Patient.buildFromPerson(createEditedPerson(personToEdit, editPersonDescriptor));
+
+        if (((Patient) personToEdit).isQueuing()) {
+            ((Patient) editedPerson).setIsQueuing();
+        }
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
