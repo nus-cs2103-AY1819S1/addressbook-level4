@@ -321,12 +321,12 @@ Example:
 Filters attractions with waiting time less than 500 minutes. If no changes were made to your application
 (i.e. no delete, add commands were done), your window should look like this: +
 
-image::ui_screenshots/filter-example-1.png[width="790"]
+image::./ui_screenshots/filter-example-1.png[width="790"]
 
 * `filter w/ < 10 m/ > 50` +
 Filters attractions with waiting time less than 500 and maintenance of more than 50 days.
 
-image::ui_screenshots/filter-example-2.png[width="790"]
+image::./ui_screenshots/filter-example-2.png[width="790"]
 
 ==== Finding a particular attraction: `find`
 
@@ -340,18 +340,18 @@ Examples:
 * `find accelerator` +
 Finds and displays the list of attractions in ThanePark with the name "accelerator".
 
-image::ui_screenshots/find-example-1.png[width="790"]
+image::./ui_screenshots/find-example-1.png[width="790"]
 
 * `find a/ street` +
 Finds and displays the list of attractions with addresses that contain the word "street".
 
-image::ui_screenshots/find-example-2.png[width="790"]
+image::./ui_screenshots/find-example-2.png[width="790"]
 
 * `find address street t/friends tag family` +
 Finds and displays the list of attractions with addresses that contain the word "street" and the tags "friends"
 and "family"
 
-image::ui_screenshots/find-example-3.png[width="790"]
+image::./ui_screenshots/find-example-3.png[width="790"]
 
 // end::filter[]
 
