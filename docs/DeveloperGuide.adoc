@@ -1604,6 +1604,7 @@ Steps 1a1-1a2 are repeated until invalid file path is entered.
 Use case resumes at step 2.
 // end::ucmenu[]
 
+// tag::ucreservations[]
 [discrete]
 === Use case: UC401 - Add reservation
 
@@ -1690,6 +1691,7 @@ Use case ends.
 Steps 3a1-3a2 are repeated until a valid index is entered.
 +
 Use case resumes at step 3.
+// end::ucreservations[]
 
 [discrete]
 === Use case: UC501 - Record sales volume of an item
