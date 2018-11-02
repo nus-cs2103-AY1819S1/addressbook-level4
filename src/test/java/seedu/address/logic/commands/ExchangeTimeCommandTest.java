@@ -21,6 +21,7 @@ public class ExchangeTimeCommandTest {
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
+
     @Test
     public void equals() {
         String first = "Alice 0 Bob 0";
@@ -47,7 +48,7 @@ public class ExchangeTimeCommandTest {
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
-        String expectedMessage = String.format("Cannot find the student, please enter valid name");
+        String expectedMessage = String.format("Cannot find the student or the input is not complete, please enter valid name");
         ExchangeTimeCommand command = new ExchangeTimeCommand("Alllice 100 Bob 0");
         assertEquals(expectedMessage, command.execute(model, commandHistory).feedbackToUser);
     }

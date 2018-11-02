@@ -38,10 +38,12 @@ public class ExchangeTimeCommand extends Command {
         if (stringCommand.length != 4) {
             this.nameA = "invalid";
         }
-        this.nameA = stringCommand[0];
-        this.numA = Integer.parseInt(stringCommand[1]);
-        this.nameB = stringCommand[2];
-        this.numB = Integer.parseInt(stringCommand[3]);
+        else {
+            this.nameA = stringCommand[0];
+            this.numA = Integer.parseInt(stringCommand[1]);
+            this.nameB = stringCommand[2];
+            this.numB = Integer.parseInt(stringCommand[3]);
+        }
     }
 
     @Override
@@ -67,6 +69,10 @@ public class ExchangeTimeCommand extends Command {
         }
         Person targetPersonB = model.getFilteredPersonList().get(0);
 
+        if (!targetPersonA.getEducation().equals(targetPersonB.getEducation())) {
+            return new CommandResult("The students are not "
+                    + "in the same grade of the same education level");
+        }
         // Execute the display of student's grades here
         requireNonNull(model);
 

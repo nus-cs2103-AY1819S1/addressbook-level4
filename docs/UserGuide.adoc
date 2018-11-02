@@ -293,8 +293,8 @@ a system message which says that no such students can be found.
 
 === Edit certain class time of certain student: `ExchangeTime`
 
-Edit certain class time of certain student +
-Format: `EditTime [studentA name] [A time-slot ordinal number within A's time-slot array] [studentB name]
+Exchange class time between two students who are in the same grade of same education level +
+Format: `Exch [studentA name] [A time-slot ordinal number within A's time-slot array] [studentB name]
 [B time-slot ordinal number within B's time-slot array]`
 
 ****
@@ -310,6 +310,9 @@ Exchange Alice first time-slot and Bob first time-slot.
 ====
 The reason this command exists is that when two student want to swap time
 it cannot only use edit because the existing time-slot will crush.
+
+If the two students are not in the same grade of same education level
+It will be considered as invalid command.
 
 The ordinal number of the time is 0 base.
 If the the corresponding time-slot doenst exit based on the ordinal number, then return invalid input.
