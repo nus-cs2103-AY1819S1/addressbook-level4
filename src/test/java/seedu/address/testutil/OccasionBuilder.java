@@ -63,6 +63,22 @@ public class OccasionBuilder {
     }
 
     /**
+     * Sets the {@code Occasion} as having no {@code occasionDate}.
+     */
+    public OccasionBuilder withoutOccasionDate() {
+        this.occasionDate = new OccasionDate();
+        return this;
+    }
+
+    /**
+     * Sets the {@code Occasion} as having no {@code location}.
+     */
+    public OccasionBuilder withoutOccasionLocation() {
+        this.occasionLocation = new OccasionLocation();
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Occasion} that we are building.
      */
     public OccasionBuilder withTags(String ... tags) {

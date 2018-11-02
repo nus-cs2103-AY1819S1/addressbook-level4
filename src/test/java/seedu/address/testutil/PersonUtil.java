@@ -9,8 +9,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,9 +34,15 @@ public class PersonUtil {
     public static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        if (!person.getPhone().equals(new Phone())) {
+            sb.append(PREFIX_PHONE + person.getPhone().value + " ");
+        }
+        if (!person.getEmail().equals(new Email())) {
+            sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        }
+        if (!person.getAddress().equals(new Address())) {
+            sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
+        }
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );

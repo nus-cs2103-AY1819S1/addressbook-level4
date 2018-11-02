@@ -52,10 +52,12 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
             addPersonDescriptor.setPhone(phone);
-        } else if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+        }
+        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
             Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
             addPersonDescriptor.setEmail(email);
-        } else if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+        }
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
             addPersonDescriptor.setAddress(address);
         }

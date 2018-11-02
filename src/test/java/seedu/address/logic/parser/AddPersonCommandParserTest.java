@@ -18,10 +18,7 @@ import static seedu.address.logic.commands.CommandPersonTestUtil.PREAMBLE_NON_EM
 import static seedu.address.logic.commands.CommandPersonTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandPersonTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandPersonTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandPersonTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -80,6 +77,21 @@ public class AddPersonCommandParserTest {
         Person expectedPerson = new PersonBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddPersonCommand(expectedPerson));
+
+        // missing phone prefix
+        expectedPerson = new PersonBuilder(AMY).withoutPhone().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND,
+                new AddPersonCommand(expectedPerson));
+
+        // missing email prefix
+        expectedPerson = new PersonBuilder(AMY).withoutEmail().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + TAG_DESC_FRIEND,
+                new AddPersonCommand(expectedPerson));
+
+        // missing address prefix
+        expectedPerson = new PersonBuilder(AMY).withoutAddress().build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND,
+                new AddPersonCommand(expectedPerson));
     }
 
     @Test
@@ -90,21 +102,6 @@ public class AddPersonCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
                 expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
-
-        // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
     }
 
     @Test

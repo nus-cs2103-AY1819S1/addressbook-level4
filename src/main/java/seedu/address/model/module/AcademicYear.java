@@ -20,6 +20,13 @@ public class AcademicYear {
     // TODO: Should it be change to string?
 
     /**
+     * Empty constructor.
+     */
+    public AcademicYear() {
+        yearNumber = 0000;
+    }
+
+    /**
      * Constructs a {@code AcademicYear}.
      *
      * @param number The semester number.
