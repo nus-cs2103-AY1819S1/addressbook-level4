@@ -11,16 +11,20 @@
 
 *MeNUS* is an all-in-one restaurant management desktop app designed to help restaurant owners
 and managers streamline the process of managing restaurants within National University of Singapore (NUS).
+With this app, users can manage their menus, sales, and even reservations.
+
+This portfolio showcases my contributions to this project.
 
 == Summary of contributions
 
-* *Major enhancement*: added the *Reservation Management* feature
+* *Major enhancement*: Added the *Reservation Management* feature
 ** *What it does*: allows the user to manage a Reservations List using various commands
-** *Justification*: This feature makes the process of managing Reservations much easier
-** *Highlights*: This enhancement affects existing commands and commands to be added in future. It required an
-in-depth analysis of the underlying *MeNUS* architecture.
+** *Justification*: It can be messy to manually manage restaurant reservations using pen and paper.
+This feature enables a systematic way to manage reservations.
+** *Highlights*: This project required me to communicate with my teammates to synchronize our different
+management systems. It required an in-depth analysis of the underlying *MeNUS* architecture.
 
-* *Minor enhancement*: added a way to add a command alias(a shortcut) to each command to make using the CLI easier
+* *Minor enhancement*: Added a way to add a command alias(a shortcut) to each command to allow users to type commands faster.
 
 * *Other contributions*:
 
