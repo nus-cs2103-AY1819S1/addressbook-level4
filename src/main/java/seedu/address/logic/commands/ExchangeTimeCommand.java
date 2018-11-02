@@ -35,6 +35,9 @@ public class ExchangeTimeCommand extends Command {
      */
     public ExchangeTimeCommand (String args) {
         String[] stringCommand = args.trim().split(" ");
+        if (stringCommand.length != 4) {
+            this.nameA = "invalid";
+        }
         this.nameA = stringCommand[0];
         this.numA = Integer.parseInt(stringCommand[1]);
         this.nameB = stringCommand[2];
@@ -43,18 +46,24 @@ public class ExchangeTimeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        if (nameA.equals("invalid")) {
+            return new CommandResult("Cannot find the student or the input is not complete,"
+                    + " please enter valid name");
+        }
         ArrayList<String> pplList = new ArrayList<>();
         pplList.add(nameA);
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList));
         if (model.getFilteredPersonList().isEmpty()) {
-            return new CommandResult("Cannot find the student, please enter valid name");
+            return new CommandResult("Cannot find the student or the input is not complete,"
+                    + " please enter valid name");
         }
         Person targetPersonA = model.getFilteredPersonList().get(0);
         ArrayList<String> pplList2 = new ArrayList<>();
         pplList2.add(nameB);
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(pplList2));
         if (model.getFilteredPersonList().isEmpty()) {
-            return new CommandResult("Cannot find the student, please enter valid name");
+            return new CommandResult("Cannot find the student or the input is not complete,"
+                    + " please enter valid name");
         }
         Person targetPersonB = model.getFilteredPersonList().get(0);
 

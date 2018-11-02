@@ -308,6 +308,9 @@ Exchange Alice first time-slot and Bob first time-slot.
 
 [NOTE]
 ====
+The reason this command exists is that when two student want to swap time
+it cannot only use edit because the existing time-slot will crush.
+
 The ordinal number of the time is 0 base.
 If the the corresponding time-slot doenst exit based on the ordinal number, then return invalid input.
 ====
