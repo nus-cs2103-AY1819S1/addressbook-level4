@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.TimeAddCommand.MESSAGE_PERSON_NOT_FOUND;
-import static seedu.address.logic.commands.TimeAddCommand.MESSAGE_TIME_IS_NOT_AVAILABLE;
+import static seedu.address.logic.commands.AddTimeCommand.MESSAGE_PERSON_NOT_FOUND;
+import static seedu.address.logic.commands.AddTimeCommand.MESSAGE_TIME_IS_NOT_AVAILABLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
@@ -70,9 +70,8 @@ public class EditTimeCommand extends Command {
         if (!model.hasPerson(targetPerson)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
-
-        targetPerson.getTime().remove(oldTime);
-        targetPerson.addTime(newTime);
+        model.deleteTime(name, oldTime);
+        model.addTime(name, newTime);
         return new CommandResult(String.format(MANAGE_SUCCESS));
 
     }

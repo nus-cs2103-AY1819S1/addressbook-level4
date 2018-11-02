@@ -121,7 +121,7 @@ public class EarningsCommand extends Command {
     private double calculateFeesEarnedEachDayOfWeek(ArrayList<Pair<Fees, Time>> timeslots, DayOfWeek day) {
         return daysOfWeek[day.ordinal()] * timeslots.stream()
                 .filter(p -> convertDayOfWeek(p.getValue().getDay()).equals(day))
-                .mapToDouble(p -> p.getValue().getTuitionHours() * Double.valueOf(p.getKey().getFeesValue()))
+                .mapToDouble(p -> p.getValue().getTuitionHours() * p.getKey().getFeesValue())
                 .sum();
     }
 

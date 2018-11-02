@@ -7,6 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalTimes.FIRST_TIME;
+import static seedu.address.testutil.TypicalTimes.SECOND_TIME;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -62,6 +64,24 @@ public class UniquePersonListTest {
         uniquePersonList.add(ALICE);
         thrown.expect(DuplicatePersonException.class);
         uniquePersonList.add(ALICE);
+    }
+
+    @Test
+    public void addTimeSlot_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniquePersonList.addTimeSlot(null, FIRST_TIME);
+    }
+
+    @Test
+    public void addTimeSlot_nullTime_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniquePersonList.addTimeSlot("Alice Pauline", null);
+    }
+
+    @Test
+    public void addTimeSlot_targetPersonNotInList_throwsPersonNotFoundException() {
+        thrown.expect(PersonNotFoundException.class);
+        uniquePersonList.addTimeSlot("Alice Pauline", SECOND_TIME);
     }
 
     @Test

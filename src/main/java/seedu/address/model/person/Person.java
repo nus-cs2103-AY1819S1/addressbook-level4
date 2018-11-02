@@ -76,7 +76,7 @@ public class Person {
         return tuitionFee;
     }
 
-    public ArrayList getTime() {
+    public ArrayList<Time> getTime() {
         return timeSlots;
     }
 
@@ -97,6 +97,13 @@ public class Person {
      */
     public void addTime(Time time) {
         timeSlots.add(time);
+    }
+
+    /**
+     * Adds a time slot to a Person's time array list
+     */
+    public void deleteTime(Time time) {
+        timeSlots.remove(time);
     }
 
     /**

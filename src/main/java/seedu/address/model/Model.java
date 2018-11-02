@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Time;
 
 /**
  * The API of the Model component.
@@ -94,4 +95,14 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Adds tuition time {@code timeslot} into person's {@code target} time array list.
+     */
+    void addTime(String target, Time timeslot);
+
+    /**
+     * Deletes tuition time {@code timeslot} from the person's {@code target} time array list.
+     */
+    void deleteTime(String target, Time timeslot);
 }
