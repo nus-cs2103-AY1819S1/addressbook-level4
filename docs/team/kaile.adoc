@@ -39,11 +39,11 @@ Unlike them, Piconso offers the same features, in a much more simplified manner.
 *** Updated the User Guide for the google features: https://github.com/CS2103-AY1819S1-T09-3/main/pull/103[#103], https://github.com/CS2103-AY1819S1-T09-3/main/pull/131[#131]
 ** Community:
 *** PRs reviewed: https://github.com/CS2103-AY1819S1-T09-3/main/pull/44[#44], https://github.com/CS2103-AY1819S1-T09-3/main/pull/37[#37]
+
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=google]
