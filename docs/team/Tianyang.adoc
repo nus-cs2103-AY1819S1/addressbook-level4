@@ -6,7 +6,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Piconso 
+== PROJECT: Piconso
 
 ---
 
@@ -36,7 +36,7 @@ https://github.com/CS2103-AY1819S1-T09-3/main/pull/125[#125]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#131], https://github.com[#124]
 *** Contributed to forum discussions (examples:  https://github.com[131]
-*** Some parts of the history feature I added was adopted by several other class mates 
+*** Some parts of the history feature I added was adopted by several other class mates
 ** Tools:
 *** Integrated a third party library (ImageMagic) to the project (https://github.com[#42])
 
