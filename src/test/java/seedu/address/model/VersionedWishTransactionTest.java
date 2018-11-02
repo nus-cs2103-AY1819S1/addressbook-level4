@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishTransaction;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishes;
 
@@ -29,6 +30,7 @@ public class VersionedWishTransactionTest {
 
     private VersionedWishTransaction versionedWishTransaction;
     private VersionedWishTransaction populatedVersionedWishTransaction;
+    private VersionedWishTransaction fromWishBook;
     private Wish wish;
 
     @Before
@@ -44,7 +46,40 @@ public class VersionedWishTransactionTest {
                 new Remark("e"),
                 tagSet);
 
+        this.fromWishBook = new VersionedWishTransaction(getTypicalWishBook());
         this.populatedVersionedWishTransaction = new VersionedWishTransaction(getTypicalWishTransaction());
+    }
+
+    @Test
+    public void constructorShouldCreateCorrectly() {
+        assertTrue(isSameSize(1));
+        assertTrue(versionedWishTransaction.getReferencePointer() == 0);
+
+        assertTrue(populatedVersionedWishTransaction.getWishStateList().size() == 1);
+        assertTrue(populatedVersionedWishTransaction.getReferencePointer() == 0);
+
+        assertTrue(fromWishBook.getWishStateList().size() == 1);
+        assertTrue(fromWishBook.getReferencePointer() == 0);
+    }
+
+    @Test
+    public void shouldBeAbleToUndoNotRedo() {
+        addWishWithCommit();
+        assertTrue(versionedWishTransaction.canUndo());
+        assertFalse(versionedWishTransaction.canRedo());
+    }
+
+    @Test
+    public void shouldBeAbleToRedo() {
+        addWishWithCommit();
+        versionedWishTransaction.undo();
+        assertTrue(versionedWishTransaction.canRedo());
+    }
+
+    @Test
+    public void shouldBeEqual() {
+        assertTrue(versionedWishTransaction.equals(new VersionedWishTransaction()));
+        assertTrue(populatedVersionedWishTransaction.equals(fromWishBook));
     }
 
     @Test
