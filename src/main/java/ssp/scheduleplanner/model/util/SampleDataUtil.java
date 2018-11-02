@@ -40,6 +40,12 @@ public class SampleDataUtil {
             new Task(new Name("SAMPLE TGIF"), new Date("021118"), new Priority("3"),
                 new Venue("Zouk"),
                 getTagSet("Party", "Sample")),
+            new Task(new Name("SAMPLE 2100 Lecture Prep"), new Date("031118"), new Priority("3"),
+                new Venue("Home"),
+                getTagSet("CS2100", "Sample")),
+            new Task(new Name("SAMPLE 2106 Tutorial Prep"), new Date("041118"), new Priority("3"),
+                new Venue("Home"),
+                getTagSet("CS2106", "Sample")),
             new Task(new Name("SAMPLE Watch 2103 Lecture"), new Date("291118"), new Priority("3"),
                 new Venue("Home"),
                 getTagSet("CS2100", "Sample"))
