@@ -33,7 +33,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : Lists all the items you have set as wishes (sorted by due date).
-* **`add`**`n/uPhoneXX p/1000 d/5m` : adds an item “uPhoneXX” as a goal to be completed in 5 months.
+* **`add`**`n/uPhoneXX p/1000 a/5m` : adds an item “uPhoneXX” as a goal to be completed in 5 months.
 * *`help`*: displays list of command with usage.
 * *`clear`*: clears view
 * *`exit`* : exits the app
@@ -59,7 +59,7 @@ Format: `help`
 
 === Adding a wish: `add`
 Adds a wish to the wish list +
-Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
+Format: `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
 
 [TIP]
 * `[END_DATE]`: Specified in _dd/mm/yyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
@@ -72,14 +72,14 @@ If an invalid date is provided, a warning message will be displayed to prompt th
 
 Examples:
 
-* `add n/smallRice p/999 d/2d`
-* `add n/kfcBook_13inch p/2300 d/6m3w`
+* `add n/smallRice p/999 a/2d`
+* `add n/kfcBook_13inch p/2300 a/6m3w`
 * `add n/prinkles p/1.95 d/24/04/2020`
 
 === Editing a wish : `edit`
 
 Edits an existing wish in the wish list. +
-Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
+Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
 
 ****
 * Edits the wish at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed list of goals. `INDEX` must be a positive integer 1, 2, 3, …
@@ -95,7 +95,7 @@ Examples:
 * `edit 1 n/Macbook Pro t/Broke wishes` +
 Edits the name of the wish and the tag of the 1st wish to be Macbook Pro and Broke wishes respectively
 
-* `edit 2 p/22 d/22w` +
+* `edit 2 p/22 a/22w` +
 Edits the price and time given to accomplish the 2nd wish to 22 (in the chosen currency) and 22 weeks respectively.
 
 === Listing wishes : `list`
@@ -155,11 +155,11 @@ Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 
 Examples:
 
-* `find d/22` +
-Returns wish with stipulated time given of 22 days.
+* `find n/watch` +
+Returns any wish with name containing watch
 
-* `find watch t/broke wishes` +
-Returns any wish with name containing watch, with tag broke wishes.
+* `find n/watch t/broke wishes` +
+Returns any wish with name containing 'watch', with tag 'broke wishes'.
 
 === Deleting a wish : `delete`
 
@@ -241,20 +241,12 @@ Moves funds from one wish to another. +
 Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
 
 ****
-<<<<<<< HEAD
-* `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes.
-* If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from unusedFunds to `TO_WISH_INDEX`.
-* If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to unusedFunds.
-* If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
-* If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to unusedFunds in WishBook.
-=======
 * `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
 * If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from unusedFunds to `TO_WISH_INDEX`.
 * If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to `unusedFunds`.
 * `AMOUNT` from `unusedFunds` will only be successfully channelled if the exact amount requested if present in `unusedFunds`.
 * If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
 * If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
->>>>>>> 422e70b6daede031bd3cf4d9e0bf85ea9758d5a7
 * If `AMOUNT` is negative, `AMOUNT` will not be accepted. +
 * If `AMOUNT` brings the savings amount of wish at `FROM_WISH_INDEX` to below 0, `AMOUNT` will not be accepted.
 * If wish at `FROM_WISH_INDEX` or `TO_WISH_INDEX` is already fulfilled, `AMOUNT` will not accepted.
@@ -380,12 +372,12 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add*  `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]` +
-e.g. `add n/kfcBook_13inch p/2300 d/6m3w`
+* *Add*  `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE]` +
+e.g. `add n/kfcBook_13inch p/2300 a/6m3w`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
+* *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
 e.g. `edit 1 n/Macbook Pro t/Broke wishes`
 * *Find* : `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]` +
 e.g. `find d/22`
