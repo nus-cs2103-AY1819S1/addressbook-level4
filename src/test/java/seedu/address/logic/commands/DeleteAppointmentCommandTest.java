@@ -39,11 +39,11 @@ public class DeleteAppointmentCommandTest {
         model.addAppointment(appointment);
         model.incrementAppointmentCounter();
         model.commitAddressBook();
-        
+
         // delete
         expectedModel.deleteAppointment(appointment, CARL, HELENA);
         expectedModel.commitAddressBook();
-        
+
         CARL.addUpcomingAppointment(appointment);
         HELENA.addUpcomingAppointment(appointment);
         DeleteAppointmentCommand deleteAppointmentCommand =
