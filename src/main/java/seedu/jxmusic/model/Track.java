@@ -146,12 +146,13 @@ public class Track {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Track // instanceof handles nulls
-                && fileNameWithoutExtension.equals(((Track) other).fileNameWithoutExtension)); // state check
+                && fileNameWithoutExtension.toLowerCase().equals((
+                        (Track) other).fileNameWithoutExtension.toLowerCase())); // state check
     }
 
     @Override
     public int hashCode() {
-        return fileNameWithoutExtension.hashCode();
+        return fileNameWithoutExtension.toLowerCase().hashCode();
     }
 
     @Override

@@ -36,6 +36,8 @@ public class TrackAddCommandTest {
         expectedModel = new ModelManager(getTypicalLibraryAfterTrackAdd(trackToAdd), new UserPrefs());
     }
 
+    // No need to test if trackToAdd exists: Non-existent track handled by Track class
+
     @Test
     public void execute_addTrackToPlaylist() {
         assertCommandSuccess(new TrackAddCommand(trackToAdd, targetPlaylist), model, commandHistory,

@@ -25,7 +25,7 @@ public class TrackAddCommandParser implements Parser<TrackAddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PLAYLIST, PREFIX_TRACK);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST)
+        if (!arePrefixesPresent(argMultimap, PREFIX_PLAYLIST, PREFIX_TRACK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TrackAddCommand.MESSAGE_USAGE));
         }

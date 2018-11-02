@@ -49,7 +49,7 @@ public class Name {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && nameString.equals(((Name) other).nameString)); // state check
+                && nameString.toLowerCase().equals(((Name) other).nameString.toLowerCase())); // state check
     }
 
     @Override

@@ -105,7 +105,7 @@ public class Playlist {
      */
     public boolean hasTrack(Track targetTrack) {
         for (Track track : getTracks()) {
-            if (track.getFileName().equalsIgnoreCase(targetTrack.getFileName())) {
+            if (track.getFileName().toLowerCase().equals(targetTrack.getFileName().toLowerCase())) {
                 return true;
             }
         }
