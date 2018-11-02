@@ -2,6 +2,8 @@
 
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+https://travis-ci.org/CS2103-AY1819S1-T09-3/main[image:https://travis-ci.org/CS2103-AY1819S1-T09-3/main.svg?branch=master[Build Status]]
+
 Piconso is an CLI (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing. Many image-editors are complex and difficult to pick up, having a steep learning curve and sometimes even a steep price! +
 
 Unlike them, Piconso offers the same features, in a much more simplified manner. With Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of working with a mouse. The interface can be used by
