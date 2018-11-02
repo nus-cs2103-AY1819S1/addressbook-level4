@@ -31,11 +31,11 @@ public class ChangeDeckCommand extends Command {
 
     private final Index targetIndex;
 
-    private boolean noIndex;
+    private boolean isCdOut;
 
     public ChangeDeckCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        this.noIndex = false;
+        this.isCdOut = false;
     }
 
     /**
@@ -44,34 +44,33 @@ public class ChangeDeckCommand extends Command {
     public ChangeDeckCommand() {
         //Set targetIndex as 0.
         this.targetIndex = Index.fromZeroBased(0);
-        this.noIndex = true;
+        this.isCdOut = true;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        // Block `cd` when user is reviewing deck
         if (model.isReviewingDeck()) {
             throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
         }
-        List<Deck> lastShownList = model.getFilteredDeckList();
 
-        if (this.noIndex) {
+        List<Deck> currentDeckList = model.getFilteredDeckList();
+
+        if (this.isCdOut) {
             if (!model.isInsideDeck()) {
                 throw new CommandException(Messages.MESSAGE_NOT_INSIDE_DECK);
             }
-            //Exit the deck
             model.getOutOfDeck();
-            model.commitAnakin();
-
             return new CommandResult(String.format(MESSAGE_EXIT_SUCCESS));
         } else {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            if (targetIndex.getZeroBased() >= currentDeckList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
             }
 
-            Deck deckToEnter = lastShownList.get(targetIndex.getZeroBased());
+            Deck deckToEnter = currentDeckList.get(targetIndex.getZeroBased());
             model.getIntoDeck(deckToEnter);
-            model.commitAnakin();
             return new CommandResult(String.format(MESSAGE_CD_SUCCESS, deckToEnter));
         }
     }

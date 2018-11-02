@@ -141,11 +141,6 @@ public class ImportDeckCommandTest {
         }
 
         @Override
-        public boolean justEnteredDeck() {
-            return false;
-        }
-
-        @Override
         public void startReview() {
             throw new AssertionError("This method should not be called.");
         }

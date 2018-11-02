@@ -48,13 +48,13 @@ public class ReviewCommand extends Command {
             throw new CommandException(MESSAGE_ALREADY_REVIEWING_DECK);
         }
 
-        List<Deck> lastShownList = model.getFilteredDeckList();
+        List<Deck> currentDeckList = model.getFilteredDeckList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck targetDeck = lastShownList.get(index.getZeroBased());
+        Deck targetDeck = currentDeckList.get(index.getZeroBased());
         model.getIntoDeck(targetDeck);
 
         ObservableList<Card> cardList = model.getFilteredCardList();

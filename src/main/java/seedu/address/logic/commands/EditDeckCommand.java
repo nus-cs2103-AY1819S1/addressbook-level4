@@ -77,13 +77,13 @@ public class EditDeckCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DECK_LEVEL_OPERATION);
         }
 
-        List<Deck> lastShownList = model.getFilteredDeckList();
+        List<Deck> currentDeckList = model.getFilteredDeckList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (index.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck deckToEdit = lastShownList.get(index.getZeroBased());
+        Deck deckToEdit = currentDeckList.get(index.getZeroBased());
         Deck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
 
         if (!deckToEdit.isSameDeck(editedDeck) && model.hasDeck(editedDeck)) {
