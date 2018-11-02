@@ -138,7 +138,7 @@ public class EditModuleCommand extends Command {
                             && (newSemester == null || index.getSemester().equals(targetSemester));
                 })
                 .findAny()
-                .get();
+                .orElseThrow(() -> new CommandException(MESSAGE_NO_SUCH_MODULE));
     }
 
     /**
