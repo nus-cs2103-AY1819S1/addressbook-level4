@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+
+    <modules>
+        <moduleCode>ST2131</moduleCode>
+        <moduleTitle>Computer Organisation</moduleTitle>
+        <academicYear>1617</academicYear>
+        <semester>2</semester>
+        <tagged>calculus</tagged>
+    </modules>
+
+    <!-- Module with same identity as ST2131 -->
+    <modules>
+        <moduleCode>ST2131</moduleCode>
+        <moduleTitle>Computer Organisation</moduleTitle>
+        <academicYear>1617</academicYear>
+        <semester>2</semester>
+        <tagged>calculus</tagged>
+    </modules>
+
+</addressbook>
