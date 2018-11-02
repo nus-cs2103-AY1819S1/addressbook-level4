@@ -439,6 +439,7 @@ image::General new command.png[width="650"]
 |===
 // end::undoredo[]
 
+// tag::query[]
 === Query feature
 
 The `query` command updates the information of every car park using the latest information provided by
@@ -509,8 +510,6 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Easy to implement.
 |Cons| Application hangs while data is being queried.
 |===
-+
-
 
 * **Alternative 2 :** Data is queried using a separate thread.
 +
@@ -519,8 +518,6 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Application can continue to function as the data is being fetched in the background.
 |Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
 |===
-+
-
 
 ===== Aspect: Data structure to support query command
 
@@ -531,7 +528,6 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Easy to maintain and iterate through an array list of array lists to get a specific car park.
 |Cons| Using an `ArrayList<ArrayList<String>>` can be confusing and unintuitive. Accessing elements is also not that efficient.
 |===
-+
 
 * **Alternative 2 :** Use a `HashMap<String,Carpark>` to store data.
 +
@@ -540,9 +536,9 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Much more efficient in accessing elements by using a key and better code readability.
 |Cons| `HashMap` does not provide an ordered collection.
 |===
-+
+// end::query[]
 
-
+// tag::notify[]
 === Notify feature
 
 The notify feature updates specific car parks.
@@ -570,7 +566,6 @@ image::zy_act.png[width="800", align="left"]
 |Pros| Easy to implement.
 |Cons| Performance issues as the application might stall.
 |===
-+
 
 * **Alternative 2 :** Data is queried using a separate thread every interval.
 +
@@ -579,6 +574,7 @@ image::zy_act.png[width="800", align="left"]
 |Pros| Application can be used as the data is being fetched in the background.
 |Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
 |===
+// end::notify[]
 
 // tag::find[]
 === Find feature
@@ -599,7 +595,6 @@ The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and 
 
 .How the find operation works
 image::seqdiagram-find.png[width="800", align="left"]
-
 
 The diagram above describes how the flow of a find command would execute. It rely on `FindCommandParser` to ensure the variables are correct.
 
@@ -951,12 +946,13 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+// tag::weather[]
 === [Proposed] Weather Forecast
 
 _This feature is coming in v2.0._
+// end::weather[]
 
 // tag::dataencryption[]
-
 === [Proposed] Data Encryption
 
 The car park data and user data will be encrypted to prevent users from editing and manipulating them.
@@ -968,13 +964,12 @@ The key will stored in a secured location to prevent people from accessing it.
 
 The two main files it will encrypt are:
 
-* Carpark information
+* Car park information
 * User's favorites
 
 ==== Example
 
 _This feature is coming in v2.0._
-
 // end::dataencryption[]
 
 == Documentation

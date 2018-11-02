@@ -81,9 +81,7 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
-
 // tag::filterug[]
-
 [[Features-Filter]]
 === Filtering car parks : `filter`
 
@@ -243,9 +241,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-
 // tag::calculateug[]
-
 [[Features-Calculate]]
 === Calculating the cost of parking : `calculate`
 
@@ -264,6 +260,7 @@ Calculates the cost of parking at a selected car park between a specified time p
 ====
 // end::calculateug[]
 
+[[Features-List]]
 === Listing all car parks : `list`
 
 Show a list of all the car parks with their details.
@@ -278,6 +275,7 @@ Show a list of all the car parks with their details.
 .After using list command
 image::listafter.png[width="880"]
 
+// tag::query[]
 [[Features-Query]]
 === Querying data: `query`
 
@@ -310,7 +308,9 @@ image::zy_after_query.png[width="880"]
 
 All information for the car parks are refreshed, with the bottom left text telling you when it was
 last updated.
+// end::query[]
 
+// tag::notify[]
 [[Features-Notify]]
 === Enabling Notification : `notify`
 
@@ -352,6 +352,7 @@ image::zy_notify_invalid.png[width="880"]
 
 .Invalid command format
 image::zy_notify_select.png[width="880"]
+// end::notify[]
 
 [[Features-Clear]]
 === Clearing all entries : `clear`
@@ -549,4 +550,3 @@ Here are the summarize list of commands available to the user.
 |`notify`
 |`n 60`
 |===
-
