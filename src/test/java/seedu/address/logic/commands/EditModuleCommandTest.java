@@ -45,8 +45,7 @@ public class EditModuleCommandTest {
                 editedDiscreteMath);
 
         ModelManager expectedModel = new ModelManager(model.getTranscript(), new UserPrefs());
-        expectedModel.deleteModule(target -> target.getCode().equals(DISCRETE_MATH.getCode()));
-        expectedModel.addModule(editedDiscreteMath);
+        expectedModel.updateModule(DISCRETE_MATH, editedDiscreteMath);
         expectedModel.commitTranscript();
 
         assertCommandSuccess(editModuleCommand,
@@ -71,6 +70,6 @@ public class EditModuleCommandTest {
 
         assertCommandFailure(editModuleCommand,
                 model, commandHistory,
-                EditModuleCommand.MESSAGE_MODULE_EXIST);
+                EditModuleCommand.MESSAGE_NO_SUCH_MODULE);
     }
 }
