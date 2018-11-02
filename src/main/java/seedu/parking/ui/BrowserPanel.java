@@ -1,9 +1,11 @@
 package seedu.parking.ui;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+import com.google.gson.JsonArray;
 
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -12,6 +14,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
+import seedu.parking.commons.events.ui.FilterResultChangedEvent;
+import seedu.parking.commons.events.ui.FindResultChangedEvent;
 import seedu.parking.commons.events.ui.ListCarparkRequestEvent;
 import seedu.parking.model.carpark.Carpark;
 
@@ -23,7 +27,7 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE =
             "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?isDefault=1";
     public static final String SEARCH_PAGE_URL =
-            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?json=";
+            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -47,12 +51,31 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void loadCarparkPage(Carpark carpark) {
         try {
-            loadPage(SEARCH_PAGE_URL + carpark.toJson());
+            loadPage(SEARCH_PAGE_URL + "json=" + carpark.toJson());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Loads the car park HTML file with a list of car parks in json data parsed in UTF-8.
+     */
+    private void loadCarparkPage(Carpark[] carparks) {
+        JsonArray arr = new JsonArray();
+        for (int i = 0; i < carparks.length; i++) {
+            arr.add(carparks[i].getCarparkNumber().value);
+        }
+        try {
+            String utf8arr = URLEncoder.encode(arr.toString(), "UTF-8");
+            loadPage(SEARCH_PAGE_URL + "jsonArr=" + utf8arr);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads a URL page with a url parsed in.
+     */
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
     }
@@ -81,5 +104,17 @@ public class BrowserPanel extends UiPart<Region> {
     private void handleListCarparkRequestEvent(ListCarparkRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadDefaultPage();
+    }
+
+    @Subscribe
+    private void handleCarparkFindResultChangedEvent(FindResultChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCarparkPage(event.getreturnList());
+    }
+
+    @Subscribe
+    private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCarparkPage(event.getreturnList());
     }
 }

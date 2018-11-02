@@ -287,8 +287,6 @@ public class GsonUtil {
      * @throws IOException if unable to connect to URL.
      */
     static String getCarparkPostalData(String xcoord, String ycoord) throws IOException {
-//        String accessToken
-
         String url = "https://developers.onemap.sg/privateapi/commonsvc/revgeocodexy?location="
                 + xcoord + "," + ycoord
                 + "&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIxNDIsInVzZXJfaWQiOjIxNDIsImVtYWlsIj"

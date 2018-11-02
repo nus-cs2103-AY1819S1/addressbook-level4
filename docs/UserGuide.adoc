@@ -155,6 +155,7 @@ Find a list of car parks within a certain location.
 image::findbefore.png[width="880"]
 The figure above is a sample display of the application.
 
+
 .After using find command
 image::findafter.png[width="880"]
 The figure above shows what happen after executing the `find` command.
