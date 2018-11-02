@@ -197,7 +197,8 @@ public class CommandTestUtil {
             assertEquals(expectedCommandHistory, actualCommandHistory);
 
             // For now we just check if the exported file exists
-            File file = new File(ExportCertCommand.getCurrentSavePath() + volunteer.getName() + ".pdf");
+            File file = new File(ExportCertCommand.getCurrentSavePath() + volunteer.getName() + "_"
+                    + volunteer.getVolunteerId() + ".pdf");
             assertTrue(file.exists());
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
