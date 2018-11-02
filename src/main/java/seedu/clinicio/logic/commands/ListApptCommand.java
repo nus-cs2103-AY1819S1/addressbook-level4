@@ -7,7 +7,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
 
 /**
