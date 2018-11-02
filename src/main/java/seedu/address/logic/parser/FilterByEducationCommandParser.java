@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class FilterByEducationCommandParser implements Parser<FilterByEducationCommand> {
     /**
-     * FilterByGradeCommand
+     * FilterByEducationCommand
      * @param args
      * @return
      * @throws ParseException
