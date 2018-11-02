@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <!-- Module with invalid academicYear field -->
+    <modules>
+        <moduleCode>ST2131</moduleCode>
+        <moduleTitle isPrivate="false">Probability</moduleTitle>
+        <academicYear isPrivate="false">10114</academicYear>
+        <semester isPrivate="false">2</semester>
+    </modules>
+</addressbook>
