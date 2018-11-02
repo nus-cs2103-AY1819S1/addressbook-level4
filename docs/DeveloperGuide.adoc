@@ -594,13 +594,6 @@ operation. Easier to implement.
 ** Cons: Slower operation due to time taken to enter filename and location. More difficult to implement.
 // end::export[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 // tag::login[]
 === User Authentication
 
