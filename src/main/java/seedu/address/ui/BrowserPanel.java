@@ -1,12 +1,11 @@
 package seedu.address.ui;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.logging.Logger;
-
-import org.apache.commons.io.FileUtils;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -17,7 +16,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.EmailNotFoundEvent;
 import seedu.address.commons.events.ui.EmailViewEvent;
+import seedu.address.commons.events.ui.ListEmailsEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ProfileViewEvent;
 import seedu.address.model.EmailModel;
@@ -30,7 +31,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String PROFILE_PAGE = "/ProfileWindow.html";
-    public static final String PICUTRE_LINK = "/profile_picture/";
+    public static final String PICTURE_LINK = "/profile_picture/";
     public static final String JPG = ".jpg";
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
@@ -68,6 +69,18 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(defaultPage.toExternalForm());
     }
 
+    //@@author EatOrBeEaten
+
+    /**
+     * Loads HTML text preview of email.
+     *
+     * @param emailModel The emailModel containing the saved email.
+     */
+    private void loadEmail(EmailModel emailModel) {
+        Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
+    }
+    //@@author
+
     /**
      * Frees resources allocated to the browser.
      */
@@ -88,12 +101,17 @@ public class BrowserPanel extends UiPart<Region> {
         loadEmail(event.getEmailModel());
     }
 
-    /**
-     * Loads HTML text preview of email.
-     * @param emailModel The emailModel containing the saved email.
-     */
-    public void loadEmail(EmailModel emailModel) {
-        Platform.runLater(() -> browser.getEngine().loadContent(emailModel.getPreview()));
+    @Subscribe
+    private void handleEmailNotFoundEvent(EmailNotFoundEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
+
+    }
+
+    @Subscribe
+    private void handleListEmailsEvent(ListEmailsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        Platform.runLater(() -> browser.getEngine().loadContent(event.toString()));
     }
 
     @Subscribe
@@ -117,18 +135,21 @@ public class BrowserPanel extends UiPart<Region> {
      * @param person The person that the code will be for.
      */
     private String loadProfileHtml(Person person) {
-        String htmlString = null;
-        //String pictureString = null;
+        String htmlString = "";
+        //String pictureString = "";
+        String tempString;
         try {
-        URL profilePage = MainApp.class.getResource(PROFILE_PAGE);
-        File htmlTemplateFile = new File(profilePage.toURI());
-        //pictureString = MainApp.class.getResource(PICUTRE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
-        htmlString = FileUtils.readFileToString(htmlTemplateFile);
+            InputStream profilePage = getClass().getResourceAsStream(PROFILE_PAGE);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(profilePage));
+            while ((tempString = reader.readLine()) != null) {
+                htmlString += tempString;
+            }
+            //pictureString = MainApp.class
+            //.getResource(PICTURE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
+
         htmlString = htmlString.replace("$name", person.getName().fullName);
         htmlString = htmlString.replace("$cca", person.getTags().toString());
         htmlString = htmlString.replace("$room", person.getRoom().value);
