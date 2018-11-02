@@ -6,6 +6,9 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibrary;
 import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibraryAfterTrackAdd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,12 +27,14 @@ public class TrackAddCommandTest {
     private Model expectedModel;
     private Model expectedUnchangedModel;
     private CommandHistory commandHistory = new CommandHistory();
-    private Track trackToAdd;
+    private List<Track> tracksToAdd;
     private Playlist targetPlaylist;
 
     @Before
     public void setUp() {
-        trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
+        Track trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
+        tracksToAdd = new ArrayList<Track>();
+        tracksToAdd.add(trackToAdd);
         targetPlaylist = TypicalPlaylistList.ANIME;
         model = new ModelManager(getTypicalLibrary(), new UserPrefs());
         expectedUnchangedModel = new ModelManager(model.getLibrary(), new UserPrefs());
@@ -40,23 +45,25 @@ public class TrackAddCommandTest {
 
     @Test
     public void execute_addTrackToPlaylist() {
-        assertCommandSuccess(new TrackAddCommand(trackToAdd, targetPlaylist), model, commandHistory,
-                String.format(TrackAddCommand.MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName()), expectedModel);
+        assertCommandSuccess(new TrackAddCommand(tracksToAdd, targetPlaylist), model, commandHistory,
+                String.format(TrackAddCommand.MESSAGE_SUCCESS, tracksToAdd, targetPlaylist.getName()), expectedModel);
     }
 
     @Test
     public void execute_addDuplicateTrackToPlaylist() {
-        trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
+        Track trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
+        tracksToAdd.add(trackToAdd);
         targetPlaylist = TypicalPlaylistList.SFX;
-        assertCommandSuccess(new TrackAddCommand(trackToAdd, targetPlaylist), model, commandHistory,
-                String.format(TrackAddCommand.MESSAGE_DUPLICATE_TRACK, trackToAdd), expectedUnchangedModel);
+        assertCommandSuccess(new TrackAddCommand(tracksToAdd, targetPlaylist), model, commandHistory,
+                String.format(TrackAddCommand.MESSAGE_DUPLICATE_TRACK, tracksToAdd), expectedUnchangedModel);
     }
 
     @Test
     public void execute_addTrackToNonExistentPlaylist() {
-        trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
+        Track trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
+        tracksToAdd.add(trackToAdd);
         targetPlaylist = new Playlist(new Name("playlistNameDoesNotExist"));
-        assertCommandSuccess(new TrackAddCommand(trackToAdd, targetPlaylist), model, commandHistory,
+        assertCommandSuccess(new TrackAddCommand(tracksToAdd, targetPlaylist), model, commandHistory,
                 String.format(TrackAddCommand.MESSAGE_PLAYLIST_DOES_NOT_EXIST,
                         targetPlaylist.getName()), expectedUnchangedModel);
     }

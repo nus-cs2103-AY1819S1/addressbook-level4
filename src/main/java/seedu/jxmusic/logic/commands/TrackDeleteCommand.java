@@ -22,6 +22,7 @@ public class TrackDeleteCommand extends Command {
             + PREFIX_PLAYLIST + "rockPlaylist "
             + "1";
     public static final String MESSAGE_INDEX_DOES_NOT_EXIST = "This playlist does not have index: %1$s";
+    public static final String MESSAGE_PLAYLIST_IS_EMPTY = "This playlist is empty";
     public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "This playlist %1$s does not exist";
 
     private Index indexToDelete;
@@ -50,6 +51,11 @@ public class TrackDeleteCommand extends Command {
         actualPlaylist = model.getLibrary().getPlaylistList()
                 .filtered(playlist -> playlist.isSamePlaylist(targetPlaylist))
                 .get(0);
+
+        // check if playlist is empty
+        if (actualPlaylist.getTracks().isEmpty()) {
+            return new CommandResult(MESSAGE_PLAYLIST_IS_EMPTY);
+        }
 
         updatedPlaylist = actualPlaylist.copy();
         // check if track exists in existing playlist

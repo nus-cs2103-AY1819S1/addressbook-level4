@@ -9,6 +9,7 @@ import static seedu.jxmusic.testutil.TypicalPlaylistList.getTypicalLibraryAfterT
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.logic.CommandHistory;
 
 import seedu.jxmusic.model.Model;
@@ -24,11 +25,13 @@ public class TrackDeleteCommandTest {
     private Model expectedModel;
     private Model expectedUnchangedModel;
     private CommandHistory commandHistory = new CommandHistory();
+    private Index index;
     private Track trackToDelete;
     private Playlist targetPlaylist;
 
     @Before
     public void setUp() {
+        index = Index.fromOneBased(1);
         trackToDelete = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         targetPlaylist = TypicalPlaylistList.TEST_ANIME;
         // setup library with the track to delete
@@ -40,7 +43,7 @@ public class TrackDeleteCommandTest {
 
     @Test
     public void execute_deleteTrackFromPlaylist() {
-        assertCommandSuccess(new TrackDeleteCommand(trackToDelete, targetPlaylist), model, commandHistory,
+        assertCommandSuccess(new TrackDeleteCommand(targetPlaylist, index), model, commandHistory,
                 String.format(
                         TrackDeleteCommand.MESSAGE_SUCCESS, trackToDelete, targetPlaylist.getName()), expectedModel);
     }
@@ -49,15 +52,15 @@ public class TrackDeleteCommandTest {
     public void execute_removeNonExistentTrackFromPlaylist() {
         trackToDelete = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         targetPlaylist = TypicalPlaylistList.ANIME;
-        assertCommandSuccess(new TrackDeleteCommand(trackToDelete, targetPlaylist), model, commandHistory,
-                String.format(TrackDeleteCommand.MESSAGE_TRACK_DOES_NOT_EXIST, trackToDelete), expectedUnchangedModel);
+        assertCommandSuccess(new TrackDeleteCommand(targetPlaylist, index), model, commandHistory,
+                String.format(TrackDeleteCommand.MESSAGE_INDEX_DOES_NOT_EXIST, trackToDelete), expectedUnchangedModel);
     }
 
     @Test
     public void execute_deleteTrackFromNonExistentPlaylist() {
         trackToDelete = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         targetPlaylist = new Playlist(new Name("playlistNameDoesNotExist"));
-        assertCommandSuccess(new TrackDeleteCommand(trackToDelete, targetPlaylist), model, commandHistory,
+        assertCommandSuccess(new TrackDeleteCommand(targetPlaylist, index), model, commandHistory,
                 String.format(TrackDeleteCommand.MESSAGE_PLAYLIST_DOES_NOT_EXIST,
                         targetPlaylist.getName()), expectedUnchangedModel);
     }
