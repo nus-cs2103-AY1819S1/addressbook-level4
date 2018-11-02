@@ -4,13 +4,11 @@
 <head>
     <style>
         /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-        
+         * element that contains the map. */        
         #map {
             height: 100%;
         }
         /* Optional: Makes the sample page fill the window. */
-        
         html,
         body {
             height: 100%;
@@ -33,7 +31,6 @@
             // SVY21 Projection
             // Fundamental point: Base 7 at Pierce Resevoir.
             // Latitude: 1 22 02.9154 N, longitude: 103 49 31.9752 E (of Greenwich).
-
             // Known Issue: Setting (oLat, oLon) to the exact coordinates specified above
             // results in computation being slightly off. The values below give the most 
             // accurate represenation of test data.
@@ -335,7 +332,6 @@
                 var result = cv.computeLatLon(parseInt(record.y_coord), parseInt(record.x_coord));
                 var latLng = new google.maps.LatLng(result.lat, result.lon);
                 latlngbounds.extend(latLng);
-                
                 var marker = new google.maps.Marker({
                     map: map,
                     title: record.car_park_no,

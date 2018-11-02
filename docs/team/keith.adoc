@@ -15,12 +15,12 @@ image::keith.png[width="180", align="center"]
 
 == Introduction
 
---- 
+---
 
 Hi! My name is Fong Zhi Zhong but you can call me Keith! I am currently a second year student at National University of Singapore studying Computer Science.  +
-As a passionate programmer, I believe I can solve many problems through coding. 
+As a passionate programmer, I believe I can solve many problems through coding.
 
-I am the team leader for _Car Park Finder_, a project for my CS2103T Software Engineering module, 
+I am the team leader for _Car Park Finder_, a project for my CS2103T Software Engineering module,
 where I was in charge of UI (user interface), threading, scheduling and tracking.
 
 ---
@@ -43,7 +43,7 @@ Interested? Head towards our releases page to download and try it out! No instal
 
 |===
 |_Given below are sections I contributed to the development of the application. They showcase my technical depth and ability._
-|=== 
+|===
 
 * *Major enhancement*: Modified the *find feature to search for partial words* and *ignore certain words*.
 ** What it does: Allows the user to search for partial instances of words without needed to type everything.
