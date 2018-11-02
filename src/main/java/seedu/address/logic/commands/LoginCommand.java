@@ -16,10 +16,10 @@ import seedu.address.model.person.Person;
 public class LoginCommand extends Command {
     public static final String COMMAND_WORD = "login";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Logs in a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Logs in a person to the address book.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_PASSWORD + "PASSWORD"
+            + PREFIX_PASSWORD + "PASSWORD \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PASSWORD + "password ";

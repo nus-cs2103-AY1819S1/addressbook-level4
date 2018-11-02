@@ -23,7 +23,6 @@ import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,16 +52,12 @@ import seedu.address.logic.commands.personcommands.DeleteFriendCommand;
 import seedu.address.logic.commands.personcommands.DeleteUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand;
 import seedu.address.logic.commands.personcommands.EditUserCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.personcommands.FindUserByNameCommand;
-import seedu.address.logic.commands.personcommands.FindUserByPhoneCommand;
 import seedu.address.logic.commands.personcommands.FindUserCommand;
 import seedu.address.logic.commands.personcommands.ListUserCommand;
 import seedu.address.logic.commands.personcommands.SelectUserCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventAttributesPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.UserContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -221,14 +216,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_findUserByName() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindUserByNameCommand command = (FindUserByNameCommand) parser.parseCommand(
-                FindUserByNameCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindUserByNameCommand(new NameContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
     public void parseCommand_findUser() throws Exception {
         List<String> nameKeywordList = Arrays.asList("Bob", "Choo");
         List<String> phoneKeywordList = Collections.singletonList(VALID_PHONE_BOB);
@@ -248,14 +235,6 @@ public class AddressBookParserTest {
                 FindUserCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                         + ADDRESS_DESC_BOB + INTEREST_DESC_STUDY + TAG_DESC_FRIEND);
         assertEquals(new FindUserCommand(predicate), command);
-    }
-
-    @Test
-    public void parseCommand_findByPhone() throws Exception {
-        List<String> keywords = Arrays.asList("98765432", "54321");
-        FindUserByPhoneCommand command = (FindUserByPhoneCommand) parser.parseCommand(
-                FindUserByPhoneCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindUserByPhoneCommand(new PhoneContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -289,18 +268,6 @@ public class AddressBookParserTest {
                 SelectUserCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertEquals(new SelectUserCommand(INDEX_FIRST), command);
     }
-
-    /*@Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
-    }
-
-    @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
-    }*/
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
