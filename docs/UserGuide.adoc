@@ -200,7 +200,7 @@ Format: `exit`
 === User Authentication
 
 ClinicIO's User Authentication ensure that clinic staff are provided with correct
-access rights. 
+access rights.
 
 Here are the list of commands:
 
