@@ -36,9 +36,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the HealthBook.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all patients and doctors
+* **`register-patient`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : registers a patient named `John Doe` to the HealthBook.
+* **`delete-patient`**`n/John Doe` : deletes patient named John Doe
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -49,9 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `register-patient n/NAME`, `NAME` is a parameter which can be used as `register-patient n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [al/ALLERGIES]` can be used as `n/John Doe al/milk` or as `n/John Doe`.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -176,7 +175,7 @@ Examples:
 
 === Adding medical condition or allergy to patient: `add-medical-history`
 Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
-Format: `add-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
+Format: `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
 Examples:
 
@@ -188,7 +187,7 @@ Examples:
 
 === Deleting medical condition or allergy to patient: `delete-medical-history`
 Delete a condition or allergy to the patient's medical history. This will then be removed on the patient's information page. +
-Format: `delete-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
+Format: `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
 Examples:
 
