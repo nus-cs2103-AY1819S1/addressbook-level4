@@ -115,8 +115,8 @@ Examples:
 Returns `john` and `John Doe`
 * `find challotto` +
 Returns `Charlotte Oliveiro`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find David Roy John` +
+Returns any person having names `David`, `Roy`, or `John`
 
 === Locating persons by address: `find/a`
 
@@ -124,22 +124,33 @@ Finds persons whose addresses contain all the given keywords. +
 Format: `find/a KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `serAngoOn GaRden` will match `Serangoon Garden`
-* The search allows fuzzy matching when the keywords do not contain numbers and each length is greater than 3. e.g. `srangon` will match `Blk 436 Serangoon Garden Street 26`
-* If the keywords contain numbers or any of the keywords has length smaller or equal to 3, do not support fuzzy matching. e.g. `bl serangoon` does not match `Blk 436 Serangoon Garden Street 26`
-* The order of the keywords does not matter. e.g. `Street 26 garden serangoon 436 blk` will match `Blk 436 Serangoon Garden Street 26`
+* The search will search for persons whose addresses contain all the keywords. +
+e.g. `Clementi` will find person `John Doe` whose address is `311, Clementi Ave 2, #02-25`
+* If the keywords match more than one person, all of these person will be returned. +
+e.g. `Serangoon` will return the persons whose addresses contain `Serangoon`, who are `Bernice Yu` and `David Li`
+* The search is case insensitive. +
+e.g `cLeMenTi` is same as `Clementi`, and `cLeMenTi` can also be used to find person `John Doe` whose address is `311, Clementi Ave 2, #02-25`
+* The search allows fuzzy matching on long keywords (long keyword means the keyword whose length is greater than 3). +
+e.g. `clenti` will be fuzzy matched with `Clementi`, and will find the person `John Doe` whose address is `311, Clementi Ave 2, #02-25`
+* The search will not support fuzzy matching when the keywords are too short (<= 3) or contain numbers. +
+e.g. `Clementi Avo` does not match `Clementi Ave` because keyword `Avo` is short and will not be allowed to use fuzzy matching, therefore, no person will be found
+* The order of the keywords does not matter. +
+e.g. `Ave Clementi 2, 311, #02-25` will match `311, Clementi Ave 2, #02-25`, and will find the person `John Doe` whose address is `311, Clementi Ave 2, #02-25`
 * Only the address is searched.
-* Persons matching all keyword will be returned (i.e. `AND` search). e.g. `serangoon` will return the persons whose addresses contain `serangoon`, who are `Bernice Yu` and `David Li`
 ****
 
 Examples:
 
-* `find/a Blk 30 Lorong 3 seRangoon gArdens, #07-18` +
-Returns `Bernice Yu`
+* `find/a B311, Clementi Ave 2, #02-25` +
+Returns `John Doe`
+* `find/a B311, CLEMENTI Ave 2, #02-25` +
+Returns `John Doe` (case insensitive)
+* `find/a #02-25, Ave 2 Clementi, B311` +
+Returns `John Doe` (the order of the keywords does not matter)
 * `find/a serangoon` +
-Returns any person containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li`
+Returns person whose addresses containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li`
 * `find/a srangon` +
-Returns any person containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li`
+Returns persons whose addresses containing the keyword `Serangoon`, i.e. `Bernice Yu` and `David Li` (fuzzy matching)
 
 === Locating persons by email address: `find/e`
 
@@ -147,8 +158,10 @@ Finds a person through his/her email address. +
 Format: `find/e EMAIL`
 
 ****
-* The search is case insensitive. e.g `LIDaVid@example.com` will match `lidavid@example.com`
-* The search allows fuzzy matching (with Levenshtein Distance < 4). e.g. `LIDavd@example.com` will mathch `lidavid@example.com`
+* The search is case insensitive. +
+e.g `LIDaVid@example.com` will match `lidavid@example.com`, and will find person `David Li` whose email is `lidavid@example.com`
+* The search allows fuzzy matching (with Levenshtein Distance < 4). +
+e.g.`lidavd@exmple.com` will match `lidavid@example.com`, and will find person `David Li` whose email is `lidavid@example.com`
 * Only the email is searched.
 * Person matching the email will be returned.
 ****
@@ -158,7 +171,9 @@ Examples:
 * `find/e John@example.com` +
 Returns `John Doe` whose email address is `John@example.com`
 * `find/e LIDavd@example.com` +
-Returns `David Li` whose email address is `lidavid@example.com`
+Returns `David Li` whose email address is `lidavid@example.com` (case insensitive)
+* `find/e lidavd@exmple.com` +
+Returns `David Li` whose email address is `lidavid@example.com` (fuzzy matching)
 
 === Locating persons by phone number: `find/p`
 
@@ -167,7 +182,8 @@ Format: `find/p PHONE_NUMBER`
 
 ****
 * Only the phone number is searched.
-* The search allows fuzzy matching (with Levenshtein Distance < 3). e.g. `123456` will match `12345678`, `12435678` will match `12345678`
+* The search allows fuzzy matching (with Levenshtein Distance < 3). +
+e.g. `123456` will match `12345678`, `12435678` will match `12345678`
 * Person matching the phone number will be returned.
 ****
 
@@ -176,9 +192,9 @@ Examples:
 * `find/p 98765432` +
 Returns `John Doe` whose phone number is `98765432`
 * `find/p 9876543` +
-Returns `John Doe` whose phone number is `98765432`
+Returns `John Doe` whose phone number is `98765432` (fuzzy matching)
 * `find/p 98765433` +
-Returns `John Doe` whose phone number is `98765432`
+Returns `John Doe` whose phone number is `98765432` (fuzzy matching)
 
 === Deleting a person : `delete`
 
