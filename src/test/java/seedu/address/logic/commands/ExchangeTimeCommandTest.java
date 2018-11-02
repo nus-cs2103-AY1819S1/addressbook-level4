@@ -48,7 +48,8 @@ public class ExchangeTimeCommandTest {
 
     @Test
     public void executeZeroKeywordsNoPersonFound() {
-        String expectedMessage = String.format("Cannot find the student or the input is not complete, please enter valid name");
+        String expectedMessage = String.format("Cannot find the student or "
+                + "the input is not complete, please enter valid name");
         ExchangeTimeCommand command = new ExchangeTimeCommand("Alllice 100 Bob 0");
         assertEquals(expectedMessage, command.execute(model, commandHistory).feedbackToUser);
     }

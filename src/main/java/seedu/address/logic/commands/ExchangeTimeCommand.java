@@ -33,12 +33,11 @@ public class ExchangeTimeCommand extends Command {
      *
      * @param args
      */
-    public ExchangeTimeCommand (String args) {
+    public ExchangeTimeCommand(String args) {
         String[] stringCommand = args.trim().split(" ");
         if (stringCommand.length != 4) {
             this.nameA = "invalid";
-        }
-        else {
+        } else {
             this.nameA = stringCommand[0];
             this.numA = Integer.parseInt(stringCommand[1]);
             this.nameB = stringCommand[2];
