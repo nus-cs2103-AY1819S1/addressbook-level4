@@ -396,7 +396,7 @@ AttributePredicate to test the attribute
 
 === Accessibility feature
 
-// tag::autocomplete[]
+// tag::accessibility[]
 ==== Current Implementation
 
 The accessibility feature is responsible for making ThanePark application easier to use.
@@ -408,34 +408,37 @@ It can be decomposed into the following components: +
 * <<accessibility_UI, *UI changes*>>
 
 [#accessibility_help]
+===== Help
 The *help* mechanism is facilitated by the `ShowHelpRequestEvent`.
 When the user executes a `HelpCommand`, the required level of help is encoded in `ShowHelpRequest`.
 This event is subscribed to by `MainWindow`, which will load the respective help page in the required window
 (`BrowserPanel` or `HistoryWindow`). These interactions are illustrated in the class diagram below:
 
-.Class Diagram of help mechanism
+.Class diagram of help mechanism
 image::AutocompleteSuggestActivityDiagram1.png[width="800"]
 
 [#accessibility_autocomplete]
+===== Autocomplete
 The *autocomplete/suggest* mechanism is facilitated by `SuggestCommand`.
 It extends `Command` and serves as a special kind of `Command` that cannot be directly invoked by the `LogicManager`.
 A new instance of `SuggestCommand` is created whenever `ThaneParkParser` fails to find a matching CommandWord,
 or when kbd:[TAB] is pressed inside the *Command Box*. See the 2 figures below:
 
-.Activity Diagram of user executing command
+.Activity diagram of user executing command
 image::AutocompleteSuggestActivityDiagram1.png[width="800"]
 
-.Activity Diagram of user pressing tab
+.Activity diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram2.png[width="800"]
 
 The application will then proceed with executing the `SuggestCommand`, which returns prefix-matched `Command` s.
 These matching `Command` s are reflected in both `CommandResult` and `ShowHelpRequestEvent`, which will in turn update
 `ResultDisplay` and `CommandBox` text. See figure below:
 
-.Activity Diagram of user pressing tab
+.Activity diagram of user pressing tab
 image::AutocompleteSuggestActivityDiagram3.png[width="800"]
 
 [#accessibility_history]
+===== History
 The *history* mechanism is facilitated by `CommandHistory` and `CommandsLogCenter`.
 `CommandHistory` maintains the history as a list of user inputs during the session,
 and interfaces with `CommandsLogCenter` to handle the retrieval and persistent storage
@@ -467,7 +470,7 @@ Event types in the application.
 
 ** Cons: Difficult to extend. When modifying behavior of `CommandBox` text autocompletion, may have to modify behavior
 for result listing of results in `ResultDisplay`.
-// end::autocomplete[]
+// end::accessibility[]
 
 // tag::viewstatus[]
 === View Status Feature

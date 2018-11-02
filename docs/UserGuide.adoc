@@ -146,34 +146,47 @@ Format: `clear`
 
 This section contains all commands related to providing user help and accessibility.
 
+// tag::help[]
+
 ==== Viewing help: `help`
 
 Display short summary of important commands. A summarized help
-sheet should appear as shown below.
+sheet should appear as shown below. +
 
-image::ui_screenshots/history-example-1.png[width="790"]
+image::ui_screenshots/help-example-1.png[width="400"]
 
 Format: `help`
 
 [NOTE]
-Extended usage of `help` command: `help [option]`. If invalid `[option]`
-is specified, an error message will be shown (soon a default help message will be shown).
+Extended usage of `help` command: `help [option]`. `[option]` can take on the value of
+`more` or any command word. If provided `[option]` is invalid, an error message will be
+shown (soon a default help message will be shown).
+
+|===
+a|
+Examples:
 
 * `help more`: Opens the help window to show full usage of ThanePark.
 
-image::ui_screenshots/history-example-1.png[width="790"]
+image::ui_screenshots/help-example-2.png[width="600"]
 
-* `help <command word>`: Opens the help window and scrolls to specified command word usage.
-Example: `help add`
+a|
+* `help add`: Opens the help window and scrolls to `add` command word usage.
 
-image::ui_screenshots/history-example-1.png[width="790"]
+image::ui_screenshots/help-example-3.png[width="600"]
+|===
 
-// tag::autocomplete[]
+// end::help[]
+
+// tag::autocomplete1[]
 
 ==== Suggesting commands: `{tab}`
 
 Displays suggested list of commands when kbd:[TAB] is pressed. +
+ +
 Format: kbd:[TAB]
+
+// end::autocomplete1[]
 
 [WARNING]
 The full functionality of suggesting commands can be quite heavy.
@@ -181,7 +194,7 @@ Skip to <<suggest_examples, examples>> to view common usage.
 
 [NOTE]
 Extended usage of suggesting commands:
-[width="59%",cols="20%,<40%,<40%",options="header",]
+[width="100%",cols="20%,<40%,<40%",options="header",]
 |=======================================================================
 |Action |State of application |Expected Output
 |kbd:[TAB] a|
@@ -238,6 +251,10 @@ Extended usage of suggesting commands:
 * `CommandBox` text turns red.
 |=======================================================================
 
+// tag::autocomplete2[]
+
+|===
+a|
 [#suggest_examples]
 Examples:
 
@@ -246,33 +263,49 @@ kbd:[TAB] (Completes the `help` command word.) +
 
 * `histor more` +
 kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command) +
+|===
+// end::autocomplete2[]
 
-// end::autocomplete[]
+// tag::history[]
 
 ==== Viewing history of previous commands: `history`
 
-Display previous commands during this session.
-
+Display previous user inputs during this session. Does not include the executed `history` itself. +
+ +
 Format: `history`
 
 [NOTE]
 Extended usage of `history`: +
 Use `history more` to generate a report of all cumulative command history.
-A window similar to the one below should show up.
-
-image::ui_screenshots/history-example-1.png[width="790"]
 
 [WARNING]
 ThanePark stores the command history in `commandHistory.xml`. If the storage file size exceeds 5MB,
 no new command history will be logged. Additionally, if the file format is changed, the program will
 restart the collation of history.
 
+|===
+a|
+Examples:
+
+* `history` (Shows user inputs in current session.)
+
+* `history more` (A window similar to the one below should show up:)
+a|
+image::ui_screenshots/history-example-1.png[width="600"]
+|===
+
+
+// end::history[]
+
 // tag::undoredo[]
 ==== Undoing commands: `undo`
 
 Undo previous command during current session. +
+ +
 Format: `undo`
 
+|===
+a|
 Examples:
 
 * `delete 1` +
@@ -288,12 +321,16 @@ The `undo` command fails as there are no undoable commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
+|===
 
 ==== Redoing previously undone commands: `redo`
 
 Reverse the previously undone commands during current session. +
+ +
 Format: `redo`
 
+|===
+a|
 Examples:
 
 * `delete 1` +
@@ -310,11 +347,13 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
+|===
 // end::undoredo[]
 
 ==== Exiting ThanePark: `exit`
 
 Exits the ThanePark application. +
+ +
 Format: `exit`
 
 // tag::viewstatus[]
