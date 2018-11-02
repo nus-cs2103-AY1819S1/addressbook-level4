@@ -64,7 +64,7 @@ public class TypicalPlaylistList {
     /**
      * Returns an {@code Library} with all the typical playlists after adding an additional track.
      */
-    public static Library getTypicalLibraryAfterTrackAdd(Track trackToAdd) {
+    public static Library getModifiedTypicalLibrary() {
         Library library = new Library();
         ArrayList<Playlist> newLibrary = new ArrayList<>(
                 Arrays.asList(EMPTY, SFX, TEST_ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));

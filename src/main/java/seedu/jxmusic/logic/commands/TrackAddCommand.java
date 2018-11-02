@@ -16,17 +16,16 @@ import seedu.jxmusic.model.Track;
  */
 public class TrackAddCommand extends Command {
     public static final String COMMAND_PHRASE = "track add";
-    public static final String MESSAGE_SUCCESS = "Track added to playlist: %1$s -> %2$s";
-    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Adds a new track to the playlist identified "
-        + "by the name of the track and playlist. "
+    public static final String MESSAGE_SUCCESS = "Tracks added to playlist: %1$s -> %2$s";
+    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": Adds a new track(s) to the playlist identified "
+        + "by the name of the track and playlist.\n"
         + "Playlist will be modified with new track.\n"
         + "Parameters: [" + PREFIX_PLAYLIST + "PLAYLIST] "
         + "[" + PREFIX_TRACK + "TRACK]...\n"
         + "Example: " + COMMAND_PHRASE + " "
-        + PREFIX_PLAYLIST + "rockPlaylist "
+        + PREFIX_PLAYLIST + "rockPlaylist" + " "
         + PREFIX_TRACK + "rockNRoll";
-    public static final String MESSAGE_DUPLICATE_TRACK = "Track already exists in the playlist: %1$s";
-    public static final String MESSAGE_TRACK_DOES_NOT_EXIST = "Track does not exist: %1$s";
+    public static final String MESSAGE_TRACK_DOES_NOT_EXIST = "These tracks do not exist: %3$s";
     public static final String MESSAGE_PLAYLIST_DOES_NOT_EXIST = "Playlist does not exist: %1$s";
 
     private List<Track> argTracksToAdd;
@@ -60,9 +59,9 @@ public class TrackAddCommand extends Command {
         updatedPlaylist = actualPlaylist.copy();
 
         // check if tracks exist
-        System.out.println(argTracksToAdd.size());
+        // argTracksToAdd.stream().forEach(track -> System.out.println(track.getFileNameWithoutExtension()));
         for (Track trackToAdd : argTracksToAdd) {
-            if (model.getLibrary().getTracks().contains(trackToAdd)) {
+            if (model.getFilteredTrackList().stream().anyMatch(track -> track.equals(trackToAdd))) {
                 tracksToAdd.add(trackToAdd);
             } else {
                 // to display as tracks that cannot be added
@@ -77,7 +76,11 @@ public class TrackAddCommand extends Command {
         }
 
         model.updatePlaylist(actualPlaylist, updatedPlaylist);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd, actualPlaylist.getName()));
+        if (tracksNotAdded.isEmpty()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd, actualPlaylist.getName()));
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + MESSAGE_TRACK_DOES_NOT_EXIST,
+                tracksToAdd, actualPlaylist.getName(), tracksNotAdded));
     }
 
 }

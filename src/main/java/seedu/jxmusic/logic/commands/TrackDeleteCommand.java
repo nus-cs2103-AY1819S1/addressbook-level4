@@ -53,19 +53,19 @@ public class TrackDeleteCommand extends Command {
                 .get(0);
 
         // check if playlist is empty
-        if (actualPlaylist.getTracks().isEmpty()) {
+        if (actualPlaylist.isEmpty()) {
             return new CommandResult(MESSAGE_PLAYLIST_IS_EMPTY);
         }
 
         updatedPlaylist = actualPlaylist.copy();
         // check if track exists in existing playlist
-        playlistSize = updatedPlaylist.getTracks().size();
+        playlistSize = updatedPlaylist.getSize();
         if (trackNum > playlistSize) {
             return new CommandResult(String.format(MESSAGE_INDEX_DOES_NOT_EXIST, trackNum));
         }
 
         // get track from trackNum
-        trackToDelete = actualPlaylist.getTracks().get(indexToDelete.getZeroBased());
+        trackToDelete = actualPlaylist.get(indexToDelete.getZeroBased());
 
         if (updatedPlaylist.deleteTrack(trackToDelete)) {
             model.updatePlaylist(actualPlaylist, updatedPlaylist);

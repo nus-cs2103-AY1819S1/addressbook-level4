@@ -34,10 +34,8 @@ public class TrackDeleteCommandParser implements Parser<TrackDeleteCommand> {
 
             Playlist targetPlaylist = ParserUtil.parsePlaylist(argMultimap.getValue(PREFIX_PLAYLIST).get());
             Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
-
-
             return new TrackDeleteCommand(targetPlaylist, index);
-        } catch (ArrayIndexOutOfBoundsException ae) {
+        } catch (ArrayIndexOutOfBoundsException | NullPointerException ex) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + " args: " + args,
                     TrackDeleteCommand.MESSAGE_USAGE));
         }
