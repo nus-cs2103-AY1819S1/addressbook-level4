@@ -15,6 +15,7 @@ import seedu.souschef.logic.commands.DeleteCommand;
 import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
+import seedu.souschef.model.favourite.Favourites;
 import seedu.souschef.model.healthplan.HealthPlan;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
@@ -101,21 +102,21 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
 
     /**
      *
-     * @param model
-     * @param args
-     * @return
+     * @param model favouriteModel
+     * @param args userInput
+     * @return DeleteCommand
      * @throws ParseException
      */
-    public DeleteCommand<Recipe> parseFavourites(Model model, String args) throws ParseException {
+    public DeleteCommand<Favourites> parseFavourites(Model model, String args) throws ParseException {
         try {
             Index targetIndex = ParserUtil.parseIndex(args);
             requireNonNull(model);
-            List<Recipe> lastShownList = model.getFilteredList();
+            List<Favourites> lastShownList = model.getFilteredList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_DELETE_FAVOURITE_USAGE));
             }
-            Recipe toDelete = lastShownList.get(targetIndex.getZeroBased());
+            Favourites toDelete = lastShownList.get(targetIndex.getZeroBased());
 
             return new DeleteCommand<>(model, toDelete);
         } catch (ParseException pe) {

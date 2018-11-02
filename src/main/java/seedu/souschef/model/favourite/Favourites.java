@@ -4,11 +4,15 @@ import static seedu.souschef.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.souschef.model.UniqueType;
+import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.recipe.CookTime;
 import seedu.souschef.model.recipe.Difficulty;
 import seedu.souschef.model.recipe.Instruction;
@@ -30,6 +34,7 @@ public class Favourites extends UniqueType {
     // Data fields
     private final ArrayList<Instruction> instructions = new ArrayList<>();
     private final Set<Tag> tags = new HashSet<>();
+    private final HashMap<IngredientDefinition, IngredientPortion> ingredients = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -39,11 +44,9 @@ public class Favourites extends UniqueType {
         this.name = name;
         this.cookTime = cooktime;
         this.difficulty = difficulty;
+        this.instructions.addAll(instructions);
+        tabulateIngredients();
         this.tags.addAll(tags);
-
-        //this.instructions.addAll(instructions);
-
-        this.instructions.add(new Instruction("Instruction placeholder 123.", new HashSet<>()));
     }
 
     public Name getName() {
@@ -70,6 +73,25 @@ public class Favourites extends UniqueType {
         return Collections.unmodifiableSet(tags);
     }
 
+    public Map<IngredientDefinition, IngredientPortion> getIngredients() {
+        return ingredients;
+    }
+
+    /**
+     * Tabulate all ingredients from each instruction step.
+     */
+    private void tabulateIngredients() {
+        for (Instruction instruction : instructions) {
+            for (IngredientPortion portion : instruction.ingredients) {
+                IngredientDefinition key = new IngredientDefinition(portion.getName());
+                if (ingredients.containsKey(key)) {
+                    ingredients.replace(key, ingredients.get(key).addAmount(portion.convertToCommonUnit()));
+                } else {
+                    ingredients.put(key, portion.convertToCommonUnit());
+                }
+            }
+        }
+    }
     /**
      * Returns true if both recipes of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two recipes.
