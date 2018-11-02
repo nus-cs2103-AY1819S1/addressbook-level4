@@ -56,11 +56,12 @@ e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, [blue]`NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
-* Items in square brackets are optional e.g [blue]`n/NAME [t/TAG]` can be used as [blue]`n/do CS2100 tutorial
+* Items in square brackets are optional e.g [blue]`n/[NAME] t/[TAG]` can be used as [blue]`n/do CS2100 tutorial
 t/CS2100` or as [blue]`n/do CS2100 tutorial`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`[t/TAG]...` can be used
+* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`t/[TAG]...` can be used
  as `{nbsp}` (i.e. 0 times), [blue]`t/tutorial`, [blue]`t/tutorial t/CS2100` etc.
-* Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies [blue]`n/[NAME] d/[DEADLINE]`, [blue]`d/[DEADLINE]
+n/[NAME]` is also acceptable.
 ****
 
 === Viewing Help
@@ -75,7 +76,7 @@ Opens the user guide page. +
 
 Adds a task to the schedule planner. +
 ====
-[blue]`add [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`add n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 ====
 Example: +
 ====
@@ -87,14 +88,14 @@ tag [blue]`CS3241` and deadline of 10th October 2018, venue at mpsh1.
 The priority level must be a number between 1 to 3, where 3 denotes highest priority.
 
 [WARNING]
-A task strictly requires a name, priority level and deadline. Tags are optional.
+The name, priority level and deadline fields are compulsory and required for every task. Tags are optional.
 
 
 === Adding a Recurring Task
 
-Adds copies of the same task to the same day of a given number of weeks. +
+Adds copies of the same task to a specified day in the week, for a given number of weeks. +
 ====
-[blue]`repeat [r/REPEATS] [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`repeat r/[REPEATS] n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 ====
 Example: +
 ====
@@ -110,7 +111,7 @@ Use this command to schedule tasks that you carry out regularly.
 
 === Listing All Tasks
 
-Shows a list of all tasks in the schedule planner. +
+Lists all tasks in the schedule planner. +
 ====
 [blue]`list`
 ====
@@ -119,7 +120,7 @@ Shows a list of all tasks in the schedule planner. +
 
 Edits an existing task in the schedule planner. +
 ====
-[blue]`edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]`
+[blue]`edit [INDEX] n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE]`
 ====
 Example:
 
@@ -132,57 +133,59 @@ Outcome: Priority of existing task with index 3 to 1, and its deadline is change
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 
-
 At least one of the optional fields must be provided. Existing values of provided field
 will be updated to the input values.
 
 [WARNING]
-The existing tags of the task will be removed when tag is edited. If input is
-[blue]`edit 3 t/project`, then the tag of task 3 will be [blue]`project` only.
+Existing tags of a task will be removed when its tag is edited. If input is
+[blue]`edit 3 t/project`, then the resulting tag(s) of task 3 will be [blue]`project` only.
 
 [TIP]
-To remove all tags of a existing task, you can just type [blue]`t/`.
+To remove all tags of an existing task, you can just type [blue]`t/`.
 If input is [blue]`task 3 t/`, all the tags of the task with `INDEX` 3 will be removed.
 
 
-
 [TIP]
-Use the [blue]`list task`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified.
-For example, you can use [blue]`listday` to list out the tasks due today, and choose the index of the task that you want to edit.
+Use [blue]`list task`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified. +
+For example, you can use [blue]`listday` to list the tasks due today, and choose the index of the task you want
+ to edit.
 
 
 === Finding Tasks by Name
 
 Finds tasks whose names match with given keyword. +
 ====
-[blue]`find KEYWORD`
+[blue]`find [NAME]`
 ====
 Example:
 ====
 input: [blue]`find tutorial` +
-output: All tasks that has "tutorial" in their names are listed out.
+output: All tasks with "tutorial" in their names are listed.
 ====
 
-The search is case insensitive. For example, [blue]`apples` will match [blue]`Apples`.
+The search is case insensitive. For example, [blue]`apples` and  [blue]`Apples` both return the same tasks.
 
-The order of the keywords does not matter. For example,  [blue]`apples buy` will match [blue]`buy apples`. +
+The order of the keywords does not matter. For example,  [blue]`apples buy` and [blue]`buy apples` both return the
+same tasks. +
 
 [TIP]
 You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS5229` will find all tasks with name containing
 [blue]`CS3230` or [blue]`CS5229`.
 
 
-
-
-=== Filter Tasks by Tag
-Finds tasks whose tag matches with given keyword. +
+=== Filtering Tasks by Tag
+Filters and lists tasks with tags matching those entered by the user. User may input more than 1 tag. +
 ====
-[blue]`filter KEYWORD`
+[blue]`filter [TAG] [TAG2] ...`
 ====
 Example:
 ====
 input: [blue]`filter tutorial` +
-output: All tasks that has the tag [blue]`tutorial` are listed out.
+output: All tasks with the tag [blue]`tutorial` are listed.
+
+input: [blue]`filter tutorial 2100` +
+output: All tasks with the tag either [blue]`tutorial`, [blue]`2100`, or both [blue]`tutorial` and [blue]`2100`, are
+listed.
 ====
 
 The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
@@ -243,7 +246,7 @@ Shows a list of tasks that are due today. +
 [blue]`listday`
 ====
 
-=== Viewing Tasks Due This Term Week
+=== Viewing Tasks Due This Week
 
 Shows a list of tasks that are due from current date till the closest Sunday. +
 ====
@@ -266,36 +269,59 @@ After:
 image::ListWeekCommand_UG_After.png[width="400"]
 ====
 
-=== Generating Academic Calendar Weeks
+=== Viewing Tasks Due This Month
 
-Generates the entire academic calendar weeks with description, based on the first academic day and stores it in storage.
+Shows a list of tasks that are due from current date till the end of the current Month. +
+====
+[blue]`listweek`
+====
+
+Example:
+====
+input: [blue]`listweek` on the date 021118 +
+output: Shows a list of tasks from 021118 to end of the month which is 301118.
+====
+
+Before:
+====
+image::ListWeekCommand_UG_Before.png[width="300"]
+====
+
+After:
+====
+image::ListWeekCommand_UG_After.png[width="400"]
+====
+
+=== Generating Weeks in the Academic Calendar
+
+Generates the entire academic calendar with description, based on the first academic day and stores it in storage.
 
 Currently, the generated academic calendar is based on the academic calender of National University of Singapore
 (NUS). It may not be compatible with academic calendars from other institutions.
 
-Whenever you launch the application within the academic calendar's dates, the application title
-will append that particular week's description. +
+Whenever the application is launched within the academic calendar's dates, the application title
+will append that particular week's description to the title of the app. +
 
 ====
-[blue]`firstday ddmmyy`
+[blue]`firstday [DDMMYY]`
 ====
 
 Example:
 ====
 input: [blue]`firstday 130818` +
-output: When user launch the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
-semester 1), the application title will append "Week 10".
+output: When the user launches the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
+semester 1), the application title will append "Week 10" to the title of the app.
 ====
-The [blue]`ddmmyy` refers to the date format of day, month and year. It must complies the following three rules in
+The [blue]`[DDMMYY]` refers to the date format of day, month and year. It must complies the following three rules in
 order:
 
-1. The [blue]`ddmmyy` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
+1. The [blue]`DDMMYY]` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
 will be
 rejected as they are considered as more than one set of date.
 
-2. The [blue]`ddmmyy` must be a valid date within 21st century.
+2. The [blue]`DDMMYY` must be a valid date within 21st century.
 
-3. The [blue]`ddmmyy` must be a Monday.
+3. The [blue]`DDMMYY` must be a Monday.
 
 Before:
 ====
@@ -390,13 +416,13 @@ There is no need to save manually.
 ====
 * *Adding Tasks* :
 ====
-[blue]`add [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`add n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 Example: +
 [blue]`add n/do tutorial p/1 t/cs2100 d/121019 v/home` +
 ====
 * *Adding Recurring Tasks* :
 ====
-[blue]`repeat [r/REPEATS] [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`repeat r/[REPEATS] n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 ====
 * **Listing All Tasks** :
 ====
@@ -406,7 +432,7 @@ Example: +
 * **Editing a Task** :
 
 ====
-[blue]`edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]` +
+[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL]t/[TAGS]... d/[DEADLINE]` +
 
 Example: +
 [blue]`edit 3 p/1 d/121019` +
@@ -414,21 +440,21 @@ Example: +
 * **Finding Tasks by Name** :
 
 ====
-[blue]`find KEYWORD` +
+[blue]`find [NAME] +
 
 Example: +
 [blue]`find tutorial` +
 ====
 * **Filter Tasks by Tag** :
 ====
-[blue]`filter KEYWORD` +
+[blue]`filter [TAG] ...` +
 
 Example: +
 [blue]`filter tutorial`
 ====
 * **Deleting Tasks** :
 ====
-[blue]`delete INDEX` +
+[blue]`delete [INDEX]` +
 
 Example: +
 [blue]`delete 1` +
@@ -436,7 +462,7 @@ Example: +
 * **Archiving Tasks** :
 
 ====
-[blue]`archive INDEX` +
+[blue]`archive [INDEX]` +
 
 Example: +
 [blue]`archive 1` +
@@ -456,7 +482,7 @@ Example: +
 ====
 * **Generating Academic Calendar Weeks** :
 ====
-[blue]`firstday ddmmyy`
+[blue]`firstday DDMMYY`
 
 Example: +
 [blue]`firstday 130818` +

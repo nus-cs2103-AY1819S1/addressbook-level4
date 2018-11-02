@@ -19,12 +19,30 @@ import ssp.scheduleplanner.model.task.Venue;
 public class SampleDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[] {
-            new Task(new Name("Homework"), new Date("111118"), new Priority("3"),
+            new Task(new Name("SAMPLE Do 2100 Tutorial"), new Date("011118"), new Priority("3"),
                 new Venue("Home"),
-                getTagSet("CS2100")),
-            new Task(new Name("Assignment"), new Date("121118"), new Priority("3"),
+                getTagSet("CS2100", "Sample")),
+            new Task(new Name("SAMPLE Do 2101 Assignment"), new Date("011118"), new Priority("3"),
                 new Venue("Home"),
-                getTagSet("CS2101"))
+                getTagSet("CS2101", "Sample")),
+            new Task(new Name("SAMPLE 2103 Tutorial Prep"), new Date("061118"), new Priority("2"),
+                new Venue("Home"),
+                getTagSet("CS2103", "Tutorial", "Sample")),
+            new Task(new Name("SAMPLE 2100 Tutorial Prep"), new Date("051118"), new Priority("2"),
+                new Venue("COM1"),
+                getTagSet("CS2100", "Tutorial", "Sample")),
+            new Task(new Name("SAMPLE 2103 PE Dry Run"), new Date("021118"), new Priority("3"),
+                new Venue("I3"),
+                getTagSet("CS2103", "Sample")),
+            new Task(new Name("SAMPLE Groceries for Mum"), new Date("311018"), new Priority("1"),
+                new Venue("Clementi Fairprice"),
+                getTagSet("Errands", "Sample")),
+            new Task(new Name("SAMPLE TGIF"), new Date("021118"), new Priority("3"),
+                new Venue("Zouk"),
+                getTagSet("Party", "Sample")),
+            new Task(new Name("SAMPLE Watch 2103 Lecture"), new Date("291118"), new Priority("3"),
+                new Venue("Home"),
+                getTagSet("CS2100", "Sample"))
         };
     }
 
