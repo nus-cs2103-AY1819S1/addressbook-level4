@@ -346,6 +346,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @Subscribe
     public void handleLoggedInEvent(UserLoggedInEvent event) throws NoUserSelectedException {
+        initializeAfterLogin();
         showLoggedInUi();
         initializeAfterLogin();
     }
