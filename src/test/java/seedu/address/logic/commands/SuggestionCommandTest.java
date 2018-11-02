@@ -17,9 +17,7 @@ import org.junit.Test;
 
 
 public class SuggestionCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
+
 
     @Test
     public void equals() {
