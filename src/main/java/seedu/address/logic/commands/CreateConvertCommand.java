@@ -44,11 +44,17 @@ public class CreateConvertCommand extends Command {
         String operation = transformation.toList().get(0);
         URL fileUrl = CreateConvertCommand.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
         if (fileUrl == null) {
-            throw new IllegalArgumentException("Invalid argument, cannot find");
+            throw new IllegalArgumentException();
         }
-        List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation);
-        if (transformation.toList().size() != cmds.size() + 1) {
-            throw new IllegalArgumentException("Invalid argument, cannot find");
+        List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "patterns");
+        List<String> trans = transformation.toList();
+        if (trans.size() != patterns.size() + 1) {
+            throw new IllegalArgumentException();
+        }
+        for (int i = 0; i < patterns.size(); i++) {
+            if (!trans.get(i + 1).matches(patterns.get(i))) {
+                throw new IllegalArgumentException("the argument entered is invalid");
+            }
         }
     }
 
@@ -62,7 +68,8 @@ public class CreateConvertCommand extends Command {
             try {
                 checkSingleValidation(iter.next());
             } catch (IllegalArgumentException | IOException e) {
-                throw new CommandException(e.toString());
+                throw new CommandException("the arguments entered is not valid\n,"
+                        + "please check the argument of each transformation\n, see more details: " + MESSAGE_USAGE);
             }
         }
     }
@@ -73,7 +80,7 @@ public class CreateConvertCommand extends Command {
             checkValidation();
             JsonConvertArgsStorage.storeArgument(name, cmds);
         } catch (IOException e) {
-            throw new CommandException(e.getMessage());
+            throw new CommandException("the argument is invalid, see more details: " + MESSAGE_USAGE);
         }
         return new CommandResult("successfully create " + name);
     }

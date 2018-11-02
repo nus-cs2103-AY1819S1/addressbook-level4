@@ -43,12 +43,14 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            model.addTransformation(transformation);
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
                     transformation);
+            model.addTransformation(transformation);
             model.updateCurrentPreviewImage(modifiedImage, transformation);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(e.getMessage());
         } catch (Exception e) {
-            throw new CommandException(e.toString());
+            throw new CommandException("the argument is invalid, see more detail about this command: " + MESSAGE_USAGE);
         }
         return new CommandResult("process is done");
     }
