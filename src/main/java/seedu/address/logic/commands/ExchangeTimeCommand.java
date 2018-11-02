@@ -47,7 +47,7 @@ public class ExchangeTimeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        if (nameA.equals("invalid")) {
+        if ("invalid".equals(nameA)) {
             return new CommandResult("Cannot find the student or the input is not complete,"
                     + " please enter valid name");
         }

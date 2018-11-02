@@ -29,11 +29,11 @@ public class ExchangeTimeCommandParser implements Parser<ExchangeTimeCommand> {
             String nameB = stringCommand[2];
             int numA = Integer.parseInt(stringCommand[1]);
             int numB = Integer.parseInt(stringCommand[3]);
-            if (nameA.toString().isEmpty()) {
+            if (nameA.isEmpty()) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExchangeTimeCommand.MESSAGE_USAGE));
             }
-            if (nameB.toString().isEmpty()) {
+            if (nameB.isEmpty()) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExchangeTimeCommand.MESSAGE_USAGE));
             }

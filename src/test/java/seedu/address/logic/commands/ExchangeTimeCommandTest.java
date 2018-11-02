@@ -18,7 +18,6 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 public class ExchangeTimeCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
 
