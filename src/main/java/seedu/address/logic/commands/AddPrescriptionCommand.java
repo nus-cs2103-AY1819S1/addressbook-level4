@@ -41,7 +41,7 @@ public class AddPrescriptionCommand extends Command {
             + PREFIX_DOSAGE + "DOSAGE "
             + PREFIX_CONSUMPTION_PER_DAY + "CONSUMPTION_PER_DAY \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "5 "
+            + PREFIX_INDEX + "10005 "
             + PREFIX_MEDICINE_NAME + "Paracetamol "
             + PREFIX_DOSAGE + "2 "
             + PREFIX_CONSUMPTION_PER_DAY + "3 ";
@@ -88,6 +88,7 @@ public class AddPrescriptionCommand extends Command {
         // adding prescription
         ArrayList<Prescription> allPrescriptions = new ArrayList<Prescription>();
         allPrescriptions.addAll(appointmentToEdit.getPrescriptions());
+
         Appointment editedAppointment = new Appointment(new AppointmentId(appointmentToEdit.getAppointmentId()),
                 appointmentToEdit.getDoctor(),
                 appointmentToEdit.getPatient(),
@@ -133,8 +134,9 @@ public class AddPrescriptionCommand extends Command {
                 doctorToEdit.getAddress(), doctorToEdit.getRemark(), doctorToEdit.getTags(),
                 doctorToEdit.getUpcomingAppointments());
 
-        patientToEdit.setAppointment(appointmentToEdit, editedAppointment);
-        doctorToEdit.setAppointment(appointmentToEdit, editedAppointment);
+        editedPatient.setAppointment(appointmentToEdit, editedAppointment);
+        editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
+
         model.updatePerson(patientToEdit, editedPatient);
         model.updatePerson(doctorToEdit, editedDoctor);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

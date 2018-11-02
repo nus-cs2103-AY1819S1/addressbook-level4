@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Test;
@@ -25,8 +26,16 @@ import seedu.address.model.appointment.ConsumptionPerDay;
 import seedu.address.model.appointment.Dosage;
 import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
+import seedu.address.model.doctor.Doctor;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.AppointmentBuilder;
+import seedu.address.testutil.DoctorBuilder;
+import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.PrescriptionBuilder;
+
+import javax.print.Doc;
+import java.util.List;
 
 
 /**
@@ -43,17 +52,44 @@ public class AddPrescriptionCommandTest {
         Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
         Prescription toAdd = new PrescriptionBuilder().withAppointmentId(firstAppointment.getAppointmentId()).build();
 
-        Appointment editedappointment = new AppointmentBuilder(firstAppointment).build();
-        editedappointment.getPrescriptions().add(toAdd);
+        Appointment editedAppointment = new AppointmentBuilder(firstAppointment).build();
+        editedAppointment.getPrescriptions().add(toAdd);
+
+        List<Person> personList = model.getFilteredPersonList();
+        Doctor doctorToEdit = null;
+        Patient patientToEdit = null;
+
+        for (Person person : personList) {
+            if (person instanceof Doctor) {
+                if (firstAppointment.getDoctor().equals(person.getName().toString())) {
+                    doctorToEdit = (Doctor) person;
+                }
+            }
+            if (person instanceof Patient) {
+                if (firstAppointment.getPatient().equals(person.getName().toString())) {
+                    patientToEdit = (Patient) person;
+                }
+            }
+            if (doctorToEdit != null && patientToEdit != null) {
+                break;
+            }
+        }
+
+        Patient editedPatient = new PatientBuilder(patientToEdit).build();
+        editedPatient.setAppointment(firstAppointment, editedAppointment);
+
+        Doctor editedDoctor = new DoctorBuilder(doctorToEdit).build();
+        editedDoctor.setAppointment(firstAppointment, editedAppointment);
 
         AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd);
 
         String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.updateAppointment(firstAppointment, editedappointment);
+        expectedModel.updateAppointment(firstAppointment, editedAppointment);
+        expectedModel.updatePerson(patientToEdit, editedPatient);
+        expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();
-
         //assertCommandSuccess(addPrescriptionCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
