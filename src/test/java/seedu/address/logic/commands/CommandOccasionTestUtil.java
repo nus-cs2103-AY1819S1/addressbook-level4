@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -33,21 +33,21 @@ public class CommandOccasionTestUtil {
     public static final String VALID_TAG_STUDY = "Must Prepare";
     public static final String VALID_TAG_SLEEP = "More Sleep";
 
-    public static final String OCCASIONNAME_DESC_ONE = " " + PREFIX_OCCASION_NAME + VALID_OCCASIONNAME_ONE;
-    public static final String OCCASIONNAME_DESC_TWO = " " + PREFIX_OCCASION_NAME + VALID_OCCASIONNAME_TWO;
-    public static final String OCCASIONDATE_DESC_ONE = " " + PREFIX_OCCASION_DATE + VALID_OCCASIONDATE_ONE;
-    public static final String OCCASIONDATE_DESC_TWO = " " + PREFIX_OCCASION_DATE + VALID_OCCASIONDATE_TWO;
-    public static final String OCCASIONLOCATION_DESC_ONE = " " + PREFIX_OCCASION_LOCATION + VALID_OCCASIONLOCATION_ONE;
-    public static final String OCCASIONLOCATION_DESC_TWO = " " + PREFIX_OCCASION_LOCATION + VALID_OCCASIONLOCATION_TWO;
+    public static final String OCCASIONNAME_DESC_ONE = " " + PREFIX_OCCASIONNAME + VALID_OCCASIONNAME_ONE;
+    public static final String OCCASIONNAME_DESC_TWO = " " + PREFIX_OCCASIONNAME + VALID_OCCASIONNAME_TWO;
+    public static final String OCCASIONDATE_DESC_ONE = " " + PREFIX_OCCASIONDATE + VALID_OCCASIONDATE_ONE;
+    public static final String OCCASIONDATE_DESC_TWO = " " + PREFIX_OCCASIONDATE + VALID_OCCASIONDATE_TWO;
+    public static final String OCCASIONLOCATION_DESC_ONE = " " + PREFIX_OCCASIONLOCATION + VALID_OCCASIONLOCATION_ONE;
+    public static final String OCCASIONLOCATION_DESC_TWO = " " + PREFIX_OCCASIONLOCATION + VALID_OCCASIONLOCATION_TWO;
     public static final String TAG_DESC_STUDY = " " + PREFIX_TAG + VALID_TAG_STUDY;
     public static final String TAG_DESC_SLEEP = " " + PREFIX_TAG + VALID_TAG_SLEEP;
 
     public static final String INVALID_OCCASIONNAME_DESC =
-            " " + PREFIX_OCCASION_NAME + "Exam!"; // '!' not allowed in names
+            " " + PREFIX_OCCASIONNAME + "Exam!"; // '!' not allowed in names
     public static final String INVALID_OCCASIONDATE_DESC =
-            " " + PREFIX_OCCASION_DATE + "2015-201-10"; // YYYY-MM-DD format used, not YYYY-DD-MM
+            " " + PREFIX_OCCASIONDATE + "2015-201-10"; // YYYY-MM-DD format used, not YYYY-DD-MM
     // TODO: OccasionDate can not detect invalid month.
-    public static final String INVALID_OCCASIONLOCATION_DESC = " " + PREFIX_OCCASION_LOCATION + "SR"; // not 3-20 chars
+    public static final String INVALID_OCCASIONLOCATION_DESC = " " + PREFIX_OCCASIONLOCATION + "SR"; // not 3-20 chars
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "HOORAY!"; // '!' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

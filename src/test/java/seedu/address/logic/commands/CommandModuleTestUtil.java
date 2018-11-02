@@ -34,7 +34,7 @@ public class CommandModuleTestUtil {
     public static final String VALID_SEMESTER_CS2100 = "1";
     public static final String VALID_SEMESTER_ST2131 = "2";
     public static final String VALID_TAG_BINARY = "binary";
-    public static final String VALID_TAG_CALCULUS = "needs calculus";
+    public static final String VALID_TAG_CALCULUS = "calculus";
 
     public static final String MODULECODE_DESC_CS2100 = " " + PREFIX_MODULECODE + VALID_MODULECODE_CS2100;
     public static final String MODULECODE_DESC_ST2131 = " " + PREFIX_MODULECODE + VALID_MODULECODE_ST2131;

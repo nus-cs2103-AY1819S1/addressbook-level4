@@ -37,7 +37,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditModuleCommand extends Command {
 
-    public static final String COMMAND_WORD = "editModule";
+    public static final String COMMAND_WORD = "editmodule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the module identified "
             + "by the module code used in the displayed module list. "

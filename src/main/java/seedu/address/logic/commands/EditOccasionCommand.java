@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
 
@@ -31,20 +31,20 @@ import seedu.address.model.tag.Tag;
  */
 public class EditOccasionCommand extends Command {
 
-    public static final String COMMAND_WORD = "editOccasion";
+    public static final String COMMAND_WORD = "editoccasion";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the occasion identified "
             + "by the index number used in the displayed occasion list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_OCCASION_NAME + "OCCASION NAME] "
-            + "[" + PREFIX_OCCASION_DATE + "OCCASION DATE] "
-            + "[" + PREFIX_OCCASION_LOCATION + "OCCASION LOCATION] "
+            + "[" + PREFIX_OCCASIONNAME + "OCCASION NAME] "
+            + "[" + PREFIX_OCCASIONDATE + "OCCASION DATE] "
+            + "[" + PREFIX_OCCASIONLOCATION + "OCCASION LOCATION] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_OCCASION_NAME + "Barbecue "
-            + PREFIX_OCCASION_DATE + "2019-6-17 "
-            + PREFIX_OCCASION_LOCATION + "NUS";
+            + PREFIX_OCCASIONNAME + "Barbecue "
+            + PREFIX_OCCASIONDATE + "2019-6-17 "
+            + PREFIX_OCCASIONLOCATION + "NUS";
 
     public static final String MESSAGE_EDIT_OCCASION_SUCCESS = "Edited Occasion: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

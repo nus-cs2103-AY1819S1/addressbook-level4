@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Collection;
@@ -33,24 +33,24 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
      */
     public AddOccasionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_OCCASION_LOCATION,
+                ArgumentTokenizer.tokenize(args, PREFIX_OCCASIONNAME, PREFIX_OCCASIONDATE, PREFIX_OCCASIONLOCATION,
                         PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASIONNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOccasionCommand.MESSAGE_USAGE));
         }
 
         OccasionDescriptor addOccasionDescriptor = new OccasionDescriptor();
 
-        OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
+        OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASIONNAME).get());
         addOccasionDescriptor.setOccasionName(occasionName);
-        if (argMultimap.getValue(PREFIX_OCCASION_DATE).isPresent()) {
-            OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
+        if (argMultimap.getValue(PREFIX_OCCASIONDATE).isPresent()) {
+            OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASIONDATE).get());
             addOccasionDescriptor.setOccasionDate(occasionDate);
-        } else if (argMultimap.getValue(PREFIX_OCCASION_LOCATION).isPresent()) {
+        } else if (argMultimap.getValue(PREFIX_OCCASIONLOCATION).isPresent()) {
             OccasionLocation location = ParserUtil.parseOccasionLocation(argMultimap
-                    .getValue(PREFIX_OCCASION_LOCATION).get());
+                    .getValue(PREFIX_OCCASIONLOCATION).get());
             addOccasionDescriptor.setOccasionLocation(location);
         }
         parseTagsForAdd(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(addOccasionDescriptor::setTags);
