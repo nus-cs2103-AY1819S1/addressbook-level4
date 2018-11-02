@@ -76,15 +76,15 @@ public class ViewDoctorCommandTest {
      * Executes a {@code ViewDoctorCommand} with the given {@code name}, and checks
      * that {@code PersonPanelSelectionChangedEvent} is raised with the correct name.
      */
-    private void assertExecutionSuccess(Doctor Doctor) {
-        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(Doctor.getName());
-        String expectedMessage = String.format(ViewDoctorCommand.MESSAGE_SUCCESS, Doctor.getName().toString());
+    private void assertExecutionSuccess(Doctor doctor) {
+        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(doctor.getName());
+        String expectedMessage = String.format(ViewDoctorCommand.MESSAGE_SUCCESS, doctor.getName());
 
         assertCommandSuccess(viewDoctorCommand, model, commandHistory, expectedMessage, expectedModel);
 
         PersonPanelSelectionChangedEvent lastEvent =
                 (PersonPanelSelectionChangedEvent) eventsCollectorRule.eventsCollector.getMostRecent();
-        assertEquals(Doctor, lastEvent.getNewSelection());
+        assertEquals(doctor, lastEvent.getNewSelection());
     }
 
     /**
