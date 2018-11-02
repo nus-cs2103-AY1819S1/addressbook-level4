@@ -228,12 +228,20 @@ Format: `filterByEducation [education level]`
 Examples:
 
 * `filterByEducation Secondary`
-returns a list of students whose Education level is Secondary.
+returns a list of students whose Education level is Secondary.(no matter
+ which year he or she is in)
+
+* `filterByEducation JC`
+returns a list of students whose Education level is JC.(no matter which year
+he or she is in)
 
 [NOTE]
 ====
 If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
+
+The input of the education level must be "JC" "Secondary" or "Primary"
+Other input will be considered invalid input.
 ====
 
 === Making list by limit fee command: `filterByGrade`
@@ -243,7 +251,7 @@ Format: `filterByGrade [minimum grade] [maximum grade]`
 
 ****
 * filter result: A list containing students with grades which fall between the minimum and
-maximum grade.
+maximum grade(both included).
 ****
 
 Examples:
@@ -253,6 +261,9 @@ returns a list of students whose has grade within 50 and 100.
 
 [NOTE]
 ====
+If the input minimal grade is larger than maximal grade, then it will be regarded as
+the range between maximal and minimal grade.
+
 If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
@@ -273,6 +284,9 @@ returns the student whose has tuition time in monday 1300-1400.
 
 [NOTE]
 ====
+The time must be followed as format like "mon 1300 1400"
+and only "mon" "tue" "wed" "thu" "fri" "sun" "sat" are considered valid date.
+
 If no student qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
