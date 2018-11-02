@@ -595,18 +595,25 @@ e.g. `maxSchedule 0 1 2 3`
 === Event organiser commands
 ​* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
 e.g. `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent`
+
 ​* *Delete Event* : `deleteEvent INDEX` +
 e.g. `deleteEvent 1`
+
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
+
 * *Add Option* : `addOption i/POLL_INDEX o/POLL_OPTION` +
 e.g. `addOption i/1 o/Play games`
+
 * *Add Time Poll* : `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR` +
 e.g. `addTimePoll d1/01-12-2018 d2/02-12-2018`
+
 * *Display Poll* : `displayPoll INDEX` +
 e.g. `displayPoll 1`
+
 * *Set Event Date* : `setDate d/DAY-MONTH-YEAR` +
 e.g. `setDate d/12-12-2018`
+
 * *Set Event Time* : `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE` +
 e.g. `setTime t1/12:30 t2/13:45`
 
