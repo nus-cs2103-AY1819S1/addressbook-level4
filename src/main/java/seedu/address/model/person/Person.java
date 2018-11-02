@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -35,6 +36,20 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
     }
+
+    /**
+     * Create a person from a personDescriptor
+     * @param personDescriptor
+     */
+    public Person(PersonDescriptor personDescriptor) {
+        requireNonNull(personDescriptor);
+        this.name = personDescriptor.getName().orElse(new Name());
+        this.phone = personDescriptor.getPhone().orElse(new Phone());
+        this.email = personDescriptor.getEmail().orElse(new Email());
+        this.address = personDescriptor.getAddress().orElse(new Address());
+        this.tags.addAll(personDescriptor.getTags().orElse(new HashSet<Tag>()));
+    }
+
 
     public Name getName() {
         return name;

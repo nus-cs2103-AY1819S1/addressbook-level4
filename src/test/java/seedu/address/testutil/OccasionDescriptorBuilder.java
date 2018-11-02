@@ -4,9 +4,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditOccasionCommand.EditOccasionDescriptor;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionDescriptor;
 import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
@@ -14,23 +14,23 @@ import seedu.address.model.tag.Tag;
 /**
  * A utility class to help with building EditOccasionDescriptor objects.
  */
-public class EditOccasionDescriptorBuilder {
+public class OccasionDescriptorBuilder {
 
-    private EditOccasionDescriptor descriptor;
+    private OccasionDescriptor descriptor;
 
-    public EditOccasionDescriptorBuilder() {
-        descriptor = new EditOccasionDescriptor();
+    public OccasionDescriptorBuilder() {
+        descriptor = new OccasionDescriptor();
     }
 
-    public EditOccasionDescriptorBuilder(EditOccasionDescriptor descriptor) {
-        this.descriptor = new EditOccasionDescriptor(descriptor);
+    public OccasionDescriptorBuilder(OccasionDescriptor descriptor) {
+        this.descriptor = new OccasionDescriptor(descriptor);
     }
 
     /**
      * Returns an {@code EditOccasionDescriptor} with fields containing {@code Occasion}'s details
      */
-    public EditOccasionDescriptorBuilder(Occasion occasion) {
-        descriptor = new EditOccasionDescriptor();
+    public OccasionDescriptorBuilder(Occasion occasion) {
+        descriptor = new OccasionDescriptor();
         descriptor.setOccasionName(occasion.getOccasionName());
         descriptor.setOccasionDate(occasion.getOccasionDate());
         descriptor.setOccasionLocation(occasion.getOccasionLocation());
@@ -40,7 +40,7 @@ public class EditOccasionDescriptorBuilder {
     /**
      * Sets the {@code OccasionName} of the {@code EditOccasionDescriptor} that we are building.
      */
-    public EditOccasionDescriptorBuilder withOccasionName(String name) {
+    public OccasionDescriptorBuilder withOccasionName(String name) {
         descriptor.setOccasionName(new OccasionName(name));
         return this;
     }
@@ -48,7 +48,7 @@ public class EditOccasionDescriptorBuilder {
     /**
      * Sets the {@code OccasionDate} of the {@code EditOccasionDescriptor} that we are building.
      */
-    public EditOccasionDescriptorBuilder withOccasionDate(String phone) {
+    public OccasionDescriptorBuilder withOccasionDate(String phone) {
         descriptor.setOccasionDate(new OccasionDate(phone));
         return this;
     }
@@ -56,7 +56,7 @@ public class EditOccasionDescriptorBuilder {
     /**
      * Sets the {@code OccasionLocation} of the {@code EditOccasionDescriptor} that we are building.
      */
-    public EditOccasionDescriptorBuilder withOccasionLocation(String email) {
+    public OccasionDescriptorBuilder withOccasionLocation(String email) {
         descriptor.setOccasionLocation(new OccasionLocation(email));
         return this;
     }
@@ -65,13 +65,13 @@ public class EditOccasionDescriptorBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditOccasionDescriptor}
      * that we are building.
      */
-    public EditOccasionDescriptorBuilder withTags(String... tags) {
+    public OccasionDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
         return this;
     }
 
-    public EditOccasionDescriptor build() {
+    public OccasionDescriptor build() {
         return descriptor;
     }
 }

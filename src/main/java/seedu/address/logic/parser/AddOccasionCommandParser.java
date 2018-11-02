@@ -6,14 +6,17 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.commands.AddOccasionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionDescriptor;
 import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
@@ -33,18 +36,26 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_OCCASION_LOCATION,
                         PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME, PREFIX_OCCASION_DATE, PREFIX_OCCASION_LOCATION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_OCCASION_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOccasionCommand.MESSAGE_USAGE));
         }
 
-        OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
-        OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
-        OccasionLocation location = ParserUtil.parseOccasionLocation(
-                argMultimap.getValue(PREFIX_OCCASION_LOCATION).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        OccasionDescriptor addOccasionDescriptor = new OccasionDescriptor();
 
-        Occasion occasion = new Occasion(occasionName, occasionDate, location, tagList, TypeUtil.OCCASION);
+        OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASION_NAME).get());
+        addOccasionDescriptor.setOccasionName(occasionName);
+        if (argMultimap.getValue(PREFIX_OCCASION_DATE).isPresent()) {
+            OccasionDate occasionDate = ParserUtil.parseOccasionDate(argMultimap.getValue(PREFIX_OCCASION_DATE).get());
+            addOccasionDescriptor.setOccasionDate(occasionDate);
+        } else if (argMultimap.getValue(PREFIX_OCCASION_LOCATION).isPresent()) {
+            OccasionLocation location = ParserUtil.parseOccasionLocation(argMultimap
+                    .getValue(PREFIX_OCCASION_LOCATION).get());
+            addOccasionDescriptor.setOccasionLocation(location);
+        }
+        parseTagsForAdd(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(addOccasionDescriptor::setTags);
+
+        Occasion occasion = new Occasion(addOccasionDescriptor);
         return new AddOccasionCommand(occasion);
     }
 
@@ -57,4 +68,18 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Tag>} containing zero tags.
+     */
+    private Optional<Set<Tag>> parseTagsForAdd(Collection<String> tags) throws ParseException {
+        assert tags != null;
+
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagSet));
+    }
 }

@@ -9,8 +9,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddModuleCommand;
-import seedu.address.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,7 +42,7 @@ public class ModuleUtil {
     /**
      * Returns the part of command string for the given {@code EditModuleDescriptor}'s details.
      */
-    public static String getEditModuleDescriptorDetails(EditModuleDescriptor descriptor) {
+    public static String getEditModuleDescriptorDetails(ModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getModuleCode().ifPresent(name -> sb.append(PREFIX_MODULECODE)
                 .append(name.fullModuleCode).append(" "));

@@ -21,6 +21,13 @@ public class Address {
     public final String value;
 
     /**
+     * Empty constructor.
+     */
+    public Address() {
+        value = "";
+    }
+
+    /**
      * Constructs an {@code Address}.
      *
      * @param address A valid address.

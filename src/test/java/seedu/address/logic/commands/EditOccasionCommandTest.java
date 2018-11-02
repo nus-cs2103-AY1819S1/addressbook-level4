@@ -20,13 +20,13 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.EditOccasionCommand.EditOccasionDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.occasion.Occasion;
-import seedu.address.testutil.EditOccasionDescriptorBuilder;
+import seedu.address.model.occasion.OccasionDescriptor;
+import seedu.address.testutil.OccasionDescriptorBuilder;
 import seedu.address.testutil.OccasionBuilder;
 
 /**
@@ -41,7 +41,7 @@ public class EditOccasionCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Occasion editedOccasion = new OccasionBuilder().build();
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder(editedOccasion).build();
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder(editedOccasion).build();
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(INDEX_FIRST_OCCASION, descriptor);
 
         String expectedMessage = String.format(EditOccasionCommand.MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion);
@@ -62,7 +62,7 @@ public class EditOccasionCommandTest {
         Occasion editedOccasion = personInList.withOccasionName(VALID_OCCASIONNAME_TWO)
                 .withOccasionDate(VALID_OCCASIONDATE_TWO).withTags(VALID_TAG_STUDY).build();
 
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
                 .withOccasionDate(VALID_OCCASIONDATE_TWO).withTags(VALID_TAG_STUDY).build();
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(indexLastOccasion, descriptor);
 
@@ -78,7 +78,7 @@ public class EditOccasionCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditOccasionCommand editOccasionCommand =
-                new EditOccasionCommand(INDEX_FIRST_OCCASION, new EditOccasionDescriptor());
+                new EditOccasionCommand(INDEX_FIRST_OCCASION, new OccasionDescriptor());
         Occasion editedOccasion = model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased());
 
         String expectedMessage = String.format(EditOccasionCommand.MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion);
@@ -97,7 +97,7 @@ public class EditOccasionCommandTest {
         Occasion editedOccasion = new OccasionBuilder(personInFilteredList)
                 .withOccasionName(VALID_OCCASIONNAME_TWO).build();
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(INDEX_FIRST_OCCASION,
-                new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO).build());
+                new OccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO).build());
 
         String expectedMessage = String.format(EditOccasionCommand.MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion);
 
@@ -111,7 +111,7 @@ public class EditOccasionCommandTest {
     @Test
     public void execute_duplicateOccasionUnfilteredList_failure() {
         Occasion firstOccasion = model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased());
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder(firstOccasion).build();
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder(firstOccasion).build();
         EditOccasionCommand editOccasionCommand =
                 new EditOccasionCommand(INDEX_SECOND_OCCASION, descriptor);
 
@@ -127,7 +127,7 @@ public class EditOccasionCommandTest {
         Occasion occasionInList = model.getAddressBook().getOccasionList()
                 .get(INDEX_SECOND_OCCASION.getZeroBased());
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(INDEX_FIRST_OCCASION,
-                new EditOccasionDescriptorBuilder(occasionInList).build());
+                new OccasionDescriptorBuilder(occasionInList).build());
 
         assertCommandFailure(editOccasionCommand, model, commandHistory,
                 EditOccasionCommand.MESSAGE_DUPLICATE_OCCASION);
@@ -136,7 +136,7 @@ public class EditOccasionCommandTest {
     @Test
     public void execute_invalidOccasionIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOccasionList().size() + 1);
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder()
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder()
                 .withOccasionName(VALID_OCCASIONNAME_TWO).build();
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(outOfBoundIndex, descriptor);
 
@@ -156,7 +156,7 @@ public class EditOccasionCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getOccasionList().size());
 
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(outOfBoundIndex,
-                new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO).build());
+                new OccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO).build());
 
         assertCommandFailure(editOccasionCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_OCCASION_DISPLAYED_INDEX);
@@ -166,7 +166,7 @@ public class EditOccasionCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Occasion editedOccasion = new OccasionBuilder().build();
         Occasion personToEdit = model.getFilteredOccasionList().get(INDEX_FIRST_OCCASION.getZeroBased());
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder(editedOccasion).build();
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder(editedOccasion).build();
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(INDEX_FIRST_OCCASION, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateOccasion(personToEdit, editedOccasion);
@@ -187,7 +187,7 @@ public class EditOccasionCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOccasionList().size() + 1);
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder()
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder()
                 .withOccasionName(VALID_OCCASIONNAME_TWO).build();
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(outOfBoundIndex, descriptor);
 
@@ -210,7 +210,7 @@ public class EditOccasionCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameOccasionEdited() throws Exception {
         Occasion editedOccasion = new OccasionBuilder().build();
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder(editedOccasion).build();
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder(editedOccasion).build();
         EditOccasionCommand editOccasionCommand = new EditOccasionCommand(INDEX_FIRST_OCCASION, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
@@ -237,7 +237,7 @@ public class EditOccasionCommandTest {
         final EditOccasionCommand standardCommand = new EditOccasionCommand(INDEX_FIRST_OCCASION, DESC_ONE);
 
         // same values -> returns true
-        EditOccasionDescriptor copyDescriptor = new EditOccasionDescriptor(DESC_ONE);
+        OccasionDescriptor copyDescriptor = new OccasionDescriptor(DESC_ONE);
         EditOccasionCommand commandWithSameValues = new EditOccasionCommand(INDEX_FIRST_OCCASION, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 

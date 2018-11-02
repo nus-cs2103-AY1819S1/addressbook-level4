@@ -30,6 +30,13 @@ public class Email {
     public final String value;
 
     /**
+     * Empty constructor.
+     */
+    public Email() {
+        value = "";
+    }
+
+    /**
      * Constructs an {@code Email}.
      *
      * @param email A valid email address.
