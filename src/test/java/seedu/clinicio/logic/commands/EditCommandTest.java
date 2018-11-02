@@ -167,7 +167,7 @@ public class EditCommandTest {
         expectedModel.commitClinicIo();
 
         // edit -> first person edited
-        editCommand.execute(model, commandHistory, analytics);
+        editCommand.execute(model, commandHistory);
 
         // undo -> reverts ClinicIO back to previous state and filtered person list to show all persons
         expectedModel.undoClinicIo();
@@ -215,7 +215,7 @@ public class EditCommandTest {
         expectedModel.commitClinicIo();
 
         // edit -> edits second person in unfiltered person list / first person in filtered person list
-        editCommand.execute(model, commandHistory, analytics);
+        editCommand.execute(model, commandHistory);
 
         // undo -> reverts ClinicIO back to previous state and filtered person list to show all persons
         expectedModel.undoClinicIo();

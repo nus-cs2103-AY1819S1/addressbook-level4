@@ -8,10 +8,11 @@ import java.util.regex.Pattern;
 
 import seedu.clinicio.logic.commands.AddApptCommand;
 import seedu.clinicio.logic.commands.AddCommand;
-import seedu.clinicio.logic.commands.AveragesCommand;
+import seedu.clinicio.logic.commands.AppointmentStatisticsCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.Command;
 import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.DoctorStatisticsCommand;
 import seedu.clinicio.logic.commands.EditCommand;
 import seedu.clinicio.logic.commands.ExitCommand;
 import seedu.clinicio.logic.commands.ExportPatientsAppointmentsCommand;
@@ -23,11 +24,15 @@ import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.commands.LogoutCommand;
+import seedu.clinicio.logic.commands.MedicineStatisticsCommand;
+import seedu.clinicio.logic.commands.PatientStatisticsCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
-import seedu.clinicio.logic.commands.TotalsCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
+
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+
+
 
 /**
  * Parses user input.
@@ -89,11 +94,17 @@ public class ClinicIoParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-        case AveragesCommand.COMMAND_WORD:
-            return new AveragesCommand();
+        case PatientStatisticsCommand.COMMAND_WORD:
+            return new PatientStatisticsCommand();
 
-        case TotalsCommand.COMMAND_WORD:
-            return new TotalsCommand();
+        case AppointmentStatisticsCommand.COMMAND_WORD:
+            return new AppointmentStatisticsCommand();
+
+        case DoctorStatisticsCommand.COMMAND_WORD:
+            return new DoctorStatisticsCommand();
+
+        case MedicineStatisticsCommand.COMMAND_WORD:
+            return new MedicineStatisticsCommand();
 
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
