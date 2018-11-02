@@ -145,8 +145,10 @@ public class PatientBuilder {
     /**
      * Adds one {@code appointment} of the {@code Patient} that we are building
      */
-    public PatientBuilder withAppointment(Appointment appointment) {
-        upcomingAppointments.add(appointment);
+    public PatientBuilder withAppointment(Appointment ... allAppointments) {
+        for (Appointment appointment : allAppointments) {
+            upcomingAppointments.add(appointment);
+        }
         return this;
     }
 

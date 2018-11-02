@@ -111,8 +111,10 @@ public class DoctorBuilder {
     /**
      * Adds an {@code Appointment} of the {@code Doctor} that we are building
      */
-    public DoctorBuilder withAppointment(Appointment appointment) {
-        upcomingAppointments.add(appointment);
+    public DoctorBuilder withAppointment(Appointment ... allAppointments) {
+        for (Appointment appointment : allAppointments) {
+            upcomingAppointments.add(appointment);
+        }
         return this;
     }
 
