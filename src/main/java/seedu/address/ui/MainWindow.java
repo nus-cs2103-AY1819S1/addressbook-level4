@@ -40,7 +40,6 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
 
     private ContextIndicator contextIndicator;
     private VolunteerListPanel volunteerListPanel;
@@ -135,13 +134,11 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-
         volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
         volunteerPanel = new VolunteerPanel();
+        browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
         eventPanel = new EventPanel(logic.getFilteredRecordList());
         recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredVolunteerList());
 
@@ -243,10 +240,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public EventListPanel getEventListPanel() {
         return eventListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
 

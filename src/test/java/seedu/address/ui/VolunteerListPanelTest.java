@@ -101,7 +101,7 @@ public class VolunteerListPanelTest extends GuiUnitTest {
             builder.append("<volunteerId>").append(i + 1).append("</volunteerId>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<gender>m</gender>\n");
-            builder.append("<birthday>01-01-2001</birthday>\n");
+            builder.append("<birthday>01-01-1991</birthday>\n");
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
