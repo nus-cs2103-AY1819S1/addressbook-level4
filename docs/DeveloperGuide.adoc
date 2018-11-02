@@ -517,6 +517,7 @@ image::addressbookObject.png[width="350"]
 The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
 // end::addressbook[]
 
+// tag::sortfind[]
 === Sort and Find feature
 
 The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to. This section will
@@ -524,41 +525,11 @@ detail how the sort and find commands are implemented.
 
 ==== `sort` command usage
 
-The `sort` command allows the user to sort the displayed persons list according to each person's name, email,
-phone number, or address by alphanumerical order. This command is executed with the following syntax: +
-
-Syntax: `sort [name|phone|email|address]` +
-
-Example: `sort name`: This command will sort the current displayed list by name by alphanumerical order.
+include::UserGuide.adoc[tag=sort]
 
 ==== `find` command usage
 
-The `find` command allows the user to filter the displayed persons list by each person's name based on
-keywords given by the user. This command is executed with the following syntax: +
-
-Syntax: `find [a/<keywords>] [s/<keywords>] [n/<keywords>]` +
-
-The user can include as many keywords as desired in `<keywords>` separated by a kbd:[space].
-The keywords are case-insensitive. +
-
-The `a/`, `s/`, and `n/` prefixes allows the user to include further specifications. They function as such: +
-
-* `a/`: The results displayed must match all of the keywords following this prefix.
-* `s/`: The results displayed must match some (at least one) of the keywords following this prefix.
-* `n/`: The results displayed must match none of the keywords following this prefix.
-
-Example: `find a/alice bob s/shirlene david n/charlie`: This command will filter the displayed list such that all
-results will contain "alice" and "bob", either "shirlene" or "david", and none of the results will contain
-"charlie". +
-
-If the user doesn't use prefixes. With the following syntax: +
-
-Syntax: `find <keywords>` +
-
-The command is equivalent to `find a/<keywords>` by default. +
-
-Example: `find mary john`: This command will filter the displayed list such that all results will contain "mary" and
-"john". This command is equivalent to `find a/mary john`.
+include::UserGuide.adoc[tag=find]
 
 ==== Implementation of `sort` and `find` commands
 
@@ -588,6 +559,7 @@ Similarly, when a user executes a `sort` command, an appropriate `Comparator<Per
 
 Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
 list.
+// end::sortfind[]
 
 // tag::undoredo[]
 === Undo/Redo feature
