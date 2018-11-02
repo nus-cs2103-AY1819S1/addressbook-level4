@@ -540,25 +540,26 @@ Format: `manage EVENT_INDEX`
 
 Example(s):
 
-* `manage 1` +
-View the list of volunteers assigned to event at index 1.
+* `switch -e` (panel updates to show list of events) +
+`manage 1` (view the list of volunteers assigned to event at index 1) +
+See the figures below for a step by step guide.
 
-.Panel of events
-image::command_record_manage_eventIndex.png[view events, 200]
+.Execute `switch -e`
+image::command_switch.png[switch execution, 600]
 
-The figure above shows the 'event' panel that you will see before executing the `manage` command.
-The circled numbers indicate the EVENT_INDEX that you have to enter.
+.`manage 1` targets the event at index 1
+image::command_record_manage_eventIndex.png[switch execution, 200]
 
-.Managing the selected event
+.Labelled screenshot of what to expect after executing `manage 1`
 image::command_manage_view.png[manage, 600]
 
-The figure above shows the screen you will see after executing the `manage` command successfully.
+The last figure shows the screen you will see after executing the `manage` command successfully.
 
 The following changes are observed:
 
 1. Panel displays the list of volunteers that you can assign to an event.
-2. Name of event being managed and total number of volunteers assigned to event shown in the upper portion of the display box.
-3. List of volunteers currently assigned to the event.
+2. Name of event being managed and total number of volunteers assigned to it.
+3. List of volunteers currently assigned to the event. It will be empty if no volunteers are assigned.
 
 [[command-record-add]]
 ==== Adding volunteer to event: `add`
