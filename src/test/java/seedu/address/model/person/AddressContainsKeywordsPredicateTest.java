@@ -52,7 +52,7 @@ public class AddressContainsKeywordsPredicateTest {
 
     @Test
     public void testAddressDoesNotContainKeywordsReturnsFalse() {
-        AddressContainsKeywordsPredicate predicate = new AddressContainsKeywordsPredicate(Collections.emptyList());
+        AddressContainsKeywordsPredicate predicate;
 
         // Non-matching keyword
         predicate = new AddressContainsKeywordsPredicate(Arrays.asList("12345678"));

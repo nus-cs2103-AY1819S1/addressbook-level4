@@ -70,7 +70,7 @@ public class StringUtilTest {
             Optional<String> errorMessage) {
         thrown.expect(exceptionClass);
         errorMessage.ifPresent(message -> thrown.expectMessage(message));
-        StringUtil.containsWordIgnoreCase(sentence, word);
+        StringUtil.containsWordIgnoreCaseAndFuzzyAddress(sentence, word);
     }
 
     @Test
@@ -116,25 +116,80 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_validInputs_correctResult() {
+    public void containsWordIgnoreCaseAndFuzzy_validInputs_correctResult() {
 
         // Empty sentence
-        assertFalse(StringUtil.containsWordIgnoreCase("", "abc")); // Boundary case
-        assertFalse(StringUtil.containsWordIgnoreCase("    ", "123"));
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyName("", "abc")); // Boundary case
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyName("    ", "123"));
 
         // Matches a partial word only
-        assertFalse(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
-        assertFalse(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyName("aaa bbb ccc", "bb"));
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyName("aaa bbb ccc", "bbbb"));
 
         // Matches word in the sentence, different upper/lower case letters
-        assertTrue(StringUtil.containsWordIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
-        assertTrue(StringUtil.containsWordIgnoreCase("aaa bBb ccc@1", "CCc@1")); // Last word (boundary case)
-        assertTrue(StringUtil.containsWordIgnoreCase("  AAA   bBb   ccc  ", "aaa")); // Sentence has extra spaces
-        assertTrue(StringUtil.containsWordIgnoreCase("Aaa", "aaa")); // Only one word in sentence (boundary case)
-        assertTrue(StringUtil.containsWordIgnoreCase("aaa bbb ccc", "  ccc  ")); // Leading/trailing spaces
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyName("aaa bBb ccc", "Bbb"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyName("aaa bBb ccc@1", "CCc@1"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyName("  AAA   bBb   ccc  ", "aaa"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyName("Aaa", "aaa"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyName("aaa bbb ccc", "  ccc  "));
 
         // Matches multiple words in sentence
-        assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyName("AAA bBb ccc  bbb", "bbB"));
+
+        //@@author LZYAndy
+        // Empty sentence
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("", "abcdef")); // Boundary case
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("    ", "123def"));
+
+        // Matches a partial word only
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("aaa bbb ccc", "bb"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("aaa bbb ccc", "bbbb"));
+
+        // Matches word in the sentence, different upper/lower case letters
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("aaa bBb ccc", "Bbb"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("aaa bBb ccc@1", "CCc@1"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("  AAA   bBb   ccc  ", "aaa"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("Aaa", "aaa"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("aaa bbb ccc", "  ccc  "));
+
+        // Matches multiple words in sentence
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyEmail("AAA bBb ccc  bbb", "bbB"));
+
+        // Empty sentence
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("", "abc")); // Boundary case
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("    ", "123"));
+
+        // Matches a partial word only
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("aaa bbb ccc", "bb"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("aaa bbb ccc", "bbbb"));
+
+        // Matches word in the sentence, different upper/lower case letters
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("aaa bBb ccc", "Bbb"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("aaa bBb ccc@1", "CCc@1"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("Aaa", "aaa"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("aaa bbb ccc", "  ccc  "));
+
+        // Matches multiple words in sentence
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyPhone("AAA bBb ccc  bbb", "bbB"));
+
+        // Empty sentence
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("", "abc")); // Boundary case
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("    ", "123"));
+
+        // Matches a partial word only
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("aaa bbb ccc", "bb"));
+        assertFalse(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("aaa bbb ccc", "bbbb"));
+
+        // Matches word in the sentence, different upper/lower case letters
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("aaa bBb ccc", "Bbb"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("aaa bBb ccc@1", "CCc@1"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("  AAA   bBb   ccc  ", "aaa"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("Aaa", "aaa"));
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("aaa bbb ccc", "  ccc  "));
+
+        // Matches multiple words in sentence
+        assertTrue(StringUtil.containsWordIgnoreCaseAndFuzzyAddress("AAA bBb ccc  bbb", "bbB"));
+        //@@author LZYAndy
     }
 
     //---------------- Tests for getDetails --------------------------------------
