@@ -129,35 +129,71 @@ Removes the group with title 'CS2103T', which is added previously, from MeetingB
 * `deleteGroup n/Discussion Group 1` +
 Removes the group with title 'Discussion Group 1', which is added previously, from MeetingBook.
 
+// tag::sort[]
+=== Sorting the list of displayed persons: `sort`
+
+The `sort` command sorts the list in the display of persons.
+The user can specify whether to sort by name, phone number, email address, or home address,
+in lexicographical order or numerical order. +
+
+Format: +
+`sort [name|phone|email|address]` +
+
+****
+* `[name|phone|email|address]`: this parameter specifies whether to sort by name, phone, email
+address, or home address in lexicographical order or numerical order.
+****
+
+Examples: +
+* `sort name`: Sorts the list of persons by name in lexicographical order.
+* `sort phone`: Sorts the list of persons by phone number in numerical order.
+* `sort email`: Sorts the list of persons by email address in lexicographical order.
+* `sort address`: Sorts the list of persons by home address in lexicographical order.
+// end::sort[]
+
+// tag::find[]
 === Finding a group / person / meeting: `find`
 
 The `find` command searches the MeetingBook for specified person, group, or meeting, and displays the results on
 the panel. +
 
-Syntax: +
- Longhand: `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>` +
- Shorthand: `find [p|g|m] *[a]/<keyword...> *[s]/<keywords> *[n]/<keywords>` +
+Format: +
+ `find [person|p|group|g|meeting|m] [a/keywords] [s/keywords] [n/keywords]` +
 
-* `[person|group|meeting]`, `[p|g|m]`: This parameter specifies whether to search for persons, groups, or meetings.
+****
+* `[person|group|meeting]`, `[p|g|m]`: this parameter specifies whether to search for persons, groups, or meetings.
     This parameter is required to execute this command.
-    ** `person`, `p`: Specifies to search for persons.
-    ** `group`, `g`: Specifies to search for groups.
-    ** `meeting`, `m`: Specifies to search for meetings.
-* `<keywords>`: This tag contains any number of keywords separated by a kbd:[space].
-* `[all]`, `[a]`: This parameter specifies that the results must contain every keyword specified in `<keywords>`.
+    ** `person`, `p`: specifies to search for persons.
+    ** `group`, `g`: specifies to search for groups.
+    ** `meeting`, `m`: specifies to search for meetings.
+* `keywords`: this tag contains any number of keywords separated by a kbd:[space].
+* `[all]`, `[a]`: this parameter specifies that the results must contain every keyword specified in `<keywords>`.
     This parameter may be omitted.
-* `[some]`, `[s]`: This parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
+* `[some]`, `[s]`: this parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
     This parameter may be omitted.
-* `[none]`, `[n]`: This parameter specifies that the results must not contain any keyword specified in `<keywords>`.
+* `[none]`, `[n]`: this parameter specifies that the results must not contain any keyword specified in `<keywords>`.
     This parameter may be omitted.
+****
 
-The “then” keyword:
+Shorthand: `find [person|p|group|g|meeting|m] [keywords]`
+****
+* When the shorthand format is used, the keywords will be placed in the `a/` parameter.
+****
 
-If “then [Command]”  is inserted after find, the [Command] will be applied to all results of the find command.
-[Command] can be replaced with either changeto, delete, or markdone.
+Examples: +
 
-Thus it is possible to run commands like
-“in CS2101 findwhere then delete” to delete every task under CS2101
+* `find person Abby`: finds all persons whose name contains `Abby`. +
+* `find p Betty Charles`: finds all persons whose name contains `Betty` and `Charles`. +
+* `find p s/David Eric n/James`: finds all persons whose name contains one of `David` or `Eric`,
+and whose name does not contain `James`. +
+* `find group project`: finds all groups whose title contains `project`. +
+* `find g a/team n/school`: finds all groups whose title contains `team` and whose title
+does not contain `school`. +
+* `find meeting s/official important`: finds all meetings whose title contains one of
+`official` or `important`.
+* `find m a/urgent n/basketball`: finds all meetings whose titles contains `urgent` and
+whose title does not contain `basketball`.
+// end::find[]
 
 === Selecting a group / person / meeting: `select`
 
