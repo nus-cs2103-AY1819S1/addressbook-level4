@@ -16,16 +16,20 @@ import seedu.lostandfound.model.util.SampleDataUtil;
  */
 public class ArticleBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "Nike Wallet";
+    public static final String DEFAULT_FINDER = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_DESCRIPTION = "123, Jurong West Ave 6, #08-111";
     public static final boolean DEFAULT_ISRESOLVED = false;
+    public static final String DEFAULT_OWNER = "Not Claimed";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Description description;
+    private Name finder;
+    private Name owner;
     private boolean isResolved;
     private Set<Tag> tags;
 
@@ -34,6 +38,8 @@ public class ArticleBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         description = new Description(DEFAULT_DESCRIPTION);
+        finder = new Name(DEFAULT_FINDER);
+        owner = new Name(DEFAULT_OWNER);
         isResolved = DEFAULT_ISRESOLVED;
         tags = new HashSet<>();
     }
@@ -46,6 +52,8 @@ public class ArticleBuilder {
         phone = articleToCopy.getPhone();
         email = articleToCopy.getEmail();
         description = articleToCopy.getDescription();
+        finder = articleToCopy.getFinder();
+        owner = articleToCopy.getOwner();
         isResolved = articleToCopy.getIsResolved();
         tags = new HashSet<>(articleToCopy.getTags());
     }
@@ -83,6 +91,22 @@ public class ArticleBuilder {
     }
 
     /**
+     * Sets the {@code Finder} of the {@code Article} that we are building.
+     */
+    public ArticleBuilder withFinder(String finder) {
+        this.finder = new Name(finder);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Owner} of the {@code Article} that we are building.
+     */
+    public ArticleBuilder withOwner(String owner) {
+        this.owner = new Name(owner);
+        return this;
+    }
+
+    /**
      * Sets the {@code isResolved} of the {@code Article} that we are building.
      */
     public ArticleBuilder withIsResolved(boolean isResolved) {
@@ -99,7 +123,7 @@ public class ArticleBuilder {
     }
 
     public Article build() {
-        return new Article(name, phone, email, description, isResolved, tags);
+        return new Article(name, phone, email, description, finder, owner, isResolved, tags);
     }
 
 }

@@ -36,6 +36,7 @@ public class EditArticleDescriptorBuilder {
         descriptor.setPhone(article.getPhone());
         descriptor.setEmail(article.getEmail());
         descriptor.setDescription(article.getDescription());
+        descriptor.setFinder(article.getFinder());
         descriptor.setTags(article.getTags());
     }
 
@@ -68,6 +69,14 @@ public class EditArticleDescriptorBuilder {
      */
     public EditArticleDescriptorBuilder withDescription(String description) {
         descriptor.setDescription(new Description(description));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Finder} of the {@code EditArticleDescriptor} that we are building.
+     */
+    public EditArticleDescriptorBuilder withFinder(String finder) {
+        descriptor.setFinder(new Name(finder));
         return this;
     }
 

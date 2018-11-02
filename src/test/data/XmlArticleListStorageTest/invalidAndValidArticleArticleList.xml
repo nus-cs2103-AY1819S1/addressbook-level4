@@ -2,16 +2,22 @@
 <articlelist>
     <!-- Valid Article -->
     <articles>
-        <name>Hans Muster</name>
+        <name>Nike Wallet</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <description isPrivate="false">4th street</description>
+		<finder isPrivate="false">Hans Muster</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false"> false</isResolved>
     </articles>
     <!-- Article with invalid phone field -->
     <articles>
-        <name>Hans Muster</name>
+        <name>Nike Wallet</name>
         <phone isPrivate="false">948asdf2424</phone>
         <email isPrivate="false">hans@example.com</email>
         <description isPrivate="false">4th street</description>
+		<finder isPrivate="false">Hans Muster</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false"> false</isResolved>
     </articles>
 </articlelist>

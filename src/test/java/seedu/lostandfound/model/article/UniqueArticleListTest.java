@@ -3,10 +3,10 @@ package seedu.lostandfound.model.article;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
-import static seedu.lostandfound.testutil.TypicalArticles.BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
+import static seedu.lostandfound.testutil.TypicalArticles.BAG;
+import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,20 +34,20 @@ public class UniqueArticleListTest {
 
     @Test
     public void contains_articleNotInList_returnsFalse() {
-        assertFalse(uniqueArticleList.contains(ALICE));
+        assertFalse(uniqueArticleList.contains(BAG));
     }
 
     @Test
     public void contains_articleInList_returnsTrue() {
-        uniqueArticleList.add(ALICE);
-        assertTrue(uniqueArticleList.contains(ALICE));
+        uniqueArticleList.add(BAG);
+        assertTrue(uniqueArticleList.contains(BAG));
     }
 
     @Test
     public void contains_articleWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueArticleList.add(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE)
-                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        uniqueArticleList.add(BAG);
+        Article editedAlice = new ArticleBuilder(BAG)
+                .withDescription(VALID_DESCRIPTION_MOUSE).withTags(VALID_TAG_BLUE)
                 .build();
         assertTrue(uniqueArticleList.contains(editedAlice));
     }
@@ -60,45 +60,45 @@ public class UniqueArticleListTest {
 
     @Test
     public void add_duplicateArticle_throwsDuplicateArticleException() {
-        uniqueArticleList.add(ALICE);
+        uniqueArticleList.add(BAG);
         thrown.expect(DuplicateArticleException.class);
-        uniqueArticleList.add(ALICE);
+        uniqueArticleList.add(BAG);
     }
 
     @Test
     public void setArticle_nullTargetArticle_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueArticleList.setArticle(null, ALICE);
+        uniqueArticleList.setArticle(null, BAG);
     }
 
     @Test
     public void setArticle_nullEditedArticle_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueArticleList.setArticle(ALICE, null);
+        uniqueArticleList.setArticle(BAG, null);
     }
 
     @Test
     public void setArticle_targetArticleNotInList_throwsArticleNotFoundException() {
         thrown.expect(ArticleNotFoundException.class);
-        uniqueArticleList.setArticle(ALICE, ALICE);
+        uniqueArticleList.setArticle(BAG, BAG);
     }
 
     @Test
     public void setArticle_editedArticleIsSameArticle_success() {
-        uniqueArticleList.add(ALICE);
-        uniqueArticleList.setArticle(ALICE, ALICE);
+        uniqueArticleList.add(BAG);
+        uniqueArticleList.setArticle(BAG, BAG);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();
-        expectedUniqueArticleList.add(ALICE);
+        expectedUniqueArticleList.add(BAG);
         assertEquals(expectedUniqueArticleList, uniqueArticleList);
     }
 
     @Test
     public void setArticle_editedArticleHasSameIdentity_success() {
-        uniqueArticleList.add(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE)
-                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        uniqueArticleList.add(BAG);
+        Article editedAlice = new ArticleBuilder(BAG)
+                .withDescription(VALID_DESCRIPTION_MOUSE).withTags(VALID_TAG_BLUE)
                 .build();
-        uniqueArticleList.setArticle(ALICE, editedAlice);
+        uniqueArticleList.setArticle(BAG, editedAlice);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();
         expectedUniqueArticleList.add(editedAlice);
         assertEquals(expectedUniqueArticleList, uniqueArticleList);
@@ -106,19 +106,19 @@ public class UniqueArticleListTest {
 
     @Test
     public void setArticle_editedArticleHasDifferentIdentity_success() {
-        uniqueArticleList.add(ALICE);
-        uniqueArticleList.setArticle(ALICE, BOB);
+        uniqueArticleList.add(BAG);
+        uniqueArticleList.setArticle(BAG, MOUSE);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();
-        expectedUniqueArticleList.add(BOB);
+        expectedUniqueArticleList.add(MOUSE);
         assertEquals(expectedUniqueArticleList, uniqueArticleList);
     }
 
     @Test
     public void setArticle_editedArticleHasNonUniqueIdentity_throwsDuplicateArticleException() {
-        uniqueArticleList.add(ALICE);
-        uniqueArticleList.add(BOB);
+        uniqueArticleList.add(BAG);
+        uniqueArticleList.add(MOUSE);
         thrown.expect(DuplicateArticleException.class);
-        uniqueArticleList.setArticle(ALICE, BOB);
+        uniqueArticleList.setArticle(BAG, MOUSE);
     }
 
     @Test
@@ -130,13 +130,13 @@ public class UniqueArticleListTest {
     @Test
     public void remove_articleDoesNotExist_throwsArticleNotFoundException() {
         thrown.expect(ArticleNotFoundException.class);
-        uniqueArticleList.remove(ALICE);
+        uniqueArticleList.remove(BAG);
     }
 
     @Test
     public void remove_existingArticle_removesArticle() {
-        uniqueArticleList.add(ALICE);
-        uniqueArticleList.remove(ALICE);
+        uniqueArticleList.add(BAG);
+        uniqueArticleList.remove(BAG);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();
         assertEquals(expectedUniqueArticleList, uniqueArticleList);
     }
@@ -149,9 +149,9 @@ public class UniqueArticleListTest {
 
     @Test
     public void setArticles_uniqueArticleList_replacesOwnListWithProvidedUniqueArticleList() {
-        uniqueArticleList.add(ALICE);
+        uniqueArticleList.add(BAG);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();
-        expectedUniqueArticleList.add(BOB);
+        expectedUniqueArticleList.add(MOUSE);
         uniqueArticleList.setArticles(expectedUniqueArticleList);
         assertEquals(expectedUniqueArticleList, uniqueArticleList);
     }
@@ -164,17 +164,17 @@ public class UniqueArticleListTest {
 
     @Test
     public void setArticles_list_replacesOwnListWithProvidedList() {
-        uniqueArticleList.add(ALICE);
-        List<Article> articleList = Collections.singletonList(BOB);
+        uniqueArticleList.add(BAG);
+        List<Article> articleList = Collections.singletonList(MOUSE);
         uniqueArticleList.setArticles(articleList);
         UniqueArticleList expectedUniqueArticleList = new UniqueArticleList();
-        expectedUniqueArticleList.add(BOB);
+        expectedUniqueArticleList.add(MOUSE);
         assertEquals(expectedUniqueArticleList, uniqueArticleList);
     }
 
     @Test
     public void setArticles_listWithDuplicateArticles_throwsDuplicateArticleException() {
-        List<Article> listWithDuplicateArticles = Arrays.asList(ALICE, ALICE);
+        List<Article> listWithDuplicateArticles = Arrays.asList(BAG, BAG);
         thrown.expect(DuplicateArticleException.class);
         uniqueArticleList.setArticles(listWithDuplicateArticles);
     }
