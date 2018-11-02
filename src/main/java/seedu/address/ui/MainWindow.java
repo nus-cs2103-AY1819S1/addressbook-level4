@@ -163,8 +163,12 @@ public class MainWindow extends UiPart<Stage> {
      * Swaps the panel from statistics to list
      */
     public void swapToList() {
+        Timeline timeline = new Timeline();
+        leftPanelPlaceholder.setOpacity(0.0);
         leftPanelPlaceholder.getChildren().clear();
         leftPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
+        addFadeInAnimation(leftPanelPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
     }
 
     //@@author snookerballs
@@ -172,8 +176,12 @@ public class MainWindow extends UiPart<Stage> {
      * Swaps the panel from list to statistics
      */
     public void swapToStat() {
-        Platform.runLater(() -> leftPanelPlaceholder.getChildren().clear());
-        Platform.runLater(() -> leftPanelPlaceholder.getChildren().add(statisticsPane));
+        Timeline timeline = new Timeline();
+        leftPanelPlaceholder.setOpacity(0.0);
+        leftPanelPlaceholder.getChildren().clear();
+        leftPanelPlaceholder.getChildren().add(statisticsPane);
+        addFadeInAnimation(leftPanelPlaceholder, 0.0, timeline);
+        timeline.playFromStart();
     }
 
     //@@author snookerballs
