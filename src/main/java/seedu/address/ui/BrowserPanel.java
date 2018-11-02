@@ -118,12 +118,11 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private String loadProfileHtml(Person person) {
         String htmlString = null;
-        String pictureString = null;
+        //String pictureString = null;
         try {
         URL profilePage = MainApp.class.getResource(PROFILE_PAGE);
         File htmlTemplateFile = new File(profilePage.toURI());
-        pictureString = MainApp.class
-                .getResource(PICUTRE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
+        //pictureString = MainApp.class.getResource(PICUTRE_LINK + person.getRoom().value.toLowerCase() + JPG).toString();
         htmlString = FileUtils.readFileToString(htmlTemplateFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -136,7 +135,7 @@ public class BrowserPanel extends UiPart<Region> {
         htmlString = htmlString.replace("$number", person.getPhone().value);
         htmlString = htmlString.replace("$school", person.getSchool().value);
         htmlString = htmlString.replace("$email", person.getEmail().value);
-        htmlString = htmlString.replace("$profileURL", pictureString);
+        //htmlString = htmlString.replace("$profileURL", pictureString);
 
         return htmlString;
     }
