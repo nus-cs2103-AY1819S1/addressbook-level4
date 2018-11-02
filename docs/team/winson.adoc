@@ -33,7 +33,7 @@ main purpose of an expense tracker.
  analysis of software design alternatives. The implementation was challenging as it required changes to existing
  commands and the existing implementation of the main `ExpenseTracker` class.
 
-* *Minor enhancement*:
+* *Minor enhancements*:
 
 . Added a `setRecurrenceFrequency` command that allows the user to reset their spending at a frequency of their choice.
 . Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
