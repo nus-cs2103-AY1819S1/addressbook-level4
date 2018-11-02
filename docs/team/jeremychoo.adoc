@@ -9,9 +9,9 @@
 
 == Overview
 
-Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves.
 
 This project portfolio summarizes the contributions that I have made to the project.
+Office Assistance Specialized Integration System (OASIS) is an all-in-one app for companies to perform employee management. Users who are fast typers will benefit due to it's access to all commands with a CLI . OASIS provides features to manage employee's leave applications, projects and user accounts for each employee.
 
 [NOTE]
 Text with a note on a left isn't really part of the portfolio, they're just questions and comments that I want to bring up during the review.
@@ -31,7 +31,7 @@ The following section shows my major code contributions to OASIS.
 [NOTE]
 Is the bolding ok? Too much?
 ** Justification: This feature is essential in the product as only certain users are authorized to use cetain commands, thus user identification is required. This feature also helps to preserve the privacy of the users by ensuring that their data isn't publicly viewable.
-** Highlights: Security for each user was added by clearing user-specific data after logout. The password function required a lot of new functionality to ensure that user input was not shown in the command history, which would be a huge vulnerability in the system.
+** Highlights: I implemented a feature for `LogicManager` to have a List of interceptors, which are a `FunctionalInterface` that allows the processing of a Command. This allows the password changing command to work without adding excessive coupling between `Command` and `LogicManager`. Security for each user was essental to ensure that a user cannot read commands entered by another user. This was implemented by clearing user-specific data after logout.
 // [Too general, try to give examples] This enhancement affects existing users and potential future UI designs to adapt around the need for the login screen. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes on many different parts of the program.
 
 [NOTE]
