@@ -15,6 +15,7 @@ import guitests.guihandles.HistoryListPanelHandle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 
 /**
@@ -22,17 +23,18 @@ import seedu.address.commons.events.ui.TransformationEvent;
  */
 public class HistoryListPanelTest extends GuiUnitTest {
 
+    private static final ClearHistoryEvent CLEAR_HISTORY_EVENT = new ClearHistoryEvent();
+
     private static final ArrayList<String> TRANSFORMATION_SAMPLE = new ArrayList<>(
             Arrays.asList("first", "second", "third"));
 
     private static List<String> addSample = new ArrayList<>(
-            Arrays.asList("new 1", "new 2", "new 3", "new 4"));
+            Arrays.asList("new 1", "new 2", "new 3", "new 4", "new 5", "new 6"));
 
     private static ObservableList<String> sampleList =
             FXCollections.observableList(TRANSFORMATION_SAMPLE);
 
     private HistoryListPanelHandle historyListPanelHandle;
-
     private PriorityQueue<String> redoQueue = new PriorityQueue<>();
 
     @Test
@@ -46,10 +48,21 @@ public class HistoryListPanelTest extends GuiUnitTest {
         assertAddItem(addSample.get(1));
 
         // Assert add after undo
-        undoItem();
-        assertAddItem(addSample.get(2));
+        assertAddItemAfterUndo(addSample.get(2));
 
-        // TODO: Assert add after redo
+        // Assert redo after added
+        redoItem();
+        assertAddItem(addSample.get(3));
+
+        // Assert add after undo and redo
+        undoItem();
+        redoItem();
+        assertAddItem(addSample.get(4));
+
+        // Assert add after undo x2
+        undoItem();
+        undoItem();
+        assertAddItemAfterUndo(addSample.get(5));
     }
 
     @Test
@@ -66,20 +79,96 @@ public class HistoryListPanelTest extends GuiUnitTest {
         addItem(addSample.get(0));
         assertUndoItem();
 
-        // TODO: assert undo after redo
-        // TODO: assert undo after redo x2
+        // Assert undo after redo
+        redoItem();
+        assertUndoItem();
+
+        // Assert undo after undo & redo x 2
+        undoItem();
+        redoItem();
+        redoItem();
+        assertUndoItem();
+
+        // Assert undo after undo, add, then redo (no undone expected to be appended to queue)
+        addItemAfterUndo(addSample.get(1));
+        redoItem();
+        assertUndoItem();
     }
 
+    @Test
+    public void redo() {
+        initUi();
 
-    //  TODO: add cases for redo
-    //  TODO: check selected if possible
+        // Assert regular undo
+        assertRedoItem();
+
+        // Assert x2 redo after x2 undo
+        undoItem();
+        undoItem();
+        assertRedoItem();
+        assertRedoItem();
+
+        // Assert redo after x2 undo
+        undoItem();
+        undoItem();
+        assertRedoItem();
+
+        // Assert redo after add after undo (no undone expected to be appended to queue)
+        addItemAfterUndo(addSample.get(0));
+        assertRedoItem();
+
+        // Assert redo after add
+        addItem(addSample.get(1));
+        assertRedoItem();
+
+        // Assert redo x2 after undo
+        undoItem();
+        assertRedoItem();
+        assertRedoItem();
+    }
+
+    @Test
+    public void handleClearHistoryEvent() {
+        initUi();
+        postNow(CLEAR_HISTORY_EVENT);
+        sampleList.clear();
+        assertListMatch();
+        assertEquals(0, historyListPanelHandle.getItems().size());
+    }
+
+    /**
+     * Add an item to {@code HistoryListView} and {@code sampleList}, clear the cached undo commands.
+     */
+    private void addItemAfterUndo(String item) {
+        undoItem();
+        redoQueue.clear();
+        addItem(item);
+    }
+
+    /**
+     * Adds item and asserts to check if added correctly
+     */
+    private void assertAddItemAfterUndo(String item) {
+        addItemAfterUndo(item);
+        assertListMatch();
+    }
 
     /**
      * Restore item to {@code HistoryListView} and {@code sampleList}
      */
     private void redoItem() {
-        sampleList.add(redoQueue.poll());
-        postNow(new TransformationEvent(""));
+        if (redoQueue.size() > 0) {
+            sampleList.add(redoQueue.poll());
+        }
+        postNow(new TransformationEvent(false));
+    }
+
+    /**
+     * Restores item and asserts to check if added correctly
+     */
+    private void assertRedoItem() {
+        redoItem();
+        assertListMatch();
     }
 
     /**
@@ -96,7 +185,7 @@ public class HistoryListPanelTest extends GuiUnitTest {
      */
     private void assertUndoItem() {
         undoItem();
-        assertEquals(sampleList, historyListPanelHandle.getItems());
+        assertListMatch();
     }
 
     /**
@@ -112,6 +201,13 @@ public class HistoryListPanelTest extends GuiUnitTest {
      */
     private void assertAddItem(String item) {
         addItem(item);
+        assertListMatch();
+    }
+
+    /**
+     * Ensures that the lists from {@code historyListView} and {@code sampleList} match after changes
+     */
+    private void assertListMatch() {
         assertEquals(sampleList, historyListPanelHandle.getItems());
     }
 
@@ -127,6 +223,5 @@ public class HistoryListPanelTest extends GuiUnitTest {
         for (String item : sampleList) {
             postNow(new TransformationEvent(item));
         }
-
     }
 }
