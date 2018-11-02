@@ -133,4 +133,23 @@ public class Appointment implements Comparable<Appointment> {
             return 0;
         }
     }
+
+    /**
+     * Returns true if both appointments have the same identity and data fields.
+     * This defines a stronger notion of equality between two appointments.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Appointment)) {
+            return false;
+        }
+        Appointment otherAppointment = (Appointment) other;
+        return appointmentId.equals(otherAppointment.appointmentId)
+                && doctor.equals(otherAppointment.doctor)
+                && patient.equals(otherAppointment.patient)
+                && dateTime.equals(otherAppointment.dateTime);
+    }
 }

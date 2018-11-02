@@ -75,6 +75,13 @@ public class TypicalPatientsAndDoctors {
             .withAddress("4th street")
             .withRemark("")
             .withTags("Doctor").build();
+    public static final Doctor HELENA = new DoctorBuilder()
+            .withName("Helena Sophia")
+            .withPhone("95264283")
+            .withEmail("helena@example.com")
+            .withAddress("7th street")
+            .withRemark("")
+            .withTags("Doctor").build();
 
     // Manually added
     public static final Patient HOON = new PatientBuilder()
@@ -127,6 +134,6 @@ public class TypicalPatientsAndDoctors {
     }
 
     public static List<Person> getTypicalPatientsAndDoctors() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HELENA));
     }
 }

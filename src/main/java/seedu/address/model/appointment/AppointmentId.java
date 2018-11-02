@@ -13,4 +13,14 @@ public class AppointmentId {
     public int getAppointmentId() {
         return appointmentId;
     }
+    
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof AppointmentId)) {
+            return false;
+        }
+        return appointmentId == ((AppointmentId) other).appointmentId;
+    }
 }
