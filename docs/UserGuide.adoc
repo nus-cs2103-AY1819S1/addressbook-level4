@@ -88,16 +88,27 @@ The *Command Box* allow you to enter command input. +
 
 === Result Display
 
+The *Result Display* provides you information with regards to the result of the command. +
+
 === List Panel
+
+The *List Panel* displays a list of objects. +
 
 === Card
 
+The *Card* displays the object with minimal information. +
+
 === Display Panel
+
+The *Display Panel* displays the object in detail. +
 
 === Sync Status Bar
 
+The *Sync Status Bar* displays the last updated date and time of any changes to the data. +
+
 === User Session Status Bar
 
+The *User Session Status Bar* displays the current user session. +
 
 // end::ui-walkthrough[]
 
