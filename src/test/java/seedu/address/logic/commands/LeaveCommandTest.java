@@ -70,7 +70,8 @@ public class LeaveCommandTest {
 
         CommandResult commandResult = new LeaveCommand(validPerson, validGroup).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(LeaveCommand.MESSAGE_LEAVE_SUCCESS, validPerson, validGroup),
+        assertEquals(String.format(LeaveCommand.MESSAGE_LEAVE_SUCCESS, validPerson.getName().fullName,
+            validGroup.getTitle().fullTitle),
                 commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }

@@ -46,8 +46,8 @@ public class TypicalGroups {
     private TypicalGroups() {} // prevent instantiation
 
     public static List<Group> getTypicalGroups() {
-        return new ArrayList<>(Arrays.asList(PROJECT_2103T, GROUP_2101,
-                NUS_COMPUTING, NUS_BASKETBALL));
+        return new ArrayList<>(Arrays.asList(PROJECT_2103T.copy(), GROUP_2101.copy(),
+                NUS_COMPUTING.copy(), NUS_BASKETBALL.copy()));
     }
 
 }
