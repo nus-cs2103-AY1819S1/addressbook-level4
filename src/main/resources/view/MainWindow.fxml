@@ -35,7 +35,7 @@
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets top="5" right="300" bottom="5" left="10" />
           </padding>
         </StackPane>
 
@@ -47,15 +47,15 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
-          <VBox fx:id="playlistList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="playlistList" minWidth="150" prefWidth="150" SplitPane.resizableWithParent="false">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="10" right="30" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="playlistListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
-          <VBox fx:id="trackList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="trackList" minWidth="300" prefWidth="300" SplitPane.resizableWithParent="false">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="10" right="10" bottom="10" left="30" />
             </padding>
             <StackPane fx:id="trackListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
