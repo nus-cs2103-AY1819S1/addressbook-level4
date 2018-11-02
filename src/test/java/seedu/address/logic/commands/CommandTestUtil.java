@@ -1,15 +1,21 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -17,8 +23,13 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.group.Group;
+import seedu.address.model.group.util.GroupContainsPersonPredicate;
+import seedu.address.model.group.util.GroupTitleContainsKeywordsPredicate;
+import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.util.MeetingTitleContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.util.PersonNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -48,11 +59,45 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
+    public static final String VALID_GROUP_TITLE_DESC_GROUP_0 = " " + PREFIX_NAME + "group";
+    public static final String VALID_JOIN_GROUP_TITLE_DESC_GROUP_0 = " " + PREFIX_GROUP + "group";
+    public static final String VALID_GROUP_TITLE_DESC_GROUP_2101 = " " + PREFIX_NAME + "CS2101";
+    public static final String VALID_JOIN_GROUP_TITLE_DESC_GROUP_2101 = " " + PREFIX_GROUP + "CS2101";
+
+    public static final String VALID_GROUP_TITLE_GROUP_0 = "group";
+
+    public static final String INVALID_GROUP_TITLE_DESC = " " + PREFIX_NAME + "€project"; // '€' not allowed in title
+
+    // @@author NyxF4ll
+    public static final String VALID_MEETING_TITLE_DESC_WEEKLY = " " + PREFIX_NAME + "Weekly meetup";
+    public static final String VALID_MEETING_TITLE_DESC_URGENT = " " + PREFIX_NAME + "Urgent affair";
+    public static final String VALID_MEETING_TIME_DESC = " " + PREFIX_TIMESTAMP + "22-02-2017@10:10";
+    public static final String VALID_MEETING_DESCRIPTION_DESC_WEEKLY = " " + PREFIX_DESCRIPTION
+            + "Weekly report of progress";
+    public static final String VALID_MEETING_DESCRIPTION_DESC_URGENT = " " + PREFIX_DESCRIPTION
+            + "Urgent meeting on the project direction";
+    public static final String VALID_MEETING_LOCATION_DESC = " " + PREFIX_LOCATION + "COM1-0202";
+    public static final String VALID_MEETING_DESC_WEEKLY = " " + VALID_MEETING_TITLE_DESC_WEEKLY
+            + VALID_MEETING_LOCATION_DESC + VALID_MEETING_TIME_DESC + VALID_MEETING_DESCRIPTION_DESC_WEEKLY;
+    // @@author
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_GROUP_DESC = " " + PREFIX_GROUP + "CS*123";
+
+    // @@author NyxF4ll
+    // '#' not allowed in title
+    public static final String INVALID_MEETING_TITLE_DESC = " " + PREFIX_NAME + "Group Me#ting";
+    // invalid timestamp
+    public static final String INVALID_MEETING_TIME_DESC = " " + PREFIX_TIMESTAMP + "22-02-2017@100:10";
+    // blank string for description is not allowed
+    public static final String INVALID_MEETING_DESCRIPTION_DESC = " " + PREFIX_DESCRIPTION;
+    // empty string not allowed
+    public static final String INVALID_MEETING_LOCATION_DESC = " " + PREFIX_LOCATION + "";
+    // @@author
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -124,9 +169,29 @@ public class CommandTestUtil {
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredPersonList(new PersonNameContainsKeywordsPredicate(
+            Collections.emptyList(), Arrays.asList(splitName[0]), Collections.emptyList()));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered meeting list to show only the meeting at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showMeetingAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredMeetingList().size());
+
+        Meeting meeting = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
+        final String[] splitName = meeting.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredMeetingList(new MeetingTitleContainsKeywordsPredicate(Collections.emptyList(),
+            Arrays.asList(splitName[0]), Collections.emptyList()));
+
+        /**
+         * TODO this is a temp hack because there may be multiple meetings with same identities, will have to wait for
+         * the issue is rectified
+         */
+        assertNotEquals(0, model.getFilteredMeetingList().size());
     }
 
     /**
@@ -138,4 +203,20 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
+    /**
+     * Updates {@code model}'s filtered group list to show only the group at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showGroupAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredGroupList().size());
+
+        Group group = model.getFilteredGroupList().get(targetIndex.getZeroBased());
+
+        final String[] splitGroupTitle = group.getTitle().fullTitle.split("\\s+");
+        model.updateFilteredGroupList(new GroupTitleContainsKeywordsPredicate(Collections.emptyList(),
+            Arrays.asList(splitGroupTitle[0]), Collections.emptyList()));
+        model.updateFilteredPersonList(new GroupContainsPersonPredicate(Collections.singletonList(group)));
+
+        assertEquals(1, model.getFilteredGroupList().size());
+    }
 }

@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.Month;
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,19 +18,27 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
+import seedu.address.model.meeting.TimeStamp;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.shared.Address;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
+
+    private static final String INVALID_CHARACTER_TIMESTAMP = "14-10-18M2@22:30";
+    private static final String INVALID_DATE_TIMESTAMP = "31-04-2019@11:55";
+    private static final String INVALID_FORMAT_TIMESTAMP = "11-22-3333@";
+    private static final String INVALID_LEAPYEAR_TIMESTAMP = "29-2-2018@15:00";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+
+    private static final String OUT_OF_BOUNDS_TIMESTAMP = "13-1-3000000000@13:13";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -36,6 +46,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_TIMESTAMP = "12-02-2019@13:55";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -197,6 +208,36 @@ public class ParserUtilTest {
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
         assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
     }
+
+    /* @@author NyxF4ll */
+    @Test
+    public void parseTimeStamp_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseTimeStamp((String) null));
+    }
+
+    @Test
+    public void parseTimeStamp_invalidFormatTimeStamp_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(INVALID_FORMAT_TIMESTAMP));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(INVALID_CHARACTER_TIMESTAMP));
+    }
+
+    @Test
+    public void parseTimeStamp_outOfBoundsTimeStamp_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(OUT_OF_BOUNDS_TIMESTAMP));
+    }
+
+    @Test
+    public void parseTimeStamp_validValue_returnsTimeStamp() throws Exception {
+        TimeStamp expected = new TimeStamp(Year.of(2019), Month.FEBRUARY, 12, 13, 55);
+        assertEquals(expected.toString().trim(), ParserUtil.parseTimeStamp(VALID_TIMESTAMP).toString().trim());
+    }
+
+    @Test
+    public void parseTimeStamp_invalidDate_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(INVALID_DATE_TIMESTAMP));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseTimeStamp(INVALID_LEAPYEAR_TIMESTAMP));
+    }
+    /* @@author */
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {

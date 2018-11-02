@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= MeetingBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103T-AY1819S1-W17-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+MeetingBook is for those who prefer to use a desktop app to manage their meetings for university. MeetingBook is *designed for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users who can type fast can navigate and use the meeting planner faster than traditional GUI apps. Makes your hand itchy and want to try out? Go to <<Quick Start>> to get started!
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `meetingbook.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your MeetingBook.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,12 +33,26 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`list`* : Display all existing members on the display.
+* **`addMember`**`n/<name> p/<phone> e/<email> a/<address>` : adds a member with the parameters specified to the MeetingBook.
+* **`delete`**`3` : deletes the 3rd person shown in the current person list.
+* *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
+
+== User Interface
+This section will explain the user interface of the application.
+
+image::UiExplanation.png[width="790"]
+
+. Menu bar
+. Group list: displays a list of groups
+. Meeting list: displays a list of meetings
+. Person list: displays a list of person
+. Command box: receives command from user and execute
+. Result display: displays the result of command executed
+. Update status: displays the update status of current session
+. Save path: displays current data save path
 
 [[Features]]
 == Features
@@ -46,188 +60,297 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in square brackets are the parameters to be supplied by the user e.g. in `edit 1 e/[Email] p/[Phone]`, `Email` and `Phone` are parameters which can be used as `edit 1 e/email@email.com`.
+* Words in square brackets are optional. e.g. `edit 1 e/[Email] p/[Phone]` can be used as `edit 1 e/hello@hello.com` or `edit 1 p/12345678`.
+
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a new member: `addMember`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+Add a new person named [Name] with parameters described in [Person Parameters] to the MeetingBook. +
+Format: `addMember n/[Name] p/[Phone] e/[Email] a/[Address] t/[Tag] g/[Group Tag]`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
+* `addMember Zheng Wei p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
+* `addMember Ben p/12345678 e/hello@nus.edu.sg a/NUS School of Computing t/project g/CS2103T`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Replace the person’s parameters with those described in this command (undescribed parameters will not be changed) +
+
+Format: `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]`
+
+Examples:
+
+* `edit 2 n/Benjamin` +
+Edits the name of the second person in the person list to Benjamin.
+* `edit 1 p/12345678` +
+Edits the phone number of the first person in the person list to 12345678.
+
+=== Deleting a person: `delete/del`
+Remove the selected person. +
+Format: `delete`, or the shorthand `del`
+
+Examples:
+
+* `delete 2` +
+Deletes the second person in the person list.
+* `del 4` +
+Deletes the fourth person in the person list.
+
+=== Adding a new group: `addGroup`
+
+Add a new group with user input title into MeetingBook. +
+
+Format: `addGroup n/[Name]` +
+
+Examples:
+
+* `addGroup n/CS2103T` +
+Adds a new group with title 'CS2103T' into the MeetingBook.
+* `addGroup n/Discussion Group 1` +
+Adds a new group with title 'Discussion Group 1' into the MeetingBook.
+
+=== Deleting a group: `deleteGroup`
+
+Remove the group that matches use input title. +
+
+Format: `deleteGroup n/[Name]` +
+
+Examples:
+
+* `deleteGroup n/CS2103T` +
+Removes the group with title 'CS2103T', which is added previously, from MeetingBook.
+* `deleteGroup n/Discussion Group 1` +
+Removes the group with title 'Discussion Group 1', which is added previously, from MeetingBook.
+
+=== Finding a group / person / meeting: `find`
+
+The `find` command searches the MeetingBook for specified person, group, or meeting, and displays the results on
+the panel. +
+
+Syntax: +
+ Longhand: `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>` +
+ Shorthand: `find [p|g|m] *[a]/<keyword...> *[s]/<keywords> *[n]/<keywords>` +
+
+* `[person|group|meeting]`, `[p|g|m]`: This parameter specifies whether to search for persons, groups, or meetings.
+    This parameter is required to execute this command.
+    ** `person`, `p`: Specifies to search for persons.
+    ** `group`, `g`: Specifies to search for groups.
+    ** `meeting`, `m`: Specifies to search for meetings.
+* `<keywords>`: This tag contains any number of keywords separated by a kbd:[space].
+* `[all]`, `[a]`: This parameter specifies that the results must contain every keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[some]`, `[s]`: This parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
+    This parameter may be omitted.
+* `[none]`, `[n]`: This parameter specifies that the results must not contain any keyword specified in `<keywords>`.
+    This parameter may be omitted.
+
+The “then” keyword:
+
+If “then [Command]”  is inserted after find, the [Command] will be applied to all results of the find command.
+[Command] can be replaced with either changeto, delete, or markdone.
+
+Thus it is possible to run commands like
+“in CS2101 findwhere then delete” to delete every task under CS2101
+
+=== Selecting a group / person / meeting: `select`
+
+Format: `select [person|group|meeting] [index]` where `[index]` is a positive integer (starts from 1)
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* If `select [group]` is entered, the person list will be filtered to show only person who belong to the group, and the
+meeting list will be filtered to show only meeting scheduled for the group.
+* If `select [person]` is entered, only the person that is in the filtered person list will be selected.
+* If `select [meeting]` is entered, only the meeting that is in the filtered meeting list will be selected.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `select g/1`: selects the first group in the filtered group list.
+* `select m/3`: selects the third meeting in the filtered meeting list.
+* `select p/2`: selects the second person in the filtered person list.
 
-=== Locating persons by name: `find`
+=== Schedule meetings: `meet`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+To schedule a meeting, use the `meet` command.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: `meet GROUP_NAME n/MEETING_NAME t/MEETING_TIME l/MEETING_LOCATION d/MEETING_DESCRIPTION`
 
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Listing entered commands : `history`
-
-Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+* Schedules a meeting with the group `GROUP_NAME`
+* Either all or none of the fields must be provided.
+* In case that none of the fields is provided, the command will cancel the meeting associated with the group.
+* Scheduling a new meeting to the same group overwrites the old meeting.
 
 [NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+`MEETING_TIME` is specified in the format `dd-mm-yyyy@hh:mm`
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+Examples:
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+* Example 1:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays the list of meetings)
+
+* Example 2:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays `Demo Rehearsal` as the meeting associated with `Presentation 2101`) +
++
+3. `meet Presentation2101 n/Discussion on Slides t/26-10-2018@12:30 l/COM1-0218 d/Some slides are wrong` +
+(This overwrites `Demo Rehearsal` with `Discussion on Slides`) +
++
+4. `list meeting` (`Emergency Meeting` is displayed instead of `Demo Rehearsal`)
+
+* Example 3:
+1. `meet OtherGroup ...` +
+(This fails because `OtherGroup` is not in the MeetingBook)
 
 [NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+It is assumed that the group `Presentation2101` is present and is the only group in the MeetingBook and has no meeting as of the moment before each example starts.
+
+=== Cancel meetings: `cancel`
+
+To cancel a meeting, use the `cancel` command.
+
+Format: `cancel GROUP_NAME`
+
+Example:
+
+* `cancel Project2103` (This cancels the meeting with `Project2103`)
+
+* `cancel Project2103` +
+`cancel Project2103` (This fails because the meeting is already cancelled)
+
+[NOTE]
+It is assumed that the group `Project2103` is present in the MeetingBook and has a meeting.
+
+[NOTE]
+calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
+
+=== Joining a person to group: `join`
+
+Add a person, specified by name, into a group, specified by the group title. +
+
+Format: `join n/[Name] g/[Group]` +
+
+Example:
+
+* `join n/Derek g/CS2103T` +
+Makes the person 'Derek' to be a member of group 'CS2103T'.
+
+
+[NOTE]
+Both the person and group should exist in the MeetingBook.
+
+=== Removing a person from group: `leave`
+
+Remove a person, specified by name, from a group, specified by the group title. +
+
+Format: `leave n/[Name] g/[Group]` +
+
+Example:
+
+* `leave n/Derek g/CS2101` +
+Removes the person 'Derek' from the group 'CS2101'.
+
+[NOTE]
+Both the person and group should exist in the MeetingBook.
+The person should also be an existing member of the group.
+
+=== Listing all groups / meetings / persons : `list`
+
+Display all existing groups on the group list / meetings on the meeting list / persons on the person list display.
+
+Format: `list [group|meeting|person]`
+
+[NOTE]
+If the list is unfiltered, the list will remain the same.
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `list group`: list all groups.
+* `list meeting`: list all meetings.
+* `list person`: list all persons.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
+// tag::import[]
+=== Importing data : `import`
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+User is able to import other data. +
 
-=== Redoing the previously undone command : `redo`
+Default behaviour is to ignore any conflicting Person/Group entries unless `--force` option is supplied. +
 
-Reverses the most recent `undo` command. +
-Format: `redo`
+Format: `import <relative filepath>` or `import --force <relative filepath>`
 
-Examples:
+Example: +
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `import f/backup.xml` : Import backup.xml into MeetingBook +
+* `import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
 
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
+The image below shows the result after successfully executing the command.
 
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+image::importSuccessfulOutput.png[width="450"]
+// end::import[]
 
-=== Clearing all entries : `clear`
+// tag::export[]
+=== Exporting data : `export`
 
-Clears all entries from the address book. +
-Format: `clear`
+User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
 
-=== Exiting the program : `exit`
+Format: `export  f/<relative filepath>` +
+// Future implementation
+//`Export all meetings and persons of a specific group: export #[Group] <relative filepath>`
 
-Exits the program. +
-Format: `exit`
+Example: +
+
+* `export f/backup.xml` : Export MeetingBook as `backup.xml`. +
+
+The image below shows the result after successfully executing the command.
+
+image::exportSuccessfulOutput.png[width="450"]
+
+
+
+// end::export[]
+
+// tag::filepath[]
+=== Changing Storage Location: `filepath`
+
+Change the storage location of MeetingBook. +
+
+Format: `filepath f/<filepath>`
+
+Example:
+
+* `filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
+
+****
+[NOTE]
+User can also check the current path where MeetingBook store its data using `filepath --show` command. +
+
+The image below shows the result after successfully executing the command.
+
+image::filepath--showOutput.png[width="450"]
+****
+
+// end::filepath[]
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+MeetingBook data are saved in the hard disk automatically after any command that changes the data.
+
+=== Autocomplete `[coming in v2.0]`
+
+To assist user to speed up typing of command, user can <TAB> to autocomplete the command.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -237,24 +360,39 @@ _{explain how the user can enable/disable data encryption}_
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install the app in the other computer and transfer the data file into the same folder.
+
+*Q*: Is the app only for NUS student? +
+*A*: While this app is tailored to NUS students, it can be used for general day-to-day activities.
+
+*Q*: Are there any plans to include other institutions? +
+*A*: We plan to include other institutions after implementing all core functionalities of the app.
+
+*Q*: Are there any plans to build for mobile as well? +
+*A*: We might look into it if we receive enough requests from users.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Adding a new person:* `addMember n/[Name] p/[Phone] e/[Email] a/[Address]` +
+e.g. `addMember Derek p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
+* *Editing a person* : `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]` +
+e.g. `edit 2 n/Jeffrey`
+* *Schedule a meeting* : `meet GROUP_NAME n/MEETING_NAME t/MEETING_TIME l/MEETING_LOCATION d/MEETING_DESCRIPTION`
+* *Cancel a meeting* : `cancel GROUP_NAME`
+* *Deleting a person* : `delete` +
+* *Adding a new group* : `addGroup n/[Name]` +
+e.g. `addGroup n/CS2103T`
+* *Deleting a new group* : `deleteGroup n/[Name]` +
+e.g. `deleteGroup n/CS2101`
+* *Joining a person to group* : `join n/[Name] g/[Group]` +
+e.g. `join n/Derek g/CS2103T`
+* *Removing a person from group* : `leave n/[Name] g/[Group]` +
+e.g. `leave n/Derek g/CS2101`
+* *Find a person / group / meeting* : `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>`
+* *Selecting a group / meeting / person* : `select [group|meeting|person]` +
+e.g. `select g/1`
+* *List all groups / meetings / person* : `list [group|meeting|person]` +
+e.g. `list meeting`
+* *Import data* : `import`
+* *Export data* : `export`

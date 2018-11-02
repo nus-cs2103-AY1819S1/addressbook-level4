@@ -52,6 +52,21 @@ public class UniquePersonListTest {
     }
 
     @Test
+    public void clear_personNotInList_returnsFalse() {
+        uniquePersonList.add(ALICE);
+        uniquePersonList.clear();
+        assertFalse(uniquePersonList.contains(ALICE));
+    }
+
+    @Test
+    public void clear_personInList_returnsTrue() {
+        uniquePersonList.add(BOB);
+        uniquePersonList.clear();
+        uniquePersonList.add(ALICE);
+        assertTrue(uniquePersonList.contains(ALICE));
+    }
+
+    @Test
     public void add_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniquePersonList.add(null);
@@ -175,6 +190,34 @@ public class UniquePersonListTest {
         List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
         thrown.expect(DuplicatePersonException.class);
         uniquePersonList.setPersons(listWithDuplicatePersons);
+    }
+
+    @Test
+    public void getPersonByName_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniquePersonList.getPersonByName(null);
+    }
+
+    @Test
+    public void getPersonByName_equals_returnsTrue() {
+        Person person = new PersonBuilder().withName("Pakorn").build();
+        Name name = new Name("Pakorn");
+
+        uniquePersonList.add(person);
+        Person match = uniquePersonList.getPersonByName(name);
+
+        assertTrue(match.equals(person));
+    }
+
+    @Test
+    public void getPersonByName_noMatch_returnsTrue() {
+        Person person = new PersonBuilder().withName("DerekZ").build();
+        Name name = new Name("DerekZXJ");
+
+        uniquePersonList.add(person);
+        Person match = uniquePersonList.getPersonByName(name);
+
+        assertTrue(match == null);
     }
 
     @Test

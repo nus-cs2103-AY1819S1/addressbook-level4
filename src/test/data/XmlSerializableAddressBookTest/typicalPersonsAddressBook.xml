@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
+<!-- AddressBook save file which contains the same Person values as in TypicalAddressBook#getTypicalAddressBook() -->
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
@@ -47,4 +47,44 @@
         <email>anna@example.com</email>
         <address>4th street</address>
     </persons>
+    <groups>
+        <title>CS2103T Project Team</title>
+        <description>Project group for module CS2103T</description>
+        <meeting>
+            <title>Weekly meetup</title>
+            <time>22-02-2017@10:10</time>
+            <location>COM1-0202</location>
+            <description>Weekly report of progress</description>
+        </meeting>
+    </groups>
+    <groups>
+        <title>CS2101 Project Team</title>
+        <description>CS2101 Presentation team</description>
+        <meeting>
+            <title>Rehearse presentation</title>
+            <time>01-01-2018@12:31</time>
+            <location>BIZ2-0304</location>
+            <description>Practice product demo</description>
+        </meeting>
+    </groups>
+    <groups>
+        <title>COMPUTING</title>
+        <description>Discussion group for Soc students</description>
+        <meeting>
+            <title>Settle project features</title>
+            <time>09-10-2018@21:01</time>
+            <location>AS1, level 3</location>
+            <description>Discuss individual components</description>
+        </meeting>
+    </groups>
+    <groups>
+        <title>Basketball Clique</title>
+        <description>NUS basketball</description>
+        <meeting>
+            <title>Urgent affair</title>
+            <time>18-08-2017@15:21</time>
+            <location>COM2-0202</location>
+            <description>Urgent meeting on the project direction</description>
+        </meeting>
+    </groups>
 </addressbook>

@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -7,11 +8,19 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
+
+import seedu.address.model.group.Group;
+import seedu.address.model.group.UniqueGroupList;
+import seedu.address.model.shared.Address;
 import seedu.address.model.tag.Tag;
+
+
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Guarantees: details are present and not null, field values are validated,
+ * immutable, except UniqueGroupList.
  */
 public class Person {
 
@@ -24,10 +33,17 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // @@author Derek-Hardy
+    // Group field
+    private final UniqueGroupList groups = new UniqueGroupList();
+    // @@author
+
     /**
-     * Every field must be present and not null.
+     * Name, phone, email, address and tags must be present and not null.
+     * Information related to group can be empty.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -35,6 +51,22 @@ public class Person {
         this.address = address;
         this.tags.addAll(tags);
     }
+
+    // @@author Derek-Hardy
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, Address address,
+                  Set<Tag> tags, UniqueGroupList groups) {
+        requireAllNonNull(name, phone, email, address, tags, groups);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.groups.setGroups(groups);
+    }
+    // @@author
 
     public Name getName() {
         return name;
@@ -60,6 +92,91 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    // @@author Derek-Hardy
+    /**
+     * Returns an immutable group list which the person has enrolled in.
+     * It throws {@code UnsupportedOperationException} if modification is attempted.
+     *
+     */
+    public ObservableList<Group> getGroups() {
+        return this.groups.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Returns true if the person is in the same group as {@code group}.
+     * @param group The group to check membership
+     */
+    public boolean hasGroup(Group group) {
+        return this.groups.contains(group);
+    }
+
+    /**
+     * Add the person into a group.
+     * @param group The group that the person is added in
+     */
+    public void addGroup(Group group) {
+        requireNonNull(group);
+        this.groups.add(group);
+
+        if (!group.hasMember(this)) {
+            group.addMember(this);
+        }
+    }
+
+    /**
+     * Remove the person from a group.
+     * @param group The group that should remove the person from
+     */
+    public void removeGroup(Group group) {
+        requireNonNull(group);
+
+        this.groups.remove(group);
+
+        group.removeMemberHelper(this);
+    }
+
+    /**
+     * This method is reserved to be called only from
+     * {@link seedu.address.model.group.Group#removeMember(Person)}}
+     * and {@link Group#clearMembers()} methods.
+     */
+    public void removeGroupHelper(Group group) {
+        this.groups.remove(group);
+    }
+
+    /**
+     * Remove all the groups that this person is already in.
+     */
+    public void clearMembership() {
+        // enhanced for loop to remove the person from each group
+        for (Group group : this.groups) {
+            if (group.hasMember(this)) {
+                group.removeMemberHelper(this);
+            }
+        }
+        this.groups.clear();
+    }
+
+    /**
+     * Set up the group connection for the person.
+     */
+    public void setUpMembership() {
+        // enhanced for loop to set up the person's group connections
+        for (Group group : this.groups) {
+            if (!group.hasMember(this)) {
+                group.addMember(this);
+            }
+        }
+    }
+
+    /**
+     * Create a copy of this person.
+     */
+    public Person copy() {
+        return new Person(name, phone, email, address, tags, groups);
+    }
+
+    // @@author
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
@@ -93,13 +210,14 @@ public class Person {
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                /*&& otherPerson.getGroups().equals(getGroups())*/;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, groups);
     }
 
     @Override
