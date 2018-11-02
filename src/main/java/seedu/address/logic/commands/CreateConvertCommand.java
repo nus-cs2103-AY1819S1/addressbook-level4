@@ -46,7 +46,7 @@ public class CreateConvertCommand extends Command {
         if (fileUrl == null) {
             throw new IllegalArgumentException();
         }
-        List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "patterns");
+        List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "pattern");
         List<String> trans = transformation.toList();
         if (trans.size() != patterns.size() + 1) {
             throw new IllegalArgumentException();
