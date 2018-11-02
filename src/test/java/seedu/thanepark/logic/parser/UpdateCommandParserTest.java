@@ -36,10 +36,10 @@ import org.junit.Test;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.logic.commands.UpdateCommand.UpdateRideDescriptor;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.UpdateRideDescriptorBuilder;
 
@@ -89,7 +89,7 @@ public class UpdateCommandParserTest {
         // invalid email
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, WaitTime.MESSAGE_WAIT_TIME_CONSTRAINTS);
         // invalid thanepark
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Zone.MESSAGE_ZONE_CONSTRAINTS);
         // invalid tag
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 

@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.thanepark.commons.exceptions.IllegalValueException;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.Status;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -34,7 +34,7 @@ public class XmlAdaptedRide {
     @XmlElement(required = true)
     private String waitingTimeString;
     @XmlElement(required = true)
-    private String address;
+    private String zone;
     @XmlElement(required = true)
     private String statusString;
 
@@ -50,20 +50,20 @@ public class XmlAdaptedRide {
     /**
      * Constructs an {@code XmlAdaptedRide} with the given ride details.
      */
-    public XmlAdaptedRide(String name, String daysSinceMaintenanceString, String waitingTimeString, String address,
+    public XmlAdaptedRide(String name, String daysSinceMaintenanceString, String waitingTimeString, String zone,
                           List<XmlAdaptedTag> tagged) {
-        this(name, daysSinceMaintenanceString, waitingTimeString, address, tagged, DEFAULT_STATUS_STRING);
+        this(name, daysSinceMaintenanceString, waitingTimeString, zone, tagged, DEFAULT_STATUS_STRING);
     }
 
     /**
      * Constructs an {@code XmlAdaptedRide} with the given ride details.
      */
-    public XmlAdaptedRide(String name, String daysSinceMaintenanceString, String waitingTimeString, String address,
+    public XmlAdaptedRide(String name, String daysSinceMaintenanceString, String waitingTimeString, String zone,
                           List<XmlAdaptedTag> tagged, String statusString) {
         this.name = name;
         this.daysSinceMaintenanceString = daysSinceMaintenanceString;
         this.waitingTimeString = waitingTimeString;
-        this.address = address;
+        this.zone = zone;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -79,7 +79,7 @@ public class XmlAdaptedRide {
         name = source.getName().fullName;
         daysSinceMaintenanceString = String.valueOf(source.getDaysSinceMaintenance().getValue());
         waitingTimeString = String.valueOf(source.getWaitingTime().getValue());
-        address = source.getAddress().value;
+        zone = source.getZone().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -123,13 +123,13 @@ public class XmlAdaptedRide {
         }
         final WaitTime modelWaitTime = new WaitTime(waitingTimeString);
 
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        if (zone == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Zone.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Zone.isValidZone(zone)) {
+            throw new IllegalValueException(Zone.MESSAGE_ZONE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+        final Zone modelZone = new Zone(zone);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
@@ -139,7 +139,7 @@ public class XmlAdaptedRide {
 
         Status status = Status.valueOf(statusString);
 
-        return new Ride(modelName, modelMaintenance, modelWaitTime, modelAddress, modelTags, status);
+        return new Ride(modelName, modelMaintenance, modelWaitTime, modelZone, modelTags, status);
     }
 
     @Override
@@ -156,7 +156,7 @@ public class XmlAdaptedRide {
         return Objects.equals(name, otherRide.name)
                 && Objects.equals(daysSinceMaintenanceString, otherRide.daysSinceMaintenanceString)
                 && Objects.equals(waitingTimeString, otherRide.waitingTimeString)
-                && Objects.equals(address, otherRide.address)
+                && Objects.equals(zone, otherRide.zone)
                 && tagged.equals(otherRide.tagged)
                 && Objects.equals(statusString, otherRide.statusString);
     }

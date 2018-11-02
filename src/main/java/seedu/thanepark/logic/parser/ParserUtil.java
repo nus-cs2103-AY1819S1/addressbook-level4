@@ -9,10 +9,10 @@ import java.util.Set;
 import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.commons.util.StringUtil;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -66,18 +66,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String thanepark} into an {@code Address}.
+     * Parses a {@code String thanepark} into an {@code Zone}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code thanepark} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
+    public static Zone parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        if (!Zone.isValidZone(trimmedAddress)) {
+            throw new ParseException(Zone.MESSAGE_ZONE_CONSTRAINTS);
         }
-        return new Address(trimmedAddress);
+        return new Zone(trimmedAddress);
     }
 
     /**
