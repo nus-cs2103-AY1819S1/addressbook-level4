@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Article with an invalid phone field -->
 <article>
-    <name>Hans Muster</name>
+    <name>Nike Wallet</name>
     <phone>9482asf424</phone>
     <email>hans@example</email>
     <description>4th street</description>
+    <finder>Hans Muster</finder>
+    <owner>Not Claimed</owner>
+    <isResolved>false</isResolved>
     <tagged>friends</tagged>
 </article>

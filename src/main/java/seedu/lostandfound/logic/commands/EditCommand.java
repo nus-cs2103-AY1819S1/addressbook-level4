@@ -108,10 +108,9 @@ public class EditCommand extends Command {
         Description updatedDescription = editArticleDescriptor.getDescription().orElse(articleToEdit.getDescription());
         Name updatedFinder = editArticleDescriptor.getFinder().orElse(articleToEdit.getFinder());
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
-        Name defaultOwner = new Name("Not Claimed");
 
-        return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription, updatedFinder, defaultOwner,
-                articleToEdit.getIsResolved(), updatedTags);
+        return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription, updatedFinder,
+                articleToEdit.getOwner(), articleToEdit.getIsResolved(), updatedTags);
     }
 
     @Override

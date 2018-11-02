@@ -119,6 +119,8 @@ public class Article {
                 && otherArticle.getPhone().equals(getPhone())
                 && otherArticle.getEmail().equals(getEmail())
                 && otherArticle.getDescription().equals(getDescription())
+                && otherArticle.getFinder().equals(getFinder())
+                && otherArticle.getOwner().equals(getOwner())
                 && otherArticle.getIsResolved() == getIsResolved()
                 && otherArticle.getTags().equals(getTags());
     }

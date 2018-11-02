@@ -18,7 +18,7 @@ import seedu.lostandfound.model.article.Name;
  */
 public class ResolveCommand extends Command {
     public static final String COMMAND_WORD = "resolve";
-    private static final Name DEFAULT_OWNER = new Name("Not Claimed");
+    private static final Name DEFAULT_OWNER = new Name("Claimed");
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Resolves the person identified by the index number used in the displayed article list.\n"

@@ -21,7 +21,6 @@ import seedu.lostandfound.model.tag.Tag;
  * JAXB-friendly version of the Article.
  */
 public class XmlAdaptedArticle {
-
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Article's %s field is missing!";
 
     @XmlElement(required = true)
@@ -135,13 +134,20 @@ public class XmlAdaptedArticle {
         }
         final Name modelFinder = new Name(finder);
 
-        final Set<Tag> modelTags = new HashSet<>(articleTags);
+        if (owner == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(owner)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Name modelOwner = new Name(owner);
 
         final boolean modelIsResolved = isResolved;
 
-        final Name modelOwner = new Name(owner);
+        final Set<Tag> modelTags = new HashSet<>(articleTags);
 
-        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelFinder, modelOwner, modelIsResolved, modelTags);
+        return new Article(modelName, modelPhone, modelEmail, modelDescription, modelFinder, modelOwner,
+                modelIsResolved, modelTags);
     }
 
     @Override
