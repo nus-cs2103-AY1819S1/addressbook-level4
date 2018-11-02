@@ -60,6 +60,11 @@ e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
 ****
 
+[TIP]
+All tasks will be automatically loaded in the order of deadlines, one that due earlier will appear before one that
+due later. If two tasks have the same deadline, they will be arranged according to priority, one that has
+higher priority will appear in front of one that has lower priority. 3 is the highest priority, while 1 is the lowest. +
+
 === Viewing Help
 
 Opens the user guide page. +
