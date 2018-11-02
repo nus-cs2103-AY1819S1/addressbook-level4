@@ -60,7 +60,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `help`
 
 // tag::add[]
-=== Adding an entry: `add[]`
+=== Adding an entry: `add`
 
 [TIP]
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
