@@ -479,7 +479,7 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 // end::viewarangeoftasks[]
 
 // tag::generateacademiccalendar[]
-=== Generate academic calendar weeks
+=== Generate Academic Calendar Weeks
 
 In order to enable users to better monitor their tasks in the schedule planner by knowing what is the current
 academic week, we added `firstday` command.
@@ -570,10 +570,14 @@ image::FirstDayCommand_UG_Aft.png[width="400"]
 `CommandException` will be thrown if data from `rangeOfWeek.xml` could not be converted or if `rangeOfWeek.xml` does
 not exist.
 
+{empty} +
+
 The following sequence diagram illustrates how the mechanism works:
 
 .Sequence diagram of FirstDay Command
 image::FirstDayCommand_DG_SequenceDiagram.png[width="800"]
+
+{empty} +
 
 .Sequence diagram of launching MainApp
 image::LaunchMainApp_DG_SequenceDiagram.png[width="800"]
@@ -640,6 +644,37 @@ for the tags 'tutorial' and 'CS2100'. `FilterCommand.execute()` returns a list o
 //end::filtertags[]
 
 //tag::listarchivedtasks[]
+=== List Overdue Tasks
+The `listoverdue` command allows the user to view the list of all overdue tasks. A task is considered overdue if its
+deadline has passed. In other words, the system's current date is after the deadline.
+
+==== Current Implementation
+Model contains a UniqueTaskList called tasks.
+
+Given below is an example usage scenario and how the list overdue mechanism behaves at each step:
+
+.Sequence Diagram of ListOverdueCommand
+image::ListOverdueSequenceDiagram.png[width="800"]
+Step 1. The user executes the command `listoverdue`.
+
+Step 2. `model.updateFilteredTaskList()` will update the task list with `OverduePredicate` as the parameter
+`OverduePredicate` itself takes the current system date in the yyMMdd format.
+
+Step 3. The updated task list would be reflected on the UI to be displayed to the user.
+
+=== Design Considerations
+
+==== Aspect: How the overdue tasks are stored
+
+* **Alternative 1 (current choice):** The overdue tasks are not stored in a separate UniqueTaskList. Instead, the
+UniqueTaskList tasks is filtered with OverduePredicate each time the `listoverdue` command is called.
+** Pros: Does not require a new UniqueTaskList.
+** Cons: If the number of tasks is huge, filtering will take a long time. However, this is not a problem since
+the number of tasks is small at any given point of time.
+
+* **Alternative 2:** The overdue tasks are stored in a new UniqueTaskList.
+** Pros: Retrieving is overdue tasks is faster.
+** Cons: A new UniqueTaskList has to be implemented.
 
 === List Archived Tasks
 

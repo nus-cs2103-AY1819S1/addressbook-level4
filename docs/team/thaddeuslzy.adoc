@@ -1,4 +1,4 @@
-= [insert name] - Project Portfolio
+= Thaddeus - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,18 +9,40 @@
 
 == Overview
 
-Student Schedule Planner is a desktop schedule planner application used by students for schedule planning. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Student Schedule Planner (SSP) is a desktop application aimed at helping students manage their schedules
+effectively. SSP is optimised for users who prefer to type in commands, instead of using a Graphical
+User Interface(GUI). Given efficient typing, this application will be much faster than regular to-do
+applications.
 
 == Summary of contributions
-*[TO BE EDITED]*
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to filter tasks according to their tags*
+** What it does: Allows the user to filter their tasks with respect to their tags. The filter
+command is inclusive, which means that given 2 or more tags to filter, tasks with any, some, or all of the specified
+tags will be listed.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Justification: This feature improves the product significantly because a user can filter out tasks with a certain
+tag, expediting the search process, and the app should provide a convenient way to list all these tasks.
+
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
+ analysis of design alternatives. The implementation was challenging as it required the filter to be able to search
+ for more than 1 tag in the tasks, which may contain more than 1 tag.
+** Credits: Code from FindCommand was referenced in the implementation of FilterCommand
+
+* *Major enhancement*: added *the ability to list the remaining number of tasks in the current month*
+** What it does: Allows the user to list and view all the remaining tasks in the current month, in chronological
+order. This feature takes into account leap years.
+
+** Justification: This feature improves the product significantly because a user can now narrow the scope of the list
+ to the current month, making it easier to manage his/her tasks. The app should provide a convenient way to list
+ tasks within common time periods.
+
+** Highlights: This enhancement does not affect existing commands and commands to be added in future. It required an
+in-depth analysis of design alternatives. The implementation was challenging as it had to factor in the variations of
+ total days in February during leap years.
+** Credits: Code from ListWeekCommand was referenced in the implementation of ListMonthCommand
+
+* *Minor enhancement*:
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 

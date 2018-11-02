@@ -29,21 +29,22 @@ endif::[]
 By: `Team T12-3`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
-Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*. SSP is *optimised for those who prefer to work with a Command Line Interface* (CLI) while retaining the benefits of a Graphical User Interface (GUI). If you can type fast, SSP can get your schedule management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Student Schedule Planner (SSP) is a desktop application *aimed at helping students manage their schedules effectively*. SSP is optimised for users who prefer to type rather than click. In fact, if you type efficiently, this application will be much faster than regular to-do applications. Move on to the <<Quick Start>> to get started.
 
 
 == Quick Start
-.  Install Java `9` if you do not have, download it from link:{https://www.oracle.com/technetwork/java/javase/downloads/index.html}[here]. +
+.  Install Java `9` if you do not have it. It is available link:{https://www.oracle.com/technetwork/java/javase/downloads/index.html}[here]. +
 [WARNING]
 The application may not run correctly on Java `10` or Java `11`.
 
 .  Download the latest `studentscheduleplanner.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder that you want to use as the home folder for your planner.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+
+.The menu that you should see once you open the application.
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
@@ -55,9 +56,12 @@ e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, [blue]`NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
-* Items in square brackets are optional e.g [blue]`n/NAME [c/CATEGORY]` can be used as [blue]`n/do CS2100 tutorial c/CS2100` or as [blue]`n/do CS2100 tutorial`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`[c/CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), [blue]`c/tutorial`, [blue]`c/tutorial c/CS2100` etc.
-* Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE n/NAME` is also acceptable.
+* Items in square brackets are optional e.g [blue]`n/[NAME] t/[TAG]` can be used as [blue]`n/do CS2100 tutorial
+t/CS2100` or as [blue]`n/do CS2100 tutorial`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`t/[TAG]...` can be used
+ as `{nbsp}` (i.e. 0 times), [blue]`t/tutorial`, [blue]`t/tutorial t/CS2100` etc.
+* Parameters can be in any order e.g. if the command specifies [blue]`n/[NAME] d/[DEADLINE]`, [blue]`d/[DEADLINE]
+n/[NAME]` is also acceptable.
 ****
 
 [TIP]
@@ -73,12 +77,11 @@ Opens the user guide page. +
 ====
 
 
-
 === Adding a Task
 
 Adds a task to the schedule planner. +
 ====
-[blue]`add [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`add n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 ====
 Example: +
 ====
@@ -87,40 +90,42 @@ Input: [blue]`add n/exam p/3 t/CS3241 d/101018 v/mpsh1`
 Outcome: Adds a task named [blue]`exam` with priority level [blue]`3`,
 tag [blue]`CS3241` and deadline of 10th October 2018, venue at mpsh1.
 ====
-The priority level must be a number between 1 to 3, where 1 denotes highest priority.
-[WARNING]
-Ensure that you have included the name, priority level and deadline for tasks.
+The priority level must be a number between 1 to 3, where 3 denotes highest priority.
 
-[TIP]
-Tags are optional, you do not need to add them.
+[WARNING]
+The name, priority level and deadline fields are compulsory and required for every task. Tags are optional.
+
 
 === Adding a Recurring Task
 
-Adds copies of the same task to the same day of a given number of weeks. +
+Adds copies of the same task to a specified day in the week, for a given number of weeks. +
 ====
-[blue]`repeat [r/REPEATS] [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`repeat r/[REPEATS] n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 ====
 Example: +
 ====
-Input: [blue]`add r/3 n/exam p/3 t/CS3241 d/101018 v/mpsh1`
+Input: [blue]`add r/3 n/Lecture p/3 t/CS3241 d/101018 v/mpsh1`
 
-Outcome: Adds 3 tasks named [blue]`exam` with priority level [blue]`3`,
-tag [blue]`CS3241`, venue at mpsh1, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
+Outcome: Adds 3 tasks named [blue]`Lecture` with priority level [blue]`3`,
+tag [blue]`CS3241`, venue at [blue]`mpsh1`, and deadline of 10th October 2018, 17th October 2018, and 24th October 2018.
 ====
-The number of repeats must be larger or equals to 2. If it is 1, it is the same as adding a normal task.
+The number of repeats should be an integer that is greater or equals to 1. Setting the repeat as 1 has the same effect as using the `add` command.
+
+[TIP]
+Use this command to schedule tasks that you carry out regularly.
 
 === Listing All Tasks
 
-Shows a list of all tasks in the schedule planner. +
+Lists all tasks in the schedule planner. +
 ====
-[blue]`list task`
+[blue]`list`
 ====
 
 === Editing a Task
 
 Edits an existing task in the schedule planner. +
 ====
-[blue]`edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]`
+[blue]`edit [INDEX] n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE]`
 ====
 Example:
 
@@ -133,61 +138,62 @@ Outcome: Priority of existing task with index 3 to 1, and its deadline is change
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 
-
 At least one of the optional fields must be provided. Existing values of provided field
 will be updated to the input values.
 
 [WARNING]
-The existing tags of the task will be removed when tag is edited. If input is
-[blue]`edit 3 t/project`, then the tag of task 3 will be [blue]`project` only.
+Existing tags of a task will be removed when its tag is edited. If input is
+[blue]`edit 3 t/project`, then the resulting tag(s) of task 3 will be [blue]`project` only.
 
 [TIP]
-To remove all tags of a existing task, you can just type [blue]`c/`.
-If input is [blue]`task 3 c/`, all the tags of task 3 will be removed.
-
+To remove all tags of an existing task, you can just type [blue]`t/`.
+If input is [blue]`task 3 t/`, all the tags of the task with `INDEX` 3 will be removed.
 
 
 [TIP]
-Use the [blue]`list task`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified.
-For example, you can use [blue]`listday` to list out tasks due today, and userefer to the tasks according to index used
-in current list.
+Use [blue]`list task`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified. +
+For example, you can use [blue]`listday` to list the tasks due today, and choose the index of the task you want
+ to edit.
 
 
 === Finding Tasks by Name
 
 Finds tasks whose names match with given keyword. +
 ====
-[blue]`find KEYWORD`
+[blue]`find [NAME]`
 ====
 Example:
 ====
 input: [blue]`find tutorial` +
-output: All tasks that has "tutorial" in their names are listed out.
+output: All tasks with "tutorial" in their names are listed.
 ====
 
-The search is case insensitive. For example, [blue]`apples` will match [blue]`Apples`.
+The search is case insensitive. For example, [blue]`apples` and  [blue]`Apples` both return the same tasks.
 
-The order of the keywords does not matter. For example,  [blue]`apples buy` will match [blue]`buy apples`. +
+The order of the keywords does not matter. For example,  [blue]`apples buy` and [blue]`buy apples` both return the
+same tasks. +
 
 [TIP]
 You can include multiple keywords when using [blue]`find`. [blue]`find CS3230 CS5229` will find all tasks with name containing
 [blue]`CS3230` or [blue]`CS5229`.
 
 
-
-
-=== Filter Tasks by Tag
-Finds tasks whose tag matches with given keyword. +
+=== Filtering Tasks by Tag
+Filters and lists tasks with tags matching those entered by the user. User may input more than 1 tag. +
 ====
-[blue]`filter KEYWORD`
+[blue]`filter [TAG] [TAG2] ...`
 ====
 Example:
 ====
 input: [blue]`filter tutorial` +
-output: All tasks that has tag matching with [blue]`tutorial` are listed out.
+output: All tasks with the tag [blue]`tutorial` are listed.
+
+input: [blue]`filter tutorial 2100` +
+output: All tasks with the tag either [blue]`tutorial`, [blue]`2100`, or both [blue]`tutorial` and [blue]`2100`, are
+listed.
 ====
 
-The search is case insensitive. e.g [blue]`apples` will match [blue]`Apples`.
+The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
 
 
 [TIP]
@@ -211,7 +217,7 @@ output: Task with index 3 delete from schedule planner.
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
-Use the `list task` command to find out the index of the task to be deleted.
+Use the `list` command to find out the index of the task to be deleted.
 
 === Archiving a Task
 
@@ -229,50 +235,98 @@ output: Task with index 4 is removed from the current list and saved in the arch
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
 The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 [TIP]
-Use the `list task` command to find out the index of the task to be archived.
+Use the `list` command to find out the index of the task to be archived.
 
 === Viewing Archived Tasks
 
-Views archived tasks. +
+Shows a list of archived tasks. +
 ====
 [blue]`listarchived`
 ====
 
 === Viewing Tasks Due Today
 
-Views tasks that are due today. +
+Shows a list of tasks that are due today. +
 ====
 [blue]`listday`
 ====
 
-=== Viewing Tasks Due This Termweek
+=== Viewing Tasks Due This Week
 
-Views tasks that are due from current date till the closest Sunday. +
+Shows a list of tasks that are due from current date till the closest Sunday. +
 ====
 [blue]`listweek`
 ====
 
-=== Generating academic calendar weeks
+Example:
+====
+input: [blue]`listweek` on the date 021118 +
+output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
+====
 
-Generates the entire academic calendar calendar with description based on the first academic day and stores it in storage.
+Before:
+====
+image::ListWeekCommand_UG_Before.png[width="300"]
+====
 
-Currently, the generated academic calendar is adapted from the academic calender of National University of Singapore
-(NUS).
+After:
+====
+image::ListWeekCommand_UG_After.png[width="400"]
+====
 
-Whenever you launch the application within the academic calendar's dates, the application title
-will append that particular week's description. +
+=== Viewing Tasks Due This Month
+
+Shows a list of tasks that are due from current date till the end of the current Month. +
+====
+[blue]`listweek`
+====
+
+Example:
+====
+input: [blue]`listweek` on the date 021118 +
+output: Shows a list of tasks from 021118 to end of the month which is 301118.
+====
+
+Before:
+====
+image::ListWeekCommand_UG_Before.png[width="300"]
+====
+
+After:
+====
+image::ListWeekCommand_UG_After.png[width="400"]
+====
+
+=== Generating Weeks in the Academic Calendar
+
+Generates the entire academic calendar with description, based on the first academic day and stores it in storage.
+
+Currently, the generated academic calendar is based on the academic calender of National University of Singapore
+(NUS). It may not be compatible with academic calendars from other institutions.
+
+Whenever the application is launched within the academic calendar's dates, the application title
+will append that particular week's description to the title of the app. +
 
 ====
-[blue]`firstday ddmmyy`
+[blue]`firstday [DDMMYY]`
 ====
 
 Example:
 ====
 input: [blue]`firstday 130818` +
-output: When user launch the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
-semester 1), the application title will append "week 10".
+output: When the user launches the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
+semester 1), the application title will append "Week 10" to the title of the app.
 ====
-The [blue]`ddmmyy` refers to the date format of day, month and year.
+The [blue]`[DDMMYY]` refers to the date format of day, month and year. It must complies the following three rules in
+order:
+
+1. The [blue]`DDMMYY]` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
+will be
+rejected as they are considered as more than one set of date.
+
+2. The [blue]`DDMMYY` must be a valid date within 21st century.
+
+3. The [blue]`DDMMYY` must be a Monday.
 
 Before:
 ====
@@ -286,24 +340,15 @@ image::FirstDayCommand_UG_Aft.png[width="400"]
 
 === Listing Overdue Tasks
 
-Lists all the overdue tasks. +
+Shows a list all the overdue tasks. +
 ====
-[blue]`list overdue`
+[blue]`listoverdue`
 ====
-
-=== Listing All tags
-
-Shows a list of all existing tags. +
-====
-[blue]`list tag`
-====
-
-The categories will be listed in alphabetical order.
 
 
 === Listing Used Commands
 
-Lists all the commands that you have entered in reverse chronological order. +
+Shows a list of all the commands that you have entered in reverse chronological order. +
 ====
 [blue]`history`
 ====
@@ -313,7 +358,7 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
+
 === Undoing Previous Command
 Restores the schedule planner to the state before the previous _undoable_ command was executed. +
 
@@ -368,12 +413,6 @@ Exits the application. +
 Data in the Student Schedule Planner is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting Data Files (Coming in v2.0)
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 
 == Command Summary
 * *Viewing Help* :
@@ -382,23 +421,23 @@ _{explain how the user can enable/disable data encryption}_
 ====
 * *Adding Tasks* :
 ====
-[blue]`add [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`add n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 Example: +
 [blue]`add n/do tutorial p/1 t/cs2100 d/121019 v/home` +
 ====
 * *Adding Recurring Tasks* :
 ====
-[blue]`repeat [r/REPEATS] [n/NAME] [p/PRIORITYLEVEL] [t/TAG] [d/DEADLINE] [v/VENUE]` +
+[blue]`repeat r/[REPEATS] n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
 ====
 * **Listing All Tasks** :
 ====
-[blue]`list task`
+[blue]`list`
 ====
 
 * **Editing a Task** :
 
 ====
-[blue]`edit INDEX [n/NAME] [p/PRIORITYLEVEL] [t/TAGS]... [d/DEADLINE]` +
+[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL]t/[TAGS]... d/[DEADLINE]` +
 
 Example: +
 [blue]`edit 3 p/1 d/121019` +
@@ -406,21 +445,21 @@ Example: +
 * **Finding Tasks by Name** :
 
 ====
-[blue]`find KEYWORD` +
+[blue]`find [NAME] +
 
 Example: +
 [blue]`find tutorial` +
 ====
 * **Filter Tasks by Tag** :
 ====
-[blue]`filter KEYWORD` +
+[blue]`filter [TAG] ...` +
 
 Example: +
 [blue]`filter tutorial`
 ====
 * **Deleting Tasks** :
 ====
-[blue]`delete INDEX` +
+[blue]`delete [INDEX]` +
 
 Example: +
 [blue]`delete 1` +
@@ -428,7 +467,7 @@ Example: +
 * **Archiving Tasks** :
 
 ====
-[blue]`archive INDEX` +
+[blue]`archive [INDEX]` +
 
 Example: +
 [blue]`archive 1` +
@@ -446,26 +485,18 @@ Example: +
 ====
 [blue]`listweek`
 ====
-* **Generating academic calendar weeks** :
+* **Generating Academic Calendar Weeks** :
 ====
-[blue]`firstday ddmmyy`
+[blue]`firstday DDMMYY`
 
 Example: +
 [blue]`firstday 130818` +
 ====
 
-* **Listing Overdue Tasks** : (Coming in v1.3)
+* **Listing Overdue Tasks** :
 ====
-[blue]`list overdue`
+[blue]`listoverdue`
 ====
-
-* **Listing All tags** :
-
-====
-[blue]`list tag`
-====
-
-
 
 * **Listing Used Commands** :
 ====
