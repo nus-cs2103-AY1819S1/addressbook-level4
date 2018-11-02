@@ -104,6 +104,26 @@ public class PreviewImage {
     }
 
     /**
+     * Decrement current index if able to undo.
+     */
+    public void undoAll() {
+        if (!canUndo()) {
+            throw new NoUndoableStateException();
+        }
+        currentIndex = 0;
+    }
+
+    /**
+     * Increment current index if able to redo.
+     */
+    public void redoAll() {
+        if (!canRedo()) {
+            throw new NoRedoableStateException();
+        }
+        currentIndex = currentSize - 1;
+    }
+
+    /**
      * Determine if history needs to be purged before committing.
      */
     public void commit(BufferedImage image) {
