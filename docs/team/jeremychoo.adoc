@@ -13,9 +13,6 @@ Office Assistance Specialized Integration System (OASIS) is an all-in-one app fo
 
 This project portfolio summarizes the contributions that I have made to the project.
 
-[NOTE]
-Text with a note on a left isn't really part of the portfolio, they're just questions and comments that I want to bring up during the review.
-
 == Summary of contributions
 
 The following section shows my major code contributions to OASIS.
@@ -28,23 +25,14 @@ The following section shows my major code contributions to OASIS.
 *** Ability to *login and logout* into each employee's accounts.
 *** A way to *secure the employee's account* through the changing of passwords.
 *** Complete modern-day security using *salted and hashed passwords* with 256-bit salts and SHA256 hashing algorithm.
-[NOTE]
-Is the bolding ok? Too much?
 ** Justification: This feature is essential in the product as only certain users are authorized to use cetain commands, thus user identification is required. This feature also helps to preserve the privacy of the users by ensuring that their data isn't publicly viewable.
 ** Highlights: I implemented a feature for `LogicManager` to have a List of interceptors, which are a `FunctionalInterface` that allows the processing of a Command. This allows the password changing command to work without adding excessive coupling between `Command` and `LogicManager`. Security for each user was essental to ensure that a user cannot read commands entered by another user. This was implemented by clearing user-specific data after logout.
-// [Too general, try to give examples] This enhancement affects existing users and potential future UI designs to adapt around the need for the login screen. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes on many different parts of the program.
 
-[NOTE]
-Not too sure what to put in highlights. The current is kind of like "edge cases, that if not considered, would be really bad, or large functionality that isn't obvious". But the true good functionality is stated above, before the highlights
+=== Minor enhancement:
+The following section shows all the other minor enhancements done for the project that are not part of my major enhancement above.
 
-=== Minor enchancement:
-
-* *Minor enhancements*
+* *Minor enhancements in code*
 ** Allow for easier searching of employees by updated the find command to support `\*` and `\_` as wildcards. `*` as a generic wildcards for any number of characters (including 0), while `_` acts as a generic wildcard for a single character.
-
-[NOTE]
-Is it necessary to explain what * and _ represents? Or is it not clear and I should provide an example?
-
 ** Converted the parser to use `-` instead of `/` to read arguments, similar to the command line in modern day operating systems.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
@@ -70,10 +58,7 @@ I have PRs for the minor features stated above. Do I put those here?
 I kind of want to brag about this? but it's more like "this should be the standard"
 ** Community:
 //*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1])
-[NOTE]
-Is only 1 ok? It's unlikely there's going to be more than 1
-
+*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1] https://github.com/CS2103-AY1819S1-F10-2/main/issues/173[2] https://github.com/CS2103-AY1819S1-F10-2/main/issues/174[3])
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
@@ -88,7 +73,7 @@ Ordering of bullet points in Other contributions?
 |===
 
 [NOTE]
-User Guide was really more of a team effort, with lots of discussion centered around many parts of it. How to properly include?
+User Guide should include the specific commands that I implemented
 
 include::../UserGuide.adoc[tag=quickstart-begin]
 
