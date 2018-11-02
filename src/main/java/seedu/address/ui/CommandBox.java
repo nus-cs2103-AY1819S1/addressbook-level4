@@ -32,8 +32,9 @@ public class CommandBox extends UiPart<Region> {
             "add", "clear", "delete-patient", "delete-doctor", "edit", "exit",
             "find", "help", "history", "list", "redo", "register-patient", "register-doctor",
             "select", "undo", "add-appointment", "edit-appointment", "delete-appointment", "remark",
-            "add-medical-history", "filter-patient", "filter-doctor", "add-prescription",
-            "delete-medical-history", "view-patient", "view-doctor", "complete-appointment"));
+            "add-medical-history", "filter-patient", "filter-doctor", "delete-medical-history",
+            "view-patient", "view-doctor", "complete-appointment", "add-prescription",
+            "delete-prescription"));
     private ListElementPointer historySnapshot;
 
     @FXML

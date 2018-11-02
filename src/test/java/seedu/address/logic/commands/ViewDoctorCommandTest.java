@@ -35,13 +35,13 @@ public class ViewDoctorCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validDoctorUnfilteredList_success() {
+    public void execute_validDoctor_success() {
         Doctor doctorToDelete = GEORGE;
         assertExecutionSuccess(doctorToDelete);
     }
 
     @Test
-    public void execute_invalidDoctorUnfilteredList_failure() {
+    public void execute_invalidDoctor_failure() {
         // invalid name
         assertCommandFailure(new ViewDoctorCommand(new Name("JACKIE")),
                 model, commandHistory, ViewDoctorCommand.MESSAGE_INVALID_DOCTOR);
@@ -76,15 +76,15 @@ public class ViewDoctorCommandTest {
      * Executes a {@code ViewDoctorCommand} with the given {@code name}, and checks
      * that {@code PersonPanelSelectionChangedEvent} is raised with the correct name.
      */
-    private void assertExecutionSuccess(Doctor Doctor) {
-        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(Doctor.getName());
-        String expectedMessage = String.format(ViewDoctorCommand.MESSAGE_SUCCESS, Doctor.getName());
+    private void assertExecutionSuccess(Doctor doctor) {
+        ViewDoctorCommand viewDoctorCommand = new ViewDoctorCommand(doctor.getName());
+        String expectedMessage = String.format(ViewDoctorCommand.MESSAGE_SUCCESS, doctor.getName());
 
         assertCommandSuccess(viewDoctorCommand, model, commandHistory, expectedMessage, expectedModel);
 
         PersonPanelSelectionChangedEvent lastEvent =
                 (PersonPanelSelectionChangedEvent) eventsCollectorRule.eventsCollector.getMostRecent();
-        assertEquals(Doctor, lastEvent.getNewSelection());
+        assertEquals(doctor, lastEvent.getNewSelection());
     }
 
     /**

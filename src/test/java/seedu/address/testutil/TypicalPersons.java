@@ -2,6 +2,9 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_ID_FIRST;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONSUMPTION_PER_DAY_PARACETAMOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -16,6 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.appointment.ConsumptionPerDay;
+import seedu.address.model.appointment.Dosage;
+import seedu.address.model.appointment.MedicineName;
+import seedu.address.model.appointment.Prescription;
 import seedu.address.model.person.Person;
 
 /**
@@ -60,7 +67,12 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalPersons() {} // prevents instantiation
+    public static final Prescription PARACETAMOL = new Prescription(VALID_APPOINTMENT_ID_FIRST,
+            new MedicineName(VALID_DOSAGE_PARACETAMOL), new Dosage(VALID_DOSAGE_PARACETAMOL),
+            new ConsumptionPerDay(VALID_CONSUMPTION_PER_DAY_PARACETAMOL));
+
+    private TypicalPersons() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code AddressBook} with all the typical persons.
@@ -76,4 +88,5 @@ public class TypicalPersons {
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
+
 }

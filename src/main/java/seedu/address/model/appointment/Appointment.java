@@ -77,6 +77,19 @@ public class Appointment implements Comparable<Appointment> {
         prescriptions.add(prescription);
     }
 
+    /**
+     * already verified that prescription exists
+     */
+    public void deletePrescription(String medicineName) {
+        Prescription toRemove = null;
+        for (Prescription p : prescriptions) {
+            if (p.getMedicineName().toString().equals(medicineName)) {
+                toRemove = p;
+            }
+        }
+        prescriptions.remove(toRemove);
+    }
+
     public void completeAppointment() {
         status = Status.COMPLETED;
     }
@@ -131,5 +144,24 @@ public class Appointment implements Comparable<Appointment> {
         } else {
             return 0;
         }
+    }
+
+    /**
+     * Returns true if both appointments have the same identity and data fields.
+     * This defines a stronger notion of equality between two appointments.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Appointment)) {
+            return false;
+        }
+        Appointment otherAppointment = (Appointment) other;
+        return appointmentId.equals(otherAppointment.appointmentId)
+                && doctor.equals(otherAppointment.doctor)
+                && patient.equals(otherAppointment.patient)
+                && dateTime.equals(otherAppointment.dateTime);
     }
 }

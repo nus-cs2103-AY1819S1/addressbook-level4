@@ -32,7 +32,7 @@ public class DeletePersonCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validPatientUnfilteredList_success() {
+    public void execute_validPatient_success() {
         Patient patientToDelete = ALICE;
         DeletePatientCommand deletePatientCommand =
                 new DeletePatientCommand(patientToDelete.getName());
@@ -47,7 +47,7 @@ public class DeletePersonCommandTest {
     }
 
     @Test
-    public void execute_invalidPatientUnfilteredList_throwsCommandException() {
+    public void execute_invalidPatient_throwsCommandException() {
         // invalid name
         assertCommandFailure(new DeletePatientCommand(new Name("JASKLFJA12412445")),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
@@ -58,7 +58,7 @@ public class DeletePersonCommandTest {
     }
 
     @Test
-    public void execute_validDoctorUnfilteredList_success() {
+    public void execute_validDoctor_success() {
         Doctor doctorToDelete = GEORGE;
         DeleteDoctorCommand deleteDoctorCommand =
                 new DeleteDoctorCommand(doctorToDelete.getName());
@@ -73,7 +73,7 @@ public class DeletePersonCommandTest {
     }
 
     @Test
-    public void execute_invalidDoctorUnfilteredList_throwsCommandException() {
+    public void execute_invalidDoctor_throwsCommandException() {
         // invalid name
         assertCommandFailure(new DeleteDoctorCommand(new Name("JASKLFJA12412445")),
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
@@ -84,7 +84,7 @@ public class DeletePersonCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validPatientUnfilteredList_success() throws Exception {
+    public void executeUndoRedo_validPatient_success() throws Exception {
         Patient patientToDelete = ALICE;
         DeletePatientCommand deletePatientCommand =
                 new DeletePatientCommand(patientToDelete.getName());
@@ -105,7 +105,7 @@ public class DeletePersonCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validDoctorUnfilteredList_success() throws Exception {
+    public void executeUndoRedo_validDoctor_success() throws Exception {
         Doctor doctorToDelete = GEORGE;
         DeleteDoctorCommand deleteDoctorCommand =
                 new DeleteDoctorCommand(doctorToDelete.getName());
@@ -126,7 +126,7 @@ public class DeletePersonCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidPatientUnfilteredList_failure() {
+    public void executeUndoRedo_invalidPatient_failure() {
         // execution failed -> address book state not added into model
         assertCommandFailure(new DeletePatientCommand(new Name("JASKLFJA12412445")),
                 model, commandHistory, String.format(DeletePatientCommand.MESSAGE_INVALID_DELETE_PERSON, "Patient"));
@@ -137,7 +137,7 @@ public class DeletePersonCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidDoctorUnfilteredList_failure() {
+    public void executeUndoRedo_invalidDoctor_failure() {
         // execution failed -> address book state not added into model
         assertCommandFailure(new DeleteDoctorCommand(new Name("JASKLFJA12412445")),
                 model, commandHistory, String.format(DeleteDoctorCommand.MESSAGE_INVALID_DELETE_PERSON, "Doctor"));
