@@ -348,7 +348,8 @@ This section describes some noteworthy details on how certain features are imple
 //** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 //// end::undoredo[]
 
-// tag::login[]
+//tag::useraccounts[]
+
 === User Accounts System
 The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other's data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.
 
@@ -432,7 +433,7 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 * **Alternative 2:** User data is loaded only when the user attempts to log in
 ** Pros: Unnecessary data is not kept in memory so memory space is not wasted
 ** Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user's data.
-// end::login[]
+// end::useraccounts[]
 
 // tag::statistics[]
 === Statistics
@@ -750,7 +751,7 @@ returned to
 method to update the time when the next spendings of `totalBudget` is reset.
 
 ===== Budget by Category
-. User enters command `addCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
+. User enters command `setCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
 
 . `ExpenseTrackerParser` will then create a `AddCategoryBudgetCommandParser` Object and calls
 `AddCategoryBudgetCommandParser#parse()` method.
@@ -764,7 +765,7 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
 . From the previous step, if no exception is thrown, an `AddCategoryBudgetCommand` Object with `category` and `budget`
  is created and returned to `LogicManager`.
 
-. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#addCategoryBudget()`
+. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#setCategoryBudget()`
 method to add a `Budget` to a `Category`.
 
 ===== Notification center (Proposed)
