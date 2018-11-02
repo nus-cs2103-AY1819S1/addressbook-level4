@@ -34,16 +34,16 @@ public class Doctor extends Person {
         this.upcomingAppointments = upcomingAppointments;
     }
 
+    public List<Appointment> getUpcomingAppointments() {
+        return upcomingAppointments;
+    }
+
     /**
      * Adds an upcoming appointment to the doctor's queue of upcoming appointment.
      * The appointment is also added into Doctor's google calendar
      */
     public void addUpcomingAppointment(Appointment appointment) {
         upcomingAppointments.add(appointment);
-    }
-
-    public List<Appointment> getUpcomingAppointments() {
-        return upcomingAppointments;
     }
 
     /**
@@ -71,7 +71,9 @@ public class Doctor extends Person {
                 break;
             }
         }
-        upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+        if (!(indexToBeDeleted == -1)) {
+            upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+        }
     }
 
     /**
@@ -85,7 +87,6 @@ public class Doctor extends Person {
                 appointmentToRemove = app;
             }
         }
-        appointmentToRemove.completeAppointment();
         upcomingAppointments.remove(appointmentToRemove);
     }
 

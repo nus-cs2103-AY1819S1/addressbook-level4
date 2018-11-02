@@ -74,6 +74,7 @@ public class AddPrescriptionCommand extends Command {
                 break;
             }
         }
+        System.out.println(appointmentToEdit.getAppointmentId());
 
         // if appointment does not exist
         if (appointmentToEdit == null) {
@@ -103,7 +104,7 @@ public class AddPrescriptionCommand extends Command {
         List<Person> personList = model.getFilteredPersonList();
         Doctor doctorToEdit = null;
         Patient patientToEdit = null;
-
+        System.out.println("here ");
         for (Person person : personList) {
             if (person instanceof Doctor) {
                 if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
@@ -120,6 +121,8 @@ public class AddPrescriptionCommand extends Command {
             }
         }
 
+        System.out.println(doctorToEdit);
+        System.out.println(patientToEdit);
         if (doctorToEdit == null || patientToEdit == null) {
             throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
         }
