@@ -366,7 +366,7 @@ Displays the following information about patients:
 ****
 Format: `patientstats`
 
-==== Displaying appointment statistics : `appointmentstats`
+==== Displaying appointment statistics : `apptstats`
 
 Displays the following information about appointments:
 ****
@@ -374,7 +374,7 @@ Displays the following information about appointments:
 * The availability of appointment slots as compared to the number of scheduled appointments.
 * The proportion of appointments that are follow-ups, as opposed to walk-in.
 ****
-Format: `appointmentstats`
+Format: `apptstats`
 
 ==== Displaying doctor statistics : `doctorstats`
 

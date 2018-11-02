@@ -7,7 +7,6 @@ import java.util.Objects;
 
 import javafx.collections.ObservableList;
 
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.UniqueAppointmentList;
 import seedu.clinicio.model.consultation.Consultation;
@@ -24,8 +23,6 @@ import seedu.clinicio.model.staff.UniqueStaffList;
  */
 public class ClinicIo implements ReadOnlyClinicIo {
 
-    //@@author arsalanc-v2
-    private final Analytics analytics;
     private final UniquePersonList persons;
     //@@author jjlee050
     private final UniqueStaffList staffs;
@@ -41,13 +38,11 @@ public class ClinicIo implements ReadOnlyClinicIo {
      *   among constructors.
      */
     {
-        //@@author arsalanc-v2
-        analytics = new Analytics();
         persons = new UniquePersonList();
         //@@author jjlee050
         staffs = new UniqueStaffList();
         //@@author gingivitiss
-        appointments = new UniqueAppointmentList(analytics);
+        appointments = new UniqueAppointmentList();
         consultations = new UniqueConsultationList();
     }
 

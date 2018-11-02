@@ -13,7 +13,6 @@ import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
@@ -50,7 +49,7 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (!model.hasStaff(toAuthenticate)) {

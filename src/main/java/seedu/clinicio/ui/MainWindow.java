@@ -25,6 +25,7 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
+import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -45,6 +46,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private AnalyticsDisplay analyticsDisplay;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -126,7 +128,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
+        analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -204,10 +208,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe
