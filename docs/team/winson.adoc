@@ -26,7 +26,7 @@ Some of its main features are:
 == 2. Summary of contributions
 
 * *Major enhancement*: added *the ability to have a budget on expenses.*
-** Function: informs the user if the their expenses exceed a set budget
+** Function: It informs the user if the their expenses exceed a set budget
 ** Justification: This is a core feature as it allows the user to know when they are spending too much money, the
 main purpose of an expense tracker.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
