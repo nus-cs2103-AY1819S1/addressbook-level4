@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.getTypicalAddressBookWithPatientAndDoctor;
 
 import java.util.List;
 

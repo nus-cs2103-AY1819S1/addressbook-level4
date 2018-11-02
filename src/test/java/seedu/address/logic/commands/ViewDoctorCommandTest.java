@@ -35,13 +35,13 @@ public class ViewDoctorCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validDoctorUnfilteredList_success() {
+    public void execute_validDoctor_success() {
         Doctor doctorToDelete = GEORGE;
         assertExecutionSuccess(doctorToDelete);
     }
 
     @Test
-    public void execute_invalidDoctorUnfilteredList_failure() {
+    public void execute_invalidDoctor_failure() {
         // invalid name
         assertCommandFailure(new ViewDoctorCommand(new Name("JASKLFJA12412445")),
                 model, commandHistory, ViewDoctorCommand.MESSAGE_INVALID_DOCTOR);
