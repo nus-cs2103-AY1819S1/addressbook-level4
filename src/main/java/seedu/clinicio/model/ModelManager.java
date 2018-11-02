@@ -15,9 +15,14 @@ import seedu.clinicio.commons.core.ComponentManager;
 import seedu.clinicio.commons.core.LogsCenter;
 
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
+import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
 import seedu.clinicio.logic.commands.DequeueCommand;
 import seedu.clinicio.logic.commands.EnqueueCommand;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
+import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.analytics.StatisticType;
+import seedu.clinicio.model.analytics.data.StatData;
+
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
@@ -39,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Consultation> filteredConsultations;
     private final MainQueue mainQueue;
     private final PreferenceQueue preferenceQueue;
+    private final Analytics analytics;
 
     /**
      * Initializes a ModelManager with the given ClinicIO and userPrefs.
@@ -58,6 +64,8 @@ public class ModelManager extends ComponentManager implements Model {
         //@@author iamjackslayer
         mainQueue = new MainQueue();
         preferenceQueue = new PreferenceQueue();
+        //@@author arsalanc-v2
+        analytics = new Analytics();
     }
 
     public ModelManager() {
@@ -187,7 +195,9 @@ public class ModelManager extends ComponentManager implements Model {
         versionedClinicIo.add(consultation);
         updateFilteredConsultationList(PREDICATE_SHOW_ALL_CONSULTATIONS);
     }
+
     //========== Update ======================================================================================
+    //@@author iamjackslayer
     @Override
     public void enqueue(Patient patient) throws CommandException {
         if (patient.isQueuing()) {
@@ -203,6 +213,7 @@ public class ModelManager extends ComponentManager implements Model {
         patient.setIsQueuing();
     }
 
+    //@@author iamjackslayer
     @Override
     public void dequeue(Patient patient) throws CommandException {
         if (!patient.isQueuing()) {
@@ -231,6 +242,7 @@ public class ModelManager extends ComponentManager implements Model {
         mainQueue.add(patient);
     }
 
+    //@@author iamjackslayer
     /**
      * Enqueues patient who is consulting a particular staff into the 'special' queue.
      * @param patient
@@ -278,6 +290,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //@@author iamjackslayer
     @Override
     public ObservableList<Person> getAllPatientsInQueue() {
         ArrayList<Person> allPatientsInQueue = new ArrayList(mainQueue.getList());
@@ -415,6 +428,46 @@ public class ModelManager extends ComponentManager implements Model {
     public void commitClinicIo() {
         versionedClinicIo.commit();
     }
+
+    //=========== Analytics ==================================================================================
+    //@@author arsalanc-v2
+
+    /**
+     * Creates an event to display a particular class of analytics.
+     */
+    @Override
+    public void requestAnalyticsDisplay(StatisticType type) {
+        raise(new AnalyticsDisplayEvent(type, retrieveAnalytics(type)));
+    }
+
+    /**
+     * Updates and returns the latest statistics data.
+     */
+    public StatData retrieveAnalytics(StatisticType type) {
+        updateAnalytics(type);
+        return analytics.getAllStatisticsOfType(type);
+    }
+
+    /**
+     * Updates statistics data depending on the type that is supplied.
+     */
+    public void updateAnalytics(StatisticType type) {
+        analytics.setConsultations(versionedClinicIo.getConsultationList());
+        switch (type) {
+        case APPOINTMENT:
+            analytics.setAppointments(versionedClinicIo.getAppointmentList());
+            break;
+
+        case DOCTOR:
+            analytics.setDoctors(versionedClinicIo.getStaffList());
+            break;
+
+        default:
+            analytics.setAppointments(versionedClinicIo.getAppointmentList());
+            break;
+        }
+    }
+    //========================================================================================================
 
     @Override
     public boolean equals(Object obj) {

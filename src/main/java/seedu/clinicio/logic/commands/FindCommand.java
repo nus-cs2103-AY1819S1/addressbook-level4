@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.clinicio.commons.core.Messages;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 
 /**
@@ -28,7 +27,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(

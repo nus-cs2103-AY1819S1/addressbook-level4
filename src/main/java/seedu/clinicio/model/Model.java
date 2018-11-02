@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.logic.commands.exceptions.CommandException;
+import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
@@ -40,6 +41,9 @@ public interface Model {
 
     /** Returns the ClinicIo */
     ReadOnlyClinicIo getClinicIo();
+
+    /** */
+    void requestAnalyticsDisplay(StatisticType statisticType);
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the ClinicIO.
@@ -88,6 +92,7 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
 
+    // @@author iamjackslayer
     ObservableList<Person> getAllPatientsInQueue();
 
     /**
@@ -176,6 +181,7 @@ public interface Model {
      */
     void enqueue(Patient patient) throws CommandException;
 
+    //@@author iamjackslayer
     /**
      * Removes the given patient from the queue.
      * @param patient
@@ -183,6 +189,7 @@ public interface Model {
      */
     void dequeue(Patient patient) throws CommandException;
 
+    //@@author iamjackslayer
     /**
      * Enqueues the given patient into main queue.
      * @param patient
@@ -193,7 +200,6 @@ public interface Model {
     /**
      * Enqueues the given person into preference queue.
      */
-    // TODO Change Person object to Patient Object
     void enqueueIntoPreferenceQueue(Person patient);
 
     //@@author iamjackslayer
@@ -208,6 +214,7 @@ public interface Model {
      */
     boolean hasPatientInPreferenceQueue();
 
+    //@@author iamjackslayer
     /**
      * Check if patient exists in the patient queue.
      */

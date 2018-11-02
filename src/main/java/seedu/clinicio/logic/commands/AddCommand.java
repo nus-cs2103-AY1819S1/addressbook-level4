@@ -10,8 +10,6 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 
 /**
@@ -50,7 +48,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
