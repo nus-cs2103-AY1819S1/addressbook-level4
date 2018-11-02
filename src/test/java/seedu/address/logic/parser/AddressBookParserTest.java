@@ -4,7 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_ID_FIRST;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONSUMPTION_PER_DAY_PARACETAMOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_PARACETAMOL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_PARACETAMOL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -20,6 +28,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPrescriptionCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteDoctorCommand;
 import seedu.address.logic.commands.DeletePatientCommand;
@@ -37,6 +46,10 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewDoctorCommand;
 import seedu.address.logic.commands.ViewPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.ConsumptionPerDay;
+import seedu.address.model.appointment.Dosage;
+import seedu.address.model.appointment.MedicineName;
+import seedu.address.model.appointment.Prescription;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
@@ -136,6 +149,20 @@ public class AddressBookParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_addPrescriptionCommandWord_returnsAddPrescriptionCommand() throws Exception {
+        final Prescription prescription = new Prescription(VALID_APPOINTMENT_ID_FIRST,
+                new MedicineName(VALID_MEDICINE_NAME_PARACETAMOL),
+                new Dosage(VALID_DOSAGE_PARACETAMOL),
+                new ConsumptionPerDay(VALID_CONSUMPTION_PER_DAY_PARACETAMOL));
+        AddPrescriptionCommand command = (AddPrescriptionCommand) parser.parseCommand(
+                AddPrescriptionCommand.COMMAND_WORD + " " + PREFIX_INDEX + VALID_APPOINTMENT_ID_FIRST
+                        + " " + PREFIX_MEDICINE_NAME + VALID_MEDICINE_NAME_PARACETAMOL
+                        + " " + PREFIX_DOSAGE + VALID_DOSAGE_PARACETAMOL
+                        + " " + PREFIX_CONSUMPTION_PER_DAY + VALID_CONSUMPTION_PER_DAY_PARACETAMOL);
+        assertEquals(new AddPrescriptionCommand(prescription), command);
     }
 
     @Test

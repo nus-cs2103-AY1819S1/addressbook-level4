@@ -1,12 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
@@ -20,44 +16,38 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentId;
+import seedu.address.model.appointment.MedicineName;
 import seedu.address.model.appointment.Prescription;
 import seedu.address.model.doctor.Doctor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
-
 /**
- * Adds a prescription to an appointment
+ * Deletes a prescription from health book
  */
+public class DeletePrescriptionCommand extends Command {
 
-public class AddPrescriptionCommand extends Command {
+    public static final String COMMAND_WORD = "delete-prescription";
 
-    public static final String COMMAND_WORD = "add-prescription";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a prescription to an appointment. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a prescription to an appointment. "
             + "Parameters: "
-            + PREFIX_INDEX + "APPOINTMENT_ID "
+            + PREFIX_INDEX + "APPOINTMENT ID "
             + PREFIX_MEDICINE_NAME + "MEDICINE_NAME "
-            + PREFIX_DOSAGE + "DOSAGE "
-            + PREFIX_CONSUMPTION_PER_DAY + "CONSUMPTION_PER_DAY \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_INDEX + "10005 "
-            + PREFIX_MEDICINE_NAME + "Paracetamol "
-            + PREFIX_DOSAGE + "2 "
-            + PREFIX_CONSUMPTION_PER_DAY + "3 ";
+            + PREFIX_MEDICINE_NAME + "Paracetamol ";
 
-    public static final String MESSAGE_SUCCESS = "New Prescription added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the appointment";
-    public static final String MESSAGE_APPOINTENT_DOES_NOT_EXIST = "This appointment does not exist";
+    public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Deleted Prescription: %1$s";
+    public static final String MESSAGE_INVALID_DELETE_PRESCRIPTION =
+            "This prescription does not exist in the HealthBook";
+    public static final String MESSAGE_APPOINTMENT_DOES_NOT_EXIST = "This appointment does not exist";
 
-    private final Prescription prescriptionToAdd;
+    private final int id;
+    private final MedicineName medicineName;
 
-    /**
-     * Creates an AddPrescriptionCommand to add the specified {@code Person}
-     */
-    public AddPrescriptionCommand(Prescription prescription) {
-        requireAllNonNull(prescription);
-        prescriptionToAdd = prescription;
+    public DeletePrescriptionCommand(int id, MedicineName medicineName) {
+        this.id = id;
+        this.medicineName = medicineName;
     }
 
     @Override
@@ -69,23 +59,33 @@ public class AddPrescriptionCommand extends Command {
         // check if appointment exists
         Appointment appointmentToEdit = null;
         for (Appointment appointment : appointmentList) {
-            if (appointment.getAppointmentId() == prescriptionToAdd.getId()) {
+            if (appointment.getAppointmentId() == id) {
                 appointmentToEdit = appointment;
                 break;
             }
         }
 
-        // if appointment does not exist
+        // appointment does not exist
         if (appointmentToEdit == null) {
-            throw new CommandException(String.format(MESSAGE_APPOINTENT_DOES_NOT_EXIST));
+            throw new CommandException(String.format(MESSAGE_APPOINTMENT_DOES_NOT_EXIST));
         }
 
-        // check if prescription already exists in appointment
-        if (appointmentToEdit.getPrescriptions().contains(prescriptionToAdd)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_PRESCRIPTION));
+        // check if prescription exists
+        Prescription prescriptionToBeDeleted = null;
+
+        for (Prescription prescription : appointmentToEdit.getPrescriptions()) {
+            if (prescription.getMedicineName().equals(medicineName)) {
+                prescriptionToBeDeleted = prescription;
+                break;
+            }
         }
 
-        // adding prescription
+        // prescription does not exist in appointment
+        if (prescriptionToBeDeleted == null) {
+            throw new CommandException(String.format(MESSAGE_INVALID_DELETE_PRESCRIPTION));
+        }
+
+        // deleting prescription
         ArrayList<Prescription> allPrescriptions = new ArrayList<Prescription>();
         allPrescriptions.addAll(appointmentToEdit.getPrescriptions());
 
@@ -96,10 +96,11 @@ public class AddPrescriptionCommand extends Command {
                 appointmentToEdit.getStatus(),
                 appointmentToEdit.getComments(),
                 allPrescriptions);
-        editedAppointment.addPrescription(prescriptionToAdd);
+        editedAppointment.deletePrescription(medicineName.toString());
         model.updateAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
 
+        //editing persons
         List<Person> personList = model.getFilteredPersonList();
         Doctor doctorToEdit = null;
         Patient patientToEdit = null;
@@ -121,7 +122,7 @@ public class AddPrescriptionCommand extends Command {
         }
 
         if (doctorToEdit == null || patientToEdit == null) {
-            throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
+            throw new CommandException(MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
         }
 
         //TODO update google calendar
@@ -136,7 +137,6 @@ public class AddPrescriptionCommand extends Command {
 
         editedPatient.setAppointment(appointmentToEdit, editedAppointment);
         editedDoctor.setAppointment(appointmentToEdit, editedAppointment);
-
         model.updatePerson(patientToEdit, editedPatient);
         model.updatePerson(doctorToEdit, editedDoctor);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -144,7 +144,7 @@ public class AddPrescriptionCommand extends Command {
         model.commitAddressBook();
 
         EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd.getMedicineName()));
+        return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS, medicineName.toString()));
     }
 
     @Override
@@ -153,12 +153,12 @@ public class AddPrescriptionCommand extends Command {
             return true;
         }
 
-        if (!(o instanceof AddPrescriptionCommand)) {
+        if (!(o instanceof DeletePrescriptionCommand)) {
             return false;
         }
 
-        AddPrescriptionCommand e = (AddPrescriptionCommand) o;
-        return prescriptionToAdd.equals(e.prescriptionToAdd);
+        DeletePrescriptionCommand e = (DeletePrescriptionCommand) o;
+        return medicineName.equals(e.medicineName);
 
     }
 

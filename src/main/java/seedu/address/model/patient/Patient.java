@@ -105,8 +105,30 @@ public class Patient extends Person {
      * Deletes appointment from patient's queue of upcoming appointment.
      */
     public void deleteAppointment(Appointment appointment) {
-        upcomingAppointments.remove(appointment);
+        Appointment apptToBeDeleted = null;
+        for (Appointment appt : upcomingAppointments) {
+            if (appt.getAppointmentId() == appointment.getAppointmentId()) {
+                apptToBeDeleted = appt;
+                break;
+            }
+        }
+        upcomingAppointments.remove(apptToBeDeleted);
     }
+
+    /**
+     * Updates appointment from patient's queue of upcoming appointment.
+     */
+    public void setAppointment(Appointment target, Appointment editedAppointment) {
+        int indexToBeDeleted = -1;
+        for (Appointment appt : upcomingAppointments) {
+            if (appt.getAppointmentId() == target.getAppointmentId()) {
+                indexToBeDeleted = upcomingAppointments.indexOf(appt);
+                break;
+            }
+        }
+        upcomingAppointments.set(indexToBeDeleted, editedAppointment);
+    }
+
 
     /**
      * Completes the {@code appointment} of the patient, placing the records of the appointment in to the stack of
