@@ -9,40 +9,30 @@
 
 == Overview
 
-Student Schedule Planner is a desktop schedule planner application used by students for schedule planning. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Student Schedule Planner is a desktop todo-list application used to aid university students manage their tasks. User interacts with the application using CLI. The application also has a GUI created with Java FX. It is written in JAVA, which is around 10kLoC.
 
 == Summary of contributions
 *[TO BE EDITED]*
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Major enhancement: Added archive command.
+** What it does: Allows users to archive completed tasks. Archived tasks are stored in separate list, which can be viewed with command “listarchived”
+** Justification: This is a necessary command for a task managing application, because users have the need to hide completed tasks, and review them in a separate list.
+** Highlights:
+** Credits:
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Added sorting feature that allows tasks to always be displayed in the order of deadline date and priority.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Documentation: Rewrote existing User Guide: https://github.com/CS2103-AY1819S1-T12-3/main/pull/56[#56],
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/69[#69], https://github.com/CS2103-AY1819S1-T12-3/main/pull/73[#73]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -51,7 +41,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=]
 
 include::../UserGuide.adoc[tag=dataencryption]
 
