@@ -29,8 +29,8 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.clinicio.logic.commands.ListApptCommand;
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.exceptions.DuplicatePersonException;
@@ -110,8 +110,11 @@ public class ClinicIoTest {
     @Test
     public void resetData_withClashingAppointments_throwsClashingAppointmentException() {
         //Two appointments with clashing slots
-        List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, CARL_APPT);
+        Appointment clashingAppt = new AppointmentBuilder(CARL_APPT)
+                .withTime(13, 30).build();
+        List<Appointment> newAppointments = Arrays.asList(AMY_APPT, clashingAppt);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(), new ArrayList<>());
+        thrown.expect(AppointmentClashException.class);
         clinicIo.resetData(newData);
     }
 

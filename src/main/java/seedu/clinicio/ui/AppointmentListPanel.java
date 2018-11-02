@@ -20,7 +20,7 @@ import seedu.clinicio.model.appointment.Appointment;
 /**
  * A panel containing a list of appointments.
  */
-public class AppointmentListPanel extends UiPart<Region>{
+public class AppointmentListPanel extends UiPart<Region> {
     private static final String FXML = "AppointmentListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AppointmentListPanel.class);
 

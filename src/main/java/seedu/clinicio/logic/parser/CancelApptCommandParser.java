@@ -2,11 +2,11 @@ package seedu.clinicio.logic.parser;
 
 //@@gingivitiss
 
+import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.clinicio.commons.core.index.Index;
 import seedu.clinicio.logic.commands.CancelApptCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
-
-import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new CancelApptCommand object.

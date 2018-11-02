@@ -13,7 +13,7 @@ import seedu.clinicio.model.appointment.AppointmentContainsDatePredicate;
 /**
  * Lists appointments on specified date.
  */
-public class ListApptCommand extends Command{
+public class ListApptCommand extends Command {
 
     public static final String COMMAND_WORD = "listappt";
 
@@ -36,7 +36,8 @@ public class ListApptCommand extends Command{
         requireNonNull(model);
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, model.getFilteredAppointmentList().size()));
+                String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
+                        model.getFilteredAppointmentList().size()));
     }
 
     @Override

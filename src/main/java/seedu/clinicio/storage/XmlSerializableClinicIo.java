@@ -51,7 +51,8 @@ public class XmlSerializableClinicIo {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
-        appointments.addAll(src.getAppointmentList().stream().map(XmlAdaptedAppointment::new).collect(Collectors.toList()));
+        appointments.addAll(src.getAppointmentList().stream()
+                .map(XmlAdaptedAppointment::new).collect(Collectors.toList()));
     }
 
     /**
