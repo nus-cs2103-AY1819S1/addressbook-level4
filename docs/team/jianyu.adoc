@@ -17,8 +17,6 @@ The following section shows my code contribution for OASIS.
 
 === Major Enhancement: Added ability to control the commands each employee can perform through usage of Permissions.
 
-NOTE: This operation can only be executed by an employee with `ASSIGN_PERMISSION` permission
-
 ** What it does: Ensures that each command is executed by an employee with the permission required for it.
 ** Justification: There are many commands in OASIS that should only be performable by employees with certain
 authorization. Usage of permission allows the admins to easily ensure that previously stated criteria is met.
