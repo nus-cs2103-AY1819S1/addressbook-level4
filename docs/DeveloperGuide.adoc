@@ -182,6 +182,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+// tag::uimodularisation[]
 ==== Modularisation
 *List Panel*
 
@@ -227,6 +228,8 @@ _Usage_:
 Now in order to switch between the different list panels, the developer just has to
 call their switchTo[feature]ListPanel() function from the Ui interface. This can be done
 anywhere as long as they have access to UiManager.
+
+// end::uimodularisation[]
 
 [[Design-Logic]]
 === Logic component
@@ -377,7 +380,9 @@ are added or removed.
 
 ===== Logic
 For Meal Planner commands to be accessible, context has to be switched to "Meal Planner
-via the command `-mealplanner`. From there, the Meal Planner commands can be used and
+via the command `-mealplanner` (except for the case of the `plan` command for adding recipes
+to the Meal Planner, which has to be done in the recipe context since the user needs to be able
+to see the recipes). From there, the Meal Planner commands can be used and
 *AppContentParser* will redirect the different commands to their respective CommandParser.
 
 ====== _Plan Command_: `plan`
@@ -398,22 +403,28 @@ target _day_ is then added to mealPlannerModel.
 
 Finally, the new content is committed via _mealPlannerModel.commitAppContent()_.
 
-====== _Display Command_: `display`
-The display command simply calls _ui.switchToMealPlanListPanel()_ method so as to display the
-Meal Planner's current meal plans.
-
-The reason is that since the recipe list has to be visible for users to select recipes to add to
-the Meal Planner, the panel does not switch to show the Meal Planner list view immediately
-when context is switched to "Meal Planner". Thus, there is a separate *display* command for
-displaying the Meal Planner when the user needs to view it.
+====== _Select Command_: `select`
+The select command selects a recipe of a specified meal of a specified day and displays the details
+of the recipe (ingredients, instructions, etc) in the DetailPanel. +
+*MealPlannerParser* invokes the parseMealRecipe() command of *SelectCommandParser*. The desired
+index and meal slot are parsed from the user input and used to extract the _recipe_ from the
+specified day's desired meal slot. Using this _recipe_, the _recipeModel_ is searched and the
+index of the matching recipe is returned. +
+The index and the _recipeModel_ are then passed to
+a *SelectCommand* which executes the displaying of the recipe details in the same manner as
+in the recipe context.
 
 ====== _Clear Command_: `clear`
-The clear command simply clears the Meal Planner by setting (i.e. replacing) the existing UniqueList
-of *ModelManager<Day>* _mealPlannerModel_ with a new empty UniqueList.
+The clear command simply clears the Meal Planner of all days. +
+This is done by setting (i.e. replacing) the existing UniqueList of _mealPlannerModel_
+with a new empty UniqueList.
 
 ====== _Delete Command_: `delete`
 The delete command deletes a specified *Day* from the _mealPlannerModel_ along with all its _meals_.
-The *Day* is specified by its index as seen on the list panel.
+The *Day* is specified by its index as seen on the list panel. +
+*MealPlannerParser* invokes the parseMealPlan() method of *DeleteCommandParser*. The user input
+is then parsed to get the index of the *Day* to be deleted. The *Day* object at the given index
+of the _mealPlannerModel_ list is then deleted.
 
 // end::mealplannerimplementation[]
 

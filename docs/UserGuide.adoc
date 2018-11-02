@@ -71,13 +71,13 @@ Display all recipes records. +
 Format: +
 `-recipe`
 
-==== Display recipe suggestion: `-suggest`
+==== Display recipe suggestion: `-suggest` [coming in V1.4]
 Display system suggestions based on user's past navigation history
 and favorites. +
 Format: +
 `-suggest`
 
-==== Display new recipe: `-surprise`
+==== Display new recipe: `-surprise` [coming in V1.4]
 Display a random recipe for the user who wants to try something bold
 and new but has no idea what they want. +
 Format: +
@@ -512,8 +512,8 @@ Format: +
 
 * View help: `-help`
 * Display all recipe: `-recipe`
-* Display recipe suggestion: `-suggest`
-* Display new recipe: `-surprise`
+* Display recipe suggestion: `-suggest` [coming in V1.4]
+* Display new recipe: `-surprise` [coming in V1.4]
 * Display favorites: `-favourite`
 * Display ingredient manager: `-ingredient`
 * Display meal planner: `-mealplanner`
