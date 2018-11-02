@@ -9,10 +9,10 @@ import java.util.Objects;
  */
 public class Deck {
 
+    public static final Deck NULLDECK = new Deck(new Name("NULLDECK"));
+
     private final Name name;
     private final UniqueCardList cards;
-
-    public static final Deck NULLDECK = new Deck(new Name("NULLDECK"));
 
     public Deck(Name name) {
         this.name = name;

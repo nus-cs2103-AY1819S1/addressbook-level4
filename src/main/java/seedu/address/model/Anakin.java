@@ -108,7 +108,7 @@ public class Anakin implements ReadOnlyAnakin {
     public void resetData(ReadOnlyAnakin newData) {
         requireNonNull(newData);
 
-        setEnteredDeck(newData.justEnteredDeck());
+        setJustEnteredDeck(newData.justEnteredDeck());
         setIsReviewingDeck(newData.isReviewingDeck());
         setDecks(newData.getDeckList());
         setCurrentDeck(newData.getCurrentDeck());
@@ -146,7 +146,7 @@ public class Anakin implements ReadOnlyAnakin {
         if (isReviewingDeck()) {
             throw new IllegalOperationWhileReviewingDeckException();
         }
-        justEnteredDeck = true;
+        setJustEnteredDeck(true);
         currentDeck = deck;
         cards = deck.getCards();
         updateDisplayedCards();
@@ -411,11 +411,14 @@ public class Anakin implements ReadOnlyAnakin {
         return currentDeck;
     }
 
+    /**
+     * Sets the justEnteredDeck flag to false. Used in any operation that might follow a cd operation.
+     */
     private void setJustEnteredDeckFalse() {
-        justEnteredDeck = false;
+        setJustEnteredDeck(false);
     }
 
-    public void setEnteredDeck(boolean b) {
+    public void setJustEnteredDeck(boolean b) {
         justEnteredDeck = b;
     }
 }

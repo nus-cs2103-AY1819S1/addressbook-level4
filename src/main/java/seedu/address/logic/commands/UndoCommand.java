@@ -26,7 +26,7 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
         }
 
-        if(model.justEnteredDeck()) {
+        if (model.justEnteredDeck()) {
             throw new CommandException(MESSAGE_CANNOT_UNDO_CD_COMMAND);
         }
 
