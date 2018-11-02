@@ -17,11 +17,6 @@ public class ShowPatientInQueueCommand extends Command {
     public static final String MESSAGE_SHOW_PATIENTS_IN_QUEUE_SUCCESS = "Patients currently "
             + "in the queue successfully displayed. ";
     public static final String MESSAGE_NO_PATIENT_IN_QUEUE = "No patient in the queue. ";
-    /**
-     * Constructs the command.
-     */
-    public ShowPatientInQueueCommand() {
-    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
