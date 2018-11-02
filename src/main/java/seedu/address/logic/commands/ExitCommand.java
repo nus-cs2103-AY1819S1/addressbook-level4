@@ -24,8 +24,6 @@ public class ExitCommand extends Command {
         } catch (InvalidPathException e) {
             e.printStackTrace();
         }
-
-        //PreviewImage.getCacheFolder().toFile().delete();
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
