@@ -9,7 +9,15 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.email.Body;
+import seedu.address.model.email.Subject;
+import seedu.address.model.event.Date;
+import seedu.address.model.event.Description;
+import seedu.address.model.event.EndTime;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.StartTime;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -81,6 +89,20 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String attendance} into a {@code Attendance}.
+     *
+     * @throws ParseException if given {@code attendance} is invalid
+     */
+    public static Attendance parseAttendance(String attendance) throws ParseException {
+        requireNonNull(attendance);
+        String trimmedAttendance = attendance.trim();
+        if (!Attendance.isValidAttendance(trimmedAttendance)) {
+            throw new ParseException(Attendance.MESSAGE_ATTENDANCE_CONSTRAINTS);
+        }
+        return new Attendance(trimmedAttendance);
+    }
+
+    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -93,6 +115,37 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String body} into an {@code Body}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code body} is invalid.
+     */
+    public static Body parseBody(String body) throws ParseException {
+        requireNonNull(body);
+        String trimmedBody = body.trim();
+        if (!Body.isValidBody(trimmedBody)) {
+            throw new ParseException(Body.MESSAGE_BODY_CONSTRAINTS);
+        }
+        return new Body(trimmedBody);
+
+    }
+
+    /**
+     * Parses a {@code String subject} into an {@code Subject}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code subject} is invalid.
+     */
+    public static Subject parseSubject(String subject) throws ParseException {
+        requireNonNull(subject);
+        String trimmedSubject = subject.trim();
+        if (!Subject.isValidSubject(trimmedSubject)) {
+            throw new ParseException(Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+        }
+        return new Subject(trimmedSubject);
     }
 
     /**
@@ -120,5 +173,80 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String eventName} into an {@code EventName}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code eventName} is invalid.
+     */
+    public static EventName parseEventName(String eventName) throws ParseException {
+        requireNonNull(eventName);
+        String trimmedEventName = eventName.trim();
+        if (!EventName.isValidEventName(trimmedEventName)) {
+            throw new ParseException(EventName.EVENT_NAME_CONSTRAINTS);
+        }
+        return new EventName(trimmedEventName);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code Date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.DATE_NAME_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String startTime} into an {@code StartTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startTime} is invalid.
+     */
+    public static StartTime parseStartTime(String startTime) throws ParseException {
+        requireNonNull(startTime);
+        String trimmedStartTime = startTime.trim();
+        if (!StartTime.isValidStartTime(trimmedStartTime)) {
+            throw new ParseException(StartTime.START_TIME_CONSTRAINTS);
+        }
+        return new StartTime(trimmedStartTime);
+    }
+
+    /**
+     * Parses a {@code String endTime} into an {@code endTime}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code endTime} is invalid.
+     */
+    public static EndTime parseEndTime(String endTime) throws ParseException {
+        requireNonNull(endTime);
+        String trimmedEndTime = endTime.trim();
+        if (!EndTime.isValidEndTime(trimmedEndTime)) {
+            throw new ParseException(EndTime.END_TIME_CONSTRAINTS);
+        }
+        return new EndTime(trimmedEndTime);
+    }
+
+    /**
+     * Parses a {@code String description} into an {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code description} is invalid.
+     */
+    public static Description parseDescription(String description) throws ParseException {
+        requireNonNull(description);
+        String trimmedDescription = description.trim();
+        if (!Description.isValidDescription(trimmedDescription)) {
+            throw new ParseException(Description.DESCRIPTION_STRING_CONSTRAINTS);
+        }
+        return new Description(trimmedDescription);
     }
 }

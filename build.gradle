@@ -55,6 +55,7 @@ test {
 }
 
 dependencies {
+
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
@@ -66,6 +67,12 @@ dependencies {
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
     implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
+
+    //Joda-Time for calendar time
+    implementation 'joda-time:joda-time:2.7'
+
+    // gson for JSON parsing
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     testImplementation group: 'junit', name: 'junit', version: '4.12'
     testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
@@ -82,7 +89,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'contact.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -207,9 +214,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'ConTAct',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-W13-3/main',
     ]
 
     options['template_dirs'].each {
@@ -236,10 +242,6 @@ task deployOfflineDocs(type: Copy) {
     }
 }
 
-task copyDummySearchPage(type: Copy) {
-    from 'docs/DummySearchPage.html'
-    into "${buildDir}/docs/html5"
-}
 
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs

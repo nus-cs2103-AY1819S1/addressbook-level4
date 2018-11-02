@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= ConTAct - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-W13-3/main.git
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team ConTAct`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ConTAct is an application for teaching assistants who *prefer to use a desktop app for managing students*. More importantly, ConTAct is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ConTAct can get your student management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `conTAct.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your ConTAct.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -94,7 +94,70 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Sorting students: `sort`
+
+Sorts students according to a given parameter. +
+Format: `sort PARAMETER`
+
+****
+* The sorting itself is only performed on the already exisiting fields.
+****
+
+Examples:
+
+*`sort NAME` +
+Returns a list of students sorted by their name
+*`sort GRADES` +
+Returns a list of students sorted by their grades, which is a field of each student.
+
+=== Marking attendance: `attendance`
+
+Allows the user to mark the attendance of students using the index number. +
+Format: `attendance INDEX_NUMBER at/ATTENDANCE`
+
+****
+* The attendance marking as present is done individually, by using the index number of the student, and the user can individually mark students who are absent as 'absent'/'0' and who are present as 'present'/'1'.
+****
+
+Examples:
+
+* `attendance 1 at/present` +
+Marks the attendance of the student with index number 1 as present.
+
+* `attendance 3 at/0` +
+Marks the attendance of the student with index number 3 as absent.
+
+=== Schedule timetables: `schedule`
+
+Schedules an event for the user to keep track of. +
+Format: `schedule event/EVENT_NAME date/DATE start/TIME_START end/TIME_END descr/DESCRIPTION`
+
+****
+* The event will be scheduled and reflected on the user's list of events
+* Invalid dates and times will not be scheduled e.g. `32-12-2018` will not schedule any event. Also, the year range is between 1600 and 9999
+****
+
+Examples:
+
+* `schedule event/CS2103-Tutorial-W13 date/22-3-2018 start/16:00 end/18:00 descr/Product demo` +
+Schedules an event named `CS2103-Tutorial-W13` on 22-3-2018 from 4:00pm to 6:00pm
+
+=== Emailing students: `email`
+
+Allows the user to email a specified student. +
+Format: `email i/INDEX s/SUBJECT b/BODY`
+
+****
+* The subject of the email is specified after the s/ and the body after the b/.
+* The user can specify only one student index, after the 'i/'.
+****
+
+Examples:
+
+* `email i/2 s/Attendance Problem b/Your attendance is poor. Is there a problem?` +
+Gathers the email address of the student with index 2 for emailing, and sets the subject and body respectively.
+
+=== Locating persons by name/tag: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -107,12 +170,25 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
+Finds persons tagged with specified tag. +
+Format: `find t/TAG [MORE_TAGS]`
+
+****
+* Tags are case sensitive
+* The order of the tags does not matter
+* Persons matching at least one tag will be returned (i.e. `OR` search)
+****
+
 Examples:
 
 * `find John` +
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+* `find t/students` +
+Returns people tagged with `t/students`
+* `find t/students t/colleagues` +
+Returns people tagged with `t/students` or `t/colleagues`
 
 === Deleting a person : `delete`
 
@@ -216,7 +292,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the address book while still maintaining the calendar. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -235,10 +311,65 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::mark[]
+=== Mark
+A Mark represents a group of Persons in the app. Some commands accept Marks as an alternative to INDEX as a parameter to quickly perform batch operations.
+
+==== Mark Creation
+Format: `mark find t/TAGNAME` or `mark find KEYWORD`
+
+This creates a Mark containing the Persons returned by the find command with the supplied arguments.
+
+E.g. `mark find t/friends` will find all Persons in the Address Book tagged with "friends" and add them to a Mark.
+
+==== Named Marks
+Marks can be named by using the prefix `m/MARKNAME`. If not specified, the name of the created Mark will default to "m/default".
+
+E.g. `mark m/myMarkName t/friends` will add the Persons tagged with "friends" to a Mark called "myMarkName"
+
+Note: Mark names must be alphanumeric and do not contain spaces.
+
+==== Manipulating Marks
+Marks are able to be manipulated in the same way as sets, namely, they support the following operations: `union (join)`, `intersection (and)`, `complement (NYI)`
+
+Format: `mark [m/DEST_MARK] <operation> m/OPERANDMARK1 [m/OPERANDMARK2]`
+
+E.g. `mark m/students join m/tut1 m/tut2` m/students will contain the Persons of m/tut1 and m/tut2 merged together
+
+E.g. `mark m/canRetake and m/absentFromTest m/validReason` -- m/canRetake will contain Persons that are in both m/absentFromTest and m/validReason
+
+Note: The first operand is compulsory while the second operand is optional and will default to "m/default"
+
+==== Displaying Marks
+The Persons in a Mark can be shown in the GUI wit the following command:
+
+`mark [m/MARKTOBESHOWN] show`
+
+==== Reference
+`mark [m/m1] ...`
+
+* `find [name|t/tag]` -- finds persons matching criteria and mark under _m1_
+* `join m/m2 m/m3` -- sets _m1_ to be the *union* of _m2_ and _m3_
+* `and m/m2 m/m3` -- sets _m1_ to be the *intersection* of _m2_ and _m3_
+* `show` -- displays persons from _m1_ in the GUI
+
+Notes:
+
+* _m1_ defaults to "default" if omitted
+
+Examples:
+
+* `mark find t/friends` -- adds all people with tag _t/friends_ under _m/default_
+* `mark m/abc find t/colleagues` -- marks all people with tag _t/colleagues_ under _m/abc_
+* `mark join m/a m/b` -- marks people in either _m/a_ or _m/b_ under _m/default_ (union of a and b)
+* `mark and m/a m/b` -- marks people in both _m/a_ and _m/b_ under _m/default_ (intersection of a and b)
+* `mark m/test show` -- shows people marked under _m/test_ in the GUI
+// end::mark[]
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ConTAct folder.
 
 == Command Summary
 
@@ -249,6 +380,14 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Sort* : `sort PARAMETER` +
+e.g. `sort NAME`
+* *Attendance* : `attendance INDEX_NUMBER at/ATTENDANCE`
+e.g. `attd CS2103-Tutorial-W13`
+* *Schedule* : `schedule event/EVENT_NAME date/DATE start/TIME_START end/TIME_END descr/DESCRIPTION` +
+e.g `schedule event/CS2103-Tutorial-W13 date/22-3-2018 start/16:00 end/18:00 descr/Product demo`
+* *Email* : `email GROUP_NAME [MORE_GROUP_NAMES]
+e.g. `email CS2103-Tutorial-W13`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -17,6 +18,7 @@ public class ArgumentMultimap {
 
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
+    private String trailingArgs = "";
 
     /**
      * Associates the specified argument value with {@code prefix} key in this map.
@@ -56,5 +58,29 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * Gets the number of non-empty keys
+     */
+    public int countNonEmptyArgs() {
+        return argMultimap.values().stream()
+                .mapToInt(x -> x.size() == 0 ? 0 : 1).sum() - getAllValues(new Prefix("")).size();
+    }
+
+    /**
+     * Check whether tokenized arg has more args
+     * @return whether has trailingArgs
+     */
+    public boolean hasTrailing() {
+        return !Objects.equals(trailingArgs, "");
+    }
+
+    public String getTrailingArgs() {
+        return trailingArgs;
+    }
+
+    public void setTrailingArgs(String trailingArgs) {
+        this.trailingArgs = trailingArgs;
     }
 }
