@@ -6,7 +6,6 @@ import seedu.clinicio.commons.events.ui.LogoutClinicIoEvent;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 
 //@@author jjlee050
 /**
@@ -19,7 +18,7 @@ public class LogoutCommand extends Command {
     public static final String MESSAGE_NO_USER_LOGIN = "You have not logged in to ClinicIO.";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics)
+    public CommandResult execute(Model model, CommandHistory history)
             throws CommandException {
         if (!UserSession.isLogin()) {
             throw new CommandException(MESSAGE_NO_USER_LOGIN);
