@@ -85,7 +85,7 @@ public class UniqueCardList implements Iterable<Card> {
      * Sort all cards in the list in alphabetical order according to the question.
      */
     public void sort() {
-        internalList.sort(Comparator.comparing(o -> o.getQuestion().toString()));
+        internalList.sort(Comparator.comparing(o -> o.getQuestion().toString().toLowerCase()));
     }
 
     public void setCards(UniqueCardList replacement) {

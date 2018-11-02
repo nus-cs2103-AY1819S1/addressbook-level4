@@ -45,26 +45,22 @@ public class DeleteCardCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        if (model.isReviewingDeck()) {
-            throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
-        }
-
 
         if (!model.isInsideDeck()) {
             throw new CommandException(MESSAGE_INVALID_CARD_LEVEL_OPERATION);
         }
 
-        List<Card> lastShownList = model.getFilteredCardList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (model.isReviewingDeck()) {
+            throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
+        }
+
+        List<Card> currentCardList = model.getFilteredCardList();
+        if (targetIndex.getZeroBased() >= currentCardList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
-        Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
-        try {
-            model.deleteCard(cardToDelete);
-            model.commitAnakin();
-        } catch (DeckNotFoundException e) {
-            throw new CommandException(MESSAGE_NOT_INSIDE_DECK);
-        }
+        Card cardToDelete = currentCardList.get(targetIndex.getZeroBased());
+        model.deleteCard(cardToDelete);
+        model.commitAnakin();
 
         return new CommandResult(String.format(MESSAGE_DELETE_CARD_SUCCESS, cardToDelete));
     }

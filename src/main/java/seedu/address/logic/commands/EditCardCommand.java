@@ -77,7 +77,6 @@ public class EditCardCommand extends Command {
             throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
         }
 
-
         if (!model.isInsideDeck()) {
             throw new CommandException(MESSAGE_INVALID_CARD_LEVEL_OPERATION);
         }

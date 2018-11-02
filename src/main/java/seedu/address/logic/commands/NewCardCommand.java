@@ -51,20 +51,16 @@ public class NewCardCommand extends Command {
             throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
         }
 
-
         if (!model.isInsideDeck()) {
             throw new CommandException(MESSAGE_INVALID_CARD_LEVEL_OPERATION);
         }
 
-        try {
-            if (model.hasCard(toAdd)) {
-                throw new CommandException(MESSAGE_DUPLICATE_CARD);
-            }
-            model.addCard(toAdd);
-            model.commitAnakin();
-        } catch (DeckNotFoundException e) {
-            throw new CommandException(MESSAGE_NOT_INSIDE_DECK);
+        if (model.hasCard(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
+
+        model.addCard(toAdd);
+        model.commitAnakin();
         return new CommandResult(String.format(MESSAGE_NEW_CARD_SUCCESS, toAdd));
     }
 

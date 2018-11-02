@@ -37,7 +37,6 @@ public class ChangeDeckCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAnakin(), new UserPrefs());
         expectedModel.getIntoDeck(deckToEnter);
-        expectedModel.commitAnakin();
 
         assertCommandSuccess(cdCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -60,10 +59,10 @@ public class ChangeDeckCommandTest {
 
         Model expectedModel = new ModelManager(model.getAnakin(), new UserPrefs());
         expectedModel.getIntoDeck(deckToEnter);
-        expectedModel.commitAnakin();
 
         assertCommandSuccess(cdCommand, model, commandHistory, expectedMessage, expectedModel);
     }
+
 
     @Test
     public void execute_validLeaveDeck_success() {
@@ -77,10 +76,10 @@ public class ChangeDeckCommandTest {
         executedModel.getIntoDeck(deckToEnter);
 
         Model expectedModel = new ModelManager(model.getAnakin(), new UserPrefs());
-        expectedModel.commitAnakin();
 
         assertCommandSuccess(cdCommand, executedModel, commandHistory, expectedMessage, expectedModel);
     }
+
 
     @Test
     public void execute_invalidLeaveDeck_throwsCommandException() {

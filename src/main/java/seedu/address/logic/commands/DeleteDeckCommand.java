@@ -36,21 +36,22 @@ public class DeleteDeckCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        if (model.isReviewingDeck()) {
-            throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
-        }
 
         if (model.isInsideDeck()) {
             throw new CommandException(MESSAGE_INVALID_DECK_LEVEL_OPERATION);
         }
 
-        List<Deck> lastShownList = model.getFilteredDeckList();
+        if (model.isReviewingDeck()) {
+            throw new CommandException(MESSAGE_CURRENTLY_REVIEWING_DECK);
+        }
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        List<Deck> currentDeckList = model.getFilteredDeckList();
+
+        if (targetIndex.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck deckToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Deck deckToDelete = currentDeckList.get(targetIndex.getZeroBased());
         model.deleteDeck(deckToDelete);
         model.commitAnakin();
         return new CommandResult(String.format(MESSAGE_DELETE_DECK_SUCCESS, deckToDelete));

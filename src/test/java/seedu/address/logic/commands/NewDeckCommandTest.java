@@ -164,11 +164,6 @@ public class NewDeckCommandTest {
         }
 
         @Override
-        public boolean justEnteredDeck() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void startReview() {
             throw new AssertionError("This method should not be called.");
         }

@@ -107,7 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void deleteCard(Card card) throws DeckNotFoundException {
+    public void deleteCard(Card card) {
         versionedAnakin.removeCard(card);
         indicateAnakinChanged();
     }
@@ -132,14 +132,12 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(deck);
         versionedAnakin.getIntoDeck(deck);
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        indicateAnakinChanged();
     }
 
     @Override
     public void getOutOfDeck() {
         versionedAnakin.getOutOfDeck();
         updateFilteredCardList(PREDICATE_SHOW_ALL_CARDS);
-        indicateAnakinChanged();
     }
 
     @Override
@@ -150,11 +148,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean isReviewingDeck() {
         return versionedAnakin.isReviewingDeck();
-    }
-
-    @Override
-    public boolean justEnteredDeck() {
-        return versionedAnakin.justEnteredDeck();
     }
 
     @Override

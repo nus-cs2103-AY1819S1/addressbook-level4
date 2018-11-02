@@ -50,7 +50,7 @@ public class ListCommandTest {
 
         model.getIntoDeck(DECK_WITH_CARDS);
         expectedModel.getIntoDeck(DECK_WITH_CARDS);
-        showCardAtIndexOfCurrentDeck(model, INDEX_FIRST_CARD);
+        //showCardAtIndexOfCurrentDeck(model, INDEX_FIRST_CARD);
         assertCommandSuccess(new ListCommand(), model, commandHistory,
                 ListCommand.MESSAGE_SUCCESS_CARD, expectedModel);
     }

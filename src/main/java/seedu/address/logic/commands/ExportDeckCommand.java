@@ -45,13 +45,13 @@ public class ExportDeckCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DECK_LEVEL_OPERATION);
         }
 
-        List<Deck> lastShownList = model.getFilteredDeckList();
+        List<Deck> currentDeckList = model.getFilteredDeckList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck deckToExport = lastShownList.get(targetIndex.getZeroBased());
+        Deck deckToExport = currentDeckList.get(targetIndex.getZeroBased());
         String exportPath = model.exportDeck(deckToExport);
         System.out.println(exportPath);
         model.commitAnakin();
