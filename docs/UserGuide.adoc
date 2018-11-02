@@ -94,6 +94,12 @@ tracking of ingredient that the user currently have. +
 Format: +
 `-ingredient`
 
+==== Display ingredient-recipe query page: `-cross`
+Display the page where you can sort, filter the recipe list by name of ingredients includes and get information of
+needed amounts of ingredients. +
+Format: +
+`-cross`
+
 ==== Display meal planner: `-mealplanner`
 Display current Meal Planner. Shows the planned meals for breakfast,
 lunch and dinner for previously planned days. +
