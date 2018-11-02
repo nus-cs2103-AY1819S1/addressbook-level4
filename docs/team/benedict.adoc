@@ -1,0 +1,60 @@
+= Benedict - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Piconso
+
+---
+
+== Overview
+
+This portfolio seeks to document my contributions to our team’s project, Piconso. Piconso is an CLI (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing on your Desktop. With Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of working with a mouse. Below is a list of main features of the application:
+
+* Several traditional image-editing features such as crop, blur etc.
+* Capability to define own custom transformation set.
+* Mass editing several images at once
+* Direct access to images on Google Photos (download and upload).
+
+
+== Summary of contributions
+
+* *Major enhancement*: added the ability to cd into different directories.
+** What it does: allows the user to traverse between folders in their home system.
+** Justification: This feature improves the product significantly because it allows user to access images stored in different folders in the home system.
+** Highlights: This enhancement affects the model of the product as it now stores the current directory. The implementation was quite challenging as it required changes to the UserPrefs.
+* *Major enhancement*: added the ability to select images to display on GUI.
+** What it does: allows the user to select the images from the current batch of images.
+** Justification: This feature is essential to the product because a user would have to select an image for image-editing.
+** Highlights: This enhancement affects existing commands. It requires in depth analysis of design alternative to ensure maximum efficiency in retrieving images.
+* *Major enhancement*: added the ability to traverse through images with next/previous command.
+** What it does: allows the user to move through the list of images in the current directory.
+** Justification: This feature is essential to the product because a user would need have access to all the images in the current directory for image-editing.
+** Highlights: This enhancement affects existing commands and implemented together with the select feature.
+* *Other contributions*:
+** Project Management
+*** Created labels, milestones and issues for issue tracker on GitHub
+** Enhancement to existing features:
+*** Updated the icon and name of application
+*** Wrote additional test for existing features
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. (Since undo/redo are simple to understand, there is not much to document here. More details are in the implementation of undo/redo in the Developer Guide)_
+|===
+
+include::../UserGuide.adoc[tag=dir]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=cd]
+
+include::../DeveloperGuide.adoc[tag=select]
+
+include::../DeveloperGuide.adoc[tag=nextprev]
