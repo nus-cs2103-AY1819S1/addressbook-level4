@@ -86,6 +86,7 @@ Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-t PROJECT]`
 
 ****
 * To use this command, you must be logged in with "Add employee" permissions.
+* Once added, the new user will have the same username as the name entered. We are working on having the username be available as an optional field
 ****
 Examples:
 
