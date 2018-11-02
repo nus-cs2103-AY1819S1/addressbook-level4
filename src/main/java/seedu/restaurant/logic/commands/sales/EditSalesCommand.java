@@ -13,7 +13,7 @@ import java.util.Optional;
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
 import seedu.restaurant.commons.util.CollectionUtil;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
