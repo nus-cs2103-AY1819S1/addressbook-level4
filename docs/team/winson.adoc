@@ -35,7 +35,7 @@ main purpose of an expense tracker.
 
 * *Minor enhancements*:
 
-. Added a `setRecurrenceFrequency` command that allows the user to reset their spending at a frequency of their choice.
+. Added a `setRecurrenceFrequency` command that allows the user to reset their expenses at a frequency of their choice.
 . Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
