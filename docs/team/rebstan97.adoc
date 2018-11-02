@@ -42,10 +42,7 @@ architecture components and integration with other features such as sales and me
 *** Added description of feature commands to the User Guide(Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
 *** Made general enhancements to the User Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/120[#120])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** To be updated.
 ** Tools:
 *** To be updated
 
