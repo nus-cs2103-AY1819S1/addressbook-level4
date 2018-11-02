@@ -14,7 +14,7 @@ Office Assistance Specialized Integration System (OASIS) is for those who prefer
 This project portfolio summarizes the contributions that I have made to the project.
 
 [NOTE]
-Text with a note on a left isn't really part of the user guide, they're just questions and comments that I want to bring up during the review.
+Text with a note on a left isn't really part of the portfolio, they're just questions and comments that I want to bring up during the review.
 
 == Summary of contributions
 
@@ -44,6 +44,7 @@ Not too sure what to put in highlights. The current is kind of like "edge cases,
 
 [NOTE]
 Is it necessary to explain what * and _ represents? Or is it not clear and I should provide an example?
+
 ** Converted the parser to use `-` instead of `/` to read arguments, similar to the command line in modern day operating systems.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
@@ -70,7 +71,10 @@ I kind of want to brag about this? but it's more like "this should be the standa
 ** Community:
 //*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1])
+[NOTE]
+Is only 1 ok? It's unlikely there's going to be more than 1
+
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1] https://github.com/CS2103-AY1819S1-F10-2/main/issues/173[2])
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
 
