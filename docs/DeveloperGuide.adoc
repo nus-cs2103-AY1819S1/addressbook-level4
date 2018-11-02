@@ -108,19 +108,22 @@ image::AnakinUIClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DeckListPanel`,
-`CardListPanel`, `StatusBarFooter`, `PreviewPanel` etc. All these, including the `MainWindow`, inherit from the
-abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DeckEditScreen`,
+`DeckReviewScreen`, `StatusBarFooter` etc. The `DeckEditScreen` is in turn made up of `DeckListPanel` and
+`CardListPanel` and the `DeckReviewScreen` is made up of `DeckReviewCard`. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component
 
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 // end::uicomponent[]
 
+
+// tag::logic[]
 === Logic component
 
 image::AnakinLogicClassDiagram.png[width="700", align="left"]
@@ -138,7 +141,7 @@ The 'Logic' component:
 The `LogicManager` contains an `AnakinModel`, an `AnakinParser`, and a `CommandHistory`.
 
 When a string input by the user is parsed by `AnakinParser`, it creates a new `AnakinCommand` of the appropriate type with the relevant arguments (based on parser tokens). Each `AnakinCommand` has its own Class. `LogicManager` will call `execute` on the command object. If successful, `LogicManager` will modify `Model` accordingly. Regardless of success, `LogicManager` will update `CommandHistory` with the `CommandResult`.
-
+// end::logic[]
 
 // tag::modelcomponent[]
 === Model component
@@ -478,6 +481,7 @@ and update the cards panel accordingly
 ** Cons: Need to re-design Model and UI components
 // end::keepcardspanelupdatedbyui[]
 
+// tag::importexportimplementation[]
 === Import/Export Implementation
 ==== Current implementation (v1.3)
 
@@ -503,6 +507,7 @@ PortManager returns a `String` of the export location, which is passed to Model,
 ** Pros: Less message passing between layers
 ** Cons: Worse modularity and Separation of Concerns.
 
+// end::importexportimplementation[]
 
 === Logging
 
