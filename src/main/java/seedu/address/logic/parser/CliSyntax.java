@@ -17,8 +17,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_ACADEMICYEAR = new Prefix("ay/");
     public static final Prefix PREFIX_SEMESTER = new Prefix("sem/");
 
-    public static final Prefix PREFIX_OCCASION_NAME = new Prefix("on/");
-    public static final Prefix PREFIX_OCCASION_DATE = new Prefix("od/");
-    public static final Prefix PREFIX_OCCASION_LOCATION = new Prefix("loc/");
+    public static final Prefix PREFIX_OCCASIONNAME = new Prefix("on/");
+    public static final Prefix PREFIX_OCCASIONDATE = new Prefix("od/");
+    public static final Prefix PREFIX_OCCASIONLOCATION = new Prefix("loc/");
 
 }

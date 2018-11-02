@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONLOCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASIONNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
@@ -21,14 +21,14 @@ public class AddOccasionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an occasion to the address book. \n"
             + "Parameters: "
-            + PREFIX_OCCASION_NAME + "OCCASION_NAME "
-            + PREFIX_OCCASION_DATE + "OCCASION_DATE "
-            + PREFIX_OCCASION_LOCATION + "LOCATION "
+            + PREFIX_OCCASIONNAME + "OCCASION_NAME "
+            + PREFIX_OCCASIONDATE + "OCCASION_DATE "
+            + PREFIX_OCCASIONLOCATION + "LOCATION "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_OCCASION_NAME + "discussion "
-            + PREFIX_OCCASION_DATE + "2018-01-01 "
-            + PREFIX_OCCASION_LOCATION + "SoC "
+            + PREFIX_OCCASIONNAME + "discussion "
+            + PREFIX_OCCASIONDATE + "2018-01-01 "
+            + PREFIX_OCCASIONLOCATION + "SoC "
             + PREFIX_TAG + "project "
             + PREFIX_TAG + "gg ";
 
