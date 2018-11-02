@@ -23,11 +23,6 @@ import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.analytics.data.StatData;
 
-import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
-import seedu.clinicio.model.analytics.Analytics;
-import seedu.clinicio.model.analytics.StatisticType;
-import seedu.clinicio.model.analytics.data.StatData;
-
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.patient.Patient;
