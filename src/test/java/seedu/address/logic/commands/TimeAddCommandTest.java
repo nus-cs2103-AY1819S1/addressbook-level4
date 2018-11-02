@@ -24,9 +24,9 @@ public class TimeAddCommandTest {
         Time testTime1 = new Time("mon 1300 1500");
         Time testTime2 = new Time("tue 1500 1700");
 
-        TimeAddCommand firstTimeAddCommand = new TimeAddCommand(testName1, testTime1);
-        TimeAddCommand secondTimeAddCommand = new TimeAddCommand(testName2, testTime1);
-        TimeAddCommand thirdTimeAddCommand = new TimeAddCommand(testName1, testTime2);
+        AddTimeCommand firstTimeAddCommand = new AddTimeCommand(testName1, testTime1);
+        AddTimeCommand secondTimeAddCommand = new AddTimeCommand(testName2, testTime1);
+        AddTimeCommand thirdTimeAddCommand = new AddTimeCommand(testName1, testTime2);
 
         //same object -> returns true
         assertTrue(firstTimeAddCommand.equals(firstTimeAddCommand));
