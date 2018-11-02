@@ -32,11 +32,11 @@ import static seedu.thanepark.testutil.TypicalRides.BOB;
 import org.junit.Test;
 
 import seedu.thanepark.logic.commands.AddCommand;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.testutil.RideBuilder;
 
@@ -123,7 +123,7 @@ public class AddCommandParserTest {
 
         // invalid thanepark
         assertParseFailure(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Zone.MESSAGE_ZONE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + MAINTENANCE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB

@@ -67,15 +67,16 @@ This section contains information of all commands used in ThanePark.
 *Command Format*
 
 * Items in chevrons `<>` denotes compulsory field. +
-Example: `add <attraction>`<maintenance> `<waitTime>` `<address>`
+Example: `add <attraction>`<maintenance> `<waitTime>` `<zone>`
 * Items in square brackets `[]` denotes optional field. +
 Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
 Example: `{tab}` is the kbd:[TAB] keystroke.
 * Items ending with ellipses `...` denotes variable number of arguments. +
 Example: `history [findargs...]`
+
 * Parameters with prefix `/` can be in any order +
-Example: if the command specifies n/name p/address, p/address n/name is also acceptable.
+Example: if the command specifies n/name p/zone, p/zone n/name is also acceptable.
 
 ====
 
@@ -87,7 +88,7 @@ This section contains all commands related to managing attractions.
 ==== Add attractions: `add`
 
 Add an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
 
 A ride can have any number of tags (including 0). +
 
@@ -355,47 +356,56 @@ This section contains all commands related to finding rides that is relevant to 
 
 Display all rides that fits the condition in a table. It can only filter conditions that have numeric values i.e.
 `Maintenance` and `WaitTime`. +
+
 Format: `filter <tag> <condition> [[tag] [condition]...]` +
 Can include more conditions as desired. +
 
-Example:
+|===
+a|
+Examples:
 
 * `filter w/ < 10` +
 Filters attractions with waiting time less than 500 minutes. If no changes were made to your application
 (i.e. no delete, add commands were done), your window should look like this: +
 
-image::ui_screenshots/filter-example-1.png[width="790"]
+image::ui_screenshots/filter-example-1.png[width="600"]
 
 * `filter w/ < 10 m/ > 50` +
 Filters attractions with waiting time less than 500 and maintenance of more than 50 days.
+The result should be as follows:
 
-image::ui_screenshots/filter-example-2.png[width="790"]
+image::ui_screenshots/filter-example-2.png[width="600"]
+|===
 
 ==== Finding a particular attraction: `find`
 
 Find the rides that the user needs to check on. Case insensitive. +
-Can only find the name, the address, and the tags of the attractions. +
+Can only find the name, the zone, and the tags of the attractions. +
+
 Format: `find <[name] [[tag][keyword]...]>` +
 Must include arguments when finding. +
+
 Here are some examples with images to let you follow along. +
+|===
+a|
 Examples:
 
 * `find accelerator` +
 Finds and displays the list of attractions in ThanePark with the name "accelerator".
 
-image::ui_screenshots/find-example-1.png[width="790"]
+image::ui_screenshots/find-example-1.png[width="600"]
 
 * `find a/ street` +
 Finds and displays the list of attractions with addresses that contain the word "street".
 
-image::ui_screenshots/find-example-2.png[width="790"]
+image::ui_screenshots/find-example-2.png[width="600"]
 
-* `find address street t/friends tag family` +
+* `find zone street t/friends tag family` +
 Finds and displays the list of attractions with addresses that contain the word "street" and the tags "friends"
 and "family"
 
-image::ui_screenshots/find-example-3.png[width="790"]
-
+image::ui_screenshots/find-example-3.png[width="600"]
+|===
 // end::filter[]
 
 == FAQ
@@ -407,7 +417,7 @@ image::ui_screenshots/find-example-3.png[width="790"]
 == Command Summary
 
 
-* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
+* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<zone>` `[tag(s)]` +
   e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
 * *Delete*: `delete <index>` +
   e.g. delete 3

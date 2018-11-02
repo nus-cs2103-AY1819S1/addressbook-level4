@@ -22,7 +22,7 @@ Responsibilities: UI
 
 === Teo Jia Jun
 image::jiajunteo.png[width="150", align="left"]
-{empty}[https://github.com/jiajunteo[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jiajunteo[github]] [<<jiajun#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: Model
@@ -31,7 +31,7 @@ Responsibilities: Model
 
 === Lai Keen Lok
 image::keenlok.png[width="150", align="left"]
-{empty}[https://github.com/keenlok[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/keenlok[github]] [<<keenlok#, portfolio>>]
 
 Role: Testing +
 Responsibilities: Storage
@@ -40,7 +40,7 @@ Responsibilities: Storage
 
 === Leong Engsea
 image::leongengsea.png[width="150", align="left"]
-{empty}[https://github.com/leongengsea[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/leongengsea[github]] [<<leongengsea#, portfolio>>]
 
 Role: Scheduling and Tracking +
 Responsibilities: Logic

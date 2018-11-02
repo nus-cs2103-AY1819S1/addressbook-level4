@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
 import seedu.thanepark.model.Model;

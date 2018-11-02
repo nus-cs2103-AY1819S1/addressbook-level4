@@ -16,7 +16,7 @@ import seedu.thanepark.model.tag.Tag;
  */
 public class RideContainsKeywordsPredicate implements Predicate<Ride> {
     private final List<String> keywords;
-    private Optional<Address> addressKeyWords;
+    private Optional<Zone> addressKeyWords;
     private Set<Tag> tagKeyWords;
 
     public RideContainsKeywordsPredicate(List<String> keywords, Optional... other) {
@@ -33,7 +33,7 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
     private void getKeyWords(Optional... others) {
         for (Optional keywords : others) {
             if (keywords.isPresent()) {
-                if (keywords.get()instanceof Address) {
+                if (keywords.get()instanceof Zone) {
                     addressKeyWords = keywords;
                 }
                 if (keywords.get().getClass().equals(HashSet.class)) {
@@ -50,7 +50,7 @@ public class RideContainsKeywordsPredicate implements Predicate<Ride> {
     public boolean test(Ride ride) {
         boolean result = false;
         if (addressKeyWords.isPresent()) {
-            result = result || StringUtil.containsStringIgnoreCase(ride.getAddress().value,
+            result = result || StringUtil.containsStringIgnoreCase(ride.getZone().value,
                     addressKeyWords.get().value);
         }
         if (!tagKeyWords.isEmpty()) {

@@ -4,7 +4,7 @@
         <name>Accelerator</name>
         <daysSinceMaintenanceString>85355255</daysSinceMaintenanceString>
         <waitingTimeString>1</waitingTimeString>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <zone>123, Jurong West Ave 6, #08-111</zone>
         <statusString>OPEN</statusString>
     </rides>
 </thanepark>
