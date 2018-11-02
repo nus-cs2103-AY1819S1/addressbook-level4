@@ -71,12 +71,6 @@ Display all recipes records. +
 Format: +
 `-recipe`
 
-==== Display recipe suggestion: `-suggest`
-Display system suggestions based on user's past navigation history
-and favorites. +
-Format: +
-`-suggest`
-
 ==== Display new recipe: `-surprise`
 Display a random recipe for the user who wants to try something bold
 and new but has no idea what they want. +
@@ -213,6 +207,12 @@ Add a recipe to their favourites list. +
 Format: +
 `favourite INDEX`
 
+==== Display recipe suggestion: `-suggest` [coming in V1.4]
+Display system suggestions based on user's past navigation history
+and favorites. +
+Format: +
+`-suggest`
+
 ==== Add to meal plan: `plan INDEX DATE MEAL`
 Add a specified recipe to meal plan. +
 ****
@@ -231,6 +231,38 @@ Add comment and rating to current recipe. +
 ****
 Format: +
 `review [Comment] RATING`
+
+=== Favourites Commands
+
+==== List all ingredients: `list`
+
+Shows a list of user’s favourite recipes. +
+Format: +
+`list`
+
+==== Find ingredient: `find`
+
+Find favourite recipe whose name contains any of the given keywords.
+Format: +
+`find KEYWORD…`
+
+****
+* Keywords are case insensitive
+* Only the name is searched
+* Match only full words
+****
+
+==== Delete ingredient: `delete`
+
+Delete favourite recipe added by user according to its index in last shown list.
+Format: +
+`delete INDEX`
+
+==== Clear ingredients: `clear`
+
+Clears all favourite recipes.
+
+Format: `clear`
 
 === Ingredient Manager Commands
 
