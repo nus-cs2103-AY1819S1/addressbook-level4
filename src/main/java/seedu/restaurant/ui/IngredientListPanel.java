@@ -58,6 +58,7 @@ public class IngredientListPanel extends UiPart<Region> {
         });
     }
 
+    //TODO: To replace with JumpToIngredientListRequestEvent
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

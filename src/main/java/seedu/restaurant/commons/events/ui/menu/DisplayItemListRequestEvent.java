@@ -1,4 +1,4 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.menu;
 
 import seedu.restaurant.commons.events.BaseEvent;
 
@@ -11,5 +11,4 @@ public class DisplayItemListRequestEvent extends BaseEvent {
     public String toString() {
         return getClass().getSimpleName();
     }
-
 }
