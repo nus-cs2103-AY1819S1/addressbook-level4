@@ -246,7 +246,7 @@ public class ClinicIo implements ReadOnlyClinicIo {
 
     //@@author gingivitiss
     /**
-     * Removes {@code key} from this {@code ClinicIo}. Not to be used to cancel appointments.
+     * Removes {@code key} from this {@code ClinicIo}. Not to be confused with cancelling appointments.
      * {@code key} must exist in the ClinicIO.
      */
     public void removeAppointment(Appointment key) {

@@ -84,6 +84,12 @@ public class DateTest {
     }
 
     @Test
+    public void isCurrentWeek() {
+        Date date = new Date(2, 2, 2000);
+        assertFalse(date.isCurrentWeek());
+    }
+
+    @Test
     public void equals() {
         Date date1 = new Date(1, 1, 3000);
         Date date2 = new Date(1, 1, 3000);

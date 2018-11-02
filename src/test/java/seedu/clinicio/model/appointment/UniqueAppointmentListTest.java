@@ -1,5 +1,7 @@
 package seedu.clinicio.model.appointment;
 
+//@@gingivitiss
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -126,6 +128,29 @@ public class UniqueAppointmentListTest {
     }
 
     @Test
+    public void cancelAppointment_nullAppointment_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueAppointmentList.cancelAppointment(null);
+    }
+
+    @Test
+    public void cancelAppointment_appointmentDoesNotExist_throwsAppointmentNotFoundException() {
+        thrown.expect(AppointmentNotFoundException.class);
+        uniqueAppointmentList.cancelAppointment(CARL_APPT);
+    }
+
+    @Test
+    public void cancelAppointment_existingAppointment_cancelsAppointment() {
+        uniqueAppointmentList.add(AMY_APPT);
+        uniqueAppointmentList.cancelAppointment(AMY_APPT);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
+        Appointment cancelledAppt = AMY_APPT;
+        cancelledAppt.cancelAppointment();
+        expectedUniqueAppointmentList.add(cancelledAppt);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
     public void remove_nullAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueAppointmentList.remove(null);
@@ -154,10 +179,8 @@ public class UniqueAppointmentListTest {
     @Test
     public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(CARL_APPT);
-
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList(new Analytics());
         uniqueAppointmentList.add(AMY_APPT);
-
         uniqueAppointmentList.setAppointments(expectedUniqueAppointmentList);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
@@ -183,6 +206,14 @@ public class UniqueAppointmentListTest {
         List<Appointment> listWithDuplicateAppointment = Arrays.asList(AMY_APPT, AMY_APPT);
         thrown.expect(DuplicateAppointmentException.class);
         uniqueAppointmentList.setAppointments(listWithDuplicateAppointment);
+    }
+
+    @Test
+    public void setAppointments_listWithClashingAppointments_throwsAppointmentClashException() {
+        Appointment clashingAppt = new AppointmentBuilder(CARL_APPT).withTime(13, 30).build();
+        List<Appointment> listWithClashingAppointment = Arrays.asList(AMY_APPT, clashingAppt);
+        thrown.expect(AppointmentClashException.class);
+        uniqueAppointmentList.setAppointments(listWithClashingAppointment);
     }
 
     @Test

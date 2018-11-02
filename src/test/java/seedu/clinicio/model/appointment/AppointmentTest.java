@@ -1,5 +1,7 @@
 package seedu.clinicio.model.appointment;
 
+//@@author gingivitiss
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
