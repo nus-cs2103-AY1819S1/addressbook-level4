@@ -52,7 +52,7 @@ public class AppointmentBuilder {
         dateTime = appointmentToCopy.getDateTime();
         status = appointmentToCopy.getStatus();
         comments = appointmentToCopy.getComments();
-        prescriptions = appointmentToCopy.getPrescriptions();
+        prescriptions = new ArrayList<>(appointmentToCopy.getPrescriptions());
     }
 
     /**
@@ -113,5 +113,9 @@ public class AppointmentBuilder {
     public AppointmentBuilder withComments(String comments) {
         this.comments = comments;
         return this;
+    }
+
+    public Appointment build() {
+        return new Appointment(appointmentId, doctor, patient, dateTime, status, comments, prescriptions);
     }
 }
