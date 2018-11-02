@@ -318,7 +318,7 @@ If the the corresponding time-slot doenst exit based on the ordinal number, then
 === Edit certain class time of certain student: `EditTime`
 
 Edit certain class time of certain student +
-Format: `EditTime [student name] [old timeslot] [new timeslot]`
+Format: `EditTime n/student name ts/old timeslot ts/new timeslot`
 
 ****
 * filter result: list the person's name who takes class at given time.
@@ -331,6 +331,8 @@ Edit the time slot of Alice into new time slot tue 1300-1400.
 
 [NOTE]
 ====
+The prefix is needed as valid input.
+
 If the new time slot already token by others then cannot edit anymore.
 If the old time does not exit then cannot edit.
 ====
