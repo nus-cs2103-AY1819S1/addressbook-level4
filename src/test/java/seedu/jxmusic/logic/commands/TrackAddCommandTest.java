@@ -48,8 +48,10 @@ public class TrackAddCommandTest {
 
     @Test
     public void execute_addTrackToPlaylist() {
+        // tracksToAdd.stream().forEach(track -> System.out.println(track.getFileNameWithoutExtension()));
+        // Track trackToAdd = tracksToAdd.get(1);
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, tracksToAdd, targetPlaylist.getName());
-        TrackAddCommand command = new TrackAddCommand(tracksToAdd, targetPlaylist);
+        TrackAddCommand command = new TrackAddCommand(targetPlaylist, tracksToAdd);
         assertCommandSuccess(command, model, commandHistory, successMessage, expectedModel);
     }
 
@@ -58,7 +60,7 @@ public class TrackAddCommandTest {
         Track trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         tracksToAdd.add(trackToAdd);
         targetPlaylist = TypicalPlaylistList.SFX;
-        assertCommandSuccess(new TrackAddCommand(tracksToAdd, targetPlaylist), model, commandHistory,
+        assertCommandSuccess(new TrackAddCommand(targetPlaylist, tracksToAdd), model, commandHistory,
                 String.format(TrackAddCommand.MESSAGE_DUPLICATE_TRACK, tracksToAdd), expectedUnchangedModel);
     }*/
 
@@ -67,7 +69,7 @@ public class TrackAddCommandTest {
         Track trackToAdd = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         tracksToAdd.add(trackToAdd);
         targetPlaylist = new Playlist(new Name("playlistNameDoesNotExist"));
-        assertCommandSuccess(new TrackAddCommand(tracksToAdd, targetPlaylist), model, commandHistory,
+        assertCommandSuccess(new TrackAddCommand(targetPlaylist, tracksToAdd), model, commandHistory,
                 String.format(TrackAddCommand.MESSAGE_PLAYLIST_DOES_NOT_EXIST,
                         targetPlaylist.getName()), expectedUnchangedModel);
     }

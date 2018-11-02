@@ -5,7 +5,9 @@ import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.jxmusic.model.Model;
 import seedu.jxmusic.model.Playlist;
@@ -31,11 +33,15 @@ public class TrackAddCommand extends Command {
     private List<Track> argTracksToAdd;
     private Playlist argPlaylist;
 
-    public TrackAddCommand(List<Track> tracksToAdd, Playlist targetPlaylist) {
+    public TrackAddCommand(Playlist targetPlaylist, List<Track> tracksToAdd) {
         requireNonNull(tracksToAdd);
         requireNonNull(targetPlaylist);
         this.argTracksToAdd = tracksToAdd;
         this.argPlaylist = targetPlaylist;
+    }
+
+    public TrackAddCommand(Playlist targetPlaylist, Track... trackToAdd) {
+        new TrackAddCommand(targetPlaylist, Arrays.asList(trackToAdd));
     }
 
     @Override
@@ -61,8 +67,13 @@ public class TrackAddCommand extends Command {
         // check if tracks exist
         // argTracksToAdd.stream().forEach(track -> System.out.println(track.getFileNameWithoutExtension()));
         for (Track trackToAdd : argTracksToAdd) {
-            if (model.getFilteredTrackList().stream().anyMatch(track -> track.equals(trackToAdd))) {
-                tracksToAdd.add(trackToAdd);
+            Optional<Track> listOfTracks = model.getLibrary()
+                    .getTracks().stream()
+                    .filter(track -> track.equals(trackToAdd))
+                    .findFirst();
+            boolean trackExists = listOfTracks.isPresent();
+            if (trackExists) {
+                tracksToAdd.add(listOfTracks.get());
             } else {
                 // to display as tracks that cannot be added
                 tracksNotAdded.add(trackToAdd);

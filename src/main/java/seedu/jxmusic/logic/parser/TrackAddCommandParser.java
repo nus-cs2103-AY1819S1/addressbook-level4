@@ -34,7 +34,7 @@ public class TrackAddCommandParser implements Parser<TrackAddCommand> {
         Playlist targetPlaylist = ParserUtil.parsePlaylist(argMultimap.getValue(PREFIX_PLAYLIST).get());
         List<Track> tracksToAdd = ParserUtil.parseTracks(argMultimap.getAllValues(PREFIX_TRACK));
 
-        return new TrackAddCommand(tracksToAdd, targetPlaylist);
+        return new TrackAddCommand(targetPlaylist, tracksToAdd);
     }
 
     /**
