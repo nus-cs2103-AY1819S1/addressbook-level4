@@ -9,7 +9,7 @@ import static seedu.thanepark.commons.util.AppUtil.checkArgument;
 public class Maintenance implements NumericAttribute {
 
     public static final String MESSAGE_MAINTENANCE_CONSTRAINTS =
-            "Maintenance should only contain numbers with at least 1 digit long.";
+            "Maintenance should only contain numbers with at least 1 digit long and should be less than 1 billion";
     public static final String MAINTENANCE_VALIDATION_REGEX = "\\d+";
     private int value;
 
@@ -44,7 +44,7 @@ public class Maintenance implements NumericAttribute {
      * Returns true if a given string is a valid days since last maintenance.
      */
     public static boolean isValidMaintenance(String test) {
-        return test.matches(MAINTENANCE_VALIDATION_REGEX);
+        return test.matches(MAINTENANCE_VALIDATION_REGEX) && test.length() < 10;
     }
 
     @Override

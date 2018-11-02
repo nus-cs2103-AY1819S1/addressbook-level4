@@ -47,17 +47,17 @@ public class MaintenanceTest {
         // null phone number
         Assert.assertThrows(NullPointerException.class, () -> Maintenance.isValidMaintenance(null));
 
-        // invalid phone numbers
+        // invalid numbers
         assertFalse(Maintenance.isValidMaintenance("")); // empty string
         assertFalse(Maintenance.isValidMaintenance(" ")); // spaces only
         assertFalse(Maintenance.isValidMaintenance("phone")); // non-numeric
         assertFalse(Maintenance.isValidMaintenance("9011p041")); // alphabets within digits
         assertFalse(Maintenance.isValidMaintenance("9312 1534")); // spaces within digits
+        assertFalse(Maintenance.isValidMaintenance("124293842033123")); // long phone numbers
 
-        // valid phone numbers
+        // valid numbers
         assertTrue(Maintenance.isValidMaintenance("1")); // exactly 1 numbers
         assertTrue(Maintenance.isValidMaintenance("93121534"));
-        assertTrue(Maintenance.isValidMaintenance("124293842033123")); // long phone numbers
     }
 
     @Test

@@ -10,7 +10,7 @@ public class WaitTime implements NumericAttribute {
 
 
     public static final String MESSAGE_WAIT_TIME_CONSTRAINTS =
-            "Waiting time should only contain numbers with at least 1 digit long.";
+            "Waiting time should only contain numbers with at least 1 digit long, and should be less than 1 billion";
     public static final String WAIT_TIME_VALIDATION_REGEX = "\\d+";
     private int value;
 
@@ -45,7 +45,7 @@ public class WaitTime implements NumericAttribute {
      * Returns true if a given string is a valid days since last maintenance.
      */
     public static boolean isValidWaitTime(String test) {
-        return test.matches(WAIT_TIME_VALIDATION_REGEX);
+        return test.matches(WAIT_TIME_VALIDATION_REGEX) && test.length() < 10;
     }
 
     @Override

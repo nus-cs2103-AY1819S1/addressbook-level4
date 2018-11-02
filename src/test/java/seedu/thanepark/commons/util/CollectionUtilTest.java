@@ -2,6 +2,7 @@ package seedu.thanepark.commons.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.thanepark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Arrays;

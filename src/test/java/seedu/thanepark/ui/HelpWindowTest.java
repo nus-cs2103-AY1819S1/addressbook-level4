@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
-import static seedu.thanepark.ui.HelpWindow.USER_GUIDE_FILE_PATH;
+import static seedu.thanepark.ui.browser.HelpWindow.USER_GUIDE_FILE_PATH;
 
 import java.net.URL;
 
@@ -14,6 +14,8 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
 import javafx.stage.Stage;
+
+import seedu.thanepark.ui.browser.HelpWindow;
 
 public class HelpWindowTest extends GuiUnitTest {
 
