@@ -493,6 +493,7 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 ****
 // end::undoredo[]
 
+// tag::statistics[]
 === Showing expense statistics: `stats`
 
 Changes the expense list to show the statistics panel if the expense list is currently showing, then
@@ -522,6 +523,7 @@ Shows the expense statistics for the past 3 months as a bar chart showing expens
 * `stats n/3 p/m m/c` +
 Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
 ****
+// end::statistics[]
 
 === Toggling Notifications: `notification`
 
