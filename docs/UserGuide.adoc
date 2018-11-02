@@ -36,9 +36,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the HealthBook.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all patients and doctors
+* **`register-patient`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : registers a patient named `John Doe` to the HealthBook.
+* **`delete-patient`**`n/John Doe` : deletes patient named John Doe
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -49,9 +49,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `register-patient n/NAME`, `NAME` is a parameter which can be used as `register-patient n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [al/ALLERGIES]` can be used as `n/John Doe al/milk` or as `n/John Doe`.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -59,22 +58,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a person: `add`
-
-Adds a person to the HealthBook +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
 === Registering a patient: `register-patient`
 Registers a patient to the HealthBook. Patient is automatically tagged as a "Patient". +
-Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TELEGRAM_ID`
+Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 
 Examples:
 
@@ -86,27 +72,27 @@ Format: `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS`
 
 Examples:
 
-* `register-doctor n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `register-doctor n/Mary Jane p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 
 === Deleting a patient: `delete-patient`
-Deletes a patient from the HealthBook by name and phone number for verification. +
-Format: `delete-patient n/NAME p/PHONE_NUMBER`
+Deletes a patient from the HealthBook by name. +
+Format: `delete-patient n/NAME`
 
 Examples:
 
-* `delete-patient n/John Doe p/98765432`
+* `delete-patient n/John Doe`
 
 === Deleting a doctor: `delete-doctor`
-Deletes a doctor from the HealthBook by name and phone number for verification. +
-Format: `delete-doctor n/NAME p/PHONE_NUMBER`
+Deletes a doctor from the HealthBook by name. +
+Format: `delete-doctor n/NAME`
 
 Examples:
 
-* `delete-doctor n/John Doe p/98765432`
+* `delete-doctor n/Mary Jane`
 
 === Viewing a patient: `view-patient`
-Views a landing page of a patient one the HealthBook. This will display all information of the patient onto the HealthBook
-including their personal information, medical history, upcoming appointment and their past appointments. +
+Views a landing page of a patient on the HealthBook. This will display all information of the patient onto the HealthBook
+including their medical history, upcoming appointment and their past appointments. +
 Format: `view-patient n/NAME`
 
 ****
@@ -119,232 +105,98 @@ Examples:
 
 * `view-patient n/John Doe`
 
+=== Viewing a doctor: `view-doctor`
+Views a landing page of a doctor on the HealthBook. This will display the doctor's upcoming appointments. +
+Format: `view-doctor n/NAME`
+
+****
+* Views the doctor's upcoming appointments with the specified `NAME`.
+* The name refers to the name that the doctor is registered under.
+* The name must have been registered into the HealthBook.
+****
+
+Examples:
+
+* `view-doctor n/Mary Jane`
+
 === Listing all patients and doctors : `list`
 Shows a list of all patients and doctors in the HealthBook. +
 Format: `list`
 
 === Booking an appointment: `add-appointment`
-Book a doctor's appointment for the patient. A serial number of this appointment will be generated. +
+Book a doctor's appointment for the patient. An ID of this appointment will be generated. +
 Format: `add-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME`
 
 ****
-* Date and time should be in the format hhmm-dd-mm-yy
+* Date and time should be in the format `yyyy-MM-dd HH:mm`
 ****
 
 Examples:
 
-* `add-appointment n/John Doe doc/Sally dt/1200-13-01-19`
-* `add-appointment n/Jackie Chan doc/Johnny Depp dt/1300-15-02-19`
-
-=== Editing an appointment: `edit-appointment`
-Edit a doctor's appointment for the patient by its serial number. +
-Format: `edit-appointment sn/SERIAL_NUMBER dt/DATE_TIME`
-
-****
-* Date and time should be in the format hhmm-dd-mm-yy
-****
-
-Examples:
-
-* `edit-appointment sn/123456 dt/1300-15-02-19`
+* `add-appointment np/John Doe np/Mary Jane d/2018-10-17 15:00`
 
 === Deleting an appointment `delete-appointment`
-Delete a doctor's appointment for the patient by its serial number. +
-Format: `delete-appointment sn/SERIAL_NUMBER`
+Delete a doctor's appointment for the patient by its ID. +
+Format: `delete-appointment APPOINTMENT_ID`
 
 Examples:
 
-* `delete-appointment sn/123456`
+* `delete-appointment 10001`
 
-=== Selecting an appointment `select-appointment`
-Select an appointment to perform various command on it. +
-Format: `select-appointment sn/SERIAL_NUMBER`
+=== Completing an appointment `complete-appointment`
+Complete an appointment. +
+Format: `complete-appointment APPOINTMENT_ID`
 
 Examples:
 
-* `select-appointment sn/123456`
+* `complete-appointment 10001`
 
-=== Adding prescriptions to a patient: `add-prescription`
-Adds a prescription to the patient with details on its drug, amount to consume per session and number of times to consume
+=== Adding prescriptions to a patient's appointment: `add-prescription`
+Adds a prescription to the patient's appointment with details of medicine name, dosage and number of times to consume
 in a day. +
-Format: `add-prescription drug/DRUG_NAME amt/AMOUNT_PER_SESSION count/NUMBER_TO_TAKE_PER_DAY`
+Format: `add-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY`
 
 Examples:
 
-* `add-prescription drug/Panadol amt/2 count/3`
+* `add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
 
 ****
-* User needs to select an appointment before this command can be called.
-* If no appointment is selected, HealthBook will request for an appointment to be selected.
+* Each prescription is tied to an appointment.
 * There cannot be a duplicate of drug name for that particular appointment.
 ****
 
-=== Adding prescriptions to a patient: `delete-prescription`
-Delete a prescription to the patient by drug name. +
-Format: `delete-prescription drug/DRUG_NAME`
+=== Adding prescriptions to a patient's appointment: `delete-prescription`
+Delete a prescription to the patient's appointment by appointment ID and medicine name. +
+Format: `delete-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME`
 
 Examples:
 
-* `delete-prescription drug/Panadol`
-
-****
-* User needs to select an appointment before this command can be called.
-* If no appointment is selected, HealthBook will request for an appointment to be selected.
-****
-
-
-=== Adding prescriptions to a patient: `edit-prescription`
-Edit a prescription to the patient by drug name. +
-Format: `edit-prescription drug/DRUG_NAME amt/AMOUNT_PER_SESSION count/NUMBER_TO_TAKE_PER_DAY`
-
-Examples:
-
-* `edit-prescription drug/Panadol amt/3 count/4`
-
-****
-* User needs to select an appointment before this command can be called.
-* If no appointment is selected, HealthBook will request for an appointment to be selected.
-* Prescription should already be added to the appointment before this can be performed.
-****
-
-=== Adding prescriptions to a patient: `view-prescription`
-View a prescription to the patient by drug name. This will display the amount to consume per session as well as
-the number of times to consume per day. +
-Format: `view-prescription drug/DRUG_NAME`
-
-Examples:
-
-* `view-prescription drug/Panadol`
-
-****
-* User needs to select an appointment before this command can be called.
-* If no appointment is selected, HealthBook will request for an appointment to be selected.
-* Prescription should already be added to the appointment before this can be performed.
-****
-
-=== Adding prescriptions to a patient: `view-all-prescription`
-View all ongoing prescription for a patient. This will display all drugs prescriptions for the patient. +
-Format: `view-all-prescription n/NAME`
+* `delete-prescription pi/10001 pn/Paracetamol`
 
 === Adding medical condition or allergy to patient: `add-medical-history`
 Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
-Format: `add-medical-history n/NAME [condition/CONDITION] [allergy/ALLERGY]`
+Format: `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
 Examples:
 
-* `add-medical-history n/NAME condition/Weak Pulse allergy/Panadol`
+* `add-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
 
 ****
 * Either condition or allergy must be present.
 ****
 
 === Deleting medical condition or allergy to patient: `delete-medical-history`
-Delete a condition or allergy to the patient's medical history. This will then be removed on the users information page. +
-Format: `delete-medical-history n/NAME [condition/CONDITION] [allergy/ALLERGY]`
+Delete a condition or allergy to the patient's medical history. This will then be removed on the patient's information page. +
+Format: `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
 Examples:
 
-* `delete-medical-history n/NAME condition/Weak Pulse allergy/Panadol`
+* `delete-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
 
 ****
 * Either condition or allergy must be present.
 * Condition and allergy indicated must be present in the patient's records
 ****
-
-=== Reminding patient on their upcoming appointment: `remind-patient`
-Remind a patient on their upcoming appointment. This will send a message to the patient via an external platform to inform
-them about their appointment. +
-Format: `remind-patient n/NAME`
-
-Examples:
-
-* `remind-patient n/John Doe` +
-* `remind-patient n/Sally`
-
-=== Reminding all patient on their upcoming appointment: `remind-all-patient`
-Remind all patient will upcoming appointment this week. This will send a message to the patient via an external platform to
-inform them about their upcoming appointment. +
-Format: `remind-all-patient`
-
-
-=== Editing a person : `edit` [ to be removed ]
-Edits an existing person in the HealthBook. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find` [ to be removed ]
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete` [ to be removed ]
-
-Deletes the specified person from the HealthBook. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the HealthBook.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select` [ to be removed ]
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the HealthBook.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
 
 === Listing entered commands : `history`
 
@@ -369,19 +221,19 @@ Undoable commands: those commands that modify the HealthBook's content (`add`, `
 
 Examples:
 
-* `delete 1` +
+* `delete-patient 10001` +
 `list` +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete-patient 10001` command) +
 
-* `select 1` +
+* `view-patient n/John Doe` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `delete-patient 10001` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete-patient 10001` command) +
 
 === Redoing the previously undone command : `redo`
 
@@ -390,19 +242,19 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete-patient 10001` +
+`undo` (reverses the `delete-patient 10001` command) +
+`redo` (reapplies the `delete-patient 10001` command) +
 
-* `delete 1` +
+* `delete-patient 10001` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete-patient 10001` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `delete-patient 10001` command) +
+`redo` (reapplies the `delete-patient 10001` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
@@ -421,11 +273,13 @@ Format: `exit`
 HealthBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Remind patient on their upcoming appointment `[coming soon in v2.0]`
+Remind a patient on their upcoming appointment. This will send a message to the patient via an external platform to inform
+them about their appointment.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+=== Remind all patient on their upcoming appointment `[coming soon in v2.0]`
+Remind all patient will upcoming appointment this week. This will send a message to the patient via an external platform to
+inform them about their upcoming appointment.
 
 == FAQ
 
@@ -434,19 +288,34 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
+* *Register patient* `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS` +
+e.g. `register-patient n/John Doe p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
+* *Register doctor* `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS` +
+e.g. `register-doctor n/Mary Jane p/12224444 e/maryjane@example.com a/12, Clementi Rd, 1234665`
+* *Delete patient* : `delete-patient n/NAME` +
+e.g. `delete-patient n/John Doe`
+* *Delete doctor* : `delete-doctor n/NAME` +
+e.g. `delete-doctor n/Mary Jane`
+* *View patient* : `view-patient n/NAME` +
+e.g. `view-patient n/John Doe`
+* *View doctor* : `view-doctor n/NAME` +
+e.g. `view-doctor n/Mary Jane`
+* *Book appointment* : `add-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME` +
+e.g. `add-appointment np/John Doe np/Mary Jane d/2018-10-17 15:00`
+* *Delete appointment* : `delete-appointment APPOINTMENT_ID`
+e.g. `delete-appointment 10001`
+* *Complete appointment* : `complete-appointment APPOINTMENT_ID`
+e.g. `complete-appointment 10001`
+* *Add prescriptions* : `add-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY``add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
+e.g. `add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
+* *Delete prescriptions* : `delete-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME`
+e.g. `delete-prescription pi/10001 pn/Paracetamol`
+* *Add allergies or conditions* : `add-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
+e.g. `add-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
+* *Delete allergies or conditions* : `delete-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
+e.g. `delete-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Clear* : `clear`
+* *Exit* : `exit`
