@@ -255,8 +255,25 @@ Format : `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REM
 
 * Modifies the permission of the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
 
+The following is the list of Permissions available.
+
+[width="100%",options="header"]
+|=========================================================
+|Permission|What it does
+|ADD_EMPLOYEE|Allows the user to add employee
+|REMOVE_EMPLOYEE|Allows the user to delete employee
+|EDIT_EMPLOYEE|Allows the user to edit information of an employee
+|VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
+|APPROVE_LEAVE|Allows user to approve and reject leave application
+|CREATE_PROJECT(Currently not used)|Allows user to create a project
+|ASSIGN_PROJECT(Currently not used)|Allows user to assign employee to a project
+|VIEW_PROJECT(Currently not used)|Allows user to view all projects
+|ASSIGN_PERMISSION|Allows user to assign permission to employees
+|=========================================================
+
+
 ****
-* To use this command, you must be logged in with "Assign Permission" permission.
+* To use this command, you must be logged in with "ASSIGN_PERMISSION" permission.
 * At least one of the parameters must be provided
 ****
 
@@ -472,7 +489,7 @@ Format: `deleteassignment INDEX`
  |Help|help|help
  |History|history|history
  |List all employees|list|list
- |Sort employee display list| sort -CRITERIA| sort -d
+ |Sort employee display list| sort -CRITERIA| sort -df
  |Select an employee|select INDEX | select 1
  |Search employees by name|find NAME| find Joshua
  |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo
