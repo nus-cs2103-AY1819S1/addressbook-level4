@@ -236,6 +236,7 @@ Shows a list of archived tasks. +
 [blue]`listarchived`
 ====
 
+// tag::listday[]
 === Viewing Tasks Due Today
 
 Shows a list of tasks that are due today. +
@@ -243,6 +244,9 @@ Shows a list of tasks that are due today. +
 [blue]`listday`
 ====
 
+// end::listday[]
+
+// tag::listweek[]
 === Viewing Tasks Due This Term Week
 
 Shows a list of tasks that are due from current date till the closest Sunday. +
@@ -265,7 +269,9 @@ After:
 ====
 image::ListWeekCommand_UG_After.png[width="400"]
 ====
+// end::listweek[]
 
+// tag::firstday[]
 === Generating Academic Calendar Weeks
 
 Generates the entire academic calendar weeks with description, based on the first academic day and stores it in storage.
@@ -306,6 +312,7 @@ After:
 ====
 image::FirstDayCommand_UG_Aft.png[width="400"]
 ====
+// end::firstday[]
 
 === Listing Overdue Tasks
 
