@@ -151,7 +151,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         requireNonNull(args);
 
         List<Ingredient> lastShownList = model.getFilteredList();
-        String[] tokens = args.trim().split("\\s+");
+        String[] tokens = args.toLowerCase().trim().split("\\s+");
         int index;
         try {
             index = Integer.parseInt(tokens[0]) - 1;
