@@ -98,19 +98,15 @@ public class MoveCommand extends Command {
             checkWishFulfilled(toWish);
 
             try {
-                Wish editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                        toWish.getUrl(), toWish.getSavedAmount().incrementSavedAmount(amountToMove),
-                        toWish.getRemark(), toWish.getTags(), toWish.getId());
+                Wish editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToMove);
 
                 Amount wishSavedDifference = editedToWish.getSavedAmountToPriceDifference();
 
                 model.updateUnusedFunds(amountToMove.getNegatedAmount());
                 /* Transfer excess amount from unused funds. */
                 if (wishSavedDifference.value > 0) {
-                    editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                            toWish.getUrl(), toWish.getSavedAmount()
-                            .incrementSavedAmount(toWish.getSavedAmountToPriceDifference().getAbsoluteAmount()),
-                            toWish.getRemark(), toWish.getTags(), toWish.getId());
+                    Amount amountToIncrement = toWish.getSavedAmountToPriceDifference().getAbsoluteAmount();
+                    editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToIncrement);
                     commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS,
                             toWish.getSavedAmountToPriceDifference().toString(), this.toIndex,
                             wishSavedDifference.getAbsoluteAmount(), model.getUnusedFunds()));
@@ -132,11 +128,8 @@ public class MoveCommand extends Command {
             checkWishFulfilled(fromWish);
 
             try {
-                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(),
-                        fromWish.getUrl(),
-                        fromWish.getSavedAmount().incrementSavedAmount(amountToMove.getNegatedAmount()),
-                        fromWish.getRemark(), fromWish.getTags(), fromWish.getId());
-
+                Amount amountToIncrement = amountToMove.getNegatedAmount();
+                Wish editedFromWish = Wish.createWishWithIncrementedSavedAmount(fromWish, amountToIncrement);
                 model.updateUnusedFunds(amountToMove);
 
                 model.updateWish(fromWish, editedFromWish);
@@ -164,21 +157,15 @@ public class MoveCommand extends Command {
             checkWishFulfilled(toWish);
 
             try {
-                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(),
-                        fromWish.getUrl(),
-                        fromWish.getSavedAmount().incrementSavedAmount(amountToMove.getNegatedAmount()),
-                        fromWish.getRemark(), fromWish.getTags(), fromWish.getId());
-                Wish editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                        toWish.getUrl(), toWish.getSavedAmount().incrementSavedAmount(amountToMove),
-                        toWish.getRemark(), toWish.getTags(), toWish.getId());
+                Wish editedFromWish = Wish.createWishWithIncrementedSavedAmount(fromWish,
+                        amountToMove.getNegatedAmount());
+                Wish editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToMove);
                 Amount wishSavedDifference = editedToWish.getSavedAmountToPriceDifference();
 
                 /* Transfer excess amount to unused funds. */
                 if (wishSavedDifference.value > 0) {
-                    editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                            toWish.getUrl(), toWish.getSavedAmount()
-                            .incrementSavedAmount(toWish.getSavedAmountToPriceDifference().getAbsoluteAmount()),
-                            toWish.getRemark(), toWish.getTags(), toWish.getId());
+                    Amount amountToIncrement = toWish.getSavedAmountToPriceDifference().getAbsoluteAmount();
+                    editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToIncrement);
                     model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
                     commandResult = new CommandResult(String.format(MESSAGE_MOVE_EXCESS_TO_WISH,
                             toWish.getSavedAmountToPriceDifference().toString(),
