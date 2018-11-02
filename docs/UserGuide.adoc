@@ -213,7 +213,7 @@ Exits from the application and return to the user's desktop.
 [[command-switch]]
 ==== Switching panels: `switch`
 
-Switches the panel to display to volunteers or events +
+Switches the panel to display either volunteers or events +
 
 Format: `switch -CONTEXT_ID`
 
@@ -227,21 +227,11 @@ Format: `switch -CONTEXT_ID`
 Example(s):
 
 * `switch -e` +
-Updates the panel to display the list of events.
+Updates the panel displaying the list of volunteers to display the list of events. +
+The following figure shows the expected panel before and after entering the `switch` command.
 
-[.clearfix]
---
-[.left]
-.Before panel displaying volunteers
-image::command_switch_before.png[switch bef, 200]
-[.left]
-.After panel displaying events
-image::command_switch_after.png[switch aft, 200]
---
-
-The figures above show the 2 different panels. +
-Application will first display the 'volunteers' panel and you can change the panel to display 'events' via the `switch` command.
-// end::command-switch[]
+.Panel display changing from volunteers to events
+image::command_switch.png[switch, 600]
 
 === Volunteer Management
 
@@ -525,30 +515,32 @@ Format: `manage EVENT_INDEX`
 
 Example(s):
 
-* `manage 1` +
-View the list of volunteers assigned to event at index 1.
+* `switch -e` (panel updates to show list of events) +
+`manage 1` (view the list of volunteers assigned to event at index 1) +
+See the figures below for a step by step guide.
 
-.Panel of events
-image::command_record_manage_eventIndex.png[view events, 200]
+.Execute `switch -e`
+image::command_switch.png[switch execution, 600]
 
-The figure above shows the 'event' panel that you will see before executing the `manage` command.
-The circled numbers indicate the EVENT_INDEX that you have to enter.
+.`manage 1` targets the event at index 1
+image::command_record_manage_eventIndex.png[switch execution, 200]
 
-.Managing the selected event
+.Labelled screenshot of what to expect after executing `manage 1`
 image::command_manage_view.png[manage, 600]
 
-The figure above shows the screen you will see after executing the `manage` command successfully.
+The last figure shows the screen you will see after executing the `manage` command successfully.
 
 The following changes are observed:
 
 1. Panel displays the list of volunteers that you can assign to an event.
-2. Name of event being managed and total number of volunteers assigned to event shown in the upper portion of the display box.
-3. List of volunteers currently assigned to the event.
+2. Name of event being managed and total number of volunteers assigned to it.
+3. List of volunteers currently assigned to the event. It will be empty if no volunteers are assigned.
 
 [[command-record-add]]
 ==== Adding volunteer to event: `add`
 
 Adds a volunteer to the event that is currently being managed. +
+Refer to <<command-record-manage>> on how to manage events.
 
 Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 
@@ -558,17 +550,15 @@ Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 * Default value for REMARKS is '-'.
 ****
 
-.The VOLUNTEER_INDEX
-image::command_record_add_volunteerIndex.png[volunteer index, 200]
-
-The circled numbers from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
-
 Example(s):
 
-.Before adding a volunteer
-image::command_record_add.png[add command, 600]
+[NOTE]
+The following examples are entered after executing the following commands: +
+1. `switch -e` (update panel to display events) +
+2. `manage 1` (manage the event at index 1 in the panel. See figure below for expected screen)
 
-The figure above shows how the screen looks like before executing the commands below.
+.After executing `manage 1`
+image::command_record_add.png[add command, 600]
 
 * `add 1` +
 Adds a volunteer at index 1 to the event with 0 hours. +
@@ -589,6 +579,7 @@ image::command_record_add_after2.png[add command, 600]
 ==== Updating volunteer record: `edit`
 
 Updates a volunteer record in the event that is currently being managed. +
+Refer to <<command-record-manage>> on how to manage events.
 
 Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 
@@ -597,15 +588,18 @@ Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 * Just entering `r/` will save the remarks with the default value of '-'.
 ****
 
+The figure below shows the highlighted column that indicates the VOLUNTEER_INDEX that you have to enter. +
+This display can be seen after executing the `manage` command.
+
 .The VOLUNTEER_INDEX
 image::command_record_edit_volunteerIndex.png[volunteer index, 600]
 
-The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
 
 Example(s):
 
 * `edit 2 h/5 r/Emcee` +
-Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
+Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'. +
+The figures below show the display box before and after editing a record.
 
 .Before updating the volunteer record
 image::command_record_edit.png[edit command, 600]
@@ -613,12 +607,13 @@ image::command_record_edit.png[edit command, 600]
 .Output of `edit 2 h/5 r/Emcee`
 image::command_record_edit_after.png[edit command, 600]
 
-The figures above show the display box before and after editing a record.
+
 
 [[command-record-delete]]
 ==== Deleting volunteer record from event: `delete`
 
 Deletes the volunteer record from the event that is currently being managed. +
+Refer to <<command-record-manage>> on how to manage events.
 
 Format: `delete VOLUNTEER_INDEX`
 
@@ -626,16 +621,17 @@ Format: `delete VOLUNTEER_INDEX`
 * VOLUNTEER_INDEX comes from the table view of existing volunteers.
 ****
 
+The figure below shows the highlighted column that indicates the VOLUNTEER_INDEX that you have to enter. +
+This display can be seen after executing the `manage` command.
+
 .The VOLUNTEER_INDEX
-image::command_record_edit_volunteerIndex.png[delete record, 600]
-
-The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
-
+image::command_record_edit_volunteerIndex.png[volunteer index, 600]
 
 Example(s):
 
 * `delete 1` +
-Deletes the volunteer record at index 1.
+Deletes the volunteer record at index 1. +
+The figures below show the display box before and after deleting a record.
 
 .Before deleting the volunteer record
 image::command_record_edit_after.png[delete command, 600]
@@ -643,7 +639,7 @@ image::command_record_edit_after.png[delete command, 600]
 .Output of `delete 1`
 image::command_record_delete.png[delete command, 600]
 
-The figures above show the display box before and after deleting a record.
+
 
 === Miscellaneous
 
