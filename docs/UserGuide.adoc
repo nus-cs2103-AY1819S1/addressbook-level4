@@ -276,11 +276,11 @@ There is no need to save manually.
 
 === Remind patient on their upcoming appointment `[coming soon in v2.0]`
 Remind a patient on their upcoming appointment. This will send a message to the patient via an external platform to inform
-them about their appointment. 
+them about their appointment.
 
 === Remind all patient on their upcoming appointment `[coming soon in v2.0]`
 Remind all patient will upcoming appointment this week. This will send a message to the patient via an external platform to
-inform them about their upcoming appointment. 
+inform them about their upcoming appointment.
 
 == FAQ
 
