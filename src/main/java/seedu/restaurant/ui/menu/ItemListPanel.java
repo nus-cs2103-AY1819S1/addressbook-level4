@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.events.ui.menu.ItemPanelSelectionChangedEvent;
@@ -35,7 +34,7 @@ public class ItemListPanel extends UiPart<Region> {
     }
 
     @FXML
-    private void handleMouseClick(MouseEvent me) {
+    private void handleMouseClick() {
         Item item = itemListView.getSelectionModel().getSelectedItem();
         logger.fine("Selection in item list panel changed to : '" + item + "'");
         raise(new ItemPanelSelectionChangedEvent(item));
