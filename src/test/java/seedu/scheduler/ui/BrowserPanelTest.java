@@ -31,7 +31,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a event
         postNow(selectionChangedEventStub);
-        URL expectedEventUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+        URL expectedEventUrl = new URL(BrowserPanel.CALENDER_PAGE_URL
                 + MA2101_JANUARY_1_2018_YEARLY.getEventName().value.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);

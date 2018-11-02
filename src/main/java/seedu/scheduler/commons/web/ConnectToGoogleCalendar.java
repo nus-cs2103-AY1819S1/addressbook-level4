@@ -298,6 +298,7 @@ public class ConnectToGoogleCalendar {
                 e.printStackTrace();
             }
 
+            assert allEventsOnGoogle != null;
             for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
                 if (Objects.equals(event.getICalUID(), eventUuId)) {
                     eventIds.add(event.getId());

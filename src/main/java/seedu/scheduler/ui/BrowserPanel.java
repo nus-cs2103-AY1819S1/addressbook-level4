@@ -20,8 +20,8 @@ import seedu.scheduler.commons.events.ui.EventPanelSelectionChangedEvent;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+    public static final String CALENDER_PAGE_URL =
+            "https://calendar.google.com/calendar/b/2/r/month";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -35,17 +35,40 @@ public class BrowserPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
-
         loadDefaultPage();
+        runDelayAction(this::loadCalendarPage);
         registerAsAnEventHandler(this);
     }
 
-    private void loadEventPage(seedu.scheduler.model.event.Event event) {
-        loadPage(SEARCH_PAGE_URL + event.getEventName().value);
+    /**
+     * Run an action later.
+     */
+    private void runDelayAction(Runnable runnable) {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        runnable.run();
+                    }
+                },
+                999999000
+        );
+    }
+
+    public void loadCalendarPage() {
+        loadPage(CALENDER_PAGE_URL);
+    }
+
+    private void loadEventPage() {
+        loadPage(CALENDER_PAGE_URL);
     }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
+    }
+
+    public void reloadPage() {
+        Platform.runLater(() -> browser.getEngine().reload());
     }
 
     /**
@@ -66,6 +89,7 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handleEventPanelSelectionChangedEvent(EventPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadEventPage(event.getNewSelection());
+        loadEventPage();
+        reloadPage();
     }
 }
