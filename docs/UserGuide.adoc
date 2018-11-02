@@ -340,6 +340,25 @@ If the new time slot already token by others then cannot edit anymore.
 If the old time does not exit then cannot edit.
 ====
 
+=== Give Suggestions to students: `Suggestion`
+
+Give Suggestions to students +
+Format: `Suggestion studentName`
+
+****
+* result: show the suggestions.
+****
+
+Examples:
+
+* `Suggestion Alice`
+Show the suggestion to Alice according to her performance.
+
+[NOTE]
+====
+If the student has not taken any exam before
+No suggestion gonna be shown.
+====
 
 
 
