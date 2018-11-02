@@ -34,6 +34,8 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %1$s";
     public static final String MESSAGE_NO_SUCH_MODULE = "No such module exist.";
     public static final String MESSAGE_MODULE_EXIST = "Edited module already exist.";
+    public static final String MESSAGE_MULTIPLE_MODULE_EXIST = "Multiple module entries with the "
+            + "same module code exist.";
 
     private final Code targetCode;
     private final Year targetYear;
@@ -92,7 +94,7 @@ public class EditModuleCommand extends Command {
         }
 
         if (numOfModule > 1 && (targetYear == null || targetSemester == null)) {
-            throw new CommandException("");
+            throw new CommandException(MESSAGE_MULTIPLE_MODULE_EXIST);
         }
 
         return numOfModule == 1
@@ -119,10 +121,7 @@ public class EditModuleCommand extends Command {
                 .withGrade(newGrade == null ? currentModule.getGrade() : newGrade)
                 .build();
 
-        if ((newCode != null || newYear != null || newSemester != null)
-                && model.hasModule(editedModule)) {
-            throw new CommandException(MESSAGE_MODULE_EXIST);
-        }
+        newModuleNotExist(model, editedModule);
 
         model.deleteModule(currentModule);
         model.addModule(editedModule);
@@ -154,14 +153,20 @@ public class EditModuleCommand extends Command {
                 .withGrade(newGrade == null ? currentModule.getGrade() : newGrade)
                 .build();
 
-        if (model.hasModule(editedModule)) {
-            throw new CommandException(MESSAGE_MODULE_EXIST);
-        }
+        newModuleNotExist(model, editedModule);
 
         model.deleteModule(currentModule);
         model.addModule(editedModule);
         model.commitTranscript();
 
         return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+    }
+
+    private void newModuleNotExist(Model model, Module editedModule) throws CommandException {
+        boolean identifierChanged = newCode != null || newYear != null || newSemester != null;
+
+        if (identifierChanged && model.hasModule(editedModule)) {
+            throw new CommandException(MESSAGE_MODULE_EXIST);
+        }
     }
 }
