@@ -565,6 +565,7 @@ The following changes are observed:
 ==== Adding volunteer to event: `add`
 
 Adds a volunteer to the event that is currently being managed. +
+Refer to <<command-record-manage>> on how to manage events.
 
 Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 
@@ -574,17 +575,15 @@ Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 * Default value for REMARKS is '-'.
 ****
 
-.The VOLUNTEER_INDEX
-image::command_record_add_volunteerIndex.png[volunteer index, 200]
-
-The circled numbers from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
-
 Example(s):
 
-.Before adding a volunteer
-image::command_record_add.png[add command, 600]
+[NOTE]
+The following examples are entered after executing the following commands: +
+1. `switch -e` (update panel to display events) +
+2. `manage 1` (manage the event at index 1 in the panel. See figure below for expected screen.)
 
-The figure above shows how the screen looks like before executing the commands below.
+.After executing `manage 1`
+image::command_record_add.png[add command, 600]
 
 * `add 1` +
 Adds a volunteer at index 1 to the event with 0 hours. +
