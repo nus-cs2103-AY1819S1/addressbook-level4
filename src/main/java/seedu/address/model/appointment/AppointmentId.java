@@ -13,7 +13,8 @@ public class AppointmentId {
     public int getAppointmentId() {
         return appointmentId;
     }
-    
+
+    @Override
     public boolean equals(Object other) {
         if (this == other) {
             return true;
