@@ -24,22 +24,22 @@ This feature enables a systematic way to manage reservations.
 ** *Highlights*: This project required me to communicate with my teammates to synchronize our different
 management systems. It required an in-depth analysis of the underlying *MeNUS* architecture.
 
-* *Minor enhancement*: Added a way to add a command alias(a shortcut) to each command to allow users to type commands faster.
+* *Minor enhancement*: Added a way to add a command alias(a shortcut) to each command to allow users to type commands faster:
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
 
 * *Other contributions*:
 
 ** Project management:
 *** TBU
 ** Enhancements to existing features:
-*** Added the method of creating command aliases: https://github.com/CS2103-AY1819S1-F10-4/main/pull/41[#41]
+*** TBU
 ** Documentation:
-*** Helped teammates with proper language and phrasing in the User Guide and Developer Guide
+*** Wrote my feature descriptions in the User Guide and Developer Guide
+*** Helped teammates edit language and phrasing in the User Guide and Developer Guide
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-F10-4/main/pull/114[#114]
 ** Tools:
 *** TBU
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
