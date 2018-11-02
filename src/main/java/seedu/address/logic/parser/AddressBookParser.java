@@ -140,6 +140,7 @@ public class AddressBookParser {
 
         case ExchangeTimeCommand.COMMAND_WORD:
             return new ExchangeTimeCommandParser().parse(arguments);
+
         case SuggestionCommand.COMMAND_WORD:
             return new SuggestionCommandParser().parse(arguments);
 
