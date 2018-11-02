@@ -13,7 +13,7 @@ image::keith.png[width="150", align="left"]
 ** Threading
 
 ---
-= PROJECT: Car park Finder
+== PROJECT: Car park Finder
 ---
 == Overview
 
