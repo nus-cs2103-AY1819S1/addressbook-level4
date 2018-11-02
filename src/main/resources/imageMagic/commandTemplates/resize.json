@@ -1,1 +1,1 @@
-{"name":"resize","num":1,"args":{"arg1":"x%"}}
+{"name":"resize","num":1,"args":{"arg1":"x%"},"patterns":{"pattern1":"[1-9]\\d{0,2}%"}}

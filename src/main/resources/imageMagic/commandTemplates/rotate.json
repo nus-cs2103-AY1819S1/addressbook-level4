@@ -1,1 +1,1 @@
-{"name":"rotate","num":"1","args":{"arg1":"degree"}}
+{"name":"rotate","num":"1","args":{"arg1":"degree"},"patterns":{"pattern1":"[-]{0,1}\\d{1,3}"}}
