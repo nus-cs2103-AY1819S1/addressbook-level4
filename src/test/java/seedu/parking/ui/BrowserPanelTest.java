@@ -38,7 +38,7 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a car park
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "json="
                 + ALFA.toJson().replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
