@@ -3,7 +3,6 @@ package seedu.clinicio.logic.commands;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -15,11 +14,10 @@ public abstract class Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
-     * @param analytics
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(
-            Model model, CommandHistory history, Analytics analytics
+        Model model, CommandHistory history
     ) throws CommandException;
 }

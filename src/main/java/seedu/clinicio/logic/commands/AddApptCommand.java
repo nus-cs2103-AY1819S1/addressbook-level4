@@ -14,7 +14,6 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TYPE;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.Appointment;
 
 //@@author gingivitiss
@@ -59,7 +58,7 @@ public class AddApptCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
