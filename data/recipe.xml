@@ -7,6 +7,16 @@
         <instructions>
             <instruction>Mix ground chicken, 1/4 cup bread crumbs, onion, egg, garlic, salt, and black pepper in a bowl. Moisten hands and shape chicken mixture, 2 tablespoons at a time, into flat, oval-shaped patties.</instruction>
             <ingredients>
+                <name>garlic</name>
+                <amount>1.0</amount>
+                <unit>clove</unit>
+            </ingredients>
+            <ingredients>
+                <name>egg</name>
+                <amount>1.0</amount>
+                <unit>piece</unit>
+            </ingredients>
+            <ingredients>
                 <name>chicken</name>
                 <amount>200.0</amount>
                 <unit>gram</unit>
@@ -17,9 +27,9 @@
                 <unit>pinch</unit>
             </ingredients>
             <ingredients>
-                <name>blackpepper</name>
+                <name>onion</name>
                 <amount>1.0</amount>
-                <unit>pinch</unit>
+                <unit>piece</unit>
             </ingredients>
             <ingredients>
                 <name>breakcrumbs</name>
@@ -27,19 +37,9 @@
                 <unit>cup</unit>
             </ingredients>
             <ingredients>
-                <name>garlic</name>
+                <name>blackpepper</name>
                 <amount>1.0</amount>
-                <unit>clove</unit>
-            </ingredients>
-            <ingredients>
-                <name>onion</name>
-                <amount>1.0</amount>
-                <unit>piece</unit>
-            </ingredients>
-            <ingredients>
-                <name>egg</name>
-                <amount>1.0</amount>
-                <unit>piece</unit>
+                <unit>pinch</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -71,11 +71,6 @@
         <instructions>
             <instruction>Sift flour, add salt and water to make dough.</instruction>
             <ingredients>
-                <name>water</name>
-                <amount>0.5</amount>
-                <unit>cup</unit>
-            </ingredients>
-            <ingredients>
                 <name>flour</name>
                 <amount>300.0</amount>
                 <unit>gram</unit>
@@ -84,6 +79,11 @@
                 <name>salt</name>
                 <amount>1.0</amount>
                 <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>water</name>
+                <amount>0.5</amount>
+                <unit>cup</unit>
             </ingredients>
         </instructions>
         <instructions>
@@ -139,14 +139,9 @@
         <instructions>
             <instruction>In a large bowl, mix well Dashi, eggs, soy sauce, salt, and flour with a whisk.</instruction>
             <ingredients>
-                <name>soysauce</name>
-                <amount>1.0</amount>
-                <unit>teaspoon</unit>
-            </ingredients>
-            <ingredients>
-                <name>dashi</name>
-                <amount>480.0</amount>
-                <unit>ml</unit>
+                <name>egg</name>
+                <amount>2.0</amount>
+                <unit>piece</unit>
             </ingredients>
             <ingredients>
                 <name>flour</name>
@@ -154,9 +149,14 @@
                 <unit>cup</unit>
             </ingredients>
             <ingredients>
-                <name>egg</name>
-                <amount>2.0</amount>
-                <unit>piece</unit>
+                <name>dashi</name>
+                <amount>480.0</amount>
+                <unit>ml</unit>
+            </ingredients>
+            <ingredients>
+                <name>soysauce</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
             </ingredients>
             <ingredients>
                 <name>salt</name>
@@ -175,11 +175,6 @@
         <instructions>
             <instruction>Drop octopus pieces in the batter in each hole, and sprinkle chopped green onions and ginger all over the pan.</instruction>
             <ingredients>
-                <name>octopus</name>
-                <amount>170.0</amount>
-                <unit>gram</unit>
-            </ingredients>
-            <ingredients>
                 <name>greenonion</name>
                 <amount>3.0</amount>
                 <unit>piece</unit>
@@ -189,6 +184,11 @@
                 <amount>2.0</amount>
                 <unit>tablespoon</unit>
             </ingredients>
+            <ingredients>
+                <name>octopus</name>
+                <amount>170.0</amount>
+                <unit>gram</unit>
+            </ingredients>
         </instructions>
         <instructions>
             <instruction>Cook at medium heat for 1-2 minutes and turn over using a Takoyaki turner (you can use a chopstick too). It can be a little tricky at first, so watch the video to see the technique. Cook another 3-4 minutes, turning constantly.</instruction>
@@ -196,11 +196,6 @@
         </instructions>
         <instructions>
             <instruction>Place the cooked Takoyaki on a plate and pour Takoyaki sauce and mayo over them (to taste). Finish the dish by sprinkling the Takoyaki with Aonori (green dried seaweed) and Katsuobushi (dried bonito flakes).</instruction>
-            <ingredients>
-                <name>driedseaweed</name>
-                <amount>1.0</amount>
-                <unit>teaspoon</unit>
-            </ingredients>
             <ingredients>
                 <name>mayo</name>
                 <amount>1.0</amount>
@@ -210,6 +205,11 @@
                 <name>bonitoflakes</name>
                 <amount>1.0</amount>
                 <unit>pinch</unit>
+            </ingredients>
+            <ingredients>
+                <name>driedseaweed</name>
+                <amount>1.0</amount>
+                <unit>teaspoon</unit>
             </ingredients>
         </instructions>
         <tagged>Japanese</tagged>
