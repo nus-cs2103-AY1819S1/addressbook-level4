@@ -56,13 +56,13 @@ public class DeleteCommand extends Command {
 
         Event eventToDelete = lastShownList.get(targetIndex.getZeroBased());
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToDelete);
-
+        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToDelete);
         if (flags.length == 0) {
             connectToGoogleCalendar.deleteOnGoogleCal(eventToDelete, instanceIndex);
             model.deleteEvent(eventToDelete);
         } else {
             if (flags[0].equals(FLAG_UPCOMING)) {
-                connectToGoogleCalendar.deleteUpcomingOnGoogleCal(eventToDelete, instanceIndex);
+                connectToGoogleCalendar.deleteUpcomingOnGoogleCal(eventToDelete, instanceIndex, totalInstance);
                 model.deleteUpcomingEvents(eventToDelete);
             } else { //will catch FLAG_ALL
                 connectToGoogleCalendar.deleteAllOnGoogleCal(eventToDelete, instanceIndex);
