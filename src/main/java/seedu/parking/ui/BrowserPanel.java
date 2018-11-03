@@ -1,6 +1,5 @@
 package seedu.parking.ui;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.logging.Logger;
 
