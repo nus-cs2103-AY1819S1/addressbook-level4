@@ -89,7 +89,7 @@ public class SelfEditCommandTest {
             SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
             selfEditCommand = selfEditCommandParserBuilder.getCommand();
-        } catch(ParseException pe) {
+        } catch (ParseException pe) {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
         String expectedMessage = String.format(SelfEditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
@@ -112,7 +112,7 @@ public class SelfEditCommandTest {
             SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
             selfEditCommand = selfEditCommandParserBuilder.getCommand();
-        } catch(ParseException pe) {
+        } catch (ParseException pe) {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
         String expectedMessage = SelfEditCommand.ADMIN_EDIT_ERROR;
@@ -136,7 +136,7 @@ public class SelfEditCommandTest {
             SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
             selfEditCommand = selfEditCommandParserBuilder.getCommand();
-        } catch(ParseException pe) {
+        } catch (ParseException pe) {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
 
@@ -182,7 +182,7 @@ public class SelfEditCommandTest {
             SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
             standardCommand = selfEditCommandParserBuilder.getCommand();
-        } catch(ParseException pe) {
+        } catch (ParseException pe) {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
 
@@ -197,7 +197,7 @@ public class SelfEditCommandTest {
             SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
             selfEditCommandWithSameValues = selfEditCommandParserBuilder.getCommand();
-        } catch(ParseException pe) {
+        } catch (ParseException pe) {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
 
@@ -218,7 +218,7 @@ public class SelfEditCommandTest {
             SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY);
             selfEditCommandWithDifferentValues = selfEditCommandParserBuilder.getCommand();
-        } catch(ParseException pe) {
+        } catch (ParseException pe) {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
         assertFalse(standardCommand.equals(selfEditCommandWithDifferentValues));
