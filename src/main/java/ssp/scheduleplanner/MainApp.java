@@ -128,9 +128,13 @@ public class MainApp extends Application {
 
 
         //When user launch the application for the first time or deleted the 'rangeofweek.xml'
+        //or modify the content until some are invalid
         //generate the file with a default setting to allow user to use 'firstday' command
         FirstDayCommand fdc = new FirstDayCommand();
         fdc.createDefaultFileIfNotExist();
+        fdc.createDefaultFileIfSizeDiff();
+        fdc.createDefaultFileIfNull();
+        fdc.createDefaultFileIfInvalidDate();
         try {
             Config updateConfig = new Config();
             updateConfig.setAppTitle(fdc.computeAppTitle());

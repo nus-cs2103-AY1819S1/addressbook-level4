@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import ssp.scheduleplanner.model.task.Date;
+
 /**
  * An Immutable rangeOfWeek for schedule planner that is serializable to XML format
  */
@@ -36,6 +38,10 @@ public class XmlSerializableRangeOfWeek {
         }
     }
 
+    public int returnSize() {
+        return rangeOfWeeks.size();
+    }
+
     /**
      * Conversion from RangeOfWeeks to 2d array
      */
@@ -47,6 +53,37 @@ public class XmlSerializableRangeOfWeek {
             string2dArray[i][2] = rangeOfWeeks.get(i).getDescription();
         }
         return string2dArray;
+    }
+
+    /**
+     * This method check if the date data from storage is modified into invalid date format
+     * @return return false if invalid date
+     */
+    public boolean checkIfValidDateFromStorage() {
+        String[][] string2dArray = new String[WEEKS_IN_SEMESTER][3];
+        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
+            if (!Date.isValidDate(rangeOfWeeks.get(i).getStartOfWeekDate())
+                    || !Date.isValidDate(rangeOfWeeks.get(i).getEndOfWeekDate())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * This method check if either value from storage is null
+     * @return return false if there is null
+     */
+    public boolean checkIfNullValueFromStorage() {
+        String[][] string2dArray = new String[WEEKS_IN_SEMESTER][3];
+        for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
+            if (rangeOfWeeks.get(i).getStartOfWeekDate() == null
+                    || rangeOfWeeks.get(i).getEndOfWeekDate() == null
+                    || rangeOfWeeks.get(i).getDescription() == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

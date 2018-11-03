@@ -487,9 +487,12 @@ E.g listday 130818 to view all tasks for 13 August 2018.
 In order to enable users to better monitor their tasks in the schedule planner by knowing what is the current
 academic week, we added `firstday` command.
 
-The `firstday` command will generate the weeks according to the NUS academic calendar, and will append the week
-number to the application title if the user launches the application within the academic calendar dates.
+The `firstday` command will generate the weeks referencing to NUS academic calendar, and will append the week
+description to the application title if the user launches the application within the academic calendar dates.
 This allows the user to know the current academic week.
+
+[NOTE]
+The number of weeks referencing NUS academic calendar is fixated at 17 weeks.
 
 ==== Current Implementation
 
@@ -516,6 +519,14 @@ This allows the user to know the current academic week.
 system date is within academic calendar dates.
 
 * `FirstDayCommand#createDefaultFileIfNotExist()` -- It creates the default `rangeofweek.xml` if it does not exist.
+
+* `FirstDayCommand#createDefaultFileIfSizeDiff()` -- It creates the default `rangeofweek.xml` if the number of
+entries differ from the expected academic number of weeks.
+
+* `FirstDayCommand#createDefaultFileIfNull()` -- It creates the default `rangeofweek.xml` if any data is null.
+
+* `FirstDayCommand#createDefaultFileIfInvalidDate()` -- It creates the default `rangeofweek.xml` if date data in
+modified to be an invalid date format.
 
 Given below is an example usage scenario and how `firstday` mechanism behaves at each step:
 
@@ -554,9 +565,11 @@ weeks, the `UI` would display the corresponding week description to the user.
 image::FirstDayCommand_UG_Bef.png[width="600"]
 
 Step 9. When user launch the application,`MainApp` will create a `FirstDayCommand` object named `fdc` to utilise the
-method `FirstDayCommand#createDefaultFileIfNotExist`. The purpose is to check if `rangeOfWeek.xml` exists. Should it be the
-first time user launch the application or if user deleted the file, it will create a default file that would not
-affect the user experiences.
+method `FirstDayCommand#createDefaultFileIfNotExist`, `FirstDayCommand#createDefaultFileIfDiffSize`,
+`FirstDayCommand#createDefaultFileIfNull` and `FirstDayCommand#createDefaultFileIfInvalidDate`.
+
+If it is the first time the user launch the application or if user deleted the `rangeofweek.xml` or modified the file
+content until some content are invalid, the application will create a default `rangeofweek.xml`.
 
 Step 10. `MainApp` will create a `Config` object named as `updateConfig` and then calls the method `updateConfig.setAppTitle(fdc.computeAppTitle())`. `fdc.computeAppTitle()` would generate the corresponding application title by
 checking the current system date and the saved academic calendar weeks data. It would then return the result into
