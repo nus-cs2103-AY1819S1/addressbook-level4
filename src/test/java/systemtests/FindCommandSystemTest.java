@@ -18,6 +18,7 @@ import seedu.parking.logic.commands.FindCommand;
 import seedu.parking.logic.commands.RedoCommand;
 import seedu.parking.logic.commands.UndoCommand;
 import seedu.parking.model.Model;
+import seedu.parking.model.carpark.Carpark;
 import seedu.parking.model.tag.Tag;
 
 public class FindCommandSystemTest extends CarparkFinderSystemTest {
@@ -31,7 +32,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BRAVO, DELTA); // addresses contains sengkang
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
         /* Case: repeat previous find command where car park list is displaying the car parks we are finding
          * -> 2 car parks found
@@ -46,13 +47,13 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         command = FindCommand.COMMAND_WORD + " U25";
         ModelHelper.setFilteredList(expectedModel, CHARLIE);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
         /* Case: find multiple car parks in car park finder, 2 keywords -> 2 car parks found */
         command = FindCommand.COMMAND_WORD + " SK88 SK23";
         ModelHelper.setFilteredList(expectedModel, BRAVO, DELTA);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
         /* Case: find multiple car parks in car park finder, 2 keywords in reversed order -> 2 car parks found */
         command = FindCommand.COMMAND_WORD + " SK23 SK88";
@@ -97,7 +98,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         command = FindCommand.COMMAND_WORD + " Sengkangs";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
         /* Case: find car park not in car park finder -> 0 car parks found */
         command = FindCommand.COMMAND_WORD + " AK47";
@@ -161,7 +162,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         command = FindCommand.COMMAND_WORD + " SK23";
         ModelHelper.setFilteredList(expectedModel, DELTA);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardDeselected();
+        assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
         /* Case: find car park in empty car park finder -> 0 persons found */
         deleteAllCarparks();
@@ -169,7 +170,7 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DELTA);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
         /* Case: mixed case command word -> rejected */
         command = "FiNd Sengkang";

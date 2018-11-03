@@ -2,9 +2,12 @@ package seedu.parking.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.Messages;
+import seedu.parking.commons.events.ui.FindResultChangedEvent;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.model.Model;
+import seedu.parking.model.carpark.Carpark;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 
 /**
@@ -34,6 +37,8 @@ public class FindCommand extends Command {
         model.updateFilteredCarparkList(predicate);
         model.updateLastPredicateUsedByFindCommand(predicate);
 
+        EventsCenter.getInstance().post(new FindResultChangedEvent(
+                model.getFilteredCarparkList().toArray(new Carpark[]{})));
         return new CommandResult(
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
     }
