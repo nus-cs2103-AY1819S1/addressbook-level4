@@ -1,6 +1,9 @@
 package seedu.address.model.person;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,13 +11,21 @@ import java.util.concurrent.ThreadLocalRandom;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
+import seedu.address.model.appointment.Type;
+import seedu.address.model.diet.Diet;
 import seedu.address.model.diet.DietCollection;
+import seedu.address.model.diet.DietType;
+import seedu.address.model.medicalhistory.Diagnosis;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.Timestamp;
 import seedu.address.model.medicine.Dose;
 import seedu.address.model.medicine.Duration;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.visitor.VisitorList;
 
 //@@author snajef
 /**
@@ -22,6 +33,9 @@ import seedu.address.model.tag.Tag;
  *
  */
 public class DataGenerator {
+    // The maximum number of rows that fit on a single table when maximised.
+    private static final int MAX_NUMBER_OF_ROWS = 14;
+
     private final NricGenerator nricGenerator = new NricGenerator();
     private final NameGenerator nameGenerator = new NameGenerator();
     private final PhoneGenerator phoneGenerator = new PhoneGenerator();
@@ -30,7 +44,9 @@ public class DataGenerator {
     private final DrugAllergyGenerator drugAllergyGenerator = new DrugAllergyGenerator();
     private final PrescriptionListGenerator prescriptionListGenerator = new PrescriptionListGenerator();
     private final AppointmentsListGenerator appointmentsListGenerator = new AppointmentsListGenerator();
+    private final MedicalHistoryGenerator medicalHistoryGenerator = new MedicalHistoryGenerator();
     private final DietCollectionGenerator dietCollectionGenerator = new DietCollectionGenerator();
+    private final VisitorListGenerator visitorListGenerator = new VisitorListGenerator();
 
     public Nric generateNric() {
         return nricGenerator.generate();
@@ -64,8 +80,16 @@ public class DataGenerator {
         return appointmentsListGenerator.generate();
     }
 
+    public MedicalHistory generateMedicalHistory() {
+        return medicalHistoryGenerator.generate();
+    }
+
     public DietCollection generateDietCollection() {
         return dietCollectionGenerator.generate();
+    }
+
+    public VisitorList generateVisitorList() {
+        return visitorListGenerator.generate();
     }
 
     /**
@@ -84,11 +108,33 @@ public class DataGenerator {
         return arr[randomInt(0, arr.length)];
     }
 
-    public LocalDate getRandomLocalDate() {
+    /**
+     * Returns a LocalDate representing a randomised date
+     * in the range of [0, 30) days before the current date.
+     */
+    public LocalDate getRandomPastLocalDate() {
         int shift = randomInt(0, 30);
         LocalDate toReturn = LocalDate.now();
 
         return toReturn.minusDays(shift);
+    }
+
+    /**
+     * Returns a LocalDate representing a randomised date
+     * in the range of [0, 30) days after the current date.
+     */
+    public LocalDate getRandomFutureLocalDate() {
+        int shift = randomInt(0, 30);
+        LocalDate toReturn = LocalDate.now();
+
+        return toReturn.plusDays(shift);
+    }
+
+    /** Returns a LocalTime representing a randomised time
+     * in the range of [0900, 1700].
+     */
+    public LocalTime getRandomLocalTime() {
+        return LocalTime.MIN.plus(randomInt(9, 17) * 60 + randomInt(0, 60), ChronoUnit.MINUTES);
     }
 
     /**
@@ -972,12 +1018,13 @@ public class DataGenerator {
         public PrescriptionList generate() {
             PrescriptionList toReturn = new PrescriptionList();
 
-            int numPrescriptions = randomInt(8, 14);
+            // Pick a random number of minimum prescriptions for the sample data to look good.
+            int numPrescriptions = randomInt(8, MAX_NUMBER_OF_ROWS + 1);
 
             for (int i = 0; i < numPrescriptions; i++) {
                 try {
                     Duration duration = new Duration(getRandom(durations));
-                    duration.shiftDateRange(getRandomLocalDate());
+                    duration.shiftDateRange(getRandomPastLocalDate());
                     Prescription p = new Prescription(getRandomDrugName(),
                         new Dose(getRandom(doses), getRandom(dosageUnits), getRandom(dosesPerDay)),
                         duration);
@@ -999,13 +1046,209 @@ public class DataGenerator {
      * Generates appointments and stores them in a {@code AppointmentsList}.
      */
     class AppointmentsListGenerator implements Generator<AppointmentsList> {
+        private String[] props = {
+            "Auscultation",
+            "Medical inspection",
+            "Palpation",
+            "Percussion",
+            "Vital signs measurement"
+        };
+
+        private String[] diags = {
+            "Biopsy test",
+            "Blood test",
+            "Stool test",
+            "Urinalysis",
+            "Cardiac stress test",
+            "Electrocardiography",
+            "Electrocorticography",
+            "Electroencephalography",
+            "Electromyography",
+            "Electroneuronography",
+            "Electronystagmography",
+            "Electrooculography",
+            "Electroretinography",
+            "Endoluminal capsule monitoring",
+            "Endoscopy",
+            "Colonoscopy",
+            "Colposcopy",
+            "Cystoscopy",
+            "Gastroscopy",
+            "Laparoscopy",
+            "Laryngoscopy",
+            "Ophthalmoscopy",
+            "Otoscopy",
+            "Sigmoidoscopy",
+            "Esophageal motility study",
+            "Evoked potential",
+            "Magnetoencephalography",
+            "Medical imaging",
+            "Angiography",
+            "Aortography",
+            "Cerebral angiography",
+            "Coronary angiography",
+            "Lymphangiography",
+            "Pulmonary angiography",
+            "Ventriculography",
+            "Chest photofluorography",
+            "Computed tomography",
+            "Echocardiography",
+            "Electrical impedance tomography",
+            "Fluoroscopy",
+            "Magnetic resonance imaging",
+            "Diffuse optical imaging",
+            "Diffusion tensor imaging",
+            "Diffusion-weighted imaging",
+            "Functional magnetic resonance imaging",
+            "Positron emission tomography",
+            "Radiography",
+            "Scintillography",
+            "SPECT",
+            "Ultrasonography",
+            "Contrast-enhanced ultrasound",
+            "Gynecologic ultrasonography",
+            "Intravascular ultrasound",
+            "Obstetric ultrasonography",
+            "Thermography",
+            "Virtual colonoscopy",
+            "Neuroimaging",
+            "Posturography"
+        };
+
+        private String[] therapeutics = {
+            "Thrombosis prophylaxis",
+            "Precordial thump",
+            "Politzerization",
+            "Hemodialysis",
+            "Hemofiltration",
+            "Plasmapheresis",
+            "Apheresis",
+            "Extracorporeal membrane oxygenation (ECMO)",
+            "Cancer immunotherapy",
+            "Cancer vaccine",
+            "Cervical conization",
+            "Chemotherapy",
+            "Cytoluminescent therapy",
+            "Insulin potentiation therapy",
+            "Low-dose chemotherapy",
+            "Monoclonal antibody therapy",
+            "Photodynamic therapy",
+            "Radiation therapy",
+            "Targeted therapy",
+            "Tracheal intubation",
+            "Unsealed source radiotherapy",
+            "Virtual reality therapy",
+            "Physical therapy/Physiotherapy",
+            "Speech therapy",
+            "Phototerapy",
+            "Hydrotherapy",
+            "Heat therapy",
+            "Shock therapy",
+            "Insulin shock therapy",
+            "Electroconvulsive therapy",
+            "Symptomatic treatment",
+            "Fluid replacement therapy",
+            "Palliative care",
+            "Hyperbaric oxygen therapy",
+            "Oxygen therapy",
+            "Gene therapy",
+            "Enzyme replacement therapy",
+            "Intravenous therapy",
+            "Phage therapy",
+            "Respiratory therapy",
+            "Vision therapy",
+            "Electrotherapy",
+            "Transcutaneous electrical nerve stimulation (TENS)",
+            "Laser therapy",
+            "Combination therapy",
+            "Occupational therapy",
+            "Immunization",
+            "Vaccination",
+            "Immunosuppressive therapy",
+            "Psychotherapy",
+            "Drug therapy",
+            "Acupuncture",
+            "Antivenom",
+            "Magnetic therapy",
+            "Craniosacral therapy",
+            "Chelation therapy",
+            "Hormonal therapy",
+            "Hormone replacement therapy",
+            "Opiate replacement therapy",
+            "Cell therapy",
+            "Stem cell treatments",
+            "Intubation",
+            "Nebulization",
+            "Inhalation therapy",
+            "Particle therapy",
+            "Proton therapy",
+            "Fluoride therapy",
+            "Cold compression therapy",
+            "Animal-Assisted Therapy",
+            "Negative Pressure Wound Therapy",
+            "Nicotine replacement therapy",
+            "Oral rehydration therapy"
+        };
+
+        private String[] surgicals = {
+            "Ablation",
+            "Amputation",
+            "Biopsy",
+            "Cardiopulmonary resuscitation (CPR)",
+            "Cryosurgery",
+            "Endoscopic surgery",
+            "Facial rejuvenation",
+            "General surgery",
+            "Hand surgery",
+            "Hemilaminectomy",
+            "Image-guided surgery",
+            "Knee cartilage replacement therapy",
+            "Laminectomy",
+            "Laparoscopic surgery",
+            "Lithotomy",
+            "Lithotriptor",
+            "Lobotomy",
+            "Neovaginoplasty",
+            "Radiosurgery",
+            "Stereotactic surgery",
+            "Radiosurgery",
+            "Vaginoplasty",
+            "Xenotransplantation"
+        };
+
         @Override
         public AppointmentsList generate() {
             AppointmentsList toReturn = new AppointmentsList();
-            int numAppointments = randomInt(0, 10 + 1);
+            int numAppointments = randomInt(3, MAX_NUMBER_OF_ROWS + 1);
+
 
             for (int i = 0; i < numAppointments; i++) {
-                // TODO
+                Type type = getRandom(Type.values());
+                String[] procedureNames = { "Default value" };
+
+                switch (type) {
+                case PROPAEDEUTIC:
+                    procedureNames = props;
+                    break;
+                case DIAGNOSTIC:
+                    procedureNames = diags;
+                    break;
+                case THERAPEUTIC:
+                    procedureNames = therapeutics;
+                    break;
+                case SURGICAL:
+                    procedureNames = surgicals;
+                    break;
+                default:
+                    break;
+                }
+
+                toReturn.add(new Appointment(
+                    type,
+                    getRandom(procedureNames),
+                    Appointment.DATE_TIME_FORMAT.format(
+                        LocalDateTime.of(getRandomFutureLocalDate(), getRandomLocalTime())),
+                    "Dr. " + getRandom(nameGenerator.firstNames)));
             }
 
             return toReturn;
@@ -1013,19 +1256,105 @@ public class DataGenerator {
     }
 
     /**
-     * Generates dietary restrictions and stores them in a {@code DietCollection}.
+     * Generates medical histories and stores them in a {@code MedicalHistory}.
      */
-    class DietCollectionGenerator implements Generator<DietCollection> {
-        @Override
-        public DietCollection generate() {
-            DietCollection toReturn = new DietCollection();
-            int numDietRestrictions = randomInt(0, 5 + 1);
+    class MedicalHistoryGenerator implements Generator<MedicalHistory> {
+        private String[] descriptions = {
+            "Saw patient today for recurrent cough and flu. Suspect patient has cancer.",
+            "Example diagnosis.",
+            "Saw patient today for recurrent nightmares involving CS2103T finals. Suspect patient needs to git gud.",
+            "LGTM.",
+            "Lorum ipsum.",
+            "Saw patient today. Symptoms: wet, chesty cough, runny nose. Suspect patient might have pneumonia."
+        };
 
-            for (int i = 0; i < numDietRestrictions; i++) {
-                // TODO
+        @Override
+        public MedicalHistory generate() {
+            int numDiagnoses = randomInt(1, MAX_NUMBER_OF_ROWS + 1);
+            MedicalHistory toReturn = new MedicalHistory();
+
+            for (int i = 0; i < numDiagnoses; i++) {
+                toReturn.add(new Diagnosis(getRandom(descriptions), "Dr. " + getRandom(nameGenerator.firstNames),
+                    new Timestamp(LocalDateTime.of(getRandomPastLocalDate(), getRandomLocalTime()))));
             }
 
             return toReturn;
+        }
+    }
+    /**
+     * Generates dietary restrictions and stores them in a {@code DietCollection}.
+     */
+    class DietCollectionGenerator implements Generator<DietCollection> {
+        private String[] allergies = {
+            "Shellfish",
+            "Prawns",
+            "Chocolate",
+            "Eggs",
+            "Dairy",
+            "Gluten",
+            "The left feelers of adolescent prawns below the age of 2-1/2 years",
+            "Jalapeno spaghetti"
+        };
+
+        private String[] culturalRestrictions = {
+            "Halal",
+            "Kosher",
+            "Vegetarian",
+            "Vegan",
+            "Liquid food diet"
+        };
+
+        private String[] physicalDifficulties = {
+            "Hands cannot move",
+            "Mouth cannot move",
+            "Lips cannot move",
+            "Sensitive teeth",
+            "Fingers cannot move",
+            "Feet cannot move",
+            "Cannot sit upright",
+            "Cannot lie down",
+            "Cannot move left pinky toe IF current day is the third Sunday of the month"
+        };
+
+        @Override
+        public DietCollection generate() {
+            DietCollection toReturn = new DietCollection();
+            int numDietRestrictions = randomInt(0, MAX_NUMBER_OF_ROWS + 1);
+
+            for (int i = 0; i < numDietRestrictions; i++) {
+                DietType rand = getRandom(DietType.values());
+                String detail;
+
+                switch (rand) {
+                case ALLERGY:
+                    detail = getRandom(allergies);
+                    break;
+                case CULTURAL:
+                    detail = getRandom(culturalRestrictions);
+                    break;
+                case PHYSICAL:
+                    detail = getRandom(physicalDifficulties);
+                    break;
+                default:
+                    detail = "Yuntong";
+                    break;
+                }
+
+                toReturn.add(new Diet(detail, rand));
+            }
+
+            return toReturn;
+        }
+    }
+
+    /**
+     * Generates visitors and stores them in a {@code VisitorList}.
+     */
+    class VisitorListGenerator implements Generator<VisitorList> {
+        @Override
+        public VisitorList generate() {
+            // TODO Auto-generated method stub
+            return new VisitorList();
         }
     }
 

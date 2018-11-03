@@ -65,7 +65,9 @@ public class GendataCommand extends Command {
             generator.generateDrugAllergies(),
             generator.generatePrescriptionList(),
             generator.generateAppointmentsList(),
-            generator.generateDietCollection()
+            generator.generateMedicalHistory(),
+            generator.generateDietCollection(),
+            generator.generateVisitorList()
             );
     }
 }
