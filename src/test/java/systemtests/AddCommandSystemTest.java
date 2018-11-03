@@ -17,6 +17,8 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PROJECT_DESC_OASIS;
 import static seedu.address.logic.commands.CommandTestUtil.SALARY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.SALARY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.USERNAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.USERNAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
@@ -48,6 +50,8 @@ import seedu.address.testutil.PersonUtil;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
+    public static final String UNIQUE_USERNAME = "Olivia Brown";
+
     @Test
     public void add() {
         Model model = getModel();
@@ -59,7 +63,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Person toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SALARY_DESC_AMY + "  " + PROJECT_DESC_OASIS + " ";
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SALARY_DESC_AMY + "  " + USERNAME_DESC_AMY
+                + "   " + PROJECT_DESC_OASIS + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -73,17 +78,18 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a person with all fields same as another person in the address book except name -> added */
+        /* Case: add a person with all fields same as another person in the address book except name and username
+           -> added */
         //default username in the add command: equal to name
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).withUsername(VALID_NAME_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + SALARY_DESC_AMY + PROJECT_DESC_OASIS;
+                + USERNAME_DESC_BOB + SALARY_DESC_AMY + PROJECT_DESC_OASIS;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a person with all fields same as another person in the address book except phone and email
+        /* Case: add a person with all fields same as another person in the address book except username
          * -> added
          */
-        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        toAdd = new PersonBuilder(AMY).withUsername(UNIQUE_USERNAME).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
@@ -183,6 +189,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + INVALID_ADDRESS_DESC + SALARY_DESC_AMY;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+
+        /* Case: Username already exists -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+            + ADDRESS_DESC_AMY + SALARY_DESC_AMY + USERNAME_DESC_BOB;
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_USERNAME);
     }
 
     /**

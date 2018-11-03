@@ -207,34 +207,19 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                         + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        /* Case: edit a person with new values same as another person's values -> rejected */
+        /* Case: edit a person with new values same as another person's values -> accepted
+            due to username checks, it is ok for 2 people identified similarly as long as they have different username.
+         */
         executeCommand(PersonUtil.getAddCommand(BOB));
         assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + SALARY_DESC_AMY + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        Person originalPerson = getModel().getFilteredPersonList().get(index.getZeroBased());
+        Person expectedPerson = new PersonBuilder(BOB).withUsername(originalPerson.getUsername().username)
+            .withPassword(originalPerson.getPassword().password).build();
+        assertCommandSuccess(command, INDEX_FIRST_PERSON, expectedPerson, INDEX_FIRST_PERSON);
     }
 
     /**

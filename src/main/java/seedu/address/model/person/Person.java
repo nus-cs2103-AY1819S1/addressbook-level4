@@ -140,6 +140,7 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
+                && otherPerson.getUsername().equals(getUsername())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 

@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ArchivedListChangedEvent;
 import seedu.address.commons.events.model.AssignmentListChangedEvent;
+import seedu.address.commons.exceptions.IllegalUsernameException;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
@@ -108,14 +110,32 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addPerson(Person person) {
+        if (alreadyContainsUsername(person.getUsername().username, null)) {
+            throw new IllegalUsernameException(person.getUsername().username);
+        }
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
     @Override
+    public boolean alreadyContainsUsername(String newUsername, Person ignore) {
+        List<Person> currentPeople = versionedAddressBook.getPersonList();
+        for (Person p : currentPeople) {
+            if (!p.isSamePerson(ignore) && p.getUsername().username.equals(newUsername)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
+
+        if (alreadyContainsUsername(editedPerson.getUsername().username, target)) {
+            throw new IllegalUsernameException(editedPerson.getUsername().username);
+        }
 
         versionedAddressBook.updatePerson(target, editedPerson);
 
