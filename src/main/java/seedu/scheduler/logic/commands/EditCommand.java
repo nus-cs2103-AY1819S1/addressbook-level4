@@ -87,35 +87,37 @@ public class EditCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
+        //Set up event to be edited and edited event according to user input
         Event eventToEdit;
-        //for Sync with Google START
         eventToEdit = lastShownList.get(index.getZeroBased());
         Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
-        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToEdit);
+
+        //Calculate parameters for updating events in Google Calender
+        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(
+                lastShownList, eventToEdit);
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
-        //for Sync with Google
+
+        //Update by cases
+        //Case1: edit single event
         if (flags.length == 0) {
-            connectToGoogleCalendar.updateSingleGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
-        } else if (flags[0].equals(FLAG_UPCOMING)) {
-            connectToGoogleCalendar.updateUpcomingGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
-        } else {
-            connectToGoogleCalendar.updateAllGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
-        }
-        //for Sync with Google END
-        if (flags.length == 0) {
-            eventToEdit = lastShownList.get(index.getZeroBased());
-            editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+            connectToGoogleCalendar.updateSingleGoogleEvent(
+                    eventToEdit, editedEvent, instanceIndex, totalInstance);
             model.updateEvent(eventToEdit, editedEvent);
         } else {
-            eventToEdit = lastShownList.get(index.getZeroBased());
+            //edit upcoming or all events in a EventSet
             Predicate<Event> firstInstancePredicate;
             Event firstEventToEdit;
             List<Event> editedEvents;
-
             if (flags[0].equals(FLAG_UPCOMING)) {
+                //Case2: edit upcoming events
+                connectToGoogleCalendar.updateUpcomingGoogleEvent(
+                        eventToEdit, editedEvent, instanceIndex, totalInstance);
                 editedEvents = createEditedEvents(eventToEdit, eventToEdit, editEventDescriptor);
                 model.updateUpcomingEvents(eventToEdit, editedEvents);
-            } else { //will catch FLAG_ALL
+            } else {
+                //Case3: edit all events
+                connectToGoogleCalendar.updateAllGoogleEvent(
+                        eventToEdit, editedEvent, instanceIndex, totalInstance);
                 firstInstancePredicate = getFirstInstancePredicate(eventToEdit, editEventDescriptor);
                 firstEventToEdit = model.getFirstInstanceOfEvent(firstInstancePredicate);
                 editedEvents = createEditedEvents(eventToEdit, firstEventToEdit, editEventDescriptor);
