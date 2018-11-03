@@ -49,28 +49,20 @@ public class BrowserPanel extends UiPart<Region> {
     /**
      * Loads the car park HTML file with a json data parsed in UTF-8.
      */
-    private void loadCarparkPage(Carpark carpark) {
-        try {
-            loadPage(SEARCH_PAGE_URL + "json=" + carpark.toJson());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+    private void loadCarparkPage(Carpark carpark) throws Exception {
+        loadPage(SEARCH_PAGE_URL + "json=" + carpark.toJson());
     }
 
     /**
      * Loads the car park HTML file with a list of car parks in json data parsed in UTF-8.
      */
-    private void loadCarparkPage(Carpark[] carparks) {
+    private void loadCarparkPage(Carpark[] carparks) throws Exception {
         JsonArray arr = new JsonArray();
         for (int i = 0; i < carparks.length; i++) {
             arr.add(carparks[i].getCarparkNumber().value);
         }
-        try {
-            String utf8arr = URLEncoder.encode(arr.toString(), "UTF-8");
-            loadPage(SEARCH_PAGE_URL + "jsonArr=" + utf8arr);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String utf8arr = URLEncoder.encode(arr.toString(), "UTF-8");
+        loadPage(SEARCH_PAGE_URL + "jsonArr=" + utf8arr);
     }
 
     /**
@@ -95,7 +87,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleCarparkPanelSelectionChangedEvent(CarparkPanelSelectionChangedEvent event) {
+    private void handleCarparkPanelSelectionChangedEvent(CarparkPanelSelectionChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCarparkPage(event.getNewSelection());
     }
@@ -107,13 +99,13 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleCarparkFindResultChangedEvent(FindResultChangedEvent event) {
+    private void handleCarparkFindResultChangedEvent(FindResultChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCarparkPage(event.getreturnList());
     }
 
     @Subscribe
-    private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event) {
+    private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event)throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCarparkPage(event.getreturnList());
     }
