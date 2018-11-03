@@ -192,7 +192,6 @@ public class CalendarModelTest {
     public void isExistingEvent_nullTitle_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         calendarModel.isExistingEvent(DEFAULT_START_DAY, DEFAULT_END_DAY, null);
-
     }
 
     @Test
@@ -205,6 +204,29 @@ public class CalendarModelTest {
     public void isExistingEvent_eventInCalendar_returnsTrue() {
         calendarModel.loadCalendar(CHRISTMAS_CALENDAR, CHRISTMAS_CALENDAR_NAME);
         assertTrue(calendarModel.isExistingEvent(25, 25, "Christmas Day"));
+    }
+
+    @Test
+    public void equals() {
+        CalendarModel calendarModelCopy = new CalendarModel(new HashMap<>());
+
+        // same values -> returns true
+        assertTrue(calendarModel.equals(calendarModelCopy));
+
+        // same object -> returns true
+        assertTrue(calendarModel.equals(calendarModel));
+
+        // null -> returns false
+        assertFalse(calendarModel.equals(null));
+
+        // different types -> returns false
+        assertFalse(calendarModel.equals(5));
+
+        // different existingCalendar -> returns false
+
+        CalendarModel diffCalendarModel = new CalendarModel(new HashMap<>());
+        diffCalendarModel.updateExistingCalendar(VALID_YEAR_2018, VALID_MONTH_JAN);
+        assertFalse(calendarModel.equals(diffCalendarModel));
     }
 
 }
