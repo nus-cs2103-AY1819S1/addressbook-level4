@@ -101,6 +101,11 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public boolean alreadyContainsUsername(String username) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
