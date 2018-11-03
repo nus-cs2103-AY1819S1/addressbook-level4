@@ -1,57 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.image.Image?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/sales.png" />
   </icons>
   <scene>
     <Scene>
-      <VBox prefWidth="310.0">
-        <children>
-          <HBox prefHeight="20.0" prefWidth="600.0">
-            <children>
-              <Label alignment="TOP_LEFT" contentDisplay="CENTER" text="Date / Name">
-                <HBox.margin>
-                  <Insets left="65.0" />
-                </HBox.margin>
-                <font>
-                  <Font name="System Bold" size="12.0" />
-                </font>
-              </Label>
-              <Label text="Revenue">
-                <HBox.margin>
-                  <Insets left="90.0" />
-                </HBox.margin>
-                <font>
-                  <Font name="System Bold" size="12.0" />
-                </font>
-              </Label>
-            </children>
-          </HBox>
-          <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-              <ListView fx:id="dateOrName" prefHeight="200.0" prefWidth="200.0" />
-              <ListView fx:id="revenue" prefHeight="200.0" prefWidth="100.0" />
-            </children>
-          </HBox>
-          <Label fx:id="totalRevenue">
-            <padding>
-              <Insets top="5.0" />
-            </padding>
-          </Label>
-        </children>
-        <padding>
-          <Insets left="5.0" />
-        </padding>
+      <VBox alignment="TOP_CENTER" prefHeight="250.0" prefWidth="310.0" spacing="10.0">
+        <TableView fx:id="rankingTable" prefHeight="250.0" prefWidth="271.0">
+          <columns>
+            <TableColumn fx:id="rank" prefWidth="40" text="Rank" sortable="false"/>
+            <TableColumn fx:id="dateOrName" prefWidth="150" text="Key" sortable="false"/>
+            <TableColumn fx:id="revenue" prefWidth="100" text="Revenue" sortable="false"/>
+          </columns>
+        </TableView>
       </VBox>
     </Scene>
   </scene>
