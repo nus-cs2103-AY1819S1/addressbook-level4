@@ -104,7 +104,7 @@ public class EditCommand extends Command {
 
         //Update by cases
         //Case1: edit single event
-        logger.info("The command will be executed by cases.");
+        logger.info("The EditCommand will be executed by cases.");
         if (flags.length == 0) {
             logger.info("Single event will be edited.");
             connectToGoogleCalendar.updateSingleGoogleEvent(
