@@ -270,7 +270,7 @@ public class MainWindow extends UiPart<Stage> {
             personListPanelPlaceholder.getChildren().remove(leaveListPanel.getRoot());
         }
         if (assignmentListPanel != null) {
-            assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
+            //assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
         }
     }
 
@@ -347,18 +347,18 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         if (event.getNewSelection() == 2) {
             personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
-            assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
+            //assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
             personListPanelPlaceholder.getChildren().add(archivedListPanel.getRoot());
         }
         if (event.getNewSelection() == 1) {
             personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
-            assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
+            //assignmentListPanelPlaceholder.getChildren().remove(assignmentListPanel.getRoot());
             personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         }
         if (event.getNewSelection() == 3) {
             personListPanelPlaceholder.getChildren().remove(archivedListPanel.getRoot());
             personListPanelPlaceholder.getChildren().remove(personListPanel.getRoot());
-            assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
+            //assignmentListPanelPlaceholder.getChildren().add(assignmentListPanel.getRoot());
         }
     }
 }
