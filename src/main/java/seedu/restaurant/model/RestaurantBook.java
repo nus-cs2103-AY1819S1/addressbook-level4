@@ -25,6 +25,7 @@ import seedu.restaurant.model.person.UniquePersonList;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.reservation.UniqueReservationList;
 import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.sales.UniqueRecordList;
@@ -270,6 +271,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     public Map<Date, Double> rankDateBasedOnRevenue() {
         return records.rankDateBasedOnRevenue();
+    }
+
+    public Map<ItemName, Double> rankItemBasedOnRevenue() {
+        return records.rankItemBasedOnRevenue();
     }
 
     //// account-level operations

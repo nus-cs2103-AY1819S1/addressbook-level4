@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -131,14 +129,14 @@ public class UniqueRecordList implements Iterable<SalesRecord> {
      * Generates and returns the ranking of existing records' dates according to total revenue as a Map
      */
     public Map<Date, Double> rankDateBasedOnRevenue() {
-        Map<Date, Double> dateRevenueMap = computeRevenue();
-        return sortByRevenue(dateRevenueMap);
+        Map<Date, Double> dateRevenueMap = computeDateRevenue();
+        return sortDateByRevenue(dateRevenueMap);
     }
 
     /**
      * Computes the total revenue earned for every existing date in the record list
      */
-    private Map<Date, Double> computeRevenue() {
+    private Map<Date, Double> computeDateRevenue() {
         Map<Date, Double> dateRevenueMap = new HashMap<>();
         for (SalesRecord s : internalList) {
             Date date = s.getDate();
@@ -155,7 +153,7 @@ public class UniqueRecordList implements Iterable<SalesRecord> {
      * Sorts the given {@code dateRevenueMap} by revenue (i.e. its value) in descending order. Uses a LinkedHashMap
      * to preserve insertion order.
      */
-    private Map<Date, Double> sortByRevenue(Map<Date, Double> dateRevenueMap) {
+    private Map<Date, Double> sortDateByRevenue(Map<Date, Double> dateRevenueMap) {
         List<Entry<Date, Double>> dateRevenueList = new ArrayList<>(dateRevenueMap.entrySet());
         dateRevenueList.sort(Entry.comparingByValue(Comparator.reverseOrder()));
 
@@ -165,6 +163,46 @@ public class UniqueRecordList implements Iterable<SalesRecord> {
         }
 
         return sortedDateRevenue;
+    }
+
+    /**
+     * Generates and returns the ranking of existing records' items according to total revenue accumulated as a Map
+     */
+    public Map<ItemName, Double> rankItemBasedOnRevenue() {
+        Map<ItemName, Double> itemRevenueMap = computeItemRevenue();
+        return sortItemByRevenue(itemRevenueMap);
+    }
+
+    /**
+     * Computes the total revenue accumulated for every existing item in the record list
+     */
+    private Map<ItemName, Double> computeItemRevenue() {
+        Map<ItemName, Double> itemRevenueMap = new HashMap<>();
+        for (SalesRecord s : internalList) {
+            ItemName item = s.getName();
+            if (!itemRevenueMap.containsKey(item)) {
+                itemRevenueMap.put(item, 0.0);
+            }
+            double totalRevenue = itemRevenueMap.remove(item);
+            itemRevenueMap.put(item, totalRevenue + s.getRevenue());
+        }
+        return itemRevenueMap;
+    }
+
+    /**
+     * Sorts the given {@code itemRevenueMap} by revenue (i.e. its value) in descending order. Uses a LinkedHashMap
+     * to preserve insertion order.
+     */
+    private Map<ItemName, Double> sortItemByRevenue(Map<ItemName, Double> itemRevenueMap) {
+        List<Entry<ItemName, Double>> itemRevenueList = new ArrayList<>(itemRevenueMap.entrySet());
+        itemRevenueList.sort(Entry.comparingByValue(Comparator.reverseOrder()));
+
+        Map<ItemName, Double> sortedItemRevenue = new LinkedHashMap<>();
+        for (Entry<ItemName, Double> entry : itemRevenueList) {
+            sortedItemRevenue.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedItemRevenue;
     }
 
     @Override

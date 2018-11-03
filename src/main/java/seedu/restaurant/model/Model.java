@@ -13,6 +13,7 @@ import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
@@ -126,6 +127,11 @@ public interface Model {
      * Ranks the existing records' dates according to revenue
      */
     Map<Date, Double> rankDateBasedOnRevenue();
+
+    /**
+     * Ranks the existing records' items according to revenue accumulated from past sales records
+     */
+    Map<ItemName, Double> rankItemBasedOnRevenue();
 
     /**
      * Returns an unmodifiable view of the filtered record list

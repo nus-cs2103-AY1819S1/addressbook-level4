@@ -20,7 +20,7 @@ import seedu.restaurant.model.sales.Date;
 public class RankDateCommand extends Command {
     public static final String COMMAND_WORD = "rank-date";
 
-    public static final String COMMAND_ALIAS = "rd";
+    public static final String COMMAND_ALIAS = "rad";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generate and display the ranking of dates according "
             + "to total revenue.\n"
