@@ -242,6 +242,9 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /**
+     * Switch the list panel to the given region
+     */
     private void switchList(Region region) {
         browserPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().clear();
