@@ -95,6 +95,8 @@ Filters the list of car parks returned by `FindCommand` by the following flags: 
 * Car park has night parking `n/`
 * Type of parking system that the car park uses `ps/`
 
+`FilterCommand` can take in any number of flags, in any order.
+
 [width="95%"]
 [cols="3,1,5"]
 |===
@@ -103,13 +105,13 @@ Filters the list of car parks returned by `FindCommand` by the following flags: 
 `fi a/ ps/ COUPON`
 |===
 
-[NOTE]
-`FilterCommand` can take in any number of flags, in any order.
+//[NOTE]
+//`FilterCommand` can take in any number of flags, in any order.
 
 List of valid flags:
 
 [width="95%"]
-[cols="2,1,2,3,4"]
+[cols="2,1,4,3,4"]
 |===
 | Criteria | Flag| Parameter Structure | Valid Parameters | Example(s)
 | Car park has free parking |`f/`| `DAY START_TIME END_TIME` | `DAY`: `MON` - `SUN` +
@@ -122,11 +124,14 @@ List of valid flags:
 | Type of parking system | `ps/` |`PARKING_SYSTEM_TYPE`|`"COUPON", "ELECTRONIC"` | `filter ps/ coupon`
 |===
 
-[NOTE]
-====
-* `FindCommand` must be used to find a list of carparks within the location first.
-* Upper or lower case characters do not matter.
-====
+Take note that `FindCommand` must be used to find a list of carparks within the location first.
+
+Upper or lower case characters do not matter.
+//[NOTE]
+//====
+//* `FindCommand` must be used to find a list of carparks within the location first.
+//* Upper or lower case characters do not matter.
+//====
 
 .Filtering covered car parks that have available parking lots
 image::filter.png[width="880"]
@@ -216,10 +221,11 @@ Calculates the cost of parking at a selected car park between a specified time p
 `cal TJ39 SUN 3.30AM 6.30PM`
 |===
 
-[NOTE]
-====
 `CalculateCommand` takes into account the free parking times of car parks. It also checks if a car park has short-term parking.
-====
+//[NOTE]
+//====
+//`CalculateCommand` takes into account the free parking times of car parks. It also checks if a car park has short-term parking.
+//====
 
 .Calculating the cost of parking at car park TJ39 on Sunday from 3.30am to 6.30pm
 image::calculate.png[width="880"]

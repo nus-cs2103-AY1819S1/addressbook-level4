@@ -643,10 +643,12 @@ image::actdiagram-find.png[width="800", align="left"]
 |===
 +
 
+
 // tag::filter[]
 === Filter feature
 
 The filter feature allow users to find a suitable car park based on criteria that users input, within a certain area.
+
 
 ==== Overview
 The filter mechanism is facilitated by `FilterCommand` and `FilterCommandParser`.
@@ -670,6 +672,7 @@ The `FilterCommand` extends `Command` and implements the following operation:
 * `FilterCommand#execute()` -- Executes the command by filtering the car park list with `CarparkFilteringPredicate`.
 
 The `FilterCommand` is able to filter car parks by multiple criteria at a time.
+
 
 ==== Current Implementation
 
@@ -732,11 +735,13 @@ Please refer to the _Sequence Diagram_ below for the filter operation.
 .How the filter operation works
 image::SequenceDiagram-filter.png[width="700", align="left"]
 
-The following _Activity Diagram_ summarizes the implementation of the
-filter command.
+//The following _Activity Diagram_ summarizes the implementation of the
+//filter command.
+//
+//.Summary for executing a filter command
+//image::ActivityDiagram-filter.png[width="700", align="left"]
 
-.Summary for executing a filter command
-image::ActivityDiagram-filter.png[width="700", align="left"]
+---
 
 ==== Design Considerations
 
@@ -765,9 +770,11 @@ A whole new set of classes and methods needs to be written to store the filtered
 
 The calculate feature helps users calculate the cost of parking at a specific car park for a specified time period.
 
+
 ==== Overview
 
 The calculate mechanism is facilitated by `CalculateCommand` and `CalculateCommandParser`.
+
 
 ==== Current Implementation
 
@@ -800,6 +807,8 @@ calculate command.
 
 .How the calculate operation works
 image::ActivityDiag-calculate.png[width="700", align="left"]
+
+ ---
 
 ==== Design Considerations
 
