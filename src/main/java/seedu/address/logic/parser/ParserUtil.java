@@ -92,7 +92,7 @@ public class ParserUtil {
      * {@code setOfAllowedNumOfArgs}
      */
     public static void validateNumOfArgs(Object[] args,
-            HashSet<Integer> setOfAllowedNumOfArgs) throws ParseException {
+            Set<Integer> setOfAllowedNumOfArgs) throws ParseException {
         requireNonNull(args);
 
         if (!setOfAllowedNumOfArgs.contains(args.length)) {
@@ -100,15 +100,18 @@ public class ParserUtil {
                     .map(Objects::toString)
                     .collect(Collectors.joining(", "));
 
-            throw parseException("Invalid number of arguments! Number of arguments should be "
+            throw parseException("Invalid number of arguments!"
+                    + " Number of arguments should be "
                     + allowedNumOfArgs);
         }
     }
 
+    //@@author alexkmj
     /**
+     * Creates parse exception with the error message.
      *
-     * @param usage
-     * @return
+     * @param errorMsg error messge for the exception
+     * @return {@code ParseException} with {@code errorMsg} as the message
      */
     public static ParseException parseException(String errorMsg) {
         String messageError = String.format(errorMsg);
@@ -142,8 +145,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String code} into a {@code Code}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String code} into a {@code Code}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code code} is invalid.
      */
@@ -160,8 +163,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String year} into a {@code Year}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String year} into a {@code Year}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code year} is invalid.
      */
@@ -176,8 +179,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String semester} into a {@code Semester}. Leading and trailing whitespaces
-     * will be trimmed.
+     * Parses a {@code String semester} into a {@code Semester}. Leading and
+     * trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code semester} is invalid.
      */
@@ -192,8 +195,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String credit} into a {@code Credit}. Leading and trailing whitespaces will
-     * be trimmed.
+     * Parses a {@code String credit} into a {@code Credit}. Leading and
+     * trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code credit} is invalid.
      */
@@ -209,8 +212,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String grade} into a {@code Grade}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String grade} into a {@code Grade}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code grade} is invalid.
      */
@@ -224,10 +227,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
-     * whitespaces will be trimmed.
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified index is invalid (not non-zero
+     * unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -238,8 +242,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -253,8 +257,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
@@ -268,8 +272,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}. Leading and trailing whitespaces
-     * will be trimmed.
+     * Parses a {@code String address} into an {@code Address}. Leading and
+     * trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
@@ -283,8 +287,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String email} into an {@code Email}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
@@ -298,8 +302,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
@@ -315,7 +319,8 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<Tag> parseTags(Collection<String> tags)
+            throws ParseException {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
