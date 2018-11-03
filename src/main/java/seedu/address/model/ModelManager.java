@@ -120,7 +120,8 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.updatePerson(target, editedPerson);
 
         //Update logged in user
-        if (!getLoggedInUser().isAdminUser() && target.isSamePerson(getLoggedInUser().getPerson())) {
+        if (getLoggedInUser() != null && !getLoggedInUser().isAdminUser() &&
+            target.isSamePerson(getLoggedInUser().getPerson())) {
             setLoggedInUser(new User(editedPerson));
         }
         indicateAddressBookChanged();
