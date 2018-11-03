@@ -653,15 +653,17 @@ image::LoginActivityDiagram.png[width="1080"]
 
 ===== `LogoutCommand`
 
-The `LogoutCommand` will post an event to notify the UI that you want to log out of ClinicIO.
+The `LogoutCommand` post a `LogoutClinicIoEvent` to notify the UI that you want to log out of ClinicIO. It uses
+the `EventCenter` to communicate between components without requiring the components to register with
+each other explicitly.
 
 Here is a step-by-step on how `LogoutCommand` notify `MainWindow` that you want to log out of ClinicIo: +
 
-Step 1: The `LogoutCommand` will post a new `LogoutClinicIoEvent` to the `EventsCenter`.
+Step 1: The `LogoutCommand` post a new `LogoutClinicIoEvent` to the `EventsCenter`.
 
-Step 2: The `eventBus` will then post the newly created `LogoutClinicIoEvent` (from Step 1).
+Step 2: The `eventBus` post the newly created `LogoutClinicIoEvent` (from Step 1) to make the event available to any listeners in `EventBus`.
 
-Step 3: 
+Step 3: ClinicIo will listen for `handleLogoutClinicIoEvent()` to receive the event and update the user session status.
 
 ==== Design Considerations
 
