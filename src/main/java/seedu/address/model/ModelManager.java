@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ArchivedListChangedEvent;
 import seedu.address.commons.events.model.AssignmentListChangedEvent;
+import seedu.address.commons.exceptions.IllegalUsernameException;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
@@ -110,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addPerson(Person person) {
         if (alreadyContainsUsername(person.getUsername().username)) {
-            throw new RuntimeException("The person's username already exists in the address book!");
+            throw new IllegalUsernameException(person.getUsername().username);
         }
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
