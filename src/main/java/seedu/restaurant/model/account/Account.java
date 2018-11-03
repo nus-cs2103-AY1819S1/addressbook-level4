@@ -4,14 +4,14 @@ import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+//@@author AZhiKai
 /**
- * Represents a user account. Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents an account. Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Account {
 
     private Username username;
     private Password password;
-    //TODO: Add user role
 
     /**
      * Every field must be present and not null.

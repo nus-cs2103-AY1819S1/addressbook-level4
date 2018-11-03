@@ -175,7 +175,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Sales Record List Accessors =============================================================
 
-
     /**
      * Returns an unmodifiable view of the list of {@code SalesRecord} backed by the internal list of {@code
      * versionedRestaurantBook}
@@ -193,6 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Accounts =================================================================================
 
+    //@@author AZhiKai
     @Override
     public void addAccount(Account account) {
         versionedRestaurantBook.addAccount(account);
