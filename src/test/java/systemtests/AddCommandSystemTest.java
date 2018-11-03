@@ -189,6 +189,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + INVALID_ADDRESS_DESC + SALARY_DESC_AMY;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+
+        /* Case: Username already exists -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+            + ADDRESS_DESC_AMY + SALARY_DESC_AMY + USERNAME_DESC_BOB;
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_USERNAME);
     }
 
     /**
