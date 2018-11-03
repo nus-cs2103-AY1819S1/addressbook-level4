@@ -63,6 +63,8 @@ public class FirstDayCommand extends Command {
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
+
+
     }
 
     /**
@@ -209,6 +211,57 @@ public class FirstDayCommand extends Command {
             } catch (java.io.IOException e) {
                 throw new CommandException("Failed to create rangeofweek.xml");
             }
+        }
+    }
+
+    /**
+     * This method the default storage file is the number of data entry is different from expected
+     * @throws CommandException
+     */
+    public void createDefaultFileIfSizeDiff () throws CommandException {
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            if (range.returnSize() != WEEKS_IN_SEMESTER) {
+                saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
+            }
+        } catch (DataConversionException e) {
+            throw new CommandException(MESSAGE_DATA_UNABLE_CONVERT);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
+    /**
+     * This method create default storage file if the date data in the storage is modified into invalid date
+     * @throws CommandException
+     */
+    public void createDefaultFileIfInvalidDate () throws CommandException {
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            if (!range.checkIfValidDateFromStorage()) {
+                saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
+            }
+        } catch (DataConversionException e) {
+            throw new CommandException(MESSAGE_DATA_UNABLE_CONVERT);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
+    /**
+     * This method create default storage file if either data in the storage is null
+     * @throws CommandException
+     */
+    public void createDefaultFileIfNull () throws CommandException {
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            if (!range.checkIfNullValueFromStorage()) {
+                saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
+            }
+        } catch (DataConversionException e) {
+            throw new CommandException(MESSAGE_DATA_UNABLE_CONVERT);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
         }
     }
 
