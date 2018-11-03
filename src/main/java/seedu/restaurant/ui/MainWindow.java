@@ -205,19 +205,19 @@ public class MainWindow extends UiPart<Stage> {
         reservationListPanel = new ReservationListPanel(logic.getFilteredReservationList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot()); // Show restaurant book
 
-        ftListPanel = new FadeTransition(Duration.millis(150), personListPanelPlaceholder);
-        setFadeTransition(ftListPanel);
-
-        ftStackPanel = new FadeTransition(Duration.millis(150), browserPlaceholder);
-        setFadeTransition(ftStackPanel);
+        ftListPanel = getFadeTransition(Duration.millis(150), personListPanelPlaceholder);
+        ftStackPanel = getFadeTransition(Duration.millis(150), browserPlaceholder);
     }
 
     /**
-     * Set the fade transition from 0 to 1
+     * Create the fade transition for the StackPane and set value from 0 to 1.
      */
-    private void setFadeTransition(FadeTransition ft) {
+    private FadeTransition getFadeTransition(Duration duration, StackPane placeholder) {
+        FadeTransition ft = new FadeTransition(duration, placeholder);
         ft.setFromValue(0);
         ft.setToValue(1);
+
+        return ft;
     }
 
     void hide() {
