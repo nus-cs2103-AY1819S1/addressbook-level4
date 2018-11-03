@@ -79,6 +79,6 @@ public class SelfEditCommand extends Command {
 
         // state check
         SelfEditCommand e = (SelfEditCommand) other;
-        return true;
+        return editPersonDescriptor.equals(((SelfEditCommand) other).editPersonDescriptor);
     }
 }

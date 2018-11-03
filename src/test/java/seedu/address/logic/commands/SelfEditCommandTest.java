@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -176,52 +177,42 @@ public class SelfEditCommandTest {
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
-    /**
-     * 1. Edits a {@code Person} from a filtered list.
-     * 2. Undo the edit.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited person in the
-     * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the person object regardless of indexing.
-     */
-    @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-
-        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder().withUsername(personToEdit.getUsername().username)
-            .withPassword(personToEdit.getPassword().password)
-            .withLeaveApplications(personToEdit.getLeaveApplications())
-            .build();
-
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            model.getArchiveList(), new UserPrefs());
-
-        expectedModel.updatePerson(personToEdit, editedPerson);
-        expectedModel.commitAddressBook();
-
-        // edit -> edits second person in unfiltered person list / first person in filtered person list
-        editCommand.execute(model, commandHistory);
-
-        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
-        expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
-        assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), personToEdit);
-        // redo -> edits same second person in unfiltered person list
-        expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
+        Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+
+        setUpAsUser(indexLastPerson.getZeroBased());
+
+        PersonBuilder personInList = new PersonBuilder(lastPerson);
+        Person editedPerson = personInList.withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+            .build();
+
+        final SelfEditCommand standardCommand;
+        try {
+            SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
+            standardCommand = selfEditCommandParserBuilder.getCommand();
+        } catch(ParseException pe) {
+            throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
+        }
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+            model.getArchiveList(), new UserPrefs());
+        expectedModel.updatePerson(lastPerson, editedPerson);
+        expectedModel.commitAddressBook();
 
         // same values -> returns true
-        EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        final SelfEditCommand selfEditCommandWithSameValues;
+        try {
+            SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
+            selfEditCommandWithSameValues = selfEditCommandParserBuilder.getCommand();
+        } catch(ParseException pe) {
+            throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
+        }
+
+        assertTrue(standardCommand.equals(selfEditCommandWithSameValues));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
@@ -232,11 +223,16 @@ public class SelfEditCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
-        // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
-
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        final SelfEditCommand selfEditCommandWithDifferentValues;
+        try {
+            SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY);
+            selfEditCommandWithDifferentValues = selfEditCommandParserBuilder.getCommand();
+        } catch(ParseException pe) {
+            throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
+        }
+        assertFalse(standardCommand.equals(selfEditCommandWithDifferentValues));
     }
 
 }
