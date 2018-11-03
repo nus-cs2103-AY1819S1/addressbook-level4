@@ -17,12 +17,12 @@ import seedu.restaurant.model.menu.Item;
 /**
  * Deletes an item identified using it's displayed index from the menu.
  */
-public class DeleteItemCommandByIndex extends DeleteItemCommand {
+public class DeleteItemByIndexCommand extends DeleteItemCommand {
 
     private final Index targetIndex;
     private final Index endingIndex;
 
-    public DeleteItemCommandByIndex(Index targetIndex, Index endingIndex) {
+    public DeleteItemByIndexCommand(Index targetIndex, Index endingIndex) {
         requireNonNull(targetIndex);
 
         this.targetIndex = targetIndex;
@@ -53,8 +53,8 @@ public class DeleteItemCommandByIndex extends DeleteItemCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteItemCommandByIndex // instanceof handles nulls
-                    && targetIndex.equals(((DeleteItemCommandByIndex) other).targetIndex)
-                    && endingIndex.equals(((DeleteItemCommandByIndex) other).endingIndex)); // state check
+                || (other instanceof DeleteItemByIndexCommand // instanceof handles nulls
+                    && targetIndex.equals(((DeleteItemByIndexCommand) other).targetIndex)
+                    && endingIndex.equals(((DeleteItemByIndexCommand) other).endingIndex)); // state check
     }
 }
