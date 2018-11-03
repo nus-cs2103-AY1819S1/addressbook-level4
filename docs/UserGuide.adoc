@@ -243,13 +243,14 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 Use the `list` command to find out the index of the task to be archived.
 end::archivetask[]
 
+// tag::listarchived[]
 === Viewing Archived Tasks
 
 Shows a list of archived tasks. +
 ====
 [blue]`listarchived`
 ====
-
+// end::listarchived[]
 // tag::listday[]
 === Viewing Tasks Due Today
 
@@ -349,6 +350,22 @@ Shows a list all the overdue tasks. +
 [blue]`listoverdue`
 ====
 
+// tag::showtags[]
+=== Displaying Used Tags
+
+Shows all tags that have been used in the sidebar. +
+====
+[blue]`tags`
+====
+// end::showtags[]
+// tag::progressbar[]
+=== Displaying Progress Bar
+
+Shows the percentage of tasks that have been archived for the day. +
+====
+[blue]`progress`
+====
+// end::progressbar[]
 
 === Listing Used Commands
 
