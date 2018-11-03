@@ -82,7 +82,7 @@ public class SelfEditCommandSystemTest extends AddressBookSystemTest {
     }
 
     @Test
-    public void editWhileAdmin(){
+    public void editWhileAdmin() {
         Model model = getModel();
         assertCommandFailure("myself -p 99900999", SelfEditCommand.ADMIN_EDIT_ERROR);
         //ensure no changes have been made
