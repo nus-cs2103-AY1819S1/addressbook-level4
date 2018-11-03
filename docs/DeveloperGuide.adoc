@@ -627,6 +627,10 @@ Step 1. The user executes `display-sales 25-12-2017` command to request for the 
 [NOTE]
 `display-sales` command will not call `Model#getSalesReport(Date)` if the specified date is invalid.
 
+[NOTE]
+If no sales record associated with the given `Date` is found, an empty SalesReport will be
+returned. In such cases, the command will terminate with a message notifying the user about the absence of such record.
+
 Step 2. The `display-sales` command then raises the `DisplaySalesReportEvent` event, which also encapsulates the
 generated `SalesReport` in step 1.
 
@@ -1892,6 +1896,17 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until a valid date is entered.
 +
 Use case resumes at step 2.
++
+
+* 2a. The generated sales report is empty. No record associated with the given date is found.
++
+[none]
+** 2a1. App returns a message telling user no such record is found.
+** 2a2. User requests to display sales report again with a new date.
++
+Steps 2a1-2a2 are repeated until a record with the given date is found. (i.e. Sales report generated is not empty.)
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: UC505 - Ranking items according to total revenue

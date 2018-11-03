@@ -745,6 +745,7 @@ Format: `display-sales DATE` or `dis DATE`
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
+* There must be at least one sales volume record associated with the specified DATE.
 ****
 
 Examples:
