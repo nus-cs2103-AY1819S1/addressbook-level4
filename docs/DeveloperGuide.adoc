@@ -433,6 +433,16 @@ An example usage scenario of the adding of events is as shown in the sequence di
 
 image::add-event-component.png[Interactions between components]
 
+More specific interactions between `Logic` and `Model` are as shown in the diagram below.
+
+image::add-event_logic-model.png[Interactions between components]
+
+Step 1. User enters command to add events +
+Step 2. `AddressBookParser` calls `AddEventCommandParser`, which generates an `AddEventCommand` with an `Event` and `Set<Index>` which specifies the contact indices to add into the event. +
+Step 3. `AddEventCommand` calls `Model#hasEvent`, `Model#hasClashingEvent`, `Model#hasEventTag` to check if the event information is valid +
+Step 4. `AddEventCommand` calls `Event#setEventContacts` to set the `Set<Person>` of event contacts (Each `Person` has to be in the existing address book records) +
+Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. The event is added into the address book from `Model`.
+
 When the events are triggered from the `Model` component, they are handled by the UI, which updates the displayed information, and the
 `Storage` component, which saves the information to XML format. The event triggers are handled as follows.
 
@@ -730,7 +740,7 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
-
+////
 [[GetStartedProgramming]]
 [appendix]
 == Suggested Programming Tasks to Get Started
@@ -1009,18 +1019,33 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 See this https://github.com/se-edu/System-level4/pull/599[PR] for the step-by-step solution.
 
+////
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+Typical university student who
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+* needs to manage a significant number of contacts from various social circles in and out of school
+* is usually kept busy due to many classes from different faculties and/or other commitments
+* finds it difficult to juggle the task of contacting different members across different module projects
+* finds it difficult to determine convenient timings / locations for meetings
+* is reasonably comfortable with Command Line Interface (CLI) apps
+* prefers typing to mouse input
+* is reasonably comfortable using CLI apps
+* can type fast
+* prefers desktop apps
+
+*Value proposition*: A convenient and time-saving command-line interface event manager for university students
+
+Our enhanced Addressbook application will offer its users the following benefits:
+
+* Avoid contact duplication, so the user has a clean and well-maintained address book.
+* Provide suggested locations and timings for events or meetings based on participants’ locations and timetable. This eases for the user the process of asking people for available timings / places to meet, by automating it.
+* Notifications to alert the user to favourited events
+* Allow the user to import contacts from an external source
+* Allow the user to manage events neatly in the address book, so that he/she can avoid event clashes.
 
 [appendix]
 == User Stories
@@ -1195,7 +1220,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== UC5: Add personal events
+=== UC5: Add events
 
 *MSS*
 
@@ -1208,6 +1233,47 @@ Use case ends.
 +
 ** 1a1. System shows a message informing the user of the clash.
 
+Use case ends.
+
+[discrete]
+=== UC7: View all events
+
+*MSS*
+
+. User requests to view all events.
+. System displays all events.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid command.
++
+** 1a1. System displays error message.
++
+Use case ends.
+
+[discrete]
+=== UC8: Delete an event
+
+Guarantees: Only the selected event will be deleted from the existing list.
+
+*MSS*
+
+.	User requests to delete an event.
+.	System removes the event from the user’s personal list of events.
+.	System displays message showing that the event is deleted.
++
+
+Use case ends.
+
+*Extensions*
+
+* 1a. User enters invalid event identifier or invalid command.
++
+** 1a1. System displays error message.
++
 Use case ends.
 
 [discrete]
@@ -1267,53 +1333,6 @@ Use case ends.
 
 ////
 === Coming in V2.0
-
-[discrete]
-=== UC7: View all personal events
-
-*MSS*
-
-. User requests to view all events.
-. System displays all events.
-+
-
-Use case ends.
-
-*Extensions*
-
-* 1a. User enters invalid command.
-+
-** 1a1. System displays error message.
-+
-Use case ends.
-
-[discrete]
-=== UC8: Delete personal events
-
-Guarantees: Only the selected event will be deleted from the existing list.
-
-*MSS*
-
-.	User requests to delete a personal event.
-.	System removes the event from the user’s personal list of events.
-.	System displays message showing that the event is deleted.
-+
-
-Use case ends.
-
-*Extensions*
-
-* 1a. User enters invalid personal event or invalid command.
-+
-** 1a1. System displays error message.
-+
-Use case ends.
-+
-* a. At any time, user chooses to end the command.
-+
-** a1. System abandons the meeting being set up, and returns to original screen.
-+
-Use case ends.
 
 [discrete]
 === UC9: Find groups by keyword

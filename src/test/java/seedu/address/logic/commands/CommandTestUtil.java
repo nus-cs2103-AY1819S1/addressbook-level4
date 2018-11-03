@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACULTY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -86,6 +87,11 @@ public class CommandTestUtil {
     public static final String VALID_EVENT_CONTACT_INDEX_2 = "2";
     public static final String INVALID_EVENT_END_TIME_TOO_EARLY_DOCTORAPPT = "0800";
 
+    public static final String VALID_TAG_APPOINTMENT = "Appointment";
+    public static final String VALID_TAG_MEETING = "Meeting";
+    public static final String TAG_DESC_APPOINTMENT = " " + PREFIX_TAG + VALID_TAG_APPOINTMENT;
+    public static final String TAG_DESC_MEETING = " " + PREFIX_TAG + VALID_TAG_MEETING;
+
     public static final String EVENT_NAME_DESC_DOCTORAPPT = " " + PREFIX_NAME + VALID_EVENT_NAME_DOCTORAPPT;
     public static final String EVENT_NAME_DESC_MEETING = " " + PREFIX_NAME + VALID_EVENT_NAME_MEETING;
     public static final String EVENT_DESC_DESC_DOCTORAPPT =
@@ -105,6 +111,8 @@ public class CommandTestUtil {
     public static final String EVENT_ADDRESS_DESC_MEETING = " " + PREFIX_ADDRESS + VALID_EVENT_ADDRESS_MEETING;
     public static final String EVENT_CONTACT_INDEX_DESC_DOCTORAPPT = " " + PREFIX_INDEX + VALID_EVENT_CONTACT_INDEX_1;
     public static final String EVENT_CONTACT_INDEX_DESC_MEETING = " " + PREFIX_INDEX + VALID_EVENT_CONTACT_INDEX_2;
+    public static final String EVENT_TAG_DESC_DOCTORAPPT = " " + PREFIX_TAG + VALID_TAG_APPOINTMENT;
+    public static final String EVENT_TAG_DESC_MEETING = " " + PREFIX_TAG + VALID_TAG_MEETING;
 
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Consultation-"; // - not allowed
     public static final String INVALID_EVENT_DESC_DESC = " " + PREFIX_EVENT_DESCRIPTION + "Important*"; // * not allowed
@@ -115,6 +123,12 @@ public class CommandTestUtil {
             " " + PREFIX_END_TIME + INVALID_EVENT_END_TIME_TOO_EARLY_DOCTORAPPT;
     public static final String INVALID_EVENT_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed
     public static final String INVALID_EVENT_CONTACT_INDEX = " " + PREFIX_INDEX + "-1"; // contact index negative
+
+
+    public static final String NONEXISTENT_EVENT_TAG = "Class";
+
+    // Import contacts
+    public static final String FILE_DESC = " " + PREFIX_FILE;
 
 
     public static final String PREAMBLE_WHITESPACE = "\r  \t  \n";

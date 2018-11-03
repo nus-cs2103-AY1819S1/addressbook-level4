@@ -32,6 +32,17 @@ public class Tag {
         return test.matches(TAG_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if the two tags have the same {@code tagName} (case-insensitive).
+     */
+    public boolean isSameTag(Tag otherTag) {
+        if (otherTag == this) {
+            return true;
+        }
+
+        return otherTag != null && otherTag.tagName.equalsIgnoreCase(tagName);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

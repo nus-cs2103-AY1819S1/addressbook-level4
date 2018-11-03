@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.event.Event;
+import seedu.address.model.person.Person;
 
 /**
  * A UI component that displays information of a list of {@code Event} for a particular {@code EventDate}.
@@ -34,7 +35,7 @@ public class EventListCard extends UiPart<Region> {
     @FXML
     private VBox events;
 
-    public EventListCard(List<Event> eventList) {
+    public EventListCard(List<Event> eventList, List<Person> personList) {
         super(FXML);
         assert !eventList.isEmpty();
 
@@ -45,7 +46,9 @@ public class EventListCard extends UiPart<Region> {
         date.setText(firstEvent.getEventDate().toString());
         for (int eventIdx = 0; eventIdx < eventList.size(); eventIdx++) {
             if (eventList.get(eventIdx) != null) {
-                events.getChildren().add(new EventCard(eventList.get(eventIdx), eventIdx + 1).getRoot());
+                events.getChildren().add(
+                        new EventCard(eventList.get(eventIdx), eventIdx + 1, personList)
+                        .getRoot());
             }
         }
     }

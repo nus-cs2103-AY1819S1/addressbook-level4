@@ -5,8 +5,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.NONEXISTENT_EVENT_TAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_CONTACT_INDEX_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_APPOINTMENT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
@@ -15,6 +18,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTags.APPOINTMENT_TAG;
+import static seedu.address.testutil.TypicalTags.MEETING_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,7 +44,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.Event;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ScheduledEventBuilder;
 
 /**
@@ -112,6 +119,36 @@ public class AddEventCommandTest {
     }
 
     @Test
+    public void execute_eventAcceptedByModelWithTag_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new ScheduledEventBuilder().withEventTags(VALID_TAG_APPOINTMENT).build();
+
+        Set<Index> contactIndices = new HashSet<>();
+
+        CommandResult commandResult = new AddEventCommand(validEvent, contactIndices)
+                .execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_eventAcceptedByModelWithMultipleTags_addSuccessful() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new ScheduledEventBuilder().withEventTags(VALID_TAG_APPOINTMENT, VALID_TAG_MEETING).build();
+
+        Set<Index> contactIndices = new HashSet<>();
+
+        CommandResult commandResult = new AddEventCommand(validEvent, contactIndices)
+                .execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddEventCommand.MESSAGE_SUCCESS, validEvent), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validEvent), modelStub.eventsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
     public void execute_contactsValidIndexUnfilteredList_addSuccessful() {
         Person eventContact = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Event eventToAdd = new ScheduledEventBuilder().withEventContacts(eventContact).build();
@@ -158,6 +195,19 @@ public class AddEventCommandTest {
         showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         assertCommandSuccess(addEventCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_nonExistentTag_throwsCommandException() throws Exception {
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+        Event validEvent = new ScheduledEventBuilder().withEventTags(NONEXISTENT_EVENT_TAG).build();
+
+        Set<Index> contactIndices = new HashSet<>();
+
+        AddEventCommand addEventCommand = new AddEventCommand(validEvent, contactIndices);
+
+        assertCommandFailure(addEventCommand, model, commandHistory, String.format(Messages.MESSAGE_NONEXISTENT_TAG,
+                new HashSet<>(Arrays.asList(new Tag(NONEXISTENT_EVENT_TAG)))));
     }
 
     @Test
@@ -255,7 +305,7 @@ public class AddEventCommandTest {
      * regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameEventAdded() throws Exception {
         Event validEvent = new ScheduledEventBuilder().withEventContacts().build();
         AddEventCommand addEventCommand = new AddEventCommand(validEvent,
                 new HashSet<>(Arrays.asList(INDEX_FIRST_PERSON)));
@@ -347,6 +397,11 @@ public class AddEventCommandTest {
         }
 
         @Override
+        public void importContacts(FileReader fileReader) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public boolean hasClashingEvent(Event event) {
             throw new AssertionError("This method should not be called.");
         }
@@ -361,6 +416,15 @@ public class AddEventCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean hasEventTag(Tag eventTag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addEventTag(Tag eventTag) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
@@ -369,6 +433,11 @@ public class AddEventCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getUnfilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -389,6 +458,11 @@ public class AddEventCommandTest {
 
         @Override
         public void updateFilteredEventList(Predicate<Event> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Tag> getEventTagList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -448,11 +522,18 @@ public class AddEventCommandTest {
     private class ModelStubAcceptingEventAdded extends ModelStub {
         final ArrayList<Event> eventsAdded = new ArrayList<>();
         final ArrayList<Person> personsAdded = new ArrayList<>(Arrays.asList(ALICE, BOB));
+        final ArrayList<Tag> eventTagsAdded = new ArrayList<>(Arrays.asList(APPOINTMENT_TAG, MEETING_TAG));
 
         @Override
         public boolean hasEvent(Event event) {
             requireNonNull(event);
             return eventsAdded.stream().anyMatch(event::isSameEvent);
+        }
+
+        @Override
+        public boolean hasEventTag(Tag tag) {
+            requireNonNull(tag);
+            return eventTagsAdded.stream().anyMatch(tag::isSameTag);
         }
 
         @Override

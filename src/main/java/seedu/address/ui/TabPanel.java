@@ -14,6 +14,8 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -47,13 +49,14 @@ public class TabPanel extends UiPart<Region> {
     @FXML
     private Tab locationDisplayTab;
 
-    public TabPanel(ObservableList<List<seedu.address.model.event.Event>> eventList) {
+    public TabPanel(ObservableList<List<seedu.address.model.event.Event>> eventList,
+                    ObservableList<Person> personList, ObservableList<Tag> eventTagList) {
         super(FXML);
 
         browserPanel = new BrowserPanel();
         webpageTab.setContent(browserPanel.getRoot());
 
-        eventListPanel = new EventListPanel(eventList);
+        eventListPanel = new EventListPanel(eventList, personList, eventTagList);
         eventsTab.setContent(eventListPanel.getRoot());
 
         locationDisplayPanel = new LocationDisplayPanel();

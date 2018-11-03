@@ -29,19 +29,19 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"), new Faculty("SCI")),
+                getTagSet("friends"), new Faculty("FOS")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("colleagues", "friends"), new Faculty("FASS")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours"), new Faculty("COM")),
+                getTagSet("neighbours"), new Faculty("SOC")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family"), new Faculty(("COM"))),
+                getTagSet("family"), new Faculty(("SOC"))),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates"), new Faculty("ENG")),
+                getTagSet("classmates"), new Faculty("FOE")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
                 getTagSet("colleagues"), new Faculty("SDE"))
@@ -52,12 +52,20 @@ public class SampleDataUtil {
         Person alex = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("friends"), new Faculty("SCI"));
+        Tag meetingTag = new Tag("Meeting");
 
         return new Event[] {
             new Event(new EventName("Meeting"), new EventDescription("test events description"),
                 new EventDate("2018-04-01"), new EventTime("1400"), new EventTime("1500"),
-                    new EventAddress("3 Kent Ridge Drive"), new HashSet<>(Arrays.asList(alex)))
+                    new EventAddress("3 Kent Ridge Drive"), new HashSet<>(Arrays.asList(alex)),
+                    new HashSet<>(Arrays.asList(meetingTag)))
         };
+    }
+
+    public static Tag[] getSampleEventTags() {
+        Tag appointmentTag = new Tag("Appointment");
+        Tag meetingTag = new Tag("Meeting");
+        return new Tag[] {appointmentTag, meetingTag};
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
@@ -65,6 +73,10 @@ public class SampleDataUtil {
 
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+
+        for (Tag sampleEventTag : getSampleEventTags()) {
+            sampleAb.addEventTag(sampleEventTag);
         }
 
         for (Event sampleEvent : getSampleEvents()) {

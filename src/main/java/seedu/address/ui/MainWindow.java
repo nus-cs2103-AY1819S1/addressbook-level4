@@ -145,7 +145,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        tabPanel = new TabPanel(logic.getFilteredEventListByDate());
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate(), logic.getUnfilteredPersonList(),
+                logic.getEventTagList());
         tabsPlaceholder.getChildren().add(tabPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -233,11 +234,8 @@ public class MainWindow extends UiPart<Stage> {
     private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
-        /* This is a workaround to reset the displayed events list.
-        TODO: Add a listener to ModelManager to listen for changes in the base list, update the list of lists grouped
-         by date, and remove this method.
-        */
-        tabPanel = new TabPanel(logic.getFilteredEventListByDate());
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
+                logic.getUnfilteredPersonList(), logic.getEventTagList());
         tabsPlaceholder.getChildren().add(tabPanel.getRoot());
     }
 }

@@ -30,6 +30,7 @@
             <tagged>friends</tagged>
             <faculty>SCI</faculty>
         </eventContacts>
+        <eventTags>Appointment</eventTags>
     </events>
 	<!-- Event with invalid start and end time field -->
 	<events>
@@ -40,4 +41,8 @@
 		<eventEndTime>1310</eventEndTime>
 		<eventAddress>abc road</eventAddress>
     </events>
+    <!-- Valid event tag -->
+    <eventTags>Appointment</eventTags>
+    <!-- Invalid event tag -->
+    <eventTags>#Appointment</eventTags>
 </addressbook>
