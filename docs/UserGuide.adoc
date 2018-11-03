@@ -85,7 +85,7 @@ Available transformations
 * `colorspace`: change the color space of the current image
 
 ** Format: `convert colorspace [color space]`
-** Example: `convert colorspave GRAY`
+** Example: `convert colorspace GRAY`
 
 * `contrast`: contrast of the image.
 
@@ -110,6 +110,9 @@ transformation base on the operation specified
 Examples:
 
 * `create blurR blur|0x8 rotate|90`
+
+[NOTE]
+for the command created, you should add a @ before the command when running the customised command, ie convert @blurR
 
 === Saving images : `save`
 
