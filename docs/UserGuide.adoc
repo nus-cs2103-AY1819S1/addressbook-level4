@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: default.css
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -282,11 +283,10 @@ image::listafter.png[width="880"]
 
 If you want to get the latest updates for all the car parks, just type `query` into the _Command Box_. +
 
-[width="95%"]
-[cols="2,1,3"]
+[cols="^2,^1", width="40%", options="header"]
 |===
-|Format| Abbreviation | Example(s)
-|`query`| - | `query`
+|Format| Abbrev
+| query | -
 |===
 
 [NOTE]
@@ -318,11 +318,10 @@ last updated.
 After selecting a car park, you can get real-time notifications by typing `notify 10`, where
 10 means updating the car park information every 10 seconds.
 
-[width="95%"]
-[cols="2,1,3"]
+[cols="^4,^1,^1", width="40%", options="header"]
 |===
-|Format| Abbreviation | Example(s)
-|`notify TIME_SECONDS`| n | `notify 60`
+|Format| Abbrev | Example(s)
+| notify TIME_SECONDS | n | notify 60
 |===
 
 [NOTE]

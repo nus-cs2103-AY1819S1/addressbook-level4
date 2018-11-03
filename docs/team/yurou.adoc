@@ -1,7 +1,8 @@
 = John Doe - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
 :stylesDir: ../stylesheets
+:stylesheet: default.css
 
 == PROJECT: Car Park Finder
 

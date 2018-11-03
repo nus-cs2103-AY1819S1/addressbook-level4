@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
+@import "asciidoctor.css"; /* Default asciidoc style framework - important */
+@import "gh-pages.css";
 
 /* document body (contains all content) */
 body {

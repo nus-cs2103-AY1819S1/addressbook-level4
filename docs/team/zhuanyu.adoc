@@ -1,13 +1,15 @@
 = Yeo Zhuan Yu - Project Portfolio
 :site-section: AboutUs
-:toc:
-:toc-title:
-:toc-placement: preamble
-:imagesDir: ../images
+:toc: macro
+:imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
 :stylesDir: ../stylesheets
+:stylesheet: zhuanyu.css
 
+toc::[]
 
-image::zhuanyu.png[width="150", align="left"]
+== Introduction
+
+image::zhuanyu.png[width="200", align="left"]
 {empty}[https://github.com/ZhuanYu[GitHub]]
 
 Hello! My name is Zhuan Yu and I am a second year Computer Science undergraduate. As an aspiring programmer, I want to
@@ -15,10 +17,10 @@ show people about the joy of coding through samples of my work.
 
 I am currently a developer for _Car Park Finder_, a team project to be completed as part of the module CS2103T Software Engineering in NUS.
 
-== PROJECT: Car Park Finder
 :sectnums:
+== Project: Car Park Finder
 
-== Overview
+=== Overview
 
 _Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
 HDB (Housing Development Board) car parks in Singapore. +
@@ -30,7 +32,7 @@ If you use the computer frequently and commute by driving, why not try out
 https://github.com/CS2103-AY1819S1-T09-4/main/releases[_Car Park Finder_]. No installation is required and getting
 started is as simple as typing out a text message.
 
-== Summary of contributions
+=== Summary of contributions
 
 My task for _Car Park Finder_ is to implement real-time updates and notification of car parks, which allows users to:
 
@@ -40,7 +42,8 @@ My task for _Car Park Finder_ is to implement real-time updates and notification
 
 '''
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+==== *Major enhancement*:
+added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
