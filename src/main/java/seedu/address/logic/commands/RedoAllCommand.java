@@ -11,12 +11,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Reverts the {@code model}'s current layer's previewImage to its previously undone state.
+ * Reverts the {@code model}'s previewImageManager to its previously undone state.
  */
-public class RedoCommand extends Command {
+public class RedoAllCommand extends Command {
 
-    public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Transformation successfully redone";
+    public static final String COMMAND_WORD = "redo-all";
+    public static final String MESSAGE_SUCCESS = "All transformations successfully redone";
     public static final String MESSAGE_FAILURE = "No more transformations to redo";
 
     @Override
@@ -27,7 +27,7 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.redoPreviewImage();
+        model.redoAllPreviewImage();
         EventsCenter.getInstance().post(
                 new ChangeImageEvent(SwingFXUtils.toFXImage(
                         model.getCurrentPreviewImage().getImage(), null), "preview"));

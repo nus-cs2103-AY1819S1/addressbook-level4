@@ -9,7 +9,7 @@ lib/*
 *.log.*
 *.csv
 config/
-config.json
+/config.json
 gradle/
 src/test/data/sandbox/
 preferences.json
