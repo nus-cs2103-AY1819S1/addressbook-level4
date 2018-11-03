@@ -126,4 +126,31 @@ public class CalendarModelTest {
 
     }
 
+    @Test
+    public void isValidTimeFrame() {
+        // isValidTimeFrame assumes that date and time is valid
+        // invalid time frame
+        // Start date > End date
+        assertFalse(calendarModel.isValidTimeFrame(2, 0,0,1,0,0));
+        // Start date = End date, Start hour = End hour, Start Min > End Min
+        assertFalse(calendarModel.isValidTimeFrame(1, 0,30,1,0,0));
+        // Same date
+        assertFalse(calendarModel.isValidTimeFrame(1, 0,0,1,0,0));
+        // Start date = End date, Start hour > End hour, Start Min = End Min
+        assertFalse(calendarModel.isValidTimeFrame(1, 10,0,1,0,0));
+        // Start date = End date, Start hour > End hour, Start Min < End Min
+        assertFalse(calendarModel.isValidTimeFrame(1, 5,0,1,0,30));
+
+        // valid time frame
+        // Start date < End date
+        assertTrue(calendarModel.isValidTimeFrame(1, 0,0,5,0,0));
+        // Start date = End date, Start hour < End hour, Start Min = End Min
+        assertTrue(calendarModel.isValidTimeFrame(1, 5,0,1,6,0));
+        // Start date = End date, Start hour < End hour, Start Min < End Min
+        assertTrue(calendarModel.isValidTimeFrame(1, 5,0,1,6,30));
+        // Start date = End date, Start hour = End hour, Start Min < End Min
+        assertTrue(calendarModel.isValidTimeFrame(1, 5,0,1,5,30));
+
+    }
+
 }
