@@ -650,14 +650,13 @@ public class ConnectToGoogleCalendar {
                 Collections.sort(instanceSort, (
                         a, b) -> a.getStart().getDateTime().toString()
                         .compareTo(b.getStart().getDateTime().toString()));
-                int j = 0;
+                int editedEventIndex = 0;
                 for (int i = rangeStartIndex; i < instanceSort.size(); i++) {
-
                     com.google.api.services.calendar.model.Event instance = instanceSort.get(i);
-                    instance = setCommonAttributes(instance, editedEvents.get(j));
-                    instance = setRepeatAttribute(instance, editedEvents.get(j));
+                    instance = setCommonAttributes(instance, editedEvents.get(editedEventIndex));
+                    instance = setRepeatAttribute(instance, editedEvents.get(editedEventIndex));
                     service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
-                    j++;
+                    editedEventIndex++;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
