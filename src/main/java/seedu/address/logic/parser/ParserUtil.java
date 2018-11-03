@@ -126,7 +126,7 @@ public class ParserUtil {
             if (args[index].startsWith(PREFIX)
                     && (index + 1 < args.length)) {
                 String key = args[index].substring(1);
-                String value = args[++index];
+                String value = args[index + 1];
 
                 // Value cannot start with prefix
                 if (value.startsWith(PREFIX)) {

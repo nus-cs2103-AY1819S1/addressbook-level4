@@ -83,6 +83,19 @@ public class EditModuleCommand extends Command {
      * <p>
      * Sets target field and new field used to find and editing the targeted
      * module.
+     * <ul>
+     *     Assumes that:
+     *     <li>{@code targetCode} cannot be null.</li>
+     *     <li>
+     *         {@code targetYear} is null if and only if {@code targetSemester}
+     *         is null
+     *     </li>
+     *     <li>
+     *         One of {@code newCode}, {@code newYear}, {@code newSemester},
+     *         {@code newCredit}, or {@code newGrade} is not null.
+     *     </li>
+     * </ul>
+     *
      *
      * @param targetCode target code that identifies the targeted module
      * @param targetYear target year that identifies the targeted module
@@ -96,11 +109,17 @@ public class EditModuleCommand extends Command {
     public EditModuleCommand(Code targetCode, Year targetYear,
             Semester targetSemester, Code newCode, Year newYear,
             Semester newSemester, Credit newCredit, Grade newGrade) {
-        // Already handled by EditModuleCommandParser
-        // Target code cannot be null
-        // Target year is null if and only if target semester is null
+        // Already handled by EditModuleCommandParser:
+        // 1) Target code cannot be null.
+        // 2) Target year is null if and only if target semester is null.
+        // 3) One of new field is not null.
         assert targetCode != null;
         assert !(targetYear == null ^ targetSemester == null);
+        assert newCode != null
+                || newYear != null
+                || newSemester != null
+                || newCredit != null
+                || newGrade != null;
 
         // Instantiate target fields.
         this.targetCode = targetCode;
@@ -174,12 +193,12 @@ public class EditModuleCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
 
-        // Throws exception when more than one module matches target
+        // Throws exception when more than one module matches target.
         if (filteredModule.size() > 1) {
             throw new CommandException(MESSAGE_MULTIPLE_MODULE_ENTRIES);
         }
 
-        // Returns the targeted module
+        // Returns the targeted module.
         return filteredModule.get(0);
     }
 
@@ -241,7 +260,7 @@ public class EditModuleCommand extends Command {
      */
     private void moduleCompletedIfGradeChange(Module target)
             throws CommandException {
-        boolean targetIncomplete = target.getGrade().isIncomplete();
+        boolean targetIncomplete = !target.getGrade().isComplete();
         boolean newGradeNotNull = newGrade != null;
 
         if (targetIncomplete && newGradeNotNull) {
