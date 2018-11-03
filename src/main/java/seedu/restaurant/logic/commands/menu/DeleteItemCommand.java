@@ -29,12 +29,16 @@ public class DeleteItemCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted %1$d items";
 
     private final Index targetIndex;
+    private final Index endingIndex;
 
-    public DeleteItemCommand(Index targetIndex) {
+    public DeleteItemCommand(Index targetIndex, Index endingIndex) {
+        requireNonNull(targetIndex);
+
         this.targetIndex = targetIndex;
+        this.endingIndex = endingIndex;
     }
 
     @Override
@@ -42,21 +46,27 @@ public class DeleteItemCommand extends Command {
         requireNonNull(model);
         List<Item> lastShownList = model.getFilteredItemList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (endingIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
 
-        Item itemToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteItem(itemToDelete);
+        int numOfItems = endingIndex.getOneBased() - targetIndex.getZeroBased();
+
+        for (int i = endingIndex.getZeroBased(); i >= targetIndex.getZeroBased(); i--) {
+            Item itemToDelete = lastShownList.get(i);
+            model.deleteItem(itemToDelete);
+        }
+
         model.commitRestaurantBook();
         EventsCenter.getInstance().post(new DisplayItemListRequestEvent());
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, numOfItems));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteItemCommand // instanceof handles nulls
-                    && targetIndex.equals(((DeleteItemCommand) other).targetIndex)); // state check
+                    && targetIndex.equals(((DeleteItemCommand) other).targetIndex)
+                    && endingIndex.equals(((DeleteItemCommand) other).endingIndex)); // state check
     }
 }
