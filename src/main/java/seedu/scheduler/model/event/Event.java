@@ -147,11 +147,7 @@ public class Event {
      * Returns false otherwise.
      */
     public boolean isRepeatEvent() {
-        if (this.repeatType == RepeatType.NONE) {
-            return false;
-        } else {
-            return true;
-        }
+        return this.repeatType != RepeatType.NONE;
     }
 
     /**
