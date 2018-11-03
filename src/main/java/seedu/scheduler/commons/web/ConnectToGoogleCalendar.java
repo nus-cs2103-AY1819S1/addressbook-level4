@@ -192,9 +192,8 @@ public class ConnectToGoogleCalendar {
 
     private com.google.api.services.calendar.model.Event setRepeatAttribute(
             com.google.api.services.calendar.model.Event gEvent, Event toAddEvent) {
-        String googleRecurringEventId = toAddEvent.getEventSetUid()
-                .toString()
-                .replaceAll("-", "");
+        String googleRecurringEventId =
+                EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(toAddEvent);
         com.google.api.services.calendar.model.Event gEvent2 = gEvent.setICalUID(googleRecurringEventId);
 
         String eventRepeatType = String.valueOf(toAddEvent.getRepeatType());
@@ -289,9 +288,8 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventSetUid = eventToDelete.getEventSetUid()
-                    .toString()
-                    .replaceAll("-", "");
+            String eventSetUid =
+                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
             try {
                 allEventsOnGoogle = getSingleEvents(service);
             } catch (UnknownHostException e) {
@@ -366,9 +364,8 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToDelete.getEventSetUid()
-                    .toString()
-                    .replaceAll("-", "");
+            String eventSetUid =
+                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
             try {
                 allEventsOnGoogle = getSingleEvents(service);
             } catch (UnknownHostException e) {
@@ -377,7 +374,7 @@ public class ConnectToGoogleCalendar {
 
             for (com.google.api.services.calendar.model.Event
                     event : allEventsOnGoogle.getItems()) {
-                if (Objects.equals(event.getICalUID(), eventUuId)) {
+                if (Objects.equals(event.getICalUID(), eventSetUid)) {
                     eventIds.add(event.getId());
                     repeatedEventsFound = true;
                     recurringEventId = event.getRecurringEventId();
@@ -445,9 +442,8 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToDelete.getEventSetUid()
-                    .toString()
-                    .replaceAll("-", "");
+            String eventSetUid =
+                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToDelete);
             try {
                 allEventsOnGoogle = getSingleEvents(service);
             } catch (UnknownHostException e) {
@@ -455,7 +451,7 @@ public class ConnectToGoogleCalendar {
             }
 
             for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
-                if (Objects.equals(event.getICalUID(), eventUuId)) {
+                if (Objects.equals(event.getICalUID(), eventSetUid)) {
                     eventIds.add(event.getId());
                     repeatedEventsFound = true;
                     recurringEventId = event.getRecurringEventId();
@@ -518,9 +514,8 @@ public class ConnectToGoogleCalendar {
         Events allEventsOnGoogle = null;
 
         //Get the eventSetUid
-        String eventSetUid = eventToEdit.getEventSetUid()
-                .toString()
-                .replaceAll("-", "");
+        String eventSetUid =
+                EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToEdit);
 
         //Get the events on Google Calender
         try {
@@ -570,10 +565,7 @@ public class ConnectToGoogleCalendar {
         String gEventId;
         com.google.api.services.calendar.model.Event gEvent = null;
         com.google.api.services.calendar.model.Event updatedgEvent = null;
-        gEventId = eventToEdit
-                .getEventUid()
-                .toString()
-                .replaceAll("-", "");
+        gEventId = EventFormatUtil.getEventUidInGoogleFormatFromLocalEvent(eventToEdit);
         //retrieve event using event Uid
         boolean found = false;
         try {
@@ -657,9 +649,8 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToEdit.getEventSetUid()
-                    .toString()
-                    .replaceAll("-", "");
+            String eventUuId =
+                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToEdit);
             try {
                 allEventsOnGoogle = getSingleEvents(service);
             } catch (UnknownHostException e) {
@@ -801,9 +792,8 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToEdit.getEventSetUid()
-                    .toString()
-                    .replaceAll("-", "");
+            String eventSetUid =
+                    EventFormatUtil.getEventSetUidInGoogleFormatFromLocalEvent(eventToEdit);
             try {
                 allEventsOnGoogle = getSingleEvents(service);
             } catch (UnknownHostException e) {
@@ -813,7 +803,7 @@ public class ConnectToGoogleCalendar {
 
             assert allEventsOnGoogle != null;
             for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
-                if (Objects.equals(event.getICalUID(), eventUuId)) {
+                if (Objects.equals(event.getICalUID(), eventSetUid)) {
                     eventIds.add(event.getId());
                     recurringEventId = event.getRecurringEventId();
 
