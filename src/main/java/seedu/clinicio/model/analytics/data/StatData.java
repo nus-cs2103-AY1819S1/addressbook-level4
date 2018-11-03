@@ -19,10 +19,10 @@ public class StatData {
     public static final int DEFAULT_SUMMARY_VALUE = 0;
 
     private SummaryData summaryData;
-    private CircularDoublyLinkedList<VisualizationData> allVisualizationData;
+    private CircularList<VisualizationData> allVisualizationData;
 
     public StatData() {
-        allVisualizationData = new CircularDoublyLinkedList<>();
+        allVisualizationData = new CircularList<>();
     }
 
     /**
@@ -77,6 +77,7 @@ public class StatData {
      */
     public void addCategoricalVisualization(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
         List<String> xLabels, List<List<Tuple<String, Integer>>> dataGroups, List<String> dataGroupsLabels) {
+        assert dataGroups.size() == dataGroupsLabels.size() : "Each data group should have one label";
 
         allVisualizationData.add(new VisualizationData<String>(id, type, chartTitle, xTitle,
             yTitle, xLabels, dataGroups, dataGroupsLabels));
@@ -102,7 +103,7 @@ public class StatData {
         return summaryData;
     }
 
-    public CircularDoublyLinkedList<VisualizationData> getVisualizationData() {
+    public CircularList<VisualizationData> getVisualizationData() {
         return allVisualizationData;
     }
 }

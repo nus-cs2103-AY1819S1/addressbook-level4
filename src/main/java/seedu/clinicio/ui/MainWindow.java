@@ -6,12 +6,15 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.event.ActionEvent;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 import javafx.stage.Stage;
@@ -133,6 +136,15 @@ public class MainWindow extends UiPart<Stage> {
         analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
         browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+        browserPlaceholder.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (analyticsDisplay.isVisible()) {
+                    analyticsDisplay.requestFocus();
+                }
+
+            }
+        });
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());

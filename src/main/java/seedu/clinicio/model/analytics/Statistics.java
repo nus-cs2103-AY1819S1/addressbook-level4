@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import seedu.clinicio.model.analytics.data.CircularDoublyLinkedList;
+import seedu.clinicio.model.analytics.data.CircularList;
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
@@ -150,7 +150,7 @@ public abstract class Statistics {
     /**
      * @return All data pertaining to visualizations to be displayed.
      */
-    public CircularDoublyLinkedList<VisualizationData> getVisualizationData() {
+    public CircularList<VisualizationData> getVisualizationData() {
         computeVisualizationData();
         return statData.getVisualizationData();
     }

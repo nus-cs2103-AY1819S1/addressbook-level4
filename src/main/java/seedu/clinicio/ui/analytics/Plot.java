@@ -44,18 +44,18 @@ public class Plot {
         }
     }
 
-    /**
-     * Updates {@code chartPane} with the appropriate visualizations, if they exist.
-     */
-    public static void updateVisualization(CircularDoublyLinkedList<VisualizationData> allVisualizationData, Pane
-        chartPane) {
-        if (allVisualizationData.size() < 1) {
-            chartPane.setStyle("-fx-background-color: #fff");
-            return;
-        }
-
-        plotChart(allVisualizationData.getFirst(), chartPane);
-    }
+//    /**
+//     * Updates {@code chartPane} with the appropriate visualizations, if they exist.
+//     */
+//    public static void updateVisualization(CircularDoublyLinkedList<VisualizationData> allVisualizationData, Pane
+//        chartPane) {
+//        if (allVisualizationData.getSize() < 1) {
+//            chartPane.setStyle("-fx-background-color: #fff");
+//            return;
+//        }
+//
+//        plotChart(allVisualizationData.getFirst(), chartPane);
+//    }
 
     /**
      * Decides which chart type to plot.
@@ -90,7 +90,7 @@ public class Plot {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel(barsData.getXTitle());
 
-        NumberAxis yAxis = new NumberAxis();
+        NumberAxis yAxis = new NumberAxis(0, 25, 5);
         yAxis.setLabel(barsData.getYTitle());
 
         StackedBarChart<String, Number> stackedBarChart = new StackedBarChart<String, Number>(xAxis, yAxis);
@@ -139,14 +139,6 @@ public class Plot {
             barChart.getData().add(series);
         }
 
-        // remove the legend if there is only one group of data
-        if (barsData.getDataGroups().size() < 2) {
-            Node legend = barChart.lookup(".chart-legend");
-            legend.setStyle("visibility: hidden");
-            legend.setVisible(false);
-            legend.setManaged(false);
-        }
-
         barChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
         chartPane.getChildren().add(barChart);
     }
@@ -175,14 +167,6 @@ public class Plot {
             }
 
             barChart.getData().add(series);
-        }
-
-        // remove the legend if there is only one group of data
-        if (barsData.getDataGroups().size() < 2) {
-            Node legend = barChart.lookup(".chart-legend");
-            legend.setStyle("visibility: hidden");
-            legend.setVisible(false);
-            legend.setManaged(false);
         }
 
         barChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());

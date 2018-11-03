@@ -1,5 +1,6 @@
 package seedu.clinicio.ui.analytics;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
-import seedu.clinicio.model.analytics.data.CircularDoublyLinkedList;
+import seedu.clinicio.model.analytics.ChartType;
+import seedu.clinicio.model.analytics.data.CircularList;
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
@@ -54,7 +56,6 @@ public class AnalyticsDisplay extends UiPart<Region> {
     @FXML
     private AnchorPane chartPane;
 
-
     private List<Tuple<Label, Label>> summaryLabels;
     private StatData allDataToDisplay;
 
@@ -72,7 +73,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
         );
     }
 
-    public void setEventListeners(CircularDoublyLinkedList<VisualizationData> data) {
+    public void setEventListeners() {
         analyticsPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -80,32 +81,38 @@ public class AnalyticsDisplay extends UiPart<Region> {
             }
         });
 
-        analyticsPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                case RIGHT:
-                    Plot.plotChart(data.getNext(), chartPane);
-                    System.out.println("rightr");
-                    break;
-
-                case LEFT:
-                    Plot.plotChart(data.getPrevious(), chartPane);
-                    System.out.println("leftl");
-                    break;
+        analyticsPane.addEventFilter(KeyEvent.KEY_PRESSED,
+            event -> {
+                if (event.getCode().equals(KeyCode.RIGHT)) {
+                    handleRight();
                 }
-            }
-        });
+            });
+    }
+
+    /**
+     *
+     */
+    public void handleRight() {
+        chartPane.getChildren().clear();
+        Plot.plotChart(allDataToDisplay.getVisualizationData().getNext(), chartPane);
+        analyticsPane.requestFocus();
+        System.out.println("rightr");
+
+    }
+
+    public void requestFocus() {
+        analyticsPane.requestFocus();
     }
 
     @Subscribe
     public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        setEventListeners(event.getAllData().getVisualizationData());
+        setEventListeners();
         allDataToDisplay = event.getAllData();
         chartPane.getChildren().clear();
         chartPane.setStyle("-fx-background-color: #6593F5");
-        CircularDoublyLinkedList<VisualizationData> allVisualizationData = allDataToDisplay.getVisualizationData();
-        Plot.plotChart(allVisualizationData.getFirst(), chartPane);
+        CircularList<VisualizationData> allVisualizationData = allDataToDisplay.getVisualizationData();
+        //allVisualizationData.setIterator();
+        Plot.plotChart(allVisualizationData.getNext(), chartPane);
         Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         analyticsPane.setVisible(true);
         analyticsPane.requestFocus();
