@@ -38,9 +38,6 @@ public class SidebarPanel extends UiPart<Region> {
     private ToggleButton week;
 
     @FXML
-    private ToggleButton exams;
-
-    @FXML
     private Accordion modules;
 
     @FXML
@@ -55,11 +52,9 @@ public class SidebarPanel extends UiPart<Region> {
         this.group = new ToggleGroup();
         today.setToggleGroup(group);
         week.setToggleGroup(group);
-        exams.setToggleGroup(group);
         categorieslabel.setFill(Color.WHITE);
         today.setAlignment(Pos.BASELINE_LEFT);
         week.setAlignment(Pos.BASELINE_LEFT);
-        exams.setAlignment(Pos.BASELINE_LEFT);
     }
 
     /**
@@ -89,17 +84,6 @@ public class SidebarPanel extends UiPart<Region> {
                 raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
             } catch (CommandException | ParseException e) {
                 logger.info("Invalid command: " + "listweek");
-            }
-            break;
-        case "exams":
-            try {
-                CommandResult commandResult = logic.execute("filter exams");
-                initHistory();
-                historySnapshot.next();
-                logger.info("Result: " + commandResult.feedbackToUser);
-                raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
-            } catch (CommandException | ParseException e) {
-                logger.info("Invalid command: " + "filter exams");
             }
             break;
         default:
