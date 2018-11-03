@@ -12,6 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_SALARY = new Prefix("-s");
     public static final Prefix PREFIX_ADDRESS = new Prefix("-a");
     public static final Prefix PREFIX_PROJECT = new Prefix("-t");
+    public static final Prefix PREFIX_USERNAME = new Prefix("-u");
 
     /* Prefix for assignment*/
     public static final Prefix PREFIX_ASSIGNMENT_NAME = new Prefix("-an");
