@@ -108,7 +108,7 @@ public class EditCommand extends Command {
         if (flags.length == 0) {
             logger.info("Single event will be edited.");
             connectToGoogleCalendar.updateSingleGoogleEvent(
-                    eventToEdit, editedEvent, instanceIndex, totalInstance);
+                    eventToEdit, editedEvent, instanceIndex);
             model.updateEvent(eventToEdit, editedEvent);
         } else {
             //edit upcoming or all events in a EventSet
