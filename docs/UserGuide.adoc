@@ -109,42 +109,74 @@ Available transformations
 Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`: create a customized operation for
 transformation base on the operation specified
 
-Examples:
+Example:
 
-* `create blurR blur|0x8 rotate|90`
+* `create blurAndRotate blur|0x8 rotate|90` +
+To use the newly created command, use: +
+`convert @blurAndRotate`
 
 === Saving images : `save`
 
 Format: `save [IMAGE_NAME]`: saves the transformed image, supporting jpg, jpeg, png, tiff, gif
 
-Examples:
+Example:
 
 * `save modified.png`
 
-// tag::undoredo[]
-=== Undoing previous actions : `undo`
+[NOTE]
+====
+The image will be saved in the same directory as the original image.
+====
 
-Format: `undo`: Step back to the previous transformation
+// tag::undoredo[]
+=== Undoing a transformation : `undo`
+
+Format: `undo`: Step back to the previous image state (in current layer)
 
 [NOTE]
 ====
 Commands that can be undone: those commands that modify the image's transformation (anything done with `convert`).
 ====
 
-Examples:
+Example:
 
 * `convert blur 0x8` +
-`undo` (reverses the `convert blur 0x8` command) +
+`convert contrast` +
+`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
 
-=== Redoing the previous actions : `redo`
+=== Undoing all transformations : `undo-all`
+
+Format: `undo-all`: Undoes all transformations (reverts image to original state)
+
+Example:
+
+* `convert blur 0x8` +
+`convert contrast` +
+`convert rotate 90` +
+`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
+
+=== Redoing a transformation : `redo`
 
 Format: `redo`: Step forward to the previously undone transformation
 
-Examples:
+Example:
 
 * `convert blur 0x8` +
-`undo` (reverses the `convert blur 0x8` command) +
-`redo` (reapplies the `convert blur 0x8` command) +
+`convert contrast` +
+`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
+`redo` (reapplies the `convert contrast` command) +
+
+=== Redoing all transformations : `redo-all`
+
+Format: `redo-all`: Redoes all undone transformations
+
+Example:
+
+* `convert blur 0x8` +
+`convert contrast` +
+`convert rotate 90` +
+`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
+`redo-all` (reapplies all 3 `convert` commands) +
 // end::undoredo[]
 
 === Listing files in directory : `ls`
@@ -244,7 +276,9 @@ e.g. `add -rotate left 180` +
 * *Save* : `save [IMAGE_NAME]/[SET_NAME]` +
 e.g. `save exampleImage.jpg` +
 * *Undo* : `undo` +
+* *Undo All* : `undo-all` +
 * *Redo* : `redo` +
+* *Redo All* : `redo-all` +
 * *Ls* : `ls` +
 * *Cd* : `cd [DIRECTORY_NAME]` +
 * *Login* : `login` +
