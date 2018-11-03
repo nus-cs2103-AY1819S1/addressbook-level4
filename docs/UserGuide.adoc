@@ -221,7 +221,7 @@ Selects the 1st patient in the resulting list of the `find` command.
 
 Updates the medical records of a patient. +
 Alias: `amr` +
-Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASES]... [da/DRUG_ALLERGY]... [m/NOTE]...`
+Format: `addmedicalrecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASES]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
 [TIP]
 Updates the medical records of a patient based on the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
@@ -233,14 +233,21 @@ At least one of the optional parameters must be provided.
 Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, you can only add `BloodType` to a patient once, and it will be permanent.
 
 [TIP]
-Adding a `Note` with this command will yield a `Note` with an empty `Prescription`. A `Prescription` can only be added via the `dispenseMedicine` command.
+Adding a `Note` with this command will yield a `Note` with an empty `Prescription`. A `Prescription` can only be added via the `dispensemedicine` command.
 
 Examples:
 
 * `addmedicalrecord 5 da/Paracetamol d/Diabetes` +
 Adds `Paracetamol` (under _Drug Allergy_) and `Diabetes` (under _Past Diseases_) to the `MedicalRecord` of the 5th patient.
+
+.After `addmedicalrecord 5 da/Paracetomal d/Diabetes` command
+image::addmedicalrecord-example-1.png[width="650"]
+
 * `amr 3 b/B+` +
 Adds `B+` (under _Blood Type_) to the `MedicalRecord` of the 3rd patient.
+
+.After `amr 3 b/B+` command
+image::addmedicalrecord-example-2.png[width="650"]
 // end::addmedicalrecordcommand[]
 
 // end::patient[]
