@@ -16,32 +16,34 @@ import seedu.address.model.module.Module;
 import seedu.address.model.util.ModuleBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit
- * tests for {@code EditModuleCommandTest}.
+ * Contains integration tests (interaction with the {@code Model},
+ * {@code UndoCommand} and {@code RedoCommand}) and unit tests for
+ * {@code EditModuleCommandTest}.
  */
 public class EditModuleCommandTest {
 
-    private Model model = new ModelManager(getTypicalTranscript(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalTranscript(),
+            new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void executeValidCodeUnfilteredListSuccess() {
         EditModuleCommand editModuleCommand = new EditModuleCommand(
-                DISCRETE_MATH.getCode(), // targetCode
-                null, // targetYear
-                null, // targetSemester
-                null, // newCode
-                null, // newYear
-                null, // newSemester
-                null, // newCredit
-                ASKING_QUESTIONS.getGrade()); // newGrade
+                DISCRETE_MATH.getCode(),
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                ASKING_QUESTIONS.getGrade());
 
         Module editedDiscreteMath = new ModuleBuilder(DISCRETE_MATH)
                 .withGrade(ASKING_QUESTIONS.getGrade())
                 .build();
 
         String expectedMessage = String.format(
-                EditModuleCommand.MESSAGE_EDIT_MODULE_SUCCESS,
+                EditModuleCommand.MESSAGE_EDIT_SUCCESS,
                 editedDiscreteMath);
 
         ModelManager expectedModel = new ModelManager(model.getTranscript(), new UserPrefs());
@@ -70,6 +72,6 @@ public class EditModuleCommandTest {
 
         assertCommandFailure(editModuleCommand,
                 model, commandHistory,
-                EditModuleCommand.MESSAGE_NO_SUCH_MODULE);
+                EditModuleCommand.MESSAGE_MODULE_EXIST);
     }
 }

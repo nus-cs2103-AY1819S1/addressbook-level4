@@ -21,10 +21,16 @@ import seedu.address.model.util.ModuleBuilder;
  */
 public class EditModuleCommand extends Command {
 
-    // Command for EditModuleCommand.
+    /**
+     * Command word for {@code EditModuleCommand}.
+     */
     public static final String COMMAND_WORD = "edit";
 
-    // EditModuleCommand usage.
+    /**
+     * Usage of <b>edit</b>.
+     * <p>
+     * Provides the description and syntax of <b>edit</b>.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the details of the module specified by the module code."
             + " Existing values will be overwritten by the input values."
@@ -39,7 +45,7 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_EDIT_SUCCESS = "Edited module: %1$s";
     public static final String MESSAGE_NO_SUCH_MODULE = "No such module exist.";
     public static final String MESSAGE_MODULE_EXIST = "Edited module already"
-            + "exist.";
+            + " exist.";
     public static final String MESSAGE_MODULE_INCOMPLETE = "Cannot change grade"
             + " of incomplete modules.";
     public static final String MESSAGE_MULTIPLE_MODULE_EXIST = "Multiple module"
@@ -117,6 +123,7 @@ public class EditModuleCommand extends Command {
         requireNonNull(model);
 
         // Get target module.
+        // Throws CommandException if module does not exists.
         // Throws CommandException if module is incomplete and grade changed.
         Module target = getTargetModule(model);
         moduleCompletedIfGradeChange(target);
@@ -126,7 +133,7 @@ public class EditModuleCommand extends Command {
         Module editedModule = createEditedModule(target);
         editedModuleExist(model, editedModule);
 
-        // Update and commit.
+        // Update module and commit the transcript.
         model.updateModule(target, editedModule);
         model.commitTranscript();
 
@@ -152,11 +159,7 @@ public class EditModuleCommand extends Command {
         // Returns the number of modules with target code, year, and semester.
         List<Module> filteredModule = model.getFilteredModuleList()
                 .stream()
-                .filter(index -> {
-                    return index.getCode().equals(targetCode)
-                            && (targetYear == null || index.getYear().equals(targetYear))
-                            && (targetSemester == null || index.getSemester().equals(targetSemester));
-                })
+                .filter(this::isTargetModule)
                 .collect(Collectors.toList());
 
         // Throws exception when targeted module does not exist.
@@ -167,6 +170,22 @@ public class EditModuleCommand extends Command {
         // Returns the targeted module
         assert filteredModule.size() == 1;
         return filteredModule.get(0);
+    }
+
+    /**
+     * Returns true if module matches all non-null target fields.
+     *
+     * @param module module {@code Module} checked
+     * @return true if module matches all non-null target fields
+     */
+    private boolean isTargetModule(Module module) {
+        if (targetYear == null && targetSemester == null) {
+            return module.getCode().equals(targetCode);
+        }
+
+        return module.getCode().equals(targetCode)
+                && module.getYear().equals(targetYear)
+                && module.getSemester().equals(targetSemester);
     }
 
     /**
@@ -244,5 +263,59 @@ public class EditModuleCommand extends Command {
         if (model.hasModule(editedModule)) {
             throw new CommandException(MESSAGE_MODULE_EXIST);
         }
+    }
+
+    /**
+     * Returns true if all field matches.
+     * <p>
+     * Field matches when they are both null or equal to one another.
+     *
+     * @param other the other object compared against
+     * @return true if all field matches
+     */
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditModuleCommand)) {
+            return false;
+        }
+
+        // state check
+        EditModuleCommand e = (EditModuleCommand) other;
+
+        boolean targetYearSame = (targetYear == null && e.targetYear == null)
+                || targetYear.equals(e.targetYear);
+
+        boolean targetSemesterSame = (targetSemester == null && e.targetSemester == null)
+                || targetSemester.equals(e.targetSemester);
+
+        boolean newCodeSame = (newCode == null && e.newCode == null)
+                || newCode.equals(e.newCode);
+
+        boolean newYearSame = (newYear == null && e.newYear == null)
+                || newYear.equals(e.newYear);
+
+        boolean newSemesterSame = (newSemester == null && e.newSemester == null)
+                || newSemester.equals(e.newSemester);
+
+        boolean newCreditSame = (newCredit == null && e.newCredit == null)
+                || newCredit.equals(e.newCredit);
+
+        boolean newGradeSame = (newGrade == null && e.newGrade == null)
+                || newGrade.equals(e.newGrade);
+
+        return targetCode.equals(e.targetCode)
+                && targetYearSame
+                && targetSemesterSame
+                && newCodeSame
+                && newYearSame
+                && newSemesterSame
+                && newCreditSame
+                && newGradeSame;
     }
 }

@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -111,8 +110,8 @@ public class ParserUtil {
      * @param usage
      * @return
      */
-    public static ParseException parseException(String usage) {
-        String messageError = String.format(MESSAGE_INVALID_COMMAND_FORMAT, usage);
+    public static ParseException parseException(String errorMsg) {
+        String messageError = String.format(errorMsg);
         return new ParseException(messageError);
     }
 
@@ -151,6 +150,8 @@ public class ParserUtil {
     public static Code parseCode(String args) throws ParseException {
         requireNonNull(args);
         String trimmedCode = args.trim();
+        trimmedCode = trimmedCode.toUpperCase();
+
         if (!Code.isValidCode(trimmedCode)) {
             throw new ParseException(Code.MESSAGE_CODE_CONSTRAINTS);
         }
