@@ -111,4 +111,19 @@ public class CalendarModelTest {
 
     }
 
+    @Test
+    public void isValidTime() {
+        // Time format is in accordance with the 24 hour format
+        // invalid time
+        assertFalse(calendarModel.isValidTime(-1, 30)); // negative hour
+        assertFalse(calendarModel.isValidTime(10, -1)); // negative minutes
+        assertFalse(calendarModel.isValidTime(24, 30)); // latest timing is 2359, hour should not exceed 23
+        assertFalse(calendarModel.isValidTime(1, 60)); // minutes should not exceed 59
+
+        // valid time
+        assertTrue(calendarModel.isValidTime(0, 0)); // 0000
+        assertTrue(calendarModel.isValidTime(23, 59)); // 2359
+
+    }
+
 }
