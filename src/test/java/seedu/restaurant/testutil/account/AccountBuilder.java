@@ -4,8 +4,9 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
- * A utility class to help with building Account objects.
+ * A utility class to help with building {@code Account} objects.
  */
 public class AccountBuilder {
 
