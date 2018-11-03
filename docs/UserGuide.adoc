@@ -840,6 +840,25 @@ Format: `rank-item` or `rai`
 * Record list must not be empty.
 ****
 
+==== Selecting a sales record : `select-sales` or `ss`
+
+Selects the sales record identified by the index number used in the record list. +
+Format: `select-sales INDEX` or `ss INDEX`
+
+****
+* Loads the record list and selects the record at the specified `INDEX`.
+* The index refers to the index number shown in the displayed record list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+`select-sales 2` +
+Selects the 2nd record in the record list.
+
+`ss 6` +
+Selects the 6th record in the record list.
+
 // end::salesmanagement[]
 
 === Upcoming Features
@@ -966,7 +985,7 @@ contains the data of your previous *MeNUS* folder.
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
 |*Edit menu* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
 |*Delete item* |`delete-item INDEX` |`delete-item 3`
-|*Select item* |`select-items INDEX` |`select-items 3`
+|*Select item* |`select-item INDEX` |`select-item 3`
 |*Find item* |`find-item KEYWORD [MORE_KEYWORDS]` |`find-item Cheese Burger`
 |*List items* |`list-items` |`list-items`
 |*Filter menu* |`filter-menu t/TAG` |`filter-menu t/cheese`
@@ -978,7 +997,7 @@ contains the data of your previous *MeNUS* folder.
 |*Add reservation* |`add-reservation n/NAME px/PAX dt/DATETIME` |`add-reservation n/TAN px/4 dt/2018-07-21:10:00:00`
 |*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [dt/DATETIME]` |`edit-reservation 2 px/2`
 |*Delete reservation* |`delete-reservation INDEX` |`delete-reservation 2`
-|*Select reservation* |`select-reservations` |`select-reservation 1`
+|*Select reservation* |`select-reservation INDEX` |`select-reservation 1`
 |*List reservation* |`list-reservations` |`list-reservations`
 |*Sort reservation* |`sort-reservations` |`sort-reservations`
 |*Record sales volume* |`record-sales d/DATE n/ITEM_NAME q/QUANTITY SOLD p/ITEM_PRICE` |`record-sales d/25-09-2018 n/Fried Rice q/35 p/5.50`
@@ -987,6 +1006,7 @@ contains the data of your previous *MeNUS* folder.
 |*Delete sales record* |`delete-sales ITEM_INDEX` |`delete-sales 2`
 |*Rank items by total revenue* |`rank-item` |`rank-item`
 |*Rank dates by total revenue* |`rank-date` | `rank-date`
+|*Select sales record* |`select-sales INDEX` |`select-sales 3`
 |=======================================================================
 
 [appendix]
