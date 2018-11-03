@@ -133,35 +133,71 @@ Removes the group with title 'CS2103T', which is added previously, from MeetingB
 * `deleteGroup n/Discussion Group 1` +
 Removes the group with title 'Discussion Group 1', which is added previously, from MeetingBook.
 
+// tag::sort[]
+=== Sorting the list of displayed persons: `sort`
+
+The `sort` command sorts the list in the display of persons.
+The user can specify whether to sort by name, phone number, email address, or home address,
+in lexicographical order or numerical order. +
+
+Format: +
+`sort <name|phone|email|address>` +
+
+****
+* `<name|phone|email|address>`: this parameter specifies whether to sort by name, phone, email
+address, or home address in lexicographical order or numerical order.
+****
+
+Examples: +
+* `sort name`: Sorts the list of persons by name in lexicographical order.
+* `sort phone`: Sorts the list of persons by phone number in numerical order.
+* `sort email`: Sorts the list of persons by email address in lexicographical order.
+* `sort address`: Sorts the list of persons by home address in lexicographical order.
+// end::sort[]
+
+// tag::find[]
 === Finding a group / person / meeting: `find`
 
 The `find` command searches the MeetingBook for specified person, group, or meeting, and displays the results on
 the panel. +
 
-Syntax: +
- Longhand: `find <person|group|meeting> [all/KEYWORDS] [some/KEYWORDS] [none/KEYWORDS]` +
- Shorthand: `find <p|g|m> [a/KEYWORDS...] [s/KEYWORDS...] [n/KEYWORDS...]` +
+Format: +
+Longhand: `find <person|group|meeting> [a/KEYWORDS] [s/KEYWORDS] [n/KEYWORDS]` +
+Shorthand: `find <p|g|m> [KEYWORDS]`
 
-* `<person|group|meeting>`, `<p|g|m>`: This parameter specifies whether to search for persons, groups, or meetings.
+****
+* `<person|group|meeting>`, `<p|g|m>`: this parameter specifies whether to search for persons, groups, or meetings.
     This parameter is required to execute this command.
-    ** `person`, `p`: Specifies to search for persons.
-    ** `group`, `g`: Specifies to search for groups.
-    ** `meeting`, `m`: Specifies to search for meetings.
-* `KEYWORDS`: This tag contains any number of keywords separated by a kbd:[space].
-* `[all]`, `[a]`: This parameter specifies that the results must contain every keyword specified in `KEYWORDS`.
+    ** `person`, `p`: specifies to search for persons.
+    ** `group`, `g`: specifies to search for groups.
+    ** `meeting`, `m`: specifies to search for meetings.
+* `KEYWORDS`: this tag contains any number of keywords separated by a kbd:[space].
+* `[all]`, `[a]`: this parameter specifies that the results must contain every keyword specified in `<keywords>`.
     This parameter may be omitted.
-* `[some]`, `[s]`: This parameter specifies that the results must contain at least one keyword specified in `KEYWORDS`.
+* `[some]`, `[s]`: this parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
     This parameter may be omitted.
-* `[none]`, `[n]`: This parameter specifies that the results must not contain any keyword specified in `KEYWORDS`.
+* `[none]`, `[n]`: this parameter specifies that the results must not contain any keyword specified in `<keywords>`.
     This parameter may be omitted.
+****
 
-The “then” keyword:
+****
+* When the shorthand format is used, the keywords will be placed in the `a/` parameter.
+****
 
-If “then [Command]”  is inserted after find, the [Command] will be applied to all results of the find command.
-[Command] can be replaced with either changeto, delete, or markdone.
+Examples: +
 
-Thus it is possible to run commands like
-“in CS2101 findwhere then delete” to delete every task under CS2101
+* `find person Abby`: finds all persons whose name contains `Abby`. +
+* `find p Betty Charles`: finds all persons whose name contains `Betty` and `Charles`. +
+* `find p s/David Eric n/James`: finds all persons whose name contains one of `David` or `Eric`,
+and whose name does not contain `James`. +
+* `find group project`: finds all groups whose title contains `project`. +
+* `find g a/team n/school`: finds all groups whose title contains `team` and whose title
+does not contain `school`. +
+* `find meeting s/official important`: finds all meetings whose title contains one of
+`official` or `important`.
+* `find m a/urgent n/basketball`: finds all meetings whose titles contains `urgent` and
+whose title does not contain `basketball`.
+// end::find[]
 
 === Selecting a group / person / meeting: `select`
 
@@ -291,41 +327,62 @@ Examples:
 === Importing data : `import`
 
 User is able to import other data. +
+
 Default behaviour is to ignore any conflicting Person/Group entries unless `--force` option is supplied. +
+
 Format: `import [--force] f/FILEPATH`
 
 Example: +
-`import f/backup.xml` : Import backup.xml into MeetingBook +
-`import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
+
+* `import f/backup.xml` : Import backup.xml into MeetingBook +
+* `import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
+
+The image below shows the result after successfully executing the command.
+
+image::importSuccessfulOutput.png[width="450"]
 // end::import[]
 
 // tag::export[]
 === Exporting data : `export`
 
 User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
-Format: +
-Export all groups, meetings and persons : `export * f/FILEPATH` +
-Export all meetings and persons of a specific group: `export #GROUP_NAME f/FILEPATH`
 
-`export f/FILEPATH`
+Format: `export  f/FILEPATH` +
+// Future implementation
+//`Export all meetings and persons of a specific group: export #[Group] <relative filepath>`
 
-Example:
-`export f/backup.xml` : Export MeetingBook as `backup.xml`.
+Example: +
+
+* `export f/backup.xml` : Export MeetingBook as `backup.xml`. +
+
+The image below shows the result after successfully executing the command.
+
+image::exportSuccessfulOutput.png[width="450"]
+
+
+
 // end::export[]
 
 // tag::filepath[]
 === Changing Storage Location: `filepath`
 
 Change the storage location of MeetingBook. +
-Format: +
-`filepath f/FILEPATH`
+
+Format: `filepath f/FILEPATH`
 
 Example:
-`filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
+
+* `filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
 
 ****
-User can also check the current path of MeetingBook use `filepath --show`
+[NOTE]
+User can also check the current path where MeetingBook store its data using `filepath --show` command. +
+
+The image below shows the result after successfully executing the command.
+
+image::filepath--showOutput.png[width="450"]
 ****
+
 // end::filepath[]
 
 === Saving the data

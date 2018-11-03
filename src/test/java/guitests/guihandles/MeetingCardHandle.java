@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.address.model.meeting.Meeting;
+import seedu.meeting.model.meeting.Meeting;
 
 // @@author jeffreyooi
 /**
