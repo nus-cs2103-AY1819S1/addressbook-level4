@@ -35,8 +35,10 @@
               <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
             </Menu>
           </MenuBar>
+          <!-- @@author AZhiKai -->
           <Pane fx:id="usernameDisplayPlaceholder" maxWidth="350.0" minWidth="200.0" prefWidth="200.0">
           </Pane>
+          <!-- @@author -->
         </SplitPane>
 
         <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
@@ -52,6 +54,7 @@
           </padding>
         </StackPane>
 
+        <!-- @@author AZhiKai -->
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4, 0.5" VBox.vgrow="ALWAYS">
           <VBox fx:id="sideButtonBar" alignment="CENTER" maxWidth="80.0" minWidth="80.0" prefWidth="80.0">
             <ImageView fx:id="switchToAccountButton" fitHeight="50.0" fitWidth="50.0"
@@ -87,6 +90,8 @@
               <Image url="@../images/reservation.png" />
             </ImageView>
           </VBox>
+
+          <!-- @@author -->
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
