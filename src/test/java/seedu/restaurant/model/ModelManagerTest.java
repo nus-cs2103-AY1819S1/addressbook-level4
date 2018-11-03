@@ -206,6 +206,7 @@ public class ModelManagerTest {
         modelManager.getSalesReport(null);
     }
 
+    //@@author AZhiKai
     @Test
     public void hasAccount_nullAccount_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -495,8 +496,6 @@ public class ModelManagerTest {
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         modelManager.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORDS);
         modelManager.updateFilteredAccountList(PREDICATE_SHOW_ALL_ACCOUNTS);
-
-        //TODO: Test updateFilteredAccountList
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
