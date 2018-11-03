@@ -13,6 +13,7 @@ import javafx.stage.WindowEvent;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.LogicManager;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;

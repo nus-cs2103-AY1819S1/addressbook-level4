@@ -29,7 +29,7 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
+    private static VersionedAddressBook versionedAddressBook = null;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
 
@@ -247,7 +247,6 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredEvents.equals(other.filteredEvents);
     }
 
-    @Override
     public boolean getNotificationPref() {
         return versionedAddressBook.getNotificationPref();
     }

@@ -185,6 +185,8 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
+        private final boolean notificationPref = true;
+        private final String favourite = null;
 
         AddressBookStub(Collection<Person> persons, Collection<Event> events) {
             this.persons.setAll(persons);
@@ -200,6 +202,16 @@ public class AddressBookTest {
         public ObservableList<Event> getEventList() {
             return events;
         }
+
+        @Override
+        public boolean getNotificationPref() {
+            return notificationPref;
+        };
+
+        @Override
+        public String getFavouriteEvent() {
+            return favourite;
+        };
     }
 
 }

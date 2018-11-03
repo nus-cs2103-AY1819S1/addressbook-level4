@@ -19,7 +19,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private boolean notificationPref;
-    private String favourite;
+    private static String favourite;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
