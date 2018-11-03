@@ -7,7 +7,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 
 /**
- * Deletes an item identified using it's displayed index from the menu.
+ * Deletes an item from the menu.
  */
 public abstract class DeleteItemCommand extends Command {
 
