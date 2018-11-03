@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.souschef.commons.util.StringUtil;
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.ingredient.IngredientDefinition;
 
 /**
@@ -24,17 +23,12 @@ public class NameContainsKeywordsPredicate implements Predicate<Recipe> {
         }
         return (keywords.stream()
                 .allMatch(keyword -> {
-                    try {
-                        return StringUtil.containsWordIgnoreCase(recipe.getName().fullName, keyword)
-                                || recipe.getCookTime().toString().toLowerCase().equalsIgnoreCase(keyword.toLowerCase())
-                                || recipe.getDifficulty().toString().equals(keyword)
-                                || recipe.getTags().stream()
-                                .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword))
-                                || recipe.getIngredients().containsKey(new IngredientDefinition(keyword));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    return false;
+                    return StringUtil.containsWordIgnoreCase(recipe.getName().fullName, keyword)
+                            || recipe.getCookTime().toString().toLowerCase().equalsIgnoreCase(keyword.toLowerCase())
+                            || recipe.getDifficulty().toString().equals(keyword)
+                            || recipe.getTags().stream()
+                            .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword))
+                            || recipe.getIngredients().containsKey(new IngredientDefinition(keyword));
                 }
                 ));
     }

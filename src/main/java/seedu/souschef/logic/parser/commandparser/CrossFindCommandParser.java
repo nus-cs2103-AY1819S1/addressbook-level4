@@ -14,6 +14,7 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientDefinition;
+import seedu.souschef.model.ingredient.IngredientName;
 import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.recipe.CrossRecipe;
 import seedu.souschef.model.recipe.Recipe;
@@ -31,7 +32,10 @@ public class CrossFindCommandParser {
      */
     public CrossFindCommand parse(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
                                   String argument) throws ParseException {
-        String[] tokens = argument.trim().split("\\s+");
+        String[] tokens = argument.trim().toLowerCase().split("\\s+");
+        for (int i = 0; i < tokens.length; i++) {
+            tokens[i] = tokens[i].replaceAll("_", " ");
+        }
 
         if (tokens.length < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
@@ -65,6 +69,9 @@ public class CrossFindCommandParser {
                 if (tokens[index].equals("prioritize")) {
                     break;
                 }
+                if (!IngredientName.isValid(tokens[index])) {
+                    throw new ParseException("Invalid Ingredient Name!");
+                }
                 include.add(new IngredientDefinition(tokens[index]));
                 index++;
             }
@@ -80,6 +87,9 @@ public class CrossFindCommandParser {
                 index++;
             }
             while (index < tokens.length) {
+                if (!IngredientName.isValid(tokens[index])) {
+                    throw new ParseException("Invalid Ingredient Name!");
+                }
                 IngredientDefinition key = new IngredientDefinition(tokens[index]);
                 if (include.contains(key)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -92,11 +102,6 @@ public class CrossFindCommandParser {
 
         crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<CrossRecipe> crossRecipeList = crossRecipeModel.getFilteredList();
-
-        for (CrossRecipe crossRecipe : crossRecipeList) {
-            Recipe recipe = crossRecipe.getRecipe();
-            crossRecipeModel.update(crossRecipe, new CrossRecipe(recipe, recipe.getIngredients()));
-        }
 
         Map<Recipe, List<IngredientDefinition>> crossRecipeMap = new HashMap<>();
 
