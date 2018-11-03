@@ -19,14 +19,16 @@ public class AddEventTagCommand extends Command {
 
     public static final String COMMAND_WORD = "addEventTag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event tag to the address book."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event tag to the address book. "
             + "Parameters: "
+            + PREFIX_TAG + "EVENT TAG "
             + "[" + PREFIX_TAG + "EVENT TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TAG + "Meeting";
 
     public static final String MESSAGE_SUCCESS = "New event tags added: %1$s";
     public static final String MESSAGE_DUPLICATE_TAG = "The event tag(s) %1$s already exists in the address book";
+    public static final String MESSAGE_NO_EVENT_TAGS = "No event tag(s) specified.";
 
     private final Set<Tag> toAdd;
 
@@ -47,10 +49,15 @@ public class AddEventTagCommand extends Command {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_TAG, duplicateTags));
         }
 
+        if (toAdd.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_EVENT_TAGS);
+        }
+
         for (Tag eventTag : toAdd) {
             model.addEventTag(eventTag);
         }
         model.commitAddressBook();
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
