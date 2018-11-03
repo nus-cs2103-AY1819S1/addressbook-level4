@@ -183,7 +183,7 @@ public class ConnectToGoogleCalendar {
             }
 
             try {
-                service.events().insert("primary", gEvent).execute();
+                service.events().insert(CALENDAR_NAME, gEvent).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -280,7 +280,7 @@ public class ConnectToGoogleCalendar {
 
         if (eventToDelete.getRepeatType() == RepeatType.NONE) {
             try {
-                service.events().delete("primary", eventIds.get(0)).execute();
+                service.events().delete(CALENDAR_NAME, eventIds.get(0)).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -315,10 +315,10 @@ public class ConnectToGoogleCalendar {
         } else {
             try {
                 assert recurringEventId != null;
-                Events instances = service.events().instances("primary", recurringEventId).execute();
+                Events instances = service.events().instances(CALENDAR_NAME, recurringEventId).execute();
                 com.google.api.services.calendar.model.Event instance = instances.getItems().get(instanceIndex);
                 instance.setStatus("cancelled");
-                service.events().update("primary", instance.getId(), instance).execute();
+                service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -356,7 +356,7 @@ public class ConnectToGoogleCalendar {
 
         if (eventToDelete.getRepeatType() == RepeatType.NONE) {
             try {
-                service.events().delete("primary", eventIds.get(0)).execute();
+                service.events().delete(CALENDAR_NAME, eventIds.get(0)).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -392,12 +392,12 @@ public class ConnectToGoogleCalendar {
             //Case: Delete upcoming
             Events instances = null;
             try {
-                instances = service.events().instances("primary", recurringEventId).execute();
+                instances = service.events().instances(CALENDAR_NAME, recurringEventId).execute();
                 assert instances != null;
                 for (int i = instanceIndex; i <= totalInstance; i++) {
                     com.google.api.services.calendar.model.Event instance = instances.getItems().get(i);
                     instance.setStatus("cancelled");
-                    service.events().update("primary", instance.getId(), instance).execute();
+                    service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -434,7 +434,7 @@ public class ConnectToGoogleCalendar {
 
         if (eventToDelete.getRepeatType() == RepeatType.NONE) {
             try {
-                service.events().delete("primary", eventIds.get(0)).execute();
+                service.events().delete(CALENDAR_NAME, eventIds.get(0)).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -469,7 +469,7 @@ public class ConnectToGoogleCalendar {
             //Case: Delete All
             for (String eventId : eventIds) {
                 try {
-                    service.events().delete("primary", eventId).execute();
+                    service.events().delete(CALENDAR_NAME, eventId).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -481,6 +481,7 @@ public class ConnectToGoogleCalendar {
 
     /**
      * Edits the details of an existing event in the Google Calendar.
+     *
      * @param eventToEdit a local Event.
      * @param editedEvent an edited local Event.
      */
@@ -525,33 +526,41 @@ public class ConnectToGoogleCalendar {
         }
 
         //Find the repeated event on Google Calender
+        boolean found = false;
         assert allEventsOnGoogle != null;
         for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
             if (Objects.equals(event.getICalUID(), eventSetUid)) {
                 recurringEventId = event.getRecurringEventId();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            logger.warning("Event not found! Update failed!");
+        } else {
+            //Update the repeated event
+            Events instances = null;
+            try {
+                assert recurringEventId != null;
+                instances = service.events()
+                        .instances(CALENDAR_NAME, recurringEventId)
+                        .execute();
+
+                //Sort the instances according to DateTime
+                List<com.google.api.services.calendar.model.Event> instanceSort = instances.getItems();
+                Collections.sort(instanceSort, (
+                        a, b) -> a.getStart().getDateTime().toString()
+                        .compareTo(b.getStart().getDateTime().toString()));
+
+                //Get the wanted instance, edit and update
+                com.google.api.services.calendar.model.Event instance = instanceSort.get(instanceIndex);
+                instance = setCommonAttributes(instance, editedEvent);
+                service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
-        //Update the repeated event
-        Events instances = null;
-        try {
-            assert recurringEventId != null;
-            instances = service.events()
-                    .instances("primary", recurringEventId)
-                    .execute();
-            //Sort the instances according to DateTime
-            List<com.google.api.services.calendar.model.Event> instanceSort = instances.getItems();
-            Collections.sort(instanceSort, (
-                    a, b) -> a.getStart().getDateTime().toString()
-                    .compareTo(b.getStart().getDateTime().toString()));
-
-            com.google.api.services.calendar.model.Event instance = instanceSort.get(instanceIndex);
-
-            instance = setCommonAttributes(instance, editedEvent);
-            service.events().update("primary", instance.getId(), instance).execute();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -573,6 +582,7 @@ public class ConnectToGoogleCalendar {
             for (com.google.api.services.calendar.model.Event tempGEvent : events.getItems()) {
                 if (Objects.equals(tempGEvent.getId(), gEventId)) {
                     found = true;
+                    break;
                 }
             }
         } catch (UnknownHostException e) {
@@ -584,10 +594,10 @@ public class ConnectToGoogleCalendar {
             logger.warning("Event not found! Update failed!");
         } else {
             try {
-                gEvent = service.events().get("primary", gEventId).execute();
+                gEvent = service.events().get(CALENDAR_NAME, gEventId).execute();
                 assert gEvent != null;
                 gEvent = setCommonAttributes(gEvent, editedEvent);
-                updatedgEvent = service.events().update("primary", gEventId, gEvent).execute();
+                updatedgEvent = service.events().update(CALENDAR_NAME, gEventId, gEvent).execute();
                 assert updatedgEvent != null;
                 updatedgEvent.getUpdated();
             } catch (IOException e) {
@@ -632,7 +642,7 @@ public class ConnectToGoogleCalendar {
             if (!found) {
                 logger.warning("Event not found! Update failed!");
             } else {
-                gEvent = service.events().get("primary", gEventId).execute();
+                gEvent = service.events().get(CALENDAR_NAME, gEventId).execute();
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -671,7 +681,7 @@ public class ConnectToGoogleCalendar {
             try {
                 assert recurringEventId != null;
                 instances = service.events()
-                        .instances("primary", recurringEventId)
+                        .instances(CALENDAR_NAME, recurringEventId)
                         .execute();
                 //TODO:if orignal lastShownlist is not sorted?
                 List<com.google.api.services.calendar.model.Event> instanceSort = instances.getItems();
@@ -682,7 +692,7 @@ public class ConnectToGoogleCalendar {
                 com.google.api.services.calendar.model.Event instance = instanceSort.get(instanceIndex);
 
                 instance.setSummary(editedEvent.getEventName().toString());
-                service.events().update("primary", instance.getId(), instance).execute();
+                service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -691,7 +701,7 @@ public class ConnectToGoogleCalendar {
                 try {
                     assert recurringEventId != null;
                     instances = service.events()
-                            .instances("primary", recurringEventId)
+                            .instances(CALENDAR_NAME, recurringEventId)
                             .execute();
                     //TODO:if orignal lastShownlist is not sorted?
                     List<com.google.api.services.calendar.model.Event> instanceSort = instances.getItems();
@@ -701,7 +711,7 @@ public class ConnectToGoogleCalendar {
                     for (int i = 0; i <= totalInstance; i++) {
                         com.google.api.services.calendar.model.Event instance = instanceSort.get(i);
                         instance.setSummary(editedEvent.getEventName().toString());
-                        service.events().update("primary", instance.getId(), instance).execute();
+                        service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -712,7 +722,7 @@ public class ConnectToGoogleCalendar {
 
                 try {
                     gEvent = service.events()
-                            .get("primary",
+                            .get(CALENDAR_NAME,
                                     Objects.requireNonNull(recurringEventId)).execute();
                     //gEvent = setCommonAttributes(gEvent, editedEvent);
                     gEvent = setRepeatAttribute(gEvent, editedEvent);
@@ -735,7 +745,7 @@ public class ConnectToGoogleCalendar {
 
 
                     service.events()
-                            .update("primary", recurringEventId, gEvent).execute();
+                            .update(CALENDAR_NAME, recurringEventId, gEvent).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -777,7 +787,7 @@ public class ConnectToGoogleCalendar {
             if (!found) {
                 logger.warning("Event not found! Update failed!");
             } else {
-                gEvent = service.events().get("primary", gEventId).execute();
+                gEvent = service.events().get(CALENDAR_NAME, gEventId).execute();
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -814,7 +824,7 @@ public class ConnectToGoogleCalendar {
             try {
                 assert recurringEventId != null;
                 instances = service.events()
-                        .instances("primary", recurringEventId)
+                        .instances(CALENDAR_NAME, recurringEventId)
                         .execute();
                 //TODO:if orignal lastShownlist is not sorted?
                 List<com.google.api.services.calendar.model.Event> instanceSort = instances.getItems();
@@ -825,7 +835,7 @@ public class ConnectToGoogleCalendar {
                 com.google.api.services.calendar.model.Event instance = instanceSort.get(instanceIndex);
 
                 instance.setSummary(editedEvent.getEventName().toString());
-                service.events().update("primary", instance.getId(), instance).execute();
+                service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -833,7 +843,7 @@ public class ConnectToGoogleCalendar {
                 try {
                     assert recurringEventId != null;
                     instances = service.events()
-                            .instances("primary", recurringEventId)
+                            .instances(CALENDAR_NAME, recurringEventId)
                             .execute();
                     //TODO:if orignal lastShownlist is not sorted?
                     List<com.google.api.services.calendar.model.Event> instanceSort = instances.getItems();
@@ -843,7 +853,7 @@ public class ConnectToGoogleCalendar {
                     for (int i = instanceIndex; i <= totalInstance; i++) {
                         com.google.api.services.calendar.model.Event instance = instanceSort.get(i);
                         instance.setSummary(editedEvent.getEventName().toString());
-                        service.events().update("primary", instance.getId(), instance).execute();
+                        service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -854,7 +864,7 @@ public class ConnectToGoogleCalendar {
 
                 try {
                     gEvent = service.events()
-                            .get("primary",
+                            .get(CALENDAR_NAME,
                                     Objects.requireNonNull(recurringEventId)).execute();
                     gEvent = setRepeatAttribute(gEvent, editedEvent);
 
@@ -876,7 +886,7 @@ public class ConnectToGoogleCalendar {
 
 
                     service.events()
-                            .update("primary", recurringEventId, gEvent).execute();
+                            .update(CALENDAR_NAME, recurringEventId, gEvent).execute();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
