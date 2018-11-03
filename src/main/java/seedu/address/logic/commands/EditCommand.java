@@ -105,7 +105,15 @@ public class EditCommand extends Command {
             .getPriorityValue());
         Description updatedDescription = editTaskDescriptor.getDescription().orElse(taskToEdit.getDescription());
         Set<Label> updatedLabels = editTaskDescriptor.getLabels().orElse(taskToEdit.getLabels());
-        Status updatedStatus = editTaskDescriptor.getStatus().orElse(taskToEdit.getStatus());
+        Status updatedStatus = taskToEdit.getStatus();
+        if (taskToEdit.getStatus() != Status.COMPLETED) {
+            //If status is not completed, update status according to duedate
+            if (updatedDueDate.isOverdue()) {
+                updatedStatus = Status.OVERDUE;
+            } else {
+                updatedStatus = Status.IN_PROGRESS;
+            }
+        }
         Dependency dependency = editTaskDescriptor.getDependency().orElse(taskToEdit.getDependency());
 
         return new Task(updatedName, updatedDueDate, updatedPriorityValue, updatedDescription, updatedLabels,
