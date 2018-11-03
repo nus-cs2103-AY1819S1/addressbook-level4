@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
-import java.util.Arrays;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.textfield.TextFields;
 
-import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
