@@ -10,8 +10,9 @@ import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
 
+//@@author AZhiKai
 /**
- * Lists all items in the menu to the user.
+ * List all {@code Account}.
  */
 public class ListAccountsCommand extends Command {
 

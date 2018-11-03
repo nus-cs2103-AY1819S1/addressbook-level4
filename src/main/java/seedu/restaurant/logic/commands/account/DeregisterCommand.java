@@ -12,8 +12,9 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.Account;
 
+//@@author AZhiKai
 /**
- * Deregisters an existing user account.
+ * Deregisters an existing {@code Account}.
  */
 public class DeregisterCommand extends Command {
 

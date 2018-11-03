@@ -18,8 +18,9 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 
+//@@author AZhiKai
 /**
- * Change the password an existing {@code Account}.
+ * Change the password of an existing {@code Account}.
  */
 public class ChangePasswordCommand extends Command {
 

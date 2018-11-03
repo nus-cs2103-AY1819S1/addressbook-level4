@@ -12,8 +12,9 @@ import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.util.ArgumentMultimap;
 import seedu.restaurant.logic.parser.util.ArgumentTokenizer;
 
+//@@author AZhiKai
 /**
- * Parses input arguments and creates a new ChangePasswordCommand object
+ * Parses input arguments and creates a new {@code ChangePasswordCommand} object.
  */
 public class ChangePasswordCommandParser implements Parser<ChangePasswordCommand> {
 

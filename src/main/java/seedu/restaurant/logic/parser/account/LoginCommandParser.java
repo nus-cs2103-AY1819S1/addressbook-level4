@@ -14,11 +14,11 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
- * Parses input arguments and creates a new LoginCommand object
+ * Parses input arguments and creates a new {@code LoginCommand} object.
  */
 public class LoginCommandParser implements Parser<LoginCommand> {
-    //TODO: This class is very similar to RegisterCommandParser. Perhaps can unify it.
 
     /**
      * Parses the given {@code String} of arguments in the context of the LoginCommand and returns a LoginCommand object
