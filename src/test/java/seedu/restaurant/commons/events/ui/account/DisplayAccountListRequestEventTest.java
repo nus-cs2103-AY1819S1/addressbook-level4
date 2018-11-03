@@ -1,4 +1,4 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.account;
 
 import static org.junit.Assert.assertEquals;
 

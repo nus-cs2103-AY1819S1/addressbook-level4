@@ -1,11 +1,10 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.reservation;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.commons.events.ui.reservation.ReservationPanelSelectionChangedEvent;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 
