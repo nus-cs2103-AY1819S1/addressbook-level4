@@ -63,8 +63,6 @@ class DictionaryTest {
 
     @Test
     void doesWordOfTheDayExist() throws ParseException {
-        Dictionary dictionary = new Dictionary("");
-        dictionary.invoke();
         assertNotNull(Dictionary.doesWordOfTheDayExist());
     }
 }

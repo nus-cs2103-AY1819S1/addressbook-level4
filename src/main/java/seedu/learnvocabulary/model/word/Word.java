@@ -62,7 +62,8 @@ public class Word {
         }
 
         return otherWord != null
-                && otherWord.getName().equals(getName());
+                && otherWord.getName().fullName.toLowerCase()
+                .equals(getName().fullName.toLowerCase());
     }
 
     /**
