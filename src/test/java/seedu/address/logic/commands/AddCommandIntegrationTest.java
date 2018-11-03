@@ -22,6 +22,8 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class AddCommandIntegrationTest {
 
+    public static final String UNIQUE_USERNAME = "John Brown";
+
     private Model model;
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -34,7 +36,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+        Person validPerson = new PersonBuilder().withUsername(UNIQUE_USERNAME).build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());

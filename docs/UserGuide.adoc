@@ -28,7 +28,7 @@ image::introToOASIS.png[width="900"]
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
-.  Download the latest oasis.jar.
+.  Download the latest oasis.jar https://github.com/CS2103-AY1819S1-F10-1/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The following Graphical User Interface (GUI) should appear in a few seconds:
 +
@@ -45,7 +45,7 @@ e.g. typing help and pressing Enter will open the help window.
 
 * *`list`* : lists all employees.
 * **`add`**`-n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000` : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
-* **`find`**`J*` : finds all employees that start with J.
+* **`find`**`J*` : finds all employees where any of their names start with J.
 * *`exit`* : exits the app
 
 .  Refer to <<Commands>> for details of each command.
@@ -82,15 +82,19 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Adds an employee into the system.
 
-Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-t PROJECT]`
+Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t PROJECT]`
+
+* If username is not specified, it will default to being the same as NAME.
 
 ****
 * To use this command, you must be logged in with "Add employee" permissions.
+* Username must be unique among everyone else in the system.
+* The username cannot be "Admin", as that is reserved for the admin account.
 ****
 Examples:
 
 * `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
-* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth`
+* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth -u Nard`
 
 === Listing all persons : `list`
 
@@ -213,7 +217,7 @@ Search and display all employees that match the given name criteria.
 Format: `find NAME`
 
 ****
-* NAME can be any name or parts of name.
+* NAME can be any name or parts of name that are separated by whitespace (such as a space charaacter).
 * You can use the * character to match any number of characters (0 or more)
 * You can also use the _ character to match any single character
 * Find is case insensitive
@@ -221,11 +225,28 @@ Format: `find NAME`
 
 Examples:
 
-* `find jian yu`: Displays everyone that has 'jian' or 'yu' in their name
+* `find jian yu`: Displays everyone whose names contain "jian" or "yu", surrounded by whitespace.
 
-* `find d*` Displays everyone whose's names start with d.
+* `find d*` Displays all employees where any of their names start with d.
 
-* 'find T_m' Displays 'Tom' and 'Tim', but not 'Tian'
+* `find T_m` Displays 'Tom' and 'tim', but not 'Tian'
+
+=== Edit details of the currently logged in user : `myself`
+
+Changes the details of the currently logged in user
+
+Format: `myself [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t PROJECT]`
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+****
+* This command is not usable as admin.
+****
+Examples:
+
+* `myself -p 91234567 -e johndoe@example.com`
+* `myself -n James`
 
 === Edit details : `edit`
 
@@ -237,11 +258,6 @@ Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
-****
-* To use this command, you must be logged in with "Edit Employee" permissions.
-* At least one of the parameters must be provided
-* Existing values will be updated to the input values
-****
 Examples:
 
 * `edit 1 -p 91234567 -e johndoe@example.com`
@@ -255,8 +271,25 @@ Format : `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REM
 
 * Modifies the permission of the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
 
+The following is the list of Permissions available.
+
+[width="100%",options="header"]
+|=========================================================
+|Permission|What it does
+|ADD_EMPLOYEE|Allows the user to add employee
+|REMOVE_EMPLOYEE|Allows the user to delete employee
+|EDIT_EMPLOYEE|Allows the user to edit information of an employee
+|VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
+|APPROVE_LEAVE|Allows user to approve and reject leave application
+|CREATE_PROJECT(Currently not used)|Allows user to create a project
+|ASSIGN_PROJECT(Currently not used)|Allows user to assign employee to a project
+|VIEW_PROJECT(Currently not used)|Allows user to view all projects
+|ASSIGN_PERMISSION|Allows user to assign permission to employees
+|=========================================================
+
+
 ****
-* To use this command, you must be logged in with "Assign Permission" permission.
+* To use this command, you must be logged in with "ASSIGN_PERMISSION" permission.
 * At least one of the parameters must be provided
 ****
 
@@ -472,7 +505,8 @@ Format: `deleteassignment INDEX`
  |Help|help|help
  |History|history|history
  |List all employees|list|list
- |Sort employee display list| sort -CRITERIA| sort -d
+ |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
+ |Sort employee display list| sort -CRITERIA| sort -df
  |Select an employee|select INDEX | select 1
  |Search employees by name|find NAME| find Joshua
  |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo
