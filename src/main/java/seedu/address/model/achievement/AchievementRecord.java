@@ -217,13 +217,19 @@ public class AchievementRecord {
     }
 
     /**
-     * Defensively check {@code nextDayBreakPoint} is 6 days before {@code nextWeekBreakPoint}.
+     * Defensively check {@code nextDayBreakPoint} is at most 6 days after {@code nextWeekBreakPoint} and
+     * not before {@code nextWeekBreakPoint}.
      * @throws DateBreakPointsMismatchException if not match.
      */
     private void checkBreakPointsMatch(Calendar nextDay, Calendar nextWeek) {
-        Calendar nextDayCopy = (GregorianCalendar) nextDay.clone();
-        nextDayCopy.add(Calendar.DAY_OF_MONTH, 6);
-        if (!areSameDates(nextDayCopy, nextWeek)) {
+        Calendar maxDate = (GregorianCalendar) nextDay.clone();
+        maxDate.add(Calendar.DAY_OF_MONTH, 6);
+
+        Calendar minDate = (GregorianCalendar) nextDay.clone();
+        if (!areSameDates(maxDate, nextWeek) && nextWeek.after(maxDate)) {
+            throw new DateBreakPointsMismatchException();
+        }
+        if (!areSameDates(minDate, nextWeek) && nextWeek.before(minDate)) {
             throw new DateBreakPointsMismatchException();
         }
     }
