@@ -11,6 +11,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.project.Project;
 
+/**
+ * A class used in tests to build a SelfEditCommand, similar to {@link PersonBuilder}.
+ */
 public class SelfEditCommandParserBuilder {
     private EditPersonDescriptor editPersonDescriptor;
 

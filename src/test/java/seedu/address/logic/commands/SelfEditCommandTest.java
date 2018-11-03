@@ -31,7 +31,8 @@ import seedu.address.testutil.SelfEditCommandParserBuilder;
  */
 public class SelfEditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(), getTypicalArchiveList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(),
+        getTypicalArchiveList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     public void setUpAsAdmin() {
