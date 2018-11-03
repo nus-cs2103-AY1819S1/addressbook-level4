@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveList;
 
@@ -30,7 +31,7 @@ import seedu.address.testutil.SelfEditCommandParserBuilder;
  */
 public class SelfEditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(), getTypicalArchiveList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     public void setUpAsAdmin() {
@@ -58,7 +59,7 @@ public class SelfEditCommandTest {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
             model.getArchiveList(), new UserPrefs());
         Person originalPerson = model.getFilteredPersonList().get(0);
         editedPerson = new PersonBuilder(originalPerson).withPhone(editedPerson.getPhone().value)
@@ -94,7 +95,7 @@ public class SelfEditCommandTest {
         }
         String expectedMessage = String.format(SelfEditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
             model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(lastPerson, editedPerson);
         expectedModel.commitAddressBook();
@@ -140,7 +141,7 @@ public class SelfEditCommandTest {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
             model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(lastPerson, editedPerson);
         expectedModel.commitAddressBook();
@@ -186,7 +187,7 @@ public class SelfEditCommandTest {
             throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
         }
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
             model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(lastPerson, editedPerson);
         expectedModel.commitAddressBook();
