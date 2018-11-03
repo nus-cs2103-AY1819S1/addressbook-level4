@@ -82,16 +82,18 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 Adds an employee into the system.
 
-Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-t PROJECT]`
+Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t PROJECT]`
+
+* If username is not specified, it will default to being the same as NAME.
 
 ****
 * To use this command, you must be logged in with "Add employee" permissions.
-* Once added, the new user will have the same username as the name entered. We are working on having the username be available as an optional field
+* Username must be unique among everyone else in the system.
 ****
 Examples:
 
 * `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
-* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth`
+* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth -u Nard`
 
 === Listing all persons : `list`
 
