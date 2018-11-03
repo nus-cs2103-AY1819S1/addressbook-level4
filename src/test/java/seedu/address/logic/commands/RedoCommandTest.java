@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.testutil.ModelGenerator;
 
+//@@author ihwk1996
 public class RedoCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
     private RedoCommand redoCommand = new RedoCommand();
@@ -18,28 +19,41 @@ public class RedoCommandTest {
     private String messageFailure = RedoCommand.MESSAGE_FAILURE;
 
     @Test
-    public void execute_defaultStateHasNothingToRedo() {
+    public void executeDefaultStateSingleRedo_commandFailure() {
         Model model = ModelGenerator.getDefaultModel();
         assertCommandFailure(redoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void execute_lastStateHasNothingToRedo() {
+    public void executeSingleRedoPointingAtStart_commandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 1, 4);
+    }
+
+    @Test
+    public void executeSingleRedoPointingAtMid_commandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
+        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 2, 4);
+    }
+
+    @Test
+    public void executeSingleRedoPointingAtEnd_commandFailure() {
         Model model = ModelGenerator.getModelWithTwoTransformations();
         assertCommandFailure(redoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void execute_singleRedo() {
-        Model model = ModelGenerator.getModelWithUndoneStates();
+    public void executeSuccessiveRedoPointingAtStart_commandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 1, 4);
+        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 2, 4);
     }
 
     @Test
-    public void execute_successiveRedo() {
-        Model model = ModelGenerator.getModelWithUndoneStates();
-        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 1, 4);
-        assertCommandSuccess(redoCommand, model, commandHistory, messageSuccess, 2, 4);
+    public void executeSingleRedoAfterPurge_commandFailure() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        Model purgedModel = ModelGenerator.executeATransformation(model);
+        assertCommandFailure(redoCommand, purgedModel, commandHistory, messageFailure);
     }
 
     @After
