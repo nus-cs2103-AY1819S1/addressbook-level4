@@ -115,21 +115,21 @@ public class EditCommand extends Command {
             logger.info("The upcoming events in a EventSet to be edited.");
             Predicate<Event> firstInstancePredicate;
             Event firstEventToEdit;
-            List<Event> editedEvents;
+            List<Event> editedEvents = null;
             if (flags[0].equals(FLAG_UPCOMING)) {
                 //Case2: edit upcoming events
+                editedEvents = createEditedEvents(eventToEdit, eventToEdit, editEventDescriptor);
                 connectToGoogleCalendar.updateUpcomingGoogleEvent(
                         eventToEdit, editedEvent, instanceIndex, totalInstance);
-                editedEvents = createEditedEvents(eventToEdit, eventToEdit, editEventDescriptor);
                 model.updateUpcomingEvents(eventToEdit, editedEvents);
             } else {
                 //Case3: edit all events
                 logger.info("All the events in a EventSet to be edited.");
-                connectToGoogleCalendar.updateAllGoogleEvent(
-                        eventToEdit, editedEvent, instanceIndex, totalInstance);
                 firstInstancePredicate = getFirstInstancePredicate(eventToEdit, editEventDescriptor);
                 firstEventToEdit = model.getFirstInstanceOfEvent(firstInstancePredicate);
                 editedEvents = createEditedEvents(eventToEdit, firstEventToEdit, editEventDescriptor);
+                connectToGoogleCalendar.updateAllGoogleEvent(
+                        eventToEdit, editedEvents, instanceIndex);
                 model.updateRepeatingEvents(eventToEdit, editedEvents);
             }
         }
