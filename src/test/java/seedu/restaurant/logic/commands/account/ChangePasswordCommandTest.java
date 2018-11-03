@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.LoginEvent;
-import seedu.restaurant.commons.events.ui.LogoutEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccountDescriptor;
 import seedu.restaurant.model.Model;

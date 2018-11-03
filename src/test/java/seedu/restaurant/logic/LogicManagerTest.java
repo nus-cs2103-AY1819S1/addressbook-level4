@@ -13,8 +13,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
-import seedu.restaurant.commons.events.ui.LoginEvent;
-import seedu.restaurant.commons.events.ui.LogoutEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.HistoryCommand;
 import seedu.restaurant.logic.commands.ListCommand;
