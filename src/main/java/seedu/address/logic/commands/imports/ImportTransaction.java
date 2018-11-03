@@ -11,7 +11,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import seedu.address.logic.TransactionMath;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cca.Cca;
 import seedu.address.model.cca.CcaName;
@@ -50,7 +49,7 @@ public class ImportTransaction {
     /**
      * Execute ImportTransaction
      */
-    public void execute() throws CommandException {
+    public void execute() {
         List<Cca> lastShownList = model.getFilteredCcaList();
         ccaList.clear();
         editedList.clear();

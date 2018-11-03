@@ -72,7 +72,7 @@ public class ImportCommand extends Command {
             new ImportBudgetBook(doc, model).execute();
             break;
         case IMPORT_TRANSACTION:
-            new ImportTransaction(doc, model);
+            new ImportTransaction(doc, model).execute();
             break;
         default:
             throw new CommandException(MESSAGE_PARSE_ERR);
