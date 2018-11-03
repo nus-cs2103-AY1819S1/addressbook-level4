@@ -4,7 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
@@ -70,10 +69,6 @@ public class PreviewImage {
         return currentSize;
     }
 
-    public static Path getCacheFolder() {
-        return Paths.get(CACHE_PATH);
-    }
-
     /**
      * Check if have previous states to undo.
      */
@@ -109,6 +104,26 @@ public class PreviewImage {
     }
 
     /**
+     * Decrement current index if able to undo.
+     */
+    public void undoAll() {
+        if (!canUndo()) {
+            throw new NoUndoableStateException();
+        }
+        currentIndex = 0;
+    }
+
+    /**
+     * Increment current index if able to redo.
+     */
+    public void redoAll() {
+        if (!canRedo()) {
+            throw new NoRedoableStateException();
+        }
+        currentIndex = currentSize - 1;
+    }
+
+    /**
      * Determine if history needs to be purged before committing.
      */
     public void commit(BufferedImage image) {
@@ -129,7 +144,7 @@ public class PreviewImage {
             File out = new File(CACHE_PATH + "/Layer" + layerId + "-" + currentIndex + ".png");
             ImageIO.write(image, "png", out);
         } catch (IOException e) {
-            logger.warning("Exception occ :" + e.getMessage());
+            logger.warning("Exception while caching :" + e.getMessage());
         }
         logger.info("Caching successful");
     }
@@ -159,7 +174,7 @@ public class PreviewImage {
             File in = new File(CACHE_PATH + "/Layer" + layerId + "-" + currentIndex + ".png");
             imageFromCache = ImageIO.read(in);
         } catch (IOException e) {
-            logger.warning("Reading from cache successful.");
+            logger.warning("Error reading from cache.");
         }
         logger.info("Reading from cache successful.");
         return imageFromCache;

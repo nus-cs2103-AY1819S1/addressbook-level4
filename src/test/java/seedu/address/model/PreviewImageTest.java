@@ -2,20 +2,44 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.UndoRedoCommandTestUtil.clearCache;
 
+import java.awt.image.BufferedImage;
+import java.nio.file.Path;
+
 import org.junit.After;
 import org.junit.Test;
 
+import seedu.address.model.transformation.Transformation;
 import seedu.address.testutil.PreviewImageGenerator;
 
+
+//@@author ihwk1996
+
 public class PreviewImageTest {
+
+    private static final int ORIGINAL_IMAGE_HEIGHT = 354;
+    private static final int ORIGINAL_IMAGE_WIDTH = 458;
+
+    @Test
+    public void get_heightAndWidth() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        assertEquals(previewImage.getHeight(), ORIGINAL_IMAGE_HEIGHT);
+        assertEquals(previewImage.getWidth(), ORIGINAL_IMAGE_WIDTH);
+    }
 
     @Test
     public void commit_defaultPreviewImageState() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        assertPreviewImageState(previewImage, 0, 1);
+    }
+
+    @Test
+    public void commit_defaultPreviewImageStateWithSecondaryConstructor() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImageWithSecondaryConstructor();
         assertPreviewImageState(previewImage, 0, 1);
     }
 
@@ -149,6 +173,31 @@ public class PreviewImageTest {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
 
         assertThrows(PreviewImage.NoRedoableStateException.class, previewImage::redo);
+    }
+
+    @Test
+    public void getImageTest() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        BufferedImage image = previewImage.getImage();
+        assertNotNull(image);
+    }
+
+    @Test
+    public void getPathTest() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        Path path = previewImage.getCurrentPath();
+        assertNotNull(path);
+    }
+
+    @Test
+    public void addTransformationTest() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        Transformation t = PreviewImageGenerator.getATransformation();
+        previewImage.addTransformation(t);
+
+        String blurTransformationString = "blur 0x8";
+        Transformation blurTransformation = previewImage.getTransformationSet().getTransformations().get(0);
+        assertTrue(blurTransformationString.equals(blurTransformation.toString()));
     }
 
     /**
