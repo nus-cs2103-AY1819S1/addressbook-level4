@@ -46,9 +46,6 @@ public class DeleteItemCommandParserTest {
         // smaller ending index
         assertParseFailure(parser, "3 ei/2", MESSAGE_INVALID_FORMAT);
 
-        // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
-
         // invalid prefix being parsed as preamble
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
