@@ -3,9 +3,13 @@ package seedu.restaurant.ui.sales;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -15,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import seedu.restaurant.commons.core.LogsCenter;
+import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.ItemName;
 import seedu.restaurant.model.sales.Price;
@@ -35,11 +40,13 @@ public class SalesRankingWindow extends UiPart<Stage> {
     private Map<String, String> salesRanking;
 
     @FXML
-    private ListView<String> dateOrName;
+    private TableView<Map.Entry<String, String>> rankingTable;
     @FXML
-    private ListView<String> revenue;
+    private TableColumn<Map.Entry<String, String>, String> rank;
     @FXML
-    private Label totalRevenue;
+    private TableColumn<Map.Entry<String, String>, String> dateOrName;
+    @FXML
+    private TableColumn<Map.Entry<String, String>, String> revenue;
 
     /**
      * Creates a new SalesRankingWindow
@@ -88,8 +95,13 @@ public class SalesRankingWindow extends UiPart<Stage> {
      * Initializes the SalesRankingWindow according to the salesRanking map.
      */
     private void initialize() {
-        dateOrName.setItems(FXCollections.observableArrayList(salesRanking.keySet()));
-        revenue.setItems(FXCollections.observableArrayList(salesRanking.values()));
+        ObservableList<Map.Entry<String, String>> salesRankingList =
+                FXCollections.observableArrayList(salesRanking.entrySet());
+        rankingTable.setItems(salesRankingList);
+        rank.setCellValueFactory(d -> new SimpleStringProperty(
+                String.valueOf(Index.fromZeroBased(salesRankingList.indexOf(d.getValue())).getOneBased())));
+        dateOrName.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getKey()));
+        revenue.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getValue()));
     }
 
     /**
