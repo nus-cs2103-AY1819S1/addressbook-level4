@@ -96,7 +96,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder("Ingredient Name: ");
         builder.append(getName())
                 .append(" Unit: ")
                 .append(getUnit())

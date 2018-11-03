@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-import seedu.restaurant.commons.events.ui.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.Logic;
 import seedu.restaurant.logic.LogicManager;
 import seedu.restaurant.logic.commands.ListCommand;

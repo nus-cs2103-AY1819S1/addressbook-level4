@@ -1,4 +1,4 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.menu;
 
 import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.menu.Item;
@@ -7,7 +7,6 @@ import seedu.restaurant.model.menu.Item;
  * Represents a selection change in the Item List Panel
  */
 public class ItemPanelSelectionChangedEvent extends BaseEvent {
-
 
     private final Item newSelection;
 

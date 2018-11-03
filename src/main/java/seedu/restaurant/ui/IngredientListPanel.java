@@ -11,8 +11,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.IngredientPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
+import seedu.restaurant.commons.events.ui.ingredient.IngredientPanelSelectionChangedEvent;
 import seedu.restaurant.model.ingredient.Ingredient;
 
 /**
@@ -58,6 +58,7 @@ public class IngredientListPanel extends UiPart<Region> {
         });
     }
 
+    //TODO: To replace with JumpToIngredientListRequestEvent
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

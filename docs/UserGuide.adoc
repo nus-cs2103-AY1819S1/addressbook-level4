@@ -221,7 +221,7 @@ Examples:
 * `login id/azhikai pw/p@55w0rd`
 * `li id/azhikai pw/p@55w0rd`
 
-[INFO]
+[TIP]
 ====
 To testers: You may access the application using the default `root` account: `login id/root pw/1122qq` +
 Please ignore person-related commands as it's still operational in the application.
