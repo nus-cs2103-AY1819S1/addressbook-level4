@@ -90,9 +90,16 @@
     -fx-background-color: #e2e2e2;
 }
 
-.list-view:focused .list-cell:filled:selected .card{
+.list-view:focused .list-cell:filled:selected .card {
     -fx-background-color: #21777B;
-    -fx-text-fill: #2cf0f9;
+}
+
+.list-cell:filled:hover .card {
+    -fx-background-color: #21777B;
+}
+
+.list-cell:hover .label {
+    -fx-text-fill: white;
 }
 
 #tags {

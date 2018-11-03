@@ -11,8 +11,9 @@ import seedu.clinicio.commons.exceptions.IllegalValueException;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.ReadOnlyClinicIo;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * An Immutable ClinicIo that is serializable to XML format
@@ -21,13 +22,13 @@ import seedu.clinicio.model.person.Person;
 public class XmlSerializableClinicIo {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
-    public static final String MESSAGE_DUPLICATE_DOCTOR = "Doctors list contains duplicate doctor(s).";
+    public static final String MESSAGE_DUPLICATE_STAFF = "Staffs list contains duplicate staff(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
 
     @XmlElement
-    private List<XmlAdaptedDoctor> doctors;
+    private List<XmlAdaptedStaff> staffs;
 
     /**
      * Creates an empty XmlSerializableClinicIo.
@@ -35,7 +36,7 @@ public class XmlSerializableClinicIo {
      */
     public XmlSerializableClinicIo() {
         persons = new ArrayList<>();
-        doctors = new ArrayList<>();
+        staffs = new ArrayList<>();
     }
 
     /**
@@ -44,32 +45,33 @@ public class XmlSerializableClinicIo {
     public XmlSerializableClinicIo(ReadOnlyClinicIo src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        doctors.addAll(src.getDoctorList().stream().map(XmlAdaptedDoctor::new).collect(Collectors.toList()));
+        staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
     }
 
     /**
      * Converts this ClinicIO into the model's {@code ClinicIo} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson} & {@code XmlAdaptedDoctor}.
+     * {@code XmlAdaptedPerson} & {@code XmlAdaptedStaff} & & {@code XmlAdaptedReceptionist}.
      */
     public ClinicIo toModelType() throws IllegalValueException {
         ClinicIo clinicIo = new ClinicIo();
         for (XmlAdaptedPerson p : persons) {
-            Person person = p.toModelType();
+            Person person = Patient.buildFromPerson(p.toModelType());
             if (clinicIo.hasPerson(person)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             clinicIo.addPerson(person);
         }
         //@@author jjlee050
-        for (XmlAdaptedDoctor d : doctors) {
-            Doctor doctor = d.toModelType();
-            if (clinicIo.hasDoctor(doctor)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_DOCTOR);
+        for (XmlAdaptedStaff s : staffs) {
+            Staff staff = s.toModelType();
+            if (clinicIo.hasStaff(staff)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_STAFF);
             }
-            clinicIo.addDoctor(doctor);
+            clinicIo.addStaff(staff);
         }
+
         return clinicIo;
     }
 
@@ -82,7 +84,9 @@ public class XmlSerializableClinicIo {
         if (!(other instanceof XmlSerializableClinicIo)) {
             return false;
         }
+
         return persons.equals(((XmlSerializableClinicIo) other).persons)
-                && doctors.equals(((XmlSerializableClinicIo) other).doctors);
+                && staffs.equals(((XmlSerializableClinicIo) other).staffs);
+
     }
 }

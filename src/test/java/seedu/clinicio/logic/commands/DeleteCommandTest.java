@@ -94,7 +94,7 @@ public class DeleteCommandTest {
         expectedModel.commitClinicIo();
 
         // delete -> first person deleted
-        deleteCommand.execute(model, commandHistory, analytics);
+        deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts ClinicIO back to previous state and filtered person list to show all persons
         expectedModel.undoClinicIo();
@@ -139,7 +139,7 @@ public class DeleteCommandTest {
         expectedModel.commitClinicIo();
 
         // delete -> deletes second person in unfiltered person list / first person in filtered person list
-        deleteCommand.execute(model, commandHistory, analytics);
+        deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts ClinicIO back to previous state and filtered person list to show all persons
         expectedModel.undoClinicIo();

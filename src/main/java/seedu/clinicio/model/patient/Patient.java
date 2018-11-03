@@ -3,17 +3,21 @@ package seedu.clinicio.model.patient;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.clinicio.model.appointment.Appointment;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.consultation.Consultation;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 
 //@@author iamjackslayer
@@ -26,13 +30,20 @@ public class Patient extends Person {
     private Set<MedicalProblem> medicalProblems = new HashSet<>();
     private Set<Allergy> allergies = new HashSet<>();
     private Optional<Doctor> preferredDoctor = Optional.empty();
+    private boolean isQueuing = false;
+    private Optional<Staff> preferredDoctor = Optional.empty();
     private Optional<Appointment> appointment = Optional.empty();
+    private Time arrivalTime;
+    private List<Appointment> appointmentHistory;
+    private List<Consultation> consultationHistory;
 
     /**
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         super(name, phone, email, address, tags);
+        appointmentHistory = new ArrayList<>();
+        consultationHistory = new ArrayList<>();
     }
 
     /**
@@ -49,10 +60,25 @@ public class Patient extends Person {
     }
 
     /**
-     * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
-     * @return an Optional {@link Doctor}.
+     * Marks the patient with "isQueing" status.
      */
-    public Optional<Doctor> getPreferredDoctor() {
+    public void setIsQueuing() {
+        isQueuing = true;
+    }
+
+    /**
+     * Marks the patient with "isNotQueing" status.
+     */
+    public void setIsNotQueuing() {
+        isQueuing = false;
+    }
+
+    /**
+     * Returns the patient's preferred doctor wrapped in {@link Optional}. The patient may not have one.
+     * Returns the patient's preferred staff wrapped in {@link Optional}. The patient may not have one.
+     * @return an Optional {@link Staff}.
+     */
+    public Optional<Staff> getPreferredDoctor() {
         return preferredDoctor;
     }
 
@@ -65,13 +91,13 @@ public class Patient extends Person {
     }
 
     /**
-     * Assigns a specific doctor for the patient.
-     * @param doctor
+     * Assigns a specific staff for the patient.
+     * @param staff
      */
-    public void setPreferredDoctor(Doctor doctor) {
-        requireNonNull(doctor);
+    public void setPreferredDoctor(Staff staff) {
+        requireNonNull(staff);
 
-        preferredDoctor = Optional.of(doctor);
+        preferredDoctor = Optional.of(staff);
     }
 
     /**
@@ -80,8 +106,36 @@ public class Patient extends Person {
      */
     public void setAppointment(Appointment appointment) {
         requireNonNull(appointment);
-
+        appointmentHistory.add(appointment);
         this.appointment = Optional.of(appointment);
+    }
+
+    /**
+     * Adds a {@code Consultation} to the patient's record.
+     * A consultation must be set whenever a Patient obj is created.
+     * @param consultation consultation of the patient.
+     */
+    public void addConsultation(Consultation consultation) {
+        requireNonNull(consultation);
+        this.consultationHistory.add(consultation);
+    }
+
+    public Time getArrivalTime() {
+        return arrivalTime;
+    }
+
+    /**
+     * @return A list of all of the patient's appointments.
+     */
+    public List<Appointment> getAllAppointments() {
+        return appointmentHistory;
+    }
+
+    /**
+     * @return A list of all of the patient's consultations.
+     */
+    public List<Consultation> getAllConsultations() {
+        return consultationHistory;
     }
 
     /**
@@ -121,6 +175,14 @@ public class Patient extends Person {
     }
 
     /**
+     * Checks if the patient is in the queue. Note that there is only one queue on a higher conceptual level.
+     * @return true if the patient is in the queue. Otherwise returns false.
+     */
+    public boolean isQueuing() {
+        return isQueuing;
+    }
+
+    /**
      * Returns true if both patients have the same identity and data fields.
      * This defines a stronger notion of equality between two patients.
      */
@@ -147,7 +209,7 @@ public class Patient extends Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        Optional<Doctor> preferredDoctor = getPreferredDoctor();
+        Optional<Staff> preferredDoctor = getPreferredDoctor();
         Optional<Appointment> appointment = getAppointment();
         Name name = getName();
         Phone phone = getPhone();

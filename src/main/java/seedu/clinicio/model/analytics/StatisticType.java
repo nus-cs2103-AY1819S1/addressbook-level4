@@ -1,12 +1,16 @@
 package seedu.clinicio.model.analytics;
 
 //@@author arsalanc-v2
+
 /**
  * Enum to represent the values of the different types of statistics.
  */
 public enum StatisticType {
-    AVERAGE ("Average"),
-    TOTAL ("Total");
+    PATIENT("patient"),
+    APPOINTMENT("appointment"),
+    DOCTOR("doctor"),
+    MEDICINE("medicine"),
+    CONSULTATION("consultation");
 
     private final String value;
 

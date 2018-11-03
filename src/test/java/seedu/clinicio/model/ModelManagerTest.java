@@ -2,8 +2,10 @@ package seedu.clinicio.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_DOCTORS;
+
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_STAFFS;
+
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
@@ -38,9 +40,9 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_nullDoctor_throwsNullPointerException() {
+    public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasDoctor(null);
+        modelManager.hasStaff(null);
     }
 
     //@@author gingivitiss
@@ -57,8 +59,8 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorNotInClinicIo_returnsFalse() {
-        assertFalse(modelManager.hasDoctor(ADAM));
+    public void hasStaff_staffNotInClinicIo_returnsFalse() {
+        assertFalse(modelManager.hasStaff(ADAM));
     }
 
     //@@author gingivitiss
@@ -66,7 +68,7 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
         assertFalse(modelManager.hasAppointment(appt));
     }
 
@@ -78,9 +80,9 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void hasDoctor_doctorInClinicIo_returnsTrue() {
-        modelManager.addDoctor(ADAM);
-        assertTrue(modelManager.hasDoctor(ADAM));
+    public void hasStaff_staffInClinicIo_returnsTrue() {
+        modelManager.addStaff(ADAM);
+        assertTrue(modelManager.hasStaff(ADAM));
     }
 
     //@@author gingivitiss
@@ -88,9 +90,15 @@ public class ModelManagerTest {
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         Date date = new Date(1, 1, 2018);
         Time time = new Time(5, 30);
-        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0, null);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
         modelManager.addAppointment(appt);
         assertTrue(modelManager.hasAppointment(appt));
+    }
+
+    @Test
+    public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.checkStaffCredentials(null);
     }
 
     @Test
@@ -101,9 +109,9 @@ public class ModelManagerTest {
 
     //@@author jjlee050
     @Test
-    public void getFilteredDoctorList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredDoctorList().remove(0);
+        modelManager.getFilteredStaffList().remove(0);
     }
 
     //@@author gingivitiss
@@ -116,7 +124,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         ClinicIo clinicIo = new ClinicIoBuilder().withPerson(ALICE).withPerson(BENSON)
-                .withDoctor(ADAM).withDoctor(BEN).build();
+                .withStaff(ADAM).withStaff(BEN).build();
         ClinicIo differentClinicIo = new ClinicIo();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -145,7 +153,7 @@ public class ModelManagerTest {
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         //@@author jjlee050
-        modelManager.updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+        modelManager.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -17,14 +17,18 @@ import javafx.collections.ObservableList;
 
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
+
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.Model;
 import seedu.clinicio.model.ReadOnlyClinicIo;
 import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.doctor.Doctor;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Staff;
+
 import seedu.clinicio.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -48,7 +52,7 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory, analytics);
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
@@ -63,7 +67,7 @@ public class AddCommandTest {
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory, analytics);
+        addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
@@ -101,10 +105,16 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public void addDoctor(Doctor doctor) {
+        public void addStaff(Staff staff) {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        //@@author jjlee050
+        @Override
+        public boolean checkStaffCredentials(Staff staff) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void resetData(ReadOnlyClinicIo newData) {
@@ -116,6 +126,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        //@@author jjlee050
         @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
@@ -123,7 +134,7 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public boolean hasDoctor(Doctor doctor) {
+        public boolean hasStaff(Staff staff) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -132,20 +143,8 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author jjlee050
-        @Override
-        public void deleteDoctor(Doctor target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         @Override
         public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        //@@author jjlee050
-        @Override
-        public void updateDoctor(Doctor target, Doctor editedDoctor) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -154,12 +153,17 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author jjlee050
-
         @Override
-        public ObservableList<Doctor> getFilteredDoctorList() {
+        public ObservableList<Person> getAllPatientsInQueue() {
             throw new AssertionError("This method should not be called.");
         }
+
+        //@@author jjlee050
+        @Override
+        public ObservableList<Staff> getFilteredStaffList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
@@ -167,7 +171,7 @@ public class AddCommandTest {
 
         //@@author jjlee050
         @Override
-        public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+        public void updateFilteredStaffList(Predicate<Staff> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -198,7 +202,17 @@ public class AddCommandTest {
 
         //@@author iamjackslayer
         @Override
-        public void enqueue(Person patient) {
+        public void enqueue(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void dequeue(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void enqueueIntoMainQueue(Person patient) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -252,6 +266,21 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public String exportPatients() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String exportPatientsAppointments() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String exportPatientsConsultations() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         //@@author gingivitiss
         @Override
         public boolean hasAppointment(Appointment appt) {
@@ -290,6 +319,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void requestAnalyticsDisplay(StatisticType statisticType) {
             throw new AssertionError("This method should not be called.");
         }
     }

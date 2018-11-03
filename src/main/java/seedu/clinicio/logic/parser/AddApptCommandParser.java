@@ -1,11 +1,15 @@
 package seedu.clinicio.logic.parser;
 
 import static seedu.clinicio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_IC;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -18,7 +22,6 @@ import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.Phone;
 
 import seedu.clinicio.model.tag.Tag;
@@ -35,29 +38,28 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
      */
     public AddApptCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_IC);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATE, PREFIX_TIME, PREFIX_TYPE, PREFIX_NAME,
+                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_TIME, PREFIX_IC)
+        if (!arePrefixesPresent(argMultimap, PREFIX_DATE, PREFIX_TIME, PREFIX_NAME, PREFIX_TYPE,
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddApptCommand.MESSAGE_USAGE));
         }
 
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
-        //Patient patient = ParserUtil.parseIc(argMultimap.getValue(PREFIX_IC).get());
+        int type = ParserUtil.parseType(argMultimap.getValue(PREFIX_TYPE).get());
 
-        //TODO: replace with patient id
-        Name name = new Name("Amy Bee");
-        Email email = new Email("amy@example.com");
-        Phone phone = new Phone("11111111");
-        Address address = new Address("Block 312, Amy Street 1");
-        Tag tag = new Tag("friend");
-        Set<Tag> tags = new HashSet<Tag>();
-        tags.add(tag);
-        Person person = new Person(name, phone, email, address, tags);
-        Patient patient = Patient.buildFromPerson(person);
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Tag> tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Appointment appt = new Appointment(date, time, patient, 1, null);
+        Patient patient = new Patient(name, phone, email, address, tags);
+
+        Appointment appt = new Appointment(date, time, patient, type);
 
         return new AddApptCommand(appt);
     }

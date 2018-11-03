@@ -11,8 +11,8 @@ import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.consultation.Consultation;
-import seedu.clinicio.model.doctor.Doctor;
 import seedu.clinicio.model.patient.Patient;
+import seedu.clinicio.model.staff.Staff;
 
 /**
  * JAXB-friendly version of the Consultation.
@@ -29,7 +29,7 @@ public class XmlAdaptedConsultation {
     private String arrivalTime;
 
     @XmlElement
-    private XmlAdaptedDoctor doctor;
+    private XmlAdaptedStaff doctor;
     @XmlElement
     private XmlAdaptedAppointment appointment;
     @XmlElement
@@ -50,10 +50,10 @@ public class XmlAdaptedConsultation {
     /**
      * Constructs an {@code XmlAdaptedConsultation} with the given consultation details.
      */
-    public XmlAdaptedConsultation(Patient patient, Doctor doctor, Appointment appointment, String description,
+    public XmlAdaptedConsultation(Patient patient, Staff staff, Appointment appointment, String description,
         Date date, Time arrivalTime, Time consultationTime, Time endTime, String prescription) {
         this.patient = patient.toString();
-        this.doctor = new XmlAdaptedDoctor(doctor);
+        this.doctor = new XmlAdaptedStaff(staff);
         this.appointment = new XmlAdaptedAppointment(appointment);
         this.description = description;
         this.prescription = prescription;
@@ -83,9 +83,9 @@ public class XmlAdaptedConsultation {
      */
     public XmlAdaptedConsultation(Consultation source) {
         patient = source.getPatient().toString();
-        doctor = new XmlAdaptedDoctor(source.getDoctor());
+        doctor = new XmlAdaptedStaff(source.getDoctor().map(doc -> doc).orElse(null));
         appointment = new XmlAdaptedAppointment(source.getAppointment().get());
-        description = source.getDescription();
+        description = source.getDescription().map(descript -> descript.toString()).orElse("");
 
         endTime = source.getEndTime().toString();
         prescription = source.getPrescription().toString();
@@ -99,12 +99,12 @@ public class XmlAdaptedConsultation {
         int arrivalMin = source.getArrivalTime().getMinute();
         arrivalTime = String.valueOf(arrivalHour) + " " + String.valueOf(arrivalMin);
 
-        int consultationHour = source.getConsultationTime().getHour();
-        int consultationMin = source.getConsultationTime().getMinute();
+        int consultationHour = source.getConsultationTime().map(time -> time.getHour()).orElse(null);
+        int consultationMin = source.getConsultationTime().map(time -> time.getMinute()).orElse(null);
         consultationTime = String.valueOf(consultationHour) + " " + String.valueOf(consultationMin);
 
-        int endHour = source.getEndTime().getHour();
-        int endMin = source.getEndTime().getMinute();
+        int endHour = source.getEndTime().map(time -> time.getHour()).orElse(null);
+        int endMin = source.getEndTime().map(time -> time.getMinute()).orElse(null);
         endTime = String.valueOf(endHour) + " " + String.valueOf(endMin);
     }
 
@@ -132,7 +132,7 @@ public class XmlAdaptedConsultation {
                 .getSimpleName()));
         }
 
-        /**return new Consultation(patient, doctor, appointment, description, Date.newDate(date), Time.newTime
+        /**return new Consultation(patient, staff, appointment, description, Date.newDate(date), Time.newTime
           (arrivalTime), Time.newTime(consultationTime), Time.newTime(endTime), prescription);
          */
         return null;

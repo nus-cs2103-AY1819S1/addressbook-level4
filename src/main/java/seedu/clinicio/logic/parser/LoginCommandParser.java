@@ -11,9 +11,10 @@ import java.util.stream.Stream;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
-import seedu.clinicio.model.doctor.Password;
 import seedu.clinicio.model.person.Name;
-import seedu.clinicio.model.person.Person;
+import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Role;
+import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
 /**
@@ -35,12 +36,11 @@ public class LoginCommandParser implements Parser<LoginCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
         }
 
-        String role = argMultimap.getValue(PREFIX_ROLE).get();
+        Role role = ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
-        Person person = ParserUtil.parseRole(role, name, password);
 
-        return new LoginCommand(person);
+        return new LoginCommand(new Staff(role, name, password));
     }
 
     /**
