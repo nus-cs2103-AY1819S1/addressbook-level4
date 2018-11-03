@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -75,6 +76,8 @@ public class CommandTestUtil {
     public static final String PROJECT_DESC_FALCON = " " + PREFIX_PROJECT + " " + VALID_PROJECT_FALCON;
     public static final String SALARY_DESC_AMY = " " + PREFIX_SALARY + " " + VALID_SALARY_AMY;
     public static final String SALARY_DESC_BOB = " " + PREFIX_SALARY + " " + VALID_SALARY_BOB;
+    public static final String USERNAME_DESC_AMY = " " + PREFIX_USERNAME + " " + VALID_USERNAME_AMY;
+    public static final String USERNAME_DESC_BOB = " " + PREFIX_USERNAME + " " + VALID_USERNAME_BOB;
     public static final String NAME_ASSIGNMENT_DESC_OASIS = " " + PREFIX_ASSIGNMENT_NAME + " " + VALID_PROJECT_OASIS;
     public static final String AUTHOR_ASSIGNMENT_DESC_OASIS = " " + PREFIX_AUTHOR + " " + VALID_NAME_AMY;
     public static final String ASSIGNMENT_DESC_OASIS =
