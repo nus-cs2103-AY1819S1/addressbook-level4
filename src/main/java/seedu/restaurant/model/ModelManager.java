@@ -418,6 +418,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Reservations =====================================================================================
 
+    //@@author m4dkip
     @Override
     public boolean hasReservation(Reservation reservation) {
         requireNonNull(reservation);

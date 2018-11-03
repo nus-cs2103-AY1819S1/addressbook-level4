@@ -156,6 +156,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     // Reservation Management
 
+    //@@author m4dkip
     /**
      * Replaces the contents of the reservation list with {@code reservations}. {@code reservations} must not contain
      * duplicate reservations.
