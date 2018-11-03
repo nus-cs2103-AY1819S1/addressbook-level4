@@ -50,11 +50,13 @@ public interface Model {
     void addPerson(Person person);
 
     /**
-     * Checks if the given username is already in the addressbook, for the current version
+     * Checks if the given username is already in the addressbook, for the current version.
+     * You can choose to ignore a person's username when doing so (i.e. you'er planning to update that person)
      * @param username the Username to check against
+     * @param ignore The person to ignore, if any. null for no one.
      * @return True if it's already in the address book, false otherwise
      */
-    boolean alreadyContainsUsername(String username);
+    boolean alreadyContainsUsername(String username, Person ignore);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

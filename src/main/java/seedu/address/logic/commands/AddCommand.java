@@ -62,7 +62,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        if (model.alreadyContainsUsername(toAdd.getUsername().username)) {
+        if (model.alreadyContainsUsername(toAdd.getUsername().username, null)) {
             throw new CommandException(MESSAGE_DUPLICATE_USERNAME);
         }
 

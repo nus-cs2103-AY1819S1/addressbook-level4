@@ -110,7 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addPerson(Person person) {
-        if (alreadyContainsUsername(person.getUsername().username)) {
+        if (alreadyContainsUsername(person.getUsername().username, null)) {
             throw new IllegalUsernameException(person.getUsername().username);
         }
         versionedAddressBook.addPerson(person);
@@ -119,10 +119,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean alreadyContainsUsername(String newUsername) {
+    public boolean alreadyContainsUsername(String newUsername, Person ignore) {
         List<Person> currentPeople = versionedAddressBook.getPersonList();
         for (Person p : currentPeople) {
-            if (p.getUsername().username.equals(newUsername)) {
+            if (!p.isSamePerson(null) && p.getUsername().username.equals(newUsername)) {
                 return true;
             }
         }
@@ -133,7 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
-        if (alreadyContainsUsername(editedPerson.getUsername().username)) {
+        if (alreadyContainsUsername(editedPerson.getUsername().username, target)) {
             throw new IllegalUsernameException(editedPerson.getUsername().username);
         }
 
