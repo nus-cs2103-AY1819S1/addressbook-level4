@@ -58,6 +58,23 @@ public class AddCommandTest {
     }
 
     @Test
+    public void execute_adminUsername_addFailed() throws Exception {
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        Person validPerson = new PersonBuilder().withUsername("Admin").build();
+
+        try {
+            CommandResult commandResult = new AddCommand(validPerson).runBody(modelStub, commandHistory);
+            //should not reach here
+            assert false;
+        } catch (CommandException ce) {
+            assert ce.getMessage().equals(AddCommand.MESSAGE_ADMIN_USERNAME);
+        }
+
+        assertEquals(Arrays.asList(), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
         AddCommand addCommand = new AddCommand(validPerson);
