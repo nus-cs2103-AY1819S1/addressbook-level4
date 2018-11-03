@@ -44,7 +44,8 @@ public class EditModuleCommand extends Command {
     // Constants for CommandException.
     public static final String MESSAGE_EDIT_SUCCESS = "Edited module: %1$s";
     public static final String MESSAGE_INCOMPLETE_MODULE_GRADE_CHANGE = "Cannot"
-            + " change grade of incomplete modules.";
+            + " change grade of incomplete modules. Use adjust to change grade"
+            + " of incomplete modules.";
     public static final String MESSAGE_MODULE_ALREADY_EXIST = "Edited module"
             + "already exist.";
     public static final String MESSAGE_MULTIPLE_MODULE_ENTRIES = "Multiple"
