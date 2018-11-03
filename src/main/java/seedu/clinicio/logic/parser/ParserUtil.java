@@ -16,9 +16,6 @@ import seedu.clinicio.logic.parser.exceptions.ParseException;
 
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
-import seedu.clinicio.model.doctor.Doctor;
-import seedu.clinicio.model.doctor.Id;
-import seedu.clinicio.model.doctor.Password;
 import seedu.clinicio.model.patient.Allergy;
 import seedu.clinicio.model.patient.MedicalProblem;
 import seedu.clinicio.model.person.Address;

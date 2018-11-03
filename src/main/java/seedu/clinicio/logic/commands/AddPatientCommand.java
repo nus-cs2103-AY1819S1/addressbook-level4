@@ -15,7 +15,6 @@ import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.patient.Patient;
 
 //@@author jjlee050
@@ -48,14 +47,14 @@ public class AddPatientCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
 
     private Patient toAdd;
-    
+
     public AddPatientCommand(Patient toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
-    
+
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics)
+    public CommandResult execute(Model model, CommandHistory history)
             throws CommandException {
         // TODO: Find if there is patient record in ClinicIO
         //model.addPatient(toAdd);

@@ -10,10 +10,10 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATION;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
+
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
@@ -23,12 +23,11 @@ import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Phone;
-import seedu.clinicio.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddPatientCommand object
  */
-public class AddPatientCommandParser implements Parser<AddPatientCommand>  {
+public class AddPatientCommandParser implements Parser<AddPatientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPatientCommand
@@ -45,7 +44,7 @@ public class AddPatientCommandParser implements Parser<AddPatientCommand>  {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        
+
         //TODO: Parse IC, medications, preferred doctor
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
