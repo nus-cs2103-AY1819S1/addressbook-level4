@@ -47,7 +47,7 @@ public class CrossFindCommandParser {
         List<IngredientDefinition> include = new ArrayList<>();
         List<IngredientDefinition> prioritize = new ArrayList<>();
 
-        ingredientModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_INGREDIENTS);
+        ingredientModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<Ingredient> ingredientList = ingredientModel.getFilteredList();
 
         int index = 1;
@@ -90,7 +90,7 @@ public class CrossFindCommandParser {
             }
         }
 
-        crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_CROSSRECIPES);
+        crossRecipeModel.updateFilteredList(Model.PREDICATE_SHOW_ALL);
         List<CrossRecipe> crossRecipeList = crossRecipeModel.getFilteredList();
 
         for (CrossRecipe crossRecipe : crossRecipeList) {

@@ -4,10 +4,6 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.souschef.model.healthplan.HealthPlan;
-import seedu.souschef.model.ingredient.Ingredient;
-import seedu.souschef.model.recipe.CrossRecipe;
-import seedu.souschef.model.recipe.Recipe;
 
 
 /**
@@ -16,13 +12,7 @@ import seedu.souschef.model.recipe.Recipe;
 public interface Model<T extends UniqueType> {
     /** {@code Predicate} that always evaluate to true */
 
-    Predicate<Recipe> PREDICATE_SHOW_ALL_RECIPES = unused -> true;
-    Predicate<Ingredient> PREDICATE_SHOW_ALL_INGREDIENTS = unused -> true;
-    Predicate<CrossRecipe> PREDICATE_SHOW_ALL_CROSSRECIPES = unused -> true;
-    Predicate<HealthPlan> PREDICATE_SHOW_ALL_PLANS = unused -> true;
-
     Predicate<UniqueType> PREDICATE_SHOW_ALL = unused -> true;
-
 
     /** Clears existing backing recipeModel and replaces with the provided new data. */
     void resetData(ReadOnlyAppContent newData);
