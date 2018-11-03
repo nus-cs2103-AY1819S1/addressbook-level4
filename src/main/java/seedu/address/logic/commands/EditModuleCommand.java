@@ -43,19 +43,21 @@ public class EditModuleCommand extends Command {
 
     // Constants for CommandException.
     public static final String MESSAGE_EDIT_SUCCESS = "Edited module: %1$s";
-    public static final String MESSAGE_NO_SUCH_MODULE = "No such module exist.";
-    public static final String MESSAGE_MODULE_EXIST = "Edited module already"
-            + " exist.";
-    public static final String MESSAGE_MODULE_INCOMPLETE = "Cannot change grade"
-            + " of incomplete modules.";
-    public static final String MESSAGE_MULTIPLE_MODULE_EXIST = "Multiple module"
-            + " entries with the same module code exist but year or semester is"
-            + " not specified.";
+    public static final String MESSAGE_INCOMPLETE_MODULE_GRADE_CHANGE = "Cannot"
+            + " change grade of incomplete modules.";
+    public static final String MESSAGE_MODULE_ALREADY_EXIST = "Edited module"
+            + "already exist.";
+    public static final String MESSAGE_MULTIPLE_MODULE_ENTRIES = "Multiple"
+            + " module entries with the same module code exist but year or"
+            + " semester is not specified.";
+    public static final String MESSAGE_NO_SUCH_MODULE = "No such module.";
 
-    // Fields.
+    // Target fields.
     private final Code targetCode;
     private final Year targetYear;
     private final Semester targetSemester;
+
+    // New fields.
     private final Code newCode;
     private final Year newYear;
     private final Semester newSemester;
@@ -77,8 +79,10 @@ public class EditModuleCommand extends Command {
     }
 
     /**
-     * Constructor that instantiates {@code EditModuleCommand} and sets the
-     * immutable fields needed for editing the module.
+     * Constructor that instantiates {@code EditModuleCommand}.
+     * <p>
+     * Sets target field and new field used to find and editing the targeted
+     * module.
      *
      * @param targetCode target code that identifies the targeted module
      * @param targetYear target year that identifies the targeted module
@@ -92,15 +96,18 @@ public class EditModuleCommand extends Command {
     public EditModuleCommand(Code targetCode, Year targetYear,
             Semester targetSemester, Code newCode, Year newYear,
             Semester newSemester, Credit newCredit, Grade newGrade) {
+        // Already handled by EditModuleCommandParser
+        // Target code cannot be null
+        // Target year is null if and only if target semester is null
         assert targetCode != null;
         assert !(targetYear == null ^ targetSemester == null);
 
-        // Target fields.
+        // Instantiate target fields.
         this.targetCode = targetCode;
         this.targetYear = targetYear;
         this.targetSemester = targetSemester;
 
-        // New fields.
+        // Instantiate new fields.
         this.newCode = newCode;
         this.newYear = newYear;
         this.newSemester = newSemester;
@@ -167,8 +174,12 @@ public class EditModuleCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
 
+        // Throws exception when more than one module matches target
+        if (filteredModule.size() > 1) {
+            throw new CommandException(MESSAGE_MULTIPLE_MODULE_ENTRIES);
+        }
+
         // Returns the targeted module
-        assert filteredModule.size() == 1;
         return filteredModule.get(0);
     }
 
@@ -234,7 +245,7 @@ public class EditModuleCommand extends Command {
         boolean newGradeNotNull = newGrade != null;
 
         if (targetIncomplete && newGradeNotNull) {
-            throw new CommandException(MESSAGE_MODULE_INCOMPLETE);
+            throw new CommandException(MESSAGE_INCOMPLETE_MODULE_GRADE_CHANGE);
         }
     }
 
@@ -256,12 +267,14 @@ public class EditModuleCommand extends Command {
                 && newYear == null
                 && newSemester == null;
 
+        // No conflicts since identifier is not changed.
         if (identifierNotChanged) {
             return;
         }
 
+        // Throw CommandException if module with same identifier already exist.
         if (model.hasModule(editedModule)) {
-            throw new CommandException(MESSAGE_MODULE_EXIST);
+            throw new CommandException(MESSAGE_MODULE_ALREADY_EXIST);
         }
     }
 
@@ -291,7 +304,8 @@ public class EditModuleCommand extends Command {
         boolean targetYearSame = (targetYear == null && e.targetYear == null)
                 || targetYear.equals(e.targetYear);
 
-        boolean targetSemesterSame = (targetSemester == null && e.targetSemester == null)
+        boolean targetSemesterSame = (
+                targetSemester == null && e.targetSemester == null)
                 || targetSemester.equals(e.targetSemester);
 
         boolean newCodeSame = (newCode == null && e.newCode == null)

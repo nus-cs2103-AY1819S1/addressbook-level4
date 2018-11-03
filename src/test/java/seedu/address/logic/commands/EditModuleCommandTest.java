@@ -72,6 +72,6 @@ public class EditModuleCommandTest {
 
         assertCommandFailure(editModuleCommand,
                 model, commandHistory,
-                EditModuleCommand.MESSAGE_MODULE_EXIST);
+                EditModuleCommand.MESSAGE_MODULE_ALREADY_EXIST);
     }
 }
