@@ -100,6 +100,37 @@ public class ModuleBuilder {
     }
 
     /**
+     * Sets the {@code Module} as having no {@code moduleTitle}.
+     */
+    public ModuleBuilder withoutModuleTitle() {
+        this.moduleTitle = new ModuleTitle();
+        return this;
+    }
+
+    /**
+     * Sets the {@code Module} as having no {@code academicYear} .
+     */
+    public ModuleBuilder withoutAcademicYear() {
+        this.academicYear = new AcademicYear();
+        return this;
+    }
+
+    /**
+     * Sets the {@code semester} of the {@code Module} that we are building.
+     */
+    public ModuleBuilder withoutSemester() {
+        this.semester = new Semester();
+        return this;
+    }
+
+    /**
+     * Sets the {@code Module} as having no {@code students list} .
+     */
+    public ModuleBuilder withoutStudents() {
+        this.students = new UniquePersonList();
+        return this;
+    }
+    /**
      * Builds a new module.
      * @return module which has been built.
      */

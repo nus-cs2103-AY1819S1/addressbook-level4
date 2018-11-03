@@ -14,13 +14,14 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Adds a person to the address book.
+ * Adds
+ * a person to the address book.
  */
 public class AddPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "addperson";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to TheTracker. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

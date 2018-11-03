@@ -37,13 +37,13 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditModuleCommand;
-import seedu.address.logic.commands.EditModuleCommand.EditModuleDescriptor;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditModuleDescriptorBuilder;
+import seedu.address.testutil.ModuleDescriptorBuilder;
 
 public class EditModuleCommandParserTest {
 
@@ -121,7 +121,7 @@ public class EditModuleCommandParserTest {
         String userInput = targetIndex.getOneBased() + MODULECODE_DESC_ST2131 + TAG_DESC_CALCULUS
                 + MODULETITLE_DESC_ST2131 + SEMESTER_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131;
 
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleCode(VALID_MODULECODE_ST2131)
+        ModuleDescriptor descriptor = new ModuleDescriptorBuilder().withModuleCode(VALID_MODULECODE_ST2131)
                 .withAcademicYear(VALID_ACADEMICYEAR_ST2131).withModuleTitle(VALID_MODULETITLE_ST2131)
                 .withSemester(VALID_SEMESTER_ST2131).withTags(VALID_TAG_CALCULUS).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetIndex, descriptor);
@@ -134,7 +134,7 @@ public class EditModuleCommandParserTest {
         Index targetIndex = INDEX_FIRST_MODULE;
         String userInput = targetIndex.getOneBased() + MODULETITLE_DESC_CS2100 + SEMESTER_DESC_CS2100;
 
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100)
+        ModuleDescriptor descriptor = new ModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100)
                 .withSemester(VALID_SEMESTER_CS2100).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetIndex, descriptor);
 
@@ -146,32 +146,32 @@ public class EditModuleCommandParserTest {
         // moduleCode
         Index targetIndex = INDEX_THIRD_MODULE;
         String userInput = targetIndex.getOneBased() + MODULECODE_DESC_CS2100;
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+        ModuleDescriptor descriptor = new ModuleDescriptorBuilder()
                 .withModuleCode(VALID_MODULECODE_CS2100).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // moduleTitle
         userInput = targetIndex.getOneBased() + MODULETITLE_DESC_CS2100;
-        descriptor = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100).build();
+        descriptor = new ModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100).build();
         expectedCommand = new EditModuleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // academicYear
         userInput = targetIndex.getOneBased() + ACADEMICYEAR_DESC_CS2100;
-        descriptor = new EditModuleDescriptorBuilder().withAcademicYear(VALID_ACADEMICYEAR_CS2100).build();
+        descriptor = new ModuleDescriptorBuilder().withAcademicYear(VALID_ACADEMICYEAR_CS2100).build();
         expectedCommand = new EditModuleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // semester
         userInput = targetIndex.getOneBased() + SEMESTER_DESC_CS2100;
-        descriptor = new EditModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS2100).build();
+        descriptor = new ModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS2100).build();
         expectedCommand = new EditModuleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_CALCULUS;
-        descriptor = new EditModuleDescriptorBuilder().withTags(VALID_TAG_CALCULUS).build();
+        descriptor = new ModuleDescriptorBuilder().withTags(VALID_TAG_CALCULUS).build();
         expectedCommand = new EditModuleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -184,7 +184,7 @@ public class EditModuleCommandParserTest {
                 + MODULECODE_DESC_ST2131 + TAG_DESC_CALCULUS + MODULETITLE_DESC_ST2131 + ACADEMICYEAR_DESC_ST2131
                 + SEMESTER_DESC_ST2131 + TAG_DESC_BINARY;
 
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+        ModuleDescriptor descriptor = new ModuleDescriptorBuilder()
                 .withModuleCode(VALID_MODULECODE_ST2131).withModuleTitle(VALID_MODULETITLE_ST2131)
                 .withAcademicYear(VALID_ACADEMICYEAR_ST2131).withSemester(VALID_SEMESTER_ST2131)
                 .withTags(VALID_TAG_CALCULUS, VALID_TAG_BINARY)
@@ -199,7 +199,7 @@ public class EditModuleCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_MODULE;
         String userInput = targetIndex.getOneBased() + INVALID_MODULECODE_DESC + MODULECODE_DESC_CS2100;
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder()
+        ModuleDescriptor descriptor = new ModuleDescriptorBuilder()
                 .withModuleCode(VALID_MODULECODE_CS2100).build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -207,7 +207,7 @@ public class EditModuleCommandParserTest {
         // other valid values specified
         userInput = targetIndex.getOneBased() + ACADEMICYEAR_DESC_CS2100 + INVALID_MODULECODE_DESC
                 + SEMESTER_DESC_CS2100 + MODULECODE_DESC_CS2100;
-        descriptor = new EditModuleDescriptorBuilder().withAcademicYear(VALID_ACADEMICYEAR_CS2100)
+        descriptor = new ModuleDescriptorBuilder().withAcademicYear(VALID_ACADEMICYEAR_CS2100)
                 .withSemester(VALID_SEMESTER_CS2100)
                 .withModuleCode(VALID_MODULECODE_CS2100).build();
         expectedCommand = new EditModuleCommand(targetIndex, descriptor);
@@ -219,7 +219,7 @@ public class EditModuleCommandParserTest {
         Index targetIndex = INDEX_THIRD_MODULE;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditModuleDescriptor descriptor = new EditModuleDescriptorBuilder().withTags().build();
+        ModuleDescriptor descriptor = new ModuleDescriptorBuilder().withTags().build();
         EditModuleCommand expectedCommand = new EditModuleCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

@@ -86,6 +86,30 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Person} as having no {@code Email}.
+     */
+    public PersonBuilder withoutEmail() {
+        this.email = new Email();
+        return this;
+    }
+
+    /**
+     * Sets the {@code Person} as having no {@code Address}.
+     */
+    public PersonBuilder withoutAddress() {
+        this.address = new Address();
+        return this;
+    }
+
+    /**
+     * Sets the {@code Person} as having no {@code Phone}.
+     */
+    public PersonBuilder withoutPhone() {
+        this.phone = new Phone();
+        return this;
+    }
+
     public Person build() {
         return new Person(name, phone, email, address, tags);
     }

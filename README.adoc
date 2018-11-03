@@ -4,7 +4,11 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/CS2103-AY1819S1-W10-1/main[image:https://travis-ci.org/CS2103-AY1819S1-W10-1/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/CS2103-AY1819S1-W10-1/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-W10-1/main/badge.svg?branch=master[Coverage Status]]
 
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui1.png[width="600"]
+
+image::docs/images/Ui2.png[width="600"]
+
+image::docs/images/Ui3.png[width="600"]
 
 * Welcome to TheTracker
 * TheTracker aims to help NUS students keep track of their friends, modules and events.

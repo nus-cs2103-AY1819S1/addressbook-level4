@@ -17,7 +17,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.module.Module;
-import seedu.address.testutil.EditModuleDescriptorBuilder;
+import seedu.address.model.module.ModuleDescriptor;
+import seedu.address.testutil.ModuleDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -33,7 +34,7 @@ public class CommandModuleTestUtil {
     public static final String VALID_SEMESTER_CS2100 = "1";
     public static final String VALID_SEMESTER_ST2131 = "2";
     public static final String VALID_TAG_BINARY = "binary";
-    public static final String VALID_TAG_CALCULUS = "needs calculus";
+    public static final String VALID_TAG_CALCULUS = "calculus";
 
     public static final String MODULECODE_DESC_CS2100 = " " + PREFIX_MODULECODE + VALID_MODULECODE_CS2100;
     public static final String MODULECODE_DESC_ST2131 = " " + PREFIX_MODULECODE + VALID_MODULECODE_ST2131;
@@ -58,14 +59,14 @@ public class CommandModuleTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditModuleCommand.EditModuleDescriptor DESC_CS2100;
-    public static final EditModuleCommand.EditModuleDescriptor DESC_ST2131;
+    public static final ModuleDescriptor DESC_CS2100;
+    public static final ModuleDescriptor DESC_ST2131;
 
     static {
-        DESC_CS2100 = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100)
+        DESC_CS2100 = new ModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_CS2100)
                 .withModuleCode(VALID_MODULECODE_CS2100).withAcademicYear(VALID_ACADEMICYEAR_CS2100)
                 .withSemester(VALID_SEMESTER_CS2100).withTags(VALID_TAG_BINARY).build();
-        DESC_ST2131 = new EditModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131)
+        DESC_ST2131 = new ModuleDescriptorBuilder().withModuleTitle(VALID_MODULETITLE_ST2131)
                 .withModuleCode(VALID_MODULECODE_ST2131).withAcademicYear(VALID_ACADEMICYEAR_ST2131)
                 .withSemester(VALID_SEMESTER_ST2131).withTags(VALID_TAG_CALCULUS).build();
     }
