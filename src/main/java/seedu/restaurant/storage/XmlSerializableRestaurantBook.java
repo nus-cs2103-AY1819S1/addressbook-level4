@@ -147,6 +147,7 @@ public class XmlSerializableRestaurantBook {
         }
     }
 
+    //@@author m4dkip
     /**
      * Converts this reservation record into the model's {@code Reservation} object.
      *
