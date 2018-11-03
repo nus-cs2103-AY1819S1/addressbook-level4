@@ -61,8 +61,9 @@ import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
-import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
 import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
 import seedu.restaurant.logic.commands.menu.DiscountItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand.EditItemDescriptor;
@@ -90,6 +91,7 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
+import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.Recipe;
 import seedu.restaurant.model.menu.TagContainsKeywordsPredicate;
 import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
@@ -400,8 +402,6 @@ public class RestaurantBookParserTest {
         assertEquals(new AddIngredientCommand(ingredient), command);
     }
 
-    //TODO: Add test for EditItemCommandParser
-
     @Test
     public void parseCommand_listIngredients() throws Exception {
         assertTrue(parser.parseCommand(ListIngredientsCommand.COMMAND_WORD) instanceof ListIngredientsCommand);
@@ -487,6 +487,12 @@ public class RestaurantBookParserTest {
         command = (DeleteItemCommand) parser.parseCommand(DeleteItemCommand.COMMAND_ALIAS
                 + " " + INDEX_FIRST.getOneBased());
         assertEquals(new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST), command);
+        command = (DeleteItemCommand) parser.parseCommand(
+                DeleteItemCommand.COMMAND_WORD + " " + "Apple Juice");
+        assertEquals(new DeleteItemByNameCommand(new Name("Apple Juice")), command);
+        command = (DeleteItemCommand) parser.parseCommand(
+                DeleteItemCommand.COMMAND_ALIAS + " " + "Apple Juice");
+        assertEquals(new DeleteItemByNameCommand(new Name("Apple Juice")), command);
     }
 
     @Test
