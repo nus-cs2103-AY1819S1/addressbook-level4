@@ -153,8 +153,6 @@ public class ParserUtilTest {
         assertEquals(expectedRepeatType, ParserUtil.parseRepeatType(repeatTypeWithWhitespace));
     }
 
-    // [TODO] add more test for various parsing methods
-
     @Test
     public void parseTag_null_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);

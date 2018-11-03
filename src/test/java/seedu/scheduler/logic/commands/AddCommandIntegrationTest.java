@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
         expectedModel.commitScheduler();
 
         assertCommandSuccess(new AddCommand(validEvent), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validEvent), expectedModel);
+                String.format(AddCommand.MESSAGE_SUCCESS, validEvent.getEventName()), expectedModel);
     }
 
     @Test

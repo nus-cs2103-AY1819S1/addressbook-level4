@@ -139,7 +139,7 @@ public class AddCommandSystemTest extends SchedulerSystemTest {
     private void assertCommandSuccess(String command, Event toAdd) {
         Model expectedModel = getModel();
         expectedModel.addEvents(List.of(toAdd));
-        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd.getEventName());
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
