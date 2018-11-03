@@ -122,7 +122,7 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean alreadyContainsUsername(String newUsername, Person ignore) {
         List<Person> currentPeople = versionedAddressBook.getPersonList();
         for (Person p : currentPeople) {
-            if (!p.isSamePerson(null) && p.getUsername().username.equals(newUsername)) {
+            if (!p.isSamePerson(ignore) && p.getUsername().username.equals(newUsername)) {
                 return true;
             }
         }
