@@ -85,12 +85,22 @@ public class EditMedicineCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
-        if (!medicineToEdit.hasSameSerialNumber(editedMedicine)) {
+        // only changes the serial number
+        if (model.hasSerialNumber(editedMedicine)
+                && medicineToEdit.getMedicineName().equals(editedMedicine.getMedicineName())) {
             throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
         }
 
-        if (!medicineToEdit.hasSameMedicineName(editedMedicine)) {
+        // only changes the medicine name
+        if (model.hasMedicineName(editedMedicine)
+                && medicineToEdit.getSerialNumber().equals(editedMedicine.getSerialNumber())) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
+        }
+
+        // changes both medicine name and serial number
+        if (!medicineToEdit.getMedicineName().equals(editedMedicine.getMedicineName())
+                && !medicineToEdit.getSerialNumber().equals(editedMedicine.getSerialNumber())) {
+            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER + "\n" + MESSAGE_DUPLICATE_MEDICINE_NAME);
         }
 
         model.updateMedicine(medicineToEdit, editedMedicine);
