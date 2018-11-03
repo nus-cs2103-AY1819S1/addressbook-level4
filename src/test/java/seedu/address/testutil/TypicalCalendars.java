@@ -25,6 +25,8 @@ public class TypicalCalendars {
     public static final Calendar DEFAULT_CALENDAR = new CalendarBuilder().addEvent(DEFAULT_EVENT).build();
     public static final String DEFAULT_CALENDAR_NAME = DEFAULT_MONTH + "-" + DEFAULT_YEAR;
 
+    public static final Calendar CHRISTMAS_CALENDAR = new CalendarBuilder().addEvent(CHRISTMAS_EVENT).build();
+    public static final String CHRISTMAS_CALENDAR_NAME = "DEC-2018";
 
     // prevents instantiation
     private TypicalCalendars() {

@@ -13,6 +13,8 @@ import static seedu.address.testutil.CalendarBuilder.DEFAULT_MONTH;
 import static seedu.address.testutil.CalendarBuilder.DEFAULT_START_DAY;
 import static seedu.address.testutil.CalendarBuilder.DEFAULT_TITLE;
 import static seedu.address.testutil.CalendarBuilder.DEFAULT_YEAR;
+import static seedu.address.testutil.TypicalCalendars.CHRISTMAS_CALENDAR;
+import static seedu.address.testutil.TypicalCalendars.CHRISTMAS_CALENDAR_NAME;
 import static seedu.address.testutil.TypicalCalendars.DEFAULT_CALENDAR;
 import static seedu.address.testutil.TypicalCalendars.DEFAULT_CALENDAR_NAME;
 import static seedu.address.testutil.TypicalCalendars.DEFAULT_EVENT;
@@ -152,6 +154,8 @@ public class CalendarModelTest {
         assertTrue(calendarModel.isValidTimeFrame(1, 5, 0, 1, 6, 0));
         // Start date = End date, Start hour < End hour, Start Min < End Min
         assertTrue(calendarModel.isValidTimeFrame(1, 5, 0, 1, 6, 30));
+        // Start date = End date, Start hour < End hour, Start Min > End Min
+        assertTrue(calendarModel.isValidTimeFrame(1, 5, 30, 1, 6, 0));
         // Start date = End date, Start hour = End hour, Start Min < End Min
         assertTrue(calendarModel.isValidTimeFrame(1, 5, 0, 1, 5, 30));
 
@@ -182,6 +186,25 @@ public class CalendarModelTest {
 
         // valid
         assertTrue(calendarModel.isSameEvent(DEFAULT_START_DAY, DEFAULT_END_DAY, DEFAULT_TITLE, DEFAULT_EVENT));
+    }
+
+    @Test
+    public void isExistingEvent_nullTitle_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        calendarModel.isExistingEvent(DEFAULT_START_DAY, DEFAULT_END_DAY, null);
+
+    }
+
+    @Test
+    public void isExistingEvent_eventNotInCalendar_returnsFalse() {
+        calendarModel.loadCalendar(DEFAULT_CALENDAR, DEFAULT_CALENDAR_NAME);
+        assertFalse(calendarModel.isExistingEvent(25, 25, "Christmas Day"));
+    }
+
+    @Test
+    public void isExistingEvent_eventInCalendar_returnsTrue() {
+        calendarModel.loadCalendar(CHRISTMAS_CALENDAR, CHRISTMAS_CALENDAR_NAME);
+        assertTrue(calendarModel.isExistingEvent(25, 25, "Christmas Day"));
     }
 
 }
