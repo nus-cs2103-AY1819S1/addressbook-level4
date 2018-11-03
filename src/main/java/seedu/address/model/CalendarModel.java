@@ -305,7 +305,9 @@ public class CalendarModel {
     /**
      * An event is considered the same in terms of its title and start - end date.
      */
-    private boolean isSameEvent(int startDate, int endDate, String title, VEvent event) {
+    protected boolean isSameEvent(int startDate, int endDate, String title, VEvent event) {
+        requireNonNull(title);
+        requireNonNull(event);
         boolean result;
 
         // Parse title from the event to check

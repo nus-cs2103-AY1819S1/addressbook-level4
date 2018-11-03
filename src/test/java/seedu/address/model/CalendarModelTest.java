@@ -8,10 +8,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_FEB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_JAN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MONTH_JUN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_YEAR_2018;
+import static seedu.address.testutil.CalendarBuilder.DEFAULT_END_DAY;
 import static seedu.address.testutil.CalendarBuilder.DEFAULT_MONTH;
+import static seedu.address.testutil.CalendarBuilder.DEFAULT_START_DAY;
+import static seedu.address.testutil.CalendarBuilder.DEFAULT_TITLE;
 import static seedu.address.testutil.CalendarBuilder.DEFAULT_YEAR;
 import static seedu.address.testutil.TypicalCalendars.DEFAULT_CALENDAR;
 import static seedu.address.testutil.TypicalCalendars.DEFAULT_CALENDAR_NAME;
+import static seedu.address.testutil.TypicalCalendars.DEFAULT_EVENT;
 
 import java.util.HashMap;
 
@@ -151,6 +155,33 @@ public class CalendarModelTest {
         // Start date = End date, Start hour = End hour, Start Min < End Min
         assertTrue(calendarModel.isValidTimeFrame(1, 5, 0, 1, 5, 30));
 
+    }
+
+    @Test
+    public void isSameEvent_nullTitle_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        calendarModel.isSameEvent(DEFAULT_START_DAY, DEFAULT_END_DAY, null, DEFAULT_EVENT);
+
+    }
+
+    @Test
+    public void isSameEvent_nullEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        calendarModel.isSameEvent(DEFAULT_START_DAY, DEFAULT_END_DAY, DEFAULT_TITLE, null);
+
+    }
+
+    @Test
+    public void isSameEvent() {
+        // invalid start date
+        assertFalse(calendarModel.isSameEvent(5, DEFAULT_END_DAY, DEFAULT_TITLE, DEFAULT_EVENT));
+        // invalid end date
+        assertFalse(calendarModel.isSameEvent(DEFAULT_START_DAY, 5, DEFAULT_TITLE, DEFAULT_EVENT));
+        // invalid title
+        assertFalse(calendarModel.isSameEvent(DEFAULT_START_DAY, DEFAULT_END_DAY, "Invalid", DEFAULT_EVENT));
+
+        // valid
+        assertTrue(calendarModel.isSameEvent(DEFAULT_START_DAY, DEFAULT_END_DAY, DEFAULT_TITLE, DEFAULT_EVENT));
     }
 
 }
