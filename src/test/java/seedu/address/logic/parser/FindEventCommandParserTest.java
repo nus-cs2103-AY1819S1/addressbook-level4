@@ -8,10 +8,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindEventCommand;
 import seedu.address.model.event.EventTagMatchesKeywordsPredicate;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class FindEventCommandParserTest {
 
