@@ -209,6 +209,7 @@ public class MainWindow extends UiPart<Stage> {
         ftStackPanel = getFadeTransition(Duration.millis(150), browserPlaceholder);
     }
 
+    //@@author yican95
     /**
      * Create the fade transition for the StackPane and set value from 0 to 1.
      */
@@ -219,7 +220,7 @@ public class MainWindow extends UiPart<Stage> {
 
         return ft;
     }
-
+    //@@author
     void hide() {
         primaryStage.hide();
     }
@@ -332,6 +333,7 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    //@@author yican95
     @Subscribe
     private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
