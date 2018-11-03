@@ -41,7 +41,7 @@ image::Ui.png[width="790"]
 e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 .  Some example commands you can try:
-* *`-search KEYWORD... [x/KEYWORD]...`* : search for recipes related and excluded from the keywords
+* *`search KEYWORD...`* : search for recipes related and excluded from the keywords (only within recipe context)
 * *`-favorite`* : display personal favorited recipes
 * *`-plannerlist`* : display personal meal schedule
 * *`-exit`* : exits the app
