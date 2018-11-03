@@ -32,12 +32,12 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditOccasionCommand;
-import seedu.address.logic.commands.EditOccasionCommand.EditOccasionDescriptor;
 import seedu.address.model.occasion.OccasionDate;
+import seedu.address.model.occasion.OccasionDescriptor;
 import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditOccasionDescriptorBuilder;
+import seedu.address.testutil.OccasionDescriptorBuilder;
 
 public class EditOccasionCommandParserTest {
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
@@ -112,7 +112,7 @@ public class EditOccasionCommandParserTest {
         String userInput = targetIndex.getOneBased() + TAG_DESC_STUDY
                 + OCCASIONNAME_DESC_TWO + OCCASIONDATE_DESC_TWO + OCCASIONLOCATION_DESC_TWO;
 
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder()
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder()
                 .withOccasionName(VALID_OCCASIONNAME_TWO)
                 .withOccasionDate(VALID_OCCASIONDATE_TWO).withOccasionLocation(VALID_OCCASIONLOCATION_TWO)
                 .withTags(VALID_TAG_STUDY).build();
@@ -126,7 +126,7 @@ public class EditOccasionCommandParserTest {
         Index targetIndex = INDEX_FIRST_OCCASION;
         String userInput = targetIndex.getOneBased() + OCCASIONNAME_DESC_ONE + OCCASIONLOCATION_DESC_ONE;
 
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder()
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder()
                 .withOccasionName(VALID_OCCASIONNAME_ONE)
                 .withOccasionLocation(VALID_OCCASIONLOCATION_ONE).build();
         EditOccasionCommand expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
@@ -139,26 +139,26 @@ public class EditOccasionCommandParserTest {
         // occasionName
         Index targetIndex = INDEX_THIRD_OCCASION;
         String userInput = targetIndex.getOneBased() + OCCASIONNAME_DESC_TWO;
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder()
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder()
                 .withOccasionName(VALID_OCCASIONNAME_TWO).build();
         EditOccasionCommand expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // occasionDate
         userInput = targetIndex.getOneBased() + OCCASIONDATE_DESC_ONE;
-        descriptor = new EditOccasionDescriptorBuilder().withOccasionDate(VALID_OCCASIONDATE_ONE).build();
+        descriptor = new OccasionDescriptorBuilder().withOccasionDate(VALID_OCCASIONDATE_ONE).build();
         expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // occasionLocation
         userInput = targetIndex.getOneBased() + OCCASIONLOCATION_DESC_TWO;
-        descriptor = new EditOccasionDescriptorBuilder().withOccasionLocation(VALID_OCCASIONLOCATION_TWO).build();
+        descriptor = new OccasionDescriptorBuilder().withOccasionLocation(VALID_OCCASIONLOCATION_TWO).build();
         expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_SLEEP;
-        descriptor = new EditOccasionDescriptorBuilder().withTags(VALID_TAG_SLEEP).build();
+        descriptor = new OccasionDescriptorBuilder().withTags(VALID_TAG_SLEEP).build();
         expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -171,7 +171,7 @@ public class EditOccasionCommandParserTest {
                 + OCCASIONDATE_DESC_ONE + TAG_DESC_SLEEP + OCCASIONNAME_DESC_TWO + OCCASIONLOCATION_DESC_TWO
                 + OCCASIONDATE_DESC_TWO + TAG_DESC_STUDY;
 
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
                 .withOccasionLocation(VALID_OCCASIONLOCATION_TWO).withOccasionDate(VALID_OCCASIONDATE_TWO)
                 .withTags(VALID_TAG_SLEEP, VALID_TAG_STUDY).build();
         EditOccasionCommand expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
@@ -184,7 +184,7 @@ public class EditOccasionCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_OCCASION;
         String userInput = targetIndex.getOneBased() + INVALID_OCCASIONDATE_DESC + OCCASIONDATE_DESC_TWO;
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder()
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder()
                 .withOccasionDate(VALID_OCCASIONDATE_TWO).build();
         EditOccasionCommand expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -192,7 +192,7 @@ public class EditOccasionCommandParserTest {
         // other valid values specified
         userInput = targetIndex.getOneBased() + OCCASIONLOCATION_DESC_ONE + INVALID_OCCASIONDATE_DESC
                 + OCCASIONDATE_DESC_ONE;
-        descriptor = new EditOccasionDescriptorBuilder().withOccasionLocation(VALID_OCCASIONLOCATION_ONE)
+        descriptor = new OccasionDescriptorBuilder().withOccasionLocation(VALID_OCCASIONLOCATION_ONE)
                 .withOccasionDate(VALID_OCCASIONDATE_ONE).build();
         expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -203,7 +203,7 @@ public class EditOccasionCommandParserTest {
         Index targetIndex = INDEX_THIRD_OCCASION;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditOccasionDescriptor descriptor = new EditOccasionDescriptorBuilder().withTags().build();
+        OccasionDescriptor descriptor = new OccasionDescriptorBuilder().withTags().build();
         EditOccasionCommand expectedCommand = new EditOccasionCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

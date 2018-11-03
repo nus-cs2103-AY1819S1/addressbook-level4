@@ -28,6 +28,12 @@ public class OccasionDate {
     public final String fullOccasionDate;
 
     /**
+     * Empty Constructor.
+     */
+    public OccasionDate() {
+        fullOccasionDate = "";
+    }
+    /**
      * Constructs a {@code OccasionDate}.
      *
      * @param date An occasion date.

@@ -8,8 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddOccasionCommand;
-import seedu.address.logic.commands.EditOccasionCommand.EditOccasionDescriptor;
 import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.OccasionDescriptor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,7 +40,7 @@ public class OccasionUtil {
     /**
      * Returns the part of command string for the given {@code EditOccasionDescriptor}'s details.
      */
-    public static String getEditOccasionDescriptorDetails(EditOccasionDescriptor descriptor) {
+    public static String getEditOccasionDescriptorDetails(OccasionDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getOccasionName().ifPresent(name -> sb.append(PREFIX_OCCASIONNAME)
                 .append(name.fullOccasionName).append(" "));

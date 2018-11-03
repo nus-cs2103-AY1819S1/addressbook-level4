@@ -16,7 +16,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.occasion.Occasion;
-import seedu.address.testutil.EditOccasionDescriptorBuilder;
+import seedu.address.model.occasion.OccasionDescriptor;
+import seedu.address.testutil.OccasionDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -52,14 +53,14 @@ public class CommandOccasionTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditOccasionCommand.EditOccasionDescriptor DESC_ONE;
-    public static final EditOccasionCommand.EditOccasionDescriptor DESC_TWO;
+    public static final OccasionDescriptor DESC_ONE;
+    public static final OccasionDescriptor DESC_TWO;
 
     static {
-        DESC_ONE = new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_ONE)
+        DESC_ONE = new OccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_ONE)
                 .withOccasionDate(VALID_OCCASIONDATE_ONE).withOccasionLocation(VALID_OCCASIONLOCATION_ONE)
                 .withTags(VALID_TAG_STUDY).build();
-        DESC_TWO = new EditOccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
+        DESC_TWO = new OccasionDescriptorBuilder().withOccasionName(VALID_OCCASIONNAME_TWO)
                 .withOccasionDate(VALID_OCCASIONDATE_TWO).withOccasionLocation(VALID_OCCASIONLOCATION_TWO)
                 .withTags(VALID_TAG_SLEEP).build();
     }
