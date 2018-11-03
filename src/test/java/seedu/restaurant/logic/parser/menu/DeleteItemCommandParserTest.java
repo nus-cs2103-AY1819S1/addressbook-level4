@@ -8,8 +8,8 @@ import static seedu.restaurant.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.Test;
 
-import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
 import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
 import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
 import seedu.restaurant.model.menu.Name;
 

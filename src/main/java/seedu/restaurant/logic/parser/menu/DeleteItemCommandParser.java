@@ -5,8 +5,8 @@ import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ENDING_INDEX;
 
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
 import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
 import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
 import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
