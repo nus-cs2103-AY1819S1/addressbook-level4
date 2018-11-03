@@ -33,24 +33,34 @@ public interface Model {
     String getUserLoggedIn() throws CommandException;
 
     /**
-     * Returns true if the model has previous PreviewImage states to restore.
+     * Returns true if the current layer's PreviewImage has undone states to restore.
      */
     boolean canUndoPreviewImage();
 
     /**
-     * Returns true if the model has undone PreviewImage states to restore.
+     * Returns true if the current layer's PreviewImage states to restore.
      */
     boolean canRedoPreviewImage();
 
     /**
-     * Restores the model's PreviewImage to its previous state.
+     * Undoes one state in the current layer's previewImage.
      */
     void undoPreviewImage();
 
     /**
-     * Restores the model's PreviewImage to its previously undone state.
+     * Redoes one state in the current layer's previewImage.
      */
     void redoPreviewImage();
+
+    /**
+     * Undoes all states in the current layer's previewImage.
+     */
+    void undoAllPreviewImage();
+
+    /**
+     * Redoes all states in the current layer's previewImage.
+     */
+    void redoAllPreviewImage();
 
     /**
      * Updates the userPrefs current directory.

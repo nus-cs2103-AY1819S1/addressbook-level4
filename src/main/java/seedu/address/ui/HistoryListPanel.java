@@ -17,6 +17,7 @@ import javafx.scene.layout.Region;
 
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.AllTransformationEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 
@@ -103,6 +104,40 @@ public class HistoryListPanel extends UiPart<Region> {
             items.remove(items.size() - 1, items.size());
         }
         redoQueue.clear();
+    }
+
+    //@@author ihwk1996
+    /**
+     * Similar to TransformationEvent, but specifically for undoing/redoing all transformations
+     * Called upon undo-all or redo-all
+     *
+     * @param event
+     */
+    @Subscribe
+    private void handleAllTransformationEvent(AllTransformationEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        if (event.isRemove) {
+            //undo-all command
+            if (items.size() > 0) {
+                for (String item: items) {
+                    redoQueue.add(item);
+                }
+                items.remove(0, items.size());
+            }
+        } else {
+            //redo-all command
+            while (redoQueue.size() > 0) {
+                items.add(redoQueue.poll());
+            }
+
+        }
+
+        if (items.size() > 0) {
+            Platform.runLater(() -> {
+                historyListView.scrollTo(items.size() - 1);
+            });
+        }
     }
 
     /**
