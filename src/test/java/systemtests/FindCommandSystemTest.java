@@ -49,8 +49,6 @@ public class FindCommandSystemTest extends CarparkFinderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardChangedMulti(expectedModel.getFilteredCarparkList().toArray(new Carpark[]{}));
 
-//        assertSelectedCardChangedSingle(expectedModel.getCarparkFromFilteredList(0));
-
         /* Case: find multiple car parks in car park finder, 2 keywords -> 2 car parks found */
         command = FindCommand.COMMAND_WORD + " SK88 SK23";
         ModelHelper.setFilteredList(expectedModel, BRAVO, DELTA);

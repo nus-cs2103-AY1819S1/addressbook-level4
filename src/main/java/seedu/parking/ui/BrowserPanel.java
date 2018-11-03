@@ -25,11 +25,9 @@ import seedu.parking.model.carpark.Carpark;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE =
-            "https://fongzhizhong.000webhostapp.com/DummySearchPage.html?isDefault=1";
-//            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?isDefault=1";
+            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?isDefault=1";
     public static final String SEARCH_PAGE_URL =
-            "https://fongzhizhong.000webhostapp.com/DummySearchPage.html?";
-//            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?json=";
+            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?";
 
     private static final String FXML = "BrowserPanel.fxml";
 

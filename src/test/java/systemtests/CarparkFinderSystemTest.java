@@ -226,7 +226,7 @@ public abstract class CarparkFinderSystemTest {
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardCarparkNumber);
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -292,7 +292,6 @@ public abstract class CarparkFinderSystemTest {
      * @see CarparkListPanelHandle#isSelectedCarparkCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
-        System.out.println(getBrowserPanel().isUrlChanged());
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getCarparkListPanel().isSelectedCarparkCardChanged());
     }
