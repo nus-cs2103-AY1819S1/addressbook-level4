@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
-import seedu.clinicio.logic.commands.AveragesCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.Command;
 import seedu.clinicio.logic.commands.DeleteCommand;
@@ -21,7 +20,6 @@ import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
-import seedu.clinicio.logic.commands.TotalsCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
@@ -75,12 +73,6 @@ public class ClinicIoParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
-
-        case AveragesCommand.COMMAND_WORD:
-            return new AveragesCommand();
-
-        case TotalsCommand.COMMAND_WORD:
-            return new TotalsCommand();
 
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
