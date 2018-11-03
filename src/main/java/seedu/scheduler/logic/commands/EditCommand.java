@@ -98,8 +98,6 @@ public class EditCommand extends Command {
 
         //Calculate parameters for updating events in Google Calender
         logger.info("Calculating parameters for Google calender edit commands.");
-        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(
-                lastShownList, eventToEdit);
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
 
         //Update by cases
@@ -116,20 +114,25 @@ public class EditCommand extends Command {
             Predicate<Event> firstInstancePredicate;
             Event firstEventToEdit;
             List<Event> editedEvents = null;
+            int effectRangeStartingIndex;
             if (flags[0].equals(FLAG_UPCOMING)) {
                 //Case2: edit upcoming events
                 editedEvents = createEditedEvents(eventToEdit, eventToEdit, editEventDescriptor);
-                connectToGoogleCalendar.updateUpcomingGoogleEvent(
-                        eventToEdit, editedEvent, instanceIndex, totalInstance);
+                effectRangeStartingIndex = instanceIndex;
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
                 model.updateUpcomingEvents(eventToEdit, editedEvents);
             } else {
                 //Case3: edit all events
                 logger.info("All the events in a EventSet to be edited.");
-                firstInstancePredicate = getFirstInstancePredicate(eventToEdit, editEventDescriptor);
+                firstInstancePredicate = getFirstInstancePredicate(
+                        eventToEdit, editEventDescriptor);
                 firstEventToEdit = model.getFirstInstanceOfEvent(firstInstancePredicate);
-                editedEvents = createEditedEvents(eventToEdit, firstEventToEdit, editEventDescriptor);
-                connectToGoogleCalendar.updateAllGoogleEvent(
-                        eventToEdit, editedEvents, instanceIndex);
+                editedEvents = createEditedEvents(eventToEdit, firstEventToEdit,
+                        editEventDescriptor);
+                effectRangeStartingIndex = 0;
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
                 model.updateRepeatingEvents(eventToEdit, editedEvents);
             }
         }
