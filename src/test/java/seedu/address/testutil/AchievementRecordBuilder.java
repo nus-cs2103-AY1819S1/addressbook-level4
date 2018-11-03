@@ -62,16 +62,20 @@ public class AchievementRecordBuilder {
         nextWeekBreakPoint = newData.getNextWeekBreakPoint();
         numTaskCompletedByWeek = newData.getNumTaskCompletedByWeek();
         xpValueByWeek = newData.getXpValueByWeek();
-
-//        Calendar date = (GregorianCalendar) newData.getNextDayBreakPoint().clone());
-//        date.add(Calendar.DAY_OF_MONTH, -1);
-//        currentDate = date;
     }
 
     private static Calendar getCalendarFromString(String source) {
         final Calendar result = Calendar.getInstance();
         result.setTime(DateFormatUtil.parseDate(source));
         return result;
+    }
+
+    /**
+     * Sets the {@code displayOption} of the {@code AchievementRecord} that we are building.
+     */
+    public AchievementRecordBuilder withDisplayOption(int displayOption) {
+        this.displayOption = displayOption;
+        return this;
     }
 
     /**
