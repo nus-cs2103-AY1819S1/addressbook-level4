@@ -6,6 +6,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ENDING_INDEX;
 
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemCommandByIndex;
 import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.util.ArgumentMultimap;
@@ -49,7 +50,7 @@ public class DeleteItemCommandParser implements Parser<DeleteItemCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteItemCommand.MESSAGE_USAGE));
         }
 
-        return new DeleteItemCommand(index, endingIndex);
+        return new DeleteItemCommandByIndex(index, endingIndex);
     }
 
 }

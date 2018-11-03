@@ -62,6 +62,7 @@ import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
 import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemCommandByIndex;
 import seedu.restaurant.logic.commands.menu.DiscountItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand.EditItemDescriptor;
@@ -482,10 +483,10 @@ public class RestaurantBookParserTest {
     public void parseCommand_deleteItem() throws Exception {
         DeleteItemCommand command = (DeleteItemCommand) parser.parseCommand(
                 DeleteItemCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteItemCommand(INDEX_FIRST, INDEX_FIRST), command);
+        assertEquals(new DeleteItemCommandByIndex(INDEX_FIRST, INDEX_FIRST), command);
         command = (DeleteItemCommand) parser.parseCommand(DeleteItemCommand.COMMAND_ALIAS
                 + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteItemCommand(INDEX_FIRST, INDEX_FIRST), command);
+        assertEquals(new DeleteItemCommandByIndex(INDEX_FIRST, INDEX_FIRST), command);
     }
 
     @Test

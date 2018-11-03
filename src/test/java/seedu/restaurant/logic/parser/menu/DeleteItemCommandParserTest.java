@@ -9,6 +9,7 @@ import static seedu.restaurant.testutil.TypicalIndexes.INDEX_THIRD;
 import org.junit.Test;
 
 import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemCommandByIndex;
 
 public class DeleteItemCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
@@ -46,9 +47,9 @@ public class DeleteItemCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
         // 1 item
-        assertParseSuccess(parser, "1", new DeleteItemCommand(INDEX_FIRST, INDEX_FIRST));
+        assertParseSuccess(parser, "1", new DeleteItemCommandByIndex(INDEX_FIRST, INDEX_FIRST));
 
         // multiple items
-        assertParseSuccess(parser, "1 ei/3", new DeleteItemCommand(INDEX_FIRST, INDEX_THIRD));
+        assertParseSuccess(parser, "1 ei/3", new DeleteItemCommandByIndex(INDEX_FIRST, INDEX_THIRD));
     }
 }
