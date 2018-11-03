@@ -228,10 +228,10 @@ public class EventFormatUtil {
                         .compareTo(b.getStartDateTime()));
 
         for (Event event : lastShownListSorted) {
-            if (event.getUuid().equals(eventToDelete.getUuid())) {
+            if (event.getEventSetUid().equals(eventToDelete.getEventSetUid())) {
                 counter++;
             }
-            if (event.getUid() == eventToDelete.getUid()) {
+            if (event.getEventUid() == eventToDelete.getEventUid()) {
                 break;
             }
         }
@@ -250,7 +250,7 @@ public class EventFormatUtil {
         int counter = -1;
 
         for (Event event : lastShownList) {
-            if (event.getUuid().equals(eventToDelete.getUuid())) {
+            if (event.getEventSetUid().equals(eventToDelete.getEventSetUid())) {
                 counter++;
             }
         }

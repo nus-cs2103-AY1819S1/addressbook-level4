@@ -91,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deleteRepeatingEvents(Event target) {
-        versionedScheduler.removeEvents(target, event -> event.getUuid().equals(target.getUuid()));
+        versionedScheduler.removeEvents(target, event -> event.getEventSetUid().equals(target.getEventSetUid()));
         popUpManager.deleteAll(target);
         indicateSchedulerChanged();
     }
@@ -99,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteUpcomingEvents(Event target) {
         versionedScheduler.removeEvents(target, event ->
-                event.getUuid().equals(target.getUuid())
+                event.getEventSetUid().equals(target.getEventSetUid())
                 && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
         popUpManager.deleteUpcoming(target);
         indicateSchedulerChanged();
@@ -124,7 +124,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateRepeatingEvents(Event target, List<Event> editedEvents) {
         requireAllNonNull(target, editedEvents);
-        versionedScheduler.updateEvents(target, editedEvents, event -> event.getUuid().equals(target.getUuid()));
+        versionedScheduler.updateEvents(target, editedEvents,
+            event -> event.getEventSetUid().equals(target.getEventSetUid()));
         popUpManager.editAll(target, editedEvents);
         indicateSchedulerChanged();
     }
@@ -133,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateUpcomingEvents(Event target, List<Event> editedEvents) {
         requireAllNonNull(target, editedEvents);
         versionedScheduler.updateEvents(target, editedEvents, event ->
-                event.getUuid().equals(target.getUuid())
+                event.getEventSetUid().equals(target.getEventSetUid())
                 && event.getStartDateTime().compareTo(target.getStartDateTime()) >= 0);
         popUpManager.editUpcoming(target, editedEvents);
         indicateSchedulerChanged();
@@ -150,7 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
         HashMap durationsLeft = new HashMap<UUID, HashSet<Duration>>();
         ArrayList<EventPopUpInfo> popUpArray = popUpManager.getArray();
         for (EventPopUpInfo eventPopUpInfo : popUpArray) {
-            UUID key = eventPopUpInfo.getUid();
+            UUID key = eventPopUpInfo.getEventUid();
             Set<Duration> set = (Set<Duration>) durationsLeft.get(key);
             if (set == null) {
                 Set<Duration> newSet = new HashSet<>();
@@ -164,7 +165,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         ObservableList<Event> eventList = versionedScheduler.getEventList();
         for (Event event : eventList) {
-            UUID eventUid = event.getUid();
+            UUID eventUid = event.getEventUid();
             HashSet<Duration> durationSet = (HashSet<Duration>) durationsLeft.get(eventUid);
             ReminderDurationList reminderDurationList;
             if (durationSet == null && !event.getReminderDurationList().isEmpty()) {
@@ -174,7 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
             } else {
                 continue;
             }
-            Event editedEvent = new Event(event.getUid(), event.getUuid(), event.getEventName(),
+            Event editedEvent = new Event(event.getEventUid(), event.getEventSetUid(), event.getEventName(),
                     event.getStartDateTime(), event.getEndDateTime(),
                     event.getDescription(), event.getVenue(), event.getRepeatType(), event.getRepeatUntilDateTime(),
                     event.getTags(), reminderDurationList);

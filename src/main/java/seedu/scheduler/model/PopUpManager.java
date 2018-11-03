@@ -142,7 +142,7 @@ public class PopUpManager {
     public void delete(Event target) {
         PriorityQueue<EventPopUpInfo> newQueue = new PriorityQueue<>();
         for (EventPopUpInfo eventPopUpInfo : popUpQueue) {
-            if (!eventPopUpInfo.getUid().equals(target.getUid())) {
+            if (!eventPopUpInfo.getEventUid().equals(target.getEventUid())) {
                 newQueue.add(eventPopUpInfo);
             }
         }
@@ -186,7 +186,7 @@ public class PopUpManager {
      * @return
      */
     private Boolean isUpcomingEvent(EventPopUpInfo event, Event target) {
-        return (event.getUuid().equals(target.getUuid())
+        return (event.getEventSetUid().equals(target.getEventSetUid())
                         && event.getStartDateTime().compareTo(target.getStartDateTime()) > 0);
     }
 
@@ -197,7 +197,7 @@ public class PopUpManager {
      * @return
      */
     private Boolean isRecurringEvent(EventPopUpInfo event, Event target) {
-        return event.getUuid().equals(target.getUuid());
+        return event.getEventSetUid().equals(target.getEventSetUid());
     }
 
     /**
@@ -207,8 +207,8 @@ public class PopUpManager {
      */
     private ArrayList<EventPopUpInfo> generateAllPopUpInfoListFromEvent(Event event) {
         ArrayList<EventPopUpInfo> result = new ArrayList<>();
-        UUID uid = event.getUid();
-        UUID uuid = event.getUuid();
+        UUID uid = event.getEventUid();
+        UUID uuid = event.getEventSetUid();
         EventName eventName = event.getEventName();
         DateTime startDateTime = event.getStartDateTime();
         DateTime endDateTime = event.getEndDateTime();

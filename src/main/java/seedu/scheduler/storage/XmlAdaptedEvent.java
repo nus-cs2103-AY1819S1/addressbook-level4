@@ -29,10 +29,10 @@ public class XmlAdaptedEvent {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Event's %s field is missing!";
 
     @XmlElement(required = true)
-    private UUID uid;
+    private UUID eventUid;
 
     @XmlElement(required = true)
-    private UUID uuid;
+    private UUID eventSetUid;
 
     @XmlElement(required = true)
     private String eventName;
@@ -74,12 +74,13 @@ public class XmlAdaptedEvent {
     /**
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
-    public XmlAdaptedEvent(UUID uid, UUID uuid, String eventName, DateTime startDateTime, DateTime endDateTime,
+    public XmlAdaptedEvent(UUID eventUid, UUID eventSetUid,
+                           String eventName, DateTime startDateTime, DateTime endDateTime,
                            String description, String venue, RepeatType repeatType,
                            DateTime repeatUntilDateTime, List<XmlAdaptedTag> tagged,
                            ReminderDurationList reminderDurationList) {
-        this.uid = uid;
-        this.uuid = uuid;
+        this.eventUid = eventUid;
+        this.eventSetUid = eventSetUid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -99,8 +100,8 @@ public class XmlAdaptedEvent {
      * @param source future changes to this will not affect the created XmlAdaptedEvent
      */
     public XmlAdaptedEvent(Event source) {
-        uid = source.getUid();
-        uuid = source.getUuid();
+        eventUid = source.getEventUid();
+        eventSetUid = source.getEventSetUid();
         eventName = source.getEventName().value;
         startDateTime = source.getStartDateTime();
         endDateTime = source.getEndDateTime();
@@ -126,15 +127,15 @@ public class XmlAdaptedEvent {
             eventTags.add(tag.toModelType());
         }
 
-        if (uid == null) {
+        if (eventUid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UUID.class.getSimpleName()));
         }
-        final UUID modelUid = uid;
+        final UUID modelUid = eventUid;
 
-        if (uuid == null) {
+        if (eventSetUid == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, UUID.class.getSimpleName()));
         }
-        final UUID modelUuid = uuid;
+        final UUID modelUuid = eventSetUid;
 
         if (eventName == null) {
             throw new IllegalValueException(String.format(
@@ -204,8 +205,8 @@ public class XmlAdaptedEvent {
         }
 
         XmlAdaptedEvent otherEvent = (XmlAdaptedEvent) other;
-        return Objects.equals(uid, otherEvent.uid)
-                && Objects.equals(uuid, otherEvent.uuid)
+        return Objects.equals(eventUid, otherEvent.eventUid)
+                && Objects.equals(eventSetUid, otherEvent.eventSetUid)
                 && Objects.equals(eventName, otherEvent.eventName)
                 && Objects.equals(startDateTime, otherEvent.startDateTime)
                 && Objects.equals(endDateTime, otherEvent.endDateTime)

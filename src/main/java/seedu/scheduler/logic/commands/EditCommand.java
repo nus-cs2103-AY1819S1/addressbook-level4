@@ -134,8 +134,8 @@ public class EditCommand extends Command {
      */
     private static Event createEditedEvent(Event eventToEdit, EditEventDescriptor editEventDescriptor) {
         assert eventToEdit != null;
-        UUID eventUid = editEventDescriptor.getUid().orElse(eventToEdit.getUid());
-        UUID eventUuid = editEventDescriptor.getUuid().orElse(eventToEdit.getUuid());
+        UUID eventUid = editEventDescriptor.getEventUid().orElse(eventToEdit.getEventUid());
+        UUID eventUuid = editEventDescriptor.getEventSetUid().orElse(eventToEdit.getEventSetUid());
         EventName updatedEventName = editEventDescriptor.getEventName().orElse(eventToEdit.getEventName());
         DateTime updatedStartDateTime = editEventDescriptor.getStartDateTime().orElse(eventToEdit.getStartDateTime());
         DateTime updatedEndDateTime = editEventDescriptor.getEndDateTime().orElse(eventToEdit.getEndDateTime());
@@ -162,8 +162,8 @@ public class EditCommand extends Command {
         assert eventToEdit != null;
         assert firstEventToEdit != null;
 
-        UUID eventUid = editEventDescriptor.getUid().orElse(eventToEdit.getUid());
-        UUID eventUuid = editEventDescriptor.getUuid().orElse(eventToEdit.getUuid());
+        UUID eventUid = editEventDescriptor.getEventUid().orElse(eventToEdit.getEventUid());
+        UUID eventUuid = editEventDescriptor.getEventSetUid().orElse(eventToEdit.getEventSetUid());
         EventName updatedEventName = editEventDescriptor.getEventName().orElse(eventToEdit.getEventName());
         DateTime updatedStartDateTime = new DateTime(firstEventToEdit.getStartDateTime().value
                 .plus(Duration.between(eventToEdit.getStartDateTime().value,
@@ -194,7 +194,7 @@ public class EditCommand extends Command {
         assert eventToEdit != null;
 
         if (!editEventDescriptor.getRepeatType().isPresent()) {
-            return event -> event.getUuid().equals(eventToEdit.getUuid());
+            return event -> event.getEventSetUid().equals(eventToEdit.getEventSetUid());
         }
 
         RepeatType updatedRepeatType = editEventDescriptor.getRepeatType().get();
@@ -202,16 +202,16 @@ public class EditCommand extends Command {
 
         switch (updatedRepeatType) {
         case WEEKLY:
-            return event -> event.getUuid().equals(eventToEdit.getUuid())
+            return event -> event.getEventSetUid().equals(eventToEdit.getEventSetUid())
                     && event.getStartDateTime().value.getDayOfWeek() == updatedStartDateTime.value.getDayOfWeek();
         case MONTHLY:
-            return event -> event.getUuid().equals(eventToEdit.getUuid())
+            return event -> event.getEventSetUid().equals(eventToEdit.getEventSetUid())
                     && event.getStartDateTime().value.getDayOfMonth() == updatedStartDateTime.value.getDayOfMonth();
         case YEARLY:
-            return event -> event.getUuid().equals(eventToEdit.getUuid())
+            return event -> event.getEventSetUid().equals(eventToEdit.getEventSetUid())
                     && event.getStartDateTime().value.getDayOfYear() == updatedStartDateTime.value.getDayOfYear();
         default:
-            return event -> event.getUuid().equals(eventToEdit.getUuid());
+            return event -> event.getEventSetUid().equals(eventToEdit.getEventSetUid());
         }
     }
 
@@ -238,8 +238,8 @@ public class EditCommand extends Command {
      * of the event.
      */
     public static class EditEventDescriptor {
-        private UUID uid;
-        private UUID uuid;
+        private UUID eventUid;
+        private UUID eventSetUid;
         private EventName eventName;
         private DateTime startDateTime;
         private DateTime endDateTime;
@@ -257,8 +257,8 @@ public class EditCommand extends Command {
          * Copy constructor. A defensive copy of {@code tags} is used internally.
          */
         public EditEventDescriptor(EditEventDescriptor toCopy) {
-            setUid(toCopy.uid);
-            setUuid(toCopy.uuid);
+            setEventUid(toCopy.eventUid);
+            setEventSetUid(toCopy.eventSetUid);
             setEventName(toCopy.eventName);
             setStartDateTime(toCopy.startDateTime);
             setEndDateTime(toCopy.endDateTime);
@@ -278,20 +278,20 @@ public class EditCommand extends Command {
                     venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
         }
 
-        public void setUid(UUID uid) {
-            this.uid = uid;
+        public void setEventUid(UUID eventUid) {
+            this.eventUid = eventUid;
         }
 
-        public Optional<UUID> getUid() {
-            return Optional.ofNullable(uid);
+        public Optional<UUID> getEventUid() {
+            return Optional.ofNullable(eventUid);
         }
 
-        public void setUuid(UUID uuid) {
-            this.uuid = uuid;
+        public void setEventSetUid(UUID eventSetUid) {
+            this.eventSetUid = eventSetUid;
         }
 
-        public Optional<UUID> getUuid() {
-            return Optional.ofNullable(uuid);
+        public Optional<UUID> getEventSetUid() {
+            return Optional.ofNullable(eventSetUid);
         }
 
         public void setEventName(EventName eventName) {

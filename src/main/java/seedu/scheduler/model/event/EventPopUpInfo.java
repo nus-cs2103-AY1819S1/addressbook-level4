@@ -10,8 +10,8 @@ import java.util.UUID;
  * Create EventPopUpInfo that store the info to insert into the popUpQueue
  */
 public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
-    private UUID uid;
-    private UUID uuid;
+    private UUID eventUid;
+    private UUID eventSetUid;
     private EventName eventName;
     private DateTime startDateTime;
     private DateTime endDateTime;
@@ -20,12 +20,14 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
     private Duration duration;
     private DateTime popUpDateTime;
 
-    public EventPopUpInfo(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public EventPopUpInfo(UUID eventUid, UUID eventSetUid,
+                          EventName eventName, DateTime startDateTime, DateTime endDateTime,
                           Description description, Venue venue, Duration duration) {
-        requireAllNonNull(uid, uuid, eventName, startDateTime, endDateTime, description,
-                venue, duration);
-        this.uid = uid;
-        this.uuid = uuid;
+        requireAllNonNull(eventUid, eventSetUid,
+                eventName, startDateTime, endDateTime,
+                description, venue, duration);
+        this.eventUid = eventUid;
+        this.eventSetUid = eventSetUid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -46,13 +48,13 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
         return new DateTime(popUpTime);
     }
 
-    public UUID getUid() {
-        return uid;
+    public UUID getEventUid() {
+        return eventUid;
     }
 
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getEventSetUid() {
+        return eventSetUid;
     }
 
     public EventName getEventName() {
@@ -115,7 +117,7 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
     public boolean equals(Object other) {
         return ((this == other) || (
                 other instanceof EventPopUpInfo
-                        && this.uid.equals(((EventPopUpInfo) other).getUid())
+                        && this.eventUid.equals(((EventPopUpInfo) other).getEventUid())
                         && this.duration.equals(((EventPopUpInfo) other).getDuration())));
     }
 }

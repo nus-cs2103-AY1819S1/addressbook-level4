@@ -20,8 +20,8 @@ public class Event {
             "Event's start date and time should be before event's end date and time";
 
     // Identity fields
-    private final UUID uid; //distinct for recurring events
-    private final UUID uuid; //same for recurring events
+    private final UUID eventUid; //distinct for recurring events
+    private final UUID eventSetUid; //same for recurring events
     private final EventName eventName;
     private final DateTime startDateTime;
     private final DateTime endDateTime;
@@ -38,14 +38,14 @@ public class Event {
      * Original Constructor
      * Every field must be present and not null
      */
-    public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public Event(UUID eventUid, UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
                  RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
                  ReminderDurationList reminderDurationList) {
-        requireAllNonNull(uid, uuid, eventName, startDateTime, endDateTime, description,
+        requireAllNonNull(eventUid, eventSetUid, eventName, startDateTime, endDateTime, description,
                 venue, repeatType, tags, repeatUntilDateTime, reminderDurationList);
-        this.uid = uid;
-        this.uuid = uuid;
+        this.eventUid = eventUid;
+        this.eventSetUid = eventSetUid;
         this.eventName = eventName;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -58,14 +58,14 @@ public class Event {
     }
 
     /**
-     * Does not take in uid. Will generate a random uid
+     * Does not take in eventUid. Will generate a random eventUid
      * Used every time a new event is created
      */
-    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public Event(UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
                  RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags,
                  ReminderDurationList reminderDurationList) {
-        this(UUID.randomUUID(), uuid, eventName, startDateTime, endDateTime, description,
+        this(UUID.randomUUID(), eventSetUid, eventName, startDateTime, endDateTime, description,
                 venue, repeatType, repeatUntilDateTime, tags, reminderDurationList);
     }
 
@@ -73,25 +73,25 @@ public class Event {
     /**
      * Does not take in reminderDurationList, which is set to an Empty ReminderDurationList
      */
-    public Event(UUID uid, UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public Event(UUID eventUid, UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
                  RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
-        this(uid, uuid, eventName, startDateTime, endDateTime, description,
+        this(eventUid, eventSetUid, eventName, startDateTime, endDateTime, description,
                 venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
     }
 
     /**
-     * Does not take in reminderDurationList and uid
+     * Does not take in reminderDurationList and eventUid
      */
-    public Event(UUID uuid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public Event(UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
                  RepeatType repeatType, DateTime repeatUntilDateTime, Set<Tag> tags) {
-        this(UUID.randomUUID(), uuid, eventName, startDateTime, endDateTime, description,
+        this(UUID.randomUUID(), eventSetUid, eventName, startDateTime, endDateTime, description,
                 venue, repeatType, repeatUntilDateTime, tags, new ReminderDurationList());
     }
 
     /**
-     * Does not take in reminderDurationList and uid and uuid
+     * Does not take in reminderDurationList and eventUid and eventSetUid
      */
     public Event(EventName eventName, DateTime startDateTime, DateTime endDateTime,
                  Description description, Venue venue,
@@ -102,12 +102,12 @@ public class Event {
                 tags, reminderDurationList);
     }
 
-    public UUID getUid() {
-        return uid;
+    public UUID getEventUid() {
+        return eventUid;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public UUID getEventSetUid() {
+        return eventSetUid;
     }
 
     public EventName getEventName() {
@@ -159,7 +159,7 @@ public class Event {
     }
 
     /**
-     * Returns true if both event have the same uuid.
+     * Returns true if both event have the same eventSetUid.
      * This defines a weaker notion of equality between two events.
      * Identifies recurring events as the same event
      */
@@ -169,7 +169,7 @@ public class Event {
         }
 
         return otherEvent != null
-                && otherEvent.getUuid().equals(getUuid());
+                && otherEvent.getEventSetUid().equals(getEventSetUid());
     }
 
     /**
@@ -187,7 +187,7 @@ public class Event {
         }
 
         Event otherEvent = (Event) other;
-        return otherEvent.getUuid().equals(getUuid())
+        return otherEvent.getEventSetUid().equals(getEventSetUid())
                 && otherEvent.getEventName().equals(getEventName())
                 && otherEvent.getStartDateTime().equals(getStartDateTime())
                 && otherEvent.getEndDateTime().equals(getEndDateTime())

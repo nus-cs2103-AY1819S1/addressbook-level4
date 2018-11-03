@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduler>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd4</uid>
-        <uuid>aef6b77e-20a7-4de4-8402-343fbd475fd3</uuid>
+        <eventUid>aef6b77e-20a7-4de4-8402-343fbd475fd4</eventUid>
+        <eventSetUid>aef6b77e-20a7-4de4-8402-343fbd475fd3</eventSetUid>
         <eventName>CS2103 Tutorial</eventName>
         <startDateTime>2018-09-21T11:00</startDateTime>
         <endDateTime>2018-09-21T12:00</endDateTime>
@@ -14,8 +14,8 @@
         <reminderDurationList>PT15M, PT30M</reminderDurationList>
     </events>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd5</uid>
-        <uuid>1bae658a-c457-4b83-8319-d45f8e61028d</uuid>
+        <eventUid>aef6b77e-20a7-4de4-8402-343fbd475fd5</eventUid>
+        <eventSetUid>1bae658a-c457-4b83-8319-d45f8e61028d</eventSetUid>
         <eventName>z</eventName>
         <startDateTime>2018-10-11T02:00</startDateTime>
         <endDateTime>2018-10-11T03:00</endDateTime>
@@ -27,8 +27,8 @@
         <reminderDurationList>PT30M</reminderDurationList>
     </events>
     <events>
-        <uid>aef6b77e-20a7-4de4-8402-343fbd475fd6</uid>
-        <uuid>ef44088d-c7f7-49e0-974f-fd3acb9f8e87</uuid>
+        <eventUid>aef6b77e-20a7-4de4-8402-343fbd475fd6</eventUid>
+        <eventSetUid>ef44088d-c7f7-49e0-974f-fd3acb9f8e87</eventSetUid>
         <eventName>zz</eventName>
         <startDateTime>2018-10-11T15:00</startDateTime>
         <endDateTime>2018-10-11T16:00</endDateTime>
