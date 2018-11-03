@@ -89,6 +89,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Parses the {@code projects} into a {@code Set<Project>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withProjects(Set<Project> projects) {
+        this.projects = projects;
+        return this;
+    }
+
+    /**
      * Sets the {@code Salary} of the {@code Person} that we are building.
      */
     public PersonBuilder withSalary(String salary) {

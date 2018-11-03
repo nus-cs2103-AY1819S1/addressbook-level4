@@ -228,6 +228,23 @@ Examples:
 
 * 'find T_m' Displays 'Tom' and 'Tim', but not 'Tian'
 
+=== Edit details of the currently logged in user : `myself`
+
+Changes the details of the currently logged in user
+
+Format: `myself [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t PROJECT]`
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+****
+* This command is not usable as admin.
+****
+Examples:
+
+* `myself -p 91234567 -e johndoe@example.com`
+* `myself -n James`
+
 === Edit details : `edit`
 
 Changes the users details (such as contact information).
@@ -238,11 +255,6 @@ Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
-****
-* To use this command, you must be logged in with "Edit Employee" permissions.
-* At least one of the parameters must be provided
-* Existing values will be updated to the input values
-****
 Examples:
 
 * `edit 1 -p 91234567 -e johndoe@example.com`
@@ -490,6 +502,7 @@ Format: `deleteassignment INDEX`
  |Help|help|help
  |History|history|history
  |List all employees|list|list
+ |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
  |Sort employee display list| sort -CRITERIA| sort -df
  |Select an employee|select INDEX | select 1
  |Search employees by name|find NAME| find Joshua
