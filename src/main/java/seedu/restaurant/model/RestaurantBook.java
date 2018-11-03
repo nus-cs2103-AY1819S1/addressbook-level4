@@ -24,10 +24,10 @@ import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.person.UniquePersonList;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.reservation.UniqueReservationList;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
-import seedu.restaurant.model.salesrecord.UniqueRecordList;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
+import seedu.restaurant.model.sales.UniqueRecordList;
 import seedu.restaurant.model.tag.Tag;
 
 /**

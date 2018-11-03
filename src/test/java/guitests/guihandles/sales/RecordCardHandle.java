@@ -3,7 +3,7 @@ package guitests.guihandles.sales;
 import guitests.guihandles.NodeHandle;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * Provides a handle to an item card in the item list panel.

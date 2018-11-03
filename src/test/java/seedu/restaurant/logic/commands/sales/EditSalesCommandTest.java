@@ -30,7 +30,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.UserPrefs;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
 import seedu.restaurant.testutil.salesrecords.RecordBuilder;
 

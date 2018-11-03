@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord;
+package seedu.restaurant.model.sales;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,8 +18,8 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.restaurant.model.salesrecord.exceptions.DuplicateRecordException;
-import seedu.restaurant.model.salesrecord.exceptions.SalesRecordNotFoundException;
+import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
+import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 import seedu.restaurant.testutil.salesrecords.RecordBuilder;
 import seedu.restaurant.testutil.salesrecords.ReportBuilder;
 

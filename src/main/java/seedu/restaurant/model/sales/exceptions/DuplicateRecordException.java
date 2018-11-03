@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord.exceptions;
+package seedu.restaurant.model.sales.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Records (Records are considered duplicates if they have the same

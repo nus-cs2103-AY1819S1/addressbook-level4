@@ -5,9 +5,9 @@ import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 
 /**
  * A utility class to help with building SalesReport objects.

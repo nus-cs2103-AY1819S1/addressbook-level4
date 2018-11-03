@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord;
+package seedu.restaurant.model.sales;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

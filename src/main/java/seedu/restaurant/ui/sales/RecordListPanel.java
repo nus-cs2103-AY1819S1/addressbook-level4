@@ -10,7 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.events.ui.RecordPanelSelectionChangedEvent;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.ui.UiPart;
 
 /**

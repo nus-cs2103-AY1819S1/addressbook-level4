@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.restaurant.model.ingredient.IngredientName;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.ItemName;
-import seedu.restaurant.model.salesrecord.Price;
-import seedu.restaurant.model.salesrecord.QuantitySold;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.Price;
+import seedu.restaurant.model.sales.QuantitySold;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * A utility class to help with building SalesRecord objects.

@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord;
+package seedu.restaurant.model.sales;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;

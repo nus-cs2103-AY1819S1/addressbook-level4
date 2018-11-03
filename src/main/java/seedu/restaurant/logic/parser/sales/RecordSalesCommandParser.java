@@ -12,11 +12,11 @@ import seedu.restaurant.logic.parser.Parser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.util.ArgumentMultimap;
 import seedu.restaurant.logic.parser.util.ArgumentTokenizer;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.ItemName;
-import seedu.restaurant.model.salesrecord.Price;
-import seedu.restaurant.model.salesrecord.QuantitySold;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.Price;
+import seedu.restaurant.model.sales.QuantitySold;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * Parses input arguments and creates a new RecordSalesCommand object

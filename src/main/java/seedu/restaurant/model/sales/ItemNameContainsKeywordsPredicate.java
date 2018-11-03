@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord;
+package seedu.restaurant.model.sales;
 
 import java.util.List;
 import java.util.function.Predicate;

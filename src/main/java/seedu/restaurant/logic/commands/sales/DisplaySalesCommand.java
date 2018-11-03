@@ -8,8 +8,8 @@ import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.SalesReport;
 
 /**
  * Display sales report of a specific date

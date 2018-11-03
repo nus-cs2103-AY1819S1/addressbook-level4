@@ -14,7 +14,7 @@ import seedu.restaurant.commons.events.ui.DisplaySalesReportEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
-import seedu.restaurant.model.salesrecord.Date;
+import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.testutil.Assert;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 

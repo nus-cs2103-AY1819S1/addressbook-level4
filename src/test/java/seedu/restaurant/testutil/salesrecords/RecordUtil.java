@@ -6,7 +6,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_QUANTITY_SOLD;
 
 import seedu.restaurant.logic.commands.sales.EditSalesCommand.EditRecordDescriptor;
 import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * A utility class for {@code SalesRecord}.

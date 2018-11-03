@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord;
+package seedu.restaurant.model.sales;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
@@ -47,7 +47,7 @@ public class ItemName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.restaurant.model.salesrecord.ItemName // instanceof handles nulls
+                || (other instanceof seedu.restaurant.model.sales.ItemName // instanceof handles nulls
                     && fullName.equals(other.toString()));
     }
 

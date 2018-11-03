@@ -3,7 +3,7 @@ package guitests.guihandles.sales;
 import guitests.GuiRobot;
 import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.SalesReport;
 
 /**
  * A handle to the {@code SalesReportWindow} of the application.

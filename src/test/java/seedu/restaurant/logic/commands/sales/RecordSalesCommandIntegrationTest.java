@@ -18,7 +18,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 import seedu.restaurant.testutil.salesrecords.RecordBuilder;

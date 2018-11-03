@@ -32,10 +32,10 @@ import org.junit.Test;
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand.EditRecordDescriptor;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.ItemName;
-import seedu.restaurant.model.salesrecord.Price;
-import seedu.restaurant.model.salesrecord.QuantitySold;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.Price;
+import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
 
 public class EditSalesCommandParserTest {

@@ -13,7 +13,7 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * A utility class containing a list of all possible types of an {@code RestaurantBook} objects to be used in tests.

@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord;
+package seedu.restaurant.model.sales;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.restaurant.model.salesrecord.exceptions.DuplicateRecordException;
-import seedu.restaurant.model.salesrecord.exceptions.SalesRecordNotFoundException;
+import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
+import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 
 /**
  * A list of records that enforces uniqueness between its elements and does not allow nulls.

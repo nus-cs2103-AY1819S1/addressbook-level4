@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord.exceptions;
+package seedu.restaurant.model.sales.exceptions;
 
 /**
  * Signal that the ingredients required to make the item has not been specified in menu section.

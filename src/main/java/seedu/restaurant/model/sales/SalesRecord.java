@@ -1,4 +1,4 @@
-package seedu.restaurant.model.salesrecord;
+package seedu.restaurant.model.sales;
 
 import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 

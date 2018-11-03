@@ -20,7 +20,7 @@ import seedu.restaurant.logic.commands.UndoCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code

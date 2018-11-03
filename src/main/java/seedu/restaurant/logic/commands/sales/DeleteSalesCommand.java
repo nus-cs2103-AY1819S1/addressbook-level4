@@ -13,7 +13,7 @@ import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * Deletes a sales record identified using its displayed index from the restaurant book.
