@@ -206,12 +206,18 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot()); // Show restaurant book
 
         ftListPanel = new FadeTransition(Duration.millis(150), personListPanelPlaceholder);
-        ftListPanel.setFromValue(0);
-        ftListPanel.setToValue(1);
+        setFadeTransition(ftListPanel);
 
         ftStackPanel = new FadeTransition(Duration.millis(150), browserPlaceholder);
-        ftStackPanel.setFromValue(0);
-        ftStackPanel.setToValue(1);
+        setFadeTransition(ftStackPanel);
+    }
+
+    /**
+     * Set the fade transition from 0 to 1
+     */
+    private void setFadeTransition(FadeTransition ft) {
+        ft.setFromValue(0);
+        ft.setToValue(1);
     }
 
     void hide() {
