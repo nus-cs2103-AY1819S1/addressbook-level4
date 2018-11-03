@@ -187,12 +187,14 @@ Filters and lists tasks with tags matching those entered by the user. User may i
 ====
 Example:
 ====
-input: [blue]`filter tutorial` +
+- [blue]`filter lecture` +
 output: All tasks with the tag [blue]`tutorial` are listed.
 
-input: [blue]`filter tutorial 2100` +
+-  [blue]`filter lecture 2100` +
 output: All tasks with the tag either [blue]`tutorial`, [blue]`2100`, or both [blue]`tutorial` and [blue]`2100`, are
 listed.
+
+image::Filter_Before_After.png[width="400"]
 ====
 
 The search is case insensitive. e.g [blue]`apples` matches [blue]`Apples`.
@@ -286,23 +288,15 @@ image::ListWeekCommand_UG_After.png[width="400"]
 
 Shows a list of tasks that are due from current date till the end of the current Month. +
 ====
-[blue]`listweek`
+[blue]`listmonth`
 ====
 
 Example:
 ====
-input: [blue]`listweek` on the date 021118 +
+input: [blue]`listmonth` on the date 021118 +
 output: Shows a list of tasks from 021118 to end of the month which is 301118.
-====
 
-Before:
-====
-image::ListWeekCommand_UG_Before.png[width="300"]
-====
-
-After:
-====
-image::ListWeekCommand_UG_After.png[width="400"]
+image::ListMonth_Before_After.png[width="400"]
 ====
 
 // tag::firstday[]
