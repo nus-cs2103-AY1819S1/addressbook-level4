@@ -74,7 +74,8 @@ public class XmlAdaptedEvent {
     /**
      * Constructs an {@code XmlAdaptedEvent} with the given event details.
      */
-    public XmlAdaptedEvent(UUID eventUid, UUID eventSetUid, String eventName, DateTime startDateTime, DateTime endDateTime,
+    public XmlAdaptedEvent(UUID eventUid, UUID eventSetUid,
+                           String eventName, DateTime startDateTime, DateTime endDateTime,
                            String description, String venue, RepeatType repeatType,
                            DateTime repeatUntilDateTime, List<XmlAdaptedTag> tagged,
                            ReminderDurationList reminderDurationList) {

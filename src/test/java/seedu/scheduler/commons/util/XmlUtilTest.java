@@ -94,9 +94,11 @@ public class XmlUtilTest {
     public void xmlAdaptedEventFromFile_fileWithMissingEventField_validResult() throws Exception {
         XmlAdaptedEvent actualEvent = XmlUtil.getDataFromFile(
                 MISSING_EVENT_FIELD_FILE, XmlAdaptedEventWithRootElement.class);
-        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_EVENTUID, VALID_EVENTSETUID, null, VALID_START_DATETIME,
+        XmlAdaptedEvent expectedEvent = new XmlAdaptedEvent(VALID_EVENTUID, VALID_EVENTSETUID,
+                null, VALID_START_DATETIME,
                 VALID_END_DATETIME, VALID_DESCRIPTION, VALID_VENUE,
-                VALID_REPEAT_TYPE, VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS, VALID_REMINDER_DURATION_LIST);
+                VALID_REPEAT_TYPE, VALID_REPEAT_UNTIL_DATETIME, VALID_TAGS,
+                VALID_REMINDER_DURATION_LIST);
         assertEquals(expectedEvent, actualEvent);
     }
 

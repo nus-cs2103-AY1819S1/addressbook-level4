@@ -20,10 +20,12 @@ public class EventPopUpInfo implements Comparable<EventPopUpInfo> {
     private Duration duration;
     private DateTime popUpDateTime;
 
-    public EventPopUpInfo(UUID eventUid, UUID eventSetUid, EventName eventName, DateTime startDateTime, DateTime endDateTime,
+    public EventPopUpInfo(UUID eventUid, UUID eventSetUid,
+                          EventName eventName, DateTime startDateTime, DateTime endDateTime,
                           Description description, Venue venue, Duration duration) {
-        requireAllNonNull(eventUid, eventSetUid, eventName, startDateTime, endDateTime, description,
-                venue, duration);
+        requireAllNonNull(eventUid, eventSetUid,
+                eventName, startDateTime, endDateTime,
+                description, venue, duration);
         this.eventUid = eventUid;
         this.eventSetUid = eventSetUid;
         this.eventName = eventName;

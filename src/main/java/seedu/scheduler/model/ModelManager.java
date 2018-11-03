@@ -124,7 +124,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateRepeatingEvents(Event target, List<Event> editedEvents) {
         requireAllNonNull(target, editedEvents);
-        versionedScheduler.updateEvents(target, editedEvents, event -> event.getEventSetUid().equals(target.getEventSetUid()));
+        versionedScheduler.updateEvents(target, editedEvents,
+            event -> event.getEventSetUid().equals(target.getEventSetUid()));
         popUpManager.editAll(target, editedEvents);
         indicateSchedulerChanged();
     }
