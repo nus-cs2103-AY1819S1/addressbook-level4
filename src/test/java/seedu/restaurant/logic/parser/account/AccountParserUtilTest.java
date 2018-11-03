@@ -1,6 +1,10 @@
 package seedu.restaurant.logic.parser.account;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_PASSWORD;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_USERNAME;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PASSWORD_DEMO_ONE;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_USERNAME_DEMO_ONE;
 import static seedu.restaurant.testutil.Assert.assertThrows;
 
 import org.junit.Rule;
@@ -11,12 +15,8 @@ import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 public class AccountParserUtilTest {
-
-    private static final String VALID_USERNAME = "azhikai";
-    private static final String VALID_PASSWORD = "1122qq";
-    private static final String INVALID_USERNAME = "a zhikai";
-    private static final String INVALID_PASSWORD = "1 122qq";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -47,27 +47,27 @@ public class AccountParserUtilTest {
 
     @Test
     public void parseUsername_validValueWithoutWhitespace_returnsName() throws Exception {
-        Username expectedUsername = new Username(VALID_USERNAME);
-        assertEquals(expectedUsername, AccountParserUtil.parseUsername(VALID_USERNAME));
+        Username expectedUsername = new Username(VALID_USERNAME_DEMO_ONE);
+        assertEquals(expectedUsername, AccountParserUtil.parseUsername(VALID_USERNAME_DEMO_ONE));
     }
 
     @Test
     public void parseUsername_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String usernameWithWhitespace = WHITESPACE + VALID_USERNAME + WHITESPACE;
-        Username expectedUsername = new Username(VALID_USERNAME);
+        String usernameWithWhitespace = WHITESPACE + VALID_USERNAME_DEMO_ONE + WHITESPACE;
+        Username expectedUsername = new Username(VALID_USERNAME_DEMO_ONE);
         assertEquals(expectedUsername, AccountParserUtil.parseUsername(usernameWithWhitespace));
     }
 
     @Test
     public void parsePassword_validValueWithoutWhitespace_returnsName() throws Exception {
-        Password expectedPassword = new Password(VALID_PASSWORD);
-        assertEquals(expectedPassword, AccountParserUtil.parsePassword(VALID_PASSWORD));
+        Password expectedPassword = new Password(VALID_PASSWORD_DEMO_ONE);
+        assertEquals(expectedPassword, AccountParserUtil.parsePassword(VALID_PASSWORD_DEMO_ONE));
     }
 
     @Test
     public void parsePassword_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String passwordWithWhitespace = WHITESPACE + VALID_PASSWORD + WHITESPACE;
-        Password expectedPassword = new Password(VALID_PASSWORD);
+        String passwordWithWhitespace = WHITESPACE + VALID_PASSWORD_DEMO_ONE + WHITESPACE;
+        Password expectedPassword = new Password(VALID_PASSWORD_DEMO_ONE);
         assertEquals(expectedPassword, AccountParserUtil.parsePassword(passwordWithWhitespace));
     }
 }

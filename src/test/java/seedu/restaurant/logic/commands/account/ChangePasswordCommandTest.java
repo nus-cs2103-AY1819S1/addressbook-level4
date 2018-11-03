@@ -20,9 +20,7 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 
-/**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
- */
+//@@author AZhiKai
 public class ChangePasswordCommandTest {
 
     private Model model = new ModelManager(getTypicalRestaurantBook(), new UserPrefs());
