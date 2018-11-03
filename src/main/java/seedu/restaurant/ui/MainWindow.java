@@ -13,23 +13,25 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.restaurant.commons.core.Config;
 import seedu.restaurant.commons.core.GuiSettings;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.DisplayIngredientListRequestEvent;
-import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
-import seedu.restaurant.commons.events.ui.DisplayRecordListRequestEvent;
-import seedu.restaurant.commons.events.ui.DisplaySalesReportEvent;
 import seedu.restaurant.commons.events.ui.ExitAppRequestEvent;
-import seedu.restaurant.commons.events.ui.ItemPanelSelectionChangedEvent;
-import seedu.restaurant.commons.events.ui.LoginEvent;
-import seedu.restaurant.commons.events.ui.LogoutEvent;
-import seedu.restaurant.commons.events.ui.RecordPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.ShowHelpRequestEvent;
 import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
+import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.ItemPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.reservation.DisplayReservationListRequestEvent;
+import seedu.restaurant.commons.events.ui.reservation.ReservationPanelSelectionChangedEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
+import seedu.restaurant.commons.events.ui.sales.RecordPanelSelectionChangedEvent;
 import seedu.restaurant.logic.Logic;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.ui.account.AccountListPanel;
@@ -190,13 +192,12 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
+        PersonListPanel personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         accountListPanel = new AccountListPanel(logic.getFilteredAccountList());
         itemListPanel = new ItemListPanel(logic.getFilteredItemList());
+        recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         reservationListPanel = new ReservationListPanel(logic.getFilteredReservationList());
-        recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
-
-        PersonListPanel personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot()); // Show restaurant book
     }
 
@@ -228,14 +229,18 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    private void switchList(Region region) {
+        browserPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(region);
+    }
+
     /**
      * Switch to the account view.
      */
     @FXML
     private void handleSwitchToAccount() {
-        browserPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(accountListPanel.getRoot());
+        switchList(accountListPanel.getRoot());
     }
 
     /**
@@ -243,9 +248,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchToMenu() {
-        browserPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+        switchList(itemListPanel.getRoot());
     }
 
     /**
@@ -253,9 +256,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchToSales() {
-        browserPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+        switchList(recordListPanel.getRoot());
     }
 
     /**
@@ -263,9 +264,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchToIngredient() {
-        browserPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(ingredientListPanel.getRoot());
+        switchList(ingredientListPanel.getRoot());
     }
 
     /**
@@ -273,9 +272,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleSwitchToReservation() {
-        browserPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(reservationListPanel.getRoot());
+        switchList(reservationListPanel.getRoot());
     }
 
     /**
@@ -316,8 +313,21 @@ public class MainWindow extends UiPart<Stage> {
     private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         browserPlaceholder.getChildren().clear();
-        ItemStackPanel itemStackPanel = new ItemStackPanel(event.getNewSelection());
-        browserPlaceholder.getChildren().add(itemStackPanel.getRoot());
+        browserPlaceholder.getChildren().add(new ItemStackPanel(event.getNewSelection()).getRoot());
+    }
+
+    @Subscribe
+    private void handleReservationPanelSelectionChangedEvent(ReservationPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    }
+
+    @Subscribe
+    private void handleRecordPanelSelectionChangedEvent(RecordPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(new RecordStackPanel(event.getNewSelection()).getRoot());
     }
 
     @Subscribe
@@ -339,31 +349,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleDisplaySalesReportEvent(DisplaySalesReportEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        handleSwitchToSales();
-        SalesReportWindow salesReportWindow = new SalesReportWindow(event.getSalesReportToDisplay());
-        salesReportWindow.show();
-    }
-
-    @Subscribe
     private void handleDisplayRecordListEvent(DisplayRecordListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToSales();
     }
 
     @Subscribe
-    private void handleRecordPanelSelectionChangedEvent(RecordPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        RecordStackPanel recordStackPanel = new RecordStackPanel(event.getNewSelection());
-        browserPlaceholder.getChildren().add(recordStackPanel.getRoot());
-    }
-
-    @Subscribe
     private void handleDisplayReservationEvent(DisplayReservationListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToReservation();
+    }
+
+    @Subscribe
+    private void handleDisplaySalesReportEvent(DisplaySalesReportEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleSwitchToSales();
+        SalesReportWindow salesReportWindow = new SalesReportWindow(event.getSalesReportToDisplay());
+        salesReportWindow.show();
     }
 
     @Subscribe

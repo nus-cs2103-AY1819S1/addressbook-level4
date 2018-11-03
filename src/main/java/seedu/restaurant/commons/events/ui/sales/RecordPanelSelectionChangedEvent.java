@@ -1,4 +1,4 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.sales;
 
 import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.salesrecord.SalesRecord;

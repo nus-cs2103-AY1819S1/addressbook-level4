@@ -221,9 +221,10 @@ Examples:
 * `login id/azhikai pw/p@55w0rd`
 * `li id/azhikai pw/p@55w0rd`
 
-[INFO]
+[TIP]
 ====
-To testers: You may access the application using the default `root` account: `login id/root pw/1122qq`
+To testers: You may access the application using the default `root` account: `login id/root pw/1122qq` +
+Please ignore person-related commands as it's still operational in the application.
 ====
 
 ==== Logging out: `logout`
@@ -274,7 +275,7 @@ Password is masked by default and should never be shown
 
 // tag::ingredientmanagement[]
 === Ingredients Management
-[[Add-ingredient]]
+[[add-ingredient]]
 ==== Adding an ingredient: `add-ingredient` or `add-ing`
 
 Adds a new ingredient to the ingredient list. +
@@ -351,7 +352,7 @@ Edits the unit type and price per unit of the 4th ingredient to be `1.5ml bottle
 * `edit-ingredient ketchup n/tomato ketchup`  +
 Edits the name of `ketchup` to be `tomato ketchup`.
 
-[[Stockup]]
+[[stockup]]
 ==== Stocking up an ingredient: `stockup`
 
 Increases the number of units of an ingredient or multiple ingredients. +
@@ -366,23 +367,9 @@ Examples:
 * `stockup n/cod fish u/5`
 * `stockup n/chicken thigh u/10 n/fries u/20 n/tomato ketchup u/50`
 
-==== Consuming an ingredient: `consume`
-
-Decrease the number of units of an ingredient or multiple ingredients. +
-Format: `consume n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...`
-
-****
-* NUMBER_OF_UNITS for an ingredient must follow the INGREDIENT_NAME for that particular ingredient.
-****
-
-Examples:
-
-* `consume n/cod fish u/1`
-* `consume n/chicken thigh u/2 n/fries u/1`
-
 // tag::menu[]
 === Menu Management
-[[Add-item]]
+[[add-item]]
 ==== Adding an item to the menu: `add-item` or `ai`
 
 Adds an item to the menu +
@@ -612,25 +599,6 @@ Add/Update the required ingredients of the 1st item.
 `ari 1 n/chicken thigh u/10 n/potato u/20` +
 Add/Update the recipe of the 1st item in the results of the `find` command.
 
-==== Export menu : `export-menu` or `em`
-
-Exports the menu to a particular file path. +
-Format: `export-menu fp/FILEPATH fn/FILENAME`
-
-Examples:
-
-* `export-menu f/test/ n/menu.txt` +
-Export the menu to test folder with the file name `menu.txt`
-
-==== Import menu : `import-menu` or `im`
-
-Imports an existing menu from specified file path to replace current menu. +
-Format: `import-menu fp/FILEPATH fn/FILENAME`
-
-Examples:
-
-* `import-menu f/test/ n/menu.txt` +
-Import the menu.txt from test folder to replace current menu.
 // end::menu[]
 
 //tag::reservations[]
@@ -743,12 +711,14 @@ p/ITEM_PRICE` +
 ===== Auto-ingredient update mechanism:
 `record-sales` also determines all the ingredients you used and automatically deducts them from the ingredient
 list, subjected to the following conditions: +
-1) The item exists in the menu. Refer to <<Add-item>> for more information. +
-2) The required ingredients to make one unit of `ITEM_NAME` is specified. Refer to <<add-required-ingredient>> for more
-information. +
-3) All required ingredients exist in the ingredient list. Refer to <<Add-ingredient>> for more information. +
-4) There are sufficient ingredients to make `QUANTITY_SOLD` units of `ITEM_NAME`. Refer to <<Stockup>> for more
-information.
+1) The item exists in the menu. +
+Refer to <<add-item>> for more information. +
+2) The required ingredients to make one unit of `ITEM_NAME` is specified. +
+Refer to <<add-required-ingredient>> for more information. +
+3) All required ingredients exist in the ingredient list. +
+Refer to <<add-ingredient>> for more information. +
+4) There are sufficient ingredients to make `QUANTITY_SOLD` units of `ITEM_NAME`. +
+Refer to <<stockup>> for more information.
 
 [NOTE]
 ====
@@ -840,18 +810,7 @@ Edits the item name of the 3rd record to be "Fried Omelet".
 * `es 7 q/37 p/6.50` +
 Edits the quantity sold and price of the 7th record to be 37 and 6.50 respectively.
 
-
-==== Ranking items according to total revenue: `rank-item` or `ri`
-
-Ranks the items based on their total revenue accumulated in past sales records. +
-Format: `rank-item` or `ri`
-
-==== Ranking dates according to total revenue: `rank-date` or `rd`
-
-Ranks the dates based on their total revenue for that day. +
-Format: `rank-date` or `rd`
 // end::salesmanagement[]
-
 
 === Upcoming Features
 ==== Creating user role `[coming in v2.0]`
@@ -884,7 +843,22 @@ Examples:
 * `delete-role r/999`
 * `dr id/999`
 
-==== Check item sales history `[coming in v2.0]`
+==== Ranking items according to total revenue `[coming in v1.4]`
+
+Ranks the items based on their total revenue accumulated in past sales records. +
+Format: `rank-item` or `ri`
+
+==== Ranking dates according to total revenue `[coming in v1.4]`
+
+Ranks the dates based on their total revenue for that day. +
+Format: `rank-date` or `rd`
+
+==== Displaying sales graph `[coming in v2.0]`
+Generates and displays the sales graph with the vertical axis representing the total revenue and horizontal axis
+representing the dates. +
+Format: `display-sales-graph` or `dsg`
+
+==== Checking item sales history `[coming in v2.0]`
 Generates the item sales report that consists of all records associated with that item. +
 Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
 
@@ -893,35 +867,20 @@ Examples:
 * `check-history n/Fried Rice`
 * `ch n/Fried Rice`
 
-==== Display sales graph `[coming in v2.0]`
-Generates and displays the sales graph with the vertical axis representing the total revenue and horizontal axis
-representing the dates. +
-Format: `display-sales-graph` or `dsg`
-
-==== Export sales report`[coming in v2.0]`
+==== Exporting sales report `[coming in v2.0]`
 Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be much more
 detailed than that displayed in app.
 Format: `export-sales DATE` or `es DATE`
 
-==== Removing out-of-stock dishes from daily menu `[coming in v2.0]`
+==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
 
 Removes out-of-stock dishes that require ingredients with low stock count from the daily menu. +
 Format: `remove-oos-dish` or `rod`
 
-Examples:
-
-* `remove-oos-dish`
-* `rod`
-
-==== Show history of past stock ups and consumption `[coming in v2.0]`
+==== Showing history of past stock ups and consumption `[coming in v1.4]`
 
 Shows the history of past ingredient stock ups or consumption. +
 Format: `view-history [STOCKUP] [CONSUMPTION]`  or `vh [STOCKUP] [CONSUMPTION]`
-
-[WARNING]
-====
-* At least one of the optional fields must be provided.
-====
 
 Examples:
 
@@ -930,6 +889,26 @@ Examples:
 * `vh stockup consumption`
 
 // tag::menuv2[]
+==== Exporting menu `[coming in v1.4]`
+
+Exports the menu to a particular file path. +
+Format: `export-menu fp/FILEPATH fn/FILENAME`
+
+Examples:
+
+* `export-menu f/test/ n/menu.txt` +
+Export the menu to test folder with the file name `menu.txt`
+
+==== Importing menu `[coming in v1.4]`
+
+Imports an existing menu from specified file path to replace current menu. +
+Format: `import-menu fp/FILEPATH fn/FILENAME`
+
+Examples:
+
+* `import-menu f/test/ n/menu.txt` +
+Import the menu.txt from test folder to replace current menu.
+
 ==== Support for multiple menus `[coming in v2.0]`
 User will be able to manage multiple menus without the need of exporting and importing for different version of the
 current menu.

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.session.UserSession;
-import seedu.restaurant.commons.events.ui.LogoutEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;

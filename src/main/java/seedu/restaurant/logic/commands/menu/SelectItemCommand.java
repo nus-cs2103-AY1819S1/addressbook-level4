@@ -7,8 +7,8 @@ import java.util.List;
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
-import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.JumpToItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -48,7 +48,7 @@ public class SelectItemCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
         EventsCenter.getInstance().post(new DisplayItemListRequestEvent());
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        EventsCenter.getInstance().post(new JumpToItemListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_ITEM_SUCCESS, targetIndex.getOneBased()));
 
     }

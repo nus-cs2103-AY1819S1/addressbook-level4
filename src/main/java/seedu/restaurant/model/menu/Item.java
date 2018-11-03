@@ -13,8 +13,7 @@ import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.tag.Tag;
 
 /**
- * Represents an item in the menu.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents an item in the menu. Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Item {
 
@@ -58,24 +57,23 @@ public class Item {
     }
 
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
     /**
-     * Returns an immutable required ingredients map, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable required ingredients map, which throws {@code UnsupportedOperationException} if modification
+     * is attempted.
      */
     public Map<IngredientName, Integer> getRequiredIngredients() {
         return Collections.unmodifiableMap(requiredIngredients);
     }
 
     /**
-     * Returns true if both items of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two items.
+     * Returns true if both items of the same name have at least one other identity field that is the same. This defines
+     * a weaker notion of equality between two items.
      */
     public boolean isSameItem(Item otherItem) {
         if (otherItem == this) {
@@ -88,8 +86,8 @@ public class Item {
     }
 
     /**
-     * Returns true if both items have the same identity and data fields.
-     * This defines a stronger notion of equality between two items.
+     * Returns true if both items have the same identity and data fields. This defines a stronger notion of equality
+     * between two items.
      */
     @Override
     public boolean equals(Object other) {
@@ -115,7 +113,7 @@ public class Item {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder("Name ");
+        final StringBuilder builder = new StringBuilder("Name: ");
         builder.append(getName())
                 .append(" Price: ")
                 .append(getPrice())

@@ -6,6 +6,8 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
 
+import seedu.restaurant.commons.core.EventsCenter;
+import seedu.restaurant.commons.events.ui.reservation.DisplayReservationListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -57,6 +59,7 @@ public class AddReservationCommand extends Command {
 
         model.addReservation(toAdd);
         model.commitRestaurantBook();
+        EventsCenter.getInstance().post(new DisplayReservationListRequestEvent());
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
