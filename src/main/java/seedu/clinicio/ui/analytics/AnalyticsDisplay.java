@@ -1,27 +1,26 @@
 package seedu.clinicio.ui.analytics;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-
 import java.util.Arrays;
 import java.util.List;
 
-import com.google.common.eventbus.Subscribe;
-
-import javafx.event.EventHandler;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
-import seedu.clinicio.model.analytics.ChartType;
 import seedu.clinicio.model.analytics.data.CircularList;
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
-
 import seedu.clinicio.ui.UiPart;
+
+import com.google.common.eventbus.Subscribe;
 
 //@@author arsalanc-v2
 
@@ -75,35 +74,50 @@ public class AnalyticsDisplay extends UiPart<Region> {
         );
     }
 
+    /**
+     * Sets event listeners to maintain focus on the analytics pane and cycle through visualizations.
+     */
     public void setEventListeners() {
-        analyticsPane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+        analyticsPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
-            public void handle(MouseEvent event) {
-                analyticsPane.requestFocus();
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        analyticsPane.requestFocus();
+                    }
+                });
             }
         });
 
         analyticsPane.addEventFilter(KeyEvent.KEY_PRESSED,
             event -> {
                 if (event.getCode().equals(KeyCode.RIGHT)) {
-                    handleRight();
+                    handleRightArrow();
+                } else if (event.getCode().equals(KeyCode.LEFT)) {
+                    handleLeftArrow();
                 }
             });
     }
 
     /**
-     *
+     * Plots the next visualization in the case where the right arrow key is pressed.
+     * In a separate method for clarity as same number of lines would be required if in the same method as left arrow
+     * functionality.
      */
-    public void handleRight() {
+    public void handleRightArrow() {
         chartPane.getChildren().clear();
         Plot.plotChart(allDataToDisplay.getVisualizationData().getNext(), chartPane);
-        analyticsPane.requestFocus();
-        System.out.println("rightr");
-
     }
 
-    public void requestFocus() {
-        analyticsPane.requestFocus();
+    /**
+     * Plots the previous visualization in the case where the right arrow key is pressed.
+     * In a separate method for clarity as same number of lines would be required if in the same method as right arrow
+     * functionality.
+     */
+    public void handleLeftArrow() {
+        chartPane.getChildren().clear();
+        Plot.plotChart(allDataToDisplay.getVisualizationData().getPrevious(), chartPane);
     }
 
     @Subscribe
@@ -126,15 +140,5 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     public void setVisible(boolean visibility) {
         analyticsPane.setVisible(visibility);
-    }
-
-    @Subscribe
-    public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        StatData allDataToDisplay = event.getAllData();
-        chartPane.getChildren().clear();
-        chartPane.setStyle("-fx-background-color: #6593F5");
-        Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
-        Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
-        analyticsPane.setVisible(true);
     }
 }

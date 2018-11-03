@@ -125,7 +125,7 @@ public class AppointmentStatistics extends Statistics {
             availableSlotsDates.addAll(Collections.nCopies(availableSlots, nextWeekDate));
         }
 
-        List<List<Tuple<String, Integer>>> appointmentGroupsData = overNextWeekData(Arrays.asList
+        List<List<Tuple<String, Integer>>> appointmentGroupsData = overNextWeek(Arrays.asList
             (scheduledSlotsDates, availableSlotsDates));
         List<String> appointmentGroupsLabels = Arrays.asList("scheduled", "available");
 
@@ -134,9 +134,34 @@ public class AppointmentStatistics extends Statistics {
             .map(dayOfWeek -> dayOfWeek.name())
             .collect(Collectors.toList());
 
-        statData.addCategoricalVisualization("apptSupplyDemand", ChartType.STACKED_BAR,
+        statData.addVisualizationLabels("apptSupplyDemand", ChartType.STACKED_BAR,
             "Appointments Next Week", "Day of week", "Number of appointments", nextWeekDays,
             appointmentGroupsData, appointmentGroupsLabels);
+    }
+
+    /**
+     * Computes data to plot the number of appointments over the course of the current year.
+     */
+    public void plotAppointmentsOverYear() {
+        List<Date> currentYearDates = DateTimeUtil.getCurrentYearDates();
+
+        List<Tuple<String, Integer>> dateCounts = new ArrayList<>();
+        for (Date currentYearDate : currentYearDates) {
+            long numberOfAppointments = appointments.stream()
+                .map(appt -> appt.getAppointmentDate())
+                .filter(date -> date.equals(currentYearDate))
+                .count();
+
+            dateCounts.add(new Tuple<String, Integer>(currentYearDate.toStringNoLabel(), toIntExact
+                (numberOfAppointments)));
+        }
+
+        List<String> xLabels = DateTimeUtil.getFirstDatesOfCurrentYear().stream()
+            .map(date -> date.toStringNoLabel())
+            .collect(Collectors.toList());
+
+        statData.addVisualizationLabels("apptsYear", ChartType.LINE, "Number of Appointments This Year", "Date",
+            "Number of Appointments", xLabels, Arrays.asList(dateCounts), Arrays.asList(""));
     }
 
     /**
@@ -163,5 +188,6 @@ public class AppointmentStatistics extends Statistics {
     @Override
     public void computeVisualizationData() {
         plotAppointmentSupplyDemand();
+        plotAppointmentsOverYear();
     }
 }

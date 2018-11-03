@@ -140,7 +140,7 @@ public class DoctorStatistics extends Statistics {
     public void plotPreferencesPerDoctorCount() {
         List<Tuple<String, Integer>> preferencesDataPoints = preferencesPerDoctorCount();
 
-        statData.addCategoricalVisualization("doctorPreferences", ChartType.HORIZONTAL_BAR,
+        statData.addVisualizationLabels("doctorPreferences", ChartType.HORIZONTAL_BAR,
             "Number of patient preferences for each doctor", "Number of patients", "Doctor",
             getAllDoctorNames(), Arrays.asList(preferencesDataPoints), Arrays.asList(""));
     }

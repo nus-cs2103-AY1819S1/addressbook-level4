@@ -9,10 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-<<<<<<< HEAD
 import seedu.clinicio.model.analytics.data.CircularList;
-=======
->>>>>>> 9ad5b42fa9d38917b120d3d9166a9717fb8d4556
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
@@ -107,12 +104,45 @@ public abstract class Statistics {
     }
 
     /**
-     * Constructs data for a categorical plot for the days of the current week.
+     * Constructs data for a categorical plot for the days of next week.
      * Returns counts in the order they were provided as inputs.
-     * @param datesGroups
+     * Assumes at least one group of dates is supplied.
      */
-    public List<List<Tuple<String, Integer>>> overNextWeekData(List<List<Date>>
+    public List<List<Tuple<String, Integer>>> overNextWeek(List<List<Date>>
         datesGroups) {
+        assert datesGroups.size() >= 1 : "Invalid number of groups of dates supplied.";
+
+        List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
+
+        for (List<Date> datesGroup : datesGroups) {
+            Map<Date, Integer> nextWeekDateCounts = DateTimeUtil.eachDateOfNextWeekCount(datesGroup);
+
+            List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.entrySet().stream()
+                .map(entry -> new Tuple<DayOfWeek, Integer>(DateTimeUtil.getDayFromDate(entry.getKey()), entry
+                    .getValue()))
+                .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
+                .map(tuple -> new Tuple<String, Integer>(tuple.getKey().name(), tuple.getValue()))
+                .collect(Collectors.toList());
+
+            dataGroups.add(dataGroup);
+        }
+
+        return dataGroups;
+    }
+
+    /**
+     * Constructs data for a continuous plot for the months of the year.
+     * Returns counts in the order they were provided as inputs.
+     * Assumes at least one group of dates is supplied.
+     */
+    public List<List<Tuple<String, Integer>>> overCurrentYear(List<List<Date>>
+                                                                   datesGroups) {
+
+        // plot for all dates in year
+        // hide axis to only show 1st of each month
+
+        // on plot side, line charts -> check if xlabels supplied ? hide : don't
+
         assert datesGroups.size() >= 1 : "Invalid number of groups of dates supplied.";
 
         List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();

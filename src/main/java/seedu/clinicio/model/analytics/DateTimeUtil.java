@@ -97,7 +97,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * @return the number of dates that match each day in the next week.
+     * @return the number of dates that match each date in the next week.
      * Returns {@code Date} for flexibility as the day of the week can be derived from it.
      */
     public static Map<Date, Integer> eachDateOfNextWeekCount(List<Date> dates) {
@@ -116,6 +116,7 @@ public class DateTimeUtil {
 
     /**
      * @return A Map of the number of dates that occur for each month of the current year.
+     * Useful for categorical plots over the months of a year.
      */
     public static Map<String, Integer> eachMonthOfCurrentYear(List<Date> dates) {
         LocalDate todayDate = LocalDate.now();
@@ -125,6 +126,24 @@ public class DateTimeUtil {
             .filter(localDate -> localDate.getYear() == todayDate.getYear())
             .map(localDate -> localDate.getMonth().toString())
             .collect(groupingBy(Function.identity(), summingInt(date -> 1)));
+    }
+
+    /**
+     * @return the number of dates that match each date in the current year.
+     * Useful for continuous plots over the course of a year.
+     */
+    public static Map<Date, Integer> eachDateOfCurrentYear(List<Date> dates) {
+        Map<Date, Integer> dateCount = new HashMap<>();
+        for (Date date : getCurrentYearDates()) {
+            dateCount.put(date, 0);
+            for (Date providedDate : dates) {
+                if (date.equals(providedDate)) {
+                    dateCount.replace(date, dateCount.get(date) + 1);
+                }
+            }
+        }
+
+        return dateCount;
     }
 
     /**
@@ -175,6 +194,47 @@ public class DateTimeUtil {
         }
 
         return thisWeekDates;
+    }
+
+    /**
+     * @return A list of each date in the current year.
+     */
+    public static List<Date> getCurrentYearDates() {
+        LocalDate today = LocalDate.now();
+        // iterate from first date of the year to the last
+        LocalDate startDate = today.with(TemporalAdjusters.firstDayOfYear());
+        LocalDate lastDateOfYear = today.with(TemporalAdjusters.lastDayOfYear());
+
+        List<Date> currentYearDates = new ArrayList<>();
+
+        // ! .isAfter used instead of .before for inclusivity of the endDate
+        while (!startDate.isAfter(lastDateOfYear)) {
+            System.out.println(startDate);
+            currentYearDates.add(getDate(startDate));
+            startDate = startDate.plusDays(1);
+        }
+
+        return currentYearDates;
+    }
+
+    /**
+     *
+     */
+    public static List<Date> getFirstDatesOfCurrentYear() {
+        LocalDate today = LocalDate.now();
+        // iterate from first date of the first month to the first date of the last month
+        LocalDate startDate = today.with(TemporalAdjusters.firstDayOfYear());
+        LocalDate endDate = today.with(TemporalAdjusters.lastDayOfYear()).with(TemporalAdjusters.firstDayOfMonth());
+
+        List<Date> firstDates = new ArrayList<>();
+
+        // ! .isAfter used instead of .before for inclusivity of the endDate
+        while (!startDate.isAfter(endDate)) {
+            firstDates.add(getDate(startDate));
+            startDate = startDate.with(TemporalAdjusters.firstDayOfNextMonth());
+        }
+
+        return firstDates;
     }
 
 

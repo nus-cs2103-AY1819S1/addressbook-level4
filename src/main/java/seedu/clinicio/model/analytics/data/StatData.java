@@ -70,7 +70,7 @@ public class StatData {
     }
 
     /**
-     * Creates a categorical visualization.
+     * Creates a visualization with
      * Requires the minimum amount of information from statistics classes to represent data to be visualized.
      * @param type
      * @param chartTitle
@@ -79,7 +79,7 @@ public class StatData {
      * @param xLabels
      * @param dataGroups
      */
-    public void addCategoricalVisualization(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
+    public void addVisualizationLabels(String id, ChartType type, String chartTitle, String xTitle, String yTitle,
         List<String> xLabels, List<List<Tuple<String, Integer>>> dataGroups, List<String> dataGroupsLabels) {
         assert dataGroups.size() == dataGroupsLabels.size() : "Each data group should have one label";
 

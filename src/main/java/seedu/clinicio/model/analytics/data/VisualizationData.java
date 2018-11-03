@@ -9,6 +9,7 @@ import seedu.clinicio.model.analytics.ChartType;
 /**
  * Data structure for storing data needed to create visualizations.
  * Exposes data to be displayed through convenient methods.
+ * Takes in a type parameter specifying the type of the first coordinate for each data point.
  */
 public class VisualizationData<T> {
 
@@ -25,7 +26,8 @@ public class VisualizationData<T> {
     private List<String> dataGroupsLabels;
 
     /**
-     * Categorical Visualizations.
+     * Visualizations with the labels for one axis specified.
+     * May be categorical or continuous.
      * @param type
      * @param chartTitle
      * @param xTitle
@@ -46,7 +48,7 @@ public class VisualizationData<T> {
     }
 
     /**
-     * Continuous visualizations.
+     * Continuous visualizations for data points composed only of an Integer, Integer pairing.
      * @param type
      * @param chartTitle
      * @param xTitle
