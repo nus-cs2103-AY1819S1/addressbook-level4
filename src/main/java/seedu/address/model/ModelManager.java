@@ -118,6 +118,11 @@ public class ModelManager extends ComponentManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
+
+        //Update logged in user
+        if (!getLoggedInUser().isAdminUser() && target.isSamePerson(getLoggedInUser().getPerson())) {
+            setLoggedInUser(new User(editedPerson));
+        }
         indicateAddressBookChanged();
     }
 
