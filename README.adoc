@@ -29,8 +29,11 @@ endif::[]
 
 == Acknowledgements
 
-* Forked from https://se-edu.github.io/addressbook-level4/[Addressbook-Level4] by
-se-edu.
-* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* This application is a fork of https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Addressbook-Level4]
+developed by the https://se-edu.github.io/docs/Team.html[se-edu] team.
+
+* Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX],
+https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava],
+https://github.com/junit-team/junit5[JUnit5]
 
 == Licence : link:LICENSE[MIT]
