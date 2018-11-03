@@ -12,8 +12,8 @@ import static seedu.address.testutil.TypicalModules.YEAR_TWO;
 
 import java.util.HashSet;
 import java.util.Map;
-
 import java.util.Set;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -60,7 +60,7 @@ public class ParserUtilTest {
 
     @Test
     public void validateNumOfArgs() throws Exception {
-        String[] tokenize =  {"a", "b", "c", "d"};
+        String[] tokenize = {"a", "b", "c", "d"};
 
         ParserUtil.validateNumOfArgs(tokenize, 4);
         ParserUtil.validateNumOfArgs(tokenize, Integer.MIN_VALUE, 4);
