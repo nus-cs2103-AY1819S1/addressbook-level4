@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
+import seedu.clinicio.model.person.Person;
 import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
 /**
@@ -147,6 +149,10 @@ public class MainWindow extends UiPart<Stage> {
 
     void hide() {
         primaryStage.hide();
+    }
+
+    public void setPersonListPanel(ObservableList<Person> list) {
+        personListPanel = new PersonListPanel(list);
     }
 
     private void setTitle(String appTitle) {
