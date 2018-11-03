@@ -35,7 +35,7 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.commands.AddCommand;
 import seedu.restaurant.logic.commands.RedoCommand;
 import seedu.restaurant.logic.commands.UndoCommand;

@@ -1,4 +1,4 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.accounts;
 
 import seedu.restaurant.commons.core.session.UserSession;
 import seedu.restaurant.commons.events.BaseEvent;

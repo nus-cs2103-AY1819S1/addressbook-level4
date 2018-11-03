@@ -557,6 +557,10 @@ method given in `Sales` component of `Model`.
 An exception will be thrown in step 2, 3 or 5 should the conditions be violated. When this happens,
 `RecordSalesCommand` will proceed with step 6 instantly and omit the remaining steps.
 
+The following activity diagram summarizes what happens when a user executes `record-sales` command:
+
+image::RecordSalesActivityDiagram.png[width="1000"]
+
 ==== Design Considerations
 ===== Aspect: Should the auto-ingredient update mechanism be incorporated when deleting sales?
 
