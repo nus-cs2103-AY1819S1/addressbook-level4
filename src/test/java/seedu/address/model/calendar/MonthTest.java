@@ -19,9 +19,9 @@ public class MonthTest {
     }
 
     @Test
-    public void constructor_invalidName_throwsIllegalArgumentException() {
-        String invalidName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Month(invalidName));
+    public void constructor_invalidMonth_throwsIllegalArgumentException() {
+        String invalidMonth = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Month(invalidMonth));
     }
 
     @Test

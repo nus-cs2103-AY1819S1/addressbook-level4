@@ -11,7 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Year {
 
     public static final String MESSAGE_YEAR_CONSTRAINTS =
-            "Year should be a 4 digit integer, and it should not be blank";
+            "Year should be a 4 digit positive integer, and it should not be blank";
 
     public static final String YEAR_VALIDATION_REGEX = "^\\d{4}$";
 
