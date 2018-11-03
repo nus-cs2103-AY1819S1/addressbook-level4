@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author AZhiKai
 public class AccountListPanelTest extends GuiUnitTest {
 
     private static final ObservableList<Account> TYPICAL_ACCOUNTS =
