@@ -46,12 +46,24 @@ public abstract class Statistics {
         statData = new StatData();
     }
 
+    public abstract void computeSummaryData();
+    public abstract void computeVisualizationData();
+
     public void initializeSummaryValues(String summaryTitle, List<String> summaryTexts) {
         statData.initializeSummary(summaryTitle, summaryTexts);
     }
 
-    public abstract void computeSummaryData();
-    public abstract void computeVisualizationData();
+    /**
+     * @return A list of the number of occurrences of dates for each summary field.
+     */
+    public List<Integer> computeSummaryTotals(List<Date> dates) {
+        int todayCount = DateTimeUtil.today(dates);
+        int weekCount = DateTimeUtil.currentWeek(dates);
+        int monthCount = DateTimeUtil.currentMonth(dates);
+        int yearCount = DateTimeUtil.currentYear(dates);
+
+        return Arrays.asList(todayCount, weekCount, monthCount, yearCount);
+    }
 
     /**
      * Calculates the range of an axis given {@code values} based on an {@code offset} from the minimum and maximum

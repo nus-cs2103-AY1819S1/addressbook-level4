@@ -173,16 +173,10 @@ public class AppointmentStatistics extends Statistics {
             .map(appt -> appt.getAppointmentDate())
             .collect(Collectors.toList());
 
-        // calculate appointment numbers - TO ABSTRACT
-        int appointmentsToday = DateTimeUtil.today(appointmentDates);
-        int appointmentsWeek = DateTimeUtil.currentWeek(appointmentDates);
-        int appointmentsMonth = DateTimeUtil.currentMonth(appointmentDates);
-        int appointmentsYear = DateTimeUtil.currentYear(appointmentDates);
-
-        List<Integer> values = Arrays.asList(appointmentsToday, appointmentsWeek, appointmentsWeek, appointmentsMonth);
+        List<Integer> appointmentSummaryValues = computeSummaryTotals(appointmentDates);
 
         // update data with calculated values
-        statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, values);
+        statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, appointmentSummaryValues);
     }
 
     @Override

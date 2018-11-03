@@ -24,7 +24,7 @@ public class DateTest {
 
         //invalid day
         assertFalse(Date.isValidDay(30, 2, 2020));
-        assertFalse(Date.isValidDay(31, 4, 2018));
+        assertFalse(Date.isValidDay(32, 4, 2018));
         assertFalse(Date.isValidDay(679, 12, 2000));
         assertFalse(Date.isValidDay(31, 9, 2000));
         assertFalse(Date.isValidDay(30, 2, 1977));

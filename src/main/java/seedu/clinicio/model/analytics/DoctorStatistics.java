@@ -72,7 +72,7 @@ public class DoctorStatistics extends Statistics {
     }
 
     /**
-     * Calculate the number of consultations for various time periods
+     * Calculate the average number of consultations per doctor for various time periods
      * Add these to be displayed as a summary.
      */
     @Override
@@ -81,26 +81,16 @@ public class DoctorStatistics extends Statistics {
             .map(consultation -> consultation.getConsultationDate())
             .collect(Collectors.toList());
 
-        // calculate consultation numbers
-        int consultationsToday = DateTimeUtil.today(consultationDates);
-        int consultationsWeek = DateTimeUtil.currentWeek(consultationDates);
-        int consultationsMonth = DateTimeUtil.currentMonth(consultationDates);
-        int consultationsYear = DateTimeUtil.currentYear(consultationDates);
+        List<Integer> consultaionTotalValues = computeSummaryTotals(consultationDates);
 
         int numberOfDoctors = doctors.size();
-
         if (numberOfDoctors > 0) {
-            // calculate averages
-            int consultationsTodayPerDoctor = consultationsToday / numberOfDoctors;
-            int consultationsWeekPerDoctor = consultationsWeek / numberOfDoctors;
-            int consultationsMonthPerDoctor = consultationsMonth / numberOfDoctors;
-            int consultationsYearPerDoctor = consultationsYear / numberOfDoctors;
-
-            List<Integer> values = Arrays.asList(consultationsTodayPerDoctor, consultationsWeekPerDoctor,
-                consultationsMonthPerDoctor, consultationsYearPerDoctor);
+           List<Integer> consultationAverageValues = consultaionTotalValues.stream()
+               .map(value -> value / numberOfDoctors)
+               .collect(Collectors.toList());
 
             // update store of calculated values
-            statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, values);
+            statData.updateSummary(SUMMARY_TITLE, defaultSummaryTexts, consultaionTotalValues);
         }
     }
 
