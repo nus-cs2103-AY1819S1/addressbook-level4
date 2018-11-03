@@ -12,6 +12,7 @@ import java.util.Set;
 
 import seedu.restaurant.model.tag.Tag;
 
+//@@author m4dkip
 /**
  * Represents a Reservation in the restaurant book.
  * Guarantees: details are present and not null, field values are validated, immutable.
