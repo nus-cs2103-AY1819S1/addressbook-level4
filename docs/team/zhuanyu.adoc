@@ -5,7 +5,7 @@
 :toc-placement: preamble
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
+:stylesheet: solarized.css
 
 image::zhuanyu.png[width="150", align="left"]
 {empty}[https://github.com/ZhuanYu[GitHub]]

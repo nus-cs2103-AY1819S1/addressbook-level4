@@ -21,7 +21,7 @@ import seedu.parking.model.carpark.Carpark;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE =
-            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?isDefault=1";
+            "http://localhost:8000/Documents/IdeaProjects/carparkfinder/docs/DummySearchPage.html?isDefault=1";
     public static final String SEARCH_PAGE_URL =
             "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?json=";
 
