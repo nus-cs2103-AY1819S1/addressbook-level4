@@ -103,7 +103,7 @@ public class AddCommandTest {
 
         @Override
         public boolean alreadyContainsUsername(String username, Person ignore) {
-            throw new AssertionError("This method should not be called.");
+            return false;
         }
 
         @Override
