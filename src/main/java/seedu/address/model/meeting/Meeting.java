@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 //@@author AyushChatto
@@ -57,8 +58,10 @@ public class Meeting {
         String formattedTest = formatMeeting(test);
         if (formattedTest.matches(MEETING_VALIDATION_REGEX)) {
             try {
-                DateTimeFormatter df = DateTimeFormatter.ofPattern("ddMMyy");
-                LocalDate.parse(formattedTest.substring(0, 6), df);
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("ddMMyy");
+                LocalDate.parse(formattedTest.substring(0, 6), dateFormatter);
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+                LocalTime.parse(formattedTest.substring(6,10), timeFormatter);
                 return true;
             } catch (DateTimeException e) {
                 return false;
