@@ -87,7 +87,6 @@ public class Date {
         if (month == 2) {
             return isValidFebDay(day, year);
         }
-
         if (month % 2 == 1 && month >= 9 && day > 30) {
             return false;
         }
