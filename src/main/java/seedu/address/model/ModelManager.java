@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -14,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ArchivedListChangedEvent;
 import seedu.address.commons.events.model.AssignmentListChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
@@ -108,9 +110,23 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addPerson(Person person) {
+        if (alreadyContainsUsername(person.getUsername().username)) {
+            throw new RuntimeException("The person's username already exists in the address book!");
+        }
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public boolean alreadyContainsUsername(String newUsername) {
+        List<Person> currentPeople = versionedAddressBook.getPersonList();
+        for (Person p : currentPeople) {
+            if (p.getUsername().username.equals(newUsername)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

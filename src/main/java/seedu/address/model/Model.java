@@ -50,6 +50,13 @@ public interface Model {
     void addPerson(Person person);
 
     /**
+     * Checks if the given username is already in the addressbook, for the current version
+     * @param username the Username to check against
+     * @return True if it's already in the address book, false otherwise
+     */
+    boolean alreadyContainsUsername(String username);
+
+    /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
