@@ -55,7 +55,7 @@ I have PRs for the minor features stated above. Do I put those here?
 *** Updated documentation based on errors I encountered and how to resolve it to help future contributors https://github.com/CS2103-AY1819S1-F10-1/main/pull/2[#2]
 
 ** PR standards:
-*** All of my pull requests have referenced clearly to which issues they're attempt to address and have resulted in no loss of code coverage. Major examples: https://github.com/CS2103-AY1819S1-F10-1/main/pull/84[#84] https://github.com/CS2103-AY1819S1-F10-1/main/pull/106[#106] https://github.com/CS2103-AY1819S1-F10-1/main/pull/118[#118] https://github.com/CS2103-AY1819S1-F10-1/main/pull/119[#119]
+*** All of my pull requests have referenced clearly to which issues they're attempt to address and have resulted in no loss of code coverage. Major examples: (https://github.com/CS2103-AY1819S1-F10-1/main/pull/84[#84] https://github.com/CS2103-AY1819S1-F10-1/main/pull/106[#106] https://github.com/CS2103-AY1819S1-F10-1/main/pull/118[#118] https://github.com/CS2103-AY1819S1-F10-1/main/pull/119[#119] https://github.com/CS2103-AY1819S1-F10-1/main/pull/139[#139])
 
 ** Community:
 //*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
