@@ -532,6 +532,7 @@ public class ConnectToGoogleCalendar {
             //Get the wanted instance, edit and update
             com.google.api.services.calendar.model.Event instance = instanceSort.get(instanceIndex);
             instance = setCommonAttributes(instance, editedEvent);
+            instance = setRepeatAttribute(instance, editedEvent);
             service.events().update(CALENDAR_NAME, instance.getId(), instance).execute();
         } catch (IOException e) {
             e.printStackTrace();
