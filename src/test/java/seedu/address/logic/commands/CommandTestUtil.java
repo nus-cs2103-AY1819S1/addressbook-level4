@@ -48,8 +48,11 @@ public class CommandTestUtil {
     // Calendar Fields
     public static final Month VALID_MONTH_JAN = new Month("JAN");
     public static final Month VALID_MONTH_FEB = new Month("FEB");
+    public static final Month VALID_MONTH_JUN = new Month("JUN");
+    public static final Year LEAP_YEAR = new Year("2016");
     public static final Year VALID_YEAR_2018 = new Year("2018");
     public static final Year VALID_YEAR_2017 = new Year("2017");
+    public static final int VALID_CALENDAR_DATE = 1;
 
     public static final String VALID_EMAIL_EXCURSION = "excursion@example.com";
     public static final String VALID_EMAIL_CAMP = "camp@example.com";

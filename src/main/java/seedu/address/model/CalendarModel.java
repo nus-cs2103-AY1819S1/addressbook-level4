@@ -105,6 +105,8 @@ public class CalendarModel {
 
     /** Checks if date is valid in a particular month. */
     public boolean isValidDate(Year year, Month month, int date) {
+        requireNonNull(year);
+        requireNonNull(month);
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(java.util.Calendar.YEAR, Integer.parseInt(year.toString()));
         cal.set(java.util.Calendar.MONTH, monthToConstantMap.get(month));

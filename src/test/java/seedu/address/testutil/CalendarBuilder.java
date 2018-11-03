@@ -47,7 +47,15 @@ public class CalendarBuilder {
         calendar.getProperties().add(new ProdId(DEFAULT_PRODID));
         calendar.getProperties().add(Version.VERSION_2_0);
         calendar.getProperties().add(CalScale.GREGORIAN);
+        calendar.getComponents().add(defaultEvent());
 
+        return calendar;
+    }
+
+    /**
+     * Creates a default VEvent to be put inside the default calendar.
+     */
+    private VEvent defaultEvent() {
         // ----- Create Default event -----
         // Start Date
         java.util.Calendar sDate = new GregorianCalendar();
@@ -80,9 +88,8 @@ public class CalendarBuilder {
 
         // Add a UID for the event
         defaultEvent.getProperties().add(DEFAULT_UID);
-        calendar.getComponents().add(defaultEvent);
 
-        return calendar;
+        return defaultEvent;
     }
 
     public Calendar build() {
