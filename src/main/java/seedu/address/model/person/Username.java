@@ -11,7 +11,7 @@ public class Username {
 
     public static final String MESSAGE_USERNAME_CONSTRAINTS =
         "Username should only contain alphanumeric characters and spaces, the first character cannot be a "
-            + "whitespace, and it should not be blank";
+            + "whitespace, it should not be blank and it should be unique among everyone in the system.";
 
     /*
      * The first character of the username must not be a whitespace,
@@ -34,6 +34,7 @@ public class Username {
 
     /**
      * Returns true if a given string is a valid username.
+     * Note: Does not verify constraint for unique among everyone in the system.
      */
     public static boolean isValidUsername(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
