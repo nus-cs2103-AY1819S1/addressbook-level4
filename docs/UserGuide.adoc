@@ -18,7 +18,11 @@ By: `Team W10-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-EventOrganiser is an application for managing and organising events built for NUS students. More importantly, EventOrganiser is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+EventOrganiser is an application for managing and organising events built for NUS students.
+More importantly, EventOrganiser is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, EventOrganiser can help you to arrange events faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
 
 == Quick Start
 
@@ -33,10 +37,14 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listUsers`* : lists all contacts
-* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`deleteUser`**`3` : deletes the 3rd contact shown in the current list
+* *`listUsers`* : lists all users in the event organiser
+* **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : creates a new user named `John Doe` to the Event Organiser.
+* `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
 * *`exit`* : exits the app
+
+To use the application, you must first create an account using the `addUser` command, and then login.
+You may then decide to organise an event using the `addEvent` command, to which you can specify the date, time and create polls.
+Alternatively, you may decide to search for an event to join, and then vote in the event polls.
 
 [[Features]]
 == Features
@@ -215,7 +223,7 @@ Selects the user identified by the index number used in the displayed user list.
 Format: `selectUser INDEX`
 
 ****
-* Selects the user and loads the Google search page the user at the specified `INDEX`.
+* Selects the user and loads the details of the user at the specified `INDEX` in the browser panel.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -228,13 +236,6 @@ Selects the 2nd user in the event organiser.
 * `findUser Betsy` +
 `selectUser 1` +
 Selects the 1st user in the results of the `find` command.
-
-////
-==== Clearing all user entries : `clear`
-
-Clears all users from the event organiser. +
-Format: `clear`
-////
 
 ==== Editing a user : `editUser`
 
@@ -325,7 +326,7 @@ Examples:
 `deleteEvent 2` +
 Deletes the 2nd event in the event organiser.
 
-=== Select an event : ` selectEvent`
+==== Select an event : ` selectEvent`
 Selects an event to be edited. +
 Format: `selectEvent index`
 
@@ -407,23 +408,6 @@ Examples:
 
 * `displayPoll i/1`
 
-==== Get recommendation for time : `recDayTime`
-Retrieves recommendations for the best time on a specific day of a week to hold the event. +
-Format: `recDayTime`
-
-****
-* The event organiser will calculate and display the time slots where the most participants can attend, based on their NUSMods schedule and stated unavailable timeslots.
-****
-
-
-==== Get recommendation for location : `recPlace`
-Retrieves recommendations for the best location to hold the event. +
-Format: `recPlace`
-
-****
-* The event organiser will compute the best event location (most central MRT station) based on the proximity of the participants' addresses.
-****
-
 === Join event commands
 
 ==== Find event by the name of the event : `findEvent`
@@ -482,12 +466,6 @@ Format: `voteDate i/POLL_ID o/OPTION_ID`
 Examples:
 
 * `voteDate i/3 o/12 August`
-
-==== List joined events : `listJoinedEvents`
-Lists all the events joined by the current user.
-Format: `listJoinedEvents`
-
-
 
 === Listing entered commands : `history`
 
@@ -562,7 +540,7 @@ There is no need to save manually.
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Event Organiser folder.
 
 == Command Summary
 
@@ -607,20 +585,28 @@ e.g.`select 2`
 e.g. `maxSchedule 1 2 3`
 
 === Event organiser commands
-​* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
+
+* *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
 e.g. `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent`
-​* *Delete Event* : `deleteEvent INDEX` +
+
+* *Delete Event* : `deleteEvent INDEX` +
 e.g. `deleteEvent 1`
+
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
+
 * *Add Option* : `addOption i/POLL_INDEX o/POLL_OPTION` +
 e.g. `addOption i/1 o/Play games`
+
 * *Add Time Poll* : `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR` +
 e.g. `addTimePoll d1/01-12-2018 d2/02-12-2018`
+
 * *Display Poll* : `displayPoll INDEX` +
 e.g. `displayPoll 1`
+
 * *Set Event Date* : `setDate d/DAY-MONTH-YEAR` +
 e.g. `setDate d/12-12-2018`
+
 * *Set Event Time* : `setTime t1/HOUR:MINUTE t2/HOUR:MINUTE` +
 e.g. `setTime t1/12:30 t2/13:45`
 
@@ -633,7 +619,7 @@ e.g. `joinEvent 1`
 e.g. `vote i/1 o/Play games`
 * *Find Event With Attributes* : `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DAY-MONTH-YEAR] [t1/HOUR:MINUTE (START_TIME)]
 [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
-e.g. `findEvent t1/12-12-2018 pn/John Doe`
+e.g. `findEvent d/12-12-2018 pn/John Doe`
 e.g. `findEvent a/SoC Canteen on/Alice Tan`
 * *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`
