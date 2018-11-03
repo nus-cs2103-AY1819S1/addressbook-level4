@@ -128,6 +128,10 @@ public class AchievementRecord {
         return nextWeekBreakPoint;
     }
 
+    public void setNextWeekBreakPoint(Calendar nextWeekBreakPoint) {
+        this.nextWeekBreakPoint = nextWeekBreakPoint;
+    }
+
     public int getXpValueByWeek() {
         return xpValueByWeek;
     }

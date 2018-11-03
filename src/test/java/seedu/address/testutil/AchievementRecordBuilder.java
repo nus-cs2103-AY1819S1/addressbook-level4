@@ -64,7 +64,7 @@ public class AchievementRecordBuilder {
         xpValueByWeek = newData.getXpValueByWeek();
     }
 
-    private static Calendar getCalendarFromString(String source) {
+    public static Calendar getCalendarFromString(String source) {
         final Calendar result = Calendar.getInstance();
         result.setTime(DateFormatUtil.parseDate(source));
         return result;

@@ -141,7 +141,7 @@ public class AchievementRecordTest {
         AchievementRecord achievementRecord = getRecWithPassedNextDayBreakPoint(original);
 
         // nextDayBreakPoint is expected to be reset to the start of tomorrow, xpValueByDay and numTaskCompletedByDay
-        // reset to 0 before being incremented again with the new xp
+        // reset to 0
         int option = AchievementRecord.DISPLAY_TODAY;
         int valueAfterReset = 0;
         AchievementRecord expected = new AchievementRecordBuilder(original)
@@ -155,16 +155,53 @@ public class AchievementRecordTest {
         achievementRecord.setDisplayOption(option);
         assertEquals(achievementRecord, expected);
     }
-    
+
+    /**
+     * If the current time has passed the {@code nextWeekBreakPoint}, it must have passed the {@code nextDayBreakPoint}
+     * as well because {@code nextDayBreakPoint} is restricted to be no later than {@code nextWeekBreakPoint}.
+     * Therefore there would not be a case where only the {@code nextWeekBreakPoint} is passed.
+     *
+     * This test is for the case when {@code nextWeekBreakPoint} is passed, and along with it, {@code nextDayBreakPoint}
+     * is passed as well.
+     */
+    @Test
+    public void setDisplayOptionWithNewXp_bothBreakPointsArePassed_AchievementsTodayAndThisWeekReset() {
+
+        // get an original achievement record with non-zero time based achievement fields
+        AchievementRecord original = getNonEmptyAchievementRecord();
+
+        // set both nextDayBreakPoint and nextWeekBreakPoint to be the beginning of today
+        AchievementRecord achievementRecord = getRecWithPassedBreakPoints(original);
+
+        // nextDayBreakPoint is expected to be reset to the start of tomorrow, xpValueByDay and numTaskCompletedByDay
+        // reset to 0
+
+        // nextWeekBreakPoint is expected to be reset to the start of (today + 7 days), xpValueByWeek and
+        // numTaskCompletedByWeek reset to 0
+        int option = AchievementRecord.DISPLAY_ALL_TIME;
+        int valueAfterReset = 0;
+        AchievementRecord expected = new AchievementRecordBuilder(original)
+                .withDisplayOption(option)
+                .withNextDayBreakPointFromNow()
+                .withNextWeekBreakPointFromNow()
+                .withXpValueByDay(valueAfterReset)
+                .withNumTaskCompletedByDay(valueAfterReset)
+                .withXpValueByWeek(valueAfterReset)
+                .withNumTaskCompletedByWeek(valueAfterReset)
+                .build();
+
+        achievementRecord.setDisplayOption(option);
+        assertEquals(achievementRecord, expected);
+    }
+
     @Test
     public void incrementAchievementsWithNewXp_noBreakPointIsPassed_noReset() {
 
         // no level up with new xp
         int xpAdded = 400;
         int numTasksCompleted = 1;
-        AchievementRecord expectedWithoutLevelUp = new AchievementRecordBuilder()
+        AchievementRecord expectedWithoutLevelUp = new AchievementRecordBuilder(this.achievementRecord)
                 .withXpValue(xpAdded)
-                .withLevel(Level.LEVEL_1)
                 .withNumTaskCompleted(numTasksCompleted)
                 .withXpValueByDay(xpAdded)
                 .withNumTaskCompletedByDay(numTasksCompleted)
@@ -181,7 +218,7 @@ public class AchievementRecordTest {
         achievementRecord.incrementAchievementsWithNewXp(xpAdded);
         xpAdded += 400;
         numTasksCompleted++;
-        AchievementRecord expectedWithLevelUp = new AchievementRecordBuilder()
+        AchievementRecord expectedWithLevelUp = new AchievementRecordBuilder(this.achievementRecord)
                 .withXpValue(xpAdded)
                 .withLevel(Level.LEVEL_2)
                 .withNumTaskCompleted(numTasksCompleted)
@@ -263,6 +300,69 @@ public class AchievementRecordTest {
 
         achievementRecord.incrementAchievementsWithNewXp(xpToAdd);
         assertEquals(achievementRecord, expected);
+    }
+
+    @Test
+    public void equals() {
+        // same values -> returns true
+        AchievementRecord original = getNonEmptyAchievementRecord();
+        AchievementRecord copy = new AchievementRecordBuilder(original).build();
+        assertTrue(original.equals(copy));
+
+        // same object -> returns true
+        assertTrue(original.equals(original));
+
+        // null -> returns false
+        assertFalse(original.equals(null));
+
+        // different type -> returns false
+        assertFalse(original.equals(5));
+
+        // different achievement record -> returns false
+        assertFalse(original.equals(this.achievementRecord));
+
+        // different xp -> returns false
+        int newXpValue = 900;
+        AchievementRecord edited = new AchievementRecordBuilder(original).withXpValue(newXpValue).build();
+        assertFalse(original.equals(edited));
+
+        // different level -> returns false
+        edited = getNonEmptyAchievementRecord();
+        edited.setLevel(Level.LEVEL_1);
+        assertFalse(original.equals(edited));
+
+        // different number of tasks completed -> returns false
+        int newNum = 8;
+        edited = new AchievementRecordBuilder(original).withNumTaskCompleted(newNum).build();
+        assertFalse(original.equals(edited));
+
+        // different nextDayBreakPoint -> returns false
+        edited = getNonEmptyAchievementRecord();
+        edited.setNextDayBreakPoint(AchievementRecordBuilder
+                .getCalendarFromString(AchievementRecordBuilder.DEFAULT_NEXT_DAY_BREAK_POINT));
+        assertFalse(original.equals(edited));
+
+        // different xpValueByDay -> returns false
+        edited = new AchievementRecordBuilder(original).withXpValueByDay(newXpValue).build();
+        assertFalse(original.equals(edited));
+
+        // different numTaskCompletedByDay-> returns false
+        edited = new AchievementRecordBuilder(original).withNumTaskCompletedByDay(newNum).build();
+        assertFalse(original.equals(edited));
+
+        // different nextWeekBreakPoint -> returns false
+        edited = getNonEmptyAchievementRecord();
+        edited.setNextWeekBreakPoint(AchievementRecordBuilder
+                .getCalendarFromString(AchievementRecordBuilder.DEFAULT_NEXT_WEEK_BREAK_POINT));
+        assertFalse(original.equals(edited));
+
+        // different xpValueByWeek -> returns false
+        edited = new AchievementRecordBuilder(original).withXpValueByWeek(newXpValue).build();
+        assertFalse(original.equals(edited));
+
+        // different numTaskCompletedByWeek-> returns false
+        edited = new AchievementRecordBuilder(original).withNumTaskCompletedByWeek(newNum).build();
+        assertFalse(original.equals(edited));
     }
 }
 
