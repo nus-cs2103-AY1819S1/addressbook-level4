@@ -2,6 +2,7 @@ package seedu.restaurant.logic.commands.sales;
 
 import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -40,10 +41,11 @@ public class RankDateCommand extends Command {
     }
 
     /**
-     * Converts every Date key and Double value in the given {@code dateRanking} map to String
+     * Converts every Date key and Double value in the given {@code dateRanking} map to String. Uses a LinkedHashMap
+     * to preserve insertion order.
      */
     private Map<String, String> getStringRepresentation(Map<Date, Double> dateRanking) {
-        Map<String, String> dateRankingInString = new HashMap<>();
+        Map<String, String> dateRankingInString = new LinkedHashMap<>();
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.US);
         for (Map.Entry<Date, Double> entry : dateRanking.entrySet()) {
             String date = entry.getKey().toString() + " (" + entry.getKey().getDayOfWeek() + ")";

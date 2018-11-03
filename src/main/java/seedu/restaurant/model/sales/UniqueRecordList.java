@@ -3,11 +3,15 @@ package seedu.restaurant.model.sales;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
@@ -148,11 +152,19 @@ public class UniqueRecordList implements Iterable<SalesRecord> {
     }
 
     /**
-     * Sorts the given {@code dateRevenueMap} by revenue (i.e. its key) in descending order
+     * Sorts the given {@code dateRevenueMap} by revenue (i.e. its value) in descending order. Uses a LinkedHashMap
+     * to preserve insertion order.
      */
-    private Map<Date, Double> sortByRevenue(Map<Date, Double> dateDoubleMap) {
-        return dateDoubleMap.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s1, s2) -> s2, HashMap::new));
+    private Map<Date, Double> sortByRevenue(Map<Date, Double> dateRevenueMap) {
+        List<Entry<Date, Double>> dateRevenueList = new ArrayList<>(dateRevenueMap.entrySet());
+        dateRevenueList.sort(Entry.comparingByValue(Comparator.reverseOrder()));
+
+        Map<Date, Double> sortedDateRevenue = new LinkedHashMap<>();
+        for (Entry<Date, Double> entry : dateRevenueList) {
+            sortedDateRevenue.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedDateRevenue;
     }
 
     @Override
