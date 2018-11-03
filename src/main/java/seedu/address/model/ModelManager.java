@@ -192,6 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
+    // @@author ihwk1996
     @Override
     public boolean canUndoPreviewImage() {
         return getCurrentPreviewImage().canUndo();
