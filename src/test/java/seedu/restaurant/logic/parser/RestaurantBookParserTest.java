@@ -482,10 +482,10 @@ public class RestaurantBookParserTest {
     public void parseCommand_deleteItem() throws Exception {
         DeleteItemCommand command = (DeleteItemCommand) parser.parseCommand(
                 DeleteItemCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteItemCommand(INDEX_FIRST), command);
+        assertEquals(new DeleteItemCommand(INDEX_FIRST, INDEX_FIRST), command);
         command = (DeleteItemCommand) parser.parseCommand(DeleteItemCommand.COMMAND_ALIAS
                 + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteItemCommand(INDEX_FIRST), command);
+        assertEquals(new DeleteItemCommand(INDEX_FIRST, INDEX_FIRST), command);
     }
 
     @Test
