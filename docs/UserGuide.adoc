@@ -226,7 +226,7 @@ Examples:
 * `delete_cca c/Basketball F trans/3`
 
 // tag::import[]
-==== Importing contact information : `import`
+==== Importing residents information : `import`
 
 Imports file containing residents information and updates Hallper accordingly. +
 Format: `import f/FILEPATH`

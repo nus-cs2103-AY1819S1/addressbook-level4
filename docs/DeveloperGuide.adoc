@@ -690,8 +690,8 @@ then invokes `ModelManager#indicateAddressBookChanged()`, which raises an `Addre
 `StorageManager#saveAddressBook(ReadOnlyAddressBook data)` is then called to update the existing `addressbook.xml` file
 with the new persons list.
 
-=== Design Considerations
-==== Aspect: Algorithm to identify persons associated with CCAs to be erased
+==== Design Considerations
+===== Aspect: Algorithm to identify persons associated with CCAs to be erased
 * **Alternative 1 (current choice):** Loop through current internal list to extract associated persons.
 ** Pros: The implementation of the extraction algorithm is straightforward and will not miss out any persons.
 ** Cons: The execution time will be slow for large quantity of persons in the internal list.
