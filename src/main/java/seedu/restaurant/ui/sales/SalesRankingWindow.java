@@ -44,7 +44,7 @@ public class SalesRankingWindow extends UiPart<Stage> {
     @FXML
     private TableColumn<Map.Entry<String, String>, String> rank;
     @FXML
-    private TableColumn<Map.Entry<String, String>, String> dateOrName;
+    private TableColumn<Map.Entry<String, String>, String> dateOrItem;
     @FXML
     private TableColumn<Map.Entry<String, String>, String> revenue;
 
@@ -98,10 +98,10 @@ public class SalesRankingWindow extends UiPart<Stage> {
         ObservableList<Map.Entry<String, String>> salesRankingList =
                 FXCollections.observableArrayList(salesRanking.entrySet());
         rankingTable.setItems(salesRankingList);
-        rank.setCellValueFactory(d -> new SimpleStringProperty(
-                String.valueOf(Index.fromZeroBased(salesRankingList.indexOf(d.getValue())).getOneBased())));
-        dateOrName.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getKey()));
-        revenue.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getValue()));
+        rank.setCellValueFactory(e -> new SimpleStringProperty(
+                String.valueOf(Index.fromZeroBased(salesRankingList.indexOf(e.getValue())).getOneBased())));
+        dateOrItem.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getKey()));
+        revenue.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getValue()));
     }
 
     /**

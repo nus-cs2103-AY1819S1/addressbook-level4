@@ -27,7 +27,7 @@ public class RankItemCommand extends Command {
             + "to total revenue accumulated in past sales records.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String DISPLAYING_RANK_ITEM_MESSAGE = "Displayed ranking of items.";
+    public static final String DISPLAYING_RANK_ITEM_MESSAGE = "Displayed ranking of items by revenue.";
     public static final String EMPTY_RECORD_LIST_MESSAGE = "Your sales list is empty.";
 
     @Override

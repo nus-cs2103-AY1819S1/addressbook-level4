@@ -26,7 +26,7 @@ public class RankDateCommand extends Command {
             + "to total revenue.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String DISPLAYING_RANK_DATE_MESSAGE = "Displayed ranking of dates.";
+    public static final String DISPLAYING_RANK_DATE_MESSAGE = "Displayed ranking of dates by revenue.";
     public static final String EMPTY_RECORD_LIST_MESSAGE = "Your sales list is empty.";
 
     @Override

@@ -16,7 +16,7 @@
         <TableView fx:id="rankingTable" prefHeight="250.0" prefWidth="271.0">
           <columns>
             <TableColumn fx:id="rank" prefWidth="40" text="Rank" sortable="false"/>
-            <TableColumn fx:id="dateOrName" prefWidth="150" text="Key" sortable="false"/>
+            <TableColumn fx:id="dateOrItem" prefWidth="150" text="Key" sortable="false"/>
             <TableColumn fx:id="revenue" prefWidth="100" text="Revenue" sortable="false"/>
           </columns>
         </TableView>

@@ -29,6 +29,7 @@ import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
@@ -380,6 +381,11 @@ public class AddCommandTest {
 
         @Override
         public Map<Date, Double> rankDateBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<ItemName, Double> rankItemBasedOnRevenue() {
             throw new AssertionError("This method should not be called.");
         }
 
