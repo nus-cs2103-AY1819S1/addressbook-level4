@@ -6,7 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import seedu.address.model.achievement.exceptions.DateBreakpointsMismatchException;
+import seedu.address.model.achievement.exceptions.DateBreakPointsMismatchException;
 import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
 
 /**
@@ -100,12 +100,20 @@ public class AchievementRecord {
         return level;
     }
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
     public int getNumTaskCompleted() {
         return numTaskCompleted;
     }
 
     public Calendar getNextDayBreakPoint() {
         return nextDayBreakPoint;
+    }
+
+    public void setNextDayBreakPoint(Calendar nextDayBreakPoint) {
+        this.nextDayBreakPoint = nextDayBreakPoint;
     }
 
     public int getXpValueByDay() {
@@ -210,13 +218,13 @@ public class AchievementRecord {
 
     /**
      * Defensively check {@code nextDayBreakPoint} is 6 days before {@code nextWeekBreakPoint}.
-     * @throws DateBreakpointsMismatchException if not match.
+     * @throws DateBreakPointsMismatchException if not match.
      */
     private void checkBreakPointsMatch(Calendar nextDay, Calendar nextWeek) {
         Calendar nextDayCopy = (GregorianCalendar) nextDay.clone();
         nextDayCopy.add(Calendar.DAY_OF_MONTH, 6);
         if (!areSameDates(nextDayCopy, nextWeek)) {
-            throw new DateBreakpointsMismatchException();
+            throw new DateBreakPointsMismatchException();
         }
     }
 
