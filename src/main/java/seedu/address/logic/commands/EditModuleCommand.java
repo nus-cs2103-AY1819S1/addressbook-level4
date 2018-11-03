@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-
 import seedu.address.model.Model;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;
@@ -102,14 +102,14 @@ public class EditModuleCommand extends Command {
         this.newGrade = newGrade;
     }
 
-   /**
+    /**
      * Edits the targeted module in the module list of transcript.
      *
      * @param model {@code Model} that the command operates on.
      * @param history {@code CommandHistory} that the command operates on.
      * @return result of the command
      * @throws CommandException thrown when command cannot be executed
-     * successfully.
+     * successfully
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history)

@@ -26,18 +26,20 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various
+ * Parser classes.
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index is not a"
+        + " non-zero unsigned integer.";
 
     public static final String PREFIX = "-";
 
     //@@author alexkmj
     /**
-     * Tokenizes args into an array of args. Checks if args is null and trims leading and trailing
-     * whitespaces.
+     * Tokenize args into an array of args. Checks if args is null and trims
+     * leading and trailing whitespaces.
      *
      * @param args the target args that would be tokenize
      * @return array of args
@@ -50,8 +52,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Validates the number of arguments. If number of arguments does not
-     * equal to {@code required}, {@code ParseException} will be thrown.
+     * Validates the number of arguments. If number of arguments does not equal
+     * to {@code required}, {@code ParseException} will be thrown.
      *
      * @throws ParseException if the number of arguments is invalid
      */
@@ -126,6 +128,11 @@ public class ParserUtil {
                     && (index + 1 < args.length)) {
                 String key = args[index].substring(1);
                 String value = args[++index];
+
+                // Value cannot start with prefix
+                if (value.startsWith(PREFIX)) {
+                    continue;
+                }
 
                 argsMap.put(key, value);
             }

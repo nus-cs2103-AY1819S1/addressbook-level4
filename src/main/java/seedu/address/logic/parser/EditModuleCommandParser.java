@@ -21,11 +21,13 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
 
     // Constants for ParseException.
     private static final String MESSAGE_TARGET_CODE_REQUIRED = "Target code"
-            + " required.";
+            + " required.\n" + EditModuleCommand.MESSAGE_USAGE;
     private static final String MESSAGE_YEAR_AND_SEMESTER_XOR_NULL = "Year and"
-            + " semester should be concurrently specified or not specified.";
+            + " semester should be concurrently specified or not specified.\n"
+            + EditModuleCommand.MESSAGE_USAGE;;
     private static final String MESSAGE_NO_CHANGES = "Command does not cause"
-            + " any changes. Not enough parameters specified.";
+            + " any changes. Not enough parameters specified.\n"
+            + EditModuleCommand.MESSAGE_USAGE;;
 
     // Fields for EditModuleCommand.
     private Code targetCode;
