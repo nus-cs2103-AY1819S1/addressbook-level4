@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DOSAGE_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_VICODIN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.getTypicalAddressBookWithPatientAndDoctor;
+import static seedu.address.testutil.TypicalPatientsAndDoctorsWithAppt.getTypicalAddressBookWithPatientAndDoctorWithAppt;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ import seedu.address.testutil.PrescriptionBuilder;
 
 public class AddPrescriptionCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctor(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctorWithAppt(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
