@@ -20,13 +20,14 @@ import seedu.restaurant.commons.core.GuiSettings;
 import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.events.ui.DisplayIngredientListRequestEvent;
 import seedu.restaurant.commons.events.ui.DisplayItemListRequestEvent;
-import seedu.restaurant.commons.events.ui.DisplayRecordListRequestEvent;
-import seedu.restaurant.commons.events.ui.DisplaySalesReportEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplayRankingEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
 import seedu.restaurant.commons.events.ui.ExitAppRequestEvent;
 import seedu.restaurant.commons.events.ui.ItemPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.LoginEvent;
 import seedu.restaurant.commons.events.ui.LogoutEvent;
-import seedu.restaurant.commons.events.ui.RecordPanelSelectionChangedEvent;
+import seedu.restaurant.commons.events.ui.sales.RecordPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.ShowHelpRequestEvent;
 import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEvent;
 import seedu.restaurant.commons.events.ui.reservation.DisplayReservationListRequestEvent;
@@ -40,6 +41,7 @@ import seedu.restaurant.ui.menu.ItemStackPanel;
 import seedu.restaurant.ui.reservation.ReservationListPanel;
 import seedu.restaurant.ui.sales.RecordListPanel;
 import seedu.restaurant.ui.sales.RecordStackPanel;
+import seedu.restaurant.ui.sales.SalesRankingWindow;
 import seedu.restaurant.ui.sales.SalesReportWindow;
 
 /**
@@ -358,6 +360,14 @@ public class MainWindow extends UiPart<Stage> {
     private void handleDisplayRecordListEvent(DisplayRecordListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToSales();
+    }
+
+    @Subscribe
+    private void handleDisplayRankingEvent(DisplayRankingEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleSwitchToSales();
+        SalesRankingWindow salesRankingWindow = new SalesRankingWindow(event.getRankingToDisplay());
+        salesRankingWindow.show();
     }
 
     @Subscribe
