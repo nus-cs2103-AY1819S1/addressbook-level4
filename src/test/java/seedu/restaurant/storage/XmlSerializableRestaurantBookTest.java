@@ -148,6 +148,7 @@ public class XmlSerializableRestaurantBookTest {
         dataFromFile.toModelType();
     }
 
+    //@@author yican95
     // Menu Management
     @Test
     public void toModelType_typicalItemsOnlyFile_success() throws Exception {
