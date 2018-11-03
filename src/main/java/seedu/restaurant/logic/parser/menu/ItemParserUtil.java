@@ -71,6 +71,11 @@ public class ItemParserUtil {
             return Index.fromOneBased(parseInt(trimmedIndexOrName));
         }
 
+        // Need to check if index is zero if not it will parse "0" as Name
+        if (trimmedIndexOrName.equals("0")) {
+            throw new ParseException(MESSAGE_NOT_INDEX_OR_NAME);
+        }
+
         if (Name.isValidName(trimmedIndexOrName)) {
             return new Name(trimmedIndexOrName);
         }
