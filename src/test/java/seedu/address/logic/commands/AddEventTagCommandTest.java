@@ -77,14 +77,15 @@ public class AddEventTagCommandTest {
     }
 
     @Test
-    public void execute_emptyEventTags_throwsCommandException() throws Exception {
-        Set<Tag> validTags = new HashSet<>();
-        AddEventTagCommand addEventTagCommand = new AddEventTagCommand(validTags);
-        ModelStub modelStub = new ModelStubWithEventTag(APPOINTMENT_TAG);
+    public void execute_emptyEventTags_success() throws Exception {
+        ModelStubAcceptingEventTagAdded modelStub = new ModelStubAcceptingEventTagAdded();
+        Set<Tag> validEventTags = new HashSet<>();
 
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddEventTagCommand.MESSAGE_NO_EVENT_TAGS);
-        addEventTagCommand.execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddEventTagCommand(validEventTags).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddEventTagCommand.MESSAGE_SUCCESS, validEventTags), commandResult.feedbackToUser);
+        assertEquals(new ArrayList<>(validEventTags), modelStub.eventTagsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
