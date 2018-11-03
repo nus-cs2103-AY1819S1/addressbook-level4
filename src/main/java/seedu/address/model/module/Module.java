@@ -1,5 +1,6 @@
 package seedu.address.model.module;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -38,6 +39,20 @@ public class Module {
         this.semester = semester;
         this.students = students;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Create a module from a moduleDescriptor
+     * @param moduleDescriptor
+     */
+    public Module(ModuleDescriptor moduleDescriptor) {
+        requireNonNull(moduleDescriptor);
+        this.moduleCode = moduleDescriptor.getModuleCode().orElse(new ModuleCode());
+        this.moduleTitle = moduleDescriptor.getModuleTitle().orElse(new ModuleTitle());
+        this.academicYear = moduleDescriptor.getAcademicYear().orElse(new AcademicYear());
+        this.semester = moduleDescriptor.getSemester().orElse(new Semester());
+        this.students = moduleDescriptor.getStudents().orElse(new UniquePersonList());
+        this.tags.addAll(moduleDescriptor.getTags().orElse(new HashSet<Tag>()));
     }
 
     public ModuleCode getModuleCode() {

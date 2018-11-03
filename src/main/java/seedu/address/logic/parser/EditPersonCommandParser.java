@@ -16,6 +16,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,7 +42,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
                     EditPersonCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonCommand.EditPersonDescriptor editPersonDescriptor = new EditPersonCommand.EditPersonDescriptor();
+        PersonDescriptor editPersonDescriptor = new PersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
@@ -56,7 +57,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editPersonDescriptor.isAnyFieldNotEmpty()) {
             throw new ParseException(EditPersonCommand.MESSAGE_NOT_EDITED);
         }
 

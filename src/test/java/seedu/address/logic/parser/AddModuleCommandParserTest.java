@@ -18,10 +18,7 @@ import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_C
 import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.TAG_DESC_BINARY;
 import static seedu.address.logic.commands.CommandModuleTestUtil.TAG_DESC_CALCULUS;
-import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_ACADEMICYEAR_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULECODE_CS2100;
-import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_MODULETITLE_CS2100;
-import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_SEMESTER_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_BINARY;
 import static seedu.address.logic.commands.CommandModuleTestUtil.VALID_TAG_CALCULUS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -87,6 +84,21 @@ public class AddModuleCommandParserTest {
         Module expectedModule = new ModuleBuilder(ST2131).withTags().build();
         assertParseSuccess(parser, MODULECODE_DESC_ST2131 + MODULETITLE_DESC_ST2131
                         + ACADEMICYEAR_DESC_ST2131 + SEMESTER_DESC_ST2131, new AddModuleCommand(expectedModule));
+
+        // missing moduleTitle prefix
+        expectedModule = new ModuleBuilder(CS2100).withoutModuleTitle().build();
+        assertParseSuccess(parser, MODULECODE_DESC_CS2100 + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100
+                + TAG_DESC_BINARY, new AddModuleCommand(expectedModule));
+
+        // missing academicYear prefix
+        expectedModule = new ModuleBuilder(CS2100).withoutAcademicYear().build();
+        assertParseSuccess(parser, MODULECODE_DESC_CS2100 + MODULETITLE_DESC_CS2100 + SEMESTER_DESC_CS2100
+                + TAG_DESC_BINARY, new AddModuleCommand(expectedModule));
+
+        // missing semester prefix
+        expectedModule = new ModuleBuilder(CS2100).withoutSemester().build();
+        assertParseSuccess(parser, MODULECODE_DESC_CS2100 + MODULETITLE_DESC_CS2100
+                        + ACADEMICYEAR_DESC_CS2100 + TAG_DESC_BINARY, new AddModuleCommand(expectedModule));
     }
 
     @Test
@@ -97,24 +109,6 @@ public class AddModuleCommandParserTest {
         assertParseFailure(parser, VALID_MODULECODE_CS2100 + MODULETITLE_DESC_CS2100
                         + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100, expectedMessage);
 
-        // missing moduleTitle prefix
-        assertParseFailure(parser, MODULECODE_DESC_CS2100 + VALID_MODULETITLE_CS2100
-                        + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100,
-                expectedMessage);
-
-        // missing academicYear prefix
-        assertParseFailure(parser, MODULECODE_DESC_CS2100 + MODULETITLE_DESC_CS2100
-                        + VALID_ACADEMICYEAR_CS2100 + SEMESTER_DESC_CS2100,
-                expectedMessage);
-
-        // missing semester prefix
-        assertParseFailure(parser, MODULECODE_DESC_CS2100 + MODULETITLE_DESC_CS2100
-                        + ACADEMICYEAR_DESC_CS2100 + VALID_SEMESTER_CS2100,
-                expectedMessage);
-
-        // all prefixes missing
-        assertParseFailure(parser, VALID_MODULECODE_CS2100 + VALID_MODULETITLE_CS2100
-                        + VALID_ACADEMICYEAR_CS2100 + VALID_SEMESTER_CS2100, expectedMessage);
     }
 
     @Test

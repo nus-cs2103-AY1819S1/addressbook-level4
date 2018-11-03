@@ -1,5 +1,6 @@
 package seedu.address.model.occasion;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -37,6 +38,15 @@ public class Occasion {
         this.location = location;
         this.attendanceList = new UniquePersonList(new ArrayList<>());
         this.tags.addAll(tags);
+    }
+
+    public Occasion(OccasionDescriptor toCopy) {
+        requireNonNull(toCopy);
+        this.occasionName = toCopy.getOccasionName().orElse(new OccasionName());
+        this.occasionDate = toCopy.getOccasionDate().orElse(new OccasionDate());
+        this.location = toCopy.getOccasionLocation().orElse(new OccasionLocation());
+        this.attendanceList = new UniquePersonList(new ArrayList<>());
+        this.tags.addAll(toCopy.getTags().orElse(new HashSet<Tag>()));
     }
 
     public Occasion(OccasionName occasionName, OccasionDate occasionDate,

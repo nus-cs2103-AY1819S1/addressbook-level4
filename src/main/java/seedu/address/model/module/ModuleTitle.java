@@ -22,6 +22,13 @@ public class ModuleTitle {
     public final String fullModuleTitle;
 
     /**
+     * Empty constructor.
+     */
+    public ModuleTitle() {
+        fullModuleTitle = "";
+    }
+
+    /**
      * Constructs a {@code ModuleTitle}.
      *
      * @param title A valid module Title.
