@@ -104,7 +104,7 @@ Format: `cd ..`
 Examples:
 
 * `cd 1` +
-* `cd ..` +
+ `cd ..` +
 Enter the 1st deck in the currently displayed deck list.
 then return back to the Anakin's deck list (get out of the 1st deck)
 
@@ -191,7 +191,7 @@ Format: `editcard INDEX_OF_CARD [q/QUESTION]-[a/ANSWER]`
 
 Examples:
 
-* `edit 1 a/New Answer` +
+* `editcard 1 a/New Answer` +
 Edits the answer of the first card in the current card list to be "New Answer".
 // end::editcard[]
 
@@ -366,14 +366,13 @@ Format: `undo`
 [NOTE]
 ====
 Undoable commands: those commands that modify the state of Anakin.
-(`cd`, `cd ..`, `newdeck`, `editdeck`, `deldeck`, `newcard`, `editcard`, `delcard`,
-`sort`, `rank` and `find`).
+(`newdeck`, `editdeck`, `deldeck`, `newcard`, `editcard`, `delcard`,
+`sort`, `classify`).
 ====
 
 Examples:
 
 * `deldeck 1` +
-`list` +
 `undo` (reverses the `deldeck 1` command) +
 
 * `history` +
