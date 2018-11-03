@@ -306,7 +306,7 @@ Format: `addEvent n/NAME a/LOCATION t/TAGS`
 
 Examples:
 
-* `addEvent n/NUS Tennis Welcome Session, a/SOC Canteen t/NIL`
+* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
 * `addEvent n/CS1101S Meet-up a/UTown t/By invite`
 
 ==== Delete an event : `deleteEvent`
