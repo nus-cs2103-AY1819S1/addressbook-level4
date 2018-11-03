@@ -25,6 +25,13 @@ public class OccasionName {
     public final String fullOccasionName;
 
     /**
+     * Empty Constructor.
+     */
+    public OccasionName() {
+        fullOccasionName = "";
+    }
+
+    /**
      * Construct a {@code OccasionName}.
      *
      * @param name An occasion name.

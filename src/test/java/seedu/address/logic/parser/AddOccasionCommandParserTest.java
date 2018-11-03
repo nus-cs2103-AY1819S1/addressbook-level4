@@ -15,8 +15,6 @@ import static seedu.address.logic.commands.CommandOccasionTestUtil.PREAMBLE_NON_
 import static seedu.address.logic.commands.CommandOccasionTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.TAG_DESC_SLEEP;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.TAG_DESC_STUDY;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONDATE_ONE;
-import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONLOCATION_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_OCCASIONNAME_ONE;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_TAG_SLEEP;
 import static seedu.address.logic.commands.CommandOccasionTestUtil.VALID_TAG_STUDY;
@@ -68,10 +66,20 @@ public class AddOccasionCommandParserTest {
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
+        // missing tags
         Occasion expectedOccasion = new OccasionBuilder(EXAM_2103).withTags().build();
         assertParseSuccess(parser, OCCASIONNAME_DESC_ONE + OCCASIONDATE_DESC_ONE
                 + OCCASIONLOCATION_DESC_ONE, new AddOccasionCommand(expectedOccasion));
+
+        // missing occasion date prefix
+        expectedOccasion = new OccasionBuilder(EXAM_2103).withoutOccasionDate().build();
+        assertParseSuccess(parser, OCCASIONNAME_DESC_ONE + OCCASIONLOCATION_DESC_ONE + TAG_DESC_STUDY,
+                new AddOccasionCommand(expectedOccasion));
+
+        // missing occasion location prefix
+        expectedOccasion = new OccasionBuilder(EXAM_2103).withoutOccasionLocation().build();
+        assertParseSuccess(parser, OCCASIONNAME_DESC_ONE + OCCASIONDATE_DESC_ONE + TAG_DESC_STUDY,
+                new AddOccasionCommand(expectedOccasion));
     }
 
     @Test
@@ -82,17 +90,6 @@ public class AddOccasionCommandParserTest {
         assertParseFailure(parser, VALID_OCCASIONNAME_ONE + OCCASIONDATE_DESC_ONE + OCCASIONLOCATION_DESC_ONE,
                 expectedMessage);
 
-        // missing occasion date prefix
-        assertParseFailure(parser, OCCASIONNAME_DESC_ONE + VALID_OCCASIONDATE_ONE + OCCASIONLOCATION_DESC_ONE,
-                expectedMessage);
-
-        // missing occasion location prefix
-        assertParseFailure(parser, OCCASIONNAME_DESC_ONE + OCCASIONDATE_DESC_ONE + VALID_OCCASIONLOCATION_ONE,
-                expectedMessage);
-
-        // all prefixes missing
-        assertParseFailure(parser, VALID_OCCASIONNAME_ONE + VALID_OCCASIONDATE_ONE
-                        + VALID_OCCASIONLOCATION_ONE, expectedMessage);
     }
 
     @Test

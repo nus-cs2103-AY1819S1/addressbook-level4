@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
 import seedu.address.model.person.UniquePersonList;
@@ -37,20 +38,32 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_MODULECODE, PREFIX_MODULETITLE, PREFIX_ACADEMICYEAR,
                         PREFIX_SEMESTER, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_MODULECODE, PREFIX_MODULETITLE, PREFIX_ACADEMICYEAR,
-                PREFIX_SEMESTER)
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODULECODE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModuleCommand.MESSAGE_USAGE));
         }
 
+        ModuleDescriptor addModuleDescriptor = new ModuleDescriptor();
+
         ModuleCode moduleCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_MODULECODE).get());
-        ModuleTitle moduleTitle = ParserUtil.parseModuleTitle(argMultimap.getValue(PREFIX_MODULETITLE).get());
-        AcademicYear academicYear = ParserUtil.parseAcademicYear(argMultimap.getValue(PREFIX_ACADEMICYEAR).get());
-        Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+        addModuleDescriptor.setModuleCode(moduleCode);
+
+        if (argMultimap.getValue(PREFIX_MODULETITLE).isPresent()) {
+            ModuleTitle moduleTitle = ParserUtil.parseModuleTitle(argMultimap.getValue(PREFIX_MODULETITLE).get());
+            addModuleDescriptor.setModuleTitle(moduleTitle);
+        }
+        if (argMultimap.getValue(PREFIX_ACADEMICYEAR).isPresent()) {
+            AcademicYear academicYear = ParserUtil.parseAcademicYear(argMultimap.getValue(PREFIX_ACADEMICYEAR).get());
+            addModuleDescriptor.setAcademicYear(academicYear);
+        }
+        if (argMultimap.getValue(PREFIX_SEMESTER).isPresent()) {
+            Semester semester = ParserUtil.parseSemester(argMultimap.getValue(PREFIX_SEMESTER).get());
+            addModuleDescriptor.setSemester(semester);
+        }
         UniquePersonList students = new UniquePersonList(new ArrayList<>());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Module module = new Module(moduleCode, moduleTitle, academicYear, semester, students, tagList);
+        Module module = new Module(addModuleDescriptor);
         return new AddModuleCommand(module);
     }
 

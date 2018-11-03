@@ -18,6 +18,13 @@ public class Semester {
     public final String semesterNumber;
 
     /**
+     * Empty constructor.
+     */
+    public Semester() {
+        semesterNumber = "";
+    }
+
+    /**
      * Constructs a {@code Semester}.
      *
      * @param number The semester number.

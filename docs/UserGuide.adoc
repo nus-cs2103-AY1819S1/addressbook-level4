@@ -60,7 +60,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `help`
 
 // tag::add[]
-=== Adding an entry: `add[]`
+=== Adding an entry: `add`
 
 [TIP]
 A person, module or an occasion can have any number of tags (including 0) and in no particular order. +
@@ -99,13 +99,6 @@ Example:
 
 * `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 // end::add[]
-
-// tag::delete[]
-=== Listing all entries : `list`
-
-Shows a list of all persons/modules/occasions in the address book. +
-Format: `list[]`
-// end::list[]
 
 // tag::edit[]
 === Editing an entry : `edit`
@@ -157,8 +150,8 @@ Edits the person of INDEX 6 in TheTracker: edits his phone to 91234567 and email
 * `editModule 1 mc/CS1101S` +
 Edits the module of INDEX 1 in TheTracker: edits the moduleCode to CS1101S.
 * `editOccasion 7 on/Barbecue od/2019-6-17 loc/NUS` +
-Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue, edits the occasionDate to 2019-6-17, edits the occasionLocation to NUS.
-`
+Edits the occasion of INDEX 7 in TheTracker: edits the occasionName to Barbecue, edits the occasionDate to 2019-6-17,
+ edits the occasionLocation to NUS.
 // end::edit[]
 
 // tag::find[]
@@ -238,6 +231,7 @@ Examples:
 Deletes the 5th occasion.
 // end::delete[]
 
+
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
@@ -305,6 +299,7 @@ Command Syntax: +
 group_name: The name of this group of people. +
 keyword: n/NAME The name of the person you want to put in this group.
                   i/INDEX The index of the person you want to put in this group.
+
 === Listing all entries of this kind: `list`
 Format: +
 * *List Person* : `listperson`
@@ -324,7 +319,7 @@ A feature that gives a list of potential matches based on substrings of a result
 === Exporting data in this application (coming in v 1.4)
 Format: `export FILEPATH`
 
-// tnd::export[]
+// end::export[]
 === Importing module information from external platform: `importmodule` (coming in v 2.0)
 A command to allow the user to import information from NUSMods.+
 
@@ -339,6 +334,16 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Autocomplete (coming in v 1.4)
+A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
+
+=== Import module information from external platform: `importmodule` (coming in v 2.0)
+A command to allow the user to import information from NUSMods.+
+
+Command Syntax: `importmodule [modulecode]` +
+If the specified module in the current semester is not found, it will be imported with information extracted from NUSMods.
+
 
 == FAQ
 
