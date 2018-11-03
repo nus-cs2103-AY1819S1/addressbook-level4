@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -73,6 +75,8 @@ public class CalendarModel {
 
     /** Checks if calendar to be created already exists. */
     public boolean isExistingCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
         Set<Month> yearExists = existingCalendar.get(year);
         if (yearExists != null) {
             for (Month existingMonths : yearExists) {
@@ -89,6 +93,8 @@ public class CalendarModel {
      * Checks if calendar to be edited is already loaded.
      */
     public boolean isLoadedCalendar(Year year, Month month) {
+        requireNonNull(year);
+        requireNonNull(month);
         String calendarName = month + "-" + year;
         if (this.loadedCalendar == null) {
             return false;

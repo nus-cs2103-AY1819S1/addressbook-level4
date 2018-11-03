@@ -1,7 +1,5 @@
 package seedu.address.model.calendar;
 
-//@@author GilgameshTC
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -9,6 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+//@@author GilgameshTC
 /**
  * To test for valid {@code Month}.
  */
