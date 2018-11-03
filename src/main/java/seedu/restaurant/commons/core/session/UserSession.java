@@ -2,6 +2,7 @@ package seedu.restaurant.commons.core.session;
 
 import seedu.restaurant.model.account.Account;
 
+//@@author AZhiKai
 /**
  * Since this is a local desktop application which may or may not work with internet connection, we assume the
  * multiplicity of 0...1 user will be logged in at any time. Thus, it does not make sense to create a list of user
