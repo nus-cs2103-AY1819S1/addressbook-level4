@@ -416,12 +416,13 @@ Edits the price of the 2nd item to be `4` and clears all existing tags.
 ==== Deleting an item : `delete-item` or `di`
 
 Deletes the specified item from the menu. +
-Format: `delete-item INDEX` or `delete-item NAME`
+Format: `delete-item INDEX [ei/INDEX]` or `delete-item NAME`
 
 ****
 * Deletes the item at the specified `INDEX`.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* You can delete a range of items by adding the ending index `ei\INDEX`.
 * Alternatively, deletes the item with the specified `NAME`.
 ****
 
@@ -431,8 +432,8 @@ Examples:
 `delete-item 2` +
 Deletes the 2nd item in the menu.
 * `fi Cheese` +
-`di 1` +
-Deletes the 1st item in the results of the `find` command.
+`di 1 ei/3` +
+Deletes 1st item, 2nd item and 3rd item in the results of the `find` command.
 
 ==== Selecting an item : `select-item` or `si`
 
@@ -531,6 +532,7 @@ Format: `discount-item INDEX|ALL [ei/INDEX] dp/PERCENTAGE`
 * You can remove discount by typing `0` for the percentage.
 * You can give a discount to the whole menu by typing `ALL` instead of a specified `INDEX`.
 * You can give a discount to a range of items by adding the ending index `ei\INDEX`.
+* The ending index can not be smaller than index.
 ****
 
 Examples:
