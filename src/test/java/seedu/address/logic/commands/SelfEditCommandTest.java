@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -45,13 +47,13 @@ public class SelfEditCommandTest {
         model.setLoggedInUser(User.getAdminUser());
     }
 
-    public void setUpAsUser() {
-        model.setLoggedInUser(new User(model.getAddressBook().getPersonList().get(0)));
+    public void setUpAsUser(int index) {
+        model.setLoggedInUser(new User(model.getAddressBook().getPersonList().get(index)));
     }
 
     @Test
     public void execute_allFieldsSpecified_success() {
-        setUpAsUser();
+        setUpAsUser(0);
 
         Person editedPerson = new PersonBuilder().build();
         SelfEditCommand selfEditCommand = null;
@@ -86,26 +88,32 @@ public class SelfEditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
+        setUpAsUser(indexLastPerson.getZeroBased());
+
         PersonBuilder personInList = new PersonBuilder(lastPerson);
-        Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+        Person editedPerson = personInList.withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
             .build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-            .withPhone(VALID_PHONE_BOB).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        SelfEditCommand selfEditCommand = null;
+        try {
+            SelfEditCommandParserBuilder selfEditCommandParserBuilder = new SelfEditCommandParserBuilder()
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB);
+            selfEditCommand = selfEditCommandParserBuilder.getCommand();
+        } catch(ParseException pe) {
+            throw new AssertionError("Failed to build appropiate SelfEditCommand! ", pe);
+        }
+        String expectedMessage = String.format(SelfEditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
             model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(lastPerson, editedPerson);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(selfEditCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
+    public void execute_noFieldSpecifiedUnfilteredList_failure() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
         Person editedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
