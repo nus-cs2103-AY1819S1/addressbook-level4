@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,6 +26,8 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private UniqueOccasionList occasionList;
+    private UniqueModuleList moduleList;
 
     /**
      * Every field must be present and not null.
@@ -35,6 +39,8 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        occasionList  = new  UniqueOccasionList();
+        moduleList = new UniqueModuleList();
     }
 
     /**
@@ -73,6 +79,20 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns the occasions this person is involved in.
+     */
+    public UniqueOccasionList getOccasionList() {
+        return occasionList;
+    }
+
+    /**
+     * Returns the modules this person is involved in.
+     */
+    public UniqueModuleList getModuleList() {
+        return moduleList;
     }
 
     /**
