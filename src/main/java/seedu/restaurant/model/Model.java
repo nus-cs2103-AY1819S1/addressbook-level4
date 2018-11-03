@@ -279,7 +279,7 @@ public interface Model {
     void updateFilteredIngredientList(Predicate<Ingredient> predicate);
 
     //=============== API for Menu ===============
-
+    //@@author yican95
     /**
      * Returns true if an item with the same identity as {@code item} exists in the restaurant book.
      */
@@ -339,7 +339,7 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredItemList(Predicate<Item> predicate);
-
+    //@@author
     //=========== API for Redo/Undo =============================================================
 
     /**
