@@ -9,9 +9,9 @@
 
 == Overview
 
-Office Assistance Specialized Integration System (OASIS) is an all-in-one app for companies to perform employee management. Users who are fast typers will benefit due to it's access to all commands with a CLI. OASIS provides features to manage employee's leave applications, projects and user accounts for each employee.
+Office Assistance Specialized Integration System (OASIS) is an all-in-one app for companies to manage employee's leave applications, projects and user accounts for each employee. OASIS uses a CLI interface.
 
-This project portfolio summarizes the contributions that I have made to the project.
+This project portfolio summarizes my contributions to the project in terms of coding, documentation for both develoeprs and end-users, as well as testing.
 
 == Summary of contributions
 
@@ -25,8 +25,8 @@ The following section shows my major code contributions to OASIS.
 *** Ability to *login and logout* into each employee's accounts.
 *** A way to *secure the employee's account* through the changing of passwords.
 *** Complete modern-day security using *salted and hashed passwords* with 256-bit salts and SHA256 hashing algorithm.
-** Justification: This feature is essential in the product as only certain users are authorized to use cetain commands, thus user identification is required. This feature also helps to preserve the privacy of the users by ensuring that their data isn't publicly viewable.
-** Highlights: I implemented a feature for `LogicManager` to have a List of interceptors, which are a `FunctionalInterface` that allows the processing of a Command. This allows the password changing command to work without adding excessive coupling between `Command` and `LogicManager`. Security for each user was essental to ensure that a user cannot read commands entered by another user. This was implemented by clearing user-specific data after logout.
+** Justification: It is critcial to ensure the privacy of employees to ensure that their private information remains secure and only viewable by specific people. Thus, this feature allows the use of user accounts to verify that there is appropriate authorization, ensuring that employee data data isn't publicly viewable.
+** Highlights: The password command requires large changes to ensure that passwords input by the user aren't viewable through the history command. I implemented a feature for `LogicManager` to have a List of interceptors, which are a `FunctionalInterface` that allows the processing of a Command. This allows the password changing command to work without adding excessive coupling between `Command` and `LogicManager`. Security for each user was essental to ensure that a user cannot read commands entered by another user. This was implemented by clearing user-specific data after logout.
 
 === Minor enhancement:
 The following section shows all the other minor enhancements done for the project that are not part of my major enhancement above.
@@ -49,17 +49,19 @@ I don't understand what to do here. Do I put links to which files I changed? The
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 [NOTE]
 I have PRs for the minor features stated above. Do I put those here?
+
 ** Documentation:
 *** Provided updates to the User Guide: https://github.com/CS2103-AY1819S1-F10-1/main/pull/125[#125]
 *** Updated documentation based on errors I encountered and how to resolve it to help future contributors https://github.com/CS2103-AY1819S1-F10-1/main/pull/2[#2]
+
 ** PR standards:
 *** All of my pull requests have referenced clearly to which issues they're attempt to address and have resulted in no loss of code coverage. Major examples: https://github.com/CS2103-AY1819S1-F10-1/main/pull/84[#84] https://github.com/CS2103-AY1819S1-F10-1/main/pull/106[#106] https://github.com/CS2103-AY1819S1-F10-1/main/pull/118[#118] https://github.com/CS2103-AY1819S1-F10-1/main/pull/119[#119]
-[NOTE]
-I kind of want to brag about this? but it's more like "this should be the standard"
+
 ** Community:
 //*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1819S1/forum/issues/74#issuecomment-428847858[1])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-F10-2/main/issues/108[1] https://github.com/CS2103-AY1819S1-F10-2/main/issues/173[2] https://github.com/CS2103-AY1819S1-F10-2/main/issues/174[3])
+
 ** Tools:
 *** Integrated Travis CI, AppVeyor and Coveralls to the team repo
 
