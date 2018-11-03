@@ -118,10 +118,10 @@ public interface Model {
 
     void updateNotificationPref(boolean set);
 
-    void updateFavourite(String favourite);
+    void updateFavouriteEvent(String favourite);
 
     boolean getNotificationPref();
 
-    String getFavourite();
+    String getFavouriteEvent();
 
 }

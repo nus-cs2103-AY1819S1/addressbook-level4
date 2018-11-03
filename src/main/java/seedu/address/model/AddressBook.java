@@ -71,7 +71,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
+        updateNotificationPref(newData.getNotificationPref());
+        updateFavouriteEvent(newData.getFavouriteEvent());
     }
+
+
 
     //// person-level operations
 
@@ -194,6 +198,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public String getFavouriteEvent() { return favourite; }
 
-    public void updateFavourite(String newEvent) { favourite = newEvent; }
+    public void updateFavouriteEvent(String newEvent) { favourite = newEvent; }
 
 }

@@ -32,8 +32,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
-    private boolean notificationPref;
-    private String favourite;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -260,13 +258,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
     @Override
-    public String getFavourite() {
+    public String getFavouriteEvent() {
         return versionedAddressBook.getFavouriteEvent();
     }
 
     @Override
-    public void updateFavourite(String newEvent) {
-        versionedAddressBook.updateFavourite(newEvent);
+    public void updateFavouriteEvent(String newEvent) {
+        versionedAddressBook.updateFavouriteEvent(newEvent);
         indicateAddressBookChanged();
     }
 

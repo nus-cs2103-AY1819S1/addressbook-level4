@@ -94,11 +94,11 @@ public class MainWindow extends UiPart<Stage> {
     private void setNotification(UserPrefs prefs) {
 
         model.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
-        model.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
+        model.updateFavouriteEvent(prefs.getGuiSettings().getFavouriteEvent());
 
         if (model.getNotificationPref()) {
-            if (model.getFavourite() != null) {
-                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, model.getFavourite());
+            if (model.getFavouriteEvent() != null) {
+                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, model.getFavouriteEvent());
                 // delete event must clean up favourite as well!
             } else {
                 NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
@@ -191,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY(),
                 model.getNotificationPref(),
-                model.getFavourite());
+                model.getFavouriteEvent());
     }
 
     /**

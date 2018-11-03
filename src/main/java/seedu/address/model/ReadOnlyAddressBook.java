@@ -21,4 +21,7 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Event> getEventList();
 
+    boolean getNotificationPref();
+
+    String getFavouriteEvent();
 }
