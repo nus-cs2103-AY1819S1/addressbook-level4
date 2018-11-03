@@ -133,6 +133,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
+        if (alreadyContainsUsername(editedPerson.getUsername().username)) {
+            throw new IllegalUsernameException(editedPerson.getUsername().username);
+        }
+
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
