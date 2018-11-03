@@ -93,8 +93,8 @@ Task <INDEX>, <TASK_NAME> was created.
 ```
 [%hardbreaks]
 +Example:
-`add n/complete milestone t/2018-09-14 p/99 [d/a detailed description of what needs to be done] l/CS2103` +
-`add n/complete milestone t/2018-09-14 1320 p/9 [d/a detailed description of what needs to be done] l/CS2103`
+`add n/complete milestone t/14-09-19 p/99 d/a detailed description l/CS2103` +
+`add n/complete milestone t/14-09-19 1320 p/9 d/a detailed description l/CS2103`
 
 -Example:
 `add n/complete milestone t/2018/09/14 p/important`
@@ -113,7 +113,7 @@ Edits a task in the task manager
 Format:
 `edit INDEX [t/DUE_DATE] [p/PRIORITY_VALUE] [d/detailed description] [l/LABEL]`
 +Example:
-`edit 1 t/2018-09-18 d/a updated detailed description of what needs to be done`
+`edit 1 t/18-12-19 d/a updated detailed description of what needs to be done`
 -Example:
 `edit complete milestone t/2018.09.18 d/a updated detailed description of what needs to be done`
 
@@ -216,7 +216,7 @@ comes back from the future.
 
 * Task Management
 
-** *Add* : `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
+** *Add* : `add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE d/DESCRIPTION [l/LABEL]`
 
 ** *Delete* : `delete INDEX`
 
