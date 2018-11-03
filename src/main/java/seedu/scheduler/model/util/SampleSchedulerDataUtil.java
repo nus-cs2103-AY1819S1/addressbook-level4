@@ -24,7 +24,7 @@ import seedu.scheduler.model.tag.Tag;
  * Contains utility methods for populating {@code Scheduler} with sample data.
  */
 public class SampleSchedulerDataUtil {
-    private static final ArrayList<UUID> CONSTANT_UID = new ArrayList<>(Arrays.asList(
+    private static final ArrayList<UUID> CONSTANT_EVENTUID = new ArrayList<>(Arrays.asList(
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a621"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a622"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a623"),
@@ -32,7 +32,7 @@ public class SampleSchedulerDataUtil {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a625"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a626"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a627")));
-    private static final ArrayList<UUID> CONSTANT_UUID = new ArrayList<>(Arrays.asList(
+    private static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a628"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a629"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a630"),
@@ -43,8 +43,8 @@ public class SampleSchedulerDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-            new Event(CONSTANT_UID.get(0),
-                    CONSTANT_UUID.get(0),
+            new Event(CONSTANT_EVENTUID.get(0),
+                    CONSTANT_EVENTSETUID.get(0),
                     new EventName("Discussion with Jack"),
                     new DateTime(LocalDateTime.of(2018, 1, 1, 14, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 1, 17, 0)),
@@ -54,8 +54,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2018, 1, 1, 17, 0)),
                     getTagSet("Talk", "Personal"),
                     getReminderDurationList(0, 2)),
-            new Event(CONSTANT_UID.get(1),
-                    CONSTANT_UUID.get(1),
+            new Event(CONSTANT_EVENTUID.get(1),
+                    CONSTANT_EVENTSETUID.get(1),
                     new EventName("Interview with John"),
                     new DateTime(LocalDateTime.of(2018, 1, 2, 13, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 2, 15, 0)),
@@ -65,8 +65,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2018, 1, 2, 15, 0)),
                     getTagSet("Interview", "Work"),
                     getReminderDurationList(1)),
-            new Event(CONSTANT_UID.get(2),
-                    CONSTANT_UUID.get(2),
+            new Event(CONSTANT_EVENTUID.get(2),
+                    CONSTANT_EVENTSETUID.get(2),
                     new EventName("Study with Jane"),
                     new DateTime(LocalDateTime.of(2018, 1, 3, 10, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 3, 11, 0)),
@@ -76,8 +76,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2018, 1, 6, 11, 0)),
                     getTagSet("Study", "School"),
                     getReminderDurationList(0, 1, 3)),
-            new Event(CONSTANT_UID.get(3),
-                    CONSTANT_UUID.get(3),
+            new Event(CONSTANT_EVENTUID.get(3),
+                    CONSTANT_EVENTSETUID.get(3),
                     new EventName("Study with Jill"),
                     new DateTime(LocalDateTime.of(2018, 1, 3, 11, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 3, 12, 0)),
@@ -87,8 +87,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2018, 1, 6, 12, 0)),
                     getTagSet("Study", "School"),
                     getReminderDurationList()),
-            new Event(CONSTANT_UID.get(4),
-                    CONSTANT_UUID.get(4),
+            new Event(CONSTANT_EVENTUID.get(4),
+                    CONSTANT_EVENTSETUID.get(4),
                     new EventName("Jim's Birthday"),
                     new DateTime(LocalDateTime.of(2018, 12, 31, 0, 0)),
                     new DateTime(LocalDateTime.of(2018, 12, 31, 1, 0)),
@@ -98,8 +98,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2020, 12, 31, 1, 0)),
                     getTagSet("Celebration"),
                     getReminderDurationList(1, 2)),
-            new Event(CONSTANT_UID.get(5),
-                    CONSTANT_UUID.get(5),
+            new Event(CONSTANT_EVENTUID.get(5),
+                    CONSTANT_EVENTSETUID.get(5),
                     new EventName("Leap Day Celebration"),
                     new DateTime(LocalDateTime.of(2016, 2, 29, 0, 0)),
                     new DateTime(LocalDateTime.of(2016, 2, 29, 1, 0)),
@@ -109,8 +109,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2020, 2, 29, 1, 0)),
                     getTagSet("Celebration"),
                     getReminderDurationList(0)),
-            new Event(CONSTANT_UID.get(6),
-                    CONSTANT_UUID.get(6),
+            new Event(CONSTANT_EVENTUID.get(6),
+                    CONSTANT_EVENTSETUID.get(6),
                     new EventName("Startup Lecture"),
                     new DateTime(LocalDateTime.of(2018, 1, 28, 8, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 28, 10, 0)),

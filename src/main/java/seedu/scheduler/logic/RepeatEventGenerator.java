@@ -61,7 +61,7 @@ public class RepeatEventGenerator {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    targetEvent.getUuid(),
+                    targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),
@@ -89,7 +89,7 @@ public class RepeatEventGenerator {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    targetEvent.getUuid(),
+                    targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),
@@ -117,7 +117,7 @@ public class RepeatEventGenerator {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    targetEvent.getUuid(),
+                    targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),
@@ -156,7 +156,7 @@ public class RepeatEventGenerator {
                 targetEvent.getEndDateTime().value);
         while (repeatStartDateTime.isBefore(repeatUntilDateTime)) {
             repeatedEventList.add(new Event(
-                    targetEvent.getUuid(),
+                    targetEvent.getEventSetUid(),
                     targetEvent.getEventName(),
                     new DateTime(repeatStartDateTime),
                     new DateTime(repeatStartDateTime.plus(durationDiff)),

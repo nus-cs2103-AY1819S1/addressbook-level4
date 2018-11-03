@@ -62,8 +62,8 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
                 + "  " + VENUE_DESC_MA3220 + "  " + REPEAT_TYPE_DESC_MA3220 + "  " + REPEAT_UNTIL_DATETIME_DESC_MA3220
                 + "  " + TAG_DESC_PLAY;
         Event firstEditedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE)
-                .withUid(model.getFilteredEventList().get(index.getZeroBased()).getUid())
-                .withUuid(model.getFilteredEventList().get(index.getZeroBased()).getUuid()).build();
+                .withEventUid(model.getFilteredEventList().get(index.getZeroBased()).getEventUid())
+                .withEventSetUid(model.getFilteredEventList().get(index.getZeroBased()).getEventSetUid()).build();
         assertCommandSuccess(command, index, firstEditedEvent);
 
         /* Case: undo editing the last event in the list -> last event restored */
@@ -92,8 +92,8 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
                 + START_DATETIME_DESC_MA3220 + END_DATETIME_DESC_MA3220 + DESCRIPTION_DESC_MA2101
                 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA3220 + REPEAT_UNTIL_DATETIME_DESC_MA3220 + TAG_DESC_SCHOOL;
         Event secondEditedEvent = new EventBuilder(MA3220_JANUARY_1_2019_SINGLE)
-                .withUid(getModel().getFilteredEventList().get(index.getZeroBased()).getUid())
-                .withUuid(getModel().getFilteredEventList().get(index.getZeroBased()).getUuid())
+                .withEventUid(getModel().getFilteredEventList().get(index.getZeroBased()).getEventUid())
+                .withEventSetUid(getModel().getFilteredEventList().get(index.getZeroBased()).getEventSetUid())
                 .withDescription(VALID_DESCRIPTION_MA2101)
                 .withVenue(VALID_VENUE_MA2101).withTags(VALID_TAG_SCHOOL).build();
         assertCommandSuccess(command, index, secondEditedEvent);

@@ -56,7 +56,7 @@ public class EventTest {
 
         // different uuid -> returns false
         Event editedDiscussionWithJackeEvent = new EventBuilder(DISCUSSION_WITH_JACK)
-                .withUuid(UUID.randomUUID()).build();
+                .withEventSetUid(UUID.randomUUID()).build();
         assertFalse(DISCUSSION_WITH_JACK.isSameEvent(editedDiscussionWithJackeEvent));
     }
 
@@ -80,7 +80,7 @@ public class EventTest {
 
         // different uuid -> return false
         Event editedDiscussionWithJackEvent = new EventBuilder(DISCUSSION_WITH_JACK)
-                .withUuid(VALID_EVENT_UUID_MA2101).build();
+                .withEventSetUid(VALID_EVENT_UUID_MA2101).build();
         assertNotEquals(DISCUSSION_WITH_JACK, editedDiscussionWithJackEvent);
 
         // different eventName -> returns false

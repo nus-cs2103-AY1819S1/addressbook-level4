@@ -492,7 +492,7 @@ it will generate 3 `EventPopUpInfo` with 3 different `PopUp Time` while the rest
 
 The generated  `EventPopUpInfo` objects will be pushed to the `PopUp Queue` maintained by the `PopUpManager`. Its underlying data structure is a `Priority Queue`
 and key of the Reminder Time. When the App is opened, `PopUpManager` runs on a parallel thread to constantly check the queue to determine when to pop-up what alert.
-Once the reminder has popped up, `PopUpManager` will use `uid` (of `UUID` type) stored in the `PopUpInfo` object to find the `Event` and set True corresponding to the `Duration` that has popped up.
+Once the reminder has popped up, `PopUpManager` will use `eventUid` (of `UUID` type) stored in the `PopUpInfo` object to find the `Event` and set True corresponding to the `Duration` that has popped up.
 
 The overall workflow can be represented by the below activity diagram:
 
@@ -513,7 +513,7 @@ The user can close the Scheduler or use other functions of the Scheduler.
 
 **Step 3** +
 At 6 PM on that day, if the Scheduler is open, a pop-up alert will appear. The `PopUpManager` pop out the corresponding `EventPopUpInfo`.
-Meanwhile, it will use the `uid` (of `UUID` type) stored in `EventPopUpInfo` to find the `Event` object and set `4H: True`. +
+Meanwhile, it will use the `eventUid` (of `UUID` type) stored in `EventPopUpInfo` to find the `Event` object and set `4H: True`. +
 The 8 PM pop-up is still in the Pop-up queue.
 
 ==== Design Considerations

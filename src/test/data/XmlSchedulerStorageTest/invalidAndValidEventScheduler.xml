@@ -2,7 +2,7 @@
 <addressbook>
     <!-- Valid Event -->
     <events>
-        <uuid>ff1b7186-5f40-47e0-ac19-32e15c61f30e</uuid>
+        <eventSetUid>ff1b7186-5f40-47e0-ac19-32e15c61f30e</eventSetUid>
         <eventName>CS2103 Tutorial</eventName>
         <startDateTime>2018-09-21T11:00</startDateTime>
         <endDateTime>2018-09-21T12:00</endDateTime>
@@ -15,7 +15,7 @@
     </events>
     <!-- Event with invalid eventName field -->
     <events>
-        <uuid>e87178aa-90bc-4250-9cc2-30d83c86d722</uuid>
+        <eventSetUid>e87178aa-90bc-4250-9cc2-30d83c86d722</eventSetUid>
         <eventName> study with blank space </eventName>
         <startDateTime>2018-10-11T00:00</startDateTime>
         <endDateTime>2018-10-11T01:00</endDateTime>

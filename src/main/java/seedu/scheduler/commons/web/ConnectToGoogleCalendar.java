@@ -175,7 +175,7 @@ public class ConnectToGoogleCalendar {
             gEvent = setCommonAttributes(gEvent, toAddEvent);
 
             if (toAddEvent.getRepeatType() == RepeatType.NONE) {
-                gEvent = gEvent.setId(toAddEvent.getUid()
+                gEvent = gEvent.setId(toAddEvent.getEventUid()
                         .toString()
                         .replaceAll("-", ""));
             } else { //repeated event
@@ -192,7 +192,7 @@ public class ConnectToGoogleCalendar {
 
     private com.google.api.services.calendar.model.Event setRepeatAttribute(
             com.google.api.services.calendar.model.Event gEvent, Event toAddEvent) {
-        String googleRecurringEventId = toAddEvent.getUuid()
+        String googleRecurringEventId = toAddEvent.getEventSetUid()
                 .toString()
                 .replaceAll("-", "");
         com.google.api.services.calendar.model.Event gEvent2 = gEvent.setICalUID(googleRecurringEventId);
@@ -274,7 +274,7 @@ public class ConnectToGoogleCalendar {
 
         //For single event
         if (!isRepeatEvent) {
-            eventIds.add(eventToDelete.getUid()
+            eventIds.add(eventToDelete.getEventUid()
                     .toString()
                     .replaceAll("-", ""));
         }
@@ -289,7 +289,7 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToDelete.getUuid()
+            String eventSetUid = eventToDelete.getEventSetUid()
                     .toString()
                     .replaceAll("-", "");
             try {
@@ -300,7 +300,7 @@ public class ConnectToGoogleCalendar {
 
             assert allEventsOnGoogle != null;
             for (com.google.api.services.calendar.model.Event event : allEventsOnGoogle.getItems()) {
-                if (Objects.equals(event.getICalUID(), eventUuId)) {
+                if (Objects.equals(event.getICalUID(), eventSetUid)) {
                     eventIds.add(event.getId());
                     repeatedEventsFound = true;
                     recurringEventId = event.getRecurringEventId();
@@ -351,7 +351,7 @@ public class ConnectToGoogleCalendar {
 
         //For single event
         if (!isRepeatEvent) {
-            eventIds.add(eventToDelete.getUid()
+            eventIds.add(eventToDelete.getEventUid()
                     .toString()
                     .replaceAll("-", ""));
         }
@@ -366,7 +366,7 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToDelete.getUuid()
+            String eventUuId = eventToDelete.getEventSetUid()
                     .toString()
                     .replaceAll("-", "");
             try {
@@ -430,7 +430,7 @@ public class ConnectToGoogleCalendar {
 
         //For single event
         if (!isRepeatEvent) {
-            eventIds.add(eventToDelete.getUid()
+            eventIds.add(eventToDelete.getEventUid()
                     .toString()
                     .replaceAll("-", ""));
         }
@@ -445,7 +445,7 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToDelete.getUuid()
+            String eventUuId = eventToDelete.getEventSetUid()
                     .toString()
                     .replaceAll("-", "");
             try {
@@ -507,7 +507,7 @@ public class ConnectToGoogleCalendar {
         //For single event
         if (!isRepeatEvent) {
             gEventId = eventToEdit
-                    .getUid()
+                    .getEventUid()
                     .toString()
                     .replaceAll("-", "");
         }
@@ -561,7 +561,7 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToEdit.getUuid()
+            String eventUuId = eventToEdit.getEventSetUid()
                     .toString()
                     .replaceAll("-", "");
             try {
@@ -654,7 +654,7 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToEdit.getUuid()
+            String eventUuId = eventToEdit.getEventSetUid()
                     .toString()
                     .replaceAll("-", "");
             try {
@@ -798,7 +798,7 @@ public class ConnectToGoogleCalendar {
 
         //For repeated events
         if (isRepeatEvent) {
-            String eventUuId = eventToEdit.getUuid()
+            String eventUuId = eventToEdit.getEventSetUid()
                     .toString()
                     .replaceAll("-", "");
             try {

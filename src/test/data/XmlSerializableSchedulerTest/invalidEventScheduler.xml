@@ -2,8 +2,8 @@
 <scheduler>
     <!-- Event with invalid eventName field -->
     <events>
-        <uid>066db0fd-0bd2-423f-aef4-fd1f8d30a621</uid>
-        <uuid>ff1b7186-5f40-47e0-ac19-32e15c61f30e</uuid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a621</eventUid>
+        <eventSetUid>ff1b7186-5f40-47e0-ac19-32e15c61f30e</eventSetUid>
         <eventName> study with blank space </eventName>
         <startDateTime>2018-09-21T11:00</startDateTime>
         <endDateTime>2018-09-21T12:00</endDateTime>
