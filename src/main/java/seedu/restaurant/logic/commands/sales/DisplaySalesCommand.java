@@ -3,7 +3,7 @@ package seedu.restaurant.logic.commands.sales;
 import static java.util.Objects.requireNonNull;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.DisplaySalesReportEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;

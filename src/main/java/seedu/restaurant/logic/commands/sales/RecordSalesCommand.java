@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seedu.restaurant.commons.core.EventsCenter;
-import seedu.restaurant.commons.events.ui.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;

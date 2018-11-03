@@ -117,7 +117,7 @@ public class Reservation {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder("Name: ");
         builder.append(getName())
                 .append(" Pax: ")
                 .append(getPax())
