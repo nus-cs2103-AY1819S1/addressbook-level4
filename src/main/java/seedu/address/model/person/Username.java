@@ -35,10 +35,11 @@ public class Username {
 
     /**
      * Returns true if a given string is a valid username.
-     * Note: Does not verify constraint for unique among everyone in the system.
+     * Note: Does not verify constraint for unique among everyone in the system, neither does it check for Admin (if
+     * it did, the Admin user couldn't be assigned a Username)
      */
     public static boolean isValidUsername(String test) {
-        return test.matches(NAME_VALIDATION_REGEX) && !test.equals("Admin");
+        return test.matches(NAME_VALIDATION_REGEX);
     }
 
 

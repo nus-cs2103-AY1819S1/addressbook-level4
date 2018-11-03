@@ -131,7 +131,7 @@ public class ParserUtil {
     public static Username parseUsername(String username) throws ParseException {
         requireNonNull(username);
         String trimmedName = username.trim();
-        if (!Username.isValidUsername(username)) {
+        if (!Username.isValidUsername(username) || username.equals("Admin")) {
             throw new ParseException(Username.MESSAGE_USERNAME_CONSTRAINTS);
         }
         return new Username(username);
