@@ -176,7 +176,6 @@ image::UiClassDiagram.png[width="800"]
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of three windows: The `PersonWindow`, `ModuleWindow` and `OccasionWindow`. Each of these windows inherits from the `MainWindow`.
-
 The `MainWindow` is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
@@ -252,8 +251,8 @@ This section describes some noteworthy details on how certain features are imple
 // tag::supportforocassionandmodule[]
 === Features supporting Person, Module and Occasion
 Our application is an extension of address book application. Besides
-supporting basic address book features for 'Person', we also intended to
-make those features be available for 'Module' and `Occasion`. This makes this
+supporting basic address book features for `Person`, we also intended to
+make those features be available for `Module` and `Occasion`. This makes this
 application(TheTracker) to be able to track the modules a person takes, as
 well as the Occasions they participate in.
 
@@ -261,19 +260,63 @@ well as the Occasions they participate in.
 We are storing persons, modules and occasions individually. And command are also entity-specific.
 // end::supportforocassionandmodule[]
 
-// tag::edit[]
-=== Edit Feature
-The following sequence diagram shows how the `editPerson` operation works:
-`editPerson 6 p/91234567 e/johndoe@example.com`
+// tag::find[]
+=== Find Person/Module/Occasion Feature
+The find feature currently is implemented the same way to find persons, modules, and occasions.
+There are thus three similar commands which are related to this find command:
+`findperson`, `findmodule`, and `findoccasion`.
 
-image::EditPersonSequenceDiagram.png[width="800"]
+The find command family finds the entity (person, module, occasion), based on their attributes /
+fields.
 
-`editModule` and `editOccasion` works in a similar way as `editPerson`
-// end::edit[]
+The figure below shows how the find command is processed through the logic of the address book:
+
+image::FindCommandLogicDiagram.png[width="800"]
+
+==== Current Implementation
+As the `findperson`, `findmodule`, and `findoccasion` commands' logic are similar to one another,
+the `findperson` command will be taken as the sole example in this document. The findperson string
+input in the command line is passed into the `AddressBookParser` object, which parses the input and
+creates a `FindPersonCommandParser` to help it further parse the argument and create a
+`FindPersonCommand`. This `FindPersonCommand` filters the entire person list based on the keyword
+in the specific field stipulated and updates the Address Book Model to create an Observable List of
+persons based on the filter specified.
+
+==== Design Considerations
+
+===== Aspect: How find executes
+
+* **Alternative 1 (current choice):** Match full keyword.
+** E.g. If there is a person named "Alex", only the command `findperson n/alex` will find the
+person. `findperson n/ale` will not find the person.
+** Pros: Very target and precise finding of person.
+** Cons: Cannot find parts of the person's attributes especially if user cannot remember full
+attribute name, title, etc.
+* **Alternative 2:** Match keyword to part of the attribute.
+** E.g. If there is a person named "Alex", the commands `findperson n/e`, `findperson n/ex`,
+`findperson n/le`, `findperson n/alex` will find the person.
+** Pros: Can find multiple entries of persons with keyword in name.
+** Cons: May not limit the search of persons, hard to pinpoint exact person.
+// end::find[]
+
+// tag::select[]
+=== Select Person/Module/Occasion Feature
+The select feature currently is implemented the same way to select persons, modules, and occasions.
+Currently, the select feature selects by index in the observed list which has been loaded into the
+UI.
+
+==== Current Implementation
+The select string command input in the command line is passed into the `AddressBookParser` object,
+which parses the input and creates a `SelectCommandParser` to help it further parse the argument and
+create a `SelectCommand` object. This `SelectCommand` then takes the current list available,
+takes its size, and tells the `EventCenter` to post a new event of jumping to the current index of
+the currently shown list in the UI, by posting a new `JumpToListRequestEvent`.
+// end::select[]
 
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
+
 The undo/redo mechanism is facilitated by `VersionAddressBook`.It extends
 `AddressBook` with an command history, stored internally as an
 `addressBookStateList` and `currentStatePointer`.
@@ -299,10 +342,9 @@ state, which the `currentStatePointer` is currently pointing to.
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
 Step 2: The user executes `add n/David...` command to add a person called
-David in his TheTracker. The `find` command calls `Model#commitAddressBook()
-`, causing the modified state of TheTracker after the `find David...` command
- executes to be saved in the `addressBookStateList`, and the
- `currentStatePointer` is shifted to the newly inserted address book state.
+David in his TheTracker. The `find` command calls `Model#commitAddressBook()`, causing the modified state of TheTracker after the `find David...` command
+executes to be saved in the `addressBookStateList`, and the
+`currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
@@ -313,8 +355,8 @@ another modified address book state to be saved into the `addressBookStateList`
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()
-`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitAddressBook()`,
+so the address book state will not be saved into the `addressBookStateList`.
 
 Step 4: If the user now realizes that deleting the 7th person is a mistake,
 and decides to undo that action by executing the `undo` command. The `undo`
@@ -393,8 +435,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 The following sequence diagram shows how the `history` operation works:
 
 image::HistoryCommandSequenceDiagram.png[width="800"]
-// end::history[]
 
+// end::history[]
 
 // tag::autocomplete[]
 === [Proposed] Autocomplete
@@ -439,13 +481,12 @@ It supports deletions of `Person`, `Module` and `Occasion`, by the same `DeleteP
 This following section will use `DeletePersonCommand` as an example, `DeleteModuleCommand` and  `DeleteOccasionCommand`
 uses the same mechanism. `DeletePersonCommand`extends the `Command` class and uses inheritance to facilitate
 implementation.
+
 Generally, it implements the following operation:
 
-* `DeletePersonCommand#excute(Model model, CommandHistory history)`:
-deletes the person passed to the `DeletePersonCommand` class
+* `DeleteCommand#excute(Model model, CommandHistory history)`: deletes the entity passed to the `DeleteCommand` class
 
-This operation is exposed in the Model interface as Model#getFilteredEntity(), Model#deleteEntity() and
-Model#commitAddressBook() respectively.
+This operation is exposed in the Model interface as Model#getFilteredEntity(), Model#deleteEntity() and Model#commitAddressBook() respectively.
 
 Provided below is an usage scenario instance. It illustrates how the
 delete mechanism behaves at each step.
@@ -471,7 +512,6 @@ and `Model#commitAddressBook()`, and causes modified address book state to be sa
 
 image::DeleteDeleteCommandStateListDiagram.png[width="800"]
 
-
 The following sequence diagram shows how the delete operation works:
 
 image::DeleteSequenceDiagram.png[width="800"]
@@ -494,7 +534,6 @@ image::DeleteSequenceDiagram.png[width="800"]
 *** User needs to know the index number of the Entity to be deleted.
 
 // end::delete[]
-
 
 == Documentation
 
@@ -764,7 +803,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
-** You can modify the existing test methods for `PersonCard` `s to include testing the tag's color as well.
+** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****

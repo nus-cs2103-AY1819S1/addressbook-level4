@@ -16,6 +16,13 @@ public class Phone {
     public final String value;
 
     /**
+     * Empty constructor.
+     */
+    public Phone() {
+        value = "";
+    }
+
+    /**
      * Constructs a {@code Phone}.
      *
      * @param phone A valid phone number.

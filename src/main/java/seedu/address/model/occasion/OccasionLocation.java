@@ -26,6 +26,12 @@ public class OccasionLocation {
     public final String fullOccasionLocation;
 
     /**
+     * Empty Constructor.
+     */
+    public OccasionLocation() {
+        fullOccasionLocation = "";
+    }
+    /**
      * Construct a {@code OccasionLocation}.
      *
      * @param location An occasion location.

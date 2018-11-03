@@ -23,6 +23,12 @@ public class ModuleCode {
     public final String fullModuleCode;
 
     /**
+     * Empty constructor.
+     */
+    public ModuleCode() {
+        fullModuleCode = "";
+    }
+    /**
      * Constructs a {@code ModuleCode}.
      *
      * @param code A valid module code.

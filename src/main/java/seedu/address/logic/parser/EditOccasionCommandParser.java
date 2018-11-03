@@ -15,6 +15,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditOccasionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.occasion.OccasionDescriptor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,8 +43,7 @@ public class EditOccasionCommandParser implements Parser<EditOccasionCommand> {
                     EditOccasionCommand.MESSAGE_USAGE), pe);
         }
 
-        EditOccasionCommand.EditOccasionDescriptor editOccasionDescriptor =
-                 new EditOccasionCommand.EditOccasionDescriptor();
+        OccasionDescriptor editOccasionDescriptor = new OccasionDescriptor();
         if (argMultimap.getValue(PREFIX_OCCASIONNAME).isPresent()) {
             editOccasionDescriptor.setOccasionName(ParserUtil.parseOccasionName(
                     argMultimap.getValue(PREFIX_OCCASIONNAME).get()));
@@ -58,7 +58,7 @@ public class EditOccasionCommandParser implements Parser<EditOccasionCommand> {
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editOccasionDescriptor::setTags);
 
-        if (!editOccasionDescriptor.isAnyFieldEdited()) {
+        if (!editOccasionDescriptor.isAnyFieldNotEmpty()) {
             throw new ParseException(EditOccasionCommand.MESSAGE_NOT_EDITED);
         }
 

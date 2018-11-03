@@ -8,21 +8,18 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.module.AcademicYear;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.module.Semester;
 import seedu.address.model.person.UniquePersonList;
@@ -55,18 +52,18 @@ public class EditModuleCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MODULE = "This module already exists in the address book.";
 
     private final Index index;
-    private final EditModuleDescriptor editModuleDescriptor;
+    private final ModuleDescriptor editModuleDescriptor;
 
     /**
      * @param index of the module in the filtered module list to edit
      * @param editModuleDescriptor details to edit the module with
      */
-    public EditModuleCommand(Index index, EditModuleDescriptor editModuleDescriptor) {
+    public EditModuleCommand(Index index, ModuleDescriptor editModuleDescriptor) {
         requireNonNull(index);
         requireNonNull(editModuleDescriptor);
 
         this.index = index;
-        this.editModuleDescriptor = new EditModuleDescriptor(editModuleDescriptor);
+        this.editModuleDescriptor = new ModuleDescriptor(editModuleDescriptor);
     }
 
     @Override
@@ -95,7 +92,7 @@ public class EditModuleCommand extends Command {
      * Creates and returns a {@code Module} with the details of {@code moduleToEdit}
      * edited with {@code editModuleDescriptor}.
      */
-    private static Module createEditedModule(Module moduleToEdit, EditModuleDescriptor editModuleDescriptor) {
+    private static Module createEditedModule(Module moduleToEdit, ModuleDescriptor editModuleDescriptor) {
         assert moduleToEdit != null;
 
         ModuleCode updatedModuleCode = editModuleDescriptor.getModuleCode().orElse(moduleToEdit.getModuleCode());
@@ -128,121 +125,5 @@ public class EditModuleCommand extends Command {
             && editModuleDescriptor.equals(e.editModuleDescriptor);
     }
 
-    /**
-     * Stores the details to edit the module with. Each non-empty field value will replace the
-     * corresponding field value of the module.
-     */
-    public static class EditModuleDescriptor {
-        // Identity fields
-        private ModuleCode moduleCode;
-        private ModuleTitle moduleTitle;
-        private AcademicYear academicYear;
-        private Semester semester;
-        private UniquePersonList students;
-
-        // Data fields
-        private Set<Tag> tags;
-
-        public EditModuleDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditModuleDescriptor(EditModuleDescriptor toCopy) {
-            setModuleCode(toCopy.moduleCode);
-            setModuleTitle(toCopy.moduleTitle);
-            setAcademicYear(toCopy.academicYear);
-            setSemester(toCopy.semester);
-            setTags(toCopy.tags);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(moduleCode, moduleTitle, academicYear, semester, tags);
-        }
-
-        public void setModuleCode(ModuleCode moduleCode) {
-            this.moduleCode = moduleCode;
-        }
-
-        public Optional<ModuleCode> getModuleCode() {
-            return Optional.ofNullable(moduleCode);
-        }
-
-        public void setModuleTitle(ModuleTitle moduleTitle) {
-            this.moduleTitle = moduleTitle;
-        }
-
-        public Optional<ModuleTitle> getModuleTitle() {
-            return Optional.ofNullable(moduleTitle);
-        }
-
-        public void setAcademicYear(AcademicYear academicYear) {
-            this.academicYear = academicYear;
-        }
-
-        public Optional<AcademicYear> getAcademicYear() {
-            return Optional.ofNullable(academicYear);
-        }
-
-        public void setSemester(Semester semester) {
-            this.semester = semester;
-        }
-
-        public Optional<Semester> getSemester() {
-            return Optional.ofNullable(semester);
-        }
-
-        public void setStudents(UniquePersonList students) {
-            this.students = students;
-        }
-
-        public Optional<UniquePersonList> getStudents() {
-            return Optional.ofNullable(students);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditModuleDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditModuleDescriptor e = (EditModuleDescriptor) other;
-
-            return getModuleCode().equals(e.getModuleCode())
-                && getModuleTitle().equals(e.getModuleTitle())
-                && getAcademicYear().equals(e.getAcademicYear())
-                && getSemester().equals(e.getSemester())
-                && getStudents().equals(e.getStudents())
-                && getTags().equals(e.getTags());
-        }
-    }
 }
 

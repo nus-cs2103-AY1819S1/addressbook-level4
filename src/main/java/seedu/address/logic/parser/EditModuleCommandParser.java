@@ -16,6 +16,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,8 +43,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
                     EditModuleCommand.MESSAGE_USAGE), pe);
         }
 
-        EditModuleCommand.EditModuleDescriptor editModuleDescriptor =
-                new EditModuleCommand.EditModuleDescriptor();
+        ModuleDescriptor editModuleDescriptor = new ModuleDescriptor();
         if (argMultimap.getValue(PREFIX_MODULECODE).isPresent()) {
             editModuleDescriptor.setModuleCode(ParserUtil.parseModuleCode(
                     argMultimap.getValue(PREFIX_MODULECODE).get()));

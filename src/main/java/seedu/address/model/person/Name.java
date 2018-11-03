@@ -21,6 +21,13 @@ public class Name {
     public final String fullName;
 
     /**
+     * Empty constructor.
+     */
+    public Name() {
+        fullName = "";
+    }
+
+    /**
      * Constructs a {@code Name}.
      *
      * @param name A valid name.
