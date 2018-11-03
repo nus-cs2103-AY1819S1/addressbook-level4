@@ -101,7 +101,7 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
-        public boolean alreadyContainsUsername(String username) {
+        public boolean alreadyContainsUsername(String username, Person ignore) {
             throw new AssertionError("This method should not be called.");
         }
 
