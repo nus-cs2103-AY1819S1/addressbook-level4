@@ -9,6 +9,7 @@ import org.junit.Test;
 import seedu.restaurant.logic.commands.menu.SortMenuCommand;
 import seedu.restaurant.logic.commands.menu.SortMenuCommand.SortMethod;
 
+//@@author yican95
 public class SortMenuCommandParserTest {
 
     private SortMenuCommandParser parser = new SortMenuCommandParser();
