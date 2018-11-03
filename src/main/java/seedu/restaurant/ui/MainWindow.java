@@ -175,6 +175,7 @@ public class MainWindow extends UiPart<Stage> {
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        //@@author AZhiKai
         UsernameDisplay usernameDisplay = new UsernameDisplay();
         // Centralize the width
         usernameDisplay.getRoot().layoutXProperty().bind(usernameDisplayPlaceholder.widthProperty()
@@ -186,6 +187,7 @@ public class MainWindow extends UiPart<Stage> {
                 .divide(2));
         usernameDisplayPlaceholder.getChildren().add(usernameDisplay.getRoot());
 
+        //@@author
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getRestaurantBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -229,6 +231,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    //@@author AZhiKai
     private void switchList(Region region) {
         browserPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().clear();
@@ -330,6 +333,7 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().add(new RecordStackPanel(event.getNewSelection()).getRoot());
     }
 
+    //@@author AZhiKai
     @Subscribe
     private void handleDisplayAccountListEvent(DisplayAccountListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -368,6 +372,7 @@ public class MainWindow extends UiPart<Stage> {
         salesReportWindow.show();
     }
 
+    //@@author AZhiKai
     @Subscribe
     private void handleLoginEvent(LoginEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

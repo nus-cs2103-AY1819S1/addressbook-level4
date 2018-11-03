@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.ui.UiPart;
 
+//@@author AZhiKai
 /**
  * An UI component that displays information of a {@code Account}.
  */
