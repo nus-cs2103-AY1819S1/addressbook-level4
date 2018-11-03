@@ -2,7 +2,8 @@ package seedu.address.ui;
 
 //@@author chivent
 
-import java.util.PriorityQueue;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -37,7 +38,7 @@ public class HistoryListPanel extends UiPart<Region> {
     /**
      * Stores transformations that have been undone.
      */
-    private PriorityQueue<String> redoQueue = new PriorityQueue<>();
+    private Queue<String> redoQueue = new LinkedList<>();
 
     @FXML
     private ListView<String> historyListView;
@@ -107,6 +108,7 @@ public class HistoryListPanel extends UiPart<Region> {
     }
 
     //@@author ihwk1996
+
     /**
      * Similar to TransformationEvent, but specifically for undoing/redoing all transformations
      * Called upon undo-all or redo-all
@@ -119,18 +121,15 @@ public class HistoryListPanel extends UiPart<Region> {
 
         if (event.isRemove) {
             //undo-all command
-            if (items.size() > 0) {
-                for (String item: items) {
-                    redoQueue.add(item);
-                }
-                items.remove(0, items.size());
+            while (items.size() > 0) {
+                redoQueue.add(items.get(items.size() - 1));
+                items.remove(items.size() - 1, items.size());
             }
         } else {
             //redo-all command
             while (redoQueue.size() > 0) {
                 items.add(redoQueue.poll());
             }
-
         }
 
         if (items.size() > 0) {
@@ -139,6 +138,8 @@ public class HistoryListPanel extends UiPart<Region> {
             });
         }
     }
+
+    //@@author chivent
 
     /**
      * Custom {@code ListCell} that displays transformations.

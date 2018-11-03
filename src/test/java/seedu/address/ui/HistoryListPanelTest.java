@@ -15,6 +15,7 @@ import guitests.guihandles.HistoryListPanelHandle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.ui.AllTransformationEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 
@@ -26,13 +27,12 @@ public class HistoryListPanelTest extends GuiUnitTest {
     private static final ClearHistoryEvent CLEAR_HISTORY_EVENT = new ClearHistoryEvent();
 
     private static final ArrayList<String> TRANSFORMATION_SAMPLE = new ArrayList<>(
-            Arrays.asList("first", "second", "third"));
+            Arrays.asList("first", "second", "third", "fourth"));
 
     private static List<String> addSample = new ArrayList<>(
             Arrays.asList("new 1", "new 2", "new 3", "new 4", "new 5", "new 6"));
 
-    private static ObservableList<String> sampleList =
-            FXCollections.observableList(TRANSFORMATION_SAMPLE);
+    private static ObservableList<String> sampleList = FXCollections.observableList(new ArrayList<>());
 
     private HistoryListPanelHandle historyListPanelHandle;
     private PriorityQueue<String> redoQueue = new PriorityQueue<>();
@@ -54,6 +54,7 @@ public class HistoryListPanelTest extends GuiUnitTest {
         redoItem();
         assertAddItem(addSample.get(3));
 
+        System.out.println(sampleList.size());
         // Assert add after undo and redo
         undoItem();
         redoItem();
@@ -63,12 +64,14 @@ public class HistoryListPanelTest extends GuiUnitTest {
         undoItem();
         undoItem();
         assertAddItemAfterUndo(addSample.get(5));
+        System.out.println(sampleList.size());
     }
 
     @Test
     public void undo() {
         initUi();
 
+        System.out.println(sampleList.size());
         // Assert regular undo
         assertUndoItem();
 
@@ -76,6 +79,7 @@ public class HistoryListPanelTest extends GuiUnitTest {
         assertUndoItem();
 
         // Assert undo after add
+        redoQueue.clear();
         addItem(addSample.get(0));
         assertUndoItem();
 
@@ -134,6 +138,21 @@ public class HistoryListPanelTest extends GuiUnitTest {
         sampleList.clear();
         assertListMatch();
         assertEquals(0, historyListPanelHandle.getItems().size());
+    }
+
+
+    @Test
+    public void handleAllTransformationEvent() {
+        initUi();
+        postNow(new AllTransformationEvent(true));
+        sampleList.clear();
+        assertListMatch();
+
+        postNow(new AllTransformationEvent(false));
+        sampleList.addAll(TRANSFORMATION_SAMPLE);
+        assertListMatch();
+
+
     }
 
     /**
@@ -215,6 +234,8 @@ public class HistoryListPanelTest extends GuiUnitTest {
      * Initializes {@code historyListPanelHandle} with a {@code HistoryListPanel} and fills {@code historyListView}
      */
     private void initUi() {
+
+        sampleList.addAll(TRANSFORMATION_SAMPLE);
         redoQueue.clear();
         HistoryListPanel historyListPanel = new HistoryListPanel();
         uiPartRule.setUiPart(historyListPanel);
