@@ -59,11 +59,6 @@ which can support those operations.
 (Pull requests https://github.com/CS2103-AY1819S1-T09-2/main/pull/130[#130])
 ** Wrote additional classes for test util
 (Pull requests https://github.com/CS2103-AY1819S1-T09-2/main/pull/122/files[#122])
-** Fix bugs (Pull requests
- https://github.com/CS2103-AY1819S1-T09-2/main/pull/156[#156],
- https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164],
- https://github.com/CS2103-AY1819S1-T09-2/main/pull/168[#168],
- https://github.com/CS2103-AY1819S1-T09-2/main/pull/171[#171])
 
 ** Enhancements to existing features:
 *** Wrote additional tests for existing features to increase coverage from 79.5% to 84%
@@ -80,13 +75,20 @@ https://github.com/CS2103-AY1819S1-T09-2/main/pull/195[#195])
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/189[#189]
 *** Reported bugs and suggestions in the issue tracker of the project
 (Issues:  https://github.com/CS2103-AY1819S1-T09-2/main/issues/161[#161],
- https://github.com/CS2103-AY1819S1-T09-2/main/issues/162[#162],
+ https://github.com/CS2103-AY1819S1-T09-2/main/issues/162[#162] fixed by PR https://github.com/CS2103-AY1819S1-T09-2/main/pull/171[#171],
  https://github.com/CS2103-AY1819S1-T09-2/main/issues/163[#163],
  https://github.com/CS2103-AY1819S1-T09-2/main/issues/191[#191],
  https://github.com/CS2103-AY1819S1-T09-2/main/issues/193[#193])
-*** Resolved issues suggested by other team members in the issue tracker of the project
+*** Resolved issues suggested by other team members and other groups in the issue tracker of the project
 (Pull request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/156[#156],
-https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164])
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/164[#164],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/209[#209] resolves issue https://github.com/CS2103-AY1819S1-T09-2/main/issues/203[#203],
+https://github.com/CS2103-AY1819S1-T09-2/main/pull/210[#210] resolves issue
+https://github.com/CS2103-AY1819S1-T09-2/main/issues/211[#211],
+https://github.com/CS2103-AY1819S1-T09-2/main/issues/212[#212],
+https://github.com/CS2103-AY1819S1-T09-2/main/issues/213[#213],
+https://github.com/CS2103-AY1819S1-T09-2/main/issues/214[#214],
+https://github.com/CS2103-AY1819S1-T09-2/main/issues/217[#217])
 
 
 
