@@ -74,6 +74,12 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
+    public void readAddressBook_invalidEventTagAddressBook_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readAddressBook("invalidEventTagAddressBook.xml");
+    }
+
+    @Test
     public void readAddressBook_clashingEventAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readAddressBook("clashingEventAddressBook.xml");
@@ -92,10 +98,16 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
+    public void readAddressBook_invalidAndValidEventTagAddressBook_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readAddressBook("invalidAndValidEventTagAddressBook.xml");
+    }
+
+    @Test
     public void readAddressBook_invalidAndValidPersonAndEventAddressBook_throwDataConversionException()
             throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("invalidAndValidPersonAndEventAddressBook.xml");
+        readAddressBook("invalidAndValidAddressBook.xml");
     }
 
     @Test

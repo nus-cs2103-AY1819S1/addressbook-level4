@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+	<!-- Valid Event tag-->
+	<eventTags>Appointment</eventTags>
+	<!-- Invalid Event tag -->
+	<eventTags>#Appointment</eventTags>
+</addressbook>

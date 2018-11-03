@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
+import java.util.Set;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -34,6 +37,14 @@ public class AddressBookBuilder {
      */
     public AddressBookBuilder withEvent(Event event) {
         addressBook.addEvent(event);
+        return this;
+    }
+
+    /**
+     * Adds a new event {@code Tag} to the {@code Addressbook} that we are building.
+     */
+    public AddressBookBuilder withEventTags(Set<Tag> eventTags) {
+        eventTags.forEach(addressBook::addEventTag);
         return this;
     }
 
