@@ -3,8 +3,12 @@ package seedu.restaurant.model.sales;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,6 +121,38 @@ public class UniqueRecordList implements Iterable<SalesRecord> {
             }
         }
         return new SalesReport(date, FXCollections.unmodifiableObservableList(observableRecordList));
+    }
+
+    /**
+     * Generates and returns the ranking of existing records' dates according to total revenue as a Map
+     */
+    public Map<Date, Double> rankDateBasedOnRevenue() {
+        Map<Date, Double> dateRevenueMap = computeRevenue();
+        return sortByRevenue(dateRevenueMap);
+    }
+
+    /**
+     * Computes the total revenue earned for every existing date in the record list
+     */
+    private Map<Date, Double> computeRevenue() {
+        Map<Date, Double> dateRevenueMap = new HashMap<>();
+        for (SalesRecord s : internalList) {
+            Date date = s.getDate();
+            if (!dateRevenueMap.containsKey(date)) {
+                dateRevenueMap.put(date, 0.0);
+            }
+            double totalRevenue = dateRevenueMap.remove(date);
+            dateRevenueMap.put(date, totalRevenue + s.getRevenue());
+        }
+        return dateRevenueMap;
+    }
+
+    /**
+     * Sorts the given {@code dateRevenueMap} by revenue (i.e. its key) in descending order
+     */
+    private Map<Date, Double> sortByRevenue(Map<Date, Double> dateDoubleMap) {
+        return dateDoubleMap.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (s1, s2) -> s2, HashMap::new));
     }
 
     @Override

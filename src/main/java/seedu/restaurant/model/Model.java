@@ -123,6 +123,11 @@ public interface Model {
     SalesReport getSalesReport(Date date);
 
     /**
+     * Ranks the existing records' dates according to revenue
+     */
+    Map<Date, Double> rankDateBasedOnRevenue();
+
+    /**
      * Returns an unmodifiable view of the filtered record list
      */
     ObservableList<SalesRecord> getFilteredRecordList();

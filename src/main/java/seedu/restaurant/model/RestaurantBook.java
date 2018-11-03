@@ -268,6 +268,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         return records.generateSalesReport(date);
     }
 
+    public Map<Date, Double> rankDateBasedOnRevenue() {
+        return records.rankDateBasedOnRevenue();
+    }
+
     //// account-level operations
 
     /**
