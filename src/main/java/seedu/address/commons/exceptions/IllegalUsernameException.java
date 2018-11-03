@@ -5,7 +5,7 @@ package seedu.address.commons.exceptions;
  */
 public class IllegalUsernameException extends RuntimeException {
 
-    String username;
+    private String username;
 
     /**
      * @param message should contain relevant information on the failed constraint(s)
@@ -15,10 +15,6 @@ public class IllegalUsernameException extends RuntimeException {
         username = message;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     /**
      * @param message should contain relevant information on the failed constraint(s)
      * @param cause of the main exception
@@ -26,5 +22,9 @@ public class IllegalUsernameException extends RuntimeException {
     public IllegalUsernameException(String message, Throwable cause) {
         super("The following username: " + message + " already exists in the system!", cause);
         username = message;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
