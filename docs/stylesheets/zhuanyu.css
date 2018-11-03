@@ -6,7 +6,7 @@
 /* CUSTOMISATIONS */
 /* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
 :root{
---bgcolor:#fffaef; /* White Base3 */ 
+--bgcolor:#fffaef; /* White Base3 */
 --fgcolor:#fdf6e3; /* Base3 */
 --altcolor:#eee8d5; /* Base2 */
 --textcolor:#073642; /* Base02 */
@@ -15,12 +15,12 @@
 --selectcolor:#6c71c4; /* Violet */
 --primarycolor:#dc322f; /* Red */
 --secondarycolor:#b58900; /* Yellow */
---tertiarycolor:#2aa198; /* Cyan */ 
+--tertiarycolor:#2aa198; /* Cyan */
 --quaternarycolor:#859900; /* Green */
 --bordercolor:#cb4b16; /* Orange */
 --tablebgcolor:#839496; /* Base0 */
 --tablefgcolor:#93a1a1; /* Base1 */
---white:#FFFFFF; 
+--white:#FFFFFF;
 }
 
 /* Table of Content */
