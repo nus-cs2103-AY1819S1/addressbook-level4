@@ -811,6 +811,15 @@ Edits the item name of the 3rd record to be "Fried Omelet".
 * `es 7 q/37 p/6.50` +
 Edits the quantity sold and price of the 7th record to be 37 and 6.50 respectively.
 
+==== Ranking dates according to total revenue
+
+Ranks all existing records' dates based on the total revenue. +
+Format: `rank-date` or `rd`
+
+****
+* Sales list must not be empty.
+****
+
 // end::salesmanagement[]
 
 === Upcoming Features
@@ -848,11 +857,6 @@ Examples:
 
 Ranks the items based on their total revenue accumulated in past sales records. +
 Format: `rank-item` or `ri`
-
-==== Ranking dates according to total revenue `[coming in v1.4]`
-
-Ranks the dates based on their total revenue for that day. +
-Format: `rank-date` or `rd`
 
 ==== Displaying sales graph `[coming in v2.0]`
 Generates and displays the sales graph with the vertical axis representing the total revenue and horizontal axis

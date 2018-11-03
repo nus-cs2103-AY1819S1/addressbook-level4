@@ -1928,11 +1928,19 @@ Use case ends.
 * 1a. Invalid command format entered by the user.
 [none]
 ** 1a1. App returns a message telling user that the command format is invalid.
-** 1a2. User requests to display sales report again.
+** 1a2. User requests to rank items again.
 +
 Steps 1a1-1a2 are repeated until a valid command format is entered.
 +
 Use case resumes at step 2.
++
+
+[none]
+* 2a. Sales list is empty. No record has ever been added.
+[none]
+** 2a1. App returns a message telling user that the sales list is empty.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
