@@ -19,9 +19,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Date;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventContainsEventIdPredicate;
 import seedu.address.model.event.EventId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordContainsVolunteerIdPredicate;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerId;
@@ -109,8 +111,8 @@ public class ExportCertCommand extends Command {
         Name volunteerName = volunteer.getName();
 
         // Retrieve the volunteer's events
-        List<Record> eventRecords = model.getFilteredRecordList().filtered((x) -> x.getVolunteerId()
-                .equals(volunteerId));
+        List<Record> eventRecords = model.getFilteredRecordList()
+                .filtered(new RecordContainsVolunteerIdPredicate(volunteerId));
 
         // Create the new document
         PDDocument doc = new PDDocument();
@@ -162,7 +164,7 @@ public class ExportCertCommand extends Command {
                 EventId eventId = r.getEventId();
 
                 // Get the exact corresponding event object and extract information from it
-                Event event = model.getFilteredEventList().filtered((x) -> x.getEventId().equals(eventId)).get(0);
+                Event event = model.getFilteredEventList().filtered(new EventContainsEventIdPredicate(eventId)).get(0);
                 seedu.address.model.event.Name eventName = event.getName();
                 Date startDate = event.getStartDate();
                 Date endDate = event.getEndDate();
