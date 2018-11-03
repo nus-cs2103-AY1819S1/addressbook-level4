@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.commons.events.ui.reservation.JumpToReservationListRequestEvent;
 
 public class JumpToReservationListRequestEventTest {
 

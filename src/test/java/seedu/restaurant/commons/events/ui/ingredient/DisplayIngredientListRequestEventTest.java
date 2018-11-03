@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
 
 public class DisplayIngredientListRequestEventTest {
     @Test
