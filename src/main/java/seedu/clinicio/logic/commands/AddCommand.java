@@ -55,7 +55,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
+        model.addPerson(toAdd); //Patient.buildFromPerson(toAdd));
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

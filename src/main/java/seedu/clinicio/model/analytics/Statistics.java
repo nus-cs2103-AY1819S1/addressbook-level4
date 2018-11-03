@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+<<<<<<< HEAD
 import seedu.clinicio.model.analytics.data.CircularList;
+=======
+>>>>>>> 9ad5b42fa9d38917b120d3d9166a9717fb8d4556
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;

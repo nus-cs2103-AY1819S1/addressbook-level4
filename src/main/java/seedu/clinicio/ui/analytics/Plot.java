@@ -2,7 +2,6 @@ package seedu.clinicio.ui.analytics;
 
 import java.util.List;
 
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -10,7 +9,7 @@ import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import seedu.clinicio.model.analytics.data.CircularDoublyLinkedList;
+
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
@@ -43,6 +42,7 @@ public class Plot {
             i++;
         }
     }
+
 
 //    /**
 //     * Updates {@code chartPane} with the appropriate visualizations, if they exist.

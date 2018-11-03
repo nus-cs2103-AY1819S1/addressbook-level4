@@ -51,7 +51,7 @@ public class AppointmentStatistics extends Statistics {
 
     /**
      * @return the total number of appointments.
-     */
+    */
     private int getNumberOfAppointments() {
         return appointments.size();
     }

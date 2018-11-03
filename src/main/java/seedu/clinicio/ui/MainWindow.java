@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.event.EventHandler;
@@ -29,7 +30,7 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
-import seedu.clinicio.model.analytics.Analytics;
+import seedu.clinicio.model.person.Person;
 import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
 /**
@@ -136,6 +137,7 @@ public class MainWindow extends UiPart<Stage> {
         analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
         browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+
         browserPlaceholder.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -161,6 +163,10 @@ public class MainWindow extends UiPart<Stage> {
 
     void hide() {
         primaryStage.hide();
+    }
+
+    public void setPersonListPanel(ObservableList<Person> list) {
+        personListPanel = new PersonListPanel(list);
     }
 
     private void setTitle(String appTitle) {

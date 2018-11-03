@@ -36,9 +36,6 @@ Responsibilities:
 
 * Responsible for the quality of various project documents.
 
-Secondary Role: - +
-Responsibilities: -
-
 Other roles:
 
 * In charge of Logic.
@@ -56,9 +53,6 @@ Responsibilities:
 * Assist the team lead in overall project coordination.
 * Ensures the testing of the project is done properly and on time.
 
-Secondary Role: - +
-Responsibilities: -
-
 Other roles:
 
 * In charge of Logic.
@@ -68,17 +62,12 @@ Other roles:
 
 === Sophia Simangan
 image::gingivitiss.png[width="150", align="left"]
-{empty}[https://github.com/gingivitiss[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/gingivitiss[github]] [<<gingivitiss#, portfolio>>]
 
 Primary Role: Developer (Code Quality) +
 Responsibilities:
 
 * Looks after code quality, ensures adherence to coding standards, etc.
-
-Secondary Role: Integration +
-Responsibilities:
-
-* In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
 
 Other roles:
 
@@ -89,15 +78,12 @@ Other roles:
 
 === Aaron Seah
 image::aaronseahyh.png[width="150", align="left"]
-{empty}[https://github.com/aaronseahyh[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/aaronseahyh[github]] [<<aaronseahyh#, portfolio>>]
 
 Primary Role: Developer (Integration) +
 Responsibilities:
 
 * In charge of versioning of the code, maintaining the code repository, integrating various parts of the software to create a whole.
-
-Secondary Role: - +
-Responsibilities: -
 
 Other roles:
 

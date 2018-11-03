@@ -5,8 +5,6 @@ package seedu.clinicio.model.analytics.data;
 /**
  * Represents a pair.
  * Provides greater flexibility than common library implementations.
- * @param <K>
- * @param <V>
  */
 public class Tuple<K, V> {
     private K key;

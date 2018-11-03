@@ -11,7 +11,11 @@ import seedu.clinicio.model.analytics.ChartType;
  * A convenient wrapper for summary and visualization data for a particular class of statistics.
  * There can only be one set of summary data.
  * There can be multiple visualizations.
+<<<<<<< HEAD
  * Lists of tuples are used to represent ordering.
+=======
+ * Lists of tuples are used to indicate ordering and avoid mutating {@code HashMap} keys
+>>>>>>> 9ad5b42fa9d38917b120d3d9166a9717fb8d4556
  */
 public class StatData {
 

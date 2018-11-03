@@ -2,6 +2,7 @@ package seedu.clinicio.ui.analytics;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import seedu.clinicio.model.analytics.data.CircularList;
 import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
+
 import seedu.clinicio.ui.UiPart;
 
 //@@author arsalanc-v2
@@ -124,5 +126,15 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     public void setVisible(boolean visibility) {
         analyticsPane.setVisible(visibility);
+    }
+
+    @Subscribe
+    public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
+        StatData allDataToDisplay = event.getAllData();
+        chartPane.getChildren().clear();
+        chartPane.setStyle("-fx-background-color: #6593F5");
+        Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
+        Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
+        analyticsPane.setVisible(true);
     }
 }
