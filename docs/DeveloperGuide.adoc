@@ -1700,13 +1700,13 @@ Use case resumes at step 3.
 
 *Guarantees*:
 
-* A new sales record of an item will be appended to the sales list.
+* A new sales record of an item will be appended to the record list.
 
 *MSS*
 
 1. User requests to record sales volume of an item for a specified day.
 2. App computes the ingredients used and updates the ingredient list automatically.
-3. App appends the record at the end of sales list.
+3. App appends the record at the end of record list.
 4. App returns a success message confirming that the recording is successful.
 +
 Use case ends.
@@ -1735,7 +1735,7 @@ Steps 1b1-1b2 are repeated until all fields entered by the user are valid.
 Use case resumes at step 2.
 
 [none]
-* 1c. Sales record of the same date and item name already exists in the sales list.
+* 1c. Sales record of the same date and item name already exists in the record list.
 [none]
 ** 1c1. App returns a message telling user that the item's record already exists.
 ** 1c2. User requests to record sales volume again.
@@ -1764,7 +1764,7 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to edit a sales record in the sales list.
+1. User requests to edit a sales record in the record list.
 2. App updates the sales record to that given by the user.
 3. App returns a success message confirming that the modification is successful.
 +
@@ -1784,10 +1784,10 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the sales list.
+* 1b. Record does not exist in the record list.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the sales list.
+** 1b1. App returns a message telling user that no such record exists in the record list.
 ** 1b2. User requests to edit sales record again.
 +
 Steps 1b1-1b2 are repeated until a valid record is entered.
@@ -1817,7 +1817,7 @@ Steps 1d1-1d2 are repeated until all fields entered by the user are valid.
 Use case resumes at step 2.
 
 [none]
-* 1e. Sales record of the same date and item name as the new record already exists in the sales list.
+* 1e. Sales record of the same date and item name as the new record already exists in the record list.
 [none]
 ** 1e1. App returns a message telling user that the item's record already exists.
 ** 1e2. User requests to edit sales record again.
@@ -1832,7 +1832,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to delete a sales record in the sales list.
+1. User requests to delete a sales record in the record list.
 2. App deletes the sales record.
 3. App returns a success message confirming that the deletion is successful.
 +
@@ -1852,10 +1852,10 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the sales list.
+* 1b. Record does not exist in the record list.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the sales list.
+** 1b1. App returns a message telling user that no such record exists in the record list.
 ** 1b2. User requests to delete sales record again.
 +
 Steps 1b1-1b2 are repeated until a valid record is entered.
@@ -1936,9 +1936,9 @@ Use case resumes at step 2.
 +
 
 [none]
-* 2a. Sales list is empty. No record has ever been added.
+* 2a. Record list is empty. No record has ever been added.
 [none]
-** 2a1. App returns a message telling user that the sales list is empty.
+** 2a1. App returns a message telling user that the record list is empty.
 +
 Use case ends.
 
