@@ -67,7 +67,7 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_USERNAME);
         }
 
-        if(toAdd.getUsername().username.equals("Admin")) {
+        if (toAdd.getUsername().username.equals("Admin")) {
             throw new CommandException(MESSAGE_ADMIN_USERNAME);
         }
 
