@@ -16,9 +16,7 @@ import org.junit.Test;
 import seedu.address.model.transformation.Transformation;
 import seedu.address.testutil.PreviewImageGenerator;
 
-
 //@@author ihwk1996
-
 public class PreviewImageTest {
 
     private static final int ORIGINAL_IMAGE_HEIGHT = 354;
@@ -29,6 +27,31 @@ public class PreviewImageTest {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertEquals(previewImage.getHeight(), ORIGINAL_IMAGE_HEIGHT);
         assertEquals(previewImage.getWidth(), ORIGINAL_IMAGE_WIDTH);
+    }
+
+    @Test
+    public void getImageTest() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        BufferedImage image = previewImage.getImage();
+        assertNotNull(image);
+    }
+
+    @Test
+    public void getPathTest() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        Path path = previewImage.getCurrentPath();
+        assertNotNull(path);
+    }
+
+    @Test
+    public void addTransformationTest() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        Transformation t = PreviewImageGenerator.getATransformation();
+        previewImage.addTransformation(t);
+
+        String blurTransformationString = "blur 0x8";
+        Transformation blurTransformation = previewImage.getTransformationSet().getTransformations().get(0);
+        assertEquals(blurTransformationString, blurTransformation.toString());
     }
 
     @Test
@@ -62,19 +85,6 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void canUndo_multipleImagesPointerAtEndOfStateList_returnsTrue() {
-        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
-        assertTrue(previewImage.canUndo());
-    }
-
-    @Test
-    public void canUndo_multipleImagesPointerAtMidOfStateList_returnsTrue() {
-        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
-        shiftCurrentStatePointerLeftwards(previewImage, 1);
-        assertTrue(previewImage.canUndo());
-    }
-
-    @Test
     public void canUndo_defaultPreviewImage_returnsFalse() {
         PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
         assertFalse(previewImage.canUndo());
@@ -89,45 +99,16 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void canRedo_multipleImagesPointerNotAtEndOfStateList_returnsTrue() {
+    public void canUndo_multipleImagesPointerAtMidOfStateList_returnsTrue() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 1);
-        assertTrue(previewImage.canRedo());
+        assertTrue(previewImage.canUndo());
     }
 
     @Test
-    public void canRedo_multipleImagesPointerAtStartOfStateList_returnsTrue() {
-        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithUndoneStates();
-        assertTrue(previewImage.canRedo());
-    }
-
-    @Test
-    public void canRedo_defaultPreviewImage_returnsFalse() {
-        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
-        assertFalse(previewImage.canRedo());
-    }
-
-    @Test
-    public void canRedo_multipleImagePointerAtEndOfStateList_returnsFalse() {
+    public void canUndo_multipleImagesPointerAtEndOfStateList_returnsTrue() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
-        assertFalse(previewImage.canRedo());
-    }
-
-    @Test
-    public void undo_multipleImagesPointerAtEndOfStateList_success() {
-        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
-
-        previewImage.undo();
-        assertPreviewImageState(previewImage, 2, 4);
-    }
-
-    @Test
-    public void undo_multipleImagesPointerAtMidOfStateList_success() {
-        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
-        shiftCurrentStatePointerLeftwards(previewImage, 1);
-
-        previewImage.undo();
-        assertPreviewImageState(previewImage, 1, 4);
+        assertTrue(previewImage.canUndo());
     }
 
     @Test
@@ -144,12 +125,51 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void redo_multipleAddressBookPointerNotAtEndOfStateList_success() {
+    public void undo_multipleImagesPointerAtMidOfStateList_success() {
         PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
         shiftCurrentStatePointerLeftwards(previewImage, 1);
 
-        previewImage.redo();
-        assertPreviewImageState(previewImage, 3, 4);
+        previewImage.undo();
+        assertPreviewImageState(previewImage, 1, 4);
+    }
+
+    @Test
+    public void undo_multipleImagesPointerAtEndOfStateList_success() {
+        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
+
+        previewImage.undo();
+        assertPreviewImageState(previewImage, 2, 4);
+    }
+
+    @Test
+    public void canRedo_defaultPreviewImage_returnsFalse() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        assertFalse(previewImage.canRedo());
+    }
+
+    @Test
+    public void canRedo_multipleImagesPointerAtStartOfStateList_returnsTrue() {
+        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithUndoneStates();
+        assertTrue(previewImage.canRedo());
+    }
+
+    @Test
+    public void canRedo_multipleImagesPointerAtMidOfStateList_returnsTrue() {
+        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
+        shiftCurrentStatePointerLeftwards(previewImage, 1);
+        assertTrue(previewImage.canRedo());
+    }
+
+    @Test
+    public void canRedo_multipleImagePointerAtEndOfStateList_returnsFalse() {
+        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
+        assertFalse(previewImage.canRedo());
+    }
+
+    @Test
+    public void redo_defaultPreviewImage_throwsNoRedoableStateException() {
+        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
+        assertThrows(PreviewImage.NoRedoableStateException.class, previewImage::redo);
     }
 
     @Test
@@ -163,9 +183,12 @@ public class PreviewImageTest {
     }
 
     @Test
-    public void redo_defaultPreviewImage_throwsNoRedoableStateException() {
-        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
-        assertThrows(PreviewImage.NoRedoableStateException.class, previewImage::redo);
+    public void redo_multipleAddressBookPointerAtMidOfStateList_success() {
+        PreviewImage previewImage = PreviewImageGenerator.getPreviewImageWithThreeTransformations();
+        shiftCurrentStatePointerLeftwards(previewImage, 1);
+
+        previewImage.redo();
+        assertPreviewImageState(previewImage, 3, 4);
     }
 
     @Test
@@ -175,38 +198,13 @@ public class PreviewImageTest {
         assertThrows(PreviewImage.NoRedoableStateException.class, previewImage::redo);
     }
 
-    @Test
-    public void getImageTest() {
-        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
-        BufferedImage image = previewImage.getImage();
-        assertNotNull(image);
-    }
-
-    @Test
-    public void getPathTest() {
-        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
-        Path path = previewImage.getCurrentPath();
-        assertNotNull(path);
-    }
-
-    @Test
-    public void addTransformationTest() {
-        PreviewImage previewImage = PreviewImageGenerator.getDefaultPreviewImage();
-        Transformation t = PreviewImageGenerator.getATransformation();
-        previewImage.addTransformation(t);
-
-        String blurTransformationString = "blur 0x8";
-        Transformation blurTransformation = previewImage.getTransformationSet().getTransformations().get(0);
-        assertTrue(blurTransformationString.equals(blurTransformation.toString()));
-    }
-
     /**
      * Asserts that {@code previewImage} has the correct state by checking
      * that {@code previewImage#currentIndex} is equal to {@code expectedIndex},
      * and {@code previewImage#currentSize} is equal to {@code expectedSize}.
      */
     private void assertPreviewImageState(PreviewImage previewImage, int expectedIndex, int expectedSize) {
-        // check state currently pointing at is correct
+        // Check for correct size and correct pointer index
         assertEquals(previewImage.getCurrentIndex(), expectedIndex);
         assertEquals(previewImage.getCurrentSize(), expectedSize);
     }
