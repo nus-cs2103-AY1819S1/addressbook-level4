@@ -28,7 +28,7 @@ public class LearnCommandParserTest {
         String word2 = "sad";
         String wordsCombined = word1 + " " + word2;
         String expectedMessage = Messages.MESSAGE_OVERALL_ERROR + " \n"
-                + Dictionary.WORD_NOT_EXIST + "\n" + LearnCommand.MESSAGE_USAGE;
+                + Dictionary.MESSAGE_INVALID_WORD + "\n" + LearnCommand.MESSAGE_USAGE;
         assertParseFailure(parser, wordsCombined, expectedMessage);
     }
 

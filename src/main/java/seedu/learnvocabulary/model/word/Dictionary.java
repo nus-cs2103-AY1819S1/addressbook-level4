@@ -12,6 +12,10 @@ import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
  */
 public class Dictionary {
     public static final String MESSAGE_NO_INTERNET = "Please connect to the Internet.";
+    public static final String MESSAGE_CANNOT_BE_EMPTY = "Please don't leave the word blank.";
+
+    public static final String MESSAGE_INVALID_WORD = "Please ensure word is valid - "
+            + "no illegal characters and numbers are allowed.";
     public static final String WORD_NOT_EXIST =
             "Word cannot be located online (does not exist) - try respelling it.";
     public static final String NO_WORD_OF_THE_DAY =
@@ -64,7 +68,18 @@ public class Dictionary {
      * Invoke the use of "learn", to parse definition and put it into a meaning object.
      */
     public Dictionary invoke() throws ParseException {
-        wordToLearn = args;
+        wordToLearn = args.trim();
+
+        if (wordToLearn.equals("")) {
+            throw new ParseException(MESSAGE_CANNOT_BE_EMPTY);
+        }
+
+        wordToLearn = convertWord(wordToLearn);
+
+        if (!isValidWord(wordToLearn)) {
+            throw new ParseException(MESSAGE_INVALID_WORD);
+        }
+
         if (!isConnectedToInternet()) {
             throw new ParseException(MESSAGE_NO_INTERNET);
         }
@@ -86,6 +101,15 @@ public class Dictionary {
     }
 
     /**
+     * Converts the word being learnt to a readable format.
+     * Eg: 'hello' and 'hEllO' both becomes 'Hello'.
+     */
+    public static String convertWord(String wordToLearn) {
+        wordToLearn = wordToLearn.toLowerCase();
+        return wordToLearn.substring(0, 1).toUpperCase() + wordToLearn.substring(1);
+    }
+
+    /**
      * Checks for Internet Connection, if its available.
      */
     public static boolean isConnectedToInternet() {
@@ -97,6 +121,20 @@ public class Dictionary {
         }
     }
 
+    /**
+     * Checks if the word contains any invalid characters.
+     */
+    public static boolean isValidWord(String wordToLearn) {
+        char[] chars = wordToLearn.toCharArray();
+
+        for (char c : chars) {
+            if (!Character.isLetter(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
     /**
      * Checks for Internet Connection, if its available.
      */
