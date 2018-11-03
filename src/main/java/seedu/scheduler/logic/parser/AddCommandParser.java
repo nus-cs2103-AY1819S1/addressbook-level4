@@ -1,7 +1,6 @@
 package seedu.scheduler.logic.parser;
 
 import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.scheduler.commons.core.Messages.MESSAGE_INVALID_COMMAND_VALUES;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
@@ -77,7 +76,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
 
         if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_VALUES, Event.MESSAGE_DATETIME_CONSTRAINTS));
+            throw new ParseException(Event.MESSAGE_DATETIME_CONSTRAINTS);
         }
 
         Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description,

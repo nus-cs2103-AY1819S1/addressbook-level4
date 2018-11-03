@@ -22,6 +22,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_END_DATETIME_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_FLAG_ALL;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_FLAG_UPCOMING;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_TYPE_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_REPEAT_UNTIL_DATETIME_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_START_DATETIME_MA2101;
@@ -116,6 +117,12 @@ public class EditCommandParserTest {
                         + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101
                         + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
                         + INVALID_TAG_DESC + VALID_FLAG_ALL, EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_multipleFlag_failure() {
+        assertParseFailure(parser, "1" + EVENT_NAME_DESC_MA2101 + VALID_FLAG_ALL + VALID_FLAG_UPCOMING,
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test

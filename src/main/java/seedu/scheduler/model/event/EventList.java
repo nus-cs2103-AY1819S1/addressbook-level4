@@ -93,7 +93,7 @@ public class EventList implements Iterable<Event> {
      * {@code target} must exist in the list.
      */
     public void setEvents(Event target, List<Event> editedEvents, Predicate<Event> predicate) {
-        requireAllNonNull(target, editedEvents);
+        requireAllNonNull(target, editedEvents, predicate);
 
         int i = 0;
         List<Event> filteredList = internalList.stream().filter(predicate).collect(Collectors.toList());

@@ -8,6 +8,8 @@ import static seedu.scheduler.testutil.TypicalEvents.INTERVIEW_WITH_JOHN;
 import static seedu.scheduler.testutil.TypicalEvents.JIM_BIRTHDAY_YEAR_ONE;
 import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAILY_LIST;
 import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_ONE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JANE_DAY_THREE;
+import static seedu.scheduler.testutil.TypicalEvents.STUDY_WITH_JILL_DAILY_LIST;
 
 import java.util.Collections;
 import java.util.List;
@@ -94,9 +96,37 @@ public class EventListTest {
     }
 
     @Test
-    public void setEvents_nullEditedListOfEvent_throwsNullPointerException() {
+    public void setEvents_nullEditedListOfEventWithPredicate_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        eventList.setEvents((List<Event>) null);
+        eventList.setEvents(DISCUSSION_WITH_JACK, null,
+            event -> event.getEventSetUid().equals(DISCUSSION_WITH_JACK.getEventSetUid()));
+    }
+
+    @Test
+    public void setEvents_nullPredicate_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        eventList.setEvents(DISCUSSION_WITH_JACK, List.of(INTERVIEW_WITH_JOHN), null);
+    }
+
+    @Test
+    public void setEvents_editedListSmallerThanTargetListWithPredicate_success() {
+        eventList.addEvents(STUDY_WITH_JANE_DAILY_LIST);
+        List<Event> editedList = STUDY_WITH_JILL_DAILY_LIST.subList(0, STUDY_WITH_JILL_DAILY_LIST.size() - 1);
+        eventList.setEvents(STUDY_WITH_JANE_DAY_THREE, editedList,
+            event -> event.getEventSetUid().equals(STUDY_WITH_JANE_DAY_THREE.getEventSetUid()));
+        EventList expectedEventList = new EventList();
+        expectedEventList.addEvents(editedList);
+        assertEquals(expectedEventList, eventList);
+    }
+
+    @Test
+    public void setEvents_editedListLargerThanTargetListWithPredicate_success() {
+        eventList.addEvents(STUDY_WITH_JANE_DAILY_LIST.subList(0, STUDY_WITH_JANE_DAILY_LIST.size() - 1));
+        eventList.setEvents(STUDY_WITH_JANE_DAY_THREE, STUDY_WITH_JILL_DAILY_LIST,
+            event -> event.getEventSetUid().equals(STUDY_WITH_JANE_DAY_THREE.getEventSetUid()));
+        EventList expectedEventList = new EventList();
+        expectedEventList.addEvents(STUDY_WITH_JILL_DAILY_LIST);
+        assertEquals(expectedEventList, eventList);
     }
 
     @Test

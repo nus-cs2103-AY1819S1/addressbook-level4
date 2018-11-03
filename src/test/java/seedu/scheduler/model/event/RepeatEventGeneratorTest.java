@@ -1,6 +1,8 @@
 package seedu.scheduler.model.event;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.scheduler.testutil.TypicalEvents.DINNER_WITH_JOE_WEEKLY_LIST;
+import static seedu.scheduler.testutil.TypicalEvents.DINNER_WITH_JOE_WEEK_ONE;
 import static seedu.scheduler.testutil.TypicalEvents.JIM_BIRTHDAY_YEARLY_LIST;
 import static seedu.scheduler.testutil.TypicalEvents.JIM_BIRTHDAY_YEAR_ONE;
 import static seedu.scheduler.testutil.TypicalEvents.LEAP_DAY_CELEBRATION_YEARLY_LIST;
@@ -29,6 +31,10 @@ public class RepeatEventGeneratorTest {
         assertEquals(STUDY_WITH_JANE_DAILY_LIST,
                 repeatEventGenerator.generateAllRepeatedEvents(STUDY_WITH_JANE_DAY_ONE));
 
+        // weekly event
+        assertEquals(DINNER_WITH_JOE_WEEKLY_LIST,
+                repeatEventGenerator.generateAllRepeatedEvents(DINNER_WITH_JOE_WEEK_ONE));
+
         // monthly event
         assertEquals(STARTUP_LECTURE_MONTHLY_LIST,
                 repeatEventGenerator.generateAllRepeatedEvents(STARTUP_LECTURE_MONTH_ONE));
@@ -45,6 +51,12 @@ public class RepeatEventGeneratorTest {
         // standard day of a year
         assertEquals(STUDY_WITH_JANE_DAILY_LIST,
                 repeatEventGenerator.generateDailyRepeatEvents(STUDY_WITH_JANE_DAY_ONE));
+    }
+
+    @Test
+    public void generateWeeklyRepeatEvents() {
+        assertEquals(DINNER_WITH_JOE_WEEKLY_LIST,
+                repeatEventGenerator.generateWeeklyRepeatEvents(DINNER_WITH_JOE_WEEK_ONE));
     }
 
     @Test

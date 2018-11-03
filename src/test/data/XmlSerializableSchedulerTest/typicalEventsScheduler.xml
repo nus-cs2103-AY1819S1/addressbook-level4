@@ -3,7 +3,7 @@
 <scheduler>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a621</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a632</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a633</eventSetUid>
         <eventName>Discussion with Jack</eventName>
         <startDateTime>2018-01-01T14:00</startDateTime>
         <endDateTime>2018-01-01T17:00</endDateTime>
@@ -17,7 +17,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a622</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a633</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</eventSetUid>
         <eventName>Interview with John</eventName>
         <startDateTime>2018-01-02T13:00</startDateTime>
         <endDateTime>2018-01-02T15:00</endDateTime>
@@ -31,7 +31,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
         <eventName>Study with Jane</eventName>
         <startDateTime>2018-01-03T10:00</startDateTime>
         <endDateTime>2018-01-03T11:00</endDateTime>
@@ -45,7 +45,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
         <eventName>Study with Jane</eventName>
         <startDateTime>2018-01-04T10:00</startDateTime>
         <endDateTime>2018-01-04T11:00</endDateTime>
@@ -59,7 +59,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
         <eventName>Study with Jane</eventName>
         <startDateTime>2018-01-05T10:00</startDateTime>
         <endDateTime>2018-01-05T11:00</endDateTime>
@@ -73,7 +73,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a623</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a634</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
         <eventName>Study with Jane</eventName>
         <startDateTime>2018-01-06T10:00</startDateTime>
         <endDateTime>2018-01-06T11:00</endDateTime>
@@ -87,7 +87,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</eventSetUid>
         <eventName>Study with Jill</eventName>
         <startDateTime>2018-01-03T11:00</startDateTime>
         <endDateTime>2018-01-03T12:00</endDateTime>
@@ -101,7 +101,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</eventSetUid>
         <eventName>Study with Jill</eventName>
         <startDateTime>2018-01-04T11:00</startDateTime>
         <endDateTime>2018-01-04T12:00</endDateTime>
@@ -115,7 +115,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</eventSetUid>
         <eventName>Study with Jill</eventName>
         <startDateTime>2018-01-05T11:00</startDateTime>
         <endDateTime>2018-01-05T12:00</endDateTime>
@@ -129,7 +129,7 @@
     </events>
     <events>
         <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a624</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a635</eventSetUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</eventSetUid>
         <eventName>Study with Jill</eventName>
         <startDateTime>2018-01-06T11:00</startDateTime>
         <endDateTime>2018-01-06T12:00</endDateTime>
@@ -142,8 +142,50 @@
         <tagged>School</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a637</eventSetUid>
+        <eventName>Dinner with Joe</eventName>
+        <startDateTime>2018-03-03T03:00</startDateTime>
+        <endDateTime>2018-03-03T04:00</endDateTime>
+        <description>Catch up and dinner with Joe</description>
+        <venue>Singapore</venue>
+        <repeatType>WEEKLY</repeatType>
+        <repeatUntilDateTime>2018-03-17T04:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Relaxation</tagged>
+        <tagged>Dinner</tagged>
+    </events>
+    <events>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a637</eventSetUid>
+        <eventName>Dinner with Joe</eventName>
+        <startDateTime>2018-03-10T03:00</startDateTime>
+        <endDateTime>2018-03-10T04:00</endDateTime>
+        <description>Catch up and dinner with Joe</description>
+        <venue>Singapore</venue>
+        <repeatType>WEEKLY</repeatType>
+        <repeatUntilDateTime>2018-03-17T04:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Relaxation</tagged>
+        <tagged>Dinner</tagged>
+    </events>
+    <events>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a637</eventSetUid>
+        <eventName>Dinner with Joe</eventName>
+        <startDateTime>2018-03-17T03:00</startDateTime>
+        <endDateTime>2018-03-17T04:00</endDateTime>
+        <description>Catch up and dinner with Joe</description>
+        <venue>Singapore</venue>
+        <repeatType>WEEKLY</repeatType>
+        <repeatUntilDateTime>2018-03-17T04:00</repeatUntilDateTime>
+        <reminderDurationList>NONE</reminderDurationList>
+        <tagged>Relaxation</tagged>
+        <tagged>Dinner</tagged>
+    </events>
+    <events>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a628</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a640</eventSetUid>
         <eventName>Jim's Birthday</eventName>
         <startDateTime>2018-12-31T00:00</startDateTime>
         <endDateTime>2018-12-31T01:00</endDateTime>
@@ -155,8 +197,8 @@
         <tagged>Celebration</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a628</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a640</eventSetUid>
         <eventName>Jim's Birthday</eventName>
         <startDateTime>2019-12-31T00:00</startDateTime>
         <endDateTime>2019-12-31T01:00</endDateTime>
@@ -168,8 +210,8 @@
         <tagged>Celebration</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a628</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a640</eventSetUid>
         <eventName>Jim's Birthday</eventName>
         <startDateTime>2020-12-31T00:00</startDateTime>
         <endDateTime>2020-12-31T01:00</endDateTime>
@@ -181,8 +223,8 @@
         <tagged>Celebration</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a626</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a637</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a639</eventSetUid>
         <eventName>Leap Day Celebration</eventName>
         <startDateTime>2016-02-29T00:00</startDateTime>
         <endDateTime>2016-02-29T01:00</endDateTime>
@@ -194,8 +236,8 @@
         <tagged>Celebration</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a626</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a637</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a627</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a639</eventSetUid>
         <eventName>Leap Day Celebration</eventName>
         <startDateTime>2020-02-29T00:00</startDateTime>
         <endDateTime>2020-02-29T01:00</endDateTime>
@@ -207,8 +249,8 @@
         <tagged>Celebration</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a626</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</eventSetUid>
         <eventName>Startup Lecture</eventName>
         <startDateTime>2018-01-28T08:00</startDateTime>
         <endDateTime>2018-01-28T10:00</endDateTime>
@@ -222,8 +264,8 @@
         <tagged>School</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a626</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</eventSetUid>
         <eventName>Startup Lecture</eventName>
         <startDateTime>2018-02-28T08:00</startDateTime>
         <endDateTime>2018-02-28T10:00</endDateTime>
@@ -237,8 +279,8 @@
         <tagged>School</tagged>
     </events>
     <events>
-        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a625</eventUid>
-        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a636</eventSetUid>
+        <eventUid>066db0fd-0bd2-423f-aef4-fd1f8d30a626</eventUid>
+        <eventSetUid>066db0fd-0bd2-423f-aef4-fd1f8d30a638</eventSetUid>
         <eventName>Startup Lecture</eventName>
         <startDateTime>2018-03-28T08:00</startDateTime>
         <endDateTime>2018-03-28T10:00</endDateTime>

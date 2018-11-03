@@ -8,6 +8,7 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_M
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
+import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_START_END_DATETIMES;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.scheduler.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.scheduler.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
@@ -134,6 +135,12 @@ public class AddCommandParserTest {
                 + END_DATETIME_DESC_MA2101 + DESCRIPTION_DESC_MA2101
                 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
                 + INVALID_TAG_DESC + VALID_TAG_SCHOOL, Tag.MESSAGE_CONSTRAINTS);
+
+        // end date time before start date time
+        assertParseFailure(parser, EVENT_NAME_DESC_MA2101 + INVALID_START_END_DATETIMES[0]
+                + INVALID_START_END_DATETIMES[1] + DESCRIPTION_DESC_MA2101
+                + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
+                + TAG_DESC_PLAY + VALID_TAG_SCHOOL, Event.MESSAGE_DATETIME_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_EVENT_NAME_DESC + START_DATETIME_DESC_MA2101
