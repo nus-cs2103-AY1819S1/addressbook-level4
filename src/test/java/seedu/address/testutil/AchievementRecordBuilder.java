@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
@@ -16,6 +17,8 @@ public class AchievementRecordBuilder {
 
     public static final String DEFAULT_NEXT_DAY_BREAK_POINT = "13-10-19 0000";
     public static final String DEFAULT_NEXT_WEEK_BREAK_POINT = "19-10-19 0000";
+
+    private final Calendar currentDate = new GregorianCalendar();
 
     private int displayOption;
     private Xp xp;
@@ -59,6 +62,10 @@ public class AchievementRecordBuilder {
         nextWeekBreakPoint = newData.getNextWeekBreakPoint();
         numTaskCompletedByWeek = newData.getNumTaskCompletedByWeek();
         xpValueByWeek = newData.getXpValueByWeek();
+
+//        Calendar date = (GregorianCalendar) newData.getNextDayBreakPoint().clone());
+//        date.add(Calendar.DAY_OF_MONTH, -1);
+//        currentDate = date;
     }
 
     private static Calendar getCalendarFromString(String source) {
@@ -101,10 +108,34 @@ public class AchievementRecordBuilder {
     }
 
     /**
+     * Sets the {@code nextDayBreakPoint} of the {@code AchievementRecord} to be the next day of current date.
+     */
+    public AchievementRecordBuilder withNextDayBreakPointFromNow() {
+        Calendar date = (GregorianCalendar) this.currentDate.clone();
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.add(Calendar.DAY_OF_MONTH, 1);
+        this.nextDayBreakPoint = date;
+        return this;
+    }
+
+    /**
      * Sets the {@code nextWeekBreakPoint} of the {@code AchievementRecord} that we are building.
      */
     public AchievementRecordBuilder withNextWeekBreakPoint(String dateString) {
         this.nextWeekBreakPoint = getCalendarFromString(dateString);
+        return this;
+    }
+
+    /**
+     * Sets the {@code nextWeekBreakPoint} of the {@code AchievementRecord} to be the next week of current date.
+     */
+    public AchievementRecordBuilder withNextWeekBreakPointFromNow() {
+        Calendar date = (GregorianCalendar) this.currentDate.clone();
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.add(Calendar.DAY_OF_MONTH, 7);
+        this.nextWeekBreakPoint = date;
         return this;
     }
 
