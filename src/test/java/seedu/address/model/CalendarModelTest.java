@@ -27,14 +27,14 @@ public class CalendarModelTest {
     @Test
     public void isExistingCalendar_nullYear_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        calendarModel.isExistingCalendar( null, VALID_MONTH_JAN);
+        calendarModel.isExistingCalendar(null, VALID_MONTH_JAN);
 
     }
 
     @Test
     public void isExistingCalendar_nullMonth_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        calendarModel.isExistingCalendar( VALID_YEAR_2018, null);
+        calendarModel.isExistingCalendar(VALID_YEAR_2018, null);
 
     }
 
@@ -53,14 +53,14 @@ public class CalendarModelTest {
     @Test
     public void isLoadedCalendar_nullYear_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        calendarModel.isLoadedCalendar( null, VALID_MONTH_JAN);
+        calendarModel.isLoadedCalendar(null, VALID_MONTH_JAN);
 
     }
 
     @Test
     public void isLoadedCalendar_nullMonth_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        calendarModel.isLoadedCalendar( VALID_YEAR_2018, null);
+        calendarModel.isLoadedCalendar(VALID_YEAR_2018, null);
 
     }
 

@@ -38,6 +38,9 @@ public class CalendarBuilder {
         this.calendar = calendarToCopy;
     }
 
+    /**
+     * Creates a default calendar for testing.
+     */
     private Calendar defaultCalendar() {
         // Initialize the calendar
         Calendar calendar = new Calendar();
