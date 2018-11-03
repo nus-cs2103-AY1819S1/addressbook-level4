@@ -4,6 +4,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDICINES;
 
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
@@ -29,11 +31,14 @@ public class CheckStockCommand extends Command {
         ObservableList<Medicine> medicineObservableList = model.getFilteredMedicineList();
         StringBuilder medicineListStringBuilder = new StringBuilder();
         medicineObservableList.filtered(medicine ->
-            medicine.getStockValue() < medicine.getMsqValue())
+            medicine.getStockValue() <= medicine.getMsqValue())
                 .forEach((medicine) -> {
                     medicineListStringBuilder.append(medicine.toString());
                     medicineListStringBuilder.append("\n");
                 });
+
+        model.updateFilteredMedicineList(medicine ->
+                medicine.getStockValue() <= medicine.getMsqValue());
 
         EventsCenter.getInstance().post(new ShowMedicineListEvent());
 
