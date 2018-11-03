@@ -72,7 +72,7 @@ public class ItemParserUtil {
         }
 
         // Need to check if index is zero if not it will parse "0" as Name
-        if (trimmedIndexOrName.equals("0")) {
+        if ("0".equals(trimmedIndexOrName)) {
             throw new ParseException(MESSAGE_NOT_INDEX_OR_NAME);
         }
 
