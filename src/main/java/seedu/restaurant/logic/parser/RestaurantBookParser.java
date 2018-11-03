@@ -54,6 +54,7 @@ import seedu.restaurant.logic.commands.reservation.SortReservationsCommand;
 import seedu.restaurant.logic.commands.sales.DeleteSalesCommand;
 import seedu.restaurant.logic.commands.sales.DisplaySalesCommand;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand;
+import seedu.restaurant.logic.commands.sales.RankDateCommand;
 import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
 import seedu.restaurant.logic.parser.account.ChangePasswordCommandParser;
 import seedu.restaurant.logic.parser.account.DeregisterCommandParser;
@@ -176,6 +177,10 @@ public class RestaurantBookParser {
         case EditSalesCommand.COMMAND_WORD:
         case EditSalesCommand.COMMAND_ALIAS:
             return new EditSalesCommandParser().parse(arguments);
+
+        case RankDateCommand.COMMAND_WORD:
+        case RankDateCommand.COMMAND_ALIAS:
+            return new RankDateCommand();
 
         case RegisterCommand.COMMAND_WORD:
         case RegisterCommand.COMMAND_ALIAS:
