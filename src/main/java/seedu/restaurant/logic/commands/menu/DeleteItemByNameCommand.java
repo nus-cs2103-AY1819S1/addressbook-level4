@@ -11,6 +11,7 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 
+//@@author yican95
 /**
  * Deletes an item identified using its name from the menu.
  */

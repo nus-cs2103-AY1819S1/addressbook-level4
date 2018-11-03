@@ -18,6 +18,7 @@ import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 
+//@@author yican95
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code
  * DeleteItemByNameCommand}.

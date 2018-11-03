@@ -8,6 +8,7 @@ import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 
+//@@author yican95
 /**
  * Deletes an item from the menu.
  */
