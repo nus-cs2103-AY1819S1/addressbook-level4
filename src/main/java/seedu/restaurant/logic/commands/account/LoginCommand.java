@@ -6,7 +6,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PASSWORD;
 
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.session.UserSession;
-import seedu.restaurant.commons.events.ui.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
