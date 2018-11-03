@@ -9,8 +9,9 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
- * JAXB-friendly version of the Account.
+ * JAXB-friendly version of the {@code Account}.
  */
 public class XmlAdaptedAccount {
 
@@ -40,7 +41,6 @@ public class XmlAdaptedAccount {
      * @param source future changes to this will not affect the created XmlAdaptedAccount
      */
     public XmlAdaptedAccount(Account source) {
-        //TODO: some error handling here
         username = source.getUsername().toString();
         password = source.getPassword().toString();
     }
