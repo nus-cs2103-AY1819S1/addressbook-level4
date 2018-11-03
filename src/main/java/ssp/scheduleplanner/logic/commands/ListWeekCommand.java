@@ -33,7 +33,7 @@ public class ListWeekCommand extends Command {
     /**
      * This method append the date of days till nearest sunday into 'dateList'
      */
-    public void appendDateList (List<String> dateList, int numDays) {
+    public static void appendDateList (List<String> dateList, int numDays) {
         dateList.clear();
 
         //solution below adapted from:
@@ -56,7 +56,7 @@ public class ListWeekCommand extends Command {
      * @param currentDate the name of today date
      * @return numDays
      */
-    public int numDaysTillSunday (String currentDate) {
+    public static int numDaysTillSunday (String currentDate) {
         int numDays;
 
         switch(currentDate) {
