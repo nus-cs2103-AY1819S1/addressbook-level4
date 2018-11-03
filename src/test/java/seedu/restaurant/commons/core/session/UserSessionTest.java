@@ -13,6 +13,7 @@ import org.junit.Test;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class UserSessionTest {
 
     @Before
