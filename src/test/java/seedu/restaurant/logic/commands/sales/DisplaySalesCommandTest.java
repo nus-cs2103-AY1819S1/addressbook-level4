@@ -10,7 +10,7 @@ import static seedu.restaurant.logic.commands.sales.DisplaySalesCommand.DISPLAYI
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 
-import seedu.restaurant.commons.events.ui.DisplaySalesReportEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
