@@ -11,7 +11,7 @@
 
 Student Schedule Planner is a desktop schedule planner application used by students for schedule planning. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
-== Summary of contributions
+== Summary of Contributions
 
 * *Major enhancement*: added *progress bar*
 ** What it does: It shows users the percentage of completed tasks for the current day.

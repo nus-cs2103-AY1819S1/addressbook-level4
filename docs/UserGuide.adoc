@@ -455,7 +455,7 @@ Example: +
 * **Finding Tasks by Name** :
 
 ====
-[blue]`find [NAME] +
+[blue]`find [NAME]` +
 
 Example: +
 [blue]`find tutorial` +
