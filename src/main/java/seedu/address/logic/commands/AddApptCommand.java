@@ -16,6 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
+import seedu.address.model.appointment.Type;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -47,8 +48,9 @@ public class AddApptCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
-    public static final String MESSAGE_DATE_TIME_INVALID = "Input date and time is invalid or before current date and "
+    public static final String MESSAGE_INVALID_DATE_TIME = "Input date and time is invalid or before current date and "
         + "time.";
+    public static final String MESSAGE_INVALID_TYPE = "Invalid input type. Valid types are: PROP, DIAG, THP, SRG";
     public static final String DATE_TIME_VALIDATION_REGEX = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)"
             + "(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1"
             + "[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1"
@@ -76,8 +78,12 @@ public class AddApptCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_PATIENT);
         }
 
-        if (!isDateTimeValid(appt.getDate_time())) {
-            throw new CommandException(MESSAGE_DATE_TIME_INVALID);
+        if (!isValidDateTime(appt.getDate_time())) {
+            throw new CommandException(MESSAGE_INVALID_DATE_TIME);
+        }
+
+        if (!isValidType(appt.getType())) {
+            throw new CommandException(MESSAGE_INVALID_TYPE);
         }
 
         Person patientToUpdate = filteredByNric.get(0);
@@ -125,9 +131,23 @@ public class AddApptCommand extends Command {
      * @param dateTime date and time input by user
      * @return true if valid
      */
-    private static boolean isDateTimeValid(String dateTime) {
+    private static boolean isValidDateTime(String dateTime) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime apptDateTime = LocalDateTime.parse(dateTime, Appointment.DATE_TIME_FORMAT);
         return dateTime.matches(DATE_TIME_VALIDATION_REGEX) && apptDateTime.isAfter(now);
+    }
+
+    /**
+     * Checks if the type entered by user is valid
+     * @param typeAbbr abbreviation of type
+     * @return true if valid
+     */
+    private static boolean isValidType(String typeAbbr) {
+        for (Type t: Type.values()) {
+            if (t.getAbbreviation().equals(typeAbbr)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

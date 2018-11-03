@@ -17,7 +17,7 @@ public class Appointment {
     private static final String DIVIDER = " | ";
 
     /** Type of medical procedure */
-    private Type type;
+    private String type;
 
     /** Name of the medical procedure */
     private String procedureName;
@@ -28,7 +28,7 @@ public class Appointment {
     /** Name of the doctor-in-charge */
     private String docName;
 
-    public Appointment(Type type, String procedureName, String dateTime, String docName) {
+    public Appointment(String type, String procedureName, String dateTime, String docName) {
         CollectionUtil.requireAllNonNull(type, procedureName, dateTime, docName);
         this.type = type;
         this.procedureName = procedureName;
@@ -60,7 +60,7 @@ public class Appointment {
         return false;
     }
 
-    public Type getType() {
+    public String getType() {
         return type;
     }
 

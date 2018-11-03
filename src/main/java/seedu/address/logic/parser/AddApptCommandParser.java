@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddApptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Type;
 import seedu.address.model.person.Nric;
 
 /**
@@ -26,6 +25,7 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
      * @throws ParseException
      *             if the user input does not conform the expected format
      */
+
     @Override
     public AddApptCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NRIC, PREFIX_TYPE, PREFIX_PROCEDURE,
@@ -39,14 +39,7 @@ public class AddApptCommandParser implements Parser<AddApptCommand> {
         Nric nric;
         Appointment appt;
         String patientNric = argMultimap.getValue(PREFIX_NRIC).get();
-        String typeAbbr = argMultimap.getValue(PREFIX_TYPE).get();
-        Type type = null;
-        for (Type t: Type.values()) {
-            if (t.getAbbreviation().equals(typeAbbr)) {
-                type = t;
-                break;
-            }
-        }
+        String type = argMultimap.getValue(PREFIX_TYPE).get();
         String procedure = argMultimap.getValue(PREFIX_PROCEDURE).get();
         String dateTime = argMultimap.getValue(PREFIX_DATE_TIME).get();
         String doctor = argMultimap.getValue(PREFIX_DOCTOR).get();

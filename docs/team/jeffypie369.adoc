@@ -25,7 +25,7 @@ HealthBase is a desktop application designed to aid in the management of a hospi
 ** What it does: adds an appointment for a given patient. Each appointment includes the following information: type of procedure, procedure name, date and time of appointment and the doctor-in-charge
 ** Justification: this command provides a core functionality of the HealthBase (appointment data entry and retrieval).
 ** Highlights: this command affects existing internal representations of the Person class and required significant retooling of tests to fit the new member of the Person class. The implementation was somewhat challenging as it required an extension of the current Person data representation and storage functionality.
-* *Minor enhancement*: incorporate `appt` with the `view` command
+* *Minor enhancement*: Incorporate `appt` with the `view` command
 
 * *Code contributed*: [https://github.com/CS2103-AY1819S1-W14-3/main/commits?author=jeffypie369[commits]]
 
@@ -38,6 +38,7 @@ HealthBase is a desktop application designed to aid in the management of a hospi
 ** Documentation:
 *** Added sequence diagram for `addappt`: https://github.com/CS2103-AY1819S1-W14-3/main/pull/91[#91]
 ** Community:
+*** nil
 //*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W14-3/main/pull/31[#31], https://github.com/CS2103-AY1819S1-W14-3/main/pull/38[#38], *** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W14-3/main/pull/31[#31], https://github.com/CS2103-AY1819S1-W14-3/main/pull/38[#38], https://github.com/CS2103-AY1819S1-W14-3/main/pull/41[#41], https://github.com/CS2103-AY1819S1-W14-3/main/pull/107[#107]
 //*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 //*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])

@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DOCTOR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROCEDURE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -19,7 +20,6 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddApptCommand;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Type;
 import seedu.address.model.person.Nric;
 
 public class AddApptCommandParserTest {
@@ -31,7 +31,7 @@ public class AddApptCommandParserTest {
     public void setUp() {
         parser = new AddApptCommandParser();
         patientNric = new Nric(VALID_NRIC_BOB);
-        appt = new Appointment(Type.SURGICAL, VALID_PROCEDURE, VALID_DATE_TIME, VALID_DOCTOR);
+        appt = new Appointment(VALID_TYPE, VALID_PROCEDURE, VALID_DATE_TIME, VALID_DOCTOR);
     }
 
     @Test

@@ -22,7 +22,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.Type;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,7 +39,7 @@ public class AddApptCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private String validNric;
-    private Type type;
+    private String type;
     private String procedure;
     private String dateTime;
     private String invalidDateTime;
@@ -54,9 +53,10 @@ public class AddApptCommandTest {
         validNric = "S8888888A";
         patient = new Person(new Nric(validNric), new Name("AddAppt Test"), new Phone("91234567"),
                 new Email("addappttest@gmail.com"), new Address("12 Addappt Ave, #01-01"), new HashSet<Tag>());
-        type = Type.SURGICAL;
+        type = "SRG";
         procedure = "Heart Bypass";
         dateTime = "12-12-2022 10:30";
+        invalidDateTime = "12-12-1000 23:30";
         invalidDateTime = "12-12-1000 23:30";
         doctor = "Dr. Pepper";
         appt = new Appointment(type, procedure, dateTime, doctor);
@@ -91,7 +91,7 @@ public class AddApptCommandTest {
         AddApptCommand addApptCommand = new AddApptCommand(patient.getNric(), appt);
         ModelStub modelStub = new ModelStubAcceptingAddappt(patient);
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddApptCommand.MESSAGE_DATE_TIME_INVALID);
+        thrown.expectMessage(AddApptCommand.MESSAGE_INVALID_DATE_TIME);
         addApptCommand.execute(modelStub, commandHistory);
     }
 

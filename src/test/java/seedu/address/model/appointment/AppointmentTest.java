@@ -12,14 +12,14 @@ import seedu.address.testutil.Assert;
  * Test driver class for Appointment POJO class functionality
  */
 public class AppointmentTest {
-    private Type type;
+    private String type;
     private String procedure;
     private String dateTime;
     private String doctor;
 
     @Before
     public void setUp() {
-        type = Type.SURGICAL;
+        type = "SURGICAL";
         procedure = "Heart Bypass";
         dateTime = "12-12-2022 12:00";
         doctor = "Dr. Pepper";
