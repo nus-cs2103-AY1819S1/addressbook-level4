@@ -15,7 +15,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.ArchivedListChangedEvent;
 import seedu.address.commons.events.model.AssignmentListChangedEvent;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
