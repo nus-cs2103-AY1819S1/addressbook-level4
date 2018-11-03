@@ -3,6 +3,10 @@ package ssp.scheduleplanner.model.task;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
+/**
+ * This class encapsulates information about the Interval class.
+ * It is used for the AddRepeatCommand.
+ */
 public class Interval {
     public static final String MESSAGE_INTERVAL_CONSTRAINTS = "Interval should be positive integer\n"
             + "Where the number refers to the interval of repetitions.\n";
