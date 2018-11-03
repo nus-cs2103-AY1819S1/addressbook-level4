@@ -25,7 +25,19 @@ public class XmlFileStorage {
     }
 
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given assignmentlist data to the specified file.
+     */
+    public static void saveAssignmentListDataToFile(Path file, XmlSerializableAssignmentList assignmentList)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, assignmentList);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Saves the given archivelist data to the specified file.
      */
     public static void saveArchiveListDataToFile(Path file, XmlSerializableArchiveList archiveList)
             throws FileNotFoundException {
@@ -49,6 +61,18 @@ public class XmlFileStorage {
     }
 
     /**
+     * Returns address book in the file or an empty address book
+     */
+    public static XmlSerializableAssignmentList loadAssignmentListDataFromSaveFile(Path file)
+            throws DataConversionException, FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableAssignmentList.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
+    /**
      * Returns archive list in the file or an empty archive list
      */
     public static XmlSerializableArchiveList loadArchiveDataFromSaveFile(Path file) throws DataConversionException,
@@ -59,4 +83,5 @@ public class XmlFileStorage {
             throw new DataConversionException(e);
         }
     }
+
 }

@@ -37,7 +37,7 @@ public class PersonUtil {
         sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         sb.append(PREFIX_SALARY + person.getSalary().value + " ");
         person.getProjects().stream().forEach(
-            s -> sb.append(PREFIX_PROJECT + s.projectName + " ")
+            s -> sb.append(PREFIX_PROJECT + s.getProjectName() + " ")
         );
         return sb.toString();
     }
@@ -57,7 +57,7 @@ public class PersonUtil {
             if (projects.isEmpty()) {
                 sb.append(PREFIX_PROJECT);
             } else {
-                projects.forEach(s -> sb.append(PREFIX_PROJECT).append(s.projectName).append(" "));
+                projects.forEach(s -> sb.append(PREFIX_PROJECT).append(s.getProjectName()).append(" "));
             }
         }
         return sb.toString();

@@ -22,9 +22,11 @@ import seedu.address.model.ArchiveList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveList;
+import seedu.address.model.ReadOnlyAssignmentList;
 import seedu.address.model.leaveapplication.LeaveApplicationWithEmployee;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
+import seedu.address.model.project.Assignment;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -110,6 +112,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyAssignmentList getAssignmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyArchiveList getArchiveList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -155,7 +162,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Assignment> getFilteredAssignmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<LeaveApplicationWithEmployee> getFilteredLeaveApplicationList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -191,6 +208,26 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasAssignment(Assignment assignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteAssignment(Assignment target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addAssignment(Assignment assignment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateAssignment(Assignment target, Assignment editedAssignment) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -252,5 +289,4 @@ public class AddCommandTest {
         }
 
     }
-
 }

@@ -25,6 +25,9 @@ public class AutoCompleteCommandHelper {
         SelectCommand.COMMAND_WORD,
         SelfEditCommand.COMMAND_WORD,
         UndoCommand.COMMAND_WORD,
+        AddAssignmentCommand.COMMAND_WORD,
+        ModifyPermissionCommand.COMMAND_WORD,
+        ListAssignmentCommand.COMMAND_WORD,
         ViewPermissionCommand.COMMAND_WORD
     };
 

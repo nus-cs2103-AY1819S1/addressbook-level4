@@ -49,6 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private AssignmentListPanel assignmentListPanel;
     private ListPicker listPicker;
 
     // Independent UI parts for login.
@@ -66,6 +67,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane assignmentListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -150,6 +154,8 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        assignmentListPanel = new AssignmentListPanel(logic.getFilteredAssignmentList());
 
         listPicker = new ListPicker();
         listPickerPlaceholder.getChildren().add(listPicker.getRoot());
@@ -239,6 +245,7 @@ public class MainWindow extends UiPart<Stage> {
      * Removes the elements built in fillInnerParts() to reset to a blank screen.
      */
     private void removeInnerElements() {
+
         this.releaseResources();
         browserPlaceholder.getChildren().remove(browserPanel.getRoot());
         removePersonListPanelPlaceholderElements();

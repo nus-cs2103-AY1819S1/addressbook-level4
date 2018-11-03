@@ -75,23 +75,14 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same persons in address book after deleting 1 of them -> 1 person found */
-        //executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        //assertFalse(getModel().getAddressBook().getPersonList().contains(BENSON));
-        //command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
-        //expectedModel = getModel();
-        //ModelHelper.setFilteredList(expectedModel, DANIEL);
-        //assertCommandSuccess(command, expectedModel);
-        //assertSelectedCardUnchanged();
-
         /* Case: find person in address book, keyword is same as name but of different case -> 1 person found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in address book, keyword is substring of name -> 0 persons found */
+        /* Case: find person in address book, keyword is substring of name -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Mei";
-        ModelHelper.setFilteredList(expectedModel);
+        ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

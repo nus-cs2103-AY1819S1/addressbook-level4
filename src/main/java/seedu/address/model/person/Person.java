@@ -65,7 +65,7 @@ public class Person {
         this.salary = salary;
         this.address = address;
         this.projects.addAll(projects);
-        this.permissionSet.addAll(permissionSet);
+        this.permissionSet.addPermissions(permissionSet);
         this.profilePic = profilePic;
         this.username = username;
         this.password = password;

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveList;
@@ -36,7 +37,8 @@ public class LeaveApplyCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(),
+            getTypicalArchiveList(), new UserPrefs());
 
     @Before
     public void setUp() {
@@ -62,7 +64,8 @@ public class LeaveApplyCommandTest {
         String expectedMessage = String.format(LeaveApplyCommand.MESSAGE_SUCCESS, validLeaveApplication);
         String.format(LeaveApplyCommand.MESSAGE_SUCCESS, validLeaveApplication);
 
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveList(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalAssignmentList(),
+                getTypicalArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();
 
@@ -79,7 +82,7 @@ public class LeaveApplyCommandTest {
         leaveApplications.add(validLeaveApplication);
         Person editedFirstPerson = new PersonBuilder(firstPerson).withLeaveApplications(leaveApplications).build();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), model.getAssignmentList(),
                 model.getArchiveList(), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedFirstPerson);
         expectedModel.commitAddressBook();

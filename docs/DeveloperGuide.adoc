@@ -106,6 +106,7 @@ When you are ready to start coding,
 == Design
 
 [[Design-Architecture]]
+
 === Architecture
 
 .Architecture Diagram
@@ -144,6 +145,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[width="800"]
 
 [discrete]
+
 ==== Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
@@ -165,6 +167,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 The sections below give more details of each component.
 
 [[Design-Ui]]
+
 === UI component
 
 .Structure of the UI Component
@@ -183,6 +186,7 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
+
 === Logic component
 
 [[fig-LogicClassDiagram]]
@@ -203,6 +207,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
+
 === Model component
 
 .Structure of the Model Component
@@ -223,6 +228,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
+
 === Storage component
 
 .Structure of the Storage Component
@@ -236,6 +242,7 @@ The `Storage` component,
 * can save the Address Book data in xml format and read it back.
 
 [[Design-Commons]]
+
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
@@ -460,7 +467,7 @@ Step 4. The system list the projects.
 
 // end::project
 
-// tag::archive
+// tag::archive[]
 === View deleted employee archive feature
 Employees with the "Department manager" permissions are allowed to delete employees in the system - related to firing employees in real life. Deleted employees in the system will not be shown in the display list but be moved to an archive list instead. Objects in the archive list can then be restored to the system or be permanently deleted.
 
@@ -490,21 +497,21 @@ Added a `UniqueArchiveList` object to a `VersionedAddressBook` object. `UniqueAr
 
 The following diagram shows the class `UniqueArchiveList` added to reflect the changes in the Model component:
 
-image::modelStructure.PNG[width="350]
+image::modelChangeJosh.PNG[width="350]
 
 ===== Aspect: Storage
 Added a `XmlSerializableArchiveList` object to Storage component.
 
 The following diagram shows the class `XmlSerializableArchiveList` added to reflect the changes in the Storage component:
 
-image::storageStructure.PNG[width="350]
+image::storageModelChangeJosh.PNG[width="350]
 
 ===== Aspect: UI
 Added a `ArchiveDisplay` object to `MainWindow` of UI component.
 
 The following diagram shows the class `ArchiveDisplay` added to reflect the changes in the UI component:
 
-image::uiStructure.PNG[width="350]
+image::uiModelChangeJosh.PNG[width="350]
 
 ==== Design considerations
 ===== Aspect: Lifetime of objects in Archive list
@@ -523,7 +530,7 @@ image::uiStructure.PNG[width="350]
 * **Alternative 2:** Assign an archive attribute to each employee object and show only in the system if archived attribute is false. In contrast show in the archive display list if archive attribute is true.
 ** Pros: Only need to change 1 attribute when an employee is deleted.
 ** Cons: "Archive" is an unusual attribute for a person and it will be time consuming to view the archive list as you have to go through all employees to check the archive attribute.
-// end::archive
+// end::archive[]
 
 // tag::login[]
 === Login/Logout feature
@@ -547,7 +554,13 @@ The following steps show how the program works as the user login:
 
 3. This causes the `LoginForm` to fire a `LoginEvent` onto the central EventBus, with the username and password saved into the `LoginEvent`.
 
-4. The `mainWindow` class catches the `LoginEvent` and processes it, removing the login UI Elements and replacing it with `fillInnerParts()`
+4. The Logic Manager catches the LoginEvent. It then checks if the username and password combination matches a person in the system, or the admin user. To do so, it communicates with the `model` to retrieve everyone in the system.
+
+a. If there is no successful match, then a `FailedLoginEvent` is fired. The LoginForm catches this Event and displays the error message provided by the FailedLoginEvent.
+
+5. If there is a successful match, then a `SuccessfulLoginEvent` is fired. This event contains the person that is currently logging in, wrapped in a User object.
+
+6. The `mainWindow` class catches the `SuccessfulLoginEvent` and processes it, removing the login UI Elements and replacing it with `fillInnerParts()`
 
 The following sequence diagram fully shows the steps involved:
 
@@ -563,6 +576,8 @@ When the user wishes to logout, he enters logout, which triggers the following:
 
 ===== Aspect: How the login screen is displayed
 
+The login screen needs to be displayed to the user in some fashion.
+
 * **Alternative 1 (current choice):** Create a login screen before initializing other UI elements on the fly.
 ** Pros: One single window. Clear to the user which window to focus on. Most applications work this way, so it should be familiar to the majority of our users.
 ** Cons: Harder to implement. Need to take into account other possible UI elements, preload only those that are required, and ensure that tests stay supported.
@@ -577,13 +592,87 @@ When the user wishes to logout, he enters logout, which triggers the following:
 
 ===== Aspect: UI Elements to build the login system
 
+When OASIS boots up, the login screen needs to be displayed. The UI elements used to build this login screen needs to be decided on where they should go on the screen.
+
 * **Alternative 1 (current choice):** Using the same placeholders already available, place the appropriate UI elements on the screen.
 ** Pros: Easy to implement. Utilizes the same placeholders currently in the system, so will adapt the same way to window re-sizing.
 ** Cons: Looks uglier than if the window was created solely to enter login data
 * **Alternative 2:** Build the window from scratch to show login UI elements.
 ** Pros: Nicer, the UI elements are built for login
-** Cons: Harder to implement. Need a good graphic designer to plan out how said nice login screen would look like, otherwise it'd just look bad and you might asa well go with Alternative 1.
-// end::undoredo[]
+** Cons: Harder to implement. Need a good graphic designer to plan out how said nice login screen would look like, otherwise it'd just look bad and you might as well go with Alternative 1.
+
+===== Aspect: How the UI and Logic elements should communicate.
+
+Whenever a login is done by the User, the `UI`, `Logic` and `Model` elements need to communicate to handle the event.
+
+* The `UI` needs to provide the User Input information.
+* The `Logic` needs to perform the check of whether this is a valid Username and Password combination.
+* The `Model` needs to provide the data for the logic to do it's work.
+
+There needs to be a solution to handle this cleanly and without causing unnecessary coupling, as this will likely be required to be extended upon in the long run.
+
+* **Alternative 1 (current choice):** Utilize the EventBus to allow `UI`, `Model` and `Logic` to communicate
+** Pros: Reduces coupling, as UI, Model and Logic doesn't need to know about each other. If required, other classes can also listen for the Event and process accordingly
+** Cons: Needs some work to implement. Requires building up new classes.
+* **Alternative 2:** Let UI, Logic and Model know about each other, allowing them to call the relevant methods and do the relevant checks
+** Pros: Easy to implement.
+** Cons: Grealy increases coupling. Not a good design decision, as it will make it harder to maintain the code in the future.
+* **Alternative 3:** Build a command like system (similar to how Commands are implemented in the system) for UI to talk to Logic. Logic then uses the Command system to reply back to UI.
+** Pros: Reduces the amount of coupling added into the system. Provides a way for UI to get Logic to do things, in case more functionality is added that uses UI input.
+** Cons: Very time consuming to implement. Hard to design as there is no clear functionality that might also need this system in the future.
+
+==== Username and Password storage
+
+To store username and password, the class `Person` has been extended to include a Username and Password variable as well. These two variables represent the Username and Password stored in the system for that Person.
+
+==== Admin account
+
+There is a possibility that the entire system is cleared of all employees (i.e when initializing, or an accidental deleting of all employees). To resolve this issue, an admin account is added that will ensure that there is always a user that can login in. The admin account cannot be removed and always has full access rights. By default, the username of the admin account is `Admin` and the password is `Pa55w0rd`.
+
+[NOTE]
+The password of the admin account can be modified through the `passwd` command.
+
+==== Design Considerations
+
+===== Aspect: Where the admin account password can be stored.
+
+Since the admin account would cause the system to be very insecure if it's password couldn't be changed, the admin account password must be changeable and stored somewhere, so that it persists across sessions. But where?
+
+* **Alternative 1 (current choice):** Place the storage in User Preferences
+** Pros: Easy to implement. A nice, centralized place to store general application information.
+** Cons: If the file is deleted, then the password will revert back to the default, which leaves the admin account vulnerable.
+** As we plan to store the system in a central server, the admin account's information will be stored in the server, and not locally. As this is intended to change before the final release, we went for the option that is the simplest to implement.
+* **Alternative 2:** Add it into the address book.xml file
+** Pros: If the password was attempted to be removed through the deletion of the file, then this will also delete everyone in the system as well, thus rendering the access to the admin account useless.
+** Cons: Since the file is stored in an xml format, it is easy for any dedicated attacker to find and remove the password information, reverting it to the default. Harder to implement, as would require large changes in the address book parser.
+* **Alternative 3:** Store it within environment variables
+** Pros: Somewhat harder to find. Ensures that admin password remains even when the data files are deleted.
+** Cons: The admin password would not transfer over systems for the average user. It would be difficult and require technical knowledge of the user to get it to transfer.
+
+==== passwd Command
+
+To change the password, a passwd command is required. However, this command is very different from the other commands. Specifically, it requires a chain of input, and subsequent inputs from the user should not be stored in history (otherwise the user's password are easily retrievable).
+
+This is, however, not easy to handle. This command history is automatically populated by `LogicManager`, which `Command.execute` does not have access to. To complicate things further, `CommandParser` doesn't handle exceptions like storing a command for future use, or redirecting user input to a specific Command.
+
+To resolve this issue, `CommandResult` is extended to hold interceptors - a list of `ProcessCommand`. `ProcessCommand` is a functional interface, similar to Function except that it can throw a specific error as well. To implement passwd, it returns an implementor of `ProcessCommand` to `CommandResult`, which forwards it to `LogicManager`.
+
+`LogicManager` now accepts `ProcessCommand` from `CommandResult`, adding them to a list. As long as there exists at least one `ProcessCommand`, further messages are pushed to `ProcessCommand` instead of processed normally, and they aren't added to history.
+
+Other possible design considerations are shown below.
+
+==== Design Considerations
+
+===== Aspect: How to implement the passwd Command
+
+* **Alternative 1 (current choice):** Build a foundation of `ProcessCommand` that will intercept user input and process it instead. If it does so, `LogicManager` doesn't add the command to history.
+** Pros: Doesn't increase coupling unnecessarily. Allows other functions to utilize this, allowing other commands to also easily extend to a chain of user inputs.
+** Cons: Harder to implement. Somewhat hard to understand, as it requires knowledge of lambdas and functional interfaces.
+* **Alternative 2:** Apply a hack for passwd where `LogicManager` checks that if a passwd command is ongoing, it redirects there instead.
+** Pros: Easy to implement.
+** Cons: Greatly increases coupling. If further commands were to require the same functionality, this hack would need to be done again for that function.
+
+// end::login[]
 
 === Logging
 
@@ -1285,14 +1374,10 @@ Use case resumes at step 2.
 
 *MSS*
 
-.  Manager login to the system.
-.  Oasis shows home page.
-.  Manager requests for list of all employees
-.  Oasis displays list of all employees
-.  Manager chooses to delete an employee in the list
-.  Oasis requests for confirmation
-.  Manager enters confirm
-.  Oasis deletes the employee and show success message
+.  Manager login to the system
+.  Oasis shows home page and displays list of employees
+.  Manager executes delete command on a selected employee
+.  Oasis deletes the employee, moves it to archive list and show success message
 +
 Use case ends.
 
@@ -1303,17 +1388,13 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The list is empty.
+* 2a. The list is empty.
 +
 Use case ends.
 
-* 5a. The chosen employee is invalid.
+* 3a. The chosen employee is invalid.
 +
-** 5a1. OASIS shows an error message.
-+
-Use case resumes at step 4.
-
-* 7a. The Manager chooses to cancel
+** 3a1. OASIS shows an error message.
 +
 Use case resumes at step 4.
 

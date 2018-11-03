@@ -22,6 +22,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Salary;
 import seedu.address.model.project.Project;
+import seedu.address.model.project.ProjectName;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -120,30 +121,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String projectName} into an {@code ProjectName}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code tag} is invalid.
+     * @throws ParseException if the given {@code projectName} is invalid.
      */
-    public static Project parseProject(String project) throws ParseException {
-        requireNonNull(project);
-        String trimmedProject = project.trim();
-        if (!Project.isValidProjectName(trimmedProject)) {
-            throw new ParseException(Project.MESSAGE_PROJECT_CONSTRAINTS);
+    public static ProjectName parseProjectName(String projectName) throws ParseException {
+        requireNonNull(projectName);
+        String trimmedProjectName = projectName.trim();
+        if (!ProjectName.isValidName(trimmedProjectName)) {
+            throw new ParseException(ProjectName.MESSAGE_PROJECT_NAME_CONSTRAINTS);
         }
-        return new Project(trimmedProject);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Project> parseProjects(Collection<String> projects) throws ParseException {
-        requireNonNull(projects);
-        final Set<Project> projectSet = new HashSet<>();
-        for (String tagName : projects) {
-            projectSet.add(parseProject(tagName));
-        }
-        return projectSet;
+        return new ProjectName(trimmedProjectName);
     }
 
     /**
@@ -159,6 +148,33 @@ public class ParserUtil {
             throw new ParseException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
         return new Description(trimmedDescription);
+    }
+
+    /**
+     * Parses a {@code String project} into a {@code Project}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code project} is invalid.
+     */
+    public static Project parseProject(String project) throws ParseException {
+        requireNonNull(project);
+        String trimmedProject = project.trim();
+        if (!Project.isValidProjectName(trimmedProject)) {
+            throw new ParseException(Project.MESSAGE_PROJECT_CONSTRAINTS);
+        }
+        return new Project(trimmedProject);
+    }
+
+    /**
+     * Parses {@code Collection<String> projects} into a {@code Set<Project>}.
+     */
+    public static Set<Project> parseProjects(Collection<String> projects) throws ParseException {
+        requireNonNull(projects);
+        final Set<Project> projectSet = new HashSet<>();
+        for (String tagName : projects) {
+            projectSet.add(parseProject(tagName));
+        }
+        return projectSet;
     }
 
     /**
