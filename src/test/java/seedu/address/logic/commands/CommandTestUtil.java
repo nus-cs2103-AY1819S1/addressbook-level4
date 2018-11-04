@@ -118,6 +118,9 @@ public class CommandTestUtil {
     public static final EditUserCommand.EditPersonDescriptor DESC_BOB;
     public static final EditUserCommand.EditPersonDescriptor DESC_ZOEY;
 
+    public static final String VALID_NAME_BOB_FIRST_NAME = "Bob";
+    public static final String VALID_NAME_BOB_LAST_NAME = "Choo";
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)

@@ -60,9 +60,10 @@ Alternatively, you may decide to search for an event to join, and then vote in t
 
 Shows all the commands in the app and how to use them.
 
+=== View help : `help`
+
 === User Commands
 
-==== View help : `help`
 
 ==== Add a user : `addUser`
 
@@ -106,44 +107,6 @@ Examples:
 Shows a list of all users in the event organiser. +
 Format: `listUsers`
 
-==== Find users by name : `findUserByName`
-
-Finds users whose names contain any of the given keywords. +
-Format: `findUserByPhone [KEYWORD] [KEYWORDS]...`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`.
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`.
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`.
-* users matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
-****
-
-Examples:
-
-* `findUserByName John` +
-Returns any user having the names `john` and `John`
-* `findUserByName Betsy John` +
-Returns any user having names `Betsy`, `betsy`, `John`, or `john`
-
-==== Find users by phone number : `findUserByPhone`
-
-Finds users whose phone number matches any of the given numbers. +
-Format: `findUserByPhone [PHONE NUMBER] [PHONE NUMBER]...`
-
-****
-* The order of the keywords does not matter. e.g. `87438807 99272758` will give the same result as `99272758 87438807`.
-* Only the phone number is searched.
-* Substrings or superstrings of a phone number will not be matched e.g. `87438807` will not match `874388070`, and likewise, `8743880` will not match `87438807`.
-****
-
-Examples:
-
-* `findUserByPhone 87438807` +
-Returns any user with the phone number `87438807`
-* `findUserByPhone 87438807 99272758` +
-Returns any user with the phone number `87438807` or `99272758`
-
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +
@@ -184,38 +147,6 @@ Deletes the 2nd user in the event organiser.
 * `findUser Betsy` +
 `deleteUser 1` +
 Deletes the 1st user in the results of the `find` command.
-
-////
-==== Locating users by available time range: `findUserAvailAt`
-Finds users who are available between a start and end time on a specific day.
-Format: `findUserAvailAt t1/HOUR:MINUTE t2/HOUR:MINUTE d/DAY/MONTH/YEAR`
-
-Examples:
-
-* `findUserAvailAt t1/08:00 t2/10:00 d/23-08-2018` +
-Finds users available from 8am to 10am on 23 August.
-
-==== Locating users who live close to a MRT station: `findUserCloseTo`
-Finds users who live close to a MRT station. +
-Format: `findUserCloseTo MRTNAME r/SEARCH_RADIUS`
-
-****
-* SEARCH_RADIUS is defined by the number of MRT stations from MRTNAME
-****
-
-Examples:
-
-* `findUserCloseTo Clementi r/2`
-Finds all users who live within 2 stops from Clementi MRT Station.
-
-==== Locating users who know a user: `findFriendsOf`
-Finds users who are friends of a user. +
-Format: `findFriendsOf USERNAME`
-
-Examples:
-
-* `findFriendsOf John Doe`
-////
 
 ==== Selecting a user : `selectUser`
 
@@ -477,56 +408,6 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-//=== Undoing previous command : `undo`
-//
-//Restores the event organiser to the state before the previous _undoable_ command was executed. +
-//Format: `undo`
-//
-//[NOTE]
-//====
-//Undoable commands: those commands that modify the event organiser's content (`add`, `delete`, `edit` and `clear`).
-//====
-//
-//Examples:
-//
-//* `delete 1` +
-//`list` +
-//`undo` (reverses the `delete 1` command) +
-//
-//* `select 1` +
-//`list` +
-//`undo` +
-//The `undo` command fails as there are no undoable commands executed previously.
-//
-//* `delete 1` +
-//`clear` +
-//`undo` (reverses the `clear` command) +
-//`undo` (reverses the `delete 1` command) +
-//
-//=== Redoing the previously undone command : `redo`
-//
-//Reverses the most recent `undo` command. +
-//Format: `redo`
-//
-//Examples:
-//
-//* `delete 1` +
-//`undo` (reverses the `delete 1` command) +
-//`redo` (reapplies the `delete 1` command) +
-//
-//* `delete 1` +
-//`redo` +
-//The `redo` command fails as there are no `undo` commands executed previously.
-//
-//* `delete 1` +
-//`clear` +
-//`undo` (reverses the `clear` command) +
-//`undo` (reverses the `delete 1` command) +
-//`redo` (reapplies the `delete 1` command) +
-//`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -557,12 +438,6 @@ e.g. `login n/John Doe pass/password`
 * *Logout*  `logout`
 
 * *List User* : `listUsers`
-
-* *Find User By Name* : `findUserByName KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James`
-
-* *Find User By Phone Number* : `findUserByPhone KEYWORD [MORE_KEYWORDS]` +
-e.g. `find 99272758`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
 `findUser n/NAME p/PHONE e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
