@@ -3,7 +3,6 @@ package seedu.restaurant.logic.parser.reservation;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
@@ -38,7 +37,7 @@ public class EditReservationCommandParser implements Parser<EditReservationComma
     public EditReservationCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PAX, PREFIX_DATETIME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PAX, PREFIX_DATE, PREFIX_TIME, PREFIX_TAG);
 
         Index index;
 
