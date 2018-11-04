@@ -146,7 +146,7 @@ public class ParserUtil {
         } else if (role.equals("receptionist")) {
             return RECEPTIONIST;
         } else {
-            throw new ParseException("You have entered invalid role. Please try with either staff or receptionist.");
+            throw new ParseException("You have entered invalid role. Please try with either doctor or receptionist.");
         }
     }
 
