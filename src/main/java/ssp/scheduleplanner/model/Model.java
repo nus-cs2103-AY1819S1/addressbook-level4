@@ -3,6 +3,8 @@ package ssp.scheduleplanner.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -49,6 +51,11 @@ public interface Model {
      */
     void archiveTask(Task task);
 
+    /**
+     * Adds the given tag.
+     * {@code tag} must not already exist under any existing category in Schedule Planner.
+     */
+    void addTag(Tag tag, Category category);
     /**
      * Replaces the given task {@code target} with {@code editedTask}.
      * {@code target} must exist in the Schedule Planner.

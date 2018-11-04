@@ -19,6 +19,8 @@ import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
 import ssp.scheduleplanner.model.SchedulePlanner;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
 
@@ -95,6 +97,11 @@ public class AddCommandTest {
 
         @Override
         public void archiveTask(Task completedTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addTag(Tag tag, Category category) {
             throw new AssertionError("This method should not be called.");
         }
 

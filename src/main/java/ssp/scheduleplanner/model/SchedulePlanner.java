@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.category.UniqueCategoryList;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.model.task.UniqueTaskList;
 
@@ -14,6 +17,7 @@ import ssp.scheduleplanner.model.task.UniqueTaskList;
  */
 public class SchedulePlanner implements ReadOnlySchedulePlanner {
 
+    private final UniqueCategoryList categories;
     private final UniqueTaskList tasks;
     private final UniqueTaskList archivedTasks;
 
@@ -25,6 +29,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
      *   among constructors.
      */
     {
+        categories = new UniqueCategoryList();
         tasks = new UniqueTaskList();
         archivedTasks = new UniqueTaskList();
     }
@@ -64,6 +69,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
 
         setTasks(newData.getTaskList());
         setArchivedTasks(newData.getArchivedTaskList());
+
     }
 
     //// task-level operations
@@ -90,6 +96,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
      * The task must not already exist in the current task list of schedule planner.
      */
     public void addTask(Task p) {
+
         tasks.add(p);
     }
 
@@ -99,6 +106,14 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     public void archiveTask(Task p) {
         archivedTasks.add(p);
         tasks.remove(p);
+    }
+
+    /**
+     * Adds a tag to the given category of schedule planner.
+     * The tag must not already exist under given category.
+     */
+    public void addTag(Tag tag, Category category) {
+        category.addTag(tag);
     }
 
     /**
@@ -132,7 +147,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
 
     @Override
     public String toString() {
-        return tasks.asUnmodifiableObservableList().size() + " tasks";
+        return (tasks.asUnmodifiableObservableList().size() + " tasks");
         // TODO: refine later
     }
 
@@ -146,11 +161,14 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
         return archivedTasks.asUnmodifiableObservableList();
     }
 
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SchedulePlanner // instanceof handles nulls
-                && tasks.equals(((SchedulePlanner) other).tasks));
+                //&& categories.equals(((SchedulePlanner) other).categories)
+                && tasks.equals(((SchedulePlanner) other).tasks))
+                && archivedTasks.equals(((SchedulePlanner) other).archivedTasks);
     }
 
     @Override

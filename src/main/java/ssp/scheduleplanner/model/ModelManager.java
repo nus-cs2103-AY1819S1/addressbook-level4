@@ -13,6 +13,8 @@ import javafx.collections.transformation.SortedList;
 import ssp.scheduleplanner.commons.core.ComponentManager;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.model.SchedulePlannerChangedEvent;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -100,6 +102,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addTag(Tag tag, Category category) {
+        versionedSchedulePlanner.addTag(tag, category);
+        indicateSchedulePlannerChanged();
+    }
+
+    @Override
     public void updateTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
 
@@ -180,7 +188,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedSchedulePlanner.equals(other.versionedSchedulePlanner)
-                && filteredTasks.equals(other.filteredTasks);
+                && (filteredTasks.equals(other.filteredTasks)
+                || this.sortFilteredTasks().equals(other.sortFilteredTasks()));
     }
 
 }
