@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,6 +27,8 @@ import seedu.address.model.person.Room;
 import seedu.address.model.person.School;
 import seedu.address.model.tag.Tag;
 
+import javax.imageio.ImageIO;
+
 /**
  * Updates the profile picture of a person to the address book.
  */
@@ -46,6 +49,7 @@ public class ImageCommand extends Command {
             + "Example: " + COMMAND_WORD + " r/A123 f/C://Users/Documents/FILENAME.jpg";
 
     public static final String MESSAGE_SUCCESS = "Profile picture uploaded for %1$s";
+    public static final String INVALID_IMAGE_ERROR = "The image provided is invalid";
     public static final String FILE_PATH_ERROR = "Image should be in .jpg.";
     public static final String MESSAGE_NO_SUCH_PERSON = "There is no resident occupying that room.";
     public static final String MESSAGE_DUPLICATE_UPLOAD = "This resident already has that profile picture.";
@@ -88,7 +92,12 @@ public class ImageCommand extends Command {
         if (!isValidProfilePicture(filePath.toPath())) {
             throw new CommandException(FILE_PATH_ERROR);
         }
-        
+
+        try {
+            image = ImageIO.read(filePath);
+        } catch (IOException e) {
+            throw new CommandException(INVALID_IMAGE_ERROR);
+        }
         EventsCenter.getInstance().post(new NewImageEvent(filePath, number));
 
         EditPersonProfilePicture editPersonProfilePicture = new EditPersonProfilePicture();
