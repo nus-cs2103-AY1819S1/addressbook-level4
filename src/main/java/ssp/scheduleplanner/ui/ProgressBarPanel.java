@@ -46,7 +46,9 @@ public class ProgressBarPanel extends UiPart<Region> {
         super(FXML);
         registerAsAnEventHandler(this);
         today.setPrefWidth(Double.MAX_VALUE);
+        today.setPrefHeight(30);
         week.setPrefWidth(Double.MAX_VALUE);
+        week.setPrefHeight(30);
         todaylabel.setFill(Color.WHITE);
         weeklabel.setFill(Color.WHITE);
         todaylabel.setFont(Font.font ("Verdana", 20));
