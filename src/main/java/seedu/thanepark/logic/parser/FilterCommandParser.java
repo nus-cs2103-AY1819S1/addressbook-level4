@@ -26,8 +26,10 @@ import seedu.thanepark.model.ride.WaitTime;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    private static final String MESSAGE_INVALID_TAGS_USED = "Invalid prefixes found! %1$s\nPlease use use prefixes "
+    private static final String MESSAGE_INVALID_TAGS_USED = "Invalid prefixes found! '%1$s'\nPlease use use prefixes "
             + "with numeric attributes instead e.g. Maintenance: m/ or WaitTime: w/ \n";
+    private static final String MESSAGE_INVALID_ARGS = "Invalid arguments found! '%1$s'\nPlease use >, <, = and "
+            + "numbers only!\n";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FilterCommand
@@ -84,8 +86,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Gets a list of predicates from the list of maintenance input if any is present
      */
-    private List<AttributePredicate> getWaitTimePredicate(Optional<List<String>> waitingTimeStrings,
-                                                          List<AttributePredicate> predicates) {
+    private List<AttributePredicate> getWaitTimePredicate(
+            Optional<List<String>> waitingTimeStrings, List<AttributePredicate> predicates) throws ParseException {
         List<AttributePredicate> newPredicates = new ArrayList<>();
         if (waitingTimeStrings.isPresent()) {
             for (String s : waitingTimeStrings.get()) {
@@ -101,8 +103,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Gets a list of predicates from the list of wait time input if any is present
      */
-    private List<AttributePredicate> getMaintenancePredicates(Optional<List<String>> maintenanceStrings,
-                                                              List<AttributePredicate> predicates) {
+    private List<AttributePredicate> getMaintenancePredicates(
+            Optional<List<String>> maintenanceStrings, List<AttributePredicate> predicates) throws ParseException {
         List<AttributePredicate> newPredicates = new ArrayList<>();
         if (maintenanceStrings.isPresent()) {
             for (String s : maintenanceStrings.get()) {
@@ -118,12 +120,15 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Returns a Pair object with the operator and input value from the user input string.
      */
-    private Pair<String, String> getOperatorAndValues(String string) {
+    private Pair<String, String> getOperatorAndValues(String string) throws ParseException {
         String predicateString = string.trim();
         char[] array = predicateString.toCharArray();
         String operator = "";
         String value = "";
         for (char c : array) {
+            if (isInvalidCharacter(c)) {
+                throw new ParseException(String.format(MESSAGE_INVALID_ARGS, c));
+            }
             if (c == ' ') {
                 continue;
             }
@@ -142,5 +147,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      */
     private boolean isOperator(char c) {
         return c == '<' || c == '>' || c == '=';
+    }
+    
+    /**
+     * Checks for invalid character in user input string
+     */
+    private boolean isInvalidCharacter (char c) {
+        return !isOperator(c) && c != ' ' && !Character.isDigit(c);
     }
 }
