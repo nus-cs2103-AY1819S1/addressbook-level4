@@ -3,7 +3,8 @@
     <reservations>
         <name>Jeeves</name>
         <pax isPrivate="false">4</pax>
-        <dateTime isPrivate="false">2018-11-03T10:15:00</dateTime>
+        <date isPrivate="false">03-11-2019</date>
+        <time isPrivate="false">10:15</time>
         <remark isPrivate="false">Some remarks</remark>
     </reservations>
 
@@ -11,7 +12,8 @@
     <reservations>
         <name>Jeeves</name>
         <pax isPrivate="false">4</pax>
-        <dateTime isPrivate="false">2018-11-03T10:15:00</dateTime>
+        <date isPrivate="false">03-11-2019</date>
+        <time isPrivate="false">10:15</time>
         <remark isPrivate="false">Some remarks</remark>
     </reservations>
 </restaurantbook>
