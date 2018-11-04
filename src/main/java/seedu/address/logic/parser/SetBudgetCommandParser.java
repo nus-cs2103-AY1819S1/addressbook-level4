@@ -23,9 +23,21 @@ public class SetBudgetCommandParser implements Parser<SetBudgetCommand> {
     public SetBudgetCommand parse(String userInput) throws ParseException {
         try {
             TotalBudget totalBudget = new TotalBudget(userInput.trim());
+            if (totalBudget.getBudgetCap() <= 0) {
+                throw new NegativeException();
+            }
             return new SetBudgetCommand(totalBudget);
         } catch (IllegalArgumentException iae) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetBudgetCommand.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Exception that is thrown when user enters a negative value.
+     */
+    private static class NegativeException extends ParseException {
+        public NegativeException() {
+            super("Only values more than 0 are allowed");
         }
     }
 }

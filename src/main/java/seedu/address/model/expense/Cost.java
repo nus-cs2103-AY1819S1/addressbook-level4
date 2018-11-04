@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Cost extends ExpenseField {
 
     public static final String MESSAGE_COST_CONSTRAINTS =
-            "Cost should only take values in the following format: {int}.{digit}{digit}";
+            "Cost should only take values in the following format: {digit}.{digit}{digit}";
 
     /*
      * The first character of the address must not be a whitespace,
