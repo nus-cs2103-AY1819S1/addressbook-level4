@@ -39,6 +39,7 @@ E.g, typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Allow group merge and group divide.
 .  Achieve the functionality of auto-delete after a word has been well remembered by the user.
 .  Record the trivia score for user to self check later
+.  Synonym function to mass query multiple words that have same meaning
 
 
 [Features]]
@@ -59,7 +60,7 @@ Format: `help`
 === Adding a word: `add`
 
 Adds a word to the vocabulary list +
-Format: `add n/WORD m\MEANING [t/TAG]...`
+Format: `add n/WORD m/MEANING [t/TAG]...`
 
 [TIP]
 A word can have any number of tags provided the groups of the tags are already created. Words that are added without tags will be added to the toLearn group by default
@@ -236,6 +237,17 @@ Outputs the `meaning` and `tags` of levitate in the command box.
 * `show levitate fly`
 
 Outputs the `meaning` and `tags` of levitate and fly in the command box.
+
+This will output a list of words that follows the sequence of the already established list.
+
+For example:
+
+List contains 1. hi 2. bye 3. try 4. neigh
+
+Typing in 'show bye hi neigh' will output the result of 1, 2 and 4 in sequence following the established list.
+
+Moreover, the first sequence number will be selected automatically. If there are no existing words that are found,
+the default display would be the last displayed placeholder page.
 
 === Trivia game: `trivia`
 A trivia game mode where it outputs meaning of words stored in vocabulary list and prompts the user to input its name.
