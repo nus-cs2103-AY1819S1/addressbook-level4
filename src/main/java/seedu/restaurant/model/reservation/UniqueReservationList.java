@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import seedu.restaurant.model.reservation.exceptions.DuplicateReservationException;
 import seedu.restaurant.model.reservation.exceptions.ReservationNotFoundException;
 
+//@@author m4dkip
 /**
  * A list of reservations that enforces uniqueness between its elements and does not allow nulls.
  * A reservation is considered unique by comparing using {@code Reservation#isSameReservation(Reservation)}. As

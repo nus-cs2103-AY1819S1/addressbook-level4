@@ -17,6 +17,7 @@ import seedu.restaurant.storage.XmlAdaptedTag;
 import seedu.restaurant.storage.elements.XmlAdaptedReservation;
 import seedu.restaurant.testutil.Assert;
 
+//@@author m4dkip
 public class XmlAdaptedReservationTest {
     private static final String INVALID_NAME = "B@ller";
     private static final String INVALID_PAX = "-6";
