@@ -214,12 +214,11 @@ Format: `exit` or `ex`
 ==== Logging in: `login`
 
 Logs into an existing account. +
-Format: `login id/USERNAME pw/PASSWORD` or `li id/USERNAME pw/PASSWORD` +
+Format: `login id/USERNAME pw/PASSWORD`
 
 Examples:
 
-* `login id/azhikai pw/p@55w0rd`
-* `li id/azhikai pw/p@55w0rd`
+* `login id/root pw/1122qq`
 
 [TIP]
 ====
@@ -230,7 +229,7 @@ Please ignore person-related commands as it's still operational in the applicati
 ==== Logging out: `logout`
 
 Logs out of the account. +
-Format: `logout` or `lo`
+Format: `logout`
 
 ==== Creating user account: `register` or `reg`
 
@@ -269,7 +268,7 @@ Format: `list-accounts` or `la`
 
 [WARNING]
 ====
-Password is masked by default and should never be shown
+Password is masked by default and should never be shown on display
 ====
 // end::accountmanagement[]
 
@@ -932,11 +931,12 @@ contains the data of your previous *MeNUS* folder.
 |*History* |`history` |`history`
 |*Undo* |`undo` |`undo`
 |*Redo* |`redo` |`redo`
-|*Login* |`login id/USERNAME pw/PASSWORD` |`login id/azhikai pw/1122qq`
+|*Login* |`login id/USERNAME pw/PASSWORD` |`login id/root pw/1122qq`
 |*Logout* |`logout` |`logout`
-|*Create account* |`register/reg id/USERNAME pw/PASSWORD` |`register id/azhikai pw/1122qq`
-|*Edit account* |`edit-acc id/USERNAME [nid/NEW_USERNAME] [pw/NEW_PASSWORD]` |`edit-acc id/azhikai nid/angzhikai`
+|*Create account* |`register/reg id/USERNAME pw/PASSWORD` |`register/reg id/azhikai pw/p@55w0rd`
+|*Change password* |`change-password/cp npw/NEW_PASSWORD` |`change-password/cp npw/newp@55w0rd`
 |*Delete account* |`deregister id/USERNAME` |`deregister id/azhikai`
+|*List accounts* |`list-accounts/la` |`list-accounts/la`
 |*Add ingredient* |`add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM` |`add-ingredient n/cod fish t/kilogram p/20 m/1`
 |*List ingredient* |`list-ingredients` |`list-ingredients`
 |*List ingredient with low stock count* |`low-stock` |`low-stock`
