@@ -12,6 +12,7 @@ import seedu.restaurant.model.reservation.Reservation;
  * A utility class containing a list of {@code Reservation} objects to be used in tests.
  */
 public class TypicalReservations {
+    public static final Reservation RESERVATION_DEFAULT = new ReservationBuilder().build();
 
     public static final Reservation ANDREW = new ReservationBuilder().withName("Andrew")
             .withPax("2")
@@ -29,11 +30,12 @@ public class TypicalReservations {
             .withPax("3")
             .withDate("13-09-2019")
             .withTime("12:00")
-            .withTags("driving").build();
+            .withTags("Driving").build();
     public static final Reservation ELSA = new ReservationBuilder().withName("Elsa")
             .withPax("2")
             .withDate("13-10-2019")
-            .withTime("13:00").build();
+            .withTime("13:00")
+            .withTags("Allergies").build();
     public static final Reservation FROPPY = new ReservationBuilder().withName("Froppy")
             .withPax("8")
             .withDate("30-10-2019")
