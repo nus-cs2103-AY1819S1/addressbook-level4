@@ -188,12 +188,12 @@ public class UniqueRecordListTest {
     public void rankItemBasedOnRevenue() {
         uniqueRecordList.add(new RecordBuilder().withName("Fried Rice").withQuantitySold("10").withPrice("2").build());
         uniqueRecordList.add(new RecordBuilder().withName("Lasagna").withQuantitySold("10").withPrice("20").build());
-        uniqueRecordList.add(new RecordBuilder().withName("Fish n Chips").withQuantitySold("10").withPrice("10").build());
+        uniqueRecordList.add(new RecordBuilder().withName("Pasta").withQuantitySold("10").withPrice("10").build());
         Map<ItemName, Double> actualRanking = uniqueRecordList.rankItemBasedOnRevenue();
 
         List<ItemName> expectedDateOrder = new ArrayList<>();
         expectedDateOrder.add(new ItemName("Lasagna"));
-        expectedDateOrder.add(new ItemName("Fish n Chips"));
+        expectedDateOrder.add(new ItemName("Pasta"));
         expectedDateOrder.add(new ItemName("Fried Rice"));
         Iterator i = expectedDateOrder.iterator();
 

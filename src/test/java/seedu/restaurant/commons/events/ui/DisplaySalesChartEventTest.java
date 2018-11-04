@@ -5,7 +5,6 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_THREE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_TWO;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -13,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.commons.events.ui.sales.DisplayRankingEvent;
 import seedu.restaurant.commons.events.ui.sales.DisplaySalesChartEvent;
 import seedu.restaurant.model.sales.Date;
 

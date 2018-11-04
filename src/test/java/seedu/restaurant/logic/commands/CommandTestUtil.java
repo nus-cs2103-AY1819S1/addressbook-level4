@@ -41,8 +41,6 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
 import seedu.restaurant.model.person.Person;
-import seedu.restaurant.model.sales.ItemNameContainsKeywordsPredicate;
-import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.EditPersonDescriptorBuilder;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 import seedu.restaurant.testutil.ingredient.EditIngredientDescriptorBuilder;

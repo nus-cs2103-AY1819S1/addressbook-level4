@@ -49,8 +49,8 @@ public class DisplaySalesCommandTest {
     @Test
     public void execute_dateDoesNotExistInList_throwsCommandException() {
         Date date = new Date(VALID_DATE_RECORD_ONE);
-        assertCommandFailure(new DisplaySalesCommand(date), model, commandHistory, String.format(NO_SUCH_DATE_MESSAGE
-                , date.toString()));
+        assertCommandFailure(new DisplaySalesCommand(date), model, commandHistory, String.format(NO_SUCH_DATE_MESSAGE,
+                date.toString()));
         assertFalse(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DisplaySalesReportEvent);
     }
 
