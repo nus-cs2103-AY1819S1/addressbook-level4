@@ -37,6 +37,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class SelfEditCommandSystemTest extends AddressBookSystemTest {
@@ -67,9 +68,10 @@ public class SelfEditCommandSystemTest extends AddressBookSystemTest {
      * Attempts to log in as a normal user. The current address book must show a login screen.
      */
     public void attemptLoginUser() {
-        Person p = getModel().getAddressBook().getPersonList().get(0);
+        //The first person in the address book is alice
+        Person p = TypicalPersons.ALICE;
         String username = p.getUsername().username;
-        String password = p.getPassword().password;
+        String password = p.getPassword().plaintext;
         guiRobot.pauseForHuman();
 
         loginHandle.attemptLogIn(username, password);
@@ -150,7 +152,7 @@ public class SelfEditCommandSystemTest extends AddressBookSystemTest {
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
         Person newPerson = new PersonBuilder(AMY).withUsername(originalUsername.username)
-            .withPassword(originalPassword.password).build();
+            .withPassword(originalPassword.plaintext).build();
         assertCommandSuccess(command, index, newPerson, index);
         */
 

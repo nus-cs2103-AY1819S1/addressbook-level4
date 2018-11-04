@@ -31,7 +31,6 @@ public class XmlAdaptedPersonTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_USERNAME = " hi";
-    private static final String INVALID_PASSWORD = "password";
     private static final String INVALID_PERMISSION = "INVALID_PERMISSION";
     private static final String INVALID_PROFILE_PIC = " ";
     private static final String VALID_NAME = BENSON.getName().toString();
@@ -40,7 +39,7 @@ public class XmlAdaptedPersonTest {
     private static final String VALID_SALARY = BENSON.getSalary().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
     private static final String VALID_USERNAME = BENSON.getUsername().toString();
-    private static final String VALID_PASSWORD = BENSON.getPassword().toString();
+    private static final XmlAdaptedPassword VALID_PASSWORD = new XmlAdaptedPassword(BENSON.getPassword());
     private static final List<XmlAdaptedProject> VALID_PROJECTS = BENSON.getProjects().stream()
             .map(XmlAdaptedProject::new)
             .collect(Collectors.toList());
@@ -168,15 +167,6 @@ public class XmlAdaptedPersonTest {
         XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
             VALID_ADDRESS, VALID_SALARY, null, VALID_PASSWORD, VALID_PROJECTS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Username.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
-
-    @Test
-    public void toModelType_invalidPassword_throwsIllegalValueException() {
-        XmlAdaptedPerson person =
-            new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL,
-                VALID_ADDRESS, VALID_SALARY, VALID_PASSWORD, INVALID_PASSWORD, VALID_PROJECTS);
-        String expectedMessage = Password.MESSAGE_PASSWORD_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

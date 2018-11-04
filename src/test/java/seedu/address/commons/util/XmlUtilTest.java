@@ -16,6 +16,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Password;
+import seedu.address.storage.XmlAdaptedPassword;
 import seedu.address.storage.XmlAdaptedPerson;
 import seedu.address.storage.XmlAdaptedProject;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -42,9 +44,14 @@ public class XmlUtilTest {
     private static final String VALID_ADDRESS = "4th street";
     private static final String VALID_SALARY = "10000";
     private static final String VALID_USERNAME = "Hans Muster";
-    private static final String VALID_PASSWORD = "Hans1234";
+    private static final XmlAdaptedPassword VALID_PASSWORD = new XmlAdaptedPassword(new Password("Hans1234",
+        "7xmmUZgCxkagQC3A68vRHUXC9Pf3s3sswhaWTpJQiM5mROP56ZuHLDqP+ipYf35U6EP170zMx5K"
+            + "+CPEeSZpucrUKLn6y12F7m22zGhSiA4IZrwfEp7btwCK0Ku1sfCw7Ar0IPjpqxXCNWc5q9Q9asqI8f"
+            + "/wP2L90HGWoDHk3zAEQaRUClJK1bDbFkd+fOyXqsH3rRbs+e+Ih"
+            + "/u0x29DN3ZUidvvaWFeIrtQtHv4TwfMRuKFUVqeG5gN0NIabFxkUceD8cQpSWyAMamHwX7Pf1+Hn/q1Yegua8n9dg6GEeTF"
+            + "/ScNnDeJ43fwJCWYthCuIwQciqj6ncC/QKkCmNLY7pw=="));
     private static final List<XmlAdaptedProject> VALID_PROJECTS =
-            Collections.singletonList(new XmlAdaptedProject("friends"));
+        Collections.singletonList(new XmlAdaptedProject("friends"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -82,30 +89,30 @@ public class XmlUtilTest {
     @Test
     public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
+            MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
-                VALID_PROJECTS);
+            null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
+            VALID_PROJECTS);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
+            INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
-                VALID_PROJECTS);
+            VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
+            VALID_PROJECTS);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
+            VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
-                VALID_PROJECTS);
+            VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_SALARY, VALID_USERNAME, VALID_PASSWORD,
+            VALID_PROJECTS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -137,7 +144,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(new PersonBuilder().build()).build());
+            builder.withPerson(new PersonBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
@@ -149,5 +156,6 @@ public class XmlUtilTest {
      * objects.
      */
     @XmlRootElement(name = "person")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
+    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {
+    }
 }

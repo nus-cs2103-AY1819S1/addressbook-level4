@@ -41,7 +41,7 @@ public class User {
      * Builds the admin user in the system. The admin user will have the specified username and password
      * For default username and passwords, use {@code ADMIN_DEFAULT_USERNAME} and {@code ADMIN_DEFAULT_PASSWORD}
      * @param newUsername the username of the admin
-     * @param newPassword The password of the admin
+     * @param newPassword The password  of the admin
      */
     public static void buildAdmin(Username newUsername, Password newPassword) {
         Person adminPerson = new Person(ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, ADMIN_ADDRESS, ADMIN_SALARY,
