@@ -3,7 +3,7 @@ package guitests.guihandles;
 import javafx.stage.Stage;
 
 /**
- * Provides a handle for {@code PersonWindow}.
+ * Provides a handle for {@code MainWindow}.
  */
 public class MainWindowHandle extends StageHandle {
 

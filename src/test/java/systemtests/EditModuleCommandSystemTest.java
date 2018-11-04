@@ -229,6 +229,7 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateModule(expectedModel.getFilteredModuleList().get(toEdit.getZeroBased()), editedModule);
         expectedModel.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
 
+
         assertCommandSuccess(command, expectedModel,
                 String.format(EditModuleCommand.MESSAGE_EDIT_MODULE_SUCCESS, editedModule), expectedSelectedCardIndex);
     }

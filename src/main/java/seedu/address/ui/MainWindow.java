@@ -40,13 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane moduleListPanelPlaceholder;
-
-    @FXML
-    private StackPane occasionListPanelPlaceholder;
+    private StackPane entityListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -67,13 +61,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem personMenuItem;
 
     @FXML
-    private MenuItem moduleWindowItem;
+    private MenuItem moduleMenuItem;
 
     @FXML
-    private MenuItem occasionWindowItem;
+    private MenuItem occasionMenuItem;
 
     MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        this("PersonWindow.fxml", primaryStage, config, prefs, logic);
+        this("MainWindow.fxml", primaryStage, config, prefs, logic);
     }
 
     MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
@@ -183,8 +177,8 @@ public class MainWindow extends UiPart<Stage> {
         getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         ModuleListPanel moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
-        getPersonListPanelPlaceholder().getChildren().clear();
-        getPersonListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
     }
 
     /**
@@ -196,8 +190,8 @@ public class MainWindow extends UiPart<Stage> {
         getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        getPersonListPanelPlaceholder().getChildren().clear();
-        getPersonListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
     }
 
     /**
@@ -209,8 +203,8 @@ public class MainWindow extends UiPart<Stage> {
         getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         OccasionListPanel occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
-        getPersonListPanelPlaceholder().getChildren().clear();
-        getPersonListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
     }
 
     /**
@@ -221,7 +215,7 @@ public class MainWindow extends UiPart<Stage> {
         getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        getPersonListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         getResultDisplayPlaceholder().getChildren().add(resultDisplay.getRoot());
@@ -269,16 +263,8 @@ public class MainWindow extends UiPart<Stage> {
         handleOccasion();
     }
 
-    public StackPane getPersonListPanelPlaceholder() {
-        return personListPanelPlaceholder;
-    }
-
-    public StackPane getModuleListPanelPlaceholder() {
-        return moduleListPanelPlaceholder;
-    }
-
-    public StackPane getOccasionListPanelPlaceholder() {
-        return occasionListPanelPlaceholder;
+    public StackPane getEntityListPanelPlaceholder() {
+        return entityListPanelPlaceholder;
     }
 
     public StackPane getResultDisplayPlaceholder() {
@@ -295,21 +281,5 @@ public class MainWindow extends UiPart<Stage> {
 
     public StackPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
-    }
-
-    public MenuItem getPersonMenuItem() {
-        return personMenuItem;
-    }
-
-    public MenuItem getModuleWindowItem() {
-        return moduleWindowItem;
-    }
-
-    public void setModuleWindowItem(MenuItem moduleWindowItem) {
-        this.moduleWindowItem = moduleWindowItem;
-    }
-
-    public MenuItem getOccasionWindowItem() {
-        return occasionWindowItem;
     }
 }
