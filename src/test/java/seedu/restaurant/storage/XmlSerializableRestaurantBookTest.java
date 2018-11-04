@@ -148,6 +148,7 @@ public class XmlSerializableRestaurantBookTest {
         dataFromFile.toModelType();
     }
 
+    //@@author yican95
     // Menu Management
     @Test
     public void toModelType_typicalItemsOnlyFile_success() throws Exception {
@@ -176,6 +177,7 @@ public class XmlSerializableRestaurantBookTest {
     }
 
     //Reservation Management
+    //@@author m4dkip
     @Test
     public void toModelType_invalidReservationOnlyFile_throwsIllegalValueException() throws Exception {
         XmlSerializableRestaurantBook dataFromFile = XmlUtil.getDataFromFile(INVALID_RESERVATION_FILE,

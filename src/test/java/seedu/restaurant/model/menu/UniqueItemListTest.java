@@ -19,6 +19,7 @@ import seedu.restaurant.model.menu.exceptions.DuplicateItemException;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 
+//@@author yican95
 public class UniqueItemListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

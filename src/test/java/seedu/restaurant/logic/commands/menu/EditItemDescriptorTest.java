@@ -13,6 +13,7 @@ import org.junit.Test;
 import seedu.restaurant.logic.commands.menu.EditItemCommand.EditItemDescriptor;
 import seedu.restaurant.testutil.menu.EditItemDescriptorBuilder;
 
+//@@author yican95
 public class EditItemDescriptorTest {
 
     @Test

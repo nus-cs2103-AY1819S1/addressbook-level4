@@ -16,6 +16,7 @@ import seedu.restaurant.commons.events.ui.reservation.ReservationPanelSelectionC
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.ui.UiPart;
 
+//@@author m4dkip
 /**
  * Panel containing the list of reservations.
  */

@@ -469,6 +469,7 @@ public class RestaurantBookParserTest {
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
     }
 
+    //@@author yican95
     @Test
     public void parseCommand_addItem() throws Exception {
         Item item = new ItemBuilder().build();
@@ -600,6 +601,7 @@ public class RestaurantBookParserTest {
         assertTrue(parser.parseCommand(ClearMenuCommand.COMMAND_ALIAS + " 3") instanceof ClearMenuCommand);
     }
 
+    //@@author m4dkip
     @Test
     public void parseCommand_addReservation() throws Exception {
         Reservation reservation = new ReservationBuilder().build();

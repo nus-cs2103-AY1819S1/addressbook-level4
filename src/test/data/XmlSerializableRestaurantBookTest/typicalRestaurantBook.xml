@@ -116,6 +116,7 @@
     <minimum>3</minimum>
     <numUnits>0</numUnits>
   </ingredients>
+  <!-- @@author yican95 -->
   <items>
     <name>Apple Juice</name>
     <price>2.00</price>
