@@ -121,7 +121,7 @@ Examples:
 Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97947435`, email `clintonlaw@cs2103t.com` and address of `Tembusu College` to CLInic's patient database, as shown below.
 
 .After executing the `add` command specified above.
-image::AddEx1.png[width="850"][height="200"]
+image::AddEx1.png[height="200"]
 
 
 * `a n/Kang Tze ic/S9612345L p/97931111 e/kangtze@cs2103t.com a/Eusoff Hall` +
