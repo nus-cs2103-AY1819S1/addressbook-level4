@@ -134,6 +134,12 @@ public interface Model {
     Map<ItemName, Double> rankItemBasedOnRevenue();
 
     /**
+     * Returns all dates, each associated with its total revenue for the day, in chronological order.
+     */
+    Map<Date, Double> getChronologicalSalesData();
+
+
+    /**
      * Returns an unmodifiable view of the filtered record list
      */
     ObservableList<SalesRecord> getFilteredRecordList();

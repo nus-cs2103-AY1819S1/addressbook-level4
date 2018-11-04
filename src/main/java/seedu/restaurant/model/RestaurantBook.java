@@ -278,6 +278,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         return records.rankItemBasedOnRevenue();
     }
 
+    public Map<Date, Double> getChronologicalSalesData() {
+        return records.getChronologicalSalesData();
+    }
+
     //// account-level operations
 
     /**

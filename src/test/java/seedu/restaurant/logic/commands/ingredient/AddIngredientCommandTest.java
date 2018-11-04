@@ -336,6 +336,11 @@ public class AddIngredientCommandTest {
         }
 
         @Override
+        public Map<Date, Double> getChronologicalSalesData() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<SalesRecord> getFilteredRecordList() {
             throw new AssertionError("This method should not be called.");
         }

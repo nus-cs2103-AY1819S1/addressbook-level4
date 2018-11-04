@@ -184,6 +184,11 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedRestaurantBook.rankItemBasedOnRevenue();
     }
 
+    @Override
+    public Map<Date, Double> getChronologicalSalesData() {
+        return versionedRestaurantBook.getChronologicalSalesData();
+    }
+
     //=========== Filtered Sales Record List Accessors =============================================================
 
 
