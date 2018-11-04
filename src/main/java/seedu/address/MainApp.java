@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.model.google.PhotosLibraryClientFactory.TEST_FILE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,8 +34,6 @@ import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
-import static seedu.address.model.google.PhotosLibraryClientFactory.testFile;
-
 // Travis test commit
 
 /**
@@ -58,8 +58,8 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("=============================[ Initializing Piconso ]===========================");
         super.init();
-        if (testFile.exists()) {
-            testFile.delete();
+        if (TEST_FILE.exists()) {
+            TEST_FILE.delete();
         }
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
@@ -174,8 +174,8 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-        if (testFile.exists()) {
-            testFile.delete();
+        if (TEST_FILE.exists()) {
+            TEST_FILE.delete();
         }
         Platform.exit();
         System.exit(0);
