@@ -19,7 +19,7 @@ public class PasswordCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change your password\n"
         + "Example: " + COMMAND_WORD;
 
-    public static final String STARTING_PASSWORD_MESSAGE = "Please enter in your current passwordt.";
+    public static final String STARTING_PASSWORD_MESSAGE = "Please enter in your current password.";
     public static final String FAILED_PASSWORD_MESSAGE = "Your entered password did not match. Command aborted.";
     public static final String PROGRESS_PASSWORD_MESSAGE = "Please enter in your new password.";
     public static final String SHOWING_PASSWORD_MESSAGE = "Password changed!";
