@@ -9,7 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 ;
 
-public class LoginCommandTest extends DefaultCommandTest{
+public class LoginCommandTest extends DefaultCommandTest {
     private Model model = getDefaultModel();
     private Model expectedModel = getDefaultModel();
     private CommandHistory commandHistory = new CommandHistory();
