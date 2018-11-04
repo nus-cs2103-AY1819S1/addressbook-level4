@@ -4,8 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import javafx.collections.ObservableList;
-// import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
+import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.EmbedGoogleMaps;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
@@ -29,8 +32,6 @@ public class GenerateLocationCommand extends Command {
     public static final String MESSAGE_EVENT_DOES_NOT_EXIST = "This event does not exist!";
 
     public static final String MESSAGE_SUCCESS = "Meeting location generated!";
-
-
 
     private final EventName meetingLocationEventName;
 
@@ -60,10 +61,8 @@ public class GenerateLocationCommand extends Command {
             throw new CommandException(MESSAGE_EVENT_DOES_NOT_EXIST);
         }
 
-
-
-        // TODO - to work on what to do after command
-        // model.commitAddressBook();
+        String meetingPlaceId = EmbedGoogleMaps.getYihPlaceId();
+        EventsCenter.getInstance().post(new RandomMeetingLocationGeneratedEvent(meetingPlaceId));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

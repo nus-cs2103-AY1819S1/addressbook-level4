@@ -14,6 +14,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
 import seedu.address.logic.EmbedGoogleMaps;
 import seedu.address.model.person.Person;
 
@@ -56,8 +57,11 @@ public class LocationDisplayPanel extends UiPart<Region> {
     }
 
     private void loadPersonLocation(Person person) {
-        String faculty = person.getFaculty().toString();
-        loadIframe(prepareLocationContent(faculty));
+        loadIframe(prepareLocationContent(person));
+    }
+
+    private void loadRandomMeetingLocation(String placeId) {
+        loadIframe(prepareLocationContent(placeId));
     }
 
     public void loadPage(String url) {
@@ -67,8 +71,17 @@ public class LocationDisplayPanel extends UiPart<Region> {
     /**
      * Prepares the final iframe location content string with the Faculty of the Person.
      */
-    public String prepareLocationContent(String faculty) {
+    public String prepareLocationContent(Person person) {
+        String faculty = person.getFaculty().toString();
         String placeId = EmbedGoogleMaps.getPlaceId(faculty);
+        String finalLocationContent = locationContentA + placeId + locationContentB;
+        return finalLocationContent;
+    }
+
+    /**
+     * Overloaded method that prepares the final iframe location content string using placeId directly instead.
+     */
+    public String prepareLocationContent(String placeId) {
         String finalLocationContent = locationContentA + placeId + locationContentB;
         return finalLocationContent;
     }
@@ -102,5 +115,11 @@ public class LocationDisplayPanel extends UiPart<Region> {
     private void handleShowFacultyLocationSelectionEvent (FacultyLocationDisplayChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonLocation(event.getSelectedPerson());
+    }
+
+    @Subscribe
+    private void handleRandomMeetingLocationGeneratedEvent(RandomMeetingLocationGeneratedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadRandomMeetingLocation(event.getMeetingPlaceId());
     }
 }
