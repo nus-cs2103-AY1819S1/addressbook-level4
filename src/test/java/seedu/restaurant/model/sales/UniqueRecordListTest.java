@@ -8,12 +8,17 @@ import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
 import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_THREE;
 import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_TWO;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
@@ -152,6 +157,87 @@ public class UniqueRecordListTest {
         recordList.add(RECORD_DEFAULT);
         recordList.add(recordWithDefaultDate);
         assertEquals(new ReportBuilder(RECORD_DEFAULT.getDate(), recordList).build(), report);
+    }
+
+    @Test
+    public void rankDateBasedOnRevenue() {
+        uniqueRecordList.add(new RecordBuilder().withDate("27-08-2018").withQuantitySold("10").withPrice("2").build());
+        uniqueRecordList.add(new RecordBuilder().withDate("28-08-2018").withQuantitySold("10").withPrice("20").build());
+        uniqueRecordList.add(new RecordBuilder().withDate("26-08-2018").withQuantitySold("10").withPrice("10").build());
+        Map<Date, Double> actualRanking = uniqueRecordList.rankDateBasedOnRevenue();
+
+        List<Date> expectedDateOrder = new ArrayList<>();
+        expectedDateOrder.add(new Date("28-08-2018"));
+        expectedDateOrder.add(new Date("26-08-2018"));
+        expectedDateOrder.add(new Date("27-08-2018"));
+        Iterator i = expectedDateOrder.iterator();
+
+        List<Double> expectedRevenueOrder = new ArrayList<>();
+        expectedRevenueOrder.add(200.0);
+        expectedRevenueOrder.add(100.0);
+        expectedRevenueOrder.add(20.0);
+        Iterator r = expectedRevenueOrder.iterator();
+
+        for (Entry<Date, Double> entry : actualRanking.entrySet()) {
+            Assertions.assertEquals(i.next(), entry.getKey());
+            Assertions.assertEquals(r.next(), entry.getValue());
+        }
+    }
+
+    @Test
+    public void rankItemBasedOnRevenue() {
+        uniqueRecordList.add(new RecordBuilder().withName("Fried Rice").withQuantitySold("10").withPrice("2").build());
+        uniqueRecordList.add(new RecordBuilder().withName("Lasagna").withQuantitySold("10").withPrice("20").build());
+        uniqueRecordList.add(new RecordBuilder().withName("Fish n Chips").withQuantitySold("10").withPrice("10").build());
+        Map<ItemName, Double> actualRanking = uniqueRecordList.rankItemBasedOnRevenue();
+
+        List<ItemName> expectedDateOrder = new ArrayList<>();
+        expectedDateOrder.add(new ItemName("Lasagna"));
+        expectedDateOrder.add(new ItemName("Fish n Chips"));
+        expectedDateOrder.add(new ItemName("Fried Rice"));
+        Iterator i = expectedDateOrder.iterator();
+
+        List<Double> expectedRevenueOrder = new ArrayList<>();
+        expectedRevenueOrder.add(200.0);
+        expectedRevenueOrder.add(100.0);
+        expectedRevenueOrder.add(20.0);
+        Iterator r = expectedRevenueOrder.iterator();
+
+        for (Entry<ItemName, Double> entry : actualRanking.entrySet()) {
+            Assertions.assertEquals(i.next(), entry.getKey());
+            Assertions.assertEquals(r.next(), entry.getValue());
+        }
+    }
+
+    @Test
+    public void getChronologicalSalesData() {
+        uniqueRecordList.add(new RecordBuilder().withDate("01-01-2018").withQuantitySold("10").withPrice("10").build());
+        uniqueRecordList.add(new RecordBuilder().withDate("12-12-2018").withQuantitySold("20").withPrice("20").build());
+        uniqueRecordList.add(new RecordBuilder().withDate("06-06-2018").withQuantitySold("30").withPrice("30").build());
+        uniqueRecordList.add(new RecordBuilder().withDate("03-03-2018").withQuantitySold("40").withPrice("40").build());
+        uniqueRecordList.add(new RecordBuilder().withDate("09-09-2018").withQuantitySold("50").withPrice("50").build());
+        Map<Date, Double> actualData = uniqueRecordList.getChronologicalSalesData();
+
+        List<Date> expectedDateOrder = new ArrayList<>();
+        expectedDateOrder.add(new Date("01-01-2018"));
+        expectedDateOrder.add(new Date("03-03-2018"));
+        expectedDateOrder.add(new Date("06-06-2018"));
+        expectedDateOrder.add(new Date("09-09-2018"));
+        expectedDateOrder.add(new Date("12-12-2018"));
+        Iterator i = expectedDateOrder.iterator();
+
+        List<Double> expectedRevenueOrder = new ArrayList<>();
+        expectedRevenueOrder.add(100.0);
+        expectedRevenueOrder.add(1600.0);
+        expectedRevenueOrder.add(900.0);
+        expectedRevenueOrder.add(2500.0);
+        expectedRevenueOrder.add(400.0);
+        Iterator r = expectedRevenueOrder.iterator();
+
+        for (Entry<Date, Double> entry : actualData.entrySet()) {
+            Assertions.assertEquals(i.next(), entry.getKey());
+            Assertions.assertEquals(r.next(), entry.getValue());
+        }
     }
 
     @Test
