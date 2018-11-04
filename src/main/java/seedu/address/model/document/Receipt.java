@@ -29,7 +29,7 @@ public class Receipt extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
-        allocatedMedicine = servedPatient.getMedicineAllocated();
+        this.allocatedMedicine = servedPatient.getMedicineAllocated();
         servicesRendered = new ArrayList<>();
         servicesRendered.add(Service.CONSULTATION);
     }
