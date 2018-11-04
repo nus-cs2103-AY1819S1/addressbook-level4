@@ -12,7 +12,7 @@ import seedu.address.model.person.CurrentPatient;
  */
 public class DocumentContentDisplayCommand extends QueueCommand {
 
-    public static final String COMMAND_WORD = "displaydocument";
+    public static final String COMMAND_WORD = "displaydocuments";
     public static final String COMMAND_ALIAS = "dd";
 
     public static final String MESSAGE_NO_CURRENT_PATIENT = "There is no Current Patient. Use the serve command first.";

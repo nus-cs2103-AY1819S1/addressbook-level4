@@ -357,7 +357,7 @@ Example:
 Registers the 3rd patient in the database.
 
 .After executing the `register 3` command
-image::Register3Command.png[width="750"]
+image::registercommand.png[width="750"]
 
 
 * `find david` +
@@ -385,10 +385,10 @@ Examples:
 Removes the 3rd patient in the queue.
 
 .Before `remove 3` command
-image::BeforeRemove3Command.png[width="750"]
+image::beforeremovecommand.png[width="750"]
 
 .After `remove 3` command
-image::AfterRemove3Command.png[width="750"]
+image::afterremovecommand.png[width="750"]
 
 * `rem 3` +
 Removes the 2nd patient in the queue.
@@ -413,10 +413,10 @@ Examples:
 Inserts the 4th patient in the database into the 2nd position in the patient queue.
 
 .Before `insert 4 p/2` command
-image::BeforeInsert2Command.png[width="750"]
+image::beforeinsertcommand.png[width="750"]
 
 .After `insert 4 p/2` command
-image::AfterInsert2Command.png[width="750"]
+image::afterinsertcommand.png[width="750"]
 
 * `ins 3 p/5` +
 Inserts the 3rd patient into the 5th position in the patient queue.
@@ -432,10 +432,10 @@ Format: `serve`
 Upon successful call of this command, the medicine list will be displayed.
 
 .Before `serve` command
-image::BeforeServeCommand.png[width="750"]
+image::beforeservecommand.png[width="750"]
 
 .After `serve` command
-image::AfterServeCommand.png[width="750"]
+image::afterservecommand.png[width="750"]
 
 [[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
@@ -468,10 +468,10 @@ Examples:
 Adds MC duration and notes to the Current Patient.
 
 .Before `adddocument mc/3 n/Headache for the past 2 days` command
-image::BeforeAddDocumentCommand.png[width="750"]
+image::beforeadddocumentcommand.png[width="750"]
 
 .After `adddocument mc/3 n/Headache for the past 2 days` command
-image::AfterAddDocumentCommand.png[width="750"]
+image::afteradddocumentcommand.png[width="750"]
 
 * `ad r/Ng Teng Fong Hospital` +
 Adds referral to the Current Patient.
@@ -497,10 +497,10 @@ Examples:
 10 units of the 1st medicine in the displayed medicine list will be added to the Current Patient. +
 
 .Before `dispensemedicine 1 amt/10`
-image::BeforeDispenseMedicineCommand.png[width="750"]
+image::beforedispensemedicinecommand.png[width="750"]
 
 .After `dispensemedicine 1 amt/10`
-image::AfterDispenseMedicineCommand.png[width="750"]
+image::afterdispensemedicinecommand.png[width="750"]
 
 * `dm 5 amt/2` +
 2 units of the 5th medicine in the displayed medicine list will be added to the Current Patient.
@@ -551,6 +551,9 @@ Generates a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
 [TIP]
+This command cannot be used if there is no mc content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
+
+[TIP]
 Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -578,6 +581,9 @@ Generates a referral letter for the Served Patient. +
 Alias: `ref` +
 
 Format: `refer INDEX`
+
+[TIP]
+This command cannot be used if there is no referral content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
 
 [TIP]
 Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
