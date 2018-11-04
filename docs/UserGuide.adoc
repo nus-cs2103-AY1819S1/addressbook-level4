@@ -240,9 +240,9 @@ image::user-guide-login-after.png[width="500"]
 
 Examples:
 
-* `login r/doctor n/Adam Bell pass/------1` +
+* `login r/doctor n/Adam Bell pass/doctor1` +
 
-* `login r/receptionist n/Mary Jane pass/------3` +
+* `login r/receptionist n/Mary Jane pass/reception3` +
 
 ==== Log out of the program : `logout` `[coming in v2.0]`
 
