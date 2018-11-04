@@ -8,8 +8,6 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -37,8 +35,11 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
     private static final String FXML = "BrowserPanel.fxml";
+    private static final String PATIENT_VIEW_URL = "PatientView.html";
+    private static final String QUEUE_INFORMATION_URL = "QueueInformation.html";
+    private static final String CURRENT_PATIENT_VIEW_URL = "CurrentPatientView.html";
 
-    private static int counter = 0;
+    private WebViewScript webViewScript;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -47,6 +48,9 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel() {
         super(FXML);
+
+        // Initialise WebViewScript to run the script in the browser
+        this.webViewScript = new WebViewScriptManager(this.browser);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
@@ -57,27 +61,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
-    }
-
-    /**
-     * This function runs the executes some javascript in the html file.
-     * @param script script to run
-     * @param scriptCounter Ensure that only the script called is ran using an index counter.
-     */
-    private void runScript(String script, int scriptCounter) {
-        browser.getEngine().getLoadWorker().stateProperty().addListener((
-                ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
-            if (newValue != Worker.State.SUCCEEDED) {
-                // Browser not loaded, return.
-                return;
-            }
-            if (counter != scriptCounter) {
-                return;
-            }
-            System.out.println("Script to be run: " + script);
-            Platform.runLater(() -> browser.getEngine().executeScript(script));
-            counter++;
-        });
     }
 
     /**
@@ -93,9 +76,8 @@ public class BrowserPanel extends UiPart<Region> {
      * @param patient patient to load
      */
     private void loadPersonPage(Patient patient) {
-        String filePath = "/view/PatientView.html";
-        String url = MainApp.class.getResource(filePath).toExternalForm();
-        runScript(getScriptForPatientView(patient), counter);
+        String url = MainApp.class.getResource(FXML_FILE_FOLDER + PATIENT_VIEW_URL).toExternalForm();
+        webViewScript.runScript(getScriptForPatientView(patient));
         loadPage(url);
     }
 
@@ -104,9 +86,8 @@ public class BrowserPanel extends UiPart<Region> {
      */
     private void loadQueueInfomationPage(PatientQueue patientQueue, CurrentPatient currentPatient,
                                          ServedPatientList servedPatientList) {
-        String filePath = "/view/QueueInformation.html";
-        String url = MainApp.class.getResource(filePath).toExternalForm();
-        runScript(getScriptForQueueInformation(patientQueue, currentPatient, servedPatientList), counter);
+        String url = MainApp.class.getResource(FXML_FILE_FOLDER + QUEUE_INFORMATION_URL).toExternalForm();
+        webViewScript.runScript(getScriptForQueueInformation(patientQueue, currentPatient, servedPatientList));
         loadPage(url);
     }
 
@@ -114,9 +95,8 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads a HTML file that displays the current patient's information.
      */
     private void loadCurrentPatientPage(CurrentPatient currentPatient) {
-        String filePath = "/view/CurrentPatientView.html";
-        String url = MainApp.class.getResource(filePath).toExternalForm();
-        runScript(getScriptForCurrentPatientView(currentPatient), counter);
+        String url = MainApp.class.getResource(FXML_FILE_FOLDER + CURRENT_PATIENT_VIEW_URL).toExternalForm();
+        webViewScript.runScript(getScriptForCurrentPatientView(currentPatient));
         loadPage(url);
     }
 

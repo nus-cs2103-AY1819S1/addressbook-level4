@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.exceptions.DifferentBloodTypeException;
 import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.tag.Tag;
@@ -62,7 +63,7 @@ public class Patient {
     /**
      * Make new Patient with specified MedicalRecord. MedicalRecord will combine with current MedicalRecord, if any.
      */
-    public Patient(Patient patient, MedicalRecord medicalRecord) {
+    public Patient(Patient patient, MedicalRecord medicalRecord) throws DifferentBloodTypeException {
         requireNonNull(patient);
         requireNonNull(medicalRecord);
 
@@ -114,7 +115,7 @@ public class Patient {
      * Adds a medical record to the patient. Read: merges with existing.
      * @param medicalRecord
      */
-    public void addMedicalRecord(MedicalRecord medicalRecord) {
+    public void addMedicalRecord(MedicalRecord medicalRecord) throws DifferentBloodTypeException {
         this.medicalRecord = this.medicalRecord == null
                 ? medicalRecord
                 : MedicalRecord.combineMedicalRecords(this.medicalRecord, medicalRecord);

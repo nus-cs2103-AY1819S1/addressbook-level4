@@ -13,7 +13,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.Patient;
 
@@ -67,18 +66,22 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(patient);
     }
 
-    //@@author 99percentile
     @Override
     public boolean hasMedicine(Medicine medicine) {
         requireNonNull(medicine);
         return versionedAddressBook.hasMedicine(medicine);
     }
 
-    //@@author 99percentile
     @Override
-    public boolean hasMedicine(MedicineName medicineName) {
-        requireNonNull(medicineName);
-        return versionedAddressBook.hasMedicine(medicineName);
+    public boolean hasMedicineName(Medicine medicine) {
+        requireNonNull(medicine);
+        return versionedAddressBook.hasMedicineName(medicine);
+    }
+
+    @Override
+    public boolean hasSerialNumber(Medicine medicine) {
+        requireNonNull(medicine);
+        return versionedAddressBook.hasSerialNumber(medicine);
     }
 
     @Override
@@ -94,7 +97,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //@@author 99percentile
     @Override
     public void addMedicine(Medicine medicine) {
         versionedAddressBook.addMedicine(medicine);
@@ -102,14 +104,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //@@author 99percentile
     @Override
     public void deleteMedicine(Medicine medicine) {
         versionedAddressBook.removeMedicine(medicine);
         indicateAddressBookChanged();
     }
 
-    //@@author 99percentile
     @Override
     public void updateMedicine(Medicine target, Medicine editedMedicine) {
         requireAllNonNull(target, editedMedicine);
@@ -157,7 +157,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Medicine List Accessors =============================================================
 
-    //@@author 99percentile
     /**
      * Returns an unmodifiable view of the list of {@code Medicine} backed by the internal list of
      * {@code versionedAddressBook}
@@ -167,7 +166,6 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredMedicines);
     }
 
-    //@@author 99percentile
     @Override
     public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
         requireNonNull(predicate);

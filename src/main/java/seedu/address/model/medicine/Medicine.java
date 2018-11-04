@@ -93,10 +93,17 @@ public class Medicine {
     }
 
     /**
-     * Returns true if both medicines has the same name.
+     * Returns true if both medicines have the same name.
      */
-    public boolean hasSameMedicineName(MedicineName otherMedicine) {
-        return otherMedicine.equals(this.medicineName);
+    public boolean hasSameMedicineName(Medicine otherMedicine) {
+        return otherMedicine.getMedicineName().equals(this.medicineName);
+    }
+
+    /**
+     * Returns true if both medicines have the same name.
+     */
+    public boolean hasSameSerialNumber(Medicine otherMedicine) {
+        return getSerialNumber().value.equals(otherMedicine.getSerialNumber().value);
     }
 
     /**

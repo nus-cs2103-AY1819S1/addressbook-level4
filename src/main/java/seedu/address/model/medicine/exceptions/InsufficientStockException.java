@@ -1,4 +1,3 @@
-/* @@author 99percentile */
 package seedu.address.model.medicine.exceptions;
 
 import seedu.address.model.medicine.Medicine;
