@@ -26,8 +26,8 @@ import seedu.thanepark.model.ride.WaitTime;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    public static final String MESSAGE_INVALID_PREFIXES_USED = "Invalid prefixes found! '%1$s'\nPlease use use prefixes "
-            + "with numeric attributes instead e.g. Maintenance: m/ or WaitTime: w/ \n";
+    public static final String MESSAGE_INVALID_PREFIXES_USED = "Invalid prefixes found! '%1$s'\nPlease use use "
+            + "prefixes with numeric attributes instead e.g. Maintenance: m/ or WaitTime: w/ \n";
     public static final String MESSAGE_INVALID_ARGS = "Invalid arguments found! '%1$s'\nPlease use >, <, = and "
             + "numbers only!\n";
 
