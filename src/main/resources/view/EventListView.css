@@ -88,3 +88,7 @@
     -fx-background-radius: 2;
     -fx-font-size: 13;
 }
+
+.event_tag_header {
+    -fx-background-color: #383838;
+}
