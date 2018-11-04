@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="400.0" prefWidth="400.0" styleClass="achievement-grid" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="500.0" prefWidth="500.0" styleClass="achievement-grid" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="61.0" minWidth="40.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="75.0" minWidth="40.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="84.0" minWidth="25.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="80.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="130.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="30.0" />
+    <ColumnConstraints minWidth="50.0" />
+    <ColumnConstraints minWidth="40.0" />
+      <ColumnConstraints minWidth="35.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" />
+      <ColumnConstraints minWidth="130.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -20,12 +20,12 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label GridPane.columnIndex="3" GridPane.rowIndex="1" fx:id="xpValueLabel" />
-      <Label text="Level:" GridPane.rowIndex="1" />
-      <Label text="XP:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Label fx:id="levelValueLabel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label fx:id="timeSpanLabel" GridPane.columnSpan="6" />
-      <Label text="Tasks Completed:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-      <Label fx:id="numTasksLabel" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+      <Label maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="1" fx:id="xpValueLabel" />
+      <Label maxWidth="Infinity" text="Level:" GridPane.rowIndex="1" />
+      <Label maxWidth="Infinity" text="XP:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <Label fx:id="levelValueLabel" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="timeSpanLabel" maxWidth="Infinity" GridPane.columnSpan="6" />
+      <Label maxWidth="Infinity" text="Tasks Completed:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+      <Label fx:id="numTasksLabel" maxWidth="Infinity" GridPane.columnIndex="5" GridPane.rowIndex="1" />
    </children>
 </GridPane>

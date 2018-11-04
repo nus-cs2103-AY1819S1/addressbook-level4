@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.util.DateFormatUtil;
 
 /**
@@ -46,7 +47,11 @@ public class AchievementPanel extends UiPart<Region> {
         case 1:
             timeSpanLabel.setText("All-time achievements:");
             String xp = Integer.toString(achievements.getXpValue());
-            xpValueLabel.setText(xp + " / " + achievements.getLevelMaxXp());
+            if (achievements.getXpValue() > Level.LEVEL_5.getMaxXp()) {
+                xpValueLabel.setText(xp);
+            } else {
+                xpValueLabel.setText(xp + " / " + achievements.getLevelMaxXp());
+            }
             numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompleted()));
             break;
         case 2:
