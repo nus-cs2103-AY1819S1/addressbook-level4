@@ -1007,20 +1007,21 @@ However, we did not want to just update it. We wanted to showcase the selected c
 ==== Example
 Step 1. The user launches the application and is greeted by this UI
 
-(INSERT IMAGE HERE)
+.On start of the application
+image::UIstep3.png[width="700", align="left"]
 
 Step 2. The user selects a car park with a `select` command. E.g. `select 10`.
 
-(INSERT IMAGE HERE)
+.An example outcome of the `select 10` command
+image::UIstep2.png[width="700", align="left"]
 
 `SelectCommand#Execute` is called. If the input is valid, it creates a `JumpToListRequestEvent` event for `BrowserPanel#handleCarparkPanelSelectionChangedEvent()` to catch.
-
-(INSERT IMAGE HERE)
 
 Step 3. The user then list all the car park with a `list` command.
 A `ListCarparkRequestEvent` is created and `BrowserPanel` catches the event to call `BrowserPanel#handleListCarparkRequestEvent()`
 
-(INSERT IMAGE HERE)
+.An example outcome of the `select 10` command
+image::UIstep1.png[width="700", align="left"]
 
 The HTML is refreshed to show all car parks.
 
