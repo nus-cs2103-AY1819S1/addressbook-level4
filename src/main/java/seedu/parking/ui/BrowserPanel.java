@@ -13,6 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
+import seedu.parking.commons.events.ui.ClearResultChangedEvent;
 import seedu.parking.commons.events.ui.FilterResultChangedEvent;
 import seedu.parking.commons.events.ui.FindResultChangedEvent;
 import seedu.parking.commons.events.ui.ListCarparkRequestEvent;
@@ -101,5 +102,11 @@ public class BrowserPanel extends UiPart<Region> {
     private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadCarparkPage(event.getReturnList());
+    }
+
+    @Subscribe
+    private void handleClearResultChangedEvent(ClearResultChangedEvent event) throws Exception {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadCarparkPage(new Carpark[]{});
     }
 }

@@ -11,6 +11,7 @@ import seedu.parking.logic.commands.RedoCommand;
 import seedu.parking.logic.commands.UndoCommand;
 import seedu.parking.model.Model;
 import seedu.parking.model.ModelManager;
+import seedu.parking.model.carpark.Carpark;
 
 public class ClearCommandSystemTest extends CarparkFinderSystemTest {
 
@@ -22,7 +23,7 @@ public class ClearCommandSystemTest extends CarparkFinderSystemTest {
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
-        assertSelectedCardUnchanged();
+        assertSelectedCardChangedMulti(new Carpark[]{});
 
         /* Case: undo clearing car park finder -> original car park finder restored */
         String command = UndoCommand.COMMAND_WORD;
@@ -40,13 +41,13 @@ public class ClearCommandSystemTest extends CarparkFinderSystemTest {
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original car park finder
         selectCarpark(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardDeselected();
+        assertSelectedCardChangedMulti(new Carpark[]{});
 
         /* Case: filters the car park list before clearing -> entire car park finder cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original car park finder
         showCarparksWithName(KEYWORD_MATCHING_SENGKANG);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardUnchanged();
+        assertSelectedCardChangedMulti(new Carpark[]{});
 
         /* Case: clear empty car park finder -> cleared */
         command = ClearCommand.COMMAND_WORD;

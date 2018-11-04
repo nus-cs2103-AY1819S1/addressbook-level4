@@ -148,18 +148,18 @@ Find a list of car parks within a certain location.
 
 [NOTE]
 ====
-* Common words are ignored, like blk and ave.
-* Upper and lower case characters do not matter.
+Common words are ignored, like `blk` and `ave`. Upper and lower case characters do not matter.
 ====
+The figure below is a sample display of the application.
 
 .Before using find command
 image::findbefore.png[width="880"]
-The figure above is a sample display of the application.
 
 
-.After using find command
+The figure below shows what happen after executing the `find` command.
+
+.After using `find punggol` command
 image::findafter.png[width="880"]
-The figure above shows what happen after executing the `find` command.
 // end::find[]
 
 [[Features-Undo]]
@@ -177,8 +177,7 @@ Restores the car park finder to the state before the previous undoable command w
 
 [NOTE]
 ====
-* You can only `undo` when you have ran a commands.
-* Undoable commands: those commands that modify the car park finder’s content (`clear`, `find`, `filter` and `query`).
+You can only `undo` when you have ran a undoable commands (`clear`, `find`, `filter` and `query`).
 ====
 // end::undo[]
 
@@ -218,10 +217,15 @@ Select the car park you wish to go to.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ====
 
-.After using select command
+.Before running the `select 20` command
 image::select.png[width="880"]
 
-The figure above is the outcome of the select command.
+The figure above is the outcome of `find punggol`.
+
+.An example of the output of the `select 20` command.
+image::selectafter.png[width="880"]
+
+The figure above is the outcome of the select command. Selecting any index will automatically zoom the UI in.
 
 [NOTE]
 There must be car parks available for `SelectCommand` to work.
@@ -242,6 +246,12 @@ Lists all the commands that you have entered in reverse chronological order. +
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
+.After running several commands, before the using the `history` command
+image::beforehistory.png[width="880"]
+
+.An example of the output of the `history` command
+image::afterhistory.png[width="880"]
 
 // tag::calculateug[]
 [[Features-Calculate]]
@@ -274,8 +284,11 @@ Show a list of all the car parks with their details.
 |`list`| l | `list`
 |===
 
-.After using list command
-image::listafter.png[width="880"]
+.Previously filtered list, before using the `list` command.
+image::beforelist.png[width="880"]
+
+.An example of the output of the `list` command, showing all the car parks.
+image::afterlist.png[width="880"]
 
 // tag::query[]
 [[Features-Query]]
@@ -365,6 +378,12 @@ Clears all entries from the list.
 |Format| Abbreviation | Example(s)
 |`clear`| - | `clear`
 |===
+
+.All car parks are listed
+image::beforeclear.png[width="880"]
+
+.An example of the output of the `clear` command showing nothing.
+image::afterclear.png[width="880"]
 
 [[Features-Exit]]
 === Exiting the application : `exit`
@@ -468,7 +487,7 @@ Include weather updates in the notifications by indicating on or off.
 Here are a few technical terms used in the user guide.
 
 .Technical Terms
-[cols="1,6"]
+[cols="2,6"]
 |===
 |Term |Explanation
 
@@ -489,6 +508,15 @@ Here are a few technical terms used in the user guide.
 
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
+
+|*Hyper Text Markup Language (HTML)*
+|A standardized system for tagging text files to achieve font, colour, graphic, and hyperlink effects on World Wide Web pages.
+
+|*Cascading Style Sheets (CSS)*
+|A style sheet language used for describing the presentation of a document written in a markup language like HTML.
+
+|*Javascript (JS)*
+|A high-level, interpreted programming language. It is a language which is also characterized as dynamic, weakly typed, prototype-based and multi-paradigm.
 |===
 
 == Command Summary

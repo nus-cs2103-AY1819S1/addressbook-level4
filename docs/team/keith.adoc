@@ -9,7 +9,7 @@ toc::[]
 
 ---
 
-image::keith.png[width="180", align="center"]
+image::keith.png[width="180", align="left"]
 {empty}https://github.com/Lexzt[Github] | https://www.linkedin.com/in/fong-keith[LinkedIn] | https://lexzt.github.io[Website]
 
 == Introduction
@@ -65,29 +65,29 @@ Interested? Head towards our releases page to download and try it out! No instal
 * *Other contributions*:
 ** Project management:
 *** Morphed the code from address book to car park.
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/1[#1],
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/5[#5]
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/1[#1]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/5[#5]].
 
 *** Morphed the test cases from address book to car park.
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/15[#15],
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/25[#25]
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/15[#15]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/25[#25]].
 
 ** Enhancement of existing features:
-*** Wrote additional test for existing features to increase coverage from 72% - 77% https://github.com/CS2103-AY1819S1-T09-4/main/pull/83[#83]
+*** Wrote additional test for existing features to increase coverage from 72% - 77%
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/83[#83]].
 
 ** Documentation:
 *** Did cosmetics tweaks to existing contents of the User Guide:
-(Pull requests:
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/34[#34],
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/36[#36],
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/60[#60],
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/74[#74],
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/76[#76])
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/34[#34]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/36[#36]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/60[#60]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/74[#74]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/76[#76]].
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/28[#28],
-https://github.com/CS2103-AY1819S1-T09-4/main/pull/37[#37]
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/28[#28]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/37[#37]].
 
 ---
 
