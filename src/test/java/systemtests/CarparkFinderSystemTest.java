@@ -46,7 +46,6 @@ import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Carpark;
 import seedu.parking.testutil.TypicalCarparks;
-import seedu.parking.ui.BrowserPanel;
 import seedu.parking.ui.CommandBox;
 
 /**
