@@ -5,9 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javafx.collections.transformation.FilteredList;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.task.DateSamePredicate;
+import ssp.scheduleplanner.model.task.Task;
 
 /**
  * Displays the percentage of tasks done for today.
@@ -15,13 +17,15 @@ import ssp.scheduleplanner.model.task.DateSamePredicate;
 public class ProgressTodayCommand extends Command {
 
     public static final String COMMAND_WORD = "progresstoday";
-    public static final String MESSAGE_SUCCESS = "You have completed %f%% of your tasks for today!";
+    public static final String MESSAGE_SUCCESS = "You have completed %.2f%% of your tasks for today!";
     private static final String systemDate =
             new SimpleDateFormat("ddMMyy").format(Calendar.getInstance().getTime());
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        FilteredList<Task> taskList = (FilteredList<Task>) model.getFilteredTaskList();
+        taskList.setPredicate(new DateSamePredicate(systemDate));
         model.updateFilteredTaskList(new DateSamePredicate(systemDate));
         model.updateFilteredArchivedTaskList(new DateSamePredicate(systemDate));
         int uncompleted = model.getFilteredTaskList().size();

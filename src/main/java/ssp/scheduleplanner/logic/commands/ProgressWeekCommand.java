@@ -16,7 +16,7 @@ import ssp.scheduleplanner.model.task.DateWeekSamePredicate;
 public class ProgressWeekCommand extends Command {
 
     public static final String COMMAND_WORD = "progressweek";
-    public static final String MESSAGE_SUCCESS = "You have completed %f%% of your tasks for this week!";
+    public static final String MESSAGE_SUCCESS = "You have completed %.2f%% of your tasks for this week!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

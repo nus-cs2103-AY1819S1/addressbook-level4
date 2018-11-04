@@ -61,6 +61,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private StackPane progressbarPlaceholder;
+
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
 
@@ -136,6 +139,9 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        ProgressBarPanel progressBarPanel = new ProgressBarPanel(logic);
+        progressbarPlaceholder.getChildren().add(progressBarPanel.getRoot());
     }
 
     /**

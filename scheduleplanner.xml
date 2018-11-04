@@ -1,52 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
     <tasks>
-        <name>Do CS2100 lab</name>
-        <date>081018</date>
-        <priority>3</priority>
-        <venue>Home</venue>
-        <tagged>CS2100</tagged>
-        <tagged>Lab</tagged>
-    </tasks>
-    <tasks>
-        <name>Do CS2105 lab</name>
-        <date>091018</date>
-        <priority>3</priority>
-        <venue>NUS</venue>
-        <tagged>CS2105</tagged>
-        <tagged>Lab</tagged>
-    </tasks>
-    <tasks>
         <name>Watch CS2106 lecture</name>
         <date>101018</date>
         <priority>1</priority>
         <venue>Home</venue>
-        <tagged>CS2106</tagged>
         <tagged>Lecture</tagged>
+        <tagged>CS2106</tagged>
     </tasks>
     <tasks>
         <name>Do GEH1034 tutorial</name>
         <date>111018</date>
         <priority>2</priority>
         <venue>Hoe</venue>
-        <tagged>GEH1034</tagged>
         <tagged>Tutorial</tagged>
+        <tagged>GEH1034</tagged>
     </tasks>
     <tasks>
         <name>Watch CS2103T lecture</name>
         <date>121018</date>
         <priority>3</priority>
         <venue>Home</venue>
-        <tagged>CS2103T</tagged>
         <tagged>Lecture</tagged>
-    </tasks>
-    <tasks>
-        <name>Do MA1101R tutorial</name>
-        <date>141018</date>
-        <priority>3</priority>
-        <venue>Home</venue>
-        <tagged>MA1101R</tagged>
-        <tagged>Tutorial</tagged>
+        <tagged>CS2103T</tagged>
     </tasks>
     <tasks>
         <name>Do CS2030 lab</name>
@@ -99,7 +75,7 @@
         <tagged>CS2100</tagged>
         <tagged>Lab</tagged>
     </tasks>
-	    <tasks>
+    <tasks>
         <name>CS2103 PE</name>
         <date>021118</date>
         <priority>3</priority>
@@ -115,7 +91,7 @@
         <tagged>CS2105</tagged>
         <tagged>Lab</tagged>
     </tasks>
-	    <tasks>
+    <tasks>
         <name>GEQ1000 Quiz</name>
         <date>051118</date>
         <priority>3</priority>
@@ -127,40 +103,40 @@
         <date>101118</date>
         <priority>1</priority>
         <venue>Home</venue>
-        <tagged>CS2106</tagged>
         <tagged>Lecture</tagged>
+        <tagged>CS2106</tagged>
     </tasks>
     <tasks>
         <name>Do GEH1034 tutorial</name>
         <date>111118</date>
         <priority>2</priority>
         <venue>Home</venue>
-        <tagged>GEH1034</tagged>
         <tagged>Tutorial</tagged>
+        <tagged>GEH1034</tagged>
     </tasks>
     <tasks>
         <name>Watch CS2103T lecture</name>
         <date>121118</date>
         <priority>3</priority>
         <venue>Home</venue>
-        <tagged>CS2103T</tagged>
         <tagged>Lecture</tagged>
+        <tagged>CS2103T</tagged>
     </tasks>
     <tasks>
         <name>Do CS2100 tutorial</name>
         <date>131118</date>
         <priority>2</priority>
         <venue>Tech Hangout</venue>
-        <tagged>CS2101</tagged>
         <tagged>Tutorial</tagged>
+        <tagged>CS2101</tagged>
     </tasks>
     <tasks>
         <name>Do MA1101R tutorial</name>
         <date>141118</date>
         <priority>3</priority>
         <venue>Home</venue>
-        <tagged>MA1101R</tagged>
         <tagged>Tutorial</tagged>
+        <tagged>MA1101R</tagged>
     </tasks>
     <tasks>
         <name>Do CS2030 lab</name>
@@ -217,8 +193,8 @@
         <date>211118</date>
         <priority>3</priority>
         <venue>LT34</venue>
-        <tagged>GEH1034</tagged>
         <tagged>Quiz</tagged>
+        <tagged>GEH1034</tagged>
     </tasks>
     <tasks>
         <name>ST2334 Finals </name>
@@ -236,4 +212,76 @@
         <tagged>ST2334</tagged>
         <tagged>Exam</tagged>
     </tasks>
+    <tasks>
+        <name>test 1</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
+    </tasks>
+    <tasks>
+        <name>test 2</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
+    </tasks>
+    <tasks>
+        <name>test3</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>1</venue>
+    </tasks>
+    <tasks>
+        <name>test4</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>3</venue>
+    </tasks>
+    <tasks>
+        <name>test5</name>
+        <date>041118</date>
+        <priority>2</priority>
+        <venue>1</venue>
+    </tasks>
+    <archivedTasks>
+        <name>Do CS2100 lab</name>
+        <date>081018</date>
+        <priority>3</priority>
+        <venue>Home</venue>
+        <tagged>CS2100</tagged>
+        <tagged>Lab</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>Do MA1101R tutorial</name>
+        <date>141018</date>
+        <priority>3</priority>
+        <venue>Home</venue>
+        <tagged>Tutorial</tagged>
+        <tagged>MA1101R</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>Do CS2105 lab</name>
+        <date>091018</date>
+        <priority>3</priority>
+        <venue>NUS</venue>
+        <tagged>CS2105</tagged>
+        <tagged>Lab</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>test 3</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
+    </archivedTasks>
+    <archivedTasks>
+        <name>test1</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>1</venue>
+    </archivedTasks>
+    <archivedTasks>
+        <name>test2</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>1</venue>
+    </archivedTasks>
 </scheduleplanner>

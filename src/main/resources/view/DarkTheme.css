@@ -24,6 +24,20 @@
     -fx-opacity: 1;
 }
 
+.progress-bar .bar {
+    -fx-background-color:
+            #4370ba,
+            linear-gradient(to bottom, derive(-fx-accent,95%), derive(-fx-accent,10%)),
+            #4370ba; /* this line is the background color of the bar */
+    -fx-background-insets: 0, 1, 2;
+    -fx-pref-height: 20;
+}
+
+.progress-bar > .track {
+    -fx-text-box-border: black;
+    -fx-control-inner-background: grey;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
