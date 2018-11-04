@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.restaurant.logic.parser.exceptions.ParseException;
-import seedu.restaurant.logic.parser.menu.ItemParserUtil;
 import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.ItemName;
 import seedu.restaurant.model.sales.Price;

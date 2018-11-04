@@ -21,9 +21,9 @@ public class DisplaySalesChartEventTest {
     @Before
     public void setUp() {
         salesData = new TreeMap<>();
-        salesData.put(new Date(VALID_DATE_RECORD_ONE), 100.0);
         salesData.put(new Date(VALID_DATE_RECORD_TWO), 200.0);
         salesData.put(new Date(VALID_DATE_RECORD_THREE), 300.0);
+        salesData.put(new Date(VALID_DATE_RECORD_ONE), 100.0);
     }
 
     @Test

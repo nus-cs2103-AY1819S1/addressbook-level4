@@ -31,7 +31,7 @@ public class SalesReportWindowTest extends GuiUnitTest {
     }
 
     @Test
-    public void isShowing_salesReportIsHiding_returnsFalse() {
+    public void isShowing_salesReportWindowIsHiding_returnsFalse() {
         assertFalse(salesReportWindow.isShowing());
     }
 }
