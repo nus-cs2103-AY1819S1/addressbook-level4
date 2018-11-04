@@ -1,6 +1,7 @@
 package ssp.scheduleplanner.model.category;
 
 import static java.util.Objects.requireNonNull;
+import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
 import javafx.collections.ObservableList;
 
@@ -11,12 +12,24 @@ import ssp.scheduleplanner.model.tag.UniqueTagList;
  * A category has a name and contains a list of tags.
  */
 public class Category {
+    public static final String MESSAGE_NAME_CONSTRAINTS =
+            "Category name should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
+
     private String name;
     private UniqueTagList tags;
 
     public Category(String name) {
+        checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
         this.name = name;
         this.tags = new UniqueTagList();
+    }
+
+    /**
+     * Returns true if a given string is a valid name.
+     */
+    public static boolean isValidName(String test) {
+        return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
     @Override

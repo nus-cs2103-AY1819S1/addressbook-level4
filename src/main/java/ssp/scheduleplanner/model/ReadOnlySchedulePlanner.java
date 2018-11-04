@@ -24,4 +24,7 @@ public interface ReadOnlySchedulePlanner {
      * Returns an unmodifiable view of the categories.
      */
     ObservableList<Category> getCategoryList();
+
+
 }
+

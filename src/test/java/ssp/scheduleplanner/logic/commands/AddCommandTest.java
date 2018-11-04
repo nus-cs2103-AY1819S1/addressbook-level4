@@ -101,7 +101,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addTag(Tag tag, Category category) {
+        public void addTag(Tag tag, String category) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Category getCategory(String category) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -126,12 +131,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasTagInCategory(Tag tag, Category category) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTask(Task target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateTask(Task target, Task editedTask) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCategory(String name) {
             throw new AssertionError("This method should not be called.");
         }
 

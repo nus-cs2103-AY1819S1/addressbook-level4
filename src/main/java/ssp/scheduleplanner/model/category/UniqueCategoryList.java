@@ -46,12 +46,42 @@ public class UniqueCategoryList implements Iterable<Category> {
     }
 
     /**
+     * Returns true if the category list contains a category with same name as {@code name}.
+     */
+    public boolean contains(String name) {
+        requireNonNull(name);
+        Iterator catIterator = internalList.iterator();
+
+        if (internalList.isEmpty()) {
+            return false;
+        }
+        while (catIterator.hasNext()) {
+            Category nextCategory = (Category) catIterator.next();
+            if (name.equals(nextCategory.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Replaces the contents of this list with {@code categories}.
      * {@code categories} must not contain duplicate categories.
      */
     public void setCategories(UniqueCategoryList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
+    }
+    /**
+     * Replaces the contents of this list with {@code tasks}.
+     * {@code tasks} must not contain duplicate tasks.
+     */
+    public void setCategories(List<Category> categories) {
+        requireAllNonNull(categories);
+        if (!categoriesAreUnique(categories)) {
+            throw new DuplicateCategoryException();
+        }
+        internalList.setAll(categories);
     }
 
     /**
@@ -68,17 +98,7 @@ public class UniqueCategoryList implements Iterable<Category> {
         return true;
     }
 
-    /**
-     * Replaces the contents of this list with {@code tasks}.
-     * {@code tasks} must not contain duplicate tasks.
-     */
-    public void setTags(List<Category> categories) {
-        requireAllNonNull(categories);
-        if (!categoriesAreUnique(categories)) {
-            throw new DuplicateCategoryException();
-        }
-        internalList.setAll(categories);
-    }
+
 
     @Override
     public boolean equals(Object other) {
@@ -109,7 +129,7 @@ public class UniqueCategoryList implements Iterable<Category> {
     public Category getCategory(String name) {
         Iterator catIterator = internalList.iterator();
         while (catIterator.hasNext()) {
-            Category nextCat = (Category) (catIterator.next());
+            Category nextCat = (Category) catIterator.next();
             if (name.equals(nextCat.getName())) {
                 return nextCat;
             }

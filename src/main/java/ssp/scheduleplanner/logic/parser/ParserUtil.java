@@ -9,6 +9,7 @@ import java.util.Set;
 import ssp.scheduleplanner.commons.core.index.Index;
 import ssp.scheduleplanner.commons.util.StringUtil;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
+import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Date;
 import ssp.scheduleplanner.model.task.Interval;
@@ -125,6 +126,21 @@ public class ParserUtil {
             throw new ParseException(Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         }
         return new Priority(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code category} is invalid.
+     */
+    public static String parseCategoryName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Category.isValidName(trimmedName)) {
+            throw new ParseException(Category.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return trimmedName;
     }
 
     /**

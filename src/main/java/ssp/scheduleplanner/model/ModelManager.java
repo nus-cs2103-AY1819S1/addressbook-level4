@@ -81,13 +81,26 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasArchivedTask(Task archivedTask) {
-        requireAllNonNull(archivedTask);
+        requireNonNull(archivedTask);
         return versionedSchedulePlanner.hasArchivedTask(archivedTask);
     }
+
+    @Override
+    public boolean hasTagInCategory(Tag tag, Category category) {
+        requireNonNull(tag);
+        requireNonNull(category);
+        return versionedSchedulePlanner.hasTagInCategory(tag, category);
+    }
+
     @Override
     public void deleteTask(Task target) {
         versionedSchedulePlanner.removeTask(target);
         indicateSchedulePlannerChanged();
+    }
+
+    @Override
+    public boolean hasCategory(String name) {
+        return versionedSchedulePlanner.hasCategory(name);
     }
 
     @Override
@@ -104,9 +117,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addTag(Tag tag, Category category) {
-        versionedSchedulePlanner.addTag(tag, category);
+    public void addTag(Tag tag, String categoryName) {
+        versionedSchedulePlanner.addTag(tag, categoryName);
         indicateSchedulePlannerChanged();
+    }
+
+    @Override
+    public Category getCategory(String name) {
+        return versionedSchedulePlanner.getCategory(name);
     }
 
     @Override

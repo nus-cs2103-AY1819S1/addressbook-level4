@@ -3,7 +3,7 @@ package ssp.scheduleplanner.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-//import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
 import java.text.SimpleDateFormat;
@@ -56,8 +56,8 @@ public class ListWeekCommandTest {
         //update expectedModel by using the dateList as predicate
         expectedModel.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
 
-        //assertCommandSuccess(new ListWeekCommand(), model, commandHistory, ListWeekCommand.MESSAGE_SUCCESS,
-        //expectedModel);
+        assertCommandSuccess(new ListWeekCommand(), model, commandHistory, ListWeekCommand.MESSAGE_SUCCESS,
+                expectedModel);
 
     }
 

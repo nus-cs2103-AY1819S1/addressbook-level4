@@ -32,10 +32,6 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
         categories = new UniqueCategoryList();
         tasks = new UniqueTaskList();
         archivedTasks = new UniqueTaskList();
-        //Category modules = new Category("Module");
-        //Category others = new Category("Others");
-        //categories.add(modules);
-        //categories.add(others);
     }
 
     public SchedulePlanner() {}
@@ -66,11 +62,19 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     /**
+     * Replaces the contents of the category list with {@code categories}.
+     */
+    public void setCategories(List<Category> categories) {
+        this.categories.setCategories(categories);
+    }
+
+    /**
      * Resets the existing data of this {@code SchedulePlanner} with {@code newData}.
      */
     public void resetData(ReadOnlySchedulePlanner newData) {
         requireNonNull(newData);
 
+        setCategories(newData.getCategoryList());
         setTasks(newData.getTaskList());
         setArchivedTasks(newData.getArchivedTaskList());
 
@@ -96,16 +100,34 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     /**
-     * Returns true if a category with the same identity as {@code category} exists in existing categories of the
-     * schedule planner.
+     * Returns true if given category is valid and contains given tag.
+     * @param tag
      * @param category
      * @return
+     */
+    public boolean hasTagInCategory(Tag tag, Category category) {
+        requireNonNull(tag);
+        requireNonNull(category);
+        return (hasCategory(category) && category.hasTag(tag));
+    }
+
+    /**
+     * Returns true if a category with the same identity as {@code category} exists in existing categories of the
+     * schedule planner.
      */
     public boolean hasCategory(Category category) {
         requireNonNull(category);
         return categories.contains(category);
     }
 
+    /**
+     * Returns if an existing category in schedule planner has the same name as {@code name}.
+     */
+    public boolean hasCategory(String name) {
+        requireNonNull(name);
+
+        return categories.contains(name);
+    }
     /**
      * Adds a task to the task list of schedule planner.
      * The task must not already exist in the current task list of schedule planner.
@@ -131,8 +153,9 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
      * Adds a tag to the given category of schedule planner.
      * The tag must not already exist under given category.
      */
-    public void addTag(Tag tag, Category category) {
-        category.addTag(tag);
+    public void addTag(Tag tag, String categoryName) {
+
+
     }
 
     /**
@@ -183,6 +206,15 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     @Override
     public ObservableList<Category> getCategoryList() {
         return categories.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Get corresponding category from schedule planner.
+     * @param name
+     * @return category with the same name as given name.
+     */
+    public Category getCategory(String name) {
+        return categories.getCategory(name);
     }
 
     @Override
