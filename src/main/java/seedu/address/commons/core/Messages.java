@@ -36,5 +36,8 @@ public class Messages {
             + GoogleDlCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + GoogleUploadCommand.MESSAGE_USAGE;
 
+    /* Error messages ls. */
+    public static final String MESSAGE_INVALID_FILE_DIR = "File or directory invalid.";
+    public static final String MESSAGE_EMPTY_DIR = "No images or folders to display!";
 
 }
