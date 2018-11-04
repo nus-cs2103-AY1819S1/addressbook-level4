@@ -2,7 +2,12 @@ package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +26,9 @@ import seedu.thanepark.model.ride.WaitTime;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
+    private static final String MESSAGE_INVALID_TAGS_USED = "Invalid prefixes found! %1$s\nPlease use use prefixes "
+            + "with numeric attributes instead e.g. Maintenance: m/ or WaitTime: w/ \n";
+
     /**
      * Parses the given {@code String} of arguments in the context of the FilterCommand
      * and returns an FilterCommand object for execution.
@@ -33,7 +41,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MAINTENANCE, PREFIX_WAITING_TIME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_MAINTENANCE, PREFIX_WAITING_TIME,
+                PREFIX_NAME, PREFIX_ZONE, PREFIX_ZONE_FULL, PREFIX_TAG, PREFIX_TAG_FULL);
+
+        checkForInvalidPrefixes(argMultimap);
+
         Optional<List<String>> maintenanceStrings = !argMultimap.getValue(PREFIX_MAINTENANCE).isPresent()
                 ? Optional.empty()
                 : Optional.of(argMultimap.getAllValues(PREFIX_MAINTENANCE));
@@ -46,6 +58,27 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         predicates = getWaitTimePredicate(waitingTimeStrings, predicates);
 
         return new FilterCommand(new RideContainsConditionPredicate(predicates));
+    }
+
+    /**
+     * Check user input for invalid prefixes.
+     */
+    private void checkForInvalidPrefixes(ArgumentMultimap argMultimap) throws ParseException {
+        String invalidTagsInInput = "";
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            invalidTagsInInput = invalidTagsInInput.concat(PREFIX_NAME + " ");
+        } else if (argMultimap.getValue(PREFIX_TAG).isPresent()) {
+            invalidTagsInInput = invalidTagsInInput.concat(PREFIX_TAG + " ");
+        } else if (argMultimap.getValue(PREFIX_TAG_FULL).isPresent()) {
+            invalidTagsInInput = invalidTagsInInput.concat(PREFIX_TAG_FULL + " ");
+        } else if (argMultimap.getValue(PREFIX_ZONE).isPresent()) {
+            invalidTagsInInput = invalidTagsInInput.concat(PREFIX_ZONE + " ");
+        } else if (argMultimap.getValue(PREFIX_ZONE_FULL).isPresent()) {
+            invalidTagsInInput = invalidTagsInInput.concat(PREFIX_ZONE_FULL + " ");
+        }
+        if (invalidTagsInInput.length() > 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_TAGS_USED, invalidTagsInInput));
+        }
     }
 
     /**
