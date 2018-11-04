@@ -2,9 +2,6 @@ package seedu.restaurant.logic.parser.reservation;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.reservation.Date;
 import seedu.restaurant.model.reservation.Name;
@@ -45,23 +42,6 @@ public class ReservationParserUtil {
             throw new ParseException(Pax.MESSAGE_PAX_CONSTRAINTS);
         }
         return new Pax(trimmedPax);
-    }
-
-    /**
-     * Parses a {@code String dateTime} into a {@code LocalDateTime}. Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code dateTime} is invalid.
-     */
-    public static LocalDateTime parseDateTime(String dateTime) throws ParseException {
-        requireNonNull(dateTime);
-        String trimmedDateTime = dateTime.trim();
-        LocalDateTime parsedDateTime;
-        try {
-            parsedDateTime = LocalDateTime.parse(trimmedDateTime);
-        } catch (DateTimeParseException e) {
-            throw new ParseException("DateTime value should be in the form 2018-12-31T10:00:00");
-        }
-        return parsedDateTime;
     }
 
     /**
