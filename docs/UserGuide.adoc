@@ -51,8 +51,8 @@ Refer to <<Features>> for details of each command.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/CCA]` can be used as `n/John Doe c/soccer` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/CCA]...` can be used as `{nbsp}` (i.e. 0 times), `t/soccer`, `t/soccer t/basketball` etc.
+* Items in square brackets are optional e.g `n/NAME [c/CCA]` can be used as `n/John Doe c/soccer` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[c/CCA]...` can be used as `{nbsp}` (i.e. 0 times), `c/soccer`, `c/soccer c/basketball` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -62,15 +62,15 @@ This section lists features related to updating contacts in Hallper.
 ==== Adding a person: `add`
 
 Adds a person to Hallper. +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROOM NUMBER s/SCHOOL [t/CCA]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROOM NUMBER s/SCHOOL [c/CCA]...`
 
 [TIP]
 A person can have any number of CCAs (including 0)
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com r/C420 s/SoC t/Basketball`
-* `add n/Betsy Crowe t/Soccer e/betsycrowe@example.com p/1234567 r/B213 s/Business`
+* `add n/John Doe p/98765432 e/johnd@example.com r/C420 s/SoC c/Basketball`
+* `add n/Betsy Crowe c/Soccer e/betsycrowe@example.com p/1234567 r/B213 s/Business`
 
 ==== Adding a picture to resident detail : `image`
 
@@ -128,7 +128,7 @@ Clears all residents associated with CCA `baseball` and room `C456`
 ==== Editing a resident : `edit`
 
 Edits an existing resident in Hallper. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/CCA]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [c/CCA]...`
 
 ****
 * Edits the resident at the specified `INDEX`. The index refers to the index number shown in the displayed resident list. The index *must be a positive integer* 1, 2, 3, ...
