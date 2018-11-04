@@ -311,6 +311,8 @@ In addition, note the following constraints for the input values.
 and should not have any special characters e.g. *, &, etc.
 * Event dates should be in the format YYYY-MM-DD
 * Event times (start or end time) should be in the 24-hour format HHMM
+* Start and end times for a given event can be the same. +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1030 a/123, Clementi Rd, 1234665` is a valid command
 * Contact indices should be based on the latest displayed person list.
 * Event type has to be one of the existing tags in the EventsPlus+. If an event tag does not exist
 in EventsPlus+, it has to be added in before creating the event with the new event tag.
