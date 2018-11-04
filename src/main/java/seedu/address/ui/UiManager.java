@@ -53,7 +53,7 @@ public class UiManager extends ComponentManager implements Ui {
 
         try {
             // Create a new Person window as entry point into the application.
-            mainWindow = new PersonWindow(primaryStage, config, prefs, logic);
+            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
