@@ -761,9 +761,13 @@ Format: `display-sales DATE` or `dis DATE`
 
 Examples:
 
-* `display-sales 25-09-2018`
-* `dis 25-09-2018` +
-Displays the sales report dated 25-09-2018.
+* `display-sales 30-09-2018`
+* `dis 30-09-2018` +
+Displays the sales report dated 30-09-2018.
+
+The following is an example of what you will see if the sales report is generated and displayed correctly:
+
+image::display-sales-pic.png[width="465"]
 
 
 ==== Deleting a sales record: `delete-sales` or `des`
@@ -832,23 +836,35 @@ Format: `chart-sales` or `cs`
 * Only existing dates in the record list are tabulated and shown.
 ****
 
+The following is an example of what you will see if the sales chart is generated and displayed correctly:
+
+image::chart-sales-pic.png[width="700"]
+
 ==== Ranking dates according to total revenue: `rank-date` or `rad`
 
-Ranks all existing records' dates based on the total revenue. +
+Ranks and displays all existing records' dates based on the total revenue. +
 Format: `rank-date` or `rad`
 
 ****
 * Record list must not be empty.
 ****
 
+The following is an example of what you will see if the ranking is generated and displayed correctly:
+
+image::rank-date-pic.png[width="400"]
+
 ==== Ranking items according to total revenue: `rank-item` or `rai`
 
-Ranks the items based on their total revenue accumulated in past sales records. +
+Ranks and displays the items based on their total revenue accumulated in past sales records. +
 Format: `rank-item` or `rai`
 
 ****
 * Record list must not be empty.
 ****
+
+The following is an example of what you will see if the ranking is generated and displayed correctly:
+
+image::rank-item-pic.png[width="400"]
 
 ==== Selecting a sales record : `select-sales` or `ss`
 
@@ -913,11 +929,11 @@ Examples:
 
 ==== Exporting sales report `[coming in v2.0]`
 Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be much more
-detailed than that displayed in app.
+detailed than that displayed in app. +
 Format: `export-sales DATE` or `es DATE`
 
 ==== Exporting sales chart `[coming in v2.0]`
-Exports the sales chart into a pdf file.
+Exports the sales chart into a pdf file. +
 Format: `export-chart` or `ec`
 
 ==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
