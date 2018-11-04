@@ -12,6 +12,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.EmbedGoogleMaps;
 import seedu.address.model.person.Person;
@@ -95,5 +96,11 @@ public class LocationDisplayPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonLocation(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleShowFacultyLocationSelectionEvent (FacultyLocationDisplayChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPersonLocation(event.getSelectedPerson());
     }
 }
