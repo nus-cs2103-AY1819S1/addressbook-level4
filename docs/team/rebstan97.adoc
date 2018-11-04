@@ -4,8 +4,7 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: MeNUS
-
----
+This project portfolio documents my contributions towards *MeNUS* for the module CS2103T Software Engineering.
 
 == Overview
 
@@ -15,14 +14,31 @@
  created with JavaFX. It is written with approximately 30 kLOC.
 
 == Summary of contributions
+Below are my contributions in terms of feature enhancements, project management and documentation:
 
-* *Major enhancement*: Added *commands to manage a restaurant's ingredients*
-** *What it does*: Allows the user to maintain a list of ingredients, as well as monitor and update their stock
-counts.
-** *Justification*: This feature is essential as restaurants often have a large number of ingredients to keep track
-of, making it difficult to know immediately which ingredients require stocking up.
-** *Highlights*: This enhancement involves adding several new commands to *MeNUS*. It requires understanding of
-architecture components and integration with other features such as sales and menu management.
+* *Major enhancement*: Added *commands to monitor a restaurant's ingredient count*
+** *What it does*:
+*** The `add-ingredient`, `delete-ingredient`, `edit-ingredient` and `list-ingredients` commands allow
+the user to maintain a list of ingredients used by the restaurant.
+*** The `low-stock` and `stockup` commands enable the
+user to know which ingredients require stocking up and update the ingredient count as necessary.
+*** The `stockup-history` and `consumption-history` commands let the user keep a record of past changes
+ made to the ingredient count.
+
+** *Justification*:
+*** For convenience: Restaurants use a large variety of ingredients on a daily basis. It is difficult to know
+immediately the availability of each ingredient. This feature provides convenience as it reduces the need for
+restaurant managers to manually do stock taking of its restaurant's ingredients.
+*** To prevent food wastage: Restaurants often stock up in fixed quantities of ingredients, without accounting
+for the actual availability in the pantry. During periods of poor business, there may be excessive ingredients in the
+ pantry, leading to food wastage if these ingredients are perishable. This feature is important as it provides
+ restaurant owners with more information about availability, so they only stock up what is necessary.
+
+** *Highlights*: This enhancement involves adding several new commands to *MeNUS*. It requires understanding of the
+underlying architecture and the components `logic`, `storage` and `model`. In order to maintain good abstraction, it
+ is also necessary to provide appropriate model interfaces for integration of the ingredient feature with the menu
+ and sales management features. The `stockup-history` and `consumption-history` commands also required picking up
+ knowledge about JavaFX and SceneBuilder to create the front-end user interfaces. 
 
 * *Minor enhancement*:
 ** To be updated.
@@ -42,7 +58,9 @@ architecture components and integration with other features such as sales and me
 *** Added description of feature commands to the User Guide(Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
 *** Made general enhancements to the User Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/120[#120])
 ** Community:
-*** To be updated.
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Tools:
 *** To be updated
 
@@ -52,7 +70,7 @@ architecture components and integration with other features such as sales and me
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=ingredientmanagement[]]
 
 == Contributions to the Developer Guide
 
