@@ -3,8 +3,6 @@ package seedu.souschef.model.recipe;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.AppUtil.checkArgument;
 
-import java.util.Objects;
-
 /**
  * Represents a Recipe's name in the application content.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
