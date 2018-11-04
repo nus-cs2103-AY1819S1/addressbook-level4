@@ -19,7 +19,6 @@ import seedu.address.logic.commands.eventcommands.AddPollOptionCommand;
 import seedu.address.logic.commands.eventcommands.SelectEventCommand;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
@@ -88,7 +87,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
 
         // Case: invalid name -> rejected
         command = AddPollCommand.COMMAND_WORD + INVALID_EVENT_NAME_DESC;
-        assertCommandFailure(command, ParserUtil.MESSAGE_EMPTY_STRING);
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPollCommand.MESSAGE_USAGE));
 
     }
 
