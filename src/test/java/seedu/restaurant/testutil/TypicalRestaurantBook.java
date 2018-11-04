@@ -90,6 +90,7 @@ public class TypicalRestaurantBook {
         return ab;
     }
 
+    //@@author yican95
     /**
      * Returns an {@code RestaurantBook} with {@code Item} objects only.
      */

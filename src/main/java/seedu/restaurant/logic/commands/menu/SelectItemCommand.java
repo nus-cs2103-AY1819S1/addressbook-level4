@@ -16,6 +16,7 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.menu.Item;
 
+//@@author yican95
 /**
  * Selects an item identified using it's displayed index from the menu.
  */

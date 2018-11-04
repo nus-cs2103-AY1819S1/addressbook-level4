@@ -468,6 +468,7 @@ public class RestaurantBookParserTest {
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
     }
 
+    //@@author yican95
     @Test
     public void parseCommand_addItem() throws Exception {
         Item item = new ItemBuilder().build();
