@@ -3,6 +3,7 @@ package seedu.restaurant.model.sales;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,15 +15,18 @@ import java.util.Locale;
  * Represents a date in the calendar in DD-MM-YYYY format Guarantees: immutable; is valid as declared in {@link
  * #isValidDate(String)}
  */
-public class Date {
+public class Date implements Comparable<Date>{
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Dates should only contain numbers, and it should be in the format DD-MM-YYYY.\nThe date must exist in "
                     + "the calendar";
     public static final String DATE_FORMAT_PATTERN = "dd-MM-uuuu";
 
-    private final String date;
-    private final String dayOfWeek;
+    private final LocalDate date;
+    private final DayOfWeek dayOfWeek;
+
+    private static DateTimeFormatter validFormat =
+            DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Constructs a {@code date}.
@@ -32,18 +36,13 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
-        this.date = date;
-        DateTimeFormatter validFormat =
-                DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
-        dayOfWeek = LocalDate.parse(date, validFormat).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
+        this.date = LocalDate.parse(date, validFormat);
+        dayOfWeek = this.date.getDayOfWeek();
     }
-
     /**
      * Returns true if a given date string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        DateTimeFormatter validFormat =
-                DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
         try {
             LocalDate.parse(test, validFormat);
         } catch (DateTimeParseException e) {
@@ -53,12 +52,12 @@ public class Date {
     }
 
     public String getDayOfWeek() {
-        return dayOfWeek;
+        return dayOfWeek.getDisplayName(TextStyle.FULL, Locale.US);
     }
 
     @Override
     public String toString() {
-        return date;
+        return date.format(validFormat);
     }
 
     @Override
@@ -71,5 +70,13 @@ public class Date {
     @Override
     public int hashCode() {
         return date.hashCode();
+    }
+
+    @Override
+    public int compareTo(Date o) {
+        if (o.date.isEqual(this.date)) {
+            return 0;
+        }
+        return (o.date.isBefore(this.date)) ? 1 : -1;
     }
 }
