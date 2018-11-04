@@ -27,7 +27,7 @@ public class RecipeItemCommand extends Command {
     public static final String COMMAND_WORD = "recipe-item";
     public static final String COMMAND_ALIAS = "ri";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the recipe for a item identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds the recipe for a item identified "
             + "by the index number used in the displayed item list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
