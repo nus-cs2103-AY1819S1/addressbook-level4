@@ -41,6 +41,10 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Loads the page representing a specific person
+     * @param person The person to represent
+     */
     private void loadPersonPage(Person person) {
         String queryString = "name=" + person.getName().fullName
             + "&phone=" + person.getPhone().value
