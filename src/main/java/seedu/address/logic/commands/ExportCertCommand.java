@@ -68,6 +68,7 @@ public class ExportCertCommand extends Command {
         if (!exportDir.exists()) {
             try {
                 exportDir.mkdir();
+                logger.info("Creating a new folder 'Volunteer Certs' in user's current working directory.");
             } catch (SecurityException se) {
                 logger.warning("Couldn't create a relative export path next to jar file. "
                         + "Defaulting to user's Desktop.");
