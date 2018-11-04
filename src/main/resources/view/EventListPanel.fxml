@@ -15,7 +15,7 @@
                <Insets right="10.0" />
             </padding>
          </Label>
-         <FlowPane fx:id="eventTags" hgap="10.0" />
+         <FlowPane fx:id="allEventTags" hgap="10.0" />
       </children>
    </HBox>
       <ListView fx:id="eventListView" VBox.vgrow="ALWAYS" />

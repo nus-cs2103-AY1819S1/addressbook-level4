@@ -31,7 +31,7 @@ public class EventListPanel extends UiPart<Region> {
     private final ObservableList<Tag> eventTagList;
 
     @FXML
-    private FlowPane eventTags;
+    private FlowPane allEventTags;
 
     @FXML
     private ListView<List<Event>> eventListView;
@@ -47,7 +47,7 @@ public class EventListPanel extends UiPart<Region> {
     private void setConnections(ObservableList<List<Event>> eventList, ObservableList<Person> personList,
                                 ObservableList<Tag> eventTagList) {
 
-        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.tagName)));
+        eventTagList.forEach(eventTag -> allEventTags.getChildren().add(new Label(eventTag.tagName)));
 
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell(personList));
@@ -85,8 +85,8 @@ public class EventListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         // manually reset eventTags (FlowPane) display
-        eventTags.getChildren().removeAll(eventTags.getChildren());
-        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.tagName)));
+        allEventTags.getChildren().removeAll(allEventTags.getChildren());
+        eventTagList.forEach(eventTag -> allEventTags.getChildren().add(new Label(eventTag.tagName)));
     }
 
     /**
