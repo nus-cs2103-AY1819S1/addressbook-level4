@@ -9,14 +9,25 @@ import java.util.List;
 public class VersionedAddressBook extends AddressBook {
 
     private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final ReadOnlyAddressBook initialState;
     private int currentStatePointer;
 
     public VersionedAddressBook(ReadOnlyAddressBook initialState) {
         super(initialState);
 
+        this.initialState = initialState;
         addressBookStateList = new ArrayList<>();
         addressBookStateList.add(new AddressBook(initialState));
         currentStatePointer = 0;
+    }
+
+    /**
+     * Resets the state pointer.
+     */
+    public void resetStatePointer() {
+        currentStatePointer = 0;
+        addressBookStateList.clear();
+        addressBookStateList.add(new AddressBook(initialState));
     }
 
     /**
