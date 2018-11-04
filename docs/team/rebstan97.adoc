@@ -29,7 +29,7 @@ user to know which ingredients require stocking up and update the ingredient cou
 *** Provide convenience: Restaurants use a large variety of ingredients on a daily basis, making it
 difficult quickly determine the availability of each ingredient. This feature reduces the need for restaurant managers
  to manually do stock taking of its restaurant's ingredients.
-*** Prevent food wastage: Restaurants often stock up in fixed quantities of ingredients, regardless of the actual
+*** Reduce food wastage: Restaurants often stock up in fixed quantities of ingredients, regardless of the actual
 availability in the pantry. During periods of poor business, there may be excessive ingredients in the
  pantry, leading to food wastage if these ingredients are perishable. This feature provides restaurant owners with
  more information about availability, so they only stock up what is necessary.
