@@ -6,7 +6,12 @@ import seedu.address.logic.commands.canvas.CanvasSizeCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
 import seedu.address.logic.commands.google.GoogleUploadCommand;
-import seedu.address.logic.commands.layer.*;
+import seedu.address.logic.commands.layer.LayerAddCommand;
+import seedu.address.logic.commands.layer.LayerDeleteCommand;
+import seedu.address.logic.commands.layer.LayerPositionCommand;
+import seedu.address.logic.commands.layer.LayerSelectCommand;
+import seedu.address.logic.commands.layer.LayerSwapCommand;
+
 
 /**
  * Container for user visible messages.

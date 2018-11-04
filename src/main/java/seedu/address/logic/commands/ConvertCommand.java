@@ -42,7 +42,7 @@ public class ConvertCommand extends Command {
      * @param transformation contains the operation to be processed to the image
      */
     public ConvertCommand(Transformation transformation) throws ParseException {
-                this.transformation = transformation;
+        this.transformation = transformation;
     }
 
     private static boolean isFileExist(URL fileUrl) {
