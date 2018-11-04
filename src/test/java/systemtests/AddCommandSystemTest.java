@@ -1,181 +1,139 @@
-//TODO: Left as an example, to be deleted/replaced.
 //package systemtests;
-//
-///*import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-//import static seedu.address.testutil.TypicalPersons.ALICE;
-//import static seedu.address.testutil.TypicalPersons.AMY;
-//import static seedu.address.testutil.TypicalPersons.BOB;
-//import static seedu.address.testutil.TypicalPersons.CARL;
-//import static seedu.address.testutil.TypicalPersons.HOON;
-//import static seedu.address.testutil.TypicalPersons.IDA;
-//import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;*/
 //
 //import org.junit.Test;
 //
-////import seedu.address.commons.core.Messages;
-////import seedu.address.commons.core.index.Index;
-////import seedu.address.logic.commands.RedoCommand;
-////import seedu.address.logic.commands.UndoCommand;
 //import seedu.address.model.Model;
-////import seedu.address.model.person.Address;
-////import seedu.address.model.person.Email;
-////import seedu.address.model.person.Name;
-//import seedu.address.model.person.Person;
-////import seedu.address.model.person.Phone;
-////import seedu.address.model.tag.Tag;
-////import seedu.address.testutil.PersonBuilder;
-//import seedu.address.testutil.PersonUtil;
 //
-//public class AddCommandSystemTest extends AddressBookSystemTest {
+//public class AddCommandSystemTest extends PiconsoSystemTest {
 //
 //    @Test
 //    public void add() {
-//        /*Model model = getModel();
+//        Model model = getModel();
 //
-//        *//* -------------------- Perform add operations on the shown unfiltered list --------------------------- *//*
+//        /* -------------------- Perform add operations on the shown unfiltered list --------------------------- */
 //
-//        *//* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing
+//        /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing
 //         * spaces -> added
-//         *//*
+//         */
 //        Person toAdd = AMY;
 //        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
 //                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
 //        assertCommandSuccess(command, toAdd);
 //
-//        *//* Case: undo adding Amy to the list -> Amy deleted *//*
+//        /* Case: undo adding Amy to the list -> Amy deleted */
 //        command = UndoCommand.COMMAND_WORD;
 //        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
 //        assertCommandSuccess(command, model, expectedResultMessage);
 //
-//        *//* Case: redo adding Amy to the list -> Amy added again *//*
+//        /* Case: redo adding Amy to the list -> Amy added again */
 //        command = RedoCommand.COMMAND_WORD;
 //        model.addPerson(toAdd);
 //        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
 //        assertCommandSuccess(command, model, expectedResultMessage);
 //
-//        *//* Case: add a person with all fields same as another person in the address book except name -> added *//*
+//        /* Case: add a person with all fields same as another person in the address book except name -> added */
 //        toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
 //                + TAG_DESC_FRIEND;
 //        assertCommandSuccess(command, toAdd);
 //
-//        *//* Case: add a person with all fields same as another person in the address book except phone and email
+//        /* Case: add a person with all fields same as another person in the address book except phone and email
 //         * -> added
-//         *//*
+//         */
 //        toAdd = new PersonBuilder(AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
 //        command = PersonUtil.getAddCommand(toAdd);
 //        assertCommandSuccess(command, toAdd);
 //
-//        *//* Case: add to empty address book -> added *//*
+//        /* Case: add to empty address book -> added */
 //        deleteAllPersons();
 //        assertCommandSuccess(ALICE);
 //
-//        *//* Case: add a person with tags, command with parameters in random order -> added *//*
+//        /* Case: add a person with tags, command with parameters in random order -> added */
 //        toAdd = BOB;
 //        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
 //                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
 //        assertCommandSuccess(command, toAdd);
 //
-//        *//* Case: add a person, missing tags -> added *//*
+//        /* Case: add a person, missing tags -> added */
 //        assertCommandSuccess(HOON);
 //
-//        *//* ------------------------ Perform add operation on the shown filtered list -------------------------- *//*
+//        /* ------------------------ Perform add operation on the shown filtered list -------------------------- */
 //
-//        *//* Case: filters the person list before adding -> added *//*
+//        /* Case: filters the person list before adding -> added */
 //        showPersonsWithName(KEYWORD_MATCHING_MEIER);
 //        assertCommandSuccess(IDA);
 //
-//        *//* ---------------------- Perform add operation while a person card is selected ----------------------- *//*
+//        /* ---------------------- Perform add operation while a person card is selected ----------------------- */
 //
-//        *//* Case: selects first card in the person list, add a person -> added, card selection remains unchanged *//*
+//        /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
 //        selectPerson(Index.fromOneBased(1));
 //        assertCommandSuccess(CARL);
 //
-//        *//* --------------------------------- Perform invalid add operations ----------------------------------- *//*
+//        /* --------------------------------- Perform invalid add operations ----------------------------------- */
 //
-//        *//* Case: add a duplicate person -> rejected *//*
+//        /* Case: add a duplicate person -> rejected *//*
 //        command = PersonUtil.getAddCommand(HOON);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        *//* Case: add a duplicate person except with different phone -> rejected *//*
+//        /* Case: add a duplicate person except with different phone -> rejected */
 //        toAdd = new PersonBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
 //        command = PersonUtil.getAddCommand(toAdd);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        *//* Case: add a duplicate person except with different email -> rejected *//*
+//        /* Case: add a duplicate person except with different email -> rejected */
 //        toAdd = new PersonBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
 //        command = PersonUtil.getAddCommand(toAdd);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        *//* Case: add a duplicate person except with different address -> rejected *//*
+//        /* Case: add a duplicate person except with different address -> rejected */
 //        toAdd = new PersonBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
 //        command = PersonUtil.getAddCommand(toAdd);
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        *//* Case: add a duplicate person except with different tags -> rejected *//*
+//        /* Case: add a duplicate person except with different tags -> rejected */
 //        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
 //        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 //
-//        *//* Case: missing name -> rejected *//*
+//        /* Case: missing name -> rejected */
 //        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 //
-//        *//* Case: missing phone -> rejected *//*
+//        /* Case: missing phone -> rejected */
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 //
-//        *//* Case: missing email -> rejected *//*
+//        /* Case: missing email -> rejected */
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 //
-//        *//* Case: missing address -> rejected *//*
+//        /* Case: missing address -> rejected */
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
 //        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 //
-//        *//* Case: invalid keyword -> rejected *//*
+//        /* Case: invalid keyword -> rejected */
 //        command = "adds " + PersonUtil.getPersonDetails(toAdd);
 //        assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 //
-//        *//* Case: invalid name -> rejected *//*
+//        /* Case: invalid name -> rejected */
 //        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 //
-//        *//* Case: invalid phone -> rejected *//*
+//        /* Case: invalid phone -> rejected */
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 //
-//        *//* Case: invalid email -> rejected *//*
+//        /* Case: invalid email -> rejected */
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
 //        assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 //
-//        *//* Case: invalid address -> rejected *//*
+//        /* Case: invalid address -> rejected */
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
 //        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 //
-//        *//* Case: invalid tag -> rejected *//*
+//        /* Case: invalid tag -> rejected */
 //        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
 //                + INVALID_TAG_DESC;
-//        assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);*/
+//        assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
 //    }
 //
 //    /**

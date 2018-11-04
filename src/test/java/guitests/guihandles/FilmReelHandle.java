@@ -12,7 +12,7 @@ import javafx.scene.control.ListView;
  */
 public class FilmReelHandle extends NodeHandle<Node> {
 
-    private static final String IMAGE_LIST_ID = "#imageListView";
+    public static final String IMAGE_LIST_ID = "#imageListView";
     private static final String CARD_PANE_ID = "#cardPane";
 
     private final ListView<Path> imageListView;
