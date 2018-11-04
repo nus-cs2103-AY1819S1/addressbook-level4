@@ -11,6 +11,7 @@ import ssp.scheduleplanner.commons.util.StringUtil;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Date;
+import ssp.scheduleplanner.model.task.Interval;
 import ssp.scheduleplanner.model.task.Name;
 import ssp.scheduleplanner.model.task.Priority;
 import ssp.scheduleplanner.model.task.Repeat;
@@ -64,6 +65,21 @@ public class ParserUtil {
             throw new ParseException(Repeat.MESSAGE_REPEAT_CONSTRAINTS);
         }
         return new Repeat(trimmedRepeat);
+    }
+
+    /**
+     * Parses a {@code String interval} into a {@code interval}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code repeat} is invalid.
+     */
+    public static Interval parseInterval(String interval) throws ParseException {
+        requireNonNull(interval);
+        String trimmedInterval = interval.trim();
+        if (!Interval.isValidInterval(trimmedInterval)) {
+            throw new ParseException(Interval.MESSAGE_INTERVAL_CONSTRAINTS);
+        }
+        return new Interval(trimmedInterval);
     }
 
     /**
