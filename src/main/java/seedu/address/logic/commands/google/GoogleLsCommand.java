@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.google;
 
 //@@author chivent
-// TODO: Add test cases
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
@@ -20,6 +19,7 @@ import seedu.address.model.Model;
  */
 public class GoogleLsCommand extends GoogleCommand {
 
+    public static final String FAILURE_MESSAGE = "Failed to list";
     private static final String TYPE = COMMAND_WORD + " ls";
     public static final String MESSAGE_USAGE = "Usage of google list (requires an internet connection): "
             + "\n- " + TYPE + " Lists all photos in Google Photos, "
@@ -62,7 +62,7 @@ public class GoogleLsCommand extends GoogleCommand {
             }
         } catch (Exception ex) {
 
-            String message = ex.getMessage();
+            String message = FAILURE_MESSAGE;
             if (ex instanceof ApiException) {
                 message = MESSAGE_CONNECTION_FAILURE;
             }

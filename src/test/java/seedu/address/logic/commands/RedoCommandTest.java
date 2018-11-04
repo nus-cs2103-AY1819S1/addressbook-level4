@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.testutil.ModelGenerator;
 
 //@@author ihwk1996
-public class RedoCommandTest {
+public class RedoCommandTest extends DefaultCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
     private RedoCommand redoCommand = new RedoCommand();
     private String messageSuccess = RedoCommand.MESSAGE_SUCCESS;

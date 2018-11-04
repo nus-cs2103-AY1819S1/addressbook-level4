@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.ModelGenerator.getDefaultModel;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,15 +14,13 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code CdCommand}.
  */
-public class CdCommandTest {
-    private Model model = new ModelManager(new UserPrefs());
-    private Model expectedModel = new ModelManager(new UserPrefs());
+public class CdCommandTest extends DefaultCommandTest {
+    private Model model = getDefaultModel();
+    private Model expectedModel = getDefaultModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

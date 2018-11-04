@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+//@@author chivent
 /**
  * Contains typical strings that lead to image paths that other tests can reference
  */
