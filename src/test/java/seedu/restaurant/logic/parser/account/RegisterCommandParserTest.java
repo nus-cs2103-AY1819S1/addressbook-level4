@@ -23,6 +23,7 @@ import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class RegisterCommandParserTest {
 
     private RegisterCommandParser parser = new RegisterCommandParser();

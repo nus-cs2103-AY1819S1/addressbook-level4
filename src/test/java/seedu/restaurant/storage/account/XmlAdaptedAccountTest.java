@@ -3,6 +3,10 @@ package seedu.restaurant.storage.account;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_PASSWORD;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_USERNAME;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PASSWORD_DEMO_ONE;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_USERNAME_DEMO_ONE;
 import static seedu.restaurant.storage.elements.XmlAdaptedAccount.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_ADMIN;
 import static seedu.restaurant.testutil.account.TypicalAccounts.DEMO_ONE;
@@ -17,13 +21,8 @@ import seedu.restaurant.storage.elements.XmlAdaptedAccount;
 import seedu.restaurant.testutil.Assert;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class XmlAdaptedAccountTest {
-
-    private static final String INVALID_USERNAME = "a zhikai";
-    private static final String INVALID_PASSWORD = "11 22qq";
-
-    private static final String VALID_USERNAME = DEMO_ADMIN.getUsername().toString();
-    private static final String VALID_PASSWORD = DEMO_ADMIN.getPassword().toString();
 
     private XmlAdaptedAccount account = null;
 
@@ -35,28 +34,28 @@ public class XmlAdaptedAccountTest {
 
     @Test
     public void toModelType_nullUsername_throwsIllegalValueException() {
-        account = new XmlAdaptedAccount(null, VALID_PASSWORD);
+        account = new XmlAdaptedAccount(null, VALID_PASSWORD_DEMO_ONE);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Username.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, account::toModelType);
     }
 
     @Test
     public void toModelType_invalidUsername_throwsIllegalValueException() {
-        account = new XmlAdaptedAccount(INVALID_USERNAME, VALID_PASSWORD);
+        account = new XmlAdaptedAccount(INVALID_USERNAME, VALID_PASSWORD_DEMO_ONE);
         String expectedMessage = Username.MESSAGE_USERNAME_CONSTRAINT;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, account::toModelType);
     }
 
     @Test
     public void toModelType_nullPassword_throwsIllegalValueException() {
-        account = new XmlAdaptedAccount(VALID_USERNAME, null);
+        account = new XmlAdaptedAccount(VALID_USERNAME_DEMO_ONE, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Password.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, account::toModelType);
     }
 
     @Test
     public void toModelType_invalidPassword_throwsIllegalValueException() {
-        account = new XmlAdaptedAccount(VALID_USERNAME, INVALID_PASSWORD);
+        account = new XmlAdaptedAccount(VALID_USERNAME_DEMO_ONE, INVALID_PASSWORD);
         String expectedMessage = Password.MESSAGE_PASSWORD_CONSTRAINT;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, account::toModelType);
     }

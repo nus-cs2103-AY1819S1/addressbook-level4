@@ -4,8 +4,9 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NEW_PASSWORD;
 
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccountDescriptor;
 
+//@@author AZhiKai
 /**
- * A utility class for Account.
+ * A utility class for {@code Account}.
  */
 public class AccountUtil {
 

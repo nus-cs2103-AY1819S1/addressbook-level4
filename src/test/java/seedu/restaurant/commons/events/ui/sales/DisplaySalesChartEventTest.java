@@ -1,4 +1,4 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.sales;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_ONE;

@@ -1,11 +1,10 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.sales;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.commons.events.ui.sales.RecordPanelSelectionChangedEvent;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.salesrecords.RecordBuilder;
 

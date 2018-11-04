@@ -15,8 +15,9 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 
+//@@author AZhiKai
 /**
- * Logs the user into an existing {@link Account}, and create a {@link UserSession}.
+ * Logs the user into an existing {@code Account}, and create a {@code UserSession}.
  */
 public class LoginCommand extends Command {
 
