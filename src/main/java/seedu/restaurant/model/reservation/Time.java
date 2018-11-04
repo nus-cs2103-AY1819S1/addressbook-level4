@@ -30,7 +30,9 @@ public class Time {
     public Time(String time) {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
-        this.time = LocalTime.parse(time);
+        DateTimeFormatter validFormat =
+                DateTimeFormatter.ofPattern(TIME_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
+        this.time = LocalTime.parse(time, validFormat);
     }
 
     /**
@@ -46,6 +48,8 @@ public class Time {
         }
         return true;
     }
+
+    public LocalTime getValue() { return time; }
 
     @Override
     public String toString() {

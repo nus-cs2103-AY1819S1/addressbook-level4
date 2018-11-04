@@ -33,9 +33,9 @@ public class Date {
     public Date(String date) {
         requireNonNull(date);
         checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
-        this.date = LocalDate.parse(date);
         DateTimeFormatter validFormat =
                 DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
+        this.date = LocalDate.parse(date, validFormat);
         dayOfWeek = LocalDate.parse(date, validFormat).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
     }
 
@@ -57,9 +57,11 @@ public class Date {
         return dayOfWeek;
     }
 
+    public LocalDate getValue() { return date; }
+
     @Override
     public String toString() {
-        return date.toString();
+        return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT));
     }
 
     @Override
