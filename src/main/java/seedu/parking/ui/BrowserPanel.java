@@ -23,7 +23,10 @@ import seedu.parking.model.carpark.Carpark;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String MAINPAGE_FILE_PATH = "/docs/MainPage.html";
+    public static final String MAIN_PAGE =
+            "https://cs2103-ay1819s1-t09-4.github.io/main/MainPage.html?isDefault=1";
+    public static final String SEARCH_PAGE_URL =
+            "https://cs2103-ay1819s1-t09-4.github.io/main/MainPage.html?";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -37,9 +40,9 @@ public class BrowserPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
+        getRoot().setOnMouseClicked(Event::consume);
 
-        String mainUrl = getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?isDefault=1";
-        loadPage(mainUrl);
+        loadPage(MAIN_PAGE);
         registerAsAnEventHandler(this);
     }
 
@@ -47,8 +50,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads the car park HTML file with a json data parsed in UTF-8.
      */
     private void loadCarparkPage(Carpark carpark) throws Exception {
-        String indivUrl = getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?json=" + carpark.toJson();
-        loadPage(indivUrl);
+        loadPage(SEARCH_PAGE_URL + "json=" + carpark.toJson());
     }
 
     /**
@@ -60,8 +62,7 @@ public class BrowserPanel extends UiPart<Region> {
             arr.add(carparks[i].getCarparkNumber().value);
         }
         String utf8arr = URLEncoder.encode(arr.toString(), "UTF-8");
-        String indivUrl = getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?jsonArr=" + utf8arr;
-        loadPage(indivUrl);
+        loadPage(SEARCH_PAGE_URL + "jsonArr=" + utf8arr);
     }
 
     /**
@@ -87,8 +88,7 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handleListCarparkRequestEvent(ListCarparkRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        String mainUrl = getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?isDefault=1";
-        loadPage(mainUrl);
+        loadPage(MAIN_PAGE);
     }
 
     @Subscribe
