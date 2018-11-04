@@ -128,7 +128,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_INTEREST_DESC = " " + PREFIX_INTEREST + "study*"; // '*' not allowed in tags
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "Meeting&";
+    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME + "";
     public static final String INVALID_TIMETABLE = " " + PREFIX_TIMETABLE + "http://modsn.us/H";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -243,7 +243,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredEventList().size());
 
         Event event = model.getFilteredEventList().get(targetIndex.getZeroBased());
-        final String[] splitName = event.getName().fullName.split("\\s+");
+        final String[] splitName = event.getName().split("\\s+");
         model.updateFilteredEventList(new EventNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredEventList().size());

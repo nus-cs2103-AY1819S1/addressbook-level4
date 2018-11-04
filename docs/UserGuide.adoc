@@ -261,12 +261,12 @@ Examples:
 `deleteEvent 2` +
 Deletes the 2nd event in the event organiser.
 
-==== Select an event : ` selectEvent`
+==== Select an event : `selectEvent`
 Selects an event to be edited. +
 Format: `selectEvent index`
 
 ****
-* An event must be selected before setDate, setTime, addPoll, addPollOption, and vote commands can be used.
+* An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.
 ****
 
 ==== Set the event date : `setDate`
@@ -275,6 +275,8 @@ Format: `setDate d/DAY-MONTH-YEAR`
 
 ****
 * Day, month and year are specified as numbers.
+* Day and month must be written as two digits, e.g. January must be specified as `01` and not `1`.
+* Year must be written out in full.
 * An event must first be selected.
 ****
 
@@ -319,16 +321,19 @@ Examples:
 
 ==== Setup poll for location : `addOption`
 Add new poll option in the specified poll. +
-Format: `addOption i/POLL_ID o/OPTION`
+Format: `addOption i/POLL_ID o/OPTION_NAME`
 
 ****
 * The poll index specifies the index of the poll in the selected event.
 * An event must first be selected.
-* Not possible for Time Polls.
+* An option can be any string.
+* Time polls do not support adding of options.
 ****
 
 Examples:
-* `addOption i/1 o/SoC canteen`
+* `addOption i/1 o/Play chess` +
+Adds an option to the first poll of the selected event, where the option is `Play chess`.
+This option would be relevant in the context of a poll for an appropriate activity.
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
@@ -341,12 +346,13 @@ Format: `displayPoll i/POLL_INDEX`
 
 Examples:
 
-* `displayPoll i/1`
+* `displayPoll i/1` +
+Displays the poll with index 1 associated with the selected event.
 
 === Join event commands
 
 ==== Find event by the name of the event : `findEvent`
-Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants.+
+Finds events based on the attributes of the event: event name, event location, date, start time, event organiser, and event participants. +
 Format: `findEvent [e/EVENT_NAME] [a/LOCATION] [d/DATE] [t1/START_TIME] [on/ORGANISER_NAME] [pn/PARTICIPANT_NAME]`
 
 Examples:
@@ -364,7 +370,7 @@ Format: `findEvent d1/FROMDATE d2/TODATE`
 
 Examples:
 
-* `findEvent d1/23/08/2018 d2/25/08/2018` +
+* `findEvent d1/23-08-2018 d2/25-08-2018` +
 Finds all events held between 23 August and 25 August in 2018.
 
 ==== Find event by a time interval: `findEventByTime`
@@ -381,12 +387,12 @@ Examples:
 Finds all events held between 12pm and 6pm on 12 December 2018.
 
 ==== Join event : `joinEvent`
-Joins event identified by unique event ID. +
-Format: `joinEvent ID`
+Joins event identified by event index in the event list. +
+Format: `joinEvent INDEX`
 
 Examples:
 
-* `joinEvent 213`
+* `joinEvent 2`
 
 ==== Vote for date : `voteOption`
 Vote for a option specified in a specified poll, if there is one.
