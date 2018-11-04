@@ -12,7 +12,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Content {
 
     public static final String MESSAGE_CONTENT_CONSTRAINTS =
-            "Subject can take any values, and it should not be blank";
+            "Content can take any values, and it should not be blank";
 
     /*
      * The first character of the content must not be a whitespace,
