@@ -168,6 +168,10 @@ public class EditModuleCommand extends Command {
         Module editedModule = createEditedModule(target);
         editedModuleExist(model, editedModule);
 
+        if (target.equals(editedModule)) {
+            throw new CommandException("No changes");
+        }
+
         // Update module and commit the transcript.
         model.updateModule(target, editedModule);
         model.commitTranscript();

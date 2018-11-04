@@ -124,6 +124,17 @@ public enum EditArgument {
     private String longName;
 
     /**
+     * Constructor that takes in the short name and long name.
+     *
+     * @param shortName short name of the name of a name-value pair
+     * @param longName long name of the name of a name-value pair
+     */
+    EditArgument(char shortName, String longName) {
+        this.shortName = shortName;
+        this.longName = longName;
+    }
+
+    /**
      * Returns the short name of a name-value pair. It is a prefix and a
      * character representing the name.
      *
@@ -151,16 +162,5 @@ public enum EditArgument {
      */
     public Object getValue(String value) throws ParseException {
         return null;
-    }
-
-    /**
-     * Constructor that takes in the short name and long name.
-     *
-     * @param shortName short name of the name of a name-value pair
-     * @param longName long name of the name of a name-value pair
-     */
-    EditArgument(char shortName, String longName) {
-        this.shortName = shortName;
-        this.longName = longName;
     }
 }

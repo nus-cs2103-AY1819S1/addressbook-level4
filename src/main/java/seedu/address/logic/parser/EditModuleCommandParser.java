@@ -35,7 +35,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     public static final String MESSAGE_INVALID_FORMAT = "Invalid format\n"
             + EditModuleCommand.MESSAGE_USAGE;
 
-    // Map string argument to argument. Cannot be modified.
+    // Immutable map that maps string argument to edit argument enum.
     private static final Map<String, EditArgument> NAME_TO_ARGUMENT_MAP;
     static {
         Map<String, EditArgument> map = new HashMap<>();
@@ -47,18 +47,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     // Map object to argument.
-    private static EnumMap<EditArgument, Object> argMap;
-    static {
-        argMap = new EnumMap<>(EditArgument.class);
-        argMap.put(EditArgument.TARGET_CODE, null);
-        argMap.put(EditArgument.TARGET_YEAR, null);
-        argMap.put(EditArgument.TARGET_SEMESTER, null);
-        argMap.put(EditArgument.NEW_CODE, null);
-        argMap.put(EditArgument.NEW_YEAR, null);
-        argMap.put(EditArgument.NEW_SEMESTER, null);
-        argMap.put(EditArgument.NEW_CREDIT, null);
-        argMap.put(EditArgument.NEW_GRADE, null);
-    }
+    private EnumMap<EditArgument, Object> argMap;
 
     /**
      * Parses {@code args} in the context of {@code EditModuleCommand} and
@@ -84,6 +73,17 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      * expected format
      */
     public EditModuleCommand parse(String argsInString) throws ParseException {
+        // Setup argument map.
+        argMap = new EnumMap<>(EditArgument.class);
+        argMap.put(EditArgument.TARGET_CODE, null);
+        argMap.put(EditArgument.TARGET_YEAR, null);
+        argMap.put(EditArgument.TARGET_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CODE, null);
+        argMap.put(EditArgument.NEW_YEAR, null);
+        argMap.put(EditArgument.NEW_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CREDIT, null);
+        argMap.put(EditArgument.NEW_GRADE, null);
+
         // Converts argument string to tokenize argument array.
         String[] args = ParserUtil.tokenize(argsInString);
 
@@ -106,13 +106,13 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
      * Check if argument array does not contain the same name twice and all
      * names are legal.
      *
-     * @param argArray array of name-value pair arguments
+     * @param args array of name-value pair arguments
      * @throws ParseException
      */
-    public static void validateName(String[] argArray) throws ParseException {
-        List<EditArgument> nameArray = IntStream.range(0, argArray.length)
+    public static void validateName(String[] args) throws ParseException {
+        List<EditArgument> nameArray = IntStream.range(0, args.length)
                 .filter(index -> index % 2 == 0)
-                .mapToObj(index -> NAME_TO_ARGUMENT_MAP.get(argArray[index]))
+                .mapToObj(index -> NAME_TO_ARGUMENT_MAP.get(args[index]))
                 .collect(Collectors.toList());
 
         boolean illegalNameExist = nameArray.stream()
@@ -132,13 +132,13 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     /**
      * Parse the value into its relevant object.
      *
-     * @param argArray array of name-value pair arguments
+     * @param args array of name-value pair arguments
      * @throws ParseException thrown when the value cannot be parsed
      */
-    private void parseValues(String[] argArray) throws ParseException {
-        for (int index = 0; index < argArray.length; index = index + 2) {
-            EditArgument name = NAME_TO_ARGUMENT_MAP.get(argArray[index]);
-            Object value = name.getValue(argArray[index + 1]);
+    private void parseValues(String[] args) throws ParseException {
+        for (int index = 0; index < args.length; index = index + 2) {
+            EditArgument name = NAME_TO_ARGUMENT_MAP.get(args[index]);
+            Object value = name.getValue(args[index + 1]);
             argMap.put(name, value);
         }
     }
