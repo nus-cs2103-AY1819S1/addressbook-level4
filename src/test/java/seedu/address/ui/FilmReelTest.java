@@ -25,7 +25,6 @@ import org.junit.Test;
 import guitests.guihandles.FilmCardHandle;
 import guitests.guihandles.FilmReelHandle;
 import javafx.collections.FXCollections;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
