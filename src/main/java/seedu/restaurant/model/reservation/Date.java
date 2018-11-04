@@ -23,7 +23,6 @@ public class Date {
     public static final String DATE_FORMAT_PATTERN = "dd-MM-uuuu";
 
     private final LocalDate date;
-    private final String dayOfWeek;
 
     /**
      * Constructs a {@code date}.
@@ -36,7 +35,6 @@ public class Date {
         DateTimeFormatter validFormat =
                 DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
         this.date = LocalDate.parse(date, validFormat);
-        dayOfWeek = LocalDate.parse(date, validFormat).getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.US);
     }
 
     /**
@@ -53,9 +51,6 @@ public class Date {
         return true;
     }
 
-    public String getDayOfWeek() {
-        return dayOfWeek;
-    }
 
     public LocalDate getValue() {
         return date;
