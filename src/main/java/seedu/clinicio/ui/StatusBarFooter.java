@@ -87,7 +87,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
-        Staff currentUser = UserSession.getCurrentSession();
+        Staff currentUser = loginSuccessEvent.getCurrentUser();
         logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent,
                 "You are now logged in as " + currentUser));
         setUserSessionStatus(String.format(USER_SESSION_STATUS_UPDATED,

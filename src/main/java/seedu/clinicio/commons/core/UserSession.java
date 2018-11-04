@@ -10,12 +10,6 @@ public class UserSession {
     private static Staff currentUser;
 
     /**
-     * Retrieve current user session
-     */
-    public static Staff getCurrentSession() {
-        return currentUser;
-    }
-    /**
      * Create a new user session for ClinicIO.
      * @param user Authenticated user to add into user session
      */
