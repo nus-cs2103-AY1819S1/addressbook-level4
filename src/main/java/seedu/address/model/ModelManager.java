@@ -176,6 +176,9 @@ public class ModelManager extends ComponentManager implements Model {
         if (photoLibrary == null) {
             try {
                 photoLibrary = PhotosLibraryClientFactory.createClient();
+                if (photoLibrary == null) {
+                    throw new CommandException(MESSAGE_LOGIN_FAILURE);
+                }
             } catch (Exception e) {
                 throw new CommandException(MESSAGE_LOGIN_FAILURE);
             }

@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.LogsCenter;
 
+//@@author chivent
 /**
  * Tests for {@code FilmReelCard}
  * Display is tested in {@code FilmReelTest}

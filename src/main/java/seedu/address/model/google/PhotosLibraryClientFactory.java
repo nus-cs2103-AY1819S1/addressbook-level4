@@ -38,6 +38,8 @@ import seedu.address.commons.events.ui.LoginStatusEvent;
  */
 public class PhotosLibraryClientFactory {
 
+    public static final File dataStore = Paths.get("./src/main/resources/user_credentials").toFile();
+    public static final File testFile = Paths.get("./src/main/resources/user_credentials/testFile.txt").toFile();
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final List<String> SCOPE_LIST =
@@ -48,62 +50,65 @@ public class PhotosLibraryClientFactory {
 
     private static final String CREDENTIAL_FILE = "client_credentials.json";
 
-    private static File dataStore = Paths.get("./src/main/resources/user_credentials").toFile();
-
     private PhotosLibraryClientFactory() {
     }
 
     /**
      * Creates and returns a new PhotoHandler
+     *
      * @return PhotoHandler
-     * @throws IOException when files cannot be read
+     * @throws IOException              when files cannot be read
      * @throws GeneralSecurityException when there is an error with authentication
      */
     public static PhotoHandler createClient() throws IOException, GeneralSecurityException {
-
         if (!dataStore.exists()) {
             dataStore.mkdirs();
         }
 
-        //@@author chivent-reused
-        //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
-        //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
-        DataStoreFactory dataStoreFactory = new FileDataStoreFactory(dataStore);
+        if (!testFile.exists()) {
 
-        InputStream credentialFile = PhotosLibraryClientFactory
-                .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
+            //@@author chivent-reused
+            //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
+            //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
+            DataStoreFactory dataStoreFactory = new FileDataStoreFactory(dataStore);
 
-        // load designated client secret/id
-        GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(
-                        JSON_FACTORY, new InputStreamReader(credentialFile));
+            InputStream credentialFile = PhotosLibraryClientFactory
+                    .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
 
-        String clientSecret = clientSecrets.getDetails().getClientSecret();
-        String clientId = clientSecrets.getDetails().getClientId();
+            // load designated client secret/id
+            GoogleClientSecrets clientSecrets =
+                    GoogleClientSecrets.load(
+                            JSON_FACTORY, new InputStreamReader(credentialFile));
 
-        //google standard authorization flow
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
-                        SCOPE_LIST).setDataStoreFactory(
-                        dataStoreFactory).build();
+            String clientSecret = clientSecrets.getDetails().getClientSecret();
+            String clientId = clientSecrets.getDetails().getClientId();
 
-        // Credential is a google construct that wraps the access token and helps you to refresh periodically
-        // AuthorizationCodeInstalledApp is another google standard that helps persist user end credentials
-        Credential credential = new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+            //google standard authorization flow
+            GoogleAuthorizationCodeFlow flow =
+                    new GoogleAuthorizationCodeFlow.Builder(
+                            GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
+                            SCOPE_LIST).setDataStoreFactory(
+                            dataStoreFactory).build();
 
-        //UserCredentials is a specific credential type that stores user specific credentials
-        UserCredentials userCredentials = UserCredentials.newBuilder()
-                .setClientId(clientId)
-                .setClientSecret(clientSecret)
-                .setRefreshToken(credential.getRefreshToken())
-                .build();
+            // Credential is a google construct that wraps the access token and helps you to refresh periodically
+            // AuthorizationCodeInstalledApp is another google standard that helps persist user end credentials
+            Credential credential = new AuthorizationCodeInstalledApp(flow,
+                    new LocalServerReceiver()).authorize("user");
 
-        credentialFile.close();
-        return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
+            //UserCredentials is a specific credential type that stores user specific credentials
+            UserCredentials userCredentials = UserCredentials.newBuilder()
+                    .setClientId(clientId)
+                    .setClientSecret(clientSecret)
+                    .setRefreshToken(credential.getRefreshToken())
+                    .build();
+
+            credentialFile.close();
+            return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
+        } else {
+            return null;
+        }
     }
 
-    //@@author chivent
     /**
      * Creates a PhotosLibraryClient instance from credentials
      *
@@ -136,6 +141,7 @@ public class PhotosLibraryClientFactory {
 
     /**
      * Checks if a user has storedCredentials (did not logout previously), and auto log ins user if true.
+     *
      * @return a PhotoHandler instance if user has storedCredentials, else null
      */
     public static PhotoHandler loginUserIfPossible() throws IOException, GeneralSecurityException {
@@ -161,6 +167,7 @@ public class PhotosLibraryClientFactory {
 
     /**
      * Checks if a user has storedCredentials (did not logout previously).
+     *
      * @return true if user has storedCredentials, else null
      */
     public static boolean checkUserLogin() {

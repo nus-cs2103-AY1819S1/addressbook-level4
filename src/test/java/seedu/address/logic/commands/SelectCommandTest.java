@@ -26,7 +26,7 @@ import seedu.address.ui.testutil.EventsCollectorRule;
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
-public class SelectCommandTest {
+public class SelectCommandTest extends DefaultCommandTest{
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
