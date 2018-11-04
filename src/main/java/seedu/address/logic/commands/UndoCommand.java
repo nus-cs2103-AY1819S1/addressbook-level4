@@ -5,7 +5,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_VOLUNTEERS;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.RecordChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
