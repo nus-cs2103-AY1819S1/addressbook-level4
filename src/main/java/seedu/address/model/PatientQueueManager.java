@@ -39,6 +39,7 @@ public class PatientQueueManager implements PatientQueue {
     @Override
     public int enqueue(Patient patient) {
         patientQueue.add(patient);
+        patient.joinQueue();
         return getQueueLength();
     }
 
@@ -50,6 +51,7 @@ public class PatientQueueManager implements PatientQueue {
     @Override
     public Patient removePatient(Patient patient) {
         patientQueue.remove(patient);
+        patient.leaveQueue();
         return patient;
     }
 
@@ -60,7 +62,9 @@ public class PatientQueueManager implements PatientQueue {
 
     @Override
     public Patient removeAtIndex(int index) {
-        return patientQueue.remove(index);
+        Patient patient = patientQueue.remove(index);
+        patient.leaveQueue();
+        return patient;
     }
 
     @Override

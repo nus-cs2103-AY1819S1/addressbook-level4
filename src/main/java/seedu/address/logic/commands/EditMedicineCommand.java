@@ -49,6 +49,10 @@ public class EditMedicineCommand extends Command {
     public static final String MESSAGE_EDIT_MEDICINE_SUCCESS = "Edited Medicine: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MEDICINE = "This medicine already exists in the address book.";
+    public static final String MESSAGE_USED_SERIAL_NUMBER = "This serial number is already in "
+            + "used by another medicine. Check the serial number again.";
+    public static final String MESSAGE_DUPLICATE_MEDICINE_NAME = "This medicine name is already used by another "
+            + "medicine. Check the medicine name again.";
 
     private final Index index;
     private final MedicineDescriptor medicineDescriptor;
@@ -79,6 +83,28 @@ public class EditMedicineCommand extends Command {
 
         if (!medicineToEdit.isSameMedicine(editedMedicine) && model.hasMedicine(editedMedicine)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
+        }
+
+        // changes both medicine name and serial number
+        if (model.hasMedicineName(editedMedicine)
+                && model.hasSerialNumber(editedMedicine)
+                && medicineDescriptor.isMedicineNameChanged()
+                && medicineDescriptor.isSerialNumberChanged()) {
+            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER + "\n" + MESSAGE_DUPLICATE_MEDICINE_NAME);
+        }
+
+        // only the serial number changed
+        // assert serial number changed
+        if (model.hasSerialNumber(editedMedicine)
+                && medicineDescriptor.isSerialNumberChanged()) {
+            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
+        }
+
+        // only the medicine name changed
+        // assert medicine name changed
+        if (model.hasMedicineName(editedMedicine)
+                && medicineDescriptor.isMedicineNameChanged()) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
         }
 
         model.updateMedicine(medicineToEdit, editedMedicine);
@@ -141,6 +167,9 @@ public class EditMedicineCommand extends Command {
         private SerialNumber serialNumber;
         private Stock stock;
 
+        private boolean isMedicineNameChanged;
+        private boolean isSerialNumberChanged;
+
         public MedicineDescriptor() {}
 
         /**
@@ -152,6 +181,8 @@ public class EditMedicineCommand extends Command {
             setPricePerUnit(toCopy.pricePerUnit);
             setSerialNumber(toCopy.serialNumber);
             setStock(toCopy.stock);
+            isMedicineNameChanged = false;
+            isSerialNumberChanged = false;
         }
 
         /**
@@ -163,6 +194,7 @@ public class EditMedicineCommand extends Command {
 
         public void setMedicineName(MedicineName medicineName) {
             this.medicineName = medicineName;
+            isMedicineNameChanged = true;
         }
 
         public Optional<MedicineName> getMedicineName() {
@@ -187,6 +219,7 @@ public class EditMedicineCommand extends Command {
 
         public void setSerialNumber(SerialNumber serialNumber) {
             this.serialNumber = serialNumber;
+            isSerialNumberChanged = true;
         }
 
         public Optional<SerialNumber> getSerialNumber() {
@@ -199,6 +232,14 @@ public class EditMedicineCommand extends Command {
 
         public Optional<Stock> getStock() {
             return Optional.ofNullable(stock);
+        }
+
+        public boolean isMedicineNameChanged() {
+            return isMedicineNameChanged;
+        }
+
+        public boolean isSerialNumberChanged() {
+            return isSerialNumberChanged;
         }
 
         @Override

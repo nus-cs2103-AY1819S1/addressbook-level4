@@ -87,6 +87,7 @@ public class TypicalPersons {
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         for (Patient patient : getTypicalPersons()) {
+            patient.leaveQueue();
             ab.addPerson(patient);
         }
         return ab;

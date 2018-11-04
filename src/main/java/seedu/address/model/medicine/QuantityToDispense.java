@@ -6,8 +6,7 @@ import static java.util.Objects.requireNonNull;
  * Represent the quantity of a medicine to be dispensed.
  */
 public class QuantityToDispense {
-    public static final String MESSAGE_QUANTITY_TO_DISPENSE_CONSTRAINTS =
-            "Quantity to dispense should be a positive integer.";
+
     public final Integer value;
 
     /**
@@ -21,7 +20,14 @@ public class QuantityToDispense {
     }
 
     /**
-     * Returns true if a given quantity is a valid quantity to dispense
+     * Returns true if a given quantity is a valid quantity to dispense.
+     */
+    public static boolean isValidQuantityToDispense(QuantityToDispense test) {
+        return test.getValue() > 0;
+    }
+
+    /**
+     * Returns true if a given quantity is a valid quantity to dispense.
      */
     public static boolean isValidQuantityToDispense(Integer test) {
         return test > 0;

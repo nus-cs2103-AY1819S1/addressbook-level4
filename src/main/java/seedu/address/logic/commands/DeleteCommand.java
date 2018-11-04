@@ -44,6 +44,11 @@ public class DeleteCommand extends Command {
         }
 
         Patient patientToDelete = lastShownList.get(targetIndex.getZeroBased());
+        if (patientToDelete.isInQueue()) {
+            throw new CommandException(String.format(Messages.MESSAGE_PERSON_IN_QUEUE, patientToDelete.getName(),
+                    patientToDelete.getName()));
+        }
+
         model.deletePerson(patientToDelete);
         model.commitAddressBook();
 

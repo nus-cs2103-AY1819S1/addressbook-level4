@@ -9,6 +9,8 @@
 
 == Overview
 
+This project portfolio presents my contributions towards this project, including the features implemented, technologies used and documentation written.
+
 CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application.
 CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
 programming language and uses JavaFX, HTML and CSS for the GUI.
@@ -70,3 +72,4 @@ include::../UserGuide.adoc[tag=addmedicalrecordcommand]
 |===
 
 include::../DeveloperGuide.adoc[tag=medicalrecord]
+include::../DeveloperGuide.adoc[tag=applicationgui]

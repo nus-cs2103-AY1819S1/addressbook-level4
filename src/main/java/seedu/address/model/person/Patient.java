@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.exceptions.DifferentBloodTypeException;
 import seedu.address.model.person.medicalrecord.MedicalRecord;
 import seedu.address.model.person.medicalrecord.Note;
 import seedu.address.model.tag.Tag;
@@ -30,6 +31,7 @@ public class Patient {
 
     // Medical Record
     private MedicalRecord medicalRecord;
+    private boolean isInQueue;
 
     /**
      * Every field must be present and not null.
@@ -43,6 +45,7 @@ public class Patient {
         this.address = address;
         this.tags.addAll(tags);
         this.medicalRecord = new MedicalRecord();
+        this.isInQueue = false;
     }
 
     public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address,
@@ -60,7 +63,7 @@ public class Patient {
     /**
      * Make new Patient with specified MedicalRecord. MedicalRecord will combine with current MedicalRecord, if any.
      */
-    public Patient(Patient patient, MedicalRecord medicalRecord) {
+    public Patient(Patient patient, MedicalRecord medicalRecord) throws DifferentBloodTypeException {
         requireNonNull(patient);
         requireNonNull(medicalRecord);
 
@@ -73,6 +76,7 @@ public class Patient {
         this.medicalRecord = patient.getMedicalRecord() == null
                 ? medicalRecord
                 : MedicalRecord.combineMedicalRecords(patient.getMedicalRecord(), medicalRecord);
+        this.isInQueue = patient.isInQueue;
     }
 
     public Name getName() {
@@ -111,7 +115,7 @@ public class Patient {
      * Adds a medical record to the patient. Read: merges with existing.
      * @param medicalRecord
      */
-    public void addMedicalRecord(MedicalRecord medicalRecord) {
+    public void addMedicalRecord(MedicalRecord medicalRecord) throws DifferentBloodTypeException {
         this.medicalRecord = this.medicalRecord == null
                 ? medicalRecord
                 : MedicalRecord.combineMedicalRecords(this.medicalRecord, medicalRecord);
@@ -127,6 +131,28 @@ public class Patient {
             this.medicalRecord = new MedicalRecord();
         }
         this.medicalRecord.addNote(note);
+    }
+
+    /**
+     * Set the flag of in queue to true.
+     */
+    public void joinQueue() {
+        this.isInQueue = true;
+    }
+
+    /**
+     * Set the flag of in queue to false.
+     */
+    public void leaveQueue() {
+        this.isInQueue = false;
+    }
+
+    /**
+     * Check whether patient is in queue.
+     * Used for checking whether the patient's details can be changed at the moment.
+     */
+    public boolean isInQueue() {
+        return this.isInQueue;
     }
 
     /**
