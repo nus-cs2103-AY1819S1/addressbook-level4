@@ -62,10 +62,10 @@ public class CommandBox extends UiPart<Region> {
             navigateToNextInput();
             formattedText = passwordFormatter.maskPassword(true, false);
             break;
-        case BACK_SPACE:
+        case LEFT: case RIGHT: case BACK_SPACE: case SPACE:
             formattedText = passwordFormatter.maskPassword(false, true);
             break;
-        case LEFT: case RIGHT: case ENTER:
+        case ENTER:
             return;
         default:
             // let JavaFx handle the keypress

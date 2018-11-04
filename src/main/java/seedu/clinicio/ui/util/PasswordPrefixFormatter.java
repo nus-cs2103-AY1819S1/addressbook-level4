@@ -40,7 +40,7 @@ public class PasswordPrefixFormatter {
         String prefixesBeforePasswordPrefix = commandTextField.getText().substring(0, passwordPrefixIndex);
         String password = findPassword(passwordPrefixIndex, spaceAfterPasswordIndex);
 
-        StringBuilder maskedPassword = appendMaskedPassword(isHistory, isBackspace, password);
+        StringBuilder maskedPassword = appendMaskedPassword(isHistory, isBackspace, password, spaceAfterPasswordIndex);
 
         return prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix()
                 + maskedPassword.toString() + getPrefixesAfterPasswordPrefix(spaceAfterPasswordIndex);
@@ -59,7 +59,7 @@ public class PasswordPrefixFormatter {
 
         String prefixesBeforePasswordPrefix = commandTextField.getText().substring(0, passwordPrefixIndex);
         String password = findPassword(passwordPrefixIndex, spaceAfterPasswordIndex);
-
+        
         String commandText = prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix();
         commandText = comparePasswordWithTempPassword(password, commandText)
                 + getPrefixesAfterPasswordPrefix(spaceAfterPasswordIndex);
@@ -72,19 +72,22 @@ public class PasswordPrefixFormatter {
     /**
      * Append password to masked password string.
      * @param isHistory Whether command text is from previous/next commands
+     * @param isBackspace Whether command text is from backspace commands.
      * @param password The valid password
+     * @param spaceAfterPasswordIndex The index of the last password character
      * @return A masked password string
      */
-    public StringBuilder appendMaskedPassword(boolean isHistory, boolean isBackspace, String password) {
+    public StringBuilder appendMaskedPassword(boolean isHistory, boolean isBackspace,
+            String password, int spaceAfterPasswordIndex) {
         StringBuilder maskedPassword;
         if (isHistory) {
             maskedPassword = storePasswordCharacters(password, password.length() - 1);
             maskedPassword.append(password.charAt(password.length() - 1));
-        } else if (isBackspace) {
+        } else if ((isBackspace) || (spaceAfterPasswordIndex > 0)) {
             maskedPassword = storePasswordCharacters(password, password.length());
             maskedPassword = unmaskLastCharacter(maskedPassword);
         } else {
-            maskedPassword = storePasswordCharacters(password, password.length());
+                maskedPassword = storePasswordCharacters(password, password.length());
         }
         return maskedPassword;
     }
