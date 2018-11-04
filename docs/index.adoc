@@ -1,2 +1,3 @@
 :stylesDir: stylesheets
+:stylesheet: default.css
 include::../README.adoc[]

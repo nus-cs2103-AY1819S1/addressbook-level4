@@ -148,18 +148,18 @@ Find a list of car parks within a certain location.
 
 [NOTE]
 ====
-* Common words are ignored, like blk and ave.
-* Upper and lower case characters do not matter.
+Common words are ignored, like `blk` and `ave`. Upper and lower case characters do not matter.
 ====
+The figure below is a sample display of the application.
 
 .Before using find command
 image::findbefore.png[width="880"]
-The figure above is a sample display of the application.
 
+
+The figure below shows what happen after executing the `find` command.
 
 .After using find command
 image::findafter.png[width="880"]
-The figure above shows what happen after executing the `find` command.
 // end::find[]
 
 [[Features-Undo]]
@@ -177,8 +177,7 @@ Restores the car park finder to the state before the previous undoable command w
 
 [NOTE]
 ====
-* You can only `undo` when you have ran a commands.
-* Undoable commands: those commands that modify the car park finder’s content (`clear`, `find`, `filter` and `query`).
+You can only `undo` when you have ran a undoable commands (`clear`, `find`, `filter` and `query`).
 ====
 // end::undo[]
 
