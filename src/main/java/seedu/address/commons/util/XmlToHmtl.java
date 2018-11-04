@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
 public class XmlToHmtl {
 
     private static final String ccaBook = "./data/ccabook.xml";
-    private static final String ccaBookXsl = "./docs/ccabook.xsl";
+    private static final String ccaBookXsl = "./src/main/resources/docs/ccabook.xsl";
     private static final String outputHtml = "./data/ccabook.html";
 
     /**

@@ -48,6 +48,7 @@ public class AddTransactionCommand extends Command {
         + "adding its transaction";
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "
         + "indicate the CCA.";
+    private static final String MESSAGE_OUTSTANDING_ERROR = "This transaction will exceed the given budget!";
 
     private final CcaName cca;
     private final Date date;
@@ -92,7 +93,11 @@ public class AddTransactionCommand extends Command {
         int entryNum = ccaToUpdate.getEntrySize() + 1;
         Entry newEntry = new Entry (entryNum, this.date, this.amount, this.remarks);
         Cca updatedCca = ccaToUpdate.addNewTransaction(newEntry);
-        updatedCca = TransactionMath.updateDetails(updatedCca);
+        try {
+            updatedCca = TransactionMath.updateDetails(updatedCca);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(MESSAGE_OUTSTANDING_ERROR);
+        }
 
         model.updateCca(ccaToUpdate, updatedCca);
         model.updateFilteredCcaList(PREDICATE_SHOW_ALL_CCAS);

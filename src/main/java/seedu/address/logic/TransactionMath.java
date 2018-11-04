@@ -16,6 +16,8 @@ import seedu.address.model.transaction.Entry;
  * @author ericyjw
  */
 public class TransactionMath {
+    private static final String MESSAGE_OUTSTANDING_ERROR = "This transaction will exceed the given budget!";
+
     /**
      * Update the spent and outstanding amount when there is a change in the transaction list of the Cca.
      * Returns a {@code Cca} with the updated spent and outstanding amount
@@ -39,6 +41,10 @@ public class TransactionMath {
         }
 
         int outstanding = givenBudget + netAmountSpent;
+
+        if (outstanding < 0) {
+            throw new IllegalArgumentException(MESSAGE_OUTSTANDING_ERROR);
+        }
 
         Cca updatedCca = new Cca(toUpdate.getName(), toUpdate.getHead(), toUpdate.getViceHead(), toUpdate.getBudget(),
             new Spent(spent), new Outstanding(outstanding), transactionEntries);
