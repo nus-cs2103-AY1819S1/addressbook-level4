@@ -356,7 +356,7 @@ Edits the name of `ketchup` to be `tomato ketchup`.
 ==== Stocking up an ingredient: `stockup`
 
 Increases the number of units of an ingredient or multiple ingredients. +
-Format: `stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...`
+Format: `stockup n/INGREDIENT_NAME... nu/NUMBER_OF_UNITS...`
 
 ****
 * NUMBER_OF_UNITS for an ingredient must follow the INGREDIENT_NAME for that particular ingredient.
@@ -364,8 +364,8 @@ Format: `stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...`
 
 Examples:
 
-* `stockup n/cod fish u/5`
-* `stockup n/chicken thigh u/10 n/fries u/20 n/tomato ketchup u/50`
+* `stockup n/cod fish nu/5`
+* `stockup n/chicken thigh nu/10 n/fries nu/20 n/tomato ketchup nu/50`
 
 // tag::menu[]
 === Menu Management
