@@ -25,7 +25,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
             + "Parameters: NONE "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_GGEVENTS_SUCCESS = "Events in google calendar downloaded.";
+    public static final String MESSAGE_INITIALIZE_SUCCESS = "Events in google calendar downloaded.";
     public static final String MESSAGE_NO_EVENTS = "No upcoming events found in Google Calender.";
     public static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
 
