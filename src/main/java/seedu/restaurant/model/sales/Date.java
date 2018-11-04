@@ -15,18 +15,19 @@ import java.util.Locale;
  * Represents a date in the calendar in DD-MM-YYYY format Guarantees: immutable; is valid as declared in {@link
  * #isValidDate(String)}
  */
-public class Date implements Comparable<Date>{
+public class Date implements Comparable<Date> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Dates should only contain numbers, and it should be in the format DD-MM-YYYY.\nThe date must exist in "
                     + "the calendar";
     public static final String DATE_FORMAT_PATTERN = "dd-MM-uuuu";
 
+    private static DateTimeFormatter validFormat =
+            DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
+
     private final LocalDate date;
     private final DayOfWeek dayOfWeek;
 
-    private static DateTimeFormatter validFormat =
-            DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Constructs a {@code date}.
