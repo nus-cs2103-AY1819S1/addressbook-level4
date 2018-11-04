@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-;
 
 public class LoginCommandTest extends DefaultCommandTest {
     private Model model = getDefaultModel();

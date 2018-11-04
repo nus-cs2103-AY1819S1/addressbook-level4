@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TestUtil.blockGoogleLogin;
 import static seedu.address.testutil.TestUtil.unblockGoogleLogin;
 import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_UPDATED;
