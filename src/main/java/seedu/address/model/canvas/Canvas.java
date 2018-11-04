@@ -34,7 +34,7 @@ public class Canvas {
      */
     public Canvas(PreviewImage initial) {
         height = initial.getImage().getHeight();
-        width = initial.getImage().getHeight();
+        width = initial.getImage().getWidth();
         addLayer(initial);
         currentLayer = layers.get(0);
         isCanvasAuto = false;
@@ -59,7 +59,7 @@ public class Canvas {
     }
 
     public void setCurrentLayer(Index i) {
-        currentLayer = layers.get(i.getOneBased());
+        currentLayer = layers.get(i.getZeroBased());
     }
 
     /**
@@ -82,9 +82,9 @@ public class Canvas {
      * @param to A zero-based index within bounds
      * @param from A zero-based index within bounds
      */
-    public void swapLayer(int to, int from) throws IllegalOperationException {
-        if (!layers.get(to).isLocked() && !layers.get(from).isLocked()) {
-            Collections.swap(layers, to, from);
+    public void swapLayer(Index to, Index from) throws IllegalOperationException {
+        if (!layers.get(to.getZeroBased()).isLocked() && !layers.get(from.getZeroBased()).isLocked()) {
+            Collections.swap(layers, to.getZeroBased(), from.getZeroBased());
         } else {
             throw new IllegalOperationException("One or more layers are locked!");
         }
