@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.address.ui.BrowserPanel.encodeUriComponent;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
@@ -228,9 +229,23 @@ public abstract class AddressBookSystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        String selectedCardPhone = getPersonListPanel().getHandleToSelectedCard().getPhone();
+        String selectedCardEmail = getPersonListPanel().getHandleToSelectedCard().getEmail();
+        String selectedCardAddress = getModel().getFilteredPersonList()
+            .get(expectedSelectedCardIndex.getZeroBased()).getAddress().value;
+        String selectedCardSalary = getPersonListPanel().getHandleToSelectedCard().getSalary();
+        String selectedCardUsername = getModel().getFilteredPersonList()
+            .get(expectedSelectedCardIndex.getZeroBased()).getUsername().username;
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+                + "name=" + selectedCardName.replaceAll(" ", "%20")
+                + "&phone=" + selectedCardPhone.replaceAll(" ", "%20")
+                + "&email=" + selectedCardEmail.replaceAll(" ", "%20")
+                + "&salary=" + selectedCardSalary.replaceAll(" ", "%20")
+                + "&address=" + encodeUriComponent(selectedCardAddress)
+                + "&username=" + selectedCardUsername.replaceAll(" ", "%20")
+            );
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
