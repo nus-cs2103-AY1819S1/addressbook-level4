@@ -57,6 +57,10 @@ public class LsCommandTest extends DefaultCommandTest {
     @Test
     public void execute_directory_empty() {
         model.updateCurrDirectory(model.getCurrDirectory().resolve("emptydir").normalize());
+        File emptydir = model.getCurrDirectory().toFile();
+        if (!emptydir.exists()) {
+            emptydir.mkdirs();
+        }
         assertExecutionSuccess(MESSAGE_EMPTY_DIR);
     }
 
