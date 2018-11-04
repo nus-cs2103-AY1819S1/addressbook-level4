@@ -102,6 +102,7 @@ public class TypicalRestaurantBook {
         return ab;
     }
 
+    //@@author m4dkip
     /**
      * Returns an {@code RestaurantBook} with {@code Reservation} objects only.
      */

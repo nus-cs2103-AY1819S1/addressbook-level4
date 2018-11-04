@@ -177,6 +177,7 @@ public class XmlSerializableRestaurantBookTest {
     }
 
     //Reservation Management
+    //@@author m4dkip
     @Test
     public void toModelType_invalidReservationOnlyFile_throwsIllegalValueException() throws Exception {
         XmlSerializableRestaurantBook dataFromFile = XmlUtil.getDataFromFile(INVALID_RESERVATION_FILE,

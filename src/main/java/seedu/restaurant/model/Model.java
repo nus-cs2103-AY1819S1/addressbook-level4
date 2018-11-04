@@ -136,6 +136,7 @@ public interface Model {
 
     // =========== API for Reservations =============================================================
 
+    //@@author m4dkip
     /**
      * Returns true if a reservation with the same identity as {@code reservation} exists in the restaurant book.
      */
