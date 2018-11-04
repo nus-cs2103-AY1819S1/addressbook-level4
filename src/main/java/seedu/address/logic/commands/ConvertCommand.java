@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.logging.Logger;
 
-import javafx.embed.swing.SwingFXUtils;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.ChangeImageEvent;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
@@ -31,8 +31,13 @@ public class ConvertCommand extends Command {
     //the path of the json file containing the arguments of the convert command
     public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
             ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
+
+    private static final Logger logger = LogsCenter.getLogger(ConvertCommand.class);
+
     private URL fileUrl;
     private Transformation transformation;
+
+
     /**
      * the constructor take the path of the JSON file of the detail of the convert operation
      * @param fileUrl the path to the JSON file
@@ -66,9 +71,7 @@ public class ConvertCommand extends Command {
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
                     transformation);
             model.updateCurrentPreviewImage(modifiedImage, transformation);
-            EventsCenter.getInstance().post(
-                    new ChangeImageEvent(
-                            SwingFXUtils.toFXImage(model.getCurrentPreviewImage().getImage(), null), "preview"));
+            ImageMagickUtil.render(model.getCanvas(), logger, "preview");
             EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
         } catch (Exception e) {
             throw new CommandException(e.toString());

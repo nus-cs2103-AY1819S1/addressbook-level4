@@ -195,8 +195,12 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author lancelotwillow
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
-        getCurrentPreviewImage().addTransformation(transformation);
-        getCurrentPreviewImage().commit(image);
+        try {
+            getCanvas().getCurrentLayer().addTransformation(transformation);
+            getCanvas().getCurrentLayer().getImage().commit(image);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
     }
 
     @Override

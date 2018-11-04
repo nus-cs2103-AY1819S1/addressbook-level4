@@ -461,6 +461,7 @@ The following sub-commands inherit from `LayerCommand`:
 * `lock` - Toggles the lock on a layer. A locked layer is protected from all operations.
 * `delete` - Removes a layer from the `Canvas`
 * `add` - Adds a layer from the `Canvas`.
+* `select` - Selects a layer to work on.
 
 
 
