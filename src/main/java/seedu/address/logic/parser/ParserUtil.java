@@ -211,6 +211,12 @@ public class ParserUtil {
         if (!trimmedFile.contains(".xml")) {
             throw new ParseException(ImportCommand.MESSAGE_USAGE);
         }
+        // to handle unix home directory
+        if (trimmedFile.startsWith("~")) {
+            String home = System.getProperty("user.home");
+            String directory = trimmedFile.substring(1);
+            return new File(home + directory);
+        }
         return new File(trimmedFile);
     }
 
