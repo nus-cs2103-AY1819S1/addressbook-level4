@@ -135,7 +135,7 @@ h2 {
 }
 
 h3 {
-	font-size: 28px;
+	font-size: 26px;
 }
 
 h4 {
@@ -570,6 +570,7 @@ video {
 	color: var(--primarycolor) !important;
 	font-style: normal !important;
 	font-weight: normal !important;
+	margin-top: 5px;
 	margin-bottom: 20px;
 }
 
