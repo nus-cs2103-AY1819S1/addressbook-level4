@@ -10,7 +10,7 @@ import static seedu.restaurant.logic.commands.sales.DisplaySalesCommand.DISPLAYI
 import static seedu.restaurant.logic.commands.sales.DisplaySalesCommand.NO_SUCH_DATE_MESSAGE;
 
 import org.junit.Rule;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
 import seedu.restaurant.logic.CommandHistory;
@@ -22,7 +22,7 @@ import seedu.restaurant.testutil.Assert;
 import seedu.restaurant.testutil.salesrecords.RecordBuilder;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
-class DisplaySalesCommandTest {
+public class DisplaySalesCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -49,8 +49,8 @@ class DisplaySalesCommandTest {
     @Test
     public void execute_dateDoesNotExistInList_throwsCommandException() {
         Date date = new Date(VALID_DATE_RECORD_ONE);
-        assertCommandFailure(new DisplaySalesCommand(date), model, commandHistory,
-                String.format(String.format(NO_SUCH_DATE_MESSAGE, date.toString())));
+        assertCommandFailure(new DisplaySalesCommand(date), model, commandHistory, String.format(NO_SUCH_DATE_MESSAGE
+                , date.toString()));
         assertFalse(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DisplaySalesReportEvent);
     }
 
@@ -75,7 +75,7 @@ class DisplaySalesCommandTest {
         // null -> returns false
         assertFalse(displayDate1SalesReportCommand.equals(null));
 
-        // different person -> returns false
+        // different dates -> returns false
         assertFalse(displayDate1SalesReportCommand.equals(displayDate2SalesReportCommand));
     }
 }
