@@ -22,7 +22,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
-            "https://se-edu.github.io/addressbook-level4/ProfilePage.html?name=";
+            "https://cs2103-ay1819s1-f10-1.github.io/main/ProfilePage.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
