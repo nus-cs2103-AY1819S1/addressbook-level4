@@ -71,8 +71,7 @@ public class InsertPersonCommand extends Command {
                     || personToInsert.getModuleList().contains(moduleToInsert)) {
                 throw new CommandException(MESSAGE_FAILURE);
             }
-            moduleToInsert.getStudents().add(personToInsert);
-            personToInsert.getModuleList().add(moduleToInsert);
+            model.insertPerson(personToInsert, moduleToInsert);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_MODULE);
         } else if (State.OCCASION_STATE == currState) {
@@ -93,8 +92,7 @@ public class InsertPersonCommand extends Command {
                     || personToInsert.getOccasionList().contains(occasionToInsert)) {
                 throw new CommandException(MESSAGE_FAILURE);
             }
-            occasionToInsert.getAttendanceList().add(personToInsert);
-            personToInsert.getOccasionList().add(occasionToInsert);
+            model.insertPerson(personToInsert, occasionToInsert);
             model.commitAddressBook();
             return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_OCCASION);
         } else {

@@ -124,6 +124,16 @@ public interface Model {
     void updateFilteredOccasionList(Predicate<Occasion> predicate);
 
     /**
+     * Inserts the person into the module bidirectionally.
+     */
+    void insertPerson(Person person, Module module);
+
+    /**
+     * Inserts the person into an occasion bidirectionally.
+     */
+    void insertPerson(Person person, Occasion occasion);
+
+    /**
      * Returns true if the model has previous address book states to restore.
      */
     boolean canUndoAddressBook();

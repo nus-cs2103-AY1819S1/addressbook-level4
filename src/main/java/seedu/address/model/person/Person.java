@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.tag.Tag;
@@ -59,6 +61,10 @@ public class Person {
 
     public Name getName() {
         return name;
+    }
+
+    public Property fullNameProperty() {
+        return new SimpleStringProperty(name.fullName);
     }
 
     public Phone getPhone() {

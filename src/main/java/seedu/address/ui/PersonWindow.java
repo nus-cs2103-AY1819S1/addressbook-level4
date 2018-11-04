@@ -1,9 +1,12 @@
 package seedu.address.ui;
 
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.logic.Logic;
+import seedu.address.model.module.Module;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.occasion.Occasion;
 
 /**
  * The Person Window. Provides the basic application layout containing
@@ -17,7 +20,7 @@ public class PersonWindow extends MainWindow {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private PersonBrowserPanel personBrowserPanel;
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -46,8 +49,13 @@ public class PersonWindow extends MainWindow {
      */
     @Override
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
+        ObservableList<Module> moduleList = logic.getFilteredPersonList().get(0)
+                                                .getModuleList().asUnmodifiableObservableList();
+        ObservableList<Occasion> occasionList = logic.getFilteredPersonList().get(0)
+                                                .getOccasionList().asUnmodifiableObservableList();
+
+        personBrowserPanel = new PersonBrowserPanel(moduleList, occasionList);
+        getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         getPersonListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
@@ -74,7 +82,9 @@ public class PersonWindow extends MainWindow {
         return personListPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
+//    void releaseResources() {
+//        browserPanel.freeResources();
+//    }
+
+    void releaseResources() {}
 }

@@ -2,11 +2,13 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 
 /**
  * The moduleWindow that allows the user to interact with modules
@@ -22,7 +24,7 @@ public class ModuleWindow extends MainWindow {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private ModuleBrowserPanel browserPanel;
     private ModuleListPanel moduleListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -49,7 +51,9 @@ public class ModuleWindow extends MainWindow {
      */
     @Override
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
+        ObservableList<Person> firstModuleAttendaceList = logic.getFilteredModuleList()
+                                                    .get(0).getStudents().asUnmodifiableObservableList();
+        browserPanel = new ModuleBrowserPanel(firstModuleAttendaceList);
         getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
@@ -74,7 +78,10 @@ public class ModuleWindow extends MainWindow {
         return moduleListPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
+//    void releaseResources() {
+//        browserPanel.freeResources();
+//    }
+
+    void releaseResources() {}
+
 }

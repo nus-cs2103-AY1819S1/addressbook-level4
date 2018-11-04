@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -141,6 +142,28 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void deleteOccasion(Occasion target) {
         versionedAddressBook.removeOccasion(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void insertPerson(Person personToInsert, Module moduleToInsert) {
+        Person addressBookPerson = versionedAddressBook.getPersonList().stream()
+                                    .filter(value -> value.equals(personToInsert)).findFirst().get();
+        Module addressBookModule = versionedAddressBook.getModuleList().stream()
+                                    .filter(value -> value.equals(moduleToInsert)).findFirst().get();
+        addressBookPerson.getModuleList().add(addressBookModule);
+        addressBookModule.getStudents().add(addressBookPerson);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void insertPerson(Person personToInsert, Occasion occasionToInsert) {
+        Person addressBookPerson = versionedAddressBook.getPersonList().stream()
+                .filter(value -> value.equals(personToInsert)).findFirst().get();
+        Occasion addressBookOccasion = versionedAddressBook.getOccasionList().stream()
+                .filter(value -> value.equals(occasionToInsert)).findFirst().get();
+        addressBookPerson.getOccasionList().add(addressBookOccasion);
+        addressBookOccasion.getAttendanceList().add(addressBookPerson);
         indicateAddressBookChanged();
     }
 

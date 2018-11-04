@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1">
+    <TableView fx:id="moduleTableView">
+        <columns>
+            <TableColumn text="Module Code" fx:id="moduleCodeStringTableColumn"/>
+            <TableColumn text="Module Title" fx:id="moduleTitleStringTableColumn" />
+        </columns>
+        <columnResizePolicy>
+            <!--- Fill up if need be -->
+        </columnResizePolicy>
+    </TableView>
+    <TableView fx:id="occasionTableView">
+        <columns>
+            <TableColumn text="Occasion Name" fx:id="occasionNameStringTableColumn"/>
+        </columns>
+        <columnResizePolicy>
+            <!-- Fill up if need be -->
+        </columnResizePolicy>
+    </TableView>
+</StackPane>
