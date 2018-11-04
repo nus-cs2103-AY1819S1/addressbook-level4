@@ -184,6 +184,10 @@ public interface Model {
     void updateFilteredRecordList(Predicate<Record> predicate);
 
     //===========  Undo/Redo Methods =============================================================
+    /**
+     * Restore the model's address book to the initial state.
+     */
+    void resetStatePointer();
 
     /**
      * Returns true if the model has previous address book states to restore.
