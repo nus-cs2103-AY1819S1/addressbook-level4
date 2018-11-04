@@ -148,14 +148,6 @@ public class MainWindow extends UiPart<Stage> {
         appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
         appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
 
-        browserPanel = new BrowserPanel();
-        analyticsDisplay = new AnalyticsDisplay();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         personTab.setText("Persons");
         personTab.setContent(personListPanelPlaceholder);
         personTab.setClosable(false);
@@ -165,6 +157,14 @@ public class MainWindow extends UiPart<Stage> {
         appointmentTab.setClosable(false);
 
         tabLists = new TabPane(personTab, appointmentTab);
+
+        browserPanel = new BrowserPanel();
+        analyticsDisplay = new AnalyticsDisplay();
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        //browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
