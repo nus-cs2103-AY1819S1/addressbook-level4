@@ -44,6 +44,9 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the scheduler";
+    public static final String MESSAGE_INTERNET_ERROR = "Warning: Internet Error. "
+            + "Only local changes,"
+            + "no effects on your Google Calender.";
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
@@ -68,8 +71,15 @@ public class AddCommand extends Command {
 
         model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
         model.commitScheduler();
-        connectToGoogleCalendar.pushToGoogleCal(Collections.singletonList(toAdd));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        boolean operationOnGoogleCalIsSuccessful =
+                connectToGoogleCalendar.pushToGoogleCal(Collections.singletonList(toAdd));
+
+        if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd)
+                    + "\n" + MESSAGE_INTERNET_ERROR);
+        }
     }
 
     @Override
