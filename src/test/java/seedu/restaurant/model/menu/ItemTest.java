@@ -88,7 +88,7 @@ public class ItemTest {
         assertTrue(APPLE_JUICE.equals(editedApple));
 
         // different required ingredients -> returns true
-        editedApple = new ItemBuilder(APPLE_JUICE).withRequiredIngredients(Map.of("Apple","3")).build();
+        editedApple = new ItemBuilder(APPLE_JUICE).withRequiredIngredients(Map.of("Apple", "3")).build();
         assertTrue(APPLE_JUICE.equals(editedApple));
     }
 }
