@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="overviewPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="CENTER_LEFT">
+        <Label fx:id="eventOverviewLabel" styleClass="event-name" text="Events"/>
+        <HBox fx:id="eventOverviewBox" alignment="CENTER_LEFT">
+            <Label fx:id="upcomingLabel" styleClass="detail" />
+            <Label fx:id="ongoingLabel" styleClass="detail" />
+            <Label fx:id="completedLabel" styleClass="detail" />
+        </HBox>
+    </VBox>
+</VBox>
+
