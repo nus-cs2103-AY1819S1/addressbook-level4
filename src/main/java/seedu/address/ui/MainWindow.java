@@ -232,6 +232,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Replaces the browser panel children with overview panel.
+     */
     private void handleOverview() {
         eventListPanel.clearSelection();
         volunteerListPanel.clearSelection();
@@ -239,6 +242,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPlaceholder.getChildren().add(overviewPanel.getRoot());
     }
 
+    /**
+     * Replaces the overview panel with current context panel.
+     */
     private void handleReplaceWithContextPanel() {
         String contextId = logic.getContextId();
 
