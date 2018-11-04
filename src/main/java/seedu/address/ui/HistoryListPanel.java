@@ -2,7 +2,8 @@ package seedu.address.ui;
 
 //@@author chivent
 
-import java.util.PriorityQueue;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -21,18 +22,23 @@ import seedu.address.commons.events.ui.AllTransformationEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 
+
 /**
  * Panel containing the list of past transformations.
  */
 public class HistoryListPanel extends UiPart<Region> {
+    public static final String SELECTED_STYLE = "-fx-background-color: #a3a3a3;  -fx-text-fill: #1f1f1f;";
+
     private static final String FXML = "HistoryListPanel.fxml";
+    private static final String DEFAULT_STYLE = "-fx-background-color: transparent;  -fx-text-fill: #6e6e6e;";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
     private ObservableList<String> items = FXCollections.observableArrayList();
 
     /**
      * Stores transformations that have been undone.
      */
-    private PriorityQueue<String> redoQueue = new PriorityQueue<>();
+    private Queue<String> redoQueue = new LinkedList<>();
 
     @FXML
     private ListView<String> historyListView;
@@ -143,12 +149,12 @@ public class HistoryListPanel extends UiPart<Region> {
         protected void updateItem(String transformation, boolean empty) {
             super.updateItem(transformation, empty);
 
-            setStyle("-fx-background-color: transparent;  -fx-text-fill: #6e6e6e;");
+            setStyle(DEFAULT_STYLE);
             setGraphic(null);
             setText(empty ? null : transformation);
 
             if (!empty && getIndex() == (getListView().getItems().size() - 1)) {
-                setStyle("-fx-background-color: #a3a3a3;  -fx-text-fill: #1f1f1f;");
+                setStyle(SELECTED_STYLE);
             }
         }
     }

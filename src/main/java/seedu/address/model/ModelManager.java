@@ -108,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateEntireImageList() {
         userPrefs.initImageList();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     /**
@@ -117,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateImageListNextBatch() {
         userPrefs.updateImageListNextBatch();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     /**
@@ -125,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     public void updateImageListPrevBatch() {
         userPrefs.updateImageListPrevBatch();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     /**
@@ -291,7 +291,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
         EventsCenter.getInstance().post(new ChangeDirectoryEvent(getCurrDirectory().toString()));
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     @Override
