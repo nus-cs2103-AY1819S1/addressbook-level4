@@ -179,6 +179,18 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList())
             .build();
 
+    // weekly event
+    public static final Event CS2103_LECTURE = new EventBuilder()
+            .withEventUid(UUID.randomUUID())
+            .withEventSetUid(UUID.randomUUID())
+            .withEventName("CS2103")
+            .withStartDateTime(LocalDateTime.of(2018, 8, 17, 16, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 8, 17, 18, 0))
+            .withDescription("CS2103 Description").withVenue("I3")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 11, 16, 18, 1))
+            .build();
+
     // monthly event
     public static final Event STARTUP_LECTURE_MONTH_ONE = new EventBuilder()
             .withEventUid(CONSTANT_EVENTUID.get(4))
