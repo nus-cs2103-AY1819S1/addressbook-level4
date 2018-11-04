@@ -159,7 +159,7 @@ public class PersonBuilder {
      * Password object
      */
     public PersonBuilder withPassword(Password p) {
-        if(p.plaintext != null) {
+        if (p.plaintext != null) {
             String salt = Base64.getEncoder().encodeToString(p.salt);
             this.password = new Password(p.plaintext, salt);
         } else {
