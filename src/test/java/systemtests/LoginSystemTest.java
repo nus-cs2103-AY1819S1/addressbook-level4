@@ -9,6 +9,7 @@ import seedu.address.commons.events.ui.FailedLoginEvent;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
+import seedu.address.testutil.TypicalPersons;
 
 /**
  * A system test class for the login scenario, which contains interaction with other UI components.
@@ -41,7 +42,8 @@ public class LoginSystemTest extends AddressBookSystemTest {
 
     @Test
     public void attemptLoginUser() {
-        Person p = getModel().getAddressBook().getPersonList().get(0);
+        //The first person in the address book is alice
+        Person p = TypicalPersons.ALICE;
         String username = p.getUsername().username;
         String password = p.getPassword().plaintext;
 

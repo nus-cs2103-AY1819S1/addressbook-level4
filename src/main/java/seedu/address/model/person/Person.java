@@ -167,7 +167,7 @@ public class Person {
                 && otherPerson.getProjects().equals(getProjects())
                 && otherPerson.getProfilePic().equals(getProfilePic())
                 && otherPerson.getUsername().equals(getUsername())
-                && otherPerson.getPassword().equals(getPassword())
+                && otherPerson.getPassword().isSamePassword(getPassword())
                 && otherPerson.getLeaveApplications().equals(getLeaveApplications());
     }
 

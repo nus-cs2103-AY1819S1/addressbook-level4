@@ -72,9 +72,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + "   " + SALARY_DESC_BOB
                 + "  " + PROJECT_DESC_OASIS + " ";
         Person editedPerson = new PersonBuilder(BOB).withUsername(originalUsername.username)
-                .withPassword(originalPassword.plaintext)
-                .withLeaveApplications(originalLeaveApplications)
-                .build();
+                .withPassword(originalPassword).withLeaveApplications(originalLeaveApplications).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: undo editing the last person in the list -> last person restored */
@@ -104,8 +102,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
         editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).withUsername(originalUsername.username)
-                .withPassword(originalPassword.plaintext)
-                .withLeaveApplications(originalLeaveApplications).build();
+                .withPassword(originalPassword).withLeaveApplications(originalLeaveApplications).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: edit a person with new values same as another person's values but with different phone and email
@@ -118,7 +115,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
         editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withUsername(originalUsername.username).withPassword(originalPassword.plaintext)
+                .withUsername(originalUsername.username).withPassword(originalPassword)
                 .withLeaveApplications(originalLeaveApplications).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -156,7 +153,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
         Person newPerson = new PersonBuilder(AMY).withUsername(originalUsername.username)
-            .withPassword(originalPassword.plaintext).build();
+            .withPassword(originalPassword).build();
         assertCommandSuccess(command, index, newPerson, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -211,14 +208,14 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
             due to username checks, it is ok for 2 people identified similarly as long as they have different username.
          */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        assertTrue(getModel().getAddressBook().getPersonList().stream().anyMatch(p -> p.isSamePerson(BOB)));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB;
         Person originalPerson = getModel().getFilteredPersonList().get(index.getZeroBased());
         Person expectedPerson = new PersonBuilder(BOB).withUsername(originalPerson.getUsername().username)
-            .withPassword(originalPerson.getPassword().plaintext).build();
+            .withPassword(originalPerson.getPassword()).build();
         assertCommandSuccess(command, INDEX_FIRST_PERSON, expectedPerson, INDEX_FIRST_PERSON);
     }
 

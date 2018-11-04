@@ -9,6 +9,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.Random;
 
 import javax.crypto.SecretKeyFactory;
@@ -17,6 +18,10 @@ import javax.crypto.spec.PBEKeySpec;
 /**
  * Represents a Person's password in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
+ *
+ * Note: When comparing passwords, it is recommended you use {@link #isSamePassword(Password)} rather than the
+ * {@link #equals(Object)} method, as the comparison is looser, it checks if the 2 passwords would have been
+ * the same in plaintext, ignoring the salt, which is probably what is intended
  */
 public class Password implements Serializable {
 
@@ -126,7 +131,11 @@ public class Password implements Serializable {
 
     @Override
     public String toString() {
-        return plaintext;
+        if (plaintext != null) {
+            return plaintext;
+        } else {
+            return "<unknown>";
+        }
     }
 
     public String getEncodedPassword() {
@@ -179,7 +188,7 @@ public class Password implements Serializable {
 
     @Override
     public int hashCode() {
-        return plaintext.hashCode();
+        return Objects.hash(salt, hash);
     }
 
 }

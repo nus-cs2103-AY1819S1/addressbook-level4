@@ -12,6 +12,7 @@ import seedu.address.logic.commands.PasswordCommand;
 import seedu.address.model.person.Password;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
+import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
@@ -47,7 +48,8 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
      * Attempts to log in as a normal user. The current address book must show a login screen.
      */
     public void attemptLoginUser() {
-        Person p = getModel().getAddressBook().getPersonList().get(0);
+        //The first person in the address book is alice
+        Person p = TypicalPersons.ALICE;
         String username = p.getUsername().username;
         String password = p.getPassword().plaintext;
         guiRobot.pauseForHuman();
