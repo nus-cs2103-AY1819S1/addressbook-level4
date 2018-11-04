@@ -822,6 +822,16 @@ Edits the item name of the 3rd record to be "Fried Omelet".
 * `es 7 q/37 p/6.50` +
 Edits the quantity sold and price of the 7th record to be 37 and 6.50 respectively.
 
+==== Display sales chart of date and revenue: `chart-sales` or `cs`
+
+Generates and displays the sales chart of revenue against date. +
+Format: `chart-sales` or `cs`
+
+****
+* Record list must not be empty.
+* Only existing dates in the record list are tabulated and shown.
+****
+
 ==== Ranking dates according to total revenue: `rank-date` or `rad`
 
 Ranks all existing records' dates based on the total revenue. +
@@ -892,11 +902,6 @@ Examples:
 * `delete-role r/999`
 * `dr id/999`
 
-==== Displaying sales graph `[coming in v2.0]`
-Generates and displays the sales graph with the vertical axis representing the total revenue and horizontal axis
-representing the dates. +
-Format: `display-sales-graph` or `dsg`
-
 ==== Checking item sales history `[coming in v2.0]`
 Generates the item sales report that consists of all records associated with that item. +
 Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
@@ -910,6 +915,10 @@ Examples:
 Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be much more
 detailed than that displayed in app.
 Format: `export-sales DATE` or `es DATE`
+
+==== Exporting sales chart `[coming in v2.0]`
+Exports the sales chart into a pdf file.
+Format: `export-chart` or `ec`
 
 ==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
 
@@ -1004,6 +1013,7 @@ contains the data of your previous *MeNUS* folder.
 |*Display sales report* |`display-sales DATE` |`display-sales 25-09-2018`
 |*Edit sales record* |`edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]` |`edit-sales 3 n/Fried Omelet p/7.99`
 |*Delete sales record* |`delete-sales ITEM_INDEX` |`delete-sales 2`
+|*Display sales chart* |`chart-sales` |`chart-sales`
 |*Rank items by total revenue* |`rank-item` |`rank-item`
 |*Rank dates by total revenue* |`rank-date` | `rank-date`
 |*Select sales record* |`select-sales INDEX` |`select-sales 3`

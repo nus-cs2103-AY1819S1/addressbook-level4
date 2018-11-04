@@ -1090,6 +1090,8 @@ application
 
 |`* * *` |restaurant owner |modify past sales records  |update any mistakes / refunds / cancelled booking
 
+|`* * *` |analytical restaurant owner |see the sales chart of revenue against date |have an overview of my restaurant financial performance and oversee its growth in the long run
+
 |`* * *` |profit-driven restaurant owner |know the items that are bringing in the greatest revenue  |employ marketing strategies to maximise profit
 
 |`* * *` |profit-driven restaurant owner |know the days in which revenue are greatest |employ marketing strategies to maximise profit
@@ -1912,7 +1914,7 @@ Use case resumes at step 3.
 === Use case: UC505 - Ranking items according to total revenue
 
 [NOTE]
-The use case for ranking dates according to total revenue is the same.
+The use cases for 1) ranking dates according to total revenue and 2) displaying sales chart are the same.
 
 *MSS*
 
@@ -1923,17 +1925,6 @@ The use case for ranking dates according to total revenue is the same.
 Use case ends.
 
 *Extensions*
-
-[none]
-* 1a. Invalid command format entered by the user.
-[none]
-** 1a1. App returns a message telling user that the command format is invalid.
-** 1a2. User requests to rank items again.
-+
-Steps 1a1-1a2 are repeated until a valid command format is entered.
-+
-Use case resumes at step 2.
-+
 
 [none]
 * 2a. Record list is empty. No record has ever been added.
