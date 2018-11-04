@@ -26,6 +26,8 @@ public class SampleDataUtil {
         return defaultRestaurantBook;
     }
 
+    //TODO: Maybe need set some items? idk
+
     /**
      * Returns a tag set containing the list of strings given.
      */

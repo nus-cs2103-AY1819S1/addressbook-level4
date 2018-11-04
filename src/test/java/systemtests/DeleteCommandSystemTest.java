@@ -1,15 +1,15 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.restaurant.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.restaurant.logic.commands.menu.DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 import static seedu.restaurant.testutil.EventsUtil.postNow;
+import static seedu.restaurant.testutil.TestUtil.getItem;
 import static seedu.restaurant.testutil.TestUtil.getLastIndex;
 import static seedu.restaurant.testutil.TestUtil.getMidIndex;
-import static seedu.restaurant.testutil.TestUtil.getPerson;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.restaurant.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.restaurant.testutil.menu.TypicalItems.KEYWORD_MATCHING_EGG;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,17 +17,17 @@ import org.junit.Test;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
-import seedu.restaurant.logic.commands.DeleteCommand;
 import seedu.restaurant.logic.commands.RedoCommand;
 import seedu.restaurant.logic.commands.UndoCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.person.Person;
+import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
 public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
-            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+            String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteItemCommand.MESSAGE_USAGE);
 
     private Model model;
 
@@ -41,82 +41,81 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
-        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST.getOneBased() + "       ";
-        Person deletedPerson = removePerson(model, INDEX_FIRST);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        /* Case: delete the first item in the list, command with leading spaces and trailing spaces -> deleted */
+        String command = "     " + DeleteItemCommand.COMMAND_WORD + "      " + INDEX_FIRST.getOneBased() + "       ";
+        Item deletedItem = removeItem(model, INDEX_FIRST);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: delete the last person in the list -> deleted */
+        /* Case: delete the last item in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
-        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        assertCommandSuccess(lastPersonIndex);
+        Index lastItemIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastItemIndex);
 
-        /* Case: undo deleting the last person in the list -> last person restored */
+        /* Case: undo deleting the last item in the list -> last item restored */
         command = UndoCommand.COMMAND_WORD;
         expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: redo deleting the last person in the list -> last person deleted again */
+        /* Case: redo deleting the last item in the list -> last item deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        removeItem(modelBeforeDeletingLast, lastItemIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: delete the middle person in the list -> deleted */
-        Index middlePersonIndex = getMidIndex(getModel());
-        assertCommandSuccess(middlePersonIndex);
+        /* Case: delete the middle item in the list -> deleted */
+        Index middleItemIndex = getMidIndex(getModel());
+        assertCommandSuccess(middleItemIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered person list, delete index within bounds of restaurant book and person list -> deleted */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        /* Case: filtered item list, delete index within bounds of restaurant book and item list -> deleted */
+        showItemsWithName(KEYWORD_MATCHING_EGG);
         Index index = INDEX_FIRST;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredItemList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered person list, delete index within bounds of restaurant book but out of bounds of person list
+        /* Case: filtered item list, delete index within bounds of restaurant book but out of bounds of item list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        int invalidIndex = getModel().getRestaurantBook().getPersonList().size();
-        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        showItemsWithName(KEYWORD_MATCHING_EGG);
+        int invalidIndex = getModel().getRestaurantBook().getItemList().size();
+        command = DeleteItemCommand.COMMAND_WORD + " " + invalidIndex;
+        assertCommandFailure(command, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+        /* --------------------- Performing delete operation while a item card is selected ------------------------ */
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
-        showAllPersons();
+        showAllItems();
         model = getModel();
         Index selectedIndex = getLastIndex(model);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
-        command = DeleteCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
-        deletedPerson = removePerson(model, selectedIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        selectItem(selectedIndex);
+        command = DeleteItemCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
+        deletedItem = removeItem(model, selectedIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
         assertCommandSuccess(command, model, expectedResultMessage, expectedIndex);
 
         /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " 0";
+        command = DeleteItemCommand.COMMAND_WORD + " 0";
         assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid index (-1) -> rejected */
-        command = DeleteCommand.COMMAND_WORD + " -1";
+        command = DeleteItemCommand.COMMAND_WORD + " -1";
         assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid index (size + 1) -> rejected */
-        Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getRestaurantBook().getPersonList().size() + 1);
-        command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
-        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Index outOfBoundsIndex = Index.fromOneBased(getModel().getRestaurantBook().getItemList().size() + 1);
+        command = DeleteItemCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
+        assertCommandFailure(command, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         /* Case: invalid arguments (alphabets) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        assertCommandFailure(DeleteItemCommand.COMMAND_WORD + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid arguments (extra argument) -> rejected */
-        assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+        assertCommandFailure(DeleteItemCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
@@ -126,10 +125,10 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
      * Removes the {@code Person} at the specified {@code index} in {@code model}'s restaurant book.
      * @return the removed person
      */
-    private Person removePerson(Model model, Index index) {
-        Person targetPerson = getPerson(model, index);
-        model.deletePerson(targetPerson);
-        return targetPerson;
+    private Item removeItem(Model model, Index index) {
+        Item targetedItem = getItem(model, index);
+        model.deleteItem(targetedItem);
+        return targetedItem;
     }
 
     /**
@@ -139,11 +138,11 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Person deletedPerson = removePerson(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        Item deletedItem = removeItem(expectedModel, toDelete);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItem);
 
-        assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+        assertCommandSuccess(DeleteItemCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel,
+                expectedResultMessage);
     }
 
     /**

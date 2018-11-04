@@ -33,12 +33,12 @@ public class XmlAdaptedReservation {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedReservation.
      * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedReservation() {}
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedReservation} with the given person details.
      */
     public XmlAdaptedReservation(String name, String pax, String dateTime, String remark, List<XmlAdaptedTag> tagged) {
         this.name = name;

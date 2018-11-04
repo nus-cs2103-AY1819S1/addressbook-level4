@@ -1,6 +1,5 @@
 package seedu.restaurant.testutil;
 
-import static seedu.restaurant.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.restaurant.testutil.account.TypicalAccounts.getTypicalAccounts;
 import static seedu.restaurant.testutil.ingredient.TypicalIngredients.getTypicalIngredients;
 import static seedu.restaurant.testutil.menu.TypicalItems.getTypicalItems;
@@ -11,7 +10,6 @@ import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.salesrecord.SalesRecord;
 
@@ -25,8 +23,8 @@ public class TypicalRestaurantBook {
      */
     public static RestaurantBook getTypicalRestaurantBook() {
         RestaurantBook ab = new RestaurantBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
+        for (Item item : getTypicalItems()) {
+            ab.addItem(item);
         }
         for (SalesRecord record : getTypicalRecords()) {
             ab.addRecord(record);
@@ -37,22 +35,8 @@ public class TypicalRestaurantBook {
         for (Ingredient ingredient : getTypicalIngredients()) {
             ab.addIngredient(ingredient);
         }
-        for (Item item : getTypicalItems()) {
-            ab.addItem(item);
-        }
         for (Reservation reservation : getTypicalReservations()) {
             ab.addReservation(reservation);
-        }
-        return ab;
-    }
-
-    /**
-     * Returns an {@code RestaurantBook} with {@code Person} objects only.
-     */
-    public static RestaurantBook getTypicalRestaurantBookWithPersonOnly() {
-        RestaurantBook ab = new RestaurantBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
         }
         return ab;
     }

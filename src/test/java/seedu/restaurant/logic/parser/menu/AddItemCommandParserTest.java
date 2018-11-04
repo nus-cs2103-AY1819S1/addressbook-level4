@@ -2,7 +2,7 @@ package seedu.restaurant.logic.parser.menu;
 
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_ITEM_NAME_DESC;
-import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
+import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_ITEM_PRICE_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.restaurant.logic.commands.CommandTestUtil.ITEM_NAME_DESC_BURGER;
 import static seedu.restaurant.logic.commands.CommandTestUtil.ITEM_NAME_DESC_FRIES;
@@ -85,7 +85,7 @@ public class AddItemCommandParserTest {
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid price
-        assertParseFailure(parser, ITEM_NAME_DESC_BURGER + INVALID_PRICE_DESC,
+        assertParseFailure(parser, ITEM_NAME_DESC_BURGER + INVALID_ITEM_PRICE_DESC,
                 Price.MESSAGE_PRICE_CONSTRAINTS);
 
         // invalid tag
@@ -93,7 +93,7 @@ public class AddItemCommandParserTest {
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_ITEM_NAME_DESC + INVALID_PRICE_DESC,
+        assertParseFailure(parser, INVALID_ITEM_NAME_DESC + INVALID_ITEM_PRICE_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble

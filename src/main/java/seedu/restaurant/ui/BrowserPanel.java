@@ -3,8 +3,6 @@ package seedu.restaurant.ui;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -12,8 +10,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.restaurant.MainApp;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 
 /**
@@ -22,6 +18,7 @@ import seedu.restaurant.model.reservation.Reservation;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
+    //TODO: To remove this search page
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
@@ -40,10 +37,6 @@ public class BrowserPanel extends UiPart<Region> {
 
         loadDefaultPage();
         registerAsAnEventHandler(this);
-    }
-
-    private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().toString());
     }
 
     private void loadReservationPage(Reservation reservation) {
@@ -67,11 +60,5 @@ public class BrowserPanel extends UiPart<Region> {
      */
     public void freeResources() {
         browser = null;
-    }
-
-    @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadPersonPage(event.getNewSelection());
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<restaurantbook>
+    <!-- Valid item -->
+    <items>
+        <name>Cheese Burger</name>
+        <price>1.15</price>
+        <originalPrice>3</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+    </items>
+    <!-- Person with invalid name field -->
+    <items>
+        <name>Cheese # Burger</name>
+        <price>1.15</price>
+        <originalPrice>3</originalPrice>
+        <percent>0</percent>
+        <recipe></recipe>
+        <requiredIngredients/>
+    </items>
+</restaurantbook>

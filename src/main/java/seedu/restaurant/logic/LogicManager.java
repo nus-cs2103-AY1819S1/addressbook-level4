@@ -22,7 +22,6 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.salesrecord.SalesRecord;
 
@@ -69,11 +68,6 @@ public class LogicManager extends ComponentManager implements Logic {
         } finally {
             history.add(commandText);
         }
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override

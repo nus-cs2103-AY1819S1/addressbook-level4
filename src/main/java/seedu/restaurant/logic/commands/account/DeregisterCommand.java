@@ -40,6 +40,8 @@ public class DeregisterCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        //TODO: Do not allow user delete themselves, or if accSize == 1 already
+
         if (!model.hasAccount(account)) {
             throw new CommandException(MESSAGE_USERNAME_NOT_FOUND);
         }

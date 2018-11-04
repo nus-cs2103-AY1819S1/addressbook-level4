@@ -2,11 +2,10 @@ package seedu.restaurant.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.restaurant.testutil.TypicalPersons.ALICE;
-import static seedu.restaurant.testutil.TypicalPersons.DYLAN;
-import static seedu.restaurant.testutil.TypicalPersons.HOON;
-import static seedu.restaurant.testutil.TypicalPersons.IDA;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
+import static seedu.restaurant.testutil.menu.TypicalItems.APPLE_JUICE;
+import static seedu.restaurant.testutil.menu.TypicalItems.BURGER;
+import static seedu.restaurant.testutil.menu.TypicalItems.CHEESE_BURGER;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -67,13 +66,13 @@ public class XmlRestaurantBookStorageTest {
     @Test
     public void readRestaurantBook_invalidPersonRestaurantBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readRestaurantBook("invalidPersonRestaurantBook.xml");
+        readRestaurantBook("invalidItemRestaurantBook.xml");
     }
 
     @Test
     public void readRestaurantBook_invalidAndValidPersonRestaurantBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readRestaurantBook("invalidAndValidPersonRestaurantBook.xml");
+        readRestaurantBook("invalidAndValidItemRestaurantBook.xml");
     }
 
     @Test
@@ -88,14 +87,14 @@ public class XmlRestaurantBookStorageTest {
         assertEquals(original, new RestaurantBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addItem(BURGER);
+        original.removeItem(APPLE_JUICE);
         xmlRestaurantBookStorage.saveRestaurantBook(original, filePath);
         readBack = xmlRestaurantBookStorage.readRestaurantBook(filePath).get();
         assertEquals(original, new RestaurantBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addItem(CHEESE_BURGER);
         xmlRestaurantBookStorage.saveRestaurantBook(original); //file path not specified
         readBack = xmlRestaurantBookStorage.readRestaurantBook().get(); //file path not specified
         assertEquals(original, new RestaurantBook(readBack));
@@ -162,8 +161,8 @@ public class XmlRestaurantBookStorageTest {
         assertEquals(original, new RestaurantBook(readBack));
 
         //Modify data, overwrite exiting backup file, and read back
-        original.addPerson(DYLAN);
-        original.removePerson(ALICE);
+        original.addItem(BURGER);
+        original.removeItem(APPLE_JUICE);
         xmlRestaurantBookStorage.backupRestaurantBook(original);
         readBack = xmlRestaurantBookStorage.readRestaurantBook(path).get();
         assertEquals(original, new RestaurantBook(readBack));

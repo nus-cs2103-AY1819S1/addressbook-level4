@@ -10,7 +10,6 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.salesrecord.Date;
 import seedu.restaurant.model.salesrecord.SalesRecord;
@@ -25,7 +24,6 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Account> PREDICATE_SHOW_ALL_ACCOUNTS = unused -> true;
     Predicate<Ingredient> PREDICATE_SHOW_ALL_INGREDIENTS = unused -> true;
     Predicate<Item> PREDICATE_SHOW_ALL_ITEMS = unused -> true;
@@ -46,53 +44,6 @@ public interface Model {
      * Resets the version of the RestaurantBook
      */
     void resetRestaurantBookVersion();
-
-    //=========== API for Persons =============================================================
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person. The person must exist in the restaurant book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person. {@code person} must not already exist in the restaurant book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist in the restaurant
-     * book. The person identity of {@code editedPerson} must not be the same as another existing person in the
-     * restaurant book.
-     *
-     * @param target person to be updated.
-     * @param editedPerson updated person.
-     */
-    void updatePerson(Person target, Person editedPerson);
-
-    /**
-     * Removes the given {@code tag} from all {@code Person}
-     *
-     * @param tag to be removed.
-     */
-    void removeTag(Tag tag);
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of {@code
-     * versionedRestaurantBook}
-     */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     //=========== API for Sales =============================================================
 

@@ -20,8 +20,6 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.UniqueItemList;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
-import seedu.restaurant.model.person.Person;
-import seedu.restaurant.model.person.UniquePersonList;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.reservation.UniqueReservationList;
 import seedu.restaurant.model.salesrecord.Date;
@@ -35,7 +33,6 @@ import seedu.restaurant.model.tag.Tag;
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 
-    private final UniquePersonList persons;
     private final UniqueReservationList reservations;
     private final UniqueRecordList records;
     private final UniqueAccountList accounts;
@@ -50,7 +47,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         reservations = new UniqueReservationList();
         records = new UniqueRecordList();
         accounts = new UniqueAccountList();
@@ -71,87 +67,16 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
-     * persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
-
-    /**
      * Resets the existing data of this {@code RestaurantBook} with {@code newData}.
      */
     public void resetData(ReadOnlyRestaurantBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
         setReservations(newData.getReservationList());
         setRecords(newData.getRecordList());
         setAccounts(newData.getAccountList());
         setIngredients(newData.getIngredientList());
         setItems(newData.getItemList());
-    }
-
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the restaurant book. The person must not already exist in the restaurant book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}. {@code target} must exist in the
-     * restaurant book. The person identity of {@code editedPerson} must not be the same as another existing person in
-     * the restaurant book.
-     */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Removes {@code key} from this {@code RestaurantBook}. {@code key} must exist in the restaurant book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-    }
-
-    /**
-     * Removes {@code tag} from {@code person} in this {@code RestaurantBook}.
-     *
-     * @param person whose tag is being removed.
-     * @param tag to be removed.
-     */
-    private void removeTagForPerson(Person person, Tag tag) {
-        Set<Tag> tags = new HashSet<>(person.getTags());
-
-        if (!tags.remove(tag)) {
-            return;
-        }
-
-        Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
-                person.getRemark(), tags);
-        updatePerson(person, newPerson);
-    }
-
-    /**
-     * Removes {@code tag} from all {@code person} in this {@code RestaurantBook}.
-     *
-     * @param tag to be removed.
-     */
-    public void removeTag(Tag tag) {
-        persons.forEach(person -> removeTagForPerson(person, tag));
     }
 
     // Reservation Management
@@ -198,6 +123,33 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     /**
+     * Removes {@code tag} from all {@code item} in this {@code RestaurantBook}.
+     *
+     * @param tag to be removed.
+     */
+    public void removeTagForReservationList(Tag tag) {
+        reservations.forEach(reservation -> removeTagForReservation(reservation, tag));
+    }
+
+    /**
+     * Removes {@code tag} from {@code Reservation}.
+     *
+     * @param reservation whose tag is being removed.
+     * @param tag to be removed.
+     */
+    private void removeTagForReservation(Reservation reservation, Tag tag) {
+        Set<Tag> tags = new HashSet<>(reservation.getTags());
+
+        if (!tags.remove(tag)) {
+            return;
+        }
+
+        Reservation newReservation = new Reservation(reservation.getName(), reservation.getPax(),
+                reservation.getDateTime(), reservation.getRemark(), tags);
+        updateReservation(reservation, newReservation);
+    }
+
+    /**
      * Sorts the reservations list.
      */
     public void sortReservations() {
@@ -207,11 +159,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     @Override
     public ObservableList<Reservation> getReservationList() {
         return reservations.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
     }
 
     //// sales record-level operation
@@ -492,8 +439,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     /**
-     * Finds an item in the menu with the name {@code Name}. The item must already exist
-     * in the menu.
+     * Finds an item in the menu with the name {@code Name}. The item must already exist in the menu.
      */
     public Item findItem(Name name) throws ItemNotFoundException {
         return items.find(name);
@@ -508,11 +454,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     @Override
     public String toString() {
-        return String.valueOf(persons.asUnmodifiableObservableList().size()) + " persons\n"
-                + accounts.asUnmodifiableObservableList().size() + " accounts\n"
+        return String.valueOf(accounts.asUnmodifiableObservableList().size() + " accounts\n"
                 + ingredients.asUnmodifiableObservableList().size() + " ingredients\n"
                 + items.asUnmodifiableObservableList().size() + " items\n"
-                + records.asUnmodifiableObservableList().size() + " records";
+                + records.asUnmodifiableObservableList().size() + " records");
     }
 
     @Override
@@ -526,8 +471,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             return false;
         }
 
-        return persons.equals(((RestaurantBook) other).persons)
-                && accounts.equals(((RestaurantBook) other).accounts)
+        return accounts.equals(((RestaurantBook) other).accounts)
                 && ingredients.equals(((RestaurantBook) other).ingredients)
                 && items.equals(((RestaurantBook) other).items)
                 && records.equals(((RestaurantBook) other).records);
@@ -535,6 +479,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, accounts, ingredients, items, records);
+        return Objects.hash(accounts, ingredients, items, records);
     }
 }

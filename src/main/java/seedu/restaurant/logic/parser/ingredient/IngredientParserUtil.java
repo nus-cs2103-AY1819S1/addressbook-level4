@@ -2,7 +2,6 @@ package seedu.restaurant.logic.parser.ingredient;
 
 import static java.lang.Integer.parseInt;
 import static java.util.Objects.requireNonNull;
-import static seedu.restaurant.logic.parser.util.ParserUtil.MESSAGE_NOT_INDEX_OR_NAME;
 
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.util.StringUtil;
@@ -17,6 +16,7 @@ import seedu.restaurant.model.ingredient.NumUnits;
  * Contains utility methods used for parsing strings ingredient-related classes.
  */
 public class IngredientParserUtil {
+    public static final String MESSAGE_NOT_INDEX_OR_NAME = "A valid index or ingredient name must be entered.";
 
     // This class should not be instantiated.
     private IngredientParserUtil() {

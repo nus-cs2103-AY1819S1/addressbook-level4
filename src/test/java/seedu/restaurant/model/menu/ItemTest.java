@@ -8,6 +8,8 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_CHE
 import static seedu.restaurant.testutil.menu.TypicalItems.APPLE_JUICE;
 import static seedu.restaurant.testutil.menu.TypicalItems.BEEF_BURGER;
 
+import java.util.Map;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -33,9 +35,13 @@ public class ItemTest {
         // null -> returns false
         assertFalse(APPLE_JUICE.isSameItem(null));
 
-        // different price -> returns false
+        // different price -> returns true
         Item editedApple = new ItemBuilder(APPLE_JUICE).withPrice(VALID_ITEM_PRICE_BURGER).build();
-        assertFalse(APPLE_JUICE.isSameItem(editedApple));
+        assertTrue(APPLE_JUICE.isSameItem(editedApple));
+
+        // same name in CAPS -> returns true
+        editedApple = new ItemBuilder(APPLE_JUICE).withName("APPLE JUICE").build();
+        assertTrue(APPLE_JUICE.isSameItem(editedApple));
 
         // different name -> returns false
         editedApple = new ItemBuilder(APPLE_JUICE).withName(VALID_ITEM_NAME_BURGER).build();
@@ -75,5 +81,13 @@ public class ItemTest {
         // different tags -> returns false
         editedApple = new ItemBuilder(APPLE_JUICE).withTags(VALID_ITEM_TAG_CHEESE).build();
         assertFalse(APPLE_JUICE.equals(editedApple));
+
+        // different recipe -> returns true
+        editedApple = new ItemBuilder(APPLE_JUICE).withRecipe("Some recipe").build();
+        assertTrue(APPLE_JUICE.equals(editedApple));
+
+        // different required ingredients -> returns true
+        editedApple = new ItemBuilder(APPLE_JUICE).withRequiredIngredients(Map.of("Apple", "3")).build();
+        assertTrue(APPLE_JUICE.equals(editedApple));
     }
 }

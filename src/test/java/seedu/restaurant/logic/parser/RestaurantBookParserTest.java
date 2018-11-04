@@ -27,19 +27,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.restaurant.logic.commands.AddCommand;
 import seedu.restaurant.logic.commands.ClearCommand;
-import seedu.restaurant.logic.commands.DeleteCommand;
-import seedu.restaurant.logic.commands.EditCommand;
-import seedu.restaurant.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.restaurant.logic.commands.ExitCommand;
-import seedu.restaurant.logic.commands.FindCommand;
 import seedu.restaurant.logic.commands.HelpCommand;
 import seedu.restaurant.logic.commands.HistoryCommand;
-import seedu.restaurant.logic.commands.ListCommand;
 import seedu.restaurant.logic.commands.RedoCommand;
-import seedu.restaurant.logic.commands.RemarkCommand;
-import seedu.restaurant.logic.commands.SelectCommand;
 import seedu.restaurant.logic.commands.UndoCommand;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccountDescriptor;
@@ -91,15 +83,9 @@ import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Recipe;
 import seedu.restaurant.model.menu.TagContainsKeywordsPredicate;
-import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
-import seedu.restaurant.model.person.Person;
-import seedu.restaurant.model.person.Remark;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.salesrecord.Date;
 import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.testutil.EditPersonDescriptorBuilder;
-import seedu.restaurant.testutil.PersonBuilder;
-import seedu.restaurant.testutil.PersonUtil;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.testutil.account.AccountUtil;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
@@ -124,16 +110,6 @@ public class RestaurantBookParserTest {
     private final RestaurantBookParser parser = new RestaurantBookParser();
 
     @Test
-    public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
-        command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS
-                + " " + PersonUtil.getPersonDetails(person));
-        assertEquals(new AddCommand(person), command);
-    }
-
-    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
@@ -142,44 +118,11 @@ public class RestaurantBookParserTest {
     }
 
     @Test
-    public void parseCommand_delete() throws Exception {
-        DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST), command);
-        command = (DeleteCommand) parser.parseCommand(DeleteCommand.COMMAND_ALIAS
-                + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST), command);
-    }
-
-    @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
-        command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_ALIAS + " "
-                + INDEX_FIRST.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditCommand(INDEX_FIRST, descriptor), command);
-    }
-
-    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_ALIAS + " 3") instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
-        command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_ALIAS + " "
-                + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -205,24 +148,6 @@ public class RestaurantBookParserTest {
     }
 
     @Test
-    public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS + " 3") instanceof ListCommand);
-    }
-
-    @Test
-    public void parseCommand_select() throws Exception {
-        SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST), command);
-        command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new SelectCommand(INDEX_FIRST), command);
-    }
-
-    @Test
     public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_ALIAS) instanceof RedoCommand);
@@ -236,14 +161,6 @@ public class RestaurantBookParserTest {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_ALIAS) instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_ALIAS + " 3") instanceof UndoCommand);
-    }
-
-    @Test
-    public void parseCommand_remark() throws Exception {
-        final Remark remark = new Remark("Some remark.");
-        RemarkCommand command = (RemarkCommand) parser.parseCommand(RemarkCommand.COMMAND_WORD + " "
-                + INDEX_FIRST.getOneBased() + " " + PREFIX_REMARK + remark.value);
-        assertEquals(new RemarkCommand(INDEX_FIRST, remark), command);
     }
 
     @Test

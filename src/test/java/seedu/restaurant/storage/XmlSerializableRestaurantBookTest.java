@@ -26,8 +26,6 @@ public class XmlSerializableRestaurantBookTest {
 
     // Account Management
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalRestaurantBook.xml");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonOnlyRestaurantBook.xml");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonOnlyRestaurantBook.xml");
     private static final Path INVALID_ACCOUNT_FILE = TEST_DATA_FOLDER.resolve("invalidAccountOnlyRestaurantBook.xml");
     private static final Path DUPLICATE_ACCOUNT_FILE = TEST_DATA_FOLDER
             .resolve("duplicateAccountOnlyRestaurantBook.xml");
@@ -68,21 +66,6 @@ public class XmlSerializableRestaurantBookTest {
         RestaurantBook restaurantBookFromFile = dataFromFile.toModelType();
         RestaurantBook typicalPersonsRestaurantBook = getTypicalRestaurantBook();
         assertEquals(restaurantBookFromFile, typicalPersonsRestaurantBook);
-    }
-
-    @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FILE, XmlSerializableRestaurantBook.class);
-        thrown.expect(IllegalValueException.class);
-        dataFromFile.toModelType();
-    }
-
-    @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE, XmlSerializableRestaurantBook.class);
-        thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableRestaurantBook.MESSAGE_DUPLICATE_PERSON);
-        dataFromFile.toModelType();
     }
 
     @Test
@@ -195,7 +178,7 @@ public class XmlSerializableRestaurantBookTest {
 
     @Test
     public void equals() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_PERSON_FILE, XmlSerializableRestaurantBook.class);
+        dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_ITEM_FILE, XmlSerializableRestaurantBook.class);
 
         // same object
         assertTrue(dataFromFile.equals(dataFromFile));

@@ -11,7 +11,6 @@ import static seedu.restaurant.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.restaurant.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.restaurant.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,29 +27,29 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import guitests.guihandles.accounts.UsernameDisplayHandle;
+import guitests.guihandles.menu.ItemListPanelHandle;
 import seedu.restaurant.MainApp;
 import seedu.restaurant.TestApp;
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.logic.commands.ClearCommand;
-import seedu.restaurant.logic.commands.FindCommand;
-import seedu.restaurant.logic.commands.ListCommand;
-import seedu.restaurant.logic.commands.SelectCommand;
+import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
+import seedu.restaurant.logic.commands.menu.FindItemCommand;
+import seedu.restaurant.logic.commands.menu.ListItemsCommand;
+import seedu.restaurant.logic.commands.menu.SelectItemCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.RestaurantBook;
-import seedu.restaurant.ui.BrowserPanel;
 import seedu.restaurant.ui.CommandBox;
 import seedu.restaurant.ui.account.UsernameDisplay;
 
 /**
- * A system test class for RestaurantBook, which provides access to handles of GUI components and helper methods
- * for test verification.
+ * A system test class for RestaurantBook, which provides access to handles of GUI components and helper methods for
+ * test verification.
  */
 public abstract class RestaurantBookSystemTest {
+
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
@@ -105,8 +104,8 @@ public abstract class RestaurantBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public ItemListPanelHandle getItemListPanel() {
+        return mainWindowHandle.getItemListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -130,8 +129,8 @@ public abstract class RestaurantBookSystemTest {
     }
 
     /**
-     * Executes {@code command} in the application's {@code CommandBox}.
-     * Method returns after UI components have been updated.
+     * Executes {@code command} in the application's {@code CommandBox}. Method returns after UI components have been
+     * updated.
      */
     protected void executeCommand(String command) {
         rememberStates();
@@ -147,98 +146,105 @@ public abstract class RestaurantBookSystemTest {
     /**
      * Displays all persons in the restaurant book.
      */
-    protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getRestaurantBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+    protected void showAllItems() {
+        executeCommand(ListItemsCommand.COMMAND_WORD);
+        assertEquals(getModel().getRestaurantBook().getItemList().size(), getModel().getFilteredItemList().size());
     }
 
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getRestaurantBook().getPersonList().size());
+    protected void showItemsWithName(String keyword) {
+        executeCommand(FindItemCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredItemList().size() < getModel().getRestaurantBook().getItemList().size());
     }
 
     /**
      * Selects the person at {@code index} of the displayed list.
      */
-    protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+    protected void selectItem(Index index) {
+        executeCommand(SelectItemCommand.COMMAND_WORD + " " + index.getOneBased());
+        assertEquals(index.getZeroBased(), getItemListPanel().getSelectedCardIndex());
     }
 
     /**
      * Deletes all persons in the restaurant book.
      */
-    protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getRestaurantBook().getPersonList().size());
+    protected void deleteAllItems() {
+        executeCommand(ClearMenuCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getRestaurantBook().getItemList().size());
     }
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel} and the
+     * person list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new RestaurantBook(expectedModel.getRestaurantBook()), testApp.readStorageRestaurantBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getItemListPanel(), expectedModel.getFilteredItemList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
-     * their current state.
+     * Calls {@code BrowserPanelHandle}, {@code ItemListPanelHandle} and {@code StatusBarFooterHandle} to remember their
+     * current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getItemListPanel().rememberSelectedItemCard();
     }
 
     /**
      * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected person.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getItemListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * Asserts that the browser's url is changed to display the details of the person in the person list panel at {@code
+     * expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see ItemListPanelHandle#isSelectedItemCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
+        getItemListPanel().navigateToCard(getItemListPanel().getSelectedCardIndex());
+        //String selectedCardName = getItemListPanel().getHandleToSelectedCard().getName();
+
+        //This is a temporary fix as we are no longer using the SEARHC_PAGE_URL
+        URL expectedUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+
+        /*try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
-        }
+        }*/
+
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getItemListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     *
      * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see ItemListPanelHandle#isSelectedItemCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getItemListPanel().isSelectedItemCardChanged());
     }
 
     /**
@@ -265,8 +271,8 @@ public abstract class RestaurantBookSystemTest {
     }
 
     /**
-     * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * Asserts that only the sync status in the status bar was changed to the timing of {@code
+     * ClockRule#getInjectedClock()}, while the save location remains the same.
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
@@ -282,8 +288,8 @@ public abstract class RestaurantBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertEquals(UsernameDisplay.ACCOUNT_STATUS_GUEST, getUsernameDisplay().getText()); // test?
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertEquals(UsernameDisplay.ACCOUNT_STATUS_GUEST, getUsernameDisplay().getText());
+        assertListMatching(getItemListPanel(), getModel().getFilteredItemList());
         assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

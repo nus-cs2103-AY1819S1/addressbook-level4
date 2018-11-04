@@ -192,13 +192,12 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        PersonListPanel personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         accountListPanel = new AccountListPanel(logic.getFilteredAccountList());
         itemListPanel = new ItemListPanel(logic.getFilteredItemList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         reservationListPanel = new ReservationListPanel(logic.getFilteredReservationList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot()); // Show restaurant book
+        personListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
     }
 
     void hide() {

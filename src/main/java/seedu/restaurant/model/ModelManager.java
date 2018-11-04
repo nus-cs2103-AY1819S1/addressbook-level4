@@ -21,7 +21,6 @@ import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.salesrecord.Date;
 import seedu.restaurant.model.salesrecord.SalesRecord;
@@ -36,7 +35,6 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedRestaurantBook versionedRestaurantBook;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Reservation> filteredReservations;
     private final FilteredList<SalesRecord> filteredRecords;
     private final FilteredList<Account> filteredAccounts;
@@ -53,7 +51,6 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with restaurant book: " + restaurantBook + " and user prefs " + userPrefs);
 
         versionedRestaurantBook = new VersionedRestaurantBook(restaurantBook);
-        filteredPersons = new FilteredList<>(versionedRestaurantBook.getPersonList());
         filteredReservations = new FilteredList<>(versionedRestaurantBook.getReservationList());
         filteredRecords = new FilteredList<>(versionedRestaurantBook.getRecordList());
         filteredAccounts = new FilteredList<>(versionedRestaurantBook.getAccountList());
@@ -86,51 +83,6 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private void indicateRestaurantBookChanged() {
         raise(new RestaurantBookChangedEvent(versionedRestaurantBook));
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedRestaurantBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        versionedRestaurantBook.removePerson(target);
-        indicateRestaurantBookChanged();
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        versionedRestaurantBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateRestaurantBookChanged();
-    }
-
-    @Override
-    public void updatePerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedRestaurantBook.updatePerson(target, editedPerson);
-        indicateRestaurantBookChanged();
-    }
-
-    @Override
-    public void removeTag(Tag tag) {
-        versionedRestaurantBook.removeTag(tag);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
     }
 
     //=========== Sales =================================================================================
@@ -408,7 +360,6 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedRestaurantBook.equals(other.versionedRestaurantBook)
-                && filteredPersons.equals(other.filteredPersons)
                 && filteredAccounts.equals(other.filteredAccounts)
                 && filteredIngredients.equals(other.filteredIngredients)
                 && filteredItems.equals(other.filteredItems)
@@ -453,7 +404,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void removeTagForReservation(Tag tag) {
-        versionedRestaurantBook.removeTag(tag);
+        versionedRestaurantBook.removeTagForReservationList(tag);
     }
 
     //=========== Filtered Reservation List Accessors =============================================================
