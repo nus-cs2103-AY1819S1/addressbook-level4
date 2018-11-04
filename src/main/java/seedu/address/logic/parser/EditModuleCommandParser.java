@@ -17,18 +17,12 @@ import java.util.stream.IntStream;
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.arguments.EditArgument;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.module.Code;
-import seedu.address.model.module.Credit;
-import seedu.address.model.module.Grade;
-import seedu.address.model.module.Semester;
-import seedu.address.model.module.Year;
 
 /**
  * {@code EditModuleCommandParser} parses input arguments for
  * {@code EditModuleCommand}.
  */
 public class EditModuleCommandParser implements Parser<EditModuleCommand> {
-
     // Constants for ParseException.
     public static final String MESSAGE_TARGET_CODE_REQUIRED = "Target code"
             + " required.\n" + EditModuleCommand.MESSAGE_USAGE;
@@ -38,7 +32,8 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     public static final String MESSAGE_NO_CHANGES = "Command does not cause"
             + " any changes. Not enough parameters specified.\n"
             + EditModuleCommand.MESSAGE_USAGE;
-    public static final String MESSAGE_INVALID_FORMAT = "Invalid format";
+    public static final String MESSAGE_INVALID_FORMAT = "Invalid format\n"
+            + EditModuleCommand.MESSAGE_USAGE;
 
     // Map string argument to argument. Cannot be modified.
     private static final Map<String, EditArgument> NAME_TO_ARGUMENT_MAP;
@@ -52,17 +47,17 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     // Map object to argument.
-    private static EnumMap<EditArgument, Object> argumentMap;
+    private static EnumMap<EditArgument, Object> argMap;
     static {
-        argumentMap = new EnumMap<>(EditArgument.class);
-        argumentMap.put(EditArgument.TARGET_CODE, null);
-        argumentMap.put(EditArgument.TARGET_YEAR, null);
-        argumentMap.put(EditArgument.TARGET_SEMESTER, null);
-        argumentMap.put(EditArgument.NEW_CODE, null);
-        argumentMap.put(EditArgument.NEW_YEAR, null);
-        argumentMap.put(EditArgument.NEW_SEMESTER, null);
-        argumentMap.put(EditArgument.NEW_CREDIT, null);
-        argumentMap.put(EditArgument.NEW_GRADE, null);
+        argMap = new EnumMap<>(EditArgument.class);
+        argMap.put(EditArgument.TARGET_CODE, null);
+        argMap.put(EditArgument.TARGET_YEAR, null);
+        argMap.put(EditArgument.TARGET_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CODE, null);
+        argMap.put(EditArgument.NEW_YEAR, null);
+        argMap.put(EditArgument.NEW_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CREDIT, null);
+        argMap.put(EditArgument.NEW_GRADE, null);
     }
 
     /**
@@ -92,11 +87,6 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         // Converts argument string to tokenize argument array.
         String[] args = ParserUtil.tokenize(argsInString);
 
-        // Number of argument is within the legal range.
-        // Number of argument is even.
-        // Arguments are in name-value pair format.
-        // Arguments only contain legal name.
-        // Same name does not appear more than once.
         ParserUtil.argsWithBounds(args, 4, 16);
         ParserUtil.argsAreNameValuePair(args, MESSAGE_INVALID_FORMAT);
         validateName(args);
@@ -104,30 +94,19 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
         // Parse values.
         parseValues(args);
 
-        // Target code is not null.
-        // Target year is null if and only if target semester is null.
-        // At least one new value has been specified.
         targetCodeNotNull();
         targetYearNullIffTargetSemesterNull();
         atLeastOneNewValueSpecified();
 
         // Return edit module command for execution.
-        return new EditModuleCommand(
-                (Code) argumentMap.get(EditArgument.TARGET_CODE),
-                (Year) argumentMap.get(EditArgument.TARGET_YEAR),
-                (Semester) argumentMap.get(EditArgument.TARGET_SEMESTER),
-                (Code) argumentMap.get(EditArgument.NEW_CODE),
-                (Year) argumentMap.get(EditArgument.NEW_YEAR),
-                (Semester) argumentMap.get(EditArgument.NEW_SEMESTER),
-                (Credit) argumentMap.get(EditArgument.NEW_CREDIT),
-                (Grade) argumentMap.get(EditArgument.NEW_GRADE));
+        return new EditModuleCommand(argMap);
     }
 
     /**
      * Check if argument array does not contain the same name twice and all
      * names are legal.
      *
-     * @param argArray
+     * @param argArray array of name-value pair arguments
      * @throws ParseException
      */
     public static void validateName(String[] argArray) throws ParseException {
@@ -151,55 +130,60 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
+     * Parse the value into its relevant object.
      *
-     * @param argArray
-     * @throws ParseException
+     * @param argArray array of name-value pair arguments
+     * @throws ParseException thrown when the value cannot be parsed
      */
     private void parseValues(String[] argArray) throws ParseException {
         for (int index = 0; index < argArray.length; index = index + 2) {
             EditArgument name = NAME_TO_ARGUMENT_MAP.get(argArray[index]);
             Object value = name.getValue(argArray[index + 1]);
-            argumentMap.put(name, value);
+            argMap.put(name, value);
         }
     }
 
     /**
+     * Target code should not be null.
      *
-     * @throws ParseException
+     * @throws ParseException thrown when target code is null
      */
     private void targetCodeNotNull() throws ParseException {
         // Throw parse exception if target code is null.
-        Object targetCode = argumentMap.get(EditArgument.TARGET_CODE);
+        Object targetCode = argMap.get(EditArgument.TARGET_CODE);
         if (targetCode == null) {
             throw parseException(MESSAGE_TARGET_CODE_REQUIRED);
         }
     }
 
     /**
+     * Target year and target semester cannot be null exclusively.
+     * <p>
+     * Target year is null if and only if target semester is also null.
      *
-     * @throws ParseException
+     * @throws ParseException thrown when target year and target semester is
+     * exclusively null
      */
     private void targetYearNullIffTargetSemesterNull() throws ParseException {
-        Object targetYear = argumentMap.get(EditArgument.TARGET_YEAR);
-        Object targetSemester = argumentMap.get(EditArgument.TARGET_SEMESTER);
+        Object targetYear = argMap.get(EditArgument.TARGET_YEAR);
+        Object targetSemester = argMap.get(EditArgument.TARGET_SEMESTER);
         if (targetYear == null ^ targetSemester == null) {
             throw parseException(MESSAGE_YEAR_AND_SEMESTER_XOR_NULL);
         }
     }
 
     /**
-     * Checks if any of code, year, semester, credit, or grade has a new value.
-     * <p>
-     * Throws {@code ParseException} when
+     * One of code, year, semester, credit, or grade should have a new value.
      *
-     * @throws ParseException
+     * @throws ParseException Thrown when code, year, semester, credit, and
+     * grade are all null
      */
     private void atLeastOneNewValueSpecified() throws ParseException {
-        Object code = argumentMap.get(EditArgument.NEW_CODE);
-        Object year = argumentMap.get(EditArgument.NEW_YEAR);
-        Object semester = argumentMap.get(EditArgument.NEW_SEMESTER);
-        Object credit = argumentMap.get(EditArgument.NEW_CREDIT);
-        Object grade = argumentMap.get(EditArgument.NEW_GRADE);
+        Object code = argMap.get(EditArgument.NEW_CODE);
+        Object year = argMap.get(EditArgument.NEW_YEAR);
+        Object semester = argMap.get(EditArgument.NEW_SEMESTER);
+        Object credit = argMap.get(EditArgument.NEW_CREDIT);
+        Object grade = argMap.get(EditArgument.NEW_GRADE);
 
         if (code == null && year == null && semester == null && credit == null
                 && grade == null) {

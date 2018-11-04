@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalModules.YEAR_THREE;
 import static seedu.address.testutil.TypicalModules.YEAR_TWO;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Rule;

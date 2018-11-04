@@ -2,11 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.arguments.EditArgument;
 import seedu.address.model.Model;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;
@@ -20,7 +22,6 @@ import seedu.address.model.util.ModuleBuilder;
  * {@code EditModuleCommand} edit fields of existing module.
  */
 public class EditModuleCommand extends Command {
-
     /**
      * Command word for {@code EditModuleCommand}.
      */
@@ -35,11 +36,13 @@ public class EditModuleCommand extends Command {
             + ": Edits the details of the module specified by the module code."
             + " Existing values will be overwritten by the input values."
             + " \nParameters:"
-            + " -code MODULE_CODE"
-            + " -year [YEAR]"
-            + " -semester [SEMESTER]"
-            + " -credit [CREDIT]"
-            + " -grade [GRADE]";
+            + " -t TARGET_MODULE_CODE"
+            + " [-e TARGET_MODULE_YEAR -z TARGET_MODULE_SEMESTER]"
+            + " [-m NEW_MODULE_CODE]"
+            + " [-y NEW_YEAR]"
+            + " [-s NEW_SEMESTER]"
+            + " [-c NEW_CREDIT]"
+            + " [-g NEW_GRADE]";
 
     // Constants for CommandException.
     public static final String MESSAGE_EDIT_SUCCESS = "Edited module: %1$s";
@@ -84,9 +87,10 @@ public class EditModuleCommand extends Command {
      * <p>
      * Sets target field and new field used to find and editing the targeted
      * module.
+     * <p>
+     * Assumes that:
      * <ul>
-     *     Assumes that:
-     *     <li>{@code targetCode} cannot be null.</li>
+     *     <li>{@code targetCode} is not null.</li>
      *     <li>
      *         {@code targetYear} is null if and only if {@code targetSemester}
      *         is null
@@ -97,19 +101,22 @@ public class EditModuleCommand extends Command {
      *     </li>
      * </ul>
      *
-     *
-     * @param targetCode target code that identifies the targeted module
-     * @param targetYear target year that identifies the targeted module
-     * @param targetSemester target semester that identifies the targeted module
-     * @param newCode replaces module code of the targeted module if not null
-     * @param newYear replaces year of the targeted module if not null
-     * @param newSemester replaces semester of the targeted module if not null
-     * @param newCredit replaces credit of the targeted module if not null
-     * @param newGrade replaces grade of targeted module if not null
+     * @param argMap Contains the name-value pair mapping of the arguments
      */
-    public EditModuleCommand(Code targetCode, Year targetYear,
-            Semester targetSemester, Code newCode, Year newYear,
-            Semester newSemester, Credit newCredit, Grade newGrade) {
+    public EditModuleCommand(EnumMap<EditArgument, Object> argMap) {
+        // Instantiate target fields.
+        this.targetCode = (Code) argMap.get(EditArgument.TARGET_CODE);
+        this.targetYear = (Year) argMap.get(EditArgument.TARGET_YEAR);
+        this.targetSemester = (Semester) argMap
+                .get(EditArgument.TARGET_SEMESTER);
+
+        // Instantiate new fields.
+        this.newCode = (Code) argMap.get(EditArgument.NEW_CODE);
+        this.newYear = (Year) argMap.get(EditArgument.NEW_YEAR);
+        this.newSemester = (Semester) argMap.get(EditArgument.NEW_SEMESTER);
+        this.newCredit = (Credit) argMap.get(EditArgument.NEW_CREDIT);
+        this.newGrade = (Grade) argMap.get(EditArgument.NEW_GRADE);
+
         // Already handled by EditModuleCommandParser:
         // 1) Target code cannot be null.
         // 2) Target year is null if and only if target semester is null.
@@ -121,22 +128,23 @@ public class EditModuleCommand extends Command {
                 || newSemester != null
                 || newCredit != null
                 || newGrade != null;
-
-        // Instantiate target fields.
-        this.targetCode = targetCode;
-        this.targetYear = targetYear;
-        this.targetSemester = targetSemester;
-
-        // Instantiate new fields.
-        this.newCode = newCode;
-        this.newYear = newYear;
-        this.newSemester = newSemester;
-        this.newCredit = newCredit;
-        this.newGrade = newGrade;
     }
 
     /**
      * Edits the targeted module in the module list of transcript.
+     * <p>
+     * Throws {@code CommandException} when:
+     * <ul>
+     *     <li>Target module does not exist</li>
+     *     <li>Target module is incomplete and edited module has new grade</li>
+     *     <li>
+     *         Another module in transcript already have the same module code,
+     *         year, and semester of the edited module.
+     *     </li>
+     *     <li>
+     *         Another module in transcript alread
+     *     </li>
+     * </ul>
      *
      * @param model {@code Model} that the command operates on.
      * @param history {@code CommandHistory} that the command operates on.
@@ -287,7 +295,7 @@ public class EditModuleCommand extends Command {
                 && newYear == null
                 && newSemester == null;
 
-        // No conflicts since identifier is not changed.
+        // No conflicts since identifier hasn't changed.
         if (identifierNotChanged) {
             return;
         }
