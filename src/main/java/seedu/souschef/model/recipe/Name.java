@@ -3,6 +3,8 @@ package seedu.souschef.model.recipe;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
 /**
  * Represents a Recipe's name in the application content.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -36,6 +38,15 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given object matches the Name class fulName attribute without case sensitivity.
+     */
+    public boolean isSame(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equalsIgnoreCase(((Name) other).fullName)); // state check
     }
 
 
