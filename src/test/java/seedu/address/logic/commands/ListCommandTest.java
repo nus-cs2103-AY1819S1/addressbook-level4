@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.wish.WishCompletedPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -40,5 +41,19 @@ public class ListCommandTest {
         showWishAtIndex(model, INDEX_FIRST_WISH);
         assertCommandSuccess(new ListCommand(ListCommand.ListType.SHOW_ALL),
                 model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_showListCompleted_success() {
+        expectedModel.updateFilteredWishList(new WishCompletedPredicate(true));
+        assertCommandSuccess(new ListCommand(ListCommand.ListType.SHOW_COMPLETED),
+                model, commandHistory, ListCommand.MESSAGE_SHOWED_COMPLETED, expectedModel);
+    }
+
+    @Test
+    public void execute_showListUncompleted_success() {
+        expectedModel.updateFilteredWishList(new WishCompletedPredicate(false));
+        assertCommandSuccess(new ListCommand(ListCommand.ListType.SHOW_UNCOMPLETED),
+                model, commandHistory, ListCommand.MESSAGE_SHOWED_UNCOMPLETED, expectedModel);
     }
 }
