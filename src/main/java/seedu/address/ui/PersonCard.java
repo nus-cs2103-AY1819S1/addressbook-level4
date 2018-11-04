@@ -13,8 +13,7 @@ import seedu.address.model.person.Patient;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES =
-            { "red", "blue", "orange", "black" };
+    private static final String[] TAG_COLOR_STYLES = { "red", "blue", "orange", "black" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -59,18 +58,10 @@ public class PersonCard extends UiPart<Region> {
      */
     private String getTagColorStyleFor(String tagName) {
         int i = 0;
-        if (tagName.equals("pioneer")) {
-            i = 0;
-        }
-        else if (tagName.equals("blue")) {
-            i = 1;
-        }
-        else if (tagName.equals("orange")) {
-            i = 2;
-        }
-        else {
-            i = 3;
-        }
+        if (tagName.equals("pioneer")) { i = 0; }
+        else if (tagName.equals("blue")) { i = 1; }
+        else if (tagName.equals("orange")) { i = 2; }
+        else { i = 3; }
         return TAG_COLOR_STYLES[i];
     }
     /**
