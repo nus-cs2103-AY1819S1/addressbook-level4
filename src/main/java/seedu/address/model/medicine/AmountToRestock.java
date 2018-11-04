@@ -27,6 +27,13 @@ public class AmountToRestock {
     }
 
     /**
+     * Returns true if a given amount is a valid amount to restock.
+     */
+    public static boolean isValidAmountToRestock(Integer test) {
+        return test > 0;
+    }
+
+    /**
      * Getter for the value of the amount to restock.
      */
     public Integer getValue() {
