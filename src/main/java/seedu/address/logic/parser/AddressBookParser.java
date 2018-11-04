@@ -6,6 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ReplaceWithContextPanelEvent;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddRecordCommand;
@@ -25,6 +27,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.ManageCommand;
+import seedu.address.logic.commands.OverviewCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectEventCommand;
@@ -123,6 +126,9 @@ public class AddressBookParser {
         case ListEventCommand.COMMAND_WORD:
             return new ListEventCommand();
 
+        case OverviewCommand.COMMAND_WORD:
+            return new OverviewCommand();
+
         case ManageCommand.COMMAND_WORD:
             return new ManageCommandParser().parse(arguments);
 
@@ -156,6 +162,9 @@ public class AddressBookParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case OverviewCommand.COMMAND_WORD:
+            return new OverviewCommand();
 
         case ExportCertCommand.COMMAND_WORD:
             return new ExportCertCommandParser().parse(arguments);

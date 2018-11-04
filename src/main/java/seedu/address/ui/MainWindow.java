@@ -21,6 +21,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.OverviewPanelChangedEvent;
+import seedu.address.commons.events.ui.ReplaceWithContextPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.Context;
@@ -42,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
 
     private ContextIndicator contextIndicator;
+    private OverviewPanel overviewPanel;
     private VolunteerListPanel volunteerListPanel;
     private VolunteerPanel volunteerPanel;
     private EventListPanel eventListPanel;
@@ -134,6 +137,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        overviewPanel = new OverviewPanel(logic.getFilteredVolunteerList(), logic.getFilteredEventList(),
+                                                                                logic.getFilteredRecordList());
+
         volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
@@ -226,6 +232,25 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void handleOverview() {
+        eventListPanel.clearSelection();
+        volunteerListPanel.clearSelection();
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(overviewPanel.getRoot());
+    }
+
+    private void handleReplaceWithContextPanel() {
+        String contextId = logic.getContextId();
+
+        if (contextId.equals(EVENT_CONTEXT_ID)) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(eventPanel.getRoot());
+        } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
+        }
+    }
+
     /**
      * Closes the application.
      */
@@ -242,11 +267,20 @@ public class MainWindow extends UiPart<Stage> {
         return eventListPanel;
     }
 
-
     @Subscribe
     private void handleContextChangeEvent(ContextChangeEvent event) {
         logger.info(event.getNewContext());
         handleContextChange(event);
+    }
+
+    @Subscribe
+    private void handleOverviewEvent(OverviewPanelChangedEvent event) {
+        handleOverview();
+    }
+
+    @Subscribe
+    private void handleReplaceWithContextPanelEvent(ReplaceWithContextPanelEvent event) {
+        handleReplaceWithContextPanel();
     }
 
     @Subscribe

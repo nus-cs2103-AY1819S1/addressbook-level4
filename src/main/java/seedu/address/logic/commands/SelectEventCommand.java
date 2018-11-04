@@ -8,6 +8,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToEventListRequestEvent;
+import seedu.address.commons.events.ui.ReplaceWithContextPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -43,6 +44,8 @@ public class SelectEventCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
+
+        EventsCenter.getInstance().post(new ReplaceWithContextPanelEvent());
         EventsCenter.getInstance().post(new JumpToEventListRequestEvent(targetIndex));
         return new CommandResult(String.format(MESSAGE_SELECT_EVENT_SUCCESS, targetIndex.getOneBased()));
 
