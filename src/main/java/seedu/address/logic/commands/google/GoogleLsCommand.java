@@ -27,7 +27,7 @@ public class GoogleLsCommand extends GoogleCommand {
             + "\n- " + TYPE + " /a: " + "Lists all albums in Google Photos"
             + "\n- " + TYPE + " <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
             + "\n\tExample: " + TYPE + " <Vacation>, usage inclusive of <>";
-    
+
     public GoogleLsCommand(String parameter) {
         super(parameter);
     }
