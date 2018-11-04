@@ -19,6 +19,7 @@ import seedu.address.model.Model;
  */
 public class GoogleLsCommand extends GoogleCommand {
 
+    public static final String FAILURE_MESSAGE = "Failed to list";
     private static final String TYPE = COMMAND_WORD + " ls";
     public static final String MESSAGE_USAGE = "Usage of google list (requires an internet connection): "
             + "\n- " + TYPE + " Lists all photos in Google Photos, "
@@ -26,8 +27,7 @@ public class GoogleLsCommand extends GoogleCommand {
             + "\n- " + TYPE + " /a: " + "Lists all albums in Google Photos"
             + "\n- " + TYPE + " <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
             + "\n\tExample: " + TYPE + " <Vacation>, usage inclusive of <>";
-    public static final String FAILURE_MESSAGE = "Failed to list";
-
+    
     public GoogleLsCommand(String parameter) {
         super(parameter);
     }
