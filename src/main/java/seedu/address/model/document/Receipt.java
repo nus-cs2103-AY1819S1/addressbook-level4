@@ -8,7 +8,6 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.person.ServedPatient;
 import seedu.address.model.services.Service;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents the receipt for the served patients. This class is responsible for extracting information that is
@@ -20,7 +19,6 @@ public class Receipt extends Document {
     private float totalPrice;
     private Map<Medicine, QuantityToDispense> allocatedMedicine;
     private ArrayList<Service> servicesRendered;
-    private Tag tag;
 
     /**
      * Creates a receipt object for the specified servedPatient.
@@ -35,16 +33,6 @@ public class Receipt extends Document {
         servicesRendered = new ArrayList<>();
         servicesRendered.add(Service.CONSULTATION);
 
-        tag = servedPatient.getPatient().getTags().iterator().next();
-
-        if (tag.toString().equals("[pioneer]")) {
-            pioneerDiscount();
-        }
-
-        else if (tag.toString().equals("[blue]")) {
-            blueDiscount();
-        }
-
     }
 
     public float getTotalPrice() {
@@ -57,14 +45,6 @@ public class Receipt extends Document {
 
     public void resetPrice() {
         totalPrice = 0;
-    }
-
-    public void pioneerDiscount() {
-        totalPrice -= 28.5;
-    }
-
-    public void blueDiscount() {
-        totalPrice -= 18.5;
     }
 
     public Map<Medicine, QuantityToDispense> getAllocatedMedicine() {
