@@ -23,7 +23,7 @@ Piconso is for those who *prefer to use a desktop app for editing images*. More 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `piconso.jar` link:{repoURL}/releases[here].
+.  Download the latest `piconso.jar` link:https://github.com/CS2103-AY1819S1-T09-3/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Piconso.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 
@@ -44,83 +44,141 @@ image::Ui.png[width:800]
 
 Format: `help`: viewing list of all commands
 
+// tag::dir[]
 === Selecting images for editing: `select`
 
 Format: `select [INDEX]`: selects an image for image-editing
+
 Format: `select -all`: adds all images in current directory from working set [Coming in v2.0]
 
 Examples:
 
 * `select 1` +
-* `select -all`
+* `select -all` [Coming in v2.0]
 
-=== Retrieves the next batch of images: `next`
+=== Retrieving the next batch of images: `next`
 
-Format: `next`: Retrieving the next 10 images for editing
+Format: `next`: Retrieves the next 10 images for editing
+
+=== Retrieving the previous batch of images: `prev`
+
+Format: `prev`: Retrieves the previous 10 images for editing
+// end::dir[]
 
 === Applying a transformation to an image : `convert`
 
-Format: `convert [args]`: apply the conversion specified to the select image
+Format: `convert [operation] [arg1] [arg2] ...`: apply the specified processing to the selected image
 
-Custom defined transformation by user (see save set, 3.5)
+Custom defined transformation by user (see create transformation, 3.6)
 
-* Format: `convert [NAME_OF_TRANSFORMATION_SET]`
+* Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`
 
 Available transformations
 
 * `resize`: resize the image to the specified percentage of the original one
 
 ** Format: `convert resize [percentage]`
+** Example: `convert resize 50%`
 
 * `blur`: performs gaussian blur on the currently opened image, with the argument specified with radius and sigama
 
 ** Format: `convert blur [RadiusxSigama]`
+** Example: `convert blur 0x8`
 
 * `colorspace`: change the color space of the current image
 
 ** Format: `convert colorspace [color space]`
+** Example: `convert colorspave GRAY`
 
-* `contrast`: adjust the contrast of the image.
+* `contrast`: contrast of the image.
 
 ** Format: `convert contrast`
+** Example: `convert contrast`
 
-* `rotate`: rotates an image. DIRECTION [left, right], VALUE [-180, 180]
+* `sigmoidal-contrast`: contrast the image with certain degree and percentage
+
+** Format: `convert sigmoidal-contrast [DegreexPercentage]`
+** Example: `convert sigmoidal-contrast 10x10%`
+
+* `rotate`: rotates an image. DIRECTION [left, right]
 
 ** Format: `convert rotate [vlaue]`
+** Example: `convert rotate 90`
 
-=== Saving images/transformation set : `save`
+=== Customizing transformation for imageProcessing : `create`
 
-Format: `save -image [IMAGE_NAME]`: saves the transformed image +
-Format: `save -set [SET_NAME]`: saves the transformation set added thus far as a new transformation type
+Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`: create a customized operation for
+transformation base on the operation specified
 
-Examples:
+Example:
 
-* `save -image exampleImage` +
-* `save -set exampleSet`
+* `create blurAndRotate blur|0x8 rotate|90` +
+To use the newly created command, use: +
+`convert @blurAndRotate`
 
-=== Undoing previous actions : `undo`
+=== Saving images : `save`
 
-Format: `undo`: Step back to previous transformation
+Format: `save [IMAGE_NAME]`: saves the transformed image, supporting jpg, jpeg, png, tiff, gif
+
+Example:
+
+* `save modified.png`
 
 [NOTE]
 ====
-Commands that can be undone: those commands that modify the image's transformation (`add` and `clear`).
+The image will be saved in the same directory as the original image.
 ====
 
-Examples:
+// tag::undoredo[]
+=== Undoing a transformation : `undo`
 
-* `convert resize 50` +
-`undo` (reverses the `convert resize 50` command) +
+Format: `undo`: Step back to the previous image state (in current layer)
 
-=== Redoing the previous actions : `redo`
+[NOTE]
+====
+Commands that can be undone: those commands that modify the image's transformation (anything done with `convert`).
+====
 
-Format: `redo`: Step forward to previous transformation
+Example:
 
-Examples:
+* `convert blur 0x8` +
+`convert contrast` +
+`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
 
-* `convert resize 50` +
-`undo` (reverses the `convert resize 50` command) +
-`redo` (reapplies the `convert resize 50` command) +
+=== Undoing all transformations : `undo-all`
+
+Format: `undo-all`: Undoes all transformations (reverts image to original state)
+
+Example:
+
+* `convert blur 0x8` +
+`convert contrast` +
+`convert rotate 90` +
+`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
+
+=== Redoing a transformation : `redo`
+
+Format: `redo`: Step forward to the previously undone transformation
+
+Example:
+
+* `convert blur 0x8` +
+`convert contrast` +
+`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
+`redo` (reapplies the `convert contrast` command) +
+
+=== Redoing all transformations : `redo-all`
+
+Format: `redo-all`: Redoes all undone transformations
+
+Example:
+
+* `convert blur 0x8` +
+`convert contrast` +
+`convert rotate 90` +
+`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
+`redo-all` (reapplies all 3 `convert` commands) +
+// end::undoredo[]
 
 === Listing files in directory : `ls`
 
@@ -242,6 +300,7 @@ Examples:
 * `layer position 50x100` : Sets the layer's top right corner to be at position (50, 100).
 
 
+// tag::google[]
 === Logging in to Google Photos: `login`
 
 Format: `login`: allows you to log in to Google Photos
@@ -265,7 +324,7 @@ All commands will require a stable internet connection.
 
 Format: `g ls`: lists all photos in your Google Photos, takes a longer amount of time depending on the number of images stored. +
 Format: `g ls /a`: lists all albums in your Google Photos. +
-Format: `g ls <[ALBUM_NAME]>`: lists all photos in specified album from Google Photos.
+Format: `g ls <ALBUM_NAME>`: lists all photos in specified album from Google Photos.
 
 Examples:
 
@@ -279,14 +338,14 @@ All photos will be downloaded to the currently opened local directory. +
 Any files with duplicate naming existing in the targeted directory *WILL* be replaced
 ====
 
-Format: `g dl <[IMAGE_NAME]>`: downloads specified image from Google Photos +
-Format: `g dl all <[ALBUM_NAME]>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
-Format: `g dl /a<[ALBUM_NAME]> /i<[IMAGE_NAME]>`: lists a specific photo from a specific album in Google Photos.
+Format: `g dl /i<IMAGE_NAME>`: downloads specified image from Google Photos +
+Format: `g dl /a<ALBUM_NAME>`: downloads all images from specified album in Google Photos, takes a longer amount of time depending on the number of images stored in the album. +
+Format: `g dl /a<ALBUM_NAME> /i<IMAGE_NAME>`: downloads a specific photo from a specific album in Google Photos.
 
 Examples:
 
-* `g dl <Beach.png>` -> Downloads Beach.png +
-* `g dl all <Vacation>` -> Downloads all photos from Vacation album +
+* `g dl /i<Beach.png>` -> Downloads Beach.png +
+* `g dl /a<Vacation>` -> Downloads all photos from Vacation album +
 * `g dl /a<Vacation> /i<Beach.png>` -> Downloads Beach.png from Vacation album +
 
 ==== Uploading photos to Google Photos: `g ul`
@@ -307,6 +366,8 @@ Examples:
 
 Format: `logout`: logs you out of Google Photos
 
+// tag::google[]
+
 === Exiting the application: `exit`
 
 Format: `exit`: closes the application
@@ -319,19 +380,23 @@ Format: `exit`: closes the application
 == Command Summary
 
 * *Help* : `help` +
-* *Select* : `select [IMAGE_NAME]` +
-e.g. `select exampleImage.jpg` +
+* *Select* : `select [INDEX]` +
+e.g. `select 1` +
+* *Next* : `next` +
+* *Previous* : `prev` +
 * *Convert* `convert [TRANSFORMATION]` +
 e.g. `add -rotate left 180` +
 * *Save* : `save [IMAGE_NAME]/[SET_NAME]` +
 e.g. `save exampleImage.jpg` +
 * *Undo* : `undo` +
+* *Undo All* : `undo-all` +
 * *Redo* : `redo` +
+* *Redo All* : `redo-all` +
 * *Ls* : `ls` +
 * *Cd* : `cd [DIRECTORY_NAME]` +
 * *Login* : `login` +
 * *Google List* : `g ls OR g ls /a OR g ls <ALBUM_NAME>` +
-* *Download* : `g dl <IMAGE_NAME> OR g dl all <ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +
+* *Download* : `g dl /i<IMAGE_NAME> OR g dl /a<ALBUM_NAME> OR g dl /a<ALBUM_NAME> /i<IMAGE_NAME>` +
 * *Upload* : `g ul <IMAGE_NAME> OR g ul all` +
 * *Logout* : `logout` +
 * *Exit* : `exit`

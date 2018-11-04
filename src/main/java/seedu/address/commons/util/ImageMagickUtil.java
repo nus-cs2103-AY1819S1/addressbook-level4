@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,6 @@ import seedu.address.storage.JsonConvertArgsStorage;
  */
 public class ImageMagickUtil {
     //initialize the paths used in the imageMagic
-    public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
-            ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
@@ -67,6 +66,10 @@ public class ImageMagickUtil {
         return commandSaveFolder;
     }
 
+    public static Path getTempFolderPath() {
+        return Paths.get(tmpPath);
+    }
+
     /**
      * get the platform;
      * @return
@@ -93,7 +96,7 @@ public class ImageMagickUtil {
      * @throws InterruptedException
      */
     public static BufferedImage processImage(Path path, Transformation transformation)
-            throws ParseException, IOException, InterruptedException {
+            throws ParseException, IOException, InterruptedException, IllegalArgumentException {
         ArrayList<String> cmds = parseArguments(transformation);
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
@@ -118,7 +121,7 @@ public class ImageMagickUtil {
      * @throws ParseException
      */
     private static ArrayList<String> parseArguments(Transformation transformation)
-            throws IOException, ParseException {
+            throws IOException, ParseException, IllegalArgumentException {
         ArrayList<String> trans = transformation.toList();
         String operation = trans.get(0);
         if (!operation.startsWith("@")) {
@@ -126,10 +129,19 @@ public class ImageMagickUtil {
             if (fileUrl == null) {
                 throw new ParseException("Invalid argument, cannot find");
             }
-            List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation);
+            List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "arg");
             int num = cmds.size();
+            String template = cmds.toString();
             if (num != trans.size() - 1) {
-                throw new ParseException("Invalid arguments, should be " + cmds.toArray().toString());
+                throw new IllegalArgumentException("Invalid arguments, the arguments should be "
+                        + operation + " " + template.substring(1, template.length() - 1));
+            }
+            List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "pattern");
+            for (int i = 0; i < patterns.size(); i++) {
+                if (!trans.get(i + 1).matches(patterns.get(i))) {
+                    throw new IllegalArgumentException("Invalid arguments, the arguments should be:"
+                            + operation + " " + template.substring(1, template.length() - 1));
+                }
             }
             return trans;
         } else {
@@ -154,14 +166,17 @@ public class ImageMagickUtil {
      */
 
     public static BufferedImage runProcessBuilder(ArrayList<String> args, String output)
-            throws IOException, InterruptedException {
+            throws IOException, InterruptedException, IllegalArgumentException {
         ProcessBuilder pb = new ProcessBuilder(args);
         if (getPlatform() == MAC) {
             Map<String, String> mp = pb.environment();
-            mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "ImageMagick-7.0.8/lib/");
+            mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "/ImageMagick-7.0.8/lib/");
         }
         Process process = pb.start();
         process.waitFor();
+        if (process.exitValue() != 0) {
+            throw new IllegalArgumentException("the process can not be done! check the command entered");
+        }
         List<String> tmp = pb.command();
         System.out.println(tmp);
         FileInputStream is = new FileInputStream(output);
@@ -171,6 +186,7 @@ public class ImageMagickUtil {
 
     /**
      * copy the imageMagick outside of the jarfile in order to call it.
+     * @author lancelotwillow
      * @param userPrefs
      * @throws IOException
      * @throws InterruptedException

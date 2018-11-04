@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.nio.file.InvalidPathException;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -16,6 +19,11 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+        try {
+            ImageMagickUtil.getTempFolderPath().toFile().delete();
+        } catch (InvalidPathException e) {
+            e.printStackTrace();
+        }
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
