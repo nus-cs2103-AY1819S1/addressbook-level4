@@ -385,7 +385,7 @@ Examples:
 * `add-item n/Burger p/2`
 * `ai n/Burger Set p/4.5 t/Set`
 
-==== Listing all items in the menu : `list-items` or 'li'
+==== Listing all items in the menu : `list-items` or `li`
 
 Shows a list of all items in the menu. +
 Format: `list-items`
@@ -393,8 +393,7 @@ Format: `list-items`
 ==== Editing an item in the menu : `edit-item` or `ei`
 
 Edits an existing item in the menu. +
-Format: `edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` or `edit-item NAME [n/ITEM_NAME] [p/ITEM_PRICE]
-[t/TAG]...`
+Format: `edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...`
 
 ****
 * Edits the item at the specified `INDEX`. The index refers to the index number shown in the displayed item list. The
@@ -403,7 +402,6 @@ index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the item will be removed i.e adding of tags is not cumulative.
 * You can remove all the item's tags by typing `t/` without specifying any tags after it.
-* Alternatively, edits the item with the specified `NAME`.
 ****
 
 Examples:
@@ -413,27 +411,47 @@ Edits the name and price of the 1st item to be `burger` and `3` respectively.
 * `ei 2 p/4 t/` +
 Edits the price of the 2nd item to be `4` and clears all existing tags.
 
-==== Deleting an item : `delete-item` or `di`
+==== Deleting an item by index: `delete-item-index` or `dii`
 
 Deletes the specified item from the menu. +
-Format: `delete-item INDEX [ei/INDEX]` or `delete-item NAME`
+Format: `delete-item-index INDEX [ei/INDEX]`
 
 ****
 * Deletes the item at the specified `INDEX`.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * You can delete a range of items by adding the ending index `ei\INDEX`.
-* Alternatively, deletes the item with the specified `NAME`.
 ****
 
 Examples:
 
 * `list-items` +
-`delete-item 2` +
+`delete-item-index 2` +
 Deletes the 2nd item in the menu.
 * `fi Cheese` +
-`di 1 ei/3` +
+`dii 1 ei/3` +
 Deletes 1st item, 2nd item and 3rd item in the results of the `find` command.
+
+==== Deleting an item by name: `delete-item-name` or `din`
+
+Deletes the specified item from the menu. +
+Format: `delete-item-name NAME`
+
+****
+* Deletes the item by the specified `NAME`.
+* The name of the item *must be in the displayed item list*.
+* The index *must be a positive integer* 1, 2, 3, ...
+* You can delete a range of items by adding the ending index `ei\INDEX`.
+****
+
+Examples:
+
+* `list-items` +
+`delete-item-name Apple Juice` +
+Deletes the `Apple Juice` item in the menu.
+* `fi Cheese` +
+`din Cheese Fries` +
+Deletes `Cheese Fries` item in the results of the `find` command.
 
 ==== Selecting an item : `select-item` or `si`
 
@@ -558,13 +576,13 @@ Examples:
 If today is Monday +
 List the items that have been tagged with `Monday` in the menu.
 
-==== Add recipe to item : `recipe-item` or `ri`
+==== Add/Update recipe to item : `recipe-item` or `ri`
 
-Adds recipe to the item identified by the index number used in the menu. +
+Adds/Updates recipe to the item identified by the index number used in the menu. +
 Format: `recipe-item INDEX r/RECIPE`
 
 ****
-* Adds a recipe to the item at the specified `INDEX`.
+* Adds/Updates a recipe to the item at the specified `INDEX`.
 * If the item has a recipe already, it will update the recipe.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
@@ -582,11 +600,11 @@ Add/Update the recipe of the 1st item in the results of the `find` command to be
 [[add-required-ingredient]]
 ==== Add required ingredients: `add-required-ingredients` or `ari`
 
-Adds required ingredients to the item identified by the index number used in the menu. +
+Adds/Updates required ingredients to the item identified by the index number used in the menu. +
 Format: `add-required-ingredients INDEX n/INGREDIENT_NAME... nu/NUMBER_OF_INGREDIENTS...`
 
 ****
-* Adds required ingredients to the item at the specified `INDEX`.
+* Adds/Updates required ingredients to the item at the specified `INDEX`.
 * If the item has required ingredients already, it will update the required ingredients.
 * The index refers to the index number shown in the displayed item list.
 * The index *must be a positive integer* `1, 2, 3, ...`
@@ -600,7 +618,6 @@ Add/Update the required ingredients of the 1st item.
 * `fi Cheese` +
 `ari 1 n/chicken thigh u/10 n/potato u/20` +
 Add/Update the recipe of the 1st item in the results of the `find` command.
-
 // end::menu[]
 
 //tag::reservations[]
