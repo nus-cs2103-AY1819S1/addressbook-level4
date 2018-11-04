@@ -64,6 +64,6 @@ public class GetGoogleCalendarEventsCommand extends Command {
             model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
             model.commitScheduler();
         }
-        return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
+        return new CommandResult(MESSAGE_INITIALIZE_SUCCESS);
     }
 }
