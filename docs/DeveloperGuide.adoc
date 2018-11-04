@@ -520,11 +520,17 @@ For each of the following lines until end of file, `Person` is created using ind
 Returned `Person` objects are then inserted into `UniquePersonsList` with validation. +
 The number of successful inserts and duplicated will be returned to display after reading EOF. +
 
-The following sequence diagram shows how the readImportContactsFile operatoin works:
+The following sequence diagram shows how the readImportContactsFile operation works:
 
 image::ImportContactsSequenceDiagram.PNG[width="800"]
 
 // end::importcontacts[]
+=== Show Faculty Location in Location Display tab
+==== Current Implementation
+
+Mo
+
+
 //tag::meetinglocation[]
 === Meeting Location
 
