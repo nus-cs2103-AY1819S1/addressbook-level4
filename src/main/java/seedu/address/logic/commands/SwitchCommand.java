@@ -37,6 +37,7 @@ public class SwitchCommand extends Command {
 
         model.setCurrentContext(contextId);
         model.updateFilteredRecordList(Model.PREDICATE_SHOW_ALL_RECORDS);
+        model.resetStatePointer();
 
         EventsCenter.getInstance().post(new ContextChangeEvent(contextId));
         return new CommandResult(String.format(MESSAGE_SUCCESS, model.getContextName()));
