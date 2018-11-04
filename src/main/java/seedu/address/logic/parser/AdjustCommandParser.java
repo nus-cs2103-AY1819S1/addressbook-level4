@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.ParserUtil.validateNumOfArgs;
+import static seedu.address.logic.parser.ParserUtil.argsWithBounds;
 
 import seedu.address.logic.commands.AdjustCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,7 +22,7 @@ public class AdjustCommandParser implements Parser<AdjustCommand> {
      */
     public AdjustCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        validateNumOfArgs(tokenizedArgs, 2, 4);
+        argsWithBounds(tokenizedArgs, 2, 4);
 
         int index = 0;
 

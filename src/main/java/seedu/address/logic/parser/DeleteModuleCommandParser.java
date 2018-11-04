@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.ParserUtil.validateNumOfArgs;
+import static seedu.address.logic.parser.ParserUtil.argsWithBounds;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ public class DeleteModuleCommandParser implements Parser<DeleteModuleCommand> {
      */
     public DeleteModuleCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        validateNumOfArgs(tokenizedArgs, new HashSet<>(Arrays.asList(1, 3)));
+        argsWithBounds(tokenizedArgs, new HashSet<>(Arrays.asList(1, 3)));
 
         int index = 0;
 
