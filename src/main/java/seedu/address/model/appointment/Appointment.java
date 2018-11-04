@@ -1,8 +1,8 @@
 package seedu.address.model.appointment;
 
-import java.time.format.DateTimeFormatter;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.commons.util.CollectionUtil;
+import java.time.format.DateTimeFormatter;
 
 /**
  * This class holds information for appointments
@@ -29,7 +29,7 @@ public class Appointment {
     private String docName;
 
     public Appointment(String type, String procedureName, String dateTime, String docName) {
-        CollectionUtil.requireAllNonNull(type, procedureName, dateTime, docName);
+        requireAllNonNull(type, procedureName, dateTime, docName);
         this.type = type;
         this.procedureName = procedureName;
         this.dateTime = dateTime;

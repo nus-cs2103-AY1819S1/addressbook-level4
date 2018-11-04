@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentsList;
 import seedu.address.model.appointment.Type;
+import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.medicine.PrescriptionList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -48,13 +49,22 @@ public class AddApptCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Appointment added for patient: %1$s";
     public static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
-    public static final String MESSAGE_INVALID_DATE_TIME = "Input date and time is invalid or before current date and "
-        + "time.";
-    public static final String MESSAGE_INVALID_TYPE = "Invalid input type. Valid types are: PROP, DIAG, THP, SRG";
+    /*
+     * The first character of the address must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String PROCEDURE_VALIDATION_REGEX = "^[A-Za-z- ]+$";
+
     public static final String DATE_TIME_VALIDATION_REGEX = "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)"
             + "(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1"
             + "[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1"
             + "\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2}\\s\\d\\d:\\d\\d)$";
+
+    public static final String MESSAGE_INVALID_PROCEDURE = "Procedure name can take any alphabet, and should not be "
+            + "blank.";
+    public static final String MESSAGE_INVALID_DATE_TIME = "Input date and time is invalid or before current date and "
+            + "time.";
+    public static final String MESSAGE_INVALID_TYPE = "Invalid input type. Valid types are: PROP, DIAG, THP, SRG";
 
     private final Appointment appt;
     private final Nric patientNric;
@@ -78,12 +88,20 @@ public class AddApptCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_PATIENT);
         }
 
+        if (!isValidType(appt.getType())) {
+            throw new CommandException(MESSAGE_INVALID_TYPE);
+        }
+
+        if (!isValidProcedure(appt.getProcedure_name())) {
+            throw new CommandException(MESSAGE_INVALID_PROCEDURE);
+        }
+
         if (!isValidDateTime(appt.getDate_time())) {
             throw new CommandException(MESSAGE_INVALID_DATE_TIME);
         }
 
-        if (!isValidType(appt.getType())) {
-            throw new CommandException(MESSAGE_INVALID_TYPE);
+        if (!Diagnosis.isValidDoctor(appt.getDoc_name())) {
+            throw new CommandException(Diagnosis.MESSAGE_NAME_CONSTRAINTS);
         }
 
         Person patientToUpdate = filteredByNric.get(0);
@@ -127,27 +145,36 @@ public class AddApptCommand extends Command {
     }
 
     /**
-     * Checks if date and time input by user is valid
-     * @param dateTime date and time input by user
-     * @return true if valid
-     */
-    private static boolean isValidDateTime(String dateTime) {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime apptDateTime = LocalDateTime.parse(dateTime, Appointment.DATE_TIME_FORMAT);
-        return dateTime.matches(DATE_TIME_VALIDATION_REGEX) && apptDateTime.isAfter(now);
-    }
-
-    /**
      * Checks if the type entered by user is valid
      * @param typeAbbr abbreviation of type
      * @return true if valid
      */
-    private static boolean isValidType(String typeAbbr) {
+    public static boolean isValidType(String typeAbbr) {
         for (Type t: Type.values()) {
             if (t.getAbbreviation().equals(typeAbbr)) {
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if the procedure name is valid
+     * @param test the procedure name input by user
+     * @return true if valid
+     */
+    public static boolean isValidProcedure(String test) {
+        return test.matches(PROCEDURE_VALIDATION_REGEX);
+    }
+
+    /**
+     * Checks if date and time input by user is valid
+     * @param test date and time input by user
+     * @return true if valid
+     */
+    public static boolean isValidDateTime(String test) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime apptDateTime = LocalDateTime.parse(test, Appointment.DATE_TIME_FORMAT);
+        return test.matches(DATE_TIME_VALIDATION_REGEX) && apptDateTime.isAfter(now);
     }
 }

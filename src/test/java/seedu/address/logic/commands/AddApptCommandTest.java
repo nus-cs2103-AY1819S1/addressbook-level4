@@ -57,7 +57,6 @@ public class AddApptCommandTest {
         procedure = "Heart Bypass";
         dateTime = "12-12-2022 10:30";
         invalidDateTime = "12-12-1000 23:30";
-        invalidDateTime = "12-12-1000 23:30";
         doctor = "Dr. Pepper";
         appt = new Appointment(type, procedure, dateTime, doctor);
     }
