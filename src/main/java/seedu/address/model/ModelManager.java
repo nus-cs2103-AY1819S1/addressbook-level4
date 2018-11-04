@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -35,6 +38,7 @@ import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
@@ -64,6 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
     private Predicate<Expense> expenseStatPredicate;
     private int periodAmount;
     private final Map<Username, EncryptedExpenseTracker> expenseTrackers;
+    private HashSet<Category> categories;
 
     /**
      * Initializes a ModelManager with the given expenseTrackers and userPrefs.
@@ -347,6 +352,12 @@ public class ModelManager extends ComponentManager implements Model {
     public TotalBudget getMaximumBudget() throws NoUserSelectedException {
         requireUserSelected();
         return this.versionedExpenseTracker.getMaximumTotalBudget();
+    }
+
+    @Override
+    public HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException {
+        requireUserSelected();
+        return this.versionedExpenseTracker.getCategoryBudgets();
     }
 
     //@@author jonathantjm

@@ -2,6 +2,9 @@ package seedu.address.logic;
 
 import java.text.SimpleDateFormat;
 
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
@@ -16,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ExpenseTrackerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -147,6 +151,10 @@ public class LogicManager extends ComponentManager implements Logic {
 
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    public Iterator<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException {
+        return model.getCategoryBudgets().iterator();
     }
 
 }
