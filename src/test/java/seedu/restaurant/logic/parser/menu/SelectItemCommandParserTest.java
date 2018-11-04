@@ -11,8 +11,8 @@ import seedu.restaurant.logic.commands.menu.SelectItemCommand;
 
 //@@author yican95
 /**
- * Test scope: similar to {@code DeleteItemCommandParserTest}.
- * @see DeleteItemCommandParserTest
+ * Test scope: similar to {@code DeleteItemByIndexCommandParserTest}.
+ * @see DeleteItemByIndexCommandParserTest
  */
 public class SelectItemCommandParserTest {
 
