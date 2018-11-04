@@ -102,13 +102,15 @@ Alias: `a` +
 Format: `add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [NOTE]
+.Thing(s) to note:
 A patient can have any number of tags (including 0).
 
 [TIP]
+.Pro tip(s):
 Mandatory parameters can be keyed in any order.
 
-
 [WARNING]
+.Important:
 Omission of *any* mandatory parameters will result in the failure of adding the patient to the database.
 
 Upon successful execution, you should see the patient represented by the parameters added to the patient list on the right.
@@ -126,7 +128,7 @@ image::AddEx1.png[width="650"]
 Adds a patient named `Kang Tze`, with IC number `S9612345L`, phone number `97931111`, email `kangtze@cs2103t.com` and address of `Eusoff Hall` to CLInic's patient database, as shown below.
 
 .After executing the `add` command specified above  via its alias `a` *and* left clicking `Kang Tze's` patient card in the patient list on the right, indicated by the black cursor.
-image::AddEx2.png[width="650"]
+image::AddEx2.png[width="500"][height = "300"]
 
 ==== Editing a patient: `edit`
 Uhoh! Made a mistake keying in a patient's particulars? Or perhaps a patient just recently changed his handphone number or email? +
@@ -135,6 +137,7 @@ Alias: `e` +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 [NOTE]
+.Thing(s) to note:
 ====
 * Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list.
 * At least one of the optional parameters must be provided.
@@ -143,9 +146,11 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 ====
 
 [TIP]
+.Pro tip(s):
 You can remove *all* of the patient's tags by typing `t/` without specifying any tags after the prefix.
 
 [WARNING]
+.Important:
 The `INDEX` given must be a *non zero, positive integer* (eg. 1, 2, 3...)!
 
 Upon successful execution, you should see the patient's details updated in the patient list on the right.
@@ -156,7 +161,7 @@ Examples:
 Updates the phone number and e-mail address of the 5th patient in the list to `98534228 ` and `clawyq@cs2101.com` respectively, as shown below.
 
 .Before and after executing the `edit` command specified above.
-image::EditEx1.png[width="1024"]
+image::EditEx1.png[width="1024"][height="400"]
 
 ==== Locating a patient by name: `find`
 Can't find the patient you're looking for amidst the other patient records? +
@@ -165,6 +170,7 @@ Alias: `f` +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 [NOTE]
+.Thing(s) to note:
 ====
 * Finds a patient whose name contains any of the given keywords.
 ** Patients matching at least one keyword will be returned.
@@ -175,6 +181,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 ====
 
 [TIP]
+.Pro tip(s):
 ====
 * The search is case insensitive.
 ** `Bryan` will match `bryaN`.
@@ -190,7 +197,7 @@ Examples:
 Sieves out all the patients who have `yu` in their names.
 
 .Before and after executing the `find` command specified above via its alias `f`.
-image::FindEx1.png[width="1024"]
+image::FindEx1.png[width="450"]
 // end::patientfirsthalf[]
 
 // tag::patientsecondhalf[]
@@ -206,6 +213,7 @@ Alias: `d` +
 Format: `delete INDEX`
 
 [TIP]
+.Pro tip(s):
 Deletes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -224,6 +232,7 @@ Alias: `s` +
 Format: `select INDEX`
 
 [TIP]
+.Pro tip(s):
 Selects the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -244,6 +253,7 @@ Alias: `amr` +
 Format: `addmedicalrecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASES]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
 [TIP]
+.Pro tip(s):
 ====
 * Updates the medical records of a patient based on the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 * At least one of the optional parameters must be provided.
@@ -277,6 +287,7 @@ Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
 [NOTE]
+.Thing(s) to note:
 The serial number of a medicine *must* be a 5 digit integer!
 
 Example:
@@ -293,6 +304,7 @@ Alias: `em` +
 Format: `editmedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]`
 
 [TIP]
+.Pro tip(s):
 ====
 * Edits the medicine details at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 * At least one of the optional parameters must be provided.
@@ -301,6 +313,7 @@ Format: `editmedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu
 ====
 
 [WARNING]
+.Important:
 The `serial number` of a medicine *must* be a 5 digit integer!
 
 Example:
@@ -317,6 +330,7 @@ Alias: `rs` +
 Format: `restock INDEX amt/AMOUNT`
 
 [TIP]
+.Pro tip(s):
 Restocks the medicine at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Example:
@@ -365,6 +379,7 @@ Alias: `reg` +
 Format: `register INDEX`
 
 [TIP]
+.Pro tip(s):
 Registers the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Example:
@@ -394,6 +409,7 @@ Alias: `rem` +
 Format: `remove INDEX`
 
 [TIP]
+.Pro tip(s):
 Removes the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The `INDEX` *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -417,6 +433,7 @@ Alias: `ins` +
 Format: `insert INDEX p/POSITION`
 
 [TIP]
+.Pro tip(s):
 ====
 * Inserts the patient at the specified `INDEX` in the displayed patient list into the specified `POSITION` in the Waiting Queue. Both the index and position *must be a positive integer* (i.e. 1, 2, 3, ...).
 * If the `POSITION` value supplied exceeds the queue length, then the patient will just be added to the back of the queue. If the queue length is 1 and the `POSITION` value is 5, the patient will be added
@@ -446,6 +463,7 @@ Alias: `ser` +
 Format: `serve`
 
 [TIP]
+.Pro tip(s):
 Upon successful call of this command, the medicine list will be displayed.
 
 .Before `serve` command
@@ -462,6 +480,7 @@ Alias: `ad` +
 Format: `adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
 
 [TIP]
+.Pro tip(s):
 ====
 * There must be a Current Patient. Use the <<serve, `serve`>> command first.
 * At least one of the optional parameters must be provided.
@@ -471,6 +490,7 @@ Format: `adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
 ====
 
 [WARNING]
+.Important:
 The parameter for `mc/` must be a *non-zero, positive integer*!
 
 Examples:
@@ -500,6 +520,7 @@ Alias: `dm` +
 Format `dispensemedicine MEDICINE_INDEX amt/AMOUNT`
 
 [TIP]
+.Pro tip(s):
 Dispenses medicine at the specified `MEDICINE_INDEX` to the Current Patient. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -523,6 +544,7 @@ Transfers the Current Patient to the Served Patient Queue. +
 Format: `finish`
 
 [TIP]
+.Pro tip(s):
 ====
 * This command cannot be called if no notes have been added to the patient. Use <<adddocument, `adddocument`>> command with prefix `n/` to add `NOTES`.
 * Upon successful call of this command, the patient list will be displayed.
@@ -535,6 +557,7 @@ Alias: `pay` +
 Format: `payment INDEX`
 
 [TIP]
+.Pro tip(s):
 Removes the patient at the specified `INDEX`. The index refers to the index number shown in the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -562,6 +585,7 @@ Generates a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
 [TIP]
+.Pro tip(s):
 Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -576,6 +600,7 @@ Alias: `rec` +
 Format: `receipt INDEX`
 
 [TIP]
+.Pro tip(s):
 Generates a receipt for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -591,6 +616,7 @@ Alias: `ref` +
 Format: `refer INDEX`
 
 [TIP]
+.Pro tip(s):
 Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
 
 Examples:
@@ -613,6 +639,7 @@ Alias: `h` +
 Format: `history`
 
 [TIP]
+.Pro tip(s):
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 
 // tag::undoredo[]
@@ -623,6 +650,7 @@ Alias: `u` +
 Format: `undo`
 
 [NOTE]
+.Thing(s) to note:
 ====
 Undoable commands: those commands that modify the database's content (`add`, `delete`, `edit` and `clear`).
 This includes all commands that change the `Patient` or `Medicine` class but *not* <<pqms, PQMS-related>> commands.
