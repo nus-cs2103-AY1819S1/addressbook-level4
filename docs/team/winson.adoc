@@ -7,9 +7,9 @@
 
 ---
 
-== Overview
+== 1. Overview
 
-This portfolio aims to document the contributions made by *Winson Heng Yong Seng* to the *ExpenseTracker*.
+This portfolio aims to document the contributions that I made to the *ExpenseTracker*.
 
 *ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
 save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
@@ -23,20 +23,19 @@ Some of its main features are:
 . Statistics for expenses.
 
 
-== Summary of contributions
+== 2. Summary of contributions
 
 * *Major enhancement*: added *the ability to have a budget on expenses.*
-** Function: informs the user if the their expenses exceed a set budget
+** Function: It informs the user if the their expenses exceed a set budget
 ** Justification: This is a core feature as it allows the user to know when they are spending too much money, the
 main purpose of an expense tracker.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
  analysis of software design alternatives. The implementation was challenging as it required changes to existing
  commands and the existing implementation of the main `ExpenseTracker` class.
 
-* *Minor enhancement*:
+* *Minor enhancements*:
 
-. Added a `history` command that allows the user to navigate to previous commands using up/down keys.
-. Added a `setRecurrenceFrequency` command that allows the user to reset their spending at a frequency of their choice.
+. Added a `setRecurrenceFrequency` command that allows the user to reset their expenses at a frequency of their choice.
 . Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
@@ -63,7 +62,7 @@ https://github.com/CS2103-AY1819S1-T12-1/main/pull/108[#108]
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/17[#17]
 
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 
 
 |===
@@ -72,7 +71,7 @@ https://github.com/CS2103-AY1819S1-T12-1/main/pull/17[#17]
 
 include::../UserGuide.adoc[tag=budget]
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._

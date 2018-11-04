@@ -20,16 +20,11 @@ import seedu.address.model.expense.Name;
 import seedu.address.testutil.Assert;
 
 public class XmlAdaptedExpenseTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_CATEGORY = " ";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_DATE = "0-0-0";
 
     private static final String VALID_DATE = "01-10-2018";
     private static final String VALID_NAME = ICECREAM.getName().toString();
     private static final String VALID_CATEGORY = ICECREAM.getCategory().toString();
-    private static final String VALID_ADDRESS = ICECREAM.getCost().toString();
+    private static final String VALID_COST = ICECREAM.getCost().toString();
     private static final List<XmlAdaptedTag> VALID_TAGS = ICECREAM.getTags().stream()
             .map(tag -> {
                 try {
@@ -50,14 +45,14 @@ public class XmlAdaptedExpenseTest {
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedExpense expense = new XmlAdaptedExpense(null, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
+        XmlAdaptedExpense expense = new XmlAdaptedExpense(null, VALID_CATEGORY, VALID_COST, VALID_DATE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
 
     @Test
     public void toModelType_nullPhone_throwsIllegalValueException() {
-        XmlAdaptedExpense expense = new XmlAdaptedExpense(VALID_NAME, null, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
+        XmlAdaptedExpense expense = new XmlAdaptedExpense(VALID_NAME, null, VALID_COST, VALID_DATE, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
@@ -71,7 +66,7 @@ public class XmlAdaptedExpenseTest {
 
     @Test
     public void toModelType_nullDate_throwsIllegalValueException() {
-        XmlAdaptedExpense expense = new XmlAdaptedExpense(VALID_NAME, VALID_CATEGORY, VALID_ADDRESS, null, VALID_TAGS);
+        XmlAdaptedExpense expense = new XmlAdaptedExpense(VALID_NAME, VALID_CATEGORY, VALID_COST, null, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, expense::toModelType);
     }
