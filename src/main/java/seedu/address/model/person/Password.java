@@ -4,6 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Base64;
+import java.util.Random;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 /**
  * Represents a Person's plaintext in the address book.
@@ -22,13 +30,19 @@ public class Password implements Serializable {
 
     public static final String DEFAULT_PASSWORD = "Pa55w0rd";
 
+    private static final Random RANDOM = new SecureRandom();
+    public static final int ITERATIONS = 10;
+    public static final int LENGTH = 256;
+
     public final String plaintext;
+    public final byte[] salt;
+    public final String hash;
 
     /**
      * Constructs a {@code Password} containing the default plaintext.
      */
     public Password() {
-        plaintext = DEFAULT_PASSWORD;
+        this(DEFAULT_PASSWORD);
     }
 
     /**
@@ -40,6 +54,8 @@ public class Password implements Serializable {
         requireNonNull(pass);
         checkArgument(isValidPassword(pass), MESSAGE_PASSWORD_CONSTRAINTS);
         plaintext = pass;
+        salt = generateSalt();
+        hash = hash(plaintext, salt);
     }
 
     /**
@@ -48,6 +64,32 @@ public class Password implements Serializable {
     public static boolean isValidPassword(String test) {
         boolean answer = test.matches(PASSWORD_VALIDATION_REGEX);
         return answer;
+    }
+
+    /**
+     * Generates the salt to be used with the plaintext
+     * @return the salt
+     */
+    public static byte[] generateSalt() {
+        byte[] salt = new byte[LENGTH];
+        RANDOM.nextBytes(salt);
+        return salt;
+    }
+
+
+    public static String hash(String s, byte[] salt) {
+        char[] password = s.toCharArray();
+        PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, LENGTH);
+
+        try {
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            byte[] result = skf.generateSecret(spec).getEncoded();
+            return Base64.getEncoder().encodeToString(result);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new AssertionError("Password hashing error: " + e.getMessage(), e);
+        } finally {
+            spec.clearPassword();
+        }
     }
 
 
