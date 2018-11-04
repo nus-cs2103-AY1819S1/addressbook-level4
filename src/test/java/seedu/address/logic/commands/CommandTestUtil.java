@@ -96,6 +96,10 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String PASSWORD_DESC_AMY = " " + PREFIX_PASSWORD + VALID_PASSWORD_AMY;
     public static final String PASSWORD_DESC_BOB = " " + PREFIX_PASSWORD + VALID_PASSWORD_BOB;
+    public static final String INTEREST_DESC_STUDY_AND_PLAY = " " + PREFIX_INTEREST + VALID_INTEREST_STUDY
+            + " " + VALID_INTEREST_PLAY;
+    public static final String TAG_DESC_HUSBAND_AND_FRIEND = " " + PREFIX_TAG + VALID_TAG_HUSBAND
+            + " " + VALID_TAG_FRIEND;
     public static final String TIMETABLE_AMY = "http://modsn.us/H4v8s";
     public static final String SCHEDULE_AMY = "100000000000000011110000000011110000000000"
         +
