@@ -2,12 +2,19 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.achievement.Level;
 import seedu.address.model.achievement.Xp;
+import seedu.address.model.achievement.exceptions.CumulativeAchievementsMismatchException;
+import seedu.address.model.achievement.exceptions.DateBreakPointsMismatchException;
+import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
+import seedu.address.model.util.DateFormatUtil;
 import seedu.address.testutil.AchievementRecordBuilder;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.XmlAchievementRecordBuilder;
@@ -19,16 +26,106 @@ public class XmlAdaptedAchievementRecordTest {
     private static final String INVALID_DISPLAY_OPTION = "4";
     private static final String INVALID_LEVEL = "level 1";
     private static final String INVALID_DATE_FORMAT = "2018/11/28";
-//    private static final String INVALID_
-//    private static final String INVALID_
-    private static final String INVALID_XP = "-1";
-    
-    private final AchievementRecord validModel = new AchievementRecordBuilder().build();
 
     @Test
     public void toModelType_validAchievementFields_returnsAchievementRecord() throws IllegalValueException {
+        AchievementRecord validModel = new AchievementRecordBuilder().build();
         XmlAdaptedAchievementRecord rec = new XmlAdaptedAchievementRecord(validModel);
         assertEquals(rec.toModelType(), validModel);
+    }
+
+    @Test
+    public void toModelType_withXpLevelMismatch_throwsIllegalValueException() {
+        String expectedMessage = XpLevelMismatchException.MESSAGE;
+
+        Level level = Level.LEVEL_5;
+        int xp = level.getMinXp() - 1;
+        XmlAdaptedAchievementRecord record = new XmlAchievementRecordBuilder()
+                .withXp(Integer.toString(xp))
+                .withLevel(level.toString())
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
+
+        level = Level.LEVEL_4;
+        xp = level.getMaxXp();
+        record = new XmlAchievementRecordBuilder()
+                .withXp(Integer.toString(xp))
+                .withLevel(level.toString())
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
+    }
+
+    @Test
+    public void toModelType_withDateBreakPointsMismatch_throwsIllegalValueException() {
+        String expectedMessage = DateBreakPointsMismatchException.MESSAGE;
+
+        // NextWeekBreakPoint can be no more than 6 days ahead of nextDayBreakPoint
+        Calendar date = new GregorianCalendar();
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+        String today = DateFormatUtil.FORMAT_STANDARD.format(date.getTime());
+
+        date.add(Calendar.DAY_OF_MONTH, 7);
+        String sevenDaysLater = DateFormatUtil.FORMAT_STANDARD.format(date.getTime());
+
+        XmlAdaptedAchievementRecord record = new XmlAchievementRecordBuilder()
+                .withNextDayBreakPoint(today)
+                .withNextWeekBreakPoint(sevenDaysLater)
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
+
+        // NextWeekBreakPoint must not be earlier than nextDayBreakPoint
+        date = new GregorianCalendar();
+        date.set(Calendar.HOUR_OF_DAY, 0);
+        date.set(Calendar.MINUTE, 0);
+
+        date.add(Calendar.DAY_OF_MONTH, -1);
+        String ytd = DateFormatUtil.FORMAT_STANDARD.format(date.getTime());
+
+        record = new XmlAchievementRecordBuilder()
+                .withNextDayBreakPoint(today)
+                .withNextWeekBreakPoint(ytd)
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
+    }
+
+    @Test
+    public void toModelType_withCumulativeAchievementsMismatch_throwsIllegalValueException() {
+        String expectedMessage = CumulativeAchievementsMismatchException.MESSAGE;
+
+        // total xp must not be smaller than today's xp, which must not be smaller than this week's xp
+        String largest = "5";
+        String middle = "4";
+        String smallest = "3";
+        XmlAdaptedAchievementRecord record = new XmlAchievementRecordBuilder()
+                .withXp(largest)
+                .withXpValueByDay(middle)
+                .withXpValueByWeek(smallest)
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
+
+        record = new XmlAchievementRecordBuilder()
+                .withXp(smallest)
+                .withXpValueByDay(middle)
+                .withXpValueByWeek(largest)
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
+
+        // total numTaskCompleted must not be smaller than today's numTaskCompleted,
+        // which must not be smaller than this week's numTaskCompleted
+        record = new XmlAchievementRecordBuilder()
+                .withNumTaskCompleted(largest)
+                .withNumTaskCompletedByDay(middle)
+                .withNumTaskCompletedByWeek(smallest)
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
+
+        record = new XmlAchievementRecordBuilder()
+                .withNumTaskCompleted(smallest)
+                .withNumTaskCompletedByDay(middle)
+                .withNumTaskCompletedByWeek(largest)
+                .build();
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
     }
 
     @Test

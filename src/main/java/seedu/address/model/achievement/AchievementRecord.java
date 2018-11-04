@@ -237,6 +237,7 @@ public class AchievementRecord {
 
     /**
      * Defensively check given xp value matches given level.
+     * The xp value matches with level if level.minXp <= xp < level.maxXp
      * @throws XpLevelMismatchException if not match.
      */
     private void checkXpAndLevelMatch(int xp, Level lvl) {
@@ -299,6 +300,7 @@ public class AchievementRecord {
 
     /**
      * Returns the corresponding {@code Level} of the current Xp value.
+     * An xp value falls within level_n if level_n.minXp <= xp < level_n.maxXp
      * Maximum level is level 5.
      */
     private Level getMatchingLevel(int xp) {
