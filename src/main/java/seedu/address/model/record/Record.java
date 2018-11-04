@@ -124,10 +124,7 @@ public class Record {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Event Id: ")
-                .append(getEventId())
-                .append(" Volunteer Id: ")
-                .append(getVolunteerId())
+        builder.append(getVolunteerName())
                 .append(" Hour: ")
                 .append(getHour())
                 .append(" Remark: ")
