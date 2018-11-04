@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.address.ui.BrowserPanel.encodeUriComponent;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
@@ -40,7 +41,13 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a person
         postNow(selectionChangedEventStub);
-        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));
+        URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
+            + "name=" + ALICE.getName().fullName.replaceAll(" ", "%20")
+            + "&phone=" + ALICE.getPhone().value.replaceAll(" ", "%20")
+            + "&email=" + ALICE.getEmail().value.replaceAll(" ", "%20")
+            + "&salary=" + ALICE.getSalary().value.replaceAll(" ", "%20")
+            + "&address=" + encodeUriComponent(ALICE.getAddress().value)
+            + "&username=" + ALICE.getUsername().username.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
