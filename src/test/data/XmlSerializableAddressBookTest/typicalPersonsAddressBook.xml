@@ -42,7 +42,10 @@
         <salary>10000</salary>
         <project>OASIS</project>
         <username>Daniel Meier</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>WqZmddE7DaBqckP04Ihld0yZ8yQ3vvC2f0IkhJiNkqcUE143mepMatCdoKINfMjdDm9wfA4NAglyJVlEHne5DO7IXKSx6+OoA218bLiJMeGLOLpi9dRbDmzx7UD+04FbcxgaAWhHlHGBZ4UbFE3xyVs69PSxyfwzpiDJLQ10wmoqjERD+ldrTrT1AA94wbCF6nt38tN5VyUFja1gRYbJlJ7qdeF6NeWPt8h+D4F1NJiMnivrZ5vcfWgAcZawYry72DCFOUAVE4lUS7at0EAQPOFY4/qmcIUq7KZIyhOly5BgT+4FNNPDyO1QqkG1YprIcr7sCnKx3oKLB42hbqs/fQ==</salt>
+            <password>u3RhOtq21S0jFkxqnwg0Sz9qsLeqbyrPAnOB6mJQ9nQ=</password>
+        </password>
     </persons>
     <persons>
         <name>Elle Meyer</name>
@@ -69,7 +72,10 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <salary>10000</salary>
         <username>George Best</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>FYnxeYR878SX1CsBJb8hwNyNKz8FWQbYUXU84/S99qi0P34A+crEATQNUR0HOVoXPgrz83AWU+tKbcF0IOty5o42+HUVEj8Y4i5RzzpkGfpDOHOcfH+VxkmGXZbi20aFHiDi9SGFsJSLMp0Ugk7anb1NcrMGHe7I1nB6G2j/n4Syf+5rXl8O14Wz8iLosUTYDBDH/oE9TYnISQU+GCJ+1nZR3jcN5+o3G56WlqMiQ/+CgTuSAljDlI0hNBcZc+GCYDylCpN/6ioC7FKjot8nxtaymo3P215QYIptQoTOSwcXpzUlKUwoTA1UaaVsSAhBieUuEUWgn8VMUZkQM52XOQ==</salt>
+            <password>2kTDD1lrilWt2i8uWfPHN2cqVB9fcUU9Gbpx2Xmkw/U=</password>
+        </password>
         <leaveApplications>
             <description>Alice family holiday</description>
             <status>PENDING</status>

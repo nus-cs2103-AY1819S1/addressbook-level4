@@ -9,7 +9,10 @@
         <salary>10000</salary>
         <project>friends</project>
         <username>Alice Pauline</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>f2q5rzqU4K7vLpKHmU8ZPYXEddezN0/DJqcPPzRWX8nVb9fCHsgF2IhP2YbAXQeamc7tt5cQsjYFGe4UL3hgS1XaZwc+eEKpiN6+y8aPI9gyu7nZZmjdRxMseCWMu9Wlax9135k0WDPGOz+0Y7OC1ZidBIjcV3NdA60y6qoEti/GGHpdSu7yo5KvyZ7odRVj/+WkUkldOj4oX1EX4Hqf5pNwna0KjHbMg4e37hg0Z1b0u1tPGSA7Z/fVkn7haA6N/4xGBHVzyRFXLJCxibnJh5wCC9SN1KSN0SgsEfaT8kiYd7EGY40RM7PW5OAlgtjRZDD5FFfY2x0F8Wj2/tquaA==</salt>
+            <password>cyridgFM7dAaCa6qy1HdGnkAL2ETQK+A9yTAjKz5ocI=</password>
+        </password>
     </persons>
 
 
@@ -23,7 +26,10 @@
         <salary>10000</salary>
         <project>friends</project>
         <username>Alice Pauline</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>f2q5rzqU4K7vLpKHmU8ZPYXEddezN0/DJqcPPzRWX8nVb9fCHsgF2IhP2YbAXQeamc7tt5cQsjYFGe4UL3hgS1XaZwc+eEKpiN6+y8aPI9gyu7nZZmjdRxMseCWMu9Wlax9135k0WDPGOz+0Y7OC1ZidBIjcV3NdA60y6qoEti/GGHpdSu7yo5KvyZ7odRVj/+WkUkldOj4oX1EX4Hqf5pNwna0KjHbMg4e37hg0Z1b0u1tPGSA7Z/fVkn7haA6N/4xGBHVzyRFXLJCxibnJh5wCC9SN1KSN0SgsEfaT8kiYd7EGY40RM7PW5OAlgtjRZDD5FFfY2x0F8Wj2/tquaA==</salt>
+            <password>cyridgFM7dAaCa6qy1HdGnkAL2ETQK+A9yTAjKz5ocI=</password>
+        </password>
     </persons>
 
 </addressbook>
