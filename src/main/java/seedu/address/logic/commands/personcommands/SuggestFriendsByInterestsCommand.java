@@ -24,8 +24,10 @@ public class SuggestFriendsByInterestsCommand extends Command {
     public static final String COMMAND_WORD = "suggestFriendsByInterests";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Shows a list of persons with at least one similar interest with the target user"
-            + " identified by the index number used in the displayed person list.\n"
+            + ": Shows a list of persons (including target user) with at least one similar interest"
+            + " with respect to the target user"
+            + " identified by the index number used in the displayed person list"
+            + " and are not yet friends.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
