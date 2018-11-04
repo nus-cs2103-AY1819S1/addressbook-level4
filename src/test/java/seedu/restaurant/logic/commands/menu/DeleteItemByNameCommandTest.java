@@ -33,7 +33,7 @@ public class DeleteItemByNameCommandTest {
         Item itemToDelete = model.findItem(new Name("Apple Juice"));
         DeleteItemByNameCommand deleteItemCommand = new DeleteItemByNameCommand(new Name("Apple Juice"));
 
-        String expectedMessage = String.format(DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS, 1);
+        String expectedMessage = String.format(DeleteItemByNameCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);

@@ -4,6 +4,7 @@ import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
+import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
@@ -15,8 +16,19 @@ import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 /**
  * Deletes an item identified using its name from the menu.
  */
-public class DeleteItemByNameCommand extends DeleteItemCommand {
+public class DeleteItemByNameCommand extends Command {
 
+    public static final String COMMAND_WORD = "delete-item-name";
+
+    public static final String COMMAND_ALIAS = "din";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the item identified by name used in the displayed item list.\n"
+            + "Parameters: NAME (must be in the displayed item list) "
+            + "or Parameters: NAME\n"
+            + "Example: " + COMMAND_WORD + " Apple Juice";
+
+    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
     private final Name targetName;
 
     public DeleteItemByNameCommand(Name targetName) {
@@ -30,7 +42,7 @@ public class DeleteItemByNameCommand extends DeleteItemCommand {
             model.deleteItem(itemToDelete);
             model.commitRestaurantBook();
             EventsCenter.getInstance().post(new DisplayItemListRequestEvent());
-            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, 1));
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete));
         } catch (ItemNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_NAME_NOT_FOUND);
         }
