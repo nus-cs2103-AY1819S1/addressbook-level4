@@ -25,18 +25,20 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Contains utility methods used for parsing strings in the various
+ * Parser classes.
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX = "Index is not a"
+        + " non-zero unsigned integer.";
 
     public static final String PREFIX = "-";
 
     //@@author alexkmj
     /**
-     * Tokenizes args into an array of args. Checks if args is null and trims leading and trailing
-     * whitespaces.
+     * Tokenize args into an array of args. Checks if args is null and trims
+     * leading and trailing whitespaces.
      *
      * @param args the target args that would be tokenize
      * @return array of args
@@ -49,8 +51,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Validates the number of arguments. If number of arguments does not
-     * equal to {@code required}, {@code ParseException} will be thrown.
+     * Validates the number of arguments. If number of arguments does not equal
+     * to {@code required}, {@code ParseException} will be thrown.
      *
      * @throws ParseException if the number of arguments is invalid
      */
@@ -74,7 +76,7 @@ public class ParserUtil {
 
         if (args.length < min || args.length > max) {
             throw new ParseException("Invalid number of arguments!"
-                    + "Number of arguments should be more than or equal to "
+                    + " Number of arguments should be more than or equal to "
                     + min
                     + " and less than or equal to "
                     + max);
@@ -90,7 +92,7 @@ public class ParserUtil {
      * {@code setOfAllowedNumOfArgs}
      */
     public static void validateNumOfArgs(Object[] args,
-            HashSet<Integer> setOfAllowedNumOfArgs) throws ParseException {
+            Set<Integer> setOfAllowedNumOfArgs) throws ParseException {
         requireNonNull(args);
 
         if (!setOfAllowedNumOfArgs.contains(args.length)) {
@@ -98,10 +100,22 @@ public class ParserUtil {
                     .map(Objects::toString)
                     .collect(Collectors.joining(", "));
 
-            throw new ParseException("Invalid number of arguments!"
-                    + "Number of arguments should be "
+            throw parseException("Invalid number of arguments!"
+                    + " Number of arguments should be "
                     + allowedNumOfArgs);
         }
+    }
+
+    //@@author alexkmj
+    /**
+     * Creates parse exception with the error message.
+     *
+     * @param errorMsg error messge for the exception
+     * @return {@code ParseException} with {@code errorMsg} as the message
+     */
+    public static ParseException parseException(String errorMsg) {
+        String messageError = String.format(errorMsg);
+        return new ParseException(messageError);
     }
 
     //@@author alexkmj
@@ -115,7 +129,12 @@ public class ParserUtil {
             if (args[index].startsWith(PREFIX)
                     && (index + 1 < args.length)) {
                 String key = args[index].substring(1);
-                String value = args[++index];
+                String value = args[index + 1];
+
+                // Value cannot start with prefix
+                if (value.startsWith(PREFIX)) {
+                    continue;
+                }
 
                 argsMap.put(key, value);
             }
@@ -126,14 +145,16 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String code} into a {@code Code}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String code} into a {@code Code}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code code} is invalid.
      */
     public static Code parseCode(String args) throws ParseException {
         requireNonNull(args);
         String trimmedCode = args.trim();
+        trimmedCode = trimmedCode.toUpperCase();
+
         if (!Code.isValidCode(trimmedCode)) {
             throw new ParseException(Code.MESSAGE_CODE_CONSTRAINTS);
         }
@@ -142,8 +163,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String year} into a {@code Year}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String year} into a {@code Year}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code year} is invalid.
      */
@@ -158,8 +179,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String semester} into a {@code Semester}. Leading and trailing whitespaces
-     * will be trimmed.
+     * Parses a {@code String semester} into a {@code Semester}. Leading and
+     * trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code semester} is invalid.
      */
@@ -174,8 +195,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String credit} into a {@code Credit}. Leading and trailing whitespaces will
-     * be trimmed.
+     * Parses a {@code String credit} into a {@code Credit}. Leading and
+     * trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code credit} is invalid.
      */
@@ -191,8 +212,8 @@ public class ParserUtil {
 
     //@@author alexkmj
     /**
-     * Parses a {@code String grade} into a {@code Grade}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String grade} into a {@code Grade}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code grade} is invalid.
      */
@@ -206,10 +227,11 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
-     * whitespaces will be trimmed.
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * @throws ParseException if the specified index is invalid (not non-zero
+     * unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
@@ -220,8 +242,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -235,8 +257,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
@@ -250,8 +272,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}. Leading and trailing whitespaces
-     * will be trimmed.
+     * Parses a {@code String address} into an {@code Address}. Leading and
+     * trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
@@ -265,8 +287,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String email} into an {@code Email}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
@@ -280,8 +302,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
@@ -297,7 +319,8 @@ public class ParserUtil {
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<Tag> parseTags(Collection<String> tags)
+            throws ParseException {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {

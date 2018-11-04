@@ -2,9 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-
 import seedu.address.model.Model;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;
@@ -15,29 +17,48 @@ import seedu.address.model.module.Year;
 import seedu.address.model.util.ModuleBuilder;
 
 /**
- * Adds a person to the address book.
+ * {@code EditModuleCommand} edit fields of existing module.
  */
 public class EditModuleCommand extends Command {
 
+    /**
+     * Command word for {@code EditModuleCommand}.
+     */
     public static final String COMMAND_WORD = "edit";
 
+    /**
+     * Usage of <b>edit</b>.
+     * <p>
+     * Provides the description and syntax of <b>edit</b>.
+     */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the details of the module specified by the module code. "
-            + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: "
-            + "-code MODULE_CODE "
-            + "-year [YEAR] "
-            + "-semester [SEMESTER] "
-            + "-credit [CREDIT] "
-            + "-grade [GRADE] ";
+            + ": Edits the details of the module specified by the module code."
+            + " Existing values will be overwritten by the input values."
+            + " \nParameters:"
+            + " -code MODULE_CODE"
+            + " -year [YEAR]"
+            + " -semester [SEMESTER]"
+            + " -credit [CREDIT]"
+            + " -grade [GRADE]";
 
-    public static final String MESSAGE_EDIT_MODULE_SUCCESS = "Edited module: %1$s";
-    public static final String MESSAGE_NO_SUCH_MODULE = "No such module exist.";
-    public static final String MESSAGE_MODULE_EXIST = "Edited module already exist.";
+    // Constants for CommandException.
+    public static final String MESSAGE_EDIT_SUCCESS = "Edited module: %1$s";
+    public static final String MESSAGE_INCOMPLETE_MODULE_GRADE_CHANGE = "Cannot"
+            + " change grade of incomplete modules. Use adjust to change grade"
+            + " of incomplete modules.";
+    public static final String MESSAGE_MODULE_ALREADY_EXIST = "Edited module"
+            + "already exist.";
+    public static final String MESSAGE_MULTIPLE_MODULE_ENTRIES = "Multiple"
+            + " module entries with the same module code exist but year or"
+            + " semester is not specified.";
+    public static final String MESSAGE_NO_SUCH_MODULE = "No such module.";
 
+    // Target fields.
     private final Code targetCode;
     private final Year targetYear;
     private final Semester targetSemester;
+
+    // New fields.
     private final Code newCode;
     private final Year newYear;
     private final Semester newSemester;
@@ -45,7 +66,7 @@ public class EditModuleCommand extends Command {
     private final Grade newGrade;
 
     /**
-     * Prevents the use of empty constructor.
+     * Prevents instantiation of empty constructor.
      */
     private EditModuleCommand() {
         this.targetCode = null;
@@ -58,13 +79,55 @@ public class EditModuleCommand extends Command {
         this.newGrade = null;
     }
 
-    public EditModuleCommand(Code targetCode, Year targetYear, Semester targetSemester,
-            Code newCode, Year newYear, Semester newSemester, Credit newCredit, Grade newGrade) {
-        requireNonNull(targetCode);
+    /**
+     * Constructor that instantiates {@code EditModuleCommand}.
+     * <p>
+     * Sets target field and new field used to find and editing the targeted
+     * module.
+     * <ul>
+     *     Assumes that:
+     *     <li>{@code targetCode} cannot be null.</li>
+     *     <li>
+     *         {@code targetYear} is null if and only if {@code targetSemester}
+     *         is null
+     *     </li>
+     *     <li>
+     *         One of {@code newCode}, {@code newYear}, {@code newSemester},
+     *         {@code newCredit}, or {@code newGrade} is not null.
+     *     </li>
+     * </ul>
+     *
+     *
+     * @param targetCode target code that identifies the targeted module
+     * @param targetYear target year that identifies the targeted module
+     * @param targetSemester target semester that identifies the targeted module
+     * @param newCode replaces module code of the targeted module if not null
+     * @param newYear replaces year of the targeted module if not null
+     * @param newSemester replaces semester of the targeted module if not null
+     * @param newCredit replaces credit of the targeted module if not null
+     * @param newGrade replaces grade of targeted module if not null
+     */
+    public EditModuleCommand(Code targetCode, Year targetYear,
+            Semester targetSemester, Code newCode, Year newYear,
+            Semester newSemester, Credit newCredit, Grade newGrade) {
+        // Already handled by EditModuleCommandParser:
+        // 1) Target code cannot be null.
+        // 2) Target year is null if and only if target semester is null.
+        // 3) One of new field is not null.
+        assert targetCode != null;
+        assert !(targetYear == null ^ targetSemester == null);
+        assert newCode != null
+                || newYear != null
+                || newSemester != null
+                || newCredit != null
+                || newGrade != null;
 
+        // Instantiate target fields.
         this.targetCode = targetCode;
         this.targetYear = targetYear;
         this.targetSemester = targetSemester;
+
+        // Instantiate new fields.
         this.newCode = newCode;
         this.newYear = newYear;
         this.newSemester = newSemester;
@@ -73,95 +136,220 @@ public class EditModuleCommand extends Command {
     }
 
     /**
-     * Edits the current module in the transcripts.
+     * Edits the targeted module in the module list of transcript.
      *
-     * @param model {@code Model} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
+     * @param model {@code Model} that the command operates on.
+     * @param history {@code CommandHistory} that the command operates on.
+     * @return result of the command
+     * @throws CommandException thrown when command cannot be executed
+     * successfully
      */
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history)
+            throws CommandException {
         requireNonNull(model);
 
-        int numOfModule = (int) model.getFilteredModuleList()
-                .stream()
-                .filter(index -> index.getCode().equals(targetCode))
-                .count();
+        // Get target module.
+        // Throws CommandException if module does not exists.
+        // Throws CommandException if module is incomplete and grade changed.
+        Module target = getTargetModule(model);
+        moduleCompletedIfGradeChange(target);
 
-        if (numOfModule == 0) {
+        // Get edited module.
+        // Throws CommandException if edited module already exist.
+        Module editedModule = createEditedModule(target);
+        editedModuleExist(model, editedModule);
+
+        // Update module and commit the transcript.
+        model.updateModule(target, editedModule);
+        model.commitTranscript();
+
+        String successMsg = String.format(MESSAGE_EDIT_SUCCESS, editedModule);
+        return new CommandResult(successMsg);
+    }
+
+    /**
+     * Returns the targeted module.
+     * <p>
+     * Checks if module specified by {@code targetCode} exist. If multiple
+     * module entries matches {@code targetCode}, check if {@code targetYear}
+     * and {@code targetSemester} has been specified. If all check passes, the
+     * targeted module is returned.
+     *
+     * @param model model containing the transcript
+     * @return targeted module
+     * @throws CommandException thrown when specified module does not exist or
+     * there are multiple module entries matching the {@code targetCode} but
+     * {@code targetYear} or {@code targetSemester} was not specified
+     */
+    private Module getTargetModule(Model model) throws CommandException {
+        // Returns the number of modules with target code, year, and semester.
+        List<Module> filteredModule = model.getFilteredModuleList()
+                .stream()
+                .filter(this::isTargetModule)
+                .collect(Collectors.toList());
+
+        // Throws exception when targeted module does not exist.
+        if (filteredModule.size() == 0) {
             throw new CommandException(MESSAGE_NO_SUCH_MODULE);
         }
 
-        if (numOfModule > 1 && (targetYear == null || targetSemester == null)) {
-            throw new CommandException("");
+        // Throws exception when more than one module matches target.
+        if (filteredModule.size() > 1) {
+            throw new CommandException(MESSAGE_MULTIPLE_MODULE_ENTRIES);
         }
 
-        return numOfModule == 1
-                ? executeUniqueModuleCode(model, history)
-                : executeNonUniqueModuleCode(model, history);
+        // Returns the targeted module.
+        return filteredModule.get(0);
     }
 
     /**
-     * Edits the current module in the transcripts.
+     * Returns true if module matches all non-null target fields.
+     *
+     * @param module module {@code Module} checked
+     * @return true if module matches all non-null target fields
      */
-    public CommandResult executeUniqueModuleCode(Model model, CommandHistory history)
-            throws CommandException {
-        Module currentModule = model.getFilteredModuleList()
-                .stream()
-                .filter(index -> index.getCode().equals(targetCode))
-                .findAny()
-                .get();
-
-        Module editedModule = new ModuleBuilder(currentModule)
-                .withCode(newCode == null ? currentModule.getCode() : newCode)
-                .withYear(newYear == null ? currentModule.getYear() : newYear)
-                .withSemester(newSemester == null ? currentModule.getSemester() : newSemester)
-                .withCredit(newCredit == null ? currentModule.getCredits() : newCredit)
-                .withGrade(newGrade == null ? currentModule.getGrade() : newGrade)
-                .build();
-
-        if ((newCode != null || newYear != null || newSemester != null)
-                && model.hasModule(editedModule)) {
-            throw new CommandException(MESSAGE_MODULE_EXIST);
+    private boolean isTargetModule(Module module) {
+        if (targetYear == null && targetSemester == null) {
+            return module.getCode().equals(targetCode);
         }
 
-        model.deleteModule(currentModule);
-        model.addModule(editedModule);
-        model.commitTranscript();
-
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+        return module.getCode().equals(targetCode)
+                && module.getYear().equals(targetYear)
+                && module.getSemester().equals(targetSemester);
     }
 
     /**
-     * Edits the current module in the transcripts.
+     * Returns the edited version of the target module.
+     *
+     * @param target the module to be edited
+     * @return the edited version of {@code target}
      */
-    public CommandResult executeNonUniqueModuleCode(Model model, CommandHistory history)
+    private Module createEditedModule(Module target) {
+        ModuleBuilder moduleBuilder = new ModuleBuilder(target);
+
+        if (newCode != null) {
+            moduleBuilder = moduleBuilder.withCode(newCode);
+        }
+
+        if (newYear != null) {
+            moduleBuilder = moduleBuilder.withYear(newYear);
+        }
+
+        if (newSemester != null) {
+            moduleBuilder = moduleBuilder.withSemester(newSemester);
+        }
+
+        if (newCredit != null) {
+            moduleBuilder = moduleBuilder.withCredit(newCredit);
+        }
+
+        if (newGrade != null) {
+            moduleBuilder = moduleBuilder.withGrade(newGrade);
+        }
+
+        return moduleBuilder.build();
+    }
+
+    /**
+     * Throws {@code CommandException} if target is an incomplete module and
+     * grade has been changed.
+     *
+     * @param target targeted module to be updated
+     * @throws CommandException thrown when target is an incomplete module and
+     * grade has been changed
+     */
+    private void moduleCompletedIfGradeChange(Module target)
             throws CommandException {
-        Module currentModule = model.getFilteredModuleList()
-                .stream()
-                .filter(index -> {
-                    return index.getCode().equals(targetCode)
-                            && index.getYear().equals(targetYear)
-                            && index.getSemester().equals(targetSemester);
-                })
-                .findAny()
-                .get();
+        boolean targetIncomplete = !target.getGrade().isComplete();
+        boolean newGradeNotNull = newGrade != null;
 
-        Module editedModule = new ModuleBuilder(currentModule)
-                .withCode(newCode == null ? currentModule.getCode() : newCode)
-                .withYear(newYear == null ? currentModule.getYear() : newYear)
-                .withSemester(newSemester == null ? currentModule.getSemester() : newSemester)
-                .withCredit(newCredit == null ? currentModule.getCredits() : newCredit)
-                .withGrade(newGrade == null ? currentModule.getGrade() : newGrade)
-                .build();
+        if (targetIncomplete && newGradeNotNull) {
+            throw new CommandException(MESSAGE_INCOMPLETE_MODULE_GRADE_CHANGE);
+        }
+    }
 
+    /**
+     * Throws {@code CommandException} if code, year, or semester has been
+     * changed, and there exist a module in module list of transcript that
+     * shares the same module code, year, and semester as the
+     * {@code editedModule}.
+     *
+     * @param model {@code Model} that the command operates on.
+     * @param editedModule module with updated fields
+     * @throws CommandException thrown if current module list already contain a
+     * module sharing the same module code, year, and semester as the
+     * {@code editedModule}
+     */
+    private void editedModuleExist(Model model, Module editedModule)
+            throws CommandException {
+        boolean identifierNotChanged = newCode == null
+                && newYear == null
+                && newSemester == null;
+
+        // No conflicts since identifier is not changed.
+        if (identifierNotChanged) {
+            return;
+        }
+
+        // Throw CommandException if module with same identifier already exist.
         if (model.hasModule(editedModule)) {
-            throw new CommandException(MESSAGE_MODULE_EXIST);
+            throw new CommandException(MESSAGE_MODULE_ALREADY_EXIST);
+        }
+    }
+
+    /**
+     * Returns true if all field matches.
+     * <p>
+     * Field matches when they are both null or equal to one another.
+     *
+     * @param other the other object compared against
+     * @return true if all field matches
+     */
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
         }
 
-        model.deleteModule(currentModule);
-        model.addModule(editedModule);
-        model.commitTranscript();
+        // instanceof handles nulls
+        if (!(other instanceof EditModuleCommand)) {
+            return false;
+        }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_MODULE_SUCCESS, editedModule));
+        // state check
+        EditModuleCommand e = (EditModuleCommand) other;
+
+        boolean targetYearSame = (targetYear == null && e.targetYear == null)
+                || targetYear.equals(e.targetYear);
+
+        boolean targetSemesterSame = (
+                targetSemester == null && e.targetSemester == null)
+                || targetSemester.equals(e.targetSemester);
+
+        boolean newCodeSame = (newCode == null && e.newCode == null)
+                || newCode.equals(e.newCode);
+
+        boolean newYearSame = (newYear == null && e.newYear == null)
+                || newYear.equals(e.newYear);
+
+        boolean newSemesterSame = (newSemester == null && e.newSemester == null)
+                || newSemester.equals(e.newSemester);
+
+        boolean newCreditSame = (newCredit == null && e.newCredit == null)
+                || newCredit.equals(e.newCredit);
+
+        boolean newGradeSame = (newGrade == null && e.newGrade == null)
+                || newGrade.equals(e.newGrade);
+
+        return targetCode.equals(e.targetCode)
+                && targetYearSame
+                && targetSemesterSame
+                && newCodeSame
+                && newYearSame
+                && newSemesterSame
+                && newCreditSame
+                && newGradeSame;
     }
 }

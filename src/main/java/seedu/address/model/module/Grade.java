@@ -33,8 +33,10 @@ public class Grade {
     /**
      * No whitespace allowed.
      */
-    public static final String GRADE_VALIDATION_REGEX =
-            "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU|" + EMPTY_VALUE;
+    public static final String GRADE_VALIDATION_REGEX = "A\\+|a\\+|A\\-|a\\-"
+            + "|A|a|B\\+|b\\+|B\\-|b\\-|B|b|C\\+|c\\+|C|c|D\\+|d\\+|D|d|F|f|"
+            + "CS|cs|CU|cu|"
+            + EMPTY_VALUE;
 
     //@@author jeremiah-ang
     /**

@@ -84,8 +84,8 @@ public class DeleteModuleCommand extends Command {
 
         Predicate<Module> predicate = target -> {
             return target.getCode().equals(targetCode)
-                    && targetYear == null || target.getYear().equals(targetYear)
-                    && targetSemester == null || target.getSemester().equals(targetSemester);
+                    && (targetYear == null || target.getYear().equals(targetYear))
+                    && (targetSemester == null || target.getSemester().equals(targetSemester));
         };
 
         try {
