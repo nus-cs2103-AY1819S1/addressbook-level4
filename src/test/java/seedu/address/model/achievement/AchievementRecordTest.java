@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.achievement.exceptions.CumulativeAchievementsMismatchException;
 import seedu.address.model.achievement.exceptions.DateBreakPointsMismatchException;
 import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
 import seedu.address.testutil.AchievementRecordBuilder;
@@ -45,7 +46,7 @@ public class AchievementRecordTest {
     }
 
     /**
-     * Returns an {@code AchievementRecord} with nextDayBreakPoint and nextWeekBreakPoint set to be the beginning of 
+     * Returns an {@code AchievementRecord} with nextDayBreakPoint and nextWeekBreakPoint set to be the beginning of
      * today and all other fields same as the {@code original}
      */
     private AchievementRecord getRecWithPassedBreakPoints(AchievementRecord original) {
@@ -78,7 +79,7 @@ public class AchievementRecordTest {
         assertFalse(AchievementRecord.isValidDisplayOption(5));
     }
     
-    @Test
+    @
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         achievementRecord.resetData(null);
@@ -119,6 +120,23 @@ public class AchievementRecordTest {
     }
 
     @Test
+    public void resetData_withXpValuesMismatch_throwsCumulativeAchievementsMismatchException() {
+        AchievementRecord newData = getNonEmptyAchievementRecord();
+        Xp reducedXp = new Xp(newData.getXpValue() - 1);
+        newData.setXp(reducedXp);
+        thrown.expect(CumulativeAchievementsMismatchException.class);
+        achievementRecord.resetData(newData);
+    }
+
+    @Test
+    public void resetData_withNumTaskCompletedMismatch_throwsCumulativeAchievementsMismatchException() {
+        AchievementRecord newData = getNonEmptyAchievementRecord();
+        newData.setNumTaskCompleted(newData.getNumTaskCompleted() - 1);
+        thrown.expect(CumulativeAchievementsMismatchException.class);
+        achievementRecord.resetData(newData);
+    }
+
+    @Test
     public void setDisplayOption_noBreakPointIsPassed_noReset() {
         // set up the achievement record to have non-zero time based achievement fields
         AchievementRecord achievementRecord = getNonEmptyAchievementRecord();
@@ -128,11 +146,10 @@ public class AchievementRecordTest {
                 .withDisplayOption(option)
                 .build();
         achievementRecord.setDisplayOption(option);
-        
     }
 
     @Test
-    public void setDisplayOption_nextDayBreakPointIsPassed_AchievementsTodayReset() {
+    public void setDisplayOption_nextDayBreakPointIsPassed_achievementsTodayReset() {
 
         // get an original achievement record with non-zero time based achievement fields
         AchievementRecord original = getNonEmptyAchievementRecord();
@@ -165,7 +182,7 @@ public class AchievementRecordTest {
      * is passed as well.
      */
     @Test
-    public void setDisplayOptionWithNewXp_bothBreakPointsArePassed_AchievementsTodayAndThisWeekReset() {
+    public void setDisplayOptionWithNewXp_bothBreakPointsArePassed_achievementsTodayAndThisWeekReset() {
 
         // get an original achievement record with non-zero time based achievement fields
         AchievementRecord original = getNonEmptyAchievementRecord();
@@ -232,7 +249,7 @@ public class AchievementRecordTest {
 
 
     @Test
-    public void incrementAchievementsWithNewXp_nextDayBreakPointIsPassed_AchievementsTodayReset() {
+    public void incrementAchievementsWithNewXp_nextDayBreakPointIsPassed_achievementsTodayReset() {
 
         // get an original achievement record with non-zero time based achievement fields
         AchievementRecord original = getNonEmptyAchievementRecord();
@@ -270,13 +287,13 @@ public class AchievementRecordTest {
      * is passed as well.
      */
     @Test
-    public void incrementAchievementsWithNewXp_bothBreakPointsArePassed_AchievementsTodayAndThisWeekReset() {
+    public void incrementAchievementsWithNewXp_bothBreakPointsArePassed_achievementsTodayAndThisWeekReset() {
 
         // get an original achievement record with non-zero time based achievement fields
         AchievementRecord original = getNonEmptyAchievementRecord();
 
         // set both nextDayBreakPoint and nextWeekBreakPoint to be the beginning of today
-        AchievementRecord achievementRecord = getRecWithPassedBreakPoints(original); 
+        AchievementRecord achievementRecord = getRecWithPassedBreakPoints(original);
 
         // nextDayBreakPoint is expected to be reset to the start of tomorrow, xpValueByDay and numTaskCompletedByDay
         // reset to 0 before being incremented again with the new xp

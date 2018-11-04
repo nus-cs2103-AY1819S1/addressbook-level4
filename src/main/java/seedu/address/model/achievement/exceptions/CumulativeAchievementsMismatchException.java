@@ -7,6 +7,6 @@ package seedu.address.model.achievement.exceptions;
  */
 public class CumulativeAchievementsMismatchException extends RuntimeException {
     public CumulativeAchievementsMismatchException() {
-        super("Cumulative achievement fields do not match.");
+        super("Today, this week and all-time's achievements do not match.");
     }
 }

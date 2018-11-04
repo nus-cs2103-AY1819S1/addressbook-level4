@@ -97,6 +97,14 @@ public class AchievementRecord {
         return xp;
     }
 
+    public void setXp(Xp xp) {
+        this.xp = xp;
+    }
+
+    public void setNumTaskCompleted(int numTaskCompleted) {
+        this.numTaskCompleted = numTaskCompleted;
+    }
+
     public Level getLevel() {
         return level;
     }
