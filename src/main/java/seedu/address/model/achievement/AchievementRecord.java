@@ -238,6 +238,12 @@ public class AchievementRecord {
         }
     }
 
+//    private void checkXpValuesMatch(int xp, int xpValueByDay, int xpValueByWeek) {
+//        if (xpValueByDay <= xpValueByWeek && xpValueByWeek <= xp) {
+//            return;
+//        }
+//        throw new 
+//    }
     /**
      * Updates all fields of this {@code AchievementRecord} with new xp being awarded.
      */

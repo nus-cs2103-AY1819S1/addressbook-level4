@@ -1,5 +1,10 @@
 package seedu.address.model.achievement.exceptions;
 
+/**
+ * Signals current xp value and level in the {@code AchievementRecord} do not match.
+ * Matching xp and level: xp value is within the range of minimum to maximum xp of that level, as specified in the
+ * definition of the {@code Level} enum.
+ */
 public class XpLevelMismatchException extends RuntimeException {
     public XpLevelMismatchException() {
         super("Xp value and level do not match.");
