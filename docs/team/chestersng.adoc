@@ -53,7 +53,7 @@ are made to be as intuitive as possible.
 == Contributions to the GUI Design
 
 |===
-|_Given below is the mockup of the GUI that I designed. It showcases to visualise an end-product._
+|_Given below is the mockup of the GUI that I designed. It showcases my ability to visualise an end-product._
 |===
 
 include::../UserGuide.adoc[tag=UI]
