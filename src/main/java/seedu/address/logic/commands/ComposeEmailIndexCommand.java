@@ -37,7 +37,7 @@ public class ComposeEmailIndexCommand extends Command {
         + PREFIX_CONTENT + "CONTENT(Input <br> for newline)\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_FROM + "johndoe@example.com "
-        + PREFIX_TO + "1 6 10 "
+        + PREFIX_TO + "1 3 5 "
         + PREFIX_SUBJECT + "Meeting this Friday "
         + PREFIX_CONTENT + "Dear All<br><br>Remember our meeting this friday.<br><br>John";
 

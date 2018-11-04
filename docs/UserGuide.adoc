@@ -297,15 +297,27 @@ Format: `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTEN
 * INDEXES *must be positive integers* 1, 2, 3, ...
 * SUBJECT has no word limit.
 * CONTENT has no word limit.
+* `<br>` can be used in CONTENT for new line.
 ****
+
+[TIP]
+====
+CONTENT is written in HTML. Users who know HTML can use it to format the CONTENT.
+====
 
 Example:
 
-* `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday
-content/Hey there's a meeting this friday.` +
-Composes an email from `johndoe@example.com` to people at indexes 1, 6 and 10 with subject
-`Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
-it as a *`.eml`* file.
+* `list` +
+`compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday
+content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe` +
+Composes an email from `johndoe@example.com` to residents at indexes 1, 3, and 5 with subject
+`Meeting this Friday` and email body +
+`Dear All` +
++
+`There's a meeting this friday.` +
++
+`John Doe` +
+and saves it as a *`.eml`* file.
 
 ==== Composing an email to currently listed people: `compose_email_list`
 Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
@@ -317,9 +329,15 @@ Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
 * CONTENT has no word limit.
 ****
 
+[TIP]
+====
+CONTENT is written in HTML. Users who know HTML can use it to format the CONTENT.
+====
+
 Example:
 
-* `compose_email_list from/johndoe@example.com subject/Meeting this Friday
+* `list` +
+`compose_email_list from/johndoe@example.com subject/Meeting this Friday
 content/Hey there's a meeting this friday.` +
 Composes an email from `johndoe@example.com` to currently listed people with subject
 `Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
@@ -716,7 +734,7 @@ e.g. `search basketball A123`
 
 ===== Email
 * *Compose Email (Index)* : `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT` +
-e.g. `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday content/Hey there's a meeting this friday.`
+e.g. `compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday content/Hey there's a meeting this friday.`
 * *Compose Email (List)* : `compose_email_list from/FROM subject/SUBJECT content/CONTENT` +
 e.g. `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Hey there's a meeting this friday.`
 * *List Emails* : `list_emails`
