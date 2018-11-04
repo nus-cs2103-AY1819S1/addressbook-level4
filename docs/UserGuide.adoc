@@ -96,21 +96,23 @@ In this user guide, you will find information about how commands are to be used 
 
 // tag::patientfirsthalf[]
 ==== Adding a patient: `add`
-Did someone just walked in, wanting to see the doctor? +
+Did someone just walk in, wanting to see the doctor? +
 Add him to CLInic's patient database using the `add` command! +
 Alias: `a` +
 Format: `add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 .Pro tip(s):
+====
 * A patient can have any number of tags (including 0).
 * Mandatory parameters can be keyed in any order.
+====
 
 [WARNING]
 .Important:
 Omission of *any* mandatory parameters will result in the failure of adding the patient to the database.
 
-Upon successful execution, you should see the patient represented by the parameters added to the patient list on the right.
+Upon successful execution, you should see the patient with his details added to the patient list on the right.
 
 Examples:
 
@@ -121,7 +123,7 @@ Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97
 image::AddEx1.png[width="650"]
 
 ==== Editing a patient: `edit`
-Uhoh! Made a mistake keying in a patient's particulars? Or perhaps a patient just recently changed his handphone number or email? +
+Uhoh! Made a mistake keying in a patient's particulars? Or perhaps a patient had recently changed his address? +
 Fret not! Simply update his particulars using the `edit` command! +
 Alias: `e` +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -136,7 +138,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 [TIP]
 .Pro tip(s):
-You can remove *all* of the patient's tags by typing `t/` without specifying any tags after the prefix.
+You can remove *all* of a patient's tags by typing the `t/` prefix without specifying any tags.
 
 Upon successful execution, you should see the patient's details updated in the patient list on the right.
 
@@ -169,7 +171,6 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The search is case insensitive.
 ** `Bryan` will match `bryaN`.
 * The order of the keywords does not matter.
-** `Sng Chester` will match `Chester Sng`.
 ====
 
 Upon successful execution, you should only see all the patients who have the specified keyword in their names in the patient list on the right.
