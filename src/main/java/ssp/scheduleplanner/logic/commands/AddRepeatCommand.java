@@ -71,11 +71,9 @@ public class AddRepeatCommand extends Command {
             Task newTask = new Task(toAdd.getName(), date,
                     toAdd.getPriority(), toAdd.getVenue(), toAdd.getTags());
 
-            if (model.hasTask(newTask)) {
-                throw new CommandException(MESSAGE_DUPLICATE_TASK);
+            if (!model.hasTask(newTask)) {
+                model.addTask(newTask);
             }
-
-            model.addTask(newTask);
         }
         model.commitSchedulePlanner();
         EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
