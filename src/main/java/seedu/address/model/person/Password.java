@@ -14,7 +14,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 /**
- * Represents a Person's plaintext in the address book.
+ * Represents a Person's password in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
  */
 public class Password implements Serializable {
@@ -24,7 +24,7 @@ public class Password implements Serializable {
             + "1 uppercase character and 1 number.";
 
     /*
-     * The plaintext regex expression to test for the constraints stated in MESSAGE_PASSWORD_CONSTRAINTS
+     * The password regex expression to test for the constraints stated in MESSAGE_PASSWORD_CONSTRAINTS
      */
     public static final String PASSWORD_VALIDATION_REGEX = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$";
 
@@ -39,7 +39,7 @@ public class Password implements Serializable {
     public final String hash;
 
     /**
-     * Constructs a {@code Password} containing the default plaintext.
+     * Constructs a {@code Password} containing the default password.
      */
     public Password() {
         this(DEFAULT_PASSWORD);
@@ -58,8 +58,16 @@ public class Password implements Serializable {
         hash = hash(plaintext, salt);
     }
 
+    public Password(byte[] salt, String hash) {
+        requireNonNull(salt);
+        requireNonNull(hash);
+        plaintext = null;
+        this.salt = salt;
+        this.hash = hash;
+    }
+
     /**
-     * Returns true if a given string is a valid plaintext.
+     * Returns true if a given string is a valid password.
      */
     public static boolean isValidPassword(String test) {
         boolean answer = test.matches(PASSWORD_VALIDATION_REGEX);
@@ -67,7 +75,7 @@ public class Password implements Serializable {
     }
 
     /**
-     * Generates the salt to be used with the plaintext
+     * Generates the salt to be used with the password
      * @return the salt
      */
     public static byte[] generateSalt() {
@@ -103,8 +111,8 @@ public class Password implements Serializable {
     }
 
     /**
-     * Checks if this plaintext matches a certain plaintext in plaintext
-     * @param plaintext The entered plaintext in plaintext
+     * Checks if this password matches a certain password in plaintext
+     * @param plaintext The entered password in plaintext
      * @return if it matches are not
      */
     public boolean matches(String plaintext) {

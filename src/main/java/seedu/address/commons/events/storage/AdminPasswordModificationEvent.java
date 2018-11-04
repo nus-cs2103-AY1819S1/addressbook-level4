@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.person.Password;
 
 /**
- * Indicates that there has been an admin plaintext modification.
+ * Indicates that there has been an admin password modification.
  * */
 public class AdminPasswordModificationEvent extends BaseEvent {
     public final Password newPassword;
@@ -15,6 +15,6 @@ public class AdminPasswordModificationEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "Admin plaintext changed: " + newPassword;
+        return "Admin password changed: " + newPassword;
     }
 }

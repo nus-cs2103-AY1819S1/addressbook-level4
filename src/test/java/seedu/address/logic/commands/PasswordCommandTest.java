@@ -34,7 +34,7 @@ public class PasswordCommandTest {
         assertCommandSuccess(new PasswordCommand(), model, commandHistory, successMessage, expectedModel);
         assertNull(eventsCollectorRule.eventsCollector.getMostRecent());
         //Unfortunately, due to the way unit testing is setup, it is very difficult to test the other parts
-        //of the plaintext command. We do not have access to the CommandResult, thus the lack of lambdas, and
+        //of the password command. We do not have access to the CommandResult, thus the lack of lambdas, and
         //there are no interceptors built in (assertCommandSuccess always creates a new command)
     }
 }

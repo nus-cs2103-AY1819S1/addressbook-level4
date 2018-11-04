@@ -66,7 +66,7 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
         Password currentPassword = getModel().getLoggedInUser().getPassword();
 
         attemptPasswordChange(currentPassword.plaintext);
-        //ensure plaintext hasn't changed
+        //ensure password hasn't changed
         assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
 
         Password newPassword = NEXT_PASSWORD;
@@ -111,7 +111,7 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
         Password currentPassword = getModel().getLoggedInUser().getPassword();
 
         attemptPasswordChange(currentPassword.plaintext);
-        //ensure plaintext hasn't changed
+        //ensure password hasn't changed
         assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
 
         executeCommand("12345678");
@@ -128,7 +128,7 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
         Password currentPassword = getModel().getLoggedInUser().getPassword();
 
         attemptPasswordChange(currentPassword.plaintext);
-        //ensure plaintext hasn't changed
+        //ensure password hasn't changed
         assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
 
         Password newPassword = NEXT_PASSWORD;
@@ -151,9 +151,9 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Attempts to start the plaintext changing command. If successful, the next command executed should change
-     * the plaintext to it.
-     * @param currentPassword The current plaintext of the currently logged in user.
+     * Attempts to start the password changing command. If successful, the next command executed should change
+     * the password to it.
+     * @param currentPassword The current password of the currently logged in user.
      */
     public void attemptPasswordChange(String currentPassword) {
         executeCommand(PasswordCommand.COMMAND_WORD);

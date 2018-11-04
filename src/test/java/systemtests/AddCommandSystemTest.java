@@ -95,7 +95,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        //Set check to default plaintext in generation
+        //Set check to default password in generation
         assertCommandSuccess(new PersonBuilder(ALICE).withPassword("Pa55w0rd").build());
 
         /* Case: add a person with tags, command with parameters in random order -> added */
@@ -117,7 +117,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        //Set check to default plaintext in generation
+        //Set check to default password in generation
         assertCommandSuccess(new PersonBuilder(CARL).withPassword("Pa55w0rd").build());
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
