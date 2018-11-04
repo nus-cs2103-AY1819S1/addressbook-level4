@@ -365,15 +365,14 @@ Given below is an example usage scenario and explanation for the inner workings 
 
 Step 1. The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
 
-.Adding a new Patient.
-image::addmedicalrecord-addingnewpatient-example.png[width="700"]
-
 Step 2. The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[\+-], B[+-], O[\+-] or AB[+-]).
 
-.Adding a new MedicalRecord with only BloodType specified.
-image::addmedicalrecord-addingbloodtype-example.png[width="700"]
+When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the sequence diagram for this command.
 
-When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
+.Sequence diagram for AddMedicalRecordCommand
+image::addMedicalRecord-SequenceDiagram.png[width="650"]
+
+The following figure shows the code section which performs this merging.
 
 ```java
 /**
@@ -445,13 +444,14 @@ Given below is are examples of how the medicine class is used:
 
 Scenario 1. A new medicine arrives. The user uses the `addMedicine` command to add the stock into the records.
 
-Scenario 2. A new shipment of medicine has arrived. The user uses `editMedicine` command
+Scenario 2. A new shipment of medicine has arrived. The user uses `restock` command
 to update the new stock levels of exiting medicine.
 
-Scenario 3. When a patient is allocated medicine, during payment a `receipt` command is executed by the user to fetch the prices
-for the medicine that is allocated, in addition, the stock level of the medicine is updated too.
+Scenario 3. When a patient is allocated medicine, the 'dispensemedicine' command is entered.
+During payment a `receipt` command is executed by the user to fetch the prices
+for the medicine that is allocated, in addition, the stock level of the medicine is updated.
 
-Scenario 4. During closing or whenever needed, the user checks for the stock level. The user executes the `checkStock` command
+Scenario 4. The user needs to check for the stock level of every medicine. The user executes the `checkStock` command
 which lists the medicine that are below their Minimum Stock Quantity.
 
 ==== Design Considerations
@@ -459,21 +459,157 @@ which lists the medicine that are below their Minimum Stock Quantity.
 ===== Aspect: Execution of the command
 
 * **Alternative 1 (current choice):** Stores the medicine in a list.
-** Pros: Similar format with the list with patients.
+** Pros: Consistent format with the list with patients.
 ** Cons: Need to search through the list to find a medicine.
 * **Alternative 2:** Stores the medicine in a hash map.
 ** Pros: Quick reference for object given index.
-** Cons: Messy implementation with long methods everywhere.
+** Cons: Difficult to sort the medicine.
 //end::medicine[]
 
 // tag::pqms[]
 === Patient Queue Management System
 The Patient Queue Management System (PQMS) consists of three main classes: `PatientQueue`, `CurrentPatient` and `ServedPatientQueue`. A patient that
 registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
-he is done with seeing the doctor, he will be put into the `ServedPatientQueue` to await payment and document processing.
-Given below is an example usage scenario and how the PQMS is used in each step.
+he is done with seeing the doctor, he will become a `ServedPatient` and put into the  `ServedPatientQueue` to await payment and document processing.
 
 The PQMS consists of the `register`, `insert`, `remove`, `serve`, `docAdd`, `docDisplay`, `dispenseMedicine`, `finish`, `payment` and `Document` commands.
+
+The following code snippet shows how the `ServedPatient` is implemented:
+
+```Java
+/**
+ * Represents a patient that has already consulted the doctor in the address book.
+ * It has all the necessary data needed to generate any object that inherits from document.
+ */
+public class ServedPatient {
+
+    private Patient patient;
+    private String noteContent;
+    private String referralContent;
+    private String mcContent;
+    private Map<Medicine, QuantityToDispense> medicineAllocated;
+
+    /**
+     * Constructs a servedPatient object from a patient object to extract all the information
+     * necessary for printing a document.
+     *
+     * @param patient A valid patient.
+     */
+    public ServedPatient(Patient patient) {
+        requireNonNull(patient);
+        medicineAllocated = new HashMap<>();
+        this.patient = patient;
+        this.noteContent = "";
+        this.referralContent = "";
+        this.mcContent = "";
+    }
+
+    public Name getName() {
+        return patient.getName();
+    }
+
+    public IcNumber getIcNumber() {
+        return patient.getIcNumber();
+    }
+
+    public String getNoteContent() {
+        return this.noteContent;
+    }
+
+    public String getMcContent() {
+        return this.mcContent;
+    }
+
+    public String getReferralContent() {
+        return this.referralContent;
+    }
+
+    public Map<Medicine, QuantityToDispense> getMedicineAllocated() {
+        return medicineAllocated;
+    }
+
+    public String addNoteContent(String content) {
+        return noteContent = content;
+    }
+
+    public String addReferralContent(String content) {
+        return referralContent = content;
+    }
+
+    public String addMcContent(String content) {
+        return mcContent = content;
+    }
+
+    /**
+     * Add specified quantity of medicine to patient.
+     * @param medicine to be added.
+     * @param quantity of medicine to be added.
+     * @return string representation of medicine added.
+     */
+    public String addMedicine(Medicine medicine, QuantityToDispense quantity) {
+        medicineAllocated.put(medicine, quantity);
+        return medicine.toString();
+    }
+
+    /**
+     * Creates a note from the noteContent and dispensedMedicines and saves to the patient's medicalRecord.
+     */
+    public Patient createNewPatientWithUpdatedMedicalRecord() {
+        Note noteToSave = new Note(this.noteContent, this.medicineAllocated);
+        Patient editedPatient = new Patient(this.patient, this.patient.getMedicalRecord());
+        editedPatient.addNoteMedicalRecord(noteToSave);
+        return editedPatient;
+    }
+
+    /**
+     * Checks whether current is a specified patient.
+     * @return true if queue contains patient.
+     */
+    public boolean isPatient(Patient patient) {
+        return (this.patient).isSamePerson(patient);
+    }
+
+    /**
+     * Update the patient if any information changes.
+     */
+    public void updatePatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    /**
+     * @return a console-friendly representation of the patient.
+     */
+    public String toNameAndIc() {
+        return patient.toNameAndIc();
+    }
+
+    public Patient getPatient() {
+        return this.patient;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ServedPatient)) {
+            return false;
+        }
+
+        // state check
+        ServedPatient other = (ServedPatient) obj;
+
+        return this.patient.equals(other.patient)
+                && this.mcContent.equals(other.mcContent)
+                && this.referralContent.equals(other.referralContent)
+                && this.noteContent.equals(other.noteContent)
+                && this.medicineAllocated.equals(other.medicineAllocated);
+    }
+}
+```
 
 The following sequence diagram shows how the `register` command works:
 
@@ -481,6 +617,8 @@ The following sequence diagram shows how the `register` command works:
 image::RegisterSequenceDiagram.png[width="1000"]
 
 The other commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
+
+Given below is an example usage scenario and how the PQMS is used in each step.
 
 Step 1. Three patients visits the clinic, the user executes the `register` command for each patient.
 
@@ -493,11 +631,11 @@ The patient is now the `CurrentPatient`.
 .Serve patient
 image::PQMSCurrentPatient.png[650, 250]
 
-Step 3. The user executes various commands to add information to the `CurrentPatient`. These information will be used for document
+Step 3. The user executes the `DocumentAdd` command to add information to the `CurrentPatient`. These information will be used for document
 processing later on.
 
 Step 4. The `CurrentPatient` is done with the consultation. The user executes the `finish` command to transfer this patient to
-the `ServedPatientQueue`. Afterwards, the user executes `serve` to get the next patient.
+the `ServedPatientQueue`. Afterwards, the user executes `serve` to serve the next patient in `PatientQueue`.
 
 .Finish serving patient
 image::PQMSServedPatientQueue.png[650, 250]
@@ -506,6 +644,20 @@ Step 5. The user executes various commands to generate necessary documents for t
 
 Step 6. The user finally executes `payment` command to generate the receipt and ends the patient's visit to the clinic, removing
 him from the `ServedPatientQueue`.
+
+==== Design Considerations
+
+===== Aspect: Proper OOP practice
+Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
+
+* **Current Implementation:** Composition
+** `CurrentPatient` is composed of `ServedPatient`. `ServedPatient` is composed of `Patient`.
+** Pros: Easy manipulation of composed class.
+** Cons: Weird relationship between the three classes.
+* **Alternative:** Inheritance
+* `CurrentPatient` inherits from `ServedPatient`. `ServedPatient` inherits from `Patient`.
+** Pros: Proper relationship between three classes.
+** Cons: Cannot cast `Patient` to `ServedPatient` or `CurrentPatient` for usage in PQMS.
 //end::pqms[]
 
 // tag::documentpreamble[]
@@ -614,6 +766,92 @@ Executing `refer` with an invalid index will **not** result in the generation of
 **** This can potentially allow the inheriting classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
 **** Even if all the information are present, they might be formatted differently.
 // end::documentconsiderations[]
+
+// tag::applicationgui[]
+=== Application GUI
+
+==== Current Implementation
+As an extension to the original addressbook-level4 application, more UI elements were added to the application window to serve as visual aid for the user of the application.
+
+In particular, the real-time status of the Patient Queue Management System (PQMS) is reflected to the user via a small window near the top of the application. This is depicted in the figure below:
+
+.GUI for the PQMS
+image::PQMS-gui.png[width="650"]
+
+After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
+
+.GUI for the PQMS after several commands
+image::PQMS-GUI-2.png[width="650]
+
+This UI element is implemented using JavaFX's `WebView` and a local HTML file. The sequence of events for how the `WebView` is updated is as follows:
+
+Step 1. On a fresh start-up of the application, the `WebView` is intialized with the local HTML file `QueueDisplay.html` that draws the labels and boxes onto the `WebView`.
+
+Step 2. After each `QueueCommand`, a `QueueUpdatedEvent` is posted and the subscribed class `QueueDisplay` invokes the `runScript()` method on the `WebViewScript` object within the class.
+
+Step 3. `WebViewScript.runScript()` simply calls an `executeScript()` method that subsequently executes some JavaScript code on the HTML file that will render the appropriate illustration to be displayed on the `WebView`.
+
+Step 4. On each subsequent `QueueCommand`, steps 2 to 3 are repeated to update the display.
+
+The following figure show the code section of the 2 methods that are responsible for the display:
+
+```java
+/**
+ * File: QueueDisplay.java
+ * Loads a HTML file representing the queue display.
+ */
+private void loadQueueDisplay(PatientQueue patientQueue, ServedPatientList servedPatientList, CurrentPatient currentPatient) {
+    List<Patient> patientQueueList = patientQueue == null ? null : patientQueue.getPatientsAsList();
+    String currentPatientString;
+    if (currentPatient == null) {
+        currentPatientString = "empty";
+    } else {
+        try {
+            currentPatientString = currentPatient.getPatient().getName().fullName;
+        } catch (NullPointerException npe) {
+            currentPatientString = "empty";
+        }
+    }
+    List<ServedPatient> servedPatients = servedPatientList == null ? null : servedPatientList.getPatientsAsList();
+
+    String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
+    this.webViewScript.runScript(getScriptForQueueDisplay(patientQueueList, currentPatientString, servedPatients));
+    loadPage(queueDisplayPage);
+}
+```
+
+```java
+
+/**
+ * File: WebViewScriptManager.java
+ * This function will run script that is passed as argument.
+ * @param script script to run.
+ */
+public void runScript(String script) {
+    int currentCounter = this.counter;
+    this.webView.getEngine().getLoadWorker().stateProperty().addListener((ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
+        if (newValue == Worker.State.SUCCEEDED && currentCounter == this.counter) {
+            Platform.runLater(() -> this.webView.getEngine().executeScript(script));
+            this.counter++;
+        }
+    });
+}
+```
+
+==== Design Considerations
+===== Aspect: Implementation approach
+* **Alternative 1 (current choice)**: Using a `WebView` to display HTML code +
+** Pros:
+*** Easy to implement, since the code to render the display is a completely separate code. Abstraction barrier is maintained.
+** Cons:
+*** Might face lagging issues for prolonged time usage, since one new `Listener` object is created for each update.
+* **Alternative 2**: Using JavaFX to render the shapes and UI.
+** Pros:
+*** Less likely to face efficiency issues since changing of the UI elements happens locally.
+** Cons:
+*** Hard to implement.
+// end::applicationgui[]
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

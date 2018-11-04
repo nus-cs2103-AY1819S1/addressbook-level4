@@ -34,6 +34,7 @@ public interface PatientQueue {
 
     /**
      * Dequeue a patient.
+     *
      * @return Patient object removed from front of the queue.
      */
     Patient dequeue();

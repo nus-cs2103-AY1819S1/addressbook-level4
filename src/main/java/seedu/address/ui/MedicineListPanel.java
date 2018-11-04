@@ -42,7 +42,6 @@ public class MedicineListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in medicine list panel changed to : '" + newValue + "'");
-                        // TODO: Please create a new event for Medicine and handle accoridngly!
                         // raise(new PersonPanelSelectionChangedEvent(newValue)); <-- [old code]
                     }
                 });

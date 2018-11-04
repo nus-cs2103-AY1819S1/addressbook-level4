@@ -3,8 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
+
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -23,7 +22,8 @@ public class DocumentWindow extends UiPart<Stage> {
 
     private static String documentTemplateUrl;
 
-    private static int counter = 0;
+    private WebViewScript webViewScript;
+
 
     @FXML
     private WebView browser;
@@ -35,6 +35,10 @@ public class DocumentWindow extends UiPart<Stage> {
      */
     public DocumentWindow(Stage root) {
         super(FXML, root);
+
+        // Initialise WebViewScript to run the script in the browser
+        this.webViewScript = new WebViewScriptManager(this.browser);
+
         this.documentTemplateUrl = getClass().getResource(DOCUMENT_TEMPLATE_FILE_PATH).toExternalForm();
         this.load();
     }
@@ -47,7 +51,7 @@ public class DocumentWindow extends UiPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the document window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -64,10 +68,9 @@ public class DocumentWindow extends UiPart<Stage> {
      *     </li>
      * </ul>
      */
-
     public void show(Document document) {
         logger.fine("Showing document screenshot");
-        runScript(getScript(document), counter);
+        webViewScript.runScript(getScript(document));
         Platform.runLater(() -> browser.getEngine().load(documentTemplateUrl));
         getRoot().show();
     }
@@ -97,21 +100,6 @@ public class DocumentWindow extends UiPart<Stage> {
         script += document.getContent();
         script += "');";
         return script;
-    }
-
-    /**
-     * This function runs the executes some javascript in the html file.
-     * @param script script to run
-     * @param scriptCounter Ensure that only the script called is ran using an index counter.
-     */
-    private void runScript(String script, int scriptCounter) {
-        browser.getEngine().getLoadWorker().stateProperty().addListener((
-                ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
-            if (newValue == Worker.State.SUCCEEDED && counter == scriptCounter) {
-                Platform.runLater(() -> browser.getEngine().executeScript(script));
-                counter++;
-            }
-        });
     }
 
     /**

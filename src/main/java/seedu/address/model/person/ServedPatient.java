@@ -7,21 +7,20 @@ import java.util.Map;
 
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.QuantityToDispense;
+import seedu.address.model.person.exceptions.DifferentBloodTypeException;
 import seedu.address.model.person.medicalrecord.Note;
 
 /**
- * Uncompleted class, need to add more methods and fields.
  * Represents a patient that has already consulted the doctor in the address book.
  * It has all the necessary data needed to generate any object that inherits from document.
  */
 public class ServedPatient {
 
-    private final Patient patient;
+    private Patient patient;
     private String noteContent;
     private String referralContent;
     private String mcContent;
     private Map<Medicine, QuantityToDispense> medicineAllocated;
-    // add more fields as required
 
     /**
      * Constructs a servedPatient object from a patient object to extract all the information
@@ -108,7 +107,7 @@ public class ServedPatient {
     /**
      * Creates a note from the noteContent and dispensedMedicines and saves to the patient's medicalRecord.
      */
-    public Patient createNewPatientWithUpdatedMedicalRecord() {
+    public Patient createNewPatientWithUpdatedMedicalRecord() throws DifferentBloodTypeException {
         Note noteToSave = new Note(this.noteContent, this.medicineAllocated);
         Patient editedPatient = new Patient(this.patient, this.patient.getMedicalRecord());
         editedPatient.addNoteMedicalRecord(noteToSave);
@@ -121,6 +120,13 @@ public class ServedPatient {
      */
     public boolean isPatient(Patient patient) {
         return (this.patient).isSamePerson(patient);
+    }
+
+    /**
+     * Update the patient if any information changes.
+     */
+    public void updatePatient(Patient patient) {
+        this.patient = patient;
     }
 
     /**

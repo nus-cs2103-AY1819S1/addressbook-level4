@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.model.medicine.MedicineName;
 import seedu.address.model.medicine.QuantityToDispense;
 import seedu.address.model.medicine.UniqueMedicineList;
 import seedu.address.model.person.Patient;
@@ -53,7 +52,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(patients);
     }
 
-    //@@author 99percentile
     /**
      * Replaces the contents of the medicine list with {@code medicines}.
      * {@code medicines} must not contain duplicate medicines.
@@ -121,16 +119,25 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a medicine with the same identity as {@code medicine} exists in the records.
+     * Returns true if a medicine with the same medicine name as {@code medicine} exists in the records.
      */
-    public boolean hasMedicine(MedicineName medicineName) {
-        requireNonNull(medicineName);
-        return medicines.contains(medicineName);
+    public boolean hasMedicineName(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.containsMedicineName(medicine);
+    }
+
+    /**
+     * Returns true if a medicine with the same serial number as {@code medicine} exists in the records.
+     */
+    public boolean hasSerialNumber(Medicine medicine) {
+        requireNonNull(medicine);
+        return medicines.containsSerialNumber(medicine);
     }
 
     /**
      * Adds a medicine to the records.
      * The medicine must not already exist in the record.
+     * Serial number must not be in use.
      */
     public void addMedicine(Medicine m) {
         medicines.add(m);
@@ -186,7 +193,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
-    //@@author 99percentile
     @Override
     public ObservableList<Medicine> getMedicineList() {
         return medicines.asUnmodifiableObservableList();

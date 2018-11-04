@@ -47,8 +47,14 @@ Follow the steps below to get started with CLInic.
 .  Copy the file to the folder you want to use as the home folder for your CLInic application.
 .  Double-click the file to start the application. The GUI should appear in a few seconds.
 +
+
+.Prototype of UI
+//tag::UI[]
 image::Ui.png[width="790"]
+//end::UI[]
 +
+
+
 .  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -215,7 +221,7 @@ Selects the 1st patient in the resulting list of the `find` command.
 
 Updates the medical records of a patient. +
 Alias: `amr` +
-Format: `addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASES]... [da/DRUG_ALLERGY]... [m/NOTE]...`
+Format: `addmedicalrecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASES]... [da/DRUG_ALLERGY]... [m/NOTE]...`
 
 [TIP]
 Updates the medical records of a patient based on the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
@@ -227,17 +233,26 @@ At least one of the optional parameters must be provided.
 Newly input values will be appended to the existing values of the patient, except `BloodType`. `BloodType` cannot be changed, you can only add `BloodType` to a patient once, and it will be permanent.
 
 [TIP]
-Adding a `Note` with this command will yield a `Note` with an empty `Prescription`. A `Prescription` can only be added via the `dispenseMedicine` command.
+Adding a `Note` with this command will yield a `Note` with an empty `Prescription`. A `Prescription` can only be added via the `dispensemedicine` command.
 
 Examples:
 
 * `addmedicalrecord 5 da/Paracetamol d/Diabetes` +
 Adds `Paracetamol` (under _Drug Allergy_) and `Diabetes` (under _Past Diseases_) to the `MedicalRecord` of the 5th patient.
+
+.After `addmedicalrecord 5 da/Paracetomal d/Diabetes` command
+image::addmedicalrecord-example-1.png[width="650"]
+
 * `amr 3 b/B+` +
 Adds `B+` (under _Blood Type_) to the `MedicalRecord` of the 3rd patient.
+
+.After `amr 3 b/B+` command
+image::addmedicalrecord-example-2.png[width="650"]
 // end::addmedicalrecordcommand[]
 
-// tag::patient[]
+// end::patient[]
+
+[[medicine]]
 // tag::medicine[]
 === Medicine Inventory Management
 
@@ -252,9 +267,9 @@ The serial number of a medicine *must* be a 5 digit integer!
 
 Example:
 
-* `addmedicine mn/panadol msq/500 ppu/0.50 sn/1234 s/1000` +
+* `addmedicine mn/panadol msq/500 ppu/0.50 sn/91853 s/1000` +
 Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `500` units to the CLInic inventory.
-* `am mn/asprin msq/100 ppu/0.20 sn/3068 s/100` +
+* `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
 
 ==== Editing a medicine: `editmedicine`
@@ -262,6 +277,9 @@ Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _
 Edits the details of an existing medicine. +
 Alias: `em` +
 Format: `editmedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]`
+
+[NOTE]
+The serial number of a medicine *must* be a 5 digit integer!
 
 [TIP]
 Edits the medicine details at the specified `INDEX`. The index refers to the index number shown in the displayed medicine list. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
@@ -323,7 +341,8 @@ Finds the details of the medicines tagged with the keyword `chlorpheniramine`.
 Lists all medicines that are low in supply. +
 Alias: `cs` +
 Format: `checkstock`
-// tag::medicine[]
+
+// end::medicine[]
 
 [[pqms]]
 // tag::pqms[]
@@ -343,6 +362,11 @@ Example:
 * `list` +
 `register 3` +
 Registers the 3rd patient in the database.
+
+.After executing the `register 3` command
+image::Register3Command.png[width="750"]
+
+
 * `find david` +
 `reg 1` +
 Registers the 1st patient in the resulting list of the `find` command.
@@ -364,10 +388,17 @@ Removes the patient at the specified `INDEX`. The index refers to the index numb
 
 Examples:
 
-* `remove 5` +
-Removes the 5th patient in the Waiting Queue.
-* `rem 9` +
-Removes the 9th patient in the Waiting Queue.
+* `remove 3` +
+Removes the 3rd patient in the queue.
+
+.Before `remove 3` command
+image::BeforeRemove3Command.png[width="750"]
+
+.After `remove 3` command
+image::AfterRemove3Command.png[width="750"]
+
+* `rem 3` +
+Removes the 2nd patient in the queue.
 
 ==== Inserting a patient to Waiting Queue: `insert`
 
@@ -378,23 +409,40 @@ Format: `insert INDEX p/POSITION`
 [TIP]
 Inserts the patient at the specified `INDEX` in the displayed patient list into the specified `POSITION` in the Waiting Queue. Both the index and position *must be a positive integer* (i.e. 1, 2, 3, ...).
 
+[TIP]
+If the `POSITION` value supplied exceeds the queue length, then the patient will just be added to the back of the queue. If the queue length is 1 and the `POSITION` value is 5, the patient will be added
+to the 2nd position.
+
 Examples:
 
 * `list` +
-`insert 4 p/5` +
-Inserts the 4th patient in the database into the 5th position in the Waiting Queue.
-* `ins 3 p/7` +
-Inserts the 3rd patient in the database into the 7th position in the Waiting Queue.
+`insert 4 p/2` +
+Inserts the 4th patient in the database into the 2nd position in the patient queue.
 
+.Before `insert 4 p/2` command
+image::BeforeInsert2Command.png[width="750"]
 
-==== Serving the first patient in Waiting Queue: `serve`
+.After `insert 4 p/2` command
+image::AfterInsert2Command.png[width="750"]
 
-Serves the first patient in the Waiting Queue. The patient being served is now the Current Patient. +
+* `ins 3 p/5` +
+Inserts the 3rd patient into the 5th position in the patient queue.
+
+[[serve]]
+==== Serving the first patient in Waiting queue: `serve`
+
+Serves the first patient in the Waiting queue. The patient being served is now the Current Patient. +
 Alias: `ser` +
 Format: `serve`
 
 [TIP]
-The medicine list will be displayed when this command is used for easy reference for dispensing medicine.
+Upon successful call of this command, the medicine list will be displayed.
+
+.Before `serve` command
+image::BeforeServeCommand.png[width="750"]
+
+.After `serve` command
+image::AfterServeCommand.png[width="750"]
 
 [[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
@@ -402,6 +450,9 @@ The medicine list will be displayed when this command is used for easy reference
 Adds document contents to the Current Patient. +
 Alias: `ad` +
 Format: `adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
+
+[TIP]
+There must be a Current Patient. Use the <<serve, `serve`>> command first.
 
 [TIP]
 At least one of the optional parameters must be provided.
@@ -420,12 +471,17 @@ The parameter for `mc/` must be a *non-zero, positive integer*!
 
 Examples:
 
-* `adddocument mc/3 n/This patient complains of headaches for the past 2 days` +
-Adds a MC duration of 3 days and a note to the current patient being served reflecting the patient suffering from headaches for the past 2 days.
+* `adddocument mc/3 n/Headache for the past 2 days` +
+Adds MC duration and notes to the Current Patient.
+
+.Before `adddocument mc/3 n/Headache for the past 2 days` command
+image::BeforeAddDocumentCommand.png[width="750"]
+
+.After `adddocument mc/3 n/Headache for the past 2 days` command
+image::AfterAddDocumentCommand.png[width="750"]
+
 * `ad r/Ng Teng Fong Hospital` +
-Adds a referral letter to the current patient being served to seek further health care at `Ng Teng Fong Hospital` as recommended by the doctor in the current clinic..
-* `ad mc/hello`
-MC duration is *not updated* as the parameter provided is invalid.
+Adds referral to the Current Patient.
 
 ==== Displaying document contents for Current Patient: `displaydocuments`
 
@@ -445,9 +501,16 @@ Dispenses medicine at the specified `MEDICINE_INDEX` to the Current Patient. The
 Examples:
 
 * `dispensemedicine 1 amt/10` +
-Adds `10` units of the 1st medicine in the displayed medicine list to the current patient being served. +
+10 units of the 1st medicine in the displayed medicine list will be added to the Current Patient. +
+
+.Before `dispensemedicine 1 amt/10`
+image::BeforeDispenseMedicineCommand.png[width="750"]
+
+.After `dispensemedicine 1 amt/10`
+image::AfterDispenseMedicineCommand.png[width="750"]
+
 * `dm 5 amt/2` +
-Adds `2` units of the 5th medicine in the displayed medicine list to the current patient being served.
+2 units of the 5th medicine in the displayed medicine list will be added to the Current Patient.
 
 [[finish]]
 ==== Finishing service of the Current Patient: `finish`
@@ -474,6 +537,13 @@ Examples:
 
 * `payment 3` +
 Removes the 3rd patient from the Served Patient Queue.
+
+.Before `payment 3` command
+image::BeforePaymentCommand.png[width="750"]
+
+.After `payment 3` command
+image::AfterPaymentCommand.png[width="750"]
+
 * `pay 1` +
 Removes the 1st patient from the Served Patient Queue.
 
