@@ -106,7 +106,7 @@ public class ParserEventUtil {
     public static Time parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        if (!Location.isValidLocation(trimmedTime)) {
+        if (!Time.isValidTime(trimmedTime)) {
             throw new ParseException(Time.MESSAGE_TIME_CONSTRAINTS);
         }
         return new Time(trimmedTime);
