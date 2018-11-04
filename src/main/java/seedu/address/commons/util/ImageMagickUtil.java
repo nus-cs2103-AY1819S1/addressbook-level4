@@ -34,7 +34,7 @@ public class ImageMagickUtil {
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
     private static String ectPath = "";
-    private static String convertExecutablePath ="";
+    private static String convertExecutablePath = "";
     private static String imageMagickPath = ImageMagickUtil.class.getResource("/imageMagic").getPath();
     private static String tmpPath = imageMagickPath + "/tmp";
     private static String commandSaveFolder;

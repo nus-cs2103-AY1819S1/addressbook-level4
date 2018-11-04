@@ -6,7 +6,12 @@ import static seedu.address.commons.core.Messages.ENTIRE_LAYER_MESSAGE;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.layer.*;
+import seedu.address.logic.commands.layer.LayerCommand;
+import seedu.address.logic.commands.layer.LayerAddCommand;
+import seedu.address.logic.commands.layer.LayerDeleteCommand;
+import seedu.address.logic.commands.layer.LayerPositionCommand;
+import seedu.address.logic.commands.layer.LayerSelectCommand;
+import seedu.address.logic.commands.layer.LayerSwapCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
