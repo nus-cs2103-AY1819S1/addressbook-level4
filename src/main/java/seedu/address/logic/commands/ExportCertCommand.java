@@ -45,9 +45,10 @@ public class ExportCertCommand extends Command {
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
     public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to ";
-    public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again.";
+    public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again";
     public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + "/Volunteer Certs/";
     public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
+    public static final String MESSAGE_VOLUNTEER_NO_RECORD = "Selected volunteer has no stored event records";
 
     private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportCertCommand.class);
 
@@ -92,6 +93,11 @@ public class ExportCertCommand extends Command {
         // Get the Volunteer object whom the index corresponds to
         Volunteer selectedVolunteer = lastShownList.get(index.getZeroBased());
 
+        // Return CommandException if volunteer has no records
+        if (!hasEventRecords(model, selectedVolunteer)) {
+            throw new CommandException(MESSAGE_VOLUNTEER_NO_RECORD);
+        }
+
         // Try creating and exporting the PDF for the selected volunteer
         try {
             createPdf(model, selectedVolunteer);
@@ -104,9 +110,25 @@ public class ExportCertCommand extends Command {
     }
 
     /**
-     * Creates and exports a PDF document containing a Volunteer's data
-     * @param volunteer who's data is to be input into the PDF document
+     * Checks if a {@code volunteer} has any event {@code record}s.
+     * @param model from which the {@code volunteer}'s {@code record}s will be retrieved, if present
+     * @param volunteer who's presence of event {@code record}s is to be checked
+     * @return true if {@code volunteer} has {@code record}s, and false otherwise
+     */
+    private boolean hasEventRecords(Model model, Volunteer volunteer) {
+        VolunteerId volunteerId = volunteer.getVolunteerId();
+
+        // Attempt to retrieve a list of the volunteer's records
+        List<Record> eventRecords = model.getFilteredRecordList()
+                .filtered(new RecordContainsVolunteerIdPredicate(volunteerId));
+
+        return !eventRecords.isEmpty();
+    }
+
+    /**
+     * Creates and exports a PDF document containing a {@code volunteer}'s data
      * @param model from which the volunteer's event records will be accessed
+     * @param volunteer who's data is to be input into the PDF document
      */
     private void createPdf(Model model, Volunteer volunteer) throws IOException {
         // Retrieve the selected volunteer's attributes
