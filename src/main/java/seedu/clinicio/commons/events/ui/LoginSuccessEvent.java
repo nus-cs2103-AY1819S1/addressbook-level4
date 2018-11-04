@@ -14,14 +14,14 @@ public class LoginSuccessEvent extends BaseEvent {
     public LoginSuccessEvent(Staff currentUser) {
         this.currentUser = currentUser;
     }
-    
+
     /**
      * Retrieve current user session
      */
     public Staff getCurrentUser() {
         return currentUser;
     }
-    
+
     @Override
     public String toString() {
         return getClass().getSimpleName();
