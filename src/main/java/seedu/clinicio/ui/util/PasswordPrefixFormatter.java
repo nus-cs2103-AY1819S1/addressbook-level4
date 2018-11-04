@@ -59,7 +59,7 @@ public class PasswordPrefixFormatter {
 
         String prefixesBeforePasswordPrefix = commandTextField.getText().substring(0, passwordPrefixIndex);
         String password = findPassword(passwordPrefixIndex, spaceAfterPasswordIndex);
-        
+
         String commandText = prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix();
         commandText = comparePasswordWithTempPassword(password, commandText)
                 + getPrefixesAfterPasswordPrefix(spaceAfterPasswordIndex);
@@ -87,7 +87,7 @@ public class PasswordPrefixFormatter {
             maskedPassword = storePasswordCharacters(password, password.length());
             maskedPassword = unmaskLastCharacter(maskedPassword);
         } else {
-                maskedPassword = storePasswordCharacters(password, password.length());
+            maskedPassword = storePasswordCharacters(password, password.length());
         }
         return maskedPassword;
     }

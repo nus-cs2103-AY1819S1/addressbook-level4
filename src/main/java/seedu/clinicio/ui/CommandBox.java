@@ -52,7 +52,7 @@ public class CommandBox extends UiPart<Region> {
         // As up and down buttons will alter the position of the caret,
         // consuming it causes the caret's position to remain unchanged
         keyEvent.consume();
-        
+
         switch (keyEvent.getCode()) {
         case UP:
             navigateToPreviousInput();
