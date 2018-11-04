@@ -51,9 +51,19 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
-        } else if (other instanceof UniqueTagList) {
+        }
+        if (other instanceof UniqueTagList) {
             if (internalList.equals(((UniqueTagList) other).internalList)) {
                 return true;
+            } else {
+                Tag[] tags = (Tag[]) ((((UniqueTagList) other).internalList).toArray());
+                boolean isSameTagList = true;
+                int i = 0;
+                while (isSameTagList && i < tags.length) {
+                    isSameTagList = isSameTagList
+                            && internalList.contains(tags[i]);
+                }
+                return isSameTagList;
             }
         }
         return false;

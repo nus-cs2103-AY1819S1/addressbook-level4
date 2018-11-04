@@ -69,6 +69,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered archived task list */
     ObservableList<Task> getFilteredArchivedTaskList();
 
+    /** Returns an unmodifiable view of the categories. */
+    ObservableList<Category> getCategoryList();
+
     /**
      * Updates the filter of the filtered task list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

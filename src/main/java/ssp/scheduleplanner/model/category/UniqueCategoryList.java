@@ -80,5 +80,41 @@ public class UniqueCategoryList implements Iterable<Category> {
         internalList.setAll(categories);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (other == null) {
+            return false;
+        }
+        if (other instanceof UniqueCategoryList) {
+            if (internalList.equals(((UniqueCategoryList) other).internalList)) {
+                return true;
+            }
+            boolean isSameCategoryList = true;
+            UniqueCategoryList otherCats = (UniqueCategoryList) other;
+            Iterator catIterator = otherCats.internalList.iterator();
+            while (catIterator.hasNext() && isSameCategoryList) {
+                Category nextOtherCategory = (Category) catIterator.next();
+                Category nextCategory = getCategory(nextOtherCategory.getName());
+                isSameCategoryList = isSameCategoryList
+                        && (nextOtherCategory.equals(nextCategory));
+            }
+            return isSameCategoryList;
+        }
+        return false;
+    }
+
+    public Category getCategory(String name) {
+        Iterator catIterator = internalList.iterator();
+        while (catIterator.hasNext()) {
+            Category nextCat = (Category) (catIterator.next());
+            if (name.equals(nextCat.getName())) {
+                return nextCat;
+            }
+        }
+        return null;
+    }
 
 }

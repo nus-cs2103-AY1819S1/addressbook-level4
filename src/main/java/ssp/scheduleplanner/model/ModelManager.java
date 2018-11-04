@@ -24,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedSchedulePlanner versionedSchedulePlanner;
+    private final ObservableList<Category> categories;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> filteredArchivedTasks;
 
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with Schedule Planner: " + schedulePlanner + " and user prefs " + userPrefs);
 
         versionedSchedulePlanner = new VersionedSchedulePlanner(schedulePlanner);
+        categories = versionedSchedulePlanner.getCategoryList();
         filteredTasks = new FilteredList<>(versionedSchedulePlanner.getTaskList());
         filteredArchivedTasks = new FilteredList<>(versionedSchedulePlanner.getArchivedTaskList());
     }
@@ -129,6 +131,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Task> getFilteredArchivedTaskList() {
         return FXCollections.unmodifiableObservableList(filteredArchivedTasks);
+    }
+
+    @Override
+    public ObservableList<Category> getCategoryList() {
+        return categories;
     }
 
     @Override

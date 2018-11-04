@@ -24,7 +24,8 @@ public class Category {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
                 && name.equals(((Category) other).getName())
-                && tags.equals(((Category) other).getTags())); // state check
+                && (tags.equals(((Category) other).getUniqueTagList())
+                || getTags().equals(((Category) other).getTags()))); // state check
     }
 
     /**
@@ -57,6 +58,10 @@ public class Category {
 
     public ObservableList<Tag> getTags() {
         return tags.asUnmodifiableObservableList();
+    }
+
+    public UniqueTagList getUniqueTagList() {
+        return this.tags;
     }
 
     /**
