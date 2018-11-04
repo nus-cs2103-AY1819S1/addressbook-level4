@@ -157,13 +157,13 @@ public class Password implements Serializable {
      * @return true if both password's plaintext are the same, false if it likely isn't (but is not guaranteed)
      */
     public boolean isSamePassword(Password p) {
-        if(plaintext != null && p.plaintext != null) {
+        if (plaintext != null && p.plaintext != null) {
             return plaintext.equals(p.plaintext);
         }
-        if(plaintext != null) {
+        if (plaintext != null) {
             return p.matches(plaintext);
         }
-        if(p.plaintext != null) {
+        if (p.plaintext != null) {
             return this.matches(p.plaintext);
         }
         return this.equals(p);
