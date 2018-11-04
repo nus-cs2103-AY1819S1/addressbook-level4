@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_OUTSTANDING_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SPENT_BASKETBALL;
 import static seedu.address.testutil.TypicalEntries.TRANSACTION_2_ENTRIES;
 import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
 import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
@@ -21,9 +24,9 @@ public class TypicalCcas {
             .withCcaName("BASKETBALL")
             .withHead("Carl Kurz")
             .withViceHead("Daniel Meier")
-            .withBudget(300)
-            .withSpent(0)
-            .withOutstanding(0)
+            .withBudget(Integer.valueOf(VALID_BUDGET_BASKETBALL))
+            .withSpent(Integer.valueOf(VALID_SPENT_BASKETBALL))
+            .withOutstanding(Integer.valueOf(VALID_OUTSTANDING_BASKETBALL))
             .withTransaction(TRANSACTION_2_ENTRIES)
             .build();
 

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
@@ -18,6 +19,7 @@ import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -76,6 +78,9 @@ public class CommandTestUtil {
     public static final String VALID_SPENT_TRACK = "100";
     public static final String VALID_OUTSTANDING_TRACK = "200";
     public static final Entry VALID_TRANSACTION_TRACK = ENTRY_EQUIPMENT_1;
+    public static final String VALID_BUDGET_BADMINTON = "200";
+    public static final String VALID_SPENT_BADMINTON = "0";
+    public static final String VALID_OUTSTANDING_BADMINTON = "200";
     public static final String VALID_BUDGET_DEFAULT = "900";
     public static final String VALID_SPENT_DEFAULT = "700";
     public static final String VALID_OUTSTANDING_DEFAULT = "200";
@@ -98,6 +103,11 @@ public class CommandTestUtil {
     public static final String TAG_DESC_AMY = " " + PREFIX_TAG + VALID_TAG_AMY;
     public static final String TAG_DESC_BOB = " " + PREFIX_TAG + VALID_TAG_BOB;
 
+    public static final String NAME_DESC_BASKETBALL = " " + PREFIX_NAME + VALID_CCA_NAME_BASKETBALL;
+    public static final String NAME_DESC_BADMINTON = " " + PREFIX_NAME + VALID_CCA_NAME_BADMINTON;
+    public static final String BUDGET_DESC_BASKETBALL = " " + PREFIX_BUDGET + VALID_BUDGET_BASKETBALL;
+    public static final String BUDGET_DESC_BADMINTON = " " + PREFIX_BUDGET + VALID_BUDGET_BADMINTON;
+
     public static final String FROM_DESC_EXCURSION = " " + PREFIX_FROM + VALID_EMAIL_EXCURSION;
     public static final String FROM_DESC_CAMP = " " + PREFIX_FROM + VALID_EMAIL_CAMP;
     public static final String CONTENT_DESC_EXCURSION = " " + PREFIX_CONTENT + VALID_CONTENT_EXCURSION;
@@ -116,6 +126,10 @@ public class CommandTestUtil {
     public static final String INVALID_FROM_DESC = " " + PREFIX_FROM + "excursion!yahoo"; // missing '@' symbol
     public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT; // empty string not allowed for subjects
     public static final String INVALID_CONTENT_DESC = " " + PREFIX_CONTENT; // empty string not allowed for contents
+
+    public static final String INVALID_NAME_BASKETBALL = " " + PREFIX_NAME + "Basketball - M"; // '-' not allowed in cca
+    // names
+    public static final String INVALID_BUDGET_DESC = " " + PREFIX_BUDGET + "$500"; // '$' not allowed in budget
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
