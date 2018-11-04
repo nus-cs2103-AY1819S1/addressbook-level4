@@ -29,24 +29,31 @@ public class ListWeekCommandTest {
 
     @Test
     public void execute_success() {
+        ListWeekCommand lwc = new ListWeekCommand();
         CommandHistory commandHistory = new CommandHistory();
         Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         Calendar c = Calendar.getInstance();
         List<String> dateList = new ArrayList<String>();
 
-        Task validToday = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy").format(c.getTime())).build();
-        dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
-        c.add(Calendar.DATE, 1);
-        Task validTomorrow = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy")
-                .format(c.getTime())).build();
+        String todayDate = LocalDate.now().getDayOfWeek().name();
+        int numDaysTillSunday = lwc.numDaysTillSunday(todayDate);
+
         dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
 
-        model.addTask(validToday);
-        model.addTask(validTomorrow);
-        expectedModel.addTask(validToday);
-        expectedModel.addTask(validTomorrow);
+        //check how many days from current date until closest Sunday, generate corresponding tasks for each day
+        //add each task to both model and expected model
+        //each date from current date until closest Sunday is added to dateList as predicate
+        for (int i = 0; i < numDaysTillSunday; i++) {
+            Task validToday = new TaskBuilder().withDate(new SimpleDateFormat("ddMMyy")
+                    .format(c.getTime())).build();
+            c.add(Calendar.DATE, 1);
+            dateList.add(new SimpleDateFormat("ddMMyy").format(c.getTime()));
+            model.addTask(validToday);
+            expectedModel.addTask(validToday);
+        }
 
+        //update expectedModel by using the dateList as predicate
         expectedModel.updateFilteredTaskList(new DateWeekSamePredicate(dateList));
 
         //assertCommandSuccess(new ListWeekCommand(), model, commandHistory, ListWeekCommand.MESSAGE_SUCCESS,
