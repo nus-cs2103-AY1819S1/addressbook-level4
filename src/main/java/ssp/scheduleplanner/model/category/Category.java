@@ -1,5 +1,9 @@
 package ssp.scheduleplanner.model.category;
 
+import static java.util.Objects.requireNonNull;
+
+import javafx.collections.ObservableList;
+
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.tag.UniqueTagList;
 
@@ -44,15 +48,22 @@ public class Category {
      * @param tag
      */
     public void addTag(Tag tag) {
-        this.tags.add(tag);
+        tags.add(tag);
     }
 
     public String getName() {
         return name;
     }
 
-    public UniqueTagList getTags() {
-        return tags;
+    public ObservableList<Tag> getTags() {
+        return tags.asUnmodifiableObservableList();
     }
 
+    /**
+     * Returns true if a tag with the same name as {@code tag} exists in the tag list of this category.
+     */
+    public boolean hasTag(Tag tag) {
+        requireNonNull(tag);
+        return tags.contains(tag);
+    }
 }

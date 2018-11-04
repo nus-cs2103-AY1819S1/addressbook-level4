@@ -26,12 +26,23 @@ public class UniqueCategoryList implements Iterable<Category> {
      */
     public void add(Category toAdd) {
         requireNonNull(toAdd);
+        if (contains(toAdd)) {
+            throw new DuplicateCategoryException();
+        }
         internalList.add(toAdd);
     }
 
     @Override
     public Iterator<Category> iterator() {
         return internalList.iterator();
+    }
+
+    /**
+     * Returns true if the category list contains an equivalent category as the given argument.
+     */
+    public boolean contains(Category toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSameCategory);
     }
 
     /**
