@@ -365,15 +365,14 @@ Given below is an example usage scenario and explanation for the inner workings 
 
 Step 1. The user creates a new `Patient` object using the `AddCommand`. While the user has not provided any arguments for the `MedicalRecord` of this `Patient`, a empty `MedicalRecord` object has been initialised internally and assigned to this created `Patient`. Contents of this empty `MedicalRecord` is as detailed above.
 
-.Adding a new Patient.
-image::addmedicalrecord-addingnewpatient-example.png[width="700"]
-
 Step 2. The user wishes to add a `MedicalRecord` containing only the `BloodType` of the `Patient`, and will do so with the `AddMedicalRecord` command, and only specifiying the `b/` prefix for `BloodType`. Note that `BloodType` here can only be in a specific format (A[\+-], B[+-], O[\+-] or AB[+-]).
 
-.Adding a new MedicalRecord with only BloodType specified.
-image::addmedicalrecord-addingbloodtype-example.png[width="700"]
+When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the sequence diagram for this command.
 
-When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the code section which performs this merging.
+.Sequence diagram for AddMedicalRecordCommand
+image::addMedicalRecord-SequenceDiagram.png[width="650"]
+
+The following figure shows the code section which performs this merging.
 
 ```java
 /**
@@ -752,21 +751,111 @@ Executing `refer` with an invalid index will **not** result in the generation of
 // tag::documentconsiderations[]
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
-* **Alternative 1 (current choice)**: Using a typical class to implement `Document`. +
+* **Alternative 1 (current choice)**: Using a typical `class` to implement `Document`. +
 ** Pros:
-*** Allows all classes inheriting from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
+*** Allows all classes `inheriting` from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
 ** Cons:
-*** `Java` does not support multiple inheritance; therefore, it prevents the classes that are inheriting from `Document` from inheriting from other useful classes or becoming an `enum`.
-*** Comparatively, `inheriting` from classes is more computationally expensive than using `interfaces` due to the overhead incurred looking up methods and various class members.
+*** `Java` does not support `multiple inheritance`; therefore, it prevents the classes that are `inheriting` from `Document` from inheriting from other useful classes or becoming an `enum`.
+*** Comparatively, `inheriting` from classes is more computationally expensive than using `interfaces` due to the overhead incurred looking up `methods` and various `class members`.
 * **Alternative 2**: Using an `interface` to implement `Document`.
 ** Pros:
 *** The classes implementing `Document` can be converted to `enums`, which ensures that the inputs fed to these classes are valid.
-**** For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+****
+For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+****
 ** Cons:
-*** Unable to standardise the way the implementing classes implement the `generate` method.
-**** This can potentially allow the inheriting classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
-**** Even if all the information are present, they might be formatted differently.
+*** Unable to standardise the way the classes that `inherit` from `Document` implement the `generate` method.
+****
+* This can potentially allow the `inheriting` classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+* Even if all the information are present, they might be formatted differently.
+****
 // end::documentconsiderations[]
+
+// tag::applicationgui[]
+=== Application GUI
+
+==== Current Implementation
+As an extension to the original addressbook-level4 application, more UI elements were added to the application window to serve as visual aid for the user of the application.
+
+In particular, the real-time status of the Patient Queue Management System (PQMS) is reflected to the user via a small window near the top of the application. This is depicted in the figure below:
+
+.GUI for the PQMS
+image::PQMS-gui.png[width="650"]
+
+After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
+
+.GUI for the PQMS after several commands
+image::PQMS-GUI-2.png[width="650]
+
+This UI element is implemented using JavaFX's `WebView` and a local HTML file. The sequence of events for how the `WebView` is updated is as follows:
+
+Step 1. On a fresh start-up of the application, the `WebView` is intialized with the local HTML file `QueueDisplay.html` that draws the labels and boxes onto the `WebView`.
+
+Step 2. After each `QueueCommand`, a `QueueUpdatedEvent` is posted and the subscribed class `QueueDisplay` invokes the `runScript()` method on the `WebViewScript` object within the class.
+
+Step 3. `WebViewScript.runScript()` simply calls an `executeScript()` method that subsequently executes some JavaScript code on the HTML file that will render the appropriate illustration to be displayed on the `WebView`.
+
+Step 4. On each subsequent `QueueCommand`, steps 2 to 3 are repeated to update the display.
+
+The following figure show the code section of the 2 methods that are responsible for the display:
+
+```java
+/**
+ * File: QueueDisplay.java
+ * Loads a HTML file representing the queue display.
+ */
+private void loadQueueDisplay(PatientQueue patientQueue, ServedPatientList servedPatientList, CurrentPatient currentPatient) {
+    List<Patient> patientQueueList = patientQueue == null ? null : patientQueue.getPatientsAsList();
+    String currentPatientString;
+    if (currentPatient == null) {
+        currentPatientString = "empty";
+    } else {
+        try {
+            currentPatientString = currentPatient.getPatient().getName().fullName;
+        } catch (NullPointerException npe) {
+            currentPatientString = "empty";
+        }
+    }
+    List<ServedPatient> servedPatients = servedPatientList == null ? null : servedPatientList.getPatientsAsList();
+
+    String queueDisplayPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE).toExternalForm();
+    this.webViewScript.runScript(getScriptForQueueDisplay(patientQueueList, currentPatientString, servedPatients));
+    loadPage(queueDisplayPage);
+}
+```
+
+```java
+
+/**
+ * File: WebViewScriptManager.java
+ * This function will run script that is passed as argument.
+ * @param script script to run.
+ */
+public void runScript(String script) {
+    int currentCounter = this.counter;
+    this.webView.getEngine().getLoadWorker().stateProperty().addListener((ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) -> {
+        if (newValue == Worker.State.SUCCEEDED && currentCounter == this.counter) {
+            Platform.runLater(() -> this.webView.getEngine().executeScript(script));
+            this.counter++;
+        }
+    });
+}
+```
+
+==== Design Considerations
+===== Aspect: Implementation approach
+* **Alternative 1 (current choice)**: Using a `WebView` to display HTML code +
+** Pros:
+*** Easy to implement, since the code to render the display is a completely separate code. Abstraction barrier is maintained.
+** Cons:
+*** Might face lagging issues for prolonged time usage, since one new `Listener` object is created for each update.
+* **Alternative 2**: Using JavaFX to render the shapes and UI.
+** Pros:
+*** Less likely to face efficiency issues since changing of the UI elements happens locally.
+** Cons:
+*** Hard to implement.
+// end::applicationgui[]
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

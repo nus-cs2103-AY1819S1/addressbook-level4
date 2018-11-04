@@ -45,13 +45,13 @@ public class UniqueMedicineList implements Iterable<Medicine> {
      */
     public boolean containsMedicineName(Medicine toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(medicine -> medicine.hasSameMedicineName(toCheck));
+        return internalList.stream().anyMatch(toCheck::hasSameMedicineName);
     }
 
     /**
      * Returns true if the list contains a serial number as the medicine given argument.
      */
-    public boolean notUniqueSerialNumber(Medicine toCheck) {
+    public boolean containsSerialNumber(Medicine toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::hasSameSerialNumber);
     }
@@ -66,7 +66,7 @@ public class UniqueMedicineList implements Iterable<Medicine> {
         if (contains(toAdd)) {
             throw new DuplicateMedicineException();
         }
-        if (notUniqueSerialNumber(toAdd)) {
+        if (contains(toAdd)) {
             throw new SerialNumberInUseException();
         }
         internalList.add(toAdd);

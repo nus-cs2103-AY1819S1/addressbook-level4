@@ -72,3 +72,4 @@ include::../UserGuide.adoc[tag=addmedicalrecordcommand]
 |===
 
 include::../DeveloperGuide.adoc[tag=medicalrecord]
+include::../DeveloperGuide.adoc[tag=applicationgui]
