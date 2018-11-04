@@ -379,14 +379,15 @@ before the event can be successfully deleted from the system.
 ====
 * Event dates should be in the format YYYY-MM-DD
 * Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
-e.g. In the screenshot below, event named "Lecture" is the 2nd event on the date 2018-10-18, hence the command `deleteEvent d/2018-10-18 i/2`
-will delete this event. +
-The event named "Meeting" is the 1st event on the date 2018-04-01, hence the command `deleteEvent d/2018-04-01 i/1` will delete this event.
+e.g. In the screenshot below, the event named "Meeting" is the 1st event on the date 2018-04-01,
+hence the command `deleteEvent d/2018-04-01 i/1` will delete this event. +
+The event named "Lecture" is the 2nd event on the date 2018-10-18,
+hence the command `deleteEvent d/2018-10-18 i/2` will delete this event.
 ====
 
 Example:
 
-* `deleteEvent d/2018-10-18 i/2`
+* `deleteEvent d/2018-04-01 i/1`
 
 **Before Deletion**
 
