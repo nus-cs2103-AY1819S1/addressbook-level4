@@ -12,6 +12,7 @@ import java.util.Set;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.tag.Tag;
 
+//@@author yican95
 /**
  * Represents an item in the menu. Guarantees: details are present and not null, field values are validated, immutable.
  */

@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.restaurant.logic.commands.menu.SelectItemCommand;
 
+//@@author yican95
 /**
  * Test scope: similar to {@code DeleteItemCommandParserTest}.
  * @see DeleteItemCommandParserTest
