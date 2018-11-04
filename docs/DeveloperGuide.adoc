@@ -751,7 +751,7 @@ all of the tags he/she has used to categorize tasks.
 //tag::progressbar[]
 === Display Progress Bar
 
-The `progresstoday` and `progressweek` commands display the percentage of tasks archived for the current day and week respectively. The progress bars at the bottom also reflect the percentages without the need for any commands to be called.
+The `progresstoday` and `progressweek` commands display the percentage of tasks archived for the current day and week respectively. The progress bars at the bottom also reflect the percentages automatically without the need for any commands to be entered.
 
 ==== Current Implementation
 
@@ -768,7 +768,23 @@ Step 3. ProgressBarPanel handles the event with ProgressBarPanel#handleScheduleP
 
 Step 4. The taskList is retrieved by SchedulePlannerChangedEvent#data.getTaskList(). The archivedTaskList is retrieved by SchedulePlannerChangedEvent#data.getArchivedTaskList().
 
-Step 5.
+Step 5. ProgressBarPanel#updateProgressBars(taskList, archivedTaskList) is called.
+
+Step 6. After filtering through each lists with the DateSamePredicate, their sizes are calculated.
+
+Step 7. The number of completed tasks for today is the size of the filtered archived list, while the total number of tasks for today is the size of both the filtered archived list and the filtered task list.
+
+Step 8. The fraction is calculated from completed / total. Then the progress bar for today is set to that fraction.
+
+Step 9. The same is done for this week's progress bar but the lists are filtered with DateWeekSamePredicate.
+
+The following sequence diagram shows how the progress bar mechanism works:
+
+
+==== Design Considerations
+
+===== Aspect:
+* **Alternative 1 (current choice):**
 
 //end::progressbar[]
 == Documentation

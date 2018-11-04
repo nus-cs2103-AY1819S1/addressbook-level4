@@ -368,7 +368,7 @@ Shows the percentage of tasks that have been archived for the day in the command
 
 === Displaying This Week's Progress
 
-Shows the percentage of tasks that have been archived for the week in the command result box. It also lists the uncompleted tasks for this week. The progress bar is also displayed at the bottom right of the window. +
+Shows the percentage of tasks that have been archived from today to the nearest Sunday in the command result box. It also lists the uncompleted tasks from today until the nearest Sunday. The progress bar is also displayed at the bottom right of the window. +
 ====
 [blue]`progressweek`
 ====
