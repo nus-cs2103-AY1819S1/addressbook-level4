@@ -27,6 +27,24 @@ class DateTest {
     }
 
     @Test
+    public void compareTo_dateBefore_returnNegative() {
+        Date date = new Date("31-12-2018");
+        assertTrue((date.compareTo(new Date("31-12-2019"))) < 0);
+    }
+
+    @Test
+    public void compareTo_dateAfter_returnPositive() {
+        Date date = new Date("31-12-2018");
+        assertTrue((date.compareTo(new Date("31-12-2017"))) > 0);
+    }
+
+    @Test
+    public void compareTo_dateEqual_returnZero() {
+        Date date = new Date("31-12-2018");
+        assertTrue((date.compareTo(new Date("31-12-2018"))) == 0);
+    }
+
+    @Test
     public void isValidDate() {
         // null date
         Assert.assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
