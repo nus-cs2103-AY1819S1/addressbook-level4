@@ -64,6 +64,7 @@ public class AddRecordCommand extends Command {
         Volunteer volunteerSelected = lastShownList.get(index.getZeroBased());
         Record record = new Record(model.getSelectedEvent().getEventId(), volunteerSelected.getVolunteerId(),
                 toAdd.getHour(), toAdd.getRemark());
+        record.setVolunteerName(volunteerSelected.getName().fullName);
 
         if (model.hasRecord(record)) {
             throw new CommandException(MESSAGE_DUPLICATE_RECORD);
