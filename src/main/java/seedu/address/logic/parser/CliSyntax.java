@@ -23,4 +23,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_OCCASIONDATE = new Prefix("od/");
     public static final Prefix PREFIX_OCCASIONLOCATION = new Prefix("loc/");
     public static final Prefix PREFIX_OCCASIONINDEX = new Prefix("oi/");
+
 }

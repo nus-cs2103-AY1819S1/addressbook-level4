@@ -35,6 +35,7 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_OCCASIONNAME, PREFIX_OCCASIONDATE, PREFIX_OCCASIONLOCATION,
                         PREFIX_TAG);
+
         if (!arePrefixesPresent(argMultimap, PREFIX_OCCASIONNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOccasionCommand.MESSAGE_USAGE));

@@ -100,6 +100,7 @@ Example:
 * `addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/gg`
 // end::add[]
 
+<<<<<<< HEAD
 // tag::delete[]
 === Listing all entries : `list`
 
@@ -107,6 +108,8 @@ Shows a list of all persons/modules/occasions in the address book. +
 Format: `list[]`
 // end::list[]
 
+=======
+>>>>>>> main
 // tag::edit[]
 === Editing an entry : `edit`
 
@@ -318,6 +321,15 @@ Format: +
 * *List Module* : `listmodule`
 * *List Occasion* : `listoccasion`
 
+<<<<<<< HEAD
+=======
+=== Listing all entries of this kind: `list`
+Format: +
+* *List Person* : `listperson`
+* *List Module* : `listmodule`
+* *List Occasion* : `listoccasion`
+
+>>>>>>> main
 // tag::history
 === Showing command history: `history`
 A command to allow the user to see the history of commands used within the address book.+
