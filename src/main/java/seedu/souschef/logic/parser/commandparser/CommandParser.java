@@ -13,7 +13,5 @@ public interface CommandParser<T extends Command> {
      * Parses {@code userInput} into a command and returns it.
      * @throws ParseException if {@code userInput} does not conform the expected format
      */
-    T parseRecipe(Model model, String args) throws ParseException;
-
     T parseIngredient(Model model, String args) throws ParseException;
 }
