@@ -204,6 +204,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    private void refreshTabPanel() {
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
+                logic.getUnfilteredPersonList(), logic.getEventTagList());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+    }
+    
     void show() {
         primaryStage.show();
     }
@@ -234,8 +240,6 @@ public class MainWindow extends UiPart<Stage> {
     private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
-        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
-                logic.getUnfilteredPersonList(), logic.getEventTagList());
-        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+        refreshTabPanel();
     }
 }
