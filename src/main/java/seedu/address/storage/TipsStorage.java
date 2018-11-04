@@ -11,6 +11,10 @@ import seedu.address.model.notification.Tip;
  * Represents a storage for {@link seedu.address.model.notification.Tips}.
  */
 public interface TipsStorage {
+    /**
+     * Returns the list of tips from storage
+     * Returns {@code Optional.empty} if storage is not found.
+     */
     Optional<List<Tip>> readTips() throws IOException;
 
     /**

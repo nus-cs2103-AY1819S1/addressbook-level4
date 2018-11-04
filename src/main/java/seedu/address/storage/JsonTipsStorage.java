@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,10 +16,10 @@ import seedu.address.model.notification.Tip;
 //@@Snookerballs
 public class JsonTipsStorage implements TipsStorage {
 
-    private Path filePath;
+    private static Path filePath = Paths.get(JsonTipsStorage.class.getResource("/json/tips.json").getPath());
 
-    public JsonTipsStorage(Path filePath) {
-        this.filePath = filePath;
+    public JsonTipsStorage() {
+
     }
 
     @Override
