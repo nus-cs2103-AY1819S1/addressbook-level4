@@ -2,6 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TestUtil.unblockGoogleLogin;
 import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_UPDATED;
 
@@ -56,6 +57,7 @@ public abstract class PiconsoSystemTest {
     public void tearDown() {
         setupHelper.tearDownStage();
         EventsCenter.clearSubscribers();
+        unblockGoogleLogin();
     }
 
     /**

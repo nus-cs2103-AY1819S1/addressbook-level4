@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.address.testutil.ModelGenerator.getDefaultModel;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,14 +11,13 @@ import org.junit.Test;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
-public class ExitCommandTest {
+public class ExitCommandTest extends DefaultCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager();
+    private Model model = getDefaultModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

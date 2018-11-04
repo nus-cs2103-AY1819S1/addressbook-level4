@@ -29,6 +29,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 
+//@@author chivent
 public class FilmReelTest extends GuiUnitTest {
 
     private static final int FIRST_SELECTION = 0;

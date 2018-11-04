@@ -32,7 +32,9 @@ public class LoginCommand extends Command {
         requireNonNull(model);
 
         try {
-            model.getPhotoHandler();
+            if (model.getPhotoHandler() == null) {
+                throw new Exception();
+            }
             return new CommandResult(String.format
                     (MESSAGE_LOGGED_IN, model.getUserLoggedIn()));
 

@@ -38,11 +38,16 @@ public class Messages {
     public static final String MESSAGE_CONNECTION_FAILURE = "Error connecting to Google Photos, please try again.";
 
     public static final String MESSAGE_INVALID_IMAGE_REQUESTED = "The image name provided is invalid.";
-    public static final String ENTIRE_GOOGLE_MESSAGE = MESSAGE_GOOGLE_INVALID_FORMAT + "\n------------------------\n\n"
+    public static final String ENTIRE_GOOGLE_MESSAGE = MESSAGE_GOOGLE_INVALID_FORMAT + "\n---------------------\n\n"
             + GoogleLsCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + GoogleDlCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + GoogleUploadCommand.MESSAGE_USAGE;
 
+    /* Error messages ls. */
+    public static final String MESSAGE_INVALID_FILE_DIR = "File or directory invalid.";
+    public static final String MESSAGE_EMPTY_DIR = "No images or folders to display!";
+
+    /* Error messages for layer and canvas */
     public static final String MESSAGE_LAYER_INVALID_FORMAT = "Please enter a valid layer command.";
     public static final String ENTIRE_LAYER_MESSAGE = MESSAGE_LAYER_INVALID_FORMAT + "\n------------------------\n\n"
             + LayerAddCommand.MESSAGE_USAGE + "\n------------------------\n\n"
