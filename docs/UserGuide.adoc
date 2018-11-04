@@ -361,14 +361,14 @@ Shows all tags that have been used in the sidebar. +
 // tag::progressbar[]
 === Displaying Today's Progress
 
-Shows the percentage of tasks that have been archived for the day. The progress bar is also displayed at the bottom left of the window. +
+Shows the percentage of tasks that have been archived for the day in the command result box. It also lists the uncompleted tasks for today. The progress bar is also displayed at the bottom left of the window. +
 ====
 [blue]`progresstoday`
 ====
 
 === Displaying This Week's Progress
 
-Shows the percentage of tasks that have been archived for the week. The progress bar is also displayed at the bottom right of the window. +
+Shows the percentage of tasks that have been archived for the week in the command result box. It also lists the uncompleted tasks for this week. The progress bar is also displayed at the bottom right of the window. +
 ====
 [blue]`progressweek`
 ====
