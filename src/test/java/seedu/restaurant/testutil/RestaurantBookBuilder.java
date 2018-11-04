@@ -39,6 +39,7 @@ public class RestaurantBookBuilder {
         return this;
     }
 
+    //@@author yican95
     /**
      * Adds a new {@code Item} to the {@code RestaurantBook} that we are building.
      */
@@ -47,6 +48,7 @@ public class RestaurantBookBuilder {
         return this;
     }
 
+    //@@author m4dkip
     /**
      * Adds a new {@code Reservation} to the {@code RestaurantBook} that we are building.
      */

@@ -19,6 +19,7 @@ public class Messages {
     // Menu Management
     public static final String MESSAGE_INVALID_ITEM_DISPLAYED_INDEX = "The item index provided is invalid";
     public static final String MESSAGE_ITEMS_LISTED_OVERVIEW = "%1$d items listed!";
+    public static final String MESSAGE_NAME_NOT_FOUND = "The name provided does not belong to the items in the menu";
 
     // Sales Management
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The sales record index provided is invalid.";

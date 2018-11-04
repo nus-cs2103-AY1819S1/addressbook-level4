@@ -249,7 +249,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Menu Management ===========================================================================
-
+    //@@author yican95
     @Override
     public boolean hasItem(Item item) {
         requireNonNull(item);
@@ -316,7 +316,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredItems.setPredicate(predicate);
     }
-
+    //@@author
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -369,6 +369,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Reservations =====================================================================================
 
+    //@@author m4dkip
     @Override
     public boolean hasReservation(Reservation reservation) {
         requireNonNull(reservation);

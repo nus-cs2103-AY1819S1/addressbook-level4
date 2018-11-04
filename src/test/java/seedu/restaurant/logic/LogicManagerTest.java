@@ -19,7 +19,7 @@ import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.HistoryCommand;
 import seedu.restaurant.logic.commands.account.RegisterCommand;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
-import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
 import seedu.restaurant.logic.commands.menu.ListItemsCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.Model;
@@ -60,7 +60,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = DeleteItemCommand.COMMAND_WORD + " 9";
+        String deleteCommand = DeleteItemByIndexCommand.COMMAND_WORD + " 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }

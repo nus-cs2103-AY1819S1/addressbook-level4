@@ -34,6 +34,7 @@ import seedu.restaurant.model.salesrecord.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 
+//@@author yican95
 public class AddItemCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

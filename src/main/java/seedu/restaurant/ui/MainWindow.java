@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -16,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.restaurant.commons.core.Config;
 import seedu.restaurant.commons.core.GuiSettings;
 import seedu.restaurant.commons.core.LogsCenter;
@@ -67,6 +69,9 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+
+    private FadeTransition ftListPanel;
+    private FadeTransition ftStackPanel;
 
     @FXML
     private SplitPane splitPane;
@@ -198,8 +203,24 @@ public class MainWindow extends UiPart<Stage> {
         ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         reservationListPanel = new ReservationListPanel(logic.getFilteredReservationList());
         personListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
+
+        ftListPanel = getFadeTransition(Duration.millis(150), personListPanelPlaceholder);
+        ftStackPanel = getFadeTransition(Duration.millis(150), browserPlaceholder);
     }
 
+    //@@author yican95
+    /**
+     * Create the fade transition for the StackPane and set value from 0 to 1.
+     */
+    private FadeTransition getFadeTransition(Duration duration, StackPane placeholder) {
+        FadeTransition ft = new FadeTransition(duration, placeholder);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+
+        return ft;
+    }
+
+    //@@author
     void hide() {
         primaryStage.hide();
     }
@@ -228,10 +249,14 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /**
+     * Switch the list panel to the given region
+     */
     private void switchList(Region region) {
         browserPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().clear();
         personListPanelPlaceholder.getChildren().add(region);
+        ftListPanel.play();
     }
 
     /**
@@ -308,11 +333,13 @@ public class MainWindow extends UiPart<Stage> {
         handleHelp();
     }
 
+    //@@author yican95
     @Subscribe
     private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         browserPlaceholder.getChildren().clear();
         browserPlaceholder.getChildren().add(new ItemStackPanel(event.getNewSelection()).getRoot());
+        ftStackPanel.play();
     }
 
     @Subscribe
@@ -320,6 +347,7 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         browserPlaceholder.getChildren().clear();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        ftStackPanel.play();
     }
 
     @Subscribe
@@ -327,6 +355,7 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         browserPlaceholder.getChildren().clear();
         browserPlaceholder.getChildren().add(new RecordStackPanel(event.getNewSelection()).getRoot());
+        ftStackPanel.play();
     }
 
     @Subscribe

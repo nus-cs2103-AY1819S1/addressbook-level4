@@ -123,6 +123,7 @@ public class XmlSerializableRestaurantBook {
         }
     }
 
+    //@@author m4dkip
     /**
      * Converts this reservation record into the model's {@code Reservation} object.
      *
@@ -155,6 +156,7 @@ public class XmlSerializableRestaurantBook {
         }
     }
 
+    //@@author yican95
     /**
      * Converts this item record into the model's {@code Item} object.
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the {@code
@@ -169,7 +171,7 @@ public class XmlSerializableRestaurantBook {
             restaurantBook.addItem(item);
         }
     }
-
+    //@@author
     @Override
     public boolean equals(Object other) {
         if (other == this) {

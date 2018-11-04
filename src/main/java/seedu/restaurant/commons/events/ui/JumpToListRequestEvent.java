@@ -4,7 +4,7 @@ import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.BaseEvent;
 
 /**
- * Indicates a request to jump to the list of persons
+ * Indicates a request to jump to the list of persons (to be removed).
  */
 public class JumpToListRequestEvent extends BaseEvent {
 

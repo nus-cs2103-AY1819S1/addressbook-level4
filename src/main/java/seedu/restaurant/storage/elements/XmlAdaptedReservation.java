@@ -17,6 +17,8 @@ import seedu.restaurant.model.reservation.Remark;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.storage.XmlAdaptedTag;
+
+//@@author m4dkip
 /**
  * JAXB-friendly version of the Reservation.
  */

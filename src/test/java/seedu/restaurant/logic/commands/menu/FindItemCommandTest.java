@@ -22,6 +22,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.menu.NameContainsKeywordsPredicate;
 
+//@@author yican95
 /**
  * Contains integration tests (interaction with the Model) for {@code FindItemCommand}.
  */

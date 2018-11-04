@@ -23,7 +23,7 @@ import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.logic.commands.RedoCommand;
 import seedu.restaurant.logic.commands.UndoCommand;
-import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
 import seedu.restaurant.logic.commands.menu.FindItemCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.tag.Tag;
@@ -49,8 +49,8 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandSuccess(command, model);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where person list is displaying the persons we are finding
-         * -> 2 persons found
+        /* Case: repeat previous find command where person list is displaying the items we are finding
+         * -> 2 items found
          */
         command = FindItemCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_CAKE;
         assertCommandSuccess(command, model);
@@ -96,7 +96,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: find same item in restaurant book after deleting 1 of them -> 1 item found */
-        executeCommand(DeleteItemCommand.COMMAND_WORD + " 1");
+        executeCommand(DeleteItemByIndexCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getRestaurantBook().getItemList().contains(CHOCO_CAKE));
         command = FindItemCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_CAKE;
         model = getModel();
@@ -166,7 +166,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display box
-     * displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list, and the
+     * displays {@code Messages#MESSAGE_ITEMS_LISTED_OVERVIEW} with the number of people in the filtered list, and the
      * model related components equal to {@code expectedModel}. These verifications are done by {@code
      * RestaurantBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
      *

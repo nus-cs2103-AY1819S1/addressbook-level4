@@ -25,7 +25,7 @@ public class XmlSerializableRestaurantBookTest {
             "XmlSerializableRestaurantBookTest");
 
     // Account Management
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalRestaurantBook.xml");
+    private static final Path TYPICAL_RESTAURANT_FILE = TEST_DATA_FOLDER.resolve("typicalRestaurantBook.xml");
     private static final Path INVALID_ACCOUNT_FILE = TEST_DATA_FOLDER.resolve("invalidAccountOnlyRestaurantBook.xml");
     private static final Path DUPLICATE_ACCOUNT_FILE = TEST_DATA_FOLDER
             .resolve("duplicateAccountOnlyRestaurantBook.xml");
@@ -61,11 +61,11 @@ public class XmlSerializableRestaurantBookTest {
     private XmlSerializableRestaurantBook dataFromFile = null;
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
-        dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE, XmlSerializableRestaurantBook.class);
+    public void toModelType_typicalRestaurantFile_success() throws Exception {
+        dataFromFile = XmlUtil.getDataFromFile(TYPICAL_RESTAURANT_FILE, XmlSerializableRestaurantBook.class);
         RestaurantBook restaurantBookFromFile = dataFromFile.toModelType();
-        RestaurantBook typicalPersonsRestaurantBook = getTypicalRestaurantBook();
-        assertEquals(restaurantBookFromFile, typicalPersonsRestaurantBook);
+        RestaurantBook typicalRestaurantBook = getTypicalRestaurantBook();
+        assertEquals(restaurantBookFromFile, typicalRestaurantBook);
     }
 
     @Test
@@ -131,6 +131,7 @@ public class XmlSerializableRestaurantBookTest {
         dataFromFile.toModelType();
     }
 
+    //@@author yican95
     // Menu Management
     @Test
     public void toModelType_typicalItemsOnlyFile_success() throws Exception {
@@ -159,6 +160,7 @@ public class XmlSerializableRestaurantBookTest {
     }
 
     //Reservation Management
+    //@@author m4dkip
     @Test
     public void toModelType_invalidReservationOnlyFile_throwsIllegalValueException() throws Exception {
         XmlSerializableRestaurantBook dataFromFile = XmlUtil.getDataFromFile(INVALID_RESERVATION_FILE,

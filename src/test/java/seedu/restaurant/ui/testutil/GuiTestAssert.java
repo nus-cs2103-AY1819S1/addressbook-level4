@@ -138,7 +138,7 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code itemListPanelHandle} displays the details of {@code persons} correctly and in
+     * Asserts that the list in {@code itemListPanelHandle} displays the details of {@code Item}s correctly and in
      * the correct order.
      */
     public static void assertListMatching(ItemListPanelHandle itemListPanelHandle, Item... items) {
@@ -149,7 +149,7 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code itemListPanelHandle} displays the details of {@code persons} correctly and in
+     * Asserts that the list in {@code itemListPanelHandle} displays the details of {@code Item}s correctly and in
      * the correct order.
      */
     public static void assertListMatching(ItemListPanelHandle itemListPanelHandle, List<Item> items) {

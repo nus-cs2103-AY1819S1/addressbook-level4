@@ -78,7 +78,7 @@ public class RestaurantBookTest {
     }
 
     @Test
-    public void resetData_withDuplicateRecordsWithPersonsAndAccounts_throwsDuplicateRecordException() {
+    public void resetData_withDuplicateRecords_throwsDuplicateRecordException() {
         // Two records with the same date and name
         SalesRecord record = new RecordBuilder(RECORD_ONE)
                 .withDate(RECORD_DEFAULT.getDate().toString())
@@ -157,7 +157,7 @@ public class RestaurantBookTest {
     }
 
     @Test
-    public void resetData_withDuplicateAccountsWithPersonsAndRecords_throwsDuplicateAccountException() {
+    public void resetData_withDuplicateAccounts_throwsDuplicateAccountException() {
         // Two accounts with the same username
         Account account = new AccountBuilder(DEMO_ONE)
                 .withUsername(DEMO_ADMIN.getUsername().toString())
@@ -208,6 +208,7 @@ public class RestaurantBookTest {
         restaurantBook.getAccountList().remove(0);
     }
 
+    //@@author yican95
     // Menu Management
     @Test
     public void resetData_withDuplicateItems_throwsDuplicateItemException() {
@@ -300,8 +301,8 @@ public class RestaurantBookTest {
 
     // Reservation Management
     @Test
-    public void resetData_withDuplicatePersonsWithRecordsAndAccounts_throwsDuplicateReservationException() {
-        // Two persons with the same identity fields
+    public void resetData_withDuplicateReservations_throwsDuplicateReservationException() {
+        // Two reservations with the same identity fields
         Reservation editedAndrew = new ReservationBuilder(ANDREW)
                 .withPax(VALID_RESERVATION_PAX_BILLY)
                 .build();
@@ -398,7 +399,7 @@ public class RestaurantBookTest {
     }
 
     /**
-     * A stub ReadOnlyRestaurantBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyRestaurantBook whose lists can violate interface constraints.
      */
     private static class RestaurantBookStub implements ReadOnlyRestaurantBook {
 

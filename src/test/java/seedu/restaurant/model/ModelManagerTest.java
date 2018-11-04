@@ -70,6 +70,7 @@ public class ModelManagerTest {
         modelManager.getFilteredAccountList().remove(0);
     }
 
+    //@@author yican95
     @Test
     public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
@@ -298,6 +299,7 @@ public class ModelManagerTest {
         assertEquals(new NumUnits(18), updatedNumUnits);
     }
 
+    //@@author yican95
     // Menu Management
     @Test
     public void hasItem_nullItem_throwsNullPointerException() {
@@ -391,6 +393,7 @@ public class ModelManagerTest {
         assertEquals(modifiedModelManager, expectedModelManager);
     }
 
+    //@@author
     @Test
     public void equals() {
         RestaurantBook restaurantBook = new RestaurantBookBuilder()

@@ -144,7 +144,7 @@ public abstract class RestaurantBookSystemTest {
     }
 
     /**
-     * Displays all persons in the restaurant book.
+     * Displays all items in the restaurant book.
      */
     protected void showAllItems() {
         executeCommand(ListItemsCommand.COMMAND_WORD);
@@ -152,7 +152,7 @@ public abstract class RestaurantBookSystemTest {
     }
 
     /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     * Displays all items with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showItemsWithName(String keyword) {
         executeCommand(FindItemCommand.COMMAND_WORD + " " + keyword);
@@ -168,7 +168,7 @@ public abstract class RestaurantBookSystemTest {
     }
 
     /**
-     * Deletes all persons in the restaurant book.
+     * Deletes all items in the restaurant book.
      */
     protected void deleteAllItems() {
         executeCommand(ClearMenuCommand.COMMAND_WORD);
@@ -178,7 +178,7 @@ public abstract class RestaurantBookSystemTest {
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel} and the
-     * person list panel displays the persons in the model correctly.
+     * person list panel displays the items in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {

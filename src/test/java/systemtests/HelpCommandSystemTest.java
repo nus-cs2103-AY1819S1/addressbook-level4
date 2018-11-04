@@ -17,7 +17,7 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.logic.commands.HelpCommand;
-import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
 import seedu.restaurant.logic.commands.menu.SelectItemCommand;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.ui.BrowserPanel;
@@ -87,7 +87,7 @@ public class HelpCommandSystemTest extends RestaurantBookSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteItemCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        executeCommand(DeleteItemByIndexCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

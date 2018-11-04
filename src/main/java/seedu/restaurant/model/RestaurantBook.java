@@ -57,7 +57,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public RestaurantBook() {}
 
     /**
-     * Creates an RestaurantBook using the Persons in the {@code toBeCopied}
+     * Creates an RestaurantBook using the data in the {@code toBeCopied}.
      */
     public RestaurantBook(ReadOnlyRestaurantBook toBeCopied) {
         this();
@@ -80,6 +80,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     // Reservation Management
+
+    //@@author m4dkip
 
     /**
      * Replaces the contents of the reservation list with {@code reservations}. {@code reservations} must not contain
@@ -218,8 +220,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     //// account-level operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
-     * persons.
+     * Replaces the contents of the account list with {@code Account}s. {@code Account}s must not contain duplicate
+     * accounts.
      */
     public void setAccounts(List<Account> accounts) {
         this.accounts.setAccounts(accounts);
@@ -346,10 +348,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     // Menu Management
-
+    //@@author yican95
     /**
-     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
-     * persons.
+     * Replaces the contents of the person list with {@code Item}s. {@code Item}s must not contain duplicate
+     * items.
      */
     public void setItems(List<Item> items) {
         this.items.setItems(items);
@@ -451,7 +453,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     //// util methods
-
+    //@@author
     @Override
     public String toString() {
         return String.valueOf(accounts.asUnmodifiableObservableList().size() + " accounts\n"
