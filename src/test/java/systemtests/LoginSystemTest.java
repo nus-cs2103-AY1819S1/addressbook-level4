@@ -33,7 +33,7 @@ public class LoginSystemTest extends AddressBookSystemTest {
 
     @Test
     public void attemptLoginAdmin() {
-        loginHandle.attemptLogIn(User.ADMIN_DEFAULT_USERNAME.username, User.ADMIN_DEFUALT_PASSWORD.password);
+        loginHandle.attemptLogIn(User.ADMIN_DEFAULT_USERNAME.username, User.ADMIN_DEFUALT_PASSWORD.plaintext);
 
         assert getModel().getLoggedInUser() != null;
         assert getModel().getLoggedInUser().isAdminUser();
@@ -43,7 +43,7 @@ public class LoginSystemTest extends AddressBookSystemTest {
     public void attemptLoginUser() {
         Person p = getModel().getAddressBook().getPersonList().get(0);
         String username = p.getUsername().username;
-        String password = p.getPassword().password;
+        String password = p.getPassword().plaintext;
 
         loginHandle.attemptLogIn(username, password);
 

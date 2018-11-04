@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.Serializable;
 
 /**
- * Represents a Person's password in the address book.
+ * Represents a Person's plaintext in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPassword(String)}
  */
 public class Password implements Serializable {
@@ -16,34 +16,34 @@ public class Password implements Serializable {
             + "1 uppercase character and 1 number.";
 
     /*
-     * The password regex expression to test for the constraints stated in MESSAGE_PASSWORD_CONSTRAINTS
+     * The plaintext regex expression to test for the constraints stated in MESSAGE_PASSWORD_CONSTRAINTS
      */
     public static final String PASSWORD_VALIDATION_REGEX = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$";
 
     public static final String DEFAULT_PASSWORD = "Pa55w0rd";
 
-    public final String password;
+    public final String plaintext;
 
     /**
-     * Constructs a {@code Password} containing the default password.
+     * Constructs a {@code Password} containing the default plaintext.
      */
     public Password() {
-        password = DEFAULT_PASSWORD;
+        plaintext = DEFAULT_PASSWORD;
     }
 
     /**
      * Constructs a {@code Password}.
      *
-     * @param pass A valid password.
+     * @param pass A valid plaintext.
      */
     public Password(String pass) {
         requireNonNull(pass);
         checkArgument(isValidPassword(pass), MESSAGE_PASSWORD_CONSTRAINTS);
-        password = pass;
+        plaintext = pass;
     }
 
     /**
-     * Returns true if a given string is a valid password.
+     * Returns true if a given string is a valid plaintext.
      */
     public static boolean isValidPassword(String test) {
         boolean answer = test.matches(PASSWORD_VALIDATION_REGEX);
@@ -53,32 +53,32 @@ public class Password implements Serializable {
 
     @Override
     public String toString() {
-        return password;
+        return plaintext;
     }
 
     public String getEncodedPassword() {
-        return password;
+        return plaintext;
     }
 
     /**
-     * Checks if this password matches a certain password in plaintext
-     * @param plaintext The entered password in plaintext
+     * Checks if this plaintext matches a certain plaintext in plaintext
+     * @param plaintext The entered plaintext in plaintext
      * @return if it matches are not
      */
     public boolean matches(String plaintext) {
-        return password.equals(plaintext);
+        return this.plaintext.equals(plaintext);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Password // instanceof handles nulls
-            && password.equals(((Password) other).password)); // state check
+            && plaintext.equals(((Password) other).plaintext)); // state check
     }
 
     @Override
     public int hashCode() {
-        return password.hashCode();
+        return plaintext.hashCode();
     }
 
 }

@@ -59,7 +59,7 @@ public class LoginFormTest extends GuiUnitTest {
     }
 
     /**
-     * Fills up the username and the password fields in the login form with the relevant data:
+     * Fills up the username and the plaintext fields in the login form with the relevant data:
      * TEST_USERNAME, TEST_PASSWORD.
      */
     private void fillUpFields() {
@@ -73,7 +73,7 @@ public class LoginFormTest extends GuiUnitTest {
 
     /**
      * Verifies that a LoginEvent has been successfully raised with
-     * username = TEST_USERNAME and password = TEST_PASSWORD
+     * username = TEST_USERNAME and plaintext = TEST_PASSWORD
      */
     private void verifySuccessful() {
         BaseEvent baseEvent = eventsCollectorRule.eventsCollector.getMostRecent();

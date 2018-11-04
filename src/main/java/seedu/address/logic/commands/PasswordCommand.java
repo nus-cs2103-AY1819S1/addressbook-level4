@@ -10,20 +10,20 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.User;
 
 /**
- * Command to change the password
+ * Command to change the plaintext
  */
 public class PasswordCommand extends Command {
 
     public static final String COMMAND_WORD = "passwd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change your password\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change your plaintext\n"
         + "Example: " + COMMAND_WORD;
 
-    public static final String STARTING_PASSWORD_MESSAGE = "Please enter in your current password.";
-    public static final String FAILED_PASSWORD_MESSAGE = "Your entered password did not match. Command aborted.";
-    public static final String PROGRESS_PASSWORD_MESSAGE = "Please enter in your new password.";
+    public static final String STARTING_PASSWORD_MESSAGE = "Please enter in your current plaintext.";
+    public static final String FAILED_PASSWORD_MESSAGE = "Your entered plaintext did not match. Command aborted.";
+    public static final String PROGRESS_PASSWORD_MESSAGE = "Please enter in your new plaintext.";
     public static final String SHOWING_PASSWORD_MESSAGE = "Password changed!";
-    public static final String ADMIN_MODIFICATION_MESSAGE = "Warning: Modification of the admin password cannot be "
+    public static final String ADMIN_MODIFICATION_MESSAGE = "Warning: Modification of the admin plaintext cannot be "
         + "corrected with undo or redo.";
 
     @Override

@@ -69,7 +69,7 @@ public class SelfEditCommandSystemTest extends AddressBookSystemTest {
     public void attemptLoginUser() {
         Person p = getModel().getAddressBook().getPersonList().get(0);
         String username = p.getUsername().username;
-        String password = p.getPassword().password;
+        String password = p.getPassword().plaintext;
         guiRobot.pauseForHuman();
 
         loginHandle.attemptLogIn(username, password);
@@ -150,7 +150,7 @@ public class SelfEditCommandSystemTest extends AddressBookSystemTest {
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
         Person newPerson = new PersonBuilder(AMY).withUsername(originalUsername.username)
-            .withPassword(originalPassword.password).build();
+            .withPassword(originalPassword.plaintext).build();
         assertCommandSuccess(command, index, newPerson, index);
         */
 

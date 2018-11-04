@@ -33,7 +33,7 @@ public class LoginTest {
     @Test
     public void login_admin_successful() {
         String adminUsername = User.ADMIN_DEFAULT_USERNAME.username;
-        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.password;
+        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.plaintext;
 
         EventsCenter.getInstance().post(new LoginEvent(adminUsername, adminPassword));
 
@@ -44,7 +44,7 @@ public class LoginTest {
     @Test
     public void login_admin_unsuccessful() {
         String adminUsername = User.ADMIN_DEFAULT_USERNAME.username;
-        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.password;
+        String adminPassword = User.ADMIN_DEFUALT_PASSWORD.plaintext;
 
         EventsCenter.getInstance().post(new LoginEvent(adminUsername, adminPassword + "hihihi"));
 
@@ -55,7 +55,7 @@ public class LoginTest {
     public void login_user_successful() {
         Person loginPerson = model.getAddressBook().getPersonList().get(0);
         String username = loginPerson.getUsername().username;
-        String password = loginPerson.getPassword().password;
+        String password = loginPerson.getPassword().plaintext;
 
         EventsCenter.getInstance().post(new LoginEvent(username, password));
 
@@ -106,7 +106,7 @@ public class LoginTest {
     public void login_password_unsuccessful() {
         Person loginPerson = model.getAddressBook().getPersonList().get(0);
         String username = loginPerson.getUsername().username;
-        String password = loginPerson.getPassword().password + "1234";
+        String password = loginPerson.getPassword().plaintext + "1234";
 
         EventsCenter.getInstance().post(new LoginEvent(username, password));
 

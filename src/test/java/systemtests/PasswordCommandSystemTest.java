@@ -49,7 +49,7 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
     public void attemptLoginUser() {
         Person p = getModel().getAddressBook().getPersonList().get(0);
         String username = p.getUsername().username;
-        String password = p.getPassword().password;
+        String password = p.getPassword().plaintext;
         guiRobot.pauseForHuman();
 
         loginHandle.attemptLogIn(username, password);
@@ -65,16 +65,16 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
     public void adminChangeSuccess() {
         Password currentPassword = getModel().getLoggedInUser().getPassword();
 
-        attemptPasswordChange(currentPassword.password);
-        //ensure password hasn't changed
+        attemptPasswordChange(currentPassword.plaintext);
+        //ensure plaintext hasn't changed
         assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
 
         Password newPassword = NEXT_PASSWORD;
-        executeCommand(newPassword.password);
+        executeCommand(newPassword.plaintext);
         assert eventsCollectorRule.eventsCollector.isAny(AdminPasswordModificationEvent.class);
         assert newPassword.equals(getModel().getLoggedInUser().getPassword());
 
-        verifyHistoryDoesNotContain(currentPassword.password, newPassword.password);
+        verifyHistoryDoesNotContain(currentPassword.plaintext, newPassword.plaintext);
     }
 
     @Test
@@ -83,11 +83,11 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
         adminChangeSuccess();
 
         eventsCollectorRule.eventsCollector.reset();
-        attemptPasswordChange(currentPassword.password);
+        attemptPasswordChange(currentPassword.plaintext);
 
         assert getResultDisplay().getText().equals(PasswordCommand.FAILED_PASSWORD_MESSAGE);
         assert User.getAdminUser().getPassword().equals(NEXT_PASSWORD);
-        verifyHistoryDoesNotContain(currentPassword.password);
+        verifyHistoryDoesNotContain(currentPassword.plaintext);
     }
 
     @Test
@@ -95,30 +95,30 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
         adminChangeSuccess();
 
         eventsCollectorRule.eventsCollector.reset();
-        attemptPasswordChange(NEXT_PASSWORD.password);
+        attemptPasswordChange(NEXT_PASSWORD.plaintext);
         assert NEXT_PASSWORD.equals(getModel().getLoggedInUser().getPassword());
 
         Password newPassword = new Password("Pa55w0rd");
-        executeCommand(newPassword.password);
+        executeCommand(newPassword.plaintext);
         assert eventsCollectorRule.eventsCollector.isAny(AdminPasswordModificationEvent.class);
         assert newPassword.equals(getModel().getLoggedInUser().getPassword());
 
-        verifyHistoryDoesNotContain("Pa55w0rd", NEXT_PASSWORD.password);
+        verifyHistoryDoesNotContain("Pa55w0rd", NEXT_PASSWORD.plaintext);
     }
 
     @Test
     public void adminPasswordDoesntMeetRequirements() {
         Password currentPassword = getModel().getLoggedInUser().getPassword();
 
-        attemptPasswordChange(currentPassword.password);
-        //ensure password hasn't changed
+        attemptPasswordChange(currentPassword.plaintext);
+        //ensure plaintext hasn't changed
         assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
 
         executeCommand("12345678");
         assert getResultDisplay().getText().equals(Password.MESSAGE_PASSWORD_CONSTRAINTS);
         assert !(eventsCollectorRule.eventsCollector.isAny(AdminPasswordModificationEvent.class));
         assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
-        verifyHistoryDoesNotContain(currentPassword.password, "12345678");
+        verifyHistoryDoesNotContain(currentPassword.plaintext, "12345678");
     }
 
     @Test
@@ -127,15 +127,15 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
 
         Password currentPassword = getModel().getLoggedInUser().getPassword();
 
-        attemptPasswordChange(currentPassword.password);
-        //ensure password hasn't changed
+        attemptPasswordChange(currentPassword.plaintext);
+        //ensure plaintext hasn't changed
         assert currentPassword.equals(getModel().getLoggedInUser().getPassword());
 
         Password newPassword = NEXT_PASSWORD;
-        executeCommand(newPassword.password);
+        executeCommand(newPassword.plaintext);
         assert newPassword.equals(getModel().getLoggedInUser().getPassword());
 
-        verifyHistoryDoesNotContain(currentPassword.password, newPassword.password);
+        verifyHistoryDoesNotContain(currentPassword.plaintext, newPassword.plaintext);
     }
 
     /**
@@ -151,9 +151,9 @@ public class PasswordCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Attempts to start the password changing command. If successful, the next command executed should change
-     * the password to it.
-     * @param currentPassword The current password of the currently logged in user.
+     * Attempts to start the plaintext changing command. If successful, the next command executed should change
+     * the plaintext to it.
+     * @param currentPassword The current plaintext of the currently logged in user.
      */
     public void attemptPasswordChange(String currentPassword) {
         executeCommand(PasswordCommand.COMMAND_WORD);

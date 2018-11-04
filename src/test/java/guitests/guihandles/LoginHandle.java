@@ -33,7 +33,7 @@ public class LoginHandle extends NodeHandle<GridPane> {
     /**
      * Attempts to login into the system
      * @param username The username to enter
-     * @param password The password to enter
+     * @param password The plaintext to enter
      */
     public void attemptLogIn(String username, String password) {
         usernameField.setText(username);
