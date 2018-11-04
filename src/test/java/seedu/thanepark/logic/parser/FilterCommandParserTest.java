@@ -62,7 +62,7 @@ public class FilterCommandParserTest {
     }
 
     @Test
-    public void parse_InvalidArgs_throwsParseException() {
+    public void parse_invalidArgs_throwsParseException() {
         String userInput = " " + PREFIX_MAINTENANCE + "< 1 - 2";
         String expectMessage = String.format(FilterCommandParser.MESSAGE_INVALID_ARGS, "-");
         assertParseFailure(parser, userInput, expectMessage);
