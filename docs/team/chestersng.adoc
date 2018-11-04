@@ -45,8 +45,8 @@ are made to be as intuitive as possible.
 *** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
 //** Documentation:
 //*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-//** Community:
-//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
 //*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 
