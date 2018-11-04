@@ -142,6 +142,13 @@ public class Event {
         return reminderDurationList;
     }
 
+    /**
+     * Returns true if the Event is an instance of RepeatEvent (EventSet)
+     * Returns false otherwise.
+     */
+    public boolean isRepeatEvent() {
+        return this.repeatType != RepeatType.NONE;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

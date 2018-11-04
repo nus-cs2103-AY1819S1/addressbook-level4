@@ -26,6 +26,32 @@ import seedu.scheduler.model.tag.Tag;
 public class EventFormatUtil {
 
     /**
+     * Returns the eventUid in Google Calendar Format.
+     *
+     * @param localEvent A local Event.
+     *
+     * @return eventUid in Google Calendar Format.
+     */
+    public static String getEventUidInGoogleFormatFromLocalEvent(Event localEvent) {
+        return localEvent.getEventUid()
+                .toString()
+                .replaceAll("-", "");
+    }
+
+    /**
+     * Returns the eventSetUid in Google Calendar Format.
+     *
+     * @param localEvent A local Event.
+     *
+     * @return eventSetUid in Google Calendar Format.
+     */
+    public static String getEventSetUidInGoogleFormatFromLocalEvent(Event localEvent) {
+        return localEvent.getEventSetUid()
+                .toString()
+                .replaceAll("-", "");
+    }
+
+    /**
      * Convert a List Google Event format to a list of Event in local Format.
      *
      * @param listOfGoogleEvents A list of Google event.

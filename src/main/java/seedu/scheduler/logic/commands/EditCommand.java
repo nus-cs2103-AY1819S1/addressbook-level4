@@ -14,7 +14,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.core.Messages;
 import seedu.scheduler.commons.core.index.Index;
 import seedu.scheduler.commons.util.CollectionUtil;
@@ -33,6 +35,7 @@ import seedu.scheduler.model.event.ReminderDurationList;
 import seedu.scheduler.model.event.RepeatType;
 import seedu.scheduler.model.event.Venue;
 import seedu.scheduler.model.tag.Tag;
+import seedu.scheduler.ui.UiManager;
 
 /**
  * Edits the details of an existing event in the scheduler.
@@ -56,8 +59,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_SINGLE_EVENT_FAIL = "Repeat type field and repeat until date time field"
-            + " cannot be edited for a particular event in a set of repeated events";
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
@@ -84,45 +86,57 @@ public class EditCommand extends Command {
         List<Event> lastShownList = model.getFilteredEventList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
+            logger.info(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
 
+        //Set up event to be edited and edited event according to user input
+        logger.info("Creating event to be edited.");
         Event eventToEdit;
-        //for Sync with Google START
         eventToEdit = lastShownList.get(index.getZeroBased());
         Event editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
-        int totalInstance = EventFormatUtil.calculateTotalInstanceNumber(lastShownList, eventToEdit);
+
+        //Calculate parameters for updating events in Google Calender
+        logger.info("Calculating parameters for Google calender edit commands.");
         int instanceIndex = EventFormatUtil.calculateInstanceIndex(lastShownList, eventToEdit);
-        //for Sync with Google
+
+        //Update by cases
+        //Case1: edit single event
+        logger.info("The EditCommand will be executed by cases.");
         if (flags.length == 0) {
-            connectToGoogleCalendar.updateSingleGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
-        } else if (flags[0].equals(FLAG_UPCOMING)) {
-            connectToGoogleCalendar.updateUpcomingGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
-        } else {
-            connectToGoogleCalendar.updateAllGoogleEvent(eventToEdit, editedEvent, instanceIndex, totalInstance);
-        }
-        //for Sync with Google END
-        if (flags.length == 0) {
-            eventToEdit = lastShownList.get(index.getZeroBased());
-            editedEvent = createEditedEvent(eventToEdit, editEventDescriptor);
+            logger.info("Single event will be edited.");
+            connectToGoogleCalendar.updateSingleGoogleEvent(
+                    eventToEdit, editedEvent, instanceIndex);
             model.updateEvent(eventToEdit, editedEvent);
         } else {
-            eventToEdit = lastShownList.get(index.getZeroBased());
+            //edit upcoming or all events in a EventSet
+            logger.info("The upcoming events in a EventSet to be edited.");
             Predicate<Event> firstInstancePredicate;
             Event firstEventToEdit;
-            List<Event> editedEvents;
-
+            List<Event> editedEvents = null;
+            int effectRangeStartingIndex;
             if (flags[0].equals(FLAG_UPCOMING)) {
+                //Case2: edit upcoming events
                 editedEvents = createEditedEvents(eventToEdit, eventToEdit, editEventDescriptor);
+                effectRangeStartingIndex = instanceIndex;
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
                 model.updateUpcomingEvents(eventToEdit, editedEvents);
-            } else { //will catch FLAG_ALL
-                firstInstancePredicate = getFirstInstancePredicate(eventToEdit, editEventDescriptor);
+            } else {
+                //Case3: edit all events
+                logger.info("All the events in a EventSet to be edited.");
+                firstInstancePredicate = getFirstInstancePredicate(
+                        eventToEdit, editEventDescriptor);
                 firstEventToEdit = model.getFirstInstanceOfEvent(firstInstancePredicate);
-                editedEvents = createEditedEvents(eventToEdit, firstEventToEdit, editEventDescriptor);
+                editedEvents = createEditedEvents(eventToEdit, firstEventToEdit,
+                        editEventDescriptor);
+                effectRangeStartingIndex = 0;
+                connectToGoogleCalendar.updateRangeGoogleEvent(
+                        eventToEdit, editedEvents, instanceIndex, effectRangeStartingIndex);
                 model.updateRepeatingEvents(eventToEdit, editedEvents);
             }
         }
-
+        logger.info("Update Done. Commit to Scheduler.");
         model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         model.commitScheduler();
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToEdit.getEventName()));
