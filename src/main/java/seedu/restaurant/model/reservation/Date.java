@@ -57,7 +57,9 @@ public class Date {
         return dayOfWeek;
     }
 
-    public LocalDate getValue() { return date; }
+    public LocalDate getValue() {
+        return date;
+    }
 
     @Override
     public String toString() {

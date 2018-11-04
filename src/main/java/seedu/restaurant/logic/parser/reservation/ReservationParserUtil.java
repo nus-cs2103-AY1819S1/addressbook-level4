@@ -2,7 +2,6 @@ package seedu.restaurant.logic.parser.reservation;
 
 import static java.util.Objects.requireNonNull;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 

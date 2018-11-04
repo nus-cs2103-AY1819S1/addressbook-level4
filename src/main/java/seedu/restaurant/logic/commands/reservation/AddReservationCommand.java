@@ -2,7 +2,6 @@ package seedu.restaurant.logic.commands.reservation;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;

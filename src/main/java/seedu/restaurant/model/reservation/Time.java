@@ -49,7 +49,9 @@ public class Time {
         return true;
     }
 
-    public LocalTime getValue() { return time; }
+    public LocalTime getValue() {
+        return time;
+    }
 
     @Override
     public String toString() {

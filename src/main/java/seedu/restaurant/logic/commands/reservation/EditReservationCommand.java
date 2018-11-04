@@ -2,14 +2,12 @@ package seedu.restaurant.logic.commands.reservation;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TIME;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_RESERVATIONS;
 
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
