@@ -35,7 +35,8 @@ import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
-import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
 import seedu.restaurant.logic.commands.menu.DiscountItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand;
 import seedu.restaurant.logic.commands.menu.FilterMenuCommand;
@@ -66,7 +67,8 @@ import seedu.restaurant.logic.parser.ingredient.EditIngredientCommandParser;
 import seedu.restaurant.logic.parser.ingredient.StockUpCommandParser;
 import seedu.restaurant.logic.parser.menu.AddItemCommandParser;
 import seedu.restaurant.logic.parser.menu.AddRequiredIngredientsCommandParser;
-import seedu.restaurant.logic.parser.menu.DeleteItemCommandParser;
+import seedu.restaurant.logic.parser.menu.DeleteItemByIndexCommandParser;
+import seedu.restaurant.logic.parser.menu.DeleteItemByNameCommandParser;
 import seedu.restaurant.logic.parser.menu.DiscountItemCommandParser;
 import seedu.restaurant.logic.parser.menu.EditItemCommandParser;
 import seedu.restaurant.logic.parser.menu.FilterMenuCommandParser;
@@ -226,9 +228,13 @@ public class RestaurantBookParser {
         case AddItemCommand.COMMAND_ALIAS:
             return new AddItemCommandParser().parse(arguments);
 
-        case DeleteItemCommand.COMMAND_WORD:
-        case DeleteItemCommand.COMMAND_ALIAS:
-            return new DeleteItemCommandParser().parse(arguments);
+        case DeleteItemByIndexCommand.COMMAND_WORD:
+        case DeleteItemByIndexCommand.COMMAND_ALIAS:
+            return new DeleteItemByIndexCommandParser().parse(arguments);
+
+        case DeleteItemByNameCommand.COMMAND_WORD:
+        case DeleteItemByNameCommand.COMMAND_ALIAS:
+            return new DeleteItemByNameCommandParser().parse(arguments);
 
         case EditItemCommand.COMMAND_WORD:
         case EditItemCommand.COMMAND_ALIAS:

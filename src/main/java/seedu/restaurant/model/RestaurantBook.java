@@ -156,6 +156,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     // Reservation Management
 
+    //@@author m4dkip
     /**
      * Replaces the contents of the reservation list with {@code reservations}. {@code reservations} must not contain
      * duplicate reservations.
@@ -400,7 +401,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     // Menu Management
-
+    //@@author yican95
     /**
      * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
      * persons.
@@ -506,7 +507,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     //// util methods
-
+    //@@author
     @Override
     public String toString() {
         return String.valueOf(persons.asUnmodifiableObservableList().size()) + " persons\n"

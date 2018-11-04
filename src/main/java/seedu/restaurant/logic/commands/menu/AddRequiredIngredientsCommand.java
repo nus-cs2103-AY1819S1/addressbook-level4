@@ -21,6 +21,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 
+//@@author yican95
 /**
  * Adds required ingredients to an item in the menu.
  */
@@ -28,8 +29,8 @@ public class AddRequiredIngredientsCommand extends Command {
     public static final String COMMAND_WORD = "add-required-ingredients";
     public static final String COMMAND_ALIAS = "ari";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the required ingredients for a item identified "
-            + "by the index number used in the displayed item list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds/Updates the required ingredients for a item "
+            + "identified by the index number used in the displayed item list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_INGREDIENT_NAME + "INGREDIENT_NAME... "

@@ -19,6 +19,7 @@ import seedu.restaurant.storage.XmlAdaptedTag;
 import seedu.restaurant.storage.elements.XmlAdaptedItem;
 import seedu.restaurant.testutil.Assert;
 
+//@@author yican95
 public class XmlAdaptedItemTest {
     private static final String INVALID_NAME = "F@ies";
     private static final String INVALID_PRICE = "+2";

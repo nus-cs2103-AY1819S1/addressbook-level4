@@ -19,6 +19,7 @@ import seedu.restaurant.logic.parser.util.ParserUtil;
 import seedu.restaurant.logic.parser.util.Prefix;
 import seedu.restaurant.model.ingredient.IngredientName;
 
+//@@author yican95
 /**
  * Parses input arguments and creates a new AddRequiredIngredientsCommand object
  */

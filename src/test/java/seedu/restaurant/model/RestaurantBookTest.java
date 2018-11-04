@@ -320,6 +320,7 @@ public class RestaurantBookTest {
         restaurantBook.getAccountList().remove(0);
     }
 
+    //@@author yican95
     // Menu Management
     @Test
     public void resetData_withDuplicateItems_throwsDuplicateItemException() {

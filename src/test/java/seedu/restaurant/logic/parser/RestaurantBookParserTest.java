@@ -61,7 +61,8 @@ import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
-import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByIndexCommand;
+import seedu.restaurant.logic.commands.menu.DeleteItemByNameCommand;
 import seedu.restaurant.logic.commands.menu.DiscountItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand;
 import seedu.restaurant.logic.commands.menu.EditItemCommand.EditItemDescriptor;
@@ -89,6 +90,7 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
+import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.Recipe;
 import seedu.restaurant.model.menu.TagContainsKeywordsPredicate;
 import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
@@ -399,8 +401,6 @@ public class RestaurantBookParserTest {
         assertEquals(new AddIngredientCommand(ingredient), command);
     }
 
-    //TODO: Add test for EditItemCommandParser
-
     @Test
     public void parseCommand_listIngredients() throws Exception {
         assertTrue(parser.parseCommand(ListIngredientsCommand.COMMAND_WORD) instanceof ListIngredientsCommand);
@@ -468,6 +468,7 @@ public class RestaurantBookParserTest {
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
     }
 
+    //@@author yican95
     @Test
     public void parseCommand_addItem() throws Exception {
         Item item = new ItemBuilder().build();
@@ -479,13 +480,23 @@ public class RestaurantBookParserTest {
     }
 
     @Test
-    public void parseCommand_deleteItem() throws Exception {
-        DeleteItemCommand command = (DeleteItemCommand) parser.parseCommand(
-                DeleteItemCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteItemCommand(INDEX_FIRST), command);
-        command = (DeleteItemCommand) parser.parseCommand(DeleteItemCommand.COMMAND_ALIAS
+    public void parseCommand_deleteItemByIndex() throws Exception {
+        DeleteItemByIndexCommand command = (DeleteItemByIndexCommand) parser.parseCommand(
+                DeleteItemByIndexCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST), command);
+        command = (DeleteItemByIndexCommand) parser.parseCommand(DeleteItemByIndexCommand.COMMAND_ALIAS
                 + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeleteItemCommand(INDEX_FIRST), command);
+        assertEquals(new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST), command);
+    }
+
+    @Test
+    public void parseCommand_deleteItemByName() throws Exception {
+        DeleteItemByNameCommand command = (DeleteItemByNameCommand) parser.parseCommand(
+                DeleteItemByNameCommand.COMMAND_WORD + " " + "Apple Juice");
+        assertEquals(new DeleteItemByNameCommand(new Name("Apple Juice")), command);
+        command = (DeleteItemByNameCommand) parser.parseCommand(
+                DeleteItemByNameCommand.COMMAND_ALIAS + " " + "Apple Juice");
+        assertEquals(new DeleteItemByNameCommand(new Name("Apple Juice")), command);
     }
 
     @Test
@@ -593,6 +604,7 @@ public class RestaurantBookParserTest {
         assertTrue(parser.parseCommand(ClearMenuCommand.COMMAND_ALIAS + " 3") instanceof ClearMenuCommand);
     }
 
+    //@@author m4dkip
     @Test
     public void parseCommand_addReservation() throws Exception {
         Reservation reservation = new ReservationBuilder().build();

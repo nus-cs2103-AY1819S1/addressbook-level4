@@ -8,6 +8,7 @@ import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 
+//@@author yican95
 public class ItemPanelSelectionChangedEventTest {
 
     private final Item item = new ItemBuilder().withName("Ice Cream").withPrice("2.15").withTags("Dessert").build();

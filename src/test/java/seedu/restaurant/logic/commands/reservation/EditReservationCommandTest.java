@@ -32,6 +32,7 @@ import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.testutil.reservation.EditReservationDescriptorBuilder;
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 
+//@@author m4dkip
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * EditReservationCommand.

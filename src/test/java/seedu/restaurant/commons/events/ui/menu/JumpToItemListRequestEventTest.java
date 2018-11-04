@@ -7,6 +7,7 @@ import org.junit.Test;
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.commons.events.BaseEvent;
 
+//@@author yican95
 public class JumpToItemListRequestEventTest {
 
     @Test

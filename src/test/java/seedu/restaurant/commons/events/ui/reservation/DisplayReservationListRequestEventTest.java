@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
 
+//@@author m4dkip
 public class DisplayReservationListRequestEventTest {
     @Test
     public void createEvent_success() {

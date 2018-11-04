@@ -19,6 +19,7 @@ import seedu.restaurant.model.reservation.exceptions.DuplicateReservationExcepti
 import seedu.restaurant.model.reservation.exceptions.ReservationNotFoundException;
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 
+//@@author m4dkip
 public class UniqueReservationListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

@@ -8,6 +8,7 @@ import static seedu.restaurant.logic.commands.menu.MenuCommandTestUtil.assertCom
 import static seedu.restaurant.logic.commands.menu.MenuCommandTestUtil.showItemAtIndex;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.restaurant.testutil.TypicalIndexes.INDEX_THIRD;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
 
 import org.junit.Test;
@@ -22,11 +23,12 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.menu.Item;
 
+//@@author yican95
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for {@code
- * DeleteItemCommand}.
+ * DeleteItemByIndexCommand}.
  */
-public class DeleteItemCommandTest {
+public class DeleteItemByIndexCommandTest {
 
     private Model model = new ModelManager(getTypicalRestaurantBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -34,9 +36,9 @@ public class DeleteItemCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST.getZeroBased());
-        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST);
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
+        String expectedMessage = String.format(DeleteItemByIndexCommand.MESSAGE_DELETE_ITEM_SUCCESS, 1);
 
         ModelManager expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
@@ -48,9 +50,25 @@ public class DeleteItemCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(outOfBoundIndex);
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(outOfBoundIndex, outOfBoundIndex);
 
         assertCommandFailure(deleteItemCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_validIndexUnfilteredListMultiple_success() {
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_THIRD);
+        String expectedMessage = String.format(DeleteItemByIndexCommand.MESSAGE_DELETE_ITEM_SUCCESS, 3);
+
+        ModelManager expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
+
+        for (int i = INDEX_THIRD.getZeroBased(); i >= INDEX_FIRST.getZeroBased(); i--) {
+            Item itemToDelete = model.getFilteredItemList().get(i);
+            expectedModel.deleteItem(itemToDelete);
+        }
+        expectedModel.commitRestaurantBook();
+
+        assertCommandSuccess(deleteItemCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -58,9 +76,9 @@ public class DeleteItemCommandTest {
         showItemAtIndex(model, INDEX_FIRST);
 
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST.getZeroBased());
-        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST);
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteItemCommand.MESSAGE_DELETE_ITEM_SUCCESS, itemToDelete);
+        String expectedMessage = String.format(DeleteItemByIndexCommand.MESSAGE_DELETE_ITEM_SUCCESS, 1);
 
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
@@ -78,7 +96,7 @@ public class DeleteItemCommandTest {
         // ensures that outOfBoundIndex is still in bounds of restaurant book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getRestaurantBook().getItemList().size());
 
-        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(outOfBoundIndex);
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(outOfBoundIndex, outOfBoundIndex);
 
         assertCommandFailure(deleteItemCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
     }
@@ -86,7 +104,7 @@ public class DeleteItemCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Item itemToDelete = model.getFilteredItemList().get(INDEX_FIRST.getZeroBased());
-        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST);
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST);
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
         expectedModel.deleteItem(itemToDelete);
         expectedModel.commitRestaurantBook();
@@ -106,7 +124,7 @@ public class DeleteItemCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredItemList().size() + 1);
-        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(outOfBoundIndex);
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(outOfBoundIndex, outOfBoundIndex);
 
         // execution failed -> restaurant book state not added into model
         assertCommandFailure(deleteItemCommand, model, commandHistory, Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
@@ -124,7 +142,7 @@ public class DeleteItemCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameItemDeleted() throws Exception {
-        DeleteItemCommand deleteItemCommand = new DeleteItemCommand(INDEX_FIRST);
+        DeleteItemByIndexCommand deleteItemCommand = new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST);
         Model expectedModel = new ModelManager(model.getRestaurantBook(), new UserPrefs());
 
         showItemAtIndex(model, INDEX_SECOND);
@@ -147,14 +165,14 @@ public class DeleteItemCommandTest {
 
     @Test
     public void equals() {
-        DeleteItemCommand deleteFirstCommand = new DeleteItemCommand(INDEX_FIRST);
-        DeleteItemCommand deleteSecondCommand = new DeleteItemCommand(INDEX_SECOND);
+        DeleteItemByIndexCommand deleteFirstCommand = new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST);
+        DeleteItemByIndexCommand deleteSecondCommand = new DeleteItemByIndexCommand(INDEX_SECOND, INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteItemCommand deleteFirstCommandCopy = new DeleteItemCommand(INDEX_FIRST);
+        DeleteItemByIndexCommand deleteFirstCommandCopy = new DeleteItemByIndexCommand(INDEX_FIRST, INDEX_FIRST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

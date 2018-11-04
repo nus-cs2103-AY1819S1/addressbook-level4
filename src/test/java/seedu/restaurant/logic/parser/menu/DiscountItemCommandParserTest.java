@@ -16,6 +16,7 @@ import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.commands.menu.DiscountItemCommand;
 import seedu.restaurant.model.menu.Price;
 
+//@@author yican95
 public class DiscountItemCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DiscountItemCommand.MESSAGE_USAGE);

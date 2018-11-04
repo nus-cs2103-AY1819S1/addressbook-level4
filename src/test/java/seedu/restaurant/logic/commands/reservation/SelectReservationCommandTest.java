@@ -23,6 +23,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
+//@@author m4dkip
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectReservationCommand}.
  */
