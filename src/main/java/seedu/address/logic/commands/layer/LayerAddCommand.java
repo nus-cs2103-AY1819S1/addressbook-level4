@@ -75,7 +75,6 @@ public class LayerAddCommand extends LayerCommand {
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 
-        return new CommandResult(String.format(OUTPUT_SUCCESS,
-                model.getCanvas().getWidth(), model.getCanvas().getHeight()));
+        return new CommandResult(String.format(OUTPUT_SUCCESS));
     }
 }

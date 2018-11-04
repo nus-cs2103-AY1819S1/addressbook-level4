@@ -17,6 +17,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ChangeImageEvent;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
@@ -255,7 +256,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    public void removeLayer(Index i) {
+    public void removeLayer(Index i) throws IllegalOperationException {
         canvas.removeLayer(i);
     }
 

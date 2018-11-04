@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
@@ -127,7 +128,7 @@ public interface Model {
 
     void addLayer(PreviewImage i);
 
-    void removeLayer(Index i);
+    void removeLayer(Index i) throws IllegalOperationException;
 
     Canvas getCanvas();
 }
