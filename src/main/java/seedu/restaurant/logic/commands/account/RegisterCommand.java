@@ -13,8 +13,9 @@ import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.account.Account;
 
+//@@author AZhiKai
 /**
- * Adds a new user account to the account file.
+ * Adds a new {@code Account}.
  */
 public class RegisterCommand extends Command {
 

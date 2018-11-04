@@ -108,6 +108,8 @@ public class XmlSerializableRestaurantBookTest {
         assertEquals(restaurantBookFromFile, typicalIngredientsRestaurantBook);
     }
 
+    //@@author AZhiKai
+    // Account Management
     @Test
     public void toModelType_invalidAccountFile_throwsIllegalValueException() throws Exception {
         dataFromFile = XmlUtil.getDataFromFile(INVALID_ACCOUNT_FILE, XmlSerializableRestaurantBook.class);

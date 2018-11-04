@@ -18,6 +18,7 @@ import seedu.restaurant.model.salesrecord.SalesRecord;
  */
 public class TypicalRestaurantBook {
 
+    //@@author AZhiKai
     /**
      * Returns an {@code RestaurantBook} with all the typical objects it can possibly represent.
      */

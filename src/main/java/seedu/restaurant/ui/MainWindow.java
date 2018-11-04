@@ -180,6 +180,7 @@ public class MainWindow extends UiPart<Stage> {
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
+        //@@author AZhiKai
         UsernameDisplay usernameDisplay = new UsernameDisplay();
         // Centralize the width
         usernameDisplay.getRoot().layoutXProperty().bind(usernameDisplayPlaceholder.widthProperty()
@@ -191,6 +192,7 @@ public class MainWindow extends UiPart<Stage> {
                 .divide(2));
         usernameDisplayPlaceholder.getChildren().add(usernameDisplay.getRoot());
 
+        //@@author
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getRestaurantBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
@@ -249,6 +251,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    //@@author AZhiKai
     /**
      * Switch the list panel to the given region
      */
@@ -358,6 +361,7 @@ public class MainWindow extends UiPart<Stage> {
         ftStackPanel.play();
     }
 
+    //@@author AZhiKai
     @Subscribe
     private void handleDisplayAccountListEvent(DisplayAccountListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -396,6 +400,7 @@ public class MainWindow extends UiPart<Stage> {
         salesReportWindow.show();
     }
 
+    //@@author AZhiKai
     @Subscribe
     private void handleLoginEvent(LoginEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

@@ -5,6 +5,7 @@ import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
  * Indicates a user account has just been updated.
  */

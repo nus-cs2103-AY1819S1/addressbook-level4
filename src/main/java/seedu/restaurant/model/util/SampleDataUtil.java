@@ -16,6 +16,7 @@ import seedu.restaurant.model.tag.Tag;
  */
 public class SampleDataUtil {
 
+    //@@author AZhiKai
     private static Account getRootAccount() {
         return new Account(new Username("root"), new Password("1122qq"));
     }
@@ -25,8 +26,6 @@ public class SampleDataUtil {
         defaultRestaurantBook.addAccount(getRootAccount());
         return defaultRestaurantBook;
     }
-
-    //TODO: Maybe need set some items? idk
 
     /**
      * Returns a tag set containing the list of strings given.

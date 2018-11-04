@@ -156,6 +156,7 @@ public class RestaurantBookTest {
         restaurantBook.getSalesReport(null);
     }
 
+    //@@author AZhiKai
     @Test
     public void resetData_withDuplicateAccounts_throwsDuplicateAccountException() {
         // Two accounts with the same username

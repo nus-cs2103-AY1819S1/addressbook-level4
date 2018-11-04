@@ -210,6 +210,21 @@ public class VersionedRestaurantBookTest {
         assertThrows(VersionedRestaurantBook.NoRedoableStateException.class, versionedRestaurantBook::redo);
     }
 
+    //@@author AZhiKai
+    @Test
+    public void reset() {
+        VersionedRestaurantBook versionedRestaurantBook = prepareRestaurantBookList(restaurantBookWithBurger);
+
+        versionedRestaurantBook.commit();
+        assertTrue(versionedRestaurantBook.canUndo());
+        assertFalse(versionedRestaurantBook.canRedo());
+
+        versionedRestaurantBook.reset();
+
+        assertFalse(versionedRestaurantBook.canUndo());
+        assertFalse(versionedRestaurantBook.canRedo());
+    }
+
     @Test
     public void equals() {
         VersionedRestaurantBook versionedRestaurantBook = prepareRestaurantBookList(restaurantBookWithFries,

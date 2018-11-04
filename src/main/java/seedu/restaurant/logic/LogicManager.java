@@ -42,9 +42,7 @@ public class LogicManager extends ComponentManager implements Logic {
         restaurantBookParser = new RestaurantBookParser();
     }
 
-    /*
-     * We define public commands to be those that can be executed without being logged in.
-     */
+    //@@author AZhiKai
     private boolean isPublicCommand(Command command) {
         return command instanceof LoginCommand || command instanceof HelpCommand || command instanceof ExitCommand;
     }
