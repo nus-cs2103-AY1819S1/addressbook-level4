@@ -58,6 +58,7 @@ public class ListWeekCommandTest {
 
         assertCommandSuccess(new ListWeekCommand(), model, commandHistory, ListWeekCommand.MESSAGE_SUCCESS,
                 expectedModel);
+
     }
 
     @Test

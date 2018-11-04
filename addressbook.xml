@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
     <tasks>
-        <name>CS2100 Tutorial</name>
-        <date>111018</date>
-        <priority>1</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
-    </tasks>
-    <tasks>
         <name>IS2223 slides</name>
         <date>121018</date>
         <priority>3</priority>
@@ -22,17 +15,24 @@
         <tagged>Quiz</tagged>
     </tasks>
     <tasks>
-        <name>CS2103T Tutorial</name>
-        <date>101018</date>
-        <priority>1</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
-    </tasks>
-    <tasks>
         <name>CS2105 Assignment</name>
         <date>121018</date>
         <priority>2</priority>
         <venue>home</venue>
         <tagged>Assignment</tagged>
     </tasks>
+    <archivedTasks>
+        <name>CS2103T Tutorial</name>
+        <date>101018</date>
+        <priority>1</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>CS2100 Tutorial</name>
+        <date>111018</date>
+        <priority>1</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </archivedTasks>
 </scheduleplanner>

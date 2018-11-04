@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
-
+    <categories>
+        <name>Module</name>
+    </categories>
+    <categories>
+        <name>Others</name>
+    </categories>
     <tasks>
         <name>Alice Pauline</name>
         <date>120823</date>

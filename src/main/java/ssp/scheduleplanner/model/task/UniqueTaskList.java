@@ -23,6 +23,7 @@ import ssp.scheduleplanner.model.task.exceptions.TaskNotFoundException;
  *
  * @see Task#isSameTask(Task)
  */
+
 public class UniqueTaskList implements Iterable<Task> {
 
     private ObservableList<Task> internalList = FXCollections.observableArrayList();
