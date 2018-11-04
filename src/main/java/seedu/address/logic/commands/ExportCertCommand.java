@@ -201,33 +201,26 @@ public class ExportCertCommand extends Command {
         contStream.newLine();
 
         // Event contribution information
-        if (eventRecords.isEmpty()) {
-            contStream.newLine();
-            String noEventsLine = volunteerName + " has not participated in any events thus far.";
-            contStream.showText(noEventsLine);
-            contStream.newLine();
-        } else {
-            contStream.newLine();
-            for (Record r: eventRecords) {
-                // Information from event record
-                Hour eventHours = r.getHour();
-                EventId eventId = r.getEventId();
+        contStream.newLine();
+        for (Record r: eventRecords) {
+            // Information from event record
+            Hour eventHours = r.getHour();
+            EventId eventId = r.getEventId();
 
-                // Get the exact corresponding event object and extract information from it
-                List<Event> filteredEventList = model.getFilteredEventList()
-                        .filtered(new EventContainsEventIdPredicate(eventId));
-                assert(filteredEventList.size() == 1); // Make sure no duplicate events
-                Event event = filteredEventList.get(0);
-                seedu.address.model.event.Name eventName = event.getName();
-                Date startDate = event.getStartDate();
-                Date endDate = event.getEndDate();
+            // Get the exact corresponding event object and extract information from it
+            List<Event> filteredEventList = model.getFilteredEventList()
+                    .filtered(new EventContainsEventIdPredicate(eventId));
+            assert(filteredEventList.size() == 1); // Make sure no duplicate events
+            Event event = filteredEventList.get(0);
+            seedu.address.model.event.Name eventName = event.getName();
+            Date startDate = event.getStartDate();
+            Date endDate = event.getEndDate();
 
-                String eventEntryLine = eventName + " - " + eventHours + " hours from " + startDate + " to " + endDate;
+            String eventEntryLine = eventName + " - " + eventHours + " hours from " + startDate + " to " + endDate;
 
-                contStream.showText("\u2022  "); // bullet
-                contStream.showText(eventEntryLine);
-                contStream.newLine();
-            }
+            contStream.showText("\u2022  "); // bullet
+            contStream.showText(eventEntryLine);
+            contStream.newLine();
         }
 
         contStream.newLine();
