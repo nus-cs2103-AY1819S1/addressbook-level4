@@ -11,7 +11,7 @@ import java.util.Calendar;
  */
 public class Date {
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Date should only contain numbers, and it should be exactly 6 digits long";
+            "Date should be a 6 digit number of format ddmmyy. Please also make sure it is a valid date.";
     public static final String DATE_VALIDATION_REGEX = "\\d{6}";
     public final String value;
     public final int yymmdd;
