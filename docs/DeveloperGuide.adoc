@@ -1934,6 +1934,7 @@ Use case resumes at step 2.
 .  Any user who has the basic proficiency of the English language should be able to use the application with the help
  of the link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`].
 .  System should not require any internet access except for updating.
+.  Only the English language will be used.
 
 [appendix]
 == Glossary

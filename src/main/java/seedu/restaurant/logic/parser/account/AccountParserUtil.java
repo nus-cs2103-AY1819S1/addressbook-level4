@@ -6,8 +6,9 @@ import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
- * Contains utility methods used for parsing strings account-related classes.
+ * Contains utility methods used for parsing strings {@code Account}-related classes.
  */
 public class AccountParserUtil {
 

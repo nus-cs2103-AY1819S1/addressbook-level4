@@ -3,8 +3,10 @@ package seedu.restaurant.model.account;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author AZhiKai
 /**
- * Represents an account username. Guarantees: immutable; is valid as declared in {@link #isValidUsername(String)}
+ * Represents an {@code Account}'s username. Guarantees: immutable; is valid as declared in {@link
+ * #isValidUsername(String)}
  */
 public class Username {
 
@@ -47,7 +49,7 @@ public class Username {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Username // instanceof handles nulls
-                    && username.equals(((Username) other).username)); // state check
+                && username.equals(((Username) other).username)); // state check
     }
 
     @Override

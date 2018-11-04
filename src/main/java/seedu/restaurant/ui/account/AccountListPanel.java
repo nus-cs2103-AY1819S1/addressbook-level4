@@ -8,8 +8,9 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.ui.UiPart;
 
+//@@author AZhiKai
 /**
- * Panel containing the list of account.
+ * Panel containing the list of {@code Account}s.
  */
 public class AccountListPanel extends UiPart<Region> {
 

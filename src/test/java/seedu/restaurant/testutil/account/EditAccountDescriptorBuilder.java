@@ -4,8 +4,9 @@ import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccount
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 
+//@@author AZhiKai
 /**
- * A utility class to help with building EditAccountDescriptor objects.
+ * A utility class to help with building {@code EditAccountDescriptor} objects.
  */
 public class EditAccountDescriptorBuilder {
 

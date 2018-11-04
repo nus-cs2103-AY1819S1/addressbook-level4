@@ -11,8 +11,9 @@ import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
 
+//@@author AZhiKai
 /**
- * Logs the user into an existing toLogin, and create a {@link UserSession}.
+ * Logs the user out, and destroy the {@code UserSession}.
  */
 public class LogoutCommand extends Command {
 
