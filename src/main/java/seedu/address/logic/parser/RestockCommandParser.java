@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT_TO_RESTOCK;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RestockCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.medicine.AmountToRestock;
 
 /**
  * Parses input arguments and creates a new RestockCommand object
@@ -21,14 +22,23 @@ public class RestockCommandParser implements Parser<RestockCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT_TO_RESTOCK);
         Index index;
-        Integer amountToRestock;
+        AmountToRestock amountToRestock;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            amountToRestock = Integer.parseInt(argMultimap.getValue(PREFIX_AMOUNT_TO_RESTOCK).get());
+            amountToRestock = new AmountToRestock(Integer.parseInt(
+                    argMultimap.getValue(PREFIX_AMOUNT_TO_RESTOCK).get()));
+            if (!AmountToRestock.isValidAmountToRestock(amountToRestock)) {
+                throw new NumberFormatException();
+            }
         } catch (ParseException pe) {
             pe.printStackTrace();
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RestockCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RestockCommand.MESSAGE_USAGE + RestockCommand.MESSAGE_INVALID_QUANTITY), pe);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RestockCommand.MESSAGE_USAGE + RestockCommand.MESSAGE_INVALID_QUANTITY), nfe);
         }
 
         return new RestockCommand(index, amountToRestock);

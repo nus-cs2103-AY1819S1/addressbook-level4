@@ -31,8 +31,10 @@ public class DispenseMedicineCommand extends QueueCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Dispenses the medicine to the current patient. "
             + "Existing medicine will be overriden with input values.\n"
-            + "Parameters: MEDICINE INDEX (must be a positive integer) "
-            + PREFIX_AMOUNT_TO_DISPENSE + "AMOUNT ";
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_AMOUNT_TO_DISPENSE
+            + "AMOUNT "
+            + "(must be an integer between 1 to 2147483647 inclusive.)";
 
     public static final String MESSAGE_SUCCESS = "%d x %s dispensed!";
     public static final String MESSAGE_MEDICINE_NOT_FOUND = "%s not found in records.";
