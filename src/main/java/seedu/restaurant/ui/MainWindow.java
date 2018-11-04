@@ -33,6 +33,7 @@ import seedu.restaurant.commons.events.ui.reservation.DisplayReservationListRequ
 import seedu.restaurant.commons.events.ui.reservation.ReservationPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.sales.DisplayRankingEvent;
 import seedu.restaurant.commons.events.ui.sales.DisplayRecordListRequestEvent;
+import seedu.restaurant.commons.events.ui.sales.DisplaySalesChartEvent;
 import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
 import seedu.restaurant.commons.events.ui.sales.RecordPanelSelectionChangedEvent;
 import seedu.restaurant.logic.Logic;
@@ -44,6 +45,7 @@ import seedu.restaurant.ui.menu.ItemStackPanel;
 import seedu.restaurant.ui.reservation.ReservationListPanel;
 import seedu.restaurant.ui.sales.RecordListPanel;
 import seedu.restaurant.ui.sales.RecordStackPanel;
+import seedu.restaurant.ui.sales.SalesChartWindow;
 import seedu.restaurant.ui.sales.SalesRankingWindow;
 import seedu.restaurant.ui.sales.SalesReportWindow;
 
@@ -398,6 +400,14 @@ public class MainWindow extends UiPart<Stage> {
         handleSwitchToSales();
         SalesReportWindow salesReportWindow = new SalesReportWindow(event.getSalesReportToDisplay());
         salesReportWindow.show();
+    }
+
+    @Subscribe
+    private void handleDisplaySalesChartEvent(DisplaySalesChartEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        handleSwitchToSales();
+        SalesChartWindow salesChartWindow = new SalesChartWindow(event.getSalesData());
+        salesChartWindow.show();
     }
 
     private void handleDisplayReservationEvent(DisplayReservationListRequestEvent event) {
