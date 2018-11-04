@@ -31,8 +31,6 @@ public class Time {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
         this.time = LocalTime.parse(time);
-        DateTimeFormatter validFormat =
-                DateTimeFormatter.ofPattern(TIME_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
     }
 
     /**
