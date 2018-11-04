@@ -50,13 +50,13 @@ public class AchievementPanel extends UiPart<Region> {
             numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompleted()));
             break;
         case 2:
-            timeSpanLabel.setText("Achievements since "
+            timeSpanLabel.setText("Daily achievements from "
                     + getLastDayBreakPoint(achievements.getNextDayBreakPoint()) + " :");
             xpValueLabel.setText(Integer.toString(achievements.getXpValueByDay()));
             numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByDay()));
             break;
         case 3:
-            timeSpanLabel.setText("Achievements since "
+            timeSpanLabel.setText("Weekly achievements from "
                     + getLastWeekBreakPoint(achievements.getNextWeekBreakPoint()) + " :");
             xpValueLabel.setText(Integer.toString(achievements.getXpValueByWeek()));
             numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByWeek()));
