@@ -29,10 +29,10 @@ public class Password implements Serializable {
     public static final String PASSWORD_VALIDATION_REGEX = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$";
 
     public static final String DEFAULT_PASSWORD = "Pa55w0rd";
-
-    private static final Random RANDOM = new SecureRandom();
     public static final int ITERATIONS = 10;
     public static final int LENGTH = 256;
+
+    private static final Random RANDOM = new SecureRandom();
 
     public final String plaintext;
     public final byte[] salt;
@@ -85,6 +85,12 @@ public class Password implements Serializable {
     }
 
 
+    /**
+     * Hashes a password with a specific salt
+     * @param s the password to hash, in plaintext
+     * @param salt The salt to add
+     * @return The salted and hashed password.
+     */
     public static String hash(String s, byte[] salt) {
         char[] password = s.toCharArray();
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, LENGTH);
