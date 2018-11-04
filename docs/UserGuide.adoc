@@ -221,12 +221,11 @@ Select the car park you wish to go to.
 image::select.png[width="880"]
 
 The figure above is the outcome of `find punggol`.
-Selecting any index will automatically zoom the UI in.
 
-.An example of the output of the `select 20` command
+.An example of the output of the `select 20` command.
 image::selectafter.png[width="880"]
 
-The figure above is the outcome of the select command.
+The figure above is the outcome of the select command. Selecting any index will automatically zoom the UI in.
 
 [NOTE]
 There must be car parks available for `SelectCommand` to work.
