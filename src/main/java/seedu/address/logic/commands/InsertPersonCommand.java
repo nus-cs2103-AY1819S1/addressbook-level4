@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSONINDEX;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,7 +26,7 @@ public class InsertPersonCommand extends Command {
     // TODO make a better usage string.
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a person into a module/occasion bidirectionally.\n"
                                                             + "Example " + COMMAND_WORD + " "
-                                                            + PREFIX_PERSONINDEX + "1 into"
+                                                            + PREFIX_PERSONINDEX + "1 into "
                                                             + PREFIX_MODULEINDEX + "2";
     private State currState;
     private int personIndex;
@@ -55,8 +54,8 @@ public class InsertPersonCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (State.MODULE_STATE == currState) {
-            ObservableList<Person> personsList = model.getFilteredPersonList();
-            ObservableList<Module> moduleList = model.getFilteredModuleList();
+            List<Person> personsList = model.getFilteredPersonList();
+            List<Module> moduleList = model.getFilteredModuleList();
 
             if (personIndex > personsList.size()
                     || personIndex < 0
@@ -75,10 +74,10 @@ public class InsertPersonCommand extends Command {
             moduleToInsert.getStudents().add(personToInsert);
             personToInsert.getModuleList().add(moduleToInsert);
             model.commitAddressBook();
-            return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_OCCASION);
+            return new CommandResult(MESSAGE_SUCCESS_INSERT_INTO_MODULE);
         } else if (State.OCCASION_STATE == currState) {
-            ObservableList<Person> personsList = model.getFilteredPersonList();
-            ObservableList<Occasion> occasionList = model.getFilteredOccasionList();
+            List<Person> personsList = model.getFilteredPersonList();
+            List<Occasion> occasionList = model.getFilteredOccasionList();
 
             if (personIndex > personsList.size()
                     || personIndex < 0
