@@ -11,8 +11,10 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_MEETING;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INTEREST_STUDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -187,12 +189,6 @@ public class AddressBookParserTest {
                 INDEX_SECOND.getOneBased())), command);
     }
 
-    /*@Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(ClearUserCommand.COMMAND_WORD) instanceof ClearUserCommand);
-        assertTrue(parser.parseCommand(ClearUserCommand.COMMAND_WORD + " 3") instanceof ClearUserCommand);
-    }*/
-
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteUserCommand command = (DeleteUserCommand) parser.parseCommand(
@@ -217,19 +213,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findUser() throws Exception {
-        List<String> nameKeywordList = Arrays.asList("Bob", "Choo");
+        List<String> nameKeywordList = Arrays.asList(VALID_NAME_BOB.split(" "));
         List<String> phoneKeywordList = Collections.singletonList(VALID_PHONE_BOB);
-        List<String> addressKeywordList = Arrays.asList("Block", "123,", "Bobby", "Street", "3");
+        List<String> addressKeywordList = Arrays.asList(VALID_ADDRESS_BOB.split(" "));
         List<String> emailKeywordList = Collections.singletonList(VALID_EMAIL_BOB);
         List<String> interestsKeywordList = Collections.singletonList(VALID_INTEREST_STUDY);
         List<String> tagsKeywordList = Collections.singletonList(VALID_TAG_FRIEND);
         UserContainsKeywordsPredicate predicate =
-                new UserContainsKeywordsPredicate(nameKeywordList,
-                        phoneKeywordList,
-                        addressKeywordList,
-                        emailKeywordList,
-                        interestsKeywordList,
-                        tagsKeywordList);
+                new UserContainsKeywordsPredicate(nameKeywordList, phoneKeywordList, addressKeywordList,
+                        emailKeywordList, interestsKeywordList, tagsKeywordList);
 
         FindUserCommand command = (FindUserCommand) parser.parseCommand(
                 FindUserCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
