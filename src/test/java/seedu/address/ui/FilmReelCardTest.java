@@ -6,29 +6,36 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalImages.IMAGE_LIST;
 
 import java.io.FileNotFoundException;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
+
 /**
  * Tests for {@code FilmReelCard}
  * Display is tested in {@code FilmReelTest}
  */
 public class FilmReelCardTest extends GuiUnitTest {
     private List<Path> paths = new ArrayList<>();
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @Before
     public void setUpResources() {
         for (String s : IMAGE_LIST) {
-            String pathName = MainApp.class.getResource(s).getPath();
-            Path path = Paths.get(pathName);
-            assertNotNull(pathName + " does not exist.", path);
-            paths.add(path);
+            try {
+                Path path = Paths.get("src", "test", "resources", "testimgs", s);
+                assertNotNull(s + "exists.", path);
+                paths.add(path);
+            } catch (InvalidPathException ex) {
+                logger.info(String.format("%s could not be found, skipping", s));
+            }
         }
     }
 

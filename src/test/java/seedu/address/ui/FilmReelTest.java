@@ -11,11 +11,13 @@ import static seedu.address.testutil.TypicalImages.FULL_LIST;
 import static seedu.address.testutil.TypicalImages.IMAGE_LIST;
 import static seedu.address.testutil.TypicalImages.SECOND_IMAGE_LIST;
 
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,6 +26,7 @@ import guitests.guihandles.FilmCardHandle;
 import guitests.guihandles.FilmReelHandle;
 import javafx.collections.FXCollections;
 import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 
@@ -38,31 +41,15 @@ public class FilmReelTest extends GuiUnitTest {
     private List<Path> secondPaths = new ArrayList<>();
     private List<Path> fullPaths = new ArrayList<>();
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     @Before
     public void setUpResources() {
-        for (String s: IMAGE_LIST) {
-            String pathName = MainApp.class.getResource(s).getPath();
-            Path path = Paths.get(pathName);
-            assertNotNull(pathName + " does not exist.", path);
-            paths.add(path);
-        }
-
-        for (String s: SECOND_IMAGE_LIST) {
-            String pathName = MainApp.class.getResource(s).getPath();
-            Path path = Paths.get(pathName);
-            assertNotNull(pathName + " does not exist.", path);
-            secondPaths.add(path);
-        }
-
-        for (String s: FULL_LIST) {
-            String pathName = MainApp.class.getResource(s).getPath();
-            Path path = Paths.get(pathName);
-            assertNotNull(pathName + " does not exist.", path);
-            fullPaths.add(path);
-        }
+        paths = setUpPaths(IMAGE_LIST);
+        secondPaths = setUpPaths(SECOND_IMAGE_LIST);
+        fullPaths = setUpPaths(FULL_LIST);
     }
 
-    //TODO: test film reel selection event
     @Test
     public void display() {
         initUi();
@@ -72,33 +59,38 @@ public class FilmReelTest extends GuiUnitTest {
     @Test
     public void handleUpdateFilmReelEvent() {
         initUi();
-        postNow(new UpdateFilmReelEvent(secondPaths));
-        assertCardListDisplay(secondPaths);
 
-        postNow(new UpdateFilmReelEvent(paths));
-        assertCardListDisplay(paths);
+        if (!paths.isEmpty() && !secondPaths.isEmpty()) {
+            postNow(new UpdateFilmReelEvent(secondPaths));
+            assertCardListDisplay(secondPaths);
+
+            postNow(new UpdateFilmReelEvent(paths));
+            assertCardListDisplay(paths);
+        }
     }
 
     @Test
     public void handleFilmReelSelectionChangeEvent() {
         initUi();
 
-        //Check none selected by default
-        assertFalse(filmReelHandle.getHandleToSelectedCard().isPresent());
+        if (!paths.isEmpty() && !secondPaths.isEmpty()) {
+            //Check none selected by default
+            assertFalse(filmReelHandle.getHandleToSelectedCard().isPresent());
 
-        //Check index 1 is selected
-        postNow(new FilmReelSelectionChangeEvent(SECOND_SELECTION));
-        assertEqualCardHandles(filmReelHandle.getFilmCardHandle(SECOND_SELECTION),
-                filmReelHandle.getHandleToSelectedCard());
+            //Check index 1 is selected
+            postNow(new FilmReelSelectionChangeEvent(SECOND_SELECTION));
+            assertEqualCardHandles(filmReelHandle.getFilmCardHandle(SECOND_SELECTION),
+                    filmReelHandle.getHandleToSelectedCard());
 
-        //Check none selected after refresh
-        postNow(new UpdateFilmReelEvent(secondPaths));
-        assertFalse(filmReelHandle.getHandleToSelectedCard().isPresent());
+            //Check none selected after refresh
+            postNow(new UpdateFilmReelEvent(secondPaths));
+            assertFalse(filmReelHandle.getHandleToSelectedCard().isPresent());
 
-        //Check index 0 is selected
-        postNow(new FilmReelSelectionChangeEvent(FIRST_SELECTION));
-        assertEqualCardHandles(filmReelHandle.getFilmCardHandle(FIRST_SELECTION),
-                filmReelHandle.getHandleToSelectedCard());
+            //Check index 0 is selected
+            postNow(new FilmReelSelectionChangeEvent(FIRST_SELECTION));
+            assertEqualCardHandles(filmReelHandle.getFilmCardHandle(FIRST_SELECTION),
+                    filmReelHandle.getHandleToSelectedCard());
+        }
     }
 
     /**
@@ -107,14 +99,16 @@ public class FilmReelTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() {
-        List<Path> longList = FXCollections.observableArrayList();
-        longList.addAll(fullPaths);
-        longList.addAll(fullPaths);
-        longList.addAll(fullPaths);
-        assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
-            postNow(new UpdateFilmReelEvent(longList));
-            guiRobot.interact(longList::clear);
-        }, "Creation and deletion of image cards exceeded time limit");
+        if (!fullPaths.isEmpty()) {
+            List<Path> longList = FXCollections.observableArrayList();
+            longList.addAll(fullPaths);
+            longList.addAll(fullPaths);
+            longList.addAll(fullPaths);
+            assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
+                postNow(new UpdateFilmReelEvent(longList));
+                guiRobot.interact(longList::clear);
+            }, "Creation and deletion of image cards exceeded time limit");
+        }
     }
 
     /**
@@ -141,7 +135,20 @@ public class FilmReelTest extends GuiUnitTest {
         }
     }
 
+    private List<Path> setUpPaths(String[] imagePaths) {
+        List<Path> temp = new ArrayList<>();
+        for (String s: IMAGE_LIST) {
+            try {
+                Path path = Paths.get("src", "test", "resources", "testimgs", s);
+                assertNotNull(s + "exists.", path);
+                temp.add(path);
+            } catch (InvalidPathException ex) {
+                logger.info(String.format("%s could not be found, skipping", s));
+            }
+        }
 
+        return temp;
+    }
     /**
      * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
