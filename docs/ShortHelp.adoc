@@ -17,7 +17,6 @@
 * `open <index>`
 * `shutdown <index>`
 
-* `filter <tag> <condition>`
 
 
 * `undo`
