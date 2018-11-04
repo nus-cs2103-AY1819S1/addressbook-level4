@@ -14,6 +14,8 @@
       return result;
     }
 
+    var salaryComments = ["WOW", "LOL", "OMG", "Holy Shit", "Really?", "
+
     document.addEventListener("DOMContentLoaded", function(event) {
       document.getElementById("name").innerHTML=getJsonFromUrl().name;
       document.getElementById("phone").innerHTML=getJsonFromUrl().phone;
@@ -30,7 +32,7 @@
 <ul>
 	<li>Phone number: <span id="phone"></span></li>
 	<li>Email: <span id="email"></span> (Don't spam please)</li>
-	<li>Salary: $<span id="salary"></span> (OMG)</li>
+	<li>Salary: $<span id="salary"></span> <span id="salary-comment"></span></li>
 	<li>Address: <span id="address"></span></li>
 	<li>Username: <span id="username"></span></li>
 </ul>

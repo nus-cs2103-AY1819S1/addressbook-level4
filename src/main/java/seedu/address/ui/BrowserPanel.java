@@ -52,7 +52,7 @@ public class BrowserPanel extends UiPart<Region> {
             + "&phone=" + person.getPhone().value
             + "&email=" + person.getEmail().value
             + "&salary=" + person.getSalary().value
-            + "&address=" + encodeURIComponent(person.getAddress().value)
+            + "&address=" + encodeUriComponent(person.getAddress().value)
             + "&username=" + person.getUsername().username;
         loadPage(SEARCH_PAGE_URL + queryString);
     }
@@ -92,7 +92,7 @@ public class BrowserPanel extends UiPart<Region> {
      * @param s The String to be encoded
      * @return the encoded String
      */
-    public static String encodeURIComponent(String s) {
+    public static String encodeUriComponent(String s) {
         String result = null;
 
         try {
@@ -103,9 +103,8 @@ public class BrowserPanel extends UiPart<Region> {
                 .replaceAll("\\%28", "(")
                 .replaceAll("\\%29", ")")
                 .replaceAll("\\%7E", "~");
-        }
-        // This exception should never occur.
-        catch (UnsupportedEncodingException e) {
+        }  catch (UnsupportedEncodingException e) {
+            // This exception should never occur.
             assert false;
         }
 
