@@ -49,7 +49,7 @@ public class LsCommand extends Command {
             if (fileNames.toString().isEmpty()) {
                 fileNames.append("No images or folders to display!");
             } else {
-                EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), false));
+                EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList()));
             }
 
             return new CommandResult(fileNames.toString());

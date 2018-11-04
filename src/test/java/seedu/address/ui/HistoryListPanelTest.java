@@ -6,8 +6,9 @@ import static seedu.address.testutil.EventsUtil.postNow;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.PriorityQueue;
+import java.util.Queue;
 
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class HistoryListPanelTest extends GuiUnitTest {
     private static ObservableList<String> sampleList = FXCollections.observableList(new ArrayList<>());
 
     private HistoryListPanelHandle historyListPanelHandle;
-    private PriorityQueue<String> redoQueue = new PriorityQueue<>();
+    private Queue<String> redoQueue = new LinkedList<>();
 
     @Test
     public void add() {
@@ -234,7 +235,7 @@ public class HistoryListPanelTest extends GuiUnitTest {
      * Initializes {@code historyListPanelHandle} with a {@code HistoryListPanel} and fills {@code historyListView}
      */
     private void initUi() {
-
+        sampleList.clear();
         sampleList.addAll(TRANSFORMATION_SAMPLE);
         redoQueue.clear();
         HistoryListPanel historyListPanel = new HistoryListPanel();
