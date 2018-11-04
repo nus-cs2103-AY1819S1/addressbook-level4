@@ -103,7 +103,8 @@ public class UniqueReservationList implements Iterable<Reservation> {
      * Sorts this list by Date/Time in ascending order.
      */
     public void sortReservations() {
-        FXCollections.sort(internalList, Comparator.comparing(reservation -> reservation.getDateTime()));
+        FXCollections.sort(internalList, Comparator.comparing(reservation -> reservation.getTime().getValue()));
+        FXCollections.sort(internalList, Comparator.comparing(reservation -> reservation.getDate().getValue()));
     }
 
     /**

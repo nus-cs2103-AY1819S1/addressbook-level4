@@ -1,10 +1,12 @@
 package seedu.restaurant.logic.commands.reservation;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TIME;
 import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_RESERVATIONS;
 
 import java.time.LocalDateTime;
@@ -22,10 +24,12 @@ import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
+import seedu.restaurant.model.reservation.Date;
 import seedu.restaurant.model.reservation.Name;
 import seedu.restaurant.model.reservation.Pax;
 import seedu.restaurant.model.reservation.Remark;
 import seedu.restaurant.model.reservation.Reservation;
+import seedu.restaurant.model.reservation.Time;
 import seedu.restaurant.model.tag.Tag;
 
 /**
@@ -43,7 +47,9 @@ public class EditReservationCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PAX + "PAX] "
-            + "[" + PREFIX_DATETIME + "DATETIME] "
+            //+ "[" + PREFIX_DATETIME + "DATETIME] "
+            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PAX + "4";
@@ -99,11 +105,14 @@ public class EditReservationCommand extends Command {
 
         Name updatedName = editReservationDescriptor.getName().orElse(reservationToEdit.getName());
         Pax updatedPax = editReservationDescriptor.getPax().orElse(reservationToEdit.getPax());
-        LocalDateTime updatedDateTime = editReservationDescriptor.getDateTime().orElse(reservationToEdit.getDateTime());
+        //LocalDateTime updatedDateTime =
+        //        editReservationDescriptor.getDateTime().orElse(reservationToEdit.getDateTime());
+        Date updatedDate = editReservationDescriptor.getDate().orElse(reservationToEdit.getDate());
+        Time updatedTime = editReservationDescriptor.getTime().orElse(reservationToEdit.getTime());
         Remark updatedRemark = reservationToEdit.getRemark(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editReservationDescriptor.getTags().orElse(reservationToEdit.getTags());
 
-        return new Reservation(updatedName, updatedPax, updatedDateTime, updatedRemark, updatedTags);
+        return new Reservation(updatedName, updatedPax, updatedDate, updatedTime, updatedRemark, updatedTags);
     }
 
     @Override
@@ -131,7 +140,9 @@ public class EditReservationCommand extends Command {
     public static class EditReservationDescriptor {
         private Name name;
         private Pax pax;
-        private LocalDateTime dateTime;
+        //private LocalDateTime dateTime;
+        private Date date;
+        private Time time;
         private Set<Tag> tags;
 
         public EditReservationDescriptor() {}
@@ -143,7 +154,9 @@ public class EditReservationCommand extends Command {
         public EditReservationDescriptor(EditReservationDescriptor toCopy) {
             setName(toCopy.name);
             setPax(toCopy.pax);
-            setDateTime(toCopy.dateTime);
+            //setDateTime(toCopy.dateTime);
+            setDate(toCopy.date);
+            setTime(toCopy.time);
             setTags(toCopy.tags);
         }
 
@@ -151,7 +164,7 @@ public class EditReservationCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, pax, dateTime, tags);
+            return CollectionUtil.isAnyNonNull(name, pax, date, time, tags);
         }
 
         public void setName(Name name) {
@@ -170,12 +183,30 @@ public class EditReservationCommand extends Command {
             return Optional.ofNullable(pax);
         }
 
+        /*
         public void setDateTime(LocalDateTime dateTime) {
             this.dateTime = dateTime;
         }
 
         public Optional<LocalDateTime> getDateTime() {
             return Optional.ofNullable(dateTime);
+        }
+        */
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
+        }
+
+        public void setTime(Time time) {
+            this.time = time;
+        }
+
+        public Optional<Time> getTime() {
+            return Optional.ofNullable(time);
         }
 
         /**
@@ -212,7 +243,9 @@ public class EditReservationCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPax().equals(e.getPax())
-                    && getDateTime().equals(e.getDateTime())
+                    //&& getDateTime().equals(e.getDateTime())
+                    && getDate().equals(e.getDate())
+                    && getTime().equals(e.getTime())
                     && getTags().equals(e.getTags());
         }
     }
