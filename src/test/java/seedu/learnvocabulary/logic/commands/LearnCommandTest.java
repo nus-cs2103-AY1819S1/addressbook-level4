@@ -47,6 +47,7 @@ public class LearnCommandTest {
         if (!validWord.getTags().isEmpty()) {
             CommandResult commandResult = new LearnCommand(validWord).execute(modelStub, commandHistory);
 
+            assertEquals(String.format(LearnCommand.MESSAGE_NO_GROUP, validWord), commandResult.feedbackToUser);
             assertEquals(Arrays.asList(validWord), modelStub.wordsAdded);
             assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
         }
