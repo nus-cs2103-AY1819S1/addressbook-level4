@@ -88,7 +88,7 @@ Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t P
 
 ****
 * To use this command, you must be logged in with "Add employee" permissions.
-* Username must be unique among everyone else in the system.
+* Username must be unique among everyone else in the system. Everything else is allowed to be duplicates (i.e. name ..)
 * The username cannot be "Admin", as that is reserved for the admin account.
 ****
 Examples:
