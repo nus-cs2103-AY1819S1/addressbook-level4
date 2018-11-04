@@ -38,8 +38,8 @@ import seedu.address.commons.events.ui.LoginStatusEvent;
  */
 public class PhotosLibraryClientFactory {
 
-    public static final File dataStore = Paths.get("./src/main/resources/user_credentials").toFile();
-    public static final File testFile = Paths.get("./src/main/resources/user_credentials/testFile.txt").toFile();
+    public static final File DATA_STORE = Paths.get("./src/main/resources/user_credentials").toFile();
+    public static final File TEST_FILE = Paths.get("./src/main/resources/user_credentials/TEST_FILE.txt").toFile();
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final List<String> SCOPE_LIST =
@@ -61,16 +61,16 @@ public class PhotosLibraryClientFactory {
      * @throws GeneralSecurityException when there is an error with authentication
      */
     public static PhotoHandler createClient() throws IOException, GeneralSecurityException {
-        if (!dataStore.exists()) {
-            dataStore.mkdirs();
+        if (!DATA_STORE.exists()) {
+            DATA_STORE.mkdirs();
         }
 
-        if (!testFile.exists()) {
+        if (!TEST_FILE.exists()) {
 
             //@@author chivent-reused
             //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
             //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
-            DataStoreFactory dataStoreFactory = new FileDataStoreFactory(dataStore);
+            DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
 
             InputStream credentialFile = PhotosLibraryClientFactory
                     .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
@@ -157,7 +157,7 @@ public class PhotosLibraryClientFactory {
     public static boolean logoutUserIfPossible() throws IOException, GeneralSecurityException {
         boolean userLoggedOut;
         if (userLoggedOut = checkUserLogin()) {
-            File[] listFiles = dataStore.listFiles();
+            File[] listFiles = DATA_STORE.listFiles();
             for (File file : listFiles) {
                 file.delete();
             }
@@ -171,7 +171,7 @@ public class PhotosLibraryClientFactory {
      * @return true if user has storedCredentials, else null
      */
     public static boolean checkUserLogin() {
-        boolean credentialExists = new File(dataStore, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
+        boolean credentialExists = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID).exists();
         return credentialExists;
     }
 }

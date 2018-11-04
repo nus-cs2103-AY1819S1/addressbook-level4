@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.model.google.PhotosLibraryClientFactory.dataStore;
-import static seedu.address.model.google.PhotosLibraryClientFactory.testFile;
+import static seedu.address.model.google.PhotosLibraryClientFactory.DATA_STORE;
+import static seedu.address.model.google.PhotosLibraryClientFactory.TEST_FILE;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,11 +36,11 @@ public class TestUtil {
      * @throws IOException
      */
     public static void blockGoogleLogin() {
-        if (!dataStore.exists()) {
-            dataStore.mkdirs();
+        if (!DATA_STORE.exists()) {
+            DATA_STORE.mkdirs();
         }
         try {
-            testFile.createNewFile();
+            TEST_FILE.createNewFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,8 +51,8 @@ public class TestUtil {
      * @throws IOException
      */
     public static void unblockGoogleLogin() {
-        if (testFile.exists()) {
-            testFile.delete();
+        if (TEST_FILE.exists()) {
+            TEST_FILE.delete();
         }
     }
 }
