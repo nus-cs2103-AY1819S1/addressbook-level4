@@ -26,18 +26,19 @@ user to know which ingredients require stocking up and update the ingredient cou
  made to the ingredient count.
 
 ** *Justification*:
-*** For convenience: Restaurants use a large variety of ingredients on a daily basis, making it difficult to know
-immediately the availability of each ingredient. This feature reduces the need for restaurant managers to manually do
- stock taking of its restaurant's ingredients.
-*** To prevent food wastage: Restaurants often stock up in fixed quantities of ingredients, regardless of the actual
+*** Provide convenience: Restaurants use a large variety of ingredients on a daily basis, making it
+difficult quickly determine the availability of each ingredient. This feature reduces the need for restaurant managers
+ to manually do stock taking of its restaurant's ingredients.
+*** Prevent food wastage: Restaurants often stock up in fixed quantities of ingredients, regardless of the actual
 availability in the pantry. During periods of poor business, there may be excessive ingredients in the
- pantry, leading to food wastage if these ingredients are perishable. This feature provides restaurant owners with more information about availability, so they only stock up what is necessary.
+ pantry, leading to food wastage if these ingredients are perishable. This feature provides restaurant owners with
+ more information about availability, so they only stock up what is necessary.
 
 ** *Highlights*: This enhancement involves adding several new commands to *MeNUS*. It requires understanding of the
 underlying architecture and the components `logic`, `storage` and `model`. To maintain good abstraction, it
  is also necessary to implement appropriate model interfaces so as to integrate the ingredient feature with other
- features eg menu and sales management. The `stockup-history` and
- `consumption-history` commands also required picking up knowledge about JavaFX and SceneBuilder to create the front-end user interfaces.
+ features eg menu and sales management. The `stockup-history` and `consumption-history` commands also required
+ picking up knowledge about JavaFX and SceneBuilder to create the front-end user interfaces.
 
 * *Minor enhancement*: To be updated.
 
@@ -53,7 +54,8 @@ underlying architecture and the components `logic`, `storage` and `model`. To ma
 ** Documentation:
 *** Updated user stories and use cases in the Developer Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/118/files[#118])
 *** Added implementation of the command `delete-ingredient` (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
-*** Added description of feature commands to the User Guide(Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
+*** Added description of ingredient commands to the User Guide(Pull request https://github
+.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
 *** Made general enhancements to the User Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/120[#120])
 *** Created initial UI mock-up (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/55[#55])
 ** Community:
