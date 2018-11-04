@@ -57,6 +57,11 @@ public class PlayablePlaylist implements Playable {
     }
 
     @Override
+    public Status getStatus() {
+        return current.getStatus();
+    }
+
+    @Override
     public void seek(Duration time) {
         System.out.println("playableplaylist seek to " + time.toSeconds() + " second(s)");
         current.seek(time);

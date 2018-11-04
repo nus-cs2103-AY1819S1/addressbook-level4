@@ -10,14 +10,10 @@ import seedu.jxmusic.model.Track;
  */
 public class PlayableTrack implements Playable {
     private MediaPlayer mediaPlayer;
-    // static cos otherwise java garbage collects mediaplayer in like 5 seconds
-    // then the track only play for 5 seconds before it suddenly stop
     private String fileName;
     private Track track;
 
     public PlayableTrack(Track track) {
-        // fileName = "library/Ihojin no Yaiba.mp3";
-        // Media media = new Media(new File(fileName).toURI().toString());
         Media media = new Media(track.getFile().toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setOnReady(() -> {
@@ -51,6 +47,16 @@ public class PlayableTrack implements Playable {
     public void pause() {
         System.out.println("playabletrack pause");
         mediaPlayer.pause();
+    }
+
+    @Override
+    public Status getStatus() {
+        switch (mediaPlayer.getStatus()) {
+        case PLAYING: return Status.PLAYING;
+        case PAUSED: return Status.PAUSED;
+        case STOPPED: return Status.STOPPED;
+        default: return Status.ERROR;
+        }
     }
 
     @Override
