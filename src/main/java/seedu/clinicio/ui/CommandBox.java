@@ -48,24 +48,28 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
         String formattedText = "";
+
+        // As up and down buttons will alter the position of the caret,
+        // consuming it causes the caret's position to remain unchanged
+        keyEvent.consume();
+        
         switch (keyEvent.getCode()) {
         case UP:
-            // As up and down buttons will alter the position of the caret,
-            // consuming it causes the caret's position to remain unchanged
-            keyEvent.consume();
             navigateToPreviousInput();
-            formattedText = passwordFormatter.maskPassword(true);
+            formattedText = passwordFormatter.maskPassword(true, false);
             break;
         case DOWN:
-            keyEvent.consume();
             navigateToNextInput();
-            formattedText = passwordFormatter.maskPassword(true);
+            formattedText = passwordFormatter.maskPassword(true, false);
+            break;
+        case BACK_SPACE:
+            formattedText = passwordFormatter.maskPassword(false, true);
             break;
         case LEFT: case RIGHT: case ENTER:
             return;
         default:
             // let JavaFx handle the keypress
-            formattedText = passwordFormatter.maskPassword(false);
+            formattedText = passwordFormatter.maskPassword(false, false);
             break;
         }
 
@@ -127,7 +131,7 @@ public class CommandBox extends UiPart<Region> {
             initHistory();
             // handle command failure
             logger.info("Invalid command: " + commandTextField.getText());
-            replaceText(passwordFormatter.maskPassword(false));
+            replaceText(passwordFormatter.maskPassword(false, false));
             setStyleToIndicateCommandFailure();
             raise(new NewResultAvailableEvent(e.getMessage(), false));
         }

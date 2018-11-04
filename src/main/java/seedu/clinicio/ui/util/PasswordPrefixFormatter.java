@@ -29,7 +29,7 @@ public class PasswordPrefixFormatter {
     /**
      * Mask the password after pass/ prefix to '-'.
      */
-    public String maskPassword(boolean isHistory) {
+    public String maskPassword(boolean isHistory, boolean isBackspace) {
         if (!hasPasswordPrefix()) {
             return commandTextField.getText();
         }
@@ -40,7 +40,7 @@ public class PasswordPrefixFormatter {
         String prefixesBeforePasswordPrefix = commandTextField.getText().substring(0, passwordPrefixIndex);
         String password = findPassword(passwordPrefixIndex, spaceAfterPasswordIndex);
 
-        StringBuilder maskedPassword = appendMaskedPassword(isHistory, password);
+        StringBuilder maskedPassword = appendMaskedPassword(isHistory, isBackspace, password);
 
         return prefixesBeforePasswordPrefix + PREFIX_PASSWORD.getPrefix()
                 + maskedPassword.toString() + getPrefixesAfterPasswordPrefix(spaceAfterPasswordIndex);
@@ -75,14 +75,16 @@ public class PasswordPrefixFormatter {
      * @param password The valid password
      * @return A masked password string
      */
-    public StringBuilder appendMaskedPassword(boolean isHistory, String password) {
+    public StringBuilder appendMaskedPassword(boolean isHistory, boolean isBackspace, String password) {
         StringBuilder maskedPassword;
         if (isHistory) {
             maskedPassword = storePasswordCharacters(password, password.length() - 1);
             maskedPassword.append(password.charAt(password.length() - 1));
-        } else {
+        } else if (isBackspace) {
             maskedPassword = storePasswordCharacters(password, password.length());
             maskedPassword = unmaskLastCharacter(maskedPassword);
+        } else {
+            maskedPassword = storePasswordCharacters(password, password.length());
         }
         return maskedPassword;
     }
