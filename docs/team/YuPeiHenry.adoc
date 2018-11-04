@@ -1,21 +1,28 @@
-= Henry - Project Portfolio
+= Yu Pei Henry - Project Portfolio
+:toc:
+:toc-title:
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+[discrete]
+== PROJECT: Thane Park
+:toc-placement: preamble
+:sectnums:
 
 ---
 
 == Overview
 
+This portfolio highlights my *key contributions* during the NUS CS2103 module on 2018,
+with the *challenge of developing a Command Line Interface (CLI)* from an existing AddressBook application.
+
 ThanePark is a *theme park management* application primarily designed for theme park operators.
-ThanePark caters for *keyboard-oriented* users by integrating primary functionalities into a *Command Line Interface* (CLI),
+This application was developed under the constraint of *CLI*,
 yet it displays useful information at a glance through utilisation of JavaFX to render the *Graphical User Interface* (GUI).
-Currently it only supports operation on desktops/laptops.
 It is primarily written in Java and jointly developed by 4 aspiring Software Engineers in *NUS CS2103 module*.
 
-== Summary of contributions
+== Summary of Contributions
 
 * *Major enhancement*: Developed features that improve the accessibility of the ThanePark application to *improve user productivity*.
 ** What it does: It facilitates finding help on specific commands, assist users in completing commands,
@@ -50,7 +57,10 @@ is an added challenge of reducing dependencies across the `Logic`, `Model`, `Sto
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=autocompletesuggest]
+include::../UserGuide.adoc[tag=help]
+include::../UserGuide.adoc[tag=autocomplete1]
+include::../UserGuide.adoc[tag=autocomplete2]
+include::../UserGuide.adoc[tag=history]
 
 == Contributions to the Developer Guide
 
@@ -58,5 +68,5 @@ include::../UserGuide.adoc[tag=autocompletesuggest]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=autocomplete]
+include::../DeveloperGuide.adoc[tag=accessibility]
 
