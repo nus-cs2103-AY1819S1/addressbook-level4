@@ -2,18 +2,24 @@ package systemtests;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.END_DATETIME_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.scheduler.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_TYPE_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETIME_DESC_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
@@ -22,15 +28,18 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DESCRIPTION_M
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_SCHOOL;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_VENUE_MA3220;
+import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA2101;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.model.Model.PREDICATE_SHOW_ALL_EVENTS;
+import static seedu.scheduler.testutil.TypicalEvents.CS2103_LECTURE;
 import static seedu.scheduler.testutil.TypicalEvents.KEYWORD_MATCHING_STARTUP;
 import static seedu.scheduler.testutil.TypicalEvents.MA2101_JANUARY_1_2018_YEARLY;
 import static seedu.scheduler.testutil.TypicalEvents.MA3220_JANUARY_1_2019_SINGLE;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 import static seedu.scheduler.testutil.TypicalIndexes.INDEX_SECOND_EVENT;
+import static seedu.scheduler.testutil.TypicalIndexes.INDEX_THIRD_EVENT;
 
 import org.junit.Test;
 
@@ -53,11 +62,29 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
+        /* Case: edit an event in an eventSet (Repeated event) with new name, StartDateTime,
+        EndDateTime, description, venue, repeat type, repeat until DateTime,
+        and clear the original tags-> edited */
+        Index index = INDEX_THIRD_EVENT;
+        String command = EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  "
+                + START_DATETIME_DESC_CS2103 + "  " + END_DATETIME_DESC_CS2103
+                + "  " + DESCRIPTION_DESC_CS2103
+                + "  " + VENUE_DESC_CS2103 + "  "
+                + REPEAT_TYPE_DESC_CS2103 + "  " + REPEAT_UNTIL_DATETIME_DESC_CS2103
+                + EVENT_NAME_DESC_CS2103 + " " + PREFIX_TAG;
+        Event repeatedEvent = new EventBuilder(CS2103_LECTURE)
+                .withEventUid(model.getFilteredEventList().get(index.getZeroBased()).getEventUid())
+                .withEventSetUid(model.getFilteredEventList().get(index.getZeroBased()).getEventSetUid())
+                .build();
+        assertCommandSuccess(command, index, repeatedEvent);
+        command = UndoCommand.COMMAND_WORD;
+        helperCommand(command);
+
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
          */
-        Index index = INDEX_FIRST_EVENT;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + EVENT_NAME_DESC_MA3220
+        index = INDEX_FIRST_EVENT;
+        command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + EVENT_NAME_DESC_MA3220
                 + "  " + START_DATETIME_DESC_MA3220 + "  " + END_DATETIME_DESC_MA3220 + "  " + DESCRIPTION_DESC_MA3220
                 + "  " + VENUE_DESC_MA3220 + "  " + REPEAT_TYPE_DESC_MA3220 + "  " + REPEAT_UNTIL_DATETIME_DESC_MA3220
                 + "  " + TAG_DESC_PLAY;
@@ -113,6 +140,7 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         Event eventToEdit = getModel().getFilteredEventList().get(index.getZeroBased());
         Event thirdEditedEvent = new EventBuilder(eventToEdit).withTags().build();
         assertCommandSuccess(command, index, thirdEditedEvent);
+
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
@@ -266,5 +294,13 @@ public class EditCommandSystemTest extends SchedulerSystemTest {
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
+    }
+
+    /**
+     * Executes {@code command}
+     * Such as set up events on Google Calendar for those events ready for editing.
+     */
+    private void helperCommand(String command) {
+        executeCommand(command);
     }
 }
