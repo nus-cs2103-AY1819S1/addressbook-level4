@@ -838,7 +838,7 @@ Format: `chart-sales` or `cs`
 
 The following is an example of what you will see if the sales chart is generated and displayed correctly:
 
-image::chart-sales-pic.png[width="600"]
+image::chart-sales-pic.png[width="550"]
 
 ==== Ranking dates according to total revenue: `rank-date` or `rad`
 
@@ -851,7 +851,7 @@ Format: `rank-date` or `rad`
 
 The following is an example of what you will see if the ranking is generated and displayed correctly:
 
-image::rank-date-pic.png[width="250"]
+image::rank-date-pic.png[width="325"]
 
 ==== Ranking items according to total revenue: `rank-item` or `rai`
 
@@ -864,7 +864,7 @@ Format: `rank-item` or `rai`
 
 The following is an example of what you will see if the ranking is generated and displayed correctly:
 
-image::rank-item-pic.png[width="250"]
+image::rank-item-pic.png[width="325"]
 
 ==== Selecting a sales record : `select-sales` or `ss`
 
