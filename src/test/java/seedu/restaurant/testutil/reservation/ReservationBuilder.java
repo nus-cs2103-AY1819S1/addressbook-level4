@@ -1,13 +1,14 @@
 package seedu.restaurant.testutil.reservation;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.restaurant.model.reservation.Date;
 import seedu.restaurant.model.reservation.Name;
 import seedu.restaurant.model.reservation.Pax;
 import seedu.restaurant.model.reservation.Remark;
 import seedu.restaurant.model.reservation.Reservation;
+import seedu.restaurant.model.reservation.Time;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.model.util.SampleDataUtil;
 
@@ -19,19 +20,22 @@ public class ReservationBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PAX = "4";
-    public static final String DEFAULT_DATE = "2007-12-03T10:15:30";
+    public static final String DEFAULT_DATE = "03-12-2019";
+    public static final String DEFAULT_TIME = "10:00";
     public static final String DEFAULT_REMARK = "";
 
     private Name name;
     private Pax pax;
-    private LocalDateTime dateTime;
+    private Date date;
+    private Time time;
     private Remark remark;
     private Set<Tag> tags;
 
     public ReservationBuilder() {
         name = new Name(DEFAULT_NAME);
         pax = new Pax(DEFAULT_PAX);
-        dateTime = LocalDateTime.parse(DEFAULT_DATE);
+        date = new Date(DEFAULT_DATE);
+        time = new Time(DEFAULT_TIME);
         remark = new Remark(DEFAULT_REMARK);
         tags = new HashSet<>();
     }
@@ -42,7 +46,8 @@ public class ReservationBuilder {
     public ReservationBuilder(Reservation reservationToCopy) {
         name = reservationToCopy.getName();
         pax = reservationToCopy.getPax();
-        dateTime = reservationToCopy.getDateTime();
+        date = reservationToCopy.getDate();
+        time = reservationToCopy.getTime();
         remark = reservationToCopy.getRemark();
         tags = new HashSet<>(reservationToCopy.getTags());
     }
@@ -64,10 +69,18 @@ public class ReservationBuilder {
     }
 
     /**
-     * Sets the {@code dateTime} of the {@code Reservation} that we are building.
+     * Sets the {@code date} of the {@code Reservation} that we are building.
      */
-    public ReservationBuilder withDateTime(String dateTime) {
-        this.dateTime = LocalDateTime.parse(dateTime);
+    public ReservationBuilder withDate(String date) {
+        this.date = new Date(date);
+        return this;
+    }
+
+    /**
+     * Sets the {@code time} of the {@code Reservation} that we are building.
+     */
+    public ReservationBuilder withTime(String time) {
+        this.time = new Time(time);
         return this;
     }
 
@@ -88,7 +101,7 @@ public class ReservationBuilder {
     }
 
     public Reservation build() {
-        return new Reservation(name, pax, dateTime, remark, tags);
+        return new Reservation(name, pax, date, time, remark, tags);
     }
 
 }
