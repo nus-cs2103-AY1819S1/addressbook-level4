@@ -91,10 +91,7 @@ public class Date {
 
         List<java.util.Date> dates = dateGroupList.get(0).getDates();
 
-        if (dates.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !dates.isEmpty(); //hard to understand but codacy rejected the readable version :/
     }
 
 
