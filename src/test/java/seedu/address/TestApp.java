@@ -1,6 +1,5 @@
 package seedu.address;
 
-import static seedu.address.model.google.PhotosLibraryClientFactory.TEST_FILE;
 import static seedu.address.testutil.TestUtil.blockGoogleLogin;
 
 import java.nio.file.Path;
