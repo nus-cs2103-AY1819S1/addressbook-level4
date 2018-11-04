@@ -78,7 +78,8 @@ Examples:
 * `addUser n/John Doe p/98765432 e/johnd@example.com pass/password123 a/John street, block 123, #01-01`
 * `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
 
-==== Log in a user : `login`
+// tag::yaofeng(login/logout)[]
+==== Login a user : `login`
 
 Logs in the user to EventOrganiser. A user must first log in to enable certain commands to be executed.
 
@@ -90,7 +91,7 @@ Examples:
 
 `login n/John Doe pass/password123`
 
-==== Log out a user : `logout`
+==== Logout a user : `logout`
 
 Logs out the user from EventOrganiser.
 
@@ -101,16 +102,19 @@ Format:
 Examples:
 
 `logout`
+// end::yaofeng(login/logout)[]
+
 
 ==== List all users : `listUser`
 
 Shows a list of all users in the event organiser. +
 Format: `listUser`
 
+// tag::yaofeng(finduser)[]
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +
-Format: `findUser n/[NAME] p/[PHONE NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
+Format: `findUser n/[NAME] p/[PHONE_NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
@@ -126,6 +130,8 @@ Examples:
 Returns any user with the phone number `87438807` or interest `dance`
 * `findUser n/john e/john@example.com t/teacher` +
 Returns any user with the name `87438807` or email `john@example.com` or tag `teacher`
+// end::yaofeng(finduser)[]
+
 
 ==== Delete a user : `deleteUser`
 
@@ -170,7 +176,7 @@ Selects the 1st user in the results of the `find` command.
 ==== Edit a user : `editUser`
 
 Edits an existing user in the event organiser. +
-Format: `editUser INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...`
+Format: `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...`
 
 [NOTE]
 ====
@@ -441,6 +447,7 @@ There is no need to save manually.
 * *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [t/TAG] [i/INTEREST]...` +
 e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
+// tag::yaofeng(commandsummary)[]
 * *Login*  `login n/NAME pass/PASSWORD`
 e.g. `login n/John Doe pass/password`
 
@@ -449,13 +456,14 @@ e.g. `login n/John Doe pass/password`
 * *List User* : `listUser`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
-`findUser n/NAME p/PHONE e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
+`findUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
 e.g. `findUser n/James i/basketball`
+// end::yaofeng(commandsummary)[]
 
 * *Delete User* : `deleteUser INDEX` +
 e.g. `deleteUser 3`
 
-* *Edit User* : `editUser INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
+* *Edit User* : `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
 e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
 e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
 e.g. `editUser 1 su/ monday 0000`
