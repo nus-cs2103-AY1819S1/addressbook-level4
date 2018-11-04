@@ -12,7 +12,7 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PRICE_RECORD
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_QUANTITY_SOLD_RECORD_TWO;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.restaurant.logic.commands.CommandTestUtil.showRecordAtIndex;
+import static seedu.restaurant.logic.commands.sales.SalesCommandTestUtil.showRecordAtIndex;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;

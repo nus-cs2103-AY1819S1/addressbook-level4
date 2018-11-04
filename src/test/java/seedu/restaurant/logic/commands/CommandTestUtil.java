@@ -367,18 +367,4 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredIngredientList().size());
     }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the sales record at the given {@code targetIndex} in the
-     * {@code model}'s restaurant book.
-     */
-    public static void showRecordAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredRecordList().size());
-
-        SalesRecord salesRecord = model.getFilteredRecordList().get(targetIndex.getZeroBased());
-        final String[] splitRecord = salesRecord.getName().toString().split("\\s+");
-        model.updateFilteredRecordList(new ItemNameContainsKeywordsPredicate(Arrays.asList(splitRecord[0])));
-
-        assertEquals(1, model.getFilteredRecordList().size());
-    }
 }
