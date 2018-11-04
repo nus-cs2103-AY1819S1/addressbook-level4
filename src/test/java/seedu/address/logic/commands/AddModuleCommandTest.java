@@ -70,7 +70,7 @@ public class AddModuleCommandTest {
     @Test
     public void executeDuplicateModuleDifferentCompletionStateThrowsCommandException() throws Exception {
         Module validModuleIncomplete = new ModuleBuilder().withCompleted(false).build();
-        Module validModuleComplete = new ModuleBuilder(validModuleIncomplete).withCompleted(false).build();
+        Module validModuleComplete = new ModuleBuilder(validModuleIncomplete).withCompleted(true).build();
         AddModuleCommand addCommand = new AddModuleCommand(validModuleIncomplete);
         ModelStub modelStub = new ModelStubWithModule(validModuleComplete);
 
