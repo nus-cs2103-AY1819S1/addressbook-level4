@@ -29,8 +29,8 @@ public class SaveCommand extends Command {
             + "108.50";
 
     public static final String MESSAGE_SAVE_SUCCESS = "Saved %1$s for wish %2$s%3$s.";
-    public static final String MESSAGE_SAVE_UNUSED_FUNDS = "Saved $%1$s to Unused Funds. "
-            + "Unused Funds now contains $%2$s.";
+    public static final String MESSAGE_SAVE_UNUSED_FUNDS = "Saved $%1$s to Unused Funds. " +
+            "Unused Funds now contains $%2$s.";
     public static final String MESSAGE_SAVE_EXCESS = " with $%1$s in excess. Unused Funds now contains $%2$s";
     public static final String MESSAGE_SAVE_DIFFERENCE = " with $%1$s left to completion";
 
@@ -64,9 +64,15 @@ public class SaveCommand extends Command {
         List<Wish> lastShownList = model.getFilteredSortedWishList();
 
         if (this.noWishSpecified) {
-            model.updateUnusedFunds(this.amountToSave);
-            model.commitWishBook();
-            return new CommandResult(String.format(MESSAGE_SAVE_UNUSED_FUNDS, amountToSave.toString()));
+            try {
+                model.updateUnusedFunds(this.amountToSave);
+                model.commitWishBook();
+                return new CommandResult(String.format(MESSAGE_SAVE_UNUSED_FUNDS, amountToSave.toString(),
+                        model.getUnusedFunds()));
+            } catch (IllegalArgumentException iae) {
+                throw new CommandException(iae.getMessage());
+            }
+
         }
 
         if (index.getZeroBased() >= lastShownList.size()) {
