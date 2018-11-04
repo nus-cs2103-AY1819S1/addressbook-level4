@@ -19,8 +19,8 @@ public class LogoutCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Log out from Google Photos";
 
-    private static final String MESSAGE_LOGGED_OUT = "Successfully logged out.";
-    private static final String MESSAGE_NONE = "There is no account logged into.";
+    protected static final String MESSAGE_LOGGED_OUT = "Successfully logged out.";
+    protected static final String MESSAGE_NONE = "There is no account logged into.";
     private static final String MESSAGE_ERROR = "Error while attempting to logout.";
 
     /**
