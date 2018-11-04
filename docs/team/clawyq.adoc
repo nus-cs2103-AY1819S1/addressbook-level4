@@ -9,23 +9,22 @@
 
 == Introduction
 
-This Project Portfolio Page documents my contributions to the development of CLInic, the product of a team of five
+This Project Portfolio Page documents my contributions to the development of `CLInic`, the product of a team of five
 students from NUS School Of Computing as part of the `CS2103T Software Engineering` module. The main
 features of the application are coded in `Java` while the GUI is handled by `JavaFX`, `HTML` and `CSS`.
 
-CLInic is a desktop application made to manage and expedite operations in clinics. It was inspired by
-the Command Line Interface (CLI), which allowed users to issue commands to the computer efficently.
+`CLInic` is a desktop application made to manage and expedite operations in clinics. It was inspired by
+the Command Line Interface (CLI), which allowed users to type commands to the computer efficently.
 However, the CLI's non-visual display and walls of cryptic text makes it intimidating to the general,
 non-tech-savvy populous.
 
-These reasons were the main impetus behind CLInic, which marries the **simplistic design** and
+These reasons were the main impetus behind `CLInic`, which marries the **simplistic design** and
 **efficient command issuing mechanism** of the CLI with an **intuitive** Graphical User Interface (GUI).
-This culminated in an application that is easy for anyone to use, all while providing the powerful
- functionalities and efficiencies offered by a CLI. Below are some of the key features provided by CLInic:
+This culminated in an application that is easy for **anyone** to use, all while providing the powerful
+ functionalities and efficiencies offered by a CLI. Below are some of the key features provided by `CLInic`:
 
 * Allows users to manage patient and medicine information
-* Allows users to easily generate documents to be issued by a clinic like `Medical Certificates`,
-`Receipts` and `Referral Letters` efficiently
+* Allows users to easily generate documents to be issued by a clinic like `Medical Certificates` efficiently
 * Provides intuitive workarounds to normally arduous but common administrative tasks such as restocking
 and dispensing medicine
 

@@ -101,13 +101,10 @@ Add him to CLInic's patient database using the `add` command! +
 Alias: `a` +
 Format: `add n/NAME ic/IC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
-[NOTE]
-.Thing(s) to note:
-A patient can have any number of tags (including 0).
-
 [TIP]
 .Pro tip(s):
-Mandatory parameters can be keyed in any order.
+* A patient can have any number of tags (including 0).
+* Mandatory parameters can be keyed in any order.
 
 [WARNING]
 .Important:
@@ -132,19 +129,14 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 [NOTE]
 .Thing(s) to note:
 ====
-* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list.
+* The `INDEX` refers to the index number shown in the displayed patient list. It must be a *non zero, positive integer* (eg. 1, 2, 3...)!
 * At least one of the optional parameters must be provided.
 * Existing values will be *overwritten* by the newly input values of the corresponding field.
-* When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
 ====
 
 [TIP]
 .Pro tip(s):
 You can remove *all* of the patient's tags by typing `t/` without specifying any tags after the prefix.
-
-[WARNING]
-.Important:
-The `INDEX` given must be a *non zero, positive integer* (eg. 1, 2, 3...)!
 
 Upon successful execution, you should see the patient's details updated in the patient list on the right.
 
@@ -165,11 +157,9 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 [NOTE]
 .Thing(s) to note:
 ====
-* Finds a patient whose name contains any of the given keywords.
-** Patients matching at least one keyword will be returned.
-*** `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
-* Only the patient's name is searched.
-* Only full words will be matched.
+* Only the patient's name is considered in the search. Patients whose name contains at least one of the given keywords will be returned.
+** `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
+* Only full words will be matched. This is to prevent too general keywords from fetching too many results, thus making `find` ineffective.
 ** `Han` will not match `Hans`.
 ====
 
@@ -190,7 +180,7 @@ Examples:
 Sieves out all the patients who have `yu` in their names.
 
 .Before and after executing the `find` command specified above via its alias `f`.
-image::FindEx1.png[width="850"][height="350"]
+image::FindEx1.png[width="650"]
 // end::patientfirsthalf[]
 
 // tag::patientsecondhalf[]
@@ -303,11 +293,8 @@ Format: `editmedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu
 * At least one of the optional parameters must be provided.
 * Existing values will be updated with the newly input values of the corresponding field.
 * You can remove any of the medicine details by typing the prefixes `msq/` `ppu/` `sn/` `s/` without specifying any contents after the prefix.
+* The `serial number` of a medicine *must* be a 5 digit integer!
 ====
-
-[WARNING]
-.Important:
-The `serial number` of a medicine *must* be a 5 digit integer!
 
 Example:
 
@@ -480,11 +467,8 @@ Format: `adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]`
 * Existing values will be updated with the newly input values of the corresponding field.
 * You can remove any of the patient's document contents by typing the prefixes `mc/` `n/` `r/` without specifying any contents after the prefix.
 * At least the note field must be added before executing the <<finish, `finish`>> command.
+* The parameter for `mc/` must be a *non-zero, positive integer*!
 ====
-
-[WARNING]
-.Important:
-The parameter for `mc/` must be a *non-zero, positive integer*!
 
 Examples:
 
