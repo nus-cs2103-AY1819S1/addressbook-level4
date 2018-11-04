@@ -69,7 +69,6 @@ Format: `notification disable`
 Notifications are initially enabled
 ====
 
-=== Adding a person: `add`, `a`
 === Adding a person: `add`, alias `a`
 
 Adds a person to the address book +
@@ -377,14 +376,23 @@ before the event can be successfully deleted from the system.
 [TIP]
 ====
 * Event dates should be in the format YYYY-MM-DD
-* Event index is based on the displayed index of each event in the displayed list (see example below).
+* Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
+e.g. In the screenshot below, event named "Lecture" is the 2nd event on the date 2018-10-18, hence the command `deleteEvent d/2018-10-18 i/2`
+will delete this event. +
+The event named "Meeting" is the 1st event on the date 2018-04-01, hence the command `deleteEvent d/2018-04-01 i/1` will delete this event.
 ====
 
 Example:
 
-* `deleteEvent d/2018-10-14 i/1`
+* `deleteEvent d/2018-10-18 i/2`
 
-image::delete-event.PNG[Deleting an event]
+**Before Deletion**
+
+image::delete-event-before.PNG[Deleting an event]
+
+**After Deletion**
+
+image::delete-event-after.PNG[Deleting an event]
 
 === List all events: `listEvent`
 
@@ -646,7 +654,7 @@ e.g. `generateLocation event/First Meeting group/CS2103Group`
 * *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
 e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
 * *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
-e.g. `deleteEvent d/2018-10-12 i/1`
+e.g. `deleteEvent d/2018-10-18 i/1`
 * *Add Event Tag*: `addEventTag [t/EVENT_TAG...]` +
 e.g. `addEventTag t/Lecture t/Dinner`
 * *List Events* : `listEvent` +
