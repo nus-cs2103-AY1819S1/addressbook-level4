@@ -2,7 +2,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLL_OPTION;
@@ -22,7 +22,6 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalIndexes;
 
@@ -87,11 +86,10 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         // Case: invalid name -> rejected
-        command = AddPollCommand.COMMAND_WORD + INVALID_NAME_DESC;
-        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+        command = AddPollCommand.COMMAND_WORD + INVALID_EVENT_NAME_DESC;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPollCommand.MESSAGE_USAGE));
 
     }
-
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
