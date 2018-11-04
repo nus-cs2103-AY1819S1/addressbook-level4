@@ -330,6 +330,7 @@ Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
 * FROM must be a valid email address. E.g. johndoe@example.com
 * SUBJECT has no word limit.
 * CONTENT has no word limit.
+* `<br>` can be used in CONTENT for new line.
 ****
 
 [TIP]
