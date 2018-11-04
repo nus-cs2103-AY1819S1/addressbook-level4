@@ -321,8 +321,12 @@ public class AchievementRecordTest {
 
     @Test
     public void equals() {
+        AchievementRecord original = new AchievementRecordBuilder(getNonEmptyAchievementRecord())
+                .withXpValue(850)
+                .withNumTaskCompleted(4)
+                .build();
+
         // same values -> returns true
-        AchievementRecord original = getNonEmptyAchievementRecord();
         AchievementRecord copy = new AchievementRecordBuilder(original).build();
         assertTrue(original.equals(copy));
 
@@ -360,10 +364,12 @@ public class AchievementRecordTest {
         assertFalse(original.equals(edited));
 
         // different xpValueByDay -> returns false
+        newXpValue = 700;
         edited = new AchievementRecordBuilder(original).withXpValueByDay(newXpValue).build();
         assertFalse(original.equals(edited));
 
         // different numTaskCompletedByDay-> returns false
+        newNum = 1;
         edited = new AchievementRecordBuilder(original).withNumTaskCompletedByDay(newNum).build();
         assertFalse(original.equals(edited));
 
@@ -374,10 +380,12 @@ public class AchievementRecordTest {
         assertFalse(original.equals(edited));
 
         // different xpValueByWeek -> returns false
+        newXpValue = 825;
         edited = new AchievementRecordBuilder(original).withXpValueByWeek(newXpValue).build();
         assertFalse(original.equals(edited));
 
         // different numTaskCompletedByWeek-> returns false
+        newNum = 3;
         edited = new AchievementRecordBuilder(original).withNumTaskCompletedByWeek(newNum).build();
         assertFalse(original.equals(edited));
     }
