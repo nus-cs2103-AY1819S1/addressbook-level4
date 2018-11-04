@@ -385,10 +385,10 @@ Examples:
 Removes the 3rd patient in the queue.
 
 .Before `remove 3` command
-image::beforeremovecommand.png[width="750"]
+image::beforeremove.png[width="750"]
 
 .After `remove 3` command
-image::afterremovecommand.png[width="750"]
+image::afterremove.png[width="750"]
 
 * `rem 3` +
 Removes the 2nd patient in the queue.
@@ -413,10 +413,10 @@ Examples:
 Inserts the 4th patient in the database into the 2nd position in the patient queue.
 
 .Before `insert 4 p/2` command
-image::beforeinsertcommand.png[width="750"]
+image::beforeinsert.png[width="750"]
 
 .After `insert 4 p/2` command
-image::afterinsertcommand.png[width="750"]
+image::afterinsert.png[width="750"]
 
 * `ins 3 p/5` +
 Inserts the 3rd patient into the 5th position in the patient queue.
@@ -432,10 +432,10 @@ Format: `serve`
 Upon successful call of this command, the medicine list will be displayed.
 
 .Before `serve` command
-image::beforeservecommand.png[width="750"]
+image::beforeserve.png[width="750"]
 
 .After `serve` command
-image::afterservecommand.png[width="750"]
+image::afterserve.png[width="750"]
 
 [[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
@@ -468,10 +468,10 @@ Examples:
 Adds MC duration and notes to the Current Patient.
 
 .Before `adddocument mc/3 n/Headache for the past 2 days` command
-image::beforeadddocumentcommand.png[width="750"]
+image::beforeadddocument.png[width="750"]
 
 .After `adddocument mc/3 n/Headache for the past 2 days` command
-image::afteradddocumentcommand.png[width="750"]
+image::afteradddocument.png[width="750"]
 
 * `ad r/Ng Teng Fong Hospital` +
 Adds referral to the Current Patient.
@@ -497,10 +497,10 @@ Examples:
 10 units of the 1st medicine in the displayed medicine list will be added to the Current Patient. +
 
 .Before `dispensemedicine 1 amt/10`
-image::beforedispensemedicinecommand.png[width="750"]
+image::beforedispensemedicine.png[width="750"]
 
 .After `dispensemedicine 1 amt/10`
-image::afterdispensemedicinecommand.png[width="750"]
+image::afterdispensemedicine.png[width="750"]
 
 * `dm 5 amt/2` +
 2 units of the 5th medicine in the displayed medicine list will be added to the Current Patient.
@@ -532,10 +532,10 @@ Examples:
 Removes the 3rd patient from the Served Patient Queue.
 
 .Before `payment 3` command
-image::BeforePaymentCommand.png[width="750"]
+image::beforepayment.png[width="750"]
 
 .After `payment 3` command
-image::AfterPaymentCommand.png[width="750"]
+image::afterpayment.png[width="750"]
 
 * `pay 1` +
 Removes the 1st patient from the Served Patient Queue.
