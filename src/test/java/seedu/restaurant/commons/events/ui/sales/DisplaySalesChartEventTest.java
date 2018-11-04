@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.commons.events.ui.sales.DisplaySalesChartEvent;
 import seedu.restaurant.model.sales.Date;
 
 public class DisplaySalesChartEventTest {
