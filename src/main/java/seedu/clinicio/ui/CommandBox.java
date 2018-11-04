@@ -61,6 +61,8 @@ public class CommandBox extends UiPart<Region> {
             navigateToNextInput();
             formattedText = passwordFormatter.maskPassword(true);
             break;
+        case LEFT: case RIGHT: case ENTER:
+            return;
         default:
             // let JavaFx handle the keypress
             formattedText = passwordFormatter.maskPassword(false);
@@ -124,8 +126,9 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             initHistory();
             // handle command failure
-            setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
+            replaceText(passwordFormatter.maskPassword(false));
+            setStyleToIndicateCommandFailure();
             raise(new NewResultAvailableEvent(e.getMessage(), false));
         }
     }
