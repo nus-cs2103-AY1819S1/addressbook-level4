@@ -17,11 +17,13 @@ import org.junit.Test;
 import seedu.address.testutil.AnakinBuilder;
 
 public class VersionedAnakinTest {
+
+    private static final String DEFAULT_COMMIT_MESSAGE = "Default commit message";
+
     private final ReadOnlyAnakin anakinWithDeckA = new AnakinBuilder().withDeck(DECK_A).build();
     private final ReadOnlyAnakin anakinWithDeckB = new AnakinBuilder().withDeck(DECK_B).build();
     private final ReadOnlyAnakin anakinWithDeckC = new AnakinBuilder().withDeck(DECK_C).build();
     private final ReadOnlyAnakin emptyAnakin = new AnakinBuilder().build();
-    private static final String DEFAULT_COMMIT_MESSAGE = "Default commit message";
 
     @Test
     public void commit_singleAnakin_noStatesRemovedCurrentStateSaved() {
