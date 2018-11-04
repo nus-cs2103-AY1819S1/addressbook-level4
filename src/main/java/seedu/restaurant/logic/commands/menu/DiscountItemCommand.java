@@ -33,7 +33,7 @@ public class DiscountItemCommand extends Command {
             + "by the index number used in the displayed item list a discount based on the percent. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer, starting index) "
-            + "[" + PREFIX_ENDING_INDEX + "INDEX](must be larger than the starting index) "
+            + "[" + PREFIX_ENDING_INDEX + "INDEX](cannot be smaller than the starting index) "
             + PREFIX_PERCENT + "PERCENT "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PERCENT + "20";
