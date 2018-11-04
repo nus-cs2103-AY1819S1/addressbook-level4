@@ -116,7 +116,8 @@ public class Password implements Serializable {
      * @return if it matches are not
      */
     public boolean matches(String plaintext) {
-        return this.plaintext.equals(plaintext);
+        String hashed = hash(plaintext, salt);
+        return hashed.equals(hash);
     }
 
     @Override
