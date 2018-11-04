@@ -16,10 +16,11 @@
 
     document.addEventListener("DOMContentLoaded", function(event) {
       document.getElementById("name").innerHTML=getJsonFromUrl().name;
-      document.getElementById("email").innerHTML=getJsonFromUrl().name;
-      document.getElementById("salary").innerHTML=getJsonFromUrl().name;
-      document.getElementById("address").innerHTML=getJsonFromUrl().name;
-      document.getElementById("username").innerHTML=getJsonFromUrl().name;
+      document.getElementById("phone").innerHTML=getJsonFromUrl().phone;
+      document.getElementById("email").innerHTML=getJsonFromUrl().email;
+      document.getElementById("salary").innerHTML=getJsonFromUrl().salary;
+      document.getElementById("address").innerHTML=getJsonFromUrl().address;
+      document.getElementById("username").innerHTML=getJsonFromUrl().username;
     });
   </script>
 </head>
@@ -29,7 +30,7 @@
 <ul>
 	<li>Phone number: <span id="phone"></span></li>
 	<li>Email: <span id="email"></span> (Don't spam please)</li>
-	<li>Salary: $$$<span id="salary"></span> (OMG)</li>
+	<li>Salary: $<span id="salary"></span> (OMG)</li>
 	<li>Address: <span id="address"></span></li>
 	<li>Username: <span id="username"></span></li>
 </ul>

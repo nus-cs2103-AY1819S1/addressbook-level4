@@ -22,7 +22,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
     public static final String SEARCH_PAGE_URL =
-            "https://cs2103-ay1819s1-f10-1.github.io/main/ProfilePage.html?name=";
+            "https://cs2103-ay1819s1-f10-1.github.io/main/ProfilePage.html?";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -42,7 +42,13 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
-        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+        String queryString = "name=" + person.getName().fullName
+            + "&phone=" + person.getPhone().value
+            + "&email=" + person.getEmail().value
+            + "&salary=" + person.getSalary().value
+            + "&address=" + person.getAddress().value
+            + "&username=" + person.getUsername().username;
+        loadPage(SEARCH_PAGE_URL + queryString);
     }
 
     public void loadPage(String url) {
