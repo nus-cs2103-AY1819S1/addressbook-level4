@@ -72,18 +72,24 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com r/C420 s/SoC t/Basketball`
 * `add n/Betsy Crowe t/Soccer e/betsycrowe@example.com p/1234567 r/B213 s/Business`
 
-==== Adding a picture to resident detail : `image`
+// tag::image[]
+==== Adds a picture to resident detail : `image`
 
-Uploads the image of resident staying in the specified room to Hallper and opens the profile page of the resident (*without the profile picture*). +
-Format: `image r/ROOM f/FILEPATH`
+Uploads the image of resident staying in the specified room to Hallper. +
+Format: `image ROOM`
 
 ****
+* Allow for the upload of the profile picture of resident.
+* ROOM is not case-sensitive
 * The image must be in *`.jpg`*.
 ****
 
-Example:
+Examples:
 
-* `image r/a123 f/C://Users/Files/a123.jpg`
+* `image r/a123 f/C:/user/images/e0000000.jpg` +
+Uploads the profile picture (in *`.jpg`*) of the resident living in room A123 into Hallper.
+
+// end::image[]
 
 ==== Clearing all entries : `clear all`
 
@@ -236,23 +242,6 @@ Example:
 
 * `import f/C://Users/Files/data.xml` +
 Imports `data.xml` file to be read and for database to be updated accordingly.
-
-// tag::image[]
-==== Adds a picture to resident detail : `image`
-
-Uploads the image of resident staying in the specified room to Hallper. +
-Format: `image ROOM`
-
-****
-* Allow for the upload of the profile picture of resident.
-* ROOM is not case-sensitive
-* The image must be in *`.jpg`*.
-****
-
-Examples:
-
-* `image r/a123 f/C:/user/images/e0000000.jpg` +
-Uploads the profile picture (in *`.jpg`*) of the resident living in room A123 into Hallper.
 
 === Viewing Hallper
 This section lists features related to viewing all or specific contacts in Hallper.

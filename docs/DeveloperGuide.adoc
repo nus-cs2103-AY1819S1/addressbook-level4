@@ -707,6 +707,63 @@ underused or unused.
 
 // end:export[]
 
+// tag::image[]
+=== Image feature
+
+==== Current Implementation
+The image feature allows `.jpg` image files to be uploaded into Hallper to a specific resident from the computer.
+The feature is facilitated by `ProfilePictureDirStorage`. It implements the follow operations:
+
+* `ProfilePictureDirStorage#readProfilePicture(File file)` -- Reads the file that is specified by the user through
+a path and returns a copy of the image that is being read.
+* `ProfilePictureDirStorage#saveProfilePicture(BufferedImage image, Room number)` -- Saves the copied image into the
+computer.
+
+Both operations are exposed in the `Storage` interface as `Storage#readProfilePicture(File file)` and
+`Storage#saveProfilePicture(BufferedImage image, Room number)` respectively.
+
+Given below is an example usage scenario and how the image mechanism behaves at each step:
+
+Step 1. The user specifies the file path of the `.jpg` image to be uploaded and the resident's room number.
+
+Step 2. `ImageCommandParser` passes the room number and file that is specified by the file path to `ImageCommand`.
+
+Step 3. `ImageCommand` searches Hallper for the resident that is tagged with the specified room number. It returns an
+error message if the room number specified is not tagged to any resident.
+
+Step 4. Once the room number is verified, a `NewImageEvent` is raised from the `ImageCommand` to initiate the reading
+and copying of the image from the given file path.
+
+Step 5. The `NewImageEvent` goes to the `EventCenter`, and is then handled by
+`StorageManager#handleNewImageEvent(NewImageEvent event)`. `ProfilePictureStorage#readProfilePicture(File file)` is
+then called to read the image file. After reading a valid image file, the
+`ProfilePictureStorage#saveProfilePicture(BufferedImage image, Room number)` is called to save the image into the
+computer.
+
+Step 6. The profile of the resident is displayed on the browser panel.
+
+==== Design Considerations
+===== Aspect: Choice of component to read and save the file
+
+* **Alternative 1 (current choice):** Read and save image file through `Storage`.
+** Pro: Reading and saving files through `Storage` follows the architecture that the project is built upon.
+** Con: Informing the user of invalid file path is much more complicated.
+
+* **Alternative 2:** Read and save image file through `ImageCommand`.
+** Pro: Informing the user of invalid file path will be similar to when an invalid command is given.
+** Con: Reading and saving the image file from `ImageCommand` breaks the architecture of the project.
+
+==== Aspect: Image type
+* **Alternative 1 (current choice):** Only `.jpg` image files.
+** Pro: Copying the image will be easier since all images saved will be in the form of `.jpg`.
+** Con: Limiting users to only being able to upload one type of image file.
+
+* **Alternative 2:** Allow for multiple image file types i.e `.jpg`, `.png`.
+** Pro: Increasing the valid image file types allows users to have more choices when choosing the picture to upload.
+** Con: Copying of the image will be more complicated since all images will be saved as a `.jpg` image file type.
+
+// end::image[]
+
 // tag::dataencryption[]
 === [Proposed] Data encryption
 

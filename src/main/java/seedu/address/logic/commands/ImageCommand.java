@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,12 @@ import seedu.address.model.tag.Tag;
 //@@author javenseow
 public class ImageCommand extends Command {
 
+    /*
+     * The first character of the file path must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String PROFILE_PICTURE_VALIDATION_REGEX =
+            "(?:([^:/?#]+):)?(?://([^/?#]*))?([^?#]*\\.(jpg))";
     public static final String COMMAND_WORD = "image";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Uploads a profile picture to the resident of "
@@ -39,7 +46,7 @@ public class ImageCommand extends Command {
             + "Example: " + COMMAND_WORD + " r/A123 f/C://Users/Documents/FILENAME.jpg";
 
     public static final String MESSAGE_SUCCESS = "Profile picture uploaded for %1$s";
-    public static final String MESSAGE_FILE_ERROR = "Image path is invalid.";
+    public static final String FILE_PATH_ERROR = "Image should be in .jpg.";
     public static final String MESSAGE_NO_SUCH_PERSON = "There is no resident occupying that room.";
     public static final String MESSAGE_DUPLICATE_UPLOAD = "This resident already has that profile picture.";
 
@@ -78,6 +85,10 @@ public class ImageCommand extends Command {
             throw new CommandException(MESSAGE_NO_SUCH_PERSON);
         }
 
+        if (!isValidProfilePicture(filePath.toPath())) {
+            throw new CommandException(FILE_PATH_ERROR);
+        }
+        
         EventsCenter.getInstance().post(new NewImageEvent(filePath, number));
 
         EditPersonProfilePicture editPersonProfilePicture = new EditPersonProfilePicture();
@@ -93,6 +104,13 @@ public class ImageCommand extends Command {
         model.commitAddressBook();
         EventsCenter.getInstance().post(new ProfileViewEvent(editedPerson));
         return new CommandResult(String.format(MESSAGE_SUCCESS, resident));
+    }
+
+    /**
+     * Returns true if a given string ends with .jpg.
+     */
+    public static boolean isValidProfilePicture(Path test) {
+        return test.toString().matches(PROFILE_PICTURE_VALIDATION_REGEX);
     }
 
     /**
