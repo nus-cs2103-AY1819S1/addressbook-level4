@@ -57,7 +57,8 @@ public class ManageCommand extends Command {
         EventsCenter.getInstance().post(new RecordChangeEvent(
                 filteredEventList.get(targetIndex.getZeroBased())));
         EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
-        return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS,
+                filteredEventList.get(targetIndex.getZeroBased()).getName().fullName));
 
     }
 
