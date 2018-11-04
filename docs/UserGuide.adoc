@@ -132,7 +132,7 @@ Examples:
 
 === List details of employee : `select`
 
-Lists the detailed information of an employee. This is the same result as if the person is clicked in the GUI.
+Lists the detailed information of an employee. This will also display the employee's profile on the right. This is the same result as if the person is clicked in the GUI.
 
 Format: `select INDEX`
 
