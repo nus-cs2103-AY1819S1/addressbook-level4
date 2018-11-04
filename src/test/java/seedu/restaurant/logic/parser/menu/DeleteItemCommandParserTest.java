@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.restaurant.logic.commands.menu.DeleteItemCommand;
 
+//@@author yican95
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
  * outside of the DeleteItemCommand code. For example, inputs "1" and "1 abc" take the

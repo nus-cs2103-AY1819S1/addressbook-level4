@@ -3,6 +3,7 @@ package seedu.restaurant.model.menu;
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
+//@@author yican95
 /**
  * Represents an item's name in the menu.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

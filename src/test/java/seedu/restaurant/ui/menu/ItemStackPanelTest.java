@@ -13,6 +13,7 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.testutil.menu.ItemBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author yican95
 public class ItemStackPanelTest extends GuiUnitTest {
 
     @Test

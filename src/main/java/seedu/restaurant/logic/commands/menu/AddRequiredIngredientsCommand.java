@@ -21,6 +21,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 
+//@@author yican95
 /**
  * Adds required ingredients to an item in the menu.
  */

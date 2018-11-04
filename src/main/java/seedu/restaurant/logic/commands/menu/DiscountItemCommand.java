@@ -19,6 +19,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Price;
 
+//@@author yican95
 /**
  * Gives an existing item in the menu a discount.
  */
