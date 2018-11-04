@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.google;
 
 //@@author chivent
-// TODO: Add test cases
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;

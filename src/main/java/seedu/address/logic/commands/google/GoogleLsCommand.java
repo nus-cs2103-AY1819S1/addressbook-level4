@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.google;
 
 //@@author chivent
-// TODO: Add test cases
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
@@ -27,6 +26,7 @@ public class GoogleLsCommand extends GoogleCommand {
             + "\n- " + TYPE + " /a: " + "Lists all albums in Google Photos"
             + "\n- " + TYPE + " <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
             + "\n\tExample: " + TYPE + " <Vacation>, usage inclusive of <>";
+    public static final String FAILURE_MESSAGE = "Failed to list";
 
     public GoogleLsCommand(String parameter) {
         super(parameter);
@@ -62,7 +62,7 @@ public class GoogleLsCommand extends GoogleCommand {
             }
         } catch (Exception ex) {
 
-            String message = ex.getMessage();
+            String message = FAILURE_MESSAGE;
             if (ex instanceof ApiException) {
                 message = MESSAGE_CONNECTION_FAILURE;
             }
