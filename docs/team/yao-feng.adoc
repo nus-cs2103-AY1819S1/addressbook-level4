@@ -1,4 +1,4 @@
-= Wang YaoFeng - Project Portfolio
+= Wang Yao Feng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
