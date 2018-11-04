@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.addRecordForVolunteer;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertExportCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showVolunteerAtIndex;
@@ -28,9 +29,24 @@ public class ExportCertCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
+    public void execute_volunteerHasNoRecord_throwsCommandException() {
+        // Create the export cert command with the first volunteer's index
+        ExportCertCommand exportCertCommand = new ExportCertCommand(INDEX_FIRST_VOLUNTEER);
+
+        // First volunteer has no event records
+        String expectedMessage = String.format(ExportCertCommand.MESSAGE_VOLUNTEER_NO_RECORD);
+
+        // Make sure the command fails and a command exception is raised with an expected message
+        assertCommandFailure(exportCertCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
     public void execute_validVolunteerIndexUnfilteredList_success() {
         // Get the volunteer to be exported
         Volunteer volunteerToExport = model.getFilteredVolunteerList().get(INDEX_FIRST_VOLUNTEER.getZeroBased());
+
+        // Add a record for the volunteer at index 1 so that the exportcert command can proceed
+        addRecordForVolunteer(model);
 
         // Create the export cert command with the first volunteer's index
         ExportCertCommand exportCertCommand = new ExportCertCommand(INDEX_FIRST_VOLUNTEER);
@@ -58,6 +74,9 @@ public class ExportCertCommandTest {
     public void execute_validVolunteerIndexFilteredList_success() {
         // Filter to only show the volunteer at INDEX_FIRST_VOLUNTEER
         showVolunteerAtIndex(model, INDEX_FIRST_VOLUNTEER);
+
+        // Add a record for the volunteer at index 1 so that the exportcert command can proceed
+        addRecordForVolunteer(model);
 
         // Get the volunteer to be exported
         Volunteer volunteerToExport = model.getFilteredVolunteerList().get(INDEX_FIRST_VOLUNTEER.getZeroBased());

@@ -24,6 +24,8 @@ import seedu.address.model.Model;
 import seedu.address.model.volunteer.NameContainsKeywordsPredicate;
 import seedu.address.model.volunteer.Volunteer;
 import seedu.address.testutil.EditVolunteerDescriptorBuilder;
+import seedu.address.testutil.TypicalEvents;
+import seedu.address.testutil.TypicalRecords;
 
 /**
  * Contains helper methods for testing commands.
@@ -203,6 +205,16 @@ public class CommandTestUtil {
         } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
+    }
+
+    /**
+     * Adds a new {@code Event} and it's corresponding {@code record} to the {@code model} for the first
+     * {@code volunteer}.
+     * @param model to add the event and it's corresponding record to
+     */
+    public static void addRecordForVolunteer(Model model) {
+        model.addEvent(TypicalEvents.BLOOD);
+        model.addRecord(TypicalRecords.R1);
     }
 
 }
