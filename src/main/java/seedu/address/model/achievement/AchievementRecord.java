@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import seedu.address.model.achievement.exceptions.CumulativeAchievementsMismatchException;
 import seedu.address.model.achievement.exceptions.DateBreakPointsMismatchException;
 import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
 
@@ -61,8 +62,8 @@ public class AchievementRecord {
 
         requireAllNonNull(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
                 xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
-        checkXpAndLevelMatch(xp.getXp(), level);
-        checkBreakPointsMatch(nextDayBreakPoint, nextWeekBreakPoint);
+        checkAchievementFieldsMatch(xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
+                xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
 
         this.displayOption = displayOption;
         this.xp = xp;
@@ -195,8 +196,7 @@ public class AchievementRecord {
      */
     public void resetData(AchievementRecord newData) {
         requireNonNull(newData);
-        checkXpAndLevelMatch(newData.getXpValue(), newData.level);
-        checkBreakPointsMatch(newData.nextDayBreakPoint, newData.nextWeekBreakPoint);
+        checkAchievementFieldsMatch(newData);
 
         displayOption = newData.displayOption;
         xp = newData.xp;
@@ -208,6 +208,23 @@ public class AchievementRecord {
         nextWeekBreakPoint = newData.nextWeekBreakPoint;
         numTaskCompletedByWeek = newData.numTaskCompletedByWeek;
         xpValueByWeek = newData.xpValueByWeek;
+    }
+
+    private void checkAchievementFieldsMatch (Xp xp, Level level, int numTaskCompleted, Calendar nextDayBreakPoint,
+                                              int numTaskCompletedByDay, int xpValueByDay, Calendar nextWeekBreakPoint,
+                                              int numTaskCompletedByWeek, int xpValueByWeek) {
+        checkXpAndLevelMatch(xp.getXp(), level);
+        checkBreakPointsMatch(nextDayBreakPoint, nextWeekBreakPoint);
+        checkXpValuesMatch(xp.getXp(), xpValueByDay, xpValueByWeek);
+        checkNumTaskCompletedMatch(numTaskCompleted, numTaskCompletedByDay, numTaskCompletedByWeek);
+    }
+
+    private void checkAchievementFieldsMatch (AchievementRecord record) {
+        checkXpAndLevelMatch(record.xp.getXp(), record.level);
+        checkBreakPointsMatch(record.nextDayBreakPoint, record.nextWeekBreakPoint);
+        checkXpValuesMatch(record.xp.getXp(), record.xpValueByDay, record.xpValueByWeek);
+        checkNumTaskCompletedMatch(record.numTaskCompleted, record.numTaskCompletedByDay,
+                record.numTaskCompletedByWeek);
     }
 
     /**
@@ -238,12 +255,30 @@ public class AchievementRecord {
         }
     }
 
-//    private void checkXpValuesMatch(int xp, int xpValueByDay, int xpValueByWeek) {
-//        if (xpValueByDay <= xpValueByWeek && xpValueByWeek <= xp) {
-//            return;
-//        }
-//        throw new 
-//    }
+    /**
+     * Defensively check that today's xp is no greater than this week's xp, which is no greater than all-time xp.
+     * @throws CumulativeAchievementsMismatchException if not match.
+     */
+    private void checkXpValuesMatch(int xp, int xpValueByDay, int xpValueByWeek) {
+        if (xpValueByDay <= xpValueByWeek && xpValueByWeek <= xp) {
+            return;
+        }
+        throw new CumulativeAchievementsMismatchException();
+    }
+
+    /**
+     * Defensively check that today's number of tasks completed is no greater than this week's number of tasks
+     * completed, which is no greater than all-time number of tasks completed.
+     * @throws CumulativeAchievementsMismatchException if not match.
+     */
+    private void checkNumTaskCompletedMatch(int numTaskCompleted, int numTaskCompletedByDay,
+                                            int numTaskCompletedByWeek) {
+        if (numTaskCompletedByDay <= numTaskCompletedByWeek && numTaskCompletedByWeek <= numTaskCompleted) {
+            return;
+        }
+        throw new CumulativeAchievementsMismatchException();
+    }
+
     /**
      * Updates all fields of this {@code AchievementRecord} with new xp being awarded.
      */
