@@ -18,7 +18,6 @@ import org.junit.Test;
 
 import guitests.guihandles.AssignmentCardHandle;
 import guitests.guihandles.AssignmentListPanelHandle;
-import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -32,7 +31,8 @@ public class AssignmentListPanelTest extends GuiUnitTest {
     private static final ObservableList<Assignment> TYPICAL_ASSIGNMENTS =
             FXCollections.observableList(getTypicalAssignments());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_ASSIGNMENT);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToListRequestEvent(INDEX_SECOND_ASSIGNMENT);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 

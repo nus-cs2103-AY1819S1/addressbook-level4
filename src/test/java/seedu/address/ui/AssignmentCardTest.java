@@ -8,10 +8,8 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysAssignme
 import org.junit.Test;
 
 import guitests.guihandles.AssignmentCardHandle;
-import seedu.address.model.person.Person;
 import seedu.address.model.project.Assignment;
 import seedu.address.testutil.AssignmentBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class AssignmentCardTest extends GuiUnitTest {
 
