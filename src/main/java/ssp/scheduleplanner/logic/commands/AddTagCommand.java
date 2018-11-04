@@ -33,7 +33,7 @@ public class AddTagCommand extends Command {
     private final String categoryName;
 
     /**
-     * Creates an AddCommand to add the specified {@code Task}
+     * Creates an AddTagCommand to add the specified {@code Tag}
      */
     public AddTagCommand(Tag tag, String addTo) {
         requireNonNull(tag);

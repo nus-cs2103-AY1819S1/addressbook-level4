@@ -13,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
@@ -102,6 +103,11 @@ public class AddCommandTest {
 
         @Override
         public void addTag(Tag tag, String category) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCategory(String name) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -225,6 +231,16 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingTaskAdded extends ModelStub {
         final ArrayList<Task> tasksAdded = new ArrayList<>();
+        final Category modules = new Category("Modules");
+        final Category others = new Category("Others");
+        final ArrayList<Tag> tags = new ArrayList<>();
+        final ArrayList<Category> categories =
+                new ArrayList<Category>() {
+            {
+                add(modules);
+                add(others);
+            }
+        };
 
         @Override
         public boolean hasTask(Task task) {
@@ -238,6 +254,15 @@ public class AddCommandTest {
             tasksAdded.add(task);
         }
 
+        @Override
+        public void addTag(Tag tag, String category) {
+            tags.add(tag);
+        }
+
+        @Override
+        public ObservableList<Category> getCategoryList() {
+            return FXCollections.observableArrayList(categories);
+        }
         @Override
         public void commitSchedulePlanner() {
             // called by {@code AddCommand#execute()}

@@ -3,33 +3,29 @@ package ssp.scheduleplanner.logic.parser;
 import java.util.stream.Stream;
 
 import ssp.scheduleplanner.commons.core.Messages;
-import ssp.scheduleplanner.logic.commands.AddTagCommand;
+import ssp.scheduleplanner.logic.commands.AddCategoryCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
-import ssp.scheduleplanner.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddTagCommand object
  */
-public class AddTagCommandParser implements Parser<AddTagCommand> {
+public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTagCommand
-     * and returns an AddTagCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddTagCommand parse(String args) throws ParseException {
+    public AddCategoryCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_CATEGORY, CliSyntax.PREFIX_TAG);
-
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_CATEGORY, CliSyntax.PREFIX_TAG)
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_CATEGORY);
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_CATEGORY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddTagCommand.MESSAGE_USAGE));
+                    AddCategoryCommand.MESSAGE_USAGE));
         }
-
         String categoryName = ParserUtil.parseCategoryName(argMultimap.getValue(CliSyntax.PREFIX_CATEGORY).get());
-        Tag tag = ParserUtil.parseTag(argMultimap.getValue(CliSyntax.PREFIX_TAG).get());
 
-        return new AddTagCommand(tag, categoryName);
+        return new AddCategoryCommand(categoryName);
     }
 
     /**

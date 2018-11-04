@@ -13,8 +13,9 @@ import ssp.scheduleplanner.model.tag.UniqueTagList;
  */
 public class Category {
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Category name should only contain alphanumeric characters and spaces, and it should not be blank";
-    public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
+            "Category name should only contain alphanumeric characters and spaces, and it should not be blank \n"
+                   + "Example: Steam discount list, Projects";
+    public static final String CATEGORY_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     private String name;
     private UniqueTagList tags;

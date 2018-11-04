@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ssp.scheduleplanner.commons.core.Messages;
+import ssp.scheduleplanner.logic.commands.AddCategoryCommand;
 import ssp.scheduleplanner.logic.commands.AddCommand;
 import ssp.scheduleplanner.logic.commands.AddRepeatCommand;
 import ssp.scheduleplanner.logic.commands.AddTagCommand;
@@ -58,6 +59,9 @@ public class SchedulePlannerParser {
 
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
+
+        case AddCategoryCommand.COMMAND_WORD:
+            return new AddCategoryCommandParser().parse(arguments);
 
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);

@@ -58,6 +58,11 @@ public interface Model {
     void archiveTask(Task task);
 
     /**
+     * Adds the given category into schedule planner.
+     */
+    void addCategory(String name);
+
+    /**
      * Adds the given tag.
      * {@code tag} must not already exist under any existing category in Schedule Planner.
      */

@@ -123,6 +123,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addCategory(String name) {
+        Category category = new Category(name);
+        versionedSchedulePlanner.addCategory(category);
+        indicateSchedulePlannerChanged();
+    }
+
+    @Override
     public Category getCategory(String name) {
         return versionedSchedulePlanner.getCategory(name);
     }
