@@ -6,8 +6,10 @@ package seedu.address.model.achievement.exceptions;
  * definition of the {@code Level} enum.
  */
 public class XpLevelMismatchException extends RuntimeException {
+    public static final String MESSAGE = "Xp value and level do not match.";
+
     public XpLevelMismatchException() {
-        super("Xp value and level do not match.");
+        super(MESSAGE);
     }
 }
 

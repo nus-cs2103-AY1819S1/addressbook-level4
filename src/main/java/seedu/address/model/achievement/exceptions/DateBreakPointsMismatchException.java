@@ -6,8 +6,10 @@ package seedu.address.model.achievement.exceptions;
  * {@code nextWeekBreakPoint}.
  */
 public class DateBreakPointsMismatchException extends RuntimeException {
+    public static final String MESSAGE = "Next day break point and next week break point does not match.";
+
     public DateBreakPointsMismatchException() {
-        super("Next day break point and next week break point does not match.");
+        super(MESSAGE);
     }
 }
 

@@ -79,7 +79,7 @@ public class AchievementRecordTest {
         assertFalse(AchievementRecord.isValidDisplayOption(5));
     }
     
-    @
+    @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         achievementRecord.resetData(null);
