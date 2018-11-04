@@ -13,7 +13,8 @@ public class CreateRecipeBuildCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_ADD_SUCCESS = "Constructing %1$s in progress: %2$s\nTo add please include "
-            + "at least one instruction using \"cont\" followed by \"end\".";
+            + "at least one instruction using " + BuildRecipeInstructionCommand.COMMAND_WORD
+            + " command followed by " + AddCommand.COMMAND_WORD_END + " command.";
 
     private final RecipeBuilder toAdd;
 
