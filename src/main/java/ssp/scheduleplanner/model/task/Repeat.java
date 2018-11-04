@@ -8,7 +8,8 @@ import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
  * Represents the number of times a Task is to be repeated in Schedule Planner.
  */
 public class Repeat {
-    public static final String MESSAGE_REPEAT_CONSTRAINTS = "Repeat should be an integer greater than 1\n"
+    public static final String MESSAGE_REPEAT_CONSTRAINTS =
+            "Repeat should be an integer greater than 1 but less than 16.\n"
             + "Where the number refers to the number of repetitions.\n";
 
     public final String value;
@@ -25,7 +26,7 @@ public class Repeat {
      */
     public static boolean isValidRepeat(String test) {
         int intValue = Integer.parseInt(test);
-        return intValue > 1;
+        return intValue > 1 && intValue < 16;
     }
 
     @Override
