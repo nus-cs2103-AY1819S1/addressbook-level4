@@ -16,6 +16,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Password;
+import seedu.address.storage.XmlAdaptedPassword;
 import seedu.address.storage.XmlAdaptedPerson;
 import seedu.address.storage.XmlAdaptedProject;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -42,7 +44,7 @@ public class XmlUtilTest {
     private static final String VALID_ADDRESS = "4th street";
     private static final String VALID_SALARY = "10000";
     private static final String VALID_USERNAME = "Hans Muster";
-    private static final String VALID_PASSWORD = "Hans1234";
+    private static final XmlAdaptedPassword VALID_PASSWORD = new XmlAdaptedPassword(new Password("Hans1234"));
     private static final List<XmlAdaptedProject> VALID_PROJECTS =
             Collections.singletonList(new XmlAdaptedProject("friends"));
 

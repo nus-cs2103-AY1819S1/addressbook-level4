@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
@@ -48,7 +49,7 @@ public class Password implements Serializable {
     /**
      * Constructs a {@code Password}.
      *
-     * @param pass A valid plaintext.
+     * @param pass A valid password.
      */
     public Password(String pass) {
         requireNonNull(pass);
@@ -56,6 +57,22 @@ public class Password implements Serializable {
         plaintext = pass;
         salt = generateSalt();
         hash = hash(plaintext, salt);
+    }
+
+    /**
+     * Constructs a {@code Password} with a specific salt.
+     *
+     * Generally used in tests
+     *
+     * @param pass The password in plaintext
+     * @param salt The salt
+     */
+    public Password(String pass, String salt) {
+        requireNonNull(pass);
+        checkArgument(isValidPassword(pass), MESSAGE_PASSWORD_CONSTRAINTS);
+        plaintext = pass;
+        this.salt = Base64.getDecoder().decode(salt);
+        hash = hash(plaintext, this.salt);
     }
 
     public Password(byte[] salt, String hash) {
@@ -126,11 +143,38 @@ public class Password implements Serializable {
         return hashed.equals(hash);
     }
 
+    /**
+     * Tests if this password object is effectively the same as another. This does not necessarily require
+     * their salt to be the same.
+     * They perform the following steps:
+     * If both password's plaintext are available, a direct plaintext comparison is done.
+     * If either password's plaintext are available, then it checks if one matches the other, using {@link #matches}
+     * If none of their plain text are available, it calls .equals.
+     *
+     * It effectively attempts to check if both password's plaintext were the same.
+     *
+     * @param p the other password to compare to
+     * @return true if both password's plaintext are the same, false if it likely isn't (but is not guaranteed)
+     */
+    public boolean isSamePassword(Password p) {
+        if(plaintext != null && p.plaintext != null) {
+            return plaintext.equals(p.plaintext);
+        }
+        if(plaintext != null) {
+            return p.matches(plaintext);
+        }
+        if(p.plaintext != null) {
+            return this.matches(p.plaintext);
+        }
+        return this.equals(p);
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Password // instanceof handles nulls
-            && plaintext.equals(((Password) other).plaintext)); // state check
+            && (hash.equals(((Password) other).hash))
+            && (Arrays.equals(salt, ((Password) other).salt))); // state check
     }
 
     @Override

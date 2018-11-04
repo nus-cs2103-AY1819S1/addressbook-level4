@@ -146,6 +146,14 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Password} of the {@code Person} that we are building, along with it's salt.
+     */
+    public PersonBuilder withPassword(String password, String salt) {
+        this.password = new Password(password, salt);
+        return this;
+    }
+
+    /**
      * Sets the {@code PermissionSet} of the {@code Person} that we are building.
      */
     public PersonBuilder withPermissionSet(PermissionSet pSet) {
