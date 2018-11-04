@@ -152,7 +152,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     private boolean isOperator(char c) {
         return c == '<' || c == '>' || c == '=';
     }
-    
+
     /**
      * Checks for invalid character in user input string
      */
