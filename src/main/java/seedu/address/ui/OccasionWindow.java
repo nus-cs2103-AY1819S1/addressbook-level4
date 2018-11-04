@@ -1,9 +1,11 @@
 package seedu.address.ui;
 
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
 
 /**
  * The occasionWindow that allows a user to interact with an occasion
@@ -16,7 +18,7 @@ public class OccasionWindow extends MainWindow {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private OccasionBrowserPanel occasionBrowserPanel;
     private OccasionListPanel occasionListPanel;
     private Config config;
     private UserPrefs prefs;
@@ -43,8 +45,10 @@ public class OccasionWindow extends MainWindow {
      */
     @Override
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
+        ObservableList<Person> firstPersonList = logic.getFilteredOccasionList()
+                                                    .get(0).getAttendanceList().asUnmodifiableObservableList();
+        occasionBrowserPanel = new OccasionBrowserPanel(firstPersonList);
+        getBrowserPlaceholder().getChildren().add(occasionBrowserPanel.getRoot());
 
         occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
         getOccasionListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
@@ -67,7 +71,11 @@ public class OccasionWindow extends MainWindow {
         return occasionListPanel;
     }
 
+//    void releaseResources() {
+//        browserPanel.freeResources();
+//    }
+
     void releaseResources() {
-        browserPanel.freeResources();
+
     }
 }

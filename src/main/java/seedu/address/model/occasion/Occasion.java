@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -68,6 +70,10 @@ public class Occasion {
 
     public OccasionLocation getOccasionLocation() {
         return location;
+    }
+
+    public Property occasionNameProperty() {
+        return new SimpleStringProperty(occasionName.fullOccasionName);
     }
 
     /**

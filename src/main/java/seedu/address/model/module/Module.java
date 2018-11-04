@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
@@ -73,6 +75,14 @@ public class Module {
 
     public UniquePersonList getStudents() {
         return students == null ? new UniquePersonList(new ArrayList<>()) : students;
+    }
+
+    public Property moduleCodeProperty() {
+        return new SimpleStringProperty(moduleCode.fullModuleCode);
+    }
+
+    public Property moduleTitleProperty() {
+        return new SimpleStringProperty(moduleTitle.fullModuleTitle);
     }
 
     /**

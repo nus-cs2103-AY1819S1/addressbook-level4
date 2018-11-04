@@ -3,8 +3,6 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,13 +11,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
-import seedu.address.model.person.Name;
+import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 
-public class ModuleBrowserPanel extends UiPart<Region> {
+public class OccasionBrowserPanel extends UiPart<Region> {
 
-    private static final String FXML = "ModuleBrowserPanel.fxml";
+    private static final String FXML = "OccasionBrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -29,18 +26,18 @@ public class ModuleBrowserPanel extends UiPart<Region> {
     @FXML
     private TableColumn<Person, String> nameStringTableColumn;
 
-    public ModuleBrowserPanel(ObservableList<Person> studentList) {
+    public OccasionBrowserPanel(ObservableList<Person> personList) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        loadTable(studentList);
+        loadTable(personList);
         registerAsAnEventHandler(this);
     }
 
-    private void loadTable(ObservableList<Person> newStudentList) {
-        personTableView.setItems(newStudentList);
+    private void loadTable(ObservableList<Person> newAttendanceList) {
+        personTableView.setItems(newAttendanceList);
         setCellFactories();
     }
 
@@ -49,8 +46,8 @@ public class ModuleBrowserPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleModulePanelSelectionChangedEvent(ModulePanelSelectionChangedEvent event) {
+    private void handleModulePanelSelectionChangedEvent(OccasionPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadTable(event.getNewSelection().getStudents().asUnmodifiableObservableList());
+        loadTable(event.getNewSelection().getAttendanceList().asUnmodifiableObservableList());
     }
 }

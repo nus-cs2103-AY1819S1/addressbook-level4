@@ -9,14 +9,12 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
-import seedu.address.model.module.ModuleCode;
-import seedu.address.model.module.ModuleTitle;
 import seedu.address.model.occasion.Occasion;
-import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.person.Person;
 
 public class PersonBrowserPanel extends UiPart<Region> {
@@ -32,13 +30,13 @@ public class PersonBrowserPanel extends UiPart<Region> {
     private TableView<Module> moduleTableView;
 
     @FXML
-    private TableColumn<OccasionName, String> occasionNameStringTableColumn;
+    private TableColumn<Occasion, String> occasionNameStringTableColumn;
 
     @FXML
-    private TableColumn<ModuleCode, String> moduleCodeStringTableColumn;
+    private TableColumn<Module, String> moduleCodeStringTableColumn;
 
     @FXML
-    private TableColumn<ModuleTitle, String> moduleTitleStringTableColumn;
+    private TableColumn<Module, String> moduleTitleStringTableColumn;
 
     public PersonBrowserPanel(ObservableList<Module> moduleList, ObservableList<Occasion> occasionList) {
         super(FXML);
@@ -57,12 +55,10 @@ public class PersonBrowserPanel extends UiPart<Region> {
     }
 
     private void setCellFactories() {
-        occasionNameStringTableColumn.setCellValueFactory((value) -> new SimpleStringProperty(value.toString()));
-        moduleCodeStringTableColumn.setCellValueFactory((value) -> new SimpleStringProperty(value.toString()));
-        moduleTitleStringTableColumn.setCellValueFactory((value) -> new SimpleStringProperty(value.toString()));
+        occasionNameStringTableColumn.setCellValueFactory(new PropertyValueFactory<>("occasionName"));
+        moduleCodeStringTableColumn.setCellValueFactory(new PropertyValueFactory<>("moduleCode"));
+        moduleTitleStringTableColumn.setCellValueFactory(new PropertyValueFactory<>("moduleTitle"));
     }
-
-    // TODO must handle the events where there are updates to this list.
 
     @Subscribe
     private void handleModulePanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {

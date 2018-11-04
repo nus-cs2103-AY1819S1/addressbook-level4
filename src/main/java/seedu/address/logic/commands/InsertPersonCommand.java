@@ -68,7 +68,7 @@ public class InsertPersonCommand extends Command {
             Module moduleToInsert = moduleList.get(moduleIndex);
 
             if (moduleToInsert.getStudents().contains(personToInsert)
-                    || personToInsert.getModuleList().contains(moduleToInsert)) {
+                    && personToInsert.getModuleList().contains(moduleToInsert)) {
                 throw new CommandException(MESSAGE_FAILURE);
             }
             model.insertPerson(personToInsert, moduleToInsert);
@@ -89,7 +89,7 @@ public class InsertPersonCommand extends Command {
             Occasion occasionToInsert = occasionList.get(occasionIndex);
 
             if (occasionToInsert.getAttendanceList().contains(personToInsert)
-                    || personToInsert.getOccasionList().contains(occasionToInsert)) {
+                    && personToInsert.getOccasionList().contains(occasionToInsert)) {
                 throw new CommandException(MESSAGE_FAILURE);
             }
             model.insertPerson(personToInsert, occasionToInsert);
