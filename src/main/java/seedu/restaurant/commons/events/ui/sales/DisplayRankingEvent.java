@@ -3,8 +3,6 @@ package seedu.restaurant.commons.events.ui.sales;
 import java.util.Map;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.model.sales.Date;
-import seedu.restaurant.model.sales.SalesReport;
 
 /**
  * An event requesting to display the ranking given in the Map

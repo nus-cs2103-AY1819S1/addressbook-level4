@@ -1,31 +1,17 @@
 package seedu.restaurant.ui.sales;
 
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.model.sales.Date;
-import seedu.restaurant.model.sales.ItemName;
-import seedu.restaurant.model.sales.Price;
-import seedu.restaurant.model.sales.QuantitySold;
-import seedu.restaurant.model.sales.SalesRecord;
-import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.ui.UiPart;
 
 /**

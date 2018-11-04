@@ -12,7 +12,6 @@ import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.ItemName;
 
 /**
