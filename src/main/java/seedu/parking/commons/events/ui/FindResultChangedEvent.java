@@ -19,7 +19,7 @@ public class FindResultChangedEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public Carpark[] getreturnList() {
+    public Carpark[] getReturnList() {
         return returnList;
     }
 }

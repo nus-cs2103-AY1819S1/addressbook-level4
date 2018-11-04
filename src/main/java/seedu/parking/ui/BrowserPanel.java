@@ -94,12 +94,12 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handleCarparkFindResultChangedEvent(FindResultChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadCarparkPage(event.getreturnList());
+        loadCarparkPage(event.getReturnList());
     }
 
     @Subscribe
-    private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event)throws Exception {
+    private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadCarparkPage(event.getreturnList());
+        loadCarparkPage(event.getReturnList());
     }
 }

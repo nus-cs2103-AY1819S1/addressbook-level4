@@ -4,7 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.parking.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.parking.ui.BrowserPanel.MAINPAGE_FILE_PATH;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.parking.ui.testutil.GuiTestAssert.assertListMatching;
@@ -226,7 +226,8 @@ public abstract class CarparkFinderSystemTest {
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
+            expectedUrl = new URL(getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?json="
+                    + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -254,7 +255,8 @@ public abstract class CarparkFinderSystemTest {
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "jsonArr=" + selectedCardCarparkNumber);
+            expectedUrl = new URL(getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?jsonArr="
+                    + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -279,7 +281,8 @@ public abstract class CarparkFinderSystemTest {
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
+            expectedUrl = new URL(getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?json="
+                    + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -339,7 +342,8 @@ public abstract class CarparkFinderSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCarparkListPanel(), getModel().getFilteredCarparkList());
         try {
-            assertEquals(new URL(DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+            assertEquals(new URL(getClass().getResource(MAINPAGE_FILE_PATH).toString() + "?isDefault=1"),
+                    getBrowserPanel().getLoadedUrl());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
