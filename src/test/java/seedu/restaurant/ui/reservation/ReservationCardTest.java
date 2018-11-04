@@ -12,6 +12,7 @@ import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
+//@@author m4dkip
 public class ReservationCardTest extends GuiUnitTest {
 
     @Test
