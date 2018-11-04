@@ -25,7 +25,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
             + "Parameters: NONE "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_GGEVENTS_SUCCESS = "Events in google calendar downloaded.";
+    public static final String MESSAGE_INITIALIZE_SUCCESS = "Events in google calendar downloaded.";
     public static final String MESSAGE_NO_EVENTS = "No upcoming events found in Google Calender.";
     public static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
 
@@ -36,7 +36,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (!connectToGoogleCalendar.netIsAvailable()) {
-            return new CommandResult(MESSAGE_INTERNET_ERROR);
+            throw new CommandException(MESSAGE_INTERNET_ERROR);
         }
 
         //Get the Google Calendar service object
@@ -48,7 +48,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         try {
             events = connectToGoogleCalendar.getEvents(service);
         } catch (UnknownHostException e) {
-            return new CommandResult(MESSAGE_INTERNET_ERROR);
+            throw new CommandException(MESSAGE_INTERNET_ERROR);
         }
 
         //Extract the listOfGoogleEvents from the events object
@@ -64,6 +64,6 @@ public class GetGoogleCalendarEventsCommand extends Command {
             model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(event));
             model.commitScheduler();
         }
-        return new CommandResult(MESSAGE_GGEVENTS_SUCCESS);
+        return new CommandResult(MESSAGE_INITIALIZE_SUCCESS);
     }
 }
