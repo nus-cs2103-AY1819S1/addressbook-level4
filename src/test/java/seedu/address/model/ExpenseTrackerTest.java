@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
@@ -148,6 +150,11 @@ public class ExpenseTrackerTest {
         @Override
         public Optional<Password> getPassword() {
             return Optional.empty();
+        }
+
+        @Override
+        public HashSet<CategoryBudget> getCategoryBudgets() {
+            return new HashSet<>();
         }
 
         @Override

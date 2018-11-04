@@ -39,7 +39,7 @@ public class StorageManagerTest {
     public void setUp() {
         XmlExpensesStorage expenseTrackerStorage = new XmlExpensesStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        JsonTipsStorage tipsStorage = new JsonTipsStorage(getTempFilePath("tips"));
+        JsonTipsStorage tipsStorage = new JsonTipsStorage();
         storageManager = new StorageManager(expenseTrackerStorage, userPrefsStorage, tipsStorage);
     }
 
@@ -86,7 +86,7 @@ public class StorageManagerTest {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlExpensesStorageExceptionThrowingStub(Paths.get("dummy")),
                                              new JsonUserPrefsStorage(Paths.get("dummy")),
-                                             new JsonTipsStorage(Paths.get("dummy")));
+                                             new JsonTipsStorage());
         storage.handleExpenseTrackerChangedEvent(
                 new ExpenseTrackerChangedEvent(EncryptionUtil.encryptTracker(
                         new ExpenseTracker(ModelUtil.TEST_USERNAME, null,

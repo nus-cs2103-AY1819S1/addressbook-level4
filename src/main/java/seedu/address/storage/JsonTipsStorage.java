@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -16,6 +17,7 @@ import seedu.address.model.notification.Tip;
 //@@Snookerballs
 public class JsonTipsStorage implements TipsStorage {
 
+    private static InputStream fileStream = JsonTipsStorage.class.getResourceAsStream("/json/tips.json");
     private static Path filePath = Paths.get(JsonTipsStorage.class.getResource("/json/tips.json").getPath());
 
     public JsonTipsStorage() {
@@ -29,15 +31,15 @@ public class JsonTipsStorage implements TipsStorage {
 
     @Override
     public Optional<List<Tip>> readTips() throws IOException {
-        return readTips(filePath);
+        return readTips(fileStream);
     }
 
     /**
      * Similar to
-     * @param prefsFilePath location of the data. Cannot be null.
+     * @param fileStream location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<List<Tip>> readTips(Path prefsFilePath) throws IOException {
-        return JsonUtil.fromJsonToArray(prefsFilePath, Tip.class);
+    public Optional<List<Tip>> readTips(InputStream fileStream) throws IOException {
+        return JsonUtil.fromJsonToArray(fileStream, Tip.class);
     }
 }

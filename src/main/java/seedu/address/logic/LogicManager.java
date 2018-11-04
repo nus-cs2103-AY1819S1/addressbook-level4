@@ -2,8 +2,6 @@ package seedu.address.logic;
 
 import java.text.SimpleDateFormat;
 
-import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.logging.Logger;

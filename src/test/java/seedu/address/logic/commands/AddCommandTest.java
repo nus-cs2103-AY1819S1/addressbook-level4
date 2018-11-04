@@ -9,6 +9,7 @@ import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_K
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -325,6 +326,11 @@ public class AddCommandTest {
         @Override
         public void clearNotifications() throws NoUserSelectedException {
             throw new AssertionError("clearNotifications method should not be called.");
+        }
+
+        @Override
+        public HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException {
+            throw new AssertionError("getCategoryBudgets method should not be called.");
         }
 
         @Override

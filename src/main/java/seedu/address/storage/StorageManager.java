@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -21,7 +20,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.notification.Tip;
-import seedu.address.model.notification.Tips;
 import seedu.address.model.user.Username;
 
 /**
@@ -122,8 +120,8 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public Optional<List<Tip>> readTips() throws IOException {
-            Optional<List<Tip>> tipsOptional = tipsStorage.readTips();
-            return tipsOptional;
+        Optional<List<Tip>> tipsOptional = tipsStorage.readTips();
+        return tipsOptional;
     }
 
     @Override
