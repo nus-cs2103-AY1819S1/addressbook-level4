@@ -1,6 +1,7 @@
 package seedu.jxmusic.player;
 
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import seedu.jxmusic.model.Track;
@@ -15,13 +16,19 @@ public class PlayableTrack implements Playable {
 
     public PlayableTrack(Track track) {
         Media media = new Media(track.getFile().toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setOnReady(() -> {
-            System.out.println("ready");
-        });
-        mediaPlayer.setOnEndOfMedia(() -> {
-            System.out.println("end of media");
-        });
+        try {
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.setOnReady(() -> {
+                System.out.println("ready");
+            });
+            mediaPlayer.setOnEndOfMedia(() -> {
+                System.out.println("end of media");
+            });
+        } catch (MediaException ex) {
+            if (ex.getType() == MediaException.Type.UNKNOWN) {
+                throw new NullPointerException(System.getProperty("os.name") + System.getProperty("os.version"));
+            }
+        }
     }
 
     public String getTrackName() {

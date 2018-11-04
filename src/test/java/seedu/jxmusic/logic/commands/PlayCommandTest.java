@@ -31,7 +31,11 @@ public class PlayCommandTest {
     @BeforeClass
     public static void initToolkit() {
         // without this line, all tests fail with IllegalStateException: Toolkit not initialized
-        Platform.startup(() -> {});
+        try {
+            Platform.startup(() -> {});
+        } catch (IllegalStateException ex) {
+            // do nothing
+        }
     }
 
     @Before
