@@ -34,7 +34,7 @@ import seedu.scheduler.model.event.RepeatType;
 public class TypicalEvents {
 
     public static final String KEYWORD_MATCHING_STARTUP = "Startup"; // A keyword that matches Study
-    private static final ArrayList<UUID> CONSTANT_EVENTUID = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<UUID> CONSTANT_EVENTUID = new ArrayList<>(Arrays.asList(
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a621"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a622"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a623"),
@@ -46,7 +46,7 @@ public class TypicalEvents {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a629"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a630"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a631")));
-    private static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
+    public static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a634"),

@@ -16,7 +16,6 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.REPEAT_UNTIL_DATETI
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.START_DATETIME_DESC_MA3220;
 import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_PLAY;
-import static seedu.scheduler.logic.commands.CommandTestUtil.TAG_DESC_SCHOOL;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_CS2103;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VENUE_DESC_MA3220;
 import static seedu.scheduler.testutil.TypicalEvents.AD_HOC_WORK;
