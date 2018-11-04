@@ -103,7 +103,7 @@ public class BrowserPanel extends UiPart<Region> {
                 .replaceAll("\\%28", "(")
                 .replaceAll("\\%29", ")")
                 .replaceAll("\\%7E", "~");
-        }  catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException e) {
             // This exception should never occur.
             assert false;
         }
