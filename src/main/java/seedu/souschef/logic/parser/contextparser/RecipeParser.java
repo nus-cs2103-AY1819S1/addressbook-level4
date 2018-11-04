@@ -1,6 +1,7 @@
 package seedu.souschef.logic.parser.contextparser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.commons.core.Messages.MESSAGE_NO_RECIPE_CONSTRUCTED;
 import static seedu.souschef.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -60,10 +61,19 @@ public class RecipeParser {
             return new RecipeBuilderCommandParser().parseRecipe(recipeModel, arguments);
 
         case BuildRecipeInstructionCommand.COMMAND_WORD:
-            return new RecipeBuilderCommandParser().parseInstruction(arguments);
+            if (history.isBuildingRecipe()) {
+                return new RecipeBuilderCommandParser().parseInstruction(arguments);
+            }
+            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
 
         case AddCommand.COMMAND_WORD_END:
-            return new AddCommand<>(recipeModel, history.buildRecipe());
+            if (history.isBuildingRecipe()) {
+                AddCommand command = new RecipeBuilderCommandParser().parseCompleteRecipe(recipeModel,
+                        history.buildRecipe());
+                history.clearRecipe();
+                return command;
+            }
+            throw new ParseException(MESSAGE_NO_RECIPE_CONSTRUCTED);
 
         case AddFavouriteCommand.COMMAND_WORD:
             return new AddFavouriteCommand<Recipe>(recipeModel, arguments);

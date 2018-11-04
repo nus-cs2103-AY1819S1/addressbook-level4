@@ -3,7 +3,9 @@ package seedu.souschef.logic.parser.commandparser;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.core.Messages.MESSAGE_ADD_RECIPE_USAGE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_CONT_RECIPE_USAGE;
+import static seedu.souschef.commons.core.Messages.MESSAGE_DUPLICATE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.souschef.commons.core.Messages.MESSAGE_NO_RECIPE_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_COOKTIME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DIFFICULTY;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.souschef.logic.commands.AddCommand;
 import seedu.souschef.logic.commands.BuildRecipeInstructionCommand;
 import seedu.souschef.logic.commands.CreateRecipeBuildCommand;
 import seedu.souschef.logic.parser.ArgumentMultimap;
@@ -60,7 +63,7 @@ public class RecipeBuilderCommandParser {
 
         Recipe toAdd = new Recipe(name, difficulty, cookTime, new ArrayList<>(), tagList);
         if (model.has(toAdd)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_RECIPE_USAGE));
+            throw new ParseException(String.format(MESSAGE_DUPLICATE, "recipe"));
         }
 
         RecipeBuilder recipeBuilder = new RecipeBuilder(name, difficulty, cookTime, tagList);
@@ -91,6 +94,20 @@ public class RecipeBuilderCommandParser {
 
         return new BuildRecipeInstructionCommand(new Instruction(instruction, cookTime, ingredients));
     }
+
+    /**
+     * Parses the given {@code Recipe} to check if instructions are included
+     * and returns an AddCommand object for execution.
+     * @throws ParseException if there is no instruction in the recipe
+     */
+    public AddCommand parseCompleteRecipe(Model recipeModel, Recipe recipe) throws ParseException {
+        if (recipe.getInstructions().size() < 1) {
+            throw new ParseException(MESSAGE_NO_RECIPE_INSTRUCTION);
+        }
+        return new AddCommand<>(recipeModel, recipe);
+    }
+
+
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

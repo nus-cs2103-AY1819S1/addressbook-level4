@@ -32,6 +32,12 @@ public class Messages {
     public static final String MESSAGE_INVALID_INSTRUCTION_INDEX = "The instruction index provided is invalid";
     public static final String MESSAGE_LISTED_OVERVIEW = "%1$d %2$ss listed!";
     public static final String MESSAGE_DUPLICATE = "This %1$s already exists.";
+    public static final String MESSAGE_NO_RECIPE_CONSTRUCTED = "Basic information of recipe not added. "
+            + "Please use " + AddCommand.COMMAND_WORD + " command first.";
+    public static final String MESSAGE_NO_RECIPE_INSTRUCTION = "This recipe does not contain instruction, "
+            + "please add instruction into recipe using " + BuildRecipeInstructionCommand.COMMAND_WORD
+            + " command.";
+
     public static final String MESSAGE_NO_ELEMENT = "There is no matching result";
 
     // Add command messages
