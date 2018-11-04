@@ -61,11 +61,7 @@ public class Date {
      * Returns true if a given date string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        if (Date.canStrictParse(test) || Date.canNattyParse(test)) {
-            return true;
-        } else {
-            return false;
-        }
+        return (Date.canStrictParse(test) || Date.canNattyParse(test));
     }
 
     /**
