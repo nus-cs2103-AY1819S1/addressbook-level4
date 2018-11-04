@@ -366,6 +366,7 @@ Examples:
 
 * `stockup n/cod fish u/5`
 * `stockup n/chicken thigh u/10 n/fries u/20 n/tomato ketchup u/50`
+// end::ingredientmanagement[]
 
 // tag::menu[]
 === Menu Management

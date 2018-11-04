@@ -39,7 +39,7 @@ underlying architecture and the components `logic`, `storage` and `model`. To ma
  features eg menu and sales management. The `stockup-history` and
  `consumption-history` commands also required picking up knowledge about JavaFX and SceneBuilder to create the front-end user interfaces.
 
-* *Minor enhancement*: Enhanced the existing tag feature by adding different colours for different tags
+* *Minor enhancement*: To be updated.
 
 * *Code contributed*:
 ** To be updated.
@@ -49,18 +49,18 @@ underlying architecture and the components `logic`, `storage` and `model`. To ma
 ** Project management:
 *** Maintained issue tracker
 ** Enhancements to existing features:
-*** To be updated.
+*** Enhanced the existing tagging feature by adding different colours for different tags
 ** Documentation:
 *** Updated user stories and use cases in the Developer Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/118/files[#118])
 *** Added implementation of the command `delete-ingredient` (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
 *** Added description of feature commands to the User Guide(Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/27[#27], https://github.com/CS2103-AY1819S1-F10-4/main/pull/116[#116])
 *** Made general enhancements to the User Guide (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/120[#120])
+*** Created initial UI mock-up (Pull request https://github.com/CS2103-AY1819S1-F10-4/main/pull/55[#55])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Tools:
-*** To be updated
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-F10-4/main/pull/122[#122],
+https://github.com/CS2103-AY1819S1-F10-4/main/pull/132[#132], https://github.com/CS2103-AY1819S1-F10-4/main/pull/183[#183]
+*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1819S1/forum/issues/48[1])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T12-3/main/issues/172[1], https://github.com/CS2103-AY1819S1-T12-3/main/issues/173[2], https://github.com/CS2103-AY1819S1-T12-3/main/issues/179[3], https://github.com/CS2103-AY1819S1-T12-3/main/issues/181[4], https://github.com/CS2103-AY1819S1-T12-3/main/issues/184[5])
 
 == Contributions to the User Guide
 
@@ -68,7 +68,7 @@ underlying architecture and the components `logic`, `storage` and `model`. To ma
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=ingredientmanagement[]]
+include::../UserGuide.adoc[tag=ingredientmanagement]
 
 == Contributions to the Developer Guide
 
@@ -76,4 +76,4 @@ include::../UserGuide.adoc[tag=ingredientmanagement[]]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-//include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=deleteingredient]
