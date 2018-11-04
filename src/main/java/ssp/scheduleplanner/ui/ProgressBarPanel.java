@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
@@ -54,12 +55,15 @@ public class ProgressBarPanel extends UiPart<Region> {
         todaylabel.setFont(Font.font ("Verdana", 20));
         weeklabel.setFont(Font.font ("Verdana", 20));
 
+        updateProgressBars(logic.getFilteredTaskList(), logic.getFilteredArchivedTaskList());
+    }
+
+    private void updateProgressBars(ObservableList<Task> taskList, ObservableList<Task> archivedTaskList) {
         String systemDate =
                 new SimpleDateFormat("ddMMyy").format(Calendar.getInstance().getTime());
-
-        FilteredList<Task> taskTodayList = new FilteredList<>(logic.getFilteredTaskList());
+        FilteredList<Task> taskTodayList = new FilteredList<>(taskList);
         taskTodayList.setPredicate(new DateSamePredicate(systemDate));
-        FilteredList<Task> archivedTaskTodayList = new FilteredList<>(logic.getFilteredArchivedTaskList());
+        FilteredList<Task> archivedTaskTodayList = new FilteredList<>(archivedTaskList);
         archivedTaskTodayList.setPredicate(new DateSamePredicate(systemDate));
 
         int uncompletedToday = taskTodayList.size();
@@ -68,8 +72,8 @@ public class ProgressBarPanel extends UiPart<Region> {
         double percentageToday = (double) completedToday / (double) totalToday;
         today.setProgress(percentageToday);
 
-        FilteredList<Task> filteredWeekTasks = new FilteredList<>(logic.getFilteredTaskList());
-        FilteredList<Task> filteredWeekArchivedTasks = new FilteredList<>(logic.getFilteredArchivedTaskList());
+        FilteredList<Task> filteredWeekTasks = new FilteredList<>(taskList);
+        FilteredList<Task> filteredWeekArchivedTasks = new FilteredList<>(archivedTaskList);
         List<String> dateList = new ArrayList<String>();
         String dateName = LocalDate.now().getDayOfWeek().name();
         ListWeekCommand.appendDateList(dateList, ListWeekCommand.numDaysTillSunday(dateName));
@@ -85,31 +89,6 @@ public class ProgressBarPanel extends UiPart<Region> {
 
     @Subscribe
     public void handleSchedulePlannerChangedEvent(SchedulePlannerChangedEvent e) {
-        String systemDate =
-                new SimpleDateFormat("ddMMyy").format(Calendar.getInstance().getTime());
-        FilteredList<Task> filteredTasks = new FilteredList<>(e.data.getTaskList());
-        FilteredList<Task> filteredArchivedTasks = new FilteredList<>(e.data.getArchivedTaskList());
-        filteredTasks.setPredicate(new DateSamePredicate(systemDate));
-        filteredArchivedTasks.setPredicate(new DateSamePredicate(systemDate));
-
-        int uncompletedToday = filteredTasks.size();
-        int completedToday = filteredArchivedTasks.size();
-        int totalToday = uncompletedToday + completedToday;
-        double percentageToday = (double) completedToday / (double) totalToday;
-        today.setProgress(percentageToday);
-
-        FilteredList<Task> filteredWeekTasks = new FilteredList<>(e.data.getTaskList());
-        FilteredList<Task> filteredWeekArchivedTasks = new FilteredList<>(e.data.getArchivedTaskList());
-        List<String> dateList = new ArrayList<String>();
-        String dateName = LocalDate.now().getDayOfWeek().name();
-        ListWeekCommand.appendDateList(dateList, ListWeekCommand.numDaysTillSunday(dateName));
-        filteredWeekTasks.setPredicate(new DateWeekSamePredicate(dateList));
-        filteredWeekArchivedTasks.setPredicate(new DateWeekSamePredicate(dateList));
-
-        int uncompleted = filteredWeekTasks.size();
-        int completed = filteredWeekArchivedTasks.size();
-        int total = uncompleted + completed;
-        double percentageWeek = (double) completed / (double) total;
-        week.setProgress(percentageWeek);
+        updateProgressBars(e.data.getTaskList(), e.data.getArchivedTaskList());
     }
 }

@@ -716,7 +716,7 @@ Step 3. MainWindow responds to the ChangeViewEvent with MainWindow#handleChangeV
 
 Step 4. MainWindow calls Logic#getFilteredArchivedTaskList(). It then creates a new TaskListPanel instance with Tasks in that list.
 
-Step 4. MainWindow places the new TaskListPanel in the TaskListPanelPlaceHolder. The archived tasks are now displayed.
+Step 5. MainWindow places the new TaskListPanel in the TaskListPanelPlaceHolder. The archived tasks are now displayed.
 
 The following sequence diagram shows how the list archive operation works:
 
@@ -754,6 +754,21 @@ all of the tags he/she has used to categorize tasks.
 The `progresstoday` and `progressweek` commands display the percentage of tasks archived for the current day and week respectively. The progress bars at the bottom also reflect the percentages without the need for any commands to be called.
 
 ==== Current Implementation
+
+Whenever the user makes a change in the schedule planner, for example add, delete, or archive a task, it raises a new SchedulePlannerChangedEvent.
+UI part ProgressBarPanel will handle this event and update the values for both today and this week's progress bars.
+
+Given below is an example usage scenario and how the progress bar mechanism behaves at each step:
+
+Step 1. User adds a new Task for today.
+
+Step 2. A new SchedulePlannerChangedEvent is raised.
+
+Step 3. ProgressBarPanel handles the event with ProgressBarPanel#handleSchedulePlannerChangedEvent().
+
+Step 4. The taskList is retrieved by SchedulePlannerChangedEvent#data.getTaskList(). The archivedTaskList is retrieved by SchedulePlannerChangedEvent#data.getArchivedTaskList().
+
+Step 5.
 
 //end::progressbar[]
 == Documentation
