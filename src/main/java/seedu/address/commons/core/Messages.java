@@ -1,8 +1,17 @@
 package seedu.address.commons.core;
 
+import seedu.address.logic.commands.canvas.CanvasAutoResizeCommand;
+import seedu.address.logic.commands.canvas.CanvasBgcolourCommand;
+import seedu.address.logic.commands.canvas.CanvasSizeCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
 import seedu.address.logic.commands.google.GoogleUploadCommand;
+import seedu.address.logic.commands.layer.LayerAddCommand;
+import seedu.address.logic.commands.layer.LayerDeleteCommand;
+import seedu.address.logic.commands.layer.LayerPositionCommand;
+import seedu.address.logic.commands.layer.LayerSelectCommand;
+import seedu.address.logic.commands.layer.LayerSwapCommand;
+
 
 /**
  * Container for user visible messages.
@@ -28,10 +37,8 @@ public class Messages {
     public static final String MESSAGE_LOGIN_FAILURE = "Login unsuccessful";
     public static final String MESSAGE_CONNECTION_FAILURE = "Error connecting to Google Photos, please try again.";
 
-    /* Error messages canvas and layers. */
-    public static final String MESSAGE_LAYER_SWAP_INVALID_INDEX = "Please specify valid layer indexes!";
     public static final String MESSAGE_INVALID_IMAGE_REQUESTED = "The image name provided is invalid.";
-    public static final String ENTIRE_GOOGLE_MESSAGE = MESSAGE_GOOGLE_INVALID_FORMAT + "\n------------------------\n\n"
+    public static final String ENTIRE_GOOGLE_MESSAGE = MESSAGE_GOOGLE_INVALID_FORMAT + "\n---------------------\n\n"
             + GoogleLsCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + GoogleDlCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + GoogleUploadCommand.MESSAGE_USAGE;
@@ -39,5 +46,21 @@ public class Messages {
     /* Error messages ls. */
     public static final String MESSAGE_INVALID_FILE_DIR = "File or directory invalid.";
     public static final String MESSAGE_EMPTY_DIR = "No images or folders to display!";
+
+    /* Error messages for layer and canvas */
+    public static final String MESSAGE_LAYER_INVALID_FORMAT = "Please enter a valid layer command.";
+    public static final String ENTIRE_LAYER_MESSAGE = MESSAGE_LAYER_INVALID_FORMAT + "\n------------------------\n\n"
+            + LayerAddCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + LayerDeleteCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + LayerPositionCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + LayerSelectCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + LayerSwapCommand.MESSAGE_USAGE + "\n------------------------\n\n";
+
+    public static final String MESSAGE_CANVAS_INVALID_FORMAT = "Please enter a valid canvas command.";
+    public static final String ENTIRE_CANVAS_MESSAGE = MESSAGE_CANVAS_INVALID_FORMAT + "\n------------------------\n\n"
+            + CanvasAutoResizeCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + CanvasBgcolourCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + CanvasSizeCommand.MESSAGE_USAGE;
+
 
 }
