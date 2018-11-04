@@ -12,7 +12,7 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.sales.Date;
 
 /**
- * Display sales report of a specific date
+ * Display revenue-date sales chart
  */
 public class ChartSalesCommand extends Command {
     public static final String COMMAND_WORD = "chart-sales";
