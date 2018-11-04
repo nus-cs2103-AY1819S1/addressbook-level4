@@ -42,9 +42,9 @@ public class XmlUtilTest {
 
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_CATEGORY = "School";
-    private static final String VALID_ADDRESS = "1.00";
+    private static final String VALID_COST = "1.00";
     private static final String VALID_DATE = "01-10-2018";
-    private static final String VALID_ADDRESS_BOOK_USERNAME = "validExpenseTracker";
+    private static final String VALID_EXPENSE_TRACKER_USERNAME = "validExpenseTracker";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -79,7 +79,7 @@ public class XmlUtilTest {
         EncryptedExpenseTracker dataFromFile = XmlUtil.getDataFromFile(VALID_FILE,
                 XmlSerializableExpenseTracker.class).toModelType();
         assertEquals(9, dataFromFile.getEncryptedExpenses().size());
-        assertEquals(dataFromFile.getUsername(), new Username(VALID_ADDRESS_BOOK_USERNAME));
+        assertEquals(dataFromFile.getUsername(), new Username(VALID_EXPENSE_TRACKER_USERNAME));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class XmlUtilTest {
         XmlAdaptedExpense actualExpense = XmlUtil.getDataFromFile(
                 MISSING_EXPENSE_FIELD_FILE, XmlAdaptedExpenseWithRootElement.class);
         XmlAdaptedExpense expectedExpense = new XmlAdaptedExpense(
-                null, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
+                null, VALID_CATEGORY, VALID_COST, VALID_DATE, VALID_TAGS);
         assertEquals(expectedExpense, actualExpense);
     }
 
@@ -96,7 +96,7 @@ public class XmlUtilTest {
         XmlAdaptedExpense actualExpense = XmlUtil.getDataFromFile(
                 INVALID_EXPENSE_FIELD_FILE, XmlAdaptedExpenseWithRootElement.class);
         XmlAdaptedExpense expectedExpense = new XmlAdaptedExpense(
-                VALID_NAME, INVALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
+                VALID_NAME, INVALID_CATEGORY, VALID_COST, VALID_DATE, VALID_TAGS);
         assertEquals(expectedExpense, actualExpense);
     }
 
@@ -105,7 +105,7 @@ public class XmlUtilTest {
         XmlAdaptedExpense actualExpense = XmlUtil.getDataFromFile(
                 VALID_EXPENSE_FILE, XmlAdaptedExpenseWithRootElement.class);
         XmlAdaptedExpense expectedExpense = new XmlAdaptedExpense(
-                VALID_NAME, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
+                VALID_NAME, VALID_CATEGORY, VALID_COST, VALID_DATE, VALID_TAGS);
         assertEquals(expectedExpense, actualExpense);
     }
 

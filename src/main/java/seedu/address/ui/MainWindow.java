@@ -221,7 +221,6 @@ public class MainWindow extends UiPart<Stage> {
 
         swapToStat();
         fadeInPanels();
-
     }
 
     /**
@@ -356,6 +355,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleLoggedInEvent(UserLoggedInEvent event) throws NoUserSelectedException {
         initializeAfterLogin();
         showLoggedInUi();
+        initializeAfterLogin();
     }
 
     //@@author snookerballs

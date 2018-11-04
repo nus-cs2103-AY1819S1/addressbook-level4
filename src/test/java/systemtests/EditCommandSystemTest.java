@@ -9,8 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -154,7 +154,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
-                + INVALID_ADDRESS_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
+                + INVALID_COST_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);

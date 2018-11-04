@@ -17,6 +17,9 @@ public class XmlAdaptedCategoryBudget extends XmlAdaptedBudget {
     @XmlElement(required = true)
     private String category;
 
+    public XmlAdaptedCategoryBudget() {
+    }
+
     public XmlAdaptedCategoryBudget(String category, String budget) {
         super(budget);
         this.category = category;

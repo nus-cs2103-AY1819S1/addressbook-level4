@@ -90,7 +90,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
 
 
     /**
-     * Sets the recurrence frequency for resetting the totalBudget and spending.
+     * Sets the recurrence frequency for resetting expenses.
      * @param seconds
      */
     public void setRecurrenceFrequency(long seconds) {
