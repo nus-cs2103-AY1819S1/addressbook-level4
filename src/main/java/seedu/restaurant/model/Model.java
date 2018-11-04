@@ -124,12 +124,12 @@ public interface Model {
     SalesReport getSalesReport(Date date);
 
     /**
-     * Ranks the existing records' dates according to revenue
+     * Ranks the existing records' dates according to revenue in descending order.
      */
     Map<Date, Double> rankDateBasedOnRevenue();
 
     /**
-     * Ranks the existing records' items according to revenue accumulated from past sales records
+     * Ranks the existing records' items according to revenue accumulated from past sales records in descending order.
      */
     Map<ItemName, Double> rankItemBasedOnRevenue();
 
