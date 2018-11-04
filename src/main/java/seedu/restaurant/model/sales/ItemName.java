@@ -48,7 +48,7 @@ public class ItemName {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof seedu.restaurant.model.sales.ItemName // instanceof handles nulls
-                    && fullName.equals(other.toString()));
+                    && fullName.equalsIgnoreCase(other.toString()));
     }
 
     @Override
