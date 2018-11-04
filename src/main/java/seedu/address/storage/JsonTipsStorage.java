@@ -20,10 +20,6 @@ public class JsonTipsStorage implements TipsStorage {
     private static InputStream fileStream = JsonTipsStorage.class.getResourceAsStream("/json/tips.json");
     private static Path filePath = Paths.get(JsonTipsStorage.class.getResource("/json/tips.json").getPath());
 
-    public JsonTipsStorage() {
-
-    }
-
     @Override
     public Path getTipsFilePath() {
         return filePath;
