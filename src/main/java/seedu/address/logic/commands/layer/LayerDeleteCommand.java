@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -22,7 +23,7 @@ public class LayerDeleteCommand extends LayerCommand {
             + "\n- " + TYPE + " [INDEX]: " + "Deletes the layer "
             + "\n\tExample: " + TYPE + " 2, deletes the 2nd layer in the canvas.";
 
-    private static final String OUTPUT_SUCCESS = "Now working on layer %d.";
+    private static final String OUTPUT_SUCCESS = "Layer deleted! Now working on layer %d.";
     private static final String OUTPUT_FAILURE = "Invalid layer index provided!";
 
     private static final Logger logger = LogsCenter.getLogger(LayerDeleteCommand.class);
@@ -39,19 +40,23 @@ public class LayerDeleteCommand extends LayerCommand {
             return new CommandResult(String.format(OUTPUT_FAILURE));
         }
         int index;
+        Index toRemove;
+        Index currentLayer;
         try {
             index = Integer.parseInt(args);
-            if (index < 0 | index > model.getCanvas().getLayers().size()) {
+            toRemove = Index.fromOneBased(index);
+            if (toRemove.getZeroBased() < 0 | toRemove.getZeroBased() >= model.getCanvas().getLayers().size()) {
                 throw new NumberFormatException();
             }
+            currentLayer = model.getCanvas().removeLayer(toRemove);
         } catch (NumberFormatException e) {
             return new CommandResult(OUTPUT_FAILURE);
+        } catch (IllegalOperationException e) {
+            return new CommandResult(e.getMessage());
         }
-        model.getCanvas().setCurrentLayer(Index.fromOneBased(index));
 
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 
-        return new CommandResult(String.format(OUTPUT_SUCCESS,
-                model.getCanvas().getWidth(), model.getCanvas().getHeight()));
+        return new CommandResult(String.format(OUTPUT_SUCCESS, currentLayer.getOneBased()));
     }
 }
