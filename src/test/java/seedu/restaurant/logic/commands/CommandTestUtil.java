@@ -234,8 +234,8 @@ public class CommandTestUtil {
     public static final String INVALID_RESERVATION_NAME_DESC = " " + PREFIX_NAME + "S&shrew"; // '&' not allowed
     public static final String INVALID_RESERVATION_PAX_DESC = " " + PREFIX_PAX + "a4"; // letters not allowed
     //public static final String INVALID_RESERVATION_DATETIME_DESC = " " + PREFIX_DATETIME + "2018-99"; // incomplete
-    public static final String INVALID_RESERVATION_DATE_DESC = " " + PREFIX_DATE + "2018-99"; // incomplete
-    public static final String INVALID_RESERVATION_TIME_DESC = " " + PREFIX_TIME + "9:0yff";
+    public static final String INVALID_RESERVATION_DATE_DESC = " " + PREFIX_DATE + "hi im a date"; // terrible joke
+    public static final String INVALID_RESERVATION_TIME_DESC = " " + PREFIX_TIME + "hi im a time"; // bad joke
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
