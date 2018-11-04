@@ -96,7 +96,7 @@ public class Password implements Serializable {
         PBEKeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, LENGTH);
 
         try {
-            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             byte[] result = skf.generateSecret(spec).getEncoded();
             return Base64.getEncoder().encodeToString(result);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
