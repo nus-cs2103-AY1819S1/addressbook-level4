@@ -15,12 +15,15 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+
+    /* Error message for traversing imageList */
     public static final String MESSAGE_INDEX_END_OF_IMAGE_LIST = "Exceeded number of images in current directory.";
     public static final String MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE = "The index provided exceeds batch size.";
     public static final String MESSAGE_TOTAL_IMAGES_IN_DIR = "Total number of images in directory: %d\n";
-    public static final String MESSAGE_REMAINING_IMAGES_IN_DIR = "Total number of remaining images: %d\n";
+    public static final String MESSAGE_CURRENT_BATCH_IN_IMAGE_LIST = "Currently viewing images from %d to %d\n";
     public static final String MESSAGE_CURRENT_IMAGES_IN_BATCH = "Current number of images in batch: %d\n";
-    public static final String MESSAGE_NO_MORE_IMAGES = "No more images in the current directory.";
+    public static final String MESSAGE_NO_MORE_NEXT_IMAGES = "No more images in the current directory.";
+    public static final String MESSAGE_NO_MORE_PREV_IMAGES = "Already at start of list.";
 
     /* Error messages for Google OAuth */
     public static final String MESSAGE_INVALID_ALBUM_REQUESTED = "The album name provided is invalid";

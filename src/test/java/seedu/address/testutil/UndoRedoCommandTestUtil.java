@@ -13,6 +13,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.PreviewImage;
 
+//@@author ihwk1996
+
 /**
  * Contains helper methods for testing undo and redo commands.
  */
@@ -82,7 +84,7 @@ public class UndoRedoCommandTestUtil {
      * Clears cache in storage folder.
      */
     public static void clearCache() {
-        String cachePath = MainApp.MAIN_PATH + "/src/main/java/seedu/address/storage/cache";
+        String cachePath = MainApp.MAIN_PATH + "/cache";
         File cache = new File(cachePath);
         File[] list = cache.listFiles();
         if (list != null) {

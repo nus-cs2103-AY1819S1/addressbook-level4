@@ -12,38 +12,49 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.testutil.ModelGenerator;
 
-
+//@@author ihwk1996
 public class UndoCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
     private UndoCommand undoCommand = new UndoCommand();
+    private String messageSuccess = UndoCommand.MESSAGE_SUCCESS;
+    private String messageFailure = UndoCommand.MESSAGE_FAILURE;
 
     @Test
-    public void execute_defaultStateHasNothingToUndo() {
+    public void executeDefaultStateSingleUndo_commandFailure() {
         Model model = ModelGenerator.getDefaultModel();
-        assertCommandFailure(undoCommand, model, commandHistory, "No more commands to undo!");
+        assertCommandFailure(undoCommand, model, commandHistory, messageFailure);
     }
 
     @Test
-    public void execute_singleUndo() {
+    public void executeSingleUndoPointingAtStart_commandFailure() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
+        assertCommandFailure(undoCommand, model, commandHistory, messageFailure);
+    }
+
+    @Test
+    public void executeSingleUndoPointingAtMid_commandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtMid();
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 4);
+    }
+
+    @Test
+    public void executeSingleUndoPointingAtEnd_commandSuccess() {
         Model model = ModelGenerator.getModelWithOneTransformation();
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 0, 2);
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 2);
     }
 
     @Test
-    public void execute_successiveUndo() {
+    public void executeSuccessiveUndoPointingAtEnd_commandSuccess() {
         Model model = ModelGenerator.getModelWithTwoTransformations();
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 1, 3);
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 0, 3);
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 1, 3);
+        assertCommandSuccess(undoCommand, model, commandHistory, messageSuccess, 0, 3);
     }
 
     @Test
-    public void execute_successiveUndoWithPurge() {
-        Model model = ModelGenerator.getModelWithThreeTransformations();
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 2, 4);
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 1, 4);
-        assertCommandSuccess(undoCommand, model, commandHistory, "Undo success!", 0, 4);
+    public void executeSingleUndoAfterPurge_commandSuccess() {
+        Model model = ModelGenerator.getModelWithUndoneStatesPointingAtStart();
         Model purgedModel = ModelGenerator.executeATransformation(model);
-        assertCommandSuccess(undoCommand, purgedModel, commandHistory, "Undo success!", 0, 2);
+        assertCommandSuccess(undoCommand, purgedModel, commandHistory, messageSuccess, 0, 2);
     }
 
     @After

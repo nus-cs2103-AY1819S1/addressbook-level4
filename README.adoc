@@ -2,6 +2,10 @@
 
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
+https://travis-ci.org/CS2103-AY1819S1-T09-3/main[image:https://travis-ci.org/CS2103-AY1819S1-T09-3/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/benedictcss/main[image:https://ci.appveyor.com/api/projects/status/9odxi2csp68dsqm7?svg=true[Build Status]]
+https://coveralls.io/github/CS2103-AY1819S1-T09-3/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-T09-3/main/badge.svg?branch=master[Coverage Status]]
+
 Piconso is an CLI (Command Line Interface) Image Editor designed and developed for quick and efficient image-editing. Many image-editors are complex and difficult to pick up, having a steep learning curve and sometimes even a steep price! +
 
 Unlike them, Piconso offers the same features, in a much more simplified manner. With Piconso, all traditional image-editing features can be performed solely through text commands, removing the hassle of working with a mouse. The interface can be used by
@@ -19,15 +23,17 @@ endif::[]
 
 Above shows the UI layout
 
-* Shows original image and rendered preview
+* Shows original image and rendered preview.
+* Shows first 10 images in current directory.
+* Shows history of transformations performed.
 * Command console and cin for input of commands.
 
 == Features
 
-* Several traditional image-editing features such as crop, blur, sharpen, etc.
-* Mass editing several images at once
-* Direct access to images on Google Photos (download and upload)
+* Several traditional image-editing features such as crop, blur etc.
 * Capability to define own custom transformation set.
+* Mass editing several images at once
+* Direct access to images on Google Photos (download and upload).
 * A wide range of edit text-commands that remove the need for a mouse.
 
 == Site Map

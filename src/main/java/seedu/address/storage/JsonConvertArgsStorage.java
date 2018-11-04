@@ -41,9 +41,10 @@ public class JsonConvertArgsStorage {
         for (int i = 1; i <= cmds.size(); i++) {
             ObjectNode currentoperation = mapper.createObjectNode();
             currentoperation.put("name", cmds.get(i - 1).toList().get(0));
-            currentoperation.put("num", cmds.size() - 1);
+            int argNum = cmds.get(i - 1).toList().size() - 1;
+            currentoperation.put("num", argNum);
             ObjectNode argument = mapper.createObjectNode();
-            for (int j = 1; j < cmds.size(); j++) {
+            for (int j = 1; j <= argNum; j++) {
                 argument.put("arg" + j, cmds.get(i - 1).toList().get(j));
             }
             currentoperation.putPOJO("args", argument);
@@ -65,20 +66,21 @@ public class JsonConvertArgsStorage {
      * @return
      * @throws IOException
      */
-    public static List<String> retrieveCommandTemplate(URL fileUrl, String operation) throws IOException {
+    public static List<String> retrieveCommandTemplate(URL fileUrl, String operation, String content)
+            throws IOException {
         requireNonNull(fileUrl);
         requireNonNull(operation);
         File file = new File("commandTemplate.json");
         ResourceUtil.copyResourceFileOut(fileUrl, file);
         JsonNode jsonNode = new ObjectMapper().readTree(file);
-        List<String> args = new ArrayList<>();
+        List<String> patterns = new ArrayList<>();
         int num = jsonNode.get("num").asInt();
         for (int i = 1; i <= num; i++) {
-            String arg = jsonNode.get("args").get("arg" + i).textValue();
-            args.add(arg);
+            String pattern = jsonNode.get(content + "s").get(content + i).textValue();
+            patterns.add(pattern);
         }
         file.delete();
-        return args;
+        return patterns;
     }
 
     /**

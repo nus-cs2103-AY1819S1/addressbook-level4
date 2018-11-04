@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.image.Image;
@@ -35,24 +34,34 @@ public interface Model {
     String getUserLoggedIn() throws CommandException;
 
     /**
-     * Returns true if the model has previous PreviewImage states to restore.
+     * Returns true if the current layer's PreviewImage has undone states to restore.
      */
     boolean canUndoPreviewImage();
 
     /**
-     * Returns true if the model has undone PreviewImage states to restore.
+     * Returns true if the current layer's PreviewImage states to restore.
      */
     boolean canRedoPreviewImage();
 
     /**
-     * Restores the model's PreviewImage to its previous state.
+     * Undoes one state in the current layer's previewImage.
      */
     void undoPreviewImage();
 
     /**
-     * Restores the model's PreviewImage to its previously undone state.
+     * Redoes one state in the current layer's previewImage.
      */
     void redoPreviewImage();
+
+    /**
+     * Undoes all states in the current layer's previewImage.
+     */
+    void undoAllPreviewImage();
+
+    /**
+     * Redoes all states in the current layer's previewImage.
+     */
+    void redoAllPreviewImage();
 
     /**
      * Updates the userPrefs current directory.
@@ -67,22 +76,42 @@ public interface Model {
     /**
      * Retrieves the list of images in current directory.
      */
-    ArrayList<Path> getDirectoryImageList();
+    List<Path> getDirectoryImageList();
 
     /**
-     * Updates the list of images with the current image list.
+     * Returns the total number of images in current directory
      */
-    void updateImageList(ArrayList<Path> dirImageList);
+    int getTotalImagesInDir();
+
+    /**
+     * Returns the current batch pointer
+     */
+    int numOfRemainingImagesInDir();
+
+    /**
+     * Returns the current batch pointer in {@code UserPrefs}
+     */
+    int getCurrBatchPointer();
+
+    /**
+     * Updates entire image list.
+     */
+    void updateEntireImageList();
+
+    /**
+     * Updates the batch pointer to the next 10 images.
+     */
+    void updateImageListNextBatch();
+
+    /**
+     * Updates the batch pointer to the previous 10 images.
+     */
+    void updateImageListPrevBatch();
 
     /**
      * Removes the image of the given index in the list.
      */
     void removeImageFromList(int idx);
-
-    /**
-     * Get preview image list (first 10 images in imageList)
-     */
-    List<Path> returnPreviewImageList();
 
     /**
      * Retrieves the current displayed original image.
@@ -117,6 +146,12 @@ public interface Model {
      * @param imgPath
      */
     void updateCurrentOriginalImage(Image img, Path imgPath);
+
+    /**
+     * Update the current displayed original image for test.
+     * @param previewImage
+     */
+    void updateCurrentOriginalImageForTest(PreviewImage previewImage);
 
     /**
      * update the transformationSet of the current image

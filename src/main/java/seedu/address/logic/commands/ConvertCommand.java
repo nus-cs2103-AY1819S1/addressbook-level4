@@ -34,21 +34,15 @@ public class ConvertCommand extends Command {
 
     private static final Logger logger = LogsCenter.getLogger(ConvertCommand.class);
 
-    private URL fileUrl;
     private Transformation transformation;
 
 
     /**
      * the constructor take the path of the JSON file of the detail of the convert operation
-     * @param fileUrl the path to the JSON file
      * @param transformation contains the operation to be processed to the image
      */
-    public ConvertCommand(URL fileUrl, Transformation transformation) throws ParseException {
-        if (!isFileExist(fileUrl)) {
-            throw new ParseException("no file found");
-        }
-        this.fileUrl = fileUrl;
-        this.transformation = transformation;
+    public ConvertCommand(Transformation transformation) throws ParseException {
+                this.transformation = transformation;
     }
 
     private static boolean isFileExist(URL fileUrl) {
