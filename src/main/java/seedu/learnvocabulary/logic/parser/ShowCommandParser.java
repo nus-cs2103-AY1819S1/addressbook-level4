@@ -24,9 +24,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_ENTER_WORD, ShowCommand.MESSAGE_USAGE));
         }
-
         String[] nameKeywords = trimmedArgs.split("\\s+");
-
         return new ShowCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
