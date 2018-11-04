@@ -12,6 +12,7 @@ import seedu.address.testutil.Assert;
 public class TotalBudgetTest {
     public static final String VALID_BUDGET = "2.00";
     public static final String INVALID_BUDGET = "A";
+    public static final String NEGATIVE_BUDGET = "0.00";
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new TotalBudget(null));
