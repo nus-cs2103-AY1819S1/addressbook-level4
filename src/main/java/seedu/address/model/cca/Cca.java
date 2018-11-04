@@ -31,7 +31,7 @@ public class Cca {
     private final Budget budget;
     private final Spent spent;
     private final Outstanding outstanding;
-    private final Set<Entry> transactionEntries;
+    private Set<Entry> transactionEntries;
 
     /**
      * Constructor for Cca where there is a vice-head.
@@ -163,7 +163,10 @@ public class Cca {
      * @param newEntry the new transaction entry to be added
      */
     public Cca addNewTransaction(Entry newEntry) {
-        this.transactionEntries.add(newEntry);
+        Set<Entry> newEntrySet = new LinkedHashSet<>();
+        newEntrySet.addAll(transactionEntries);
+        newEntrySet.add(newEntry);
+        this.transactionEntries = newEntrySet;
 
         return this;
     }
@@ -211,14 +214,33 @@ public class Cca {
     }
 
     /**
-     * Returns true if both Ccas have the same name
+     * Returns true if both Ccas have the same name.
+     * This defines a weaker notion of equality between two CCAs.
+     *
+     * @param toCheck name of the CCA to be checked
+     */
+    public boolean isSameCcaName(Cca toCheck) {
+        return toCheck != null
+            && toCheck.getCcaName().equals(getCcaName());
+//            && toCheck.getHead().equals(getHead())
+//            && toCheck.getViceHead().equals(getViceHead())
+//            && toCheck.getBudget().equals(getBudget())
+//            && toCheck.getEntries().equals(toCheck.getEntries());
+    }
+
+    /**
+     * Returns true if both Ccas have the same name, head, vice, head, budget and transactions.
      * This defines a weaker notion of equality between two CCAs.
      *
      * @param toCheck name of the CCA to be checked
      */
     public boolean isSameCca(Cca toCheck) {
         return toCheck != null
-            && toCheck.getCcaName().equals(getCcaName());
+            && toCheck.getCcaName().equals(getCcaName())
+            && toCheck.getHead().equals(getHead())
+            && toCheck.getViceHead().equals(getViceHead())
+            && toCheck.getBudget().equals(getBudget())
+            && toCheck.getEntries().equals(toCheck.getEntries());
     }
 
     /**
@@ -256,9 +278,9 @@ public class Cca {
             .append(" Vice-Head: ")
             .append(getViceHeadName())
             .append(" Budget: ")
-            .append(getBudgetAmount())
-            .append(" Outstanding: ")
-            .append(getOutstandingAmount());
+            .append(getBudgetAmount());
+//            .append(" Outstanding: ")
+//            .append(getOutstandingAmount());
         return builder.toString();
     }
 }

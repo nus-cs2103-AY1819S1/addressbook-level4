@@ -57,15 +57,15 @@ public class TypicalEntries {
             .build();
 
     // Spent: 300 Outstanding: INITIAL BUDGET - 300
-    public static final Set<Entry> TRANSACTION_4_ENTRIES = new LinkedHashSet<>(
+    public static Set<Entry> TRANSACTION_4_ENTRIES = new LinkedHashSet<>(
         Arrays.asList(ENTRY_COMPETITION_1, ENTRY_COACH_2, ENTRY_WELFARE_3, ENTRY_FUND_RAISING_4));
 
     // Spent: 0 Outstanding: INITIAL BUDGET + 100
-    public static final Set<Entry> TRANSACTION_2_ENTRIES = new LinkedHashSet<>(
+    public static Set<Entry> TRANSACTION_2_ENTRIES = new LinkedHashSet<>(
         Arrays.asList(ENTRY_EQUIPMENT_1, ENTRY_PRIZE_2));
 
     // Spent: 0 Outstanding: INITIAL BUDGET
-    public static final Set<Entry> TRANSACTION_EMPTY = new LinkedHashSet<>();
+    public static Set<Entry> TRANSACTION_EMPTY = new LinkedHashSet<>();
 
     private TypicalEntries() {
     } // prevents instantiation

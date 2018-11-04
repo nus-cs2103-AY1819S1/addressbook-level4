@@ -108,7 +108,7 @@ public class AddTransactionCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof AddTransactionCommand)) {
             return false;
         }
 

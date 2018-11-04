@@ -76,14 +76,15 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_UPDATE_SUCCESS = "CCA updated: %1$s";
     public static final String MESSAGE_NOT_UPDATED = "At least one field to be update must be provided.";
     public static final String MESSAGE_NON_EXISTENT_CCA = "The CCA does not exist. Please create the CCA before "
-        + "adding its member";
+        + "adding its member!";
     public static final String MESSAGE_DUPLICATE_CCA = "This CCA already exists in the budget book.";
     public static final String MESSAGE_NO_SPECIFIC_CCA = "There is no CCA specified. Please use " + PREFIX_TAG + "to "
         + "indicate the CCA.";
-    private static final String MESSAGE_INVALID_HEAD_NAME = "There is no such person in the address book to add as "
+    public static final String MESSAGE_INVALID_HEAD_NAME = "There is no such person in the address book to add as "
         + "head";
-    private static final String MESSAGE_INVALID_VICE_HEAD_NAME = "There is no such person in the address book to add "
+    public static final String MESSAGE_INVALID_VICE_HEAD_NAME = "There is no such person in the address book to add "
         + "as vice-head";
+    public static final String MESSAGE_INVALID_ENTRY_NUM = "The Entry Number entered is an invalid one.";
 
     private final CcaName cca;
     private final EditCcaDescriptor editCcaDescriptor;
@@ -120,16 +121,19 @@ public class UpdateCommand extends Command {
         Cca ccaToEdit = lastShownList.get(index);
         Cca editedCca = createEditedCca(ccaToEdit, editCcaDescriptor);
 
-        if (!ccaToEdit.isSameCca(editedCca) && model.hasCca(editedCca)) {
-            throw new CommandException(MESSAGE_DUPLICATE_CCA);
-        }
-
         if (!editedCca.getHeadName().equals("-") && !model.hasPerson(editedCca.getHead())) {
             throw new CommandException(MESSAGE_INVALID_HEAD_NAME);
         }
 
         if (!editedCca.getViceHeadName().equals("-") && !model.hasPerson(editedCca.getViceHead())) {
             throw new CommandException(MESSAGE_INVALID_VICE_HEAD_NAME);
+        }
+
+        boolean b1 = ccaToEdit.isSameCca(editedCca);
+        boolean b2 = model.hasCca(editedCca);
+
+        if (!ccaToEdit.isSameCca(editedCca) && model.hasCca(editedCca)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CCA);
         }
 
         editedCca = TransactionMath.updateDetails(editedCca);
@@ -145,7 +149,7 @@ public class UpdateCommand extends Command {
      * Creates and returns a {@code Cca} with the details of {@code ccaToEdit}
      * edited with {@code editCcaDescriptor}.
      */
-    private static Cca createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor) {
+    private static Cca createEditedCca(Cca ccaToEdit, EditCcaDescriptor editCcaDescriptor) throws CommandException {
         assert ccaToEdit != null;
 
         CcaName updatedCcaName = editCcaDescriptor.getCcaName().orElse(ccaToEdit.getName());
@@ -165,28 +169,32 @@ public class UpdateCommand extends Command {
             Set<Entry> entrySet = ccaToEdit.getEntries();
             Entry[] currentCcaEntries = entrySet.toArray(new Entry[entrySet.size()]);
             int updatingEntryNum = editCcaDescriptor.getEntryNum().get() - 1;
-            Entry entryToEdit = currentCcaEntries[updatingEntryNum];
+            try {
+                Entry entryToEdit = currentCcaEntries[updatingEntryNum];
 
-            if (editCcaDescriptor.getDate().isPresent()) {
-                entryToEdit.updateDate(editCcaDescriptor.getDate());
-            }
-
-            if (editCcaDescriptor.getAmount().isPresent()) {
-                entryToEdit.updateAmount(editCcaDescriptor.getAmount());
-            }
-
-            if (editCcaDescriptor.getRemarks().isPresent()) {
-                entryToEdit.updateRemarks(editCcaDescriptor.getRemarks());
-            }
-
-            currentCcaEntries[updatingEntryNum] = entryToEdit;
-
-            int index = 1;
-            for (Entry e: currentCcaEntries) {
-                if (e.getEntryNum() == index) {
-                    updatedTransactions.add(e);
-                    index++;
+                if (editCcaDescriptor.getDate().isPresent()) {
+                    entryToEdit.updateDate(editCcaDescriptor.getDate());
                 }
+
+                if (editCcaDescriptor.getAmount().isPresent()) {
+                    entryToEdit.updateAmount(editCcaDescriptor.getAmount());
+                }
+
+                if (editCcaDescriptor.getRemarks().isPresent()) {
+                    entryToEdit.updateRemarks(editCcaDescriptor.getRemarks());
+                }
+
+                currentCcaEntries[updatingEntryNum] = entryToEdit;
+
+                int index = 1;
+                for (Entry e : currentCcaEntries) {
+                    if (e.getEntryNum() == index) {
+                        updatedTransactions.add(e);
+                        index++;
+                    }
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new CommandException(MESSAGE_INVALID_ENTRY_NUM);
             }
         } else {
             updatedTransactions = ccaToEdit.getEntries();
@@ -204,7 +212,7 @@ public class UpdateCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof UpdateCommand)) {
             return false;
         }
 
@@ -237,7 +245,7 @@ public class UpdateCommand extends Command {
         /**
          * Copy constructor. To copy the values the attributes to be updated.
          */
-        private EditCcaDescriptor(EditCcaDescriptor toCopy) {
+        public EditCcaDescriptor(EditCcaDescriptor toCopy) {
             setCcaName(toCopy.name);
             setHead(toCopy.head);
             setViceHead(toCopy.viceHead);
@@ -347,7 +355,7 @@ public class UpdateCommand extends Command {
          * A defensive copy of {@code transactions} is used internally.
          */
         public void setTransaction(Set<Entry> transaction) {
-            this.transactions = (transactions != null) ? new LinkedHashSet<>(transaction) : null;
+            this.transactions = (transaction != null) ? new LinkedHashSet<>(transaction) : null;
         }
 
         /**

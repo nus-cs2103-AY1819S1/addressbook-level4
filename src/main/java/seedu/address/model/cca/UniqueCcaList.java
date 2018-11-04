@@ -38,7 +38,7 @@ public class UniqueCcaList implements Iterable<Cca> {
     public boolean contains(String ccaName) {
         requireNonNull(ccaName);
         Cca toCheck = new Cca(ccaName);
-        return internalCcaList.stream().anyMatch(toCheck::isSameCca);
+        return internalCcaList.stream().anyMatch(toCheck::isSameCcaName);
     }
 
 
@@ -71,7 +71,7 @@ public class UniqueCcaList implements Iterable<Cca> {
             throw new CcaNotFoundException();
         }
 
-        if (!target.isSameCca(editedCca) && contains(editedCca)) {
+        if (!target.isSameCcaName(editedCca) && contains(editedCca)) {
             throw new DuplicateCcaException();
         }
 
@@ -122,7 +122,7 @@ public class UniqueCcaList implements Iterable<Cca> {
     private boolean ccasAreUnique(List<Cca> ccas) {
         for (int i = 0; i < ccas.size() - 1; i++) {
             for (int j = i + 1; j < ccas.size(); j++) {
-                if (ccas.get(i).isSameCca(ccas.get(j))) {
+                if (ccas.get(i).isSameCcaName(ccas.get(j))) {
                     return false;
                 }
             }

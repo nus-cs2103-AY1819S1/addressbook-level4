@@ -11,18 +11,27 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalEntries.ENTRY_COMPETITION_1;
+import static seedu.address.testutil.TypicalEntries.ENTRY_EQUIPMENT_1;
+import static seedu.address.testutil.TypicalEntries.TRANSACTION_2_ENTRIES;
+import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.BudgetBook;
 import seedu.address.model.Model;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Entry;
+import seedu.address.testutil.EditCcaDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -53,17 +62,28 @@ public class CommandTestUtil {
     public static final String VALID_CONTENT_BOB = "Dear Amy<br /><br />See you tomorrow!<br /><br />Bob";
     public static final String VALID_SUBJECT_AMY = "Meeting Tomorrow";
     public static final String VALID_SUBJECT_BOB = "Conference Tomorrow";
+
     public static final String VALID_CCA_NAME_BASKETBALL = "Basketball";
     public static final String VALID_CCA_NAME_BADMINTON = "BADMINTON";
     public static final String VALID_CCA_NAME_TRACK = "track";
     public static final String VALID_CCA_NAME_FLOORBALL = "FLOORBALL M";
     public static final String VALID_CCA_NAME_HOCKEY = "hockey f";
-    public static final String VALID_BUDGET = "700";
+    public static final String VALID_BUDGET_BASKETBALL = "700";
+    public static final String VALID_SPENT_BASKETBALL = "200";
+    public static final String VALID_OUTSTANDING_BASKETBALL = "500";
+    public static final Entry VALID_TRANSACTION_BASKETBALL = ENTRY_COMPETITION_1;
+    public static final String VALID_BUDGET_TRACK = "300";
+    public static final String VALID_SPENT_TRACK = "100";
+    public static final String VALID_OUTSTANDING_TRACK = "200";
+    public static final Entry VALID_TRANSACTION_TRACK = ENTRY_EQUIPMENT_1;
+    public static final String VALID_BUDGET_DEFAULT = "900";
+    public static final String VALID_SPENT_DEFAULT = "700";
+    public static final String VALID_OUTSTANDING_DEFAULT = "200";
+    public static final Entry VALID_TRANSACTION_DEFAULT = ENTRY_EQUIPMENT_1;
     public static final String VALID_ENTRY_NUM = "1";
     public static final String VALID_DATE = "12.12.2018";
     public static final String VALID_AMOUNT = "-100";
     public static final String VALID_REMARKS = "Purchase of Equipment";
-
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -103,6 +123,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final UpdateCommand.EditCcaDescriptor DESC_BASKETBALL;
+    public static final UpdateCommand.EditCcaDescriptor DESC_TRACK;
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withRoom(VALID_ROOM_AMY)
@@ -110,6 +133,25 @@ public class CommandTestUtil {
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withRoom(VALID_ROOM_BOB)
                 .withSchool(VALID_SCHOOL_BOB).withTags(VALID_TAG_BOB).build();
+    }
+
+    static {
+        DESC_BASKETBALL = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .withHead(VALID_NAME_BOB)
+            .withViceHead(VALID_NAME_AMY)
+            .withBudget(VALID_BUDGET_BASKETBALL)
+            .withSpent(VALID_SPENT_BASKETBALL)
+            .withOustanding(VALID_OUTSTANDING_BASKETBALL)
+            .withEntries(VALID_TRANSACTION_BASKETBALL).build();
+        DESC_TRACK = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_TRACK)
+            .withHead(VALID_NAME_AMY)
+            .withViceHead(VALID_NAME_BOB)
+            .withBudget(VALID_BUDGET_TRACK)
+            .withSpent(VALID_SPENT_TRACK)
+            .withOustanding(VALID_OUTSTANDING_TRACK)
+            .withEntries(VALID_TRANSACTION_TRACK).build();
     }
 
     /**
@@ -145,6 +187,9 @@ public class CommandTestUtil {
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
         List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
+        BudgetBook expectedBudgetBook = new BudgetBook(actualModel.getBudgetBook());
+        List<Cca> ccaList = new ArrayList<>(actualModel.getFilteredCcaList());
+
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
@@ -153,7 +198,9 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
+            assertEquals(expectedBudgetBook, actualModel.getBudgetBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(ccaList, actualModel.getFilteredCcaList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

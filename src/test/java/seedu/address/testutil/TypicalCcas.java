@@ -19,18 +19,19 @@ public class TypicalCcas {
     public static final Cca BASKETBALL =
         new CcaBuilder()
             .withCcaName("BASKETBALL")
-            .withHead("Steven Lim")
-            .withViceHead("Benson")
-            .withBudget(500)
+            .withHead("Carl Kurz")
+            .withViceHead("Daniel Meier")
+            .withBudget(300)
             .withSpent(0)
             .withOutstanding(0)
+            .withTransaction(TRANSACTION_2_ENTRIES)
             .build();
 
     public static final Cca TRACK =
         new CcaBuilder()
             .withCcaName("track")
-            .withHead("Alice")
-            .withViceHead("Grace")
+            .withHead("Alice Pauline")
+            .withViceHead("Benson Meier")
             .withBudget(500)
             .withSpent(300)
             .withOutstanding(200)
@@ -38,9 +39,9 @@ public class TypicalCcas {
             .build();
     public static final Cca BADMINTON =
         new CcaBuilder()
-            .withCcaName("badminton")
-            .withHead("BENSON")
-            .withViceHead("Carls")
+            .withCcaName("BADMINTON")
+            .withHead("Fiona Kunz")
+            .withViceHead("George Best")
             .withBudget(500)
             .withSpent(0)
             .withOutstanding(600)
@@ -51,12 +52,22 @@ public class TypicalCcas {
             .withCcaName("FLOORBALL")
             .withHead("-")
             .withViceHead("-")
-            .withBudget(500)
+            .withBudget(600)
             .withSpent(0)
             .withOutstanding(0)
             .withTransaction(TRANSACTION_EMPTY)
             .build();
 
+    // Manually added Cca
+    public static final Cca HOCKEY = new CcaBuilder()
+        .withCcaName("Hockey")
+        .withBudget(400)
+        .build();
+    public static final Cca SOFTBALL = new CcaBuilder()
+        .withCcaName("softball")
+        .withBudget(450)
+        .withHead("Bob")
+        .build();
 
     private TypicalCcas() {} // prevents instantiation
 

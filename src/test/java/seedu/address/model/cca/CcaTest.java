@@ -2,7 +2,7 @@ package seedu.address.model.cca;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BADMINTON;
 import static seedu.address.testutil.TypicalCcas.BADMINTON;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
@@ -40,58 +40,58 @@ public class CcaTest {
     @Test
     public void isSameCca() {
         // same object -> returns true
-        assertTrue(BASKETBALL.isSameCca(BASKETBALL));
+        assertTrue(BASKETBALL.isSameCcaName(BASKETBALL));
 
         // null -> returns false
-        assertFalse(BASKETBALL.isSameCca(null));
+        assertFalse(BASKETBALL.isSameCcaName(null));
 
         // different Cca object -> false
-        assertFalse(BASKETBALL.isSameCca(TRACK));
+        assertFalse(BASKETBALL.isSameCcaName(TRACK));
 
         // different budget -> returns true
         Cca editedBadminton = new CcaBuilder(BADMINTON)
             .withBudget(700)
             .build();
-        assertTrue(BADMINTON.isSameCca(editedBadminton));
+        assertTrue(BADMINTON.isSameCcaName(editedBadminton));
 
         // different head and vice head -> return true
         Cca editedTrack = new CcaBuilder(TRACK)
             .withHead("Alice")
             .withViceHead("Bob")
             .build();
-        assertTrue(TRACK.isSameCca(editedTrack));
+        assertTrue(TRACK.isSameCcaName(editedTrack));
 
         // different spent and outstanding -> return true
         Cca editedBasketball = new CcaBuilder(BASKETBALL)
             .withSpent(300)
             .withOutstanding(200)
             .build();
-        assertTrue(BASKETBALL.isSameCca(editedBasketball));
+        assertTrue(BASKETBALL.isSameCcaName(editedBasketball));
 
         // different name -> returns false
         Cca editedFloorball = new CcaBuilder(FLOORBALL)
             .withCcaName("FLOORBALL M")
             .build();
-        assertFalse(FLOORBALL.isSameCca(editedFloorball));
+        assertFalse(FLOORBALL.isSameCcaName(editedFloorball));
 
         // same name, different transactions -> returns true
         editedBadminton = new CcaBuilder(BADMINTON)
             .withBudget(700)
             .withTransaction(TRANSACTION_EMPTY)
             .build();
-        assertTrue(BADMINTON.isSameCca(editedBadminton));
+        assertTrue(BADMINTON.isSameCcaName(editedBadminton));
 
         // same name, same budget, different transaction -> returns true
         editedBasketball = new CcaBuilder(BASKETBALL)
             .withTransaction(TRANSACTION_2_ENTRIES)
             .build();
-        assertTrue(BASKETBALL.isSameCca(editedBasketball));
+        assertTrue(BASKETBALL.isSameCcaName(editedBasketball));
 
         // same name, same budget, no head, no vice head, different transaction -> return true
         editedFloorball = new CcaBuilder(FLOORBALL)
             .withTransaction(TRANSACTION_2_ENTRIES)
             .build();
-        assertTrue(FLOORBALL.isSameCca(editedFloorball));
+        assertTrue(FLOORBALL.isSameCcaName(editedFloorball));
     }
 
     @Test
@@ -120,7 +120,7 @@ public class CcaTest {
 
         // different budget -> returns false
         Cca editedBadminton = new CcaBuilder(BADMINTON)
-            .withBudget(Integer.valueOf(VALID_BUDGET))
+            .withBudget(Integer.valueOf(VALID_BUDGET_BASKETBALL))
             .build();
         assertFalse(BADMINTON.equals(editedBadminton));
 
@@ -138,7 +138,7 @@ public class CcaTest {
 
         // different budget -> return false
         editedTrack = new CcaBuilder(TRACK)
-            .withBudget(Integer.valueOf(VALID_BUDGET))
+            .withBudget(Integer.valueOf(VALID_BUDGET_BASKETBALL))
             .build();
         assertFalse(TRACK.equals(editedTrack));
 

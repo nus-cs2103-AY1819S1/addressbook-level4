@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ccabook>
+    <ccas>
+        <name>track</name>
+        <head>Alice</head>
+        <viceHead>Grace</viceHead>
+        <budget>500</budget>
+        <spent>300</spent>
+        <outstanding>200</outstanding>
+        <transaction>
+            <entryNum>1</entryNum>
+            <date>01.02.2018</date>
+            <amount>-100</amount>
+            <log>Competition Fee</log>
+        </transaction>
+        <transaction>
+            <entryNum>2</entryNum>
+            <date>03.04.2018</date>
+            <amount>-300</amount>
+            <log>Coaching Fee</log>
+        </transaction>
+        <transaction>
+            <entryNum>3</entryNum>
+            <date>30.12.2018</date>
+            <amount>-50</amount>
+            <log>Welfare</log>
+        </transaction>
+        <transaction>
+            <entryNum>4</entryNum>
+            <date>13.06.2018</date>
+            <amount>150</amount>
+            <log>Fund Raising</log>
+        </transaction>
+    </ccas>
+    <ccas>
+        <name>Badminton</name>
+        <head>BENSON</head>
+        <viceHead>Carls</viceHead>
+        <budget>500</budget>
+        <spent>0</spent>
+        <outstanding>600</outstanding>
+        <transaction>
+            <entryNum>1</entryNum>
+            <date>14.03.2018</date>
+            <amount>-200</amount>
+            <log>Purchase of Equipment</log>
+        </transaction>
+        <transaction>
+            <entryNum>2</entryNum>
+            <date>03.11.2018</date>
+            <amount>300</amount>
+            <log>Prize Money from Competition</log>
+        </transaction>
+    </ccas>
+    <ccas>
+        <name>BASKETBALL</name>
+        <head>Steven Lim</head>
+        <viceHead>Benson</viceHead>
+        <budget>500</budget>
+        <spent>0</spent>
+        <outstanding>0</outstanding>
+    </ccas>
+</ccabook>

@@ -82,10 +82,32 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new BudgetBook(), new UserPrefs(), new HashSet<>());
     }
 
+    /**
+     * Constructor used for testing Address Book Commands.
+     *
+     * @param addressBook the address book with the typical {@code Person}
+     * @param userPrefs the user preference
+     */
     public ModelManager(AddressBook addressBook, UserPrefs userPrefs) {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         versionedBudgetBook = new VersionedBudgetBook(new BudgetBook());
+        filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
+        emailModel = new EmailModel();
+        this.userPrefs = userPrefs;
+        this.calendarModel = new CalendarModel(userPrefs.getExistingCalendar());
+    }
+
+    /**
+     * Constructor used for testing Budget Book Commands.
+     *
+     * @param budgetBook the budget book with the typical {@code Cca}
+     * @param userPrefs the user preference
+     */
+    public ModelManager(BudgetBook budgetBook, UserPrefs userPrefs) {
+        versionedAddressBook = new VersionedAddressBook(new AddressBook());
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        versionedBudgetBook = new VersionedBudgetBook(budgetBook);
         filteredCcas = new FilteredList<>(versionedBudgetBook.getCcaList());
         emailModel = new EmailModel();
         this.userPrefs = userPrefs;
