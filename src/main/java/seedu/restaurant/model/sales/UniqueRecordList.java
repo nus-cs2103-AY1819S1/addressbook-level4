@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -203,6 +204,27 @@ public class UniqueRecordList implements Iterable<SalesRecord> {
         }
 
         return sortedItemRevenue;
+    }
+
+    /**
+     * Returns all dates, each associated with its total revenue for the day, in chronological order.
+     */
+    public Map<Date, Double> getChronologicalSalesData() {
+        Map<Date, Double> salesData = computeDateRevenue();
+        return sortInChronologicalOrder(salesData);
+
+    }
+
+    /**
+     * Sorts the {@code unsortedData} map chronologically by its key. TreeMap is used as the underlying data
+     * structure to maintain natural ordering of dates.
+     */
+    private Map<Date, Double> sortInChronologicalOrder(Map<Date, Double> unsortedData) {
+        Map<Date, Double> sortedData = new TreeMap<>();
+        for (Entry<Date, Double> entry : unsortedData.entrySet()) {
+            sortedData.put(entry.getKey(), entry.getValue());
+        }
+        return sortedData;
     }
 
     @Override
