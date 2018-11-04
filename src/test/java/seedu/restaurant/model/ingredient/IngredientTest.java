@@ -31,6 +31,10 @@ public class IngredientTest {
         Ingredient editedApple = new IngredientBuilder(APPLE).withName("GRANNY SMITH APPLE").build();
         assertTrue(APPLE.isSameIngredient(editedApple));
 
+        // name in different combination of upper and lower case
+        editedApple = new IngredientBuilder(APPLE).withName("GraNNY sMItH aPPle").build();
+        assertTrue(APPLE.isSameIngredient(editedApple));
+
         // name in lower case
         editedApple = new IngredientBuilder(APPLE).withName("granny smith apple").build();
         assertTrue(APPLE.isSameIngredient(editedApple));
