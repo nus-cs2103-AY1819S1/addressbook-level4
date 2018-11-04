@@ -165,6 +165,7 @@ public class UniqueRecordListTest {
         uniqueRecordList.add(new RecordBuilder().withDate("28-08-2018").withQuantitySold("10").withPrice("20").build());
         uniqueRecordList.add(new RecordBuilder().withDate("26-08-2018").withQuantitySold("10").withPrice("10").build());
         Map<Date, Double> actualRanking = uniqueRecordList.rankDateBasedOnRevenue();
+        assertEquals(actualRanking.size(), 3);
 
         List<Date> expectedDateOrder = new ArrayList<>();
         expectedDateOrder.add(new Date("28-08-2018"));
@@ -190,6 +191,7 @@ public class UniqueRecordListTest {
         uniqueRecordList.add(new RecordBuilder().withName("Lasagna").withQuantitySold("10").withPrice("20").build());
         uniqueRecordList.add(new RecordBuilder().withName("Pasta").withQuantitySold("10").withPrice("10").build());
         Map<ItemName, Double> actualRanking = uniqueRecordList.rankItemBasedOnRevenue();
+        assertEquals(actualRanking.size(), 3);
 
         List<ItemName> expectedDateOrder = new ArrayList<>();
         expectedDateOrder.add(new ItemName("Lasagna"));
@@ -217,6 +219,7 @@ public class UniqueRecordListTest {
         uniqueRecordList.add(new RecordBuilder().withDate("03-03-2018").withQuantitySold("40").withPrice("40").build());
         uniqueRecordList.add(new RecordBuilder().withDate("09-09-2018").withQuantitySold("50").withPrice("50").build());
         Map<Date, Double> actualData = uniqueRecordList.getChronologicalSalesData();
+        assertEquals(actualData.size(), 5);
 
         List<Date> expectedDateOrder = new ArrayList<>();
         expectedDateOrder.add(new Date("01-01-2018"));
