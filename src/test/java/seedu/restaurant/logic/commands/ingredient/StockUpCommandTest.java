@@ -66,7 +66,7 @@ public class StockUpCommandTest {
         updatedIngredient = new IngredientBuilder(DUCK).withNumUnits(59).build();
         updatedIngredients.append("\n" + "59 units of " + updatedIngredient.getName());
         expectedModel.updateIngredient(DUCK, updatedIngredient);
-        
+
         updatedIngredient = new IngredientBuilder(CABBAGE).withNumUnits(10).build();
         updatedIngredients.append("\n" + "10 units of " + updatedIngredient.getName());
         expectedModel.updateIngredient(CABBAGE, updatedIngredient);
