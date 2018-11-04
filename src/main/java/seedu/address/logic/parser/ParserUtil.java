@@ -185,6 +185,7 @@ public class ParserUtil {
         return new Tag(trimmedTag);
     }
 
+    //@@author EatOrBeEaten
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
