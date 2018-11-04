@@ -34,7 +34,7 @@ public class AchievementPanelTest extends GuiUnitTest {
     private static final int NEW_XP_BY_WEEK = 2000;
     private static final int NEW_NUM_TASK_BY_WEEK = 80;
 
-    private final AchievementRecord RECORD = new AchievementRecordBuilder()
+    private final AchievementRecord record = new AchievementRecordBuilder()
             .withXpValue(XP)
             .withLevel(LEVEL)
             .withNumTaskCompleted(NUM_TASK)
@@ -44,7 +44,7 @@ public class AchievementPanelTest extends GuiUnitTest {
             .withNumTaskCompletedByWeek(NUM_TASK_BY_WEEK)
             .build();
 
-    private final AchievementRecord NEW_RECORD = new AchievementRecordBuilder()
+    private final AchievementRecord newRecord = new AchievementRecordBuilder()
             .withXpValue(NEW_XP)
             .withLevel(NEW_LEVEL)
             .withNumTaskCompleted(NEW_NUM_TASK)
@@ -54,7 +54,7 @@ public class AchievementPanelTest extends GuiUnitTest {
             .withNumTaskCompletedByWeek(NEW_NUM_TASK_BY_WEEK)
             .build();
 
-    private final String TODAY = "12-10-19";
+    private final String today = "12-10-19";
 
     private AchievementPanelHandle achievementPanelHandle;
 
@@ -80,7 +80,7 @@ public class AchievementPanelTest extends GuiUnitTest {
 
     @Test
     public void display_allTimeAchievements() {
-        postNow(new AchievementsUpdatedEvent(RECORD));
+        postNow(new AchievementsUpdatedEvent(record));
         assertAchievementPanelContent(AchievementPanel.ALL_TIME_TIME_SPAN,
                 String.format(AchievementPanel.CURRENT_TO_MAX_FORMAT, Integer.toString(XP),
                         Integer.toString(LEVEL.getMaxXp())),
@@ -89,7 +89,7 @@ public class AchievementPanelTest extends GuiUnitTest {
 
         // reflect updated achievement record
         // new record has xp above level 5 max xp, xp display format is updated
-        postNow(new AchievementsUpdatedEvent(NEW_RECORD));
+        postNow(new AchievementsUpdatedEvent(newRecord));
         assertAchievementPanelContent(AchievementPanel.ALL_TIME_TIME_SPAN,
                 Integer.toString(NEW_XP),
                 NEW_LEVEL.toString(),
@@ -98,21 +98,21 @@ public class AchievementPanelTest extends GuiUnitTest {
 
     @Test
     public void display_todayAchievements() {
-        AchievementRecord record = new AchievementRecordBuilder(RECORD)
+        AchievementRecord record = new AchievementRecordBuilder(this.record)
                 .withDisplayOption(AchievementRecord.DISPLAY_TODAY)
                 .build();
         postNow(new AchievementsUpdatedEvent(record));
-        assertAchievementPanelContent(String.format(AchievementPanel.TODAY_TIME_SPAN_FORMAT, TODAY),
+        assertAchievementPanelContent(String.format(AchievementPanel.TODAY_TIME_SPAN_FORMAT, today),
                 Integer.toString(XP_BY_DAY),
                 LEVEL.toString(),
                 Integer.toString(NUM_TASK_BY_DAY));
 
         // reflect updated achievement record
-        AchievementRecord newRecord = new AchievementRecordBuilder(NEW_RECORD)
+        AchievementRecord newRecord = new AchievementRecordBuilder(this.newRecord)
                 .withDisplayOption(AchievementRecord.DISPLAY_TODAY)
                 .build();
         postNow(new AchievementsUpdatedEvent(newRecord));
-        assertAchievementPanelContent(String.format(AchievementPanel.TODAY_TIME_SPAN_FORMAT, TODAY),
+        assertAchievementPanelContent(String.format(AchievementPanel.TODAY_TIME_SPAN_FORMAT, today),
                 Integer.toString(NEW_XP_BY_DAY),
                 NEW_LEVEL.toString(),
                 Integer.toString(NEW_NUM_TASK_BY_DAY));
@@ -120,21 +120,21 @@ public class AchievementPanelTest extends GuiUnitTest {
 
     @Test
     public void display_thisWeekAchievements() {
-        AchievementRecord record = new AchievementRecordBuilder(RECORD)
+        AchievementRecord record = new AchievementRecordBuilder(this.record)
                 .withDisplayOption(AchievementRecord.DISPLAY_THIS_WEEK)
                 .build();
         postNow(new AchievementsUpdatedEvent(record));
-        assertAchievementPanelContent(String.format(AchievementPanel.THIS_WEEK_TIME_SPAN_FORMAT, TODAY),
+        assertAchievementPanelContent(String.format(AchievementPanel.THIS_WEEK_TIME_SPAN_FORMAT, today),
                 Integer.toString(XP_BY_WEEK),
                 LEVEL.toString(),
                 Integer.toString(NUM_TASK_BY_WEEK));
 
         // reflect updated achievement record
-        AchievementRecord newRecord = new AchievementRecordBuilder(NEW_RECORD)
+        AchievementRecord newRecord = new AchievementRecordBuilder(this.newRecord)
                 .withDisplayOption(AchievementRecord.DISPLAY_THIS_WEEK)
                 .build();
         postNow(new AchievementsUpdatedEvent(newRecord));
-        assertAchievementPanelContent(String.format(AchievementPanel.THIS_WEEK_TIME_SPAN_FORMAT, TODAY),
+        assertAchievementPanelContent(String.format(AchievementPanel.THIS_WEEK_TIME_SPAN_FORMAT, today),
                 Integer.toString(NEW_XP_BY_WEEK),
                 NEW_LEVEL.toString(),
                 Integer.toString(NEW_NUM_TASK_BY_WEEK));

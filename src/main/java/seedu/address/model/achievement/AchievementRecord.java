@@ -218,6 +218,10 @@ public class AchievementRecord {
         xpValueByWeek = newData.xpValueByWeek;
     }
 
+    /**
+     * Defensively check that the xp fields matches: today's xp is no greater than this week's xp,
+     * which is no greater than all-time xp.
+     */
     private void checkAchievementFieldsMatch (Xp xp, Level level, int numTaskCompleted, Calendar nextDayBreakPoint,
                                               int numTaskCompletedByDay, int xpValueByDay, Calendar nextWeekBreakPoint,
                                               int numTaskCompletedByWeek, int xpValueByWeek) {
@@ -227,6 +231,10 @@ public class AchievementRecord {
         checkNumTaskCompletedMatch(numTaskCompleted, numTaskCompletedByDay, numTaskCompletedByWeek);
     }
 
+    /**
+     * Defensively check that the numTaskCompleted fields matches: today's numTaskCompleted is no greater than this
+     * week's numTaskCompleted, which is no greater than all-time numTaskCompleted.
+     */
     private void checkAchievementFieldsMatch (AchievementRecord record) {
         checkXpAndLevelMatch(record.xp.getXp(), record.level);
         checkBreakPointsMatch(record.nextDayBreakPoint, record.nextWeekBreakPoint);

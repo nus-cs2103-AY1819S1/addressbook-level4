@@ -38,24 +38,6 @@ public class XmlAchievementRecordBuilder {
         this.xpValueByWeek = "0";
     }
 
-//    /**
-//     * Initializes the {@code XmlAchievementRecordBuilder} with the data of {@code newData}.
-//     */
-//    public XmlAchievementRecordBuilder(XmlAdaptedAchievementRecord newData) {
-//        requireNonNull(newData);
-//
-//        displayOption = newData.getDisplayOption();
-//        xp = newData.getXp();
-//        level = newData.getLevel();
-//        numTaskCompleted = newData.getNumTaskCompleted();
-//        nextDayBreakPoint = newData.getNextDayBreakPoint();
-//        numTaskCompletedByDay = newData.getNumTaskCompletedByDay();
-//        xpValueByDay = newData.getXpValueByDay();
-//        nextWeekBreakPoint = newData.getNextWeekBreakPoint();
-//        numTaskCompletedByWeek = newData.getNumTaskCompletedByWeek();
-//        xpValueByWeek = newData.getXpValueByWeek();
-//    }
-
     /**
      * Sets the {@code displayOption} of the {@code XmlAdaptedAchievementRecord} that we are building.
      */

@@ -78,7 +78,7 @@ public class AchievementRecordTest {
         // argument is invalid display option
         assertFalse(AchievementRecord.isValidDisplayOption(5));
     }
-    
+
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -91,7 +91,7 @@ public class AchievementRecordTest {
         achievementRecord.resetData(newData);
         assertEquals(newData, achievementRecord);
     }
-    
+
     @Test
     public void resetData_withXpLevelMismatch_throwsXpLevelMismatchException() {
         AchievementRecord newData = new AchievementRecordBuilder().build();
@@ -99,7 +99,7 @@ public class AchievementRecordTest {
         thrown.expect(XpLevelMismatchException.class);
         achievementRecord.resetData(newData);
     }
-    
+
     @Test
     public void resetData_withDateBreakPointsMismatch_throwsDateBreakPointsMismatchException() {
         // new Data has nextWeekBreakPoint before nextDayBreakPoint
@@ -282,7 +282,7 @@ public class AchievementRecordTest {
      * If the current time has passed the {@code nextWeekBreakPoint}, it must have passed the {@code nextDayBreakPoint}
      * as well because {@code nextDayBreakPoint} is restricted to be no later than {@code nextWeekBreakPoint}.
      * Therefore there would not be a case where only the {@code nextWeekBreakPoint} is passed.
-     * 
+     *
      * This test is for the case when {@code nextWeekBreakPoint} is passed, and along with it, {@code nextDayBreakPoint}
      * is passed as well.
      */

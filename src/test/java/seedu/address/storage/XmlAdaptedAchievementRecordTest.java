@@ -265,7 +265,9 @@ public class XmlAdaptedAchievementRecordTest {
         String expectedMessage = String.format(XmlAdaptedAchievementRecord.INVALID_FIELD_MESSAGE_FORMAT,
                 XmlAdaptedAchievementRecord.NUM_TASK_COMPLETED_BY_DAY_FIELD);
 
-        XmlAdaptedAchievementRecord record = new XmlAchievementRecordBuilder().withNumTaskCompletedByDay(NON_INT).build();
+        XmlAdaptedAchievementRecord record = new XmlAchievementRecordBuilder()
+                .withNumTaskCompletedByDay(NON_INT)
+                .build();
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
 
         record = new XmlAchievementRecordBuilder().withNumTaskCompletedByDay(NEGATIVE_INT).build();
@@ -327,7 +329,9 @@ public class XmlAdaptedAchievementRecordTest {
         String expectedMessage = String.format(XmlAdaptedAchievementRecord.INVALID_FIELD_MESSAGE_FORMAT,
                 XmlAdaptedAchievementRecord.NUM_TASK_COMPLETED_BY_WEEK_FIELD);
 
-        XmlAdaptedAchievementRecord record = new XmlAchievementRecordBuilder().withNumTaskCompletedByWeek(NON_INT).build();
+        XmlAdaptedAchievementRecord record = new XmlAchievementRecordBuilder()
+                .withNumTaskCompletedByWeek(NON_INT)
+                .build();
         Assert.assertThrows(IllegalValueException.class, expectedMessage, record::toModelType);
 
         record = new XmlAchievementRecordBuilder().withNumTaskCompletedByWeek(NEGATIVE_INT).build();
