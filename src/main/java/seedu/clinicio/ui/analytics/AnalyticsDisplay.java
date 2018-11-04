@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
@@ -43,7 +44,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
     private Label summaryValueFour;
 
     @FXML
-    private AnchorPane analyticsPane;
+    private ScrollPane analyticsScrollPane;
     @FXML
     private AnchorPane visualizationPane;
     @FXML
@@ -53,7 +54,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     public AnalyticsDisplay() {
         super(FXML);
-        analyticsPane.setVisible(false);
+        analyticsScrollPane.setVisible(false);
         registerAsAnEventHandler(this);
 
         summaryLabels = Arrays.asList(
@@ -72,6 +73,13 @@ public class AnalyticsDisplay extends UiPart<Region> {
         chartPane.setStyle("-fx-background-color: #6593F5");
         Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
         Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
-        analyticsPane.setVisible(true);
+        analyticsScrollPane.setVisible(true);
+    }
+
+    public void setHeight(double newHeight) {
+        System.out.println(newHeight);
+        analyticsScrollPane.setMinViewportHeight(newHeight);
+        analyticsScrollPane.setPrefViewportHeight(newHeight);
+        //analyticsScrollPane.
     }
 }
