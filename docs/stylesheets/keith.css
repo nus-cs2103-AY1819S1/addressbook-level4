@@ -63,7 +63,7 @@ summary {
 #toctitle {
 	color: var(--secondarycolor) !important;
 	font-size: 26px;
-	text-align: center;
+	text-align: left;
 }
 
 #toc a {

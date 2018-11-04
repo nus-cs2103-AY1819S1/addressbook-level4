@@ -323,6 +323,8 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
+This section describes how the Undo/Redo feature is implemented for the car park finder.
+
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedCarparkFinder`.
@@ -371,7 +373,7 @@ image::UndoRedoActivityDiagramNew4.png[width="800"]
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following *_sequence diagram_* shows how the undo operation works:
+The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram of Undo/Redo feature
 image::Sequence Diagram - Undo.png[width="800"]
