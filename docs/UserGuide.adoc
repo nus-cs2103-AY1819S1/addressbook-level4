@@ -119,6 +119,11 @@ Use this command to schedule tasks that you carry out regularly.
 [WARNING]
 The maximum number fo repetitions is 15.
 
+[CAUTION]
+Due to how the Date class was implemented, there is an unintended behavior. Any task whose deadline goes beyond the year 2099
+will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
+1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
+
 === Listing All Tasks
 
 Lists all tasks in the schedule planner. +
