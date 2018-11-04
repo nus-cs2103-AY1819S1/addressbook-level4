@@ -311,7 +311,7 @@ Example:
 
 * `list`
 +
-image::list.PNG[width="790"]
+image::list.png[width="790"]
 +
 `compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday
 content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe` +
@@ -339,7 +339,7 @@ Example:
 
 * `list`
 +
-image::list.PNG[width="790"]
+image::list.png[width="790"]
 +
 `compose_email_list from/johndoe@example.com subject/Meeting this Friday
 content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe` +
@@ -347,7 +347,7 @@ Composes an email from `johndoe@example.com` to currently listed people with sub
 `Meeting this Friday` and email body `Dear All<br><br>There's a meeting this friday.<br><br>John Doe` and saves
 it as a *`.eml`* file.
 +
-image::compose_email_list.PNG[width="790"]
+image::compose_email_list.png[width="790"]
 
 ==== Deleting an email : `delete_email`
 
