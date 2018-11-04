@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -50,7 +52,7 @@ public class BrowserPanel extends UiPart<Region> {
             + "&phone=" + person.getPhone().value
             + "&email=" + person.getEmail().value
             + "&salary=" + person.getSalary().value
-            + "&address=" + person.getAddress().value
+            + "&address=" + encodeURIComponent(person.getAddress().value)
             + "&username=" + person.getUsername().username;
         loadPage(SEARCH_PAGE_URL + queryString);
     }
@@ -78,5 +80,35 @@ public class BrowserPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonPage(event.getNewSelection());
+    }
+
+
+    /**
+     * https://stackoverflow.com/questions/607176/
+     * Encodes the passed String as UTF-8 using an algorithm that's compatible
+     * with JavaScript's <code>encodeURIComponent</code> function. Returns
+     * <code>null</code> if the String is <code>null</code>.
+     *
+     * @param s The String to be encoded
+     * @return the encoded String
+     */
+    public static String encodeURIComponent(String s) {
+        String result = null;
+
+        try {
+            result = URLEncoder.encode(s, "UTF-8")
+                .replaceAll("\\+", "%20")
+                .replaceAll("\\%21", "!")
+                .replaceAll("\\%27", "'")
+                .replaceAll("\\%28", "(")
+                .replaceAll("\\%29", ")")
+                .replaceAll("\\%7E", "~");
+        }
+        // This exception should never occur.
+        catch (UnsupportedEncodingException e) {
+            assert false;
+        }
+
+        return result;
     }
 }
