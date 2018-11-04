@@ -459,8 +459,8 @@ Format: `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER`
 
 Examples:
 
-* `delete_cca c/netball trans/1`
-* `delete_cca c/Basketball F trans/3`
+* `delete_trans c/netball trans/1`
+* `delete_trans c/Basketball F trans/3`
 
 ==== Updating a cca : `update`
 
