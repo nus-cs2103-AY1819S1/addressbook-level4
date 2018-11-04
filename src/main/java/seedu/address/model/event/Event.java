@@ -33,7 +33,7 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
-    private final Name name;
+    private final String name;
 
     // Data fields
     private final Address location;
@@ -51,7 +51,7 @@ public class Event {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Address address, Set<Tag> tags) {
+    public Event(String name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
         this.location = address;
@@ -60,7 +60,7 @@ public class Event {
         personList = new UniquePersonList();
     }
 
-    public Name getName() {
+    public String getName() {
         return name;
     }
 
@@ -139,9 +139,10 @@ public class Event {
 
     /**
      * Sets the start and end time.
+     * Throws an IllegalArgumentException if the start time is not after the end time.
      */
     public void setTime(LocalTime startTime, LocalTime endTime) throws IllegalArgumentException {
-        if (endTime.isBefore(startTime)) {
+        if (!startTime.isBefore(endTime)) {
             throw new IllegalArgumentException();
         }
         this.startTime = startTime;
@@ -254,13 +255,6 @@ public class Event {
         AbstractPoll poll = polls.get(index);
         poll.addVote(option, person);
         return poll;
-    }
-
-    /**
-     * Displays the poll at the given index.
-     */
-    public String displayPoll(Index pollIndex) {
-        return polls.get(pollIndex.getZeroBased()).displayPoll();
     }
 
     /**
