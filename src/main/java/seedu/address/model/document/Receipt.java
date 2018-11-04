@@ -32,6 +32,7 @@ public class Receipt extends Document {
         this.allocatedMedicine = servedPatient.getMedicineAllocated();
         servicesRendered = new ArrayList<>();
         servicesRendered.add(Service.CONSULTATION);
+
     }
 
     public float getTotalPrice() {
