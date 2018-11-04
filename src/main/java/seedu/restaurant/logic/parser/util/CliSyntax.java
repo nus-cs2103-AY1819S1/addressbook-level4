@@ -40,5 +40,5 @@ public class CliSyntax {
     /*Prefix definitions for reservation management */
     public static final Prefix PREFIX_PAX = new Prefix("px/");
     public static final Prefix PREFIX_DATETIME = new Prefix("dt/");
-    public static final Prefix PREFIX_TIME = new Prefix("t/");
+    public static final Prefix PREFIX_TIME = new Prefix("ti/");
 }
