@@ -313,7 +313,7 @@ The `UniqueGroupList`,
 * exposes an unmodifiable `ObservableList<Group>` for observation of the list.
 
 [NOTE]
-Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
+Both `UniqueGroupList`, `UniquePersonList` and `UniqueMeetingList` implements `Iterable` interface.
 // end::uniqueGroupList[]
 
 // tag::addgroup/deletegroup[]
