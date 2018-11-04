@@ -103,4 +103,33 @@ public class ParserUtil {
             throw new ParseException(ex.getMessage());
         }
     }
+
+    /**
+     * Parse a {@code String seekTime} into a {@code Duration}.
+     * Leading and trailing whitespace will be trimmed.
+     *
+     * @throws ParseException if the given {@code time} is invalid.
+     * Possible exception messages:
+     * Wrong time format, TIME is in the format of [[h ]m ]s each of which represents
+     * a unit of time that will be summed up to get the time point.
+     */
+    public static double parseTime(String timeString) throws ParseException {
+        requireNonNull(timeString);
+        String trimmedTimeString = timeString.trim();
+        double timeInSeconds = 0;
+        int countIndex = 0;
+        int currentValue;
+        while (!trimmedTimeString.isEmpty() && countIndex < 3) {
+            int indexOfFirstWhitespace = trimmedTimeString.indexOf(" ");
+            String stringBehindWhitespace = trimmedTimeString.substring(indexOfFirstWhitespace + 1);
+
+            timeInSeconds *= 60;
+            String stringBeforeWhitespace = trimmedTimeString.substring(0, indexOfFirstWhitespace);
+            currentValue = Integer.parseInt(stringBeforeWhitespace);
+            timeInSeconds += currentValue;
+            countIndex++;
+            trimmedTimeString = stringBehindWhitespace;
+        }
+        return timeInSeconds * 1000;
+    }
 }

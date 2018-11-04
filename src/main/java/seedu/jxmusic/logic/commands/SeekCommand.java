@@ -3,7 +3,6 @@ package seedu.jxmusic.logic.commands;
 import javafx.util.Duration;
 
 import seedu.jxmusic.model.Model;
-import seedu.jxmusic.player.PlayerManager;
 
 /**
  * Seeks the player to a new playback time.
@@ -12,21 +11,27 @@ import seedu.jxmusic.player.PlayerManager;
 public class SeekCommand extends Command {
 
     public static final String COMMAND_PHRASE = "seek";
-    //should we change it to ake this can display the time? but if yes, we need to abort the static while i am not sure
-    //of the effect of static
-    public static final String MESSAGE_SUCCESS = "seek the player to time required";
+
+    public static final String MESSAGE_USAGE = COMMAND_PHRASE + ": seek the playpoint to the specified time point.\n"
+            + "Parameters: ti/TIME"
+            + "TIME is in the format of  in the format of [[h ]m ]s each of which "
+            + "represents a unit of time that will be summed up to get the time point.\n";
+
+    public static final String MESSAGE_SUCCESS = "seek the player to time required:";
+
+
 
     //time that is required to seek to
     private Duration time;
 
-    public SeekCommand(double milliseconds) {
-        this.time = new Duration(milliseconds);
+    public SeekCommand(Duration seekTime) {
+        this.time = seekTime;
     }
 
 
     @Override
     public CommandResult execute(Model model) {
-        PlayerManager.getInstance().seek(time);
+        player.seek(time);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
