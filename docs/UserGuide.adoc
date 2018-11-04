@@ -121,14 +121,16 @@ Examples:
 Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97947435`, email `clintonlaw@cs2103t.com` and address of `Tembusu College` to CLInic's patient database, as shown below.
 
 .After executing the `add` command specified above.
-image::AddEx1.png[height="200"]
+image::AddEx1.png[height="350"]
 
 
 * `a n/Kang Tze ic/S9612345L p/97931111 e/kangtze@cs2103t.com a/Eusoff Hall` +
 Adds a patient named `Kang Tze`, with IC number `S9612345L`, phone number `97931111`, email `kangtze@cs2103t.com` and address of `Eusoff Hall` to CLInic's patient database, as shown below.
 
 .After executing the `add` command specified above  via its alias `a` *and* left clicking `Kang Tze's` patient card in the patient list on the right, indicated by the black cursor.
-image::AddEx2.png[width="200"][height="100"]
+image::AddEx2.png[height="400"]
+image::AddEx2.png[height="450"]
+image::AddEx2.png[width="650"]
 
 ==== Editing a patient: `edit`
 Uhoh! Made a mistake keying in a patient's particulars? Or perhaps a patient just recently changed his handphone number or email? +
