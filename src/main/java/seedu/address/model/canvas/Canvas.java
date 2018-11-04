@@ -19,6 +19,7 @@ public class Canvas {
     private String backgroundColor = "none";
     private ArrayList<Layer> layers = new ArrayList<>();
     private Layer currentLayer;
+    private Index currentLayerIndex;
     private Boolean isCanvasAuto;
     private int height;
     private int width;
@@ -34,9 +35,10 @@ public class Canvas {
      */
     public Canvas(PreviewImage initial) {
         height = initial.getImage().getHeight();
-        width = initial.getImage().getHeight();
+        width = initial.getImage().getWidth();
         addLayer(initial);
-        currentLayer = layers.get(0);
+        currentLayerIndex = Index.fromZeroBased(0);
+        currentLayer = layers.get(currentLayerIndex.getZeroBased());
         isCanvasAuto = false;
     }
 
@@ -59,7 +61,8 @@ public class Canvas {
     }
 
     public void setCurrentLayer(Index i) {
-        currentLayer = layers.get(i.getOneBased());
+        currentLayerIndex = i;
+        currentLayer = layers.get(currentLayerIndex.getZeroBased());
     }
 
     /**
@@ -67,11 +70,18 @@ public class Canvas {
      * @param i
      */
 
-    public void removeLayer(Index i) {
+    public Index removeLayer(Index i) throws IllegalOperationException {
         if (layers.size() <= 1) {
-            new IllegalOperationException("You cannot remove the only layer in a canvas!");
+            throw new IllegalOperationException("You cannot remove the only layer in a canvas!");
+        }
+        if (i.getZeroBased() == currentLayerIndex.getZeroBased()) {
+            throw new IllegalOperationException("You cannot remove the layer you're currently working on!");
         }
         layers.remove(i.getZeroBased());
+        if (i.getZeroBased() < currentLayerIndex.getZeroBased()) {
+            currentLayerIndex = Index.fromZeroBased(currentLayerIndex.getZeroBased() - 1);
+        }
+        return currentLayerIndex;
     }
 
 
@@ -82,9 +92,9 @@ public class Canvas {
      * @param to A zero-based index within bounds
      * @param from A zero-based index within bounds
      */
-    public void swapLayer(int to, int from) throws IllegalOperationException {
-        if (!layers.get(to).isLocked() && !layers.get(from).isLocked()) {
-            Collections.swap(layers, to, from);
+    public void swapLayer(Index to, Index from) throws IllegalOperationException {
+        if (!layers.get(to.getZeroBased()).isLocked() && !layers.get(from.getZeroBased()).isLocked()) {
+            Collections.swap(layers, to.getZeroBased(), from.getZeroBased());
         } else {
             throw new IllegalOperationException("One or more layers are locked!");
         }

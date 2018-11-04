@@ -17,10 +17,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.AllTransformationEvent;
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
-import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
@@ -260,11 +260,12 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author lancelotwillow
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
-        getCurrentPreviewImage().addTransformation(transformation);
-        getCurrentPreviewImage().commit(image);
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(
-                        SwingFXUtils.toFXImage(getCurrentPreviewImage().getImage(), null), "preview"));
+        try {
+            getCanvas().getCurrentLayer().addTransformation(transformation);
+            getCanvas().getCurrentLayer().getImage().commit(image);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
     }
 
     @Override
@@ -315,7 +316,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    public void removeLayer(Index i) {
+    public void removeLayer(Index i) throws IllegalOperationException {
         canvas.removeLayer(i);
     }
 
