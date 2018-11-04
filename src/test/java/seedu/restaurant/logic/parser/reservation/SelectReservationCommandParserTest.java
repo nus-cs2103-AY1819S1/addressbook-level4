@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.restaurant.logic.commands.reservation.SelectReservationCommand;
 
+//@@author m4dkip
 /**
  * Test scope: similar to {@code DeleteReservationCommandParserTest}.
  * @see DeleteReservationCommandParserTest
