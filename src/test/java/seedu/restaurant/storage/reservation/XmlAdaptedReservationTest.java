@@ -26,7 +26,8 @@ public class XmlAdaptedReservationTest {
 
     private static final String VALID_NAME = BILLY.getName().toString();
     private static final String VALID_PAX = BILLY.getPax().toString();
-    private static final String VALID_DATETIME = BILLY.getDateTime().toString();
+    private static final String VALID_DATE = BILLY.getDate().toString();
+    private static final String VALID_TIME = BILLY.getTime().toString();
     private static final String VALID_REMARK = BILLY.getRemark().toString();
     private static final List<XmlAdaptedTag> VALID_TAGS = BILLY.getTags().stream()
             .map(XmlAdaptedTag::new)
@@ -41,15 +42,15 @@ public class XmlAdaptedReservationTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedReservation reservation =
-                new XmlAdaptedReservation(INVALID_NAME, VALID_PAX, VALID_DATETIME, VALID_REMARK, VALID_TAGS);
+                new XmlAdaptedReservation(INVALID_NAME, VALID_PAX, VALID_DATE, VALID_TIME, VALID_REMARK, VALID_TAGS);
         String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, reservation::toModelType);
     }
 
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedReservation reservation = new XmlAdaptedReservation(null, VALID_PAX, VALID_DATETIME, VALID_REMARK,
-                VALID_TAGS);
+        XmlAdaptedReservation reservation = new XmlAdaptedReservation(null, VALID_PAX, VALID_DATE, VALID_TIME,
+                VALID_REMARK, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, reservation::toModelType);
     }
@@ -57,15 +58,15 @@ public class XmlAdaptedReservationTest {
     @Test
     public void toModelType_invalidPax_throwsIllegalValueException() {
         XmlAdaptedReservation reservation =
-                new XmlAdaptedReservation(VALID_NAME, INVALID_PAX, VALID_DATETIME, VALID_REMARK, VALID_TAGS);
+                new XmlAdaptedReservation(VALID_NAME, INVALID_PAX, VALID_DATE, VALID_TIME, VALID_REMARK, VALID_TAGS);
         String expectedMessage = Pax.MESSAGE_PAX_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, reservation::toModelType);
     }
 
     @Test
     public void toModelType_nullPax_throwsIllegalValueException() {
-        XmlAdaptedReservation reservation = new XmlAdaptedReservation(VALID_NAME, null, VALID_DATETIME, VALID_REMARK,
-                VALID_TAGS);
+        XmlAdaptedReservation reservation = new XmlAdaptedReservation(VALID_NAME, null, VALID_DATE, VALID_TIME,
+                VALID_REMARK, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Pax.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, reservation::toModelType);
     }
@@ -75,7 +76,7 @@ public class XmlAdaptedReservationTest {
         List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
         XmlAdaptedReservation reservation =
-                new XmlAdaptedReservation(VALID_NAME, VALID_PAX, VALID_DATETIME, VALID_REMARK, invalidTags);
+                new XmlAdaptedReservation(VALID_NAME, VALID_PAX, VALID_DATE, VALID_TIME, VALID_REMARK, invalidTags);
         Assert.assertThrows(IllegalValueException.class, reservation::toModelType);
     }
 
