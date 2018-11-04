@@ -138,10 +138,6 @@ public class Password implements Serializable {
         }
     }
 
-    public String getEncodedPassword() {
-        return plaintext;
-    }
-
     /**
      * Checks if this password matches a certain password in plaintext
      * @param plaintext The entered password in plaintext
