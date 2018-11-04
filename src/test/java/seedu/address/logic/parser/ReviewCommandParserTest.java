@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.ReviewCommand;
 
 public class ReviewCommandParserTest {
@@ -16,6 +17,11 @@ public class ReviewCommandParserTest {
     @Test
     public void parse_validArgs_returnsCdCommand() {
         assertParseSuccess(parser, "1", new ReviewCommand(INDEX_FIRST_DECK));
+    }
+
+    @Test
+    public void parse_blankArgs_throwsParseException() {
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE));
     }
 
     @Test
