@@ -20,7 +20,9 @@ public abstract class Command {
      */
     public final CommandResult execute(Model model, CommandHistory history) throws CommandException {
         model.checkOverdue();
-        return executePrimitive(model, history);
+        CommandResult result = executePrimitive(model, history);
+        model.checkOverdue();
+        return result;
     }
 
     /**
