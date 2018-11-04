@@ -16,7 +16,7 @@ This project portfolio documents my contributions towards *MeNUS* for the module
 == Summary of contributions
 Below are my contributions in terms of feature enhancements, project management and documentation:
 
-* *Major enhancement*: Added *commands to monitor a restaurant's ingredient count*
+* *Major enhancement*: Added *commands to keep track of the ingredient availability of a restuarant*
 ** *What it does*:
 *** The `add-ingredient`, `delete-ingredient`, `edit-ingredient` and `list-ingredients` commands allow
 the user to maintain a list of ingredients used by the restaurant.
@@ -26,22 +26,20 @@ user to know which ingredients require stocking up and update the ingredient cou
  made to the ingredient count.
 
 ** *Justification*:
-*** For convenience: Restaurants use a large variety of ingredients on a daily basis. It is difficult to know
-immediately the availability of each ingredient. This feature provides convenience as it reduces the need for
-restaurant managers to manually do stock taking of its restaurant's ingredients.
-*** To prevent food wastage: Restaurants often stock up in fixed quantities of ingredients, without accounting
-for the actual availability in the pantry. During periods of poor business, there may be excessive ingredients in the
- pantry, leading to food wastage if these ingredients are perishable. This feature is important as it provides
- restaurant owners with more information about availability, so they only stock up what is necessary.
+*** For convenience: Restaurants use a large variety of ingredients on a daily basis, making it difficult to know
+immediately the availability of each ingredient. This feature reduces the need for restaurant managers to manually do
+ stock taking of its restaurant's ingredients.
+*** To prevent food wastage: Restaurants often stock up in fixed quantities of ingredients, regardless of the actual
+availability in the pantry. During periods of poor business, there may be excessive ingredients in the
+ pantry, leading to food wastage if these ingredients are perishable. This feature provides restaurant owners with more information about availability, so they only stock up what is necessary.
 
 ** *Highlights*: This enhancement involves adding several new commands to *MeNUS*. It requires understanding of the
-underlying architecture and the components `logic`, `storage` and `model`. In order to maintain good abstraction, it
- is also necessary to provide appropriate model interfaces for integration of the ingredient feature with the menu
- and sales management features. The `stockup-history` and `consumption-history` commands also required picking up
- knowledge about JavaFX and SceneBuilder to create the front-end user interfaces. 
+underlying architecture and the components `logic`, `storage` and `model`. To maintain good abstraction, it
+ is also necessary to implement appropriate model interfaces so as to integrate the ingredient feature with other
+ features eg menu and sales management. The `stockup-history` and
+ `consumption-history` commands also required picking up knowledge about JavaFX and SceneBuilder to create the front-end user interfaces.
 
-* *Minor enhancement*:
-** To be updated.
+* *Minor enhancement*: Enhanced the existing tag feature by adding different colours for different tags
 
 * *Code contributed*:
 ** To be updated.
