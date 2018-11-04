@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showAssignmentAtIndex;
 import static seedu.address.testutil.TypicalAssignment.getTypicalAssignmentList;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ASSIGNMENT;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveList;
 
@@ -40,7 +40,7 @@ public class ListAssignmentCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showAssignmentAtIndex(model, INDEX_FIRST_PERSON);
+        showAssignmentAtIndex(model, INDEX_FIRST_ASSIGNMENT);
         assertCommandSuccess(new ListAssignmentCommand(), model,
                 commandHistory, ListAssignmentCommand.MESSAGE_SUCCESS, expectedModel);
     }

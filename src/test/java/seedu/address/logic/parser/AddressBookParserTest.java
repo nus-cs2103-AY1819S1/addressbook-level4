@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDATES_DESC_BENSON_LEAVE;
 import static seedu.address.logic.commands.CommandTestUtil.LEAVEDESCIPTION_DESC_BENSON_LEAVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERMISSION;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ASSIGNMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -20,6 +21,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteAssignmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -211,6 +213,13 @@ public class AddressBookParserTest {
     public void parseCommand_listAssignment() throws Exception {
         assertTrue(parser.parseCommand(ListAssignmentCommand.COMMAND_WORD) instanceof ListAssignmentCommand);
         assertTrue(parser.parseCommand(ListAssignmentCommand.COMMAND_WORD + " 3") instanceof ListAssignmentCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteAssignment() throws Exception {
+        DeleteAssignmentCommand command = (DeleteAssignmentCommand) parser.parseCommand(
+                DeleteAssignmentCommand.COMMAND_WORD + " " + INDEX_FIRST_ASSIGNMENT.getOneBased());
+        assertEquals(new DeleteAssignmentCommand(INDEX_FIRST_ASSIGNMENT), command);
     }
 
 }
