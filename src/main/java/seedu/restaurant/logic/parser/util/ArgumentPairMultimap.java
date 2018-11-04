@@ -40,13 +40,4 @@ public class ArgumentPairMultimap {
                 || (other instanceof ArgumentPairMultimap
                     && this.argMultimap.equals(((ArgumentPairMultimap) other).argMultimap));
     }
-
-//    /**
-//     * Returns true if this {@code ArgumentPairMultimap} contains the same mappings as another {@code
-//     * ArgumentPairMultimap}.
-//     */
-//    public boolean containsSameMappings(Object other) {
-//        for (HashMap.Entry<String, String> argPair : argMultimap.entrySet()) {
-//    }
-
 }

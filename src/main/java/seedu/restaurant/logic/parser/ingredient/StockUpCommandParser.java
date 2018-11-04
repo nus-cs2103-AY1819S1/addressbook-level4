@@ -42,6 +42,11 @@ public class StockUpCommandParser implements Parser<StockUpCommand> {
         return new StockUpCommand(transformedHashMap);
     }
 
+    /**
+     * Converts a HashMap<String, String> to a HashMap<IngredientName, Integer>.
+     * @param argMultimap
+     * @throws ParseException if any of the ingredient names or number of units are invalid
+     */
     private Map<IngredientName, Integer> transformArgMultimap(ArgumentPairMultimap argMultimap) throws ParseException {
         Map<IngredientName, Integer> newHashMap = new HashMap<>();
         for (HashMap.Entry<String, String> argPair : argMultimap.getArgMultimap().entrySet()) {

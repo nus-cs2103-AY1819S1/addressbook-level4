@@ -1,14 +1,10 @@
 package seedu.restaurant.logic.commands.ingredient;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.restaurant.commons.core.Messages.MESSAGE_INGREDIENT_NAME_NOT_FOUND;
-import static seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.createEditedIngredient;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NUM;
-import static seedu.restaurant.model.Model.PREDICATE_SHOW_ALL_INGREDIENTS;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import seedu.restaurant.commons.core.EventsCenter;
@@ -18,11 +14,8 @@ import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
-import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.EditIngredientDescriptor;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
-import seedu.restaurant.model.ingredient.NumUnits;
 import seedu.restaurant.model.ingredient.exceptions.IngredientNotFoundException;
 
 /**
@@ -69,6 +62,9 @@ public class StockUpCommand extends Command {
         return new CommandResult(String.format(MESSAGE_STOCKUP_INGREDIENT_SUCCESS, ingredientList));
     }
 
+    /**
+     * Returns a string of ingredient names with their corresponding stocked up units.
+     */
     private StringBuilder buildIngredientList() {
         StringBuilder stringBuilder = new StringBuilder();
         for (HashMap.Entry<IngredientName, Integer> argPair : hashMap.entrySet()) {
