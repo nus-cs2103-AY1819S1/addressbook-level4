@@ -1,11 +1,10 @@
 = Keith Fong - Project Portfolio
 :site-section: AboutUs
 :toc: macro
-:toc-title:
 :imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
-:stylesheet: keithstyles.css
+:stylesDir: ../stylesheets
+:stylesheet: keith.css
 
-== Table of Contents
 toc::[]
 
 ---

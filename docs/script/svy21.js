@@ -1,4 +1,4 @@
-var SVY21 = (function(){
+var SVY21 = (function() {
     // Ref: http://www.linz.govt.nz/geodetic/conversion-coordinates/projection-conversions/
     //transverse-mercator-preliminary-computations/index.aspx
 

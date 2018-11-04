@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: default.css
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -443,11 +444,11 @@ image::General new command.png[width="650"]
 === Query feature
 
 The `query` command updates the information of every car park using the latest information provided by
-`data.gov.sg` database.
+_data.gov.sg_ database.
 
 ==== Overview
 
-The mechanism does an API call to the website `data.gov.sg` to obtain car park information in `JSON` format.
+The mechanism does an API call to the website _data.gov.sg_ to obtain car park information in `JSON` format.
 An external library `Gson` is used to parse the data in `GsonUtil`. The data is stored internally as a `CarparkJson` object.
 
 Some notable methods that `GsonUtil` implement are:
@@ -466,8 +467,8 @@ A <<localcopy, local copy>> of the data is saved at the end. Users only need to 
 
 Given below is an example usage scenario of how the query mechanism behaves at each step.
 
-Step 1. The user launches the application but initial car park finder state might not be up-to-date
-with those published on `data.gov.sg`.
+Step 1. The user launches the application, where the initial state of _Car Park Finder_ is not up-to-date
+with the latest data published by _data.gov.sg_.
 
 Step 2. The user executes the `query` command to fetch the latest data. The `query` command calls
 `GsonUtil#fetchCarparkInfo()` which in turn runs `GsonUtil#getCarparkData()` and `GsonUtil#getCarparkAvailability()`.

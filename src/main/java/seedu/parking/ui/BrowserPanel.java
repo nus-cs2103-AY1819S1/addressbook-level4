@@ -23,10 +23,10 @@ import seedu.parking.model.carpark.Carpark;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final String DEFAULT_PAGE =
-            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?isDefault=1";
+    public static final String MAIN_PAGE =
+            "https://cs2103-ay1819s1-t09-4.github.io/main/MainPage.html?isDefault=1";
     public static final String SEARCH_PAGE_URL =
-            "https://cs2103-ay1819s1-t09-4.github.io/main/DummySearchPage.html?";
+            "https://cs2103-ay1819s1-t09-4.github.io/main/MainPage.html?";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -40,8 +40,9 @@ public class BrowserPanel extends UiPart<Region> {
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
+        getRoot().setOnMouseClicked(Event::consume);
 
-        loadDefaultPage();
+        loadPage(MAIN_PAGE);
         registerAsAnEventHandler(this);
     }
 
@@ -72,13 +73,6 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
-     */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE);
-    }
-
-    /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
@@ -94,18 +88,18 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handleListCarparkRequestEvent(ListCarparkRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadDefaultPage();
+        loadPage(MAIN_PAGE);
     }
 
     @Subscribe
     private void handleCarparkFindResultChangedEvent(FindResultChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadCarparkPage(event.getreturnList());
+        loadCarparkPage(event.getReturnList());
     }
 
     @Subscribe
-    private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event)throws Exception {
+    private void handleCarparkFilterResultChangedEvent(FilterResultChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadCarparkPage(event.getreturnList());
+        loadCarparkPage(event.getReturnList());
     }
 }

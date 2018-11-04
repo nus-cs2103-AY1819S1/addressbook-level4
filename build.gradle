@@ -200,7 +200,7 @@ asciidoctor {
 
     attributes = [
         linkcss: true,
-        stylesheet: 'gh-pages.css',
+        //stylesheet: 'gh-pages.css',
         'source-highlighter': 'coderay',
         icons: 'font',
         experimental: true,
@@ -233,15 +233,17 @@ task deployOfflineDocs(type: Copy) {
         include 'stylesheets/*'
         include 'images/*'
         include 'HelpWindow.html'
+        include 'MainPage.html'
     }
 }
 
-task copyDummySearchPage(type: Copy) {
-    from 'docs/DummySearchPage.html'
+task copyMainPage(type: Copy) {
+    from 'docs/MainPage.html'
     into "${buildDir}/docs/html5"
 }
 
-deployOfflineDocs.dependsOn asciidoctor
+copyMainPage.dependsOn asciidoctor
+deployOfflineDocs.dependsOn copyMainPage
 processResources.dependsOn deployOfflineDocs
 
 defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'

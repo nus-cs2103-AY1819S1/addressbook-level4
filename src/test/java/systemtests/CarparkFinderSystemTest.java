@@ -4,7 +4,8 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.parking.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.parking.ui.BrowserPanel.MAIN_PAGE;
+import static seedu.parking.ui.BrowserPanel.SEARCH_PAGE_URL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.parking.ui.testutil.GuiTestAssert.assertListMatching;
@@ -46,7 +47,6 @@ import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
 import seedu.parking.model.carpark.Carpark;
 import seedu.parking.testutil.TypicalCarparks;
-import seedu.parking.ui.BrowserPanel;
 import seedu.parking.ui.CommandBox;
 
 /**
@@ -226,7 +226,7 @@ public abstract class CarparkFinderSystemTest {
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
+            expectedUrl = new URL(SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -254,7 +254,7 @@ public abstract class CarparkFinderSystemTest {
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "jsonArr=" + selectedCardCarparkNumber);
+            expectedUrl = new URL(SEARCH_PAGE_URL + "jsonArr=" + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -279,7 +279,7 @@ public abstract class CarparkFinderSystemTest {
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
+            expectedUrl = new URL(SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -339,7 +339,7 @@ public abstract class CarparkFinderSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCarparkListPanel(), getModel().getFilteredCarparkList());
         try {
-            assertEquals(new URL(DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+            assertEquals(new URL(MAIN_PAGE), getBrowserPanel().getLoadedUrl());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
