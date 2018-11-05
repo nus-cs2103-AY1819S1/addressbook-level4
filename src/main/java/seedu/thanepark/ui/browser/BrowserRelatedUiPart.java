@@ -15,7 +15,7 @@ import seedu.thanepark.ui.UiPart;
 
 /**
  * Abstract class that loads Html pages, handles IOException when page cannot be read, and has ability to queue
- * Javascript calls for running after the page loads completely.
+ * Javascript calls for running after the page loads completely. Right click functionality is disabled by default.
  * Override the webView getter when extending this abstract class.
  */
 public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
@@ -35,12 +35,13 @@ public abstract class BrowserRelatedUiPart<T> extends UiPart<T> {
     }
 
     /**
-     * Initializes the BrowserRelatedUiPart. Enables Javascript and adds a listener to execute queued Javascript
-     * after the page loads completely.
+     * Initializes the BrowserRelatedUiPart. Disables rightclick, enables Javascript and adds a listener to execute
+     * queued Javascript after the page loads completely.
      */
     private void init() {
         WebView webView = getWebView();
         assert(webView != null);
+        webView.setContextMenuEnabled(false);
         webView.getEngine().setJavaScriptEnabled(true);
         webView.getEngine().getLoadWorker().stateProperty().addListener(
             new ChangeListener<Worker.State>() {
