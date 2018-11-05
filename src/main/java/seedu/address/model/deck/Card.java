@@ -20,7 +20,7 @@ public class Card {
         requireAllNonNull(question, answer);
         this.question = question;
         this.answer = answer;
-        performance = Performance.DEFAULT;
+        performance = Performance.NORMAL;
         timesClassified = 0;
     }
 

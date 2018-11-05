@@ -263,6 +263,10 @@ Format: `classify DIFFICULTY`
 The parameter should be one of the strings: {`easy`, `normal`, `hard`}
 ****
 
+****
+* By default, cards are assigned a `normal` difficulty
+****
+
 // tag::sort[]
 === Sort : `sort`
 Sort the current list in lexicographical order.
