@@ -18,13 +18,13 @@ import seedu.address.model.Model;
  */
 
 public class LayerDeleteCommand extends LayerCommand {
-    private static final String TYPE = COMMAND_WORD + " delete";
+    public static final String TYPE = COMMAND_WORD + " delete";
     public static final String MESSAGE_USAGE = "Usage of layer delete: "
             + "\n- " + TYPE + " [INDEX]: " + "Deletes the layer "
             + "\n\tExample: " + TYPE + " 2, deletes the 2nd layer in the canvas.";
 
-    private static final String OUTPUT_SUCCESS = "Layer deleted! Now working on layer %d.";
-    private static final String OUTPUT_FAILURE = "Invalid layer index provided!";
+    public static final String OUTPUT_SUCCESS = "Layer deleted! Now working on layer %d.";
+    public static final String OUTPUT_FAILURE = "Invalid layer index provided!";
 
     private static final Logger logger = LogsCenter.getLogger(LayerDeleteCommand.class);
 
