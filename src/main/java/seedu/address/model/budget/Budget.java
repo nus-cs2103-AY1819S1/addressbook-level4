@@ -22,7 +22,7 @@ public class Budget {
     public static final String MESSAGE_BUDGET_CONSTRAINTS =
         "Cost should only take values in the following format: {digit}.{digit}{digit}";
 
-    public static final String BUDGET_VALIDATION_REGEX = "(\\d+).(\\d)(\\d)";
+    public static final String BUDGET_VALIDATION_REGEX = "(\\d+)\\.(\\d)(\\d)";
 
     protected static final Logger LOGGER = LogsCenter.getLogger(StorageManager.class);
 

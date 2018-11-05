@@ -32,6 +32,7 @@ public class TotalBudgetTest {
         assertFalse(TotalBudget.isValidBudget("")); // empty string
         assertFalse(TotalBudget.isValidBudget(" ")); // spaces only
         assertFalse(TotalBudget.isValidBudget("200")); // number only
+        assertFalse(TotalBudget.isValidBudget("200000000000000000000000000000000")); //Long number
 
         // valid costs
         assertTrue(TotalBudget.isValidBudget("255.00"));
