@@ -350,6 +350,10 @@ Format: +
 
 // tag::mealplanner[]
 === Meal Planner Commands
+
+Meal Planner commands should be used in the Meal Planner context, i.e. after entering the
+`-mealplanner` command to display the Meal Planner
+
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
 * MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
