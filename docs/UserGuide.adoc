@@ -173,6 +173,9 @@ Extended usage of `help` command: `help [more]` or `help [commandWord]`. If prov
 the default summarized help message will be shown.
 Any arguments beyond the 2nd position will be discarded and ignored.
 
+[WARNING]
+Information provided in the short help only shows the rough syntax of commands. For full information,
+do refer to this User Guide.
 
 |===
 a|
