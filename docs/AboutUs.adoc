@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Yu Pei, Henry
 image::yupeihenry.png[width="150", align="left"]
-{empty}[https://github.com/YuPeiHenry[github]] [<<YuPeiHenry#, portfolio>>]
+{empty}[https://github.com/YuPeiHenry[github]] [<<yupeihenry#, portfolio>>]
 
 Role: Team Lead, Code Quality, Deliverables and Deadlines, Integration +
 Responsibilities: UI
