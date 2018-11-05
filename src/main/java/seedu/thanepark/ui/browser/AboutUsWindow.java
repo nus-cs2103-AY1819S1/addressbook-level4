@@ -9,46 +9,44 @@ import seedu.thanepark.commons.core.LogsCenter;
 import seedu.thanepark.commons.util.FilePathToUrl;
 
 /**
- * Controller for a command history window.
+ * Controller for an about us page
  */
-public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
-    private static final Logger logger = LogsCenter.getLogger(HistoryWindow.class);
-    private static final String FXML = "HistoryWindow.fxml";
+public class AboutUsWindow extends BrowserRelatedUiPart<Stage> {
+
+    public static final FilePathToUrl ABOUT_US_FILE_PATH =
+        new FilePathToUrl("/docs/AboutUsWindow.html", false);
+
+    private static final Logger logger = LogsCenter.getLogger(AboutUsWindow.class);
+    private static final String FXML = "AboutUsWindow.fxml";
 
     @FXML
-    private WebView commandHistoryWindow;
+    private WebView aboutUsWindow;
 
     /**
-     * Creates a new HistoryWindow.
+     * Creates a new AboutUsWindow.
+     *
+     * @param root Stage to use as the root of the AboutUsWindow.
      */
-    public HistoryWindow() {
-        this(new Stage());
+    public AboutUsWindow(Stage root) {
+        super(FXML, root);
+
+        loadPage(ABOUT_US_FILE_PATH);
     }
 
     /**
-     * Creates a new HistoryWindow.
-     *
-     * @param root Stage to use as the root of the HistoryWindow.
+     * Creates a new AboutUsWindow.
      */
-    public HistoryWindow(Stage root) {
-        super(FXML, root);
+    public AboutUsWindow() {
+        this(new Stage());
     }
 
     @Override
     protected WebView getWebView() {
-        return commandHistoryWindow;
+        return aboutUsWindow;
     }
 
     /**
-     * Loads the specified reportFilePath, then shows the history window.
-     */
-    public void showWithFilePath(FilePathToUrl reportFilePath) {
-        loadPage(reportFilePath);
-        show();
-    }
-
-    /**
-     * Shows the history window.
+     * Shows the aboutUs window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -66,23 +64,22 @@ public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing command history report.");
+        logger.fine("Showing about us page about the application.");
         getRoot().show();
     }
 
     /**
-     * Returns true if the history window is currently being shown.
+     * Returns true if the aboutUs window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Focuses on the history window.
+     * Focuses on the aboutUs window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
-
 
 }

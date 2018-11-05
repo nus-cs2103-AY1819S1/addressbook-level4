@@ -236,6 +236,7 @@ task deployOfflineDocs(type: Copy) {
         include 'images/ui_screenshots/*'
         include 'HelpWindow.html'
         include 'ShortHelpWindow.html'
+        include 'AboutUsWindow.html'
     }
 }
 

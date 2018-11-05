@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.web.WebView?>
+
+<!-- TODO: set a more appropriate initial size -->
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="About Us" maximized="true">
+  <icons>
+    <Image url="@/images/thanepark_32.png" />
+  </icons>
+  <scene>
+    <Scene>
+      <WebView fx:id="aboutUsWindow" />
+    </Scene>
+  </scene>
+</fx:root>
