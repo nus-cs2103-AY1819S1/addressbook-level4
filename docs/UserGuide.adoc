@@ -187,8 +187,20 @@ Format:
 
 ==== Search for Tasks by Keyword: `find`
 [%hardbreaks]
-Format: `find KEYWORD`
+Finds tasks whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `happiness` will match `Happiness`
+* The order of the keywords does not matter. e.g. `induce happiness` will match `happiness induce`
+* Only the name is searched.
+* Only full words will be matched e.g. `ha` will not match `happiness`
+* Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `attack happiness` will return
+`Attack food`, `Induce happiness`
+****
+
 +Example: `find happiness`
+-Example: `find OVERDUE`
 
 ==== Selecting a person : `select`
 
