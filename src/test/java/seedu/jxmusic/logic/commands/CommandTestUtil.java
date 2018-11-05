@@ -63,19 +63,6 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    // Not using Edit Command so following lines not needed, todo cleanup: delete this block
-    //
-    // public static final EditCommand.EditPlaylistDescriptor DESC_AMY;
-    // public static final EditCommand.EditPlaylistDescriptor DESC_BOB;
-
-    // static {
-    //     DESC_AMY = new EditPlaylistDescriptorBuilder().withName(VALID_PLAYLIST_NAME_SFX)
-    //             .withTracks(VALID_TRACK_EXISTENCE).build();
-    //     DESC_BOB = new EditPlaylistDescriptorBuilder().withName(VALID_NAME_METAL)
-    //             .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-    //             .withTRACKs(VALID_TRACK_NAME_IHOJIN, VALID_TRACK_EXISTENCE).build();
-    // }
-
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>

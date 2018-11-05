@@ -27,40 +27,60 @@ public class PlayerManager extends ComponentManager implements Player {
 
     @Override
     public void play() {
-        System.out.println("jxmusicplayer play from pause");
-        assert currentlyPlaying != null;
-        currentlyPlaying.play(true);
+        logger.info("Continue from pause");
+        if (currentlyPlaying != null) {
+            currentlyPlaying.play(true);
+        }
     }
 
     @Override
     public void play(Playlist playlist) {
-        System.out.println("jxmusicplayer play playlist");
+        logger.info("Play playlist " + playlist.getName());
+        if (currentlyPlaying != null) {
+            currentlyPlaying.stop();
+        }
         currentlyPlaying = new PlayablePlaylist(playlist);
         currentlyPlaying.play(false);
     }
 
     @Override
     public void play(Track track) {
-        System.out.println("jxmusicplayer play track");
+        logger.info("Play track " + track.getFileNameWithoutExtension());
+        if (currentlyPlaying != null) {
+            currentlyPlaying.stop();
+        }
         currentlyPlaying = new PlayableTrack(track);
         currentlyPlaying.play(false);
     }
 
     @Override
     public void pause() {
-        System.out.println("jxmusicplayer pause");
-        currentlyPlaying.pause();
+        logger.info("Pause");
+        if (currentlyPlaying != null) {
+            currentlyPlaying.pause();
+        }
     }
 
     @Override
     public void stop() {
-        System.out.println("jxmusicplayer stop");
-        currentlyPlaying.stop();
+        logger.info("Stop");
+        if (currentlyPlaying != null) {
+            currentlyPlaying.stop();
+        }
     }
 
     @Override
     public void seek(Duration time) {
-        System.out.println("jxmusicplayer seek to " + time.toSeconds() + " second(s)");
+        logger.info("Seek to " + time.toSeconds() + " second(s)");
         currentlyPlaying.seek(time);
     }
+
+    @Override
+    public Playable.Status getStatus() {
+        if (currentlyPlaying == null) {
+            return Playable.Status.UNINITIALIZED;
+        }
+        return currentlyPlaying.getStatus();
+    }
+
 }
