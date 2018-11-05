@@ -23,7 +23,7 @@ import seedu.souschef.logic.parser.commandparser.DeleteCommandParser;
 import seedu.souschef.logic.parser.commandparser.DeleteMealHealthPlanCommandParser;
 import seedu.souschef.logic.parser.commandparser.EditCommandParser;
 import seedu.souschef.logic.parser.commandparser.FindCommandParser;
-
+import seedu.souschef.logic.parser.commandparser.ShowHealthPlanDetailsCommandParser;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.healthplan.HealthPlan;
@@ -77,7 +77,7 @@ public class HealthPlanParser {
         case AddMealHealthPlanCommand.COMMAND_WORD:
             return new AddMealHealthPlanCommandParser().parseHealthPlan(healthPlanModel, mealPlanModel, arguments);
         case ShowHealthPlanDetailsCommand.COMMAND_WORD:
-            return new ShowHealthPlanDetailsCommand<>(arguments);
+            return new ShowHealthPlanDetailsCommandParser().parseHealthPlan(healthPlanModel, arguments);
         case DeleteMealHealthPlanCommand.COMMAND_WORD:
             return new DeleteMealHealthPlanCommandParser().parseHealthPlan(healthPlanModel, arguments);
         default:

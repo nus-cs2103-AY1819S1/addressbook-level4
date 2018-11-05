@@ -20,12 +20,15 @@ public class ShowHealthPlanDetailsCommand<T extends UniqueType> extends Command 
 
     public ShowHealthPlanDetailsCommand(String index) {
 
-        this.index = (index.trim());
+
+        this.index = index.trim();
     }
 
 
     @Override
     public CommandResult execute(History history) {
+
+
         EventsCenter.getInstance().post(new BrowserUiChangedEvent("healthplanDetails",
                 Integer.parseInt(this.index)));
 
