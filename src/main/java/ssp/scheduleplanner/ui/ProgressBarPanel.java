@@ -58,6 +58,12 @@ public class ProgressBarPanel extends UiPart<Region> {
         updateProgressBars(logic.getFilteredTaskList(), logic.getFilteredArchivedTaskList());
     }
 
+
+    /**
+     * Updates both today and this week's progress bars.
+     * @param taskList
+     * @param archivedTaskList
+     */
     private void updateProgressBars(ObservableList<Task> taskList, ObservableList<Task> archivedTaskList) {
         String systemDate =
                 new SimpleDateFormat("ddMMyy").format(Calendar.getInstance().getTime());

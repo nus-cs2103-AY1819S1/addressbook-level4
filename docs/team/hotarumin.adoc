@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 :sectnums:
 
-= PROJECT: Student Schedule Planner
+PROJECT: Student Schedule Planner
 
 ---
 
@@ -72,7 +72,9 @@ include::../DeveloperGuide.adoc[tag=listarchivedtasks]
 include::../DeveloperGuide.adoc[tag=displaytagsinsidebar]
 
 
-= PROJECT: Zen Coloring
+---
+
+PROJECT: Zen Coloring
 
 == Overview
 
