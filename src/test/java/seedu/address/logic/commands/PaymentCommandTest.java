@@ -11,6 +11,7 @@ import static seedu.address.logic.commands.QueueCommandTestUtil.assertCommandSuc
 import static seedu.address.logic.commands.QueueCommandTestUtil.getSampleServedPatientsList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -25,6 +26,7 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.PatientQueueManager;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.ServedPatientListManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.ServedPatient;
 
@@ -32,7 +34,7 @@ public class PaymentCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager();
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private PatientQueue patientQueue;
     private CurrentPatient currentPatient;
     private ServedPatientList servedPatientList;

@@ -69,7 +69,6 @@ public class DispenseMedicineCommandTest {
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
@@ -90,7 +89,6 @@ public class DispenseMedicineCommandTest {
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
@@ -115,7 +113,6 @@ public class DispenseMedicineCommandTest {
         QuantityToDispense quantityToDispense = new QuantityToDispense(medicine.getStockValue());
         String expectedMessage = String.format(MESSAGE_SUCCESS, medicine.getStockValue(), medicine.getMedicineName());
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
 
         medicine.refill(quantityToDispense.getValue());
@@ -138,12 +135,9 @@ public class DispenseMedicineCommandTest {
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
-        //For checking later on
-        showMedicineAtIndex(expectedModel, Index.fromOneBased(1));
 
         showMedicineAtIndex(model, Index.fromOneBased(1));
         assertCommandSuccess(new DispenseMedicineCommand(INDEX_FIRST_PERSON, quantityToDispense), commandHistory,
@@ -160,12 +154,9 @@ public class DispenseMedicineCommandTest {
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
-        //For checking later on
-        showMedicineAtIndex(expectedModel, Index.fromOneBased(1));
 
         //Let current patient have medicine first.
         currentPatient.addMedicine(medicine, new QuantityToDispense(5));

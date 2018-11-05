@@ -80,7 +80,6 @@ public class DispenseMedicineCommand extends QueueCommand {
             model.dispenseMedicine(medicine, quantityToDispense);
             currentPatient.addMedicine(medicine, quantityToDispense);
             model.updateFilteredMedicineList(Model.PREDICATE_SHOW_ALL_MEDICINES);
-            model.commitAddressBook();
             EventsCenter.getInstance().post(new ShowMedicineListEvent());
             EventsCenter.getInstance().post(new ShowCurrentPatientViewEvent(currentPatient));
             return new CommandResult(String.format(MESSAGE_SUCCESS, quantityToDispense.getValue(),
