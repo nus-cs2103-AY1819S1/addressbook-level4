@@ -49,10 +49,9 @@ public class VoteCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            AbstractPoll poll = model.voteOption(pollIndex, optionName);
+            String pollDisplayResult = model.voteOption(pollIndex, optionName);
             model.commitAddressBook();
             String result = String.format(MESSAGE_SUCCESS, optionName, pollIndex.getOneBased());
-            String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {

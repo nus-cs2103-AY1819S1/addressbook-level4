@@ -22,7 +22,7 @@ import seedu.address.model.event.EventAttributesPredicate;
 public class FindEventCommand extends Command {
     public static final String COMMAND_WORD = "findEvent";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds events which have the specified attributes "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds events which have the specified attributes.\n"
             + "Parameters: "
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_ADDRESS + "LOCATION "

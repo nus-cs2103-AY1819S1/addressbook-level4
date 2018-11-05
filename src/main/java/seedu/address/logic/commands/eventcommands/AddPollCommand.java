@@ -42,9 +42,8 @@ public class AddPollCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            Poll poll = model.addPoll(pollName);
+            String pollDisplayResult = model.addPoll(pollName);
             model.commitAddressBook();
-            String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(String.format(MESSAGE_SUCCESS, pollName, model.getSelectedEvent()));
         } catch (NoUserLoggedInException e) {

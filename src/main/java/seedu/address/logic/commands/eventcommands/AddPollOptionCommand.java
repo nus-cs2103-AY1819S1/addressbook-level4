@@ -45,10 +45,9 @@ public class AddPollOptionCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            AbstractPoll poll = model.addPollOption(targetIndex, pollOption);
+            String pollDisplayResult = model.addPollOption(targetIndex, pollOption);
             model.commitAddressBook();
             String result = String.format(MESSAGE_SUCCESS, pollOption, targetIndex.getOneBased());
-            String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(result);
         } catch (IndexOutOfBoundsException e) {

@@ -52,9 +52,8 @@ public class AddTimePollCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DATE_RANGE);
         }
         try {
-            TimePoll poll = model.addTimePoll(startDate, endDate);
+            String pollDisplayResult = model.addTimePoll(startDate, endDate);
             model.commitAddressBook();
-            String pollDisplayResult = poll.displayPoll();
             EventsCenter.getInstance().post(new DisplayPollEvent(pollDisplayResult));
             return new CommandResult(String.format(MESSAGE_SUCCESS, model.getSelectedEvent()));
         } catch (NoUserLoggedInException e) {
