@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.ModelUtil.getTypicalModel;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,33 @@ public class MassEditCommandTest {
     public void execute_someFieldSpecified_success() throws NoUserSelectedException {
         EditExpenseDescriptor editExpenseDescriptor =
                 new EditExpenseDescriptorBuilder().withTags("test").withCost("1.00").build();
+        ArgumentMultimap keywordsMap = prepareMap("n/t");
+        ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywordsMap);
+        MassEditCommand command = new MassEditCommand(predicate, editExpenseDescriptor);
+
+        String expectedMessage = MESSAGE_EDIT_MULTIPLE_EXPENSE_SUCCESS;
+        Model expectedModel = getTypicalModel();
+        expectedModel.updateFilteredExpenseList(predicate);
+        List<Expense> filteredList = expectedModel.getFilteredExpenseList();
+        List<Expense> editedList = new ArrayList<>();
+        for (int i = 0; i < filteredList.size(); i++) {
+            Expense expense = filteredList.get(i);
+            Expense editedExpense = EditExpenseDescriptor.createEditedExpense(expense, editExpenseDescriptor);
+            expectedModel.updateExpense(filteredList.get(i), editedExpense);
+            editedList.add(editedExpense);
+        }
+        Predicate<Expense> newPredicate = e -> editedList.stream().anyMatch(newExpense -> e == newExpense);
+        expectedModel.updateFilteredExpenseList(newPredicate);
+        expectedModel.commitExpenseTracker();
+
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_editCreateDuplicateExpense_success() throws NoUserSelectedException{
+        Expense expenseInList = model.getExpenseTracker().getExpenseList().get(INDEX_SECOND_EXPENSE.getZeroBased());
+        EditExpenseDescriptor editExpenseDescriptor =
+                new EditExpenseDescriptorBuilder(expenseInList).build();
         ArgumentMultimap keywordsMap = prepareMap("n/t");
         ExpenseContainsKeywordsPredicate predicate = new ExpenseContainsKeywordsPredicate(keywordsMap);
         MassEditCommand command = new MassEditCommand(predicate, editExpenseDescriptor);

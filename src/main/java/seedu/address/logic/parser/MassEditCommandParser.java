@@ -40,6 +40,10 @@ public class MassEditCommandParser implements Parser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MassEditCommand.MESSAGE_USAGE));
         }
 
+        if (!keywords.contains("/") || !editedKeywords.contains("/")){
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MassEditCommand.MESSAGE_USAGE));
+        }
+
         ArgumentMultimap keywordsMap =
                 ArgumentTokenizer.tokenize(" " + keywords,
                         PREFIX_NAME, PREFIX_CATEGORY, PREFIX_COST, PREFIX_DATE, PREFIX_TAG);

@@ -76,9 +76,6 @@ public class EditCommand extends Command {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
-        }
         model.updateExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         model.addWarningNotification();
