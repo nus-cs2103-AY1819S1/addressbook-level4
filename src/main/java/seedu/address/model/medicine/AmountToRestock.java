@@ -3,38 +3,38 @@ package seedu.address.model.medicine;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represent the quantity of a medicine to be dispensed.
+ * Represent the quantity of medicine to be restocked.
  */
-public class QuantityToDispense {
+public class AmountToRestock {
 
     public final Integer value;
 
     /**
-     * Constructs a {@code QuantityToDispense}
+     * Constructs a {@code AmountToRestock}
      *
      * @param value A positive integer.
      */
-    public QuantityToDispense(Integer value) {
+    public AmountToRestock(Integer value) {
         requireNonNull(value);
         this.value = value;
     }
 
     /**
-     * Returns true if a given quantity is a valid quantity to dispense.
+     * Returns true if a given amount is a valid amount to restock.
      */
-    public static boolean isValidQuantityToDispense(QuantityToDispense test) {
+    public static boolean isValidAmountToRestock(AmountToRestock test) {
         return test.getValue() > 0;
     }
 
     /**
-     * Returns true if a given quantity is a valid quantity to dispense.
+     * Returns true if a given amount is a valid amount to restock.
      */
-    public static boolean isValidQuantityToDispense(Integer test) {
+    public static boolean isValidAmountToRestock(Integer test) {
         return test > 0;
     }
 
     /**
-     * Getter for the value of the quantity to dispense.
+     * Getter for the value of the amount to restock.
      */
     public Integer getValue() {
         return value;
@@ -48,8 +48,8 @@ public class QuantityToDispense {
     @Override
     public boolean equals(Object other) {
         return other == this
-                || (other instanceof QuantityToDispense
-                && value.equals(((QuantityToDispense) other).getValue()));
+                || (other instanceof AmountToRestock
+                && value.equals(((AmountToRestock) other).getValue()));
     }
 
     @Override

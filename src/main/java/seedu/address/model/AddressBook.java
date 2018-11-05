@@ -131,7 +131,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasSerialNumber(Medicine medicine) {
         requireNonNull(medicine);
-        return medicines.notUniqueSerialNumber(medicine);
+        return medicines.containsSerialNumber(medicine);
     }
 
     /**

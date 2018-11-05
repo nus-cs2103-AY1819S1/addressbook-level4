@@ -85,11 +85,25 @@ public class EditMedicineCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
-        if (!medicineToEdit.hasSameSerialNumber(editedMedicine)) {
+        // changes both medicine name and serial number
+        if (model.hasMedicineName(editedMedicine)
+                && model.hasSerialNumber(editedMedicine)
+                && medicineDescriptor.isMedicineNameChanged()
+                && medicineDescriptor.isSerialNumberChanged()) {
+            throw new CommandException(MESSAGE_USED_SERIAL_NUMBER + "\n" + MESSAGE_DUPLICATE_MEDICINE_NAME);
+        }
+
+        // only the serial number changed
+        // assert serial number changed
+        if (model.hasSerialNumber(editedMedicine)
+                && medicineDescriptor.isSerialNumberChanged()) {
             throw new CommandException(MESSAGE_USED_SERIAL_NUMBER);
         }
 
-        if (!medicineToEdit.hasSameMedicineName(editedMedicine)) {
+        // only the medicine name changed
+        // assert medicine name changed
+        if (model.hasMedicineName(editedMedicine)
+                && medicineDescriptor.isMedicineNameChanged()) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
         }
 
@@ -153,6 +167,9 @@ public class EditMedicineCommand extends Command {
         private SerialNumber serialNumber;
         private Stock stock;
 
+        private boolean isMedicineNameChanged;
+        private boolean isSerialNumberChanged;
+
         public MedicineDescriptor() {}
 
         /**
@@ -164,6 +181,8 @@ public class EditMedicineCommand extends Command {
             setPricePerUnit(toCopy.pricePerUnit);
             setSerialNumber(toCopy.serialNumber);
             setStock(toCopy.stock);
+            isMedicineNameChanged = false;
+            isSerialNumberChanged = false;
         }
 
         /**
@@ -175,6 +194,7 @@ public class EditMedicineCommand extends Command {
 
         public void setMedicineName(MedicineName medicineName) {
             this.medicineName = medicineName;
+            isMedicineNameChanged = true;
         }
 
         public Optional<MedicineName> getMedicineName() {
@@ -199,6 +219,7 @@ public class EditMedicineCommand extends Command {
 
         public void setSerialNumber(SerialNumber serialNumber) {
             this.serialNumber = serialNumber;
+            isSerialNumberChanged = true;
         }
 
         public Optional<SerialNumber> getSerialNumber() {
@@ -211,6 +232,14 @@ public class EditMedicineCommand extends Command {
 
         public Optional<Stock> getStock() {
             return Optional.ofNullable(stock);
+        }
+
+        public boolean isMedicineNameChanged() {
+            return isMedicineNameChanged;
+        }
+
+        public boolean isSerialNumberChanged() {
+            return isSerialNumberChanged;
         }
 
         @Override
