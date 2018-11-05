@@ -60,7 +60,7 @@ public class PiconsoParserTest {
     public void parseCommand_canvasCommandWords_returnCanvasCommands() throws Exception {
         assertTrue(parser.parseCommand("canvas size 3x3") instanceof CanvasCommand);
         assertTrue(parser.parseCommand("canvas auto-resize off") instanceof CanvasCommand);
-        assertTrue(parser.parseCommand("canvas bgcolour rgba(0,0,0,0.2)") instanceof CanvasCommand);
+        assertTrue(parser.parseCommand("canvas bgcolor rgba(0,0,0,0.2)") instanceof CanvasCommand);
     }
 
     @Test
