@@ -188,7 +188,7 @@ Format:
 ==== Search for Tasks by Keyword: `find`
 [%hardbreaks]
 Format: `find KEYWORD`
-+Example: `find complete`
++Example: `find happiness`
 
 ==== Selecting a person : `select`
 
