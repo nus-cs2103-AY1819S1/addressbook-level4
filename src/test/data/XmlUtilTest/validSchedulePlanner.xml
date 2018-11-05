@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
+    <categories>
+        <name>Module</name>
+    </categories>
+    <categories>
+        <name>Others</name>
+    </categories>
     <tasks>
         <name>Hans Muster</name>
         <date isPrivate="false">111124</date>

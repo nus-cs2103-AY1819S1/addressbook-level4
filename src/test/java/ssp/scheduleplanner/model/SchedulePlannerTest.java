@@ -19,6 +19,8 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.model.task.exceptions.DuplicateTaskException;
 import ssp.scheduleplanner.testutil.TaskBuilder;
@@ -48,22 +50,19 @@ public class SchedulePlannerTest {
         assertEquals(newData, schedulePlanner);
     }
 
-    // OLD TEST
-    /*
-    public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
-        // Two tasks with the same identity fields
-        Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-    */
+
     @Test
     public void resetData_withDuplicateTasks_throwsDuplicateTaskException() {
         // Two tasks with the same fields
 
-        //Task editedAlice = new TaskBuilder(ALICE).withVenue(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+
         Task editedAlice = new TaskBuilder(ALICE).build();
+        Category others = new Category("Others");
+        others.addTag(new Tag("friends"));
+        List<Category> categories = Arrays.asList(new Category("Modules"), others);
         List<Task> newTasks = Arrays.asList(ALICE, editedAlice);
         List<Task> archivedTasks = Arrays.asList();
-        SchedulePlannerStub newData = new SchedulePlannerStub(newTasks, archivedTasks);
+        SchedulePlannerStub newData = new SchedulePlannerStub(categories, newTasks, archivedTasks);
 
         thrown.expect(DuplicateTaskException.class);
         schedulePlanner.resetData(newData);
@@ -112,10 +111,12 @@ public class SchedulePlannerTest {
      * A stub ReadOnlySchedulePlanner whose tasks list can violate interface constraints.
      */
     private static class SchedulePlannerStub implements ReadOnlySchedulePlanner {
+        private final ObservableList<Category> categories = FXCollections.observableArrayList();
         private final ObservableList<Task> tasks = FXCollections.observableArrayList();
         private final ObservableList<Task> archivedTasks = FXCollections.observableArrayList();
 
-        SchedulePlannerStub(Collection<Task> tasks, Collection<Task> archivedTasks) {
+        SchedulePlannerStub(Collection<Category> categories, Collection<Task> tasks, Collection<Task> archivedTasks) {
+            this.categories.setAll(categories);
             this.tasks.setAll(tasks);
             this.archivedTasks.setAll(archivedTasks);
         }
@@ -128,6 +129,11 @@ public class SchedulePlannerTest {
         @Override
         public ObservableList<Task> getArchivedTaskList() {
             return archivedTasks;
+        }
+
+        @Override
+        public ObservableList<Category> getCategoryList() {
+            return categories;
         }
 
     }

@@ -2,12 +2,16 @@ package ssp.scheduleplanner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
+
 import ssp.scheduleplanner.commons.core.EventsCenter;
 import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.logic.parser.CliSyntax;
 import ssp.scheduleplanner.model.Model;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -50,6 +54,24 @@ public class AddCommand extends Command {
 
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+
+
+        Iterator tagIterator = toAdd.getTags().iterator();
+        Iterator catIterator = model.getCategoryList().iterator();
+
+        while (tagIterator.hasNext()) {
+            boolean tagExists = false;
+            Tag nextTag = (Tag) tagIterator.next();
+            while (catIterator.hasNext()) {
+                if (((Category) catIterator.next()).hasTag(nextTag)) {
+                    tagExists = true;
+                    break;
+                }
+            }
+            if (!tagExists) {
+                model.addTag(nextTag, "Others");
+            }
         }
 
         model.addTask(toAdd);

@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import ssp.scheduleplanner.commons.exceptions.IllegalValueException;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
 import ssp.scheduleplanner.model.SchedulePlanner;
+import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -19,6 +20,10 @@ import ssp.scheduleplanner.model.task.Task;
 public class XmlSerializableSchedulePlanner {
 
     public static final String MESSAGE_DUPLICATE_TASK = "Tasks list contains duplicate task(s).";
+    public static final String MESSAGE_DUPLICATE_CATEGORY = "Category list contains duplicate category.";
+
+    @XmlElement
+    private List<XmlAdaptedCategory> categories;
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
@@ -31,6 +36,7 @@ public class XmlSerializableSchedulePlanner {
      * This empty constructor is required for marshalling.
      */
     public XmlSerializableSchedulePlanner() {
+        categories = new ArrayList<>();
         tasks = new ArrayList<>();
         archivedTasks = new ArrayList<>();
     }
@@ -40,6 +46,7 @@ public class XmlSerializableSchedulePlanner {
      */
     public XmlSerializableSchedulePlanner(ReadOnlySchedulePlanner src) {
         this();
+        categories.addAll(src.getCategoryList().stream().map(XmlAdaptedCategory::new).collect(Collectors.toList()));
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         archivedTasks.addAll(src.getArchivedTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
@@ -52,6 +59,14 @@ public class XmlSerializableSchedulePlanner {
      */
     public SchedulePlanner toModelType() throws IllegalValueException {
         SchedulePlanner schedulePlanner = new SchedulePlanner();
+        for (XmlAdaptedCategory c: categories) {
+            Category category = c.toModelType();
+            if (schedulePlanner.hasCategory(category)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_CATEGORY);
+            }
+            schedulePlanner.addCategory(category);
+        }
+
         for (XmlAdaptedTask p : tasks) {
             Task task = p.toModelType();
             if (schedulePlanner.hasTask(task)) {
@@ -77,6 +92,7 @@ public class XmlSerializableSchedulePlanner {
             return false;
         }
         return (tasks.equals(((XmlSerializableSchedulePlanner) other).tasks))
-                && (archivedTasks.equals(((XmlSerializableSchedulePlanner) other).archivedTasks));
+                && (archivedTasks.equals(((XmlSerializableSchedulePlanner) other).archivedTasks))
+                && (categories.equals(((XmlSerializableSchedulePlanner) other).categories));
     }
 }

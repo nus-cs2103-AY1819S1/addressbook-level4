@@ -13,12 +13,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
 import ssp.scheduleplanner.model.SchedulePlanner;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
 
@@ -99,6 +102,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTag(Tag tag, String category) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCategory(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Category getCategory(String category) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlySchedulePlanner newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -119,6 +137,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasTagInCategory(Tag tag, Category category) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteTask(Task target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -129,12 +152,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasCategory(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Task> getFilteredArchivedTaskList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Category> getCategoryList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -198,6 +231,16 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingTaskAdded extends ModelStub {
         final ArrayList<Task> tasksAdded = new ArrayList<>();
+        final Category modules = new Category("Modules");
+        final Category others = new Category("Others");
+        final ArrayList<Tag> tags = new ArrayList<>();
+        final ArrayList<Category> categories =
+                new ArrayList<Category>() {
+            {
+                add(modules);
+                add(others);
+            }
+        };
 
         @Override
         public boolean hasTask(Task task) {
@@ -211,6 +254,15 @@ public class AddCommandTest {
             tasksAdded.add(task);
         }
 
+        @Override
+        public void addTag(Tag tag, String category) {
+            tags.add(tag);
+        }
+
+        @Override
+        public ObservableList<Category> getCategoryList() {
+            return FXCollections.observableArrayList(categories);
+        }
         @Override
         public void commitSchedulePlanner() {
             // called by {@code AddCommand#execute()}

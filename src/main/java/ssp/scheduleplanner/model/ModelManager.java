@@ -13,6 +13,8 @@ import javafx.collections.transformation.SortedList;
 import ssp.scheduleplanner.commons.core.ComponentManager;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.model.SchedulePlannerChangedEvent;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -22,6 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedSchedulePlanner versionedSchedulePlanner;
+    private final ObservableList<Category> categories;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> filteredArchivedTasks;
 
@@ -35,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with Schedule Planner: " + schedulePlanner + " and user prefs " + userPrefs);
 
         versionedSchedulePlanner = new VersionedSchedulePlanner(schedulePlanner);
+        categories = versionedSchedulePlanner.getCategoryList();
         filteredTasks = new FilteredList<>(versionedSchedulePlanner.getTaskList());
         filteredArchivedTasks = new FilteredList<>(versionedSchedulePlanner.getArchivedTaskList());
     }
@@ -77,13 +81,26 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasArchivedTask(Task archivedTask) {
-        requireAllNonNull(archivedTask);
+        requireNonNull(archivedTask);
         return versionedSchedulePlanner.hasArchivedTask(archivedTask);
     }
+
+    @Override
+    public boolean hasTagInCategory(Tag tag, Category category) {
+        requireNonNull(tag);
+        requireNonNull(category);
+        return versionedSchedulePlanner.hasTagInCategory(tag, category);
+    }
+
     @Override
     public void deleteTask(Task target) {
         versionedSchedulePlanner.removeTask(target);
         indicateSchedulePlannerChanged();
+    }
+
+    @Override
+    public boolean hasCategory(String name) {
+        return versionedSchedulePlanner.hasCategory(name);
     }
 
     @Override
@@ -97,6 +114,24 @@ public class ModelManager extends ComponentManager implements Model {
     public void archiveTask(Task completedTask) {
         versionedSchedulePlanner.archiveTask(completedTask);
         indicateSchedulePlannerChanged();
+    }
+
+    @Override
+    public void addTag(Tag tag, String categoryName) {
+        versionedSchedulePlanner.addTag(tag, categoryName);
+        indicateSchedulePlannerChanged();
+    }
+
+    @Override
+    public void addCategory(String name) {
+        Category category = new Category(name);
+        versionedSchedulePlanner.addCategory(category);
+        indicateSchedulePlannerChanged();
+    }
+
+    @Override
+    public Category getCategory(String name) {
+        return versionedSchedulePlanner.getCategory(name);
     }
 
     @Override
@@ -121,6 +156,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Task> getFilteredArchivedTaskList() {
         return FXCollections.unmodifiableObservableList(filteredArchivedTasks);
+    }
+
+    @Override
+    public ObservableList<Category> getCategoryList() {
+        return categories;
     }
 
     @Override
@@ -180,7 +220,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedSchedulePlanner.equals(other.versionedSchedulePlanner)
-                && filteredTasks.equals(other.filteredTasks);
+                && (filteredTasks.equals(other.filteredTasks)
+                || this.sortFilteredTasks().equals(other.sortFilteredTasks()));
     }
 
 }

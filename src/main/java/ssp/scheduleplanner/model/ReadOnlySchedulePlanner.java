@@ -1,6 +1,7 @@
 package ssp.scheduleplanner.model;
 
 import javafx.collections.ObservableList;
+import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -18,4 +19,12 @@ public interface ReadOnlySchedulePlanner {
      * Returns an unmodifiable view of the archived tasks list.
      */
     ObservableList<Task> getArchivedTaskList();
+
+    /**
+     * Returns an unmodifiable view of the categories.
+     */
+    ObservableList<Category> getCategoryList();
+
+
 }
+

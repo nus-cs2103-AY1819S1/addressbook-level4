@@ -38,7 +38,8 @@ https://github.com/CS2103-AY1819S1-T12-3/main/pull/69[#69], https://github.com/C
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User G
+uide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=dataencryption]
