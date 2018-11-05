@@ -17,12 +17,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.CcaName;
 
 //@author ericyjw
+
 /**
  * Parses input arguments and creates a new UpdateCommand object
  *
  * @author ericyjw
  */
-public class UpdateCommandPaser implements Parser<UpdateCommand> {
+public class UpdateCommandParser implements Parser<UpdateCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the UpdateCommand
      * and returns an UpdateCommand object for execution.
@@ -36,7 +37,7 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
                 PREFIX_TRANSACTION, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_REMARKS);
 
         if (!argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            throw new ParseException(UpdateCommand.MESSAGE_NO_SPECIFIC_CCA + "\n" + UpdateCommand.MESSAGE_USAGE);
+            throw new ParseException(UpdateCommand.MESSAGE_NO_SPECIFIC_CCA);
         }
         CcaName ccaName = ParserUtil.parseCcaName((argMultimap.getValue(PREFIX_TAG).get()));
 
@@ -78,6 +79,12 @@ public class UpdateCommandPaser implements Parser<UpdateCommand> {
             editCcaDescriptor.setRemarks(ParserUtil.parseRemarks(argMultimap.getValue(PREFIX_REMARKS).get())
             );
         }
+
+        if (argMultimap.getValue(PREFIX_TRANSACTION).isPresent() && !argMultimap.getValue(PREFIX_DATE).isPresent()
+            && !argMultimap.getValue(PREFIX_AMOUNT).isPresent() && !argMultimap.getValue(PREFIX_REMARKS).isPresent()) {
+            throw new ParseException(UpdateCommand.MESSAGE_INVALID_TRANSACTION_UPDATE);
+        }
+
         if (!editCcaDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_UPDATED);
         }

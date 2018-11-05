@@ -29,9 +29,9 @@ each CCA's spending.
  manage the finance of his organisation. It provides a centralised place where the user can update and view each
  CCA's spending easily.
 ** Highlights: The budget feature adds on to the existing address book and creates a separate budget book to store
-the information of the CCAs and their budget and finance. The tags used in the address book are used to indicate the
-person's CCAs. The budget features also require in-depth understanding of the source code as it adds and delete CCAs
-and transaction, which is similar to adding and deleting a person in an address book.
+the information of the CCAs, their budget and finance. The tags used in the address book are used to indicate the
+person's CCAs. The budget features also require in-depth understanding of the source code as it adds and deletes CCAs
+and transactions, similar to adding and deleting a person in an address book.
 
 * *Major enhancement 2*: added *the budget window*
 ** What it does: It is a window that display the list of CCAs available and each CCA's transaction history.

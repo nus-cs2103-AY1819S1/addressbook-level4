@@ -9,17 +9,46 @@
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The purpose of this portfolio is to document the contribution I have done to the project and provide an overview of
+what the project is about.
+
+This project is undertaken by myself and four other Computer Science students as part of our Software Engineering
+module.Titled as Hallper, our project is a desktop application specially designed for the Junior Common Room
+Committee (JCRC). The JCRC is a student representative body from every Hall in National University of Singapore,
+responsible for managing student affairs. Hallper aims to facilitate the JCRC in its day-to-day management by
+providing a combined platform that encompasses different functions that are mainly used by the JCRC. This allows the
+JCRC to carry out its  duties more efficiently and systematically.
+
+The user keys in specific commands on Hallper which allows him to create emails, calendar events and manage the
+Hall's budget -- all of the main concerns of the JCRC addressed on a single platform.
+
 
 == Summary of contributions
+These are my personal contributions to the project:
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1*: added *the budget feature*
+** What it does: It allows the user to allocate budgets to the CCAs and key in future transactions to keep
+track of each CCA's spending.
+** Justification: This feature improves Hallper's functionality where it provides an extra option to assist the user
+in managing finances and monitor the hall's budget more easily. By centralising the different CCAs' spending onto
+ a centralised platform, the user can manage hall finances in a more straightforward manner.
+** Highlights: The budget feature adds on to the existing address book and creates a separate budget book to store
+new information regarding the CCAs, their budget and spending. The tags used in the address book are used to
+link the address book and budget book together. The budget feature requires in-depth understanding of
+the source code as it adds and deletes CCAs and transactions, similar to adding and deleting a person in an address
+book.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 2*: added *the budget window*
+** What it does: It is another window that displays the list of CCAs available and their transaction history.
+** Justification: This feature improves the user experience as the user can obtain the financial information of each
+CCA easily. The separate window allows the user to go back to the main Hallper window easily when he wants to look up
+ for a person in the address book. The separate windows allow the user to tend to financial matters while searching
+ for the person-in-charge concurrently.
+** Highlights: This budget window requires a deep understanding of Java FXML API, JavaFX and XML, and how they work
+together. It is challenging as it requires interaction with the main window.
+
+* *Minor enhancement*: added a F2 button to allow the user to switch between the budget window and the main Hallper
+window.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -27,21 +56,14 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Updated the About Us: (Pull request: https://github.com/CS2103-AY1819S1-W16-1/main/pull/1[#1],
+ https://github.com/CS2103-AY1819S1-W16-1/main/pull/8[#8],
+  https://github.com/CS2103-AY1819S1-W16-1/main/pull/10[#10],
+  https://github.com/CS2103-AY1819S1-W16-1/main/pull/16[#16])
+*** Arrange the command in alphabetical order:
+ https://github.com/CS2103-AY1819S1-W16-1/main/pull/113/commits/59679dc3edf8c607b42ed6fd02889aa79d8f7152[#113]
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -50,9 +72,12 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=add_cca]
+include::../UserGuide.adoc[tag=delete_cca]
+include::../UserGuide.adoc[tag=add_trans]
+include::../UserGuide.adoc[tag=delete_trans]
+include::../UserGuide.adoc[tag=update_cca]
+include::../UserGuide.adoc[tag=budget]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +85,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=budget]
+include::../DeveloperGuide.adoc[tag=add_cca]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

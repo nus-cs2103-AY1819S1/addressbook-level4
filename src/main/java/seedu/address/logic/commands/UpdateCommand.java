@@ -85,6 +85,7 @@ public class UpdateCommand extends Command {
     public static final String MESSAGE_INVALID_VICE_HEAD_NAME = "There is no such person in the address book to add "
         + "as vice-head";
     public static final String MESSAGE_INVALID_ENTRY_NUM = "The Entry Number entered is an invalid one.";
+    public static final String MESSAGE_INVALID_TRANSACTION_UPDATE = "Transaction fields are missing.";
 
     private final CcaName cca;
     private final EditCcaDescriptor editCcaDescriptor;
