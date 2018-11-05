@@ -6,7 +6,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.user.LoginInformation;
+import seedu.address.logic.LoginCredentials;
 
 //@@author JasonChong96
 /**
@@ -25,19 +25,19 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_LOGIN_SUCCESS = "Logged in as %1$s";
     public static final String MESSAGE_INCORRECT_PASSWORD = "Incorrect password";
 
-    private final LoginInformation loginInformation;
+    private final LoginCredentials loginCredentials;
 
-    public LoginCommand(LoginInformation loginInformation) {
-        requireNonNull(loginInformation);
-        this.loginInformation = loginInformation;
+    public LoginCommand(LoginCredentials loginCredentials) {
+        requireNonNull(loginCredentials);
+        this.loginCredentials = loginCredentials;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws
             NonExistentUserException, InvalidDataException {
         requireNonNull(model);
-        if (model.loadUserData(loginInformation)) {
-            return new CommandResult(String.format(MESSAGE_LOGIN_SUCCESS, loginInformation.getUsername()));
+        if (model.loadUserData(loginCredentials)) {
+            return new CommandResult(String.format(MESSAGE_LOGIN_SUCCESS, loginCredentials.getUsername()));
         } else {
             return new CommandResult(MESSAGE_INCORRECT_PASSWORD);
         }
@@ -47,11 +47,11 @@ public class LoginCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof LoginCommand // instanceof handles nulls
-                && loginInformation.equals(((LoginCommand) other).loginInformation)); // state check
+                && loginCredentials.equals(((LoginCommand) other).loginCredentials)); // state check
     }
 
     @Override
     public int hashCode() {
-        return loginInformation.hashCode();
+        return loginCredentials.hashCode();
     }
 }

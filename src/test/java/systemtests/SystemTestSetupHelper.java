@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.user.LoginInformation;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.testutil.TypicalExpenses;
 
 /**
@@ -64,7 +64,7 @@ public class SystemTestSetupHelper {
         try {
             FxToolkit.setupFixture(() -> {
                 try {
-                    testApp.getActualModel().loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
+                    testApp.getActualModel().loadUserData(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, null));
                 } catch (NonExistentUserException | InvalidDataException | ParseException e) {
                     Assert.fail(e.getMessage());
                 }

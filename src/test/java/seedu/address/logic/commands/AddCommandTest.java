@@ -28,7 +28,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
-import seedu.address.model.user.LoginInformation;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
@@ -242,7 +242,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean loadUserData(LoginInformation loginInformation) {
+        public boolean loadUserData(LoginCredentials loginCredentials) {
             throw new AssertionError("loadUserData method should not be called.");
         }
 
@@ -264,6 +264,16 @@ public class AddCommandTest {
         @Override
         public boolean hasSelectedUser() {
             throw new AssertionError("hasSelectedUser method should not be called.");
+        }
+
+        @Override
+        public String encryptString(String toEncrypt) {
+            throw new AssertionError("encryptString method should not be called.");
+        }
+
+        @Override
+        public String decryptString(String toDecrypt) {
+            throw new AssertionError("decryptString method should not be called.");
         }
 
         @Override

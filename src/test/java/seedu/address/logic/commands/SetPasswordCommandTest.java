@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.user.LoginInformation;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.testutil.TypicalExpenses;
@@ -40,7 +40,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_noOldPassword_assertSetPasswordSuccessful() throws Exception {
-        CommandResult commandResult = new LoginCommand(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null))
+        CommandResult commandResult = new LoginCommand(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, null))
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
@@ -54,7 +54,7 @@ public class SetPasswordCommandTest {
 
     @Test
     public void execute_oldPasswordInvalid_assertSetPasswordFailure() throws Exception {
-        CommandResult commandResult = new LoginCommand(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null))
+        CommandResult commandResult = new LoginCommand(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, null))
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);

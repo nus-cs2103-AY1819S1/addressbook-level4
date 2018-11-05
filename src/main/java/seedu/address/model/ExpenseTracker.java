@@ -66,7 +66,6 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         double previousSpending = this.maximumTotalBudget.getCurrentExpenses();
         this.maximumTotalBudget = totalBudget;
         this.maximumTotalBudget.modifyExpenses(previousSpending);
-
     }
 
     /**

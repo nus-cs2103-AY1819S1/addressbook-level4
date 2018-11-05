@@ -13,7 +13,7 @@ import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.model.user.LoginInformation;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.model.user.Username;
 
 
@@ -40,7 +40,7 @@ public class ModelUtil {
             NoUserSelectedException, InvalidDataException, ParseException {
         Model model = new ModelManager();
         model.addUser(TypicalExpenses.SAMPLE_USERNAME);
-        model.loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
+        model.loadUserData(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, null));
         model.clearNotifications();
         model.modifyNotificationHandler(LocalDateTime.parse("2018-10-01T17:26:18.868275"), true,
                 true);

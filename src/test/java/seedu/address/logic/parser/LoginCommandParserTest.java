@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.user.LoginInformation;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.model.user.Username;
@@ -21,14 +21,14 @@ public class LoginCommandParserTest {
     @Test
     public void parse_validUsername() throws ParseException {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING,
-                new LoginCommand(new LoginInformation(new Username(UsernameTest.VALID_USERNAME_STRING), null)));
+                new LoginCommand(new LoginCredentials(new Username(UsernameTest.VALID_USERNAME_STRING), null)));
     }
 
     @Test
     public void parse_validUsernamePassword() throws ParseException {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING
                 + " " + CliSyntax.PREFIX_PASSWORD + PasswordTest.VALID_PASSWORD_STRING,
-                new LoginCommand(new LoginInformation(new Username(UsernameTest.VALID_USERNAME_STRING),
+                new LoginCommand(new LoginCredentials(new Username(UsernameTest.VALID_USERNAME_STRING),
                         PasswordTest.VALID_PASSWORD_STRING)));
     }
 
