@@ -222,8 +222,7 @@ Examples:
 
 [TIP]
 ====
-To testers: You may access the application using the default `root` account: `login id/root pw/1122qq` +
-Please ignore person-related commands as it's still operational in the application.
+To testers: You may access the application using the default `root` account: `login id/root pw/1122qq`
 ====
 
 ==== Logging out: `logout`
@@ -254,6 +253,11 @@ Examples:
 ==== Deleting user account: `deregister` or `dereg`
 
 Deletes an existing user account. +
+[NOTE]
+====
+This command should only be able to be executed by a highly privileged user. See <<User-Role>>
+for more information
+====
 Format: `deregister id/USERNAME` or `dereg id/USERNAME`
 
 Examples:
@@ -831,8 +835,14 @@ Edits the quantity sold and price of the 7th record to be 37 and 6.50 respective
 // end::salesmanagement[]
 
 === Upcoming Features
+[[User-Role]]
 ==== Creating user role `[coming in v2.0]`
 Creates a user role. User assigned with higher ranking role can execute more commands. +
+[TIP]
+====
+When the application is in its default state, this command can only be executed by the `root` account
+which has the default role of `Administrator`
+====
 Format: `create-role r/RANK n/ROLE_NAME` or `cr r/RANK n/ROLE_NAME`
 
 Examples:
