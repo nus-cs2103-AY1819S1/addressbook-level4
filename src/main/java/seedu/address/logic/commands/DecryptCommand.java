@@ -37,4 +37,13 @@ public class DecryptCommand extends Command {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof DecryptCommand && this.toDecrypt.equals(((DecryptCommand) other).toDecrypt);
+    }
+
+    @Override
+    public int hashCode() {
+        return toDecrypt.hashCode();
+    }
 }

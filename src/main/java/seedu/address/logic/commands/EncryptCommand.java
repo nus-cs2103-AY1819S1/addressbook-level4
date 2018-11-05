@@ -30,4 +30,13 @@ public class EncryptCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, encryptedString));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof EncryptCommand && this.toEncrypt.equals(((EncryptCommand) other).toEncrypt);
+    }
+
+    @Override
+    public int hashCode() {
+        return toEncrypt.hashCode();
+    }
 }
