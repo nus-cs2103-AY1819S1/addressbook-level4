@@ -72,6 +72,11 @@ Format: `redo`
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
+==== Clearing all entries : `clear`
+
+Clears all entries from the task manager. +
+Format: `clear`
+
 ==== Exiting the program: `exit`
 Exits the program. +
 Format: `exit`
@@ -99,6 +104,10 @@ Task <INDEX>, <TASK_NAME> was created.
 -Example:
 `add n/complete milestone t/2018/09/14 p/important`
 `add n/complete milestone t/2018/09/14 p/-4`
+
+[TIP]
+Duplicated tasks are not allowed in the task manager. Duplicated tasks are defined as tasks with the same name and
+due date or tasks with the same name and priority value.
 
 ==== Deleting a Task: `delete`
 [%hardbreaks]
@@ -181,11 +190,32 @@ Format:
 Format: `find KEYWORD`
 +Example: `find complete`
 
+==== Selecting a person : `select`
+
+Selects the task identified by the index number used in the displayed task list. +
+Format: `select INDEX`
+
+****
+* Selects the task and loads the information the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd task in the task manager.
+* `find` +
+`select 1` +
+Selects the 1st task in the results of the `find` command.
+
 === Gamification
 ==== Display achievements across a time period: `achievements`
 [%hardbreaks]
 Displays the cumulative achievements of a user across a specified time period on the GUI.
 Such achievements include current level, xp earned and number of tasks completed across that time period.
+Users automatically level up when on gaining enough xp to reach the next level. The maximum level is capped at lvl.5.
 Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all-time`, `today`, or `this week`.
 
 [%hardbreaks]
@@ -212,6 +242,7 @@ comes back from the future.
 ** *Undo* : `undo`
 ** *Redo* : `redo`
 ** *History* : `history`
+** *Clear* : `clear`
 ** *Exit* : `exit`
 
 * Task Management
@@ -229,6 +260,9 @@ comes back from the future.
 ** *List* : `list`
 
 ** *Find* : `find KEYWORD`
+
+** *Select* : `select INDEX`
+
 ** *Achievements* : `achievements TIME_SPAN`
 
 == Features to be included by v2.0
