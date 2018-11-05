@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 public class OverviewCommand extends Command {
     public static final String COMMAND_WORD = "overview";
 
-    public static final String MESSAGE_OVERVIEW_EVENT_SUCCESS = "Showing overview panel.";
+    public static final String MESSAGE_OVERVIEW_EVENT_SUCCESS = "Showing overview panel";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
