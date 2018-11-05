@@ -652,6 +652,8 @@ takes up an O(N) memory space.
 
 // tag::deleteingredient[]
 ===  Delete Ingredient feature
+This feature allows the user to delete an ingredient from the ingredient list, specified by its name or index.
+
 ==== Current Implementation
 
 The delete ingredient mechanism is facilitated by `DeleteIngredientCommand`. It is implemented as an abstract class
@@ -662,6 +664,9 @@ with the following abstract methods:
 
 `DeleteIngredientByIndexCommand` and `DeleteIngredientByNameCommand` extends `DeleteIngredientCommand` and implement
 their own behaviour for these methods.
+
+* `DeleteIngredientCommandByIndexCommand#execute()` - Removes an ingredient specified by a valid index
+* `DeleteIngredientCommandByNameCommand#execute()` - Removes an ingredient specified by a valid name
 
 The following sequence diagrams illustrate how the delete operation works.
 
@@ -676,6 +681,7 @@ image::DeleteIngredientByNameSequenceDiagram.png[width="1000"]
 ==== Design Considerations
 
 ===== Aspect: Implementation of delete ingredient command
+Two different implementations were considered.
 
 * **Alternative 1 (current choice):** Separate classes to handle deleting by index and deleting by name.
 ** Pros: Allows different attributes and method implementation for each class.
