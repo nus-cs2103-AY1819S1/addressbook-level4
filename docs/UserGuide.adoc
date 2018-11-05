@@ -286,6 +286,7 @@ Format: `list`
 
 image::list.png[width="790"]
 
+// tag::email[]
 === Email
 This section lists features related to email in Hallper.
 
@@ -295,7 +296,7 @@ Format: `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTEN
 
 ****
 * FROM must be a valid email address. E.g. johndoe@example.com
-* INDEXES refer to the index numbers shown in the displayed person list.
+* INDEXES refer to the index numbers shown in the displayed resident list.
 * INDEXES *must be positive integers* 1, 2, 3, ...
 * SUBJECT has no word limit.
 * CONTENT has no word limit.
@@ -322,7 +323,7 @@ Composes an email from `johndoe@example.com` to residents at indexes 1, 3, and 5
 .Result after executing `compose_email_index from/johndoe@example.com to/1 3 5 subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe`
 image::compose_email_index.png[width="790"]
 
-==== Composing an email to currently listed people: `compose_email_list`
+==== Composing an email to currently listed residents: `compose_email_list`
 Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
 Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
 
@@ -346,7 +347,7 @@ Example:
 image::list.png[width="790"]
 {empty} +
 `compose_email_list from/johndoe@example.com subject/Meeting this Friday content/Dear All<br><br>There's a meeting this friday.<br><br>John Doe` +
-Composes an email from `johndoe@example.com` to currently listed people with subject
+Composes an email from `johndoe@example.com` to currently listed residents with subject
 `Meeting this Friday` and email body `Dear All<br><br>There's a meeting this friday.<br><br>John Doe` and saves
 it as a *`.eml`* file.
 +
@@ -388,6 +389,7 @@ Displays the email with the subject `Meeting on Friday`.
 +
 .Result after executing `view_email Meeting on Friday`
 image::view_email.png[width="790"]
+// end::email[]
 
 === Calendar
 This section lists features related to managing the calendar in Hallper.

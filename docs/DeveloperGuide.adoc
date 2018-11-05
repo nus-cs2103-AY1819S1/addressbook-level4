@@ -18,8 +18,8 @@ By: `Team W16-1`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
 
-Hallper is a desktop application aimed at serving <<jcrc,JCRCs>> of the Halls of NUS.
-Hallper follows an event-driven architecture, and is designed to work on any <<mainstream-os,mainstream OS>>.
+Hallper is a desktop application aimed at serving the Junior Common Room Committees (<<jcrc,JCRCs>>) of the Halls of NUS.
+Hallper follows an event-driven architecture, and is designed to work on any <<mainstream-os,mainstream operating system (OS)>>.
 This guide provides you with information on how to contribute to Hallper, whether you are a new or experienced developer.
 
 == Setting up
@@ -364,7 +364,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 === Compose email feature
 ==== Current Implementation
 
-The Compose feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
+The Compose email feature works using a third-party dependency, http://www.simplejavamail.org/#/about[Simple Java Mail].
 It allows `.eml` files to be saved onto the computer.
 The feature is facilitated by `EmailModel` and `EmailDirStorage`.
 It implements the following operations:
@@ -407,9 +407,9 @@ The library is easy to understand so any new developer can easily extend the cur
 ** Cons: Users unfamiliar with HTML minimally has to learn how the `<br>` tag works.
 * **Alternative 2:** Plain text
 ** Pros: Plain text is easily understood by almost any user.
-** Cons: The design of the email content is limited.
+** Cons: The design of the email content is very limited.
 
-//end::compose[]
+// end::compose[]
 
 // tag::calendar[]
 === Calendar feature
