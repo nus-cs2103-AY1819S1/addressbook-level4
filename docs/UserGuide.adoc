@@ -60,6 +60,13 @@ e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 === Universal Commands
+
+****
+For the following features in section 3, each feature's commands will only be recognised when the application is
+within the context of the respective feature. In order to switch to the desired feature context, the respective
+universal command has to be entered first.
+****
+
 ==== View help: `-help`
 To view the help menu containing all the universal commands. +
 
@@ -71,13 +78,13 @@ Display all recipes records. +
 Format: +
 `-recipe`
 
-==== Display recipe suggestion: `-suggest`
+==== Display recipe suggestion: `-suggest` [coming in V1.4]
 Display system suggestions based on user's past navigation history
 and favorites. +
 Format: +
 `-suggest`
 
-==== Display new recipe: `-surprise`
+==== Display new recipe: `-surprise` [coming in V1.4]
 Display a random recipe for the user who wants to try something bold
 and new but has no idea what they want. +
 Format: +
@@ -89,10 +96,16 @@ Format: +
 `-favourite`
 
 ==== Display ingredient manager: `-ingredient`
-Ingredient manager is an inventory manager that helps stock
-tracking of existing ingredient available at home. +
+Display ingredient manager, which helps stock
+tracking of ingredient that the user currently have. +
 Format: +
 `-ingredient`
+
+==== Display ingredient-recipe query page: `-cross`
+Display the page where you can sort, filter the recipe list by name of ingredients includes and get information of
+needed amounts of ingredients. +
+Format: +
+`-cross`
 
 ==== Display meal planner: `-mealplanner`
 Display current Meal Planner. Shows the planned meals for breakfast,
@@ -232,96 +245,122 @@ Add comment and rating to current recipe. +
 Format: +
 `review [Comment] RATING`
 
+// tag::ingredient[]
 === Ingredient Manager Commands
 
 ==== Add an ingredient: `add`
 
-Adds an ingredient to the ingredient manager.
+Adds an ingredient to the ingredient manager. +
 Format: +
 `add NAME AMOUNT SERVING_UNIT DATE`
 
 ****
-* If there are more than 1 words for name, ‘_’ is used to separate words
-* Serving Unit: follows the recipe book's standard
-* Entered Date: mm-dd-yyyy
+* For compound word, ‘_’ is used to separate words.
+* Serving units are pre-defined in the serving unit dictionary. Those undefined in the dictionary are not available.
+* Currently available serving units are gram(g), kilogram(kg), pinch, piece, whole, clove, cm3, ml, l, tablespoon,
+teaspoon and cup.
+* Amounts are converted with common serving unit(e.g. gram and cm3).
+* Format for date should be MM-dd-yyyy
+* Date is meant to be the date of input, but it is up to user to tweak its usage. For example, it can be used to show
+expire date.
 ****
 ==== List all ingredients: `list`
 
-Shows a list of user’s ingredients. Ingredients are sorted by entered date, so that the ingredients entered earlier
+Shows a list of ingredients in ingredient manager. Ingredients are sorted by date, so that the ingredients with
+earlier date
 are placed high in order. +
 Format: +
 `list`
 
 ==== Edit ingredient info: `edit`
 
-Edit an existing ingredient in the ingredient manager. +
+Edit an existing ingredient in ingredient manager. +
 Format: +
-`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
+`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]...`
+****
+* Field name is either name, amount, or date.
+* Restrictions for respective field's input are same as in add command(3.3.1.).
+****
 
 ==== Find ingredient: `find`
 
-Find ingredients whose name contains any of the given keywords.
+Find ingredients in ingredient manager whose name contains any of the given keywords. +
 Format: +
-`find KEYWORD…`
+`find KEYWORD [MORE_KEYWORDS]...`
 
 ****
-* Keywords are case insensitive
-* Only the name is searched
-* Match only full words
+* Only the name is searched.
+* Match by full words.
 ****
 
 ==== Delete ingredient: `delete`
 
-Delete ingredient added by user according to its index in last shown list.
+Delete ingredient in ingredient manager according to its index in the last shown list. +
 Format: +
 `delete INDEX`
 
 ==== Clear ingredients: `clear`
 
-Clears all ingredients.
-
-Format: `clear`
+Clears all ingredients in ingredient manager. +
+Format: +
+`clear`
 
 // tag::cross[]
-=== Recipe-Ingredient Query Commands
+=== Ingredient-Recipe Query Commands
 
-==== View Recipe based on Ingredients
-By default, the list has recipes that are stored in normal recipe list. User can filter, sort the recipe list
-based on ingredients. Also, needed amount of ingredients is calculated based on the number of serving unit so that
-user can check it with select command later. +
+==== View Recipes based on Ingredients
+By default, the list shows recipes that are stored in application's recipe list. User can filter or sort the recipes
+based on ingredients contained in recipes. Also, needed amounts of ingredients are calculated by considering the number
+ of
+serving units and ingredients stored in ingredient manager, so
+that
+user can take a look by applying select command later. +
 Format: +
-`recipe NUMBER_OF_SERVINGS include [inventory] KEYWORD... prioritize [inventory] KEYWORD...` +
+`view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]... prioritize [inventory] KEYWORD [MORE_KEYWORDS]...` +
 ****
-* "include" keyword filters the list, leaving the recipes that includes all of following ingredients on the list. +
-* "prioritize" keyword sorts the recipes based on number of following ingredients it contains. Recipes containing the
-most number of following ingredients would placed high in order. +
-* "inventory" keyword either follows "include" or "prioritize", provides all the ingreident in Ingredient
+* Number of servings can be a floating point value.
+* Names of ingredients are used as keywords. If the keyword is a compound word, '_' is used to separate between the
+words.
+(For example,
+spring_onion)
+* "include" keyword filters the list, only leaving the recipes that includes all of following ingredients in the list. +
+* "prioritize" keyword sorts the recipes based on number of the following ingredients contained. Recipes containing
+ the
+most number of following ingredients would be placed high in order. +
+* "inventory" keyword provides all the ingreident in Ingredient
 Manager
-as parameter to the keyword that it follows. +
-* "inventory" keyword is optional, but cannot appear more than once. Also, it should
+as parameter to the keyword it follows. +
+* "inventory" keyword is optional, but cannot appear more than once. It
 directly
-follow "include" or "prioritize" keyword.
+follows either "include" keyword or "prioritize" keyword.
 ****
 
-==== View needed amount of ingredients for a Recipe
-For a recipe on the list resulting from cross find command, user can view amount of respective ingredients that
-needs to be prepared additionally. It
+==== View needed amounts of ingredients for a Recipe
+For a recipe in the list shown as a result of above command(3.4.1.), user can view amounts of respective ingredient
+in the recipe
+that
+needs to be additionally prepared. It reflects number of serving units and
 refers to Ingredient Manager to get the amount of ingredients the user currently have. +
 Format: +
 `select INDEX` +
 ****
-* Amount of necessary ingredients is calculated based on the information in Ingredient Manager. +
-e.g. If positive, (Number of Servings *
- Total Amount needed for a Recipe - Amount that the user currently have). Otherwise, 0.
+* Amounts of necessary ingredients are calculated based on the information in Ingredient Manager. +
+e.g. If positive, (Number of Servings ×
+ Total Amount of an ingredient for a Recipe - Amount of an ingredient stored in ingredient manager). Otherwise, 0.
 ****
 ==== List all recipes: `list`
-
-Shows a list of recipes. The list restores the default mode, erasing the result of cross find command. +
+Shows a list of recipes. It restores the default state of the list, undoing the calculation resulting from 'view
+recipes based on ingredients'
+command(3.4.1.). +
 Format: +
 `list`
 
 // tag::mealplanner[]
 === Meal Planner Commands
+
+Meal Planner commands should be used in the Meal Planner context, i.e. after entering the
+`-mealplanner` command to display the Meal Planner
+
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
 * MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
@@ -484,8 +523,8 @@ Format: +
 
 * View help: `-help`
 * Display all recipe: `-recipe`
-* Display recipe suggestion: `-suggest`
-* Display new recipe: `-surprise`
+* Display recipe suggestion: `-suggest` [coming in V1.4]
+* Display new recipe: `-surprise` [coming in V1.4]
 * Display favorites: `-favourite`
 * Display ingredient manager: `-ingredient`
 * Display meal planner: `-mealplanner`
@@ -525,7 +564,7 @@ or +
 
 *Recipe-Ingredient Query Commands*
 
-* View Recipe based on Ingredients: `recipe NUMBER_OF_SERVINGS include [inventory] KEYWORD…​ prioritize [inventory]
+* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD…​ prioritize [inventory]
 KEYWORD…​`
 * View needed amount of ingredients for a Recipe: `select INDEX`
 * List all recipes: `list`

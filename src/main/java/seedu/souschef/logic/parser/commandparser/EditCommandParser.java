@@ -151,7 +151,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         requireNonNull(args);
 
         List<Ingredient> lastShownList = model.getFilteredList();
-        String[] tokens = args.trim().split("\\s+");
+        String[] tokens = args.toLowerCase().trim().split("\\s+");
         int index;
         try {
             index = Integer.parseInt(tokens[0]) - 1;
@@ -176,7 +176,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         for (int i = 1; i < tokens.length; i += 2) {
             if (tokens[i].equals("name")) {
-                name = tokens[i + 1];
+                name = tokens[i + 1].replaceAll("_", " ");
                 if (!IngredientName.isValid(name)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
