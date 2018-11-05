@@ -6,6 +6,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import seedu.address.model.achievement.exceptions.CumulativeAchievementsMismatchException;
+import seedu.address.model.achievement.exceptions.DateBreakPointsMismatchException;
+import seedu.address.model.achievement.exceptions.XpLevelMismatchException;
+
 /**
  * Represents a record of the user's achievements while using the task manager.
  * Achievements include the experience points(xp) earned by completing the task across all time, today, and this week,
@@ -55,8 +59,12 @@ public class AchievementRecord {
     public AchievementRecord(int displayOption, Xp xp, Level level, int numTaskCompleted, Calendar nextDayBreakPoint,
                              int numTaskCompletedByDay, int xpValueByDay, Calendar nextWeekBreakPoint,
                              int numTaskCompletedByWeek, int xpValueByWeek) {
+
         requireAllNonNull(displayOption, xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
                 xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
+        checkAchievementFieldsMatch(xp, level, numTaskCompleted, nextDayBreakPoint, numTaskCompletedByDay,
+                xpValueByDay, nextWeekBreakPoint, numTaskCompletedByWeek, xpValueByWeek);
+
         this.displayOption = displayOption;
         this.xp = xp;
         this.level = level;
@@ -89,8 +97,20 @@ public class AchievementRecord {
         return xp;
     }
 
+    public void setXp(Xp xp) {
+        this.xp = xp;
+    }
+
+    public void setNumTaskCompleted(int numTaskCompleted) {
+        this.numTaskCompleted = numTaskCompleted;
+    }
+
     public Level getLevel() {
         return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 
     public int getNumTaskCompleted() {
@@ -99,6 +119,10 @@ public class AchievementRecord {
 
     public Calendar getNextDayBreakPoint() {
         return nextDayBreakPoint;
+    }
+
+    public void setNextDayBreakPoint(Calendar nextDayBreakPoint) {
+        this.nextDayBreakPoint = nextDayBreakPoint;
     }
 
     public int getXpValueByDay() {
@@ -111,6 +135,10 @@ public class AchievementRecord {
 
     public Calendar getNextWeekBreakPoint() {
         return nextWeekBreakPoint;
+    }
+
+    public void setNextWeekBreakPoint(Calendar nextWeekBreakPoint) {
+        this.nextWeekBreakPoint = nextWeekBreakPoint;
     }
 
     public int getXpValueByWeek() {
@@ -176,6 +204,7 @@ public class AchievementRecord {
      */
     public void resetData(AchievementRecord newData) {
         requireNonNull(newData);
+        checkAchievementFieldsMatch(newData);
 
         displayOption = newData.displayOption;
         xp = newData.xp;
@@ -190,10 +219,87 @@ public class AchievementRecord {
     }
 
     /**
+     * Defensively check that the xp fields matches: today's xp is no greater than this week's xp,
+     * which is no greater than all-time xp.
+     */
+    private void checkAchievementFieldsMatch (Xp xp, Level level, int numTaskCompleted, Calendar nextDayBreakPoint,
+                                              int numTaskCompletedByDay, int xpValueByDay, Calendar nextWeekBreakPoint,
+                                              int numTaskCompletedByWeek, int xpValueByWeek) {
+        checkXpAndLevelMatch(xp.getXp(), level);
+        checkBreakPointsMatch(nextDayBreakPoint, nextWeekBreakPoint);
+        checkXpValuesMatch(xp.getXp(), xpValueByDay, xpValueByWeek);
+        checkNumTaskCompletedMatch(numTaskCompleted, numTaskCompletedByDay, numTaskCompletedByWeek);
+    }
+
+    /**
+     * Defensively check that the numTaskCompleted fields matches: today's numTaskCompleted is no greater than this
+     * week's numTaskCompleted, which is no greater than all-time numTaskCompleted.
+     */
+    private void checkAchievementFieldsMatch (AchievementRecord record) {
+        checkXpAndLevelMatch(record.xp.getXp(), record.level);
+        checkBreakPointsMatch(record.nextDayBreakPoint, record.nextWeekBreakPoint);
+        checkXpValuesMatch(record.xp.getXp(), record.xpValueByDay, record.xpValueByWeek);
+        checkNumTaskCompletedMatch(record.numTaskCompleted, record.numTaskCompletedByDay,
+                record.numTaskCompletedByWeek);
+    }
+
+    /**
+     * Defensively check given xp value matches given level.
+     * The xp value matches with level if level.minXp <= xp < level.maxXp
+     * @throws XpLevelMismatchException if not match.
+     */
+    private void checkXpAndLevelMatch(int xp, Level lvl) {
+        if (!getMatchingLevel(xp).equals(lvl)) {
+            throw new XpLevelMismatchException();
+        }
+    }
+
+    /**
+     * Defensively check {@code nextDayBreakPoint} is at most 6 days after {@code nextWeekBreakPoint} and
+     * not before {@code nextWeekBreakPoint}.
+     * @throws DateBreakPointsMismatchException if not match.
+     */
+    private void checkBreakPointsMatch(Calendar nextDay, Calendar nextWeek) {
+        Calendar maxDate = (GregorianCalendar) nextDay.clone();
+        maxDate.add(Calendar.DAY_OF_MONTH, 6);
+
+        Calendar minDate = (GregorianCalendar) nextDay.clone();
+        if (!areSameDates(maxDate, nextWeek) && nextWeek.after(maxDate)) {
+            throw new DateBreakPointsMismatchException();
+        }
+        if (!areSameDates(minDate, nextWeek) && nextWeek.before(minDate)) {
+            throw new DateBreakPointsMismatchException();
+        }
+    }
+
+    /**
+     * Defensively check that today's xp is no greater than this week's xp, which is no greater than all-time xp.
+     * @throws CumulativeAchievementsMismatchException if not match.
+     */
+    private void checkXpValuesMatch(int xp, int xpValueByDay, int xpValueByWeek) {
+        if (xpValueByDay <= xpValueByWeek && xpValueByWeek <= xp) {
+            return;
+        }
+        throw new CumulativeAchievementsMismatchException();
+    }
+
+    /**
+     * Defensively check that today's number of tasks completed is no greater than this week's number of tasks
+     * completed, which is no greater than all-time number of tasks completed.
+     * @throws CumulativeAchievementsMismatchException if not match.
+     */
+    private void checkNumTaskCompletedMatch(int numTaskCompleted, int numTaskCompletedByDay,
+                                            int numTaskCompletedByWeek) {
+        if (numTaskCompletedByDay <= numTaskCompletedByWeek && numTaskCompletedByWeek <= numTaskCompleted) {
+            return;
+        }
+        throw new CumulativeAchievementsMismatchException();
+    }
+
+    /**
      * Updates all fields of this {@code AchievementRecord} with new xp being awarded.
      */
-    public void incrementAchievementsWithNewXp(Integer newXp) {
-        requireNonNull(newXp);
+    public void incrementAchievementsWithNewXp(int newXp) {
 
         incrementAllTimeAchievementWithNewXp(newXp);
         incrementAchievementByDayWithNewXp(newXp);
@@ -202,9 +308,10 @@ public class AchievementRecord {
 
     /**
      * Returns the corresponding {@code Level} of the current Xp value.
+     * An xp value falls within level_n if level_n.minXp <= xp < level_n.maxXp
      * Maximum level is level 5.
      */
-    private Level getMatchingLevel(Integer xp) {
+    private Level getMatchingLevel(int xp) {
         if (xp < Level.LEVEL_1.getMaxXp()) {
             return Level.LEVEL_1;
         } else if (xp < Level.LEVEL_2.getMaxXp()) {
@@ -223,7 +330,7 @@ public class AchievementRecord {
      * Recalculates level with the new xp value and increments if necessary.
      */
     private void incrementAllTimeAchievementWithNewXp(int newXp) {
-        Integer updatedXpValue = this.getXpValue() + newXp;
+        int updatedXpValue = this.getXpValue() + newXp;
         this.xp = new Xp(updatedXpValue);
 
         // recalculate level based on updated xp and update level field if necessary

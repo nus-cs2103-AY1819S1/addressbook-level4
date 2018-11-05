@@ -23,16 +23,16 @@ public class XmlAdaptedAchievementRecord {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Achievement record's %s field is missing!";
     public static final String INVALID_FIELD_MESSAGE_FORMAT = "Achievement record's %s field is invalid!";
 
-    private static final String DISPLAY_OPTION_FIELD = "displayOption";
-    private static final String NUM_TASK_COMPLETED_FIELD = "numTaskCompleted";
+    public static final String DISPLAY_OPTION_FIELD = "displayOption";
+    public static final String NUM_TASK_COMPLETED_FIELD = "numTaskCompleted";
 
-    private static final String NEXT_DAY_BREAK_POINT_FIELD = "nextDayBreakPoint";
-    private static final String NUM_TASK_COMPLETED_BY_DAY_FIELD = "numTaskCompletedByDay";
-    private static final String XP_VALUE_BY_DAY_FIELD = "xpValueByDay";
+    public static final String NEXT_DAY_BREAK_POINT_FIELD = "nextDayBreakPoint";
+    public static final String NUM_TASK_COMPLETED_BY_DAY_FIELD = "numTaskCompletedByDay";
+    public static final String XP_VALUE_BY_DAY_FIELD = "xpValueByDay";
 
-    private static final String NEXT_WEEK_BREAK_POINT_FIELD = "nextWeekBreakPoint";
-    private static final String NUM_TASK_COMPLETED_BY_WEEK_FIELD = "numTaskCompletedByWeek";
-    private static final String XP_VALUE_BY_WEEK_FIELD = "xpValueByWeek";
+    public static final String NEXT_WEEK_BREAK_POINT_FIELD = "nextWeekBreakPoint";
+    public static final String NUM_TASK_COMPLETED_BY_WEEK_FIELD = "numTaskCompletedByWeek";
+    public static final String XP_VALUE_BY_WEEK_FIELD = "xpValueByWeek";
 
     @XmlElement(required = true)
     private String displayOption;
@@ -130,9 +130,13 @@ public class XmlAdaptedAchievementRecord {
                 NUM_TASK_COMPLETED_BY_WEEK_FIELD);
         final int modelXpValueByWeek = stringToIntModelField(xpValueByWeek, XP_VALUE_BY_WEEK_FIELD);
 
-        return new AchievementRecord(modelDisplayOption, modelXp, modelLevel, modelNumTaskCompleted,
-                modelNextDayBreakPoint, modelNumTaskCompletedByDay, modelXpValueByDay, modelNextWeekBreakPoint,
-                modelNumTaskCompletedByWeek, modelXpValueByWeek);
+        try {
+            return new AchievementRecord(modelDisplayOption, modelXp, modelLevel, modelNumTaskCompleted,
+                    modelNextDayBreakPoint, modelNumTaskCompletedByDay, modelXpValueByDay, modelNextWeekBreakPoint,
+                    modelNumTaskCompletedByWeek, modelXpValueByWeek);
+        } catch (RuntimeException ex) {
+            throw new IllegalValueException(ex.getMessage());
+        }
     }
 
     /**

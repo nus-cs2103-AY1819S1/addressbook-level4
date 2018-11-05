@@ -12,12 +12,18 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AchievementsUpdatedEvent;
 import seedu.address.model.achievement.AchievementRecord;
+import seedu.address.model.achievement.Level;
 import seedu.address.model.util.DateFormatUtil;
 
 /**
  * A ui for the achievement field that is displayed on top of the status bar.
  */
 public class AchievementPanel extends UiPart<Region> {
+
+    public static final String ALL_TIME_TIME_SPAN = "All-time achievements:";
+    public static final String TODAY_TIME_SPAN_FORMAT = "Daily achievements from %s:";
+    public static final String THIS_WEEK_TIME_SPAN_FORMAT = "Weekly achievements from %s:";
+    public static final String CURRENT_TO_MAX_FORMAT = "%s / %s";
 
     private static final Logger logger = LogsCenter.getLogger(AchievementPanel.class);
 
@@ -44,20 +50,24 @@ public class AchievementPanel extends UiPart<Region> {
         levelValueLabel.setText(level);
         switch (displayOption) {
         case 1:
-            timeSpanLabel.setText("All-time achievements:");
+            timeSpanLabel.setText(ALL_TIME_TIME_SPAN);
             String xp = Integer.toString(achievements.getXpValue());
-            xpValueLabel.setText(xp + " / " + achievements.getLevelMaxXp());
+            if (achievements.getXpValue() > Level.LEVEL_5.getMaxXp()) {
+                xpValueLabel.setText(xp);
+            } else {
+                xpValueLabel.setText(String.format(CURRENT_TO_MAX_FORMAT, xp, achievements.getLevelMaxXp()));
+            }
             numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompleted()));
             break;
         case 2:
-            timeSpanLabel.setText("Achievements since "
-                    + getLastDayBreakPoint(achievements.getNextDayBreakPoint()) + " :");
+            timeSpanLabel.setText(String.format(TODAY_TIME_SPAN_FORMAT,
+                    getLastDayBreakPoint(achievements.getNextDayBreakPoint())));
             xpValueLabel.setText(Integer.toString(achievements.getXpValueByDay()));
             numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByDay()));
             break;
         case 3:
-            timeSpanLabel.setText("Achievements since "
-                    + getLastWeekBreakPoint(achievements.getNextWeekBreakPoint()) + " :");
+            timeSpanLabel.setText(String.format(THIS_WEEK_TIME_SPAN_FORMAT,
+                    getLastWeekBreakPoint(achievements.getNextWeekBreakPoint())));
             xpValueLabel.setText(Integer.toString(achievements.getXpValueByWeek()));
             numTasksLabel.setText(Integer.toString(achievements.getNumTaskCompletedByWeek()));
             break;

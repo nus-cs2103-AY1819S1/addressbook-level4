@@ -109,5 +109,9 @@ public class TaskTest {
         // different labels -> returns false
         editedAlice = new TaskBuilder(A_TASK).withLabels(VALID_LABEL_HUSBAND).build();
         assertFalse(A_TASK.equals(editedAlice));
+
+        // different name -> returns false
+        editedAlice = new TaskBuilder(A_TASK).withStatus(Status.COMPLETED).build();
+        assertFalse(A_TASK.equals(editedAlice));
     }
 }
