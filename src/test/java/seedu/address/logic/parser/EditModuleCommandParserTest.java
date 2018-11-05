@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.arguments.EditArgument;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 
 /**
@@ -39,7 +38,7 @@ public class EditModuleCommandParserTest {
      * Argument cannot be null.
      */
     @Test
-    public void parseNullArgumentFails() throws ParseException {
+    public void parseNullArgumentFails() {
         Assert.assertThrows(NullPointerException.class, () -> {
             parser.parse(null);
         });
@@ -142,7 +141,7 @@ public class EditModuleCommandParserTest {
     public void parseNoNewValueFails() {
         assertParseFailure(parser,
                 "-t CS1231 -e 1 -z 1",
-                EditModuleCommandParser.MESSAGE_NO_CHANGES);
+                EditModuleCommandParser.MESSAGE_NO_NEW_VALUE);
     }
 
     /**
