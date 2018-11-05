@@ -204,7 +204,9 @@ For two persons, adds friend with each other. +
 Format: `addFriend INDEX,INDEX`
 
 ****
-* For two users at the 2 specified `INDEX`, adds each other as friend. The index *must be a positive integer* 1, 2, 3, ... and must be different from each other
+* For two users at the 2 specified `INDEX`, adds each other as friend.
+* Only two indexes can be stated, seperated by a comma(,) with no spaces in between.
+* Each index *must be a positive integer* 1, 2, 3, ..., and must be different from each other.
 * The two users cannot be already friends.
 ****
 
@@ -219,14 +221,30 @@ For two persons, deletes each other as friend. +
 Format: `deleteFriend INDEX,INDEX`
 
 ****
-* For two users at the 2 specified `INDEX`, deletes each other as friend. The index *must be a positive integer* 1, 2, 3, ... and must be different from each other
-* The two users must be already friends.
+* For two users at the 2 specified `INDEX`, deletes each other as friend.
+* Only two indexes can be stated, seperated by a comma(,) with no spaces in between.
+* Each index *must be a positive integer* 1, 2, 3, ..., and must be different from each other.
+* The two users must already be friends.
+****
+
+==== Suggest friends based on similar interests : `suggestFriendsByInterests`
+
+Suggest friends for an existing user in the event organizer that have at least one similar interest with the selected user. +
+Format: `suggestFriendsByInterests INDEX`
+
+****
+* Suggests friends for the selected user at the specified `INDEX`.
+* The index refers to the index number shown in the displayed user list.
+* The index *must be a positive integer* 1, 2, 3, ...
+* Users who have at least one similar interest with the selected user will be displayed.
+* Users who are already friends with the selected user will not be displayed.
+* The selected user will also be displayed, so that he/she can activate the `AddFriendCommand` immediately after that with the other displayed users.
 ****
 
 Examples:
 
-* `deleteFriend 1,2` +
-1st and 2nd user are no longer friends with each other and their names are removed from each other's friend list.
+* `suggestFriendsByInterests 1` +
+Suggests friends for the 1st user in the event organiser that have at least one similar interest with the selected user.
 
 ==== Get free time between users : `maxSchedule`
 
