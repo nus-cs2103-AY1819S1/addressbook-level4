@@ -82,6 +82,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         return Optional.empty();
     }
 
+    /**
+     * Removes other arguments that are not supposed to be in the name string for searching.
+     */
     private String[] removeOtherArguments(String[] keywords) {
         List<String> trimmedKeyWords = Arrays.asList(keywords);
         int[] indexes = new int[4];
@@ -100,7 +103,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         int lastIndexOfNameString = smallestPositiveIndex;
         String[] trimmedArgs = new String[lastIndexOfNameString];
-        for (int i = 0 ; i < lastIndexOfNameString; i++) {
+        for (int i = 0; i < lastIndexOfNameString; i++) {
             trimmedArgs[i] = trimmedKeyWords.get(i);
         }
 
