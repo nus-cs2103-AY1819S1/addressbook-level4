@@ -252,8 +252,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::login[]
-=== Login/log out feature
+// tag::login/logout[]
+=== Login/logout feature
 
 ==== Current Implementation
 
@@ -301,6 +301,7 @@ image::LoginFeatureAfterLogin.png[width="300"]
 * Alternative 3 : implement "login" via select command
 ** Pros: Easy to implement
 ** Cons: No security at all
+// end::login/logout[]
 
 ////
 // tag::undoredo[]
@@ -562,12 +563,12 @@ To specify the friendship relation between two users, both the indexes of the us
 
 ===== Aspect: Friend class
 
-Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address), since these attributes act as the primary identification for a Person. Example:
-For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh-87438807-alexyeoh@example.com-Blk 30 Geylang Street 29, #06-40'.
+Like other attributes, we represents a friend of a Person using a Friend class. The Friend class has a string field that combines the 4 main attributes of Person (name, phone, email, address) using a vertical bar(|), since these attributes act as the primary identification for a Person. Example:
+For a person with name Alex Yeoh, phone 87438807, email alexyeoh@example.com, address Blk 30 Geylang Street 29, #06-40, the Friend object will have a string field that is 'Alex Yeoh|87438807|alexyeoh@example.com|Blk 30 Geylang Street 29, #06-40'.
 
 In the Person class, his/her friends will be represented using a Set of Friend objects as the friend list. Each time `AddFriendCommand` is called, a Friend object will be created and added into the set.
 
-In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '-' (due to the toString() method in Friend class), which is the actual name of the friend.
+In the display panel where the friend list of a user is displayed, the friend of that user will be identified by the first token of the string field in the Friend object separated by the delimiter '|' (due to the toString() method in Friend class), which is the actual name of the friend.
 
 ===== Aspect: Friendships can only be added once and deleted if they are current friends
 
@@ -1176,6 +1177,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [appendix]
+
+// tag::UC[]
 == Use Cases
 //(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 (For all use cases below, the *System* is the `EventOrganiser`, unless specified otherwise)
@@ -1359,7 +1362,7 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-Use
+
 *Extensions:*
 
 * 1a. Event organiser may specify extra details to filter search results.
@@ -1442,6 +1445,7 @@ highest votes.
 ** 10a1. System will show all the options that have the highest votes only.
 +
 Use case resumes from step 12.
+// end::UC[]
 
 [appendix]
 == Non Functional Requirements
