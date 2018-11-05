@@ -158,7 +158,7 @@ public class Patient {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons of the same name and IC have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Patient otherPatient) {
@@ -166,9 +166,14 @@ public class Patient {
             return true;
         }
 
+        // IC number is the same, immediately same person.
+        if (otherPatient != null && otherPatient.getIcNumber().equals(getIcNumber())) {
+            return true;
+        }
+
         return otherPatient != null
-                && (otherPatient.getName().equals(getName()) || otherPatient.getIcNumber().equals(getIcNumber())
-                || (otherPatient.getPhone().equals(getPhone()) || otherPatient.getEmail().equals(getEmail())));
+                && otherPatient.getName().equals(getName()) && otherPatient.getIcNumber().equals(getIcNumber())
+                && (otherPatient.getPhone().equals(getPhone()) || otherPatient.getEmail().equals(getEmail()));
     }
 
     /**
@@ -185,8 +190,6 @@ public class Patient {
             return false;
         }
         Patient otherPatient = (Patient) other;
-        System.out.println(otherPatient.getMedicalRecord());
-        System.out.println(getMedicalRecord());
         return otherPatient.getName().equals(getName())
                 && otherPatient.getIcNumber().equals(getIcNumber())
                 && otherPatient.getPhone().equals(getPhone())
