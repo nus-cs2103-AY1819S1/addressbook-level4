@@ -167,8 +167,8 @@ public class Patient {
         }
 
         return otherPatient != null
-                && otherPatient.getName().equals(getName()) && otherPatient.getIcNumber().equals(getIcNumber())
-                && (otherPatient.getPhone().equals(getPhone()) || otherPatient.getEmail().equals(getEmail()));
+                && (otherPatient.getName().equals(getName()) || otherPatient.getIcNumber().equals(getIcNumber())
+                || (otherPatient.getPhone().equals(getPhone()) || otherPatient.getEmail().equals(getEmail())));
     }
 
     /**
