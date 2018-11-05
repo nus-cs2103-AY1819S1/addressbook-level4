@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import ssp.scheduleplanner.commons.exceptions.DataConversionException;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
@@ -20,6 +21,7 @@ import ssp.scheduleplanner.storage.XmlFileStorage;
 import ssp.scheduleplanner.storage.XmlSerializableRangeOfWeek;
 
 public class FirstDayCommandTest {
+    private static final String INVALID_DATE_RANGE = "010101";
     private File checkFileExist = new File("testrangeofweek.xml");
     private File check = new File("rangeofweek.xml");
     private Path path = Paths.get("testrangeofweek.xml");
@@ -27,8 +29,9 @@ public class FirstDayCommandTest {
             "XmlSerializableRangeOfWeekTest");
     private final Path nullpath = test_data_folder.resolve("nullrangeofweek.xml");
     private final Path diffSizepath = test_data_folder.resolve("diffsizerangeofweek.xml");
-    private final Path invalidpath = test_data_folder.resolve("invaliddaterangeofweek.xml");
-    private final Path typicalpath = test_data_folder.resolve("typicalrangeofweek.xml");
+    private final Path invalidPath = test_data_folder.resolve("invaliddaterangeofweek.xml");
+    private final Path typicalPath = test_data_folder.resolve("typicalrangeofweek.xml");
+    private final Path nonExistFilePath = test_data_folder.resolve("testrangeofweek.xml");
 
     private FirstDayCommand fds = new FirstDayCommand();
     private final String userInputDate = "130818";
@@ -128,6 +131,47 @@ public class FirstDayCommandTest {
         assertTrue(storeRangeOfWeeks[16][2] != "");
     }
 
+    //The following code is referenced from: https://stackoverflow.com/questions/156503/how-do-you-assert-
+    //that-a-certain-exception-is-thrown-in-junit-4-tests
+    @Test(expected = FileNotFoundException.class)
+    public void retrieveRangeOfWeeks_fileNotExistException() throws FileNotFoundException {
+        if (!checkFileExist.exists()) {
+            try {
+                XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
+            } catch (FileNotFoundException e) {
+                throw e;
+            } catch (DataConversionException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    @Test
+    public void retrieveRangeOfWeeks_dataConversionException() throws DataConversionException {
+        ExpectedException thrown = ExpectedException.none();
+        if (!checkFileExist.exists()) {
+            try {
+                thrown.expect(DataConversionException.class);
+                XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidPath);
+            } catch (FileNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    @Test
+    public void retrieveWeekDescription_emptyString_success() {
+        String[][] emptyString = new String[fds.WEEKS_IN_SEMESTER][3];
+        for (int i = 0; i < fds.WEEKS_IN_SEMESTER; i++) {
+            emptyString[i][0] = INVALID_DATE_RANGE;
+            emptyString[i][1] = INVALID_DATE_RANGE;
+            emptyString[i][2] = "placeholder description";
+        }
+
+        assertTrue(fds.retrieveWeekDescription(emptyString).equals(""));
+
+    }
+
     @Test
     public void isMonday_test() {
         //the following tests are Monday
@@ -189,7 +233,7 @@ public class FirstDayCommandTest {
 
     //The following code is referenced from: https://stackoverflow.com/questions/156503/how-do-you-assert-
     //that-a-certain-exception-is-thrown-in-junit-4-tests
-    @Test (expected = IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void diffSizePath_exception() throws CommandException {
         try {
             XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(diffSizepath);
@@ -199,6 +243,30 @@ public class FirstDayCommandTest {
             throw new CommandException(fds.MESSAGE_DATA_UNABLE_CONVERT);
         } catch (FileNotFoundException e) {
             throw new CommandException(fds.MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
+    //The following code is referenced from: https://stackoverflow.com/questions/156503/how-do-you-assert-
+    //that-a-certain-exception-is-thrown-in-junit-4-tests
+    @Test(expected = FileNotFoundException.class)
+    public void createDefaultFile_fileNotExist_throwFileNotFoundException() throws FileNotFoundException {
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(nonExistFilePath);
+        } catch (FileNotFoundException e) {
+            throw e;
+        } catch (DataConversionException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void createDefaultFile_invalidDataFormat_throwDataConversionException() throws DataConversionException {
+        ExpectedException thrown = ExpectedException.none();
+        try {
+            thrown.expect(DataConversionException.class);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidPath);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());;
         }
     }
 
@@ -218,9 +286,9 @@ public class FirstDayCommandTest {
     @Test
     public void invalidDatePath_exception() throws CommandException {
         try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidpath);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidPath);
             storeRangeOfWeeks = range.convertRangeOfWeeksToString2dArray(range);
-            assertFalse(range.checkIfValidDateFromStorage());
+            assertFalse(range.checkIfValidDateOrRangeFromStorage());
         } catch (DataConversionException e) {
             throw new CommandException(fds.MESSAGE_DATA_UNABLE_CONVERT);
         } catch (FileNotFoundException e) {
@@ -231,12 +299,12 @@ public class FirstDayCommandTest {
     @Test
     public void typicalPath_success() throws CommandException {
         try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(typicalpath);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(typicalPath);
             storeRangeOfWeeks = range.convertRangeOfWeeksToString2dArray(range);
 
             assertTrue(range.returnSize() == fds.WEEKS_IN_SEMESTER);
             assertTrue(range.checkIfNullValueFromStorage());
-            assertTrue(range.checkIfValidDateFromStorage());
+            assertTrue(range.checkIfValidDateOrRangeFromStorage());
         } catch (DataConversionException e) {
             throw new CommandException(fds.MESSAGE_DATA_UNABLE_CONVERT);
         } catch (FileNotFoundException e) {
@@ -246,12 +314,10 @@ public class FirstDayCommandTest {
 
     @Test
     public void computeAppTitle_test() throws CommandException {
-        String appTitle = "";
+        String appTitle = "Schedule Planner";
 
         if (fds.isWithinDateRange(rangeOfWeeks[0][0], rangeOfWeeks[16][1])) {
             appTitle = "Schedule Planner" + "  - " + fds.retrieveWeekDescription(rangeOfWeeks);
-        } else {
-            appTitle = "Schedule Planner";
         }
 
         //if system time is within date range, appTitle should not be "Schedule Planner"
@@ -273,6 +339,7 @@ public class FirstDayCommandTest {
     /**
      * Modification of actual isWithinDateRange in FirstDayCommand.java
      * Add a parameter for "testing" system date
+     *
      * @param firstDayOfSem
      * @param lastDayOfSem
      * @return
