@@ -52,10 +52,12 @@ class CanvasSizeCommandTest {
         expectedModel.getCanvas().setBackgroundColor(args);
         CommandHistory ch = new CommandHistory();
         assertCommandSuccess(
-                new CanvasBgcolorCommand(args),
+                new CanvasSizeCommand(args),
                 model,
                 ch,
-                String.format(CanvasBgcolorCommand.OUTPUT_SUCCESS, args),
+                String.format(CanvasSizeCommand.OUTPUT_FAILURE)
+                        + "\n\n"
+                        + CanvasSizeCommand.MESSAGE_USAGE,
                 expectedModel);
     }
 
