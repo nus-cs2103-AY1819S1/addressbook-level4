@@ -4,12 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.util.List;
-import java.util.TimeZone;
-
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 //@@author m4dkip
 /**
@@ -33,17 +30,23 @@ public class Time {
     public Time(String time) {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
+
+        /*
         Parser parser = new Parser(TimeZone.getTimeZone("GMT+8:00"));
         List<DateGroup> dateGroupList = parser.parse(time);
 
         this.time = dateGroupList.get(0).getDates().get(0)
                 .toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
+        */
+
+        this.time = LocalTime.parse(time);
     }
 
     /**
      * Returns true if a given time string is a valid time.
      */
     public static boolean isValidTime(String test) {
+        /*
         Parser parser = new Parser(TimeZone.getTimeZone("GMT+8:00"));
         List<DateGroup> dateGroupList = parser.parse(test);
 
@@ -54,6 +57,16 @@ public class Time {
         List<java.util.Date> dates = dateGroupList.get(0).getDates();
 
         return !dates.isEmpty(); //hard to understand but codacy rejected the readable version :/
+        */
+
+        DateTimeFormatter validFormat =
+                DateTimeFormatter.ofPattern(TIME_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
+        try {
+            LocalTime.parse(test, validFormat);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
     }
 
     public LocalTime getValue() {
