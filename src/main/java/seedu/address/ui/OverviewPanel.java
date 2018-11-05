@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.OverviewPanelChangedEvent;
+import seedu.address.model.Overview;
 import seedu.address.model.event.Event;
 import seedu.address.model.record.Record;
 import seedu.address.model.volunteer.Volunteer;
@@ -31,7 +32,7 @@ public class OverviewPanel extends UiPart<Region> {
     private ObservableList<Volunteer> volunteerList;
     private ObservableList<Event> eventList;
     private ObservableList<Record> recordList;
-
+    private Overview overview;
 
     public OverviewPanel(ObservableList<Volunteer> volunteerList, ObservableList<Event> eventList,
                                                                     ObservableList<Record> recordList) {
@@ -39,11 +40,14 @@ public class OverviewPanel extends UiPart<Region> {
         this.volunteerList = volunteerList;
         this.eventList = eventList;
         this.recordList = recordList;
+        this.overview = new Overview(volunteerList, eventList, recordList);
         registerAsAnEventHandler(this);
     }
 
     private void setLabelText() {
-        upcomingLabel.setText("Number of events: " + Integer.toString(eventList.size()));
+        upcomingLabel.setText(Integer.toString(overview.getNumOfUpcomingEvents()));
+        ongoingLabel.setText(Integer.toString(overview.getNumOfOngoingEvents()));
+        completedLabel.setText(Integer.toString(overview.getNumOfCompletedEvents()));
     }
 
     @Subscribe
