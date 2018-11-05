@@ -147,19 +147,14 @@ Format: `shutdown <index>`
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
-<<<<<<< HEAD
-=== Manage commands
-=======
->>>>>>> f768b4624aafc111a661b735f190ed862c05b539
-
 ==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Get help and accessibility
+=== Manage commands
 
-This section contains all commands related to providing user help and accessibility.
+This section contains all commands related to managing commands.
 
 // tag::help[]
 
@@ -461,6 +456,23 @@ and "family"
 
 image::./ui_screenshots/find-example-3.png[width="600"]
 // end::filter[]
+
+=== See commands to be implemented in v2.0
+
+This section contains all commands that will be implemented in v2.0.
+
+==== Signing up as a user
+Creates a new user profile to allow the user to access ThanePark. +
+Format: `signup <username> <password>`
+
+==== Logging into the system
+Logs in a user that has already signed up. +
+Format: `login <username> <password>`
+
+==== Logging out of the system
+Logs out a user from the system. +
+Format: `logout`
+
 
 == FAQ
 
