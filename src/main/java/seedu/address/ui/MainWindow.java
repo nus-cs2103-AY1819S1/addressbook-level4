@@ -192,6 +192,12 @@ public class MainWindow extends UiPart<Stage> {
                 ModelManager.getFavouriteEvent());
     }
 
+    private void refreshTabPanel() {
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
+                logic.getUnfilteredPersonList(), logic.getEventTagList());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -204,12 +210,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    private void refreshTabPanel() {
-        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
-                logic.getUnfilteredPersonList(), logic.getEventTagList());
-        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
-    }
-    
     void show() {
         primaryStage.show();
     }
