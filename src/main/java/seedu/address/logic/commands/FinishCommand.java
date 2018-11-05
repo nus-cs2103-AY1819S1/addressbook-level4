@@ -15,7 +15,6 @@ import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 import seedu.address.model.person.exceptions.DifferentBloodTypeException;
 
-
 /**
  * Finish serving the Current Patient.
  * Move Patient from Current Patient to ServedPatientList.
@@ -31,6 +30,7 @@ public class FinishCommand extends QueueCommand {
     public static final String MESSAGE_EMPTY_NOTE = "Add a note to patient before using the finish command.\n"
             + "Use the adddocument command.\n"
             + DocumentContentAddCommand.MESSAGE_USAGE;
+    public static final String MESSAGE_PATIENT_MODIFIED = "Patient %1$s has been modified, removing him from queue.";
 
     @Override
     public CommandResult execute(Model model, PatientQueue patientQueue, CurrentPatient currentPatient,
@@ -51,6 +51,11 @@ public class FinishCommand extends QueueCommand {
         try {
             Patient notUpdatedPatient = finishedPatient.getPatient();
 
+            if (!model.hasPerson(notUpdatedPatient)) {
+                throw new CommandException(String.format(
+                        Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE, notUpdatedPatient.getName()));
+            }
+
             // Create a new patient object with the updated medical record
             Patient editedPatient = finishedPatient.createNewPatientWithUpdatedMedicalRecord();
 
@@ -58,6 +63,7 @@ public class FinishCommand extends QueueCommand {
             finishedPatient.updatePatient(editedPatient);
             servedPatientList.addServedPatient(finishedPatient);
             // Update this patient
+
             model.updatePerson(notUpdatedPatient, editedPatient);
 
         } catch (DifferentBloodTypeException dbte) {

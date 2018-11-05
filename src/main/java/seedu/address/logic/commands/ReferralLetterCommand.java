@@ -6,6 +6,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ShowDocumentWindowRequestEvent;
+import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -13,6 +14,7 @@ import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.document.ReferralLetter;
 import seedu.address.model.person.CurrentPatient;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
 //integrate select command
@@ -54,6 +56,17 @@ public class ReferralLetterCommand extends QueueCommand {
         }
 
         ServedPatient servedPatient = servedPatientList.selectServedPatient(index);
+
+        Patient patient = servedPatient.getPatient();
+
+        if (!model.hasPerson(patient)) {
+
+            servedPatientList.removeAtIndex(index.getZeroBased());
+            EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue,
+                    servedPatientList, currentPatient));
+            throw new CommandException(String.format(
+                    Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE, patient.getName()));
+        }
 
         if (servedPatient.getReferralContent().equals("")) {
             throw new CommandException(MESSAGE_EMPTY_REFERRAL);

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.logic.CommandHistory;
@@ -11,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.ServedPatient;
 
 
@@ -50,6 +52,13 @@ public class PaymentCommand extends QueueCommand {
         }
 
         ServedPatient servedPatient = servedPatientList.removeAtIndex(targetPosition.getZeroBased());
+        Patient patient = servedPatient.getPatient();
+        if (!model.hasPerson(patient)) {
+            EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue,
+                    servedPatientList, currentPatient));
+            throw new CommandException(String.format(
+                    Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE, patient.getName()));
+        }
 
         //Do document processing, saving all documents to the patient before evicting him from the clinic.
 

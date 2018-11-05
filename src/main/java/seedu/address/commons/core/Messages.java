@@ -15,4 +15,6 @@ public class Messages {
 
     public static final String MESSAGE_PERSON_IN_QUEUE = "%1$s is currently in the queue. "
             + "Remove %1$s from the queue first.";
+    public static final String MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE = "Patient %1$s was modified while in queue, "
+            + "removing %1$s from the queue.";
 }

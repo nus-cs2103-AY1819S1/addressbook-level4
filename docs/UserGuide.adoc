@@ -134,6 +134,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * The `INDEX` refers to the index number shown in the displayed patient list. It must be a *non zero, positive integer* (eg. 1, 2, 3...)!
 * At least one of the optional parameters must be provided.
 * Existing values will be *overwritten* by the newly input values of the corresponding field.
+* You cannot edit the record of a patient that is currently in queue.
 ====
 
 [TIP]
@@ -195,6 +196,12 @@ Format: `list`
 Deletes the specified patient from the CLInic database. +
 Alias: `d` +
 Format: `delete INDEX`
+
+[NOTE]
+.Thing(s) to note:
+====
+* You cannot delete a patient that is currently in queue.
+====
 
 [TIP]
 .Pro tip(s):

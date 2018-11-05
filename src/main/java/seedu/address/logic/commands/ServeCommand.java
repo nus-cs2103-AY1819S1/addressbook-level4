@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.logic.CommandHistory;
@@ -42,6 +43,12 @@ public class ServeCommand extends QueueCommand {
         }
 
         Patient patient = patientQueue.dequeue();
+
+        if (!model.hasPerson(patient)) {
+            throw new CommandException(String.format(
+                    Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE, patient.getName()));
+        }
+
         currentPatient.assignPatient(patient);
 
         EventsCenter.getInstance().post(new ShowMedicineListEvent());
