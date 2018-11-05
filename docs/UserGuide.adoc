@@ -379,6 +379,7 @@ Format: `add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...`
 ****
 * ITEM_NAME and ITEM_PRICE must be provided.
 * An item can have any number of tags (including 0)
+* ITEM_PRICE should only contain numbers, at most 2 decimal place and smaller than or equals to 2,147,483,647.
 ****
 
 Examples:
@@ -529,7 +530,7 @@ Format: `sort-menu [NAME] [PRICE]`
 Examples:
 
 * `sort-menu NAME` +
-Sorts the menu by item name in alphabetical order.
+Sorts the menu by item name in lexicographical order.
 * `sm PRICE` +
 Sorts the menu by item price in ascending order(lowest to highest).
 
