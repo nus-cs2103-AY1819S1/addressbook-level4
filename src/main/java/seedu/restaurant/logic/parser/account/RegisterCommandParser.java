@@ -14,8 +14,9 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.account.Username;
 
+//@@author AZhiKai
 /**
- * Parses input arguments and creates a new RegisterCommand object
+ * Parses input arguments and creates a new {@code RegisterCommand} object.
  */
 public class RegisterCommandParser implements Parser<RegisterCommand> {
 

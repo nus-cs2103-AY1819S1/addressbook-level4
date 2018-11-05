@@ -288,7 +288,7 @@ Format: `add-ingredient n/INGREDIENT_NAME u/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM
 
 Examples:
 
-* `add-ingredient n/cod fish t/kilogram p/20 m/1`
+* `add-ingredient n/cod fish u/kilogram p/20 m/1`
 
 ==== Listing all ingredients : `list-ingredients` or `list-ing`
 

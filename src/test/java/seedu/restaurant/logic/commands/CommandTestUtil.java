@@ -119,6 +119,7 @@ public class CommandTestUtil {
     // integer only
     public static final String PREFIX_WITH_INVALID_PRICE = " " + PREFIX_ITEM_PRICE + "-2"; // negative price not allowed
 
+    //@@author AZhiKai
     /**
      * For accounts
      */
@@ -129,13 +130,16 @@ public class CommandTestUtil {
     public static final String VALID_PASSWORD_DEMO_TWO = "22qqww";
     public static final String VALID_PASSWORD_DEMO_THREE = "abc!@#";
 
+    public static final String INVALID_USERNAME = "demo 1";
+    public static final String INVALID_PASSWORD = "11 22qq";
+
     public static final String PREFIX_WITH_VALID_USERNAME = " " + PREFIX_ID + VALID_USERNAME_DEMO_ONE;
     public static final String PREFIX_WITH_VALID_PASSWORD = " " + PREFIX_PASSWORD + VALID_PASSWORD_DEMO_ONE;
     public static final String PREFIX_WITH_VALID_NEW_PASSWORD = " " + PREFIX_NEW_PASSWORD + VALID_PASSWORD_DEMO_ONE;
 
-    public static final String PREFIX_WITH_INVALID_USERNAME = " " + PREFIX_ID + "azhi kai";
-    public static final String PREFIX_WITH_INVALID_PASSWORD = " " + PREFIX_PASSWORD + "11 22qq";
-    public static final String PREFIX_WITH_INVALID_NEW_PASSWORD = " " + PREFIX_NEW_PASSWORD + "11 22qqq";
+    public static final String PREFIX_WITH_INVALID_USERNAME = " " + PREFIX_ID + INVALID_USERNAME;
+    public static final String PREFIX_WITH_INVALID_PASSWORD = " " + PREFIX_PASSWORD + INVALID_PASSWORD;
+    public static final String PREFIX_WITH_INVALID_NEW_PASSWORD = " " + PREFIX_NEW_PASSWORD + INVALID_PASSWORD;
 
     /**
      * For ingredients

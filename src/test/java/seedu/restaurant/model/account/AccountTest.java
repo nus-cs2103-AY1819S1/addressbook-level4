@@ -13,6 +13,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class AccountTest {
 
     @Rule

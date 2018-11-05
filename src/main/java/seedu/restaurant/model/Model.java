@@ -185,6 +185,7 @@ public interface Model {
 
     //=========== API for Accounts =============================================================
 
+    //@@author AZhiKai
     /**
      * Adds the given account. {@code account} must not already exist in the account storage.
      *
