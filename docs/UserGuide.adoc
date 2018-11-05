@@ -325,11 +325,11 @@ a|
 Examples:
 
 * `delete 1` +
-`list` +
+`view` +
 `undo` (reverses the `delete 1` command) +
 
 * `view 1` +
-`list` +
+`view` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
