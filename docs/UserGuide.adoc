@@ -196,7 +196,7 @@ Selects the task identified by the index number used in the displayed task list.
 Format: `select INDEX`
 
 ****
-* Selects the task and loads the information the task at the specified `INDEX`.
+* Selects the task and loads the information of the task at the specified `INDEX`.
 * The index refers to the index number shown in the displayed task list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -215,7 +215,7 @@ Selects the 1st task in the results of the `find` command.
 [%hardbreaks]
 Displays the cumulative achievements of a user across a specified time period on the GUI.
 Such achievements include current level, xp earned and number of tasks completed across that time period.
-Users automatically level up when on gaining enough xp to reach the next level. The maximum level is capped at lvl.5.
+Users automatically level up on gaining enough xp to reach the next level. The maximum level is capped at lvl.5.
 Format: `achievements TIME_SPAN`, a valid `TIME_SPAN` may take the value of `all-time`, `today`, or `this week`.
 
 [%hardbreaks]
