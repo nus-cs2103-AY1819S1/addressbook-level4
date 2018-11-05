@@ -462,7 +462,7 @@ The voter list must also be manually updated every time the person details are u
 ** Cons: Some persons might share the same name. It is also not extendable for future versions where the data/attributes of the voters might be relevant to computing the best option.
 // end:::poll[]
 
-//tag::schedule[]
+// tag::schedule[]
 === Schedule feature
 ==== Current implementation
 This section explains the implementation of the features associated with the Schedule class of each Schedule while detailing some implementation details of the Schedule class. The relevant commands which are callable by the user to be discussed are:
@@ -504,9 +504,9 @@ As the schedule is stored as a bitstring, we can employ bitwise operations for u
 Similarity, as bitwise operations are allowed, two or more persons' schedule are or-ed together to form a new schedule object. This schedule object is then translated into slots and print back to the application.
 
 
-// end:::schedule[]
+// end::schedule[]
 
-//tag::timetable[]
+// tag::timetable[]
 === TimeTable feature
 
 ==== Current implementation
@@ -537,7 +537,7 @@ Step 3. We will then filter out the lessons obtained in step 1 from the full det
 
 Step 4. The filtered lessons is then converted into an arraylist of Slot before returning to the aplication.
 
-// end:::timetable[]
+// end::timetable[]
 
 //tag::addDeleteFriend[]
 === Add/Delete Friend feature
