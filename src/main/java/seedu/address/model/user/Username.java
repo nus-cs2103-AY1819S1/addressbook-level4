@@ -10,12 +10,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Username implements Comparable<Username> {
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Names cannot contain any of these characters: \" > < : \\ / | ? *";
+            "Names cannot contain white spaces or any of these characters: \" > < : \\ / | ? *";
 
     /*
      * Username cannot contain any of the following characters : " > < : \ / | ? *
      */
-    private static final String USERNAME_VALIDATION_REGEX = ".*[/\\\\:*?\"<>|].*";
+    private static final String USERNAME_VALIDATION_REGEX = ".*[/\\\\:*?\"<>|\\s].*";
 
     private final String name;
 
