@@ -2,16 +2,24 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
-== PROJECT: Student Schedule Planner
+PROJECT: Student Schedule Planner
 
 ---
 
-== Overview
+== Introduction
 
-Student Schedule Planner is a desktop schedule planner application used by students for schedule planning. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This project portfolio showcases a collection of software engineering projects I have worked on during my time studying in NUS.
 
-== Summary of contributions
+Student Schedule Planner is a desktop schedule planner application created by my team T12-3 for the CS2103T module.
+This application is targeted at university students for keeping track of their tasks.
+We were tasked to morph it from an existing product called AddressBook, which had around 10,000 lines of existing code.
+We also had to work under multiple constraints such as the primary mode of user input must be through command line.
+
+My key contributions in this project were mainly improving the UI part - what is shown to the users.
+
+== Summary of Contributions
 
 * *Major enhancement*: added *progress bar*
 ** What it does: It shows users the percentage of completed tasks for the current day.
@@ -44,12 +52,14 @@ _{you can add/remove categories in the list above}_
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation that is easy for end-users to understand._
 |===
 
-// include::../UserGuide.adoc[tag=]
+include::../UserGuide.adoc[tag=listarchived]
 
-// include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=showtags]
+
+include::../UserGuide.adoc[tag=progressbar]
 
 == Contributions to the Developer Guide
 
@@ -62,7 +72,9 @@ include::../DeveloperGuide.adoc[tag=listarchivedtasks]
 include::../DeveloperGuide.adoc[tag=displaytagsinsidebar]
 
 
-== PROJECT: Zen Coloring
+---
+
+PROJECT: Zen Coloring
 
 == Overview
 

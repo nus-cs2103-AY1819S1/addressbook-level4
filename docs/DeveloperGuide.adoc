@@ -659,7 +659,7 @@ for the tags 'tutorial' and 'CS2100'. `FilterCommand.execute()` returns a list o
 
 //end::filtertags[]
 
-//tag::listarchivedtasks[]
+//tag::listoverdue[]
 === List Overdue Tasks
 The `listoverdue` command allows the user to view the list of all overdue tasks. A task is considered overdue if its
 deadline has passed. In other words, the system's current date is after the deadline.
@@ -678,9 +678,9 @@ Step 2. `model.updateFilteredTaskList()` will update the task list with `Overdue
 
 Step 3. The updated task list would be reflected on the UI to be displayed to the user.
 
-=== Design Considerations
+==== Design Considerations
 
-==== Aspect: How the overdue tasks are stored
+===== Aspect: How the overdue tasks are stored
 
 * **Alternative 1 (current choice):** The overdue tasks are not stored in a separate UniqueTaskList. Instead, the
 UniqueTaskList tasks is filtered with OverduePredicate each time the `listoverdue` command is called.
@@ -691,6 +691,9 @@ the number of tasks is small at any given point of time.
 * **Alternative 2:** The overdue tasks are stored in a new UniqueTaskList.
 ** Pros: Retrieving is overdue tasks is faster.
 ** Cons: A new UniqueTaskList has to be implemented.
+//end::listoverdue[]
+
+//tag::listarchivedtasks[]
 
 === List Archived Tasks
 
@@ -707,9 +710,13 @@ Given below is an example usage scenario and how the list archived mechanism beh
 
 Step 1. The user executes the command `listarchived`.
 
-Step 2. The `listarchived` command raises a new ChangeViewEvent.
+Step 2. The `listarchived` command raises a new ChangeViewEvent that signals a change to archived view.
 
-Step 3. UI responds to the ChangeViewEvent and displays the archived list instead of task list.
+Step 3. MainWindow responds to the ChangeViewEvent with MainWindow#handleChangeViewEvent().
+
+Step 4. MainWindow calls Logic#getFilteredArchivedTaskList(). It then creates a new TaskListPanel instance with Tasks in that list.
+
+Step 5. MainWindow places the new TaskListPanel in the TaskListPanelPlaceHolder. The archived tasks are now displayed.
 
 The following sequence diagram shows how the list archive operation works:
 
@@ -717,15 +724,14 @@ image::ListArchivedSequenceDiagram.png[width="650"]
 
 ==== Design Considerations
 
-===== Aspect: How archived tasks are stored
+===== Aspect: How to change what is displayed
 
-* **Alternative 1 (current choice):** The archived tasks are stored in a separate UniqueTaskList from other tasks.
-** Pros:
-** Cons: Two UniqueTaskLists is needed to be stored.
+* **Alternative 1 (current choice):** The task list panel's contents are replaced with a new task list containing archived tasks.
+** Pros: Only one section of the UI has to be changed.
 
-* **Alternative 2:** Each task contains a new boolean field 'isArchived' for whether it is archived. To list archived, filter through the tasks list by using 'isArchived'.
-** Pros: Only one UniqueTaskList is needed to be stored.
-** Cons: For all other list/filter operations, an extra step for filtering out archived tasks is required.
+* **Alternative 2:** Two JavaFX scenes are created. To handle display changes, switch to the corresponding scene.
+** Pros: It is the proper way of handling change in display with JavaFX.
+** Cons: Since only one section of the UI needs to be changed, changing the whole scene seems redundant.
 
 //end::listarchivedtasks[]
 
@@ -738,8 +744,49 @@ all of the tags he/she has used to categorize tasks.
 
 [coming in v1.4]
 
+==== Current Implementation
+
 //end::displaytagsinsidebar[]
 
+//tag::progressbar[]
+=== Display Progress Bar
+
+The `progresstoday` and `progressweek` commands display the percentage of tasks archived for the current day and week respectively. The progress bars at the bottom also reflect the percentages automatically without the need for any commands to be entered.
+
+==== Current Implementation
+
+Whenever the user makes a change in the schedule planner, for example add, delete, or archive a task, it raises a new SchedulePlannerChangedEvent.
+UI part ProgressBarPanel will handle this event and update the values for both today and this week's progress bars.
+
+Given below is an example usage scenario and how the progress bar mechanism behaves at each step:
+
+Step 1. User adds a new Task for today.
+
+Step 2. A new SchedulePlannerChangedEvent is raised.
+
+Step 3. ProgressBarPanel handles the event with ProgressBarPanel#handleSchedulePlannerChangedEvent().
+
+Step 4. The taskList is retrieved by SchedulePlannerChangedEvent#data.getTaskList(). The archivedTaskList is retrieved by SchedulePlannerChangedEvent#data.getArchivedTaskList().
+
+Step 5. ProgressBarPanel#updateProgressBars(taskList, archivedTaskList) is called.
+
+Step 6. After filtering through each lists with the DateSamePredicate, their sizes are calculated.
+
+Step 7. The number of completed tasks for today is the size of the filtered archived list, while the total number of tasks for today is the size of both the filtered archived list and the filtered task list.
+
+Step 8. The fraction is calculated from completed / total. Then the progress bar for today is set to that fraction.
+
+Step 9. The same is done for this week's progress bar but the lists are filtered with DateWeekSamePredicate.
+
+The following sequence diagram shows how the progress bar mechanism works:
+
+
+==== Design Considerations
+
+===== Aspect:
+* **Alternative 1 (current choice):**
+
+//end::progressbar[]
 == Documentation
 
 We used asciidoc for writing documentation.

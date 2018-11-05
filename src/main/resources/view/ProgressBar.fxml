@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.text.Text?>
+
+<GridPane styleClass="grid-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+  </columnConstraints>
+  <Text fx:id="todaylabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Today's Progress" wrappingWidth="300"/>
+  <ProgressBar styleClass="stack-pane" fx:id="today" GridPane.rowIndex="1" />
+  <Text fx:id="weeklabel" strokeType="OUTSIDE" strokeWidth="0.0" text="This Week's Progress" GridPane.columnIndex="1" nodeOrientation="RIGHT_TO_LEFT"/>
+  <ProgressBar styleClass="stack-pane" fx:id="week" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+</GridPane>

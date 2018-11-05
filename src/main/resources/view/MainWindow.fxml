@@ -61,6 +61,8 @@
           </VBox>
         </SplitPane>
 
+        <StackPane fx:id="progressbarPlaceholder" VBox.vgrow="NEVER" />
+
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>

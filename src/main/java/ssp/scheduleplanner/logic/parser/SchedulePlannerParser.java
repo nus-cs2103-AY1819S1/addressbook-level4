@@ -25,6 +25,8 @@ import ssp.scheduleplanner.logic.commands.ListDayCommand;
 import ssp.scheduleplanner.logic.commands.ListMonthCommand;
 import ssp.scheduleplanner.logic.commands.ListOverdueCommand;
 import ssp.scheduleplanner.logic.commands.ListWeekCommand;
+import ssp.scheduleplanner.logic.commands.ProgressTodayCommand;
+import ssp.scheduleplanner.logic.commands.ProgressWeekCommand;
 import ssp.scheduleplanner.logic.commands.RedoCommand;
 import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
@@ -110,6 +112,12 @@ public class SchedulePlannerParser {
 
         case ListWeekCommand.COMMAND_WORD:
             return new ListWeekCommand();
+
+        case ProgressTodayCommand.COMMAND_WORD:
+            return new ProgressTodayCommand();
+
+        case ProgressWeekCommand.COMMAND_WORD:
+            return new ProgressWeekCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

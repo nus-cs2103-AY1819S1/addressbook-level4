@@ -1,37 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
-    <categories>
-        <name>Modules</name>
-    </categories>
-    <categories>
-        <name>Others</name>
-    </categories>
-    <categories>
-        <name>mesocute</name>
-    </categories>
-    <categories>
-        <name>2</name>
-    </categories>
-    <categories>
-        <name>switches biatch</name>
-    </categories>
-    <categories>
-        <name>screw u</name>
-    </categories>
-    <categories>
-        <name>my cats</name>
-    </categories>
-    <categories>
-        <name>meow mewo must study</name>
-    </categories>
-    <tasks>
-        <name>Do CS2105 lab</name>
-        <date>091018</date>
-        <priority>3</priority>
-        <venue>NUS</venue>
-        <tagged>CS2105</tagged>
-        <tagged>Lab</tagged>
-    </tasks>
     <tasks>
         <name>Watch CS2106 lecture</name>
         <date>101018</date>
@@ -55,14 +23,6 @@
         <venue>Home</venue>
         <tagged>Lecture</tagged>
         <tagged>CS2103T</tagged>
-    </tasks>
-    <tasks>
-        <name>Do MA1101R tutorial</name>
-        <date>141018</date>
-        <priority>3</priority>
-        <venue>Home</venue>
-        <tagged>Tutorial</tagged>
-        <tagged>MA1101R</tagged>
     </tasks>
     <tasks>
         <name>Do CS2030 lab</name>
@@ -253,18 +213,34 @@
         <tagged>Exam</tagged>
     </tasks>
     <tasks>
-        <name>CS2103T Tutorial</name>
-        <date>111018</date>
-        <priority>3</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
+        <name>test 1</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
     </tasks>
     <tasks>
-        <name>CS2103T Tutorial</name>
-        <date>011018</date>
+        <name>test 2</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
+    </tasks>
+    <tasks>
+        <name>test3</name>
+        <date>041118</date>
         <priority>3</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
+        <venue>1</venue>
+    </tasks>
+    <tasks>
+        <name>test4</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>3</venue>
+    </tasks>
+    <tasks>
+        <name>test5</name>
+        <date>041118</date>
+        <priority>2</priority>
+        <venue>1</venue>
     </tasks>
     <archivedTasks>
         <name>Do CS2100 lab</name>
@@ -275,31 +251,37 @@
         <tagged>Lab</tagged>
     </archivedTasks>
     <archivedTasks>
-        <name>CS2103T Tutorial</name>
-        <date>111018</date>
+        <name>Do MA1101R tutorial</name>
+        <date>141018</date>
         <priority>3</priority>
-        <venue>COM1-0210</venue>
+        <venue>Home</venue>
         <tagged>Tutorial</tagged>
+        <tagged>MA1101R</tagged>
     </archivedTasks>
     <archivedTasks>
-        <name>CS2103T Tutorial</name>
-        <date>011018</date>
+        <name>Do CS2105 lab</name>
+        <date>091018</date>
         <priority>3</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
+        <venue>NUS</venue>
+        <tagged>CS2105</tagged>
+        <tagged>Lab</tagged>
     </archivedTasks>
     <archivedTasks>
-        <name>CS2103T Tutorial</name>
-        <date>290918</date>
-        <priority>3</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
+        <name>test 3</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
     </archivedTasks>
     <archivedTasks>
-        <name>CS2103T Tutorial</name>
-        <date>290918</date>
+        <name>test1</name>
+        <date>041118</date>
         <priority>3</priority>
-        <venue>COM1-0210</venue>
-        <tagged>Tutorial</tagged>
+        <venue>1</venue>
+    </archivedTasks>
+    <archivedTasks>
+        <name>test2</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>1</venue>
     </archivedTasks>
 </scheduleplanner>
