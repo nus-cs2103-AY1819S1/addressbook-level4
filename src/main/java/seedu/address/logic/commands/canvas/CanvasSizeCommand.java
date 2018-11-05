@@ -16,13 +16,13 @@ import seedu.address.model.Model;
  */
 
 public class CanvasSizeCommand extends CanvasCommand {
-    private static final String TYPE = COMMAND_WORD + " size";
+    public static final String TYPE = COMMAND_WORD + " size";
     public static final String MESSAGE_USAGE = "Usage of canvas size: "
             + "\n- " + TYPE + " (SIZE): " + "Resizes the canvas if size is provided. Prints the current size otherwise."
             + "\n\tExample: " + TYPE + " 800x600, sets the canvas size to 800px width and 600px height.";
 
-    private static final String OUTPUT_SUCCESS = "Canvas size is now %d by %d.";
-    private static final String OUTPUT_FAILURE = "Invalid size provided!";
+    public static final String OUTPUT_SUCCESS = "Canvas size is now %d by %d.";
+    public static final String OUTPUT_FAILURE = "Invalid size provided!";
 
     private static final Logger logger = LogsCenter.getLogger(CanvasSizeCommand.class);
 
@@ -49,7 +49,9 @@ public class CanvasSizeCommand extends CanvasCommand {
                 throw new NumberFormatException();
             }
         } catch (NumberFormatException e) {
-            return new CommandResult(OUTPUT_FAILURE);
+            return new CommandResult(OUTPUT_FAILURE
+                    + "\n\n"
+                    + MESSAGE_USAGE);
         }
         model.getCanvas().setHeight(newHeight);
         model.getCanvas().setWidth(newWidth);

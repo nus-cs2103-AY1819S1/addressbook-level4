@@ -37,6 +37,20 @@ public class PreviewImageGenerator {
     }
 
     /**
+     * Returns a dummy image read from resources (original.png).
+     */
+    public static PreviewImage getPreviewImage(String fileName) {
+        BufferedImage image = null;
+        try {
+            ClassLoader classLoader = PreviewImageGenerator.class.getClassLoader();
+            image = ImageIO.read(classLoader.getResource("testimgs/" + fileName));
+        } catch (IOException e) {
+            logger.warning("Error getting default model" + e);
+        }
+        return new PreviewImage(image);
+    }
+
+    /**
      * Returns a dummy transformation (blur).
      */
     public static Transformation getATransformation() {

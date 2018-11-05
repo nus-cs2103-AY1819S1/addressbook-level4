@@ -126,4 +126,14 @@ public class ModelGenerator {
         model.updateCurrDirectory(Paths.get(MainApp.MAIN_PATH + "/src/test/resources/testimgs"));
         return model;
     }
+
+    /**
+     * Returns a Model with 3 layers.
+     */
+    public static Model getModelWithPopulatedCanvas() {
+        Model model = getDefaultModel();
+        model.getCanvas().addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.FULL_LIST[2]), "Layer 2");
+        model.getCanvas().addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.FULL_LIST[3]), "Layer 3");
+        return model;
+    }
 }

@@ -18,13 +18,13 @@ import seedu.address.model.Model;
  */
 
 public class LayerSwapCommand extends LayerCommand {
-    private static final String TYPE = COMMAND_WORD + " swap";
+    public static final String TYPE = COMMAND_WORD + " swap";
     public static final String MESSAGE_USAGE = "Usage of layer swap: "
             + "\n- " + TYPE + " [TO] [FROM]: " + "Swaps the order of two distinct layers"
             + "\n\tExample: " + TYPE + " 1 3, swaps the order of the 1st and 3rd layer in the canvas.";
 
-    private static final String OUTPUT_SUCCESS = "Layers %d and %d are now swapped.";
-    private static final String OUTPUT_FAILURE = "Invalid index(es) provided!";
+    public static final String OUTPUT_SUCCESS = "Layers %d and %d are now swapped.";
+    public static final String OUTPUT_FAILURE = "Invalid index(es) provided!";
 
     private static final Logger logger = LogsCenter.getLogger(LayerSwapCommand.class);
 
@@ -63,6 +63,6 @@ public class LayerSwapCommand extends LayerCommand {
         ImageMagickUtil.render(model.getCanvas(), logger, "preview");
 
         return new CommandResult(String.format(OUTPUT_SUCCESS,
-                model.getCanvas().getWidth(), model.getCanvas().getHeight()));
+                toIndex.getOneBased(), fromIndex.getOneBased()));
     }
 }

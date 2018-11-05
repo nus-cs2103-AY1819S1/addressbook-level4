@@ -16,13 +16,14 @@ import seedu.address.model.Model;
  */
 
 public class CanvasAutoResizeCommand extends CanvasCommand {
-    private static final String TYPE = COMMAND_WORD + " auto";
+    public static final String TYPE = COMMAND_WORD + " auto";
+
     public static final String MESSAGE_USAGE = "Usage of canvas auto-resize: "
             + "\n- " + TYPE + " [ON/OFF]: " + "Turns auto-resize on or off."
             + "\n\tExample: " + TYPE + " off, turns auto-resize off.";
 
-    private static final String OUTPUT_SUCCESS = "Auto-resize has been turned %s.";
-    private static final String OUTPUT_FAILURE = "Invalid operation %s!";
+    public static final String OUTPUT_SUCCESS = "Auto-resize has been turned %s.";
+    public static final String OUTPUT_FAILURE = "Invalid operation %s!";
 
     private static final Logger logger = LogsCenter.getLogger(CanvasAutoResizeCommand.class);
 
