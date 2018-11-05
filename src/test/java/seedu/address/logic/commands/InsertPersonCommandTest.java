@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -107,13 +108,37 @@ public class InsertPersonCommandTest {
     }
 
     @Test
-    public void execute_duplicatePersonInsertionIntoModule() {
+    public void execute_duplicatePersonInsertionIntoModule() throws Exception {
+        Person validPerson = new PersonBuilder().build();
+        Module validModule = new ModuleBuilder().build();
+        Occasion validOccasion = new OccasionBuilder().build();
+        InsertPersonCommand insertPerson = new InsertPersonCommand(Index.fromZeroBased(0),
+                                                                    Index.fromZeroBased(0),
+                                                                    new Module(new ModuleDescriptor()));
+        ModelStubInsertingPersons stub = new ModelStubInsertingPersons(validPerson, validOccasion, validModule);
+        stub.getFilteredPersonList().get(0).getModuleList().add(validModule);
+        stub.getFilteredModuleList().get(0).getStudents().add(validPerson);
 
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(InsertPersonCommand.MESSAGE_FAILURE);
+        insertPerson.execute(stub, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePersonInsertionIntoOccasion() {
+    public void execute_duplicatePersonInsertionIntoOccasion() throws Exception {
+        Person validPerson = new PersonBuilder().build();
+        Module validModule = new ModuleBuilder().build();
+        Occasion validOccasion = new OccasionBuilder().build();
+        InsertPersonCommand insertPerson = new InsertPersonCommand(Index.fromZeroBased(0),
+                Index.fromZeroBased(0),
+                new Occasion(new OccasionDescriptor()));
+        ModelStubInsertingPersons stub = new ModelStubInsertingPersons(validPerson, validOccasion, validModule);
+        stub.getFilteredPersonList().get(0).getOccasionList().add(validOccasion);
+        stub.getFilteredOccasionList().get(0).getAttendanceList().add(validPerson);
 
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(InsertPersonCommand.MESSAGE_FAILURE);
+        insertPerson.execute(stub, commandHistory);
     }
 
     /**
