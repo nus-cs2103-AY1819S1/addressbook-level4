@@ -1,4 +1,4 @@
-//@@theJrLinguist
+//@@author theJrLinguist
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -66,7 +66,7 @@ public class AddPollCommandSystemTest extends AddressBookSystemTest {
                 AddPollOptionCommand.MESSAGE_USAGE));
 
         // Case: no poll at the given index -> rejected
-        addOptionCommand = "  " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "3 "
+        addOptionCommand = "  " + AddPollOptionCommand.COMMAND_WORD + "   " + PREFIX_INDEX + "8 "
                 + PREFIX_POLL_OPTION + POLL_OPTION;
         assertCommandFailure(addOptionCommand, Messages.MESSAGE_NO_POLL_AT_INDEX);
 
