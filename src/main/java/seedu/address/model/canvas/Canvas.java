@@ -71,7 +71,7 @@ public class Canvas {
 
     /**
      * Removes a layer from the canvas. If the only layer left is being remove, throws an IllegalOperationException.
-     * @param i
+     * @param i - Index of the layer to remove
      */
 
     public Index removeLayer(Index i) throws IllegalOperationException {
