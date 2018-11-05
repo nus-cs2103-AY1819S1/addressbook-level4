@@ -82,7 +82,7 @@ public class StockUpCommandTest {
         ingredientHashMap.put(new IngredientName("Iceberg Lettuce"), 10);
 
         StockUpCommand stockUpCommand = new StockUpCommand(ingredientHashMap);
-        String expectedMessage = String.format(Messages.MESSAGE_STOCKUP_INGREDIENT_NOT_FOUND);
+        String expectedMessage = Messages.MESSAGE_STOCKUP_INGREDIENT_NOT_FOUND;
 
         assertCommandFailure(stockUpCommand, model, commandHistory, expectedMessage);
     }
