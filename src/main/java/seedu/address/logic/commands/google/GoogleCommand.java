@@ -15,4 +15,7 @@ public abstract class GoogleCommand extends Command {
     GoogleCommand(String parameter) {
         this.parameter = parameter;
     }
+    GoogleCommand() {
+        parameter = "";
+    }
 }
