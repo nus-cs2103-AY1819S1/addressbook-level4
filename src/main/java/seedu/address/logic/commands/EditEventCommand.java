@@ -20,6 +20,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelToDo;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.calendarevent.DateTime;
 import seedu.address.model.calendarevent.DateTimeInfo;
@@ -88,6 +89,11 @@ public class EditEventCommand extends Command {
         model.resetFilteredCalendarEventList();
         model.commitScheduler();
         return new CommandResult(String.format(MESSAGE_EDIT_CALENDAR_EVENT_SUCCESS, editedCalendarEvent));
+    }
+
+    @Override
+    public CommandResult execute(ModelToDo modelToDo, CommandHistory history) throws CommandException {
+        throw new CommandException(MESSAGE_INCORRECT_MODEL_CALENDAR);
     }
 
     /**
