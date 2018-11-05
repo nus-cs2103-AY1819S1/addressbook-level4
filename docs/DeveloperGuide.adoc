@@ -643,7 +643,7 @@ This is in line with good defensive coding practices and separation of concerns.
 Similar to the `google` set of commands, there are a set of overloaded command types inheriting from `CanvasCommand`
 , namely:
 
-* `bgcolour` - Sets the background colour of the canvas.
+* `bgcolor` - Sets the background colour of the canvas.
 * `size` - Sets the height and the width of the canvas.
 * `auto-resize` - Toggles the auto-resize property of the canvas.
 

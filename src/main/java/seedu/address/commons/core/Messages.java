@@ -1,7 +1,7 @@
 package seedu.address.commons.core;
 
 import seedu.address.logic.commands.canvas.CanvasAutoResizeCommand;
-import seedu.address.logic.commands.canvas.CanvasBgcolourCommand;
+import seedu.address.logic.commands.canvas.CanvasBgcolorCommand;
 import seedu.address.logic.commands.canvas.CanvasSizeCommand;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
@@ -59,7 +59,7 @@ public class Messages {
     public static final String MESSAGE_CANVAS_INVALID_FORMAT = "Please enter a valid canvas command.";
     public static final String ENTIRE_CANVAS_MESSAGE = MESSAGE_CANVAS_INVALID_FORMAT + "\n------------------------\n\n"
             + CanvasAutoResizeCommand.MESSAGE_USAGE + "\n------------------------\n\n"
-            + CanvasBgcolourCommand.MESSAGE_USAGE + "\n------------------------\n\n"
+            + CanvasBgcolorCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + CanvasSizeCommand.MESSAGE_USAGE;
 
 
