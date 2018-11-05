@@ -632,6 +632,62 @@ As such, parsing will be done twice. Once by GoogleCommandParser, and another wi
 
 {to be updated}
 // end::google[]
+== Canvas and Layer features
+
+=== General overview
+The `Canvas` and `Layer` classes serve as a layer of encapsulation for handling one or more instances of `PreviewImage`.
+This is in line with good defensive coding practices and separation of concerns.
+
+=== Canvas (canvas) command
+==== Current implementation
+Similar to the `google` set of commands, there are a set of overloaded command types inheriting from `CanvasCommand`
+, namely:
+
+* `bgcolour` - Sets the background colour of the canvas.
+* `size` - Sets the height and the width of the canvas.
+* `auto-resize` - Toggles the auto-resize property of the canvas.
+
+Beneath the hood `Canvas` manipulation is powered by ImageMagick.
+All of the operation are accessors for various properties of the `Canvas` class
+and the heavy lifting is done by the `processCanvas` function.
+
+The `processCanvas` is a factory method that returns an instance of a `ProcessBuilder`
+which is then handled by the utility method `ImageMagickUtils#runProcessBuilder`.
+
+The rendered `Canvas` object is then shown to the user.
+
+=== Layer (layer) commands
+==== Current implementation
+The `layer` command follows a similar pattern as the `canvas` command.
+The following sub-commands inherit from `LayerCommand`:
+
+* `swap` - Swaps the order of two distinct layers.
+* `lock` - Toggles the lock on a layer. A locked layer is protected from all operations.
+* `delete` - Removes a layer from the `Canvas`
+* `add` - Adds a layer from the `Canvas`.
+* `select` - Selects a layer to work on.
+
+
+
+As the `canvas` and `layer` commands works best in tandem, a use case that spans both commands is as follows:
+
+Step 1) The user executes a valid `select` command. A `Canvas` is constructed holding exactly one `Layer`
+with the default height and width being that of the image selected.
+
+Step 2) The user executes a valid `convert` command.
+
+Step 3) `Canvas#getCurrentLayer` returns the current working layer
+and a transformation is pushed onto its `TransformationSet`.
+
+Step 4) The user then executes a `layer add` command.
+
+Step 5) `Canvas#addLayer` pushes the new layer to the end of the list of `Layer` objects.
+Keep in mind that rendering is a First-In-Last-Out operation which means that the new `Layer`
+is rendered at the very top.
+
+Step 6) The user finally saves the output with the `canvas save` command.
+
+Step 7) `Canvas#save` then saves the output to disk.
 
 == Documentation
 

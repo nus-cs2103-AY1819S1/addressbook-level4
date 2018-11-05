@@ -50,10 +50,8 @@ public class FilmReel extends UiPart<Region> {
         items.removeAll();
         items.setAll(event.paths);
 
-        if (event.refreshSelection) {
-            imageListView.scrollTo(0);
-            imageListView.getSelectionModel().clearSelection();
-        }
+        imageListView.scrollTo(0);
+        imageListView.getSelectionModel().clearSelection();
     }
 
     /**

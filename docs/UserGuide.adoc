@@ -34,6 +34,7 @@ image::Ui.png[width:800]
 
 ==== Command Format
 * Items in square brackets are compulsory parameters to be added e.g `convert [TRANSFORMATION]` +
+* Items in round brackets are optional parameters and can be omitted, e.g `canvas size (NEW_SIZE)` +
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >` +
 ** e.g `g ls <ALBUM_NAME>` can be used as `g ls <Vacation>` +
 * Flags such as `/a` are compulsory flags that need to be included when using that command
@@ -109,9 +110,11 @@ Available transformations
 Format: `create [Name_Of_operation] [op1|arg1|arg2|...] [op2|arg1|arg2|...]`: create a customized operation for
 transformation base on the operation specified
 
-Examples:
+Example:
 
-* `create blurR blur|0x8 rotate|90`
+* `create blurAndRotate blur|0x8 rotate|90` +
+To use the newly created command, use: +
+`convert @blurAndRotate`
 
 [NOTE]
 for the command created, you should add a @ before the command when running the customised command, ie convert @blurR
@@ -120,34 +123,64 @@ for the command created, you should add a @ before the command when running the 
 
 Format: `save [IMAGE_NAME]`: saves the transformed image, supporting jpg, jpeg, png, tiff, gif
 
-Examples:
+Example:
 
 * `save modified.png`
 
-// tag::undoredo[]
-=== Undoing previous actions : `undo`
+[NOTE]
+====
+The image will be saved in the same directory as the original image.
+====
 
-Format: `undo`: Step back to the previous transformation
+// tag::undoredo[]
+=== Undoing a transformation : `undo`
+
+Format: `undo`: Step back to the previous image state (in current layer)
 
 [NOTE]
 ====
 Commands that can be undone: those commands that modify the image's transformation (anything done with `convert`).
 ====
 
-Examples:
+Example:
 
 * `convert blur 0x8` +
-`undo` (reverses the `convert blur 0x8` command) +
+`convert contrast` +
+`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
 
-=== Redoing the previous actions : `redo`
+=== Undoing all transformations : `undo-all`
+
+Format: `undo-all`: Undoes all transformations (reverts image to original state)
+
+Example:
+
+* `convert blur 0x8` +
+`convert contrast` +
+`convert rotate 90` +
+`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
+
+=== Redoing a transformation : `redo`
 
 Format: `redo`: Step forward to the previously undone transformation
 
-Examples:
+Example:
 
 * `convert blur 0x8` +
-`undo` (reverses the `convert blur 0x8` command) +
-`redo` (reapplies the `convert blur 0x8` command) +
+`convert contrast` +
+`undo` (undoes the `convert contrast` command, image will be at `blur 0x8` state) +
+`redo` (reapplies the `convert contrast` command) +
+
+=== Redoing all transformations : `redo-all`
+
+Format: `redo-all`: Redoes all undone transformations
+
+Example:
+
+* `convert blur 0x8` +
+`convert contrast` +
+`convert rotate 90` +
+`undo-all` (undoes all 3 `convert` commands, image will be at original state) +
+`redo-all` (reapplies all 3 `convert` commands) +
 // end::undoredo[]
 
 === Listing files in directory : `ls`
@@ -157,6 +190,118 @@ Format: `ls`: lists files in the current directory
 === Changing directories : `cd`
 
 Format: `cd [DIRECTORY_NAME]`: changes directory
+
+=== Canvas operations : `canvas`
+
+==== Changing the size of the canvas: `canvas size`
+Format: `canvas size (NEW_SIZE)`
+
+[NOTE]
+====
+If the optional parameter NEW_SIZE is not provided, the current size will be displayed in the output instead.
+====
+
+Examples:
+
+* `canvas size 800x600` - Sets the canvas to have a height of 800 pixels and a width of 600px.
+* `canvas size` - Prints the current size.
+
+==== Changing the background color of the canvas: `canvas bgcolour`
+Format: `canvas bgcolour (NEW_COLOR)`
+
+[NOTE]
+====
+If the optional parameter NEW_COLOUR is not provided, the current colour will be displayed in the output instead.
+====
+
+Examples:
+
+* `canvas bgcolour none` - Sets the canvas to have a transparent background.
+* `canvas bgcolour #0f0` - Sets the canvas to the hex colour #00ff00 image:00ff00.png[width:15].
+* `canvas bgcolour #00ff00` - Sets the canvas to the hex colour #00ff00 image:00ff00.png[width:15].
+* `canvas bgcolour rgba(0,255,0,0.7)` - Sets the canvas to the hex colour #00ff00 but with 70% opacity image:00ff00-70.png[width:15].
+* `canvas bgcolour` - Prints the background colour.
+
+==== Allowing the canvas to auto-resize: `canvas auto-resize [ON|OFF]`
+Format : canvas auto-resize [ON|OFF]
+
+Turns on/off the auto-resize for the canvas.
+[NOTE]
+====
+New canvases default to having auto-resize off.
+====
+
+
+Examples:
+
+* `canvas auto-resize on`: Allows the canvas to expand and prevent cropping.
+* `canvas auto-resize off`: The height and width of the output canvas will remain as is.
+
+==== Saving the output: `canvas save`
+Format: `canvas size [FILE_NAME]`
+
+Examples:
+
+* `canvas save out.png` - Saves the current canvas as an image in the `PNG` format.
+* `canvas save out.jpg` - Saves the current canvas as an image in the `JPG` format.
+
+=== Layer operations : `layer`
+
+==== Adding a new layer: `layer add [INDEX] (LAYER_NAME)`
+[NOTE]
+====
+If the optional parameter LAYER_NAME is not provided, one will be automatically generated.
+====
+Selects the image at the provided index and adds it to the current canvas at the very top.
+
+Examples:
+
+* `layer add 4` - Adds the image at index 4 to the canvas.
+* `layer add 1 background layer` - Adds the image at index 1 to the canvas as a layer named `backround layer`.
+
+==== Removing a layer: `layer remove [INDEX]`
+[WARNING]
+====
+This operation is not reversible! Be careful when removing layers!
+====
+[NOTE]
+====
+The last layer of a canvas is protected from removal.
+====
+Permanently removes a layer from canvas.
+
+==== Selecting a layer to work on: `layer select [INDEX]`
+Selects a layer to that all `convert` operations will work on.
+
+==== Selecting a layer to work on: `layer swap [TO_INDEX] [FROM_INDEX]`
+Changes the order of any two distinct layers.
+
+Examples:
+
+* `layer swap 1 2` : Changes the order of layer 1 and layer 2.
+
+==== Locking a layer to prevent accidental edits: `layer lock [INDEX]`
+Locks a layer. Locked layers are protected from all `convert`, `swap` and `delete` operations.
+
+Examples:
+
+* `layer lock 2` : Locks layer 2
+
+==== Unlocking a layer: `layer unlock [INDEX]`
+Unlocks a layer.
+
+Examples:
+
+* `layer unlock 3` : Unlocks layer 3.
+
+==== Unlocking a layer: `layer position [POSITION]`
+Sets the x and y co-ordinates of the current layer.
+(0,0) is defined to be the top left of the screen.
+
+Examples:
+
+* `layer position 50x100` : Sets the layer's top right corner to be at position (50, 100).
+
 
 // tag::google[]
 === Logging in to Google Photos: `login`
@@ -247,7 +392,9 @@ e.g. `add -rotate left 180` +
 * *Save* : `save [IMAGE_NAME]/[SET_NAME]` +
 e.g. `save exampleImage.jpg` +
 * *Undo* : `undo` +
+* *Undo All* : `undo-all` +
 * *Redo* : `redo` +
+* *Redo All* : `redo-all` +
 * *Ls* : `ls` +
 * *Cd* : `cd [DIRECTORY_NAME]` +
 * *Login* : `login` +

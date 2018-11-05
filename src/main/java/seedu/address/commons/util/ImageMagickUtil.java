@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.canvas.Canvas;
@@ -32,6 +35,7 @@ public class ImageMagickUtil {
     private static final int MAC = 3;
     private static String ectPath;
     private static final String osName = System.getProperty("os.name").toLowerCase();
+    private static String convertExecutablePath = "";
     private static String imageMagickPath = ImageMagickUtil.class.getResource("/imageMagic").getPath();
     private static String tmpPath = imageMagickPath + "/tmp";
     private static String commandSaveFolder;
@@ -99,6 +103,8 @@ public class ImageMagickUtil {
         ArrayList<String> args = new ArrayList<>();
         args.add(ImageMagickUtil.getExecuteImageMagick());
         args.add(path.toAbsolutePath().toString());
+        args.add("-background");
+        args.add("rgba(0,0,0,0)"); //HARDFIX!
         args.add("-" + cmds.get(0));
         for (int i = 1; i < cmds.size(); i++) {
             args.add(cmds.get(i));
@@ -175,8 +181,6 @@ public class ImageMagickUtil {
         return new ArrayList<>(JsonConvertArgsStorage.retrieveCommandArguments(file));
     }
 
-    //@@author j-lum
-
     /**
      * Given a list of arguments to ImageMagick, calls the actual ImageMagick executable with the output set to the
      * path provided
@@ -207,32 +211,6 @@ public class ImageMagickUtil {
     }
 
     /**
-     * Creates a ProcessBuilder instance to merge/flatten layers.
-     * @param c - A canvas to be processed
-     * @return a buffered image with a merged canvas.
-     */
-    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
-        ArrayList<String> args = new ArrayList<>();
-        String output = tmpPath + "/modified.png";
-        args.add(getExecuteImageMagick());
-        args.add("-background");
-        args.add(String.format("%s", c.getBackgroundColor()));
-        for (Layer l: c.getLayers()) {
-            args.add("-page");
-            args.add(String.format("+%d+%d", l.getX(), l.getY()));
-            args.add(String.format("%s", l.getImage().getCurrentPath()));
-        }
-        if (c.isCanvasAuto()) {
-            args.add("-layers");
-            args.add(" merge");
-        } else {
-            args.add("-flatten");
-        }
-        args.add(output);
-        return runProcessBuilder(args, output);
-    }
-
-    /**
      * copy the imageMagick outside of the jarfile in order to call it.
      * @author lancelotwillow
      * @param userPrefs
@@ -254,10 +232,12 @@ public class ImageMagickUtil {
             //remove the __MACOSX folder in the mac
             new ProcessBuilder("rm", "-rf", currentPath.toString() + "/__MACOSX").start();
             ectPath = currentPath.toString() + "/ImageMagick-7.0.8/bin/magick";
+            convertExecutablePath = currentPath.toString() + "/ImageMagick-7.0.8/bin/convert";
             break;
         case WINDOWS:
             ResourceUtil.unzipFolder(zipFile);
             ectPath = currentPath.toString() + "/ImageMagick-7.0.8-14-portable-Q16-x64/magick.exe";
+            convertExecutablePath = currentPath.toString() + "/ImageMagick-7.0.8-14-portable-Q16-x64/convert.exe";
             break;
         default:
         }
@@ -269,6 +249,61 @@ public class ImageMagickUtil {
             commandFolder.mkdir();
         }
         zipFile.delete();
+    }
+    //@@author j-lum
+
+    public static String getConvertExecutablePath() {
+        if (convertExecutablePath != null) {
+            return convertExecutablePath;
+        }
+        throw new NoSuchElementException("The ImageMagick binaries cannot be found!");
+    }
+    /**
+     * Creates a ProcessBuilder instance to merge/flatten layers.
+     * @param c - A canvas to be processed
+     * @return a buffered image with a merged canvas.
+     */
+    public static BufferedImage processCanvas(Canvas c) throws IOException, InterruptedException {
+        ArrayList<String> args = new ArrayList<>();
+        String output = tmpPath + "/modified.png";
+        args.add(getConvertExecutablePath());
+        args.add("-size");
+        args.add(String.format("%dx%d", c.getWidth(), c.getHeight()));
+        args.add("-background");
+        args.add(c.getBackgroundColor());
+        for (Layer l: c.getLayers()) {
+            args.add("-page");
+            args.add(String.format("+%d+%d", l.getX(), l.getY()));
+            args.add(String.format("%s", l.getImage().getCurrentPath()));
+        }
+        if (c.isCanvasAuto()) {
+            args.add("-layers");
+            args.add(" merge");
+        } else {
+            args.add("-flatten");
+        }
+        args.add(output);
+        return runProcessBuilder(args, output);
+    }
+
+    /**
+     * Given any canvas, renders it to the target panel.
+     * @param c - Canvas to render
+     * @param logger - an instance of the logger
+     * @param target - the name of the ImagePanel to target
+     */
+    public static void render(Canvas c, Logger logger, String target) {
+        try {
+            EventsCenter.getInstance().post(
+                    new ChangeImageEvent(
+                            SwingFXUtils.toFXImage(
+                                    ImageMagickUtil.processCanvas(c), null), target));
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
+        } catch (InterruptedException e) {
+            logger.severe(e.getMessage());
+        }
+
     }
 
 }

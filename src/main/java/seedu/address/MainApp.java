@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.model.google.PhotosLibraryClientFactory.TEST_FILE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -56,7 +58,9 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("=============================[ Initializing Piconso ]===========================");
         super.init();
-
+        if (TEST_FILE.exists()) {
+            TEST_FILE.delete();
+        }
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
@@ -77,7 +81,7 @@ public class MainApp extends Application {
 
     }
 
-    private void initLogging(Config config) {
+    protected void initLogging(Config config) {
         LogsCenter.init(config);
     }
 
@@ -135,7 +139,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting from default");
             initializedPrefs = new UserPrefs();
         }
 
@@ -150,13 +154,13 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
-    private void initEventsCenter() {
+    protected void initEventsCenter() {
         EventsCenter.getInstance().registerHandler(this);
     }
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting Piconso " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
@@ -169,6 +173,9 @@ public class MainApp extends Application {
             storage.clearCache();
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
+        if (TEST_FILE.exists()) {
+            TEST_FILE.delete();
         }
         Platform.exit();
         System.exit(0);

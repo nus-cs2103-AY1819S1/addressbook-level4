@@ -21,6 +21,7 @@
                     <Insets top="2" bottom ="5"/>
                 </padding>
                 <Label fx:id="name" styleClass="cell_big_label" prefWidth="190" wrapText="true" textAlignment="center" alignment="CENTER"/>
+                <Label fx:id="pathName" styleClass="cell_big_label" visible="false"/>
             </VBox>
         </VBox>
     </GridPane>

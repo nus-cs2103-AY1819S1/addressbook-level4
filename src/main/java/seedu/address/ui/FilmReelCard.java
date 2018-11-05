@@ -20,7 +20,6 @@ import javafx.scene.layout.Region;
 public class FilmReelCard extends UiPart<Region> {
 
     private static final String FXML = "FilmCard.fxml";
-    public final Path path;
 
     /**
      * An image panel for showing the previews
@@ -32,15 +31,16 @@ public class FilmReelCard extends UiPart<Region> {
     private ImageView imagePreview;
     @FXML
     private Label name;
+    @FXML
+    private Label pathName;
 
     public FilmReelCard(Path path, int displayedIndex) throws FileNotFoundException {
         super(FXML);
-        this.path = path;
-
         FileInputStream fis = new FileInputStream(path.toString());
         imagePreview.imageProperty().bind(image);
         image.setValue(new Image(fis));
         name.setText(displayedIndex + "");
+        pathName.setText(path.toString());
     }
 
     @Override
@@ -58,6 +58,7 @@ public class FilmReelCard extends UiPart<Region> {
         // state check
         FilmReelCard card = (FilmReelCard) other;
         return name.getText().equals(card.name.getText())
-                && path.equals(card.path);
+                && pathName.getText().equals(card.pathName.getText());
     }
 }
+

@@ -12,7 +12,6 @@ import seedu.address.logic.commands.ConvertCommand;
 import seedu.address.logic.commands.CreateConvertCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.LayerCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.LsCommand;
@@ -24,7 +23,9 @@ import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoAllCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.canvas.CanvasCommand;
 import seedu.address.logic.commands.google.GoogleCommand;
+import seedu.address.logic.commands.layer.LayerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -100,6 +101,9 @@ public class PiconsoParser {
 
         case LayerCommand.COMMAND_WORD:
             return new LayerCommandParser().parse(arguments);
+
+        case CanvasCommand.COMMAND_WORD:
+            return new CanvasCommandParser().parse(arguments);
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

@@ -1,7 +1,8 @@
 package seedu.address.model;
 
-import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
+import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.google.PhotosLibraryClientFactory.BLOCKER;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -17,10 +18,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.AllTransformationEvent;
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
-import seedu.address.commons.events.ui.ChangeImageEvent;
 import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
+import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
@@ -54,10 +55,12 @@ public class ModelManager extends ComponentManager implements Model {
         this.userPrefs.initImageList();
         dirImageList = this.userPrefs.getCurrImageListBatch();
 
-        try {
-            photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
-        } catch (Exception e) {
-            logger.warning("Unable to log into user account");
+        if (!BLOCKER.exists()) {
+            try {
+                photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
+            } catch (Exception e) {
+                logger.warning("Unable to log into user account");
+            }
         }
 
     }
@@ -108,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateEntireImageList() {
         userPrefs.initImageList();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     /**
@@ -117,7 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateImageListNextBatch() {
         userPrefs.updateImageListNextBatch();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     /**
@@ -125,7 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     public void updateImageListPrevBatch() {
         userPrefs.updateImageListPrevBatch();
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     /**
@@ -165,7 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //=========== GoogleClient Accessors =============================================================
-
+    // @@author chivent
     @Override
     public void setPhotoHandler(PhotoHandler instance) {
         photoLibrary = instance;
@@ -176,8 +179,11 @@ public class ModelManager extends ComponentManager implements Model {
         if (photoLibrary == null) {
             try {
                 photoLibrary = PhotosLibraryClientFactory.createClient();
+                if (photoLibrary == null) {
+                    throw new CommandException(MESSAGE_CONNECTION_FAILURE);
+                }
             } catch (Exception e) {
-                throw new CommandException(MESSAGE_LOGIN_FAILURE);
+                throw new CommandException(MESSAGE_CONNECTION_FAILURE);
             }
         }
         return photoLibrary;
@@ -192,6 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
+    // @@author ihwk1996
     @Override
     public boolean canUndoPreviewImage() {
         return getCurrentPreviewImage().canUndo();
@@ -259,11 +266,12 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author lancelotwillow
     @Override
     public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
-        getCurrentPreviewImage().addTransformation(transformation);
-        getCurrentPreviewImage().commit(image);
-        EventsCenter.getInstance().post(
-                new ChangeImageEvent(
-                        SwingFXUtils.toFXImage(getCurrentPreviewImage().getImage(), null), "preview"));
+        try {
+            getCanvas().getCurrentLayer().addTransformation(transformation);
+            getCanvas().getCurrentLayer().getImage().commit(image);
+        } catch (Exception e) {
+            logger.severe(e.getMessage());
+        }
     }
 
     @Override
@@ -290,7 +298,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateCurrDirectory(Path newCurrDirectory) {
         this.userPrefs.updateUserPrefs(newCurrDirectory);
         EventsCenter.getInstance().post(new ChangeDirectoryEvent(getCurrDirectory().toString()));
-        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList(), true));
+        EventsCenter.getInstance().post(new UpdateFilmReelEvent(getDirectoryImageList()));
     }
 
     @Override
@@ -314,7 +322,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    public void removeLayer(Index i) {
+    public void removeLayer(Index i) throws IllegalOperationException {
         canvas.removeLayer(i);
     }
 
