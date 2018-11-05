@@ -101,9 +101,8 @@ public class Date {
 
     @Override
     public String toString() {
-        return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN));
+        return date.format(DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT));
     }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
