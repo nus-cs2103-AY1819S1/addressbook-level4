@@ -20,7 +20,10 @@ public class PlanMealCommand extends Command {
         + "            MEAL (must be either breakfast, lunch or dinner)\n"
         + "Example: " + COMMAND_WORD + " 1 2019-08-08 lunch";
 
-    public static final String MESSAGE_PLAN_RECIPE_SUCCESS = "Planned Recipe: %1$s";
+    public static final String MESSAGE_PLAN_RECIPE_SUCCESS = "Meal Plan successfully added.\n"
+                                                           + "Recipe: %1$s\n"
+                                                           + "Date: %2$s\n"
+                                                           + "Meal slot: %3$s";
 
     private final Model<Day> model;
     private final Recipe toAdd;
@@ -46,6 +49,7 @@ public class PlanMealCommand extends Command {
         }
         model.sort(new DayComparator());
         model.commitAppContent();
-        return new CommandResult(String.format(MESSAGE_PLAN_RECIPE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_PLAN_RECIPE_SUCCESS,
+            toAdd.getName(), toPlan.getDate(), meal.getSlot()));
     }
 }
