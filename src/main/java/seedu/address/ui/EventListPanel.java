@@ -44,7 +44,7 @@ public class EventListPanel extends UiPart<Region> {
     private void setConnections(ObservableList<List<Event>> eventList, ObservableList<Person> personList,
                                 ObservableList<Tag> eventTagList) {
 
-        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.tagName)));
+        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.getLowerCaseTagName())));
 
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell(personList));
@@ -56,7 +56,7 @@ public class EventListPanel extends UiPart<Region> {
 
         // manually reset eventTags (FlowPane) display
         eventTags.getChildren().removeAll(eventTags.getChildren());
-        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.tagName)));
+        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.getLowerCaseTagName())));
     }
 
     /**

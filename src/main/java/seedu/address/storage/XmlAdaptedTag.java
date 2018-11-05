@@ -23,7 +23,7 @@ public class XmlAdaptedTag {
      * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
      */
     public XmlAdaptedTag(String tagName) {
-        this.tagName = tagName.toLowerCase();
+        this.tagName = tagName;
     }
 
     /**
@@ -32,7 +32,7 @@ public class XmlAdaptedTag {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedTag(Tag source) {
-        tagName = source.tagName.toLowerCase();
+        tagName = source.tagName;
     }
 
     /**
@@ -41,10 +41,10 @@ public class XmlAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName.toLowerCase())) {
+        if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
-        return new Tag(tagName.toLowerCase());
+        return new Tag(tagName);
     }
 
     @Override

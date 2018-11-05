@@ -133,7 +133,7 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName.toLowerCase()));
+            tagSet.add(parseTag(tagName));
         }
         return tagSet;
     }
