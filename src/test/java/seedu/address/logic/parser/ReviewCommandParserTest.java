@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.ReviewCommand;
 
 public class ReviewCommandParserTest {
