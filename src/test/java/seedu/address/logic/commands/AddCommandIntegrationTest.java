@@ -4,8 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
 
