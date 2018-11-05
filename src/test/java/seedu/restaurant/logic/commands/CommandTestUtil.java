@@ -46,7 +46,7 @@ import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 import seedu.restaurant.testutil.ingredient.EditIngredientDescriptorBuilder;
 import seedu.restaurant.testutil.menu.EditItemDescriptorBuilder;
 import seedu.restaurant.testutil.reservation.EditReservationDescriptorBuilder;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

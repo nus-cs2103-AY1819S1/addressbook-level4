@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
 import seedu.restaurant.model.sales.SalesRecord;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class RecordPanelSelectionChangedEventTest {
 

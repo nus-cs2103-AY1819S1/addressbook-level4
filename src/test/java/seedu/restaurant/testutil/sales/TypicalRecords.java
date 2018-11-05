@@ -1,4 +1,4 @@
-package seedu.restaurant.testutil.salesrecords;
+package seedu.restaurant.testutil.sales;
 
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_ONE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_THREE;

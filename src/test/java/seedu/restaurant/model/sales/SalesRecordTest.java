@@ -6,15 +6,15 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_NAME_RECORD_TWO;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_PRICE_RECORD_TWO;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_QUANTITY_SOLD_RECORD_TWO;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_THREE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_TWO;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_THREE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_TWO;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class SalesRecordTest {
 

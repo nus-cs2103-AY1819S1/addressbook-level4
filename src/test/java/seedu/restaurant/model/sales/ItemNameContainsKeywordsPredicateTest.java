@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class ItemNameContainsKeywordsPredicateTest {
 

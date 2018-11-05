@@ -36,7 +36,7 @@ import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.ItemName;
 import seedu.restaurant.model.sales.Price;
 import seedu.restaurant.model.sales.QuantitySold;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 
 public class EditSalesCommandParserTest {
 

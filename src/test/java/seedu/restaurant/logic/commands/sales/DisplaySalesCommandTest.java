@@ -19,7 +19,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.sales.Date;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.Assert;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
 public class DisplaySalesCommandTest {

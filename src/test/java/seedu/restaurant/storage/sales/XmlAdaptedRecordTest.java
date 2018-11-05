@@ -1,12 +1,12 @@
-package seedu.restaurant.storage.salesrecords;
+package seedu.restaurant.storage.sales;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.storage.elements.XmlAdaptedRecord.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_TWO;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_TWO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ import seedu.restaurant.model.sales.QuantitySold;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.storage.elements.XmlAdaptedRecord;
 import seedu.restaurant.testutil.Assert;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class XmlAdaptedRecordTest {
     private static final String INVALID_DATE = "32-12-2017";

@@ -1,7 +1,7 @@
-package seedu.restaurant.testutil.salesrecords;
+package seedu.restaurant.testutil.sales;
 
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

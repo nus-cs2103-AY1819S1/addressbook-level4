@@ -12,7 +12,7 @@ import org.junit.Test;
 import guitests.guihandles.sales.RecordStackPanelHandle;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.sales.SalesRecord;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.ui.GuiUnitTest;
 
 public class RecordStackPanelTest extends GuiUnitTest {

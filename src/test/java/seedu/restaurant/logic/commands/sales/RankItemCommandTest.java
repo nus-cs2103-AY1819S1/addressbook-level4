@@ -6,8 +6,8 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailu
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.restaurant.logic.commands.sales.RankItemCommand.DISPLAYING_RANK_ITEM_MESSAGE;
 import static seedu.restaurant.logic.commands.sales.RankItemCommand.EMPTY_RECORD_LIST_MESSAGE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_TWO;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_TWO;
 
 import org.junit.Rule;
 import org.junit.Test;

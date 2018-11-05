@@ -1,4 +1,4 @@
-package seedu.restaurant.testutil.salesrecords;
+package seedu.restaurant.testutil.sales;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ITEM_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ITEM_PRICE;

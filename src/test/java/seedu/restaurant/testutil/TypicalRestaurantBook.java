@@ -5,7 +5,7 @@ import static seedu.restaurant.testutil.account.TypicalAccounts.getTypicalAccoun
 import static seedu.restaurant.testutil.ingredient.TypicalIngredients.getTypicalIngredients;
 import static seedu.restaurant.testutil.menu.TypicalItems.getTypicalItems;
 import static seedu.restaurant.testutil.reservation.TypicalReservations.getTypicalReservations;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.getTypicalRecords;
+import static seedu.restaurant.testutil.sales.TypicalRecords.getTypicalRecords;
 
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;

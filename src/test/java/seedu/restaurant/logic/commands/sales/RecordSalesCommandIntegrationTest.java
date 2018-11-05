@@ -4,7 +4,7 @@ import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_NAME_RE
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.restaurant.testutil.TypicalRestaurantBook.getTypicalRestaurantBook;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code RecordSalesCommand}.

@@ -118,9 +118,9 @@ import seedu.restaurant.testutil.menu.ItemUtil;
 import seedu.restaurant.testutil.reservation.EditReservationDescriptorBuilder;
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 import seedu.restaurant.testutil.reservation.ReservationUtil;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordUtil;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordUtil;
 
 public class RestaurantBookParserTest {
 

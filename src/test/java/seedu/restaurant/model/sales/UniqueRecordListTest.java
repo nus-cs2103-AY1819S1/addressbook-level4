@@ -3,10 +3,10 @@ package seedu.restaurant.model.sales;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_THREE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_TWO;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_THREE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_TWO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,8 +25,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.restaurant.model.sales.exceptions.DuplicateRecordException;
 import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
-import seedu.restaurant.testutil.salesrecords.ReportBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
+import seedu.restaurant.testutil.sales.ReportBuilder;
 
 public class UniqueRecordListTest {
     @Rule

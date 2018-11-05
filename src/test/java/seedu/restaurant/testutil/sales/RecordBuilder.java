@@ -1,4 +1,4 @@
-package seedu.restaurant.testutil.salesrecords;
+package seedu.restaurant.testutil.sales;
 
 import java.util.HashMap;
 import java.util.Map;

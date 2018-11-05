@@ -1,4 +1,4 @@
-package seedu.restaurant.testutil.salesrecords;
+package seedu.restaurant.testutil.sales;
 
 import seedu.restaurant.logic.commands.sales.EditSalesCommand.EditRecordDescriptor;
 import seedu.restaurant.model.sales.Date;

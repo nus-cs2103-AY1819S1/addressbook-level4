@@ -3,8 +3,8 @@ package seedu.restaurant.model.sales;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_TWO;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,8 +12,8 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
-import seedu.restaurant.testutil.salesrecords.ReportBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
+import seedu.restaurant.testutil.sales.ReportBuilder;
 
 public class SalesReportTest {
 
