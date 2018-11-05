@@ -7,7 +7,7 @@
     -white-1-: #F5F5F5;
 
     -primary-: #3E50B4;
-    -secondary-: #FF3F80;
+    -pink-1-: #FF3F80;
 
     -font-: #98a6ad;
     -background-: #323b44;
@@ -419,6 +419,10 @@
     -fx-background-color: -red-1-;
 }
 
+#overviewPanel .Chart {
+    -fx-background-color: #3d4853;
+}
+
 .overview-event-type {
     -fx-font-family: "Open Sans";
     -fx-font-size: 15pt;
@@ -430,4 +434,51 @@
     -fx-font-size: 20pt;
     -fx-font-weight: 700;
     -fx-text-fill: white;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: white;
+    -fx-fill: white;
+}
+
+.chart-pie-label {
+    -fx-fill: white;
+    -fx-font-size: 12pt;
+    -fx-font-family: "IBM Plex Sans";
+}
+
+.default-color0.chart-pie { -fx-pie-color: -blue-2-; }
+.default-color1.chart-pie { -fx-pie-color: -pink-1-; }
+.default-color2.chart-pie { -fx-pie-color: -blue-2-; }
+.default-color3.chart-pie { -fx-pie-color: -pink-1-; }
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-tick-label-font-size: 12pt;
+    -fx-tick-label-fill: white;
+    -fx-tick-label-font: "IBM Plex Sans";
+    -fx-tick-length: 1;
+    -fx-minor-tick-length: 1;
+}
+
+.axis-label {
+    -fx-text-fill: white;
+    -fx-font-size: 12pt;
+    -fx-font-family: "IBM Plex Sans";
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: transparent;
+}
+
+.chart-bar {
+    -fx-bar-fill: #22bad9;
+    -fx-background-color: -purple-1-;
+    -fx-background-radius: 0;
 }
