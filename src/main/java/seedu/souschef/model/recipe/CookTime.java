@@ -12,9 +12,9 @@ public class CookTime {
 
 
     public static final String MESSAGE_COOKTIME_CONSTRAINTS =
-            "Cook time should only contain unit H/M/S or H & M or M & S, and a value before each unit";
+            "Cook time should only contain unit H/M/S or H & M or M & S, and a value before each unit. e.g. 10M20S";
     public static final String COOKTIME_VALIDATION_REGEX =
-            "PT(((\\d+H)(\\d+M))|((\\d+M)(\\d+S))|(\\d+H)|(\\d+M)|(\\d+S))";
+            "(((\\d+H)(\\d+M))|((\\d+M)(\\d+S))|(\\d+H)|(\\d+M)|(\\d+S))";
     public final Duration value;
 
     /**
@@ -24,9 +24,10 @@ public class CookTime {
      */
     public CookTime(String duration) {
         if (duration == null) {
-            duration = "PT0M";
+            duration = "0M";
         }
         checkArgument(isValidCookTime(duration), MESSAGE_COOKTIME_CONSTRAINTS);
+        duration = "PT" + duration;
         value = Duration.parse(duration);
     }
 
@@ -37,13 +38,9 @@ public class CookTime {
         return time.matches(COOKTIME_VALIDATION_REGEX);
     }
 
-    public String getDisplayableCookTime() {
-        return String.valueOf(value);
-    }
-
     @Override
     public String toString() {
-        return value.toString();
+        return String.valueOf(value).replaceFirst("PT", "");
     }
 
     @Override
