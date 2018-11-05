@@ -44,7 +44,8 @@ public class SetCategoryBudgetCommand extends Command {
             requireNonNull(model);
             model.setCategoryBudget(this.toSet);
             model.commitExpenseTracker();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet.getCategory(), this.toSet.getBudgetCap()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                this.toSet.getCategory(), this.toSet.getBudgetCap()));
         } catch (CategoryBudgetExceedTotalBudgetException catBudExc) {
             throw new CommandException(EXCEED_MESSAGE);
         }
