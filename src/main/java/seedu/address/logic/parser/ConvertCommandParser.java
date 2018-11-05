@@ -14,6 +14,8 @@ import seedu.address.model.transformation.Transformation;
  */
 public class ConvertCommandParser implements Parser<ConvertCommand> {
 
+    private static String INVALID_MESSAGE = "the argument is invalid";
+
     /**
      * Parses the given {@code String} of arguments in the context of the ExampleCommand
      * and returns an ExampleCommand object for execution.
@@ -23,7 +25,7 @@ public class ConvertCommandParser implements Parser<ConvertCommand> {
         try {
             String[] all = args.split(" ");
             if (all.length < 2) {
-                throw new ParseException("Invalid argument");
+                throw new ParseException(INVALID_MESSAGE);
             }
             String operation = all[1];
             String[] cmds = Arrays.copyOfRange(all, 2, all.length);

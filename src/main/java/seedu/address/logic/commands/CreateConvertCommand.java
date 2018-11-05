@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -78,7 +79,7 @@ public class CreateConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
             checkValidation();
-            JsonConvertArgsStorage.storeArgument(name, cmds);
+            JsonConvertArgsStorage.storeArgument(name, cmds, ImageMagickUtil.getCommandSaveFolder());
         } catch (IOException e) {
             throw new CommandException("the argument is invalid, see more details: " + MESSAGE_USAGE);
         }
