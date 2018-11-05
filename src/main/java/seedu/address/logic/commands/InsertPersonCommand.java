@@ -18,9 +18,8 @@ public class InsertPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "insertperson";
     // TODO make following messages more detailed.
-    public static final String MESSAGE_SUCCESS  = "Successfully inserted person.";
-    public static final String MESSAGE_SUCCESS_INSERT_INTO_MODULE = "Person already exists in this module.";
-    public static final String MESSAGE_SUCCESS_INSERT_INTO_OCCASION  = "Person already exists in this occasion";
+    public static final String MESSAGE_SUCCESS_INSERT_INTO_MODULE = "Successfully inserted person into module.";
+    public static final String MESSAGE_SUCCESS_INSERT_INTO_OCCASION  = "Successfully inserted person into occasion";
     public static final String MESSAGE_FAILURE = "Failed to insert person.";
     public static final String MESSAGE_INCORRECT_INDEX = "Please enter a valid index.";
     // TODO make a better usage string.

@@ -168,6 +168,16 @@ public class AddOccasionCommandTest {
         }
 
         @Override
+        public void insertPerson(Person person, Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void insertPerson(Person person, Occasion occasion) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
