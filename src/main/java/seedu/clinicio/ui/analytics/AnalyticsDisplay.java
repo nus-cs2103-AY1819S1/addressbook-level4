@@ -44,7 +44,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
     private Label summaryValueFour;
 
     @FXML
-    private ScrollPane analyticsScrollPane;
+    private AnchorPane analyticsPane;
     @FXML
     private AnchorPane visualizationPane;
     @FXML
@@ -54,7 +54,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     public AnalyticsDisplay() {
         super(FXML);
-        analyticsScrollPane.setVisible(false);
+        analyticsPane.setVisible(false);
         registerAsAnEventHandler(this);
 
         summaryLabels = Arrays.asList(
@@ -73,13 +73,7 @@ public class AnalyticsDisplay extends UiPart<Region> {
         chartPane.setStyle("-fx-background-color: #6593F5");
         Plot.updateVisualization(allDataToDisplay.getVisualizationData(), chartPane);
         Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
-        analyticsScrollPane.setVisible(true);
+        analyticsPane.setVisible(true);
     }
 
-    public void setHeight(double newHeight) {
-        System.out.println(newHeight);
-        analyticsScrollPane.setMinViewportHeight(newHeight);
-        analyticsScrollPane.setPrefViewportHeight(newHeight);
-        //analyticsScrollPane.
-    }
 }
