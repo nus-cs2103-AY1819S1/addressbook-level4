@@ -10,7 +10,6 @@ import seedu.address.logic.commands.AddEventCommand;
 import seedu.address.logic.commands.AddToDoCommand;
 import seedu.address.logic.commands.ClearCalendarCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandToDo;
 import seedu.address.logic.commands.DeleteEventCommand;
 import seedu.address.logic.commands.DeleteToDoCommand;
 import seedu.address.logic.commands.EditEventCommand;
@@ -78,11 +77,17 @@ public class SchedulerParser {
         case EditEventCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case AddToDoCommand.COMMAND_WORD:
+            return new AddToDoCommandParser().parse(arguments);
+
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteToDoCommand.COMMAND_WORD:
+            return new DeleteToDoCommandParser().parse(arguments);
 
         case ClearCalendarCommand.COMMAND_WORD:
             return new ClearCalendarCommand();
@@ -107,33 +112,6 @@ public class SchedulerParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
-
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-        }
-    }
-
-    /**
-     * Parses user input into commandToDo for execution.
-     *
-     * @param userInput full user input string
-     * @return the command based on the user input
-     */
-    public CommandToDo parseCommandToDo(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-        switch (commandWord) {
-
-        case AddToDoCommand.COMMAND_WORD:
-            return new AddToDoCommandParser().parse(arguments);
-
-        case DeleteToDoCommand.COMMAND_WORD:
-            return new DeleteToDoCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

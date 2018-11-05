@@ -13,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
@@ -91,6 +90,10 @@ public class CalendarDisplay extends UiPart<Region> {
         calendarDisplayBox.getChildren().add(agenda);
     }
 
+    /**
+     * TODO add javadoc comment
+     *
+     */
     private void displayPopUp(Parent root) {
         Scene scene = new Scene(root, 300, 200);
         Stage stage = new Stage();

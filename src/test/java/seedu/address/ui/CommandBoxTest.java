@@ -72,7 +72,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 
-    // @Test TODO pass test
+    @Test
     public void handleKeyPress_startingWithUp() {
         // empty history
         assertInputHistory(KeyCode.UP, "");
