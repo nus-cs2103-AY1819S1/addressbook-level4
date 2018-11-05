@@ -33,11 +33,12 @@ public class ListCommand<T extends UniqueType> extends Command {
     @Override
     public CommandResult execute(History history) {
         requireNonNull(model);
-        Context context = history.getContext();
+        Context context;
+        context = history.getContext();
         if (context.equals(INGREDIENT)) {
             model.sort(new IngredientDateComparator());
         } else if (context.equals(CROSS)) {
-            model.updateFilteredList(Model.PREDICATE_SHOW_ALL_CROSSRECIPES);
+            model.updateFilteredList(Model.PREDICATE_SHOW_ALL);
             List<CrossRecipe> crossRecipeList = model.getFilteredList();
             for (CrossRecipe crossRecipe : crossRecipeList) {
                 Recipe recipe = crossRecipe.getRecipe();
