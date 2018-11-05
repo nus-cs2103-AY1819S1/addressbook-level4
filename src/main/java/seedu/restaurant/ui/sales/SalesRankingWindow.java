@@ -55,21 +55,6 @@ public class SalesRankingWindow extends UiPart<Stage> {
 
     /**
      * Shows the SalesRankingWindow.
-     * @throws IllegalStateException
-     * <ul>
-     *     <li>
-     *         if this method is called on a thread other than the JavaFX Application Thread.
-     *     </li>
-     *     <li>
-     *         if this method is called during animation or layout processing.
-     *     </li>
-     *     <li>
-     *         if this method is called on the primary stage.
-     *     </li>
-     *     <li>
-     *         if {@code dialogStage} is already showing.
-     *     </li>
-     * </ul>
      */
     public void show() {
         logger.fine("Displaying Sales Ranking.");
