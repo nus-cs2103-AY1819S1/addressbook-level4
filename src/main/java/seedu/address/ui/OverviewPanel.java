@@ -47,23 +47,23 @@ public class OverviewPanel extends UiPart<Region> {
     private ObservableList<Volunteer> volunteerList;
     private ObservableList<Event> eventList;
     private ObservableList<Record> recordList;
-
     private Overview overview;
 
     public OverviewPanel(ObservableList<Volunteer> volunteerList, ObservableList<Event> eventList,
                          ObservableList<Record> recordList) {
         super(FXML);
-        Overview overview = new Overview(volunteerList, eventList, recordList);
-        this.overview = overview;
 
         this.volunteerList = volunteerList;
         this.eventList = eventList;
         this.recordList = recordList;
+        this.overview = new Overview(volunteerList, eventList, recordList);
         registerAsAnEventHandler(this);
     }
 
     private void setLabelText() {
-        upcomingLabel.setText("Number of events: " + Integer.toString(eventList.size()));
+        upcomingLabel.setText(Integer.toString(overview.getNumOfUpcomingEvents()));
+        ongoingLabel.setText(Integer.toString(overview.getNumOfOngoingEvents()));
+        completedLabel.setText(Integer.toString(overview.getNumOfCompletedEvents()));
     }
 
     /**
@@ -104,6 +104,7 @@ public class OverviewPanel extends UiPart<Region> {
     @Subscribe
     private void handleOverviewPanelSelectionChangedEvent(OverviewPanelChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        overview = new Overview(volunteerList, eventList, recordList);
         setLabelText();
         createGenderPieChart();
         createAgeBarChart();

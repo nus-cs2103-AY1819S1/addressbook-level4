@@ -394,6 +394,40 @@
     -fx-text-fill: white;
 }
 
+.overview-category {
+    -fx-font-size: 18pt;
+    -fx-text-fill: -white-1-;
+    -fx-font-family: "Open Sans";
+    -fx-padding: 0 0 5 0;
+}
+
+
 #overviewPanel .overviewEvent {
-    -fx-background-color: white;
+    -fx-background-radius: 2;
+    -fx-padding: 15;
+}
+
+#overviewPanel .Upcoming {
+    -fx-background-color: -amber-1-;
+}
+
+#overviewPanel .Ongoing {
+    -fx-background-color: -green-1-;
+}
+
+#overviewPanel .Completed {
+    -fx-background-color: -red-1-;
+}
+
+.overview-event-type {
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 15pt;
+    -fx-text-fill: white;
+}
+
+.overview-type-number {
+    -fx-font-family: "Open Sans";
+    -fx-font-size: 20pt;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
 }
