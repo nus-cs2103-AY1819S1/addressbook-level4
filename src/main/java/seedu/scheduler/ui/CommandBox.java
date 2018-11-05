@@ -49,8 +49,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        setUpInputListener();
         historySnapshot = logic.getHistorySnapshot();
         TextFields.bindAutoCompletion(
                 commandTextField, AddCommand.COMMAND_WORD, AddCommand.COMMAND_ALIAS_ONE, AddCommand.COMMAND_ALIAS_TWO,
@@ -170,6 +169,18 @@ public class CommandBox extends UiPart<Region> {
      */
     private void setStyleToDefault() {
         commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+    }
+
+    /**
+     * Sets {@code commandTextField} to detect when date time are input.
+     * Then parses the date time to be displayed.
+     * Also calls #setStyleToDefault() whenever there is a change to the text of the command box.
+     */
+    private void setUpInputListener() {
+        commandTextField.textProperty().addListener((unused1, unused2, newValue) -> {
+            setStyleToDefault();
+            raise(new NewResultAvailableEvent(logic.parseDateTime(newValue)));
+        });
     }
 
     /**
