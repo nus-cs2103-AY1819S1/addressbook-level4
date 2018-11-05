@@ -230,6 +230,12 @@ public class ParserUtil {
         if (!TargetWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        //append a decimal index if decimal not found
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new TargetWeight(trimmedWeight);
     }
 
@@ -243,6 +249,12 @@ public class ParserUtil {
         if (!CurrentWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        //append a decimal index if decimal not found
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new CurrentWeight(trimmedWeight);
     }
 
