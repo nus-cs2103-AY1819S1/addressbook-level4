@@ -22,7 +22,7 @@ import seedu.address.ui.DescriptionDisplay;
  * Shows description of a todolist event identified using its displayed index
  * from the calendar event list in the toDoList.
  */
-public class ShowDescriptionCommand extends Command{
+public class ShowDescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "show description";
 
@@ -40,7 +40,11 @@ public class ShowDescriptionCommand extends Command{
         super.isToDoCommand = true;
     }
 
-    private void display(Parent root) {
+    /**
+     * display a descriptionDisplay UI component {@code DescriptionDisplay}
+     * @param root
+     */
+    private void display (Parent root) {
         Scene scene = new Scene(root, 200, 150);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);

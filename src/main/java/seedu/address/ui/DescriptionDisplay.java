@@ -17,6 +17,7 @@ public class DescriptionDisplay extends UiPart<Region> {
 
     private static final String FXML = "DescriptionDisplay.fxml";
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
+    public final ToDoListEvent toDoListEvent;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,8 +26,6 @@ public class DescriptionDisplay extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on Scheduler level 4</a>
      */
-
-    public final ToDoListEvent toDoListEvent;
 
     @FXML
     private TextArea description;
