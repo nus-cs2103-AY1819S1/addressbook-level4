@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 
 import java.util.stream.Stream;
@@ -28,16 +27,24 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
      */
     public AddPrescriptionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE,
+                ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE,
                         PREFIX_CONSUMPTION_PER_DAY);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE,
-                PREFIX_CONSUMPTION_PER_DAY) || !argMultimap.getPreamble().isEmpty()) {
+        int id;
+
+        try {
+            id = ParserUtil.parseId(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddPrescriptionCommand.MESSAGE_USAGE), pe);
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_MEDICINE_NAME, PREFIX_DOSAGE,
+                PREFIX_CONSUMPTION_PER_DAY) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddPrescriptionCommand.MESSAGE_USAGE));
         }
 
-        int id = ParserUtil.parseId(argMultimap.getValue(PREFIX_INDEX).get());
         MedicineName medicineName = ParserUtil.parseMedicineName(argMultimap.getValue(PREFIX_MEDICINE_NAME).get());
         Dosage dosage = ParserUtil.parseDosage(argMultimap.getValue(PREFIX_DOSAGE).get());
         ConsumptionPerDay consumptionPerDay = ParserUtil.parseConsumptionPerDay(
@@ -45,7 +52,7 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
 
         Prescription prescription = new Prescription(id, medicineName, dosage, consumptionPerDay);
 
-        return new AddPrescriptionCommand(prescription);
+        return new AddPrescriptionCommand(id, prescription);
 
     }
 

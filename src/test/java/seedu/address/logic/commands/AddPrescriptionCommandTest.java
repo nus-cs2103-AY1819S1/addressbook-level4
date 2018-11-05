@@ -74,7 +74,7 @@ public class AddPrescriptionCommandTest {
         Doctor editedDoctor = new DoctorBuilder(doctorToEdit).build();
         editedDoctor.setAppointment(firstAppointment, editedAppointment);
 
-        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd);
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd.getId(), toAdd);
 
         String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
 
@@ -91,7 +91,7 @@ public class AddPrescriptionCommandTest {
         Appointment appointmentInList = model.getAddressBook().getAppointmentList().get(0);
         Prescription toAdd = new PrescriptionBuilder().withAppointmentId(appointmentInList.getAppointmentId()).build();
         appointmentInList.addPrescription(toAdd);
-        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd);
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd.getId(), toAdd);
 
         assertCommandFailure(addPrescriptionCommand, model, commandHistory,
                 addPrescriptionCommand.MESSAGE_DUPLICATE_PRESCRIPTION);
@@ -102,19 +102,21 @@ public class AddPrescriptionCommandTest {
         int outOfBoundsIndex = 1000000;
         Prescription prescriptionWithOutOfBoundIndex = new PrescriptionBuilder()
                 .withAppointmentId(outOfBoundsIndex).build();
-        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(prescriptionWithOutOfBoundIndex);
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(outOfBoundsIndex,
+                prescriptionWithOutOfBoundIndex);
 
         assertCommandFailure(addPrescriptionCommand, model, commandHistory,
                 addPrescriptionCommand.MESSAGE_APPOINTENT_DOES_NOT_EXIST);
     }
 
+
     @Test
     public void equals() {
         Prescription toAdd = new PrescriptionBuilder().build();
-        final AddPrescriptionCommand standardCommand = new AddPrescriptionCommand(toAdd);
+        final AddPrescriptionCommand standardCommand = new AddPrescriptionCommand(toAdd.getId(), toAdd);
 
         // same values -> returns true
-        AddPrescriptionCommand commandWithSameValues = new AddPrescriptionCommand(toAdd);
+        AddPrescriptionCommand commandWithSameValues = new AddPrescriptionCommand(toAdd.getId(), toAdd);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true

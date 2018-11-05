@@ -11,7 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_MEDICINE_NAME_P
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -158,11 +157,11 @@ public class AddressBookParserTest {
                 new Dosage(VALID_DOSAGE_PARACETAMOL),
                 new ConsumptionPerDay(VALID_CONSUMPTION_PER_DAY_PARACETAMOL));
         AddPrescriptionCommand command = (AddPrescriptionCommand) parser.parseCommand(
-                AddPrescriptionCommand.COMMAND_WORD + " " + PREFIX_INDEX + VALID_APPOINTMENT_ID_FIRST
+                AddPrescriptionCommand.COMMAND_WORD + " " + VALID_APPOINTMENT_ID_FIRST
                         + " " + PREFIX_MEDICINE_NAME + VALID_MEDICINE_NAME_PARACETAMOL
                         + " " + PREFIX_DOSAGE + VALID_DOSAGE_PARACETAMOL
                         + " " + PREFIX_CONSUMPTION_PER_DAY + VALID_CONSUMPTION_PER_DAY_PARACETAMOL);
-        assertEquals(new AddPrescriptionCommand(prescription), command);
+        assertEquals(new AddPrescriptionCommand(VALID_APPOINTMENT_ID_FIRST, prescription), command);
     }
 
     @Test

@@ -68,8 +68,7 @@ public class Prescription {
          * Equality of prescription only determined by name
          */
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getId() == getId()
-                && otherPrescription.getMedicineName().equals(getMedicineName());
+        return otherPrescription.getMedicineName().equals(getMedicineName());
     }
 
     @Override
