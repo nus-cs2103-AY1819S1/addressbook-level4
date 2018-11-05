@@ -230,6 +230,11 @@ public class ParserUtil {
         if (!TargetWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new TargetWeight(trimmedWeight);
     }
 
@@ -243,6 +248,11 @@ public class ParserUtil {
         if (!CurrentWeight.isValidWeight(trimmedWeight)) {
             throw new ParseException(CurrentWeight.MESSAGE_WEIGHT_CONSTRAINTS);
         }
+
+        if (trimmedWeight.indexOf(".") == -1) {
+            trimmedWeight = trimmedWeight + ".0";
+        }
+
         return new CurrentWeight(trimmedWeight);
     }
 
@@ -257,6 +267,10 @@ public class ParserUtil {
         if (!CurrentHeight.isValidHeight(trimmedHeight)) {
             throw new ParseException(CurrentHeight.MESSAGE_HEIGHT_CONSTRAINTS);
         }
+
+
+
+
         return new CurrentHeight(trimmedHeight);
     }
 

@@ -11,7 +11,7 @@ public class TargetWeight {
 
     public static final String MESSAGE_WEIGHT_CONSTRAINTS =
             "Weights should only contain numbers";
-    public static final String WEIGHT_VALIDATION_REGEX = "\\d{2,}";
+    public static final String WEIGHT_VALIDATION_REGEX = "[+-]?([0-9]*[.])?[0-9]+";
     public final String value;
 
 
