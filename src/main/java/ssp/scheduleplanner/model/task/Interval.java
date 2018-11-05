@@ -9,7 +9,9 @@ import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
  */
 public class Interval {
     public static final String MESSAGE_INTERVAL_CONSTRAINTS = "Interval should be positive integer\n"
-            + "Where the number refers to the interval of repetitions.\n";
+            + "Where the number refers to the interval between repetitions.\n";
+
+    public static final String INTERVAL_VALIDATION_REGEX = "\\b\\d{1,4}\\b";
 
     public final String value;
 
@@ -24,6 +26,9 @@ public class Interval {
      * @param test The number of intervals in String format
      */
     public static boolean isValidInterval(String test) {
+        if (!test.matches(INTERVAL_VALIDATION_REGEX)) {
+            return false;
+        }
         int intValue = Integer.parseInt(test);
         return intValue > 0;
     }

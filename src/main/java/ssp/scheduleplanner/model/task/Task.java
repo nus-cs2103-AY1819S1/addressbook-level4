@@ -10,7 +10,7 @@ import java.util.Set;
 import ssp.scheduleplanner.model.tag.Tag;
 
 /**
- * Represents a Task in the venue book.
+ * Represents a Task in the schedule planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Task {

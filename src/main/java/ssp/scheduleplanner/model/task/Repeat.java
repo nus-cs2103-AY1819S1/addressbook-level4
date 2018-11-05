@@ -12,6 +12,8 @@ public class Repeat {
             "Repeat should be an integer greater than 1 but less than 16.\n"
             + "Where the number refers to the number of repetitions.\n";
 
+    public static final String REPEAT_VALIDATION_REGEX = "\\b\\d{1,3}\\b";
+
     public final String value;
 
     public Repeat(String repeat) {
@@ -25,6 +27,9 @@ public class Repeat {
      * @param test The number of repetitions in String format
      */
     public static boolean isValidRepeat(String test) {
+        if (!test.matches(REPEAT_VALIDATION_REGEX)) {
+            return false;
+        }
         int intValue = Integer.parseInt(test);
         return intValue > 1 && intValue < 16;
     }

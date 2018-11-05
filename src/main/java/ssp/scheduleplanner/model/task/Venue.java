@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Task's address in the address book.
+ * Represents a Task's venue.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Venue {
@@ -12,7 +12,7 @@ public class Venue {
     public static final String MESSAGE_ADDRESS_CONSTRAINTS =
             "Addresses can take any values, and it should not be blank";
 
-    /*
+    /**
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
