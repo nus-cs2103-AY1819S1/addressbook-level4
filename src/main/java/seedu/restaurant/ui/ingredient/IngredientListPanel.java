@@ -11,7 +11,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
-import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
 import seedu.restaurant.commons.events.ui.ingredient.IngredientPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.ingredient.JumpToIngredientListRequestEvent;
 import seedu.restaurant.model.ingredient.Ingredient;
