@@ -54,7 +54,8 @@ public class SuggestFriendsByInterestsCommand extends Command {
         InterestSimilarPredicate predicate = new InterestSimilarPredicate(targetPerson);
 
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(String.format(MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS, targetPerson.getName()));
+        return new CommandResult(String.format(MESSAGE_LIST_SUGGESTED_FRIENDS_BY_INTERESTS_SUCCESS,
+                targetPerson.getName()));
     }
 
     @Override
