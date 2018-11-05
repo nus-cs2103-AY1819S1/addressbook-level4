@@ -39,10 +39,10 @@ public class MoveCommand extends Command {
             + " with %4$s in excess. Unused Funds now contains $%5$s.";
     public static final String MESSAGE_MOVE_INVALID_SAME_INDEX = "Cannot move from and to the same index.";
     public static final String MESSAGE_MOVE_INVALID_AMOUNT = "Amount to move must be greater than zero.";
-    public static final String MESSAGE_MOVE_INVALID_FROM_WISH = "Invalid. " +
-            "The wish at FROM_INDEX does not contain the specified amount.";
-    public static final String MESSAGE_MOVE_INVALID_FROM_UNUSED_FUNDS = "Invalid. " +
-            "The unused funds does not contain the specified amount.";
+    public static final String MESSAGE_MOVE_INVALID_FROM_WISH = "Invalid. "
+            + "The wish at FROM_INDEX does not contain the specified amount.";
+    public static final String MESSAGE_MOVE_INVALID_FROM_UNUSED_FUNDS = "Invalid. "
+            + "The unused funds does not contain the specified amount.";
 
     /**
      * Represents the types of move commands.
