@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import java.awt.image.BufferedImage;
-import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
