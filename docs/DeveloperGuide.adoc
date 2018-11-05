@@ -401,7 +401,11 @@ For all the above commands, the event must first be selected using the `selectEv
 This is done to ensure that users do not have to continually specify the event for which the Poll commands are called for every command.
 This is on top of the `currentUser` in the Model which was already selected through the `LoginCommand`.
 
-There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll. Each AbstractPoll object contains a `HashMap<String, UniquePersonList>` attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
+There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll.
+Each AbstractPoll object contains a `HashMap<String, UniquePersonList>` attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
+
+image::PollClassDiagram.png[width="800"]
+
 When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
 each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
 Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
