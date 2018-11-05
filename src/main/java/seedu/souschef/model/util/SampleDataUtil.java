@@ -1,6 +1,7 @@
 package seedu.souschef.model.util;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.ingredient.IngredientAmount;
 import seedu.souschef.model.ingredient.IngredientDate;
 import seedu.souschef.model.ingredient.IngredientName;
+import seedu.souschef.model.ingredient.IngredientPortion;
 import seedu.souschef.model.ingredient.IngredientServingUnit;
 
 import seedu.souschef.model.planner.Day;
@@ -42,21 +44,62 @@ public class SampleDataUtil {
     public static Recipe[] getSampleRecipes() {
         return new Recipe[] {
             new Recipe(new Name("Chicken Rice"), new Difficulty("3"), new CookTime("PT40M"),
-                    getInstructionList("Preheat the oven...", "Mix ..."), getTagSet("Asian", "Singapore", "Poultry")),
-            new Recipe(new Name("Blackpepper Chicken"), new Difficulty("2"), new CookTime("PT20M"),
-                    getInstructionList("Preheat the oven...", "Mix ...") ,
+                    getInstructionList(
+                            new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
+                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                            new Instruction("Boil the chicken in water 700 ml.",
+                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
+                            new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
+                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
+                            new Instruction("Cook for 20 mins.", new CookTime("PT20M"), getIngredientPortionSet())
+                    ), getTagSet("Asian", "Singapore", "Poultry")),
+            new Recipe(new Name("Black pepper Chicken"), new Difficulty("2"), new CookTime("PT20M"),
+                    getInstructionList(
+                            new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
+                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                            new Instruction("Heat up the pan with old 2 tablespoon.",
+                                    getIngredientPortionSet(new IngredientPortion("oil", "tablespoon", 2.0))),
+                            new Instruction("Add oyster sauce 3 tablespoon, black pepper 20 g and water 50 ml.",
+                                    getIngredientPortionSet(new IngredientPortion("oyster sauce", "tablespoon",
+                                            3.0))),
+                            new Instruction("Stir-fry for 10 mins.", new CookTime("PT10M"), getIngredientPortionSet())
+                    ),
                     getTagSet("Asian", "Spicy", "Poultry")),
             new Recipe(new Name("Fried Chinese Noodles"), new Difficulty("1"), new CookTime("PT20M"),
-                    getInstructionList("Preheat the oven...", "Mix ..."),
+                    getInstructionList(
+                            new Instruction("Slice vegetables 70 gram of any kind.",
+                                    getIngredientPortionSet(new IngredientPortion("vegetables", "gram", 70.0))),
+                            new Instruction("Add water 200 ml and noodles 300 g into the pan.",
+                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 200.0),
+                                            new IngredientPortion("noodles", "gram", 300.0))),
+                            new Instruction("Remove the water and put soy sauce 50 ml.",
+                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 50.0))),
+                            new Instruction("Fry for 7 mins.", new CookTime("PT7M"), getIngredientPortionSet())
+                    ),
                     getTagSet("Asian", "Staple", "Vegetarian")),
-            new Recipe(new Name("Chilli Crab"), new Difficulty("5"), new CookTime("PT1H20M"),
-                    getInstructionList("Preheat the oven...", "Mix ..."),
-                    getTagSet("Family", "Singapore", "Asian", "Seafood")),
             new Recipe(new Name("Claypot Rice"), new Difficulty("3"), new CookTime("PT50M"),
-                    getInstructionList("Preheat the oven...", "Mix ..."),
+                    getInstructionList(
+                            new Instruction("Slice and clean up the inner of the chicken 1.2 kg.",
+                                    getIngredientPortionSet(new IngredientPortion("Chicken", "kg", 1.2))),
+                            new Instruction("Boil the chicken in water 700 ml.",
+                                    getIngredientPortionSet(new IngredientPortion("water", "ml", 700.0))),
+                            new Instruction("Remove 200 ml of water and put soy sauce 100 ml.",
+                                    getIngredientPortionSet(new IngredientPortion("soy sauce", "ml", 100.0))),
+                            new Instruction("Cook for 20 mins.", new CookTime("PT20M"), getIngredientPortionSet())
+                    ),
                     getTagSet("Staple", "Poultry")),
             new Recipe(new Name("Roti Prata"), new Difficulty("3"), new CookTime("PT40M"),
-                    getInstructionList("Preheat the oven...", "Mix ..."),
+                    getInstructionList(
+                            new Instruction("Sift flour, add salt and water to make dough.",
+                                    getIngredientPortionSet(new IngredientPortion("flour", "g", 300.0),
+                                            new IngredientPortion("ghee", "cup", 0.5),
+                                            new IngredientPortion("water", "cup", 0.5))),
+                            new Instruction("Knead thoroughly for 5 minutes.",
+                                    new CookTime("PT5M"), getIngredientPortionSet()),
+                            new Instruction("Heat one teaspoon of ghee or butter on a metal "
+                                    + "griddle or heavy iron pan."),
+                            new Instruction("Fry each prata dough until brown on both sides.")
+                    ),
                     getTagSet("Staple", "Vegetarian", "Halal"))
         };
     }
@@ -67,11 +110,14 @@ public class SampleDataUtil {
         try {
             ingredients = new Ingredient[]{
                 new Ingredient(new IngredientName("Carrot"), new IngredientAmount(300.0),
-                            new IngredientServingUnit("gram"), new IngredientDate("12-25-2018")),
+                            new IngredientServingUnit("gram"),
+                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-25-2018"))),
                 new Ingredient(new IngredientName("Tomato"), new IngredientAmount(200.0),
-                            new IngredientServingUnit("gram"), new IngredientDate("12-26-2018")),
+                            new IngredientServingUnit("gram"),
+                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-26-2018"))),
                 new Ingredient(new IngredientName("Potato"), new IngredientAmount(100.0),
-                            new IngredientServingUnit("gram"), new IngredientDate("12-24-2018"))
+                            new IngredientServingUnit("gram"),
+                        new IngredientDate(new SimpleDateFormat("MM-dd-yyyy").parse("12-24-2018")))
             };
         } catch (ParseException e) {
             e.printStackTrace();
@@ -166,6 +212,16 @@ public class SampleDataUtil {
         return Arrays.stream(strings)
                 .map(Instruction::new)
                 .collect(Collectors.toList());
+    }
+
+    public static List<Instruction> getInstructionList(Instruction... instructions) {
+        return Arrays.stream(instructions)
+                .collect(Collectors.toList());
+    }
+
+    public static Set<IngredientPortion> getIngredientPortionSet(IngredientPortion... ingredientPortions) {
+        return Arrays.stream(ingredientPortions)
+                .collect(Collectors.toSet());
     }
 
 }

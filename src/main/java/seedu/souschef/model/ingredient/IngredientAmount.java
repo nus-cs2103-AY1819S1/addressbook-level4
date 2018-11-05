@@ -12,10 +12,6 @@ public class IngredientAmount {
         this.amount = amount;
     }
 
-    public IngredientAmount(String amount) throws NumberFormatException {
-        this.amount = Double.parseDouble(amount);
-    }
-
     public Double getValue() {
         return amount;
     }

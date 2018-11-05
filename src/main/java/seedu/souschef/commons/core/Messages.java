@@ -163,7 +163,7 @@ public class Messages {
             + ": Finds all recipes whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + FindCommand.COMMAND_WORD + " alice bob charlie";
+            + "Example: " + FindCommand.COMMAND_WORD + " chicken asian western";
     public static final String MESSAGE_FIND_INGREDIENT_USAGE = FindCommand.COMMAND_WORD;
     public static final String MESSAGE_FIND_HEALTHPLAN_USAGE = FindCommand.COMMAND_WORD;
     public static final String MESSAGE_FIND_FAVOURITES_USAGE = FindCommand.COMMAND_WORD;

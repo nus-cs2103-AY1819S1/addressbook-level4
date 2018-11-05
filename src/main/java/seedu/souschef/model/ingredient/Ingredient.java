@@ -3,7 +3,6 @@ package seedu.souschef.model.ingredient;
 import java.util.Date;
 import java.util.Objects;
 
-import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.UniqueType;
 
 /**
@@ -18,7 +17,7 @@ public class Ingredient extends IngredientPortion {
         this.date = date;
     }
 
-    public Ingredient(String name, String unit, Double amount, Date date) throws ParseException {
+    public Ingredient(String name, String unit, Double amount, Date date) {
         super(name, unit, amount);
         this.date = new IngredientDate(date);
     }

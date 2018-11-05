@@ -95,11 +95,10 @@ Format: +
 `-ingredient`
 
 ==== Display meal planner: `-mealplanner`
-Display current meal plan. shows the planned meals for breakfast,
-lunch and dinner. Displays the calorie count for each meal, as well as the total calorie count
- for the entire day. +
+Display current Meal Planner. Shows the planned meals for breakfast,
+lunch and dinner for previously planned days. +
 Format: +
-`-plannerlist`
+`-mealplanner`
 
 ==== Display health plan: `-healthplan`
 Display the current health plan, shows health plan set by the user and the days added into the plan
@@ -248,7 +247,8 @@ Format: +
 ****
 ==== List all ingredients: `list`
 
-Shows a list of user’s ingredients. +
+Shows a list of user’s ingredients. Ingredients are sorted by entered date, so that the ingredients entered earlier
+are placed high in order. +
 Format: +
 `list`
 
@@ -272,7 +272,7 @@ Format: +
 
 ==== Delete ingredient: `delete`
 
-Delete ingredient(s) added by user.
+Delete ingredient added by user according to its index in last shown list.
 Format: +
 `delete INDEX`
 
@@ -286,33 +286,37 @@ Format: `clear`
 === Recipe-Ingredient Query Commands
 
 ==== View Recipe based on Ingredients
-By default, the list has recipes that are stored in normal recipe list. User can filter, sort the recipe list with
-based on ingredients. +
+By default, the list has recipes that are stored in normal recipe list. User can filter, sort the recipe list
+based on ingredients. Also, needed amount of ingredients is calculated based on the number of serving unit so that
+user can check it with select command later. +
 Format: +
 `recipe NUMBER_OF_SERVINGS include [inventory] KEYWORD... prioritize [inventory] KEYWORD...` +
 ****
-* "include" keyword filters the recipes based on following ingredients. +
-* "prioritize" keyword sorts the recipes based on number of following ingredients it contains. Recipe containing the
+* "include" keyword filters the list, leaving the recipes that includes all of following ingredients on the list. +
+* "prioritize" keyword sorts the recipes based on number of following ingredients it contains. Recipes containing the
 most number of following ingredients would placed high in order. +
-* "inventory" keyword either following "include" or "prioritize", provides all the ingreident in Ingredient
+* "inventory" keyword either follows "include" or "prioritize", provides all the ingreident in Ingredient
 Manager
-as parameter to keyword it follows. +
-* "inventory" keyword is optional, but it should directly follow "include" keyword or "prioritize" keyword.
+as parameter to the keyword that it follows. +
+* "inventory" keyword is optional, but cannot appear more than once. Also, it should
+directly
+follow "include" or "prioritize" keyword.
 ****
 
 ==== View needed amount of ingredients for a Recipe
-For specific recipe, user can view how much ingredient she should prepare additionally, with select command following
- cross find command. It refers to Ingredient Manager to get the amount of ingredients the user currently have. +
+For a recipe on the list resulting from cross find command, user can view amount of respective ingredients that
+needs to be prepared additionally. It
+refers to Ingredient Manager to get the amount of ingredients the user currently have. +
 Format: +
 `select INDEX` +
 ****
-* Amount of needed ingredients is calculated based on the information in Ingredient Manager. +
-e.g. Number of Servings *
- Total Amount in Recipe - Amount that user already have(in Ingredient Manager)
+* Amount of necessary ingredients is calculated based on the information in Ingredient Manager. +
+e.g. If positive, (Number of Servings *
+ Total Amount needed for a Recipe - Amount that the user currently have). Otherwise, 0.
 ****
 ==== List all recipes: `list`
 
-Shows a list of recipes. +
+Shows a list of recipes. The list restores the default mode, erasing the result of cross find command. +
 Format: +
 `list`
 
@@ -531,7 +535,7 @@ KEYWORD…​`
 
 * Delete day: `delete INDEX`
 * Clear planner: `clear`
-* View recipe details: `select INDEX`
+* View recipe details: `select INDEX MEAL`
 
 *Cook-Mode Commands [coming in V2.0]*
 

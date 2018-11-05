@@ -86,6 +86,10 @@ public class XmlAdaptedRecipe {
             modelInstructions.add(instruction.toModelType());
         }
         // TODO: To implement reject if instruction is empty.
+        if (modelInstructions.isEmpty()) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Instruction.class.getSimpleName()));
+        }
 
         final List<Tag> recipeTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {

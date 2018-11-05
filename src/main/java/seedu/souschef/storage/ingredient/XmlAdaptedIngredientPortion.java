@@ -62,12 +62,13 @@ public class XmlAdaptedIngredientPortion {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "amount"));
         }
 
-        final IngredientAmount modelAmount;
+        double tempAmount;
         try {
-            modelAmount = new IngredientAmount(amount);
+            tempAmount = Double.parseDouble(amount);
         } catch (NumberFormatException e) {
             throw new IllegalValueException(IngredientAmount.MESSAGE_AMOUNT_CONSTRAINTS);
         }
+        final IngredientAmount modelAmount = new IngredientAmount(tempAmount);
 
         if (unit == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "unit"));

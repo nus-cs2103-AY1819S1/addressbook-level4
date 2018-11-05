@@ -9,8 +9,8 @@ import java.util.Map;
  * class to store ingredient serving unit.
  */
 public class IngredientServingUnit {
-    public static final String MESSAGE_UNIT_CONSTRAINTS = "Invalid Ingredient Unit!";
     public static final Map<String, IngredientServingUnitDefinition> DICTIONARY = new HashMap<>();
+    public static final String MESSAGE_UNIT_CONSTRAINTS = "Invalid Ingredient Unit.";
 
     private final String unit;
 
@@ -63,6 +63,17 @@ public class IngredientServingUnit {
         return DICTIONARY.containsKey(unit.toLowerCase());
     }
 
+    /**
+     * Display all units in a formatted string.
+     */
+    public static String allUnits() {
+        StringBuilder units = new StringBuilder();
+        DICTIONARY.forEach((k, v) -> units.append(k + ", "));
+        units.deleteCharAt(units.length() - 1);
+        units.deleteCharAt(units.length() - 1);
+        return units.append(".").toString();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -79,6 +90,7 @@ public class IngredientServingUnit {
                 && this.unit.equals(otherUnit.unit);
     }
 
+    @Override
     public String toString() {
         return unit;
     }

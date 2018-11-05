@@ -16,6 +16,4 @@ public interface CommandParser<T extends Command> {
     T parseRecipe(Model model, String args) throws ParseException;
 
     T parseIngredient(Model model, String args) throws ParseException;
-
-    T parseHealthPlan(Model model, String args) throws ParseException;
 }

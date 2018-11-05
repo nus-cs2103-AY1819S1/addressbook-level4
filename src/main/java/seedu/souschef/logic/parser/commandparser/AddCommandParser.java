@@ -17,7 +17,9 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -99,17 +101,20 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         }
         IngredientName ingredientName = new IngredientName(name);
         IngredientServingUnit ingredientServingUnit = new IngredientServingUnit(unit);
-        IngredientAmount ingredientAmount;
-        IngredientDate ingredientDate;
 
+        double amount;
+        Date date;
         try {
-            ingredientAmount = new IngredientAmount(tokens[1]);
-            ingredientDate = new IngredientDate(tokens[3]);
+            amount = Double.parseDouble(tokens[1]);
+            date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[3]);
         } catch (NumberFormatException ne) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         } catch (java.text.ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }
+
+        IngredientAmount ingredientAmount = new IngredientAmount(amount);
+        IngredientDate ingredientDate = new IngredientDate(date);
 
         Ingredient toAdd = new Ingredient(ingredientName, ingredientAmount,
                 ingredientServingUnit, ingredientDate).convertToCommonUnit();
