@@ -71,11 +71,14 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
+        model.autoDeleteArchived();
+
         logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+
     }
 
     /**

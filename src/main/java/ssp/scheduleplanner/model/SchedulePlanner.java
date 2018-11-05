@@ -84,6 +84,13 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     //// task-level operations
 
     /**
+     * Check through the archived task list and deletes tasks with date earlier than one week ago.
+     */
+    public void autoDeleteArchived() {
+        archivedTasks.autoDelete();
+    }
+
+    /**
      * Returns true if a task with the same identity as {@code task} exists in the task list of schedule planner.
      */
     public boolean hasTask(Task task) {
