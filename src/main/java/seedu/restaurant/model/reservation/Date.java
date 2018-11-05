@@ -54,6 +54,8 @@ public class Date {
 
             this.date = dateGroupList.get(0).getDates().get(0)
                     .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            System.out.println(date);
         }
 
         /*
@@ -67,8 +69,8 @@ public class Date {
      * Returns true if a given date string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        //return (Date.canStrictParse(test) || Date.canNattyParse(test));
-        return Date.canStrictParse(test);
+        return (Date.canStrictParse(test) || Date.canNattyParse(test));
+        //return Date.canStrictParse(test);
     }
 
     /**
