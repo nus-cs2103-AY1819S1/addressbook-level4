@@ -21,6 +21,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ContextChangeEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.OverviewPanelChangedEvent;
+import seedu.address.commons.events.ui.ReplaceWithContextPanelEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.Context;
@@ -40,9 +42,9 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
 
     private ContextIndicator contextIndicator;
+    private OverviewPanel overviewPanel;
     private VolunteerListPanel volunteerListPanel;
     private VolunteerPanel volunteerPanel;
     private EventListPanel eventListPanel;
@@ -135,13 +137,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        overviewPanel = new OverviewPanel(logic.getFilteredVolunteerList(), logic.getFilteredEventList(),
+                                                                                logic.getFilteredRecordList());
 
         volunteerListPanel = new VolunteerListPanel(logic.getFilteredVolunteerList());
         eventListPanel = new EventListPanel(logic.getFilteredEventList());
 
         volunteerPanel = new VolunteerPanel();
+        browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
         eventPanel = new EventPanel(logic.getFilteredRecordList());
         recordEventPanel = new RecordEventPanel(logic.getFilteredRecordList(), logic.getFilteredVolunteerList());
 
@@ -230,6 +233,31 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Replaces the browser panel children with overview panel.
+     */
+    private void handleOverview() {
+        eventListPanel.clearSelection();
+        volunteerListPanel.clearSelection();
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(overviewPanel.getRoot());
+    }
+
+    /**
+     * Replaces the overview panel with current context panel.
+     */
+    private void handleReplaceWithContextPanel() {
+        String contextId = logic.getContextId();
+
+        if (contextId.equals(EVENT_CONTEXT_ID)) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(eventPanel.getRoot());
+        } else if (contextId.equals(VOLUNTEER_CONTEXT_ID)) {
+            browserPlaceholder.getChildren().clear();
+            browserPlaceholder.getChildren().add(volunteerPanel.getRoot());
+        }
+    }
+
+    /**
      * Closes the application.
      */
     @FXML
@@ -245,15 +273,20 @@ public class MainWindow extends UiPart<Stage> {
         return eventListPanel;
     }
 
-    void releaseResources() {
-        browserPanel.freeResources();
-    }
-
-
     @Subscribe
     private void handleContextChangeEvent(ContextChangeEvent event) {
         logger.info(event.getNewContext());
         handleContextChange(event);
+    }
+
+    @Subscribe
+    private void handleOverviewEvent(OverviewPanelChangedEvent event) {
+        handleOverview();
+    }
+
+    @Subscribe
+    private void handleReplaceWithContextPanelEvent(ReplaceWithContextPanelEvent event) {
+        handleReplaceWithContextPanel();
     }
 
     @Subscribe

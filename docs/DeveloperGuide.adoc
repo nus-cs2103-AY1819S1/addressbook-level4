@@ -246,7 +246,7 @@ The flow for the `Logic` component is as follows:
 
 . `Logic` uses the `AddressBookParser` class to parse the user command.
 . The `Command` object (which is automatically created in the previous step) is executed by the `LogicManager`.
-. The executed 'Command' affects the `Model` (e.g. adding a volunteer) and/or raise events.
+. The executed `Command` affects the `Model` (e.g. adding a volunteer) and/or raise events.
 . The result of the command execution from the previous step is encapsulated as a `CommandResult` object.
 . The `CommandResult` object is passed back to the `UI` component.
 
@@ -304,6 +304,7 @@ This section describes some noteworthy details on how certain features are imple
 
 This section describes the details on how the general features are implemented.
 
+//tag::command-switch[]
 [[Implementation-Switch]]
 ==== Switch command
 The `switch` command is used to switch the context between 'volunteer' and 'event'.
@@ -324,7 +325,7 @@ The `switch` command updates the context found in `ModelManager` before raising 
 The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
 .Simplified sequence diagram of switch command
-image::Command_Switch_SequenceDiagram.png[switch SD, 800]
+image::command_switch_sd.png[switch SD, 800]
 
 ===== Design considerations
 ====== Aspect: How context is maintained
@@ -345,6 +346,9 @@ image::Command_Switch_SequenceDiagram.png[switch SD, 800]
 |Cons| Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
 |===
 +
+
+
+// end::command-switch[]
 
 
 // tag::undoredo[]
@@ -674,11 +678,15 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 ==== Delete event [Coming in V1.3]
 
 
+
 === Record management
 
 This section describes the details on how the record management features are implemented.
 
-==== Manage function
+
+//tag::command-manage[]
+[[Implementation-Manage]]
+==== Manage command
 
 The `manage` command is used in the 'event' context to manage the volunteering records for an event. +
 
@@ -699,7 +707,7 @@ In addition to updating the context, the `manage` command also does the followin
 The figure below is the sequence diagram to show how the `switch` command works when switching from volunteer to event context.
 
 .Simplified sequence diagram for manage command
-image::Command_Manage_SequenceDiagram.png[manage SD, 800]
+image::command_manage_sd.png[manage SD, 800]
 
 ===== Design considerations
 ====== Aspect: Context switching
@@ -721,13 +729,7 @@ image::Command_Manage_SequenceDiagram.png[manage SD, 800]
 |===
 +
 
-
-==== Add record [Coming in V1.3]
-
-==== Edit record [Coming in V1.3]
-
-==== Delete record [Coming in V1.3]
-
+//end::command-manage[]
 
 == Documentation
 
@@ -1509,13 +1511,15 @@ a|*UC10:* Edit volunteer hours in volunteer profile +
 [width="100%",cols="30%,70%",options="header",]
 |=======================================================================
 | Term| Explanation
-| *Volunteer Manager*| Staff working for the organization, who handles administrative issues pertaining to volunteer and event management
-| *Volunteer*| A volunteer who has signed up and has a profile with the organization
-| *Admin*| Our application’s intended target user (Most likely the volunteer manager)
-| *Application*| Refers to our system
+| *Admin*| Our application’s intended target user (Most likely the volunteer manager).
+| *Application*| Refers to our system.
+| *CLI* | Command Line Interface.
 | *Context*| A context refers to the management screen that users will see.
-| *UCXX*| Use case with XX being the use case ID
-|[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X
+| *GUI* | Graphical User Interface.
+| *UCXX*| Use case with XX being the use case ID.
+|[[mainstream-os]] *Mainstream OS*| Windows, Linux, Unix, OS-X.
+| *Volunteer*| A volunteer who has signed up and has a profile with the organization.
+| *Volunteer Manager*| Staff working for the organization, who handles administrative issues pertaining to volunteer and event management.
 |=======================================================================
 
 [appendix]

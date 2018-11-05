@@ -52,12 +52,16 @@ public class ManageCommand extends Command {
         model.updateFilteredRecordList(new RecordContainsEventIdPredicate(
                 filteredEventList.get(targetIndex.getZeroBased()).getEventId()
         ));
+        model.resetStatePointer();
 
-        // TO_UPDATE
+
         EventsCenter.getInstance().post(new RecordChangeEvent(
                 filteredEventList.get(targetIndex.getZeroBased())));
         EventsCenter.getInstance().post(new ContextChangeEvent(model.getContextId()));
-        return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS, targetIndex.getOneBased()));
+
+        return new CommandResult(String.format(MESSAGE_MANAGE_EVENT_SUCCESS,
+                filteredEventList.get(targetIndex.getZeroBased()).getName().fullName)
+                + " [" + targetIndex.getOneBased() + "]");
 
     }
 

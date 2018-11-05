@@ -148,6 +148,9 @@ public class XmlAdaptedVolunteer {
         if (!Birthday.isValidBirthday(birthday)) {
             throw new IllegalValueException(Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
         }
+        if (!Birthday.isLessThanOrEqualToValidBirthday(birthday)) {
+            throw new IllegalValueException(Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
+        }
         final Birthday modelBirthday = new Birthday(birthday);
 
         if (phone == null) {

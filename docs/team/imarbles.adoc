@@ -1,0 +1,74 @@
+= Amabel Yeo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/CS2103-AY1819S1-W16-2/main/pull
+
+== PROJECT: SocialCare
+
+:sectnums:
+== Overview
+
+This portfolio page documents my involvement in SocialCare, a project done as part of the CS21303T Software Engineering module taught in NUS.
+
+SocialCare is a desktop application made for social welfare organizations.
+The application is designed to help manage volunteers and events effectively.
+Users interact with the application using a Command Line Interface (CLI).
+In addition, SocialCare has a Graphical User Interface (GUI) to display information in a user-friendly manner.
+
+My role as a developer for SocialCare is to implement *record management functions*, which enables users to do the following:
+
+* Assign volunteers to event
+* Update volunteering records for volunteers
+* Delete volunteering records of volunteer
+
+== Summary of Contributions
+* *Major enhancement*:
+added commands to *manage volunteer records*
+** What it does:
+The commands implemented allows the user to manage volunteering records.
+They will be able to assign volunteers to events and update the number of hours contributed by the volunteer.
+
+** Justification:
+These functions are part of the core requirements for the application because we want users to be able to effectively manage volunteering records.
+
+** Highlights:
+This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*:
+added a command to allow users to *switch between panels*. The panels are used to display either volunteers or events for users to manage.
+
+* *Other contributions*:
+
+** Project management:
+*** Set up the team repository on GitHub
+*** Assigned and tracked project tasks
+*** Ensured that project deliverables are done on time and in the right format
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: link:{repoURL}/76/[#76], link:{repoURL}/129/[#129]
+*** Rewrote the quick start section of the User Guide: link:{repoURL}/154/[#154]
+*** Revised content for the Logic component in the Developer Guide: link:{repoURL}/93/[#93]
+** Community:
+*** Reviewed PRs for team members (with non-trivial review comments): link:{repoURL}/58/[#58], link:{repoURL}/109/[#109], link:{repoURL}/114/[#114]
+** Tools:
+*** Integrated Travis to the Github repository
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=command-switch]
+include::../UserGuide.adoc[tag=command-record]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=command-switch]
+include::../DeveloperGuide.adoc[tag=command-manage]
+

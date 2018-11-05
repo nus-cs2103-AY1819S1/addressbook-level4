@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Date;
 import seedu.address.model.event.Description;
+import seedu.address.model.event.Event;
 import seedu.address.model.event.Location;
 import seedu.address.model.event.Name;
 import seedu.address.model.event.Time;
@@ -70,10 +71,30 @@ public class ParserEventUtil {
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-        if (!Location.isValidLocation(trimmedDate)) {
+        if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String startDate} and a {@code String endDate } to check if startDate comes before endDate.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startDate} is before {@code endDate}.
+     */
+    public static void parseStartEndDate(String startDate, String endDate) throws ParseException {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        String trimmedStartDate = startDate.trim();
+        String trimmedEndDate = endDate.trim();
+
+        Date start = new Date(trimmedStartDate);
+        Date end = new Date(trimmedEndDate);
+
+        if (!start.isLessThanOrEqualTo(end)) {
+            throw new ParseException(Event.MESSAGE_START_END_DATE_CONSTRAINTS);
+        }
     }
 
     /**
@@ -85,10 +106,30 @@ public class ParserEventUtil {
     public static Time parseTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
-        if (!Location.isValidLocation(trimmedTime)) {
+        if (!Time.isValidTime(trimmedTime)) {
             throw new ParseException(Time.MESSAGE_TIME_CONSTRAINTS);
         }
         return new Time(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String startTime} and a {@code String endTime } to check if startTime comes before endTime.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code startTime} is before {@code endTime}.
+     */
+    public static void parseStartEndTime(String startTime, String endTime) throws ParseException {
+        requireNonNull(startTime);
+        requireNonNull(endTime);
+        String trimmedStartTime = startTime.trim();
+        String trimmedEndTime = endTime.trim();
+
+        Time start = new Time(trimmedStartTime);
+        Time end = new Time(trimmedEndTime);
+
+        if (!start.isLessThanOrEqualTo(end)) {
+            throw new ParseException(Event.MESSAGE_START_END_TIME_CONSTRAINTS);
+        }
     }
 
     /**

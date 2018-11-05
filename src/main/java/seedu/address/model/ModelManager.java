@@ -245,6 +245,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
+    @Override
+    public void resetStatePointer() {
+        versionedAddressBook.resetStatePointer();
+    }
 
     @Override
     public boolean canUndoAddressBook() {

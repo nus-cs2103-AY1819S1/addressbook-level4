@@ -8,7 +8,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; hour is valid as declared in {@link #isValidHour(String)}
  */
 public class Hour {
-    public static final String MESSAGE_HOUR_CONSTRAINTS = "Hour can take in numerals only.";
+    public static final String MESSAGE_HOUR_CONSTRAINTS = "Hour can only be a positive integer.";
     public static final String HOUR_VALIDATION_REGEX = "\\p{Digit}+";
 
     public final String value;
