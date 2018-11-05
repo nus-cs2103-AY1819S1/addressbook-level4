@@ -256,14 +256,13 @@ Format: `endreview`
 
 === Card difficulty classification : `classify`
 Allocates a difficulty (easy, normal, hard) to the card currently being reviewed. +
+This indicates how you felt about the difficulty of the card, relative to your performance. This rating will be taken
+into consideration when scheduling cards for review. For example, a card rated `easy` will show up less often compared
+to a card rated `hard`. +
 Format: `classify DIFFICULTY`
 
 ****
-* *DIFFICULTY* indicates how you felt about the question +
-The parameter should be one of the strings: {`easy`, `normal`, `hard`}
-****
-
-****
+* The *DIFFICULTY* parameter should be one of the strings: {`easy`, `normal`, `hard`}
 * By default, cards are assigned a `normal` difficulty
 ****
 
