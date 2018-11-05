@@ -39,7 +39,12 @@ import seedu.address.commons.events.ui.LoginStatusEvent;
 public class PhotosLibraryClientFactory {
 
     public static final File DATA_STORE = Paths.get("./src/main/resources/user_credentials").toFile();
+
+    //to be created on testing. prevents tests from launching login process
     public static final File TEST_FILE = Paths.get("./src/main/resources/user_credentials/TEST_FILE.txt").toFile();
+
+    //to be created on login process start and deleted only on login process end. prevents unnecessary redirects
+    public static final File BLOCKER = Paths.get("./src/main/resources/user_credentials/BLOCKER.txt").toFile();
 
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final List<String> SCOPE_LIST =
@@ -65,31 +70,35 @@ public class PhotosLibraryClientFactory {
             DATA_STORE.mkdirs();
         }
 
+        //@@author chivent-reused
+        //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
+        //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
+        DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
+
+        InputStream credentialFile = PhotosLibraryClientFactory
+                .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
+
+        // load designated client secret/id
+        GoogleClientSecrets clientSecrets =
+                GoogleClientSecrets.load(
+                        JSON_FACTORY, new InputStreamReader(credentialFile));
+
+        String clientSecret = clientSecrets.getDetails().getClientSecret();
+        String clientId = clientSecrets.getDetails().getClientId();
+
+        //google standard authorization flow
+        GoogleAuthorizationCodeFlow flow =
+                new GoogleAuthorizationCodeFlow.Builder(
+                        GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
+                        SCOPE_LIST).setDataStoreFactory(
+                        dataStoreFactory).build();
+
         if (!TEST_FILE.exists()) {
-
-            //@@author chivent-reused
-            //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
-            //java/com/google/photos/library/sample/demos/AlbumDemo.java with minor modifications
-            DataStoreFactory dataStoreFactory = new FileDataStoreFactory(DATA_STORE);
-
-            InputStream credentialFile = PhotosLibraryClientFactory
-                    .class.getClassLoader().getResourceAsStream(CREDENTIAL_FILE);
-
-            // load designated client secret/id
-            GoogleClientSecrets clientSecrets =
-                    GoogleClientSecrets.load(
-                            JSON_FACTORY, new InputStreamReader(credentialFile));
-
-            String clientSecret = clientSecrets.getDetails().getClientSecret();
-            String clientId = clientSecrets.getDetails().getClientId();
-
-            //google standard authorization flow
-            GoogleAuthorizationCodeFlow flow =
-                    new GoogleAuthorizationCodeFlow.Builder(
-                            GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
-                            SCOPE_LIST).setDataStoreFactory(
-                            dataStoreFactory).build();
-
+            try {
+                BLOCKER.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // Credential is a google construct that wraps the access token and helps you to refresh periodically
             // AuthorizationCodeInstalledApp is another google standard that helps persist user end credentials
             Credential credential = new AuthorizationCodeInstalledApp(flow,
@@ -103,6 +112,7 @@ public class PhotosLibraryClientFactory {
                     .build();
 
             credentialFile.close();
+            BLOCKER.delete();
             return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
         } else {
             return null;
@@ -154,12 +164,12 @@ public class PhotosLibraryClientFactory {
     /**
      * Logs user out of currently logged in account
      */
-    public static boolean logoutUserIfPossible() throws IOException, GeneralSecurityException {
+    public static boolean logoutUserIfPossible() {
         boolean userLoggedOut;
+        File credential;
         if (userLoggedOut = checkUserLogin()) {
-            File[] listFiles = DATA_STORE.listFiles();
-            for (File file : listFiles) {
-                file.delete();
+            if ((credential = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID)).exists()) {
+                credential.delete();
             }
         }
         return userLoggedOut;

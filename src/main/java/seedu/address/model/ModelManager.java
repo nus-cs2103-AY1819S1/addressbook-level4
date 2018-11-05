@@ -1,7 +1,8 @@
 package seedu.address.model;
 
-import static seedu.address.commons.core.Messages.MESSAGE_LOGIN_FAILURE;
+import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.google.PhotosLibraryClientFactory.BLOCKER;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -54,10 +55,12 @@ public class ModelManager extends ComponentManager implements Model {
         this.userPrefs.initImageList();
         dirImageList = this.userPrefs.getCurrImageListBatch();
 
-        try {
-            photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
-        } catch (Exception e) {
-            logger.warning("Unable to log into user account");
+        if (!BLOCKER.exists()) {
+            try {
+                photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
+            } catch (Exception e) {
+                logger.warning("Unable to log into user account");
+            }
         }
 
     }
@@ -165,7 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author
 
     //=========== GoogleClient Accessors =============================================================
-
+    // @@author chivent
     @Override
     public void setPhotoHandler(PhotoHandler instance) {
         photoLibrary = instance;
@@ -177,10 +180,10 @@ public class ModelManager extends ComponentManager implements Model {
             try {
                 photoLibrary = PhotosLibraryClientFactory.createClient();
                 if (photoLibrary == null) {
-                    throw new CommandException(MESSAGE_LOGIN_FAILURE);
+                    throw new CommandException(MESSAGE_CONNECTION_FAILURE);
                 }
             } catch (Exception e) {
-                throw new CommandException(MESSAGE_LOGIN_FAILURE);
+                throw new CommandException(MESSAGE_CONNECTION_FAILURE);
             }
         }
         return photoLibrary;
