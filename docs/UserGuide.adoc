@@ -601,7 +601,7 @@ Format: `refer INDEX`
 ====
 *This command cannot be used if there is no referral content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
 *Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
-=====
+====
 
 Examples:
 
@@ -636,7 +636,7 @@ Format: `undo`
 [NOTE]
 .Thing(s) to note:
 ====
-Undoable commands: those commands that modify the database's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the database's content (`add`, `delete`, `edit`, `addmedicalrecord` etc).
 This includes all commands that change the `Patient` or `Medicine` class but *not* <<pqms, PQMS-related>> commands.
 ====
 
@@ -715,9 +715,9 @@ There is no need to save manually.
 |find |`f`  |`find KEYWORD [MORE_KEYWORDS]​` |`find Betsy Tim John`
 |delete |`d`  |`delete INDEX` |`delete 2`
 |select |`s`  |`select INDEX` |`select 3`
-|addmedicalrecord |`amr`  |`addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…`​ or +
-                            `addMedicalRecord IC_NUMBER [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…​​` |`addMedicalRecord 5 b/A+ da/Paracetamol d/Diabetes` or +
-                            `addMedicalRecord S94738123X b/B+`
+|addmedicalrecord |`amr`  |`addmedicalrecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…`​ or +
+                            `addmedicalrecord IC_NUMBER [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…​​` |`addmedicalrecord 5 b/A+ da/Paracetamol d/Diabetes` or +
+                            `addmedicalrecord S94738123X b/B+`
 |=======================================================================
 
 === Medicine
@@ -725,12 +725,12 @@ There is no need to save manually.
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
 |Command Word |Command Alias |Format|Example
-|addmedicine |`am`  |`​addMedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK` |`addMedicine mn/panadol msq/500 ppu/0.50 sn/1234 s/1000`
-|editmedicine |`em`  | `editMedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editMedicine 1 n/hydrazine s/50022 p/20 min/30`
+|addmedicine |`am`  |`​addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK` |`addmedicine mn/panadol msq/500 ppu/0.50 sn/1234 s/1000`
+|editmedicine |`em`  | `editmedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editmedicine 1 n/hydrazine s/50022 p/20 min/30`
 |restock |`rs`  |`restock INDEX amt/AMOUNT` |`restock 2 amt/123`
-|liststock |`ls`  |`listStock` |`listStock`
-|findmedicine |`fm`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
-|checkstock |`cs`  |`checkStock` |`checkStock`
+|liststock |`ls`  |`liststock` |`listStock`
+|findmedicine |`fm`  |`findmedicine SERIAL_NUMBER` |`findmedicine 1001`
+|checkstock |`cs`  |`checkctock` |`checkStock`
 |=======================================================================
 
 === Queue Management
@@ -743,9 +743,9 @@ There is no need to save manually.
 |remove |`rem`  |`remove INDEX` |`remove 2`
 |insert |`ins`  |`insert INDEX p/POSITION` |`insert 3 p/4`
 |serve |`ser`  |`serve` |`serve`
-|adddocument |`da`  |`docAdd [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]` |`docAdd mc/3 n/This patient complains of headache for the past 3 days`
-|displaydocuments |`dd` | `displayDocuments` | `displayDocuments`
-|dispensemedicine |`dm`  |`dispenseMedicine MEDICINE_INDEX amt/AMOUNT` |`dispenseMedicine 5 amt/10`
+|adddocument |`da`  |`adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]` |`adddocument mc/3 n/This patient complains of headache for the past 3 days`
+|displaydocuments |`dd` | `displaydocuments` | `displaydocuments`
+|dispensemedicine |`dm`  |`dispensemedicine MEDICINE_INDEX amt/AMOUNT` |`dispensemedicine 5 amt/10`
 |finish |- |`finish` |`finish`
 |payment |`pay`  |`payment INDEX` |`payment 6`
 |=======================================================================
