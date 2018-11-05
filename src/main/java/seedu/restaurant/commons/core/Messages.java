@@ -5,12 +5,12 @@ package seedu.restaurant.commons.core;
  */
 public class Messages {
 
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
+    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command. To view the list of commands, enter `help`";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!\n%1$s";
 
     // Account Management
-    public static final String MESSAGE_COMMAND_FORBIDDEN = "Please login to execute commands. For more information, "
-            + "enter `help`.";
+    public static final String MESSAGE_COMMAND_FORBIDDEN = "Please login to execute privileged commands. For more "
+            + "information, enter `help`.";
 
     // Ingredient Management
     public static final String MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX = "The ingredient index provided is invalid";
