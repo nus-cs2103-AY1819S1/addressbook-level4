@@ -6,15 +6,14 @@ package seedu.address.model.deck;
 public enum Performance {
     DEFAULT("default"),
     EASY("easy"),
-    GOOD("good"),
-    HARD("hard"),
-    REVIEW("review");
+    NORMAL("normal"),
+    HARD("hard");
 
     public static final String MESSAGE_PERFORMANCE_CONSTRAINTS =
-            "Performance must be one of the strings {easy|good|hard|review}";
+            "Performance must be one of the strings {easy|normal|hard}";
     private final String description;
 
-    private Performance(String description) {
+    Performance(String description) {
         this.description = description;
     }
 

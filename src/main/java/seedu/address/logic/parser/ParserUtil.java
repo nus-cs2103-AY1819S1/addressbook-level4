@@ -85,12 +85,10 @@ public class ParserUtil {
         switch (trimmed) {
         case "easy":
             return Performance.EASY;
-        case "good":
-            return Performance.GOOD;
+        case "normal":
+            return Performance.NORMAL;
         case "hard":
             return Performance.HARD;
-        case "review":
-            return Performance.REVIEW;
         default:
             throw new ParseException(Performance.MESSAGE_PERFORMANCE_CONSTRAINTS);
         }
