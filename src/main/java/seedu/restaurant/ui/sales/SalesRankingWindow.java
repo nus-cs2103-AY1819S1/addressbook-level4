@@ -22,8 +22,13 @@ public class SalesRankingWindow extends UiPart<Stage> {
 
     private static final Logger logger = LogsCenter.getLogger(SalesRankingWindow.class);
     private static final String FXML = "SalesRankingWindow.fxml";
+    private static final String DATE_STRING = "Date";
+    private static final String ITEM_STRING = "Item";
+    private static final String DATE_WINDOW_TITLE = DATE_STRING + " ranked by revenue";
+    private static final String ITEM_WINDOW_TITLE = ITEM_STRING + " ranked by revenue";
 
     private Map<String, String> salesRanking;
+    private boolean isDateRanking;
 
     @FXML
     private TableView<Map.Entry<String, String>> rankingTable;
@@ -42,8 +47,9 @@ public class SalesRankingWindow extends UiPart<Stage> {
      */
     public SalesRankingWindow(Stage root, Map<String, String> salesRanking) {
         super(FXML, root);
-        root.setTitle("Sales Ranking");
         this.salesRanking = salesRanking;
+        isDateRanking = isDateRanking();
+        root.setTitle((isDateRanking) ? DATE_WINDOW_TITLE : ITEM_WINDOW_TITLE);
     }
 
     /**
@@ -72,7 +78,15 @@ public class SalesRankingWindow extends UiPart<Stage> {
         rank.setCellValueFactory(e -> new SimpleStringProperty(
                 String.valueOf(Index.fromZeroBased(salesRankingList.indexOf(e.getValue())).getOneBased())));
         dateOrItem.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getKey()));
+        dateOrItem.setText((isDateRanking) ? DATE_STRING : ITEM_STRING);
         revenue.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getValue()));
+    }
+
+    /**
+     * Returns true if this ranking is a date-revenue ranking. False if it is an item-revenue ranking.
+     */
+    private boolean isDateRanking() {
+        return salesRanking.keySet().stream().anyMatch(s -> s.contains("-"));
     }
 
     /**
