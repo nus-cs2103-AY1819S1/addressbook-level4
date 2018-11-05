@@ -35,14 +35,14 @@ public class StockUpCommand extends Command {
 
     public static final String MESSAGE_STOCKUP_INGREDIENT_SUCCESS = "Ingredient(s) stocked up: %1$s";
 
-    private final Map<IngredientName, Integer> linkedHashMap;
+    private final Map<IngredientName, Integer> hashMap;
 
     /**
      * Creates a StockUpCommand to stock up the specified {@code Ingredient}
      */
     public StockUpCommand(Map<IngredientName, Integer> ingredientHashMap) {
         requireNonNull(ingredientHashMap);
-        this.linkedHashMap = ingredientHashMap;
+        this.hashMap = ingredientHashMap;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class StockUpCommand extends Command {
         requireNonNull(model);
 
         try {
-            model.stockUpIngredients(linkedHashMap);
+            model.stockUpIngredients(hashMap);
         } catch (IngredientNotFoundException e) {
             throw new CommandException(Messages.MESSAGE_STOCKUP_INGREDIENT_NOT_FOUND);
         }
@@ -67,7 +67,7 @@ public class StockUpCommand extends Command {
      */
     private StringBuilder buildIngredientList() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (HashMap.Entry<IngredientName, Integer> argPair : linkedHashMap.entrySet()) {
+        for (HashMap.Entry<IngredientName, Integer> argPair : hashMap.entrySet()) {
             IngredientName name = argPair.getKey();
             Integer numUnits = argPair.getValue();
             stringBuilder.append("\n" + numUnits.toString() + " units of " + name.toString());
@@ -79,7 +79,7 @@ public class StockUpCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof StockUpCommand // instanceof handles nulls
-                    && linkedHashMap.equals(((StockUpCommand) other).linkedHashMap));
+                    && hashMap.equals(((StockUpCommand) other).hashMap));
     }
 
 }
