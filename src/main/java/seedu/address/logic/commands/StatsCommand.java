@@ -28,6 +28,7 @@ public class StatsCommand extends Command {
 
 
     public static final String MESSAGE_SUCCESS = "updated the stats panel";
+    public static final String MESSAGE_PERIOD_AMOUNT_ERROR = "PERIOD_AMOUNT needs to be a positive integer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Swap to or update the stats panel. "
             + "Parameters: "
@@ -71,7 +72,7 @@ public class StatsCommand extends Command {
         requireNonNull(periodAmount, mode);
         checkArgument(isValidMode(mode), MESSAGE_PARAMETERS_FORMAT);
         checkArgument(isValidPeriod(period), MESSAGE_PARAMETERS_FORMAT);
-        checkArgument(isValidNumber(periodAmount), MESSAGE_PARAMETERS_FORMAT);
+        checkArgument(isValidNumber(periodAmount), MESSAGE_PERIOD_AMOUNT_ERROR);
         this.periodAmount = periodAmount;
         if ("d".equals(period)) {
             this.period = StatsPeriod.DAY;
