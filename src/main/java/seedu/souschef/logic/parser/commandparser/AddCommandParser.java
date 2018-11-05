@@ -89,7 +89,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         requireNonNull(model);
         requireNonNull(args);
 
-        String[] tokens = args.trim().split("\\s+");
+        String[] tokens = args.toLowerCase().trim().split("\\s+");
         if (tokens.length != 4) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         }

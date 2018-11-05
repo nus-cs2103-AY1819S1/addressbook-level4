@@ -21,7 +21,7 @@ Our users interact via CLI and GUI created with JavaFX. Written in Java, experie
 ** Highlights: This enhancement was originally unsupported by the AB4 code; it is a completely new component feature.
 //** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-*To be updated*
+//*To be updated*
 
 //* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
@@ -49,7 +49,7 @@ Our users interact via CLI and GUI created with JavaFX. Written in Java, experie
 //*** (Integrated a third party library) (Natty) to the project (https://github.com[#42])
 //*** (Integrated a new Github plugin) (CircleCI) to the team repo
 
-_{you can add/remove categories in the list above}_
+//_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -57,6 +57,8 @@ _{you can add/remove categories in the list above}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+
+=== Explanation of Meal Planner commands
 
 include::../UserGuide.adoc[tag=mealplanner]
 
@@ -66,13 +68,27 @@ include::../UserGuide.adoc[tag=mealplanner]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+---
+
+=== Explanation of Meal Planner implementation
+
 include::../DeveloperGuide.adoc[tag=mealplannerimplementation]
-
-include::../DeveloperGuide.adoc[tag=mealplanner]
-
-
-== PROJECT: PowerPointLabs
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
+=== Meal Planner User Stories
+
+include::../DeveloperGuide.adoc[tag=mealplanner]
+
+---
+
+=== Explanation of the modularisation of the UI component
+
+include::../DeveloperGuide.adoc[tag=uimodularisation]
+
+
+//== PROJECT: PowerPointLabs
+
+//---
+
+//_{Optionally, you may include other projects in your portfolio.}_
