@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- @@author rebstan97 -->
+
+<StackPane id="stackPane" fx:id="stackPane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane HBox.hgrow="ALWAYS">
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" prefWidth="340" />
+    </columnConstraints>
+    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+      <padding>
+        <Insets bottom="5" left="15" right="5" top="5" />
+      </padding>
+      <Label fx:id="name" prefHeight="18.0" prefWidth="310.0" styleClass="label-header" text="\$name" textAlignment="CENTER" />
+      <Label fx:id="unit" prefHeight="18.0" prefWidth="310.0" styleClass="label-panel-blue" text="\$unit"
+             textAlignment="CENTER" />
+      <Label fx:id="price" prefHeight="18.0" prefWidth="310.0" styleClass="label-panel-grey" text="\$price"
+             textAlignment="CENTER" />
+      <Label fx:id="minimum" prefWidth="310.0" styleClass="label-panel-blue" text="\$minimum" textAlignment="CENTER" />
+      <Label fx:id="numUnits" prefWidth="310.0" styleClass="label-panel-grey" text="\$numUnits"
+             textAlignment="CENTER" />
+         <effect>
+            <Glow />
+         </effect>
+    </VBox>
+    <rowConstraints>
+      <RowConstraints />
+    </rowConstraints>
+  </GridPane>
+</StackPane>

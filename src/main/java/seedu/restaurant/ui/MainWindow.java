@@ -27,6 +27,7 @@ import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEven
 import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
 import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
+import seedu.restaurant.commons.events.ui.ingredient.IngredientPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
 import seedu.restaurant.commons.events.ui.menu.ItemPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.reservation.DisplayReservationListRequestEvent;
@@ -38,6 +39,8 @@ import seedu.restaurant.logic.Logic;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.ui.account.AccountListPanel;
 import seedu.restaurant.ui.account.UsernameDisplay;
+import seedu.restaurant.ui.ingredient.IngredientListPanel;
+import seedu.restaurant.ui.ingredient.IngredientStackPanel;
 import seedu.restaurant.ui.menu.ItemListPanel;
 import seedu.restaurant.ui.menu.ItemStackPanel;
 import seedu.restaurant.ui.reservation.ReservationListPanel;
@@ -358,6 +361,15 @@ public class MainWindow extends UiPart<Stage> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         browserPlaceholder.getChildren().clear();
         browserPlaceholder.getChildren().add(new RecordStackPanel(event.getNewSelection()).getRoot());
+        ftStackPanel.play();
+    }
+
+    //@@author rebstan97
+    @Subscribe
+    private void handleIngredientPanelSelectionChangedEvent(IngredientPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        browserPlaceholder.getChildren().clear();
+        browserPlaceholder.getChildren().add(new IngredientStackPanel(event.getNewSelection()).getRoot());
         ftStackPanel.play();
     }
 

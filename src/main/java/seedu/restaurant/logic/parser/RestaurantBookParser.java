@@ -31,6 +31,7 @@ import seedu.restaurant.logic.commands.ingredient.DeleteIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.ListIngredientsCommand;
 import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
+import seedu.restaurant.logic.commands.ingredient.SelectIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.StockUpCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
@@ -64,6 +65,7 @@ import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.logic.parser.ingredient.AddIngredientCommandParser;
 import seedu.restaurant.logic.parser.ingredient.DeleteIngredientCommandParser;
 import seedu.restaurant.logic.parser.ingredient.EditIngredientCommandParser;
+import seedu.restaurant.logic.parser.ingredient.SelectIngredientCommandParser;
 import seedu.restaurant.logic.parser.ingredient.StockUpCommandParser;
 import seedu.restaurant.logic.parser.menu.AddItemCommandParser;
 import seedu.restaurant.logic.parser.menu.AddRequiredIngredientsCommandParser;
@@ -223,6 +225,10 @@ public class RestaurantBookParser {
 
         case StockUpCommand.COMMAND_WORD:
             return new StockUpCommandParser().parse(arguments);
+
+        case SelectIngredientCommand.COMMAND_WORD:
+        case SelectIngredientCommand.COMMAND_ALIAS:
+            return new SelectIngredientCommandParser().parse(arguments);
 
         case AddItemCommand.COMMAND_WORD:
         case AddItemCommand.COMMAND_ALIAS:

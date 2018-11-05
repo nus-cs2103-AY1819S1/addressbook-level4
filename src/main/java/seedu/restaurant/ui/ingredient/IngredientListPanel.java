@@ -1,4 +1,4 @@
-package seedu.restaurant.ui;
+package seedu.restaurant.ui.ingredient;
 
 import java.util.logging.Logger;
 
@@ -13,7 +13,9 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
 import seedu.restaurant.commons.events.ui.ingredient.IngredientPanelSelectionChangedEvent;
+import seedu.restaurant.commons.events.ui.ingredient.JumpToIngredientListRequestEvent;
 import seedu.restaurant.model.ingredient.Ingredient;
+import seedu.restaurant.ui.UiPart;
 
 /**
  * Panel containing the list of ingredients.
@@ -58,9 +60,8 @@ public class IngredientListPanel extends UiPart<Region> {
         });
     }
 
-    //TODO: To replace with JumpToIngredientListRequestEvent
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToIngredientListRequestEvent(JumpToIngredientListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
