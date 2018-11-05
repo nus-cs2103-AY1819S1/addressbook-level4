@@ -9,8 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.ScheduledEventBuilder;
 
 public class EventTagMatchesKeywordsPredicateTest {
@@ -19,14 +17,17 @@ public class EventTagMatchesKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        EventTagMatchesKeywordsPredicate firstPredicate = new EventTagMatchesKeywordsPredicate(firstPredicateKeywordList);
-        EventTagMatchesKeywordsPredicate secondPredicate = new EventTagMatchesKeywordsPredicate(secondPredicateKeywordList);
+        EventTagMatchesKeywordsPredicate firstPredicate =
+                new EventTagMatchesKeywordsPredicate(firstPredicateKeywordList);
+        EventTagMatchesKeywordsPredicate secondPredicate =
+                new EventTagMatchesKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        EventTagMatchesKeywordsPredicate firstPredicateCopy = new EventTagMatchesKeywordsPredicate(firstPredicateKeywordList);
+        EventTagMatchesKeywordsPredicate firstPredicateCopy =
+                new EventTagMatchesKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false

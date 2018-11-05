@@ -7,9 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_EVENTS_LISTED_OVERVIEW
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
