@@ -37,6 +37,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedTaskManager = new VersionedTaskManager(taskManager);
         filteredTasks = new FilteredList<>(versionedTaskManager.getTaskList());
+        //Flag any task that are overdue as overdue
+        this.checkOverdue();
     }
 
     public ModelManager() {
