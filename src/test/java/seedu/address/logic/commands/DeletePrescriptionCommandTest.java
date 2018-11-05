@@ -89,9 +89,10 @@ public class DeletePrescriptionCommandTest {
     }
 
     @Test
-    public void execute_prescriptionDoesNotExist_failre() {
+    public void execute_prescriptionDoesNotExist_failure() {
         Appointment appointmentInList = model.getFilteredAppointmentList().get(0);
         Prescription toDelete = new PrescriptionBuilder()
+                .withMedicineName("invalid name")
                 .withAppointmentId(appointmentInList.getAppointmentId()).build();
         DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(toDelete.getId(),
                 toDelete.getMedicineName());
