@@ -5,7 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.restaurant.logic.parser.util.ArgumentTokenizer.tokenizeToPair;
 
 import org.junit.Test;
 
@@ -21,7 +20,6 @@ public class ArgumentTokenizerTest {
     private final Prefix unknownPrefix = new Prefix("--u");
     private final Prefix pSlash = new Prefix("p/");
     private final Prefix qSlash = new Prefix("q/");
-    private final Prefix rSlash = new Prefix("r/");
     private final Prefix dashT = new Prefix("-t");
     private final Prefix hatQ = new Prefix("^Q");
 
@@ -240,7 +238,7 @@ public class ArgumentTokenizerTest {
     private void assertTokenizeToPairFailure(String argsString, Prefix firstPrefix, Prefix secondPrefix,
             String expectedMessage) {
         try {
-            tokenizeToPair(argsString, firstPrefix, secondPrefix);
+            ArgumentTokenizer.tokenizeToPair(argsString, firstPrefix, secondPrefix);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());
