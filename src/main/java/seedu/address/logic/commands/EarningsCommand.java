@@ -37,12 +37,16 @@ public class EarningsCommand extends Command {
     /**
      * Contains an array which consists of the number of days of a week between the given range of date.
      * Array begins from monday at index 0, through sunday at index 6.
+     * i.e. daysOfWeek[0] stores number of Mondays between startDate and endDate,
+     * daysOfWeek[1] stores number of Tuesdays between startDate and endDate, and so on.
      */
     private int[] daysOfWeek;
 
     public EarningsCommand(LocalDate inputStartDate, LocalDate inputEndDate) {
         requireNonNull(inputStartDate);
         requireNonNull(inputEndDate);
+
+        assert(!inputStartDate.isAfter(inputEndDate));
 
         startDate = inputStartDate;
         endDate = inputEndDate;
@@ -51,8 +55,9 @@ public class EarningsCommand extends Command {
     }
 
     /**
-     * Returns the number of a day of a week between the given
-     * range of date
+     * Returns the number of a day of a week between the given range of dates.
+     * For example, calculateNumberOfDaysOfWeek(Thursday) returns the number
+     * of Thursdays between startDate and endDate.
      */
     private int calculateNumberOfDaysOfWeek (DayOfWeek dayOfWeek) {
         LocalDate dateIterator = startDate.with(nextOrSame(dayOfWeek));
@@ -73,8 +78,7 @@ public class EarningsCommand extends Command {
     }
 
     /**
-     * Sets the daysOfWeek array with each of the number of days of a week given
-     * between the range of dates.
+     * Initializes daysOfWeek array with the number of days of a week between startDate and endDate.
      */
     private int[] setDaysOfWeek() {
         int[] daysOfWeek = new int[7];
