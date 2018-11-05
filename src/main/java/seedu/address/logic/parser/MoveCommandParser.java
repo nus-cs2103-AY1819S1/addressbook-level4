@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_AMOUNT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_WISH_DISPLAYED_INDEX;
 
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
@@ -16,6 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MoveCommandParser implements Parser<MoveCommand> {
 
     public static final int UNUSED_FUNDS_INDEX = 0;
+    public static final String MESSAGE_INVALID_SAME_INDEX = "Invalid! FROM and TO index cannot be the same.";
 
     /**
      * Parses the given {@code String} of arguments in the context of the MoveCommand
@@ -44,7 +44,7 @@ public class MoveCommandParser implements Parser<MoveCommand> {
 
         //Cannot parse the same index for FROM and TO
         if (arguments[0].equals(arguments[1])) {
-            throw new ParseException(MESSAGE_INVALID_WISH_DISPLAYED_INDEX);
+            throw new ParseException(MESSAGE_INVALID_SAME_INDEX);
         }
 
         Amount amount;

@@ -11,7 +11,9 @@ import static seedu.address.logic.commands.CommandTestUtil.showWishAtIndex;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_DIFFERENCE;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_EXCESS;
 import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_SUCCESS;
+import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_UNUSED_FUNDS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
+import static seedu.address.model.wish.SavedAmount.MESSAGE_SAVED_AMOUNT_NEGATIVE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_WISH;
 import static seedu.address.testutil.TypicalWishes.getTypicalWishBook;
@@ -245,6 +247,38 @@ public class SaveCommandTest {
 
         // Ensure that save command works
         assertCommandSuccess(saveCommandToTest, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_saveToUnusedFunds_success() {
+        model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
+
+        Amount amountToSave = new Amount(VALID_SAVED_AMOUNT_AMY);
+
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
+        expectedModel.updateUnusedFunds(amountToSave);
+        expectedModel.commitWishBook();
+
+        SaveCommand saveCommandToTest = new SaveCommand(amountToSave);
+        String expectedMessage = String.format(MESSAGE_SAVE_UNUSED_FUNDS, amountToSave.toString(),
+                expectedModel.getUnusedFunds());
+
+        assertCommandSuccess(saveCommandToTest, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_saveInvalidAmountToUnusedFunds_failure() {
+        model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
+
+        Amount amountToSave = new Amount(VALID_SAVED_AMOUNT_AMY);
+        Amount invalidAmountToSave = amountToSave.getNegatedAmount();
+
+        SaveCommand saveCommandToTest = new SaveCommand(invalidAmountToSave);
+
+        String expectedFailureMessage = String.format(MESSAGE_SAVED_AMOUNT_NEGATIVE);
+
+        assertCommandFailure(saveCommandToTest, model, commandHistory, expectedFailureMessage);
     }
 
     @Test

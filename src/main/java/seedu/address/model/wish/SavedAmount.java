@@ -12,9 +12,9 @@ import seedu.address.commons.core.amount.Amount;
  * Guarantees: immutable; is valid as declared in {@link #isValidSavedAmount(String)}
  */
 public class SavedAmount {
-    public static final String MESSAGE_SAVED_AMOUNT_INVALID =
-            "Invalid saved amount value!";
-    public static final String MESSAGE_SAVED_AMOUNT_NEGATIVE = "Saved amount cannot be negative";
+    public static final String MESSAGE_SAVED_AMOUNT_INVALID = "Invalid saved amount value!";
+    public static final String MESSAGE_SAVED_AMOUNT_NEGATIVE = "Invalid. Saved amount causes current value to "
+            + "become negative";
     public static final String MESSAGE_SAVED_AMOUNT_TOO_LARGE = "Current saved amount for wish is too large!";
     public static final String SAVED_AMOUNT_VALIDATION_REGEX = "[-+]?[0-9]+([.]{1}[0-9]{1,2})?";
     public final Double value;

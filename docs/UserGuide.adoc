@@ -73,7 +73,7 @@ If an invalid date is provided, a warning message will be displayed to prompt th
 Examples:
 
 * `add n/smallRice p/999 a/2d`
-* `add n/kfcBook_13inch p/2300 a/6m3w`
+* `add n/kfcBook 13inch p/2300 a/6m3w`
 * `add n/prinkles p/1.95 d/24/04/2020`
 
 === Editing a wish : `edit`

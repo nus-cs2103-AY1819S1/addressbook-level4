@@ -3,7 +3,6 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_AMOUNT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SAVING;
 
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.commons.core.index.Index;
@@ -24,9 +23,6 @@ public class SaveCommandParser implements Parser<SaveCommand> {
     @Override
     public SaveCommand parse(String args) throws ParseException {
         requireNonNull(args);
-
-        ArgumentMultimap argumentMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SAVING);
 
         // new
 
@@ -59,13 +55,5 @@ public class SaveCommandParser implements Parser<SaveCommand> {
         }
 
         return new SaveCommand(index, amount);
-    }
-
-    /**
-     * Returns true if the savings prefix does not contain empty {@code Optional} value in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean isSavingsCommandPresent(ArgumentMultimap argumentMultiMap) {
-        return argumentMultiMap.getValue(PREFIX_SAVING).isPresent();
     }
 }
