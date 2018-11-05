@@ -22,7 +22,7 @@ public class LogoutCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Logout of the system. "
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "You have been logged out";
+    public static final String MESSAGE_SUCCESS = "You have been logged out and history is cleared";
     public static final String MESSAGE_NOT_AUTHENTICATED = "You are not logged in";
 
     @Override
