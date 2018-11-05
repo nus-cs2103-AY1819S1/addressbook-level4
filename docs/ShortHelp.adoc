@@ -1,3 +1,6 @@
+:stylesDir: stylesheets
+:experimental:
+
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
 |*Manage Attractions*
