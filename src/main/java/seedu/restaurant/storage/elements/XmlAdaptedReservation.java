@@ -29,8 +29,6 @@ public class XmlAdaptedReservation {
     private String name;
     @XmlElement(required = true)
     private String pax;
-    //@XmlElement(required = true)
-    //private String dateTime;
     @XmlElement(required = true)
     private String date;
     @XmlElement(required = true)
@@ -51,7 +49,6 @@ public class XmlAdaptedReservation {
             List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.pax = pax;
-        //this.dateTime = dateTime;
         this.date = date;
         this.time = time;
         this.remark = remark;
@@ -67,7 +64,6 @@ public class XmlAdaptedReservation {
     public XmlAdaptedReservation(Reservation source) {
         name = source.getName().toString();
         pax = source.getPax().toString();
-        //dateTime = source.getDateTime().toString();
         date = source.getDate().toString();
         time = source.getTime().toString();
         remark = source.getRemark().value;
@@ -99,13 +95,6 @@ public class XmlAdaptedReservation {
             throw new IllegalValueException(Pax.MESSAGE_PAX_CONSTRAINTS);
         }
         final Pax modelPax = new Pax(pax);
-        /*
-        if (dateTime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    LocalDateTime.class.getSimpleName()));
-        }
-        final LocalDateTime modelDateTime = LocalDateTime.parse(dateTime);
-        */
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
@@ -138,7 +127,6 @@ public class XmlAdaptedReservation {
         XmlAdaptedReservation otherReservation = (XmlAdaptedReservation) other;
         return Objects.equals(name, otherReservation.name)
                 && Objects.equals(pax, otherReservation.pax)
-                //&& Objects.equals(dateTime, otherReservation.dateTime)
                 && Objects.equals(date, otherReservation.date)
                 && Objects.equals(time, otherReservation.time)
                 && tagged.equals(otherReservation.tagged);

@@ -35,7 +35,7 @@ public class AddReservationCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PAX + "4 "
-            + PREFIX_DATE + "05-12-2018 "
+            + PREFIX_DATE + "05-12-2019 "
             + PREFIX_TIME + "10:00 "
             + PREFIX_TAG + "Driving";
 

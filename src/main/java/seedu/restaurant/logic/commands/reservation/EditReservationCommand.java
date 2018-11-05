@@ -45,7 +45,6 @@ public class EditReservationCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PAX + "PAX] "
-            //+ "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TIME + "TIME] "
             + "[" + PREFIX_TAG + "TAG]...\n"
@@ -103,8 +102,6 @@ public class EditReservationCommand extends Command {
 
         Name updatedName = editReservationDescriptor.getName().orElse(reservationToEdit.getName());
         Pax updatedPax = editReservationDescriptor.getPax().orElse(reservationToEdit.getPax());
-        //LocalDateTime updatedDateTime =
-        //        editReservationDescriptor.getDateTime().orElse(reservationToEdit.getDateTime());
         Date updatedDate = editReservationDescriptor.getDate().orElse(reservationToEdit.getDate());
         Time updatedTime = editReservationDescriptor.getTime().orElse(reservationToEdit.getTime());
         Remark updatedRemark = reservationToEdit.getRemark(); // edit command does not allow editing remarks
@@ -138,7 +135,6 @@ public class EditReservationCommand extends Command {
     public static class EditReservationDescriptor {
         private Name name;
         private Pax pax;
-        //private LocalDateTime dateTime;
         private Date date;
         private Time time;
         private Set<Tag> tags;
@@ -152,7 +148,6 @@ public class EditReservationCommand extends Command {
         public EditReservationDescriptor(EditReservationDescriptor toCopy) {
             setName(toCopy.name);
             setPax(toCopy.pax);
-            //setDateTime(toCopy.dateTime);
             setDate(toCopy.date);
             setTime(toCopy.time);
             setTags(toCopy.tags);
@@ -180,16 +175,6 @@ public class EditReservationCommand extends Command {
         public Optional<Pax> getPax() {
             return Optional.ofNullable(pax);
         }
-
-        /*
-        public void setDateTime(LocalDateTime dateTime) {
-            this.dateTime = dateTime;
-        }
-
-        public Optional<LocalDateTime> getDateTime() {
-            return Optional.ofNullable(dateTime);
-        }
-        */
 
         public void setDate(Date date) {
             this.date = date;
@@ -241,7 +226,6 @@ public class EditReservationCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPax().equals(e.getPax())
-                    //&& getDateTime().equals(e.getDateTime())
                     && getDate().equals(e.getDate())
                     && getTime().equals(e.getTime())
                     && getTags().equals(e.getTags());
