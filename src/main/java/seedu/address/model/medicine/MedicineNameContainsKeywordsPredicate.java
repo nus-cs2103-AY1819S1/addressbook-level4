@@ -1,4 +1,3 @@
-/* @@author 99percentile */
 package seedu.address.model.medicine;
 
 import java.util.List;

@@ -751,20 +751,24 @@ Executing `refer` with an invalid index will **not** result in the generation of
 // tag::documentconsiderations[]
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
-* **Alternative 1 (current choice)**: Using a typical class to implement `Document`. +
+* **Alternative 1 (current choice)**: Using a typical `class` to implement `Document`. +
 ** Pros:
-*** Allows all classes inheriting from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
+*** Allows all classes `inheriting` from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
 ** Cons:
-*** `Java` does not support multiple inheritance; therefore, it prevents the classes that are inheriting from `Document` from inheriting from other useful classes or becoming an `enum`.
-*** Comparatively, `inheriting` from classes is more computationally expensive than using `interfaces` due to the overhead incurred looking up methods and various class members.
+*** `Java` does not support `multiple inheritance`; therefore, it prevents the classes that are `inheriting` from `Document` from inheriting from other useful classes or becoming an `enum`.
+*** Comparatively, `inheriting` from classes is more computationally expensive than using `interfaces` due to the overhead incurred looking up `methods` and various `class members`.
 * **Alternative 2**: Using an `interface` to implement `Document`.
 ** Pros:
 *** The classes implementing `Document` can be converted to `enums`, which ensures that the inputs fed to these classes are valid.
-**** For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+****
+For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+****
 ** Cons:
-*** Unable to standardise the way the implementing classes implement the `generate` method.
-**** This can potentially allow the inheriting classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
-**** Even if all the information are present, they might be formatted differently.
+*** Unable to standardise the way the classes that `inherit` from `Document` implement the `generate` method.
+****
+* This can potentially allow the `inheriting` classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+* Even if all the information are present, they might be formatted differently.
+****
 // end::documentconsiderations[]
 
 // tag::applicationgui[]
@@ -776,7 +780,7 @@ As an extension to the original addressbook-level4 application, more UI elements
 In particular, the real-time status of the Patient Queue Management System (PQMS) is reflected to the user via a small window near the top of the application. This is depicted in the figure below:
 
 .GUI for the PQMS
-image::PQMS-GUI.png[width="650"]
+image::PQMS-gui.png[width="650"]
 
 After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
 

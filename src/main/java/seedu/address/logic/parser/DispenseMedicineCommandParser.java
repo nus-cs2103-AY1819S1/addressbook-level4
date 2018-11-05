@@ -21,23 +21,29 @@ public class DispenseMedicineCommandParser implements Parser<DispenseMedicineCom
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT_TO_DISPENSE);
 
         Index index;
+        QuantityToDispense quantity;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            quantity = ParserUtil.parseQuantityToDispense(
+                    argMultimap.getValue(PREFIX_AMOUNT_TO_DISPENSE).get());
+            if (!QuantityToDispense.isValidQuantityToDispense(quantity)) {
+                throw new NumberFormatException();
+            }
         } catch (ParseException pe) {
             pe.printStackTrace();
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DispenseMedicineCommand.MESSAGE_USAGE), pe);
+        } catch (NumberFormatException nfe) {
+            nfe.printStackTrace();
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DispenseMedicineCommand.MESSAGE_USAGE), nfe);
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT_TO_DISPENSE)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DispenseMedicineCommand.MESSAGE_USAGE));
         }
-
-        QuantityToDispense quantity = ParserUtil.parseQuantityToDispense(
-                argMultimap.getValue(PREFIX_AMOUNT_TO_DISPENSE).get());
-
         return new DispenseMedicineCommand(index, quantity);
     }
 
