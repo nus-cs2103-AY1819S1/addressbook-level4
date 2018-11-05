@@ -117,9 +117,9 @@ public class ExportEventXmlCommand extends Command {
         eventDescriptionAttr.setValue(event.getDescription().toString());
         rootElement.setAttributeNode(eventDescriptionAttr);
 
-        Attr eventIDAttr = doc.createAttribute("Event ID");
-        eventIDAttr.setValue(event.getEventId().toString());
-        rootElement.setAttributeNode(eventIDAttr);
+        Attr eventIdAttr = doc.createAttribute("Event ID");
+        eventIdAttr.setValue(event.getEventId().toString());
+        rootElement.setAttributeNode(eventIdAttr);
 
         //elements 1 level below root - this is used to store volunteers for the event
 

@@ -67,7 +67,7 @@ public class ExportVolunteerXmlCommand extends Command {
         Volunteer selectedVolunteer = list.get(index.getZeroBased());
 
         try {
-            createVolunteerXML(model, selectedVolunteer);
+            createVolunteerXml(model, selectedVolunteer);
         } catch (Exception e) {
             throw new CommandException(MESSAGE_EXPORT_VOLUNTEER_FAILED);
         }
@@ -81,7 +81,7 @@ public class ExportVolunteerXmlCommand extends Command {
      * @param volunteer who's data to write
      * @param model to access volunteer event records
      */
-    private void createVolunteerXML(Model model, Volunteer volunteer) throws Exception {
+    private void createVolunteerXml(Model model, Volunteer volunteer) throws Exception {
         //setting up the document builders
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -121,9 +121,9 @@ public class ExportVolunteerXmlCommand extends Command {
         tagsAttr.setValue(volunteer.getTags().toString());
         rootElement.setAttributeNode(tagsAttr);
 
-        Attr IdAttr = doc.createAttribute("VolunteerID");
-        IdAttr.setValue(volunteer.getVolunteerId().toString());
-        rootElement.setAttributeNode(IdAttr);
+        Attr idAttr = doc.createAttribute("VolunteerID");
+        idAttr.setValue(volunteer.getVolunteerId().toString());
+        rootElement.setAttributeNode(idAttr);
 
 
         //elements 1 level below root - this is used to store events
