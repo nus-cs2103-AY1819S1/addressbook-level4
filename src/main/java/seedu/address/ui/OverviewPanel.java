@@ -57,6 +57,7 @@ public class OverviewPanel extends UiPart<Region> {
         this.eventList = eventList;
         this.recordList = recordList;
         this.overview = new Overview(volunteerList, eventList, recordList);
+
         registerAsAnEventHandler(this);
     }
 
@@ -77,6 +78,7 @@ public class OverviewPanel extends UiPart<Region> {
                 new PieChart.Data(male, overview.getNumOfMale()),
                 new PieChart.Data(female, overview.getNumOfFemale()));
 
+        genderPieChart.getData().clear();
         genderPieChart.setData(pieChartData);
         genderPieChart.setTitle("Gender Ratio");
         genderPieChart.setLabelsVisible(true);
@@ -98,14 +100,18 @@ public class OverviewPanel extends UiPart<Region> {
         series.getData().add(new XYChart.Data<>("65 and Above", overview.getNumOfSenior()));
 
         ageBarChart.setTitle("Age Distribution of Volunteers");
+        ageBarChart.getData().clear();
         ageBarChart.getData().add(series);
     }
 
     @Subscribe
     private void handleOverviewPanelSelectionChangedEvent(OverviewPanelChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        overview = new Overview(volunteerList, eventList, recordList);
         setLabelText();
+
+        overview.calculateNumOfEvents();
+        overview.calculateVolunteerDemographics();
+
         createGenderPieChart();
         createAgeBarChart();
     }

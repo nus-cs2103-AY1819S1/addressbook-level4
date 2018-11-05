@@ -83,7 +83,7 @@ public class Overview {
     /**
      * This method helps to get the number of events for the respective types based on time.
      */
-    private void calculateNumOfEvents() {
+    public void calculateNumOfEvents() {
         numOfUpcomingEvents = 0;
         numOfOngoingEvents = 0;
         numOfCompletedEvents = 0;
@@ -108,7 +108,7 @@ public class Overview {
     /**
      * This method helps to calculate the volunteer demographics.
      */
-    private void calculateVolunteerDemographics() {
+    public void calculateVolunteerDemographics() {
         numOfMale = 0;
         numOfFemale = 0;
         numOfChildren = 0;
