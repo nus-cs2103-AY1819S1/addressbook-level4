@@ -37,20 +37,20 @@ public class FindCommandParserTest {
         FindCommand expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
                 Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
-    
+
         // multiple whitespaces between keywords
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
-    
+
         // input looking with thanepark prefix
         expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
                 new ArrayList<>(), Optional.of(new Zone("10th street"))));
         assertParseSuccess(parser, PREFIX_ZONE.getPrefix() + " 10th street", expectedFindCommand);
-    
+
         // input with thanepark in full
         expectedFindCommand = new FindCommand(new RideContainsKeywordsPredicate(
                 new ArrayList<>(), Optional.of(new Zone("10th street"))));
         assertParseSuccess(parser, PREFIX_ZONE_FULL.getPrefix() + " 10th street", expectedFindCommand);
-    
+
         // input with single tag prefix
         List<String> list = Arrays.asList(PREFIX_TAG.getPrefix(), "friends");
         String userInput = getUserInput(list);

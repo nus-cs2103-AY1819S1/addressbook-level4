@@ -81,7 +81,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         return Optional.empty();
     }
-    
+
     private String[] removeOtherArguments(String[] keywords) {
         List<String> trimmedKeyWords = Arrays.asList(keywords);
         int[] indexes = new int[4];
@@ -103,7 +103,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         for (int i = 0 ; i < lastIndexOfNameString; i++) {
             trimmedArgs[i] = trimmedKeyWords.get(i);
         }
-        
+
         return trimmedArgs;
     }
 }
