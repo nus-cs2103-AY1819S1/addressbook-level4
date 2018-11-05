@@ -10,7 +10,11 @@ import static ssp.scheduleplanner.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
+    public static final String MESSAGE_TAG_CONSTRAINTS =
+            "Tags names should be alphanumeric and should not contain any space\n"
+            + "Please add t/ in front of each tag name! \n"
+            + "Example: t/Game t/Steam t/Overwatch";
+    public static final String MESSAGE_TAG_NONEXISTENT = "Tag not found. Please add tag first.";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
@@ -38,6 +42,19 @@ public class Tag {
         return other == this // short circuit if same object
                 || (other instanceof Tag // instanceof handles nulls
                 && tagName.equals(((Tag) other).tagName)); // state check
+    }
+
+    /**
+     * @param other
+     * @return true if two tags have the same name.
+     */
+    public boolean isSameTag(Tag other) {
+        if (other == this) {
+            return true;
+        }
+        return other != null
+                && this.equals(other);
+
     }
 
     /**

@@ -69,13 +69,6 @@ public class Task {
             return true;
         }
 
-        /*
-        return otherTask != null
-                && otherTask.getName().equals(getName())
-                //&& (otherTask.getDate().equals(getDate()) || otherTask.getPriority().equals(getPriority()));
-                && otherTask.getDate().equals(getDate()) && otherTask.getPriority().equals(getPriority());
-        */
-
         return otherTask != null
                 && otherTask.getName().equals(getName()) && otherTask.getDate().equals(getDate())
                 && otherTask.getVenue().equals(getVenue())

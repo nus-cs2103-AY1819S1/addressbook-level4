@@ -2,12 +2,16 @@ package ssp.scheduleplanner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
+
 import ssp.scheduleplanner.commons.core.EventsCenter;
 import ssp.scheduleplanner.commons.events.ui.ChangeViewEvent;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.logic.parser.CliSyntax;
 import ssp.scheduleplanner.model.Model;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -17,7 +21,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Schedule Planner. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Schedule Planner. \n"
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME "
             + CliSyntax.PREFIX_DATE + "DATE "
@@ -26,7 +30,7 @@ public class AddCommand extends Command {
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "CS2103T Tutorial "
-            + CliSyntax.PREFIX_DATE + "111018 "
+            + CliSyntax.PREFIX_DATE + "191218 "
             + CliSyntax.PREFIX_PRIORITY + "3 "
             + CliSyntax.PREFIX_VENUE + "COM1-0210 "
             + CliSyntax.PREFIX_TAG + "Tutorial";
@@ -50,6 +54,24 @@ public class AddCommand extends Command {
 
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+
+
+        Iterator tagIterator = toAdd.getTags().iterator();
+        Iterator catIterator = model.getCategoryList().iterator();
+
+        while (tagIterator.hasNext()) {
+            boolean tagExists = false;
+            Tag nextTag = (Tag) tagIterator.next();
+            while (catIterator.hasNext()) {
+                if (((Category) catIterator.next()).hasTag(nextTag)) {
+                    tagExists = true;
+                    break;
+                }
+            }
+            if (!tagExists) {
+                model.addTag(nextTag, "Others");
+            }
         }
 
         model.addTask(toAdd);

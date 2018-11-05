@@ -9,8 +9,10 @@ import java.util.Set;
 import ssp.scheduleplanner.commons.core.index.Index;
 import ssp.scheduleplanner.commons.util.StringUtil;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
+import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Date;
+import ssp.scheduleplanner.model.task.Interval;
 import ssp.scheduleplanner.model.task.Name;
 import ssp.scheduleplanner.model.task.Priority;
 import ssp.scheduleplanner.model.task.Repeat;
@@ -67,6 +69,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String interval} into a {@code interval}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code repeat} is invalid.
+     */
+    public static Interval parseInterval(String interval) throws ParseException {
+        requireNonNull(interval);
+        String trimmedInterval = interval.trim();
+        if (!Interval.isValidInterval(trimmedInterval)) {
+            throw new ParseException(Interval.MESSAGE_INTERVAL_CONSTRAINTS);
+        }
+        return new Interval(trimmedInterval);
+    }
+
+    /**
      * Parses a {@code String date} into a {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -112,6 +129,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String category} into a {@code Category}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code category} is invalid.
+     */
+    public static String parseCategoryName(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!Category.isValidName(trimmedName)) {
+            throw new ParseException(Category.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return trimmedName;
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -123,6 +155,7 @@ public class ParserUtil {
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
+
         return new Tag(trimmedTag);
     }
 

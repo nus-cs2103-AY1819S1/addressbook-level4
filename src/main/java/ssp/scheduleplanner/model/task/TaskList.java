@@ -9,22 +9,16 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
-import ssp.scheduleplanner.model.task.exceptions.DuplicateTaskException;
 import ssp.scheduleplanner.model.task.exceptions.TaskNotFoundException;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
- * A task is considered unique by comparing using {@code Task#isSameTask(Task)}. As such, adding and updating of
- * tasks uses Task#isSameTask(Task) for equality so as to ensure that the task being added or updated is
- * unique in terms of identity in the UniqueTaskList. However, the removal of a task uses Task#equals(Object) so
- * as to ensure that the task with exactly the same fields will be removed.
- *
+ * List for tasks that allows duplicates, used for archived tasks.
  * Supports a minimal set of list operations.
  *
  * @see Task#isSameTask(Task)
  */
 
-public class UniqueTaskList implements Iterable<Task> {
+public class TaskList implements Iterable<Task> {
 
     private ObservableList<Task> internalList = FXCollections.observableArrayList();
 
@@ -43,9 +37,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
         internalList.add(toAdd);
     }
 
@@ -61,11 +52,6 @@ public class UniqueTaskList implements Iterable<Task> {
         if (index == -1) {
             throw new TaskNotFoundException();
         }
-
-        if (!target.isSameTask(editedTask) && contains(editedTask)) {
-            throw new DuplicateTaskException();
-        }
-
         internalList.set(index, editedTask);
     }
 
@@ -80,21 +66,16 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
-    public void setTasks(UniqueTaskList replacement) {
+    public void setTasks(TaskList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
     /**
      * Replaces the contents of this list with {@code tasks}.
-     * {@code tasks} must not contain duplicate tasks.
      */
     public void setTasks(List<Task> tasks) {
         requireAllNonNull(tasks);
-        if (!tasksAreUnique(tasks)) {
-            throw new DuplicateTaskException();
-        }
-
         internalList.setAll(tasks);
     }
 
@@ -116,10 +97,10 @@ public class UniqueTaskList implements Iterable<Task> {
         SortedList<Task> sortedList = internalList.sorted((a, b) -> Task.compare(a, b));
         if (other == this) {
             return true;
-        } else if (other instanceof UniqueTaskList) {
+        } else if (other instanceof TaskList) {
             SortedList<Task> otherSortedList = (
-                    (UniqueTaskList) other).internalList.sorted((a, b) -> Task.compare(a, b));
-            if (internalList.equals(((UniqueTaskList) other).internalList)) {
+                    (TaskList) other).internalList.sorted((a, b) -> Task.compare(a, b));
+            if (internalList.equals(((TaskList) other).internalList)) {
                 return true;
             } else if (sortedList.equals(otherSortedList)) {
                 return true;
@@ -133,17 +114,5 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
 
-    /**
-     * Returns true if {@code tasks} contains only unique tasks.
-     */
-    private boolean tasksAreUnique(List<Task> tasks) {
-        for (int i = 0; i < tasks.size() - 1; i++) {
-            for (int j = i + 1; j < tasks.size(); j++) {
-                if (tasks.get(i).isSameTask(tasks.get(j))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+
 }

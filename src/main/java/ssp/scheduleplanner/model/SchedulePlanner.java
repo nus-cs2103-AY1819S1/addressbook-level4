@@ -5,7 +5,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import ssp.scheduleplanner.model.category.Category;
+import ssp.scheduleplanner.model.category.UniqueCategoryList;
+import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
+import ssp.scheduleplanner.model.task.TaskList;
 import ssp.scheduleplanner.model.task.UniqueTaskList;
 
 /**
@@ -14,8 +18,9 @@ import ssp.scheduleplanner.model.task.UniqueTaskList;
  */
 public class SchedulePlanner implements ReadOnlySchedulePlanner {
 
+    private final UniqueCategoryList categories;
     private final UniqueTaskList tasks;
-    private final UniqueTaskList archivedTasks;
+    private final TaskList archivedTasks;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -25,8 +30,9 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
      *   among constructors.
      */
     {
+        categories = new UniqueCategoryList();
         tasks = new UniqueTaskList();
-        archivedTasks = new UniqueTaskList();
+        archivedTasks = new TaskList();
     }
 
     public SchedulePlanner() {}
@@ -57,13 +63,22 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     /**
+     * Replaces the contents of the category list with {@code categories}.
+     */
+    public void setCategories(List<Category> categories) {
+        this.categories.setCategories(categories);
+    }
+
+    /**
      * Resets the existing data of this {@code SchedulePlanner} with {@code newData}.
      */
     public void resetData(ReadOnlySchedulePlanner newData) {
         requireNonNull(newData);
 
+        setCategories(newData.getCategoryList());
         setTasks(newData.getTaskList());
         setArchivedTasks(newData.getArchivedTaskList());
+
     }
 
     //// task-level operations
@@ -86,10 +101,40 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     /**
+     * Returns true if given category is valid and contains given tag.
+     * @param tag
+     * @param category
+     * @return
+     */
+    public boolean hasTagInCategory(Tag tag, Category category) {
+        requireNonNull(tag);
+        requireNonNull(category);
+        return (hasCategory(category) && category.hasTag(tag));
+    }
+
+    /**
+     * Returns true if a category with the same identity as {@code category} exists in existing categories of the
+     * schedule planner.
+     */
+    public boolean hasCategory(Category category) {
+        requireNonNull(category);
+        return categories.contains(category);
+    }
+
+    /**
+     * Returns if an existing category in schedule planner has the same name as {@code name}.
+     */
+    public boolean hasCategory(String name) {
+        requireNonNull(name);
+
+        return categories.contains(name);
+    }
+    /**
      * Adds a task to the task list of schedule planner.
      * The task must not already exist in the current task list of schedule planner.
      */
     public void addTask(Task p) {
+
         tasks.add(p);
     }
 
@@ -99,6 +144,19 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     public void archiveTask(Task p) {
         archivedTasks.add(p);
         tasks.remove(p);
+    }
+
+    public void addCategory(Category cat) {
+        categories.add(cat);
+    }
+
+    /**
+     * Adds a tag to the given category of schedule planner.
+     * The tag must not already exist under given category.
+     */
+    public void addTag(Tag tag, String categoryName) {
+
+
     }
 
     /**
@@ -132,7 +190,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
 
     @Override
     public String toString() {
-        return tasks.asUnmodifiableObservableList().size() + " tasks";
+        return (tasks.asUnmodifiableObservableList().size() + " tasks");
         // TODO: refine later
     }
 
@@ -147,10 +205,26 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     @Override
+    public ObservableList<Category> getCategoryList() {
+        return categories.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Get corresponding category from schedule planner.
+     * @param name
+     * @return category with the same name as given name.
+     */
+    public Category getCategory(String name) {
+        return categories.getCategory(name);
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SchedulePlanner // instanceof handles nulls
-                && tasks.equals(((SchedulePlanner) other).tasks));
+                && categories.equals(((SchedulePlanner) other).categories)
+                && tasks.equals(((SchedulePlanner) other).tasks))
+                && archivedTasks.equals(((SchedulePlanner) other).archivedTasks);
     }
 
     @Override

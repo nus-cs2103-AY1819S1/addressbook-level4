@@ -116,6 +116,14 @@ The number of repeats should be an integer that is greater or equals to 1. Setti
 [TIP]
 Use this command to schedule tasks that you carry out regularly.
 
+[WARNING]
+The maximum number fo repetitions is 15.
+
+[CAUTION]
+Due to how the Date class was implemented, there is an unintended behavior. Any task whose deadline goes beyond the year 2099
+will have the deadline set to the 21st  century instead. For example, a task created by the AddRepeatCommand that has the deadline
+1st January 2101 will instead have the deadline incorrectly set to 1st January 2001.
+
 === Listing All Tasks
 
 Lists all tasks in the schedule planner. +
@@ -207,15 +215,15 @@ will return all tasks with tag matching with at least one of the provided tags i
 
 === Deleting a Task
 
-Deletes the specified task from the schedule planner. +
+Deletes the specified task from the schedule planner forever. +
 
 ====
-[blue]`delete task INDEX`
+[blue]`delete INDEX`
 ====
 
 Example:
 ====
-input: [blue]`delete task 3` +
+input: [blue]`delete 3` +
 output: Task with index 3 delete from schedule planner.
 ====
 The [blue]`INDEX` refers to the index number shown in the displayed task list. Refer to the task according to the index number.
@@ -226,7 +234,7 @@ Use the `list` command to find out the index of the task to be deleted.
 tag::archivetask[]
 === Archiving a Task
 
-Archives the specified task from the schedule planner. This is different from deleting a task as you may view the archived tasks later. +
+Archives the specified task from the schedule planner. This is different from deleting a task as it is equivalent marking the task as completed. You may also view the archived tasks later. +
 
 ====
 [blue]`archive INDEX`
@@ -243,13 +251,14 @@ The [blue]`INDEX` *must be a positive integer* 1, 2, 3, ...
 Use the `list` command to find out the index of the task to be archived.
 end::archivetask[]
 
+// tag::listarchived[]
 === Viewing Archived Tasks
 
 Shows a list of archived tasks. +
 ====
 [blue]`listarchived`
 ====
-
+// end::listarchived[]
 // tag::listday[]
 === Viewing Tasks Due Today
 
@@ -349,6 +358,29 @@ Shows a list all the overdue tasks. +
 [blue]`listoverdue`
 ====
 
+// tag::showtags[]
+=== Displaying Used Tags
+
+Shows all tags that have been used in the sidebar. +
+====
+[blue]`tags`
+====
+// end::showtags[]
+// tag::progressbar[]
+=== Displaying Today's Progress
+
+Shows the percentage of tasks that have been archived for the day in the command result box. It also lists the uncompleted tasks for today. The progress bar is also displayed at the bottom left of the window. +
+====
+[blue]`progresstoday`
+====
+
+=== Displaying This Week's Progress
+
+Shows the percentage of tasks that have been archived from today to the nearest Sunday in the command result box. It also lists the uncompleted tasks from today until the nearest Sunday. The progress bar is also displayed at the bottom right of the window. +
+====
+[blue]`progressweek`
+====
+// end::progressbar[]
 
 === Listing Used Commands
 
@@ -449,7 +481,7 @@ Example: +
 * **Finding Tasks by Name** :
 
 ====
-[blue]`find [NAME] +
+[blue]`find [NAME]` +
 
 Example: +
 [blue]`find tutorial` +
@@ -500,6 +532,21 @@ Example: +
 * **Listing Overdue Tasks** :
 ====
 [blue]`listoverdue`
+====
+
+* **Listing Used Tags** :
+====
+[blue]`tags`
+====
+
+* **Displaying Today's Progress** :
+====
+[blue]`progresstoday`
+====
+
+* **Displaying This Week's Progress** :
+====
+[blue]`progressweek`
 ====
 
 * **Listing Used Commands** :

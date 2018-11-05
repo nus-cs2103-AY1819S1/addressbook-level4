@@ -18,7 +18,6 @@
                   <TitledPane animated="false" text="Modules" />
               </panes>
           </Accordion>
-         <ToggleButton fx:id="exams" onAction="#handleShowView" text="Exams" userData="exams" />
      </VBox>
    </top>
 

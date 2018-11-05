@@ -4,8 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import ssp.scheduleplanner.commons.core.Messages;
+import ssp.scheduleplanner.logic.commands.AddCategoryCommand;
 import ssp.scheduleplanner.logic.commands.AddCommand;
 import ssp.scheduleplanner.logic.commands.AddRepeatCommand;
+import ssp.scheduleplanner.logic.commands.AddTagCommand;
 import ssp.scheduleplanner.logic.commands.ArchiveCommand;
 import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.Command;
@@ -23,6 +25,8 @@ import ssp.scheduleplanner.logic.commands.ListDayCommand;
 import ssp.scheduleplanner.logic.commands.ListMonthCommand;
 import ssp.scheduleplanner.logic.commands.ListOverdueCommand;
 import ssp.scheduleplanner.logic.commands.ListWeekCommand;
+import ssp.scheduleplanner.logic.commands.ProgressTodayCommand;
+import ssp.scheduleplanner.logic.commands.ProgressWeekCommand;
 import ssp.scheduleplanner.logic.commands.RedoCommand;
 import ssp.scheduleplanner.logic.commands.SelectCommand;
 import ssp.scheduleplanner.logic.commands.UndoCommand;
@@ -58,6 +62,12 @@ public class SchedulePlannerParser {
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
+        case AddCategoryCommand.COMMAND_WORD:
+            return new AddCategoryCommandParser().parse(arguments);
+
+        case AddTagCommand.COMMAND_WORD:
+            return new AddTagCommandParser().parse(arguments);
+
         case AddRepeatCommand.COMMAND_WORD:
             return new AddRepeatCommandParser().parse(arguments);
 
@@ -72,6 +82,7 @@ public class SchedulePlannerParser {
 
         case ArchiveCommand.COMMAND_WORD:
             return new ArchiveCommandParser().parse(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -101,6 +112,12 @@ public class SchedulePlannerParser {
 
         case ListWeekCommand.COMMAND_WORD:
             return new ListWeekCommand();
+
+        case ProgressTodayCommand.COMMAND_WORD:
+            return new ProgressTodayCommand();
+
+        case ProgressWeekCommand.COMMAND_WORD:
+            return new ProgressWeekCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

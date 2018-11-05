@@ -8,6 +8,7 @@ import ssp.scheduleplanner.logic.commands.AddRepeatCommand;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Date;
+import ssp.scheduleplanner.model.task.Interval;
 import ssp.scheduleplanner.model.task.Name;
 import ssp.scheduleplanner.model.task.Priority;
 import ssp.scheduleplanner.model.task.Repeat;
@@ -25,16 +26,18 @@ public class AddRepeatCommandParser implements Parser<AddRepeatCommand> {
      */
     public AddRepeatCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_REPEAT, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_DATE,
-                        CliSyntax.PREFIX_PRIORITY, CliSyntax.PREFIX_VENUE, CliSyntax.PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_REPEAT, CliSyntax.PREFIX_INTERVAL,
+                        CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_PRIORITY,
+                        CliSyntax.PREFIX_VENUE, CliSyntax.PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_REPEAT, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_VENUE,
-                CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_PRIORITY) || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_REPEAT, CliSyntax.PREFIX_INTERVAL,
+                CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_VENUE, CliSyntax.PREFIX_DATE, CliSyntax.PREFIX_PRIORITY)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     AddRepeatCommand.MESSAGE_USAGE));
         }
 
-
+        Interval interval = ParserUtil.parseInterval(argMultimap.getValue(CliSyntax.PREFIX_INTERVAL).get());
         Repeat repeat = ParserUtil.parseRepeat(argMultimap.getValue(CliSyntax.PREFIX_REPEAT).get());
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(CliSyntax.PREFIX_DATE).get());
@@ -44,7 +47,7 @@ public class AddRepeatCommandParser implements Parser<AddRepeatCommand> {
 
         Task task = new Task(name, date, priority, venue, tagList);
 
-        return new AddRepeatCommand(task, repeat);
+        return new AddRepeatCommand(task, repeat, interval);
     }
 
     /**
