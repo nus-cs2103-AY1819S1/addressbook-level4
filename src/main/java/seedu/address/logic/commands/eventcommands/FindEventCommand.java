@@ -27,7 +27,7 @@ public class FindEventCommand extends Command {
             + PREFIX_EVENT_NAME + "NAME "
             + PREFIX_ADDRESS + "LOCATION "
             + PREFIX_DATE + "dd-MM-yyyy "
-            + PREFIX_TIME_START + "HH:mm"
+            + PREFIX_TIME_START + "HH:mm "
             + PREFIX_ORGANISER_NAME + "ORGANISER NAME "
             + PREFIX_PARTICIPANT_NAME + "PARTICIPANT NAME";
     public static final String MESSAGE_SUCCESS = "%1$d event(s) found.";

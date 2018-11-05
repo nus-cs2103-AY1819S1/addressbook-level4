@@ -461,7 +461,7 @@ The voter list must also be manually updated every time the person details are u
 * **Alternative 2:**: Store only the names of voters.
 ** Pros: No need for complete reference to the actual person via the XmlPersonIndex class in storage.
 ** Cons: Some persons might share the same name. It is also not extendable for future versions where the data/attributes of the voters might be relevant to computing the best option.
-// end:::poll[]
+//end::poll[]
 
 //tag::schedule[]
 === Schedule feature
