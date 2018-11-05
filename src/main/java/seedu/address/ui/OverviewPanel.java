@@ -86,8 +86,8 @@ public class OverviewPanel extends UiPart<Region> {
      * This method creates a bar chart which shows the age distribution.
      */
     private void createAgeBarChart() {
-        xAxis.setCategories(FXCollections.
-                observableArrayList(Arrays.asList("14 and Below", "15 to 24", "24 to 64", "65 and Above")));
+        xAxis.setCategories(FXCollections
+                .observableArrayList(Arrays.asList("14 and Below", "15 to 24", "24 to 64", "65 and Above")));
         yAxis.setLabel("Number");
 
         //Prepare XYChart.Series objects by setting data
