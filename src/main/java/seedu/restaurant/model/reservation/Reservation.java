@@ -19,7 +19,6 @@ public class Reservation {
     // Identity fields
     private final Name name;
     private final Pax pax;
-    //private final LocalDateTime dateTime;
     private final Date date;
     private final Time time;
     private final Remark remark;
@@ -34,7 +33,6 @@ public class Reservation {
         requireAllNonNull(name, pax, date, time, tags);
         this.name = name;
         this.pax = pax;
-        //this.dateTime = dateTime;
         this.date = date;
         this.time = time;
         this.remark = remark;
@@ -48,20 +46,6 @@ public class Reservation {
     public Pax getPax() {
         return pax;
     }
-
-    /*
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
-    }
-
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
-    }
-    */
 
     public Date getDate() {
         return date;
@@ -117,7 +101,6 @@ public class Reservation {
         Reservation otherReservation = (Reservation) other;
         return otherReservation.getName().equals(getName())
                 && otherReservation.getPax().equals(getPax())
-                //&& otherReservation.getDateTime().equals(getDateTime())
                 && otherReservation.getDate().equals(getDate())
                 && otherReservation.getTime().equals(getTime())
                 && otherReservation.getRemark().equals(getRemark())
@@ -136,8 +119,6 @@ public class Reservation {
         builder.append(getName())
                 .append(" Pax: ")
                 .append(getPax())
-                //.append(" Date & Time: ")
-                //.append(getDateTime())
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Time: ")

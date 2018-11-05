@@ -55,12 +55,6 @@ public class Date {
             this.date = dateGroupList.get(0).getDates().get(0)
                     .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
-
-        /*
-        DateTimeFormatter validFormat =
-                DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
-        this.date = LocalDate.parse(date, validFormat);
-        */
     }
 
     /**
@@ -68,7 +62,6 @@ public class Date {
      */
     public static boolean isValidDate(String test) {
         return (Date.canStrictParse(test) || Date.canNattyParse(test));
-        //return Date.canStrictParse(test);
     }
 
     /**
@@ -98,7 +91,7 @@ public class Date {
 
         List<java.util.Date> dates = dateGroupList.get(0).getDates();
 
-        return !dates.isEmpty(); //hard to understand but codacy rejected the readable version :/
+        return !dates.isEmpty();
     }
 
 
