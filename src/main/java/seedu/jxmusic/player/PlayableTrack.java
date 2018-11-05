@@ -4,6 +4,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaException;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Track;
 
 /**
@@ -67,7 +68,11 @@ public class PlayableTrack implements Playable {
     }
 
     @Override
-    public void seek(Duration time) {
+    public void seek(Duration time) throws CommandException {
+        Duration trackDuration = track.getFileDuration();
+        if (time.compareTo(trackDuration) > 0) {
+            throw new CommandException("Required time is beyond track's duration");
+        }
         System.out.println("playabletrack seek to " + time.toSeconds() + " second(s)");
         mediaPlayer.seek(time);
     }

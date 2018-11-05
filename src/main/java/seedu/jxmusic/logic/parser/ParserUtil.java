@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 import seedu.jxmusic.commons.core.index.Index;
 import seedu.jxmusic.commons.util.StringUtil;
@@ -117,19 +118,24 @@ public class ParserUtil {
         requireNonNull(timeString);
         String trimmedTimeString = timeString.trim();
         double timeInSeconds = 0;
-        int countIndex = 0;
-        int currentValue;
-        while (!trimmedTimeString.isEmpty() && countIndex < 3) {
-            int indexOfFirstWhitespace = trimmedTimeString.indexOf(" ");
-            String stringBehindWhitespace = trimmedTimeString.substring(indexOfFirstWhitespace + 1);
+        int countSoFar = 0;
+        Scanner s = new Scanner(trimmedTimeString);
 
-            timeInSeconds *= 60;
-            String stringBeforeWhitespace = trimmedTimeString.substring(0, indexOfFirstWhitespace);
-            currentValue = Integer.parseInt(stringBeforeWhitespace);
-            timeInSeconds += currentValue;
-            countIndex++;
-            trimmedTimeString = stringBehindWhitespace;
+        try {
+            while (s.hasNext() && countSoFar < 3) {
+                String currentToken = s.next();
+                int currentValue = Integer.parseUnsignedInt(currentToken);
+                timeInSeconds *= 60;
+                timeInSeconds += currentValue;
+                countSoFar++;
+            }
+            if (s.hasNextInt()) {
+                throw new ParseException("wrong time format, at most 3 unsigned integers are allowed in input.");
+            }
+            return timeInSeconds * 1000;
+        } catch (Exception e) {
+            throw new ParseException("wrong time format, at most 3 unsigned integers are allowed in input.");
         }
-        return timeInSeconds * 1000;
+
     }
 }

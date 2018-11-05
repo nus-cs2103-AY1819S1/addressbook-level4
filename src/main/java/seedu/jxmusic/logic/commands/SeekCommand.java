@@ -1,8 +1,9 @@
 package seedu.jxmusic.logic.commands;
 
 import javafx.util.Duration;
-
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Model;
+import seedu.jxmusic.player.Playable;
 
 /**
  * Seeks the player to a new playback time.
@@ -19,7 +20,7 @@ public class SeekCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "seek the player to time required:";
 
-
+    public static final String MESSAGE_NOT_PLAYING = "No playing track to seek";
 
     //time that is required to seek to
     private Duration time;
@@ -28,10 +29,14 @@ public class SeekCommand extends Command {
         this.time = seekTime;
     }
 
-
     @Override
-    public CommandResult execute(Model model) {
-        player.seek(time);
+    public CommandResult execute(Model model) throws CommandException {
+        if (player.getStatus() == Playable.Status.PLAYING) {
+            player.seek(time);
+        } else {
+            throw new CommandException(MESSAGE_NOT_PLAYING);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
+
