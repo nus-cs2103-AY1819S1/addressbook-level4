@@ -84,8 +84,8 @@ public class Messages {
             + PREFIX_HPNAME + "SLIM DOWN "
             + PREFIX_AGE + "25 "
             + PREFIX_CHEIGHT + "170 "
-            + PREFIX_CWEIGHT + "70.0 "
-            + PREFIX_TWEIGHT + "60.0 "
+            + PREFIX_CWEIGHT + "70 "
+            + PREFIX_TWEIGHT + "60 "
             + PREFIX_DURATION + "10 "
             + PREFIX_SCHEME + "LOSS ";
 

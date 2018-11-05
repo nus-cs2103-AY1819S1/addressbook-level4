@@ -10,10 +10,8 @@ import static seedu.souschef.commons.util.AppUtil.checkArgument;
 public class TargetWeight {
 
     public static final String MESSAGE_WEIGHT_CONSTRAINTS =
-            "Weights should only contain numbers and decimal points";
-
-
-    public static final String WEIGHT_VALIDATION_REGEX = "[+-]?([0-9]*[.])?[0-9]+";
+            "Weights should only contain numbers";
+    public static final String WEIGHT_VALIDATION_REGEX = "\\d{2,}";
     public final String value;
 
 
