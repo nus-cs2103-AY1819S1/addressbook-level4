@@ -21,7 +21,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Schedule Planner. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Schedule Planner. \n"
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME "
             + CliSyntax.PREFIX_DATE + "DATE "
@@ -30,7 +30,7 @@ public class AddCommand extends Command {
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "CS2103T Tutorial "
-            + CliSyntax.PREFIX_DATE + "111018 "
+            + CliSyntax.PREFIX_DATE + "191218 "
             + CliSyntax.PREFIX_PRIORITY + "3 "
             + CliSyntax.PREFIX_VENUE + "COM1-0210 "
             + CliSyntax.PREFIX_TAG + "Tutorial";
