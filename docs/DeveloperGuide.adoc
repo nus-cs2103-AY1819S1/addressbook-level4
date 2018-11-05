@@ -780,11 +780,7 @@ As an extension to the original addressbook-level4 application, more UI elements
 In particular, the real-time status of the Patient Queue Management System (PQMS) is reflected to the user via a small window near the top of the application. This is depicted in the figure below:
 
 .GUI for the PQMS
-<<<<<<< HEAD
 image::PQMS-GUI.png[width="850"]
-=======
-image::PQMS-gui.png[width="650"]
->>>>>>> 7f241a15f96db1c6881a550bb7cb056a61aa8b64
 
 After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
 
