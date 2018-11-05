@@ -64,20 +64,6 @@ public class EditModuleCommand extends Command {
     private final Grade newGrade;
 
     /**
-     * Prevents instantiation of empty constructor.
-     */
-    private EditModuleCommand() {
-        this.targetCode = null;
-        this.targetYear = null;
-        this.targetSemester = null;
-        this.newCode = null;
-        this.newYear = null;
-        this.newSemester = null;
-        this.newCredit = null;
-        this.newGrade = null;
-    }
-
-    /**
      * Constructor that instantiates {@code EditModuleCommand}.
      * <p>
      * Sets target field and new field used to find and editing the targeted

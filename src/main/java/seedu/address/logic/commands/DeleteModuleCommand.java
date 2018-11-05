@@ -35,15 +35,6 @@ public class DeleteModuleCommand extends Command {
     private final Semester targetSemester;
 
     /**
-     * Prevents instantiation of empty constructor.
-     */
-    private DeleteModuleCommand() {
-        targetCode = null;
-        targetYear = null;
-        targetSemester = null;
-    }
-
-    /**
      * Constructor that instantiates {@code DeleteModuleCommand}.
      * <p>
      * Sets target field used to find and delete the module.
