@@ -112,7 +112,7 @@
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #45A32;
+    -fx-border-color: #45A321;
     -fx-border-width: 1;
 }
 
@@ -130,6 +130,18 @@
     -fx-font-family: "Helvetica";
     -fx-font-size: 20px;
     -fx-text-fill: #010504;
+}
+.cell_track_vbox {
+    -fx-background-color: #3AB22C;
+}
+
+.cell_track_field_captain {
+    -fx-font-family: "Helvetica";
+    -fx-font-size: 18px;
+    -fx-text-fill: #3AB22C;
+}
+.cell_track_field_anchor_pane {
+    -fx-background-color: #383838;
 }
 
 .cell_playlist_label {

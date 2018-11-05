@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.util.Duration;
 import seedu.jxmusic.commons.core.ComponentManager;
 import seedu.jxmusic.commons.core.LogsCenter;
+import seedu.jxmusic.logic.commands.exceptions.CommandException;
 import seedu.jxmusic.model.Playlist;
 import seedu.jxmusic.model.Track;
 
@@ -70,7 +71,7 @@ public class PlayerManager extends ComponentManager implements Player {
     }
 
     @Override
-    public void seek(Duration time) {
+    public void seek(Duration time) throws CommandException {
         logger.info("Seek to " + time.toSeconds() + " second(s)");
         currentlyPlaying.seek(time);
     }
