@@ -26,6 +26,21 @@ class CanvasAutoResizeCommandTest {
     }
 
     @Test
+    void execute_turnOff_success() {
+        String args = "off";
+        Model model = ModelGenerator.getDefaultModel();
+        Model expectedModel = ModelGenerator.getDefaultModel();
+        expectedModel.getCanvas().setCanvasAuto(false);
+        CommandHistory ch = new CommandHistory();
+        assertCommandSuccess(
+                new CanvasAutoResizeCommand(args),
+                model,
+                ch,
+                String.format(CanvasAutoResizeCommand.OUTPUT_SUCCESS, args),
+                expectedModel);
+    }
+
+    @Test
     void execute_invalidCommand_success() {
         String args = "invalid";
         Model model = ModelGenerator.getDefaultModel();

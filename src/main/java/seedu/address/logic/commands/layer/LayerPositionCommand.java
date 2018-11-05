@@ -36,13 +36,13 @@ public class LayerPositionCommand extends LayerCommand {
 
     public CommandResult execute(Model model, CommandHistory history) {
         if (args == null) {
-            return new CommandResult(String.format(OUTPUT_SUCCESS,
-                    model.getCanvas().getCurrentLayer().getX(), model.getCanvas().getCurrentLayer().getY()));
+            return new CommandResult(String.format(OUTPUT_FAILURE));
         }
-        String[] argumentArray = args.trim().split("x", 2);
 
+        String[] argumentArray = args.trim().split("x", 2);
         int newX;
         int newY;
+
         try {
             newX = Integer.parseInt(argumentArray[0]);
             newY = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : null);

@@ -32,7 +32,7 @@ image::Ui.png[width:800]
 [[Features]]
 == Features
 
-==== Command Format
+=== Command Format
 * Items in square brackets are compulsory parameters to be added e.g `convert [TRANSFORMATION]` +
 * Items in round brackets are optional parameters and can be omitted, e.g `canvas size (NEW_SIZE)` +
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >` +
