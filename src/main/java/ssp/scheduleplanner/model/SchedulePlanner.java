@@ -9,6 +9,7 @@ import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.category.UniqueCategoryList;
 import ssp.scheduleplanner.model.tag.Tag;
 import ssp.scheduleplanner.model.task.Task;
+import ssp.scheduleplanner.model.task.TaskList;
 import ssp.scheduleplanner.model.task.UniqueTaskList;
 
 /**
@@ -19,7 +20,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
 
     private final UniqueCategoryList categories;
     private final UniqueTaskList tasks;
-    private final UniqueTaskList archivedTasks;
+    private final TaskList archivedTasks;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -31,7 +32,7 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     {
         categories = new UniqueCategoryList();
         tasks = new UniqueTaskList();
-        archivedTasks = new UniqueTaskList();
+        archivedTasks = new TaskList();
     }
 
     public SchedulePlanner() {}
