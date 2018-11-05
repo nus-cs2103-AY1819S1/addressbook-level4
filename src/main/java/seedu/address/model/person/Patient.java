@@ -37,13 +37,15 @@ public class Patient {
      * Every field must be present and not null.
      */
     public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, icNumber, phone, email, address, tags);
+        requireAllNonNull(name, icNumber, phone, email, address);
         this.name = name;
         this.icNumber = icNumber;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
         this.medicalRecord = new MedicalRecord();
         this.isInQueue = false;
     }
