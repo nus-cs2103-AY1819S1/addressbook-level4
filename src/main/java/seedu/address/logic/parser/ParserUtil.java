@@ -82,15 +82,20 @@ public class ParserUtil {
     public static Performance parsePerformance(String performance) throws ParseException {
         requireNonNull(performance);
         String trimmed = performance.trim();
-        switch (trimmed) {
-        case "easy":
-            return Performance.EASY;
-        case "normal":
-            return Performance.NORMAL;
-        case "hard":
-            return Performance.HARD;
-        default:
+        try {
+            return Performance.valueOf(trimmed);
+        } catch(IllegalArgumentException e) {
             throw new ParseException(Performance.MESSAGE_PERFORMANCE_CONSTRAINTS);
         }
+//        switch (trimmed) {
+//        case "easy":
+//            return Performance.EASY;
+//        case "normal":
+//            return Performance.NORMAL;
+//        case "hard":
+//            return Performance.HARD;
+//        default:
+//            throw new ParseException(Performance.MESSAGE_PERFORMANCE_CONSTRAINTS);
+//        }
     }
 }
