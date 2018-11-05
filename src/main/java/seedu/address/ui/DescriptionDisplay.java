@@ -1,17 +1,14 @@
 package seedu.address.ui;
 
-import javafx.event.ActionEvent;
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.todolist.ToDoListEvent;
-
-import java.util.logging.Logger;
 
 /**
  * An UI component that displays selected description of a {@code ToDoListEvent}.
@@ -43,18 +40,8 @@ public class DescriptionDisplay extends UiPart<Region> {
         super(FXML);
         this.selectedIndex = displayedIndex;
         this.toDoListEvent = toDoListEvent;
-        id.setText(displayedIndex + ": ");
+        id.setText(displayedIndex + 1 + ": ");
         description.setText(toDoListEvent.getDescription().value);
     }
 
-    @FXML
-    public void onOkButtonClicked(ActionEvent event) {
-        closeStage(event);
-    }
-
-    private void closeStage(javafx.event.ActionEvent event) {
-        Node source = (Node) event.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.close();
-    }
 }
