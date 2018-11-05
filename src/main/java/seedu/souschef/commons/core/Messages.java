@@ -63,12 +63,9 @@ public class Messages {
 
     public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
             + "Parameters: "
-            + "Name "
-            + "Amount "
-            + "Serving_Unit(gram/piece)"
-            + "Date(MM-dd-yyyy)"
+            + "NAME AMOUNT SERVING_UNIT DATE(MM-dd-yyyy)\n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
-            + "onion 100 gram 10-24-2018";
+            + "onion 100 gram 11-02-2018";
 
     public static final String MESSAGE_ADD_HEALTHPLAN_USAGE = AddCommand.COMMAND_WORD + ": Adds a healthplan. "
             + "Parameters: "
@@ -78,7 +75,7 @@ public class Messages {
             + PREFIX_CWEIGHT + "Current Weight(KG) "
             + PREFIX_TWEIGHT + "Target Weight(KG) "
             + PREFIX_DURATION + "Duration(Days) "
-            + PREFIX_SCHEME + "Scheme(GAIN/LOSS/MAINTAIN) \n"
+            + PREFIX_SCHEME + "Scheme(GAIN/LOSS/MAINTAIN)\n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
             + PREFIX_HPNAME + "SLIM DOWN "
             + PREFIX_AGE + "25 "
@@ -101,8 +98,8 @@ public class Messages {
 
     public static final String MESSAGE_DELETE_INGREDIENT_USAGE = DeleteCommand.COMMAND_WORD
             + ": Deletes the recipe identified by the name"
-            + "Parameters: Name"
-            + "Example: " + DeleteCommand.COMMAND_WORD + " onion";
+            + "Parameters: INDEX\n"
+            + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_HEALTHPLAN_USAGE = DeleteCommand.COMMAND_WORD
             + ": Deletes the health plan identified by the index number used in the displayed health plan list.\n"
@@ -137,7 +134,11 @@ public class Messages {
             + PREFIX_INSTRUCTION + "INSTRUCTION "
             + "[" + PREFIX_COOKTIME + "TIME]";
 
-    public static final String MESSAGE_EDIT_INGREDIENT_USAGE = EditCommand.COMMAND_WORD;
+    public static final String MESSAGE_EDIT_INGREDIENT_USAGE = EditCommand.COMMAND_WORD
+            + ": Edits the details of the ingredient identified "
+            + "Parameters: INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]...\n"
+            + "Example: " + EditCommand.COMMAND_WORD + " 1 name onion amount 200";
+
     public static final String MESSAGE_EDIT_HEALTHPLAN_USAGE = EditCommand.COMMAND_WORD
             + ": Edits the details of the health plan identified "
             + "by the index number used in the displayed health plan list. "
@@ -160,7 +161,12 @@ public class Messages {
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + FindCommand.COMMAND_WORD + " chicken asian western";
-    public static final String MESSAGE_FIND_INGREDIENT_USAGE = FindCommand.COMMAND_WORD;
-    public static final String MESSAGE_FIND_HEALTHPLAN_USAGE = FindCommand.COMMAND_WORD;
+
+    public static final String MESSAGE_FIND_INGREDIENT_USAGE = FindCommand.COMMAND_WORD
+            + ": Finds all ingredients whose names contain any of "
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + FindCommand.COMMAND_WORD + " onion";
+
     public static final String MESSAGE_FIND_FAVOURITES_USAGE = FindCommand.COMMAND_WORD;
 }

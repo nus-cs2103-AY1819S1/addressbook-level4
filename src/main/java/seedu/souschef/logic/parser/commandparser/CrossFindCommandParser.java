@@ -32,7 +32,10 @@ public class CrossFindCommandParser {
      */
     public CrossFindCommand parse(Model<CrossRecipe> crossRecipeModel, Model<Ingredient> ingredientModel,
                                   String argument) throws ParseException {
-        String[] tokens = argument.trim().split("\\s+");
+        String[] tokens = argument.trim().toLowerCase().split("\\s+");
+        for (int i = 0; i < tokens.length; i++) {
+            tokens[i] = tokens[i].replaceAll("_", " ");
+        }
 
         if (tokens.length < 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CrossFindCommand.MESSAGE_USAGE));
