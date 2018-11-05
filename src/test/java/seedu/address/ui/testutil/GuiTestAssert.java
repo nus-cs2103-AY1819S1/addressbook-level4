@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import guitests.guihandles.AssignmentCardHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Person;
+import seedu.address.model.project.Assignment;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -22,6 +24,16 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertCardEquals(AssignmentCardHandle expectedCard, AssignmentCardHandle actualCard) {
+        assertEquals(expectedCard.getId(), actualCard.getId());
+        assertEquals(expectedCard.getProjectName(), actualCard.getProjectName());
+        assertEquals(expectedCard.getAuthor(), actualCard.getAuthor());
+        assertEquals(expectedCard.getDescription(), actualCard.getDescription());
     }
 
     /**
@@ -66,5 +78,14 @@ public class GuiTestAssert {
      */
     public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
         assertEquals(expected, resultDisplayHandle.getText());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedAssignment}.
+     */
+    public static void assertCardDisplaysAssignment(Assignment expectedAssignment, AssignmentCardHandle actualCard) {
+        assertEquals(expectedAssignment.getProjectName().fullProjectName, actualCard.getProjectName());
+        assertEquals(expectedAssignment.getAuthor().fullName, actualCard.getAuthor());
+        assertEquals(expectedAssignment.getDescription().value, actualCard.getDescription());
     }
 }

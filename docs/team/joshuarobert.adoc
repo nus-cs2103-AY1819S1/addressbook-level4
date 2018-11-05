@@ -1,0 +1,71 @@
+= Joshua Robert - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: OASIS
+ ---
+== Overview
+Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves.
+ This project portfolio summarizes the contributions that I have to the project.
+
+== Summary of contributions
+The following section shows my major code contributions to OASIS.
+
+=== Major enhancement: Added *the ability to delete employees and add them to the archive list*
+==== Behaviour:
+Allows a user with `Department Manager` permissions to delete an employee and it will be automatically added to the `archivelist` which can be viewed at a later time.
+
+User can then view the `archivelist` by clicking on "ArchiveList" button on the List Picker Panel as shown below:
+
+image::viewArchive.png[width="700"]
+
+==== Justification:
+We want the Users to have the option of deleting an employee from the system but keeping his/her information incase of future need for it.
+
+Having the `archivelist` achieves that for us, an employee will remain in the system even after being deleted from the `archivelist`.
+
+Our users will also be able to permanently delete employee information if they choose to by deleting them from the `archivelist`.
+
+Lastly, if there is a need to restore the employee back to the `activelist` a user with the right permissions can restore the employee from the `archivelist` to the `activelist`.
+
+==== Highlights:
+
+
+=== Minor enhancement:
+
+==== Code contributed:
+** [https://github.com[Functional code]]
+** [https://github.com[Test code]]
+
+==== *Other contributions*:
+** Project management:
+*** Managed releases v1.1 - v1.2 on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme for every `Person` card (Pull requests https://github.com[#1])
+*** Updated the GUI to show a `ListPicker` to toggle between active and archive list. (Pull requests)
+** Documentation:
+*** Input initial contents of User Guide: https://github.com[#1]
+*** Updated class diagrams for `UI` and `Model` component in the Developer Guide.
+** Community:
+*** `Listpicker` menu feature that I added was adopted by several other class mates ()
+** Tools:
+*** Integrated Travis CI, AppVeyor and Coveralls to the team repo
+
+== Contributions to the User Guide
+
+|===
+|_The following sections represent my contributions to the User Guide. They demonstrate my ability to write end-user documentation._
+|===
+
+//include::../UserGuide.adoc[tag=archive]
+//include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_The next section serves to showcase my additions to the Developer Guide. They act as an exhibit to show my capability in writing good technical documentation, along with the technical depth of my contributions._
+|===
+
+include::../DeveloperGuide.adoc[tag=archive]
+// include::../DeveloperGuide.adoc[tag=da/taencryption]

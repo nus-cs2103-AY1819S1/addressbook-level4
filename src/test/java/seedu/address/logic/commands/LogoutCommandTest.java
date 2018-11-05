@@ -22,7 +22,7 @@ public class LogoutCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_help_success() {
+    public void execute_logout_success() {
         assertCommandSuccess(new LogoutCommand(), model, commandHistory, SHOWING_LOGOUT_MESSAGE, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof LogoutEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);

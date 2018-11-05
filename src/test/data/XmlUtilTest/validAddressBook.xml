@@ -7,7 +7,10 @@
         <address isPrivate="false">4th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Hans Muster</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>QUZnTm93JaL3Hab+m/quAbbUTEnuMRdWMgDhm62xrU+/4YMmj6Z8wwCSneW5NNK3DwQHhRp6BvNEbq6o95n1qdLTZGRCSoZ2tBTWgquS2Zt0DeG/cR5+MsxVczzdu0jV3pJFaeFfa7tTeIa6oGjHwlj2WXBjaH1aTIlEoFEkH4diI6voeoVHQMELG9BdAOLvsfxw/3OunNllB68GB2DxMSNjQWbqk+dWemeFI1V1qWcB/1g9zjOYCPEF5YL1OxwV6rzWJoy0X/+Ygy2+PIixLLYEuFwdqVCB9WpMwVc/zqsO+7dXF3Avj0x+1Dvl8CgxZa+vBdYU2kSmtXuvb4ECoQ==</salt>
+            <password>3Ll1m05U5Hi6vJ7q1xP8QDSUFSMZ8vINBhZCZtJo2IA=</password>
+        </password>
     </persons>
     <persons>
         <name>Ruth Mueller</name>
@@ -16,7 +19,10 @@
         <address isPrivate="false">81th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Ruth Mueller</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>bUGaodGzlzH3fyzNz7Z1aepMYTAxB77P9VVnuFYJyG/GicDcJx1Szqd13TrppLCcf86y0dRgRUgj1sox3l9vCBxhDbxbnDbTa1zCc+eXDzav5v5sZsuvpjskPqK75ewXysT/ZDtc174I1LyURZPw6/mi4U1+KyRhWwaTLCmLQIS2rPWRbEkRhitqmPhPWma7yypYOuaBhKzsJuJI01jXuzL9DBN4S2jiz0qo/ZbdA0hW+PkGPzxzuLybxHsFKIcCzBk6XEglZrSuUg6XBcxRqddDNlpthKRzi0CwYFXzdUzmKLIQGhyRxnU1+4Vk9yWv4L7o9sq7P9+saR377rz6UA==</salt>
+            <password>8ygujTw8ZXW93nt84LCE4Cw5JgevZ+8foh6aJPOIORM=</password>
+        </password>
     </persons>
     <persons>
         <name>Heinz Kurz</name>
@@ -25,7 +31,10 @@
         <address isPrivate="false">wall street</address>
         <salary isPrivate="false">10000</salary>
         <username>Heinz Kurz</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>V4vmK9J824vrTaKKqrwDSzE+QOAr2XVn2oSxGE7DXN0zOrHQv+YAMOYW8d36lOVvfnV/EF2L03T/cQhLeyH3DUJrv0nv/F1sTbnxigJWmh1ibG/uiLND6CsXmB8cCzp9yrGOY9fUNJnEKmoaUIILQiiBNl2Lt7FXRkcrc0KjQiv5z+5/3x3MGaNFHP+ZkBx2dxmYT0LCvmGL29Qye/wcjwQqGf9XesVBfFYKu/tm5rwZwrKCc4yzE6sstymZwLhACyxgmPXpV/SIR4X8aGC68CPmFMGOtppor14P38T8nLOu0DyzxDMX9ivIAQXtO9sY98Saw9itbazgFkwhT3/KgA==</salt>
+            <password>Q/6OX7PaikIN6F8SWLe51L0/ycyaw8bhYn34/3Yb9Xw=</password>
+        </password>
     </persons>
     <persons>
         <name>Cornelia Meier</name>
@@ -34,7 +43,10 @@
         <address isPrivate="false">10th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Cornelia Meier</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>mgMR+WP6F7PPlVQ7kCNh1DuxxkFIqlB4wE48M8BR6XdocATeiu3DKxTAp+4IUfOxGKkU4iaXPwZbP64cDV7UubAwtvs4UVtFOfXpUd2mpTzj5uaMGPtuNcpQBAXeDekpsdaGtltu7EXoZGzPdg+Z36KCtDrBFZEZPBwYVufa/EwIB99szPyYSrg9OZGu3s5GsLk6NTWhV3j6FL8BC1M1jz5PTiFp8A4KEk3yhqI+jZDqLMWAcaCukoTrpgaNSRSUFkyyyU01vmZihtEQP6msfmsGp+xqDiVfpKewi8OpogdPAxqiyfMsHX94f81BFLLR4Ia1djO6wdE65JSq64DJKw==</salt>
+            <password>thPz4nr7gOeDGrMABP80UY3gRzEr1da7zAdRcwR/1P0=</password>
+        </password>
     </persons>
     <persons>
         <name>Werner Meyer</name>
@@ -43,7 +55,10 @@
         <address isPrivate="false">10th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Werner Meyer</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>fN+GJCWSp3rI5HV1TM5sf0FWT7nnaodN/Ukh6Mm4nc/zxmBXBBeqgb5WbuCS6TWNYtJwa3MHxklH3EOeazk0DJtjxjkxjsPEOo2OXHrVeUDtkSC+E5KPLtoFkCu8dix6jT8HbDthSYptGDjBcgELZIm82jsZT78Wvi1/JYtfgBp3/IvXVbNOnSa6IP5eFdI7f4g3wme01lt3ocCLcoXirJpes5oRf3sVYpeCL/wqBTj8PJawCNlvSIF6j2GcH6G4iqNyneRB3pTvoiieO4i+rulluRs29o+p5bv2QBF6Kho6BHlVaMBlnqbY+XP+X5cJx7rNuBj+mmbR5RGPKVqKZQ==</salt>
+            <password>o/Aj28zrE2JbBd88CSNt6u2uQTQOVrbUipnNIQc7LOw=</password>
+        </password>
     </persons>
     <persons>
         <name>Lydia Kunz</name>
@@ -52,7 +67,10 @@
         <address isPrivate="false">10th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Lydia Kunz</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>0VkM1xOdCWNvW1IDcGM4/Wv1nOCwcf6GAWnxMqxCv7jbG9yvv+7prvmV6Bn/GBfPGdj83k+gg5coSW7v3JsG37OLSxq5ePTes+Z9jaNrZzKDvdZCaJtZZM3naS5tT8cjZY0VFxqW02AxXTj430VbsUitizmBF9eRx9m8QRFcvm3THWurszbiJ6zOwOsXSnNDD4pV+R+tf3qukqNNulSgh5W6uumEXgI6AGg8a+vkMuwnSX00t5KOVYajz+yO4fJKka91M6VL7VtQNGYsWMtwFfUIau3JK9YhrLLvi0h5zPXt5O9uKhgNF6ba1S+nPm4sMaC54jJYNQFaV5kf8evdIA==</salt>
+            <password>FHX0Ps0lyPJHcYl+N3M98amHEKpOd0x9VaPB60p1Y2Q=</password>
+        </password>
     </persons>
     <persons>
         <name>Anna Best</name>
@@ -61,7 +79,10 @@
         <address isPrivate="false">10th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Anna Best</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>cA9xXrrLX2CNoAGoKKgY/zCK20wRjXsm2mkPbmGYBRxchzpO19Otccw3x+5RZdcSJfPvxZqdJgrnMQ2pV16kAS2TW1yUZkeDo5mGQOD2XWK1C4rbdLeo9kvlbo6YLdJfAzLcsbGWXdqZk8i5FnM0PxMJxpLaUOAukZMJN47EiMF9at0mcMOcy698geRUxk1eWdlX5tEw6klhsul69U7gZmGh+xcreIRISF62xrk/1hLDbkrRadgWoUYL048pijMS73G8GdjLDJ8ufRXdBo8TqkMHVNraHLdu+tt+xQXKjkquRMZbKW6WdfcVWPI/U8OOfr7LKC0H6i9wfATkW1yJeg==</salt>
+            <password>Exsl379MRsclKa2sJGH1fOsg1usy6xWUeOvj0PG1Wjk=</password>
+        </password>
     </persons>
     <persons>
         <name>Stefan Meier</name>
@@ -70,7 +91,10 @@
         <address isPrivate="false">10th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Stefan Meier</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>2eC6qQVo8GXljnEYFRsYp+n1teVAA3I3G75fHXEC5PZRlxZMIKS3xjiAO40UDo7zwPBQYreOry6VPmw0k0jKkSrYffh8xrJ/d0pua9pOch8TXGGVKkqIVfbWA7TndsflaFwH5jPFTg4Tn7TNqUytfGEICq5n8dQASjGjT4mkbovmnTquNg42KcvkLH8qffO3LdQh8sFBUh/EmY3ohNS7OVVu9bGKzA/vhL3ZGmEyf0m9MPxY77Xaj2Ew5wWM8A4t874xqt4b+GxucBQ2RtEeU7CdP5mdX2IHYVQCOM3LH5alOzdYyuA/SbHzkYRp3cv7VrY1Q970iw2iyv+FnMYGUQ==</salt>
+            <password>mPIfv2kGsWzq6EtLAmzw2FQURyAxD8FVWPsBdm0Zj8g=</password>
+        </password>
     </persons>
     <persons>
         <name>Martin Mueller</name>
@@ -79,6 +103,9 @@
         <address isPrivate="false">10th street</address>
         <salary isPrivate="false">10000</salary>
         <username>Martin Mueller</username>
-        <password>Pa55w0rd</password>
+        <password>
+            <salt>YwOJf8tNC3DmHE9SmQwzb+tSWggKFx5zMKCVBVDyGs1YjixV8AgqQSByTNJpxPHRDdqD3kioVeSZqEYEWeTS9Gp3iDv7NSoEFMFquD2BWMoIBQ+0k+fYpSy/2lnH1xH6xyx2zVU1OQQUG7Y5KAZdnDugY2PjptZe9bmwp/qUh0nJFpq5StVlPHSRjF8zdKfXy7ABg67oJQMUfW2AibUlHmDqTaf8cbmwvT9MMrb2UbJU8Nt8+SatdOLhYg+Ac9A97GAz38uThJQQYmQII2KSyO2I8IkXat+PHBU+xbNHvAXb/n6o37H2C+x9ZZLJmne9nJ+yiLMPz0OZiTQDvtCZvA==</salt>
+            <password>jprbht7r1/JJVSXvNKo1cuAl68hcLLQ5NRwTSByTHh0=</password>
+        </password>
     </persons>
 </addressbook>

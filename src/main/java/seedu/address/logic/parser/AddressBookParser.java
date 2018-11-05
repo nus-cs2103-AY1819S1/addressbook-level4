@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddAssignmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -16,11 +17,17 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.LeaveApplyCommand;
+import seedu.address.logic.commands.LeaveApproveCommand;
+import seedu.address.logic.commands.LeaveListCommand;
+import seedu.address.logic.commands.LeaveRejectCommand;
+import seedu.address.logic.commands.ListAssignmentCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.ModifyPermissionCommand;
+import seedu.address.logic.commands.PasswordCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelfEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewPermissionCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -94,11 +101,32 @@ public class AddressBookParser {
         case LeaveApplyCommand.COMMAND_WORD:
             return new LeaveApplyCommandParser().parse(arguments);
 
+        case LeaveListCommand.COMMAND_WORD:
+            return new LeaveListCommand();
+
+        case LeaveApproveCommand.COMMAND_WORD:
+            return new LeaveApproveCommandParser().parse(arguments);
+
+        case LeaveRejectCommand.COMMAND_WORD:
+            return new LeaveRejectCommandParser().parse(arguments);
+
         case LogoutCommand.COMMAND_WORD:
             return new LogoutCommand();
 
+        case AddAssignmentCommand.COMMAND_WORD:
+            return new AddAssignmentParser().parse(arguments);
+
+        case ListAssignmentCommand.COMMAND_WORD:
+            return new ListAssignmentCommand();
+
+        case PasswordCommand.COMMAND_WORD:
+            return new PasswordCommand();
+
         case ViewPermissionCommand.COMMAND_WORD:
             return new ViewPermissionCommandParser().parse(arguments);
+
+        case SelfEditCommand.COMMAND_WORD:
+            return new SelfEditCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

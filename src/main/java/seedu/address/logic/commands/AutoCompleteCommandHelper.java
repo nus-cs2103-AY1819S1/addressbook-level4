@@ -17,11 +17,21 @@ public class AutoCompleteCommandHelper {
         FindCommand.COMMAND_WORD,
         HelpCommand.COMMAND_WORD,
         HistoryCommand.COMMAND_WORD,
+        LeaveApplyCommand.COMMAND_WORD,
+        LeaveListCommand.COMMAND_WORD,
+        LeaveApproveCommand.COMMAND_WORD,
+        LeaveRejectCommand.COMMAND_WORD,
         ListCommand.COMMAND_WORD,
+        LogoutCommand.COMMAND_WORD,
+        ModifyPermissionCommand.COMMAND_WORD,
+        PasswordCommand.COMMAND_WORD,
         RedoCommand.COMMAND_WORD,
         SelectCommand.COMMAND_WORD,
+        SelfEditCommand.COMMAND_WORD,
         UndoCommand.COMMAND_WORD,
+        AddAssignmentCommand.COMMAND_WORD,
         ModifyPermissionCommand.COMMAND_WORD,
+        ListAssignmentCommand.COMMAND_WORD,
         ViewPermissionCommand.COMMAND_WORD
     };
 

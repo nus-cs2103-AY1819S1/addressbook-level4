@@ -75,6 +75,16 @@ public class PermissionSet {
         addPermissions(pList);
     }
 
+    public PermissionSet(PermissionSet pSet) {
+        permissionSet = new HashSet<>();
+        addPermissions(pSet);
+    }
+
+    public PermissionSet(Set<Permission> pList) {
+        permissionSet = new HashSet<>();
+        addPermissions(pList);
+    }
+
     /**
      * Constructor to build a permission set with a preset permission list.
      *
@@ -128,6 +138,17 @@ public class PermissionSet {
             }
         }
         return isEdited;
+    }
+
+    /**
+     * This action should only be performable by user with "ASSIGN_PERMISSION" permission.
+     * Add all elements in the specified PermissionSet to this PermissionSet.
+     *
+     * @param pSet the specified PermissionSet
+     * @return true if successful, otherwise false.
+     */
+    public boolean addPermissions(PermissionSet pSet) {
+        return this.permissionSet.addAll(pSet.permissionSet);
     }
 
     /**
@@ -224,21 +245,25 @@ public class PermissionSet {
         return containsAll(pSet.permissionSet.toArray(new Permission[0]));
     }
 
-    /**
-     * Add all elements in the specified PermissionSet to this PermissionSet.
-     *
-     * @param pSet the specified PermissionSet
-     * @return true if successful, otherwise false.
-     */
-    public boolean addAll(PermissionSet pSet) {
-        return this.permissionSet.addAll(pSet.permissionSet);
-    }
-
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         getGrantedPermission().forEach(builder::append);
         return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof PermissionSet)) {
+            return false;
+        }
+
+        Set<Permission> otherPermissionSet = ((PermissionSet) obj).permissionSet;
+        return permissionSet.equals(otherPermissionSet);
     }
 
 }

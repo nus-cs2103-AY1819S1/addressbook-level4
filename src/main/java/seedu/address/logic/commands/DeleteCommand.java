@@ -25,6 +25,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_SELF_FAILURE = "You cannot delete yourself";
 
     private final Index targetIndex;
 
@@ -43,6 +44,11 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        if (personToDelete.equals(model.getLoggedInUser().getPerson())) {
+            throw new CommandException(MESSAGE_DELETE_SELF_FAILURE);
+        }
+
         model.deletePerson(personToDelete);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

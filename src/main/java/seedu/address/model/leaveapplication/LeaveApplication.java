@@ -27,6 +27,10 @@ public class LeaveApplication {
         this.dates.addAll(dates);
     }
 
+    public LeaveApplication(LeaveApplicationWithEmployee leaveApplication) {
+        this(leaveApplication.getDescription(), leaveApplication.getLeaveStatus(), leaveApplication.getDates());
+    }
+
     public Description getDescription() {
         return description;
     }

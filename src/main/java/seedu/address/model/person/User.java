@@ -1,11 +1,13 @@
 package seedu.address.model.person;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.permission.PermissionSet;
 import seedu.address.model.project.Project;
@@ -14,11 +16,18 @@ import seedu.address.model.project.Project;
  * User represents a currently logged in person
  */
 public class User {
-    public static final Username ADMIN_USERNAME = new Username("Admin");
-    public static final Password ADMIN_PASSWORD = new Password("Pa55w0rd");
-    public static final Person ADMIN = new Person(new Name("Admin"), new Phone("999"),
-        new Email("admin@admin.com"), new Address("Admin Address"), new Salary("0"), ADMIN_USERNAME,
-        ADMIN_PASSWORD, new HashSet<>(), new PermissionSet(PermissionSet.PresetPermission.ADMIN));
+    public static final Username ADMIN_DEFAULT_USERNAME = new Username("Admin");
+    public static final Password ADMIN_DEFUALT_PASSWORD = new Password("Pa55w0rd");
+    public static final Name ADMIN_NAME = new Name("Admin");
+    public static final Phone ADMIN_PHONE = new Phone("999");
+    public static final Email ADMIN_EMAIL = new Email("admin@admin.com");
+    public static final Address ADMIN_ADDRESS = new Address("Admin Address");
+    public static final Salary ADMIN_SALARY = new Salary("0");
+    public static final Set<Project> ADMIN_PROJECTS = new HashSet<>();
+    public static final PermissionSet ADMIN_PERMISSIONS = new PermissionSet(PermissionSet.PresetPermission.ADMIN);
+    public static final Optional<ProfilePic> ADMIN_PROFILEPIC = Optional.empty();
+    public static final List<LeaveApplication> ADMIN_LEAVEAPPLICATIONS = new ArrayList<>();
+
     private static User adminUser;
 
     private Person loggedInPerson;
@@ -28,12 +37,42 @@ public class User {
         loggedInPerson = p;
     }
 
+    /**
+     * Builds the admin user in the system. The admin user will have the specified username and password
+     * For default username and passwords, use {@code ADMIN_DEFAULT_USERNAME} and {@code ADMIN_DEFAULT_PASSWORD}
+     * @param newUsername the username of the admin
+     * @param newPassword The password  of the admin
+     */
+    public static void buildAdmin(Username newUsername, Password newPassword) {
+        Person adminPerson = new Person(ADMIN_NAME, ADMIN_PHONE, ADMIN_EMAIL, ADMIN_ADDRESS, ADMIN_SALARY,
+            newUsername, newPassword, ADMIN_PROJECTS, ADMIN_PERMISSIONS, ADMIN_LEAVEAPPLICATIONS, ADMIN_PROFILEPIC);
+        adminUser = new User(adminPerson);
+        adminUser.isAdminUser = true;
+    }
+
+    /**
+     * Gets the admin user in the system
+     * {@link #buildAdmin(Username, Password)} should have been called beforehand.
+     * @return The admin user
+     */
     public static User getAdminUser() {
         if (adminUser == null) {
-            adminUser = new User(ADMIN);
-            adminUser.isAdminUser = true;
+            LogsCenter.getLogger(User.class).warning("Admin User get called without building first");
+            buildAdmin(ADMIN_DEFAULT_USERNAME, ADMIN_DEFUALT_PASSWORD);
         }
         return adminUser;
+    }
+
+    /**
+     * Checks if the username and password combination is valid to allow a login as an admin
+     * @param username The username input
+     * @param password The password input
+     * @return true if the username and password is valid to login as an admin, false otherwise.
+     */
+    public static boolean matchesAdminLogin(String username, String password) {
+        User adminUser = getAdminUser();
+        return adminUser.getUsername().username.equals(username)
+            && adminUser.getPassword().matches(password);
     }
 
     public Person getPerson() {

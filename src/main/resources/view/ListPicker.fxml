@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<StackPane fx:id="placeholder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <HBox spacing="10" alignment="center">
+        <Button fx:id="activeList" text="Active" />
+        <Button fx:id="archiveList" text="Archive" />
+    </HBox>
+</StackPane>

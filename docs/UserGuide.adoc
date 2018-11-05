@@ -1,4 +1,4 @@
-= OASIS - User Guide
+= image:UserGuideHeader.png[width="900"]
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,31 +18,40 @@ By: `Nus School of Computing AY1819S1 F10-1 Team`      Since: `Aug 2018`      Li
 
 == Introduction
 
-Office Assistance Specialized Integration System (OASIS) is for those who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves. More importantly, OASIS is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, OASIS can get your employee management tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quickstart” to get started. Enjoy!
+Office Assistance Specialized Integration System (OASIS) is for users who prefer to use a desktop app for managing employees, while allowing employees to handle some automatic features themselves. More importantly, OASIS is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, OASIS can get your employee management tasks done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quickstart” to get started. Enjoy!
+
+=== An Introduction to OASIS
+The image shown below highlights the difference sections of OASIS's user interface:
+
+image::introToOASIS.png[width="900"]
 
 == Quick Start
 
 .  Ensure you have Java version 9 or later installed in your Computer.
-.  Download the latest oasis.jar.
+.  Download the latest oasis.jar https://github.com/CS2103-AY1819S1-F10-1/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The Graphical User Interface (GUI) should appear in a few seconds.
+.  Double-click the file to start the app. The following Graphical User Interface (GUI) should appear in a few seconds:
 +
 image::Ui.png[width="790"]
 +
 .  To login, enter in the username `Admin` and the password `Pa55w0rd`. Both values are case sensitive. These values are the default username and password combinations for the admin account, and are always available.
-.  After you have logged in, type a command in the command box and press Enter to execute it. +
+.  After you have logged in, you should be taken to the following screen:
++
+image::UiLoggedin.PNG[width="790"]
++
+.  Now you can type a command in the command box and press Enter to execute it. +
 e.g. typing help and pressing Enter will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all employees.
-* **`add`**`-n John Doe Marketing` : adds an employee named John Doe into the marketing department.
-* **`find`**`J*` : finds all employees that start with J.
+* **`add`**`-n John Doe -p 98765432 -e johnd@example.com -a 311, Clementi Ave 2, #02-25 -s 10000` : adds an employee named John Doe with the email johnd@example.com, the address 311, Clementi Ave 2, #02-25, with a salary of 10,000.
+* **`find`**`J*` : finds all employees where any of their names start with J.
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Commands>> for details of each command.
 
-[[Features]]
-== Features
+[[Commands]]
+== Commands
 
 ====
 *Command Format*
@@ -69,26 +78,48 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-=== Adding an employee to a department: `add`
+=== Adding an employee: `add`
 
 Adds an employee into the system.
 
-Format: `add -n NAME [-e EMAIL] [-n NUMBER] [-s SALARY]`
+Format: `add -n NAME -e EMAIL -n NUMBER -s SALARY -a ADDRESS [-u USERNAME] [-t PROJECT]`
+
+* If username is not specified, it will default to being the same as NAME.
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
-* New employee will automatically be assigned to the department of the employee adding him/her.
+* To use this command, you must be logged in with "Add employee" permissions.
+* Username must be unique among everyone else in the system. Everything else is allowed to be duplicates (i.e. name ..)
+* The username cannot be "Admin", as that is reserved for the admin account.
 ****
 Examples:
 
-* `add -n Joshua -s 15000`
-* `add -n Raynard -e rnardha@gmail.com -n 91235678`
+* `add -n Joshua -s 15000 -e josh@gmail.com -n 81234567 -a 81 Joshua's Road  Singapore 123456`
+* `add -n Raynard -e rnardha@gmail.com -n 91235678 -s 1000 -a somewhere on earth -u Nard`
 
-=== Removing an employee from my department: `remove`
+=== Listing all persons : `list`
+
+Shows a list of all employees in the system. +
+Format: `list`
+
+=== View all the permissions that an employee has : `viewpermission`
+
+Displays all the permissions that an employee has been assigned.
+
+Format: viewpermission INDEX
+
+****
+* To use this command, you must be logged in with "Assign permission" permission.
+****
+
+Examples:
+
+* viewpermission 2
+
+=== Removing an employee from my department: `delete`
 
 Removes an employee from the system.
 
-Format: `remove -id ID`
+Format: `delete INDEX`
 
 ****
 * To use this command, you must be logged in with "Department Manager" permissions.
@@ -97,17 +128,261 @@ Format: `remove -id ID`
 
 Examples:
 
-* `remove -id S12312`
+* `delete 3`
 
-=== List effectiveness of sector by profit : `sector`
+=== List details of employee : `select`
 
-Lists all the sectors, sorted by more profitable sector first.
+Lists the detailed information of an employee. This will also display the employee's profile on the right. This is the same result as if the person is clicked in the GUI.
 
-Format: `sector`
+Format: `select INDEX`
+
+Examples:
+
+* `select 3`
+
+=== Add an assignment : `addassignment`
+
+Adds an assignment into the system.
+
+Format: `addassignment -an ASSIGNMENT_NAME -au AUTHOR -d DESCRIPTION`
 
 ****
-* To use this command, you must be logged in with "Department Manager" permissions.
+* To use this command, you must be logged in with "Create assignment" permissions.
 ****
+Examples:
+
+* `addassignment -an KRYPTONE -au Jhonny English -d Data encription application.`
+* `addassignment -n IRobot -au Tom Smith -d Autonomous robotic vacuum cleaner which has intelligent programming.`
+
+=== Apply for leave : `leaveapply`
+
+Apply for leave on specific dates.
+
+Format: `leave add -de DESCRIPTION -da DATE [-da DATE]...`
+
+****
+* Format of date: YYYY-MM-DD (Dashes are required)
+* You must specify at least 1 `DATE`. Your leave will be applied for all the dates specified after each `-da`.
+* If the `DATE` is of an illegal format, the command will be rejected.
+****
+
+Examples:
+
+* `leaveapply -de Family holiday -da 2018-10-18 -da 2018-10-19`
+
+=== View a list of leave applications : `leavelist`
+
+Displays a list leave applications that you have made.
+
+Format: `leavelist`
+
+****
+* If you have the "View Employee Leave" permissions, all other employee leave applications will be shown too.
+****
+
+=== Approve a leave application : `leaveapprove`
+
+Sets the status of a leave application to the "Approved" status.
+
+Format: `leaveapprove [INDEX]`
+
+****
+* Approves the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* To use this command, you must have "Leave Approve" permissions.
+****
+
+Examples:
+
+* `leaveapprove 2`
+
+=== Reject a leave application : `leavereject`
+
+Sets the status of a leave application to the "Rejected" status.
+
+Format: `leavereject [INDEX]`
+
+****
+* Rejects the leave application at the specified INDEX. The index refers to the index number shown in the displayed leave application list (see <<View a list of leave applications : `leavelist`, `leavelist`>>). The index must be a positive integer.
+* To use this command, you must have "Leave Approve" permissions.
+****
+
+Examples:
+
+* `leavereject 1`
+
+=== Search employees by name : `find`
+
+Search and display all employees that match the given name criteria.
+
+Format: `find NAME`
+
+****
+* NAME can be any name or parts of name that are separated by whitespace (such as a space charaacter).
+* You can use the * character to match any number of characters (0 or more)
+* You can also use the _ character to match any single character
+* Find is case insensitive
+****
+
+Examples:
+
+* `find jian yu`: Displays everyone whose names contain "jian" or "yu", surrounded by whitespace.
+
+* `find d*` Displays all employees where any of their names start with d.
+
+* `find T_m` Displays 'Tom' and 'tim', but not 'Tian'
+
+=== Edit details of the currently logged in user : `myself`
+
+Changes the details of the currently logged in user
+
+Format: `myself [-p PHONE] [-e EMAIL] [-a ADDRESS] [-t PROJECT]`
+
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+****
+* This command is not usable as admin.
+****
+Examples:
+
+* `myself -p 91234567 -e johndoe@example.com`
+* `myself -n James`
+
+=== Edit details : `edit`
+
+Changes the users details (such as contact information).
+
+Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]`
+
+* Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+
+* `edit 1 -p 91234567 -e johndoe@example.com`
+* `edit 2 -n James`
+
+=== Modify permissions of an emplyee : `modifypermission`
+
+Modifies the permissions of an employee.
+
+Format : `modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...`
+
+* Modifies the permission of the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
+
+The following is the list of Permissions available.
+
+[width="100%",options="header"]
+|=========================================================
+|Permission|What it does
+|ADD_EMPLOYEE|Allows the user to add employee
+|REMOVE_EMPLOYEE|Allows the user to delete employee
+|EDIT_EMPLOYEE|Allows the user to edit information of an employee
+|VIEW_EMPLOYEE_LEAVE|Allows user to view all applications for leave
+|APPROVE_LEAVE|Allows user to approve and reject leave application
+|CREATE_PROJECT(Currently not used)|Allows user to create a project
+|ASSIGN_PROJECT(Currently not used)|Allows user to assign employee to a project
+|VIEW_PROJECT(Currently not used)|Allows user to view all projects
+|ASSIGN_PERMISSION|Allows user to assign permission to employees
+|=========================================================
+
+
+****
+* To use this command, you must be logged in with "ASSIGN_PERMISSION" permission.
+* At least one of the parameters must be provided
+****
+
+Examples:
+
+* modifypermission 1 -a ADD_EMPLOYEE
+* modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
+
+=== Change password : `passwd`
+
+Changes user password.
+
+Format: `passwd`
+
+****
+* You will be prompted for your current password, and then your new one.
+****
+
+[WARNING]
+Passwords should not to be supplied in the command line (makes it vulnerable to viewing it through history.)
+
+=== Undoing previous command : `undo`
+
+Restores the address book to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+
+=== Clearing all entries : `clear`
+
+Deletes all employees from the system. +
+
+Format: `clear`
+
+****
+* To use this command, you must be logged in as an admin user.
+****
+
+=== Logout from the system: `logout`
+
+Logouts from the system, returning to the login screen.
+Once this command is ran, the history log of the commands and undo or redo history will be cleared.
+
+Format: `logout`
+
+=== Exiting the program : `exit`
+
+Exits the program, automatically saving data and logging you out.
+
+Format: `exit`
+
+== Future Commands (Currently not implemented yet)
 
 === Sort employee display list : `sort`
 
@@ -125,53 +400,6 @@ Examples:
 * `sort -d`
 * `sort -n`
 
-=== List details of employee : `detail`
-
-Lists the detailed information of an employee.
-
-Format: `detail -id ID`
-
-****
-* To use this command, you must be logged in with "Department Manager" permissions.
-****
-
-Examples:
-
-* `detail -id S12301`
-
-=== Apply for leave : `leave add`
-
-Apply for leave on specific dates.
-
-Format: `leave add -de DESCRIPTION -da DATE [-da DATE]`
-
-****
-* Format of date: YYYYMMDD
-* The user must specify at least 1 `DATE`.
-* If the `DATE` is of an illegal format, the command will be accepted.
-* To use this command, you must be logged in as an employee.
-****
-
-Examples:
-
-* `leave add -de Family holiday -da 20181018 20181019 `
-
-=== Search employees by name : `search`
-
-Search and display all employees that match the given name criteria.
-
-Format: `search NAME`
-
-****
-* NAME can be any name or parts of name.
-****
-
-Examples:
-
-* `search jian yu`
-
-* `search doe`
-
 === Filter employees by criteria : `filter`
 
 Displays employees with details that match certain criteria specified.
@@ -184,39 +412,43 @@ Format: `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]`
 * Replace `FILTER_CRITERIA` with the name or department you want to filter.
 ****
 Examples:
+
 * `filter -n Tan`
 * `filter -n Albert -d Marketing`
 
-=== Edit details : `edit`
+=== View deleted employee archive : `archive`
 
-Changes the users details (such as contact information).
+Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
 
-Format: `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY]`
-
-* Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+Format: `archive`
 
 ****
-* At least one of the parameters must be provided
-* Existing values will be updated to the input values
-* More fields could be added based on any details stored on employees.
+* To use this command, you must be logged in with "Department Manager" permissions.
 ****
+
+=== Restoring employee to active list: `restore`
+
+Restores an employee to active list from the archived list.
+
+Format: `restore INDEX`
+
+****
+* To use this command, you must be logged in with "Department Manager" permissions.
+* All resotred employee will be taken back to the active list.
+****
+
 Examples:
-****
-* `edit 1 -p 91234567 -e johndoe@example.com`
-* `edit 2 -n James`
-****
 
-=== Change password : `password`
+* `restore 1`
 
-Changes user password.
+=== List effectiveness of sector by profit : `sector`
 
-Format: `password`
+Lists all the sectors, sorted by more profitable sector first.
+
+Format: `sector`
 
 ****
-* You will be prompted for your current password, and then your new one.
-* You must be logged in to perform this action.
+* To use this command, you must be logged in with the required permission.
 ****
 
 === View leave summary : `leavesummary`
@@ -235,26 +467,24 @@ View income summary for the month.
 
 Format: `summary`
 
-=== View deleted employee archive : `archive`
+=== Listing all assignments: `listassignment`
 
-Displays the list of employees removed from the system. To delete an employee from the archive simply remove again.
+Shows a list of all assignments in the system.
 
-Format: `archive`
-
-****
-* To use this command, you must be logged in with "Department Manager" permissions.
-****
-
-
-
-=== Exiting the program : `exit`
-
-Exits the program, automatically saving data and logging you out.
-
-Format: `exit [-f]`
+Format: `listassignment`
 
 ****
-* If -f is supplied, exits without saving.
+* To use this command, you must be logged in with "View Assignment" permissions.
+****
+
+=== Removing an assignment: `deleteassignment`
+
+Removes an assignment from the system.
+
+Format: `deleteassignment INDEX`
+
+****
+* To use this command, you must be logged in with "Remove Assignment" permissions.
 ****
 
 == FAQ
@@ -267,34 +497,46 @@ Format: `exit [-f]`
 
 == Command Summary
 
-=== Employee Commands
+=== Commands that do not require permissions
 
-* *Help* : `help`
-* *Login* : `login -u USERNAME` +
-e.g. login -u Kok
-* *History* : `history` +
-* *Sort employee display list* : `sort -CRITERIA` +
-e.g. sort -d
-* *Apply for leave* : `leave add -de DESCRIPTION -da DATE [-da DATE]` +
-e.g. leave add -de Family holiday -da 20181018 20181019
-* *Search employees by name* : `search NAME` +
-e.g. search Joshua
-* *Filter employees by criteria* : `filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA]` +
-e.g. filter -n Jeremy Choo -d Development
-* *Edit details* : `edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY]` +
-e.g. edit 1 -p 91234567 -e johndoe@example.com
-* *Change password* : `password`
-* *View income summary* : `summary`
-* *Exit* : `exit [-f]`
+[width="100%",options="header"]
+|=========================================================
+ |Command | Format | Example
+ |Help|help|help
+ |History|history|history
+ |List all employees|list|list
+ |Edit details of the currently logged in user|myself|myself -p 99900999 -e a@b.com -a Somewhere over the rainbow
+ |Sort employee display list| sort -CRITERIA| sort -df
+ |Select an employee|select INDEX | select 1
+ |Search employees by name|find NAME| find Joshua
+ |Filter employees by criteria|filter -CRITERIA FILTER_CRITERIA [-CRITERIA FILTER_CRITERIA] | filter -n Jeremy Choo
+ -d Development
+ |Change password|passwd|passwd
+ |View archived employees|archive|archive
+ |Apply for leave|leaveapply -de DESCRIPTION -da DATE [-da DATE]...|leaveapply -de Family holiday -da 2018-11-01 -da 2018-11-02
+ |View leave application list|leavelist|leavelist
+ |Undo commands|undo|undo
+ |Redo commands|Redo|Redo
+ |Logout from the system|logout|logout
+ |Exit|exit|exit
 
-=== Employee with "Department Manager" permissions
-* *Adding an employee to a department* : `add -n NAME [-e EMAIL] [-n NUMBER] [-s SALARY]` +
-e.g. add -n Elliot -e Elliot@gmail.com
-* *Removing an employee* : `remove -id ID` +
-e.g. remove -id E01312
-* *List effectiveness of sector by profit* : `sector`
-* *View details of an employee* : `detail -id ID` +
-e.g. detail -id E01312
-* *View employee leave summary* : `leavesummary`
-* *View deleted employee archive* : `archive`
+|=========================================================
+
+=== Commands that require permission
+
+[width="100%",options="header"]
+|=========================================================
+ |Command|Required Permission|Format|Example
+ |Add employee |ADD_EMPLOYEE| add -n NAME -e EMAIL -n NUMBER -s SALARY [-t PROJECT] | add -n Joshua -s 15000 -e josh@gmail.com -n
+ 81234567 -a 81 Joshua's Road  Singapore 123456
+ |Delete employee|REMOVE_EMPLOYEE|delete INDEX|delete 1
+ |Edit employee|EDIT_EMPLOYEE| edit INDEX [-n NAME] [-p PHONE] [-e EMAIL] [-a ADDRESS] [-s SALARY] [-t PROJECT]
+  | edit 1 -p 91234567 -e johndoe@example.com
+ |Clear|Admin|clear|clear
+ |Modify Permission|ASSIGN_PERMISSION|modifypermission INDEX [-a PERMISSION_TO_ADD]... [-r PERMISSION_TO_REMOVE]...|
+ modifypermission 2 -a REMOVE_EMPLOYEE -r ADD_EMPLOYEE
+ |View all Permissions of employee| ASSIGN_PERMISSION| viewpermission INDEX|viewpermission 1
+ |Approve a leave application|APPROVE_LEAVE|leaveapprove INDEX|leaveapprove 2
+ |Reject a leave application|APPROVE_LEAVE|leavereject INDEX|leavereject 1
+|=========================================================
 

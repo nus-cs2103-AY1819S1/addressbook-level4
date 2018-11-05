@@ -354,3 +354,23 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#activeList {
+    -fx-background-color: #28B463;
+    -fx-border-color: #28B463;
+    -fx-background-insets: 0,0,0,0;
+    -fx-padding: 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-pref-width: 775px;
+}
+
+#archiveList {
+    -fx-background-color: #95A5A6;
+    -fx-border-color: #95A5A6;
+    -fx-background-insets: 0,0,0,0;
+    -fx-padding: 8px;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-pref-width: 775px;
+}

@@ -30,6 +30,8 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -38,6 +40,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.leaveapplication.LeaveApplication;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -63,11 +66,13 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Index index = INDEX_FIRST_PERSON;
         Username originalUsername = model.getFilteredPersonList().get(0).getUsername();
         Password originalPassword = model.getFilteredPersonList().get(0).getPassword();
+        List<LeaveApplication> originalLeaveApplications = model.getFilteredPersonList()
+                .get(index.getZeroBased()).getLeaveApplications();
         String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
                 + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + "   " + SALARY_DESC_BOB
                 + "  " + PROJECT_DESC_OASIS + " ";
         Person editedPerson = new PersonBuilder(BOB).withUsername(originalUsername.username)
-                .withPassword(originalPassword.password).build();
+                .withPassword(originalPassword).withLeaveApplications(originalLeaveApplications).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: undo editing the last person in the list -> last person restored */
@@ -93,10 +98,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), editedPerson);
         originalUsername = model.getFilteredPersonList().get(index.getZeroBased()).getUsername();
         originalPassword = model.getFilteredPersonList().get(index.getZeroBased()).getPassword();
+        originalLeaveApplications = model.getFilteredPersonList().get(index.getZeroBased()).getLeaveApplications();
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
         editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).withUsername(originalUsername.username)
-                .withPassword(originalPassword.password).build();
+                .withPassword(originalPassword).withLeaveApplications(originalLeaveApplications).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* Case: edit a person with new values same as another person's values but with different phone and email
@@ -105,10 +111,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND_PERSON;
         originalUsername = model.getFilteredPersonList().get(index.getZeroBased()).getUsername();
         originalPassword = model.getFilteredPersonList().get(index.getZeroBased()).getPassword();
+        originalLeaveApplications = model.getFilteredPersonList().get(index.getZeroBased()).getLeaveApplications();
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
         editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
-                .withUsername(originalUsername.username).withPassword(originalPassword.password).build();
+                .withUsername(originalUsername.username).withPassword(originalPassword)
+                .withLeaveApplications(originalLeaveApplications).build();
         assertCommandSuccess(command, index, editedPerson);
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
@@ -145,7 +153,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
         Person newPerson = new PersonBuilder(AMY).withUsername(originalUsername.username)
-            .withPassword(originalPassword.password).build();
+            .withPassword(originalPassword).build();
         assertCommandSuccess(command, index, newPerson, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -196,34 +204,19 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                         + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        /* Case: edit a person with new values same as another person's values -> rejected */
+        /* Case: edit a person with new values same as another person's values -> accepted
+            due to username checks, it is ok for 2 people identified similarly as long as they have different username.
+         */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        assertTrue(getModel().getAddressBook().getPersonList().stream().anyMatch(p -> p.isSamePerson(BOB)));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SALARY_DESC_BOB;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_AMY + SALARY_DESC_AMY + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + ADDRESS_DESC_BOB + SALARY_DESC_BOB + PROJECT_DESC_OASIS;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        Person originalPerson = getModel().getFilteredPersonList().get(index.getZeroBased());
+        Person expectedPerson = new PersonBuilder(BOB).withUsername(originalPerson.getUsername().username)
+            .withPassword(originalPerson.getPassword()).build();
+        assertCommandSuccess(command, INDEX_FIRST_PERSON, expectedPerson, INDEX_FIRST_PERSON);
     }
 
     /**

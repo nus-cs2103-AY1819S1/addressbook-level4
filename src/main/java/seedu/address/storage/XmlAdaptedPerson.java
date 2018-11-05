@@ -43,8 +43,9 @@ public class XmlAdaptedPerson {
     private String address;
     @XmlElement(required = true)
     private String username;
+
     @XmlElement(required = true)
-    private String password;
+    private XmlAdaptedPassword password;
 
     @XmlElement
     private String profilePic;
@@ -66,7 +67,8 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, String username, String password, List<XmlAdaptedProject> project) {
+                            String salary, String username, XmlAdaptedPassword password,
+                            List<XmlAdaptedProject> project) {
         this(name, phone, email, address, salary, username, password, project, new ArrayList<>());
     }
 
@@ -74,7 +76,8 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String salary, String username,
-                            String password, List<XmlAdaptedProject> project, List<XmlAdaptedPermission> permission) {
+                            XmlAdaptedPassword password, List<XmlAdaptedProject> project,
+                            List<XmlAdaptedPermission> permission) {
         this(name, phone, email, address, salary, username, password, project, null, permission, new ArrayList<>());
     }
 
@@ -82,8 +85,9 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
-                            String salary, String username, String password, List<XmlAdaptedProject> project,
-                            String profilePic, List<XmlAdaptedPermission> permission,
+                            String salary, String username, XmlAdaptedPassword password,
+                            List<XmlAdaptedProject> project, String profilePic,
+                            List<XmlAdaptedPermission> permission,
                             List<XmlAdaptedLeaveApplication> leaveApplications) {
         this.name = name;
         this.phone = phone;
@@ -116,7 +120,7 @@ public class XmlAdaptedPerson {
         salary = source.getSalary().value;
         address = source.getAddress().value;
         username = source.getUsername().username;
-        password = source.getPassword().getEncodedPassword();
+        password = new XmlAdaptedPassword(source.getPassword().salt, source.getPassword().hash);
         project = source.getProjects().stream()
                 .map(XmlAdaptedProject::new)
                 .collect(Collectors.toList());
@@ -184,10 +188,8 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 Password.class.getSimpleName()));
         }
-        if (!Password.isValidPassword(password)) {
-            throw new IllegalValueException(Password.MESSAGE_PASSWORD_CONSTRAINTS);
-        }
-        final Password modelPassword = new Password(password);
+
+        final Password modelPassword = password.toModelType();
 
         Optional<ProfilePic> modelProfilePic = Optional.empty();
         if (profilePic != null) {

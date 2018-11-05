@@ -46,7 +46,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + " PHONE] "
             + "[" + PREFIX_EMAIL + " EMAIL] "
             + "[" + PREFIX_ADDRESS + " ADDRESS] "
-            + "[" + PREFIX_SALARY + " SALARY]"
+            + "[" + PREFIX_SALARY + " SALARY] "
             + "[" + PREFIX_PROJECT + " PROJECT]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + " 91234567 "
@@ -98,7 +98,7 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    public static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
@@ -109,7 +109,8 @@ public class EditCommand extends Command {
         Set<Project> updatedProjects = editPersonDescriptor.getProjects().orElse(personToEdit.getProjects());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSalary,
-            personToEdit.getUsername(), personToEdit.getPassword(), updatedProjects);
+            personToEdit.getUsername(), personToEdit.getPassword(), updatedProjects, personToEdit.getPermissionSet(),
+                personToEdit.getLeaveApplications());
     }
 
     @Override

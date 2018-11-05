@@ -17,6 +17,8 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
+image::docs/images/UiLoggedin.PNG[width="600"]
+
 * This is a desktop employee management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * This application is still a WIP. Updates and new releases will occur every fortnight
 * Features:
