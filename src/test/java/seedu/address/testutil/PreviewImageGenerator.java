@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.awt.image.BufferedImage;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -34,6 +35,20 @@ public class PreviewImageGenerator {
             logger.warning("Error getting default model" + e);
         }
         return originalImage;
+    }
+
+    /**
+     * Returns a dummy image read from resources (original.png).
+     */
+    public static PreviewImage getPreviewImage(String fileName) {
+        BufferedImage image = null;
+        try {
+            ClassLoader classLoader = PreviewImageGenerator.class.getClassLoader();
+            image = ImageIO.read(classLoader.getResource("testimgs/" + fileName));
+        } catch (IOException e) {
+            logger.warning("Error getting default model" + e);
+        }
+        return new PreviewImage(image);
     }
 
     /**

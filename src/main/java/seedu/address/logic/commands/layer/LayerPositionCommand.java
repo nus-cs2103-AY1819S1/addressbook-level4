@@ -16,14 +16,14 @@ import seedu.address.model.Model;
  */
 
 public class LayerPositionCommand extends LayerCommand {
-    private static final String TYPE = COMMAND_WORD + " position";
+    public static final String TYPE = COMMAND_WORD + " position";
     public static final String MESSAGE_USAGE = "Usage of layer position: "
             + "\n- " + TYPE + " [POSITION]: " + "Repositions the layer to the provided co-ordinates"
             + "\n\tExample: " + TYPE + " 50x100, sets the layer's top right corner "
             + "to be 50px to the right and 100px from the top";
 
-    private static final String OUTPUT_SUCCESS = "Layer position is now %d by %d.";
-    private static final String OUTPUT_FAILURE = "Invalid position provided!";
+    public static final String OUTPUT_SUCCESS = "Layer position is now %d by %d.";
+    public static final String OUTPUT_FAILURE = "Invalid position provided!";
 
     private static final Logger logger = LogsCenter.getLogger(LayerPositionCommand.class);
 
@@ -46,9 +46,6 @@ public class LayerPositionCommand extends LayerCommand {
         try {
             newX = Integer.parseInt(argumentArray[0]);
             newY = Integer.parseInt((argumentArray.length > 1) ? argumentArray[1] : null);
-            if (newX <= 0 | newY <= 0) {
-                throw new NumberFormatException();
-            }
         } catch (NumberFormatException e) {
             return new CommandResult(OUTPUT_FAILURE);
         }

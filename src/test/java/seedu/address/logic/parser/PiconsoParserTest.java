@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -15,6 +16,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.canvas.CanvasCommand;
+import seedu.address.logic.commands.layer.LayerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class PiconsoParserTest {
@@ -52,6 +55,22 @@ public class PiconsoParserTest {
     public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
         assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
+    }
+
+    @Test
+    public void parseCommand_canvasCommandWords_returnCanvasCommands() throws Exception {
+        assertTrue(parser.parseCommand("canvas size 3x3") instanceof CanvasCommand);
+        assertTrue(parser.parseCommand("canvas auto-resize off") instanceof CanvasCommand);
+        assertTrue(parser.parseCommand("canvas bgcolour rgba(0,0,0,0.2)") instanceof CanvasCommand);
+    }
+
+    @Test
+    public void parseCommand_layerCommandWords_returnLayerCommands() throws Exception {
+        assertTrue(parser.parseCommand("layer add 1") instanceof LayerCommand);
+        assertTrue(parser.parseCommand("layer delete 1") instanceof LayerCommand);
+        assertTrue(parser.parseCommand("layer position 1x1") instanceof LayerCommand);
+        assertTrue(parser.parseCommand("layer swap 1 2") instanceof LayerCommand);
+        assertTrue(parser.parseCommand("layer select 1") instanceof LayerCommand);
     }
 
     @Test

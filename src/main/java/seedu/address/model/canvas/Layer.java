@@ -3,9 +3,6 @@ package seedu.address.model.canvas;
 //@@author j-lum
 import static java.util.Objects.requireNonNull;
 
-import java.io.IOException;
-
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.PreviewImage;
 import seedu.address.model.transformation.Transformation;
 
@@ -22,7 +19,6 @@ public class Layer {
     private int height;
     private int width;
     private String name;
-    private Boolean isLocked;
 
     public Layer(PreviewImage image, String name) {
         this.image = requireNonNull(image);
@@ -31,15 +27,13 @@ public class Layer {
         this.height = image.getHeight();
         this.width = image.getWidth();
         this.name = name;
-
-        isLocked = false;
     }
 
     /**
-     * .
-     * @param t
+     * Adds a transformation to the layer.
+     * @param  t - the transformation to add.
      */
-    public void addTransformation(Transformation t) throws ParseException, InterruptedException, IOException {
+    public void addTransformation(Transformation t) {
         image.addTransformation(t);
     }
 
@@ -75,18 +69,6 @@ public class Layer {
         this.width = width;
     }
 
-    public void lock() {
-        isLocked = true;
-    }
-
-    public void unlock() {
-        isLocked = false;
-    }
-
-    public boolean isLocked() {
-        return isLocked;
-    }
-
     public PreviewImage getImage() {
         return image;
     }
@@ -99,11 +81,4 @@ public class Layer {
         this.name = name;
     }
 
-
-    @Override
-    public String toString() {
-        //return String.format("-page %dx%d+%d+%d %s", height, width, x, y, image.getUrl());
-        // TODO : keep track of the path in PreviewImage
-        return "";
-    }
 }
