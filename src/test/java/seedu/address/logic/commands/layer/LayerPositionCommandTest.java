@@ -25,4 +25,30 @@ class LayerPositionCommandTest {
                 String.format(LayerPositionCommand.OUTPUT_SUCCESS, newX, newY),
                 expectedModel);
     }
+
+    @Test
+    void execute_nullBothPosition_success() {
+        String args = null;
+        Model model = ModelGenerator.getDefaultModel();
+        CommandHistory ch = new CommandHistory();
+        assertCommandSuccess(
+                new LayerPositionCommand(args),
+                model,
+                ch,
+                String.format(LayerPositionCommand.OUTPUT_FAILURE),
+                model);
+    }
+
+    @Test
+    void execute_nullSinglePosition_success() {
+        String args = "3 ";
+        Model model = ModelGenerator.getDefaultModel();
+        CommandHistory ch = new CommandHistory();
+        assertCommandSuccess(
+                new LayerPositionCommand(args),
+                model,
+                ch,
+                String.format(LayerPositionCommand.OUTPUT_FAILURE),
+                model);
+    }
 }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_IMAGE;
 
 import org.junit.Rule;
@@ -60,16 +61,24 @@ public class PiconsoParserTest {
     public void parseCommand_canvasCommandWords_returnCanvasCommands() throws Exception {
         assertTrue(parser.parseCommand("canvas size 3x3") instanceof CanvasCommand);
         assertTrue(parser.parseCommand("canvas auto-resize off") instanceof CanvasCommand);
+        assertThrows(ParseException.class, ()->parser.parseCommand("canvas auto-resize"));
         assertTrue(parser.parseCommand("canvas bgcolor rgba(0,0,0,0.2)") instanceof CanvasCommand);
+        assertThrows(ParseException.class, ()->parser.parseCommand("canvas bgcolor"));
+        assertThrows(ParseException.class, ()->parser.parseCommand("canvas invalid"));
     }
 
     @Test
     public void parseCommand_layerCommandWords_returnLayerCommands() throws Exception {
         assertTrue(parser.parseCommand("layer add 1") instanceof LayerCommand);
+        assertThrows(ParseException.class, ()-> parser.parseCommand("layer add"));
         assertTrue(parser.parseCommand("layer delete 1") instanceof LayerCommand);
+        assertThrows(ParseException.class, ()-> parser.parseCommand("layer delete"));
         assertTrue(parser.parseCommand("layer position 1x1") instanceof LayerCommand);
         assertTrue(parser.parseCommand("layer swap 1 2") instanceof LayerCommand);
+        assertThrows(ParseException.class, ()-> parser.parseCommand("layer swap"));
         assertTrue(parser.parseCommand("layer select 1") instanceof LayerCommand);
+        assertThrows(ParseException.class, ()-> parser.parseCommand("layer select"));
+        assertThrows(ParseException.class, ()-> parser.parseCommand("layer invalid"));
     }
 
     @Test

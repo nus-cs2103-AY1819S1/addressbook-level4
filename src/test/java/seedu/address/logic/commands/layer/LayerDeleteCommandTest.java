@@ -67,4 +67,34 @@ class LayerDeleteCommandTest {
                 String.format(Canvas.OUTPUT_ERROR_ONLY_LAYER),
                 expectedModel);
     }
+
+    @Test
+    void execute_deleteNull_success() {
+        String args = null;
+        Model model = ModelGenerator.getDefaultModel();
+        Model expectedModel = ModelGenerator.getDefaultModel();
+
+        CommandHistory ch = new CommandHistory();
+        assertCommandSuccess(
+                new LayerDeleteCommand(args),
+                model,
+                ch,
+                String.format(LayerDeleteCommand.OUTPUT_FAILURE),
+                expectedModel);
+    }
+
+    @Test
+    void execute_deleteInvalidIndex_success() {
+        String args = "9";
+        Index workingOn = Index.fromOneBased(Integer.parseInt(args));
+        Model model = ModelGenerator.getModelWithPopulatedCanvas();
+
+        CommandHistory ch = new CommandHistory();
+        assertCommandSuccess(
+                new LayerDeleteCommand(args),
+                model,
+                ch,
+                String.format(LayerDeleteCommand.OUTPUT_FAILURE),
+                model);
+    }
 }

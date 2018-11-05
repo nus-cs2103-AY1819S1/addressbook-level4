@@ -43,6 +43,9 @@ public class CanvasCommandParser {
             return new CanvasAutoResizeCommand(argument);
         }
         case "bgcolor": {
+            if (argument == null) {
+                throw new ParseException(CanvasAutoResizeCommand.MESSAGE_USAGE);
+            }
             return new CanvasBgcolorCommand(argument);
         }
         case "size": {
