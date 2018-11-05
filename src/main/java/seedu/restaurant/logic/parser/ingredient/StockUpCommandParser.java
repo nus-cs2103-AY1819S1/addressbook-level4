@@ -44,7 +44,8 @@ public class StockUpCommandParser implements Parser<StockUpCommand> {
     }
 
     /**
-     * Converts {@code argMultimap} to a LinkedHashMap<IngredientName, Integer>.
+     * Converts {@code argMultimap} from a {@code HashMap<String, String>} to a {@code LinkedHashMap<IngredientName,
+     * Integer>}.
      * A LinkedHashMap is used so that every iteration through the Map will be in the same sequence ie the order in
      * which each key and value was accessed.
      * @param argMultimap
