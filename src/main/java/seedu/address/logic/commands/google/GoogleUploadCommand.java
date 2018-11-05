@@ -15,9 +15,14 @@ import seedu.address.model.Model;
  * Handles download and upload (to be added) of files to Google Photos
  */
 public class GoogleUploadCommand extends GoogleCommand {
-
-    public static final String MESSAGE_SUCCESS = "%s uploaded to Google Photos";
     public static final String MESSAGE_FAILURE = "%s failed to upload.";
+    public static final String MESSAGE_ALL_DUPLICATE = "Failure to upload. %s already exist(s) in Google Photos.";
+
+    private static final String ADVICE = "\n\nYou'll need to use `g refresh` before you can see it by ls!";
+
+    public static final String MESSAGE_SUCCESS = "Successfully uploaded to Google Photos: \n%s" + ADVICE;
+    public static final String MESSAGE_DUPLICATE = "Upload success. Some of the images in the selected folder are "
+            + "duplicates, only the following were uploaded: \n%s" + ADVICE;
 
     private static final String TYPE = COMMAND_WORD + " ul";
     public static final String MESSAGE_USAGE = "Usage of google upload (requires an internet connection): "
@@ -36,14 +41,16 @@ public class GoogleUploadCommand extends GoogleCommand {
         requireNonNull(model);
 
         String org = parameter;
+        String message;
         try {
             if (parameter.startsWith("all")) {
-                model.getPhotoHandler().uploadAll(model.getCurrDirectory().toString());
+                message = model.getPhotoHandler().uploadAll(model.getCurrDirectory().toString());
+                return returnUploadMessage(message);
             } else {
                 parameter = parameter.substring(1, parameter.length() - 1);
-                model.getPhotoHandler().uploadImage(parameter, model.getCurrDirectory().toString());
+                message = model.getPhotoHandler().uploadImage(parameter, model.getCurrDirectory().toString());
+                return returnUploadMessage(message, parameter);
             }
-
         } catch (Exception ex) {
 
             if (ex instanceof ApiException) {
@@ -55,6 +62,36 @@ public class GoogleUploadCommand extends GoogleCommand {
             }
             throw new CommandException(String.format(MESSAGE_FAILURE, parameter) + "\n\n" + MESSAGE_USAGE);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, parameter));
+    }
+
+    /**
+     * Parses and prepares a message to return to result display for uploading all
+     * @param uploaded duplicate list
+     * @return result to return to display
+     */
+    private CommandResult returnUploadMessage(String uploaded) {
+        String allImages = "All images in directory";
+        if (uploaded.isEmpty()) {
+            return new CommandResult(String.format(MESSAGE_ALL_DUPLICATE, allImages));
+        } else if (uploaded.substring(0, 4).equals(".all")) {
+            uploaded = uploaded.substring(4);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, uploaded));
+        } else {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE, uploaded));
+        }
+    }
+
+    /**
+     * Parses and prepares a message to return to result display for uploading one
+     * @param uploaded duplicate list
+     * @param imageName name of image
+     * @return result to return to display
+     */
+    private CommandResult returnUploadMessage(String uploaded, String imageName) {
+        if (uploaded.isEmpty()) {
+            return new CommandResult(String.format(MESSAGE_ALL_DUPLICATE, imageName));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, uploaded));
+        }
     }
 }
