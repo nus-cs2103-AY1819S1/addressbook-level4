@@ -18,7 +18,6 @@ public class DescriptionDisplay extends UiPart<Region> {
     private static final String FXML = "DescriptionDisplay.fxml";
     public final ToDoListEvent toDoListEvent;
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    
     private int selectedIndex;
 
     @FXML
