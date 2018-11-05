@@ -17,7 +17,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
     public HelpCommand parse(String args) {
         String option = args.trim().split(" ")[0];
 
-        boolean isSummarized = true;
+        final boolean isSummarized;
         String commandWord = "";
         //summarized help
         if (option.isEmpty()) {
