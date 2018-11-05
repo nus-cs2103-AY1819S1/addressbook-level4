@@ -137,7 +137,7 @@ Format: `signup USERNAME`
 
 [NOTE]
 ====
-* USERNAME must not contain any of the following characters :  > < : \ / | ?
+* USERNAME must be at most 20 characters long and cannot contain white spaces or any of the following characters :  > < : \ / | ?
 ====
 
 === Logging in as an existing user : `login`
@@ -158,8 +158,10 @@ Format: `login u/USERNAME [p/PASSWORD]`
 ====
 * USERNAME is case insensitive
 * PASSWORD is case sensitive
-* PASSWORD cannot contain any spaces and must be at least 6 characters long
+* PASSWORD cannot contain any spaces and must be 6 to 100 characters long
 * Expense Tracker contains a sample user with USERNAME `sample`
+* If the user with USERNAME has no password, then the login will be successful
+regardless of whether a PASSWORD has been provided
 ====
 
 === Setting a password for the current user : `setpassword`

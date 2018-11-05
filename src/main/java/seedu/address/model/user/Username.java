@@ -34,7 +34,7 @@ public class Username implements Comparable<Username> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return !test.isEmpty() && !test.matches(USERNAME_VALIDATION_REGEX);
+        return !test.isEmpty() && !test.matches(USERNAME_VALIDATION_REGEX) && test.length() <= 20;
     }
 
 
