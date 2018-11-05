@@ -6,6 +6,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
+//@@author JasonChong96
+/**
+ * Encrypts a given String using the current user's encryption key.
+ */
 public class EncryptCommand extends Command {
 
     public static final String COMMAND_WORD = "encrypt";

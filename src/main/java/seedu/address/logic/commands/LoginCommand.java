@@ -3,10 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.logic.LoginCredentials;
 
 //@@author JasonChong96
 /**

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.CategoryBudget;
@@ -17,7 +18,6 @@ import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
-import seedu.address.logic.LoginCredentials;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 

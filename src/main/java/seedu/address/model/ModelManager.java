@@ -24,6 +24,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.CategoryBudget;
@@ -42,7 +43,6 @@ import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.notification.TipNotification;
 import seedu.address.model.notification.Tips;
 import seedu.address.model.notification.WarningNotification;
-import seedu.address.logic.LoginCredentials;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 

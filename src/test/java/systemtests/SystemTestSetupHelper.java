@@ -9,13 +9,14 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
+
 import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.logic.LoginCredentials;
 import seedu.address.testutil.TypicalExpenses;
 
 /**

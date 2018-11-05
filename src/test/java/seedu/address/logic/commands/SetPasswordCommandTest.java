@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
 import seedu.address.logic.LoginCredentials;
+import seedu.address.model.Model;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.testutil.TypicalExpenses;

@@ -7,9 +7,9 @@ import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Optional;
 
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.LoginCredentials;
 import seedu.address.model.user.Username;
 
 //@@author JasonChong96

@@ -7,6 +7,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
+//@@author JasonChong96
+/**
+ * Decrypts a given String that has been encrypted using the current user's encryption key.
+ */
 public class DecryptCommand extends Command {
 
     public static final String COMMAND_WORD = "decrypt";
