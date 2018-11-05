@@ -15,7 +15,7 @@ public class Cost extends ExpenseField {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String COST_VALIDATION_REGEX = "(\\d+).(\\d)(\\d)";
+    public static final String COST_VALIDATION_REGEX = "(\\d+)\\.(\\d)(\\d)";
 
     public final String value;
 

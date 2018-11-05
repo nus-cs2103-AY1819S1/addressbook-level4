@@ -19,7 +19,7 @@ public class TotalBudgetTest {
     }
 
     @Test
-    public void constructor_invalidAddress_throwsIllegalArgumentException() {
+    public void constructor_invalidAddress_throwsIllCegalArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () -> new TotalBudget(TotalBudgetTest.INVALID_BUDGET));
     }
 
