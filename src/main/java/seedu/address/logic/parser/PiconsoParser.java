@@ -10,7 +10,6 @@ import seedu.address.logic.commands.CdCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConvertCommand;
 import seedu.address.logic.commands.CreateConvertCommand;
-import seedu.address.logic.commands.ExampleCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.LayerCommand;
@@ -68,9 +67,6 @@ public class PiconsoParser {
 
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
-
-        case ExampleCommand.COMMAND_WORD:
-            return new ExampleCommandParser().parse(arguments);
 
         case ConvertCommand.COMMAND_WORD:
             return new ConvertCommandParser().parse(arguments);
