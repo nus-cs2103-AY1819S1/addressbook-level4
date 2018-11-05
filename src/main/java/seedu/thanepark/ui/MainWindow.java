@@ -229,10 +229,6 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleShowHistoryEvent(ShowHistoryRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        try {
-            historyWindow.show(event.getReportFilePath());
-        } catch (IOException ie) {
-            logger.warning(ie.getMessage());
-        }
+        historyWindow.showWithFilePath(event.getReportFilePath());
     }
 }

@@ -93,7 +93,7 @@ public class DeleteCommandTest {
         // delete -> first ride deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered ride list to showWithFilePath all persons
         expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -135,7 +135,7 @@ public class DeleteCommandTest {
         // delete -> deletes second ride in unfiltered ride list / first ride in filtered ride list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered ride list to showWithFilePath all persons
         expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -168,7 +168,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show no one.
+     * Updates {@code model}'s filtered list to showWithFilePath no one.
      */
     private void showNoPerson(Model model) {
         model.updateFilteredRideList(p -> false);

@@ -29,7 +29,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         } else if (AllCommandWords.isCommandWord(option)) {
             isSummarized = false;
             commandWord = option;
-        //show default summarized help
+        //showWithFilePath default summarized help
         } else {
             isSummarized = true;
         }

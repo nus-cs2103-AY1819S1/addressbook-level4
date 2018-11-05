@@ -167,7 +167,7 @@ public class UpdateCommandTest {
         // edit -> first ride edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered ride list to showWithFilePath all persons
         expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -212,7 +212,7 @@ public class UpdateCommandTest {
         // edit -> edits second ride in unfiltered ride list / first ride in filtered ride list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered ride list to show all persons
+        // undo -> reverts addressbook back to previous state and filtered ride list to showWithFilePath all persons
         expectedModel.undoThanePark();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

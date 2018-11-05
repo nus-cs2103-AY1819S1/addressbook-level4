@@ -1,6 +1,5 @@
 package seedu.thanepark.ui.browser;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -41,6 +40,14 @@ public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
     }
 
     /**
+     * Loads the specified reportFilePath, then shows the history window.
+     */
+    public void showWithFilePath(FilePathToUrl reportFilePath) {
+        loadPage(reportFilePath);
+        show();
+    }
+
+    /**
      * Shows the history window.
      * @throws IllegalStateException
      * <ul>
@@ -58,9 +65,7 @@ public class HistoryWindow extends BrowserRelatedUiPart<Stage> {
      *     </li>
      * </ul>
      */
-    public void show(FilePathToUrl reportFilePath) throws IOException {
-        loadPage(reportFilePath);
-
+    public void show() {
         logger.fine("Showing command history report.");
         getRoot().show();
     }
