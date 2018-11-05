@@ -10,13 +10,13 @@ public enum Performance {
 
     public static final String MESSAGE_PERFORMANCE_CONSTRAINTS =
             "Performance must be one of the strings {easy|normal|hard}";
-    private final String description;
+    private final String type;
 
-    Performance(String description) {
-        this.description = description;
+    Performance(String type) {
+        this.type = type;
     }
 
     public String toString() {
-        return description;
+        return type;
     }
 }
