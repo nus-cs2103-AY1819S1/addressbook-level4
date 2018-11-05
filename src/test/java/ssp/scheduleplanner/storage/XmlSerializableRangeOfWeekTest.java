@@ -1,5 +1,7 @@
 package ssp.scheduleplanner.storage;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -74,8 +76,14 @@ public class XmlSerializableRangeOfWeekTest {
         checkRangeOfWeeks = fdc.computeRangeOfWeeks(USER_INPUT_DATE);
         XmlSerializableRangeOfWeek checkSerializableRangeOfWeek = new XmlSerializableRangeOfWeek(checkRangeOfWeeks);
         XmlSerializableRangeOfWeek serializableRangeOfWeek = new XmlSerializableRangeOfWeek(rangeOfWeeks);
+        XmlSerializableRangeOfWeek instanceCheck = checkSerializableRangeOfWeek;
+        String notInstance = "not instance of XmlSerializableRangeOfWeek";
+
         assertTrue(serializableRangeOfWeek.equals(checkSerializableRangeOfWeek));
         assertTrue(checkSerializableRangeOfWeek.equals(serializableRangeOfWeek));
+        assertEquals(instanceCheck, checkSerializableRangeOfWeek);
+
+        assertFalse(instanceCheck.equals(notInstance));
     }
 
     @Test
