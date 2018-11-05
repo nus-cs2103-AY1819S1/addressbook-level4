@@ -39,7 +39,7 @@ public class SetCategoryBudgetCommandTest {
         expectedModel.commitExpenseTracker();
         SetCategoryBudgetCommand setCategoryBudgetCommand = new SetCategoryBudgetCommand(toAdd);
         String expectedMessage = String.format(SetCategoryBudgetCommand.MESSAGE_SUCCESS,
-            toAdd.getCategory(), toAdd);
+            toAdd.getCategory(), toAdd.getBudgetCap());
 
         assertCommandSuccess(setCategoryBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
         assertTrue(expectedModel.getMaximumBudget().getCategoryBudgets().toArray().length == 1);
@@ -59,7 +59,7 @@ public class SetCategoryBudgetCommandTest {
         expectedModel.commitExpenseTracker();
         SetCategoryBudgetCommand setCategoryBudgetCommand = new SetCategoryBudgetCommand(toAdd);
         String expectedMessage = String.format(SetCategoryBudgetCommand.MESSAGE_SUCCESS,
-            toAdd.getCategory(), toAdd);
+            toAdd.getCategory(), toAdd.getBudgetCap());
 
         assertCommandSuccess(setCategoryBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
         assertTrue(expectedModel.getMaximumBudget()

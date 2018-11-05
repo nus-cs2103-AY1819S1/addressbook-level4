@@ -26,7 +26,7 @@ public class SetCategoryBudgetCommand extends Command {
         + "decimal places)\n"
         + "Example " + COMMAND_WORD + " " + PREFIX_CATEGORY + "School " + PREFIX_BUDGET + "130.00";
 
-    public static final String MESSAGE_SUCCESS = "%s TotalBudget set to %1$s";
+    public static final String MESSAGE_SUCCESS = "%s CategoryBudget set to $%1.2f";
 
     public static final String EXCEED_MESSAGE = "The sum of your category budgets cannot exceed your total budget";
 
@@ -38,12 +38,14 @@ public class SetCategoryBudgetCommand extends Command {
     }
 
     @Override
+
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException, CommandException {
         try {
             requireNonNull(model);
             model.setCategoryBudget(this.toSet);
             model.commitExpenseTracker();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet.getCategory(), this.toSet));
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                this.toSet.getCategory(), this.toSet.getBudgetCap()));
         } catch (CategoryBudgetExceedTotalBudgetException catBudExc) {
             throw new CommandException(EXCEED_MESSAGE);
         }
