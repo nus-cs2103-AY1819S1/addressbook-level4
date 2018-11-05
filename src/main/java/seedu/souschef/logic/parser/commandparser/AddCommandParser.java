@@ -104,9 +104,12 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         double amount;
         Date date;
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("MM-dd-yyyy");
+        sdf.setLenient(false);
         try {
             amount = Double.parseDouble(tokens[1]);
-            date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[3]);
+            date = sdf.parse(tokens[3]);
         } catch (NumberFormatException ne) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         } catch (java.text.ParseException pe) {
