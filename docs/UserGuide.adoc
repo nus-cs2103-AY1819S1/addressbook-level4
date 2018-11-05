@@ -275,7 +275,7 @@ Shows a list of tasks that are due from current date till the closest Sunday. +
 ====
 [blue]`listweek`
 ====
-
+// end::listweek[]
 Example:
 ====
 input: [blue]`listweek` on the date 021118 +
@@ -291,7 +291,7 @@ After:
 ====
 image::ListWeekCommand_UG_After.png[width="400"]
 ====
-// end::listweek[]
+
 
 === Viewing Tasks Due This Month
 
@@ -322,14 +322,14 @@ particular week's description to the title of the app. +
 ====
 [blue]`firstday DDMMYY`
 ====
-
+// end::firstday[]
 Example:
 ====
 input: [blue]`firstday 130818` +
 output: When the user launches the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
 semester 1), the application title will append "Week 10" to the title of the app.
 ====
-
+// tag::firstday2[]
 [NOTE]
 There would not be any visible changes upon using the command. The reflection would only occur after relaunching the
 application.
@@ -343,7 +343,7 @@ will be rejected as they are considered as more than one set of date.
 2. The [blue]`DDMMYY` must be a valid date within 21st century.
 
 3. The [blue]`DDMMYY` must be a Monday.
-
+// end::firstday2[]
 Before:
 ====
 image::FirstDayCommand_UG_Bef.png[width="600"]
@@ -353,7 +353,6 @@ After:
 ====
 image::FirstDayCommand_UG_Aft.png[width="400"]
 ====
-// end::firstday[]
 
 === Listing Overdue Tasks
 
