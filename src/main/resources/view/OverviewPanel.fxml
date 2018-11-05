@@ -1,59 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="overviewPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+
+<VBox fx:id="overviewPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="CENTER_LEFT">
-        <Label fx:id="eventOverviewLabel" styleClass="event-name" text="Events"/>
+        <Label fx:id="eventOverviewLabel" styleClass="overview-category" text="Events"/>
     </VBox>
-    <GridPane>
+    <GridPane hgap="10">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
-        <HBox id="upcomingPane" fx:id="upcomingPane" styleClass="overviewEvent" GridPane.columnIndex="0" GridPane.rowIndex="0"  GridPane.columnSpan="1">
+        <HBox id="upcomingPane" fx:id="upcomingPane" styleClass="overviewEvent, Upcoming" GridPane.columnIndex="0"
+              GridPane.rowIndex="0" GridPane.columnSpan="1">
             <GridPane HBox.hgrow="NEVER">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-                </columnConstraints>
-                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-                    <Label text="Upcoming" styleClass="cell_big_label" />
-                    <Label fx:id="upcomingLabel" styleClass="cell_small_label" text="-" />
+                <VBox alignment="TOP_LEFT" minHeight="70" GridPane.columnIndex="0">
+                    <Label text="Upcoming" styleClass="overview-event-type"/>
+                </VBox>
+                <VBox alignment="BOTTOM_LEFT" minHeight="70" GridPane.columnIndex="0">
+                    <Label fx:id="upcomingLabel" styleClass="overview-type-number" text="-"/>
                 </VBox>
             </GridPane>
         </HBox>
-        <HBox id="ongoingPane" fx:id="ongoingPane" styleClass="overviewEvent" GridPane.columnIndex="1" GridPane.rowIndex="0"  GridPane.columnSpan="1">
+        <HBox id="ongoingPane" fx:id="ongoingPane" styleClass="overviewEvent, Ongoing" GridPane.columnIndex="1"
+              GridPane.rowIndex="0" GridPane.columnSpan="1">
             <GridPane HBox.hgrow="NEVER">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-                </columnConstraints>
-                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-                    <Label text="Ongoing" styleClass="cell_big_label" />
-                    <Label fx:id="ongoingLabel" styleClass="cell_small_label" text="-" />
+                <VBox alignment="TOP_LEFT" minHeight="70" GridPane.columnIndex="0">
+                    <Label text="Ongoing" styleClass="overview-event-type"/>
+                </VBox>
+                <VBox alignment="BOTTOM_LEFT" minHeight="70" GridPane.columnIndex="0">
+                    <Label fx:id="ongoingLabel" styleClass="overview-type-number" text="-"/>
                 </VBox>
             </GridPane>
         </HBox>
-        <HBox id="ongoingPane" fx:id="completedPane" styleClass="overviewEvent" GridPane.columnIndex="2" GridPane.rowIndex="0"  GridPane.columnSpan="1">
+        <HBox id="completedPane" fx:id="completedPane" styleClass="overviewEvent, Completed" GridPane.columnIndex="2"
+              GridPane.rowIndex="0" GridPane.columnSpan="1">
             <GridPane HBox.hgrow="NEVER">
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-                </columnConstraints>
-                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-                    <Label text="Completed" styleClass="cell_big_label" />
-                    <Label fx:id="completedLabel" styleClass="cell_small_label" text="-" />
+                <VBox alignment="TOP_LEFT" minHeight="70" GridPane.columnIndex="0">
+                    <Label text="Completed" styleClass="overview-event-type"/>
+                </VBox>
+                <VBox alignment="BOTTOM_LEFT" minHeight="70" GridPane.columnIndex="0">
+                    <Label fx:id="completedLabel" styleClass="overview-type-number" text="-"/>
                 </VBox>
             </GridPane>
         </HBox>
     </GridPane>
     <VBox>
-        <Label fx:id="volunteerOverviewLabel" styleClass="event-name" text="Volunteers"/>
+        <padding>
+            <Insets top="25"/>
+        </padding>
+        <Label fx:id="volunteerOverviewLabel" styleClass="overview-category" text="Volunteers"/>
         <HBox>
-            <Label text="Play area"></Label>
+            <PieChart fx:id="genderPieChart"/>
+            <BarChart fx:id="ageBarChart">
+                <xAxis>
+                    <CategoryAxis fx:id="xAxis" side="BOTTOM"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis fx:id="yAxis" side="LEFT"/>
+                </yAxis>
+            </BarChart>
         </HBox>
     </VBox>
 </VBox>
