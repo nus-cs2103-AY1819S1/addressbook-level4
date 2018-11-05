@@ -275,6 +275,8 @@ Password is masked by default and should never be shown
 
 // tag::ingredientmanagement[]
 === Ingredients Management
+This section explains how you may use the commands relating to the Ingredient Management feature.
+
 [[add-ingredient]]
 ==== Adding an ingredient: `add-ingredient` or `add-ing`
 
@@ -288,7 +290,8 @@ Format: `add-ingredient n/INGREDIENT_NAME t/UNIT_TYPE p/PRICE_PER_UNIT m/MINIMUM
 
 Examples:
 
-* `add-ingredient n/cod fish t/kilogram p/20 m/1`
+* `add-ingredient n/cod fish u/kilogram p/20 m/1` +
+Adds the ingredient `cod fish` with a price of `$20/kilogram` and minimum threshold of `1 unit`.
 
 ==== Listing all ingredients : `list-ingredients` or `list-ing`
 
@@ -344,7 +347,7 @@ Format: `edit-ingredient INDEX [n/INGREDIENT_NAME] [t/UNIT_TYPE] [p/PRICE_PER_UN
 Examples:
 
 * `edit-ingredient 3 n/thin fries` +
-Edits the name of the 3rd ingredient to be `thin fries`.
+Edits the name of the 3rd ingredient to `thin fries`.
 
 * `edit-ingredient 4 u/1.5ml bottle p/1.20`  +
 Edits the unit type and price per unit of the 4th ingredient to be `1.5ml bottle` and `1.20` respectively.
@@ -364,8 +367,10 @@ Format: `stockup n/INGREDIENT_NAME... u/NUMBER_OF_UNITS...`
 
 Examples:
 
-* `stockup n/cod fish u/5`
-* `stockup n/chicken thigh u/10 n/fries u/20 n/tomato ketchup u/50`
+* `stockup n/cod fish nu/5` +
+Stocks up `5 units` of `cod fish`.
+* `stockup n/chicken thigh nu/10 n/fries nu/20 n/tomato ketchup nu/50` +
+Stocks up `10 units` of `chicken thigh`, `20 units` of `fries` and `50 units` of `tomato ketchup`.
 // end::ingredientmanagement[]
 
 // tag::menu[]
