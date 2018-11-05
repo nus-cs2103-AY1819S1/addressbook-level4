@@ -134,7 +134,7 @@ public class MainApp extends Application {
         fdc.createDefaultFileIfNotExist();
         fdc.createDefaultFileIfSizeDiff();
         fdc.createDefaultFileIfNull();
-        fdc.createDefaultFileIfInvalidDate();
+        fdc.createDefaultFileIfInvalidDateOrRange();
         try {
             Config updateConfig = new Config();
             updateConfig.setAppTitle(fdc.computeAppTitle());
