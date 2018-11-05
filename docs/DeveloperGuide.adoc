@@ -570,7 +570,8 @@ method `FirstDayCommand#createDefaultFileIfNotExist`, `FirstDayCommand#createDef
 
 If it is the first time the user launch the application or if user deleted the `rangeofweek.xml` or modified the file
 content until some content are invalid, the application will create a default `rangeofweek.xml`.
-
+// end::generateacademiccalendar[]
+// tag::generateacademiccalendar2[]
 Step 10. `MainApp` will create a `Config` object named as `updateConfig` and then calls the method `updateConfig.setAppTitle(fdc.computeAppTitle())`. `fdc.computeAppTitle()` would generate the corresponding application title by
 checking the current system date and the saved academic calendar weeks data. It would then return the result into
 `updateConfig.setAppTitle()` to update the application title.
@@ -586,17 +587,13 @@ image::FirstDayCommand_UG_Aft.png[width="400"]
 `CommandException` will be thrown if data from `rangeOfWeek.xml` could not be converted or if `rangeOfWeek.xml` does
 not exist.
 
-{empty} +
-
 The following sequence diagram illustrates how the mechanism works:
 
 .Sequence diagram of FirstDay Command
-image::FirstDayCommand_DG_SequenceDiagram.png[width="800"]
-
-{empty} +
+image::FirstDayCommand_DG_SequenceDiagram.png[width="700"]
 
 .Sequence diagram of launching MainApp
-image::LaunchMainApp_DG_SequenceDiagram.png[width="800"]
+image::LaunchMainApp_DG_SequenceDiagram.png[width="700"]
 
 
 ==== Design Considerations
@@ -620,7 +617,7 @@ description for each weeks.
 ** Pros: It would not require sequential memory for storage.
 ** Cons: It would not allow data retrieval at any specific index which requires traversing the `arraylist`.
 
-// end::generateacademiccalendar[]
+// end::generateacademiccalendar2[]
 
 // tag::filtertags[]
 === Filter Tags
