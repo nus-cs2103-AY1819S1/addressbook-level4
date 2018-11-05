@@ -32,13 +32,13 @@ public class Messages {
     public static final String MESSAGE_INVALID_INSTRUCTION_INDEX = "The instruction index provided is invalid";
     public static final String MESSAGE_LISTED_OVERVIEW = "%1$d %2$ss listed!";
     public static final String MESSAGE_DUPLICATE = "This %1$s already exists.";
+    public static final String MESSAGE_ALREADY_IN_CONTEXT = "Already in %1$s context. Please switch to another "
+            + "context.";
     public static final String MESSAGE_NO_RECIPE_CONSTRUCTED = "Basic information of recipe not added. "
             + "Please use " + AddCommand.COMMAND_WORD + " command first.";
     public static final String MESSAGE_NO_RECIPE_INSTRUCTION = "This recipe does not contain instruction, "
             + "please add instruction into recipe using " + BuildRecipeInstructionCommand.COMMAND_WORD
             + " command.";
-
-    public static final String MESSAGE_NO_ELEMENT = "There is no matching result";
 
     // Add command messages
     public static final String MESSAGE_ADD_RECIPE_USAGE = AddCommand.COMMAND_WORD
@@ -64,7 +64,7 @@ public class Messages {
             + "Example: " + BuildRecipeInstructionCommand.COMMAND_WORD + " "
             + PREFIX_INSTRUCTION + "Pour "
             + PREFIX_INGREDIENT + "chicken stock 300 ml "
-            + "into pot and heat it up."
+            + "into pot and heat it up. "
             + PREFIX_COOKTIME + "PT10M";
 
     public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
