@@ -37,7 +37,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listUsers`* : lists all users in the event organiser
+* *`listUser`* : lists all users in the event organiser
 * **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : creates a new user named `John Doe` to the Event Organiser.
 * `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
 * *`exit`* : exits the app
@@ -78,7 +78,8 @@ Examples:
 * `addUser n/John Doe p/98765432 e/johnd@example.com pass/password123 a/John street, block 123, #01-01`
 * `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
 
-==== Log in a user : `login`
+// tag::yaofeng(login/logout)[]
+==== Login a user : `login`
 
 Logs in the user to EventOrganiser. A user must first log in to enable certain commands to be executed.
 
@@ -90,7 +91,7 @@ Examples:
 
 `login n/John Doe pass/password123`
 
-==== Log out a user : `logout`
+==== Logout a user : `logout`
 
 Logs out the user from EventOrganiser.
 
@@ -101,16 +102,19 @@ Format:
 Examples:
 
 `logout`
+// end::yaofeng(login/logout)[]
 
-==== List all users : `listUsers`
+
+==== List all users : `listUser`
 
 Shows a list of all users in the event organiser. +
-Format: `listUsers`
+Format: `listUser`
 
+// tag::yaofeng(finduser)[]
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +
-Format: `findUser n/[NAME] p/[PHONE NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
+Format: `findUser n/[NAME] p/[PHONE_NUMBER] e/[EMAIL] a/[ADDRESS] i/[INTEREST] t/[TAG]...`
 
 ****
 * Prefixes (e.g. "n/", "p/", "e/", "a/", "i/", "t/") of the attributes that they want to search for must be included.
@@ -126,6 +130,8 @@ Examples:
 Returns any user with the phone number `87438807` or interest `dance`
 * `findUser n/john e/john@example.com t/teacher` +
 Returns any user with the name `87438807` or email `john@example.com` or tag `teacher`
+// end::yaofeng(finduser)[]
+
 
 ==== Delete a user : `deleteUser`
 
@@ -136,7 +142,6 @@ Format: `deleteUser INDEX`
 * Deletes the user at the specified `INDEX`.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* A user can only deleted by the owner of the user profile
 ****
 
 Examples:
@@ -148,7 +153,7 @@ Deletes the 2nd user in the event organiser.
 `deleteUser 1` +
 Deletes the 1st user in the results of the `find` command.
 
-==== Selecting a user : `selectUser`
+==== Select a user : `selectUser`
 
 Selects the user identified by the index number used in the displayed user list. +
 Format: `selectUser INDEX`
@@ -161,21 +166,25 @@ Format: `selectUser INDEX`
 
 Examples:
 
-* `listUsers` +
+* `listUser` +
 `selectUser 2` +
 Selects the 2nd user in the event organiser.
 * `findUser Betsy` +
 `selectUser 1` +
 Selects the 1st user in the results of the `find` command.
 
-==== Editing a user : `editUser`
+==== Edit a user : `editUser`
 
 Edits an existing user in the event organiser. +
-Format: `editUser INDEX n/NAME p/PHONE e/EMAIL a/ADDRESS i/INTEREST tt/ TIMETABLE s/ SCHEDULE su/ SCHEDULE_UPDATE...`
+Format: `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...`
+
+[NOTE]
+====
+At least one of the optional fields must be provided.
+====
 
 ****
 * Edits the user at the specified `INDEX`. The index refers to the index number shown in the displayed user list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the user will be removed i.e adding of tags is not cumulative.
 * You can remove all the user's tags by typing `t/` without specifying any tags after it.
@@ -237,7 +246,7 @@ Format: `addEvent n/NAME a/LOCATION t/TAGS`
 
 Examples:
 
-* `addEvent n/NUS Tennis Welcome Session, a/SOC Canteen t/NIL`
+* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
 * `addEvent n/CS1101S Meet-up a/UTown t/By invite`
 
 ==== Delete an event : `deleteEvent`
@@ -438,27 +447,29 @@ There is no need to save manually.
 * *Add User* `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/PASSWORD a/ADDRESS [t/TAG] [i/INTEREST]...` +
 e.g. `addUser n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
+// tag::yaofeng(commandsummary)[]
 * *Login*  `login n/NAME pass/PASSWORD`
 e.g. `login n/John Doe pass/password`
 
 * *Logout*  `logout`
 
-* *List User* : `listUsers`
+* *List User* : `listUser`
 
 * *Find User (by name, phone number, email, address, interest, or tag)* :
-`findUser n/NAME p/PHONE e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
-e.g. `find n/James i/basketball`
+`findUser n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS t/TAG i/INTEREST ` +
+e.g. `findUser n/James i/basketball`
+// end::yaofeng(commandsummary)[]
 
 * *Delete User* : `deleteUser INDEX` +
 e.g. `deleteUser 3`
 
-* *Edit User* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [s/ SCHEDULE] [su/ SCHEDULE_UPDATE] [tt/ TIMETABLE] [t/TAG]...` +
+* *Edit User* : `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
 e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
 e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
 e.g. `editUser 1 su/ monday 0000`
 
 * *Select User* : `selectUser INDEX` +
-e.g.`select 2`
+e.g.`selectUser 2`
 
 * *History* : `history`
 

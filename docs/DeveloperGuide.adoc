@@ -252,8 +252,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::login[]
-=== Login/log out feature
+// tag::login/logout[]
+=== Login/logout feature
 
 ==== Current Implementation
 
@@ -301,6 +301,7 @@ image::LoginFeatureAfterLogin.png[width="300"]
 * Alternative 3 : implement "login" via select command
 ** Pros: Easy to implement
 ** Cons: No security at all
+// end::login/logout[]
 
 ////
 // tag::undoredo[]
@@ -1176,6 +1177,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [appendix]
+
+// tag::UC[]
 == Use Cases
 //(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 (For all use cases below, the *System* is the `EventOrganiser`, unless specified otherwise)
@@ -1359,7 +1362,7 @@ Use case resumes at step 2.
 +
 Use case ends.
 
-Use
+
 *Extensions:*
 
 * 1a. Event organiser may specify extra details to filter search results.
@@ -1442,6 +1445,7 @@ highest votes.
 ** 10a1. System will show all the options that have the highest votes only.
 +
 Use case resumes from step 12.
+// end::UC[]
 
 [appendix]
 == Non Functional Requirements
