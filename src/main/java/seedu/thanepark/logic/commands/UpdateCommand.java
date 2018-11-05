@@ -1,11 +1,11 @@
 package seedu.thanepark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 import static seedu.thanepark.model.Model.PREDICATE_SHOW_ALL_RIDES;
 
 import java.util.Collections;
@@ -20,11 +20,11 @@ import seedu.thanepark.commons.util.CollectionUtil;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
 import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -41,7 +41,7 @@ public class UpdateCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_MAINTENANCE + "MAINTENANCE] "
             + "[" + PREFIX_WAITING_TIME + "WAITING_TIME] "
-            + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_ZONE + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MAINTENANCE + "90 "
@@ -99,10 +99,10 @@ public class UpdateCommand extends Command {
         Maintenance updatedMaintenance =
                 updateRideDescriptor.getMaintenance().orElse(rideToEdit.getDaysSinceMaintenance());
         WaitTime updatedWaitTime = updateRideDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
-        Address updatedAddress = updateRideDescriptor.getAddress().orElse(rideToEdit.getAddress());
+        Zone updatedZone = updateRideDescriptor.getZone().orElse(rideToEdit.getZone());
         Set<Tag> updatedTags = updateRideDescriptor.getTags().orElse(rideToEdit.getTags());
 
-        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedAddress, updatedTags);
+        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedZone, updatedTags);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class UpdateCommand extends Command {
         private Name name;
         private Maintenance maintenance;
         private WaitTime waitTime;
-        private Address address;
+        private Zone zone;
         private Set<Tag> tags;
 
         public UpdateRideDescriptor() {}
@@ -144,7 +144,7 @@ public class UpdateCommand extends Command {
             setName(toCopy.name);
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
-            setAddress(toCopy.address);
+            setZone(toCopy.zone);
             setTags(toCopy.tags);
         }
 
@@ -152,7 +152,7 @@ public class UpdateCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, maintenance, waitTime, address, tags);
+            return CollectionUtil.isAnyNonNull(name, maintenance, waitTime, zone, tags);
         }
 
         public void setName(Name name) {
@@ -179,12 +179,12 @@ public class UpdateCommand extends Command {
             return Optional.ofNullable(waitTime);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setZone(Zone zone) {
+            this.zone = zone;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Zone> getZone() {
+            return Optional.ofNullable(zone);
         }
 
         /**
@@ -222,7 +222,7 @@ public class UpdateCommand extends Command {
             return getName().equals(e.getName())
                     && getMaintenance().equals(e.getMaintenance())
                     && getWaitTime().equals(e.getWaitTime())
-                    && getAddress().equals(e.getAddress())
+                    && getZone().equals(e.getZone())
                     && getTags().equals(e.getTags());
         }
     }

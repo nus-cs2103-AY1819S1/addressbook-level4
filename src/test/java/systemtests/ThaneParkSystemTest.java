@@ -39,11 +39,12 @@ import seedu.thanepark.logic.commands.ViewCommand;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ThanePark;
 import seedu.thanepark.testutil.TypicalRides;
-import seedu.thanepark.ui.BrowserPanel;
 import seedu.thanepark.ui.CommandBox;
-import seedu.thanepark.ui.HelpWindow;
+import seedu.thanepark.ui.browser.BrowserPanel;
+import seedu.thanepark.ui.browser.HelpWindow;
 
 /**
+ *
  * A system test class for ThanePark, which provides access to handles of GUI components and helper methods
  * for test verification.
  */

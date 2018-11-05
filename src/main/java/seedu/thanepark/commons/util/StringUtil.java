@@ -86,7 +86,7 @@ public class StringUtil {
         return Arrays.stream(wordsInPreppedString)
                 .allMatch(word -> {
                     for (String keyWord : wordsInPreppedSentence) {
-                        if (word.equalsIgnoreCase(keyWord)) {
+                        if (keyWord.toLowerCase().contains(word.toLowerCase())) {
                             return true;
                         }
                     }

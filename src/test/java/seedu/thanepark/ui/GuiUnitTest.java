@@ -8,6 +8,7 @@ import org.junit.Rule;
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
 import javafx.scene.Node;
+
 import seedu.thanepark.commons.core.EventsCenter;
 import seedu.thanepark.ui.testutil.UiPartRule;
 

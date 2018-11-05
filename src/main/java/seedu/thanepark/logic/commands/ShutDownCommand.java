@@ -14,12 +14,12 @@ import seedu.thanepark.commons.core.index.Index;
 import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.logic.commands.exceptions.CommandException;
 import seedu.thanepark.model.Model;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.Status;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -82,11 +82,11 @@ public class ShutDownCommand extends Command {
         Maintenance updatedMaintenance =
                 openRideDescriptor.getMaintenance().orElse(rideToOpen.getDaysSinceMaintenance());
         WaitTime updatedWaitTime = openRideDescriptor.getWaitTime().orElse(rideToOpen.getWaitingTime());
-        Address updatedAddress = openRideDescriptor.getAddress().orElse(rideToOpen.getAddress());
+        Zone updatedZone = openRideDescriptor.getZone().orElse(rideToOpen.getZone());
         Set<Tag> updatedTags = openRideDescriptor.getTags().orElse(rideToOpen.getTags());
         Status updatedStatus = Status.SHUTDOWN;
 
-        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedAddress, updatedTags, updatedStatus);
+        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedZone, updatedTags, updatedStatus);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class ShutDownCommand extends Command {
         private Name name;
         private Maintenance maintenance;
         private WaitTime waitTime;
-        private Address address;
+        private Zone zone;
         private Set<Tag> tags;
         private Status status;
 
@@ -129,7 +129,7 @@ public class ShutDownCommand extends Command {
             setName(toCopy.name);
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
-            setAddress(toCopy.address);
+            setZone(toCopy.zone);
             setTags(toCopy.tags);
             setStatus(toCopy.status);
         }
@@ -158,12 +158,12 @@ public class ShutDownCommand extends Command {
             return Optional.ofNullable(waitTime);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setZone(Zone zone) {
+            this.zone = zone;
         }
 
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
+        public Optional<Zone> getZone() {
+            return Optional.ofNullable(zone);
         }
 
         /**
@@ -210,7 +210,7 @@ public class ShutDownCommand extends Command {
             return getName().equals(e.getName())
                     && getMaintenance().equals(e.getMaintenance())
                     && getWaitTime().equals(e.getWaitTime())
-                    && getAddress().equals(e.getAddress())
+                    && getZone().equals(e.getZone())
                     && getTags().equals(e.getTags())
                     && getStatus().equals(e.getStatus());
         }

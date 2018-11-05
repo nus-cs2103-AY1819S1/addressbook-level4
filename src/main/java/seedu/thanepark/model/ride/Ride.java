@@ -20,7 +20,7 @@ import seedu.thanepark.model.tag.Tag;
 public class Ride implements HtmlFormattable {
     public static final Ride RIDE_TEMPLATE =
         new Ride(new Name("Name"), new Maintenance(0), new WaitTime(0),
-            new Address("Address"), new HashSet<>(), Status.OPEN);
+            new Zone("Zone"), new HashSet<>(), Status.OPEN);
     private static final Status DEFAULT_STATUS = Status.OPEN;
 
     // Identity fields
@@ -29,7 +29,7 @@ public class Ride implements HtmlFormattable {
     private final WaitTime waitingTime;
 
     // Data fields
-    private final Address address;
+    private final Zone zone;
     private final Set<Tag> tags = new HashSet<>();
 
     //Current state
@@ -38,20 +38,20 @@ public class Ride implements HtmlFormattable {
     /**
      * Every field except status must be present and not null. Default value of status is OPEN.
      */
-    public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags) {
-        this(name, daysSinceMaintenance, waitingTime, address, tags, DEFAULT_STATUS);
+    public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Zone zone, Set<Tag> tags) {
+        this(name, daysSinceMaintenance, waitingTime, zone, tags, DEFAULT_STATUS);
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Address address, Set<Tag> tags,
-            Status status) {
-        requireAllNonNull(name, daysSinceMaintenance, waitingTime, address, tags, status);
+    public Ride(Name name, Maintenance daysSinceMaintenance, WaitTime waitingTime, Zone zone, Set<Tag> tags,
+                Status status) {
+        requireAllNonNull(name, daysSinceMaintenance, waitingTime, zone, tags, status);
         this.name = name;
         this.daysSinceMaintenance = daysSinceMaintenance;
         this.waitingTime = waitingTime;
-        this.address = address;
+        this.zone = zone;
         this.tags.addAll(tags);
         this.status = status;
     }
@@ -72,8 +72,8 @@ public class Ride implements HtmlFormattable {
         return status;
     }
 
-    public Address getAddress() {
-        return address;
+    public Zone getZone() {
+        return zone;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Ride implements HtmlFormattable {
      */
     public Set<String> getInformation() {
         List<String> information = new LinkedList<>();
-        information.add(address.value);
+        information.add(zone.value);
         information.add(daysSinceMaintenance.toString());
         information.add(waitingTime.toString());
         Set<String> informationSet = new HashSet<>();
@@ -169,7 +169,7 @@ public class Ride implements HtmlFormattable {
         return otherRide.getName().equals(getName())
                 && otherRide.getDaysSinceMaintenance().equals(getDaysSinceMaintenance())
                 && otherRide.getWaitingTime().equals(getWaitingTime())
-                && otherRide.getAddress().equals(getAddress())
+                && otherRide.getZone().equals(getZone())
                 && otherRide.getStatus() == getStatus()
                 && otherRide.getTags().equals(getTags());
     }
@@ -177,7 +177,7 @@ public class Ride implements HtmlFormattable {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, daysSinceMaintenance, waitingTime, address, status, tags);
+        return Objects.hash(name, daysSinceMaintenance, waitingTime, zone, status, tags);
     }
 
     @Override
@@ -188,8 +188,8 @@ public class Ride implements HtmlFormattable {
                 .append(getDaysSinceMaintenance())
                 .append(" WaitTime: ")
                 .append(getWaitingTime())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Zone: ")
+                .append(getZone())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

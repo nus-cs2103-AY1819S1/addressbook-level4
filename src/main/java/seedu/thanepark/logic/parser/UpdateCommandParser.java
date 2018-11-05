@@ -2,11 +2,11 @@ package seedu.thanepark.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -33,7 +33,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME,
-                        PREFIX_MAINTENANCE, PREFIX_WAITING_TIME, PREFIX_ADDRESS, PREFIX_TAG);
+                        PREFIX_MAINTENANCE, PREFIX_WAITING_TIME, PREFIX_ZONE, PREFIX_TAG);
 
         Index index;
 
@@ -55,8 +55,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             updateRideDescriptor.setWaitTime(ParserUtil.parseWaitingTime(argMultimap
                     .getValue(PREFIX_WAITING_TIME).get()));
         }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            updateRideDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        if (argMultimap.getValue(PREFIX_ZONE).isPresent()) {
+            updateRideDescriptor.setZone(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ZONE).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(updateRideDescriptor::setTags);
 

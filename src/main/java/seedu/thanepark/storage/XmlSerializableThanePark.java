@@ -40,7 +40,7 @@ public class XmlSerializableThanePark {
     }
 
     /**
-     * Converts this addressbook into the model's {@code ThanePark} object.
+     * Converts this thanepark into the model's {@code ThanePark} object.
      *
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedRide}.

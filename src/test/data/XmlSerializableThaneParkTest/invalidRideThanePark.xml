@@ -5,7 +5,7 @@
         <name>Haunted Mansion</name>
         <daysSinceMaintenanceString isPrivate="false">9482424</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">hans@exam!32ple</waitingTimeString>
-        <address isPrivate="false">4th street</address>
+        <zone isPrivate="false">4th street</zone>
         <statusString>OPEN</statusString>
     </rides>
 </thanepark>

@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.thanepark.logic.commands.UpdateCommand.UpdateRideDescriptor;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -35,7 +35,7 @@ public class UpdateRideDescriptorBuilder {
         descriptor.setName(ride.getName());
         descriptor.setMaintenance(ride.getDaysSinceMaintenance());
         descriptor.setWaitTime(ride.getWaitingTime());
-        descriptor.setAddress(ride.getAddress());
+        descriptor.setZone(ride.getZone());
         descriptor.setTags(ride.getTags());
     }
 
@@ -64,10 +64,10 @@ public class UpdateRideDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code UpdateRideDescriptor} that we are building.
+     * Sets the {@code Zone} of the {@code UpdateRideDescriptor} that we are building.
      */
     public UpdateRideDescriptorBuilder withAddress(String address) {
-        descriptor.setAddress(new Address(address));
+        descriptor.setZone(new Zone(address));
         return this;
     }
 

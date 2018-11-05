@@ -5,10 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.thanepark.commons.core.Messages.MESSAGE_RIDES_LISTED_OVERVIEW;
 import static seedu.thanepark.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS_FULL;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG_FULL;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 import static seedu.thanepark.testutil.TypicalRides.ACCELERATOR;
 import static seedu.thanepark.testutil.TypicalRides.BIG;
 import static seedu.thanepark.testutil.TypicalRides.CASTLE;
@@ -29,8 +29,8 @@ import seedu.thanepark.logic.CommandHistory;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ModelManager;
 import seedu.thanepark.model.UserPrefs;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -105,16 +105,16 @@ public class FindCommandTest {
     @Test
     public void execute_address_multipleRidesFound() {
         String expectedMessage = String.format(MESSAGE_RIDES_LISTED_OVERVIEW, 1);
-        Address address = new Address("10th Street");
-        String userInput = PREFIX_ADDRESS + address.value;
-        RideContainsKeywordsPredicate predicate = preparePredicate(userInput, address);
+        Zone zone = new Zone("10th Street");
+        String userInput = PREFIX_ZONE + zone.value;
+        RideContainsKeywordsPredicate predicate = preparePredicate(userInput, zone);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(DUMBO), model.getFilteredRideList());
 
-        userInput = PREFIX_ADDRESS_FULL + address.value;
-        predicate = preparePredicate(userInput, address);
+        userInput = PREFIX_ZONE_FULL + zone.value;
+        predicate = preparePredicate(userInput, zone);
         command = new FindCommand(predicate);
         expectedModel.updateFilteredRideList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

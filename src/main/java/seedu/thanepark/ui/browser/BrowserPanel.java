@@ -1,4 +1,4 @@
-package seedu.thanepark.ui;
+package seedu.thanepark.ui.browser;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -14,7 +14,6 @@ import seedu.thanepark.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.thanepark.commons.util.FilePathToUrl;
 import seedu.thanepark.commons.util.RidePageGenerator;
 import seedu.thanepark.model.ride.Ride;
-import seedu.thanepark.ui.browser.BrowserRelatedUiPart;
 
 /**
  * The Browser Panel of the App.
@@ -22,7 +21,7 @@ import seedu.thanepark.ui.browser.BrowserRelatedUiPart;
 public class BrowserPanel extends BrowserRelatedUiPart<Region> {
 
     public static final FilePathToUrl RIDE_PAGE_PATH =
-        new FilePathToUrl("src/main/resources/docs/ride.html");
+        new FilePathToUrl("ride.html", true);
     private static final String RIDE_PAGE_TITLE = "Ride information";
     private static final String TEXT_REPLACEMENT_JAVASCRIPT =
         "function updateRide(listOfFields) {"

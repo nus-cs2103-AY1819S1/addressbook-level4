@@ -4,63 +4,63 @@
         <name>Haunted Mansion</name>
         <daysSinceMaintenanceString isPrivate="false">9482424</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">13</waitingTimeString>
-        <address isPrivate="false">4th street</address>
+        <zone isPrivate="false">4th street</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Mark Twain Riverboat</name>
         <daysSinceMaintenanceString isPrivate="false">87249245</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">18</waitingTimeString>
-        <address isPrivate="false">81th street</address>
+        <zone isPrivate="false">81th street</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Tom Sawyer Island Rafts</name>
         <daysSinceMaintenanceString isPrivate="false">95352563</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">13</waitingTimeString>
-        <address isPrivate="false">wall street</address>
+        <zone isPrivate="false">wall street</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Big Thunder Mountain</name>
         <daysSinceMaintenanceString isPrivate="false">87652533</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">3</waitingTimeString>
-        <address isPrivate="false">10th street</address>
+        <zone isPrivate="false">10th street</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Splash Mountain</name>
         <daysSinceMaintenanceString isPrivate="false">9482224</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">23</waitingTimeString>
-        <address isPrivate="false">michegan ave</address>
+        <zone isPrivate="false">michegan ave</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Alice Tea Party</name>
         <daysSinceMaintenanceString isPrivate="false">9482427</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">10</waitingTimeString>
-        <address isPrivate="false">little tokyo</address>
+        <zone isPrivate="false">little tokyo</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>its a small world</name>
         <daysSinceMaintenanceString isPrivate="false">9482442</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">1</waitingTimeString>
-        <address isPrivate="false">4th street</address>
+        <zone isPrivate="false">4th street</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Castle Carrousel</name>
         <daysSinceMaintenanceString isPrivate="false">8482424</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">18</waitingTimeString>
-        <address isPrivate="false">little india</address>
+        <zone isPrivate="false">little india</zone>
         <statusString>OPEN</statusString>
     </rides>
     <rides>
         <name>Peter Pan Flight</name>
         <daysSinceMaintenanceString isPrivate="false">8482131</daysSinceMaintenanceString>
         <waitingTimeString isPrivate="false">13</waitingTimeString>
-        <address isPrivate="false">chicago ave</address>
+        <zone isPrivate="false">chicago ave</zone>
         <statusString>OPEN</statusString>
     </rides>
 </thanepark>

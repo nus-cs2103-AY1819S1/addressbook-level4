@@ -8,7 +8,7 @@ import javafx.concurrent.Worker;
 import javafx.scene.Node;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import seedu.thanepark.ui.HelpWindow;
+import seedu.thanepark.ui.browser.HelpWindow;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.

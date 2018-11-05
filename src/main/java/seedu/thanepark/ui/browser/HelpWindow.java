@@ -1,4 +1,4 @@
-package seedu.thanepark.ui;
+package seedu.thanepark.ui.browser;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -11,7 +11,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.thanepark.commons.core.LogsCenter;
 import seedu.thanepark.commons.util.FilePathToUrl;
-import seedu.thanepark.ui.browser.BrowserRelatedUiPart;
 import seedu.thanepark.ui.exceptions.AccessibilityException;
 
 /**
@@ -20,9 +19,9 @@ import seedu.thanepark.ui.exceptions.AccessibilityException;
 public class HelpWindow extends BrowserRelatedUiPart<Stage> {
 
     public static final FilePathToUrl USER_GUIDE_FILE_PATH =
-        new FilePathToUrl("src/main/resources/docs/HelpWindow.html");
+        new FilePathToUrl("/docs/HelpWindow.html", false);
     public static final FilePathToUrl SHORT_HELP_FILE_PATH =
-        new FilePathToUrl("src/main/resources/docs/ShortHelpWindow.html");
+        new FilePathToUrl("/docs/ShortHelpWindow.html", false);
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";

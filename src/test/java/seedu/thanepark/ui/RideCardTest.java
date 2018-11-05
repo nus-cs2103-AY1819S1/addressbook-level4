@@ -8,6 +8,7 @@ import static seedu.thanepark.ui.testutil.GuiTestAssert.assertCardDisplaysRide;
 import org.junit.Test;
 
 import guitests.guihandles.RideCardHandle;
+
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.ui.exceptions.AccessibilityException;

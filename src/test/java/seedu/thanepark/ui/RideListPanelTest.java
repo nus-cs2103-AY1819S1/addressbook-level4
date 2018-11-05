@@ -18,6 +18,7 @@ import guitests.guihandles.RideCardHandle;
 import guitests.guihandles.RideListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.thanepark.commons.events.ui.JumpToListRequestEvent;
 import seedu.thanepark.commons.util.FileUtil;
 import seedu.thanepark.commons.util.XmlUtil;
@@ -96,7 +97,7 @@ public class RideListPanelTest extends GuiUnitTest {
         for (int i = 0; i < rideCount; i++) {
             builder.append("<rides>\n");
             builder.append("<name>").append(i).append("a</name>\n");
-            builder.append("<address>000</address>\n");
+            builder.append("<zone>000</zone>\n");
             builder.append("<daysSinceMaintenanceString>000</daysSinceMaintenanceString>\n");
             builder.append("<waitingTimeString>123</waitingTimeString>\n");
             builder.append("<thanepark>a</thanepark>\n");

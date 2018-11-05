@@ -21,3 +21,6 @@ classes/
 src/main/resources/docs/
 out/
 echo
+ride.html
+ride.png
+asciidoctor.css

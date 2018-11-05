@@ -10,6 +10,7 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
 import seedu.thanepark.commons.core.Config;
 import seedu.thanepark.commons.events.ui.ExitAppRequestEvent;
 import seedu.thanepark.logic.LogicManager;

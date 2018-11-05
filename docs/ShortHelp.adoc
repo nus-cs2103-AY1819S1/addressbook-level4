@@ -1,29 +1,39 @@
 :stylesDir: stylesheets
 :experimental:
-* `add <attraction>`
 
-* `clear`
+[width="100%",cols="<100%",options="header",]
+|=======================================================================
+|*Manage Attractions*
+|`add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
+|`delete <index>`
+|`update <index> <tag> <value>`
+|`shutdown <index>`
+|`open <index>`
+|`clear`
+|=======================================================================
 
-* `delete <index>`
-* `exit`
-* `filter <tag> <condition>`
-* `find <attraction>` or `find <tag> <address>`
-* `help [option]`
-* `history`
-* `open <index>`
-* `redo`
+[width="100%",cols="<100%",options="header",]
+|=======================================================================
+|*Get help and accessibility*
+|`help [option]`
+|Autocomplete: kbd:[TAB]
+|`history [option]`
+|`undo`
+|`redo`
+|`exit`
+|=======================================================================
 
-* `update <index> <tag> <value>`
-* `open <index>`
-* `shutdown <index>`
+[width="100%",cols="<100%",options="header",]
+|=======================================================================
+|*View information on the list of rides*
+|`viewall`
+|`view`
+|`viewstatus <name>`
+|=======================================================================
 
-* `filter <tag> <condition>`
-
-
-* `undo`
-
-* `view <index>`
-* `viewall`
-* `viewstatus <status>`
-
-* `{tab}`
+[width="100%",cols="<100%",options="header",]
+|=======================================================================
+|*Find the relevant list of rides*
+|`filter <tag> <condition> [[tag] [condition]…​]`
+|`find <[name] [[tag][keyword]…​]>`
+|=======================================================================

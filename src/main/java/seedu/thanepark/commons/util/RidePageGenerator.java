@@ -33,13 +33,17 @@ public class RidePageGenerator extends HtmlGenerator<Ride> {
     }
 
     /**
-     * Generates a Html report with commandEntryList as entries as fileName.
+     * Generates a Html page to display ride information.
      */
     public void generateHtml(String title, Ride data, FilePathToUrl filePathToUrl)
         throws IOException {
         List<Ride> dataAsList = new LinkedList<>();
         dataAsList.add(data);
         generateHtml(title, dataAsList, filePathToUrl);
+        FileUtil.saveResource(getClass().getResourceAsStream("/docs/images/ride.png"),
+                "ride.png", false);
+        FileUtil.saveResource(getClass().getResourceAsStream("/docs/stylesheets/asciidoctor.css"),
+                "asciidoctor.css", false);
     }
 
     @Override
@@ -50,7 +54,7 @@ public class RidePageGenerator extends HtmlGenerator<Ride> {
             ).withStyle("height: auto; min-width: 200px; width: 50%; display: inline-block; left: 0px;"
                 + "word-wrap: break-word"),
             div(
-                img().attr("src=\"images/ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
+                img().attr("src=\"ride.png\" alt=\"ride\"").withStyle("height: auto; width: 100%")
             ).withStyle("min-width: 200px; height: auto; width: 40%; display: inline-block; right: 0px")
         );
     }

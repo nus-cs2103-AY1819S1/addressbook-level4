@@ -47,7 +47,7 @@ public class RideCard extends UiPart<Region> {
 
         ride.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
-        rideInfo.getChildren().add(new Label(ride.getAddress().value));
+        rideInfo.getChildren().add(new Label(ride.getZone().value));
         rideInfo.getChildren().add(new Label(ride.getDaysSinceMaintenance().toString()));
         rideInfo.getChildren().add(new Label(ride.getWaitingTime().toString()));
 

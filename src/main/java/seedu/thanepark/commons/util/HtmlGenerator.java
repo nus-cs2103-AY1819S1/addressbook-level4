@@ -48,6 +48,8 @@ public abstract class HtmlGenerator<HtmlData extends HtmlFormattable> {
         throws IOException {
         String content = generateHtmlLayout(title, data);
         createFile(filePathToUrl.getFilePath(), content);
+        FileUtil.saveResource(getClass().getResourceAsStream("/docs/stylesheets/asciidoctor.css"),
+                "asciidoctor.css", false);
     }
 
     /**
@@ -57,7 +59,7 @@ public abstract class HtmlGenerator<HtmlData extends HtmlFormattable> {
         return html(
             head(
                 title(title),
-                link().withRel("stylesheet").withHref("stylesheets/asciidoctor.css")
+                link().withRel("stylesheet").withHref("asciidoctor.css")
             ),
             body(
                 generateHeader(title),

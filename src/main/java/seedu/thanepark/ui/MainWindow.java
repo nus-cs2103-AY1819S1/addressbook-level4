@@ -21,6 +21,9 @@ import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.commons.events.ui.ShowHistoryRequestEvent;
 import seedu.thanepark.logic.Logic;
 import seedu.thanepark.model.UserPrefs;
+import seedu.thanepark.ui.browser.BrowserPanel;
+import seedu.thanepark.ui.browser.HelpWindow;
+import seedu.thanepark.ui.browser.HistoryWindow;
 import seedu.thanepark.ui.exceptions.AccessibilityException;
 
 /**
@@ -227,7 +230,7 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHistoryEvent(ShowHistoryRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         try {
-            historyWindow.show(event.getReportName());
+            historyWindow.show(event.getReportFilePath());
         } catch (IOException ie) {
             logger.warning(ie.getMessage());
         }

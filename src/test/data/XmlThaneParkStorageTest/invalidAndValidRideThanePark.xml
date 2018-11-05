@@ -5,7 +5,7 @@
         <name>Haunted Mansion</name>
         <maintenance isPrivate="false">9482424</maintenance>
         <waitingTime isPrivate="false">hans@example.com</waitingTime>
-        <address isPrivate="false">4th street</address>
+        <zone isPrivate="false">4th street</zone>
         <statusString>OPEN</statusString>
     </rides>
     <!-- Ride with invalid maintenance field -->
@@ -13,7 +13,7 @@
         <name>Haunted Mansion</name>
         <maintenance isPrivate="false">948asdf2424</maintenance>
         <waitingTime isPrivate="false">hans@example.com</waitingTime>
-        <address isPrivate="false">4th street</address>
+        <zone isPrivate="false">4th street</zone>
         <statusString>OPEN</statusString>
     </rides>
 </thanepark>

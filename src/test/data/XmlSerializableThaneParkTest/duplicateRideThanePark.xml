@@ -5,7 +5,7 @@
         <name>Alice Tea Party</name>
         <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
         <waitingTimeString>1</waitingTimeString>
-        <address>123, Jurong West Ave 6, #08-111</address>
+        <zone>123, Jurong West Ave 6, #08-111</zone>
         <tagged>friends</tagged>
         <statusString>OPEN</statusString>
     </rides>
@@ -15,7 +15,7 @@
         <name>Alice Tea Party</name>
         <daysSinceMaintenanceString>94351253</daysSinceMaintenanceString>
         <waitingTimeString>19</waitingTimeString>
-        <address>4th street</address>
+        <zone>4th street</zone>
         <statusString>OPEN</statusString>
     </rides>
 

@@ -1,22 +1,22 @@
 package seedu.thanepark.logic.parser;
 
 import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_MAINTENANCE;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_WAITING_TIME;
+import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.thanepark.logic.commands.AddCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
@@ -33,9 +33,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME,
-                        PREFIX_MAINTENANCE, PREFIX_WAITING_TIME, PREFIX_ADDRESS, PREFIX_TAG);
+                        PREFIX_MAINTENANCE, PREFIX_WAITING_TIME, PREFIX_ZONE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_MAINTENANCE, PREFIX_WAITING_TIME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ZONE, PREFIX_MAINTENANCE, PREFIX_WAITING_TIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -43,10 +43,10 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Maintenance maintenance = ParserUtil.parseMaintenance(argMultimap.getValue(PREFIX_MAINTENANCE).get());
         WaitTime waitTime = ParserUtil.parseWaitingTime(argMultimap.getValue(PREFIX_WAITING_TIME).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Zone zone = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ZONE).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Ride ride = new Ride(name, maintenance, waitTime, address, tagList);
+        Ride ride = new Ride(name, maintenance, waitTime, zone, tagList);
 
         return new AddCommand(ride);
     }

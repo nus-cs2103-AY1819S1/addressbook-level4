@@ -3,11 +3,11 @@ package seedu.thanepark.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.thanepark.model.ride.Address;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.WaitTime;
+import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 import seedu.thanepark.model.util.SampleDataUtil;
 
@@ -25,7 +25,7 @@ public class RideBuilder {
     private Name name;
     private Maintenance maintenance;
     private WaitTime waitingTime;
-    private Address address;
+    private Zone zone;
     private Set<Tag> tags;
     private Name differentName;
 
@@ -33,7 +33,7 @@ public class RideBuilder {
         name = new Name(DEFAULT_NAME);
         maintenance = new Maintenance(DEFAULT_MAINTENANCE);
         waitingTime = new WaitTime(DEFAULT_WAIT_TIME);
-        address = new Address(DEFAULT_ADDRESS);
+        zone = new Zone(DEFAULT_ADDRESS);
         tags = new HashSet<>();
         differentName = new Name(DEFAULT_DIFFERENT_NAME);
     }
@@ -45,7 +45,7 @@ public class RideBuilder {
         name = rideToCopy.getName();
         maintenance = rideToCopy.getDaysSinceMaintenance();
         waitingTime = rideToCopy.getWaitingTime();
-        address = rideToCopy.getAddress();
+        zone = rideToCopy.getZone();
         tags = new HashSet<>(rideToCopy.getTags());
     }
 
@@ -66,10 +66,10 @@ public class RideBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Ride} that we are building.
+     * Sets the {@code Zone} of the {@code Ride} that we are building.
      */
     public RideBuilder withAddress(String address) {
-        this.address = new Address(address);
+        this.zone = new Zone(address);
         return this;
     }
 
@@ -90,11 +90,11 @@ public class RideBuilder {
     }
 
     public Ride build() {
-        return new Ride(name, maintenance, waitingTime, address, tags);
+        return new Ride(name, maintenance, waitingTime, zone, tags);
     }
 
     public Ride buildDifferent() {
-        return new Ride(differentName, maintenance, waitingTime, address, tags);
+        return new Ride(differentName, maintenance, waitingTime, zone, tags);
     }
 
 }

@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-W14-2/main
 
@@ -42,7 +43,17 @@ Steps to set up ThanePark:
 .  Copy the file to the folder you want to use as the home folder for your ThanePark.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+image::startup.png[width="800"]
+
+If you left click on the any ride in the list, it will show the ride information in a window
+similar to below:
+
 image::Ui.png[width="800"]
+
+[WARNING]
+You will not be able to customise the image for rides. This feature will only be implemented in `v2.0`.
+Similarly, the `About` button on the navigation bar opens a help window.
+
 
 Congratulations! You have successfully set up ThanePark!
 
@@ -66,27 +77,28 @@ This section contains information of all commands used in ThanePark.
 *Command Format*
 
 * Items in chevrons `<>` denotes compulsory field. +
-Example: `add <attraction>`<maintenance> `<waitTime>` `<address>`
+Example: `add <attraction>`<maintenance> `<waitTime>` `<zone>`
 * Items in square brackets `[]` denotes optional field. +
 Example: `help [more]`
 * Items in curly brackets `{}` denotes keystroke. +
-Example: `{tab}` is the TAB keystroke.
+Example: `{tab}` is the kbd:[TAB] keystroke.
 * Items ending with ellipses `...` denotes variable number of arguments. +
 Example: `history [findargs...]`
-* Parameters can be in any order +
-Example: if the command specifies n/name p/address, p/address n/name is also acceptable.
+
+* Parameters with prefix `/` can be in any order +
+Example: if the command specifies n/name p/zone, p/zone n/name is also acceptable.
 
 ====
 
 
-=== Manage attractions
+=== Manage Attractions
 
 This section contains all commands related to managing attractions.
 
 ==== Add attractions: `add`
 
 Add an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
+Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
 
 A ride can have any number of tags (including 0). +
 
@@ -135,38 +147,183 @@ Format: `shutdown <index>`
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
 
-=== User help and accessibility
 
+==== Clearing all entries : `clear`
 
-This section contains all commands related to managing commands.
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Get help and accessibility
+
+This section contains all commands related to providing user help and accessibility.
+
+// tag::help[]
 
 ==== Viewing help: `help`
 
-Display short summary of important commands.  +
-Format: `help [option]`
+Display short summary of important commands. A summarized help
+sheet should appear as shown below. +
 
-Displays a full list of important commands with a more detailed description if more is supplied as an `option`. If a specific command is supplied as `option`, show
-greater detail of the specified command. If invalid `option` is specified, will show default help message.
+image::ui_screenshots/help-example-1.png[width="400"]
+
+Format: `help`
+
+[NOTE]
+Extended usage of `help` command: `help [option]`. `[option]` can take on the value of
+`more` or any command word. If provided `[option]` is invalid, an error message will be
+shown (soon a default help message will be shown).
+
+|===
+a|
+Examples:
+
+* `help more`: Opens the help window to show full usage of ThanePark.
+
+image::ui_screenshots/help-example-2.png[width="600"]
+
+a|
+* `help add`: Opens the help window and scrolls to `add` command word usage.
+
+image::ui_screenshots/help-example-3.png[width="600"]
+|===
+
+// end::help[]
+
+// tag::autocomplete1[]
+
+==== Suggesting commands: `{tab}`
+
+Displays suggested list of commands when kbd:[TAB] is pressed. +
+ +
+Format: kbd:[TAB]
+
+// end::autocomplete1[]
+
+[WARNING]
+The full functionality of suggesting commands can be quite heavy.
+Skip to <<suggest_examples, examples>> to view common usage.
+
+[NOTE]
+Extended usage of suggesting commands:
+[width="100%",cols="20%,<40%,<40%",options="header",]
+|=======================================================================
+|Action |State of application |Expected Output
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *Only 1* command word match to first prefix in `CommandBox` a|
+* Strip all text behind first prefix in `CommandBox`.
+* Replace prefix with matching command word in `CommandBox`.
+* Display matching command word in result panel.
+
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Display all matching command words in result panel.
+* No change in `CommandBox`.
+
+|kbd:[TAB] a|
+* `CommandBox` contains half complete command
+* *No* command word match to first prefix in `CommandBox` a|
+* No visible change is reflected.
+
+|kbd:[TAB] a|
+* `CommandBox` contains nothing a|
+* No visible change is reflected.
+
+|kbd:[TAB] a|
+* `CommandBox` starts with a complete command word a|
+* Strip all text behind command word in `CommandBox`.
+* Command in `CommandBox` will not be executed.
+* Command word will be shown in result panel.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *Only 1* command word match to first prefix in `CommandBox` a|
+* Strip all text behind first prefix in `CommandBox`.
+* Replace prefix with matching command word in `CommandBox`.
+* Display matching command word in result panel.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Display all matching command words in result panel.
+* Remove all text in `CommandBox`.
+
+|kbd:[ENTER] a|
+* `CommandBox` contains half complete command
+* *No* command word match to first prefix in `CommandBox` a|
+* Error is shown in result panel.
+* `CommandBox` text turns red.
+
+|kbd:[ENTER] a|
+* `CommandBox` starts with a complete command word
+* Command arguments are *invalid* a|
+* Suggested command usage is shown in result panel.
+* `CommandBox` text turns red.
+|=======================================================================
+
+// tag::autocomplete2[]
+
+|===
+a|
+[#suggest_examples]
+Examples:
+
+* `he` +
+kbd:[TAB] (Completes the `help` command word.) +
+
+* `histor more` +
+kbd:[ENTER] (Corrects the `history` command word. Strips `more` from the command) +
+|===
+// end::autocomplete2[]
+
+// tag::history[]
 
 ==== Viewing history of previous commands: `history`
 
-Display previous commands during this session. Inputted
-commands from the past are logged into the system. +
+Display previous user inputs during this session. Does not include the executed `history` itself. +
+ +
 Format: `history`
+
+[NOTE]
+Extended usage of `history`: +
+Use `history more` to generate a report of all cumulative command history.
+
+[WARNING]
+ThanePark stores the command history in `commandHistory.xml`. If the storage file size exceeds 5MB,
+no new command history will be logged. Additionally, if the file format is changed, the program will
+restart the collation of history.
+
+|===
+a|
+Examples:
+
+* `history` (Shows user inputs in current session.)
+
+* `history more` (A window similar to the one below should show up:)
+a|
+image::ui_screenshots/history-example-1.png[width="600"]
+|===
+
+
+// end::history[]
 
 // tag::undoredo[]
 ==== Undoing commands: `undo`
 
 Undo previous command during current session. +
+ +
 Format: `undo`
 
+|===
+a|
 Examples:
 
 * `delete 1` +
 `list` +
 `undo` (reverses the `delete 1` command) +
 
-* `select 1` +
+* `view 1` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
@@ -175,12 +332,16 @@ The `undo` command fails as there are no undoable commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
+|===
 
 ==== Redoing previously undone commands: `redo`
 
 Reverse the previously undone commands during current session. +
+ +
 Format: `redo`
 
+|===
+a|
 Examples:
 
 * `delete 1` +
@@ -197,79 +358,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
+|===
 // end::undoredo[]
-
-==== Suggesting commands: `{tab}`
-
-Non-tech savvy users wouldn’t need to remember commands and can
-just use `tab` s to complete their sentences, or get suggestions on what
-commands start with their specified prefix. +
-Format: `{tab}`
-
-==== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
 
 ==== Exiting ThanePark: `exit`
 
 Exits the ThanePark application. +
+ +
 Format: `exit`
-
-
-=== Manage input/output of attractions
-
-This section contains all commands related to managing attractions.
-
-==== Adding attractions: `add`
-
-Add an attraction by name with the information. +
-Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<address>` [tag(s)]``
-
-A ride can have any number of tags (including 0). +
-
-Examples:
-
-* add n/Transformers m/1 w/30 a/John street, block 123, #01-01
-* add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
-
-==== Deleting attractions: `delete`
-
-Deletes the specified attraction from the ThanePark. +
-Format: `delete <index>`
-
-* Deletes the ride at the specified index.
-
-* The index refers to the index number shown in the list of displayed rides.
-
-* The index must be a positive integer 1, 2, 3, …​
-
-Examples:
-
-* `viewall` +
-  `delete 2` +
-  Deletes the 2nd ride in ThanePark.
-
-* `find Puss in Boots' Giant Journey` +
-   `delete 1` +
-   Deletes the 1st ride in the results of the find command.
-
-==== Updating information of attraction: `update`
-
-
-Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
-
-Format: `update <index> <tag> <value>`
-
-==== Shutting down attraction: `shutdown`
-
-Close the ride for the day. Display statistics for the ride on that day. +
-Format: `shutdown <index>`
-
-==== Opening attraction: `open`
-
-Open the ride for the day. Display statistics for the ride on that day. +
-Format: `open <index>`
 
 // tag::viewstatus[]
 === View information on the list of rides
@@ -309,47 +405,56 @@ This section contains all commands related to finding rides that is relevant to 
 
 Display all rides that fits the condition in a table. It can only filter conditions that have numeric values i.e.
 `Maintenance` and `WaitTime`. +
+
 Format: `filter <tag> <condition> [[tag] [condition]...]` +
 Can include more conditions as desired. +
 
-Example:
+|===
+a|
+Examples:
 
 * `filter w/ < 10` +
-Filters attractions with waiting time less than 500 minutes. If no changes were made to your application
+Filters attractions with waiting time less than 10 minutes. If no changes were made to your application
 (i.e. no delete, add commands were done), your window should look like this: +
 
-image::ui_screenshots/filter-example-1.png[width="790"]
+image::ui_screenshots/filter-example-1.png[width="600"]
 
 * `filter w/ < 10 m/ > 50` +
 Filters attractions with waiting time less than 500 and maintenance of more than 50 days.
+The result should be as follows:
 
-image::ui_screenshots/filter-example-2.png[width="790"]
+image::ui_screenshots/filter-example-2.png[width="600"]
+|===
 
 ==== Finding a particular attraction: `find`
 
 Find the rides that the user needs to check on. Case insensitive. +
-Can only find the name, the address, and the tags of the attractions. +
+Can only find the name, the zone, and the tags of the attractions. +
+
 Format: `find <[name] [[tag][keyword]...]>` +
 Must include arguments when finding. +
+
 Here are some examples with images to let you follow along. +
+|===
+a|
 Examples:
 
 * `find accelerator` +
 Finds and displays the list of attractions in ThanePark with the name "accelerator".
 
-image::ui_screenshots/find-example-1.png[width="790"]
+image::ui_screenshots/find-example-1.png[width="600"]
 
-* `find a/ street` +
-Finds and displays the list of attractions with addresses that contain the word "street".
+* `find z/ sci-fi` +
+Finds and displays the list of attractions with zones that contain the word "sci-fi".
 
-image::ui_screenshots/find-example-2.png[width="790"]
+image::ui_screenshots/find-example-2.png[width="600"]
 
-* `find address street t/friends tag family` +
-Finds and displays the list of attractions with addresses that contain the word "street" and the tags "friends"
-and "family"
+* `find zone sci-fi t/popular tag rollerCoaster` +
+Finds and displays the list of attractions with addresses that contain the word "sci-fi" and the tags "rollerCoaster"
+and "popular"
 
-image::ui_screenshots/find-example-3.png[width="790"]
-
+image::ui_screenshots/find-example-3.png[width="600"]
+|===
 // end::filter[]
 
 == FAQ
@@ -360,26 +465,35 @@ image::ui_screenshots/find-example-3.png[width="790"]
 
 == Command Summary
 
+[width="100%",cols="20%,<80%",options="header",]
+|=======================================================================
+|Action |Syntax
 
-* *Add*: `add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
+2+|*Manage Attractions*
+
+|*Add* |`add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
   e.g. add n/Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
-* *Delete*: `delete <index>` +
+|*Delete* |`delete <index>` +
   e.g. delete 3
-* *Exit*: `exit`
-* *Find*: `find <attraction>`
-* *Help*: `help [option]`
-* *History*: `history`
-* *Undo*: `undo`
-* *Redo*: `redo`
+|*Update* |`update <index> <tag> <value>`
+|*Shutdown* |`shutdown <index>`
+|*Open* |`open <index>`
+|*Clear* |`clear`
 
+2+|*Get help and accessibility*
+|*Help* |`help [option]`
+|*Autocomplete* |kbd:[TAB]
+|*History* |`history [option]`
+|*Undo* |`undo`
+|*Redo* |`redo`
+|*Exit* |`exit`
 
-=== Added
-* *Update*: `update <index> <tag> <value>`
-* *Open*: `open <index>`
-* *Shutdown*: `shutdown <index>`
+2+|*View information on the list of rides*
+|*View all* |`viewall`
+|*View* |`view`
+|*View status* |`viewstatus <name>`
 
-* *View*: `view <name>`
-* *Quickview*: `quickview`
-* *Filter*: `filter <tag> <condition>`
-* *tab*: `{tab}`
-
+2+|*Find the relevant list of rides*|
+|*Filter* |`filter <tag> <condition> [[tag] [condition]…​]`
+|*Find* |`find <[name] [[tag][keyword]…​]>`
+|=======================================================================
