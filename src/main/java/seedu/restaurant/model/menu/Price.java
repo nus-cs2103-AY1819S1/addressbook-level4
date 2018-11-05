@@ -11,7 +11,8 @@ import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 public class Price {
 
     public static final String MESSAGE_PRICE_CONSTRAINTS =
-            "Price should only contain numbers, and it should be at most 2 decimal place";
+            "Price should only contain numbers, at most 2 decimal place and smaller than or equals to "
+                    + Integer.MAX_VALUE;
     public static final String MESSAGE_PERCENT_CONSTRAINTS =
             "Percent should only contain numbers, and it should be at most 2 digits";
     private static final String DECIMAL_PLACE_REGEX = "\\d{0,2}";
@@ -49,10 +50,11 @@ public class Price {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid price.
      */
     public static boolean isValidPrice(String test) {
-        return test.matches(PRICE_VALIDATION_REGEX);
+        return test.matches(PRICE_VALIDATION_REGEX)
+                && Double.parseDouble(test) <= Integer.MAX_VALUE;
     }
 
     /**
