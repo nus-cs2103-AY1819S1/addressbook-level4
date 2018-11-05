@@ -16,6 +16,7 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
+import seedu.address.commons.events.ui.ShowDefaultBrowserEvent;
 import seedu.address.commons.events.ui.ShowQueueInformationEvent;
 import seedu.address.model.PatientQueue;
 import seedu.address.model.ServedPatientList;
@@ -105,6 +106,12 @@ public class BrowserPanel extends UiPart<Region> {
      */
     public void freeResources() {
         browser = null;
+    }
+
+    @Subscribe
+    private void handleShowDefaultBrowserEvent(ShowDefaultBrowserEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadDefaultPage();
     }
 
     @Subscribe
