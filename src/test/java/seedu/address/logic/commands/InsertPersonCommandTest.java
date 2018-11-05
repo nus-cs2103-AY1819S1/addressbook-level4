@@ -281,33 +281,6 @@ public class InsertPersonCommandTest {
     }
 
     /**
-     * A minimal model stub that contains one person,
-     * occasion and module.
-     */
-    private class MinimalModelStub extends ModelStub {
-        Person person;
-        Occasion occasion;
-        Module module;
-
-        public MinimalModelStub(Person person, Module module, Occasion occasion) {
-            requireAllNonNull(person, module, occasion);
-            this.person = person;
-            this.occasion = occasion;
-            this.module = module;
-        }
-
-        @Override
-        public void commitAddressBook() {
-            // called by {@code AddPersonCommand#execute()}
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
-        }
-    }
-
-    /**
      * A stub that always inserts persons into one of either
      * module or occasion.
      */

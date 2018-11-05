@@ -3,8 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -14,9 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
+/**
+ * The browser panel for when the UI switches to the Module Tab.
+ * Shows the student list for each module upon a particular module's selection.
+ */
 public class ModuleBrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "ModuleBrowserPanel.fxml";

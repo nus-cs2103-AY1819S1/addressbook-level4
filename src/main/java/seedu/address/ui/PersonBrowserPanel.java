@@ -3,7 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -17,6 +17,11 @@ import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
+/**
+ * The person browser panel for when the UI switches to the persons tab.
+ * The panel displays all the registered modules and occasions a particular person
+ * within the addressbook is associated with upon the user's selection.
+ */
 public class PersonBrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "PersonBrowserPanel.fxml";

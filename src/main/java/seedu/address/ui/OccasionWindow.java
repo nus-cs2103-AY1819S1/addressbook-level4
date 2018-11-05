@@ -71,10 +71,6 @@ public class OccasionWindow extends MainWindow {
         return occasionListPanel;
     }
 
-//    void releaseResources() {
-//        browserPanel.freeResources();
-//    }
-
     void releaseResources() {
 
     }

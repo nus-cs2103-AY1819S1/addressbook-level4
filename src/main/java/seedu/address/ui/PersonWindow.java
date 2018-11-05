@@ -4,8 +4,8 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.logic.Logic;
-import seedu.address.model.module.Module;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 
 /**
@@ -81,10 +81,6 @@ public class PersonWindow extends MainWindow {
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
-
-//    void releaseResources() {
-//        browserPanel.freeResources();
-//    }
 
     void releaseResources() {}
 }

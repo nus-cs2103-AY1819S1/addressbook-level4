@@ -15,6 +15,10 @@ import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
 
+/**
+ * The parser for the insert person command. Parses the user's command line input
+ * and decides whether or not to insert a person into a module, or occasion bidirectionally.
+ */
 public class InsertPersonCommandParser implements Parser<InsertPersonCommand> {
 
     @Override
@@ -27,13 +31,13 @@ public class InsertPersonCommandParser implements Parser<InsertPersonCommand> {
 
         Index personIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_PERSONINDEX).get());
 
-        if (arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)) { // The user wants to insert into a module.
+        if (arePrefixesPresent(argMultiMap, PREFIX_MODULEINDEX)) {
             Index moduleIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_MODULEINDEX).get());
             ModuleDescriptor dummyModuleDescriptor = new ModuleDescriptor();
             Module dummyModule = new Module(dummyModuleDescriptor);
             return new InsertPersonCommand(personIndex, moduleIndex, dummyModule);
 
-        } else if (arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)) { // The user wants to insert into an occasion.
+        } else if (arePrefixesPresent(argMultiMap, PREFIX_OCCASIONINDEX)) {
             Index occasionIndex = ParserUtil.parseIndex(argMultiMap.getValue(PREFIX_OCCASIONINDEX).get());
             OccasionDescriptor dummyOccasionDescriptor = new OccasionDescriptor();
             Occasion dummyOccasion = new Occasion(dummyOccasionDescriptor);

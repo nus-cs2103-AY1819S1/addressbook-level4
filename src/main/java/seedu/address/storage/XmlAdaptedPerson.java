@@ -125,7 +125,7 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         if (moduleList == null) {
-            throw new  IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                                                 Address.class.getSimpleName()));
         }
 

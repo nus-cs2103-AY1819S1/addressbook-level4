@@ -78,10 +78,6 @@ public class ModuleWindow extends MainWindow {
         return moduleListPanel;
     }
 
-//    void releaseResources() {
-//        browserPanel.freeResources();
-//    }
-
     void releaseResources() {}
 
 }

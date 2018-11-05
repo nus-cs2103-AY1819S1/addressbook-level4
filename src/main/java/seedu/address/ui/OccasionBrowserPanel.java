@@ -3,6 +3,7 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -14,6 +15,11 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
 
+/**
+ * The browser panel for when the UI switches to the Occasion's tab.
+ * The panel displays the attendance list of a particular occasion upon the user's
+ * selection.
+ */
 public class OccasionBrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "OccasionBrowserPanel.fxml";

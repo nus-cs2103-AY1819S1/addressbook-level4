@@ -14,17 +14,19 @@ import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
+/**
+ * A command that enables users to insert a person, bidirectionally, into either a module
+ * or an occasion.
+ */
 public class InsertPersonCommand extends Command {
 
     public static final String COMMAND_WORD = "insertperson";
-    // TODO make following messages more detailed.
     public static final String MESSAGE_SUCCESS_INSERT_INTO_MODULE = "Successfully inserted person into module.";
-    public static final String MESSAGE_SUCCESS_INSERT_INTO_OCCASION  = "Successfully inserted person into occasion";
+    public static final String MESSAGE_SUCCESS_INSERT_INTO_OCCASION = "Successfully inserted person into occasion";
     public static final String MESSAGE_FAILURE = "Failed to insert person.";
     public static final String MESSAGE_INCORRECT_INDEX = "Please enter a valid index.";
-    // TODO make a better usage string.
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a person into a module/occasion bidirectionally.\n"
-                                                            + "Example " + COMMAND_WORD + " "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a person into a module/occasion "
+                                                            + "bidirectionally.\n" + "Example " + COMMAND_WORD + " "
                                                             + PREFIX_PERSONINDEX + "1 "
                                                             + PREFIX_MODULEINDEX + "2";
     private State currState;
@@ -99,6 +101,11 @@ public class InsertPersonCommand extends Command {
         }
     }
 
+    /**
+     * Captures the current state of the insert command.
+     * Represents whether we are bidirectionally inserting a person
+     * into an occasion, module or in an erroneous state.
+     */
     private enum State {
         OCCASION_STATE,
         MODULE_STATE,

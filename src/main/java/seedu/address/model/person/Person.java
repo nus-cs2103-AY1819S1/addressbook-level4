@@ -44,7 +44,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        occasionList  = new  UniqueOccasionList();
+        occasionList = new UniqueOccasionList();
         moduleList = new UniqueModuleList();
     }
 
