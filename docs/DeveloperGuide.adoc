@@ -621,7 +621,7 @@ image::DisplaySalesSequenceDiagram.png[width="1300"]
 
 The sequence diagram for the "Parse Command" reference frame above is shown below:
 
-image::DisplaySalesSequenceDiagramRef.png[width="650"]
+image::DisplaySalesSequenceDiagramRef.png[width="580"]
 
 Given below is an example usage scenario and how the display sales report operation behaves at each step.
 
