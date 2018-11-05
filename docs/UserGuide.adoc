@@ -137,7 +137,9 @@ Format: `signup USERNAME`
 
 [NOTE]
 ====
-* USERNAME must be at most 20 characters long and cannot contain white spaces or any of the following characters :  > < : \ / | ?
+* USERNAME must be at least 1 character long
+* USERNAME must be at most 25 characters long
+* USERNAME cannot contain white spaces or any of the following characters :  > < : \ / | ?
 ====
 
 === Logging in as an existing user : `login`
