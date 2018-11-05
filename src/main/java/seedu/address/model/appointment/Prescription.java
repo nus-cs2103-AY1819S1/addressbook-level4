@@ -64,11 +64,11 @@ public class Prescription {
             return false;
         }
 
+        /**
+         * Equality of prescription only determined by name
+         */
         Prescription otherPrescription = (Prescription) other;
-        return otherPrescription.getId() == getId()
-                && otherPrescription.getMedicineName().equals(getMedicineName())
-                && otherPrescription.getDosage().equals(getDosage())
-                && otherPrescription.getConsumptionPerDay().equals(getConsumptionPerDay());
+        return otherPrescription.getMedicineName().equals(getMedicineName());
     }
 
     @Override

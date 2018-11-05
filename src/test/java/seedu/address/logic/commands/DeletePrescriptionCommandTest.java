@@ -32,10 +32,10 @@ import seedu.address.testutil.PrescriptionBuilder;
 
 
 /**
- * Contains Integration tests and unit tests for AddPrescriptionCommand
+ * Contains Integration tests and unit tests for DeletePrescriptionCommand
  */
 
-public class AddPrescriptionCommandTest {
+public class DeletePrescriptionCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBookWithPatientAndDoctorWithAppt(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -43,10 +43,10 @@ public class AddPrescriptionCommandTest {
     @Test
     public void execute_allFieldsSpecified_success() {
         Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
-        Prescription toAdd = new PrescriptionBuilder().withAppointmentId(firstAppointment.getAppointmentId()).build();
+        Prescription toDelete = firstAppointment.getPrescriptions().get(0);
 
         Appointment editedAppointment = new AppointmentBuilder(firstAppointment).build();
-        editedAppointment.getPrescriptions().add(toAdd);
+        editedAppointment.deletePrescription(toDelete.getMedicineName().toString());
 
         List<Person> personList = model.getFilteredPersonList();
         Doctor doctorToEdit = null;
@@ -74,49 +74,53 @@ public class AddPrescriptionCommandTest {
         Doctor editedDoctor = new DoctorBuilder(doctorToEdit).build();
         editedDoctor.setAppointment(firstAppointment, editedAppointment);
 
-        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd.getId(), toAdd);
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(toDelete.getId(),
+                toDelete.getMedicineName());
 
-        String expectedMessage = String.format(AddPrescriptionCommand.MESSAGE_SUCCESS, toAdd.getMedicineName());
+        String expectedMessage = String.format(DeletePrescriptionCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
+                toDelete.getMedicineName());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updateAppointment(firstAppointment, editedAppointment);
         expectedModel.updatePerson(patientToEdit, editedPatient);
         expectedModel.updatePerson(doctorToEdit, editedDoctor);
         expectedModel.commitAddressBook();
-        assertCommandSuccess(addPrescriptionCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(deletePrescriptionCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicatePrescriptionUnfilteredList_failure() {
-        Appointment appointmentInList = model.getAddressBook().getAppointmentList().get(0);
-        Prescription toAdd = new PrescriptionBuilder().withAppointmentId(appointmentInList.getAppointmentId()).build();
-        appointmentInList.addPrescription(toAdd);
-        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(toAdd.getId(), toAdd);
+    public void execute_prescriptionDoesNotExist_failure() {
+        Appointment appointmentInList = model.getFilteredAppointmentList().get(0);
+        Prescription toDelete = new PrescriptionBuilder()
+                .withMedicineName("invalid name")
+                .withAppointmentId(appointmentInList.getAppointmentId()).build();
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(toDelete.getId(),
+                toDelete.getMedicineName());
 
-        assertCommandFailure(addPrescriptionCommand, model, commandHistory,
-                addPrescriptionCommand.MESSAGE_DUPLICATE_PRESCRIPTION);
+        assertCommandFailure(deletePrescriptionCommand, model, commandHistory,
+                deletePrescriptionCommand.MESSAGE_INVALID_DELETE_PRESCRIPTION);
     }
 
     @Test
     public void execute_invalidAppointmentId_failure() {
         int outOfBoundsIndex = 1000000;
-        Prescription prescriptionWithOutOfBoundIndex = new PrescriptionBuilder()
-                .withAppointmentId(outOfBoundsIndex).build();
-        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(outOfBoundsIndex,
-                prescriptionWithOutOfBoundIndex);
+        Prescription toDelete = new PrescriptionBuilder().withAppointmentId(outOfBoundsIndex).build();
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(outOfBoundsIndex,
+                toDelete.getMedicineName());
 
-        assertCommandFailure(addPrescriptionCommand, model, commandHistory,
-                addPrescriptionCommand.MESSAGE_APPOINTENT_DOES_NOT_EXIST);
+        assertCommandFailure(deletePrescriptionCommand, model, commandHistory,
+                deletePrescriptionCommand.MESSAGE_APPOINTMENT_DOES_NOT_EXIST);
     }
-
 
     @Test
     public void equals() {
-        Prescription toAdd = new PrescriptionBuilder().build();
-        final AddPrescriptionCommand standardCommand = new AddPrescriptionCommand(toAdd.getId(), toAdd);
+        Prescription toDelete = new PrescriptionBuilder().build();
+        final DeletePrescriptionCommand standardCommand = new DeletePrescriptionCommand(toDelete.getId(),
+                toDelete.getMedicineName());
 
         // same values -> returns true
-        AddPrescriptionCommand commandWithSameValues = new AddPrescriptionCommand(toAdd.getId(), toAdd);
+        DeletePrescriptionCommand commandWithSameValues = new DeletePrescriptionCommand(toDelete.getId(),
+                toDelete.getMedicineName());
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -128,7 +132,7 @@ public class AddPrescriptionCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new FilterDoctorCommand()));
 
-        //different values -> returns false
+        // different values -> returns false
         Prescription other = new PrescriptionBuilder()
                 .withAppointmentId(VALID_APPOINTMENT_ID_SECOND)
                 .withMedicineName(VALID_MEDICINE_NAME_VICODIN)

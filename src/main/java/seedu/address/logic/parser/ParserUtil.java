@@ -43,6 +43,7 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
@@ -208,6 +209,8 @@ public class ParserUtil {
         }
         return new ConsumptionPerDay(trimmedConsumptionPerDay);
     }
+
+
 
 
 }

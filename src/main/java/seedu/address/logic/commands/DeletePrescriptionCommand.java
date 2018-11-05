@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -31,10 +30,10 @@ public class DeletePrescriptionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a prescription to an appointment. "
             + "Parameters: "
-            + PREFIX_INDEX + "APPOINTMENT ID "
+            + "APPOINTMENT ID "
             + PREFIX_MEDICINE_NAME + "MEDICINE_NAME \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "10005 "
+            + "10005 "
             + PREFIX_MEDICINE_NAME + "Paracetamol ";
 
     public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Deleted Prescription: %1$s";

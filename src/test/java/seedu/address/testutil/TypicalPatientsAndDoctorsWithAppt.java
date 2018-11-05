@@ -155,9 +155,9 @@ public class TypicalPatientsAndDoctorsWithAppt {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBookWithPatientAndDoctor() {
+    public static AddressBook getTypicalAddressBookWithPatientAndDoctorWithAppt() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPatientsAndDoctors()) {
+        for (Person person : getTypicalPatientsAndDoctorsWithAppt()) {
             ab.addPerson(person);
         }
 
@@ -167,7 +167,7 @@ public class TypicalPatientsAndDoctorsWithAppt {
         return ab;
     }
 
-    public static List<Person> getTypicalPatientsAndDoctors() {
+    public static List<Person> getTypicalPatientsAndDoctorsWithAppt() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 

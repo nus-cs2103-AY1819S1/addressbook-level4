@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONSUMPTION_PER_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DOSAGE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICINE_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -36,12 +35,12 @@ public class AddPrescriptionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a prescription to an appointment. "
             + "Parameters: "
-            + PREFIX_INDEX + "APPOINTMENT_ID "
+            + "APPOINTMENT_ID "
             + PREFIX_MEDICINE_NAME + "MEDICINE_NAME "
             + PREFIX_DOSAGE + "DOSAGE "
             + PREFIX_CONSUMPTION_PER_DAY + "CONSUMPTION_PER_DAY \n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_INDEX + "10005 "
+            + "10005 "
             + PREFIX_MEDICINE_NAME + "Paracetamol "
             + PREFIX_DOSAGE + "2 "
             + PREFIX_CONSUMPTION_PER_DAY + "3 ";
@@ -50,13 +49,15 @@ public class AddPrescriptionCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the appointment";
     public static final String MESSAGE_APPOINTENT_DOES_NOT_EXIST = "This appointment does not exist";
 
+    private final int id;
     private final Prescription prescriptionToAdd;
 
     /**
      * Creates an AddPrescriptionCommand to add the specified {@code Person}
      */
-    public AddPrescriptionCommand(Prescription prescription) {
+    public AddPrescriptionCommand(int id, Prescription prescription) {
         requireAllNonNull(prescription);
+        this.id = id;
         prescriptionToAdd = prescription;
     }
 
@@ -69,12 +70,11 @@ public class AddPrescriptionCommand extends Command {
         // check if appointment exists
         Appointment appointmentToEdit = null;
         for (Appointment appointment : appointmentList) {
-            if (appointment.getAppointmentId() == prescriptionToAdd.getId()) {
+            if (appointment.getAppointmentId() == id) {
                 appointmentToEdit = appointment;
                 break;
             }
         }
-        System.out.println(appointmentToEdit.getAppointmentId());
 
         // if appointment does not exist
         if (appointmentToEdit == null) {
@@ -104,7 +104,6 @@ public class AddPrescriptionCommand extends Command {
         List<Person> personList = model.getFilteredPersonList();
         Doctor doctorToEdit = null;
         Patient patientToEdit = null;
-        System.out.println("here ");
         for (Person person : personList) {
             if (person instanceof Doctor) {
                 if (appointmentToEdit.getDoctor().equals(person.getName().toString())) {
@@ -121,8 +120,6 @@ public class AddPrescriptionCommand extends Command {
             }
         }
 
-        System.out.println(doctorToEdit);
-        System.out.println(patientToEdit);
         if (doctorToEdit == null || patientToEdit == null) {
             throw new CommandException(MESSAGE_APPOINTENT_DOES_NOT_EXIST);
         }
@@ -161,7 +158,8 @@ public class AddPrescriptionCommand extends Command {
         }
 
         AddPrescriptionCommand e = (AddPrescriptionCommand) o;
-        return prescriptionToAdd.equals(e.prescriptionToAdd);
+        return id == e.id
+                && prescriptionToAdd.equals(e.prescriptionToAdd);
 
     }
 
