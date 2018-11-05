@@ -7,6 +7,7 @@ import static seedu.restaurant.model.ingredient.IngredientName.MESSAGE_NAME_CONS
 import static seedu.restaurant.model.ingredient.NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import seedu.restaurant.commons.util.StringUtil;
@@ -43,12 +44,14 @@ public class StockUpCommandParser implements Parser<StockUpCommand> {
     }
 
     /**
-     * Converts a HashMap<String, String> to a HashMap<IngredientName, Integer>.
+     * Converts a HashMap<String, String> to a LinkedHashMap<IngredientName, Integer>.
+     * A LinkedHashMap is used so that every iteration through the Map will be in the same sequence ie the order in
+     * which each key and value was accessed.
      * @param argMultimap
      * @throws ParseException if any of the ingredient names or number of units are invalid
      */
     private Map<IngredientName, Integer> transformArgMultimap(ArgumentPairMultimap argMultimap) throws ParseException {
-        Map<IngredientName, Integer> newHashMap = new HashMap<>();
+        Map<IngredientName, Integer> newHashMap = new LinkedHashMap<>();
         for (HashMap.Entry<String, String> argPair : argMultimap.getArgMultimap().entrySet()) {
             String ingredientName = argPair.getKey();
             if (!IngredientName.isValidName(ingredientName)) {

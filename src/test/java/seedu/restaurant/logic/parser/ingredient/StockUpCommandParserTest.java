@@ -9,7 +9,7 @@ import static seedu.restaurant.logic.parser.CommandParserTestUtil.assertParseSuc
 import static seedu.restaurant.model.ingredient.IngredientName.MESSAGE_NAME_CONSTRAINTS;
 import static seedu.restaurant.model.ingredient.NumUnits.MESSAGE_NUMUNITS_CONSTRAINTS;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class StockUpCommandParserTest {
 
     @Test
     public void parse_validArgumentPair_success() {
-        Map<IngredientName, Integer> ingredientHashMap = new HashMap<>();
+        Map<IngredientName, Integer> ingredientHashMap = new LinkedHashMap<>();
         ingredientHashMap.put(new IngredientName(VALID_NAME_APPLE), 10);
         StockUpCommand expectedCommand = new StockUpCommand(ingredientHashMap);
         assertParseSuccess(parser, "stockup n/Granny Smith Apple nu/10", expectedCommand);
@@ -49,7 +49,7 @@ public class StockUpCommandParserTest {
 
     @Test
     public void parse_validMultipleArgumentPairs_success() {
-        Map<IngredientName, Integer> ingredientHashMap = new HashMap<>();
+        Map<IngredientName, Integer> ingredientHashMap = new LinkedHashMap<>();
         ingredientHashMap.put(new IngredientName(VALID_NAME_APPLE), VALID_NUMUNITS_APPLE);
         ingredientHashMap.put(new IngredientName(VALID_NAME_BROCCOLI), VALID_NUMUNITS_BROCCOLI);
         ingredientHashMap.put(new IngredientName("Fresh Eggs"), 1000);

@@ -9,8 +9,7 @@ import static seedu.restaurant.testutil.ingredient.TypicalIngredients.BEANS;
 import static seedu.restaurant.testutil.ingredient.TypicalIngredients.CABBAGE;
 import static seedu.restaurant.testutil.ingredient.TypicalIngredients.DUCK;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Test;
@@ -31,7 +30,7 @@ public class StockUpCommandTest {
 
     @Test
     public void execute_validIngredient_success() {
-        Map<IngredientName, Integer> ingredientHashMap = new HashMap<>();
+        Map<IngredientName, Integer> ingredientHashMap = new LinkedHashMap<>();
         ingredientHashMap.put(AVOCADO.getName(), 20);
 
         StockUpCommand stockUpCommand = new StockUpCommand(ingredientHashMap);
@@ -49,7 +48,7 @@ public class StockUpCommandTest {
 
     @Test
     public void execute_multipleValidIngredients_success() {
-        Map<IngredientName, Integer> ingredientHashMap = new HashMap<>();
+        Map<IngredientName, Integer> ingredientHashMap = new LinkedHashMap<>();
         ingredientHashMap.put(CABBAGE.getName(), 10);
         ingredientHashMap.put(BEANS.getName(), 87);
         ingredientHashMap.put(DUCK.getName(), 59);
@@ -59,17 +58,17 @@ public class StockUpCommandTest {
         Model expectedModel = new ModelManager(new RestaurantBook(model.getRestaurantBook()), new UserPrefs());
         StringBuilder updatedIngredients = new StringBuilder();
 
-        Ingredient updatedIngredient = new IngredientBuilder(BEANS).withNumUnits(87).build();
+        Ingredient updatedIngredient = new IngredientBuilder(CABBAGE).withNumUnits(10).build();
+        updatedIngredients.append("\n" + "10 units of " + updatedIngredient.getName());
+        expectedModel.updateIngredient(CABBAGE, updatedIngredient);
+
+        updatedIngredient = new IngredientBuilder(BEANS).withNumUnits(87).build();
         updatedIngredients.append("\n" + "87 units of " + updatedIngredient.getName());
         expectedModel.updateIngredient(BEANS, updatedIngredient);
 
         updatedIngredient = new IngredientBuilder(DUCK).withNumUnits(59).build();
         updatedIngredients.append("\n" + "59 units of " + updatedIngredient.getName());
         expectedModel.updateIngredient(DUCK, updatedIngredient);
-
-        updatedIngredient = new IngredientBuilder(CABBAGE).withNumUnits(10).build();
-        updatedIngredients.append("\n" + "10 units of " + updatedIngredient.getName());
-        expectedModel.updateIngredient(CABBAGE, updatedIngredient);
 
         String expectedMessage = String.format(MESSAGE_STOCKUP_INGREDIENT_SUCCESS, updatedIngredients);
         expectedModel.commitRestaurantBook();
@@ -79,7 +78,7 @@ public class StockUpCommandTest {
 
     @Test
     public void execute_invalidIngredient_failure() {
-        Map<IngredientName, Integer> ingredientHashMap = new HashMap<>();
+        Map<IngredientName, Integer> ingredientHashMap = new LinkedHashMap<>();
         ingredientHashMap.put(new IngredientName("Iceberg Lettuce"), 10);
 
         StockUpCommand stockUpCommand = new StockUpCommand(ingredientHashMap);
