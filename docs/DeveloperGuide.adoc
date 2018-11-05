@@ -554,10 +554,10 @@ calendar weeks. The academic calendar weeks will be stored in a `2D String array
 Step 7. `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` will be activated. It will create a
 `XmlSerializableRangeOfWeek` object with `rangeOfWeek` as its parameter to allow the `rangeOfWeek` data to be
 converted into `Xml` format to be easily saved. Next, this method would call `XmlFileStorage#saveWeekDataToFile` to
-save the `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeOfWeek.xml`
+save the `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeofweek.xml`
 
 [NOTE]
-`CommandException` will be thrown if `rangeOfWeek.xml` does not exist.
+`CommandException` will be thrown if `rangeofweek.xml` does not exist.
 
 Step 8. After the data had been saved properly, should the current system date lies within the academic calendar
 weeks, the `UI` would display the corresponding week description to the user.
@@ -584,7 +584,7 @@ Step 11. `MainApp` would then retrieve the application title from `config.json` 
 image::FirstDayCommand_UG_Aft.png[width="400"]
 
 [NOTE]
-`CommandException` will be thrown if data from `rangeOfWeek.xml` could not be converted or if `rangeOfWeek.xml` does
+`CommandException` will be thrown if data from `rangeofweek.xml` could not be converted or if `rangeofweek.xml` does
 not exist.
 
 The following sequence diagram illustrates how the mechanism works:
