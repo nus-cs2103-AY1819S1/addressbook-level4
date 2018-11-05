@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Username implements Comparable<Username> {
     public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Names must be at most 25 characters long, cannot be empty and cannot contain white spaces or any of " +
-                    "these characters: \" > < : \\ / | ? *";
+            "Names must be at most 25 characters long, cannot be empty and cannot contain white spaces or any of "
+                    + "these characters: \" > < : \\ / | ? *";
 
     /*
      * Username cannot contain any of the following characters : " > < : \ / | ? *
