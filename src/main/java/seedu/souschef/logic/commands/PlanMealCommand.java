@@ -22,8 +22,7 @@ public class PlanMealCommand extends Command {
 
     public static final String MESSAGE_PLAN_RECIPE_SUCCESS = "Meal Plan successfully added.\n"
                                                            + "Recipe: %1$s\n"
-                                                           + "Date: %2$s\n"
-                                                           + "Meal slot: %3$s";
+                                                           + "Date/Meal: %2$s, %3$s";
 
     private final Model<Day> model;
     private final Recipe toAdd;
