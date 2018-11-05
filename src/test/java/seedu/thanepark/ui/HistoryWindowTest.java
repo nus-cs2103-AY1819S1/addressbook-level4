@@ -8,12 +8,13 @@ import static org.junit.Assume.assumeFalse;
 import java.io.File;
 import java.net.URL;
 
-import guitests.guihandles.HistoryWindowHandle;
-import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
+
+import guitests.guihandles.HistoryWindowHandle;
+import javafx.stage.Stage;
 import seedu.thanepark.commons.core.StorageFileCreatingClass;
 import seedu.thanepark.commons.util.FilePathToUrl;
 import seedu.thanepark.ui.browser.HistoryWindow;
