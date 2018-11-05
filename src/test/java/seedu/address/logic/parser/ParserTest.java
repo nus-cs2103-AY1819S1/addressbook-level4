@@ -196,7 +196,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseCommand_Review() throws Exception {
+    public void parseCommand_review() throws Exception {
         ReviewCommand command = (ReviewCommand) parser.parseCommand(
             ReviewCommand.COMMAND_WORD + " " + INDEX_FIRST_DECK.getOneBased());
         assertEquals(new ReviewCommand(INDEX_FIRST_DECK), command);
