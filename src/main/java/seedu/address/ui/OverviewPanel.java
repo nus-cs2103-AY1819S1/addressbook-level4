@@ -96,8 +96,9 @@ public class OverviewPanel extends UiPart<Region> {
         yAxis.setTickLabelFormatter(new StringConverter<Number>() {
             @Override
             public String toString(Number object) {
-                if (object.intValue() != object.doubleValue())
+                if (object.intValue() != object.doubleValue()) {
                     return "";
+                }
                 return "" + (object.intValue());
             }
 
