@@ -525,8 +525,8 @@ entries differ from the expected academic number of weeks.
 
 * `FirstDayCommand#createDefaultFileIfNull()` -- It creates the default `rangeofweek.xml` if any data is null.
 
-* `FirstDayCommand#createDefaultFileIfInvalidDate()` -- It creates the default `rangeofweek.xml` if date data in
-modified to be an invalid date format.
+* `FirstDayCommand#createDefaultFileIfInvalidDateOrRange()` -- It creates the default `rangeofweek.xml` if date data in
+modified to be an invalid date or date range format.
 
 Given below is an example usage scenario and how `firstday` mechanism behaves at each step:
 
@@ -566,7 +566,7 @@ image::FirstDayCommand_UG_Bef.png[width="600"]
 
 Step 9. When user launch the application,`MainApp` will create a `FirstDayCommand` object named `fdc` to utilise the
 method `FirstDayCommand#createDefaultFileIfNotExist`, `FirstDayCommand#createDefaultFileIfDiffSize`,
-`FirstDayCommand#createDefaultFileIfNull` and `FirstDayCommand#createDefaultFileIfInvalidDate`.
+`FirstDayCommand#createDefaultFileIfNull` and `FirstDayCommand#createDefaultFileIfInvalidDateOrRange`.
 
 If it is the first time the user launch the application or if user deleted the `rangeofweek.xml` or modified the file
 content until some content are invalid, the application will create a default `rangeofweek.xml`.
