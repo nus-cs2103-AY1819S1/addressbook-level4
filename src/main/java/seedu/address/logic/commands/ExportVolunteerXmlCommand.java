@@ -121,9 +121,9 @@ public class ExportVolunteerXmlCommand extends Command {
         tagsAttr.setValue(volunteer.getTags().toString());
         rootElement.setAttributeNode(tagsAttr);
 
-        Attr IDAttr = doc.createAttribute("VolunteerID");
-        IDAttr.setValue(volunteer.getVolunteerId().toString());
-        rootElement.setAttributeNode(IDAttr);
+        Attr IdAttr = doc.createAttribute("VolunteerID");
+        IdAttr.setValue(volunteer.getVolunteerId().toString());
+        rootElement.setAttributeNode(IdAttr);
 
 
         //elements 1 level below root - this is used to store events
@@ -134,9 +134,9 @@ public class ExportVolunteerXmlCommand extends Command {
         for (int i = 1; i <= eventRecords.size(); i++) {
             //take note of 0 & 1 indexing difference
             Element element = doc.createElement("EVENT" + Integer.toString(i));
-            Record r = eventRecords.get(i-1);
-            EventId eventID = r.getEventId();
-            Event event = model.getFilteredEventList().filtered( e -> e.getEventId().equals(eventID)).get(0);
+            Record r = eventRecords.get(i - 1);
+            EventId eventId = r.getEventId();
+            Event event = model.getFilteredEventList().filtered( e -> e.getEventId().equals(eventId)).get(0);
 
             //set attr
             //this is used to store event details
@@ -168,9 +168,9 @@ public class ExportVolunteerXmlCommand extends Command {
             eventDescriptionAttr.setValue(event.getDescription().toString());
             element.setAttributeNode(eventDescriptionAttr);
 
-            Attr eventIDAttr = doc.createAttribute("Event ID");
-            eventIDAttr.setValue(eventID.toString());
-            element.setAttributeNode(eventIDAttr);
+            Attr eventIdAttr = doc.createAttribute("Event ID");
+            eventIdAttr.setValue(eventId.toString());
+            element.setAttributeNode(eventIdAttr);
 
             //append node
             rootElement.appendChild(element);
