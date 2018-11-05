@@ -13,7 +13,14 @@ WishBook is a desktop savings assistant application written in Java, built for p
 and keep track of their progress in saving toward those wishes.
 It is created by Team T16-1 for CS2103T: Software Engineering module offered by School of Computing,
 National University of Singapore, in AY2018/2019 Semester 1.
+The image below shows the main layout of our application:
+
+image::UI.png[width="800"]
+
+Being in charge of the Logic Component and documentation, I was tasked with implementing new commands, while also making sure
+that all changes made by our team were consistently documented in our User Guide and Developer Guide.
 This project portfolio consists of the contributions I have made to WishBook over the semester.
+
 
 == Summary of contributions
 
@@ -48,7 +55,7 @@ The money inside the UnusedFunds can later be redistributed to other wishes, via
 *** Consistently updated the User Guide to reflect the current function usage in our application.
 *** Refactored Developer Guide to make it specific to our WishBook implementation.
 
-** Refactored code and documentation
+** Refactored code and documentation:
 *** Contributed regularly to refactoring the code from the previous AddressBook-Level 4 application.
 *** Refactor terms specific to AddressBook-Level 4, to suit our current WishBook application
 

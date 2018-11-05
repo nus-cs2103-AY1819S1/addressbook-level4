@@ -217,8 +217,9 @@ Format: `save INDEX AMOUNT`
 * If `INDEX` is 0, `AMOUNT` will be channelled directly to `unusedFunds`.
 * If `AMOUNT` saved to `INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
 * If `AMOUNT` is negative, money will be removed from amount saved for that wish. +
-* If `AMOUNT` brings the savings value for that wish to below 0, `AMOUNT` will not be accepted and the `save` command will fail.
-* If wish at `INDEX` is already fulfilled, `AMOUNT` will not accepted.
+* `AMOUNT` will not be accepted if:
+** `AMOUNT` brings the savings value for that wish to below 0.
+** The wish at `INDEX` is already fulfilled.
 ****
 
 Examples: +
@@ -244,17 +245,18 @@ Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
 * `FROM_WISH_INDEX` and `TO_WISH_INDEX` should be a positive integer 1, 2, 3… no larger than the number of wishes
 * If `FROM_WISH_INDEX` is 0, `AMOUNT` will be channelled from unusedFunds to `TO_WISH_INDEX`.
 * If `TO_WISH_INDEX` is 0, `AMOUNT` will be channelled from `FROM_WISH_INDEX` to `unusedFunds`.
-* `AMOUNT` from `unusedFunds` will only be successfully channelled if the exact amount requested if present in `unusedFunds`.
+* `AMOUNT` from `unusedFunds` will only be successfully channelled if the exact amount requested is present in `unusedFunds`.
 * If `FROM_WISH_INDEX` equals `TO_WISH_INDEX`, both indexes will not be accepted.
 * If `AMOUNT` saved to `TO_WISH_INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
-* If `AMOUNT` is negative, `AMOUNT` will not be accepted. +
-* If `AMOUNT` brings the savings amount of wish at `FROM_WISH_INDEX` to below 0, `AMOUNT` will not be accepted.
-* If wish at `FROM_WISH_INDEX` or `TO_WISH_INDEX` is already fulfilled, `AMOUNT` will not accepted.
+* `AMOUNT` will not be accepted if:
+** `AMOUNT` is negative.
+** `AMOUNT` brings the savings amount of wish at `FROM_WISH_INDEX` to below 0.
+** Either wish at `FROM_WISH_INDEX` or `TO_WISH_INDEX` is already fulfilled.
 ****
 
 [NOTE]
 ====
-Index 0 is a specially allocated for unused funds. Excess funds when user attempts to save to a wish will be automatically allocated to `unusedFunds`. The user can also choose to channel funds from `unusedFunds` to a valid wish.
+Index 0 is specially allocated for unused funds. Excess funds when user attempts to save to a wish will be automatically allocated to `unusedFunds`. The user can also choose to channel funds from `unusedFunds` to a valid wish.
 ====
 
 Examples: +
