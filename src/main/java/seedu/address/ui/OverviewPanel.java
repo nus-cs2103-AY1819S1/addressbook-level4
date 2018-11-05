@@ -15,6 +15,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import javafx.util.StringConverter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.OverviewPanelChangedEvent;
 import seedu.address.model.Overview;
@@ -80,8 +81,8 @@ public class OverviewPanel extends UiPart<Region> {
 
         genderPieChart.getData().clear();
         genderPieChart.setData(pieChartData);
-        genderPieChart.setTitle("Gender Ratio");
         genderPieChart.setLabelsVisible(true);
+        genderPieChart.setLegendVisible(false);
     }
 
     /**
@@ -91,6 +92,23 @@ public class OverviewPanel extends UiPart<Region> {
         xAxis.setCategories(FXCollections
                 .observableArrayList(Arrays.asList("14 and Below", "15 to 24", "24 to 64", "65 and Above")));
         yAxis.setLabel("Number");
+        yAxis.setMinorTickVisible(false);
+        yAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            @Override
+            public String toString(Number object) {
+                if (object.intValue() != object.doubleValue()) {
+                    return "";
+                }
+                return "" + (object.intValue());
+            }
+
+            @Override
+            public Number fromString(String string) {
+                Number val = Double.parseDouble(string);
+                return val.intValue();
+            }
+        });
+
 
         //Prepare XYChart.Series objects by setting data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
@@ -99,9 +117,9 @@ public class OverviewPanel extends UiPart<Region> {
         series.getData().add(new XYChart.Data<>("24 to 64", overview.getNumOfAdult()));
         series.getData().add(new XYChart.Data<>("65 and Above", overview.getNumOfSenior()));
 
-        ageBarChart.setTitle("Age Distribution of Volunteers");
         ageBarChart.getData().clear();
         ageBarChart.getData().add(series);
+        ageBarChart.setLegendVisible(false);
     }
 
     @Subscribe
