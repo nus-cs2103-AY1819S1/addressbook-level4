@@ -8,6 +8,7 @@ import static seedu.thanepark.logic.parser.CliSyntax.PREFIX_ZONE_FULL;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -38,11 +39,13 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ZONE, PREFIX_ZONE_FULL,
                 PREFIX_TAG, PREFIX_TAG_FULL);
 
-        Optional<Zone> address = parseAndGetAddress(argMultimap);
+        Optional<Zone> address = parseAndGetZone(argMultimap);
 
         Optional<Set<Tag>> tags = parseAndGetTags(argMultimap);
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
+
+        nameKeywords = removeOtherArguments(nameKeywords);
 
         return new FindCommand(new RideContainsKeywordsPredicate(Arrays.asList(nameKeywords),
                 address, tags));
@@ -70,12 +73,37 @@ public class FindCommandParser implements Parser<FindCommand> {
      * Checks if the argument multimap contains the "thanepark" or "a/" prefix and returns an Zone
      * object if either are present.
      */
-    private Optional<Zone> parseAndGetAddress(ArgumentMultimap argMultimap) throws ParseException {
+    private Optional<Zone> parseAndGetZone(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(PREFIX_ZONE).isPresent()) {
             return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ZONE).get()));
         } else if (argMultimap.getValue(PREFIX_ZONE_FULL).isPresent()) {
             return Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ZONE_FULL).get()));
         }
         return Optional.empty();
+    }
+    
+    private String[] removeOtherArguments(String[] keywords) {
+        List<String> trimmedKeyWords = Arrays.asList(keywords);
+        int[] indexes = new int[4];
+        indexes[0] = trimmedKeyWords.indexOf(PREFIX_TAG.getPrefix());
+        indexes[1] = trimmedKeyWords.indexOf(PREFIX_TAG_FULL.getPrefix());
+        indexes[2] = trimmedKeyWords.indexOf(PREFIX_ZONE.getPrefix());
+        indexes[3] = trimmedKeyWords.indexOf(PREFIX_ZONE_FULL.getPrefix());
+        int smallestPositiveIndex = -1;
+        for (int i : indexes) {
+            if (i >= 0 && (smallestPositiveIndex == -1 || smallestPositiveIndex > i)) {
+                smallestPositiveIndex = i;
+            }
+        }
+        if (smallestPositiveIndex == -1) {
+            return keywords;
+        }
+        int lastIndexOfNameString = smallestPositiveIndex;
+        String[] trimmedArgs = new String[lastIndexOfNameString];
+        for (int i = 0 ; i < lastIndexOfNameString; i++) {
+            trimmedArgs[i] = trimmedKeyWords.get(i);
+        }
+        
+        return trimmedArgs;
     }
 }

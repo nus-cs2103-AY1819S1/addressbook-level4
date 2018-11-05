@@ -21,7 +21,7 @@ public class ZoneTest {
     }
 
     @Test
-    public void isValidAddress() {
+    public void isValidZone() {
         // null thanepark
         Assert.assertThrows(NullPointerException.class, () -> Zone.isValidZone(null));
 
