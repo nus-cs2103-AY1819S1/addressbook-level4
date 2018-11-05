@@ -38,6 +38,15 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given object matches the Name class fulName attribute without case sensitivity.
+     */
+    public boolean isSame(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && fullName.equalsIgnoreCase(((Name) other).fullName)); // state check
+    }
+
 
     @Override
     public String toString() {
