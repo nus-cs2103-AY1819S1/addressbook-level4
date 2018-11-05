@@ -11,7 +11,6 @@ import java.util.Calendar;
  */
 public class Date {
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Date should be a 6 digit number of format ddmmyy. Please also make sure it is a valid date.";
             "Date format should be: ddmmyy \nExample: 191219 will be 19th Dec, 2019\n"
             + "Please make sure your date is valid ^ ^ \n";
     public static final String DATE_VALIDATION_REGEX = "\\d{6}";
