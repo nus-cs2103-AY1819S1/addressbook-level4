@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="overviewPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="CENTER_LEFT">
+        <Label fx:id="eventOverviewLabel" styleClass="event-name" text="Events"/>
+    </VBox>
+    <GridPane>
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <HBox id="upcomingPane" fx:id="upcomingPane" styleClass="overviewEvent" GridPane.columnIndex="0" GridPane.rowIndex="0"  GridPane.columnSpan="1">
+            <GridPane HBox.hgrow="NEVER">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+                </columnConstraints>
+                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+                    <Label text="Upcoming" styleClass="cell_big_label" />
+                    <Label fx:id="upcomingLabel" styleClass="cell_small_label" text="-" />
+                </VBox>
+            </GridPane>
+        </HBox>
+        <HBox id="ongoingPane" fx:id="ongoingPane" styleClass="overviewEvent" GridPane.columnIndex="1" GridPane.rowIndex="0"  GridPane.columnSpan="1">
+            <GridPane HBox.hgrow="NEVER">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+                </columnConstraints>
+                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+                    <Label text="Ongoing" styleClass="cell_big_label" />
+                    <Label fx:id="ongoingLabel" styleClass="cell_small_label" text="-" />
+                </VBox>
+            </GridPane>
+        </HBox>
+        <HBox id="ongoingPane" fx:id="completedPane" styleClass="overviewEvent" GridPane.columnIndex="2" GridPane.rowIndex="0"  GridPane.columnSpan="1">
+            <GridPane HBox.hgrow="NEVER">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+                </columnConstraints>
+                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+                    <Label text="Completed" styleClass="cell_big_label" />
+                    <Label fx:id="completedLabel" styleClass="cell_small_label" text="-" />
+                </VBox>
+            </GridPane>
+        </HBox>
+    </GridPane>
+    <VBox>
+        <Label fx:id="volunteerOverviewLabel" styleClass="event-name" text="Volunteers"/>
+        <HBox>
+            <Label text="Play area"></Label>
+        </HBox>
+    </VBox>
+</VBox>
+
