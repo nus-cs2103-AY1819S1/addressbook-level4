@@ -21,6 +21,7 @@ import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.commons.exceptions.IllegalOperationException;
+import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
@@ -325,5 +326,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public void saveCanvas(String fileName) throws IOException, InterruptedException {
+        ImageMagickUtil.saveCanvas(canvas, userPrefs.getCurrDirectory(), fileName);
     }
 }

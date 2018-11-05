@@ -261,6 +261,36 @@ public class ImageMagickUtil {
     }
 
     /**
+     * Saves the canvas to an output file
+     * @param c - A canvas to be processed
+     * */
+    public static void saveCanvas(Canvas c, Path outDirectory, String fileName)
+            throws IOException, InterruptedException {
+        ArrayList<String> args = new ArrayList<>();
+        String output = outDirectory + "/" + fileName;
+        args.add(getConvertExecutablePath());
+        args.add("-size");
+        args.add(String.format("%dx%d", c.getWidth(), c.getHeight()));
+        args.add("-background");
+        args.add(c.getBackgroundColor());
+        for (Layer l: c.getLayers()) {
+            args.add("-page");
+            args.add(String.format("+%d+%d", l.getX(), l.getY()));
+            args.add(String.format("%s", l.getImage().getCurrentPath()));
+        }
+        if (c.isCanvasAuto()) {
+            args.add("-layers");
+            args.add(" merge");
+        } else {
+            args.add("-flatten");
+        }
+        args.add(output);
+        System.out.println(output);
+        runProcessBuilder(args, output);
+    }
+
+
+    /**
      * Given any canvas, renders it to the target panel.
      * @param c - Canvas to render
      * @param logger - an instance of the logger

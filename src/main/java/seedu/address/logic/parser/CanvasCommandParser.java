@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.canvas.CanvasAutoResizeCommand;
 import seedu.address.logic.commands.canvas.CanvasBgcolorCommand;
 import seedu.address.logic.commands.canvas.CanvasCommand;
+import seedu.address.logic.commands.canvas.CanvasSaveCommand;
 import seedu.address.logic.commands.canvas.CanvasSizeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -44,12 +45,17 @@ public class CanvasCommandParser {
         }
         case "bgcolor": {
             if (argument == null) {
-                throw new ParseException(CanvasAutoResizeCommand.MESSAGE_USAGE);
+                throw new ParseException(CanvasBgcolorCommand.MESSAGE_USAGE);
             }
             return new CanvasBgcolorCommand(argument);
         }
+        case "save": {
+            if (argument == null) {
+                throw new ParseException(CanvasSaveCommand.MESSAGE_USAGE);
+            }
+            return new CanvasSaveCommand(argument);
+        }
         case "size": {
-            logger.info(String.format("arg1 %s arg2 %s", subcommand, argument));
             return new CanvasSizeCommand(argument);
         }
         default:

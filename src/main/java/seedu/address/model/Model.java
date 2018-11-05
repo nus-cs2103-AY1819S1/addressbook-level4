@@ -166,4 +166,6 @@ public interface Model {
     void removeLayer(Index i) throws IllegalOperationException;
 
     Canvas getCanvas();
+
+    void saveCanvas(String fileName) throws IOException, InterruptedException;
 }
