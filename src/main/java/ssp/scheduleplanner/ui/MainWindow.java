@@ -230,8 +230,6 @@ public class MainWindow extends UiPart<Stage> {
         case ARCHIVE:
             showArchived();
             break;
-        case CALENDAR:
-            break;
         default:
             break;
         }
