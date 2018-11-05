@@ -37,7 +37,7 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listUsers`* : lists all users in the event organiser
+* *`listUser`* : lists all users in the event organiser
 * **`addUser`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : creates a new user named `John Doe` to the Event Organiser.
 * `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent` : adds an event named CS2103 Project Meeting to be held at SoC Canteen.
 * *`exit`* : exits the app
@@ -105,10 +105,10 @@ Examples:
 
 `logout`
 
-==== List all users : `listUsers`
+==== List all users : `listUser`
 
 Shows a list of all users in the event organiser. +
-Format: `listUsers`
+Format: `listUser`
 
 ==== Find users by name : `findUserByName`
 
@@ -234,7 +234,7 @@ Format: `selectUser INDEX`
 
 Examples:
 
-* `listUsers` +
+* `listUser` +
 `selectUser 2` +
 Selects the 2nd user in the event organiser.
 * `findUser Betsy` +
@@ -314,7 +314,7 @@ Format: `addEvent n/NAME a/LOCATION t/TAGS`
 
 Examples:
 
-* `addEvent n/NUS Tennis Welcome Session, a/SOC Canteen t/NIL`
+* `addEvent n/NUS Tennis Welcome Session a/SOC Canteen t/NIL`
 * `addEvent n/CS1101S Meet-up a/UTown t/By invite`
 
 ==== Delete an event : `deleteEvent`
@@ -567,7 +567,7 @@ e.g. `login n/John Doe pass/password`
 
 * *Logout*  `logout`
 
-* *List User* : `listUsers`
+* *List User* : `listUser`
 
 * *Find User By Name* : `findUserByName KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James`
