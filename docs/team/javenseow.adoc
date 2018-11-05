@@ -83,4 +83,3 @@ include::../DeveloperGuide.adoc[tag=image]
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_

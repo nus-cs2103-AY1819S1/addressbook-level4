@@ -711,7 +711,7 @@ underused or unused.
 === Image feature
 
 ==== Current Implementation
-The image feature allows `.jpg` image files to be uploaded into Hallper to a specific resident from the computer.
+The image feature allows `.jpg` image files to be uploaded into Hallper to a specific person from the computer.
 The feature is facilitated by `ProfilePictureDirStorage`. It implements the follow operations:
 
 * `ProfilePictureDirStorage#readProfilePicture(File file)` -- Reads the file that is specified by the user through
@@ -724,12 +724,12 @@ Both operations are exposed in the `Storage` interface as `Storage#readProfilePi
 
 Given below is an example usage scenario and how the image mechanism behaves at each step:
 
-Step 1. The user specifies the file path of the `.jpg` image to be uploaded and the resident's room number.
+Step 1. The user specifies the file path of the `.jpg` image to be uploaded and the person's room number.
 
 Step 2. `ImageCommandParser` passes the room number and file that is specified by the file path to `ImageCommand`.
 
-Step 3. `ImageCommand` searches Hallper for the resident that is tagged with the specified room number. It returns an
-error message if the room number specified is not tagged to any resident.
+Step 3. `ImageCommand` searches Hallper for the person that is tagged with the specified room number. It returns an
+error message if the room number specified is not tagged to any person.
 
 Step 4. Once the room number is verified, a `NewImageEvent` is raised from the `ImageCommand` to initiate the reading
 and copying of the image from the given file path.
@@ -740,7 +740,7 @@ then called to read the image file. After reading a valid image file, the
 `ProfilePictureStorage#saveProfilePicture(BufferedImage image, Room number)` is called to save the image into the
 computer.
 
-Step 6. The profile of the resident is displayed on the browser panel.
+Step 6. The profile of the person is displayed on the browser panel.
 
 ==== Design Considerations
 ===== Aspect: Choice of component to read and save the file
