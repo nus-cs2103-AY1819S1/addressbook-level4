@@ -444,14 +444,14 @@ Finds and displays the list of attractions in ThanePark with the name "accelerat
 
 image::ui_screenshots/find-example-1.png[width="600"]
 
-* `find a/ street` +
-Finds and displays the list of attractions with addresses that contain the word "street".
+* `find z/ sci-fi` +
+Finds and displays the list of attractions with zones that contain the word "sci-fi".
 
 image::ui_screenshots/find-example-2.png[width="600"]
 
-* `find zone street t/friends tag family` +
-Finds and displays the list of attractions with addresses that contain the word "street" and the tags "friends"
-and "family"
+* `find zone sci-fi t/popular tag rollerCoaster` +
+Finds and displays the list of attractions with addresses that contain the word "sci-fi" and the tags "rollerCoaster"
+and "popular"
 
 image::ui_screenshots/find-example-3.png[width="600"]
 |===
