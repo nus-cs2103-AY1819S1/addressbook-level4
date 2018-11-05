@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDate;
-//import java.time.ZoneId;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -44,7 +44,6 @@ public class Date {
 
         checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
 
-        /*
         if (Date.canStrictParse(date)) {
             DateTimeFormatter validFormat =
                     DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
@@ -56,11 +55,12 @@ public class Date {
             this.date = dateGroupList.get(0).getDates().get(0)
                     .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
-        */
 
+        /*
         DateTimeFormatter validFormat =
                 DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
         this.date = LocalDate.parse(date, validFormat);
+        */
     }
 
     /**
