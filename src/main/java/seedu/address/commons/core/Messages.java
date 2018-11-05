@@ -34,7 +34,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_ALBUM_REQUESTED = "The album name provided is invalid";
     public static final String MESSAGE_GOOGLE_INVALID_FORMAT = "Please enter a valid google command format.";
 
-    public static final String MESSAGE_LOGIN_FAILURE = "Login unsuccessful";
     public static final String MESSAGE_CONNECTION_FAILURE = "Error connecting to Google Photos, please try again.";
 
     public static final String MESSAGE_INVALID_IMAGE_REQUESTED = "The image name provided is invalid.";
