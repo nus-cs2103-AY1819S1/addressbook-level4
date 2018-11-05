@@ -217,7 +217,7 @@ public class ExportCertCommand extends Command {
             Date startDate = event.getStartDate();
             Date endDate = event.getEndDate();
 
-            String eventEntryLine = eventName + " - " + eventHours + " hours from " + startDate + " to " + endDate;
+            String eventEntryLine = eventName + " - " + eventHours + " hour(s) from " + startDate + " to " + endDate;
 
             contStream.showText("\u2022  "); // bullet
             contStream.showText(eventEntryLine);
