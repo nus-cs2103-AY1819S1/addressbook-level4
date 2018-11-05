@@ -18,6 +18,12 @@
     <categories>
         <name>screw u</name>
     </categories>
+    <categories>
+        <name>my cats</name>
+    </categories>
+    <categories>
+        <name>meow mewo must study</name>
+    </categories>
     <tasks>
         <name>Do CS2105 lab</name>
         <date>091018</date>
@@ -246,6 +252,20 @@
         <tagged>ST2334</tagged>
         <tagged>Exam</tagged>
     </tasks>
+    <tasks>
+        <name>CS2103T Tutorial</name>
+        <date>111018</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103T Tutorial</name>
+        <date>011018</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
     <archivedTasks>
         <name>Do CS2100 lab</name>
         <date>081018</date>
@@ -253,5 +273,33 @@
         <venue>Home</venue>
         <tagged>CS2100</tagged>
         <tagged>Lab</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>CS2103T Tutorial</name>
+        <date>111018</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>CS2103T Tutorial</name>
+        <date>011018</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>CS2103T Tutorial</name>
+        <date>290918</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </archivedTasks>
+    <archivedTasks>
+        <name>CS2103T Tutorial</name>
+        <date>290918</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
     </archivedTasks>
 </scheduleplanner>
