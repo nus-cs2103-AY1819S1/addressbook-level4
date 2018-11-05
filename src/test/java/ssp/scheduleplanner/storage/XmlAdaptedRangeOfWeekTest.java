@@ -1,6 +1,8 @@
 package ssp.scheduleplanner.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static ssp.scheduleplanner.storage.XmlAdaptedRangeOfWeek.MISSING_FIELD_MESSAGE_FORMAT;
 
 import org.junit.Test;
@@ -77,8 +79,13 @@ public class XmlAdaptedRangeOfWeekTest {
     public void equals_equal() {
         XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(VALID_START_OF_WEEK,
                 VALID_END_OF_WEEK, VALID_DESCRIPTION));
-        range.equals(new XmlAdaptedRangeOfWeek(new RangeOfWeek("130818", "190818",
-                "Week 1")));
+        XmlAdaptedRangeOfWeek checkRange = range;
+        String notInstance = "not instance of XmlSerializableRangeOfWeek";
+
+        assertTrue(range.equals(new XmlAdaptedRangeOfWeek(new RangeOfWeek("130818", "190818",
+                "Week 1"))));
+        assertEquals(range, checkRange);
+        assertFalse(checkRange.equals(notInstance));
     }
 
 
