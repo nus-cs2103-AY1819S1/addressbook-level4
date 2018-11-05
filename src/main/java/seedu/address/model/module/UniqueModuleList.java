@@ -24,6 +24,16 @@ public class UniqueModuleList implements Iterable<Module> {
 
     private final ObservableList<Module> internalList = FXCollections.observableArrayList();
 
+    public UniqueModuleList(List<Module> moduleList) {
+        for (Module module : moduleList) {
+            internalList.add(module);
+        }
+    }
+
+    public UniqueModuleList() {
+
+    }
+
     /**
      * Returns true if the list contains an equivalent module as the given argument.
      */

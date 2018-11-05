@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -17,6 +19,8 @@ public class PersonDescriptor {
     private Phone phone;
     private Email email;
     private Address address;
+    private UniqueOccasionList occasionList;
+    private UniqueModuleList moduleList;
     private Set<Tag> tags;
 
     public PersonDescriptor() {}
@@ -87,6 +91,22 @@ public class PersonDescriptor {
      */
     public Optional<Set<Tag>> getTags() {
         return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+    }
+
+    public Optional<UniqueModuleList> getUniqueModuleList() {
+        return (moduleList != null) ? Optional.ofNullable(moduleList) : Optional.empty();
+    }
+
+    public void setUniqueModuleList(UniqueModuleList moduleList) {
+        this.moduleList = moduleList;
+    }
+
+    public Optional<UniqueOccasionList> getUniqueOccasionList() {
+        return (occasionList != null) ? Optional.ofNullable(occasionList) : Optional.empty();
+    }
+
+    public void setUniqueOccasionList(UniqueOccasionList occasionList) {
+        this.occasionList = occasionList;
     }
 
     @Override

@@ -23,6 +23,16 @@ import seedu.address.model.occasion.exceptions.OccasionNotFoundException;
 public class UniqueOccasionList implements Iterable<Occasion> {
     private final ObservableList<Occasion> internalList = FXCollections.observableArrayList();
 
+    public UniqueOccasionList(List<Occasion> occasionList) {
+        for (Occasion occasion : occasionList) {
+            internalList.add(occasion);
+        }
+    }
+
+    public UniqueOccasionList() {
+
+    }
+
     /**
      * Returns true if the list contains an equivalent occasion as the given argument.
      */

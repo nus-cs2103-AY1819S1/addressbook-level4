@@ -5,12 +5,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
+import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.tag.Tag;
 
@@ -43,6 +46,18 @@ public class Person {
         this.tags.addAll(tags);
         occasionList  = new  UniqueOccasionList();
         moduleList = new UniqueModuleList();
+    }
+
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+                  List<Occasion> occasionList, List<Module> moduleList) {
+        requireAllNonNull(name, phone, email, address, tags, occasionList, moduleList);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.occasionList = new UniqueOccasionList(occasionList);
+        this.moduleList = new UniqueModuleList(moduleList);
     }
 
     /**

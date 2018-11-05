@@ -37,7 +37,7 @@ public class XmlAdaptedModule {
     @XmlElement(required = true)
     private String semester;
     @XmlElement(required = true)
-    private List<XmlAdaptedPerson> students;
+    private List<XmlAdaptedPerson> students = new ArrayList<>();
     @XmlElement
     private List<XmlAdaptedTag> tagged;
 
@@ -72,9 +72,15 @@ public class XmlAdaptedModule {
         moduleTitle = source.getModuleTitle().toString();
         academicYear = source.getAcademicYear().toString();
         semester = source.getSemester().toString();
-        students = new ArrayList<>();
         for (Person person : source.getStudents()) {
-            students.add(new XmlAdaptedPerson(person));
+            List<XmlAdaptedTag> tagsToInsert = person.getTags()
+                                                    .stream().map(XmlAdaptedTag::new)
+                                                    .collect(Collectors.toList());
+            students.add(new XmlAdaptedPerson(person.getName().toString(),
+                                            person.getPhone().toString(),
+                                            person.getEmail().toString(),
+                                            person.getAddress().toString(),
+                                            tagsToInsert));
         }
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)

@@ -12,6 +12,7 @@ import java.util.Set;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import seedu.address.commons.util.TypeUtil;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
@@ -39,6 +40,16 @@ public class Occasion {
         this.occasionDate = occasionDate;
         this.location = location;
         this.attendanceList = new UniquePersonList(new ArrayList<>());
+        this.tags.addAll(tags);
+    }
+
+    public Occasion(OccasionName occasionName, OccasionDate occasionDate, OccasionLocation location,
+                    Set<Tag> tags, TypeUtil type, ArrayList<Person> attendanceList) {
+        requireAllNonNull(occasionName, occasionDate, tags, type, attendanceList);
+        this.occasionName = occasionName;
+        this.occasionDate = occasionDate;
+        this.location = location;
+        this.attendanceList = new UniquePersonList(attendanceList);
         this.tags.addAll(tags);
     }
 
