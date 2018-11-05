@@ -33,10 +33,13 @@ public class ShowDescriptionCommandTest {
     private ModelToDo expectedModelToDo = new ModelManagerToDo(getTypicalToDoList(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    //@Test TODO pass it
+    //@Test
+    /**
+     * TODO pass it
+     */
     public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(modelToDo.getFilteredToDoListEventList().size());
-        System.out.printf("%d\n",lastPersonIndex.getOneBased());
+
         assertExecutionSuccess(INDEX_FIRST_ELEMENT);
         assertExecutionSuccess(INDEX_THIRD_ELEMENT);
         assertExecutionSuccess(lastPersonIndex);
@@ -49,7 +52,10 @@ public class ShowDescriptionCommandTest {
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_TODOLIST_EVENTS_DISPLAYED_INDEX);
     }
 
-    //@Test TODO pass it
+    //@Test
+    /**
+     * TODO pass it
+     */
     public void execute_validIndexFilteredList_success() {
         showToDoListEventAtIndex(modelToDo, INDEX_FIRST_ELEMENT);
         showToDoListEventAtIndex(expectedModelToDo, INDEX_FIRST_ELEMENT);
