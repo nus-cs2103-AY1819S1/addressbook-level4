@@ -13,7 +13,7 @@ import seedu.clinicio.commons.util.HashUtil;
  */
 public class Password {
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
-            "Password should only contain alphanumeric characters, and it should not be blank";
+            "Password should only contain 6 to 12 alphanumeric characters, and it should not be blank";
 
     /*
      * The first character of the password must not be a whitespace,

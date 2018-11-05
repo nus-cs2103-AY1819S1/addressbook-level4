@@ -27,10 +27,10 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Authenticate user to provide "
             + "user access to ClinicIO based on the roles.\n"
             + "Parameters: " + COMMAND_WORD
-            + "[" + PREFIX_ROLE + "ROLE]"
-            + "[" + PREFIX_NAME + "NAME]"
-            + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
-            + "Example: login r/staff n/Adam Bell pass/doctor1";
+            + " " + PREFIX_ROLE + "ROLE"
+            + " " + PREFIX_NAME + "NAME"
+            + " " + PREFIX_PASSWORD + "PASSWORD\n"
+            + "Example: login r/doctor n/Adam Bell pass/doctor1";
 
     public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
     public static final String MESSAGE_LOGIN_ALREADY = "You have already logged in.";
