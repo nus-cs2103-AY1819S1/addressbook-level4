@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_DIR;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FILE_DIR;
 
 import java.io.File;
 import javax.activation.MimetypesFileTypeMap;
@@ -47,13 +49,16 @@ public class LsCommand extends Command {
             }
 
             if (fileNames.toString().isEmpty()) {
-                fileNames.append("No images or folders to display!");
+                fileNames.append(MESSAGE_EMPTY_DIR);
             } else {
-                EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList(), false));
+                EventsCenter.getInstance().post(new UpdateFilmReelEvent(model.getDirectoryImageList()));
             }
 
             return new CommandResult(fileNames.toString());
         } catch (Exception ex) {
+            if (ex instanceof NullPointerException) {
+                return new CommandResult(MESSAGE_INVALID_FILE_DIR);
+            }
             return new CommandResult(ex.getMessage());
         }
 

@@ -4,7 +4,6 @@ package guitests.guihandles;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-
 /**
  * Provides a handle to {@code HistoryListPanel}.
  */

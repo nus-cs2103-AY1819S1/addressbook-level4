@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.ui.StatusBarFooter.DIRECTORY_ERROR;
 import static seedu.address.ui.StatusBarFooter.LOGIN_STATUS_INITIAL;
@@ -13,6 +14,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
 import seedu.address.commons.events.ui.LoginStatusEvent;
+import seedu.address.commons.events.ui.LogoutStatusEvent;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
@@ -21,6 +23,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final LoginStatusEvent LOGIN_STUB = new LoginStatusEvent(TEMP_EMAIL);
     private static final ChangeDirectoryEvent DIRECTORY_STUB = new ChangeDirectoryEvent(TEMP_DIR);
+    private static final LogoutStatusEvent LOGOUT_STUB = new LogoutStatusEvent();
     private StatusBarFooterHandle statusBarFooterHandle;
 
     @Before
@@ -39,6 +42,44 @@ public class StatusBarFooterTest extends GuiUnitTest {
         postNow(DIRECTORY_STUB);
         assertStatusBarContent(String.format(LOGIN_STATUS_UPDATED, TEMP_EMAIL), TEMP_DIR);
 
+        postNow(LOGOUT_STUB);
+        assertStatusBarContent(LOGIN_STATUS_INITIAL, TEMP_DIR);
+    }
+
+    @Test
+    public void moveToInvalidDirectory() {
+        assertStatusBarContent(LOGIN_STATUS_INITIAL, DIRECTORY_ERROR);
+        postNow(new ChangeDirectoryEvent(""));
+        assertStatusBarContent(LOGIN_STATUS_INITIAL, DIRECTORY_ERROR);
+    }
+
+    @Test
+    public void loginWithoutUser() {
+        assertStatusBarContent(LOGIN_STATUS_INITIAL, DIRECTORY_ERROR);
+        postNow(new LoginStatusEvent(""));
+        assertStatusBarContent(LOGIN_STATUS_INITIAL, DIRECTORY_ERROR);
+    }
+
+    @Test
+    public void loginWithNull() {
+        Exception exception = null;
+        try {
+            postNow(new LoginStatusEvent(null));
+        } catch (Exception ex) {
+            exception = ex;
+        }
+        assertNotNull(exception);
+    }
+
+    @Test
+    public void changeDirectoryWithNull() {
+        Exception exception = null;
+        try {
+            postNow(new ChangeDirectoryEvent(null));
+        } catch (Exception ex) {
+            exception = ex;
+        }
+        assertNotNull(exception);
     }
 
     /**

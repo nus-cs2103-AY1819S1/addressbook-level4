@@ -24,6 +24,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String LOGIN_STATUS_INITIAL = "Not connected to Google Photos";
     public static final String LOGIN_STATUS_UPDATED = "Connected to Google Photos as: %s";
+    public static final String LOGOUT_MESSAGE = "User logged out";
 
     public static final String DIRECTORY_ERROR = "Unable to detect directory location";
 
@@ -70,7 +71,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleDirectoryChangeEvent(ChangeDirectoryEvent event) {
-        if (event.directory == null || event.directory.isEmpty()) {
+        if (event.directory.isEmpty()) {
             setDirectoryDisplay(DIRECTORY_ERROR);
             logger.info(LogsCenter.getEventHandlingLogMessage(event,
                     "User's current directory location could not be determined"));
@@ -83,6 +84,6 @@ public class StatusBarFooter extends UiPart<Region> {
     @Subscribe
     public void handleLogoutStatusEvent(LogoutStatusEvent event) {
         setLoginStatus(LOGIN_STATUS_INITIAL);
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "User logged out"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, LOGOUT_MESSAGE));
     }
 }
