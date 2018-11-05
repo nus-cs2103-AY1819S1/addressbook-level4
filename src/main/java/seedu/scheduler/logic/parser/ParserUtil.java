@@ -182,7 +182,7 @@ public class ParserUtil {
      */
     public static Duration parseReminderDuration(String reminderDuration) throws ParseException {
         requireNonNull(reminderDuration);
-        String parseDuration = reminderDuration;
+        String parseDuration = reminderDuration.trim();
         parseDuration.replace(" ", "");
         parseDuration = "PT".concat(parseDuration.replace("d", "D"));
         parseDuration = parseDuration.replace("h", "H");
