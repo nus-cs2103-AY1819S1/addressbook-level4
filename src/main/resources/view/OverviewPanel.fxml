@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="overviewPanel" styleClass="browser-panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
@@ -52,5 +50,11 @@
             </GridPane>
         </HBox>
     </GridPane>
+    <VBox>
+        <Label fx:id="volunteerOverviewLabel" styleClass="event-name" text="Volunteers"/>
+        <HBox>
+            <Label text="Play area"></Label>
+        </HBox>
+    </VBox>
 </VBox>
 
