@@ -21,7 +21,7 @@ public class SuggestCommandSystemTest extends ThaneParkSystemTest {
         assertSuggestCommandSuccessBehavior("c", "clear");
         assertSuggestCommandSuccessBehavior("d", "delete");
         assertSuggestCommandSuccessBehavior("e", "exit");
-        assertSuggestCommandSuccessBehavior("f", "find");
+        assertSuggestCommandSuccessBehavior("f", "find", "filter");
         assertSuggestCommandSuccessBehavior("h", "help", "history");
         assertSuggestCommandSuccessBehavior("o", "open");
         assertSuggestCommandSuccessBehavior("r", "redo");

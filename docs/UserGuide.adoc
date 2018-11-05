@@ -414,7 +414,7 @@ a|
 Examples:
 
 * `filter w/ < 10` +
-Filters attractions with waiting time less than 500 minutes. If no changes were made to your application
+Filters attractions with waiting time less than 10 minutes. If no changes were made to your application
 (i.e. no delete, add commands were done), your window should look like this: +
 
 image::ui_screenshots/filter-example-1.png[width="600"]
