@@ -53,7 +53,7 @@ public class MaintenanceTest {
         assertFalse(Maintenance.isValidMaintenance("-1")); // negative integers
         assertFalse(Maintenance.isValidMaintenance("9p01")); // alphabets within digits
         assertFalse(Maintenance.isValidMaintenance("9312 4")); // spaces within digits
-        assertFalse(Maintenance.isValidMaintenance("10000")); // more than 4 digits
+        assertFalse(Maintenance.isValidMaintenance("1000012345")); // more than 9 digits
 
         // valid days since last maintenance
         assertTrue(Maintenance.isValidMaintenance("0")); // smallest acceptable integer

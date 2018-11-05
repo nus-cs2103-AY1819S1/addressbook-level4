@@ -45,7 +45,7 @@ public class Maintenance implements NumericAttribute {
      * Returns true if a given string is a valid days since last maintenance.
      */
     public static boolean isValidMaintenance(String test) {
-        return test.matches(MAINTENANCE_VALIDATION_REGEX) && test.length() < 5;
+        return test.matches(MAINTENANCE_VALIDATION_REGEX) && test.length() < 10;
     }
 
     @Override
