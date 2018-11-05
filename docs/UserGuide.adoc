@@ -60,6 +60,13 @@ e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 === Universal Commands
+
+****
+For the following features in section 3, each feature's commands will only be recognised when the application is
+within the context of the respective feature. In order to switch to the desired feature context, the respective
+universal command has to be entered first.
+****
+
 ==== View help: `-help`
 To view the help menu containing all the universal commands. +
 
