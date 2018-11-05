@@ -64,6 +64,7 @@ I played the key role of adding the various UI elements to the application windo
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=patientsecondhalf]
 include::../UserGuide.adoc[tag=addmedicalrecordcommand]
 
 == Contributions to the Developer Guide
