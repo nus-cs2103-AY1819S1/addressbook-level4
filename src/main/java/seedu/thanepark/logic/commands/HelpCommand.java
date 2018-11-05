@@ -11,45 +11,22 @@ import seedu.thanepark.model.Model;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows summarized command usage instructions.\n"
             + "Example: " + COMMAND_WORD;
-    public static final String MORE_INFO_FLAG = "more";
 
-    public static final String SHOWING_SHORT_HELP_MESSAGE = "Showing summarized help.";
+    public static final String SHOWING_SHORT_HELP_MESSAGE = "Showing summarized command syntax.\n"
+            + "For full and accurate help use \"help more\". For info on \"add\", type \"help add\"";
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
-    private static final String[] ARGUMENTS_BLANK = {""};
     private final boolean isSummarized;
     private final String commandWord;
 
     /**
      * Creates a HelpCommand.
      */
-    public HelpCommand() {
-        this(ARGUMENTS_BLANK);
-    }
-
-    /**
-     * Creates a HelpCommand that requests for help based on {@param args}.
-     */
-    public HelpCommand(String[] args) {
-        //summarized help
-        if (args.length == 1 && args[0].isEmpty()) {
-            isSummarized = true;
-            commandWord = "";
-        //full help
-        } else if (args.length == 1 && args[0].equals(MORE_INFO_FLAG)) {
-            isSummarized = false;
-            commandWord = "";
-        //help on specific command
-        } else if (args.length == 1 && AllCommandWords.isCommandWord(args[0])) {
-            isSummarized = false;
-            commandWord = args[0];
-        //error
-        } else {
-            isSummarized = false;
-            commandWord = "";
-        }
+    public HelpCommand(boolean isSummarized, String commandWord) {
+        this.isSummarized = isSummarized;
+        this.commandWord = commandWord;
     }
 
     @Override
