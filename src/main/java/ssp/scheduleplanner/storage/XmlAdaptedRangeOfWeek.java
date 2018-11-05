@@ -73,7 +73,7 @@ public class XmlAdaptedRangeOfWeek {
 
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Priority.class.getSimpleName()));
+                    RangeOfWeek.class.getSimpleName()));
         }
 
         return new RangeOfWeek(startOfWeekDate, endOfWeekDate, description);
@@ -91,7 +91,8 @@ public class XmlAdaptedRangeOfWeek {
         return description;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(startOfWeekDate);
         sb.append(endOfWeekDate);
