@@ -7,9 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AM
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS;
-import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_TO_UNUSED_FUNDS_SUCCESS;
-import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_WISH_SUCCESS;
+import static seedu.address.logic.commands.MoveCommand.*;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_WISH;
@@ -138,6 +136,40 @@ public class MoveCommandTest {
     }
 
     @Test
+    public void execute_moveExcessAmountFromUnusedFundsToWish_success() {
+        model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
+
+        Index toIndex = INDEX_FIRST_WISH;
+        Wish toWish = model.getFilteredSortedWishList().get(toIndex.getZeroBased());
+        Amount amountToFulfilToWish = new Amount(toWish.getSavedAmountToPriceDifference()
+                .getAbsoluteAmount().toString());
+        Amount excessAmountToMove = new Amount("" + (amountToFulfilToWish.value + 1));
+        Amount excess = new Amount("" + 1);
+
+        //Load unused funds with the amount first
+        model.updateUnusedFunds(excessAmountToMove);
+        model.commitWishBook();
+
+        MoveCommand moveCommandToTest = new MoveCommand(null, toIndex, excessAmountToMove,
+                MoveType.WISH_FROM_UNUSED_FUNDS);
+
+        Model expectedModel = new ModelManager(
+                new WishBook(model.getWishBook()), model.getWishTransaction(), new UserPrefs());
+
+        //Transfer funds from unused funds to wish
+        expectedModel.updateUnusedFunds(amountToFulfilToWish.getNegatedAmount());
+        Wish editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToFulfilToWish);
+
+        expectedModel.updateWish(toWish, editedToWish);
+        expectedModel.commitWishBook();
+
+        String expectedMessage = String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS, amountToFulfilToWish.toString(),
+                toIndex.getOneBased(), excess.toString(), expectedModel.getUnusedFunds());
+
+        assertCommandSuccess(moveCommandToTest, model, commandHistory, expectedMessage, model);
+    }
+
+    @Test
     public void executeUndoRedo_moveFromInvalidIndex_failure() {
         model.updateFilteredWishList(PREDICATE_SHOW_ALL_WISHES);
         Index fromIndexOutOfBounds = Index.fromOneBased(model.getFilteredSortedWishList().size() + 1);
@@ -158,6 +190,21 @@ public class MoveCommandTest {
         // test redo -> nothing should be undone
         expectedFailureMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(new RedoCommand(), model, commandHistory, expectedFailureMessage);
+    }
+
+    @Test
+    public void executeMoveNegativeAmount_failure() {
+        Amount validAmount = new Amount(VALID_SAVED_AMOUNT_AMY);
+        Amount negativeAmountToMove = validAmount.getNegatedAmount();
+
+        Index fromIndex = INDEX_FIRST_WISH;
+        Index toIndex = INDEX_SECOND_WISH;
+
+        MoveCommand moveCommandToFail = new MoveCommand(fromIndex, toIndex, negativeAmountToMove,
+                MoveCommand.MoveType.WISH_TO_WISH);
+
+        String expectedFailureMessage = MESSAGE_MOVE_INVALID_AMOUNT;
+        assertCommandFailure(moveCommandToFail, model, commandHistory, expectedFailureMessage);
     }
 
     @Test

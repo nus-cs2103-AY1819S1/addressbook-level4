@@ -2,9 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AMY;
+import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_INVALID_SAME_INDEX;
 import static seedu.address.logic.commands.MoveCommand.MESSAGE_USAGE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.MoveCommandParser.MESSAGE_INVALID_SAME_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_WISH;
 
@@ -51,5 +53,15 @@ public class MoveCommandParserTest {
 
         final String userInputMissingAmount = fromIndex.getZeroBased() + " " + toIndex.getZeroBased() + " ";
         assertParseFailure(moveCommandParser, userInputMissingAmount, expectedMessage);
+    }
+
+    @Test
+    public void parse_sameIndex_failure() {
+        //FROM and TO Index cannot be the same
+        final String expectedMessage = MESSAGE_INVALID_SAME_INDEX;
+
+        final String userInputSameIndex = fromIndex.getZeroBased() + " " + fromIndex.getZeroBased() + " "
+                + amountToMove.toString();
+        assertParseFailure(moveCommandParser, userInputSameIndex, expectedMessage);
     }
 }

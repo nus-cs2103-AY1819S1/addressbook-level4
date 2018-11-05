@@ -110,11 +110,12 @@ public class MoveCommand extends Command {
                 /* Transfer excess amount from unused funds. */
                 if (wishSavedDifference.value > 0) {
                     Amount amountToIncrement = toWish.getSavedAmountToPriceDifference().getAbsoluteAmount();
+                    Amount amountMovedToWish = toWish.getSavedAmountToPriceDifference().getAbsoluteAmount();
                     editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToIncrement);
-                    commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS,
-                            toWish.getSavedAmountToPriceDifference().toString(), this.toIndex,
-                            wishSavedDifference.getAbsoluteAmount(), model.getUnusedFunds()));
                     model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
+                    commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS,
+                            amountMovedToWish.toString(), this.toIndex.getOneBased(),
+                            wishSavedDifference.getAbsoluteAmount(), model.getUnusedFunds()));
                 } else {
                     commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS,
                             amountToMove.toString(), this.toIndex.getOneBased(), model.getUnusedFunds()));
@@ -172,7 +173,7 @@ public class MoveCommand extends Command {
                     editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToIncrement);
                     model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
                     commandResult = new CommandResult(String.format(MESSAGE_MOVE_EXCESS_TO_WISH,
-                            toWish.getSavedAmountToPriceDifference().toString(),
+                            amountToIncrement.toString(),
                             this.fromIndex.getOneBased(), this.toIndex.getOneBased(), wishSavedDifference.toString(),
                             model.getUnusedFunds()));
                 } else {
