@@ -8,7 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BO
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showWishAtIndex;
-import static seedu.address.logic.commands.SaveCommand.*;
+import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_DIFFERENCE;
+import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_EXCESS;
+import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_SUCCESS;
+import static seedu.address.logic.commands.SaveCommand.MESSAGE_SAVE_UNUSED_FUNDS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 import static seedu.address.model.wish.SavedAmount.MESSAGE_SAVED_AMOUNT_NEGATIVE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;

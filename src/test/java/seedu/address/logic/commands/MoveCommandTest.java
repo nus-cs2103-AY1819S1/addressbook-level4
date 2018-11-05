@@ -7,7 +7,12 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_AM
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SAVED_AMOUNT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.MoveCommand.*;
+import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS;
+import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS;
+import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_INVALID_AMOUNT;
+import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_TO_UNUSED_FUNDS_SUCCESS;
+import static seedu.address.logic.commands.MoveCommand.MESSAGE_MOVE_WISH_SUCCESS;
+import static seedu.address.logic.commands.MoveCommand.MoveType;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_WISHES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_WISH;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_WISH;
