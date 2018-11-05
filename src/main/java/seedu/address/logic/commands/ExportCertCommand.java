@@ -96,6 +96,7 @@ public class ExportCertCommand extends Command {
 
         // Return CommandException if volunteer has no records
         if (!hasEventRecords(model, selectedVolunteer)) {
+            logger.info("Volunteer has no records.");
             throw new CommandException(MESSAGE_VOLUNTEER_NO_RECORD);
         }
 
