@@ -11,33 +11,36 @@
 
 This project portfolio presents my contributions towards this project, including the features implemented, technologies used and documentation written.
 
-CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application.
-CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
-programming language and uses JavaFX, HTML and CSS for the GUI.
+This project was undertaken during a software engineering module (CS2103T) offered in National University of Singapore (NUS).
+The objective of this project was to enhance a given 'address book' application by adding more features, tests, and to apply the software engineering practices that we are taught during the module.
+
+My team decided to morph the address book application into a clinic management system.
+
+Aptly named 'CLInic', it focuses on optimising efficiency for its users through the use of a Command Line Interface (hence the 'CLI' in 'CLInic')
+Alongside the CLI is the Graphical User Interface (GUI), which mainly serves as visual aids for the user with icons and coloured text in a user-friendly manner.
+This application uses Java as the main programming language and uses JavaFX, HTML and CSS for the GUI.
 
 My main responsibility for this project was to implement the UI and storage for the application, amidst some other smaller tasks,
 such as the development of the `MedicalRecord` attribute of the `Patient`.
-
-The project scope for CLInic is to morph the given addressbook-level4 into a clinic management application that allows users to manage patient
-information and medicine information and additionally manage the clinic queue.
-
-The team consists of four year-2 and one year-3 student in School of Computing, NUS.
+I played the key role of adding the various UI elements to the application window and connecting them with the application logic.
 
 == Summary of contributions
 
-* *Major enhancement*: Added the *GUI for the Patient Queue Management System (PQMS)*
+* *Major enhancement 1*: Added the *GUI for the Patient Queue Management System (PQMS)*
 ** What it does: This GUI window, which resides near the top of the application window, displays to the user the current state of the PQMS.
 ** Justification: Having a responsive GUI allows users to be able to refer to and read the queue easily, and to perform any commands on the queue quickly, without having to always call a `queue` command to retrieve required queue information.
 ** Highlights: This feature was implemented with the help of a little HTML for the display and Javascript that allowed the updating of the information in the GUI after each command.
  It required a lot of synchronization between the command results, model objects and the display.
  This was largely handled with some event handling and scripting.
+** More details: Please refer to the <<../DeveloperGuide.adoc#application-gui, Developer Guide, Section 4.6>> for a detailed explanation.
 
-* *Major enhancement*: Added *storage capabilities* for the `MedicalRecord` model and the `Medicine` model.
+* *Major enhancement 2*: Added *storage capabilities* for the `MedicalRecord` model and the `Medicine` model.
 ** What it does: This allows the user to be able to add and retrieve `MedicalRecord` and `Medicine` objects to the database easily and efficiently.
 ** Justification: Before this enhancement, any user action that added `MedicalRecord` and `Medicine` to the database will not be saved once the user closes the application.
  We wanted the user to be able to save these information for future use as well.
 ** Highlights: This feature was implemented with the use of XML, similar to how `Patient` objects were saved to the file in the original _addressbook-level4_ application.
  It required the creation of an `XmlAdapted-` version of each model object as well as careful handling of the adding and retrieval for each model object.
+** More details: Please refer to the <<../DeveloperGuide.adoc#Design-Storage, Developer Guide, Section 3.5>> for a detailed explanation.
 
 * *Minor enhancements*:
 ** Added ability for each `Document` to appear in a pop-up window after the respective `Document` commands.
@@ -54,8 +57,6 @@ The team consists of four year-2 and one year-3 student in School of Computing, 
 *** Updated the GUI display under `BrowserPanel` to show other information such as `CurrentPatient`, PQMS, and `Patient`.
 ** Testing:
 *** Wrote tests for all UI features to increase coverage from 75% to 79% (Pull request https://github.com/CS2103-AY1819S1-W16-4/main/pull/111[#111])
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
