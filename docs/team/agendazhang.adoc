@@ -15,12 +15,12 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 == Summary of
 
 * *Major enhancement*: Added the ability to specify friendships among users
-** What it does: Allows the user to login and logout of EventOrganiser
+** What it does: Allows the users to add or delete friends with each other and have their friend lists displayed
 ** Justification: This feature enforces some level of authorisation for our application so that some commands are only accessible by specific users
 
 * *Minor enhancement*: Added an all encompassing command that allows users to find other users based on their name, phone number, address, email, interests, and tags
 
-* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=yao-feng[Functional code]]
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=agendazhang[Functional code]]
 
 * *Other contributions*:
 
