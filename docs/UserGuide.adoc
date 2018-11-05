@@ -626,16 +626,28 @@ Add/Update the recipe of the 1st item in the results of the `find` command.
 ==== Adding a reservation: `add-reservation` or `ar`
 
 Adds a new reservation to the reservations list. +
-Format: `add-reservation n/NAME px/PAX dt/DATETIME` or `ar n/NAME px/PAX dt/DATETIME`
+Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DATE ti/TIME`
 
-****
-* DateTime is entered in yyyy-mm-dd**T**hh:mm:ss format.
-****
+[NOTE]
+====
+* We use Natural Language processing to parse the date and time values.
+* For example, phrases like `21st Dec` or `12 p.m.` will be accepted. Try it out!
+====
+
+[WARNING]
+====
+* Try to avoid ambiguous language as the it might be interpreted incorrectly.
+* For example, `3/12` is ambiguous as it could mean `3rd December` or `12th March`!
+* If you want to be sure, we recommend using these formats:
+** `DATE`: `DD-MM-YYYY`
+** `TIME`: `HH:MM`
+====
 
 Examples:
 
-* `add-reservation n/TAN px/4 dt/2018-07-21T10:00:00`
-* `ar n/ONG px/2 dt/2018-08-30T12:00:00`
+* `add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
+* `ar n/ONG px/2 d/21st July ti/10am`
+* `ar n/LEE px/8 d/next tuesday ti/8 p.m.`
 
 ==== Listing all reservations : `list-reservations` or `lr`
 
@@ -645,7 +657,7 @@ Format: `list-reservations` or `lr`
 ==== Editing a reservation: `edit-reservation` or `er`
 
 Edits an reservation in the reservation list. +
-Format: `edit-reservation INDEX [n/NAME] [px/PAX] [dt/DATETIME]` or `er INDEX [n/NAME] [px/PAX] [dt/DATETIME]`
+Format: `edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` or `er INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]`
 
 ****
 * Edits the reservation at the specified `INDEX`. The index refers to the index number shown in the
@@ -656,8 +668,8 @@ displayed reservations list. The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
-* `edit-reservation 2 dt/2018-12-31T18:00:00` +
-Edits the time of the 2nd reservation in the list to `31st Dec 2018, 1800` hrs.
+* `edit-reservation 2 d/31-12-2019 ti/18:00` +
+Edits the time of the 2nd reservation in the list to `31st Dec 2019, 1800` hrs.
 
 * `er 6 n/ONG px/4`  +
 Edits the name and pax of the 6th reservation to `ONG` and `4` respectively.
@@ -975,8 +987,8 @@ contains the data of your previous *MeNUS* folder.
 |*Today's special* |`today-special` |`today-special`
 |*Export menu* |`export-menu fp/FILE_PATH fn/FILE_NAME` |`export-menu fp/backup/ fn/menu.txt`
 |*Import menu* |`import-menu fp/FILE_PATH fn/FILE_NAME` |`import-menu fp/backup/ fn/menu.txt`
-|*Add reservation* |`add-reservation n/NAME px/PAX dt/DATETIME` |`add-reservation n/TAN px/4 dt/2018-07-21:10:00:00`
-|*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [dt/DATETIME]` |`edit-reservation 2 px/2`
+|*Add reservation* |`add-reservation n/NAME px/PAX d/DATE ti/TIME` |`add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
+|*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` |`edit-reservation 2 px/2`
 |*Delete reservation* |`delete-reservation INDEX` |`delete-reservation 2`
 |*Select reservation* |`select-reservations` |`select-reservation 1`
 |*List reservation* |`list-reservations` |`list-reservations`
