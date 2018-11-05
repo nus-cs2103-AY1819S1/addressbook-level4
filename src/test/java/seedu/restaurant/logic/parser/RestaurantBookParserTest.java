@@ -58,6 +58,7 @@ import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.EditIngredientDescriptor;
 import seedu.restaurant.logic.commands.ingredient.ListIngredientsCommand;
 import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
+import seedu.restaurant.logic.commands.ingredient.SelectIngredientCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
@@ -401,6 +402,7 @@ public class RestaurantBookParserTest {
         assertEquals(new AddIngredientCommand(ingredient), command);
     }
 
+    //@@author rebstan97
     @Test
     public void parseCommand_listIngredients() throws Exception {
         assertTrue(parser.parseCommand(ListIngredientsCommand.COMMAND_WORD) instanceof ListIngredientsCommand);
@@ -466,6 +468,16 @@ public class RestaurantBookParserTest {
                 EditIngredientByNameCommand.COMMAND_ALIAS + " " + "Chicken Thigh"
                         + " " + IngredientUtil.getEditIngredientDescriptorDetails(descriptor));
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_selectIngredient() throws Exception {
+        SelectIngredientCommand command = (SelectIngredientCommand) parser.parseCommand(
+                SelectIngredientCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectIngredientCommand(INDEX_FIRST), command);
+        command = (SelectIngredientCommand) parser.parseCommand(
+                SelectIngredientCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectIngredientCommand(INDEX_FIRST), command);
     }
 
     //@@author yican95
