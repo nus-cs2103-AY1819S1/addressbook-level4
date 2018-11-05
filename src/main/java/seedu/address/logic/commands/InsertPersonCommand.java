@@ -25,7 +25,7 @@ public class InsertPersonCommand extends Command {
     // TODO make a better usage string.
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Inserts a person into a module/occasion bidirectionally.\n"
                                                             + "Example " + COMMAND_WORD + " "
-                                                            + PREFIX_PERSONINDEX + "1 into "
+                                                            + PREFIX_PERSONINDEX + "1 "
                                                             + PREFIX_MODULEINDEX + "2";
     private State currState;
     private int personIndex;
