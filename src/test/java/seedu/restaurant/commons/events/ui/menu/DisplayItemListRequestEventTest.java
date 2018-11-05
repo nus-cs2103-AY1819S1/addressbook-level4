@@ -1,11 +1,10 @@
-package seedu.restaurant.commons.events.ui;
+package seedu.restaurant.commons.events.ui.menu;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
 
 //@@author yican95
 public class DisplayItemListRequestEventTest {

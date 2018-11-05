@@ -16,6 +16,7 @@ import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.testutil.account.AccountBuilder;
 
+//@@author AZhiKai
 public class RegisterCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

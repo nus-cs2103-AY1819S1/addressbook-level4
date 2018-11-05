@@ -298,6 +298,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     //// account-level operations
 
+    //@@author AZhiKai
     /**
      * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
      * persons.
