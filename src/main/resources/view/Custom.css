@@ -393,3 +393,7 @@
     -fx-font-size: 15pt;
     -fx-text-fill: white;
 }
+
+#overviewPanel .overviewEvent {
+    -fx-background-color: white;
+}
