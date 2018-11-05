@@ -5,8 +5,6 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import seedu.address.commons.util.StringUtil;
-
 /**
  * Tests that an {@code Event}'s {@code EventTag} matches any of the keywords given.
  */
