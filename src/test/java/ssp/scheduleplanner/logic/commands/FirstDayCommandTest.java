@@ -29,7 +29,8 @@ public class FirstDayCommandTest {
             "XmlSerializableRangeOfWeekTest");
     private final Path nullpath = test_data_folder.resolve("nullrangeofweek.xml");
     private final Path diffSizepath = test_data_folder.resolve("diffsizerangeofweek.xml");
-    private final Path invalidPath = test_data_folder.resolve("invaliddaterangeofweek.xml");
+    private final Path invalidDatePath = test_data_folder.resolve("invaliddaterangeofweek.xml");
+    private final Path invalidDateRangePath = test_data_folder.resolve("invaliddaterangerangeofweek.xml");
     private final Path typicalPath = test_data_folder.resolve("typicalrangeofweek.xml");
     private final Path nonExistFilePath = test_data_folder.resolve("testrangeofweek.xml");
 
@@ -152,7 +153,7 @@ public class FirstDayCommandTest {
         if (!checkFileExist.exists()) {
             try {
                 thrown.expect(DataConversionException.class);
-                XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidPath);
+                XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidDatePath);
             } catch (FileNotFoundException e) {
                 System.out.println(e.getMessage());
             }
@@ -264,7 +265,7 @@ public class FirstDayCommandTest {
         ExpectedException thrown = ExpectedException.none();
         try {
             thrown.expect(DataConversionException.class);
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidPath);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidDatePath);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());;
         }
@@ -286,7 +287,20 @@ public class FirstDayCommandTest {
     @Test
     public void invalidDatePath_exception() throws CommandException {
         try {
-            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidPath);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidDatePath);
+            storeRangeOfWeeks = range.convertRangeOfWeeksToString2dArray(range);
+            assertFalse(range.checkIfValidDateOrRangeFromStorage());
+        } catch (DataConversionException e) {
+            throw new CommandException(fds.MESSAGE_DATA_UNABLE_CONVERT);
+        } catch (FileNotFoundException e) {
+            throw new CommandException(fds.MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
+    @Test
+    public void invalidDateRangePath_exception() throws CommandException {
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(invalidDateRangePath);
             storeRangeOfWeeks = range.convertRangeOfWeeksToString2dArray(range);
             assertFalse(range.checkIfValidDateOrRangeFromStorage());
         } catch (DataConversionException e) {
