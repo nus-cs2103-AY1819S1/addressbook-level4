@@ -52,10 +52,14 @@ import seedu.restaurant.logic.commands.reservation.EditReservationCommand;
 import seedu.restaurant.logic.commands.reservation.ListReservationsCommand;
 import seedu.restaurant.logic.commands.reservation.SelectReservationCommand;
 import seedu.restaurant.logic.commands.reservation.SortReservationsCommand;
+import seedu.restaurant.logic.commands.sales.ChartSalesCommand;
 import seedu.restaurant.logic.commands.sales.DeleteSalesCommand;
 import seedu.restaurant.logic.commands.sales.DisplaySalesCommand;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand;
+import seedu.restaurant.logic.commands.sales.RankDateCommand;
+import seedu.restaurant.logic.commands.sales.RankItemCommand;
 import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
+import seedu.restaurant.logic.commands.sales.SelectSalesCommand;
 import seedu.restaurant.logic.parser.account.ChangePasswordCommandParser;
 import seedu.restaurant.logic.parser.account.DeregisterCommandParser;
 import seedu.restaurant.logic.parser.account.LoginCommandParser;
@@ -84,6 +88,7 @@ import seedu.restaurant.logic.parser.sales.DeleteSalesCommandParser;
 import seedu.restaurant.logic.parser.sales.DisplaySalesCommandParser;
 import seedu.restaurant.logic.parser.sales.EditSalesCommandParser;
 import seedu.restaurant.logic.parser.sales.RecordSalesCommandParser;
+import seedu.restaurant.logic.parser.sales.SelectSalesCommandParser;
 
 /**
  * Parses user input.
@@ -178,6 +183,22 @@ public class RestaurantBookParser {
         case EditSalesCommand.COMMAND_WORD:
         case EditSalesCommand.COMMAND_ALIAS:
             return new EditSalesCommandParser().parse(arguments);
+
+        case RankDateCommand.COMMAND_WORD:
+        case RankDateCommand.COMMAND_ALIAS:
+            return new RankDateCommand();
+
+        case RankItemCommand.COMMAND_WORD:
+        case RankItemCommand.COMMAND_ALIAS:
+            return new RankItemCommand();
+
+        case SelectSalesCommand.COMMAND_WORD:
+        case SelectSalesCommand.COMMAND_ALIAS:
+            return new SelectSalesCommandParser().parse(arguments);
+
+        case ChartSalesCommand.COMMAND_WORD:
+        case ChartSalesCommand.COMMAND_ALIAS:
+            return new ChartSalesCommand();
 
         case RegisterCommand.COMMAND_WORD:
         case RegisterCommand.COMMAND_ALIAS:
