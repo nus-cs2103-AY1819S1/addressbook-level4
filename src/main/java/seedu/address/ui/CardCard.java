@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import seedu.address.model.deck.Card;
 
 /**
@@ -49,6 +48,7 @@ public class CardCard extends UiPart<Region> {
         case HARD:
             difficulty.setStyle("-fx-background-color: #c92c2a; -fx-text-fill: #ffffff");
             break;
+        default:
         }
     }
 
@@ -67,6 +67,6 @@ public class CardCard extends UiPart<Region> {
         // state check
         CardCard card = (CardCard) other;
         return id.getText().equals(card.id.getText())
-            && this.card.equals(card.card);
+                && this.card.equals(card.card);
     }
 }

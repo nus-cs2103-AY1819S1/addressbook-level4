@@ -2,8 +2,6 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -86,7 +84,7 @@ public class ParserUtil {
         String trimmed = performance.trim();
         try {
             return Performance.type(trimmed);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new ParseException(Performance.MESSAGE_PERFORMANCE_CONSTRAINTS);
         }
     }
