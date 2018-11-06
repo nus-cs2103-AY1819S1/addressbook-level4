@@ -89,8 +89,9 @@ public class ClinicIoTest {
         // Two staff with the same identity fields
         List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, AMY_APPT);
         Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
+        List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM, editedAdam);
-        ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(),
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
                 new ArrayList<>(), newStaffs);
 
         thrown.expect(DuplicateStaffException.class);
@@ -103,7 +104,9 @@ public class ClinicIoTest {
         //Two appointments with the same identity fields
         Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withPatient(AMY_AS_PATIENT).build();
         List<Appointment> newAppointments = Arrays.asList(AMY_APPT, editedAmy);
-        ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(), new ArrayList<>());
+        List<Person> newPersons = Arrays.asList(ALICE);
+        List<Staff> newStaffs = Arrays.asList(ADAM);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs);
         thrown.expect(DuplicateAppointmentException.class);
         clinicIo.resetData(newData);
     }
@@ -114,7 +117,9 @@ public class ClinicIoTest {
         Appointment clashingAppt = new AppointmentBuilder(CARL_APPT)
                 .withTime(13, 30).build();
         List<Appointment> newAppointments = Arrays.asList(AMY_APPT, clashingAppt);
-        ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(), new ArrayList<>());
+        List<Person> newPersons = Arrays.asList(ALICE);
+        List<Staff> newStaffs = Arrays.asList(ADAM);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs);
         thrown.expect(AppointmentClashException.class);
         clinicIo.resetData(newData);
     }

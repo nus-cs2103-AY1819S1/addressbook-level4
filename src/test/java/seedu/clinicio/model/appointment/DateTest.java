@@ -90,6 +90,11 @@ public class DateTest {
     }
 
     @Test
+    public void isValidFebDay() {
+        assertTrue(Date.isValidFebDay(22, 2000));
+    }
+
+    @Test
     public void equals() {
         Date date1 = new Date(1, 1, 3000);
         Date date2 = new Date(1, 1, 3000);
