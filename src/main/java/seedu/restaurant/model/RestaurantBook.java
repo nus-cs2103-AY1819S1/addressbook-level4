@@ -451,7 +451,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             items.sortItemsByPrice();
             return;
         default:
-            return;
         }
     }
 
