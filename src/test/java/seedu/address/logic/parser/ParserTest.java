@@ -33,6 +33,7 @@ import seedu.address.logic.commands.EndReviewCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportDeckCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FlipCardCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportDeckCommand;
@@ -221,9 +222,15 @@ public class ParserTest {
     }
 
     @Test
+    public void parseCommand_flipCard() throws Exception {
+        FlipCardCommand command = (FlipCardCommand) parser.parseCommand(FlipCardCommand.COMMAND_WORD);
+        assertTrue(command instanceof FlipCardCommand);
+    }
+
+    @Test
     public void parseCommand_classify() throws Exception {
         ClassifyCommand command = (ClassifyCommand) parser
-            .parseCommand(ClassifyCommand.COMMAND_WORD + String.valueOf(Performance.EASY));
+            .parseCommand(ClassifyCommand.COMMAND_WORD + " " + String.valueOf(Performance.EASY));
         assertEquals(new ClassifyCommand(Performance.EASY), command);
     }
 
