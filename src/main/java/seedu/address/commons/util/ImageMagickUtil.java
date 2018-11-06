@@ -33,7 +33,8 @@ public class ImageMagickUtil {
     private static final int LINUX = 1;
     private static final int WINDOWS = 2;
     private static final int MAC = 3;
-    private static String ectPath = "";
+    private static String ectPath;
+    private static final String osName = System.getProperty("os.name").toLowerCase();
     private static String convertExecutablePath = "";
     private static String imageMagickPath = ImageMagickUtil.class.getResource("/imageMagic").getPath();
     private static String tmpPath = imageMagickPath + "/tmp";
@@ -45,7 +46,7 @@ public class ImageMagickUtil {
      * @throws NoSuchElementException
      */
     public static URL getImageMagickZipUrl() throws NoSuchElementException {
-        switch (getPlatform()) {
+        switch (getPlatform(osName)) {
         case MAC:
             return ImageMagickUtil.class.getResource("/imageMagic/package/mac/ImageMagick-7.0.8.zip");
         case WINDOWS:
@@ -56,14 +57,18 @@ public class ImageMagickUtil {
     }
 
     public static String getExecuteImageMagick() throws NoSuchElementException {
-        if (ectPath != null) {
+        if (ectPath != null && !ectPath.equals("")) {
             return ectPath;
         }
-        throw new NoSuchElementException("cannot find the file");
+        throw new NoSuchElementException("cannot find ImageMagick package");
     }
 
     public static String getCommandSaveFolder() {
         return commandSaveFolder;
+    }
+
+    public static void setTemperatyCommandForder(String folder) {
+        commandSaveFolder = folder;
     }
 
     public static Path getTempFolderPath() {
@@ -74,13 +79,12 @@ public class ImageMagickUtil {
      * get the platform;
      * @return
      */
-    public static int getPlatform() {
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("win")) {
+    public static int getPlatform(String osName) {
+        if (osName.contains("win")) {
             return WINDOWS;
-        } else if (os.contains("mac")) {
+        } else if (osName.contains("mac")) {
             return MAC;
-        } else if (os.contains("nux") || os.contains("ubuntu")) {
+        } else if (osName.contains("nux") || osName.contains("ubuntu")) {
             return LINUX;
         }
         return 0;
@@ -97,7 +101,7 @@ public class ImageMagickUtil {
      */
     public static BufferedImage processImage(Path path, Transformation transformation)
             throws ParseException, IOException, InterruptedException, IllegalArgumentException {
-        ArrayList<String> cmds = parseArguments(transformation);
+        ArrayList<String> cmds = parseOperationArguments(transformation);
         String modifiedFile = tmpPath + "/output.png";
         //create a processbuilder to blur the image
         ArrayList<String> args = new ArrayList<>();
@@ -120,39 +124,65 @@ public class ImageMagickUtil {
      * @throws IOException
      * @throws ParseException
      */
-    private static ArrayList<String> parseArguments(Transformation transformation)
+    private static ArrayList<String> parseOperationArguments(Transformation transformation)
             throws IOException, ParseException, IllegalArgumentException {
-        ArrayList<String> trans = transformation.toList();
-        String operation = trans.get(0);
+        String operation = transformation.getOperation();
         if (!operation.startsWith("@")) {
-            URL fileUrl = ImageMagickUtil.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
-            if (fileUrl == null) {
-                throw new ParseException("Invalid argument, cannot find");
-            }
-            List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "arg");
-            int num = cmds.size();
-            String template = cmds.toString();
-            if (num != trans.size() - 1) {
-                throw new IllegalArgumentException("Invalid arguments, the arguments should be "
+            return parseBuildInOperation(transformation);
+        } else {
+            return parseCustomisedOperation(transformation);
+        }
+    }
+
+    /**
+     * .
+     * @param transformation
+     * @return
+     * @throws ParseException
+     * @throws IOException
+     */
+    private static ArrayList<String> parseBuildInOperation(Transformation transformation)
+            throws ParseException, IOException {
+        ArrayList<String> trans = transformation.toList();
+        String operation = transformation.getOperation();
+        URL fileUrl = ImageMagickUtil.class.getResource("/imageMagic/commandTemplates/" + operation + ".json");
+        if (fileUrl == null) {
+            throw new ParseException("Operation is invalid");
+        }
+        //in order to get the template of the argument.
+        List<String> cmds = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "arg");
+        int num = cmds.size();
+        String template = cmds.toString();
+        if (num != trans.size() - 1) {
+            throw new IllegalArgumentException("Invalid arguments, the arguments should be "
+                    + operation + " " + template.substring(1, template.length() - 1));
+        }
+        //get the pattern for the argument, check validation.
+        List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "pattern");
+        for (int i = 0; i < patterns.size(); i++) {
+            if (!trans.get(i + 1).matches(patterns.get(i))) {
+                throw new IllegalArgumentException("Invalid arguments, the arguments should be:"
                         + operation + " " + template.substring(1, template.length() - 1));
             }
-            List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "pattern");
-            for (int i = 0; i < patterns.size(); i++) {
-                if (!trans.get(i + 1).matches(patterns.get(i))) {
-                    throw new IllegalArgumentException("Invalid arguments, the arguments should be:"
-                            + operation + " " + template.substring(1, template.length() - 1));
-                }
-            }
-            return trans;
-        } else {
-            operation = operation.substring(1);
-            File file = new File(commandSaveFolder + "/" + operation + ".json");
-            if (!file.exists()) {
-                throw new ParseException("Invalid argument, cannot find");
-            }
-            ArrayList<String> cmds = new ArrayList<>(JsonConvertArgsStorage.retrieveCommandArguments(file, operation));
-            return cmds;
         }
+        return trans;
+    }
+
+    /**
+     * .
+     * @param transformation
+     * @return
+     * @throws ParseException
+     * @throws IOException
+     */
+    private static ArrayList<String> parseCustomisedOperation(Transformation transformation)
+            throws ParseException, IOException {
+        String operation = transformation.getOperation().substring(1);
+        File file = new File(commandSaveFolder + "/" + operation + ".json");
+        if (!file.exists()) {
+            throw new ParseException("Operation is invalid");
+        }
+        return new ArrayList<>(JsonConvertArgsStorage.retrieveCommandArguments(file));
     }
 
     /**
@@ -168,14 +198,14 @@ public class ImageMagickUtil {
     public static BufferedImage runProcessBuilder(ArrayList<String> args, String output)
             throws IOException, InterruptedException, IllegalArgumentException {
         ProcessBuilder pb = new ProcessBuilder(args);
-        if (getPlatform() == MAC) {
+        if (getPlatform(osName) == MAC) {
             Map<String, String> mp = pb.environment();
             mp.put("DYLD_LIBRARY_PATH", imageMagickPath + "/ImageMagick-7.0.8/lib/");
         }
         Process process = pb.start();
         process.waitFor();
         if (process.exitValue() != 0) {
-            throw new IllegalArgumentException("the process can not be done! check the command entered");
+            throw new IllegalArgumentException("Process fails");
         }
         List<String> tmp = pb.command();
         System.out.println(tmp);
@@ -198,7 +228,7 @@ public class ImageMagickUtil {
         File tempFolder = new File(userPrefs.getCurrDirectory() + "/tempFolder");
         tempFolder.mkdir();
         ResourceUtil.copyResourceFileOut(zipUrl, zipFile);
-        switch (getPlatform()) {
+        switch (getPlatform(osName)) {
         case MAC:
             Process process = new ProcessBuilder(
                     "tar", "zxvf", zipFile.getPath(), "-C", currentPath.toString()).start();

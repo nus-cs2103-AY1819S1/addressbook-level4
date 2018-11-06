@@ -39,4 +39,19 @@ public class Transformation {
         list.addAll(Arrays.asList(args));
         return list;
     }
+
+    public String getOperation() {
+        return operation;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        Transformation transformation = (Transformation) object;
+        if (transformation == this) {
+            return true;
+        } else {
+            return operation.equals(transformation.operation)
+                    && Arrays.equals(args, transformation.args);
+        }
+    }
 }

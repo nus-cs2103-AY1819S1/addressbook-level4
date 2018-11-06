@@ -20,17 +20,13 @@ public class ConvertCommandParser implements Parser<ConvertCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ConvertCommand parse(String args) throws ParseException {
-        try {
-            String[] all = args.split(" ");
-            if (all.length < 2) {
-                throw new ParseException("Invalid argument");
-            }
-            String operation = all[1];
-            String[] cmds = Arrays.copyOfRange(all, 2, all.length);
-            return new ConvertCommand(new Transformation(operation, cmds));
-        } catch (ParseException pe) {
+        String[] all = args.split(" ");
+        if (all.length < 2) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConvertCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConvertCommand.MESSAGE_USAGE));
         }
+        String operation = all[1];
+        String[] cmds = Arrays.copyOfRange(all, 2, all.length);
+        return new ConvertCommand(new Transformation(operation, cmds));
     }
 }
