@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.deck.Card;
 
 /**
@@ -28,6 +29,8 @@ public class CardCard extends UiPart<Region> {
     @FXML
     private Label question;
     @FXML
+    private Label difficulty;
+    @FXML
     private Label id;
 
     public CardCard(Card card, int displayedIndex) {
@@ -35,6 +38,18 @@ public class CardCard extends UiPart<Region> {
         this.card = card;
         id.setText(displayedIndex + ". ");
         question.setText(card.getQuestion().fullQuestion);
+        difficulty.setText(card.getPerformance().toString());
+        switch (card.getPerformance()) {
+        case EASY:
+            difficulty.setStyle("-fx-background-color: #3dc93e");
+            break;
+        case NORMAL:
+            difficulty.setStyle("-fx-background-color: #c9c235");
+            break;
+        case HARD:
+            difficulty.setStyle("-fx-background-color: #c92c2a; -fx-text-fill: #ffffff");
+            break;
+        }
     }
 
     @Override
