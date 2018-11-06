@@ -105,9 +105,9 @@ Format: +
 `-mealplanner`
 
 ==== Switch to health plan context: `-healthplan`
-Switch to health planner context and display health plan set by the user and the days added into the plan which is tied
+Switch to health plan context and display health plan set by the user and the days added into the plan which is tied
  to meal plans. +
-See <<Health Planner Commands (Only applicable in health plan context)>> to view commands for health planner context. +
+See <<Health Plan Commands (Only applicable in health plan context)>> to view commands for health plan context. +
 Format: +
 `-healthplan`
 
@@ -384,7 +384,7 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 Format: `select INDEX MEAL`
 
 // end::mealplanner[]
-=== Health Planner Commands (Only applicable in health plan context)
+=== Health Plan Commands (Only applicable in health plan context)
 
 ==== Add plan: `add`
 
