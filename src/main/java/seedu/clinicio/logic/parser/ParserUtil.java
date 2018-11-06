@@ -18,12 +18,15 @@ import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
 import seedu.clinicio.model.patient.Allergy;
 import seedu.clinicio.model.patient.MedicalProblem;
+import seedu.clinicio.model.patient.Medication;
+import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Phone;
 import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Role;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 
 /**
@@ -146,7 +149,7 @@ public class ParserUtil {
         } else if (role.equals("receptionist")) {
             return RECEPTIONIST;
         } else {
-            throw new ParseException("You have entered invalid role. Please try with either staff or receptionist.");
+            throw new ParseException("You have entered invalid role. Please try with either doctor or receptionist.");
         }
     }
 
@@ -208,6 +211,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String nric} into an int.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_NRIC_CONSTRAINTS);
+        }
+        return new Nric(nric);
+    }
+
+    /**
      * Parses {@code Collection<String> medicalProblems} into a {@code Set<MedicalProblem>}.
      */
     public static Set<MedicalProblem> parseMedicalProblems(Collection<String> medicalProblems) throws ParseException {
@@ -235,6 +253,33 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> medications} into a {@code Set<Medication>}.
+     */
+    public static Set<Medication> parseMedications(Collection<String> medications) throws ParseException {
+        requireNonNull(medications);
+        final Set<Medication> medicationSet = new HashSet<>();
+        for (String medication : medications) {
+            medicationSet.add(parseMedication(medication));
+        }
+        return medicationSet;
+    }
+
+    /**
+     * Parses a {@code String medication} into a {@code Medication}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code medication} is invalid.
+     */
+    public static Medication parseMedication(String medication) throws ParseException {
+        requireNonNull(medication);
+        String trimmedMedications = medication.trim();
+        if (!Medication.isValidMed(trimmedMedications)) {
+            throw new ParseException(Medication.MESSAGE_MED_CONSTRAINTS);
+        }
+        return new Medication(trimmedMedications);
+    }
+
+    /**
      * Parses {@code Collection<String> allergies} into a {@code Set<Allergy>}.
      */
     public static Set<Allergy> parseAllergies(Collection<String> allergies) throws ParseException {
@@ -247,10 +292,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String medicalProblem} into a {@code MedicalProblem}.
+     * Parses a {@code String allergy} into a {@code Allergy}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code medicalProblem} is invalid.
+     * @throws ParseException if the given {@code allergy} is invalid.
      */
     public static Allergy parseAllergy(String allergy) throws ParseException {
         requireNonNull(allergy);
@@ -259,5 +304,22 @@ public class ParserUtil {
             throw new ParseException(MedicalProblem.MESSAGE_MED_PROB_CONSTRAINTS);
         }
         return new Allergy(trimmedAllergy);
+    }
+
+    /**
+     * Parses a {@code String doctorName} into a {@code Staff}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code doctorName} is invalid.
+     */
+    public static Staff parsePreferredDoctor(String doctorName) throws ParseException {
+        requireNonNull(doctorName);
+        String trimmedDoctorName = doctorName.trim();
+        if (doctorName.isEmpty()) {
+            return null;
+        } else if (!Name.isValidName(trimmedDoctorName)) {
+            throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+        }
+        return new Staff(DOCTOR, new Name(trimmedDoctorName));
     }
 }

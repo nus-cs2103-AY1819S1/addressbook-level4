@@ -10,21 +10,34 @@ import seedu.clinicio.logic.commands.AddApptCommand;
 import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
 import seedu.clinicio.logic.commands.CancelApptCommand;
+import seedu.clinicio.logic.commands.AppointmentStatisticsCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.Command;
 import seedu.clinicio.logic.commands.DeleteCommand;
+import seedu.clinicio.logic.commands.DequeueCommand;
+import seedu.clinicio.logic.commands.DoctorStatisticsCommand;
 import seedu.clinicio.logic.commands.EditCommand;
+import seedu.clinicio.logic.commands.EnqueueCommand;
 import seedu.clinicio.logic.commands.ExitCommand;
+import seedu.clinicio.logic.commands.ExportPatientsAppointmentsCommand;
+import seedu.clinicio.logic.commands.ExportPatientsCommand;
+import seedu.clinicio.logic.commands.ExportPatientsConsultationsCommand;
 import seedu.clinicio.logic.commands.FindCommand;
 import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListApptCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
+import seedu.clinicio.logic.commands.MedicineStatisticsCommand;
+import seedu.clinicio.logic.commands.PatientStatisticsCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
+import seedu.clinicio.logic.commands.ShowPatientInQueueCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
+
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+
+
 
 /**
  * Parses user input.
@@ -61,6 +74,9 @@ public class ClinicIoParser {
         case CancelApptCommand.COMMAND_WORD:
             return new CancelApptCommandParser().parse(arguments);
 
+        case AddApptCommand.COMMAND_WORD:
+            return new AddApptCommandParser().parse(arguments);
+
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
@@ -82,8 +98,29 @@ public class ClinicIoParser {
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
+        case ExportPatientsCommand.COMMAND_WORD:
+            return new ExportPatientsCommand();
+
+        case ExportPatientsAppointmentsCommand.COMMAND_WORD:
+            return new ExportPatientsAppointmentsCommand();
+
+        case ExportPatientsConsultationsCommand.COMMAND_WORD:
+            return new ExportPatientsConsultationsCommand();
+
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case PatientStatisticsCommand.COMMAND_WORD:
+            return new PatientStatisticsCommand();
+
+        case AppointmentStatisticsCommand.COMMAND_WORD:
+            return new AppointmentStatisticsCommand();
+
+        case DoctorStatisticsCommand.COMMAND_WORD:
+            return new DoctorStatisticsCommand();
+
+        case MedicineStatisticsCommand.COMMAND_WORD:
+            return new MedicineStatisticsCommand();
 
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
@@ -103,6 +140,15 @@ public class ClinicIoParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
+        case EnqueueCommand.COMMAND_WORD:
+            return new EnqueueCommandParser().parse(arguments);
+
+        case DequeueCommand.COMMAND_WORD:
+            return new DequeueCommandParser().parse(arguments);
+
+        case ShowPatientInQueueCommand
+                .COMMAND_WORD:
+            return new ShowPatientInQueueCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

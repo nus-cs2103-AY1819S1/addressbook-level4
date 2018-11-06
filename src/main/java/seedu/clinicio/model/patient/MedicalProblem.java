@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a MedicalProblem in the ClinicIO.
+ * Represents a Patient's medical problem in the ClinicIO.
  * Guarantees: immutable; name is valid as declared in {@link #isValidMedProb(String)}
  */
 public class MedicalProblem {
     public static final String MESSAGE_MED_PROB_CONSTRAINTS = "Medical problems should be alphanumeric";
-    public static final String MED_PROB_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MED_PROB_VALIDATION_REGEX = "[\\p{Alnum} ]*";
 
     public final String medProb;
 

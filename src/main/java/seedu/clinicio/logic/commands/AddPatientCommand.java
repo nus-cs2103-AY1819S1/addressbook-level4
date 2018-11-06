@@ -11,6 +11,7 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
 
+import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 
@@ -25,6 +26,8 @@ public class AddPatientCommand extends Command {
 
     public static final String COMMAND_WORD = "addpatient";
 
+    public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the ClinicIO";
+    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the ClinicIO. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
@@ -33,8 +36,8 @@ public class AddPatientCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_MEDICAL_PROBLEM + "MEDICAL_PROBLEMS]..."
-            + "[" + PREFIX_MEDICATION + "MEDICATIONS]..."
-            + "[" + PREFIX_ALLERGY + "ALLERGIES]..."
+            + "[" + PREFIX_MEDICATION + "MEDICATIONS]... "
+            + "[" + PREFIX_ALLERGY + "ALLERGIES]... "
             + "[" + PREFIX_PREFERRED_DOCTOR + "PREFERRED_DOC]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -42,9 +45,8 @@ public class AddPatientCommand extends Command {
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_MEDICAL_PROBLEM + "High Blood Pressure, Asthma ";
-
-    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
+            + PREFIX_MEDICAL_PROBLEM + "High Blood Pressure "
+            + PREFIX_MEDICAL_PROBLEM + "Asthma ";
 
     private Patient toAdd;
 
@@ -56,9 +58,23 @@ public class AddPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history)
             throws CommandException {
-        // TODO: Find if there is patient record in ClinicIO
-        //model.addPatient(toAdd);
+        requireNonNull(model);
+
+        if (UserSession.isLogin()) {
+            throw new CommandException("");
+        } else if (model.hasPatient(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        }
+
+        model.addPatient(toAdd);
         model.commitClinicIo();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddPatientCommand // instanceof handles nulls
+                && toAdd.equals(((AddPatientCommand) other).toAdd));
     }
 }

@@ -20,6 +20,9 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
@@ -51,6 +54,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a patient with the same identity as {@code patient} exists in the ClinicIO.
+     */
+    boolean hasPatient(Patient patient);
+
+    /**
      * Returns true if a staff with the same identity as {@code staff} exists in the ClinicIO.
      */
     boolean hasStaff(Staff staff);
@@ -66,6 +74,12 @@ public interface Model {
      * {@code person} must not already exist in the ClinicIO.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given patient.
+     * {@code patient} must not already exist in the ClinicIO.
+     */
+    void addPatient(Patient patient);
 
     /**
      * Adds the given staff.
@@ -89,6 +103,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered patient list */
+    ObservableList<Patient> getFilteredPatientList();
+
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
 
@@ -100,6 +117,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPatientList(Predicate<Patient> predicate);
 
     /**
      * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
