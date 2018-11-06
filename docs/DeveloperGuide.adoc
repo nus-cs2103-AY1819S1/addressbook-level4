@@ -304,6 +304,7 @@ This section describes some noteworthy details on how certain features are imple
 
 This section describes the details on how the general features are implemented.
 
+//tag::command-switch[]
 [[Implementation-Switch]]
 ==== Switch command
 The `switch` command is used to switch the context between 'volunteer' and 'event'.
@@ -345,6 +346,9 @@ image::command_switch_sd.png[switch SD, 800]
 |Cons| Difficult to maintain the id throughout the whole application. Any change in context id would require all the codes to be updated.
 |===
 +
+
+
+// end::command-switch[]
 
 
 // tag::undoredo[]
@@ -676,11 +680,15 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 
 // end::eventmanagement[]
 
+
 === Record management
 
 This section describes the details on how the record management features are implemented.
 
-==== Manage function
+
+//tag::command-manage[]
+[[Implementation-Manage]]
+==== Manage command
 
 The `manage` command is used in the 'event' context to manage the volunteering records for an event. +
 
@@ -723,13 +731,7 @@ image::command_manage_sd.png[manage SD, 800]
 |===
 +
 
-
-==== Add record [Coming in V1.3]
-
-==== Edit record [Coming in V1.3]
-
-==== Delete record [Coming in V1.3]
-
+//end::command-manage[]
 
 == Documentation
 

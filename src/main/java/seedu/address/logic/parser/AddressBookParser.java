@@ -19,11 +19,17 @@ import seedu.address.logic.commands.EditEventCommand;
 import seedu.address.logic.commands.EditRecordCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCertCommand;
+import seedu.address.logic.commands.ExportEventXmlCommand;
+import seedu.address.logic.commands.ExportVolunteerCsvCommand;
+import seedu.address.logic.commands.ExportVolunteerXmlCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ImportVolunteerCsvCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.ManageCommand;
+import seedu.address.logic.commands.OverviewCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SelectEventCommand;
@@ -119,14 +125,17 @@ public class AddressBookParser {
         case DeleteEventCommand.COMMAND_WORD:
             return new DeleteEventCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+        case ListEventCommand.COMMAND_WORD:
+            return new ListEventCommand();
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+        case OverviewCommand.COMMAND_WORD:
+            return new OverviewCommand();
 
         case ManageCommand.COMMAND_WORD:
             return new ManageCommandParser().parse(arguments);
+
+        case ExportEventXmlCommand.COMMAND_WORD:
+            return new ExportEventXmlCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
@@ -159,8 +168,20 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case OverviewCommand.COMMAND_WORD:
+            return new OverviewCommand();
+
         case ExportCertCommand.COMMAND_WORD:
             return new ExportCertCommandParser().parse(arguments);
+
+        case ExportVolunteerCsvCommand.COMMAND_WORD:
+            return new ExportVolunteerCsvCommandParser().parse(arguments);
+
+        case ExportVolunteerXmlCommand.COMMAND_WORD:
+            return new ExportVolunteerXmlCommandParser().parse(arguments);
+
+        case ImportVolunteerCsvCommand.COMMAND_WORD:
+            return new ImportVolunteerCsvCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

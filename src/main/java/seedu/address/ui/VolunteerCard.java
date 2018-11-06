@@ -31,13 +31,7 @@ public class VolunteerCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label gender;
-    @FXML
-    private Label birthday;
-    @FXML
     private Label phone;
-    @FXML
-    private Label address;
     @FXML
     private Label email;
     @FXML

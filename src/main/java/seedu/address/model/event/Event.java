@@ -17,10 +17,10 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     public static final String MESSAGE_START_END_DATE_CONSTRAINTS =
-            "Start date should only be less than or equal to end date";
+            "Start date should only be earlier than or the same as end date";
 
     public static final String MESSAGE_START_END_TIME_CONSTRAINTS =
-            "Start time should only be less than or equal to end time";
+            "Start time should only be earlier than or the same as end time";
 
     // Used to keep track of current max Id in the system
     private static int maxId = 0;

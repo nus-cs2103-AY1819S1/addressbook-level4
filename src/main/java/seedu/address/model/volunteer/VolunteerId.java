@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 /**
- * Represents an Event's Id in the application. Event Id is used in identifying record entries.
+ * Represents an Volunteer's Id in the application. Volunteer Id is used in identifying record entries.
  * Guarantees: immutable; is valid as declared in {@link #isValidId(int)}
  */
 public class VolunteerId {

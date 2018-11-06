@@ -34,7 +34,6 @@ public class Context {
         checkArgument(isValidContextId(contextId), MESSAGE_CONTEXT_CONSTRAINTS);
         this.contextId = contextId;
         this.contextName = contextName;
-
     }
 
     /**

@@ -12,6 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ReplaceWithContextPanelEvent;
 import seedu.address.commons.events.ui.VolunteerPanelSelectionChangedEvent;
 import seedu.address.model.volunteer.Volunteer;
 
@@ -43,6 +44,7 @@ public class VolunteerListPanel extends UiPart<Region> {
                     if (newValue != null) {
                         logger.fine("Selection in volunteer list panel changed to : '" + newValue + "'");
                         raise(new VolunteerPanelSelectionChangedEvent(newValue));
+                        raise(new ReplaceWithContextPanelEvent());
                     }
                 });
     }

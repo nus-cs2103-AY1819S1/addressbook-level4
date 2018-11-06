@@ -95,6 +95,9 @@ public class ParserUtil {
         if (!Birthday.isValidBirthday(trimmedBirthday)) {
             throw new ParseException(Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
         }
+        if (!Birthday.isLessThanOrEqualToValidBirthday(trimmedBirthday)) {
+            throw new ParseException(Birthday.MESSAGE_BIRTHDAY_CONSTRAINTS);
+        }
         return new Birthday(trimmedBirthday);
     }
 

@@ -35,6 +35,7 @@ Interested? Jump to <<Quick Start>> to get started.
 
 Enjoy!
 
+// tag::quick-start[]
 == Quick Start
 This section contains information on how you can run SocialCare on your desktop.
 
@@ -73,6 +74,8 @@ SocialCare allows you to manage both volunteers and events. The panel will updat
 <<command-switch>> for more details.
 
 You can refer to <<Features>> for details of each command.
+
+//end::quick-start[]
 
 [[Features]]
 == Features
@@ -117,6 +120,7 @@ Example(s):
 * `history` +
 The command result box will display the commands that you have entered in reverse chronological order.
 
+// tag::undoreo[]
 [[command-undo]]
 ==== Undoing previous command : `undo`
 
@@ -170,6 +174,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
+// tag::command-clear[]
 [[command-clear]]
 ==== Clearing all entries : `clear`
 
@@ -184,12 +189,13 @@ Resets the application to a clean state. The panel is also updated to reflect th
 
 
 .Before clearing entries
-image::command_clear_before.png[clear bef, 800]
+image::command_clear_before.png[clear bef, 600]
 
 .After clearing entries
-image::command_clear_after.png[clear aft, 800]
+image::command_clear_after.png[clear aft, 600]
 
 The figures above shows the before and after state of clearing the entries of the application.
+//end::command-clear[]
 
 [[command-exit]]
 ==== Exiting the application : `exit`
@@ -203,10 +209,11 @@ Example(s):
 * `exit` +
 Exits from the application and return to the user's desktop.
 
+// tag::command-switch[]
 [[command-switch]]
 ==== Switching panels: `switch`
 
-Switches the panel to display to volunteers or events +
+Switches the panel to display either volunteers or events +
 
 Format: `switch -CONTEXT_ID`
 
@@ -220,20 +227,11 @@ Format: `switch -CONTEXT_ID`
 Example(s):
 
 * `switch -e` +
-Updates the panel to display the list of events.
+Updates the panel displaying the list of volunteers to display the list of events. +
+The following figure shows the expected panel before and after entering the `switch` command.
 
-[.clearfix]
---
-[.left]
-.Before panel displaying volunteers
-image::command_switch_before.png[switch bef, 300]
-[.left]
-.After panel displaying events
-image::command_switch_after.png[switch aft, 300]
---
-
-The figures above show the 2 different panels. +
-Application will first display the 'volunteers' panel and you can change the panel to display 'events' via the `switch` command.
+.Panel display changing from volunteers to events
+image::command_switch.png[switch, 600]
 
 === Volunteer Management
 
@@ -251,7 +249,7 @@ Format: `add n/NAME g/GENDER b/BIRTHDAY p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]
 Example(s):
 
 .Before adding a volunteer
-image::command_volunteer_add_before.png[add command, 300]
+image::command_volunteer_add_before.png[add command, 200]
 
 The figure above shows how the panel looks like before executing the commands below.
 
@@ -270,7 +268,7 @@ Adds a volunteer with the following properties:
 |Address    |Yishun Block 62
 |===
 .Output of `add`
-image::command_volunteer_add_after1.png[add command, 300]
+image::command_volunteer_add_after1.png[add command, 200]
 
 
 * `add n/Betty Sue  g/f b/31-12-1995 p/81749272 e/Betty@gmail.com  a/Ang Mo Kio Block 62 t/Longtime t/Helpful`
@@ -289,7 +287,7 @@ Adds a volunteer with the following properties:
 |Tags       |Longtime, Helpful
 |===
 .Output of `add`
-image::command_volunteer_add_after2.png[add command, 300]
+image::command_volunteer_add_after2.png[add command, 200]
 
 [[command-volunteer-list]]
 ==== Listing all volunteers : `list`
@@ -300,7 +298,7 @@ Format: `list`
 The figure below shows the expected panel after executing the `list` command.
 
 .Output of `list`
-image::command_volunteer_list.png[list command, 300]
+image::command_volunteer_list.png[list command, 200]
 
 
 [[command-volunteer-edit]]
@@ -326,10 +324,10 @@ The figures below show the before and after results of an edit command.
 
 --
 .Before entering the edit command
-image::command_volunteer_edit_before.png[Before edit, 300]
+image::command_volunteer_edit_before.png[Before edit, 200]
 
 .The targeted volunteer is updated to reflect the new values after entering the edit command
-image::command_volunteer_edit_after.png[After edit, 300]
+image::command_volunteer_edit_after.png[After edit, 200]
 --
 
 
@@ -348,10 +346,10 @@ The figures below show the before and after results of a delete command.
 
 --
 .The volunteer at index 1 is targeted before entering the delete command
-image::command_volunteer_delete_before.png[Before delete, 300]
+image::command_volunteer_delete_before.png[Before delete, 200]
 
 .The targeted volunteer is deleted after entering the delete command
-image::command_volunteer_delete_after.png[After delete, 300]
+image::command_volunteer_delete_after.png[After delete, 200]
 --
 
 
@@ -415,49 +413,27 @@ Format: `add n/NAME l/LOCATION sd/START_DATE ed/END_DATE st/START_TIME et/END_TI
 
 Example(s):
 
-.Before adding an event
+The figure below shows how the panel looks like before executing the example(s) below.
+
+.Panel before adding an event
 image::command_event_add_before.png[add command, 300]
 
-The figure above shows how the panel looks like before executing the commands below.
 
 * `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home` +
 +
-Adds an event with the following properties:
+Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
-[options="header", cols="1,3"]
-|===
-|Property   |Value
-|Name       |Flag day
-|Location   |Yishun MRT
-|Start Date |31-10-2018
-|End Date   |31-10-2018
-|Start Time |09:00
-|End Time   |15:00
-|Description|For the children's home
-|===
-.Output of `add`
-image::command_event_add_after1.png[add command, 300]
-
+.Result of `add n/Flag Day l/Yishun MRT sd/31-10-2018 ed/31-10-2018 st/09:00 et/15:00 d/For the children's home`
+image::command_event_add_before_after1.png[add command, 600]
 
 * `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser
 t/charity`
 +
-Adds an event with the following properties:
+Adds an event with the properties specified in the command above. The expected result is shown in the figure below.
 +
-[options="header", cols="1,3"]
-|===
-|Property   |Value
-|Name       |Fundraising
-|Location   |Tampines Street 31
-|Start Date |15-11-2018
-|End Date   |17-11-2018
-|Start Time |13:00
-|End Time   |18:00
-|Description|Raising funds
-|Tags       |fundraiser, charity
-|===
-.Output of `add`
-image::command_event_add_after2.png[add command, 300]
+.Result of `add n/Fundraising l/Tampines Street 31 sd/15-11-2018 ed/17-11-2018 st/13:00 et/18:00 d/Raising funds t/fundraiser t/charity`
+image::command_event_add_before_after2.png[add command, 600]
+
 
 [[command-event-list]]
 ==== Listing all events : `list`
@@ -465,11 +441,11 @@ image::command_event_add_after2.png[add command, 300]
 Lists all events in the system and display them in the panel. +
 
 Format: `list` +
-Displays all events in the system in the panel. +
-The figure below shows the expected panel after executing the `list` command.
+Displays all existing events in the system in the panel. +
+The figure below shows a panel displaying all existing events after executing the `list` command.
 
 .Output of `list`
-image::command_event_list.png[list command, 300]
+image::command_event_list.png[list command, 200]
 
 [[command-event-edit]]
 ==== Editing event details : `edit`
@@ -488,40 +464,37 @@ Format: `edit EVENT_INDEX [n/NAME] [l/LOCATION] [sd/START_DATE] [ed/END_DATE] [s
 
 Example(s):
 
+The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
+
+.Panel before editing an event, EVENT_INDEX is indicated in the circles
+image::command_event_edit_before.png[add command, 300]
+
 * `edit 1 n/Charity Fun Run t/` +
 Edits the name of event at index 1 and removes all tags.
+The expected result is shown in the figure below.
++
+.Result of `edit 1 n/Charity Fun Run t/`
+image::command_event_edit_before_after.png[Before edit, 600]
 
-The figures below show the before and after results of an edit command.
-
---
-.Before entering the edit command
-image::command_event_edit_before.png[Before edit, 300]
-
-.The targeted event is updated to reflect the new values after entering the edit command
-image::command_event_edit_after.png[After edit, 300]
---
 
 [[command-event-delete]]
 ==== Deleting event: `delete`
 
-Deletes details of an existing event in the system when in the 'event' context. +
+Deletes an existing event in the system when in the 'event' context. +
 
 Format: `delete EVENT_INDEX`
 
 Example(s):
 
-* `delete 2` +
-Deletes the details of the event specified at index 2.
+The figure below indicates the EVENT_INDEX and shows how the panel looks like before executing the example(s) below.
 
-The figures below show the before and after results of a delete command.
+* `delete 3` +
+Deletes the event specified at index 3.
+The expected result is shown in the figure below.
++
+.Result of `delete 3`
+image::command_event_delete_before_after.png[Before delete, 600]
 
---
-.The event at index 2 is targeted before entering the delete command
-image::command_event_delete_before.png[Before delete, 300]
-
-.The targeted event is deleted after entering the delete command
-image::command_event_delete_after.png[After delete, 300]
---
 
 // end::eventmanagement[]
 
@@ -535,6 +508,7 @@ This section contains commands related to managing a volunteering record.
 * The other commands under this section can only be accessed after executing the `manage` command.
 ****
 
+// tag::command-record[]
 [[command-record-manage]]
 ==== Viewing event's volunteer records: `manage`
 
@@ -544,30 +518,32 @@ Format: `manage EVENT_INDEX`
 
 Example(s):
 
-* `manage 1` +
-View the list of volunteers assigned to event at index 1.
+* `switch -e` (panel updates to show list of events) +
+`manage 1` (view the list of volunteers assigned to event at index 1) +
+See the figures below for a step by step guide.
 
-.Panel of events
-image::command_record_manage_eventIndex.png[view events, 300]
+.Execute `switch -e`
+image::command_switch.png[switch execution, 600]
 
-The figure above shows the 'event' panel that you will see before executing the `manage` command.
-The circled numbers indicate the EVENT_INDEX that you have to enter.
+.`manage 1` targets the event at index 1
+image::command_record_manage_eventIndex.png[switch execution, 200]
 
-.Managing the selected event
-image::command_manage_view.png[manage, 800]
+.Labelled screenshot of what to expect after executing `manage 1`
+image::command_manage_view.png[manage, 600]
 
-The figure above shows the screen you will see after executing the `manage` command successfully.
+The last figure shows the screen you will see after executing the `manage` command successfully.
 
 The following changes are observed:
 
 1. Panel displays the list of volunteers that you can assign to an event.
-2. Name of event being managed and total number of volunteers assigned to event shown in the upper portion of the display box.
-3. List of volunteers currently assigned to the event.
+2. Name of event being managed and total number of volunteers assigned to it.
+3. List of volunteers currently assigned to the event. It will be empty if no volunteers are assigned.
 
 [[command-record-add]]
 ==== Adding volunteer to event: `add`
 
 Adds a volunteer to the event that is currently being managed. +
+Refer to <<command-record-manage>> on how to manage events.
 
 Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 
@@ -577,36 +553,36 @@ Format: `add VOLUNTEER_INDEX [h/HOURS] [r/REMARKS]`
 * Default value for REMARKS is '-'.
 ****
 
-.The VOLUNTEER_INDEX
-image::command_record_add_volunteerIndex.png[volunteer index, 300]
-
-The circled numbers from the figure above indicate the VOLUNTEER_INDEX that you have to enter.
-
 Example(s):
 
-.Before adding a volunteer
-image::command_record_add.png[add command, 800]
+[NOTE]
+The following examples are entered after executing the following commands: +
+1. `switch -e` (update panel to display events) +
+2. `manage 1` (manage the event at index 1 in the panel. See figure below for expected screen)
 
-The figure above shows how the screen looks like before executing the commands below.
+.After executing `manage 1`
+image::command_record_add.png[add command, 600]
 
 * `add 1` +
 Adds a volunteer at index 1 to the event with 0 hours. +
 Expected display box is shown in the figure below.
 
 .Output of `add 1`
-image::command_record_add_after1.png[add command, 800]
-
+image::command_record_add_after1.png[add command, 600]
+//end::command-record[]
 * `add 1 h/5 r/Driver` +
 Adds a volunteer at index 1 to the event with 5 hours and remarks of 'Driver'. +
 Expected display box is shown in the figure below.
 
 .Output of `add 1 h/5 r/Driver`
-image::command_record_add_after2.png[add command, 800]
+image::command_record_add_after2.png[add command, 600]
+
 
 [[command-record-edit]]
 ==== Updating volunteer record: `edit`
 
 Updates a volunteer record in the event that is currently being managed. +
+Refer to <<command-record-manage>> on how to manage events.
 
 Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 
@@ -615,28 +591,32 @@ Format: `edit VOLUNTEER_INDEX h/HOURS [r/REMARKS]`
 * Just entering `r/` will save the remarks with the default value of '-'.
 ****
 
-.The VOLUNTEER_INDEX
-image::command_record_edit_volunteerIndex.png[volunteer index, 800]
+The figure below shows the highlighted column that indicates the VOLUNTEER_INDEX that you have to enter. +
+This display can be seen after executing the `manage` command.
 
-The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
+.The VOLUNTEER_INDEX
+image::command_record_edit_volunteerIndex.png[volunteer index, 600]
+
 
 Example(s):
 
 * `edit 2 h/5 r/Emcee` +
-Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'.
+Updates amount of hours volunteered for volunteer at index 3 to 5 hours with remarks of 'Emcee'. +
+The figures below show the display box before and after editing a record.
 
 .Before updating the volunteer record
-image::command_record_edit.png[edit command, 800]
+image::command_record_edit.png[edit command, 600]
 
 .Output of `edit 2 h/5 r/Emcee`
-image::command_record_edit_after.png[edit command, 800]
+image::command_record_edit_after.png[edit command, 600]
 
-The figures above show the display box before and after editing a record.
+
 
 [[command-record-delete]]
 ==== Deleting volunteer record from event: `delete`
 
 Deletes the volunteer record from the event that is currently being managed. +
+Refer to <<command-record-manage>> on how to manage events.
 
 Format: `delete VOLUNTEER_INDEX`
 
@@ -644,24 +624,25 @@ Format: `delete VOLUNTEER_INDEX`
 * VOLUNTEER_INDEX comes from the table view of existing volunteers.
 ****
 
+The figure below shows the highlighted column that indicates the VOLUNTEER_INDEX that you have to enter. +
+This display can be seen after executing the `manage` command.
+
 .The VOLUNTEER_INDEX
-image::command_record_edit_volunteerIndex.png[delete record, 800]
-
-The highlighted column from the figure above indicates the VOLUNTEER_INDEX that you have to enter.
-
+image::command_record_edit_volunteerIndex.png[volunteer index, 600]
 
 Example(s):
 
 * `delete 1` +
-Deletes the volunteer record at index 1.
+Deletes the volunteer record at index 1. +
+The figures below show the display box before and after deleting a record.
 
 .Before deleting the volunteer record
-image::command_record_edit_after.png[delete command, 800]
+image::command_record_edit_after.png[delete command, 600]
 
 .Output of `delete 1`
-image::command_record_delete.png[delete command, 800]
+image::command_record_delete.png[delete command, 600]
 
-The figures above show the display box before and after deleting a record.
+
 
 === Miscellaneous
 
