@@ -25,6 +25,24 @@ public class EmailModelTest {
     }
 
     @Test
+    public void constructor_nullSet_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new EmailModel(null);
+    }
+
+    @Test
+    public void saveEmail_nullEmail_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        emailModel.saveEmail(null);
+    }
+
+    @Test
+    public void saveComposedEmail_nullEmail_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        emailModel.saveComposedEmail(null);
+    }
+
+    @Test
     public void hasEmail_nullEmail_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         emailModel.hasEmail(null);

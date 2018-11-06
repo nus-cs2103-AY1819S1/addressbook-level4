@@ -28,6 +28,7 @@ public class EmailModel {
 
     public EmailModel(Set<String> emailNamesSet) {
         this();
+        requireNonNull(emailNamesSet);
         existingEmails.addAll(emailNamesSet);
     }
 
@@ -36,6 +37,7 @@ public class EmailModel {
      * @param email The email to be saved.
      */
     public void saveEmail(Email email) {
+        requireNonNull(email);
         this.email = email;
         savePreview();
     }
@@ -61,6 +63,8 @@ public class EmailModel {
      * @param email the newly composed email.
      */
     public void saveComposedEmail(Email email) {
+        requireNonNull(email);
+        assert !hasEmail(email.getSubject());
         saveEmail(email);
         addToExistingEmails(email.getSubject());
     }
