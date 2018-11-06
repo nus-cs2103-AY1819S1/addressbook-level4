@@ -528,8 +528,8 @@ image::ImportContactsSequenceDiagram.PNG[width="800"]
 === Show faculty location visually
 ==== Current Implementation
 
-The displaying of the a ``Person```'s faculty is facilitated by the newly added ```Faculty``` field in the ```Person``` class. This
-```Faculty``` field is defined as a separate class (akin to other classes constituting the `Person` class such as ```Email``` and ```Address```).
+The displaying of the a `Person`\'s faculty is facilitated by the newly added `Faculty` field in the `Person` class. This
+`Faculty` field is defined as a separate class (akin to other classes constituting the `Person` class such as `Email` and `Address`).
 
 During the adding of `Person`s to the EventsPlus+ address book, the `Faculty` class will ensure that the argument passed in is that of
 a valid NUS faculty. It does this via an inner enum class called `Faculties` which stores as constants the only accepted `Faculty`
