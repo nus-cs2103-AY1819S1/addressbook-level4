@@ -203,7 +203,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::updatedModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/meeting/model/Model.java[`Model.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-W17-3/main/blob/master/src/main/java/seedu/meeting/model/Model.java[`Model.java`]
 
 The `Model`,
 
