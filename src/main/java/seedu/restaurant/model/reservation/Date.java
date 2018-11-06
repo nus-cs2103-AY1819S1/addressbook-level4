@@ -31,28 +31,32 @@ public class Date {
     /**
      * Constructs a {@code date}.
      *
+     * @param date A valid date.
+     */
+    public Date(String date) {
+        requireNonNull(date);
+        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        this.date = parseDate(date);
+    }
+    /**
+     * Parses the date.
+     *
      * !!!!!!!!!!!! IMPORTANT NOTE !!!!!!!!!!!!!
      * Firstly checks if the date is able to be regularly parsed in DD-MM-YYYY format without using NATTY. This is
      * necessary as NATTY cannot be configured to interpret dates in DD-MM-YYYY format, and will default to MM-DD-YYYY.
      *
      * i.e. NATTY will think 03-12-2018 means "12th of March" instead of "3rd of December"
-     *
-     * @param date A valid date.
      */
-    public Date(String date) {
-        requireNonNull(date);
-
-        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
-
+    private LocalDate parseDate(String date) {
         if (Date.canStrictParse(date)) {
             DateTimeFormatter validFormat =
                     DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
-            this.date = LocalDate.parse(date, validFormat);
+            return LocalDate.parse(date, validFormat);
         } else {
             Parser parser = new Parser(TimeZone.getTimeZone("GMT+8:00"));
             List<DateGroup> dateGroupList = parser.parse(date);
 
-            this.date = dateGroupList.get(0).getDates().get(0)
+            return dateGroupList.get(0).getDates().get(0)
                     .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
     }
@@ -61,6 +65,7 @@ public class Date {
      * Returns true if a given date string is a valid date by checking if it can be parsed.
      */
     public static boolean isValidDate(String test) {
+        //short circuit evaluation
         return (Date.canStrictParse(test) || Date.canNattyParse(test));
     }
 
@@ -93,7 +98,6 @@ public class Date {
 
         return !dates.isEmpty();
     }
-
 
     public LocalDate getValue() {
         return date;

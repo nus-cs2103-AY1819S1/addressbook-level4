@@ -36,16 +36,22 @@ public class Time {
     public Time(String time) {
         requireNonNull(time);
         checkArgument(isValidTime(time), MESSAGE_TIME_CONSTRAINTS);
+        this.time = parseTime(time);
+    }
 
+    /**
+     * Parses the time.
+     */
+    private LocalTime parseTime(String time) {
         if (Time.canStrictParse(time)) {
             DateTimeFormatter validFormat =
                     DateTimeFormatter.ofPattern(TIME_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
-            this.time = LocalTime.parse(time, validFormat);
+            return LocalTime.parse(time, validFormat);
         } else {
             Parser parser = new Parser(TimeZone.getTimeZone("GMT+8:00"));
             List<DateGroup> dateGroupList = parser.parse(time);
 
-            this.time = dateGroupList.get(0).getDates().get(0)
+            return dateGroupList.get(0).getDates().get(0)
                     .toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
         }
     }
