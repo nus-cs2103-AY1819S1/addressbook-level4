@@ -52,7 +52,12 @@ public class LogicManagerTest {
         logic.getFilteredPersonList().remove(0);
     }
 
-    //@@author jjlee050
+    @Test
+    public void getFilteredPatientList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        logic.getFilteredPatientList().remove(0);
+    }
+
     @Test
     public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
