@@ -169,10 +169,6 @@ public class XmlAdaptedPerson {
         Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress,
                 modelEducation, modelGrades, modelTime, modelTags);
 
-        for (XmlAdaptedTime t : timings) {
-            modelPerson.getTime().add(t.toModelType());
-        }
-
         return modelPerson;
     }
 

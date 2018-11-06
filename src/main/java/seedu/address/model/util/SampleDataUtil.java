@@ -23,8 +23,6 @@ import seedu.address.model.tag.Tag;
  */
 public class SampleDataUtil {
 
-  //  private static final String[] DAYS_INPUT = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
-
     public static Person[] getSamplePersons() {
         return new Person[]{
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
@@ -54,18 +52,14 @@ public class SampleDataUtil {
         };
     }
 
-    /**
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
-        int i = 0;
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
-            sampleAb.addTime(samplePerson.getName().toString(), new Time(DAYS_INPUT[i] + " 1200 " + "1400"));
-            i++;
         }
         return sampleAb;
     }
-*/
+
     /**
      * Returns a HashMap containing the map of grades given.
      */
