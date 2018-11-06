@@ -71,7 +71,8 @@ public class DispenseMedicineCommand extends QueueCommand {
         List<Medicine> lastShownList = model.getFilteredMedicineList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX,
+                patient.getName()));
         }
 
         Medicine medicine = lastShownList.get(index.getZeroBased());

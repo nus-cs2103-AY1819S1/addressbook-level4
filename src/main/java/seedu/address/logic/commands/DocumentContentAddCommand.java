@@ -63,7 +63,8 @@ public class DocumentContentAddCommand extends QueueCommand {
         if (!model.hasPerson(patient)) {
             currentPatient.finishServing();
             EventsCenter.getInstance().post(new ShowPatientListEvent());
-            throw new CommandException(Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE);
+            throw new CommandException(String.format(Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE,
+                patient.getName()));
         }
         updateCurrentPatientDocument(currentPatient, documentContentDescriptor);
 
