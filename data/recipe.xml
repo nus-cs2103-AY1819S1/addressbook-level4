@@ -17,7 +17,7 @@
                 <unit>gram</unit>
             </ingredients>
             <ingredients>
-                <name>breakcrumbs</name>
+                <name>breadcrumbs</name>
                 <amount>0.25</amount>
                 <unit>cup</unit>
             </ingredients>
@@ -45,7 +45,7 @@
         <instructions>
             <instruction>Spread remaining 1/4 cup bread crumbs into a shallow dish. Roll patties in bread crumbs to coat.</instruction>
             <ingredients>
-                <name>breakcrumbs</name>
+                <name>breadcrumbs</name>
                 <amount>0.25</amount>
                 <unit>cup</unit>
             </ingredients>
