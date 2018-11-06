@@ -663,15 +663,15 @@ Step 1. The user launches the application for the first time.
 The `ModelManager` will be initialized with the initial MeetingBook state, and `UniquePersonList`, `UniqueMeetingList` and `UniqueGroupList` contains all person, meetings and groups respectively without filter.
 
 Step 2. The user executes `select` command to select the item type with the specified index in the MeetingBook.
-The `SelectCommandParser` parses the command to determine the select type, and the command calls executes the following steps:
+The `SelectCommandParser` parses the command to determine the select type, and the command executes the following steps:
 
-* Step 2.1. If the select type is `SELECT_TYPE_GROUP`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
+* Step 2.1. If the prefix is `g/`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
 `Model#updateFilteredPersonList` is called to filter `UniquePersonList` to contain only person that are associated with the group,
 and `Model#updateFilteredMeetingList` is called to filter `UniqueMeetingList` to show only meeting that is associated with the group.
 
-* Step 2.2. If the select type is `SELECT_TYPE_MEETING`, a `JumpToMeetingListRequestEvent` is sent to the UI to select the meeting card.
+* Step 2.2. If the prefix is `m/`, a `JumpToMeetingListRequestEvent` is sent to the UI to select the meeting card.
 
-* Step 2.3. If the select type is `SELECT_TYPE_PERSON`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
+* Step 2.3. If the prefix is `p/`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
 
 [NOTE]
 If a group is selected, subsequent `select` calls to person and meeting list will only select the person or meeting in the filtered
