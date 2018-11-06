@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_BURGER;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_ITEM_TAG_CHEESE;
+import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_RESERVATION_TAG_ANDREW;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_TAG_TEST;
@@ -26,6 +27,11 @@ import static seedu.restaurant.testutil.menu.TypicalItems.BURGER;
 import static seedu.restaurant.testutil.menu.TypicalItems.CHEESE_BURGER;
 import static seedu.restaurant.testutil.menu.TypicalItems.FRIES;
 import static seedu.restaurant.testutil.menu.TypicalItems.ITEM_DEFAULT;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.ANDREW;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.BILLY;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.DANNY;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.ELSA;
+import static seedu.restaurant.testutil.reservation.TypicalReservations.RESERVATION_DEFAULT;
 import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
 import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
 import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_TWO;
@@ -49,6 +55,8 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
 import seedu.restaurant.model.person.Person;
+import seedu.restaurant.model.reservation.Reservation;
+import seedu.restaurant.model.reservation.exceptions.ReservationNotFoundException;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 import seedu.restaurant.model.tag.Tag;
@@ -57,6 +65,7 @@ import seedu.restaurant.testutil.RestaurantBookBuilder;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
+import seedu.restaurant.testutil.reservation.ReservationBuilder;
 import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class ModelManagerTest {
@@ -455,6 +464,97 @@ public class ModelManagerTest {
 
         ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
         expectedModelManager.updateItem(FRIES, friesWithoutTags);
+
+        assertEquals(modifiedModelManager, expectedModelManager);
+    }
+
+    //@@author m4dkip
+    // Reservation Management
+    @Test
+    public void hasReservation_nullReservation_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasReservation(null);
+    }
+
+    @Test
+    public void hasReservation_reservationNotInRestaurantBook_returnsFalse() {
+        assertFalse(modelManager.hasReservation(ANDREW));
+    }
+
+    @Test
+    public void hasReservation_reservationInRestaurantBook_returnsTrue() {
+        modelManager.addReservation(ANDREW);
+        assertTrue(modelManager.hasReservation(ANDREW));
+    }
+
+    @Test
+    public void deleteReservation_reservationNotInList_throwsReservationNotFoundException() {
+        thrown.expect(ReservationNotFoundException.class);
+        modelManager.deleteReservation(RESERVATION_DEFAULT);
+    }
+    @Test
+    public void deleteReservation_reservationInMenu_returnTrue() {
+        modelManager.addReservation(RESERVATION_DEFAULT);
+        assertTrue(modelManager.hasReservation(RESERVATION_DEFAULT));
+        modelManager.deleteReservation(RESERVATION_DEFAULT);
+        assertFalse(modelManager.hasReservation(RESERVATION_DEFAULT));
+    }
+    @Test
+    public void updateReservation_reservationNotInList_throwsReservationNotFoundException() {
+        thrown.expect(ReservationNotFoundException.class);
+        modelManager.updateReservation(RESERVATION_DEFAULT, ANDREW);
+    }
+    @Test
+    public void updateReservation_reservationInList_returnTrue() {
+        modelManager.addReservation(RESERVATION_DEFAULT);
+        Reservation reservation = new ReservationBuilder(ANDREW).build();
+        modelManager.updateReservation(RESERVATION_DEFAULT, reservation);
+        assertFalse(modelManager.hasReservation(RESERVATION_DEFAULT));
+        assertTrue(modelManager.hasReservation(reservation));
+    }
+
+    @Test
+    public void removeTagForReservation_noSuchTag_restaurantBookUnmodified() {
+        restaurantBookWithPersons = new RestaurantBookBuilder().withReservation(ANDREW).withReservation(BILLY).build();
+
+        ModelManager unmodifiedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+        unmodifiedModelManager.removeTagForReservation(new Tag(VALID_TAG_TEST));
+
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+
+        assertEquals(unmodifiedModelManager, expectedModelManager);
+    }
+
+    @Test
+    public void removeTagForReservationList_fromAllReservations_restaurantBookModified() {
+        restaurantBookWithPersons = new RestaurantBookBuilder().withReservation(DANNY).withReservation(BILLY).build();
+        UserPrefs userPrefs = new UserPrefs();
+
+        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
+        modifiedModelManager.removeTagForReservation(new Tag(VALID_RESERVATION_TAG_ANDREW));
+
+        Reservation dannyWithoutDrivingTag = new ReservationBuilder(DANNY).withTags().build();
+        Reservation billyWithoutTags = new ReservationBuilder(BILLY).withTags().build();
+
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, userPrefs);
+        // Cannot init a new RestaurantBook due to difference in restaurantBookStateList
+        expectedModelManager.updateReservation(DANNY, dannyWithoutDrivingTag);
+        expectedModelManager.updateReservation(BILLY, billyWithoutTags);
+
+        assertEquals(modifiedModelManager, expectedModelManager);
+    }
+
+    @Test
+    public void removeTagForReservationList_fromOneReservation_restaurantBookModified() {
+        restaurantBookWithPersons = new RestaurantBookBuilder().withReservation(DANNY).withReservation(ELSA).build();
+
+        ModelManager modifiedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+        modifiedModelManager.removeTagForReservation(new Tag(VALID_RESERVATION_TAG_ANDREW));
+
+        Reservation dannyWithoutTags = new ReservationBuilder(DANNY).withTags().build();
+
+        ModelManager expectedModelManager = new ModelManager(restaurantBookWithPersons, new UserPrefs());
+        expectedModelManager.updateReservation(DANNY, dannyWithoutTags);
 
         assertEquals(modifiedModelManager, expectedModelManager);
     }

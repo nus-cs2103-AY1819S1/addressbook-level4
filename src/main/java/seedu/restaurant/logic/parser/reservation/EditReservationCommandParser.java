@@ -2,10 +2,11 @@ package seedu.restaurant.logic.parser.reservation;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATETIME;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NAME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TIME;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -36,7 +37,7 @@ public class EditReservationCommandParser implements Parser<EditReservationComma
     public EditReservationCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PAX, PREFIX_DATETIME, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PAX, PREFIX_DATE, PREFIX_TIME, PREFIX_TAG);
 
         Index index;
 
@@ -54,9 +55,11 @@ public class EditReservationCommandParser implements Parser<EditReservationComma
         if (argMultimap.getValue(PREFIX_PAX).isPresent()) {
             editReservationDescriptor.setPax(ReservationParserUtil.parsePax(argMultimap.getValue(PREFIX_PAX).get()));
         }
-        if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
-            editReservationDescriptor.setDateTime(ReservationParserUtil
-                    .parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get()));
+        if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+            editReservationDescriptor.setDate(ReservationParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            editReservationDescriptor.setTime(ReservationParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editReservationDescriptor::setTags);
 

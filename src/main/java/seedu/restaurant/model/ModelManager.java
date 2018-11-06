@@ -470,7 +470,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void removeTagForReservation(Tag tag) {
-        versionedRestaurantBook.removeTag(tag);
+        versionedRestaurantBook.removeTagForReservationList(tag);
     }
 
     //=========== Filtered Reservation List Accessors =============================================================
