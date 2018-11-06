@@ -17,9 +17,10 @@ import seedu.address.model.Model;
  */
 public class GoogleRefreshCommand extends GoogleCommand {
     public static final String FAILURE_MESSAGE = "Failed to refresh";
-    private static final String TYPE = COMMAND_WORD + " refresh";
+    public static final String TYPE = "refresh";
+    public static final String FULL_CMD = COMMAND_WORD + " " + TYPE;
     public static final String MESSAGE_USAGE = "Usage of google refresh (requires an internet connection): "
-            + "\n- " + TYPE + " Refreshes image and album list gotten from google ";
+            + "\n- " + FULL_CMD + " Refreshes image and album list gotten from google ";
 
     public GoogleRefreshCommand() {
         super();
@@ -37,7 +38,7 @@ public class GoogleRefreshCommand extends GoogleCommand {
             if (ex instanceof ApiException) {
                 message = MESSAGE_CONNECTION_FAILURE;
             }
-            throw new CommandException(message + "\n\n" + MESSAGE_USAGE);
+            throw new CommandException(message);
         }
         return new CommandResult("Images and albums refreshed!");
     }

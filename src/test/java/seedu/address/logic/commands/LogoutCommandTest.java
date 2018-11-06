@@ -14,7 +14,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 //@@author chivent
-public class LogoutCommandTest extends DefaultCommandTest {
+public class LogoutCommandTest {
     private Model model = getDefaultModel();
     private Model expectedModel = getDefaultModel();
     private CommandHistory commandHistory = new CommandHistory();
