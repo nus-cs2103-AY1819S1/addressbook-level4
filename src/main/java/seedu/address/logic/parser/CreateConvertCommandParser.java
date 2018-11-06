@@ -22,7 +22,7 @@ public class CreateConvertCommandParser implements Parser<CreateConvertCommand> 
     public CreateConvertCommand parse(String args) throws ParseException {
         String[] all = args.split(" ");
         List<Transformation> transformations = new ArrayList<>();
-        if (all.length < 3) {
+        if (all.length < 3 || all[1].contains("|")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateConvertCommand.MESSAGE_USAGE));
         }

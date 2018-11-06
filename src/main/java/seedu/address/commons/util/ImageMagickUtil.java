@@ -67,6 +67,10 @@ public class ImageMagickUtil {
         return commandSaveFolder;
     }
 
+    public static void setTemperatyCommandForder(String folder) {
+        commandSaveFolder = folder;
+    }
+
     public static Path getTempFolderPath() {
         return Paths.get(tmpPath);
     }
@@ -173,7 +177,7 @@ public class ImageMagickUtil {
      */
     private static ArrayList<String> parseCustomisedOperation(Transformation transformation)
             throws ParseException, IOException {
-        String operation = transformation.getOperation();
+        String operation = transformation.getOperation().substring(1);
         File file = new File(commandSaveFolder + "/" + operation + ".json");
         if (!file.exists()) {
             throw new ParseException("Operation is invalid");

@@ -20,7 +20,7 @@ import seedu.address.model.transformation.Transformation;
 
 public class JsonConvertArgsStorageTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonConvertArgsStorageTest");
+    public static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonConvertArgsStorageTest");
 
     @Test
     public void assertStorageSuccessfully() {

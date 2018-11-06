@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.Test;
 
 import seedu.address.logic.commands.ConvertCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transformation.Transformation;
 
 public class ConvertCommandParserTest {
@@ -12,7 +13,7 @@ public class ConvertCommandParserTest {
     private ConvertCommandParser parser = new ConvertCommandParser();
 
     @Test
-    public void parseConvertArgument() {
+    public void parseConvertArgument() throws ParseException {
         Transformation transformationBlur = new Transformation("blur", "0x8");
         assertParseSuccess(parser, "convert " + transformationBlur.toString(),
                 new ConvertCommand(transformationBlur));
@@ -31,7 +32,7 @@ public class ConvertCommandParserTest {
     }
 
     @Test
-    public void parseConvertArgumentFail() {
+    public void parseConvertArgumentFail() throws ParseException {
         Transformation transformationBlur = new Transformation("blur", "0x8");
         assertParseSuccess(parser, "convert " + transformationBlur.toString(),
                 new ConvertCommand(transformationBlur));
