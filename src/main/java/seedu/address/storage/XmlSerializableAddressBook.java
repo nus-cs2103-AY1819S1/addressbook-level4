@@ -22,10 +22,10 @@ public class XmlSerializableAddressBook {
     public static final String MESSAGE_DUPLICATE_CHECKED_OUT_PERSON =
         "CheckedOutPersons list contains duplicate person(s).";
 
-    @XmlElement
+    @XmlElement(name = "person")
     private List<XmlAdaptedPerson> persons;
 
-    @XmlElement
+    @XmlElement(name = "checkedout")
     private List<XmlAdaptedPerson> checkedOutPersons;
 
     /**
