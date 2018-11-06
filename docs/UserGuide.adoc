@@ -289,7 +289,7 @@ User is able to import other data. +
 
 Default behaviour is to ignore any conflicting Person/Group entries unless `--force` option is supplied. +
 
-Format: `import <relative filepath>` or `import --force <relative filepath>`
+Format: `import f/<relative filepath>` or `import --force f/<relative filepath>`
 
 Example: +
 
@@ -305,6 +305,7 @@ image::importSuccessfulOutput.png[width="450"]
 === Exporting data : `export`
 
 User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
+A XML file containing MeetingBook data will be created at the filepath indicated by the user.
 
 Format: `export  f/<relative filepath>` +
 // Future implementation
@@ -318,8 +319,6 @@ The image below shows the result after successfully executing the command.
 
 image::exportSuccessfulOutput.png[width="450"]
 
-
-
 // end::export[]
 
 // tag::filepath[]
@@ -328,7 +327,7 @@ image::exportSuccessfulOutput.png[width="450"]
 Change the storage location of MeetingBook. +
 
 Format: `filepath f/<filepath>`
-
+git
 Example:
 
 * `filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
@@ -342,7 +341,6 @@ The image below shows the result after successfully executing the command.
 image::filepath--showOutput.png[width="450"]
 ****
 
-// end::filepath[]
 
 === Saving the data
 

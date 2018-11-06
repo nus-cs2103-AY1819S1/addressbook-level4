@@ -16,11 +16,11 @@ public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
     public static final String MESSAGE_EXPORT_SUCCESS = "Export process has been successful.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the address book to specific filepath. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the address book to specific filepath.\n"
             + "Parameters: "
             + PREFIX_PATH + "FilePath\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_PATH + "backup";
+            + PREFIX_PATH + "backup.xml";
 
     private Path filepath;
 
