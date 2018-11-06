@@ -139,6 +139,13 @@ Do read our short explanation about Command Format below so that the subsequent 
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+As this is a management system, all but the following commands cannot be executed without first being authenticated.
+====
+. `help`
+. `login`
+. `exit`
+====
+
 === General
 The commands in this section does not tie to any of the 5 components.
 
@@ -265,17 +272,41 @@ Examples:
 ==== Deleting user account: `deregister` or `dereg`
 
 Deletes an existing user account. +
+Format: `deregister id/USERNAME` or `dereg id/USERNAME`
+
 [NOTE]
 ====
 This command should only be able to be executed by a highly privileged user. See <<User-Role>>
 for more information
 ====
-Format: `deregister id/USERNAME` or `dereg id/USERNAME`
 
 Examples:
 
 * `deregister id/azhikai`
 * `dereg id/azhikai`
+
+==== Select user account: `select-account` or `sa`
+Selects the account identified by the index number. +
+Format: `select-account INDEX` or `sa INDEX`
+
+[NOTE]
+====
+Selecting the account does not render any data on the detailed panel due to the simplicity of the data itself
+====
+
+****
+* The index refers to the index number shown in the displayed item list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list-accounts` +
+`select-account 2` +
+Selects the 2nd account in the list.
+* `fa azhikai` +
+`sa 1` +
+Selects the 1st account in the results of the `find-account` command.
 
 ==== List user accounts: `list-accounts` or `la`
 
