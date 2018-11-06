@@ -59,9 +59,7 @@ public class InsertPersonCommand extends Command {
             List<Module> moduleList = model.getFilteredModuleList();
 
             if (personIndex > personsList.size()
-                    || personIndex < 0
-                    || moduleIndex > moduleList.size()
-                    || moduleIndex < 0) {
+                    || moduleIndex > moduleList.size()) {
                 throw new CommandException(MESSAGE_INCORRECT_INDEX);
             }
 
@@ -80,9 +78,7 @@ public class InsertPersonCommand extends Command {
             List<Occasion> occasionList = model.getFilteredOccasionList();
 
             if (personIndex > personsList.size()
-                    || personIndex < 0
-                    || occasionIndex > occasionList.size()
-                    || occasionIndex < 0) {
+                    || occasionIndex > occasionList.size()) {
                 throw new CommandException(MESSAGE_INCORRECT_INDEX);
             }
 
@@ -101,6 +97,22 @@ public class InsertPersonCommand extends Command {
         }
     }
 
+    public State getCurrState() {
+        return currState;
+    }
+
+    public int getPersonIndex() {
+        return personIndex;
+    }
+
+    public int getModuleIndex() {
+        return moduleIndex;
+    }
+
+    public int getOccasionIndex() {
+        return occasionIndex;
+    }
+
     /**
      * Captures the current state of the insert command.
      * Represents whether we are bidirectionally inserting a person
@@ -110,5 +122,15 @@ public class InsertPersonCommand extends Command {
         OCCASION_STATE,
         MODULE_STATE,
         ERROR_STATE
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || other instanceof InsertPersonCommand
+                && currState.equals(((InsertPersonCommand) other).getCurrState())
+                && personIndex == ((InsertPersonCommand) other).getPersonIndex()
+                && moduleIndex == ((InsertPersonCommand) other).getModuleIndex()
+                && occasionIndex == ((InsertPersonCommand) other).getOccasionIndex();
     }
 }

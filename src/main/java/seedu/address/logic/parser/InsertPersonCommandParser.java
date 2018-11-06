@@ -45,7 +45,8 @@ public class InsertPersonCommandParser implements Parser<InsertPersonCommand> {
 
         }
 
-        return new InsertPersonCommand();
+        // Missing either a module or a person index.
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, InsertPersonCommand.MESSAGE_USAGE));
     }
 
     /**
