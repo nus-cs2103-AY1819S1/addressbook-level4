@@ -55,7 +55,7 @@ public class Messages {
             + "Example: " + AddCommand.COMMAND_WORD + " "
             + PREFIX_NAME + "Chicken Rice "
             + PREFIX_DIFFICULTY + "5 "
-            + PREFIX_COOKTIME + "PT1H20M "
+            + PREFIX_COOKTIME + "1H20M "
             + PREFIX_TAG + "asian "
             + PREFIX_TAG + "chinese";
 
@@ -69,7 +69,7 @@ public class Messages {
             + PREFIX_INSTRUCTION + "Pour "
             + PREFIX_INGREDIENT + "chicken stock 300 ml "
             + "into pot and heat it up. "
-            + PREFIX_COOKTIME + "PT10M";
+            + PREFIX_COOKTIME + "10M";
 
     public static final String MESSAGE_ADD_INGREDIENT_USAGE = AddCommand.COMMAND_WORD + ": Adds a ingredient. "
             + "Parameters: "
@@ -136,11 +136,13 @@ public class Messages {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + EditCommand.COMMAND_WORD + " 1 "
             + PREFIX_DIFFICULTY + "3 "
-            + PREFIX_COOKTIME + "PT1H20M\n"
+            + PREFIX_COOKTIME + "1H20M\n"
             + "Alternative parameters: INDEX (must be a positive index) "
             + PREFIX_STEP + "STEP "
             + PREFIX_INSTRUCTION + "INSTRUCTION "
-            + "[" + PREFIX_COOKTIME + "TIME]";
+            + "[" + PREFIX_COOKTIME + "TIME]\n"
+            + "Example: " + EditCommand.COMMAND_WORD + " 1 "
+            + PREFIX_STEP + "3 " + PREFIX_INSTRUCTION + "Boil #water 100 ml.";
 
     public static final String MESSAGE_EDIT_INGREDIENT_USAGE = EditCommand.COMMAND_WORD
             + ": Edits the details of the ingredient identified "
