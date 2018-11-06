@@ -11,6 +11,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.ImageCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendar.Month;
@@ -228,6 +229,21 @@ public class ParserUtil {
             throw new ParseException(ExportCommand.MESSAGE_USAGE);
         }
         return new File(trimmedPath + "/" + trimmedFilename).toPath();
+    }
+
+    //@@author javenseow
+
+    /**
+     * Parses a {@code String file} into a {@code File}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static File parseImage(String file) throws ParseException {
+        requireNonNull(file);
+        String trimmedFile = file.trim();
+        if (!trimmedFile.contains(".jpg") && !trimmedFile.contains(".png")) {
+            throw new ParseException(ImageCommand.MESSAGE_USAGE);
+        }
+        return new File(trimmedFile);
     }
 
     //@@author EatOrBeEaten

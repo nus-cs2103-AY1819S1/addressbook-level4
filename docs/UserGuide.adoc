@@ -76,12 +76,15 @@ Examples:
 ==== Adding a picture to resident detail : `image`
 
 Uploads the image of resident staying in the specified room to Hallper. +
-Format: `image ROOM`
+Format: `image r/ROOM f/FILEPATH`
 
 ****
-* Allow for the upload of the profile picture of resident.
 * The image must be in *`.jpg`* or *`.png`*.
 ****
+
+Example:
+
+* `image r/a123 f/C://Users/Files/a123.jpg`
 
 ==== Clearing all entries : `clear all`
 
@@ -189,6 +192,27 @@ Deletes the 2nd person in Hallper.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+==== Deleting a transaction entry : `delete_trans`
+
+Deletes the specified transaction entry from the specified CCA from Hallper. +
+Format: `delete_trans c/NAME_OF_CCA trans/ENTRY_NUMBER`
+
+****
+* Deletes the specific transaction entry from the CCA with the specified name.
+* The transaction entry number must be a *positive interger* (e.g. 1,2,3,4...).
+****
+
+[NOTE]
+====
+* The CCA specifed must exist in the Hallper.
+* The transaction entry number must exist for the specified CCA.
+====
+
+Examples:
+
+* `delete_cca c/netball trans/1`
+* `delete_cca c/Basketball F trans/3`
+
 ==== Importing contact information : `import`
 
 Imports file containing contact information and updates Hallper accordingly. +
@@ -203,11 +227,11 @@ Format: `import f/FILEPATH`
 
 File formats for imported `.xml` files are as shown below.
 
-.Contacts information `.xml` file format
 image::AddressBookExample.png[width="790"]
+_Figure 4.1.7.1: Contacts information `.xml` file format._
 
-.CCA list `.xml` file format.
 image::CCAListExample.png[width="790"]
+_Figure 4.1.7.2: CCA list `.xml` file format._
 
 Example:
 
@@ -222,7 +246,7 @@ This section lists features related to viewing all or specific contacts in Hallp
 Shows a list of all persons in the Hallper that are associated with the specified keyword. +
 Format: `search KEYWORD [MORE_KEYWORDS]`
 ****
-* KEYWORD can be ROOM or CCA.
+* KEYWORD can be ROOM, CCA or SCHOOL.
 * KEYWORD is not case-sensitive.
 ****
 
@@ -262,24 +286,6 @@ Format: `list`
 === Email
 This section lists features related to email in Hallper.
 
-==== Composing an email to currently listed people: `compose_email_list`
-Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
-Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
-
-****
-* FROM must be a valid email address e.g. johndoe@example.com
-* SUBJECT has no word limit.
-* CONTENT has no word limit.
-****
-
-Example:
-
-* `compose_email_list from/johndoe@example.com subject/Meeting this Friday
-content/Hey there's a meeting this friday.` +
-Composes an email from `johndoe@example.com` to currently listed people with subject
-`Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
-it as a *`.eml`* file.
-
 ==== Composing an email to selected indexes: `compose_email_index`
 Composes a *`.eml`* file that can be used to send emails to residents specified by index. +
 Format: `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT`
@@ -297,6 +303,24 @@ Example:
 * `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday
 content/Hey there's a meeting this friday.` +
 Composes an email from `johndoe@example.com` to people at indexes 1, 6 and 10 with subject
+`Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
+it as a *`.eml`* file.
+
+==== Composing an email to currently listed people: `compose_email_list`
+Composes a *`.eml`* file that can be used to send emails to currently listed residents. +
+Format: `compose_email_list from/FROM subject/SUBJECT content/CONTENT`
+
+****
+* FROM must be a valid email address e.g. johndoe@example.com
+* SUBJECT has no word limit.
+* CONTENT has no word limit.
+****
+
+Example:
+
+* `compose_email_list from/johndoe@example.com subject/Meeting this Friday
+content/Hey there's a meeting this friday.` +
+Composes an email from `johndoe@example.com` to currently listed people with subject
 `Meeting this Friday` and email body `Hey there's a meeting this friday.` and saves
 it as a *`.eml`* file.
 
@@ -336,32 +360,67 @@ Displays the email with the subject `Meeting on Friday`.
 === Calendar
 This section lists features related to managing the calendar in Hallper.
 
-==== Adding event into calendar : `add_event`
+==== Adding all day event into calendar : `add_all_day_event`
 
-Adds an event into the calendar. +
-Format: `add_event month/MONTH year/YEAR sdate/START DATE shour/START HOUR smin/START MIN
-edate/END DATE ehour/END HOUR emin/END MINUTE title/NAME OF EVENT`
+Adds an all day event into the calendar. +
+Format: `add_all_day_event month/MMM year/YYYY date/DD title/NAME OF EVENT`
 
 ****
-* The *MONTH must be specified as MMM*.
-* The *YEAR must be specified as YYYY*.
-* *DATE, HOUR, MINUTE must be specified as XX*.
+* The MONTH *must be specified as MMM*.
+* The MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+* The DATE *must be specified as DD*.
+* The TITLE *is case-sensitive*.
 ****
 
 Example:
 
-* `add_event month/Feb year/2018 sdate/01 shour/12 smin/00 edate/01 ehour/15 emin/00 title/Enthral` +
-Adds an event titled `Enthral` into calendar for `Feb 2018` which starts on the `1` st at `1200` and ends on
-the `1` st at `1500`.
+Before executing command
+
+image::add_all_day_event_diagram_before.png[width="790"]
+
+* `add_all_day_event month/Oct year/2018 date/08 title/Hall open day` +
+Adds an all day event titled `Hall open day` into the `OCT-2018.ics` calendar which happens on the `8th` of `Oct`.
+
+image::add_all_day_event_diagram_after.png[width="790"]
+
+
+==== Adding event into calendar : `add_event`
+
+Adds an event with a specific time frame into the calendar. +
+Format: `add_event month/MMM year/YYYY sdate/DD shour/HH smin/mm
+edate/DD ehour/HH emin/mm title/NAME OF EVENT`
+
+****
+* The MONTH *must be specified as MMM*.
+* The MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+* The DATE *must be specified as DD*.
+* DATE, HOUR, MINUTE *must be specified as XX*.
+* The TITLE *is case-sensitive*.
+****
+
+Example:
+
+Before executing command
+
+image::add_event_diagram_before.png[width="790"]
+
+* `add_event month/Oct year/2018 sdate/10 shour/15 smin/30 edate/10 ehour/18 emin/00 title/Block Committee Audit` +
+Adds an event titled `Block Committee Audit` into the `OCT-2018.ics` calendar which starts on the `10th` at `1530` and ends on
+the `10th` at `1800`.
+
+image::add_event_diagram_after.png[width="790"]
 
 ==== Creating calendar : `create_calendar`
 
 Creates a calendar file in Hallper for updating of events. +
-Format: `create_calendar month/MONTH year/YEAR`
+Format: `create_calendar month/MMM year/YYYY`
 
 ****
-* Creates a calendar as a *`.ics`* file.
+* Creates a monthly calendar as a *`.ics`* file.
 * The MONTH *must be specified as MMM*.
+* MONTH *is not case-sensitive*.
 * The YEAR *must be specified as YYYY*.
 ****
 Example:
@@ -370,15 +429,54 @@ Example:
 Creates a calendar for the month of `Feb` and year `2018` and
 saves it as a *`.ics`* file.
 
-==== Viewing calendar : `view_calendar`
+==== Delete event from calendar : `delete_event`
 
-Views the calendar of the specified month. +
-Format: `view_calendar MONTH`
+Deletes an event from the calendar. +
+Format: `delete_event month/MMM year/YYYY sdate/DD edate/DD title/NAME OF EVENT`
+
+****
+* An event is considered identical when it has the same start date, end date and title. Regardless of starting time and ending time.
+* The MONTH *must be specified as MMM*.
+* The MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+* The DATE *must be specified as DD*.
+* The TITLE *is case-sensitive*.
+****
 
 Example:
 
-* `view_calendar Feb` +
-Displays view of calendar for the month of `Feb`.
+Before executing command +
+
+image::delete_event_diagram_before.png[width="790"]
+
+* Deleting a non-existing event (Title is case sensitive) +
+`delete_event month/Oct year/2018 sdate/10 edate/10 title/block committee audit`
+
+image::delete_event_diagram_after_invalid.png[width="790"]
+
+* Deleting an existing event +
+`delete_event month/Oct year/2018 sdate/10 edate/10 title/Block Committee Audit` +
+Deletes an event titled `Block Committee Audit` from the `OCT-2018.ics` calendar which happens from the `10th` of `Oct` to `10th` of `Oct`.
+
+image::delete_event_diagram_after_valid.png[width="790"]
+
+==== Viewing calendar : `view_calendar`
+
+Loads the specified monthly calendar `.ics` file into the UI. UI by default displays the current week. +
+Format: `view_calendar month/MMM year/YYYY`
+
+****
+* The MONTH *must be specified as MMM*.
+* MONTH *is not case-sensitive*.
+* The YEAR *must be specified as YYYY*.
+****
+
+Example:
+
+* `view_calendar month/Oct year/2018` +
+Displays view of calendar with current week as default page with the events loaded from `OCT-2018.ics`.
+
+image::calendar_view_diagram.png[width="790"]
 
 === Budget and CCA
 This section lists features related to CCA budget management in Hallper.
@@ -619,6 +717,14 @@ e.g. `add_trans c/Basketball M date/23.11.2018 amount/-100 remarks/Competition F
 * *Clear* : `clear KEYWORD [MORE_KEYWORDS]` +
 e.g. `clear basketball A123`
 * *Clear all* : `clear all`
+* *Import* : `import f/FILEPATH`
+* *Export* : `export dst/PATH fn/FILENAME`
+* *Image* : `image r/ROOM f/FILEPATH`
+* *Search* : `search KEYWORD [MORE_KEYWORDS]` +
+e.g. `search basketball A123`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
 * *Compose Email (Index)* : `compose_email_index from/FROM to/INDEXES subject/SUBJECT content/CONTENT` +
 e.g. `compose_email_index from/johndoe@example.com to/1 6 10 subject/Meeting this Friday content/Hey there's a meeting this friday.`
 * *Compose Email (List)* : `compose_email_list from/FROM subject/SUBJECT content/CONTENT` +

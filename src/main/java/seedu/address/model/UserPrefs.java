@@ -22,6 +22,7 @@ public class UserPrefs {
     private Path ccaXslFilePath = Paths.get("data", "docs/ccabook.xsl");
     private Path emailPath = Paths.get("email");
     private Path calendarPath = Paths.get("calendar");
+    private Path profilePicturePath = Paths.get("src", "main", "resources", "profile_picture");
     private Map<Year, Set<Month>> existingCalendar;
 
     public UserPrefs() {
@@ -88,6 +89,11 @@ public class UserPrefs {
         this.existingCalendar = existingCalendar;
     }
 
+    //@@author javenseow
+    public Path getProfilePicturePath() {
+        return profilePicturePath;
+    }
+
     //@@author
 
     @Override
@@ -104,7 +110,8 @@ public class UserPrefs {
         return Objects.equals(guiSettings, o.guiSettings)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)
                 && Objects.equals(emailPath, o.emailPath)
-                && Objects.equals(calendarPath, o.calendarPath);
+            && Objects.equals(calendarPath, o.calendarPath)
+            && Objects.equals(profilePicturePath, o.profilePicturePath);
 
     }
 
@@ -120,6 +127,7 @@ public class UserPrefs {
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nEmail directory location : " + emailPath);
         sb.append("\nCalendar directory location : " + calendarPath);
+        sb.append("\nProfile Picture directory location : " + profilePicturePath);
         return sb.toString();
     }
 }
