@@ -115,7 +115,7 @@ public class AddReservationCommandParserTest {
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_RESERVATION_NAME_ANDREW + VALID_RESERVATION_NAME_ANDREW
+        assertParseFailure(parser, VALID_RESERVATION_NAME_ANDREW + VALID_RESERVATION_PAX_ANDREW
                         + VALID_RESERVATION_DATE_ANDREW + VALID_RESERVATION_TIME_ANDREW, expectedMessage);
     }
 
