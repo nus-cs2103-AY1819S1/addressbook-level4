@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TestUtil.blockGoogleLogin;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -62,8 +60,7 @@ public class ModelGenerator {
      */
     public static Model getDefaultModel() {
         BufferedImage image = getABufferedImage();
-        blockGoogleLogin();
-        Model model = new ModelManager(new UserPrefs());
+        Model model = new ModelManager(new UserPrefs(), true);
         PreviewImage previewImage = new PreviewImage(image, new TransformationSet());
         model.updateCurrentOriginalImageForTest(previewImage);
         return model;
@@ -121,9 +118,18 @@ public class ModelGenerator {
      * Returns a Model with current directory testimgs.
      */
     public static Model getModelWithTestImgDirectory() {
-        blockGoogleLogin();
-        Model model = new ModelManager(new UserPrefs());
+        Model model = new ModelManager(new UserPrefs(), true);
         model.updateCurrDirectory(Paths.get(MainApp.MAIN_PATH + "/src/test/resources/testimgs"));
+        return model;
+    }
+
+    /**
+     * Returns a Model with 3 layers.
+     */
+    public static Model getModelWithPopulatedCanvas() {
+        Model model = getDefaultModel();
+        model.getCanvas().addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.FULL_LIST[2]), "Layer 2");
+        model.getCanvas().addLayer(PreviewImageGenerator.getPreviewImage(TypicalImages.FULL_LIST[3]), "Layer 3");
         return model;
     }
 }

@@ -19,17 +19,17 @@ public class GoogleDlCommand extends GoogleCommand {
 
     public static final String MESSAGE_SUCCESS = "%s downloaded into %s";
     public static final String MESSAGE_FAILURE = "%s failed to download.";
-
-    private static final String TYPE = COMMAND_WORD + " dl";
+    public static final String TYPE = "dl";
+    public static final String FULL_CMD = COMMAND_WORD + " " + TYPE;
     public static final String MESSAGE_USAGE = "Usage of google download (requires an internet connection): "
-            + "\n- " + TYPE + " /i<IMAGE_NAME>: " + "Downloads specified image from Google Photos"
-            + "\n\tExample: " + TYPE + " /i<mountain.png>, usage inclusive of <> "
-            + "\n- " + TYPE + " /a<ALBUM_NAME> /i<IMAGE_NAME>: " + "Downloads specified image"
+            + "\n- " + FULL_CMD + " /i<IMAGE_NAME>: " + "Downloads specified image from Google Photos"
+            + "\n\tExample: " + FULL_CMD + " /i<mountain.png>, usage inclusive of <> "
+            + "\n- " + FULL_CMD + " /a<ALBUM_NAME> /i<IMAGE_NAME>: " + "Downloads specified image"
             + "from specified album in Google sPhotos"
-            + "\n\tExample: " + TYPE + " /a<Vacation> /i<mountain.png>, usage inclusive of <>"
-            + "\n- " + TYPE + " /a<ALBUM_NAME>: " + "Downloads all images from specified album, "
+            + "\n\tExample: " + FULL_CMD + " /a<Vacation> /i<mountain.png>, usage inclusive of <>"
+            + "\n- " + FULL_CMD + " /a<ALBUM_NAME>: " + "Downloads all images from specified album, "
             + "takes a longer time depending on number of images"
-            + "\n\tExample: " + TYPE + " /a<Vacation>, usage inclusive of <> \n\n"
+            + "\n\tExample: " + FULL_CMD + " /a<Vacation>, usage inclusive of <> \n\n"
             + "!!WARNING: Any files with duplicate naming existing in the folder WILL be replaced";
 
     /**
@@ -83,5 +83,16 @@ public class GoogleDlCommand extends GoogleCommand {
             throw new CommandException(String.format(MESSAGE_FAILURE, parameter) + "\n\n" + MESSAGE_USAGE);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, parameter, model.getCurrDirectory().toString()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof GoogleDlCommand)) { //this handles null as well.
+            return false;
+        }
+        return ((GoogleDlCommand) other).parameter.equals(this.parameter);
     }
 }

@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.google.GoogleUploadCommand.MESSAGE_ALL_DUPLICATE;
+import static seedu.address.logic.commands.google.GoogleUploadCommand.MESSAGE_DUPLICATE;
+import static seedu.address.logic.commands.google.GoogleUploadCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.ModelGenerator.getDefaultModel;
 
 import org.junit.Test;
@@ -8,6 +12,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.google.GoogleDlCommand;
 import seedu.address.logic.commands.google.GoogleLsCommand;
+import seedu.address.logic.commands.google.GoogleRefreshCommand;
 import seedu.address.logic.commands.google.GoogleUploadCommand;
 import seedu.address.model.Model;
 
@@ -17,10 +22,11 @@ import seedu.address.model.Model;
  * Suite of tests to test failure messages for GoogleCommands.
  * Unable to test success as it requires a Google Account and a connectivity.
  */
-public class GoogleFailCommandTests extends DefaultCommandTest {
+public class GoogleCommandTests {
     private Model model = getDefaultModel();
-    private Model expectedModel = getDefaultModel();
     private CommandHistory commandHistory = new CommandHistory();
+
+    private String mockMessage = "mock";
 
     @Test
     public void testGoogleLsFailure() {
@@ -66,7 +72,32 @@ public class GoogleFailCommandTests extends DefaultCommandTest {
     }
 
     @Test
-    public void testGoogleDlFailure() {
+    public void testUploadMessageParsing() {
+        GoogleUploadCommand command;
+        String message;
+        String expectedMessage;
+
+        //All duplicates
+        command = new GoogleUploadCommand("all");
+        message = command.returnUploadMessage("").feedbackToUser;
+        expectedMessage = String.format(MESSAGE_ALL_DUPLICATE, "All images in directory");
+        assertEquals(expectedMessage, message);
+
+        //Some duplicates
+        command = new GoogleUploadCommand("all");
+        message = command.returnUploadMessage(mockMessage).feedbackToUser;
+        expectedMessage = String.format(MESSAGE_DUPLICATE, mockMessage);
+        assertEquals(expectedMessage, message);
+
+        //No duplicates
+        command = new GoogleUploadCommand("all");
+        message = command.returnUploadMessage(".all" + mockMessage).feedbackToUser;
+        expectedMessage = String.format(MESSAGE_SUCCESS, mockMessage);
+        assertEquals(expectedMessage, message);
+    }
+
+    @Test
+    public void testGoogleUploadParsing() {
         GoogleDlCommand command;
         String msg = GoogleDlCommand.MESSAGE_FAILURE + "\n\n" + GoogleDlCommand.MESSAGE_USAGE;
 
@@ -107,4 +138,12 @@ public class GoogleFailCommandTests extends DefaultCommandTest {
         assertCommandFailure(command, model, commandHistory, String.format(msg, "Invali"));
     }
 
+    @Test
+    public void testGoogleRefreshFailure() {
+        GoogleRefreshCommand command;
+        String msg = GoogleRefreshCommand.FAILURE_MESSAGE;
+
+        command = new GoogleRefreshCommand();
+        assertCommandFailure(command, model, commandHistory, msg);
+    }
 }

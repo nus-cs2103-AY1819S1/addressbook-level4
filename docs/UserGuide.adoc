@@ -32,7 +32,7 @@ image::Ui.png[width:800]
 [[Features]]
 == Features
 
-==== Command Format
+=== Command Format
 * Items in square brackets are compulsory parameters to be added e.g `convert [TRANSFORMATION]` +
 * Items in round brackets are optional parameters and can be omitted, e.g `canvas size (NEW_SIZE)` +
 * For items surrounded by `< >`, they are compulsory parameters to be added that need to be typed with `< >` +
@@ -206,8 +206,8 @@ Examples:
 * `canvas size 800x600` - Sets the canvas to have a height of 800 pixels and a width of 600px.
 * `canvas size` - Prints the current size.
 
-==== Changing the background color of the canvas: `canvas bgcolour`
-Format: `canvas bgcolour (NEW_COLOR)`
+==== Changing the background color of the canvas: `canvas bgcolor`
+Format: `canvas bgcolor (NEW_COLOR)`
 
 [NOTE]
 ====
@@ -216,11 +216,11 @@ If the optional parameter NEW_COLOUR is not provided, the current colour will be
 
 Examples:
 
-* `canvas bgcolour none` - Sets the canvas to have a transparent background.
-* `canvas bgcolour #0f0` - Sets the canvas to the hex colour #00ff00 image:00ff00.png[width:15].
-* `canvas bgcolour #00ff00` - Sets the canvas to the hex colour #00ff00 image:00ff00.png[width:15].
-* `canvas bgcolour rgba(0,255,0,0.7)` - Sets the canvas to the hex colour #00ff00 but with 70% opacity image:00ff00-70.png[width:15].
-* `canvas bgcolour` - Prints the background colour.
+* `canvas bgcolor none` - Sets the canvas to have a transparent background.
+* `canvas bgcolor #0f0` - Sets the canvas to the hex colour #00ff00 image:00ff00.png[width:15].
+* `canvas bgcolor #00ff00` - Sets the canvas to the hex colour #00ff00 image:00ff00.png[width:15].
+* `canvas bgcolor rgba(0,255,0,0.7)` - Sets the canvas to the hex colour #00ff00 but with 70% opacity image:00ff00-70.png[width:15].
+* `canvas bgcolor` - Prints the background colour.
 
 ==== Allowing the canvas to auto-resize: `canvas auto-resize [ON|OFF]`
 Format : canvas auto-resize [ON|OFF]
