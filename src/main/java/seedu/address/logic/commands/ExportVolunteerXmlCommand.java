@@ -41,7 +41,7 @@ public class ExportVolunteerXmlCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    private static final String MESSAGE_EXPORT_VOLUNTEER_SUCCESS = "Volunteer exported for volunteer at %1$d "
+    private static final String MESSAGE_EXPORT_VOLUNTEER_SUCCESS = "Volunteer exported for volunteer at %1$d ";
     private static final String MESSAGE_EXPORT_VOLUNTEER_FAILED = "Volunteer export failed, please try again.";
     private static final String TRANSFORMER_ERROR = "Transformer error.";
     private static final String PARSER_ERROR = "Parser error.";
