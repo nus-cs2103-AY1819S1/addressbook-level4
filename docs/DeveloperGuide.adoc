@@ -638,52 +638,102 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 === Document
 ==== Implementation of `Document`
 The `Document` abstract class represents all the documents that can be issued by the clinic. The `Receipt`,
-`MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
-to henceforth as _document related commands_, all inherit from it. It specifies what general information
- these documents should have and how they should be formatted. It can hence be thought of as a
- *formatting template*.
+ `MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
+ to henceforth as _document related commands_, all inherit from it. It can be thought of as a *formatting template*,
+ specifying and organising the common information that all these documents must have. Shown below is a class diagram
+ illustrating how `Document`, `Receipt`, `MedicalCertificate` and `ReferralLetter` relate to one another.
 
-As the template on which the documents depend on, the `Document` class itself *cannot* be instantiated, hence
-implemented as an `abstract class`. The `Document` class has the following key features:
+.Class diagram representing how the `Document` and _document related_ classes are implemented.
+image::DocumentClassDiagram.png[width="650"]
+
+As the template on which the documents are built from, the `Document` `abstract class` itself *cannot* be instantiated.
+ The `Document` `abstract class` has the following key features:
 
 * contains a `name` and `icNumber` attribute, extracted from the `ServedPatient` from which the document is constructed.
 * has common methods like `generateContent` to standardise the way in which the contents of the `Document` are formatted.
 * has the `formatInformation` `abstract method` which the extending classes have to implement.
 
-The following activity diagram summarises what happens internally when a _document related command_ is called.
+The following activity diagram summarises what happens internally when a _document related command_ is executed.
 
 .Flow of activities when a _document related command_ is executed. Only the methods that are *implemented* within `Document` itself are labelled in the diagram.
-image::DocumentActivityDiagram.png[width="800"]
+image::DocumentActivityDiagram.png[width="650"]
 
-As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command. +
-Step 1. The resulting `Document` object will call the `generateFile()` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
+As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will
+be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command,
+ as detailed in the following steps.
 
+Step 1. The resulting _document related object_ will call the `generateFile()` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
 ``` Java
-    private String makeFileName() {
-        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
-                + FILE_NAME_DELIMITER + icNumber.toString())
-                .replaceAll("\\s", FILE_NAME_DELIMITER)
-                .replaceAll("(_)+", FILE_NAME_DELIMITER);
-    }
+private String makeFileName() {
+    return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
+        + FILE_NAME_DELIMITER + icNumber.toString())
+        .replaceAll("\\s", FILE_NAME_DELIMITER)
+        .replaceAll("(_)+", FILE_NAME_DELIMITER);
+}
 ```
-[NOTE]
+[TIP]
 ====
-The FILE_NAME_DELIMITER is abstracted so as to allow users to change the delimiter to a string of their choice.
+The `FILE_NAME_DELIMITER` is abstracted so as to allow users to change the delimiter to a `string` of their choice.
 It is used as a means of separating fields of information in file names.
 ====
+Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder values prefixed by a `$` that will be replaced with the actual information pertaining to the `Served Patient's` consultation.
+``` Java
+private String convertHtmlIntoString() {
+    StringBuilder contentBuilder = new StringBuilder();
+    try {
+        BufferedReader in = new BufferedReader(new FileReader(COMPLETE_TEMPLATE_PATH));
+        String str;
+        while ((str = in.readLine()) != null) {
+            contentBuilder.append(str).append("\n");
+        }
+        in.close();
+    } catch (IOException e) {
+        System.out.println(TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE);
+    }
+    return contentBuilder.toString();
+}
+```
+Step 3. The `generateContent` method will then be called within the `writeContentsIntoDocumentTemplate` method.
+The `generateContent` method will construct a `HashMap` of `string` to `string` key-value pairs. The keys are the aforementioned
+placeholder `strings` prefixed by `$` found in the `HTML` template, while the values are the corresponding information that are to
+substitute the placeholders in the `HTML` template(keys). The `writeContentsIntoDocumentTemplate` method will then use the
+key-value pairs found in the `HashMap` created by the `generateContent` method to replace the placeholder values in the
+`HTML` template.
+``` Java
+private String writeContentsIntoDocumentTemplate() {
+    String htmlContent = convertHtmlIntoString();
+    String title = fileType + " for " + this.name;
+    htmlContent = htmlContent.replace("$title", title);
+    HashMap<String, String> fieldValues = this.generateContent();
+    for (Map.Entry<String, String> entry : fieldValues.entrySet()) {
+        String key = entry.getKey();
+        String value = entry.getValue();
+        htmlContent = htmlContent.replace(key, value);
+    }
+    return htmlContent;
+}
 
-Step 2.
-
+private HashMap<String, String> generateContent() {
+    HashMap<String, String> informationFieldPairs = new HashMap<>();
+    informationFieldPairs.put(HEADER_PLACEHOLDER, generateHeaders());
+    informationFieldPairs.put(NAME_PLACEHOLDER, name.toString());
+    informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
+    informationFieldPairs.put(CONTENT_PLACEHOLDER, formatInformation());
+    return informationFieldPairs;
+}
+```
+Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the corresponding information, a `BufferedOutputStream`
+is used to write the `string` into the `HTML` file, concluding the generation of the `HTML` file.
 
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
 * **Alternative 1 (current choice)**: Using an `abstract class` to implement `Document`. +
 ** Pros:
 *** Allows `inheriting` classes to use a standardised method to format common information while granting them the
-flexibility of structuring the contents unique to its document type.
+flexibility of structuring the contents unique to its document type by means of `abstract methods`.
 ** Cons:
-*** Prevents `inheriting` classes from `inheriting` from other useful classes or becoming an `enum` as `Java` does not support `multiple inheritance`.
-*** More computationally expensive than using an `interface` due to the overhead incurred looking up `inherited methods` and various `class members`.
+*** Prevents `inheriting` classes from becoming an `Enum` as `Java` does not support `multiple inheritance`, since all `enums` implicitly inherit from `Enum`.
+*** More computationally expensive than an `interface` due to the overhead incurred looking up `inherited methods` and various `class members`.
 * **Alternative 2**: Using an `interface` to implement `Document`.
 ** Pros:
 *** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
@@ -691,7 +741,7 @@ flexibility of structuring the contents unique to its document type.
 `Enums` can prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
 ****
 ** Cons:
-*** Unable to standardise the way the `inheriting` classes implement the `generateHeader` method.
+*** Unable to standardise the way `inheriting` classes implement the `generateHeader` method.
 ****
 * Potentially allow the `inheriting` classes to omit certain header fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
 * Information might be formatted differently.
@@ -706,11 +756,13 @@ The `Receipt` class structure is as follows:
 * contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
 * has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
 
-Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the served patient's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
+Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the
+ served patient's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
 
-When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extracts the relevant information from the `ServedPatient` specified by the `index`.
-Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is unpacked to sieve out the individual table entries for the cost of different medicines.
-
+When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extract the relevant information
+from the `ServedPatient` specified by the `index`.
+Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is unpacked to sieve out the individual
+ table entries for the cost of different medicines.
 ``` Java
     private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
         StringBuilder stringBuilder = new StringBuilder();
