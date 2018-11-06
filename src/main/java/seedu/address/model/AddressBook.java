@@ -97,6 +97,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updatePerson(Patient target, Patient editedPatient) {
         requireNonNull(editedPatient);
 
+
+        System.out.println();
+        System.out.println("In address book:");
+        System.out.println("Target: " + target);
+        System.out.println("Edited person: " + editedPatient);
+        System.out.println();
         persons.setPerson(target, editedPatient);
     }
 

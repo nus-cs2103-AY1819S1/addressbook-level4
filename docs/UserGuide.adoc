@@ -187,13 +187,17 @@ image::FindEx1.png[width="650"]
 
 // tag::patientsecondhalf[]
 ==== Listing all patients: `list`
-Displays a list of all patients in CLInic's patient database. +
+Need to list all patients in the database? +
+Do this easily with the `list` command. +
 Alias: `l` +
 Format: `list`
 
-==== Deleting a patient: `delete`
+.Before and after executing the `list` command
+image::list-command-example.png[width="650"]
 
-Deletes the specified patient from the CLInic database. +
+==== Deleting a patient: `delete`
+What if we need to remove a patient's details from the database? +
+You can do so with the `delete` command, which will clear the user's details from the database completely. +
 Alias: `d` +
 Format: `delete INDEX`
 
@@ -212,9 +216,12 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd patient in the database.
-* `find Betsy` +
+* `find Bryan` +
 `d 1` +
 Deletes the 1st patient in the resulting list of the `find` command.
+
+.Before and after executing the `find Bryan` and `d 1` command
+image::delete-command-example.png[width="650]
 
 ==== Selecting a patient: `select`
 
@@ -231,9 +238,13 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd patient in the whole database.
-* `find Betsy` +
+* `find Bryan` +
 `s 1` +
 Selects the 1st patient in the resulting list of the `find` command.
+
+.Before and after executing the `find Bryan` and `s 1` command.
+image::select-command-example.png[width="650"]
+
 // end::patientsecondhalf[]
 
 // tag::addmedicalrecordcommand[]
@@ -268,7 +279,7 @@ image::addmedicalrecord-example-2.png[width="650"]
 // end::addmedicalrecordcommand[]
 
 [[medicine]]
-// tag::medicine[]
+// tag::addmedicine[]
 === Medicine Inventory Management
 
 ==== Adding a medicine: `addmedicine`
@@ -278,15 +289,15 @@ Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
 [NOTE]
-.Thing(s) to note:
-The serial number of a medicine *must* be a 5 digit integer!
+The serial number of a medicine *must* have at least 5 digits!
 
 Example:
 
 * `addmedicine mn/panadol msq/500 ppu/0.50 sn/91853 s/1000` +
-Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `500` units to the CLInic inventory.
+Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `1000` units to the CLInic inventory.
 * `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
+// end::addmedicine[]
 
 ==== Editing a medicine: `editmedicine`
 
@@ -354,7 +365,6 @@ Lists all medicines that are low in supply. +
 Alias: `cs` +
 Format: `checkstock`
 
-// end::medicine[]
 
 [[pqms]]
 // tag::pqms[]

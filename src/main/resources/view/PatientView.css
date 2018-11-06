@@ -33,6 +33,7 @@ table {
 table, th, td {
     border: 1px solid #383838;
     border-collapse: collapse;
+    word-wrap:break-word;
 }
 
 .col-personal-details {

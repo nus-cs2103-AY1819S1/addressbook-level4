@@ -3,7 +3,7 @@
 <addressbook>
     <patients>
         <name>Alice Pauline</name>
-        <icNumber>S1234567X</icNumber>
+        <icNumber>S9015018I</icNumber>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
@@ -14,7 +14,7 @@
     </patients>
     <patients>
         <name>Benson Meier</name>
-        <icNumber>S1234567X</icNumber>
+        <icNumber>S0473586B</icNumber>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
@@ -26,7 +26,7 @@
     </patients>
     <patients>
         <name>Carl Kurz</name>
-        <icNumber>S1234567X</icNumber>
+        <icNumber>S1608919B</icNumber>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
         <address>wall street</address>
@@ -36,7 +36,7 @@
     </patients>
     <patients>
         <name>Daniel Meier</name>
-        <icNumber>S1234567X</icNumber>
+        <icNumber>S1556326E</icNumber>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
         <address>10th street</address>
@@ -47,7 +47,7 @@
     </patients>
     <patients>
         <name>Elle Meyer</name>
-        <icNumber>S1234567X</icNumber>
+        <icNumber>S2231362B</icNumber>
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
@@ -57,7 +57,7 @@
     </patients>
     <patients>
         <name>Fiona Kunz</name>
-        <icNumber>S1234567X</icNumber>
+        <icNumber>S4965377H</icNumber>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
         <address>little tokyo</address>
@@ -67,7 +67,7 @@
     </patients>
     <patients>
         <name>George Best</name>
-        <icNumber>S1234567X</icNumber>
+        <icNumber>S4463361B</icNumber>
         <phone>9482442</phone>
         <email>anna@example.com</email>
         <address>4th street</address>

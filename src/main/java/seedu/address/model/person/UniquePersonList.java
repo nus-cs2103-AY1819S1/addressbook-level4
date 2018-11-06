@@ -59,6 +59,14 @@ public class UniquePersonList implements Iterable<Patient> {
             throw new PersonNotFoundException();
         }
 
+        System.out.println();
+        System.out.println("In unique list:");
+        System.out.println("Target: " + target);
+        System.out.println("Edited person: " + editedPatient);
+        System.out.println("Internal list: " + this.internalList.toString());
+
+        System.out.println();
+
         if (!target.isSamePerson(editedPatient) && contains(editedPatient)) {
             throw new DuplicatePersonException();
         }
