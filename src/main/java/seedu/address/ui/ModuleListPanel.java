@@ -12,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToModuleListRequestEvent;
-import seedu.address.commons.events.ui.JumpToPersonListRequestEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
 

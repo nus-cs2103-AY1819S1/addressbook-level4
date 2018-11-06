@@ -12,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToOccasionListRequestEvent;
-import seedu.address.commons.events.ui.JumpToPersonListRequestEvent;
 import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.model.occasion.Occasion;
 
