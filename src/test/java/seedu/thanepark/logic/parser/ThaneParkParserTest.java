@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.thanepark.logic.commands.AddCommand;
+import seedu.thanepark.logic.commands.AllCommandWords;
 import seedu.thanepark.logic.commands.ClearCommand;
 import seedu.thanepark.logic.commands.DeleteCommand;
 import seedu.thanepark.logic.commands.ExitCommand;
@@ -89,25 +90,16 @@ public class ThaneParkParserTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
 
-        try {
-            parser.parseCommand(HelpCommand.COMMAND_WORD + " 3");
-            throw new AssertionError("The expected ParseException was not thrown.");
-        } catch (ParseException pe) {
-            assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), pe.getMessage());
-        }
-    }
-
-    @Test
-    public void parseCommand_help_more() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " more") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " more 3") instanceof HelpCommand);
 
-        try {
-            parser.parseCommand(HelpCommand.COMMAND_WORD + " more 3");
-            throw new AssertionError("The expected ParseException was not thrown.");
-        } catch (ParseException pe) {
-            assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), pe.getMessage());
-        }
+        final String commandWord = "add";
+        assert (AllCommandWords.isCommandWord(commandWord));
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " " + commandWord) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " " + commandWord
+                + " 3") instanceof HelpCommand);
     }
 
     @Test

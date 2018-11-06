@@ -58,7 +58,7 @@ Similarly, the `About` button on the navigation bar opens a help window.
 Congratulations! You have successfully set up ThanePark!
 
 Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help more`* and pressing kbd:[Enter] will open the help window.
 
 Type some of these commands to try out ThanePark:
 
@@ -161,16 +161,20 @@ This section contains all commands related to managing commands.
 ==== Viewing help: `help`
 
 Display short summary of important commands. A summarized help
-sheet should appear as shown below. +
+sheet showing command syntax without details should appear as shown below. +
 
 image::ui_screenshots/help-example-1.png[width="400"]
 
 Format: `help`
 
 [NOTE]
-Extended usage of `help` command: `help [option]`. `[option]` can take on the value of
-`more` or any command word. If provided `[option]` is invalid, an error message will be
-shown (soon a default help message will be shown).
+Extended usage of `help` command: `help [more]` or `help [commandWord]`. If provided `[commandWord]` is invalid,
+the default summarized help message will be shown.
+Any arguments beyond the 2nd position will be discarded and ignored.
+
+[WARNING]
+Information provided in the short help only shows the rough syntax of commands. For full information,
+do refer to this User Guide.
 
 |===
 a|
@@ -182,6 +186,7 @@ image::ui_screenshots/help-example-2.png[width="600"]
 
 a|
 * `help add`: Opens the help window and scrolls to `add` command word usage.
+* `help add 1234`: Same as previous, the extra arguments are discarded and ignored.
 
 image::ui_screenshots/help-example-3.png[width="600"]
 |===
@@ -319,11 +324,11 @@ a|
 Examples:
 
 * `delete 1` +
-`list` +
+`view` +
 `undo` (reverses the `delete 1` command) +
 
 * `view 1` +
-`list` +
+`view` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
