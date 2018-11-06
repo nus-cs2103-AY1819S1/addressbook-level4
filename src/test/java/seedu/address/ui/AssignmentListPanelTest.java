@@ -61,7 +61,7 @@ public class AssignmentListPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         AssignmentCardHandle expectedAssignment =
-                assignmentListPanelHandle.getAssignmentCardHandle(INDEX_FIRST_ASSIGNMENT.getZeroBased());
+                assignmentListPanelHandle.getAssignmentCardHandle(INDEX_SECOND_ASSIGNMENT.getZeroBased());
         AssignmentCardHandle selectedAssignment = assignmentListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedAssignment, selectedAssignment);
     }

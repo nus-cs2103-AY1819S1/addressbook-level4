@@ -16,11 +16,13 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveList;
+import seedu.address.model.ReadOnlyAssignmentList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.User;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.storage.XmlSerializableArchiveList;
+import seedu.address.storage.XmlSerializableAssignmentList;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
 
@@ -32,22 +34,27 @@ public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     public static final Path SAVE_ARCHIVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("archiveList.xml");
+    public static final Path SAVE_ASSIGNMENT_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("assignmentList.xml");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
     protected Supplier<ReadOnlyArchiveList> initialArchiveSupplier = () -> null;
+    protected Supplier<ReadOnlyAssignmentList> initialAssignmetSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
     protected Path saveArchiveLocation = SAVE_ARCHIVE_LOCATION_FOR_TESTING;
+    protected Path saveAssignmentLocation = SAVE_ASSIGNMENT_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
     public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier,
+                   Supplier<ReadOnlyAssignmentList> initialAssignmetSupplier,
                    Supplier<ReadOnlyArchiveList> initialArchiveSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
+        this.initialAssignmetSupplier = initialAssignmetSupplier;
         this.initialArchiveSupplier = initialArchiveSupplier;
         this.saveFileLocation = saveFileLocation;
 
@@ -55,6 +62,10 @@ public class TestApp extends MainApp {
         if (initialDataSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
                     this.saveFileLocation);
+        }
+        if (initialAssignmetSupplier.get() != null) {
+            createDataFileWithData(new XmlSerializableAssignmentList(this.initialAssignmetSupplier.get()),
+                    this.saveAssignmentLocation);
         }
         if (initialArchiveSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableArchiveList(this.initialArchiveSupplier.get()),
@@ -77,6 +88,8 @@ public class TestApp extends MainApp {
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         userPrefs.setAddressBookFilePath(saveFileLocation);
+        userPrefs.setAssignmentListFilePath(saveAssignmentLocation);
+        userPrefs.setArchiveListFilePath(saveArchiveLocation);
         userPrefs.setAdminPassword(User.ADMIN_DEFUALT_PASSWORD);
         return userPrefs;
     }
