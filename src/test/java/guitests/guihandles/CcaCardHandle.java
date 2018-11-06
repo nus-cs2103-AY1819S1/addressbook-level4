@@ -1,17 +1,14 @@
 package guitests.guihandles;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.google.common.collect.ImmutableMultiset;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import seedu.address.model.cca.Cca;
-import seedu.address.model.person.Person;
 
 //@@author ericyjw
+
+/**
+ * Provides a handle to a cca card in the cca list panel.
+ */
 public class CcaCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#ccaName";
 

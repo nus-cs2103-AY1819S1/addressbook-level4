@@ -1,13 +1,10 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_DEFAULT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BADMINTON;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARKS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -34,12 +31,11 @@ import seedu.address.testutil.CcaBuilder;
 
 //@@author ericyjw
 public class AddTransactionCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalBudgetBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void constructor_nullCcaName_throwsNullPointerException() {
@@ -109,20 +105,15 @@ public class AddTransactionCommandTest {
         Remarks alternativeRemarks = new Remarks("Competition Fee");
 
         AddTransactionCommand addDefaultEntryCommand = new AddTransactionCommand(defaultCcaName, defaultDate,
-            defaultAmount,
-            defaultRemarks);
+            defaultAmount, defaultRemarks);
         AddTransactionCommand addAlternativeCcaNameCommand = new AddTransactionCommand(alternativeCcaName,
-            defaultDate, defaultAmount
-            , defaultRemarks);
+            defaultDate, defaultAmount, defaultRemarks);
         AddTransactionCommand addAlternativeDateCommand = new AddTransactionCommand(defaultCcaName, alternativeDate,
-            defaultAmount
-            , defaultRemarks);
+            defaultAmount, defaultRemarks);
         AddTransactionCommand addAlternativeAmountCommand = new AddTransactionCommand(defaultCcaName, defaultDate,
-            alternativeAmount
-            , defaultRemarks);
+            alternativeAmount, defaultRemarks);
         AddTransactionCommand addAlternativeRemarksCommand = new AddTransactionCommand(defaultCcaName, defaultDate,
-            defaultAmount
-            , alternativeRemarks);
+            defaultAmount, alternativeRemarks);
 
         // same object -> returns true
         assertTrue(addDefaultEntryCommand.equals(addDefaultEntryCommand));

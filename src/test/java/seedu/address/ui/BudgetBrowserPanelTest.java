@@ -44,8 +44,8 @@ public class BudgetBrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a cca
         postNow(selectionChangedEventStub);
-        URL expectedCcaUrl = new URL("file:/" + BudgetBrowserPanel.BUDGET_PAGE.replaceFirst(".", "Users/ericyjw" +
-            "/Hallper"));
+        URL expectedCcaUrl = new URL("file:/" + BudgetBrowserPanel.BUDGET_PAGE.replaceFirst(".", "Users/ericyjw"
+            + "/Hallper"));
 
         waitUntilBrowserLoaded(budgetBrowserPanelHandle);
         assertEquals(expectedCcaUrl, budgetBrowserPanelHandle.getLoadedUrl());
@@ -62,8 +62,8 @@ public class BudgetBrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a cca
         postNow(selectionChangedEventStub);
-        URL expectedCcaUrl = new URL("file:/" + BudgetBrowserPanel.BUDGET_PAGE.replaceFirst(".", "Users/ericyjw" +
-            "/Hallper"));
+        URL expectedCcaUrl = new URL("file:/" + BudgetBrowserPanel.BUDGET_PAGE.replaceFirst(".", "Users/ericyjw"
+            + "/Hallper"));
 
         waitUntilBrowserLoaded(budgetBrowserPanelHandle);
         assertEquals(expectedCcaUrl, budgetBrowserPanelHandle.getLoadedUrl());

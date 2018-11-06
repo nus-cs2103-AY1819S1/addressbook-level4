@@ -2,8 +2,8 @@
 <ccabook>
     <ccas>
         <name>track</name>
-        <head>Alice</head>
-        <viceHead>Grace</viceHead>
+        <head>Alice Pauline</head>
+        <viceHead>Benson Meier</viceHead>
         <budget>500</budget>
         <spent>300</spent>
         <outstanding>200</outstanding>
@@ -34,11 +34,11 @@
     </ccas>
     <ccas>
         <name>Badminton</name>
-        <head>BENSON</head>
-        <viceHead>Carls</viceHead>
+        <head>Fiona Kunz</head>
+        <viceHead>George Best</viceHead>
         <budget>500</budget>
         <spent>0</spent>
-        <outstanding>600</outstanding>
+        <outstanding>500</outstanding>
         <transaction>
             <entryNum>1</entryNum>
             <date>14.03.2018</date>
@@ -54,9 +54,9 @@
     </ccas>
     <ccas>
         <name>BASKETBALL</name>
-        <head>Steven Lim</head>
-        <viceHead>Benson</viceHead>
-        <budget>500</budget>
+        <head>Carl Kurz</head>
+        <viceHead>Daniel Meier</viceHead>
+        <budget>700</budget>
         <spent>0</spent>
         <outstanding>0</outstanding>
     </ccas>

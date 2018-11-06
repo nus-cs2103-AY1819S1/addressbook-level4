@@ -19,8 +19,8 @@ import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 import static seedu.address.testutil.TypicalCcas.HOCKEY;
 import static seedu.address.testutil.TypicalCcas.TRACK;
 import static seedu.address.testutil.TypicalCcas.getTypicalBudgetBook;
-import static seedu.address.testutil.TypicalEntries.ENTRY_COMPETITION_1;
-import static seedu.address.testutil.TypicalEntries.ENTRY_PRIZE_2;
+import static seedu.address.testutil.TypicalEntries.getEntryCompetition1;
+import static seedu.address.testutil.TypicalEntries.getEntryPrize2;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -78,7 +78,7 @@ public class UpdateCommandTest {
 
         Cca editedCca = new CcaBuilder().build();
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder(editedCca)
-            .withEntries(ENTRY_COMPETITION_1, ENTRY_PRIZE_2)
+            .withEntries(getEntryCompetition1(), getEntryPrize2())
             .withEntryNum(1)
             .withDate(VALID_DATE)
             .withAmount(VALID_AMOUNT)
@@ -210,7 +210,7 @@ public class UpdateCommandTest {
         Set<Entry> basketballEntries = BASKETBALL.getEntries();
         Entry[] basketballEntryArr = new Entry[basketballEntries.size()];
         basketballEntries.toArray(basketballEntryArr);
-        basketballEntryArr[0] = ENTRY_COMPETITION_1;
+        basketballEntryArr[0] = getEntryCompetition1();
         basketballEntries = Set.of(basketballEntryArr);
 
         Cca editedCca = new CcaBuilder(targetCca)
@@ -218,7 +218,7 @@ public class UpdateCommandTest {
             .build();
 
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
-            .withEntries(ENTRY_COMPETITION_1, ENTRY_PRIZE_2)
+            .withEntries(getEntryCompetition1(), getEntryPrize2())
             .build();
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
 
@@ -268,7 +268,7 @@ public class UpdateCommandTest {
             .build();
 
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
-            .withEntries(ENTRY_COMPETITION_1, ENTRY_PRIZE_2)
+            .withEntries(getEntryCompetition1(), getEntryPrize2())
             .build();
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
 
@@ -307,7 +307,7 @@ public class UpdateCommandTest {
         Set<Entry> basketballEntries = BASKETBALL.getEntries();
         Entry[] basketballEntryArr = new Entry[basketballEntries.size()];
         basketballEntries.toArray(basketballEntryArr);
-        basketballEntryArr[0] = ENTRY_COMPETITION_1;
+        basketballEntryArr[0] = getEntryCompetition1();
         basketballEntries = Set.of(basketballEntryArr);
 
         Cca editedCca = new CcaBuilder(targetCca)
@@ -321,7 +321,7 @@ public class UpdateCommandTest {
             .withCcaName(VALID_CCA_NAME_HOCKEY)
             .withViceHead(VALID_NAME_BOB)
             .withBudget(VALID_BUDGET_DEFAULT)
-            .withEntries(ENTRY_COMPETITION_1, ENTRY_PRIZE_2)
+            .withEntries(getEntryCompetition1(), getEntryPrize2())
             .build();
 
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
@@ -384,7 +384,7 @@ public class UpdateCommandTest {
             .withCcaName(VALID_CCA_NAME_HOCKEY)
             .withViceHead(VALID_NAME_BOB)
             .withBudget(VALID_BUDGET_DEFAULT)
-            .withEntries(ENTRY_COMPETITION_1, ENTRY_PRIZE_2)
+            .withEntries(getEntryCompetition1(), getEntryPrize2())
             .build();
 
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
@@ -469,7 +469,7 @@ public class UpdateCommandTest {
 
         CcaBuilder duplicateCca = new CcaBuilder(targetCca);
         Set<Entry> entrySet = new LinkedHashSet<>();
-        entrySet.add(ENTRY_COMPETITION_1);
+        entrySet.add(getEntryCompetition1());
         Cca editedCca = duplicateCca
             .withCcaName(VALID_CCA_NAME_BADMINTON)
             .withTransaction(entrySet)
@@ -477,7 +477,7 @@ public class UpdateCommandTest {
 
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
             .withCcaName(VALID_CCA_NAME_BADMINTON)
-            .withEntries(ENTRY_COMPETITION_1)
+            .withEntries(getEntryCompetition1())
             .build();
 
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
@@ -510,7 +510,7 @@ public class UpdateCommandTest {
 
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
             .withEntryNum(targetCca.getEntrySize() + 1)
-            .withEntries(ENTRY_COMPETITION_1, ENTRY_PRIZE_2)
+            .withEntries(getEntryCompetition1(), getEntryPrize2())
             .build();
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
 
@@ -534,7 +534,7 @@ public class UpdateCommandTest {
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
             .withEntryNum(targetCca.getEntrySize() + 1)
             .withDate(VALID_DATE)
-            .withEntries(ENTRY_COMPETITION_1)
+            .withEntries(getEntryCompetition1())
             .build();
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
 
@@ -544,7 +544,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_TransactionFieldWithInvalidEntryNumSpecifiedCcaList_success() {
+    public void execute_transactionFieldWithInvalidEntryNumSpecifiedCcaList_success() {
         Cca targetCca = BASKETBALL;
         // Adding Carl and Daniel from Basketball into the empty model with no persons
         model.addPerson(CARL);
@@ -556,7 +556,7 @@ public class UpdateCommandTest {
             .withEntryNum(targetCca.getEntrySize() + 1)
             .withAmount(VALID_AMOUNT)
             .withRemarks(VALID_REMARKS)
-            .withEntries(ENTRY_COMPETITION_1)
+            .withEntries(getEntryCompetition1())
             .build();
         UpdateCommand updateCommand = new UpdateCommand(targetCca.getName(), descriptor);
 

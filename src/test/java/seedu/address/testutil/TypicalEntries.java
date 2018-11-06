@@ -12,28 +12,28 @@ import seedu.address.model.transaction.Entry;
  * A utility class containing a list of {@code Entries} objects to be used in tests.
  */
 public class TypicalEntries {
-    public static final Entry ENTRY_COMPETITION_1 =
+    private static final Entry ENTRY_COMPETITION_1 =
         new TransactionEntryBuilder()
             .withEntryNum(1)
             .withDate("01.02.2018")
             .withAmount(-100)
             .withRemarks("Competition Fee")
             .build();
-    public static final Entry ENTRY_COACH_2 =
+    private static final Entry ENTRY_COACH_2 =
         new TransactionEntryBuilder()
             .withEntryNum(2)
             .withDate("03.04.2018")
             .withAmount(-300)
             .withRemarks("Coaching Fee")
             .build();
-    public static final Entry ENTRY_WELFARE_3 =
+    private static final Entry ENTRY_WELFARE_3 =
         new TransactionEntryBuilder()
             .withEntryNum(3)
             .withDate("30.12.2018")
             .withAmount(-50)
             .withRemarks("Welfare")
             .build();
-    public static final Entry ENTRY_FUND_RAISING_4 =
+    private static final Entry ENTRY_FUND_RAISING_4 =
         new TransactionEntryBuilder()
             .withEntryNum(4)
             .withDate("13.06.2018")
@@ -41,14 +41,14 @@ public class TypicalEntries {
             .withRemarks("Fund Raising")
             .build();
 
-    public static final Entry ENTRY_EQUIPMENT_1 =
+    private static final Entry ENTRY_EQUIPMENT_1 =
         new TransactionEntryBuilder()
             .withEntryNum(1)
             .withDate("14.03.2018")
             .withAmount(-200)
             .withRemarks("Purchase of Equipment")
             .build();
-    public static final Entry ENTRY_PRIZE_2 =
+    private static final Entry ENTRY_PRIZE_2 =
         new TransactionEntryBuilder()
             .withEntryNum(2)
             .withDate("03.11.2018")
@@ -57,16 +57,52 @@ public class TypicalEntries {
             .build();
 
     // Spent: 300 Outstanding: INITIAL BUDGET - 300
-    public static Set<Entry> TRANSACTION_4_ENTRIES = new LinkedHashSet<>(
+    private static Set<Entry> transactionFourEntries = new LinkedHashSet<>(
         Arrays.asList(ENTRY_COMPETITION_1, ENTRY_COACH_2, ENTRY_WELFARE_3, ENTRY_FUND_RAISING_4));
 
     // Spent: 0 Outstanding: INITIAL BUDGET + 100
-    public static Set<Entry> TRANSACTION_2_ENTRIES = new LinkedHashSet<>(
+    private static Set<Entry> transactionTwoEntries = new LinkedHashSet<>(
         Arrays.asList(ENTRY_EQUIPMENT_1, ENTRY_PRIZE_2));
 
     // Spent: 0 Outstanding: INITIAL BUDGET
-    public static Set<Entry> TRANSACTION_EMPTY = new LinkedHashSet<>();
+    private static Set<Entry> transactionEmpty = new LinkedHashSet<>();
 
     private TypicalEntries() {
     } // prevents instantiation
+
+    public static Set<Entry> getTransactionFourEntries() {
+        return transactionFourEntries;
+    }
+
+    public static Set<Entry> getTransactionTwoEntries() {
+        return transactionTwoEntries;
+    }
+
+    public static Set<Entry> getTransactionEmpty() {
+        return transactionEmpty;
+    }
+
+    public static Entry getEntryCompetition1() {
+        return ENTRY_COMPETITION_1;
+    }
+
+    public static Entry getEntryCoach2() {
+        return ENTRY_COACH_2;
+    }
+
+    public static Entry getEntryWelfare3() {
+        return ENTRY_WELFARE_3;
+    }
+
+    public static Entry getEntryFundRaising4() {
+        return ENTRY_FUND_RAISING_4;
+    }
+
+    public static Entry getEntryEquipment1() {
+        return ENTRY_EQUIPMENT_1;
+    }
+
+    public static Entry getEntryPrize2() {
+        return ENTRY_PRIZE_2;
+    }
 }

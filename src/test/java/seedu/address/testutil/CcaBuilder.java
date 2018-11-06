@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
+import static seedu.address.testutil.TypicalEntries.getTransactionEmpty;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 
@@ -25,7 +25,7 @@ public class CcaBuilder {
     public static final int DEFAULT_BUDGET = 500;
     public static final int DEFAULT_SPENT = 300;
     public static final int DEFAULT_OUTSTANDING = 200;
-    public static final Set<Entry> DEFAULT_TRANSACTION = TRANSACTION_EMPTY;
+    public static final Set<Entry> DEFAULT_TRANSACTION = getTransactionEmpty();
 
     private CcaName ccaName;
     private Name head;

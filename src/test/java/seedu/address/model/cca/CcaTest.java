@@ -8,9 +8,9 @@ import static seedu.address.testutil.TypicalCcas.BADMINTON;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 import static seedu.address.testutil.TypicalCcas.FLOORBALL;
 import static seedu.address.testutil.TypicalCcas.TRACK;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_2_ENTRIES;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
+import static seedu.address.testutil.TypicalEntries.getTransactionEmpty;
+import static seedu.address.testutil.TypicalEntries.getTransactionFourEntries;
+import static seedu.address.testutil.TypicalEntries.getTransactionTwoEntries;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
@@ -77,19 +77,19 @@ public class CcaTest {
         // same name, different transactions -> returns true
         editedBadminton = new CcaBuilder(BADMINTON)
             .withBudget(700)
-            .withTransaction(TRANSACTION_EMPTY)
+            .withTransaction(getTransactionEmpty())
             .build();
         assertTrue(BADMINTON.isSameCcaName(editedBadminton));
 
         // same name, same budget, different transaction -> returns true
         editedBasketball = new CcaBuilder(BASKETBALL)
-            .withTransaction(TRANSACTION_2_ENTRIES)
+            .withTransaction(getTransactionTwoEntries())
             .build();
         assertTrue(BASKETBALL.isSameCcaName(editedBasketball));
 
         // same name, same budget, no head, no vice head, different transaction -> return true
         editedFloorball = new CcaBuilder(FLOORBALL)
-            .withTransaction(TRANSACTION_2_ENTRIES)
+            .withTransaction(getTransactionTwoEntries())
             .build();
         assertTrue(FLOORBALL.isSameCcaName(editedFloorball));
     }
@@ -156,7 +156,7 @@ public class CcaTest {
 
         // diferrent transaction -> true
         editedFloorball = new CcaBuilder(FLOORBALL)
-            .withTransaction(TRANSACTION_4_ENTRIES)
+            .withTransaction(getTransactionFourEntries())
             .build();
         assertTrue(FLOORBALL.equals(editedFloorball));
     }

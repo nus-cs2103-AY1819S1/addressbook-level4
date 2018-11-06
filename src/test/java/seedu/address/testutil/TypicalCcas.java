@@ -3,9 +3,9 @@ package seedu.address.testutil;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_OUTSTANDING_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SPENT_BASKETBALL;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_2_ENTRIES;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
+import static seedu.address.testutil.TypicalEntries.getTransactionEmpty;
+import static seedu.address.testutil.TypicalEntries.getTransactionFourEntries;
+import static seedu.address.testutil.TypicalEntries.getTransactionTwoEntries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ public class TypicalCcas {
             .withBudget(Integer.valueOf(VALID_BUDGET_BASKETBALL))
             .withSpent(Integer.valueOf(VALID_SPENT_BASKETBALL))
             .withOutstanding(Integer.valueOf(VALID_OUTSTANDING_BASKETBALL))
-            .withTransaction(TRANSACTION_2_ENTRIES)
+            .withTransaction(getTransactionTwoEntries())
             .build();
 
     public static final Cca TRACK =
@@ -38,17 +38,17 @@ public class TypicalCcas {
             .withBudget(500)
             .withSpent(300)
             .withOutstanding(200)
-            .withTransaction(TRANSACTION_4_ENTRIES)
+            .withTransaction(getTransactionFourEntries())
             .build();
     public static final Cca BADMINTON =
         new CcaBuilder()
-            .withCcaName("BADMINTON")
+            .withCcaName("Badminton")
             .withHead("Fiona Kunz")
             .withViceHead("George Best")
             .withBudget(500)
             .withSpent(0)
             .withOutstanding(600)
-            .withTransaction(TRANSACTION_2_ENTRIES)
+            .withTransaction(getTransactionTwoEntries())
             .build();
     public static final Cca FLOORBALL =
         new CcaBuilder()
@@ -58,7 +58,7 @@ public class TypicalCcas {
             .withBudget(600)
             .withSpent(0)
             .withOutstanding(0)
-            .withTransaction(TRANSACTION_EMPTY)
+            .withTransaction(getTransactionEmpty())
             .build();
 
     // Manually added Cca

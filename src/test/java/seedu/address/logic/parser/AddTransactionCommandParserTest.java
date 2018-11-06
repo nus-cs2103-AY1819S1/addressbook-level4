@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARKS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalEntries.ENTRY_COMPETITION_1;
+import static seedu.address.testutil.TypicalEntries.getEntryCompetition1;
 
 import org.junit.Test;
 
@@ -29,7 +29,7 @@ public class AddTransactionCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         CcaName targetCca = new CcaName(VALID_CCA_NAME_BADMINTON);
-        Entry expectedEntry = new EntryBuilder(ENTRY_COMPETITION_1).build();
+        Entry expectedEntry = new EntryBuilder(getEntryCompetition1()).build();
 
         assertParseSuccess(parser,
             PREAMBLE_WHITESPACE + " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON + " " + PREFIX_DATE
@@ -47,15 +47,15 @@ public class AddTransactionCommandParserTest {
     public void parse_missingParts_failure() {
         // no cca name specified
         assertParseFailure(parser, " " + PREFIX_DATE
-            + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS + "Competition Fee",
+                + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS + "Competition Fee",
             AddTransactionCommand.MESSAGE_NO_SPECIFIC_CCA + "\n" + AddTransactionCommand.MESSAGE_USAGE);
 
 
         // no date specified
         assertParseFailure(parser,
-            " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON + " " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS +
-                "Competition Fee", AddTransactionCommand.MESSAGE_NOT_UPDATED
-                + "\n" + AddTransactionCommand.MESSAGE_USAGE);
+            " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON + " " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS
+                + "Competition Fee",
+            AddTransactionCommand.MESSAGE_NOT_UPDATED + "\n" + AddTransactionCommand.MESSAGE_USAGE);
 
         // no amount specified
         assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON + " " + PREFIX_DATE
@@ -77,7 +77,7 @@ public class AddTransactionCommandParserTest {
     public void parse_invalidFields_failure() {
         // invalid cca name
         assertParseFailure(parser, INVALID_CCA_NAME_BASKETBALL_DESC + " " + PREFIX_DATE
-            + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS + "Competition Fee",
+                + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS + "Competition Fee",
             CcaName.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid arguments being parsed as preamble
@@ -116,13 +116,13 @@ public class AddTransactionCommandParserTest {
 
         // invalid amount followed by valid amount
         assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON + " " + PREFIX_DATE
-            + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_AMOUNT + "-$100 " + PREFIX_REMARKS + "Competition" +
-            " Fee", AddTransactionCommand.MESSAGE_NOT_UPDATED + "\n" + AddTransactionCommand.MESSAGE_USAGE);
+            + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_AMOUNT + "-$100 " + PREFIX_REMARKS + "Competition"
+            + " Fee", AddTransactionCommand.MESSAGE_NOT_UPDATED + "\n" + AddTransactionCommand.MESSAGE_USAGE);
 
         // invalid amount followed by valid amount
         assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON + " " + PREFIX_DATE
-            + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS + "Competition Fee " + PREFIX_REMARKS +
-            "Competition Fee - $",
+                + "01.02.2018 " + PREFIX_AMOUNT + "-100 " + PREFIX_REMARKS + "Competition Fee " + PREFIX_REMARKS
+                + "Competition Fee - $",
             AddTransactionCommand.MESSAGE_NOT_UPDATED + "\n" + AddTransactionCommand.MESSAGE_USAGE);
     }
 }

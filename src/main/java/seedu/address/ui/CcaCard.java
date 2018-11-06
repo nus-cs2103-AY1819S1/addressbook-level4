@@ -40,21 +40,21 @@ public class CcaCard extends UiPart<Region> {
         ccaName.setText(cca.getCcaName());
     }
 
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof CcaCard)) {
-            return false;
-        }
-
-        // state check
-        CcaCard card = (CcaCard) other;
-        return id.getText().equals(card.id.getText())
-            && cca.equals(card.cca);
-    }
+//    @Override
+//    public boolean equals(Object other) {
+//        // short circuit if same object
+//        if (other == this) {
+//            return true;
+//        }
+//
+//        // instanceof handles nulls
+//        if (!(other instanceof CcaCard)) {
+//            return false;
+//        }
+//
+//        // state check
+//        CcaCard card = (CcaCard) other;
+//        return id.getText().equals(card.id.getText())
+//            && cca.equals(card.cca);
+//    }
 }

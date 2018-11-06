@@ -238,6 +238,7 @@ public class Cca {
      * @param toCheck name of the CCA to be checked
      */
     public boolean isSameCca(Cca toCheck) {
+
         return toCheck != null
             && toCheck.getCcaName().equals(getCcaName())
             && toCheck.getHead().equals(getHead())
@@ -261,8 +262,8 @@ public class Cca {
 
         Cca otherCca = (Cca) other;
         return otherCca.name.equals(this.name)
-//            && otherCca.head.equals(this.head)
-//            && otherCca.viceHead.equals(this.viceHead)
+            && otherCca.head.equals(this.head)
+            && otherCca.viceHead.equals(this.viceHead)
             && otherCca.budget.equals(this.budget);
     }
 
@@ -282,8 +283,6 @@ public class Cca {
             .append(getViceHeadName())
             .append(" Budget: ")
             .append(getBudgetAmount());
-//            .append(" Outstanding: ")
-//            .append(getOutstandingAmount());
         return builder.toString();
     }
 }

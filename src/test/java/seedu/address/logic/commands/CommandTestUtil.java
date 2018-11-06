@@ -18,16 +18,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VICE_HEAD;
-import static seedu.address.testutil.TypicalEntries.ENTRY_COMPETITION_1;
-import static seedu.address.testutil.TypicalEntries.ENTRY_EQUIPMENT_1;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_2_ENTRIES;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
+import static seedu.address.testutil.TypicalEntries.getEntryCompetition1;
+import static seedu.address.testutil.TypicalEntries.getEntryEquipment1;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -85,7 +81,7 @@ public class CommandTestUtil {
     public static final String VALID_SPENT_BASKETBALL = "200";
     public static final String VALID_OUTSTANDING_BASKETBALL = "500";
     public static final String VALID_TRANSACTION_NUM_BASKETBALL = "1";
-    public static final Entry VALID_TRANSACTION_BASKETBALL = ENTRY_COMPETITION_1;
+    public static final Entry VALID_TRANSACTION_BASKETBALL = getEntryCompetition1();
     public static final String VALID_DATE_BASKETBALL = "05.08.2018";
     public static final String VALID_AMOUNT_BASKETBALL = "-400";
     public static final String VALID_REMARKS_BASKETBALL = "Overseas Trip";
@@ -94,7 +90,7 @@ public class CommandTestUtil {
     public static final String VALID_BUDGET_TRACK = "300";
     public static final String VALID_SPENT_TRACK = "100";
     public static final String VALID_OUTSTANDING_TRACK = "200";
-    public static final Entry VALID_TRANSACTION_TRACK = ENTRY_EQUIPMENT_1;
+    public static final Entry VALID_TRANSACTION_TRACK = getEntryEquipment1();
     public static final String VALID_TRANSACTION_NUM_TRACK = "2";
     public static final String VALID_DATE_TRACK = "05.08.2014";
     public static final String VALID_AMOUNT_TRACK = "100";
@@ -104,7 +100,7 @@ public class CommandTestUtil {
     public static final String VALID_BUDGET_BADMINTON = "200";
     public static final String VALID_SPENT_BADMINTON = "0";
     public static final String VALID_OUTSTANDING_BADMINTON = "200";
-    public static final Entry VALID_TRANSACTION_BADMINTON = ENTRY_EQUIPMENT_1;
+    public static final Entry VALID_TRANSACTION_BADMINTON = getEntryEquipment1();
     public static final String VALID_TRANSACTION_NUM_BADMINTON = "2";
     public static final String VALID_DATE_BADMINTON = "06.04.2015";
     public static final String VALID_AMOUNT_BADMINTON = "400";
@@ -114,7 +110,7 @@ public class CommandTestUtil {
     public static final String VALID_BUDGET_DEFAULT = "900";
     public static final String VALID_SPENT_DEFAULT = "700";
     public static final String VALID_OUTSTANDING_DEFAULT = "200";
-    public static final Entry VALID_TRANSACTION_DEFAULT = ENTRY_EQUIPMENT_1;
+    public static final Entry VALID_TRANSACTION_DEFAULT = getEntryEquipment1();
     public static final String VALID_ENTRY_NUM = "1";
     public static final String VALID_DATE = "12.12.2018";
     public static final String VALID_AMOUNT = "-100";

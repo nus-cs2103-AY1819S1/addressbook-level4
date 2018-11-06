@@ -5,18 +5,15 @@ import static seedu.address.logic.commands.AddCommand.MESSAGE_NON_EXISTENT_CCA;
 import static seedu.address.logic.commands.BudgetCommand.SHOWING_BUDGET_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.cca.CcaName;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 //@@author ericyjw

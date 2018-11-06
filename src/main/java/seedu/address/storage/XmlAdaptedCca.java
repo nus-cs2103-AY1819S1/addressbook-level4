@@ -3,7 +3,6 @@ package seedu.address.storage;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -156,25 +155,5 @@ public class XmlAdaptedCca {
 
         return new Cca(modelName, modelHeadName, modelViceHeadName, modelBudget, modelSpent, modelOutstanding,
             modelTransaction);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof XmlAdaptedCca)) {
-            return false;
-        }
-
-        XmlAdaptedCca otherCca = (XmlAdaptedCca) other;
-        return Objects.equals(name, otherCca.name)
-            && Objects.equals(head, otherCca.head)
-            && Objects.equals(viceHead, otherCca.viceHead)
-            && Objects.equals(budget, otherCca.budget)
-            && Objects.equals(spent, otherCca.spent)
-            && Objects.equals(outstanding, otherCca.outstanding)
-            && Objects.equals(transaction, otherCca.transaction);
     }
 }

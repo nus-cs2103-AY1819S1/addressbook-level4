@@ -11,10 +11,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
 import seedu.address.model.BudgetBook;
 import seedu.address.testutil.TypicalCcas;
-import seedu.address.testutil.TypicalPersons;
 
 //@@author ericyjw
 public class XmlSerializableBudgetBookTest {

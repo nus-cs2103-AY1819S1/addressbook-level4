@@ -12,8 +12,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Remarks {
     public static final String MESSAGE_REMARKS_CONSTRAINTS =
-        "Transaction Remarks should only contain alphanumeric characters, dashes and spaces, and it should not be " +
-            "blank";
+        "Transaction Remarks should only contain alphanumeric characters, dashes and spaces, and it should not be "
+            + "blank";
     /*
      * The first character of the Date must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.

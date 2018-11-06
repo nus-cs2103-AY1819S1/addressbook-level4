@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalCcas.BASKETBALL;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
+import static seedu.address.testutil.TypicalEntries.getTransactionFourEntries;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class TransactionMathTest {
     public final ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void calculate_amount_successfully() {
+    public void calculateAmountSuccessfully() {
         Cca toBeUpdated = new CcaBuilder(BASKETBALL)
             .withBudget(900)
             .withSpent(600)
@@ -38,10 +38,10 @@ public class TransactionMathTest {
     }
 
     @Test
-    public void calculate_amount_successfully_netSpentLessThanZero() {
+    public void calculateAmountSuccessfully_netSpentLessThanZero() {
         Cca toBeUpdated = new CcaBuilder(BASKETBALL)
             .withBudget(400)
-            .withTransaction(TRANSACTION_4_ENTRIES)
+            .withTransaction(getTransactionFourEntries())
             .build();
 
         Cca expectedCca = new CcaBuilder(BASKETBALL)
@@ -56,10 +56,10 @@ public class TransactionMathTest {
     }
 
     @Test
-    public void outstanding_less_than_budget_throwsException() {
+    public void outstandingLessThanBudget_throwsException() {
         Cca toBeUpdated = new CcaBuilder(BASKETBALL)
             .withBudget(100)
-            .withTransaction(TRANSACTION_4_ENTRIES)
+            .withTransaction(getTransactionFourEntries())
             .build();
 
         exception.expect(IllegalArgumentException.class);

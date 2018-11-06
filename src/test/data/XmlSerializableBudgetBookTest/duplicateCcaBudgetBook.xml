@@ -4,7 +4,7 @@
         <name>Badminton</name>
         <head>Peter parker</head>
         <viceHead>roy</viceHead>
-        <budget>1222</budget>
+        <budget>100</budget>
         <spent>0</spent>
         <outstanding>1222</outstanding>
     </ccas>
@@ -12,10 +12,10 @@
     <!-- Cca with the same name -->
     <ccas>
         <name>Badminton</name>
-        <head>Paul</head>
-        <viceHead>Alex</viceHead>
+        <head>Peter parker</head>
+        <viceHead>roy</viceHead>
         <budget>100</budget>
         <spent>0</spent>
-        <outstanding>100</outstanding>
+        <outstanding>1222</outstanding>
     </ccas>
 </ccabook>

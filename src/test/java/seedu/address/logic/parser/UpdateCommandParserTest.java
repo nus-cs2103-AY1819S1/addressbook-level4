@@ -117,8 +117,8 @@ public class UpdateCommandParserTest {
         // multiple invalid values, but only the first invalid value is captured
         // invalid name followed by valid budget
         assertParseFailure(parser,
-            " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_NAME_BASKETBALL_DESC + INVALID_HEAD_DESC + INVALID_VICE_HEAD_DESC + INVALID_BUDGET_DESC + NAME_DESC_BADMINTON,
-            Name.MESSAGE_NAME_CONSTRAINTS);
+            " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_NAME_BASKETBALL_DESC + INVALID_HEAD_DESC
+                + INVALID_VICE_HEAD_DESC + INVALID_BUDGET_DESC + NAME_DESC_BADMINTON, Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
@@ -126,7 +126,8 @@ public class UpdateCommandParserTest {
         String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
         String userInput =
             targetCca + NAME_DESC_BASKETBALL + HEAD_DESC_BASKETBALL + VICE_HEAD_DESC_BASKETBALL + BUDGET_DESC_BASKETBALL
-                + TRANSACTION_NUM_DESC_BASKETBALL + DATE_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL + REMARKS_DESC_BASKETBALL;
+                + TRANSACTION_NUM_DESC_BASKETBALL + DATE_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL
+                + REMARKS_DESC_BASKETBALL;
 
         EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
             .withCcaName(VALID_CCA_NAME_BASKETBALL)
@@ -273,8 +274,9 @@ public class UpdateCommandParserTest {
     public void parse_multipleTransactionRepeatedFields_failure() {
         String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
         String userInput =
-            targetCca + TRANSACTION_NUM_DESC_BASKETBALL + DATE_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL + REMARKS_DESC_BASKETBALL
-                + TRANSACTION_NUM_DESC_BADMINTON + DATE_DESC_BADMINTON + AMOUNT_DESC_BADMINTON + REMARKS_DESC_BADMINTON;
+            targetCca + TRANSACTION_NUM_DESC_BASKETBALL + DATE_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL
+                + REMARKS_DESC_BASKETBALL + TRANSACTION_NUM_DESC_BADMINTON + DATE_DESC_BADMINTON + AMOUNT_DESC_BADMINTON
+                + REMARKS_DESC_BADMINTON;
 
         assertParseFailure(parser,
             userInput, UpdateCommand.MESSAGE_USAGE);
@@ -297,7 +299,8 @@ public class UpdateCommandParserTest {
 
         // valid values specified follows
         userInput =
-            targetCca + INVALID_NAME_BASKETBALL_DESC + NAME_DESC_BASKETBALL + HEAD_DESC_BASKETBALL + BUDGET_DESC_BASKETBALL;
+            targetCca + INVALID_NAME_BASKETBALL_DESC + NAME_DESC_BASKETBALL + HEAD_DESC_BASKETBALL
+                + BUDGET_DESC_BASKETBALL;
 
         descriptor = new EditCcaDescriptorBuilder()
             .withCcaName(VALID_CCA_NAME_BASKETBALL)
@@ -310,6 +313,7 @@ public class UpdateCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
     }
+
     @Test
     public void parse_invalidTransactionValueFollowedByValidValue_failure() {
         // no other valid transaction values specified

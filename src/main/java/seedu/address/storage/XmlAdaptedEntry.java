@@ -49,22 +49,5 @@ public class XmlAdaptedEntry {
         }
         return new Entry(entryNum, date, amount, log);
     }
-
-//    @Override
-//    public boolean equals(Object other) {
-//        if (other == this) {
-//            return true;
-//        }
-//
-//        if (!(other instanceof XmlAdaptedEntry)) {
-//            return false;
-//        }
-//
-//        XmlAdaptedEntry otherEntry = (XmlAdaptedEntry) other;
-//        return entryNum.equals(otherEntry.entryNum)
-//            && date.equals(otherEntry.date)
-//            && amount.equals(otherEntry.amount)
-//            && log.equals(otherEntry.log);
-//    }
 }
 

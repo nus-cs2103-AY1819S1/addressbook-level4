@@ -4,14 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_TRACK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
-import static seedu.address.testutil.TypicalEntries.ENTRY_COMPETITION_1;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -79,7 +75,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+            DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
 
@@ -88,7 +84,7 @@ public class AddressBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+            + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
@@ -102,7 +98,7 @@ public class AddressBookParserTest {
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -134,7 +130,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCommand command = (SelectCommand) parser.parseCommand(
-                SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+            SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
     }
 
@@ -167,7 +163,10 @@ public class AddressBookParserTest {
     //@@author ericyjw
     @Test
     public void parseCommand_createCca() throws Exception {
-        Cca cca = new CcaBuilder().build();
+        Cca cca = new CcaBuilder()
+            .withHead("-")
+            .withViceHead("-")
+            .build();
         CreateCcaCommand command = (CreateCcaCommand) parser.parseCommand(CcaUtil.getCreateCcaCommand(cca));
         assertEquals(new CreateCcaCommand(cca), command);
     }
@@ -192,7 +191,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_deleteTransaction() throws Exception {
         DeleteTransactionCommand command = (DeleteTransactionCommand) parser.parseCommand(
-            DeleteTransactionCommand.COMMAND_WORD + " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + " " + PREFIX_TRANSACTION + "1");
+            DeleteTransactionCommand.COMMAND_WORD + " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL
+                + " " + PREFIX_TRANSACTION + "1");
         assertEquals(new DeleteTransactionCommand(new CcaName(VALID_CCA_NAME_BASKETBALL), 1), command);
     }
 

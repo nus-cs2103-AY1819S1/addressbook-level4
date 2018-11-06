@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_NON_EXISTENT_CCA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Objects;
-
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.logic.CommandHistory;
