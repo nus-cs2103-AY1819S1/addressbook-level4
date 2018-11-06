@@ -278,16 +278,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                     MESSAGE_EDIT_HEALTHPLAN_USAGE));
         }
 
-
-
-
-
-
-
         HealthPlan toEdit = lastShownList.get(index.getZeroBased());
-
-
-
 
         if (changeWeight) {
 
@@ -320,8 +311,6 @@ public class EditCommandParser implements CommandParser<EditCommand> {
             }
         }
 
-
-
         HealthPlan edited = createEditedHealthPlan(toEdit, editHealthPlanDescriptor);
 
         if (!toEdit.isSame(edited) && model.has(edited)) {
@@ -331,10 +320,6 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         return new EditCommand<>(model, toEdit, edited);
     }
-
-
-
-
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
