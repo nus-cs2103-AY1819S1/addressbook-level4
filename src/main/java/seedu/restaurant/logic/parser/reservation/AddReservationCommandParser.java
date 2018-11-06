@@ -47,7 +47,6 @@ public class AddReservationCommandParser implements Parser<AddReservationCommand
 
         Name name = ReservationParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Pax pax = ReservationParserUtil.parsePax(argMultimap.getValue(PREFIX_PAX).get());
-        //LocalDateTime dateTime = ReservationParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
         Date date = ReservationParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Time time = ReservationParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
 
