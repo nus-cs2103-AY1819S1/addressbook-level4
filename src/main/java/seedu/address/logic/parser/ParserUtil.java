@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -33,7 +35,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed. NEEDS TO CHANGE TO ANAKIN_NAME
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -83,19 +85,9 @@ public class ParserUtil {
         requireNonNull(performance);
         String trimmed = performance.trim();
         try {
-            return Performance.valueOf(trimmed);
+            return Performance.valueOf(trimmed.toUpperCase());
         } catch(IllegalArgumentException e) {
             throw new ParseException(Performance.MESSAGE_PERFORMANCE_CONSTRAINTS);
         }
-//        switch (trimmed) {
-//        case "easy":
-//            return Performance.EASY;
-//        case "normal":
-//            return Performance.NORMAL;
-//        case "hard":
-//            return Performance.HARD;
-//        default:
-//            throw new ParseException(Performance.MESSAGE_PERFORMANCE_CONSTRAINTS);
-//        }
     }
 }
