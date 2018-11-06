@@ -61,7 +61,8 @@ e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 g
 To auto-complete any command words, press the tab button. +
 For example, if `ad` is typed, `add` will be displayed in the command box upon pressing the `TAB` button. +
 Note that only command words will be auto-completed, and the auto-completion will only be successful if there
-are any valid command words (including command aliases) containing the current input as a prefix.
+are any valid command words (including command aliases) containing the current input as a prefix. The
+auto-completed is the nearest word containing the current input as a prefix.
 
 === Viewing help : `help`, alias `h`
 
