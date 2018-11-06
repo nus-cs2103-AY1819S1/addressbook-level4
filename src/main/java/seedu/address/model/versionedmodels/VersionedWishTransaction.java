@@ -66,35 +66,40 @@ public class VersionedWishTransaction extends WishTransaction implements Version
 
     @Override
     public void removeWish(Wish wish) {
-        commit();
+        getCurrentState();
         super.removeWish(wish);
     }
 
     @Override
     public void removeTagFromAll(Tag tag) {
-        commit();
+        getCurrentState();
         super.removeTagFromAll(tag);
     }
 
     @Override
     public void addWish(Wish wish) {
-        commit();
-        resetData(wishStateList.get(referencePointer));
+        getCurrentState();
         super.addWish(wish);
     }
 
     @Override
     public void updateWish(Wish target, Wish editedWish) {
-        commit();
-        resetData(wishStateList.get(referencePointer));
+        getCurrentState();
         super.updateWish(target, editedWish);
     }
 
     @Override
     public void resetData() {
+        getCurrentState();
+        super.resetData();
+    }
+
+    /**
+     * Commits the previous state of the {@code wishmap} and sets the current state.
+     */
+    private void getCurrentState() {
         commit();
         resetData(wishStateList.get(referencePointer));
-        super.resetData();
     }
 
     private void removeStatesAfterCurrentPointer() {
