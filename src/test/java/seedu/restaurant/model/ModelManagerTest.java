@@ -26,9 +26,9 @@ import static seedu.restaurant.testutil.menu.TypicalItems.BURGER;
 import static seedu.restaurant.testutil.menu.TypicalItems.CHEESE_BURGER;
 import static seedu.restaurant.testutil.menu.TypicalItems.FRIES;
 import static seedu.restaurant.testutil.menu.TypicalItems.ITEM_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_DEFAULT;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_ONE;
-import static seedu.restaurant.testutil.salesrecords.TypicalRecords.RECORD_TWO;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_DEFAULT;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_ONE;
+import static seedu.restaurant.testutil.sales.TypicalRecords.RECORD_TWO;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -49,15 +49,15 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
 import seedu.restaurant.model.person.Person;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.exceptions.SalesRecordNotFoundException;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.exceptions.SalesRecordNotFoundException;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.PersonBuilder;
 import seedu.restaurant.testutil.RestaurantBookBuilder;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class ModelManagerTest {
 

@@ -1,7 +1,7 @@
 package seedu.restaurant.commons.events.ui.sales;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * Represents a selection change in the Record List Panel
