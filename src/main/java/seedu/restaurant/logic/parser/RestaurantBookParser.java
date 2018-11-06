@@ -191,7 +191,7 @@ public class RestaurantBookParser {
         case SelectAccountCommand.COMMAND_WORD:
         case SelectAccountCommand.COMMAND_ALIAS:
             return new SelectAccountCommandParser().parse(arguments);
-            
+
         case ListAccountsCommand.COMMAND_WORD:
         case ListAccountsCommand.COMMAND_ALIAS:
             return new ListAccountsCommand();

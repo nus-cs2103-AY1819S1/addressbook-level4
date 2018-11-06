@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
@@ -82,9 +83,6 @@ public class MainWindow extends UiPart<Stage> {
     private SplitPane splitPane;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -95,6 +93,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane dataListPanelPlaceholder;
+
+    @FXML
+    private StackPane detailedDataPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -180,7 +181,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        detailedDataPanelPlaceholder.getChildren().add(browserPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -212,10 +213,11 @@ public class MainWindow extends UiPart<Stage> {
         dataListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
         ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
-        ftStackPanel = getFadeTransition(Duration.millis(150), browserPlaceholder);
+        ftStackPanel = getFadeTransition(Duration.millis(150), detailedDataPanelPlaceholder);
     }
 
     //@@author yican95
+
     /**
      * Create the fade transition for the StackPane and set value from 0 to 1.
      */
@@ -261,10 +263,21 @@ public class MainWindow extends UiPart<Stage> {
      * Switch the list panel to the given region
      */
     private void switchList(Region region) {
-        browserPlaceholder.getChildren().clear();
+        detailedDataPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().clear();
         dataListPanelPlaceholder.getChildren().add(region);
         ftListPanel.play();
+    }
+
+    /**
+     * Set the panel with the given {@code Node}.
+     *
+     * @param node to set to the panel.
+     */
+    private void setPanel(Node node) {
+        detailedDataPanelPlaceholder.getChildren().clear();
+        detailedDataPanelPlaceholder.getChildren().add(node);
+        ftStackPanel.play();
     }
 
     /**
@@ -345,34 +358,26 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(new ItemStackPanel(event.getNewSelection()).getRoot());
-        ftStackPanel.play();
+        setPanel(new ItemStackPanel(event.getNewSelection()).getRoot());
     }
 
     @Subscribe
     private void handleReservationPanelSelectionChangedEvent(ReservationPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        ftStackPanel.play();
+        setPanel(browserPanel.getRoot());
     }
 
     @Subscribe
     private void handleRecordPanelSelectionChangedEvent(RecordPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(new RecordStackPanel(event.getNewSelection()).getRoot());
-        ftStackPanel.play();
+        setPanel(new RecordStackPanel(event.getNewSelection()).getRoot());
     }
 
     //@@author rebstan97
     @Subscribe
     private void handleIngredientPanelSelectionChangedEvent(IngredientPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        browserPlaceholder.getChildren().clear();
-        browserPlaceholder.getChildren().add(new IngredientStackPanel(event.getNewSelection()).getRoot());
-        ftStackPanel.play();
+        setPanel(new IngredientStackPanel(event.getNewSelection()).getRoot());
     }
 
     //@@author AZhiKai
@@ -416,7 +421,6 @@ public class MainWindow extends UiPart<Stage> {
         salesReportWindow.show();
     }
 
-    //@@author AZhiKai
     @Subscribe
     private void handleDisplaySalesChartEvent(DisplaySalesChartEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
