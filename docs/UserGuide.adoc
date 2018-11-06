@@ -295,6 +295,7 @@ Examples:
 
 * `generateLocation event/First Meeting group/CS2103Group`
 
+// tag::addEvent[]
 === Adding an event: `addEvent`
 
 Adds an event in the system with information specified by the user.
@@ -355,8 +356,10 @@ The user will be automatically directed to the Events tab,
 where the newly added event (as highlighted in green below) will be shown in the tab.
 
 image::add-event_new-event.PNG[Adding an event]
+// end::addEvent[]
 
 [[addEventTag]]
+// tag::addEventTag[]
 === Adding an event tag: `addEventTag`
 
 Adds an event tag specified by the user into the system.
@@ -380,7 +383,9 @@ Adds the event tags into the system, if they do not already exist in the system.
 The newly added tags are highlighted in green below.
 
 image::add-event-tag_new-event-tag.PNG[Adding an event tag]
+// end::addEventTag[]
 
+// tag::deleteEvent[]
 === Deleting an event: `deleteEvent`
 
 Adds an event in the system with information specified by the user.
@@ -411,12 +416,16 @@ image::delete-event-before.PNG[Deleting an event]
 **After Deletion**
 
 image::delete-event-after.PNG[Deleting an event]
+// end::deleteEvent[]
 
+// tag::listEvent[]
 === List all events: `listEvent`
 
 Shows a list of all events in the address book. +
 Format: `listEvent`
+// end::listEvent[]
 
+// tag::findEvent[]
 === Find events by event tags: `findEvent`
 
 Shows a list of all events in the address book which are tagged as the specified tags in the command.
@@ -442,6 +451,7 @@ image::find-event-lecture.PNG[Finding an event]
 Shows all the events tagged as `lecture` or `class`
 
 image::find-event-lecture-class.PNG[Finding an event]
+// end::findEvent[]
 
 === Import Contacts: `importContacts`
 

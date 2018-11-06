@@ -590,6 +590,7 @@ leaf nodes are the valid command words.
 ** *Cons:* Potentially more complex implementation.
 // end::autoComplete[]
 
+// tag::tab[]
 === Tab feature
 ==== Current implementation
 `UI` component consists of a `TabPanel` which stores all the `Tab` objects in the `UI` as follows.
@@ -604,6 +605,7 @@ This abides by the SoC principle and each tab can be managed separately from the
 Hence, all the tabs and their methods are contained in this class.
 ** *Pros:* Less code needed, especially if some tabs have similar or overlapping methods.
 ** *Cons:* Does not abide by SoC and SRP principle, since this one class would have to change for many reasons.
+// end::tab[]
 
 // tag::importcontacts[]
 === Import Contacts
