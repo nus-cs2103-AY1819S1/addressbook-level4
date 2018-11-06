@@ -95,7 +95,7 @@ Example: if the command specifies n/name p/zone, p/zone n/name is also acceptabl
 
 This section contains all commands related to managing attractions.
 
-==== Add attractions: `add`
+==== Adding attractions: `add`
 
 Add an attraction by name with the information. +
 Format: ``add `<attraction>` `<maintenance>` `<waitTime>` `<zone>` [tag(s)]``
@@ -107,7 +107,7 @@ Examples:
 * add n/Transformers m/1 w/30 a/John street, block 123, #01-01
 * add n/The Mummy m/3 w/45 a/311, Clementi Ave 2, #02-25 t/3D t/indoor
 
-==== Delete attractions: `delete`
+==== Deleting attractions: `delete`
 
 Deletes the specified attraction from ThanePark. +
 Format: `delete <index>`
@@ -132,30 +132,29 @@ Examples:
    `delete 1` +
    Deletes the 1st ride in the results of the find command.
 
-==== Update information of attraction: `update`
+==== Updating information of attraction: `update`
 
 Updates the information `<tag>` with `<value>` about the ride with `<index>`. +
 Format: `update <index> <tag> <value>`
 
-==== Shutdown attraction: `shutdown`
+==== Shutting down attraction: `shutdown`
 
 Closes the ride for the day. Display statistics for the ride on that day. +
 Format: `shutdown <index>`
 
-==== Open attraction: `open`
+==== Opening attraction: `open`
 
 Opens the ride for the day. Display statistics for the ride on that day. +
 Format: `open <index>`
-
 
 ==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Get help and accessibility
+=== Manage commands
 
-This section contains all commands related to providing user help and accessibility.
+This section contains all commands related to managing commands.
 
 // tag::help[]
 
@@ -379,13 +378,15 @@ This section contains all commands related to viewing list on rides.
 
 ==== Viewing all available rides: `viewall`
 
-Display all available rides in a list. +
+Display all available rides in a list.
+
 Format: `viewall`
 
 ==== Viewing detailed information of a specific ride: `view`
 
 Display all available information about a single ride on the list of displayed rides.
-`index` field specifies the index of the ride that the user wants to view. +
+`index` field specifies the index of the ride that the user wants to view.
+
 Format: `view <index>`
 
 [NOTE]
@@ -393,7 +394,8 @@ The range of `index` should be between one and one million.
 
 ==== Viewing rides by their status: `viewstatus`
 
-Display all rides according to the status of the rides. +
+Display all rides according to the status of the rides.
+
 Format: `viewstatus <status>`
 
 [NOTE]
@@ -419,17 +421,16 @@ a|
 Examples:
 
 * `filter w/ < 10` +
-Filters attractions with waiting time less than 500 minutes. If no changes were made to your application
+Filters attractions with waiting time less than 10 minutes. If no changes were made to your application
 (i.e. no delete, add commands were done), your window should look like this: +
 
-image::ui_screenshots/filter-example-1.png[width="600"]
+image::./ui_screenshots/filter-example-1.png[width="600"]
 
 * `filter w/ < 10 m/ > 50` +
 Filters attractions with waiting time less than 500 and maintenance of more than 50 days.
 The result should be as follows:
 
-image::ui_screenshots/filter-example-2.png[width="600"]
-|===
+image::./ui_screenshots/filter-example-2.png[width="600"]
 
 ==== Finding a particular attraction: `find`
 
@@ -447,20 +448,36 @@ Examples:
 * `find accelerator` +
 Finds and displays the list of attractions in ThanePark with the name "accelerator".
 
-image::ui_screenshots/find-example-1.png[width="600"]
+image::./ui_screenshots/find-example-1.png[width="600"]
 
-* `find a/ street` +
-Finds and displays the list of attractions with addresses that contain the word "street".
+* `find z/ sci-fi` +
+Finds and displays the list of attractions with zones that contain the word "sci-fi".
 
-image::ui_screenshots/find-example-2.png[width="600"]
+image::./ui_screenshots/find-example-2.png[width="600"]
 
-* `find zone street t/friends tag family` +
-Finds and displays the list of attractions with addresses that contain the word "street" and the tags "friends"
-and "family"
+* `find zone sci-fi t/popular tag rollerCoaster` +
+Finds and displays the list of attractions with addresses that contain the word "sci-fi" and the tags "rollerCoaster"
+and "popular"
 
-image::ui_screenshots/find-example-3.png[width="600"]
-|===
+image::./ui_screenshots/find-example-3.png[width="600"]
 // end::filter[]
+
+=== See commands to be implemented in v2.0
+
+This section contains all commands that will be implemented in v2.0.
+
+==== Signing up as a user
+Creates a new user profile to allow the user to access ThanePark. +
+Format: `signup <username> <password>`
+
+==== Logging into the system
+Logs in a user that has already signed up. +
+Format: `login <username> <password>`
+
+==== Logging out of the system
+Logs out a user from the system. +
+Format: `logout`
+
 
 == FAQ
 
