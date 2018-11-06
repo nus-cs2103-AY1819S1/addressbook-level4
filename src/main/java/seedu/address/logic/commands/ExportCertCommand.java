@@ -99,7 +99,7 @@ public class ExportCertCommand extends Command {
         Volunteer selectedVolunteer = lastShownList.get(index.getZeroBased());
 
         // Return CommandException if volunteer has no records
-        if (!hasEventRecords(model, selectedVolunteer)) {
+        if (!hasNonZeroEventRecords(model, selectedVolunteer)) {
             logger.info("Volunteer has no records.");
             throw new CommandException(MESSAGE_VOLUNTEER_NO_RECORD);
         }
@@ -121,7 +121,7 @@ public class ExportCertCommand extends Command {
      * @param volunteer who's presence of event {@code records} is to be checked
      * @return true if {@code volunteer} has {@code records}, and false otherwise
      */
-    private boolean hasEventRecords(Model model, Volunteer volunteer) {
+    private boolean hasNonZeroEventRecords(Model model, Volunteer volunteer) {
         VolunteerId volunteerId = volunteer.getVolunteerId();
 
         // Attempt to retrieve a list of the volunteer's records with non-zero hour value
