@@ -104,11 +104,11 @@ public class ExportVolunteerCsvCommand extends Command {
 
         //appending column titles
         sb.append("Name" + csvSplit);
-        sb.append("Phone" + csvSplit);
-        sb.append("Address" + csvSplit);
-        sb.append("Email" + csvSplit);
-        sb.append("Birthday" + csvSplit);
         sb.append("Gender" + csvSplit);
+        sb.append("Birthday" + csvSplit);
+        sb.append("Phone" + csvSplit);
+        sb.append("Email" + csvSplit);
+        sb.append("Address" + csvSplit);
         sb.append("Tags" + csvSplit);
         sb.append("VolunteerID");
         sb.append(System.getProperty("line.separator"));

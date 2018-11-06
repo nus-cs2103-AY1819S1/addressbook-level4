@@ -78,10 +78,12 @@ public class ImportVolunteerCsvCommand extends Command {
         try {
             String currLine;
             while ((currLine = br.readLine()) != null) {
-                String[] arrayLine = currLine.split(",");
+                String[] arrayLine = currLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 String args = "";
                 for (String i : arrayLine) {
-                    args += i + " ";
+                    if (String i != null){
+                        args += i + " ";
+                    }
                 }
                 args = args.trim();
                 ArgumentMultimap argMultimap =
