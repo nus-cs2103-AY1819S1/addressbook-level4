@@ -670,7 +670,7 @@ The `Document` abstract class represents all the documents that can be issued by
  illustrating how `Document`, `Receipt`, `MedicalCertificate` and `ReferralLetter` relate to one another.
 
 .Class diagram representing how the `Document` and _document related_ classes are implemented.
-image::DocumentClassDiagram.png[width="650"]
+image::DocumentClassDiagram.png[width="600"]
 
 As the template on which the documents are built from, the `Document` `abstract class` itself *cannot* be instantiated.
  The `Document` `abstract class` has the following key features:
@@ -682,7 +682,7 @@ As the template on which the documents are built from, the `Document` `abstract 
 The following activity diagram summarises what happens internally when a _document related command_ is executed.
 
 .Flow of activities when a _document related command_ is executed. Only the methods that are *implemented* within `Document` itself are labelled in the diagram.
-image::DocumentActivityDiagram.png[width="650"]
+image::DocumentActivityDiagram.png[width="600"]
 
 As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will
 be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command,
@@ -792,18 +792,13 @@ Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is
 ``` Java
     private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
         StringBuilder stringBuilder = new StringBuilder();
-        int quantity;
-        float pricePerUnit;
-        float totalPriceForSpecificMedicine;
-        String medicineName;
         for (Map.Entry<Medicine, QuantityToDispense> entry : medicineAllocated.entrySet()) {
             Medicine medicine = entry.getKey();
-            medicineName = medicine.getMedicineName().toString();
-            quantity = entry.getValue().getValue();
-            pricePerUnit = Float.parseFloat(medicine.getPricePerUnit().toString());
-            totalPriceForSpecificMedicine = pricePerUnit * quantity;
+            String medicineName = medicine.getMedicineName().toString();
+            int quantity = entry.getValue().getValue();
+            float pricePerUnit = Float.parseFloat(medicine.getPricePerUnit().toString());
+            float totalPriceForSpecificMedicine = pricePerUnit * quantity;
             increaseTotalPriceBy(totalPriceForSpecificMedicine);
-
             stringBuilder.append("<tr><td>")
                     .append(medicineName)
                     .append(super.HTML_TABLE_DATA_DIVIDER)
