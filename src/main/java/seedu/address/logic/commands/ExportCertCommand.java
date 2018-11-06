@@ -44,7 +44,7 @@ public class ExportCertCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
-    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to ";
+    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at INDEX %1$d to ";
     public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again";
     public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + File.separator + "Certs"
             + File.separator;
