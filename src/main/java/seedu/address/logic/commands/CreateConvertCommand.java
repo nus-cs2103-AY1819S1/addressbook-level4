@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -49,11 +51,11 @@ public class CreateConvertCommand extends Command {
         List<String> patterns = JsonConvertArgsStorage.retrieveCommandTemplate(fileUrl, operation, "pattern");
         List<String> trans = transformation.toList();
         if (trans.size() != patterns.size() + 1) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
         }
         for (int i = 0; i < patterns.size(); i++) {
             if (!trans.get(i + 1).matches(patterns.get(i))) {
-                throw new IllegalArgumentException("the argument entered is invalid");
+                throw new IllegalArgumentException(Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
             }
         }
     }
@@ -68,8 +70,7 @@ public class CreateConvertCommand extends Command {
             try {
                 checkSingleValidation(iter.next());
             } catch (IllegalArgumentException | IOException e) {
-                throw new CommandException("the arguments entered is not valid\n,"
-                        + "please check the argument of each transformation\n, see more details: " + MESSAGE_USAGE);
+                throw new CommandException(Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
             }
         }
     }
@@ -78,11 +79,17 @@ public class CreateConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
             checkValidation();
-            JsonConvertArgsStorage.storeArgument(name, cmds);
+            JsonConvertArgsStorage.storeArgument(name, cmds, ImageMagickUtil.getCommandSaveFolder());
         } catch (IOException e) {
-            throw new CommandException("the argument is invalid, see more details: " + MESSAGE_USAGE);
+            throw new CommandException(Messages.MESSAGE_INVALID_OPERATION_ARGUMENTS);
         }
         return new CommandResult("successfully create " + name);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        CreateConvertCommand command = (CreateConvertCommand) object;
+        return command == this || name.equals(command.name) && cmds.equals(command.cmds);
     }
 }
 

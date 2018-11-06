@@ -1,5 +1,7 @@
 package seedu.address.commons.core;
 
+import seedu.address.logic.commands.CreateConvertCommand;
+import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.canvas.CanvasAutoResizeCommand;
 import seedu.address.logic.commands.canvas.CanvasBgcolorCommand;
 import seedu.address.logic.commands.canvas.CanvasSizeCommand;
@@ -61,5 +63,12 @@ public class Messages {
             + CanvasBgcolorCommand.MESSAGE_USAGE + "\n------------------------\n\n"
             + CanvasSizeCommand.MESSAGE_USAGE;
 
+    /* Error messages for create convert command */
+    public static final String MESSAGE_INVALID_OPERATION_ARGUMENTS = "the arguments entered is not valid\n"
+            + "please check the argument of each transformation\n"
+            + "see more details: " + CreateConvertCommand.MESSAGE_USAGE;
 
+    /* Error message for save command*/
+    public static final String MESSAGE_DUPLICATED_IMAGE = "Image with the same name already exists in this directory!\n"
+            + SaveCommand.MESSAGE_USAGE;
 }

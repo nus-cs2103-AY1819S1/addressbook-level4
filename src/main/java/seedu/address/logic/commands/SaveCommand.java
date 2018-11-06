@@ -6,11 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -27,14 +26,15 @@ public class SaveCommand extends Command {
             + "Parameters: fileName\n"
             + "Example: " + COMMAND_WORD + " modified.png";
     private String fileName;
-    private ArrayList<String> formats = new ArrayList<>(
-            Arrays.asList("jpg", "JPG", "jpeg", "JPEG", "tiff", "TIFF", "gif", "GIF", "png", "PNG"));
+    private String format;
 
     /**
      * @param fileName is the name of the file saved.
      */
     public SaveCommand(String fileName) {
         this.fileName = fileName;
+        String[] parts = fileName.split("\\.");
+        format = parts[1];
     }
 
     /**
@@ -52,23 +52,21 @@ public class SaveCommand extends Command {
             Path currentDir = model.getCurrDirectory();
             File saveFile = new File(currentDir.toString() + "/" + fileName);
             if (saveFile.exists()) {
-                return new CommandResult("An image with the same name already exists in this directory! \n\n"
-                        + MESSAGE_USAGE);
-            }
-            String[] parts = fileName.split("\\.");
-            if (parts.length != 2 || !isFormatValid(parts[1])) {
-                return new CommandResult("Image name/format provided invalid. \n\n" + MESSAGE_USAGE);
+                throw new CommandException(Messages.MESSAGE_DUPLICATED_IMAGE);
             }
             BufferedImage savedImage = model.getCurrentPreviewImage().getImage();
-            ImageIO.write(savedImage, parts[1], saveFile);
-        } catch (IllegalArgumentException | IOException e) {
+            ImageIO.write(savedImage, format, saveFile);
+        } catch (IOException e) {
             throw new CommandException(e.toString());
         }
         model.updateEntireImageList();
         return new CommandResult(String.format("%s successfully saved!", fileName));
     }
 
-    private boolean isFormatValid(String format) {
-        return formats.contains(format);
+    @Override
+    public boolean equals(Object object) {
+        SaveCommand command = (SaveCommand) object;
+        return command == this || fileName.equals(command.fileName);
     }
+
 }
