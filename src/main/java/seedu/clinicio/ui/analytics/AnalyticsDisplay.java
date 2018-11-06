@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
@@ -78,18 +79,6 @@ public class AnalyticsDisplay extends UiPart<Region> {
      * Sets event listeners to maintain focus on the analytics pane and cycle through visualizations.
      */
     public void setEventListeners() {
-        analyticsPane.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        analyticsPane.requestFocus();
-                    }
-                });
-            }
-        });
-
         analyticsPane.addEventFilter(KeyEvent.KEY_PRESSED,
             event -> {
                 if (event.getCode().equals(KeyCode.RIGHT)) {
