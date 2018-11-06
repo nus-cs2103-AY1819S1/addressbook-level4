@@ -38,7 +38,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * `listmodules` : lists all modules
 * `addperson n/John Doe t/98765432 t/johnd@example.com t/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* `deleteoccasion 2` : deletes the 2nd entry in your occasion list
+* `delete 2` : deletes the 2nd entry in the active list
 * `exit` : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -49,7 +49,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Commands with `[]` after them will include either `person`,`module` or `occasion` e.g. `add[]` refers to `addperson`, `addmodule` or `addoccasion`.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/VALUE]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -196,11 +195,9 @@ Example:
 // end:find[]
 
 // tag::delete[]
-=== Deleting an entry : `delete`
+=== Deleting an entry from active list: `delete`
 
 Deletes the specified person, module or occasion in TheTracker.
-
-==== Deleting from active list : `delete`
 
 Format: +
 `delete INDEX`
@@ -209,36 +206,6 @@ Examples:
 
 * `delete 1` +
 Deletes the 1st entry of the active list. +
-
-==== Deleting a person : `deleteperson`
-
-Format: +
-`deleteperson INDEX`
-
-Examples:
-
-* `deleteperson 2` +
-Deletes the 2nd person. +
-
-==== Deleting a module : `deleteModule`
-
-Format: +
-`deletemodule INDEX`
-
-Examples:
-
-* `deletemodule 1` +
-Deletes the 1st module. +
-
-==== Deleting an occasion : `deleteOccasion`
-
-Format: +
-`deleteoccasion INDEX`
-
-Examples:
-
-* `deleteoccasion 5` +
-Deletes the 5th occasion.
 // end::delete[]
 
 
@@ -373,14 +340,8 @@ e.g. ` addoccasion addoccasion on/discussion od/2018-01-01 loc/SoC t/project t/g
 
 * *Clear* : `clear`
 
-* *Delete Person* : `deleteperson INDEX` +
-e.g. `deleteperson 6`
-
-* *Delete Module* : `deletemodule INDEX` +
-e.g. `deletemodule 1`
-
-* *Delete Occasion* : `deleteoccasion INDEX` +
-e.g. `deleteoccasion 7`
+* *Delete* : `delete INDEX` +
+e.g. `delete 2`
 
 * *Edit Person* : `editperson INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `editperson 1 p/91234567 e/johndoe@example.com`
