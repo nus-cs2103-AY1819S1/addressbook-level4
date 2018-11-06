@@ -7,7 +7,7 @@ import java.util.Set;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 
-import seedu.address.model.group.Group;
+import seedu.meeting.model.group.Group;
 
 /**
  * Provides a handle for {@code GroupListPanel} containing the list of {@code GroupCard}

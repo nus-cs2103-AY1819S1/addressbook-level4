@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.address.model.group.Group;
+import seedu.meeting.model.group.Group;
 
 /**
  * Provides a handle to a group card in the group list panel.

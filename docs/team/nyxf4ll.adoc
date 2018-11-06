@@ -1,0 +1,190 @@
+= Pakorn Ueareeworakul - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
+
+Welcome to Pakorn Ueareeworakul's Portfolio!
+
+Here you can find details on my contributions to various Software Engineering projects. Specifically, this portfolio contains links to functional and test code I wrote, and excerpts from technical documentation I created.
+
+== PROJECT: MeetingBook
+
+MeetingBook is a desktop scheduler application targeted at university students involved in multiple Co-Curricular Activities and Project-Based modules. The application is a modified contact book with features to group contacts and assign meetings to such groups. MeetingBook is written by a team of 5 students from National University of Singapore's School of Computing. It is forked from https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook-Level4] written by https://se-edu.github.io/[SE-EDU].
+
+=== Summary of contributions
+
+* *Major enhancement*: added *the ability to schedule/cancel meetings*
+** What it does: allows the user to add/remove meetings from the specified group.
+** Justification: This feature is essential to morph the AddressBook into a meetingscheduler.
+** Highlights: This enhancement requires major modifications to the Model and addition of new classes such as https://github.com/CS2103-AY1819S1-W17-3/main/blob/master/src/main/java/seedu/address/model/meeting/Meeting.java[Meeting] and https://github.com/CS2103-AY1819S1-W17-3/main/blob/master/src/main/java/seedu/address/model/meeting/TimeStamp.java[TimeStamp]. The implementation is also challenging as it requires extensive coordination between team members due to the level of dependency it has on the group feature.
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=nyxf4ll&sort=displayName&since=2018-09-12&until=2018-11-05&timeframe=day&reverse=false&repoSort=true[code]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Moved ModelStub class out to be shared by multiple test files: https://github.com/CS2103-AY1819S1-W17-3/main/pull/87[#87]
+*** Reorganized files in the Model folder to increase consistency: https://github.com/CS2103-AY1819S1-W17-3/main/pull/107[#107]
+** Documentation:
+*** Modified Readme.adoc: https://github.com/CS2103-AY1819S1-W17-3/main/pull/34[#34]
+*** Updated User Guide and Developer Guide: https://github.com/CS2103-AY1819S1-W17-3/main/pull/137[#137]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W17-3/main/pull/120[#120], https://github.com/CS2103-AY1819S1-W17-3/main/pull/126[#126], https://github.com/CS2103-AY1819S1-W17-3/main/pull/128[#128]
+
+=== Contributions to the User Guide
+
+|===
+|_Shown below are my contributions to the User Guide. They demonstrates my ability to write documentation and manuals targeting end-users._
+|===
+
+==== Schedule meetings: `meet`
+
+To schedule a meeting, use the `meet` command.
+
+Format: `meet GROUP_NAME n/MEETING_NAME t/MEETING_TIME l/MEETING_LOCATION d/MEETING_DESCRIPTION`
+
+* Schedules a meeting with the group `GROUP_NAME`
+* Either all or none of the fields must be provided.
+* In case that none of the fields is provided, the command will cancel the meeting associated with the group.
+* Scheduling a new meeting to the same group overwrites the old meeting.
+
+[NOTE]
+`MEETING_TIME` is specified in the format `dd-mm-yyyy@hh:mm`
+
+Examples:
+
+* Example 1:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays the list of meetings)
+
+* Example 2:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays `Demo Rehearsal` as the meeting associated with `Presentation 2101`) +
++
+3. `meet Presentation2101 n/Discussion on Slides t/26-10-2018@12:30 l/COM1-0218 d/Some slides are wrong` +
+(This overwrites `Demo Rehearsal` with `Discussion on Slides`) +
++
+4. `list meeting` (`Emergency Meeting` is displayed instead of `Demo Rehearsal`)
+
+* Example 3:
+1. `meet OtherGroup ...` +
+(This fails because `OtherGroup` is not in the MeetingBook)
+
+[NOTE]
+It is assumed that the group `Presentation2101` is present and is the only group in the MeetingBook and has no meeting as of the moment before each example starts.
+
+==== Cancel meetings: `cancel`
+
+To cancel a meeting, use the `cancel` command.
+
+Format: `cancel GROUP_NAME`
+
+Example:
+
+* `cancel Project2103` (This cancels the meeting with `Project2103`)
+
+* `cancel Project2103` +
+`cancel Project2103` (This fails because the meeting is already cancelled)
+
+[NOTE]
+It is assumed that the group `Project2103` is present in the MeetingBook and has a meeting.
+
+[NOTE]
+calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
+
+=== Contributions to the Developer Guide
+
+|===
+|_Shown below are my contributions to the Developer Guide. They demonstrates my ability to write technical documentation and highlights the depth and technical details of my contributions to the software engineering project MeetingBook._
+|===
+
+=== Meeting Feature
+
+`Meeting` is one of the central feature of this application. It allows the user to create a reminder of an upcoming event associated with a `Group`.
+
+[NOTE]
+A `Group` can only have a maximum of one `Meeting` at any given time.
+
+==== Current implementation
+
+In the current implementation, `Meeting` is related to `Group` by composition. To facilitate the meeting feature, `Group` implements the following operations:
+
+* `Group#hasMeeting` -- This returns `true` if there is a meeting associated with the group
+* `Group#getMeeting()` -- This group's meeting or `null` if the group has no meeting.
+* `Group#setMeeting(Meeting meeting)` -- This assigns `meeting` to the group.
+* `Group#cancelMeeting()` -- This removes the meeting associated witht the group.
+
+These operations can be accessed by retreiving the list of groups using `Model#getGroupList()` and performing these operations on its members.
+
+**Given below is an example usage scenario and how the model behaves at each step.**
+
+Step 1. The user launches the application. For simplicity, we assume that the groups `Project2103`, `Presentation` and `FrisbeeTeam` are present in the meeting book. None of these groups have a meeting scheduled.
+
+image::meetCommandStep1Diagram.png[width="600"]
+
+[NOTE]
+Meeting field in a group without a meeting is an empty `Optional`
+
+Step 2. The user executes `meet FrisbeeTeam n/Sunday Practice t/28-10-2018@10:00 l/UTown Green d/Practice for Inter-College Games` to schedule a meeting named `Sunday Practice` associated with the group `FrisbeeTeam`.
+
+image::meetCommandStep2Diagram.png[width="600"]
+
+Step 3. The user then executes `meet Project2103 n/Weekly Meeting...` to schedule a meeting called `Weekly Meeting` with the `Project2103` Group.
+
+image::meetCommandStep3Diagram.png[width="600"]
+
+Step 4. The user then found out that the meeting `Sunday Practice` with `FrisbeeTeam` has been cancelled. Thus, the user calls `cancel FrisbeeTeam` to cancel meeting with the `FrisbeeTeam` group.
+
+image::meetCommandStep4Diagram.png[width="600"]
+
+[NOTE]
+Calling `cancel` on a group without meeting returns an error
+
+[NOTE]
+calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
+
+Step 5. The user then discovers that the topic of the meeting with `Project2103` changed to rehearsal for the upcoming software demo. Therefore, the user calls `meet Project2103 n/Demo Preparation...` to change the detail of the meeting This overwrites the meeting `Weekly Meeting` with the new meeting `Demo Preparation`.
+
+image::meetCommandStep5Diagram.png[width="600"]
+
+[NOTE]
+This operation creates a new `Meeting` object which replaces the old one.
+
+**The following sequence diagrams show how the meet and cancel command function.**
+
+.Sequence diagram for meet command
+image::MeetCommandSequenceDiagram.png[width="300"]
+
+.Sequence diagram for cancel command
+image::cancelCommandSequenceDiagram.png[width="300"]
+
+==== Design Considerations
+
+===== Aspect: Storage of meetings
+
+* **Alternative 1 (current choice):** Storing meetings inside groups
+** Pros: This design simplifies the source code by not requiring a separate class to store meetings.
+** Cons: This design requires iterating through all groups to retreive the list of meetings
+
+* **Alternative 2:** Storing meetings in a separate uniqueMeetingList class
+** Pros: This design simplifies retreival of the list of meetings.
+** Cons: This design causes the code becomes more complicated and more difficult to test.
+
+===== Aspect: Specification of target group for meet and cancel commands
+
+* **Alternative 1 (current choice):** Specifying the group using its name.
+** Pros: This design makes the command syntax natural and intuitive.
+** Cons: This design forces the user have to manually type in the group name.
+
+* **Alternative 2:** Specifying the group using its index.
+** Pros: This design is easier to use when the number of groups is high.
+** Cons: This design causes the command syntax to become unnatural, and makes the program more suspectible to errors.

@@ -1,0 +1,80 @@
+= Benjamin Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
+
+Welcome to my project portfolio. I am Benjamin and I am a computing science student.
+This project portfolio will detail the contributions I have made to various Software Engineering projects.
+
+
+== Project Overview: MeetingBook
+
+MeetingBook is a desktop scheduler application targeted at university students involved in multiple
+Co-Curricular Activities and Project-Based modules. The application is a modified contact book with features to group
+contacts and assign meetings to such groups. MeetingBook is written by a team of 5 students from National University
+of Singapore's School of Computing. It is forked from
+https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook-Level4]
+written by https://se-edu.github.io/[SE-EDU].
+
+== Summary of contributions
+
+* *Major enhancement*: enhanced the `find` command.
+
+** What it does prior: the `find` command filters the displayed list of persons based on the keywords given.
+Upon execution, the list displays persons whose name consists at least one of the keywords given.
+
+** What it does after enhancement:
+*** The user can add an additional parameter specifying whether to search for groups, meetings, or persons.
+*** The user can put the keywords into 3 categories: a set of keywords where the results must match all given keywords,
+a set of keywords where the results must match at least one of the given keywords,
+and a set of keywords where the results must not match any of the given keywords.
+
+** Justification: The extension of the `find` command allows the user to better manage their MeetingBook.
+When there is a large amount of data in the MeetingBook,
+the user will have an easier time searching for what they need.
+
+* *Minor enhancement*: added a `sort` command that allows the user to sort the displayed list of persons by
+name, phone number, email address, or home address by lexicographical order.
+
+* *Code contributed*:
+https://github.com/CS2103-AY1819S1-W17-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Abetakuwe[Pull requests]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+
+*** Wrote tests to increase coverage from 93% to 94%
+(https://github.com/CS2103-AY1819S1-W17-3/main/pull/134[Pull request])
+
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=find]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=sortfind]
+

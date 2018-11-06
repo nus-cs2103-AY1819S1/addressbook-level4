@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.meeting.Meeting;
+import seedu.meeting.model.meeting.Meeting;
 
 // @@author jeffreyooi
 /**
