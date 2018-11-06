@@ -18,7 +18,6 @@ public class DueDate {
                     + " dd-mm-yy, dd-mm-yyyy, dd-mm-yy HHmm, dd-mm-yyyy HHmm\n"
                     + "Note: 24h time format";
 
-    public static final String DUEDATE_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4}( \\d{4})?";
     public final String value;
     public final Date valueDate;
 
@@ -40,12 +39,7 @@ public class DueDate {
      * @param test date to be checked
      */
     public static boolean isValidDueDate(String test) {
-        if (test == null) {
-            throw new NullPointerException();
-        }
-        if (!test.matches(DUEDATE_REGEX)) {
-            return false;
-        }
+        requireNonNull(test);
         return isValidDateFormat(test);
     }
 
