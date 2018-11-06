@@ -94,7 +94,7 @@ public class SelectCommandTest {
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that {@code JumpToPersonListRequestEvent is raised with the correct index.
+     * and checks that {@code JumpToPersonListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

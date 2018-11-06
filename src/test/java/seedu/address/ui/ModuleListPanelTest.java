@@ -19,7 +19,6 @@ import guitests.guihandles.ModuleListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToModuleListRequestEvent;
-import seedu.address.commons.events.ui.JumpToPersonListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.module.Module;
