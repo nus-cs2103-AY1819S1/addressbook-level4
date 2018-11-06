@@ -66,8 +66,6 @@ public class XmlSerializableSchedulePlanner {
                 schedulePlanner.removeCategory(name);
             }
             if (schedulePlanner.hasCategory(name)) {
-                //debug
-                System.out.println(name);
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CATEGORY);
             }
             schedulePlanner.addCategory(category);
