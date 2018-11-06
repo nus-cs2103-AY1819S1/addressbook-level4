@@ -25,13 +25,13 @@ public class ListOverdueCommandTest {
     public void execute_success() {
         CommandHistory commandHistory = new CommandHistory();
         Task validOverdueTask = (new TaskBuilder()).withDate("101010").build();
-        int SYSTEM_DATE =
+        int systemDate =
                     Integer.parseInt(new SimpleDateFormat("yyMMdd").format(Calendar.getInstance().getTime()));
         Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         model.addTask(validOverdueTask);
         expectedModel.addTask(validOverdueTask);
-        expectedModel.updateFilteredTaskList(new OverduePredicate(SYSTEM_DATE));
+        expectedModel.updateFilteredTaskList(new OverduePredicate(systemDate));
         System.out.println(expectedModel.getFilteredTaskList());
         System.out.println(model.getFilteredTaskList());
         assertCommandSuccess(new ListOverdueCommand(), model, commandHistory, ListOverdueCommand.MESSAGE_SUCCESS,

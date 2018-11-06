@@ -3,8 +3,6 @@ package ssp.scheduleplanner.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -23,6 +21,9 @@ import ssp.scheduleplanner.model.task.Interval;
 import ssp.scheduleplanner.model.task.Repeat;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class AddRepeatCommandTest {
 
@@ -210,11 +211,11 @@ public class AddRepeatCommandTest {
         final ArrayList<Tag> tags = new ArrayList<>();
         final ArrayList<Category> categories =
                 new ArrayList<Category>() {
-                    {
-                        add(modules);
-                        add(others);
-                    }
-                };
+            {
+                add(modules);
+                add(others);
+            }
+        };
 
         @Override
         public void autoDeleteArchived(){
