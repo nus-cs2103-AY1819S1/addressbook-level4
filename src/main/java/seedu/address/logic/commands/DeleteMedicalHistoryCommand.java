@@ -67,7 +67,6 @@ public class DeleteMedicalHistoryCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
             throws CommandException {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> lastShownList = model.getFilteredPersonList();
 
         Person personToEdit = null;
