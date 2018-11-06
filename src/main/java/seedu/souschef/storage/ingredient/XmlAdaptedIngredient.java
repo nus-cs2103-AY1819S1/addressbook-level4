@@ -97,8 +97,11 @@ public class XmlAdaptedIngredient {
         }
 
         Date tempDate;
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("MM-dd-yyyy");
+        sdf.setLenient(false);
         try {
-            tempDate = (new SimpleDateFormat("MM-dd-yyyy")).parse(date);
+            tempDate = sdf.parse(date);
         } catch (ParseException e) {
             throw new IllegalValueException(String.format(IngredientDate.MESSAGE_DATE_CONSTRAINTS));
         }

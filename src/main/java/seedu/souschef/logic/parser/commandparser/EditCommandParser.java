@@ -176,7 +176,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         for (int i = 1; i < tokens.length; i += 2) {
             if (tokens[i].equals("name")) {
-                name = tokens[i + 1];
+                name = tokens[i + 1].replaceAll("_", " ");
                 if (!IngredientName.isValid(name)) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
@@ -198,8 +198,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                 }
                 ingredientServingUnit = new IngredientServingUnit(servingUnit);
             } else if (tokens[i].equals("date")) {
+                SimpleDateFormat sdf = new SimpleDateFormat();
+                sdf.applyPattern("MM-dd-yyyy");
+                sdf.setLenient(false);
                 try {
-                    date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[i + 1]);
+                    date = sdf.parse(tokens[i + 1]);
                 } catch (java.text.ParseException pe) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
