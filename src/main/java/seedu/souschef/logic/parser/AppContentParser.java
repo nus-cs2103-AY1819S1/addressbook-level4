@@ -63,8 +63,8 @@ public class AppContentParser {
             setFeatureStorage(storage, Context.HEALTH_PLAN);
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), modelSet.getMealPlannerModel(),
                     userInput);
-        case MEAL_PLANNER:
-            setFeatureStorage(storage, Context.MEAL_PLANNER);
+        case MEAL_PLAN:
+            setFeatureStorage(storage, Context.MEAL_PLAN);
             return new MealPlannerParser()
                     .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
         case FAVOURITES:
@@ -94,7 +94,7 @@ public class AppContentParser {
             setFeatureStorage(storage, Context.FAVOURITES);
             command = new RecipeParser().parseCommand(modelSet.getFavouriteModel(), userInput, history);
         } else if (MealPlannerParser.isCrossContextCommand(userInput)) {
-            setFeatureStorage(storage, Context.MEAL_PLANNER);
+            setFeatureStorage(storage, Context.MEAL_PLAN);
             command = new MealPlannerParser().parseCommand(modelSet.getMealPlannerModel(),
                     modelSet.getRecipeModel(), userInput);
         }
