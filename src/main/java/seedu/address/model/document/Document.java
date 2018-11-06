@@ -52,8 +52,11 @@ public class Document {
     private static final String RECEIPT_HEADER = "<table ID = \"contentTable\" width = 100%><col width = \"700\">";
     private static final String RECEIPT_HEADER_CONTENT = "<tr ID = \"receiptHeader\"><div class=\"contentHeader\">"
             + "<th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr>";
-    private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\"><td>Grand Total:"
+    private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\"><td>Total:"
             + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
+    private static final String RECEIPT_END_CONTENT_WITHOUT_DISCOUNT = "<tr ID = \"receiptEnd\"><td>Grand Total " +
+            "(after CHAS discount):" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" +
+            HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
     private static String documentFilePath;
@@ -63,8 +66,8 @@ public class Document {
     private String fileType;
     private IcNumber icNumber;
     private String mcDuration;
-    private String referralContent;
     private String noteContent;
+    private String referralContent;
 
     /**
      * Method that calls the various methods that help in the generation of the HTML file

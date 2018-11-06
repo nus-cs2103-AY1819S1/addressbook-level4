@@ -32,7 +32,6 @@ public class Receipt extends Document {
         this.allocatedMedicine = servedPatient.getMedicineAllocated();
         servicesRendered = new ArrayList<>();
         servicesRendered.add(Service.CONSULTATION);
-
     }
 
     public float getTotalPrice() {
@@ -45,6 +44,16 @@ public class Receipt extends Document {
 
     public void resetPrice() {
         totalPrice = 0;
+    }
+
+    public float pioneerDiscount() {
+        totalPrice -= 28.5;
+        return totalPrice;
+    }
+
+    public float blueDiscount() {
+        totalPrice -= 18.5;
+        return totalPrice;
     }
 
     public Map<Medicine, QuantityToDispense> getAllocatedMedicine() {
