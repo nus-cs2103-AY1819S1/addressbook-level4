@@ -94,7 +94,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                     argMultimap.getValue(PREFIX_DIFFICULTY).get()));
         }
 
-        CookTime cookTime = new CookTime("PT0M");
+        CookTime cookTime = new CookTime("0M");
         if (argMultimap.getValue(PREFIX_COOKTIME).isPresent()) {
             cookTime = ParserUtil.parseCooktime(argMultimap.getValue(PREFIX_COOKTIME).get());
             editRecipeDescriptor.setCooktime(cookTime);

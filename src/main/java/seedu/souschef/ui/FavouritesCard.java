@@ -33,7 +33,7 @@ public class FavouritesCard extends GenericCard<Favourites> {
         this.favourite = favourite;
         id.setText(displayedIndex + ". ");
         name.setText(favourite.getName().fullName);
-        duration.setText("Duration: " + favourite.getCookTime().getDisplayableCookTime());
+        duration.setText("Duration: " + favourite.getCookTime().toString());
         difficulty.setText("Difficulty: " + favourite.getDifficulty().toString());
         favourite.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
