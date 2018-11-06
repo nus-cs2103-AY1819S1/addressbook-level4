@@ -12,7 +12,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
 import seedu.address.logic.EmbedGoogleMaps;
 import seedu.address.model.person.Person;
 
@@ -25,8 +27,9 @@ public class LocationDisplayPanel extends UiPart<Region> {
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
-    private static final String API_KEY = "AIza"
-            + "SyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU";
+    private static final String API_KEY = "AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU";
+
+    private static final String DEFAULT_UHALL_PLACE_ID = "ChIJA1jFpVca2jERs1NXg5xbqbA";
 
 
     private static String locationContentA = "<iframe width=\"1150\" height=\"550\" frameborder=\"0\""
@@ -55,8 +58,11 @@ public class LocationDisplayPanel extends UiPart<Region> {
     }
 
     private void loadPersonLocation(Person person) {
-        String faculty = person.getFaculty().toString();
-        loadIframe(prepareLocationContent(faculty));
+        loadIframe(prepareLocationContent(person));
+    }
+
+    private void loadRandomMeetingLocation(String placeId) {
+        loadIframe(prepareLocationContent(placeId));
     }
 
     public void loadPage(String url) {
@@ -66,8 +72,22 @@ public class LocationDisplayPanel extends UiPart<Region> {
     /**
      * Prepares the final iframe location content string with the Faculty of the Person.
      */
-    public String prepareLocationContent(String faculty) {
-        String placeId = EmbedGoogleMaps.getPlaceId(faculty);
+    public String prepareLocationContent(Person person) {
+        String faculty = person.getFaculty().toString();
+        String finalLocationContent = null;
+        if (faculty.equals("-")) {
+            finalLocationContent = locationContentA + DEFAULT_UHALL_PLACE_ID + locationContentB;
+        } else {
+            String placeId = EmbedGoogleMaps.getPlaceId(faculty);
+            finalLocationContent = locationContentA + placeId + locationContentB;
+        }
+        return finalLocationContent;
+    }
+
+    /**
+     * Overloaded method that prepares the final iframe location content string using placeId directly instead.
+     */
+    public String prepareLocationContent(String placeId) {
         String finalLocationContent = locationContentA + placeId + locationContentB;
         return finalLocationContent;
     }
@@ -95,5 +115,17 @@ public class LocationDisplayPanel extends UiPart<Region> {
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         loadPersonLocation(event.getNewSelection());
+    }
+
+    @Subscribe
+    private void handleShowFacultyLocationSelectionEvent (FacultyLocationDisplayChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPersonLocation(event.getSelectedPerson());
+    }
+
+    @Subscribe
+    private void handleRandomMeetingLocationGeneratedEvent(RandomMeetingLocationGeneratedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadRandomMeetingLocation(event.getMeetingPlaceId());
     }
 }

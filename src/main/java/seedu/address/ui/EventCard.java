@@ -117,7 +117,8 @@ public class EventCard extends UiPart<Region> {
         name.setText(event.getEventName().eventName);
         address.setText(event.getEventAddress().eventAddress);
         description.setText(event.getEventDescription().eventDescription);
-        event.getEventTags().forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.tagName)));
+        event.getEventTags().forEach(eventTag -> eventTags.getChildren()
+                .add(new Label(eventTag.getLowerCaseTagName())));
     }
 
     private String getContactDisplayText(Person contact) {
@@ -178,7 +179,8 @@ public class EventCard extends UiPart<Region> {
             assert node instanceof Label;
 
             Label eventTag = (Label) node;
-            if (!updatedEventTagList.contains(new Tag(eventTag.getText()))) {
+            // use Tag#isSameTag for comparison
+            if (updatedEventTagList.stream().noneMatch(tag -> tag.isSameTag(new Tag(eventTag.getText())))) {
                 eventTags.getChildren().remove(eventTag);
             }
         }

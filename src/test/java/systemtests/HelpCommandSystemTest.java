@@ -72,10 +72,13 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         // note: the select command tested above does not update the status bar
         executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+
     }
 
     @Test
-    public void help_multipleCommands_onlyOneHelpWindowOpen() {
+    public void help_multipleCommands_onlyOneHelpWindowOpen() throws InterruptedException {
+        Thread.sleep(6000);
+
         getMainMenu().openHelpWindowUsingMenu();
 
         getMainWindowHandle().focus();

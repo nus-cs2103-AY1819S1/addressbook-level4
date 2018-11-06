@@ -20,6 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
+import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.filereader.FileReader;
@@ -102,6 +103,13 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the event tags list in the model has changes */
     private void indicateAddressBookEventTagChanged() {
         raise(new AddressBookEventTagChangedEvent(eventTags));
+    }
+
+    /** Raises an event to indicate an action to change the display has been made, even if there are no changes to
+     * the filtered event list. This is the slight difference between this method and indicateAddressBookEventChanged.
+     */
+    private void indicateEventPanelDisplayChanged() {
+        raise(new EventPanelDisplayChangedEvent());
     }
 
     @Override
@@ -219,6 +227,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredEventList(Predicate<Event> predicate) {
         requireNonNull(predicate);
         filteredEvents.setPredicate(predicate);
+        indicateEventPanelDisplayChanged();
     }
 
     /**
