@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.clinicio.logic.parser.ParserUtil.parseAddress;
 import static seedu.clinicio.model.staff.Role.DOCTOR;
 import static seedu.clinicio.model.staff.Role.RECEPTIONIST;
 import static seedu.clinicio.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -20,6 +21,8 @@ import org.junit.rules.ExpectedException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.patient.MedicalProblem;
+import seedu.clinicio.model.patient.Nric;
 import seedu.clinicio.model.person.Address;
 import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
@@ -50,6 +53,10 @@ public class ParserUtilTest {
     private static final String INVALID_ROLE = "abc";
     private static final String INVALID_PASSWORD = "";
 
+    private static final String INVALID_NRIC = "H1231";
+
+    private static final String INVALID_MED_PROB = "+123";
+    
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
@@ -64,6 +71,11 @@ public class ParserUtilTest {
     private static final String VALID_DATE = "02 02 2222";
     private static final String VALID_TIME = "22 22";
 
+    private static final String VALID_NRIC = "S9323163I";
+    
+    private static final String VALID_MED_PROB_1 = "High Cholestrol";
+    private static final String VALID_MED_PROB_2 = "Lung Cancer";
+    
     private static final String WHITESPACE = " \t\r\n";
 
     @Rule
@@ -247,13 +259,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseRole_validRole_returnsRole() throws Exception {
-        Staff expectedDoctor = new Staff(DOCTOR, new Name(VALID_NAME),
-                new Password(VALID_PASSWORD, false));
         assertEquals(DOCTOR,
                 ParserUtil.parseRole(VALID_ROLE_DOCTOR));
-
-        Staff expectedReceptionist = new Staff(RECEPTIONIST, new Name(VALID_NAME),
-                new Password(VALID_PASSWORD, false));
         assertEquals(RECEPTIONIST,
                 ParserUtil.parseRole(VALID_ROLE_RECEPTIONIST));
     }
@@ -376,5 +383,78 @@ public class ParserUtilTest {
 
         //invalid alphanumerics
         ParserUtil.parseDate(WHITESPACE + INVALID_TIME_3 + WHITESPACE);
+    }
+    
+    @Test
+    public void parseNric_nullNric_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseNric(null);
+    }
+
+    @Test
+    public void parseNric_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseNric(INVALID_NRIC));
+    }
+
+    @Test
+    public void parseNric_validValueWithoutWhitespace_returnsNric() throws Exception {
+        Nric expectedNric = new Nric(VALID_NRIC);
+        assertEquals(expectedNric, ParserUtil.parseNric(VALID_NRIC));
+    }
+
+
+    @Test
+    public void parseMedicalProblem_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseMedicalProblem(null);
+    }
+
+    @Test
+    public void parseMedicalProblem_invalidValue_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseMedicalProblem(INVALID_MED_PROB);
+    }
+
+    //asd
+    @Test
+    public void parseMedicalProblem_validValueWithoutWhitespace_returnsMedicalProblem() throws Exception {
+        MedicalProblem expectedMedicalProblem = new MedicalProblem(VALID_MED_PROB_1);
+        assertEquals(expectedMedicalProblem, ParserUtil.parseMedicalProblem(VALID_MED_PROB_1));
+    }
+
+    @Test
+    public void parseMedicalProblem_validValueWithWhitespace_returnsTrimmedMedicalProblem() throws Exception {
+        String medicalProblemWithWhitespace = WHITESPACE + VALID_MED_PROB_1 + WHITESPACE;
+        MedicalProblem expectedMedicalProblem = new MedicalProblem(VALID_MED_PROB_1);
+        assertEquals(expectedMedicalProblem, ParserUtil.parseMedicalProblem(medicalProblemWithWhitespace));
+    }
+
+    @Test
+    public void parseMedicalProblems_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseMedicalProblems(null);
+    }
+
+    @Test
+    public void parseMedicalProblems_collectionWithInvalidMedicalProblems_throwsParseException()
+            throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseMedicalProblems(Arrays.asList(VALID_TAG_1, INVALID_MED_PROB));
+    }
+
+    @Test
+    public void parseMedicalProblems_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseMedicalProblems(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseMedicalProblemss_collectionWithValidMedicalProblems_returnsMedicalProblemSet()
+            throws Exception {
+        Set<MedicalProblem> actualMedicalProblemSet = ParserUtil.parseMedicalProblems(
+                Arrays.asList(VALID_MED_PROB_1, VALID_MED_PROB_2));
+        Set<MedicalProblem> expectedMedicalProblemSet = new HashSet<>(
+                Arrays.asList(new MedicalProblem(VALID_MED_PROB_1), new MedicalProblem(VALID_MED_PROB_2)));
+
+        assertEquals(expectedMedicalProblemSet, actualMedicalProblemSet);
     }
 }
