@@ -62,8 +62,8 @@ public class LogoutCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(LogoutCommand.MESSAGE_NOT_AUTHENTICATED);
 
-        new LogoutCommand().execute(model, commandHistory);
-        new LogoutCommand().execute(model, commandHistory);
+        new LogoutCommand().execute(model, commandHistory); // OK
+        new LogoutCommand().execute(model, commandHistory); // Not OK since already in logged out state
     }
 
     @Test

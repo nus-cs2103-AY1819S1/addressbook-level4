@@ -8,7 +8,7 @@
         <remark>Some remarks</remark>
     </reservations>
 
-    <!-- Person with same identity as Jeeves -->
+    <!-- Reservation with same identity as Jeeves -->
     <reservations>
         <name>Jeeves</name>
         <pax>4</pax>

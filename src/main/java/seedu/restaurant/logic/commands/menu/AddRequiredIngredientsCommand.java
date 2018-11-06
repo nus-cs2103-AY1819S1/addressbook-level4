@@ -11,8 +11,8 @@ import java.util.Map;
 import seedu.restaurant.commons.core.EventsCenter;
 import seedu.restaurant.commons.core.Messages;
 import seedu.restaurant.commons.core.index.Index;
-import seedu.restaurant.commons.events.ui.JumpToListRequestEvent;
 import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
+import seedu.restaurant.commons.events.ui.menu.JumpToItemListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
@@ -74,7 +74,7 @@ public class AddRequiredIngredientsCommand extends Command {
         model.commitRestaurantBook();
 
         EventsCenter.getInstance().post(new DisplayItemListRequestEvent());
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
+        EventsCenter.getInstance().post(new JumpToItemListRequestEvent(index));
         return new CommandResult(generateSuccessMessage(editedItem));
     }
 

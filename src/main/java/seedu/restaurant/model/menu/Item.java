@@ -80,8 +80,7 @@ public class Item {
             return true;
         }
 
-        return otherItem != null
-                && otherItem.getName().equals(getName());
+        return otherItem != null && otherItem.getName().equals(getName());
     }
 
     /**

@@ -37,7 +37,7 @@ public class ItemNameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different sales -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

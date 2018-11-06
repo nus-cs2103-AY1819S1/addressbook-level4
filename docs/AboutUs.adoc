@@ -15,7 +15,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::azhikai.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~azhikai[homepage]] [https://github.com/azhikai[github]] [<<azhikai#, portfolio>>]
 
-Role: Team Lead +
+Role: Team Lead, Schedule + Tracking +
 Responsibilities: Model + Storage
 
 '''

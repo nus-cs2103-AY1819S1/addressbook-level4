@@ -95,7 +95,7 @@ public class SelectReservationCommandTest {
 
     /**
      * Executes a {@code SelectReservationCommand} with the given {@code index}, and checks that
-     * {@code JumpToListRequestEvent} is raised with the correct index.
+     * {@code JumpToReservationListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectReservationCommand selectCommand = new SelectReservationCommand(index);

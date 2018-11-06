@@ -13,7 +13,6 @@ import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.storage.elements.XmlAdaptedAccount;
@@ -28,7 +27,6 @@ import seedu.restaurant.storage.elements.XmlAdaptedReservation;
 @XmlRootElement(name = "restaurantbook")
 public class XmlSerializableRestaurantBook {
 
-    public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_RECORD = "Records list contains duplicate record(s).";
     public static final String MESSAGE_DUPLICATE_ACCOUNT = "Account list contains duplicate account(s).";
     public static final String MESSAGE_DUPLICATE_INGREDIENT = "Ingredient list contains duplicate ingredient(s).";
@@ -36,9 +34,6 @@ public class XmlSerializableRestaurantBook {
     public static final String MESSAGE_DUPLICATE_RESERVATION = "Reservation list contains duplicate reservation(s).";
 
     private RestaurantBook restaurantBook;
-
-    @XmlElement
-    private List<XmlAdaptedPerson> persons;
 
     @XmlElement
     private List<XmlAdaptedRecord> records;
@@ -60,7 +55,6 @@ public class XmlSerializableRestaurantBook {
      */
     public XmlSerializableRestaurantBook() {
         restaurantBook = new RestaurantBook();
-        persons = new ArrayList<>();
         records = new ArrayList<>();
         accounts = new ArrayList<>();
         ingredients = new ArrayList<>();
@@ -73,7 +67,6 @@ public class XmlSerializableRestaurantBook {
      */
     public XmlSerializableRestaurantBook(ReadOnlyRestaurantBook src) {
         this();
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         records.addAll(src.getRecordList().stream().map(XmlAdaptedRecord::new).collect(Collectors.toList()));
         accounts.addAll(src.getAccountList().stream().map(XmlAdaptedAccount::new).collect(Collectors.toList()));
         ingredients.addAll(src.getIngredientList().stream().map(XmlAdaptedIngredient::new)
@@ -90,29 +83,12 @@ public class XmlSerializableRestaurantBook {
      *         allowed.
      */
     public RestaurantBook toModelType() throws IllegalValueException {
-        processPersons();
         processAccounts();
         processIngredients();
         processRecords();
         processItems();
         processReservations();
         return restaurantBook;
-    }
-
-    /**
-     * Converts this restaurantbook's person list into the model's {@code RestaurantBook} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated or duplicates in the {@code
-     *         XmlAdaptedPerson}.
-     */
-    private void processPersons() throws IllegalValueException {
-        for (XmlAdaptedPerson p : persons) {
-            Person person = p.toModelType();
-            if (restaurantBook.hasPerson(person)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
-            restaurantBook.addPerson(person);
-        }
     }
 
     /**
@@ -206,8 +182,7 @@ public class XmlSerializableRestaurantBook {
         if (!(other instanceof XmlSerializableRestaurantBook)) {
             return false;
         }
-        return persons.equals(((XmlSerializableRestaurantBook) other).persons)
-                && accounts.equals(((XmlSerializableRestaurantBook) other).accounts)
+        return accounts.equals(((XmlSerializableRestaurantBook) other).accounts)
                 && ingredients.equals(((XmlSerializableRestaurantBook) other).ingredients)
                 && items.equals(((XmlSerializableRestaurantBook) other).items)
                 && reservations.equals(((XmlSerializableRestaurantBook) other).reservations)

@@ -2,9 +2,7 @@ package seedu.restaurant.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ADDRESS;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_EMAIL;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_MINIMUM;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
@@ -17,15 +15,18 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_NEW_PASSWORD;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PASSWORD;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PAX;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PERCENT;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PHONE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PRICE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_QUANTITY_SOLD;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TIME;
+import static seedu.restaurant.testutil.menu.TypicalItems.FRIES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import seedu.restaurant.commons.core.index.Index;
 import seedu.restaurant.logic.CommandHistory;
@@ -39,9 +40,9 @@ import seedu.restaurant.model.Model;
 import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientNameContainsKeywordsPredicate;
-import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
-import seedu.restaurant.model.person.Person;
-import seedu.restaurant.testutil.EditPersonDescriptorBuilder;
+import seedu.restaurant.model.menu.Item;
+import seedu.restaurant.model.menu.NameContainsKeywordsPredicate;
+import seedu.restaurant.storage.XmlAdaptedTag;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 import seedu.restaurant.testutil.ingredient.EditIngredientDescriptorBuilder;
 import seedu.restaurant.testutil.menu.EditItemDescriptorBuilder;
@@ -53,36 +54,11 @@ import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_TAG_TEST = "test";
-    public static final String VALID_REMARK_AMY = "Likes to drink coffee.";
-    public static final String VALID_REMARK_BOB = "Likes to drink tea.";
-
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     /**
      * For sales records
@@ -176,25 +152,41 @@ public class CommandTestUtil {
      * For menu
      */
     public static final String VALID_ITEM_NAME_BURGER = "Burger";
+    public static final String VALID_ITEM_NAME_CHEESE_BURGER = "Cheese Burger";
     public static final String VALID_ITEM_NAME_FRIES = "Cheese Fries";
+    public static final String VALID_ITEM_NAME_ICED_TEA = "Iced Tea";
     public static final String VALID_ITEM_PRICE_BURGER = "2.50";
+    public static final String VALID_ITEM_PRICE_CHEESE_BURGER = "3";
     public static final String VALID_ITEM_PRICE_FRIES = "2";
+    public static final String VALID_ITEM_PRICE_ICED_TEA = "1.50";
     public static final String VALID_ITEM_TAG_BURGER = "burger";
     public static final String VALID_ITEM_TAG_CHEESE = "cheese";
     public static final String VALID_ITEM_RECIPE_FRIES = "Deep fry potato and add cheese.";
     public static final String VALID_ITEM_PERCENT = "20";
+    public static final List<XmlAdaptedTag> VALID_FRIES_TAGS = FRIES.getTags().stream()
+            .map(XmlAdaptedTag::new)
+            .collect(Collectors.toList());
+    public static final Map<String, String> VALID_EMPTY_REQUIRED_INGREDIENTS = new HashMap<>();
 
     public static final String ITEM_NAME_DESC_BURGER = " " + PREFIX_NAME + VALID_ITEM_NAME_BURGER;
+    public static final String ITEM_NAME_DESC_CHEESE_BURGER = " " + PREFIX_NAME + VALID_ITEM_NAME_CHEESE_BURGER;
     public static final String ITEM_NAME_DESC_FRIES = " " + PREFIX_NAME + VALID_ITEM_NAME_FRIES;
+    public static final String ITEM_NAME_DESC_ICED_TEA = " " + PREFIX_NAME + VALID_ITEM_NAME_ICED_TEA;
     public static final String ITEM_PRICE_DESC_BURGER = " " + PREFIX_PRICE + VALID_ITEM_PRICE_BURGER;
+    public static final String ITEM_PRICE_DESC_CHEESE_BURGER = " " + PREFIX_PRICE + VALID_ITEM_PRICE_CHEESE_BURGER;
     public static final String ITEM_PRICE_DESC_FRIES = " " + PREFIX_PRICE + VALID_ITEM_PRICE_FRIES;
+    public static final String ITEM_PRICE_DESC_ICED_TEA = " " + PREFIX_PRICE + VALID_ITEM_PRICE_ICED_TEA;
     public static final String ITEM_TAG_DESC_BURGER = " " + PREFIX_TAG + VALID_ITEM_TAG_BURGER;
     public static final String ITEM_TAG_DESC_CHEESE = " " + PREFIX_TAG + VALID_ITEM_TAG_CHEESE;
     public static final String ITEM_PERCENT_DESC = " " + PREFIX_PERCENT + VALID_ITEM_PERCENT;
 
+    public static final String INVALID_ITEM_PRICE = "9.000"; // 3 decimal places not allowed
+    public static final String INVALID_ITEM_TAG = "#hashTag";
+
     public static final String INVALID_ITEM_PERCENT_DESC = " " + PREFIX_PERCENT + "10000"; // at most 2 digits
     public static final String INVALID_ITEM_NAME_DESC = " " + PREFIX_NAME + "Fries&"; // '&' not allowed in names
-    public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "9.000"; // 3 decimal places not allowed
+    public static final String INVALID_ITEM_PRICE_DESC = " " + PREFIX_PRICE + INVALID_ITEM_PRICE;
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + INVALID_ITEM_TAG; // special character
 
     /**
      * For Reservation
@@ -242,9 +234,6 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
-
     public static final ChangePasswordCommand.EditAccountDescriptor DESC_DEMO_ONE;
     public static final ChangePasswordCommand.EditAccountDescriptor DESC_DEMO_TWO;
 
@@ -261,13 +250,6 @@ public class CommandTestUtil {
     public static final EditSalesCommand.EditRecordDescriptor DESC_RECORD_TWO;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-
         // Account Management
         DESC_DEMO_ONE = new EditAccountDescriptorBuilder().withPassword(VALID_PASSWORD_DEMO_ONE).build();
         DESC_DEMO_TWO = new EditAccountDescriptorBuilder().withPassword(VALID_PASSWORD_DEMO_TWO).build();
@@ -325,7 +307,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the restaurant book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - the restaurant book and the filtered list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -333,7 +315,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         RestaurantBook expectedRestaurantBook = new RestaurantBook(actualModel.getRestaurantBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Item> expectedFilteredList = new ArrayList<>(actualModel.getFilteredItemList());
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -343,37 +325,37 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedRestaurantBook, actualModel.getRestaurantBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredItemList());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s restaurant book.
+     * Updates {@code model}'s filtered list to show only the item at the given {@code targetIndex} in the {@code
+     * Model}'s restaurant book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showItemAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().toString().split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Item item = model.getFilteredItemList().get(targetIndex.getZeroBased());
+        final String[] splitName = item.getName().toString().split("\\s+");
+        model.updateFilteredItemList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredItemList().size());
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s restaurant book.
+     * Deletes the first item in {@code model}'s filtered list from {@code model}'s restaurant book.
      */
-    public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
+    public static void deleteFirstItem(Model model) {
+        Item firstItem = model.getFilteredItemList().get(0);
+        model.deleteItem(firstItem);
         model.commitRestaurantBook();
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the ingredient at the given {@code targetIndex} in the
-     * {@code model}'s restaurant book.
+     * Updates {@code model}'s filtered list to show only the ingredient at the given {@code targetIndex} in the {@code
+     * model}'s restaurant book.
      */
     public static void showIngredientAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredIngredientList().size());

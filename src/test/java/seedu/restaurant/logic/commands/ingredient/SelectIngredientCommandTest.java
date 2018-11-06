@@ -24,10 +24,12 @@ import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
 //@@author rebstan97
+
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectIngredientCommand}.
  */
 public class SelectIngredientCommandTest {
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -89,13 +91,13 @@ public class SelectIngredientCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different ingredient -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
-     * is raised with the correct index.
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code
+     * JumpToIngredientListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectIngredientCommand selectCommand = new SelectIngredientCommand(index);
@@ -110,8 +112,8 @@ public class SelectIngredientCommandTest {
     }
 
     /**
-     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
-     * is thrown with the {@code expectedMessage}.
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException} is
+     * thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectIngredientCommand selectCommand = new SelectIngredientCommand(index);

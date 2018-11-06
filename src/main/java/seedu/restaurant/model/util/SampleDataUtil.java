@@ -27,7 +27,6 @@ public class SampleDataUtil {
         return defaultRestaurantBook;
     }
 
-    //@@author
     /**
      * Returns a tag set containing the list of strings given.
      */

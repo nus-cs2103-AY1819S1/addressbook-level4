@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
 
 import seedu.restaurant.commons.core.EventsCenter;
+import seedu.restaurant.commons.core.session.UserSession;
 import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
@@ -14,7 +15,8 @@ import seedu.restaurant.model.account.Account;
 
 //@@author AZhiKai
 /**
- * Deregisters an existing {@code Account}.
+ * Deregisters an existing {@code Account}. This command should only be executed by a user with high privileges
+ * when roles are implemented in v2.0.
  */
 public class DeregisterCommand extends Command {
 
@@ -29,6 +31,7 @@ public class DeregisterCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Account deregistered: %1$s";
     public static final String MESSAGE_USERNAME_NOT_FOUND = "This username does not exist";
+    public static final String MESSAGE_CANNOT_SELF_DEREGISTER = "You cannot deregister your own account";
 
     private final Account account;
 
@@ -46,6 +49,10 @@ public class DeregisterCommand extends Command {
         }
 
         Account retrievedAccount = model.getAccount(account);
+
+        if (UserSession.getAccount().equals(retrievedAccount)) {
+            throw new CommandException(MESSAGE_CANNOT_SELF_DEREGISTER);
+        }
 
         model.removeAccount(retrievedAccount);
         model.commitRestaurantBook();

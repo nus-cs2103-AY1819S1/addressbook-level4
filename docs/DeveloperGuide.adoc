@@ -498,9 +498,12 @@ public static void logout() {
 * **Alternative 1 (current choice):** Use static flags and methods.
 ** Pros: Easy to implement.
 ** Cons: Can only support one user at any time. If another user wants to login, the current logged in user must log out.
+In addition, since it is a global class object, test cases may be affected when testing both guest and privileged
+commands which requires user to be logged out and logged in respectively.
 * **Alternative 2:** Store a list of user sessions to allow multiple login.
-** Pros: More user can login and manage the systems concurrently.
-** Cons: More memory usage to track each user session.
+** Pros: More user can login and manage the systems concurrently. Potentially able to resolve the global dependency
+of the current solution which might affect the test ability.
+** Cons: More memory usage to track each user session as the application scales with more users.
 // end::useraccount[]
 
 // tag::auto-ingredient-update[]

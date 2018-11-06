@@ -4,13 +4,12 @@ import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.sales.SalesRecord;
 
 /**
- * A utility class to help with building RestaurantBook objects. Example usage: <br> {@code RestaurantBook ab = new
- * RestaurantBookBuilder().withPerson("John", "Doe").build();}
+ * A utility class to help with building RestaurantBook objects.
+ * Example usage: {@code RestaurantBook ab = new RestaurantBookBuilder().withAccount(account).build();}
  */
 public class RestaurantBookBuilder {
 
@@ -22,14 +21,6 @@ public class RestaurantBookBuilder {
 
     public RestaurantBookBuilder(RestaurantBook restaurantBook) {
         this.restaurantBook = restaurantBook;
-    }
-
-    /**
-     * Adds a new {@code Person} to the {@code RestaurantBook} that we are building.
-     */
-    public RestaurantBookBuilder withPerson(Person person) {
-        restaurantBook.addPerson(person);
-        return this;
     }
 
     /**

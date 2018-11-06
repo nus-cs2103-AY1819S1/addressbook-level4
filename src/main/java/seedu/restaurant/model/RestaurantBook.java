@@ -20,8 +20,6 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.UniqueItemList;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
-import seedu.restaurant.model.person.Person;
-import seedu.restaurant.model.person.UniquePersonList;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.reservation.UniqueReservationList;
 import seedu.restaurant.model.sales.Date;
@@ -36,7 +34,6 @@ import seedu.restaurant.model.tag.Tag;
  */
 public class RestaurantBook implements ReadOnlyRestaurantBook {
 
-    private final UniquePersonList persons;
     private final UniqueReservationList reservations;
     private final UniqueRecordList records;
     private final UniqueAccountList accounts;
@@ -51,7 +48,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         reservations = new UniqueReservationList();
         records = new UniqueRecordList();
         accounts = new UniqueAccountList();
@@ -62,7 +58,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public RestaurantBook() {}
 
     /**
-     * Creates an RestaurantBook using the Persons in the {@code toBeCopied}
+     * Creates an RestaurantBook using the data in the {@code toBeCopied}.
      */
     public RestaurantBook(ReadOnlyRestaurantBook toBeCopied) {
         this();
@@ -72,20 +68,11 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
-     * persons.
-     */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-    }
-
-    /**
      * Resets the existing data of this {@code RestaurantBook} with {@code newData}.
      */
     public void resetData(ReadOnlyRestaurantBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
         setReservations(newData.getReservationList());
         setRecords(newData.getRecordList());
         setAccounts(newData.getAccountList());
@@ -93,71 +80,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         setItems(newData.getItemList());
     }
 
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
-    /**
-     * Adds a person to the restaurant book. The person must not already exist in the restaurant book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}. {@code target} must exist in the
-     * restaurant book. The person identity of {@code editedPerson} must not be the same as another existing person in
-     * the restaurant book.
-     */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-    }
-
-    /**
-     * Removes {@code key} from this {@code RestaurantBook}. {@code key} must exist in the restaurant book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-    }
-
-    /**
-     * Removes {@code tag} from {@code person} in this {@code RestaurantBook}.
-     *
-     * @param person whose tag is being removed.
-     * @param tag to be removed.
-     */
-    private void removeTagForPerson(Person person, Tag tag) {
-        Set<Tag> tags = new HashSet<>(person.getTags());
-
-        if (!tags.remove(tag)) {
-            return;
-        }
-
-        Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
-                person.getRemark(), tags);
-        updatePerson(person, newPerson);
-    }
-
-    /**
-     * Removes {@code tag} from all {@code person} in this {@code RestaurantBook}.
-     *
-     * @param tag to be removed.
-     */
-    public void removeTag(Tag tag) {
-        persons.forEach(person -> removeTagForPerson(person, tag));
-    }
-
     // Reservation Management
 
     //@@author m4dkip
+
     /**
      * Replaces the contents of the reservation list with {@code reservations}. {@code reservations} must not contain
      * duplicate reservations.
@@ -183,8 +109,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     /**
      * Replaces the given reservation {@code target} in the list with {@code editedReservation}. {@code target} must
-     * exist in the restaurant book. The person identity of {@code editedReservation} must not be the same as another
-     * existing person in the restaurant book.
+     * exist in the restaurant book. The reservation identity of {@code editedReservation} must not be the same as
+     * another existing reservation in the restaurant book.
      */
     public void updateReservation(Reservation target, Reservation editedReservation) {
         requireNonNull(editedReservation);
@@ -236,11 +162,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     @Override
     public ObservableList<Reservation> getReservationList() {
         return reservations.asUnmodifiableObservableList();
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
     }
 
     //// sales record-level operation
@@ -312,16 +233,17 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     //// account-level operations
 
     //@@author AZhiKai
+
     /**
-     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
-     * persons.
+     * Replaces the contents of the account list with {@code Account}s. {@code Account}s must not contain duplicate
+     * accounts.
      */
     public void setAccounts(List<Account> accounts) {
         this.accounts.setAccounts(accounts);
     }
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
+     * Returns true if an account with the same identity as {@code Account} exists in the restaurant book.
      */
     public boolean hasAccount(Account account) {
         return accounts.contains(account);
@@ -442,9 +364,9 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     // Menu Management
     //@@author yican95
+
     /**
-     * Replaces the contents of the person list with {@code persons}. {@code persons} must not contain duplicate
-     * persons.
+     * Replaces the contents of the items list with {@code Item}s. {@code Item}s must not contain duplicate items.
      */
     public void setItems(List<Item> items) {
         this.items.setItems(items);
@@ -529,13 +451,11 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             items.sortItemsByPrice();
             return;
         default:
-            return;
         }
     }
 
     /**
-     * Finds an item in the menu with the name {@code Name}. The item must already exist
-     * in the menu.
+     * Finds an item in the menu with the name {@code Name}. The item must already exist in the menu.
      */
     public Item findItem(Name name) throws ItemNotFoundException {
         return items.find(name);
@@ -550,11 +470,10 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     //@@author
     @Override
     public String toString() {
-        return String.valueOf(persons.asUnmodifiableObservableList().size()) + " persons\n"
-                + accounts.asUnmodifiableObservableList().size() + " accounts\n"
+        return String.valueOf(accounts.asUnmodifiableObservableList().size() + " accounts\n"
                 + ingredients.asUnmodifiableObservableList().size() + " ingredients\n"
                 + items.asUnmodifiableObservableList().size() + " items\n"
-                + records.asUnmodifiableObservableList().size() + " records";
+                + records.asUnmodifiableObservableList().size() + " records");
     }
 
     @Override
@@ -568,8 +487,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
             return false;
         }
 
-        return persons.equals(((RestaurantBook) other).persons)
-                && accounts.equals(((RestaurantBook) other).accounts)
+        return accounts.equals(((RestaurantBook) other).accounts)
                 && ingredients.equals(((RestaurantBook) other).ingredients)
                 && items.equals(((RestaurantBook) other).items)
                 && records.equals(((RestaurantBook) other).records);
@@ -577,6 +495,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, accounts, ingredients, items, records);
+        return Objects.hash(accounts, ingredients, items, records);
     }
 }

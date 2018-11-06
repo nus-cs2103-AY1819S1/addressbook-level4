@@ -45,7 +45,7 @@ public class AddItemCommandParser implements Parser<AddItemCommand> {
 
         Name name = ItemParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Price price = ItemParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-        Recipe recipe = new Recipe("");
+        Recipe recipe = new Recipe(""); //TODO: Can consider adding recipe here.
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Map<IngredientName, Integer> requiredIngredients = new HashMap<>();
 

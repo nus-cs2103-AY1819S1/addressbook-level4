@@ -83,7 +83,7 @@ public class SalesRecordTest {
         // different type -> returns false
         assertFalse(RECORD_THREE.equals(5));
 
-        // different person -> returns false
+        // different sales record -> returns false
         assertFalse(RECORD_THREE.equals(RECORD_TWO));
 
         // different date -> returns false

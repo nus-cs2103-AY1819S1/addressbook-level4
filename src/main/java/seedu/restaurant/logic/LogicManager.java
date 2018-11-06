@@ -14,6 +14,7 @@ import seedu.restaurant.logic.commands.CommandResult;
 import seedu.restaurant.logic.commands.ExitCommand;
 import seedu.restaurant.logic.commands.HelpCommand;
 import seedu.restaurant.logic.commands.account.LoginCommand;
+import seedu.restaurant.logic.commands.account.LogoutCommand;
 import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.logic.parser.RestaurantBookParser;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
@@ -22,7 +23,6 @@ import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
-import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.sales.SalesRecord;
 
@@ -44,7 +44,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     //@@author AZhiKai
-    private boolean isPublicCommand(Command command) {
+    private boolean isGuestCommand(Command command) {
         return command instanceof LoginCommand || command instanceof HelpCommand || command instanceof ExitCommand;
     }
 
@@ -54,24 +54,24 @@ public class LogicManager extends ComponentManager implements Logic {
         if (commandText.contains(PREFIX_PASSWORD.getPrefix())) {
             commandTextToLog = Password.maskPassword(commandText);
         }
-        logger.info("----------------[USER COMMAND][" + commandTextToLog + "]");
+        logger.info("----------------[USER COMMAND][" + commandTextToLog + "]----------------");
 
+        Command command = null;
         try {
-            Command command = restaurantBookParser.parseCommand(commandText);
+            command = restaurantBookParser.parseCommand(commandText);
 
-            if (!isPublicCommand(command) && !UserSession.isAuthenticated()) {
+            if (!isGuestCommand(command) && !UserSession.isAuthenticated()) {
                 throw new CommandException(Messages.MESSAGE_COMMAND_FORBIDDEN);
             }
 
             return command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (command instanceof LogoutCommand) {
+                history.clear();
+            } else {
+                history.add(commandText);
+            }
         }
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override

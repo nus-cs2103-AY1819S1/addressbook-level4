@@ -51,8 +51,8 @@ public class EditItemCommand extends Command {
             + PREFIX_PRICE + "2";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the menu.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided";
+    public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the menu";
 
     private final Index index;
     private final EditItemDescriptor editItemDescriptor;

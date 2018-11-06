@@ -42,7 +42,6 @@ public class XmlAdaptedItemTest {
         VALID_REQUIRED_INGREDIENTS.put(VALID_INGREDIENT_NAME, VALID_INTEGER);
     }
 
-
     @Test
     public void toModelType_validItemDetails_returnsItem() throws Exception {
         XmlAdaptedItem item = new XmlAdaptedItem(APPLE_JUICE);

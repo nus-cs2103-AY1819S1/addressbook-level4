@@ -24,8 +24,6 @@ import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.events.ui.ExitAppRequestEvent;
 import seedu.restaurant.commons.events.ui.ShowHelpRequestEvent;
 import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEvent;
-import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
-import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
 import seedu.restaurant.commons.events.ui.ingredient.IngredientPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
@@ -96,7 +94,7 @@ public class MainWindow extends UiPart<Stage> {
     private Pane usernameDisplayPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder; //rename to ModelListPanelPlaceholder
+    private StackPane dataListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -206,15 +204,14 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        PersonListPanel personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         accountListPanel = new AccountListPanel(logic.getFilteredAccountList());
         itemListPanel = new ItemListPanel(logic.getFilteredItemList());
         recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
         ingredientListPanel = new IngredientListPanel(logic.getFilteredIngredientList());
         reservationListPanel = new ReservationListPanel(logic.getFilteredReservationList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot()); // Show restaurant book
+        dataListPanelPlaceholder.getChildren().add(itemListPanel.getRoot());
 
-        ftListPanel = getFadeTransition(Duration.millis(150), personListPanelPlaceholder);
+        ftListPanel = getFadeTransition(Duration.millis(150), dataListPanelPlaceholder);
         ftStackPanel = getFadeTransition(Duration.millis(150), browserPlaceholder);
     }
 
@@ -229,6 +226,7 @@ public class MainWindow extends UiPart<Stage> {
 
         return ft;
     }
+
     //@@author
     void hide() {
         primaryStage.hide();
@@ -264,8 +262,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void switchList(Region region) {
         browserPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().clear();
-        personListPanelPlaceholder.getChildren().add(region);
+        dataListPanelPlaceholder.getChildren().clear();
+        dataListPanelPlaceholder.getChildren().add(region);
         ftListPanel.play();
     }
 
@@ -430,17 +428,5 @@ public class MainWindow extends UiPart<Stage> {
     private void handleDisplayReservationEvent(DisplayReservationListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToReservation();
-    }
-
-    @Subscribe
-    private void handleLoginEvent(LoginEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        // If we show menu here, it will mess with systemtests. So it must be fixed together
-        //personListPanelPlaceholder.getChildren().add(itemListPanel.getRoot()); // Show menu by default
-    }
-
-    @Subscribe
-    private void handleLogoutEvent(LogoutEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 }

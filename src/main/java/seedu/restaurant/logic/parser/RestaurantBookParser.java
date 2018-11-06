@@ -6,19 +6,12 @@ import static seedu.restaurant.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.restaurant.logic.commands.AddCommand;
 import seedu.restaurant.logic.commands.ClearCommand;
 import seedu.restaurant.logic.commands.Command;
-import seedu.restaurant.logic.commands.DeleteCommand;
-import seedu.restaurant.logic.commands.EditCommand;
 import seedu.restaurant.logic.commands.ExitCommand;
-import seedu.restaurant.logic.commands.FindCommand;
 import seedu.restaurant.logic.commands.HelpCommand;
 import seedu.restaurant.logic.commands.HistoryCommand;
-import seedu.restaurant.logic.commands.ListCommand;
 import seedu.restaurant.logic.commands.RedoCommand;
-import seedu.restaurant.logic.commands.RemarkCommand;
-import seedu.restaurant.logic.commands.SelectCommand;
 import seedu.restaurant.logic.commands.UndoCommand;
 import seedu.restaurant.logic.commands.account.ChangePasswordCommand;
 import seedu.restaurant.logic.commands.account.DeregisterCommand;
@@ -119,33 +112,9 @@ public class RestaurantBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-        case AddCommand.COMMAND_ALIAS:
-            return new AddCommandParser().parse(arguments);
-
-        case EditCommand.COMMAND_WORD:
-        case EditCommand.COMMAND_ALIAS:
-            return new EditCommandParser().parse(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-        case SelectCommand.COMMAND_ALIAS:
-            return new SelectCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-        case DeleteCommand.COMMAND_ALIAS:
-            return new DeleteCommandParser().parse(arguments);
-
         case ClearCommand.COMMAND_WORD:
         case ClearCommand.COMMAND_ALIAS:
             return new ClearCommand();
-
-        case FindCommand.COMMAND_WORD:
-        case FindCommand.COMMAND_ALIAS:
-            return new FindCommandParser().parse(arguments);
-
-        case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_ALIAS:
-            return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:
@@ -166,9 +135,6 @@ public class RestaurantBookParser {
         case RedoCommand.COMMAND_WORD:
         case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
-
-        case RemarkCommand.COMMAND_WORD:
-            return new RemarkCommandParser().parse(arguments);
 
         case RecordSalesCommand.COMMAND_WORD:
         case RecordSalesCommand.COMMAND_ALIAS:

@@ -28,6 +28,7 @@ import seedu.restaurant.ui.testutil.EventsCollectorRule;
  * Contains integration tests (interaction with the Model) for {@code SelectSalesCommand}.
  */
 public class SelectSalesCommandTest {
+
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -89,13 +90,13 @@ public class SelectSalesCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different sales -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
      * Executes a {@code SelectSalesCommand} with the given {@code index}, and checks that {@code
-     * JumpToListRequestEvent} is raised with the correct index.
+     * JumpToRecordListRequestEvent} is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
         SelectSalesCommand selectSalesCommand = new SelectSalesCommand(index);
@@ -111,8 +112,8 @@ public class SelectSalesCommandTest {
     }
 
     /**
-     * Executes a {@code SelectSalesCommand} with the given {@code index}, and checks that a {@code CommandException}
-     * is thrown with the {@code expectedMessage}.
+     * Executes a {@code SelectSalesCommand} with the given {@code index}, and checks that a {@code CommandException} is
+     * thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectSalesCommand selectSalesCommand = new SelectSalesCommand(index);

@@ -67,7 +67,7 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void execute_invalidPassword_throwsCommandException() throws CommandException {
+    public void execute_validAccountWrongPassword_throwsCommandException() throws CommandException {
         thrown.expect(CommandException.class);
         thrown.expectMessage(LoginCommand.MESSAGE_WRONG_PASSWORD);
 
@@ -76,7 +76,7 @@ public class LoginCommandTest {
     }
 
     @Test
-    public void execute_invalidAccount_throwsCommandException() throws CommandException {
+    public void execute_nonExistentAccount_throwsCommandException() throws CommandException {
         thrown.expect(CommandException.class);
         thrown.expectMessage(LoginCommand.MESSAGE_ACCOUNT_NOT_FOUND);
 
