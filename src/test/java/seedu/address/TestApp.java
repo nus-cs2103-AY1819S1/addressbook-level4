@@ -1,7 +1,5 @@
 package seedu.address;
 
-import static seedu.address.testutil.TestUtil.blockGoogleLogin;
-
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
@@ -49,7 +47,6 @@ public class TestApp extends MainApp {
     @Override
     public void init() throws Exception {
         logger.info("=============================[ Initializing Piconso ]===========================");
-        blockGoogleLogin();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
@@ -60,7 +57,7 @@ public class TestApp extends MainApp {
 
         super.initLogging(config);
 
-        model = new ModelManager(userPrefs);
+        model = new ModelManager(userPrefs, true);
 
         logic = new LogicManager(model);
 
@@ -93,7 +90,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager(new UserPrefs());
+        Model copy = new ModelManager(new UserPrefs(), true);
         return copy;
     }
 

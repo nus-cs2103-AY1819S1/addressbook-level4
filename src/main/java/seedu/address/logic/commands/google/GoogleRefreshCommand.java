@@ -37,7 +37,7 @@ public class GoogleRefreshCommand extends GoogleCommand {
             if (ex instanceof ApiException) {
                 message = MESSAGE_CONNECTION_FAILURE;
             }
-            throw new CommandException(message + "\n\n" + MESSAGE_USAGE);
+            throw new CommandException(message);
         }
         return new CommandResult("Images and albums refreshed!");
     }

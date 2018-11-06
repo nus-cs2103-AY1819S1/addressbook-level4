@@ -3,6 +3,8 @@ package seedu.address.model;
 import static seedu.address.commons.core.Messages.MESSAGE_CONNECTION_FAILURE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.google.PhotosLibraryClientFactory.BLOCKER;
+import static seedu.address.model.google.PhotosLibraryClientFactory.DATA_STORE;
+import static seedu.address.model.google.PhotosLibraryClientFactory.TEST_FILE;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -44,9 +46,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final UserPrefs userPrefs;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Strictly for test mode. Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(UserPrefs userPrefs) {
+    public ModelManager(UserPrefs userPrefs, boolean isTest) {
         super();
         requireAllNonNull(userPrefs);
 
@@ -56,18 +58,11 @@ public class ModelManager extends ComponentManager implements Model {
         this.userPrefs.initImageList();
         dirImageList = this.userPrefs.getCurrImageListBatch();
 
-        if (!BLOCKER.exists()) {
-            try {
-                photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
-            } catch (Exception e) {
-                logger.warning("Unable to log into user account");
-            }
-        }
-
+        setUpForGoogle(isTest);
     }
 
     public ModelManager() {
-        this(new UserPrefs());
+        this(new UserPrefs(), true);
     }
 
     //=========== Directory Image List Accessors =============================================================
@@ -196,6 +191,31 @@ public class ModelManager extends ComponentManager implements Model {
             return null;
         }
         return getPhotoHandler().identifyUser();
+    }
+
+    @Override
+    public void setUpForGoogle(boolean isTest) {
+        if (isTest) {
+            if (!DATA_STORE.exists()) {
+                DATA_STORE.mkdirs();
+            }
+            try {
+                TEST_FILE.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (TEST_FILE.exists()) {
+                TEST_FILE.delete();
+            }
+            if (!BLOCKER.exists()) {
+                try {
+                    photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
+                } catch (Exception e) {
+                    logger.warning("Unable to log into user account");
+                }
+            }
+        }
     }
 
     //=========== Undo/Redo =================================================================================

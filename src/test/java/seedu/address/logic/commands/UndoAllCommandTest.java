@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.testutil.ModelGenerator;
 
 //@@author ihwk1996
-public class UndoAllCommandTest extends DefaultCommandTest {
+public class UndoAllCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
     private UndoAllCommand undoAllCommand = new UndoAllCommand();
     private String messageSuccess = UndoAllCommand.MESSAGE_SUCCESS;

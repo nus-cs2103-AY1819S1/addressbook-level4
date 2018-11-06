@@ -15,7 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 //@@author chivent
-public class LsCommandTest extends DefaultCommandTest {
+public class LsCommandTest {
 
     private Model model = getModelWithTestImgDirectory();
     private Model expectedModel = getModelWithTestImgDirectory();
