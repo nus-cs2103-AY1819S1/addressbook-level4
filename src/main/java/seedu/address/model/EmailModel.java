@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -65,7 +66,7 @@ public class EmailModel {
     }
 
     public Set<String> getExistingEmails() {
-        return existingEmails;
+        return Collections.unmodifiableSet(existingEmails);
     }
 
     public Email getEmail() {
