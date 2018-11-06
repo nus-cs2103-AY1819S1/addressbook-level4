@@ -69,7 +69,15 @@ A person, module or an occasion can have any number of tags (including 0) and in
 Adds a person to TheTracker. +
 
 Format: +
-`addperson n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...`
+`addperson n/NAME[NON-OPTIONAL] p/PHONE_NUMBER e/EMAIL_ADDRESS a/HOME_ADDRESS [t/TAG]...`
+
+====
+*Command Format*
+
+* Persons with the same name and at least one same identity field (phone number or email) are considered to be the same person.
+* Name must be specified to create a person contact.
+* By default, Phone number, email address, home address an tag are empty.
+====
 
 Example:
 
@@ -81,11 +89,20 @@ Example:
 Adds a module to TheTracker. +
 
 Format: +
-`addmodule mc/MODULE_CODE mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER [t/TAG]...` +
+`addmodule mc/MODULE_CODE[NON_OPTIONAL] mt/MODULE_TITLE ay/ACADEMIC_YEAR sem/SEMESTER [t/TAG]...` +
+
+====
+*Command Format*
+
+* Module with the same code, academic year and semester are considered to be the same module.
+* ModuleCode must be specified to create a module.
+* By default, Academic Year, ModuleTitle, Semester and Tag are empty strings.
+* Valid semester number is 1-4. (3 and 4 refers to special semester).
+====
 
 Example:
 
-* `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/AY1718 sem/1 t/gg` +
+* `addmodule mc/CS2103 mt/SOFTWARE ENGINEERING ay/1718 sem/1 t/gg` +
 
 ==== Adding an occasion: `addoccasion`
 
@@ -94,6 +111,13 @@ Adds an occasion to TheTracker. +
 Format: +
 `addoccasion on/OCCASION_NAME od/OCCASION_DATE loc/LOCATION [t/TAG]...`
 
+====
+*Command Format*
+
+* Occasion with the same name and date are considered to be the same occasion.
+* OccasionName must be specified to create an occasion. The length of Occasion Name should be restricted between 3 - 30.
+* By default, Occasion date, Occasion location and Tag are empty.
+====
 
 Example:
 
@@ -240,9 +264,6 @@ A command to allow the user to undo previous commands. +
 Command Syntax: +
 `undo`: +
 This command will undo the user’s previous command. +
-`undo [number]`: +
-The number of commands you want to undo.
-This command will undo a certain number of commands. The number should be at least 1. If the number exceeds the number of operations that has been done, the application will undo all the previous operations.
 
 [NOTE]
 ====
@@ -262,7 +283,6 @@ The `undo` command fails as there are no undoable commands executed previously. 
 
 * `delete 1` +
 `clear` +
-`undo 2` (reverses the `clear` command and the `delete 1` command) +
 
 === Redoing the previously undone command : `redo`
 
@@ -289,16 +309,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `clear` +
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
-`redo 2` (reapplies the `delete 1` command and the `clear` command) +
 // end::undoredo[]
-
-=== Grouping content together by tag: `group` (coming in v 2.0)
-A command to allow the user to group students under a certain group tag. +
-Command Syntax: +
-`group [group_name] [keyword]`: +
-group_name: The name of this group of people. +
-keyword: n/NAME The name of the person you want to put in this group.
-                  i/INDEX The index of the person you want to put in this group.
 
 === Listing all entries of this kind: `list`
 Format: +
@@ -316,7 +327,7 @@ Format: `history`
 A feature that gives a list of potential matches based on substrings of a result that a user types into any other command.
 
 // tag::export[]
-=== Exporting data in this application (coming in v 1.4)
+=== Exporting data from this application (coming in v 1.4)
 Format: `export FILEPATH`
 
 // end::export[]
