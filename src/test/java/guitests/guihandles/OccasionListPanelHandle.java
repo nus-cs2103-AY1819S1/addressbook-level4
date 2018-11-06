@@ -125,7 +125,7 @@ public class OccasionListPanelHandle extends NodeHandle<ListView<Occasion>> {
     /**
      * Remembers the selected {@code OccasionCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedOccasionCard() {
         List<Occasion> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
@@ -139,7 +139,7 @@ public class OccasionListPanelHandle extends NodeHandle<ListView<Occasion>> {
      * Returns true if the selected {@code OccasionCard} is different from the value remembered by the most recent
      * {@code rememberSelectedOccasionCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedOccasionCardChanged() {
         List<Occasion> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
