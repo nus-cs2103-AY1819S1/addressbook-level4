@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1">
-    <StackPane>
+    <StackPane fx:id="personBrowserPanel">
         <TableView fx:id="moduleTableView">
             <columns>
                 <TableColumn text="Module Code" fx:id="moduleCodeStringTableColumn" prefWidth="200"/>

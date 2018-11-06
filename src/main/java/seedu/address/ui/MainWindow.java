@@ -24,8 +24,11 @@ import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.module.Module;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * The MainWindow parent class from which children entity windows are spawned from.
@@ -217,14 +220,30 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        Person firstPerson = logic.getFilteredPersonList().get(0);
-        Module firstModule = logic.getFilteredModuleList().get(0);
-        Occasion firstOccasion = logic.getFilteredOccasionList().get(0);
-        personBrowserPanel = new PersonBrowserPanel(firstPerson.getModuleList().asUnmodifiableObservableList(),
-                                                    firstPerson.getOccasionList().asUnmodifiableObservableList());
-        moduleBrowserPanel = new ModuleBrowserPanel(firstModule.getStudents().asUnmodifiableObservableList());
-        occasionBrowserPanel = new OccasionBrowserPanel(firstOccasion
-                                                            .getAttendanceList().asUnmodifiableObservableList());
+        if (logic.getFilteredPersonList().size() > 0) {
+            Person firstPerson = logic.getFilteredPersonList().get(0);
+            personBrowserPanel = new PersonBrowserPanel(firstPerson.getModuleList().asUnmodifiableObservableList(),
+                    firstPerson.getOccasionList().asUnmodifiableObservableList());
+        } else { // Means that there are no modules within the addressbook.
+            personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList().asUnmodifiableObservableList(),
+                                                        new UniqueOccasionList().asUnmodifiableObservableList());
+        }
+
+        if (logic.getFilteredModuleList().size() > 0) {
+            Module firstModule = logic.getFilteredModuleList().get(0);
+            moduleBrowserPanel = new ModuleBrowserPanel(firstModule.getStudents().asUnmodifiableObservableList());
+        } else {
+            moduleBrowserPanel = new ModuleBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+        }
+
+        if (logic.getFilteredOccasionList().size() > 0) {
+            Occasion firstOccasion = logic.getFilteredOccasionList().get(0);
+            occasionBrowserPanel = new OccasionBrowserPanel(firstOccasion
+                    .getAttendanceList().asUnmodifiableObservableList());
+        } else {
+            occasionBrowserPanel = new OccasionBrowserPanel(new UniquePersonList().asUnmodifiableObservableList());
+        }
+
         getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
