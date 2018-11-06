@@ -21,7 +21,7 @@ public class CcaCardTest extends GuiUnitTest {
         Cca cca = new CcaBuilder().build();
         CcaCard ccaCard = new CcaCard(cca, 1);
         uiPartRule.setUiPart(ccaCard);
-        assertCardDisplay(ccaCard, cca, 1);
+        assertCardDisplay(ccaCard, cca);
 
     }
 
@@ -55,7 +55,7 @@ public class CcaCardTest extends GuiUnitTest {
      * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(CcaCard ccaCard, Cca expectedCca, int expectedId) {
+    private void assertCardDisplay(CcaCard ccaCard, Cca expectedCca) {
         guiRobot.pauseForHuman();
 
         CcaCardHandle ccaCardHandle = new CcaCardHandle(ccaCard.getRoot());

@@ -367,7 +367,7 @@ public class CreateCcaCommandTest {
      * A Model stub that always accept the cca being added.
      */
     private class ModelStubAcceptingCcaAdded extends ModelStub {
-        final ArrayList<Cca> ccasAdded = new ArrayList<>();
+        private final ArrayList<Cca> ccasAdded = new ArrayList<>();
 
         @Override
         public boolean hasCca(Cca cca) {

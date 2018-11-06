@@ -41,8 +41,6 @@ public class CreateCcaCommandParserTest {
             .withTransaction(getTransactionEmpty())
             .build();
 
-        CreateCcaCommand newCca = new CreateCcaCommand(expectedCca);
-
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BASKETBALL + BUDGET_DESC_BASKETBALL,
             new CreateCcaCommand(expectedCca));
