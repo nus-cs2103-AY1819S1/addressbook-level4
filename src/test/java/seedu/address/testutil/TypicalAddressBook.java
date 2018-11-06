@@ -8,7 +8,7 @@ import seedu.address.model.AddressBook;
 
 /**
  * A utility class containing three typical lists to be used in tests.
- * @Author waytan
+ * @author waytan
  */
 public class TypicalAddressBook {
     private TypicalAddressBook() {} // prevents instantiation

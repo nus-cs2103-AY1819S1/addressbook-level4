@@ -58,6 +58,9 @@ public class TypicalModules {
 
     private TypicalModules() {} // prevents instantiation
 
+    /**
+     * Adds all the typical modules to an {@code AddressBook}.
+     */
     public static void addTypicalModules(AddressBook ab) {
         for (Module module : getTypicalModules()) {
             ab.addModule(module);

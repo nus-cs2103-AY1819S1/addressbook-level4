@@ -28,7 +28,8 @@ public class ModuleListPanelTest extends GuiUnitTest {
     private static final ObservableList<Module> TYPICAL_MODULES =
             FXCollections.observableList(getTypicalModules());
 
-    private static final JumpToPersonListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToPersonListRequestEvent(INDEX_SECOND_MODULE);
+    private static final JumpToPersonListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToPersonListRequestEvent(INDEX_SECOND_MODULE);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 

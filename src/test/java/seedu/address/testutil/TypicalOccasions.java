@@ -56,6 +56,9 @@ public class TypicalOccasions {
 
     private TypicalOccasions() {} // prevents instantiation
 
+    /**
+     * Adds all the typical modules to an {@code AddressBook}.
+     */
     public static void addTypicalOccasions(AddressBook ab) {
         for (Occasion occasion : getTypicalOccasions()) {
             ab.addOccasion(occasion);
