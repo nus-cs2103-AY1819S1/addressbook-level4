@@ -43,7 +43,7 @@ public class ImportVolunteerCsvCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a CSV file of the volunteer "
             + "given the directory to the file.\n"
-            + "The CSV must have the following format: \n"
+            + "The CSV must have the following format:\n"
             + "Name, Phone, Address, Email, Birthday, Gender, Tags, VolunteerID";
 
     private static final String MESSAGE_IMPORT_COMPLETED = "Volunteer(s) imported from CSV file "
