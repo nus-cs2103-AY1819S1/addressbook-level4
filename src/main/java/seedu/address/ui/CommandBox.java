@@ -150,11 +150,11 @@ public class CommandBox extends UiPart<Region> {
     private void autocompleteCommand() {
         Optional<String> nearestCommandWord = getNearestCommandWord(commandTextField.getText());
         // required as commandTextField loses focus between start of execution of this method and this step
-        commandTextField.requestFocus();
-        commandTextField.end();
         if (nearestCommandWord.isPresent()) {
             replaceText(nearestCommandWord.get());
         }
+        commandTextField.requestFocus();
+        commandTextField.end();
     }
 
     /**

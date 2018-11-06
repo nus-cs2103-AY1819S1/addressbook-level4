@@ -51,7 +51,7 @@ public class SampleDataUtil {
     public static Event[] getSampleEvents() {
         Person alex = new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"), new Faculty("SCI"));
+                getTagSet("friends"), new Faculty("FOS"));
         Tag meetingTag = new Tag("Meeting");
 
         return new Event[] {
