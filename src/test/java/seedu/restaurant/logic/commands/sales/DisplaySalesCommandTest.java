@@ -4,21 +4,25 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_ONE;
 import static seedu.restaurant.logic.commands.CommandTestUtil.VALID_DATE_RECORD_TWO;
+import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.restaurant.logic.commands.sales.DisplaySalesCommand.DISPLAYING_REPORT_MESSAGE;
+import static seedu.restaurant.logic.commands.sales.DisplaySalesCommand.NO_SUCH_DATE_MESSAGE;
 
 import org.junit.Rule;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
-import seedu.restaurant.model.salesrecord.Date;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.Assert;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 import seedu.restaurant.ui.testutil.EventsCollectorRule;
 
-class DisplaySalesCommandTest {
+public class DisplaySalesCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -32,12 +36,22 @@ class DisplaySalesCommandTest {
     }
 
     @Test
-    public void execute_displaySales_success() {
+    public void execute_dateExistInList_success() {
         Date date = new Date(VALID_DATE_RECORD_ONE);
+        SalesRecord record = new RecordBuilder().withDate(VALID_DATE_RECORD_ONE).build();
+        model.addRecord(record);
+        expectedModel.addRecord(record);
         assertCommandSuccess(new DisplaySalesCommand(date), model, commandHistory,
                 String.format(DISPLAYING_REPORT_MESSAGE, date.toString()), expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DisplaySalesReportEvent);
-        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
+    }
+
+    @Test
+    public void execute_dateDoesNotExistInList_throwsCommandException() {
+        Date date = new Date(VALID_DATE_RECORD_ONE);
+        assertCommandFailure(new DisplaySalesCommand(date), model, commandHistory, String.format(NO_SUCH_DATE_MESSAGE,
+                date.toString()));
+        assertFalse(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DisplaySalesReportEvent);
     }
 
     @Test
@@ -61,7 +75,7 @@ class DisplaySalesCommandTest {
         // null -> returns false
         assertFalse(displayDate1SalesReportCommand.equals(null));
 
-        // different person -> returns false
+        // different dates -> returns false
         assertFalse(displayDate1SalesReportCommand.equals(displayDate2SalesReportCommand));
     }
 }

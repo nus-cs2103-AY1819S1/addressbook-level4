@@ -7,9 +7,10 @@ import seedu.restaurant.commons.events.ui.sales.DisplaySalesReportEvent;
 import seedu.restaurant.logic.CommandHistory;
 import seedu.restaurant.logic.commands.Command;
 import seedu.restaurant.logic.commands.CommandResult;
+import seedu.restaurant.logic.commands.exceptions.CommandException;
 import seedu.restaurant.model.Model;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.SalesReport;
 
 /**
  * Display sales report of a specific date
@@ -25,6 +26,7 @@ public class DisplaySalesCommand extends Command {
             + "Example: " + COMMAND_WORD + " 25-09-2018";
 
     public static final String DISPLAYING_REPORT_MESSAGE = "Displayed sales report dated: %1$s";
+    public static final String NO_SUCH_DATE_MESSAGE = "No record with date %1$s was found.";
 
     private final Date date;
 
@@ -37,8 +39,11 @@ public class DisplaySalesCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         SalesReport salesReport = model.getSalesReport(date);
+        if (salesReport.getRecords().isEmpty()) {
+            throw new CommandException(String.format(NO_SUCH_DATE_MESSAGE, date.toString()));
+        }
         EventsCenter.getInstance().post(new DisplaySalesReportEvent(salesReport));
         return new CommandResult(String.format(DISPLAYING_REPORT_MESSAGE, date.toString()));
     }

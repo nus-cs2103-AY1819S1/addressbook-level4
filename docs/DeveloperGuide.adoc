@@ -627,6 +627,10 @@ Step 1. The user executes `display-sales 25-12-2017` command to request for the 
 [NOTE]
 `display-sales` command will not call `Model#getSalesReport(Date)` if the specified date is invalid.
 
+[NOTE]
+If no sales record associated with the given `Date` is found, an empty SalesReport will be
+returned. In such cases, the command will terminate with a message notifying the user about the absence of such record.
+
 Step 2. The `display-sales` command then raises the `DisplaySalesReportEvent` event, which also encapsulates the
 generated `SalesReport` in step 1.
 
@@ -1085,6 +1089,8 @@ application
 |`* * *` |restaurant owner |keep track of daily sales |meet revenue goals, improve the menu and track inventory
 
 |`* * *` |restaurant owner |modify past sales records  |update any mistakes / refunds / cancelled booking
+
+|`* * *` |analytical restaurant owner |see the sales chart of revenue against date |have an overview of my restaurant financial performance and oversee its growth in the long run
 
 |`* * *` |profit-driven restaurant owner |know the items that are bringing in the greatest revenue  |employ marketing strategies to maximise profit
 
@@ -1696,13 +1702,13 @@ Use case resumes at step 3.
 
 *Guarantees*:
 
-* A new sales record of an item will be appended to the sales list.
+* A new sales record of an item will be appended to the record list.
 
 *MSS*
 
 1. User requests to record sales volume of an item for a specified day.
 2. App computes the ingredients used and updates the ingredient list automatically.
-3. App appends the record at the end of sales list.
+3. App appends the record at the end of record list.
 4. App returns a success message confirming that the recording is successful.
 +
 Use case ends.
@@ -1731,7 +1737,7 @@ Steps 1b1-1b2 are repeated until all fields entered by the user are valid.
 Use case resumes at step 2.
 
 [none]
-* 1c. Sales record of the same date and item name already exists in the sales list.
+* 1c. Sales record of the same date and item name already exists in the record list.
 [none]
 ** 1c1. App returns a message telling user that the item's record already exists.
 ** 1c2. User requests to record sales volume again.
@@ -1760,7 +1766,7 @@ Use case resumes at step 3.
 
 *MSS*
 
-1. User requests to edit a sales record in the sales list.
+1. User requests to edit a sales record in the record list.
 2. App updates the sales record to that given by the user.
 3. App returns a success message confirming that the modification is successful.
 +
@@ -1780,10 +1786,10 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the sales list.
+* 1b. Record does not exist in the record list.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the sales list.
+** 1b1. App returns a message telling user that no such record exists in the record list.
 ** 1b2. User requests to edit sales record again.
 +
 Steps 1b1-1b2 are repeated until a valid record is entered.
@@ -1813,7 +1819,7 @@ Steps 1d1-1d2 are repeated until all fields entered by the user are valid.
 Use case resumes at step 2.
 
 [none]
-* 1e. Sales record of the same date and item name as the new record already exists in the sales list.
+* 1e. Sales record of the same date and item name as the new record already exists in the record list.
 [none]
 ** 1e1. App returns a message telling user that the item's record already exists.
 ** 1e2. User requests to edit sales record again.
@@ -1828,7 +1834,7 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. User requests to delete a sales record in the sales list.
+1. User requests to delete a sales record in the record list.
 2. App deletes the sales record.
 3. App returns a success message confirming that the deletion is successful.
 +
@@ -1848,10 +1854,10 @@ Use case resumes at step 2.
 +
 
 [none]
-* 1b. Record does not exist in the sales list.
+* 1b. Record does not exist in the record list.
 +
 [none]
-** 1b1. App returns a message telling user that no such record exists in the sales list.
+** 1b1. App returns a message telling user that no such record exists in the record list.
 ** 1b2. User requests to delete sales record again.
 +
 Steps 1b1-1b2 are repeated until a valid record is entered.
@@ -1892,12 +1898,23 @@ Use case resumes at step 2.
 Steps 1b1-1b2 are repeated until a valid date is entered.
 +
 Use case resumes at step 2.
++
+
+* 2a. The generated sales report is empty. No record associated with the given date is found.
++
+[none]
+** 2a1. App returns a message telling user no such record is found.
+** 2a2. User requests to display sales report again with a new date.
++
+Steps 2a1-2a2 are repeated until a record with the given date is found. (i.e. Sales report generated is not empty.)
++
+Use case resumes at step 3.
 
 [discrete]
 === Use case: UC505 - Ranking items according to total revenue
 
 [NOTE]
-The use case for ranking dates according to total revenue is the same.
+The use cases for 1) ranking dates according to total revenue and 2) displaying sales chart are the same.
 
 *MSS*
 
@@ -1910,14 +1927,11 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Invalid command format entered by the user.
+* 2a. Record list is empty. No record has ever been added.
 [none]
-** 1a1. App returns a message telling user that the command format is invalid.
-** 1a2. User requests to display sales report again.
+** 2a1. App returns a message telling user that the record list is empty.
 +
-Steps 1a1-1a2 are repeated until a valid command format is entered.
-+
-Use case resumes at step 2.
+Use case ends.
 
 [appendix]
 == Non Functional Requirements

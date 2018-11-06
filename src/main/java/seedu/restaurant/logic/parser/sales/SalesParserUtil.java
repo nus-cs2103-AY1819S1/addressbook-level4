@@ -3,13 +3,13 @@ package seedu.restaurant.logic.parser.sales;
 import static java.util.Objects.requireNonNull;
 
 import seedu.restaurant.logic.parser.exceptions.ParseException;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.ItemName;
-import seedu.restaurant.model.salesrecord.Price;
-import seedu.restaurant.model.salesrecord.QuantitySold;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.Price;
+import seedu.restaurant.model.sales.QuantitySold;
 
 /**
- * Contains utility methods used for parsing strings salesrecord-related classes.
+ * Contains utility methods used for parsing strings sales-related classes.
  */
 public class SalesParserUtil {
 
