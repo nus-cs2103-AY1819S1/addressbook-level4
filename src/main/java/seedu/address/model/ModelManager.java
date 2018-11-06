@@ -66,7 +66,6 @@ public class ModelManager extends ComponentManager implements Model {
     private Predicate<Expense> expenseStatPredicate;
     private int periodAmount;
     private final Map<Username, EncryptedExpenseTracker> expenseTrackers;
-    private HashSet<Category> categories;
 
     /**
      * Initializes a ModelManager with the given expenseTrackers and userPrefs.

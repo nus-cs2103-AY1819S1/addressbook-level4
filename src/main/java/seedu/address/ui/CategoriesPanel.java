@@ -24,8 +24,6 @@ public class CategoriesPanel extends UiPart<Region> {
     @FXML
     private GridPane categoriesGrid;
 
-    private final Logger logger = LogsCenter.getLogger(CategoriesPanel.class);
-
     /**
      * Create categoriesPanel with a list of categories
      * @param categories to list

@@ -11,14 +11,12 @@ import seedu.address.model.budget.CategoryBudget;
 public class CategoryIconTest extends GuiUnitTest {
     private static final double DELTA = 1e-15;
 
-    private CategoryIconHandle categoryIconHandle;
-
     @Test
     public void display() {
         CategoryBudget budget = new CategoryBudget("CAT", "40.00");
         CategoryIcon categoryIcon = new CategoryIcon(budget);
         uiPartRule.setUiPart(categoryIcon);
-        categoryIconHandle = new CategoryIconHandle(getChildNode(categoryIcon.getRoot(),
+        CategoryIconHandle categoryIconHandle = new CategoryIconHandle(getChildNode(categoryIcon.getRoot(),
                 CategoryIconHandle.CATEGORIES_ICON_ID));
         assertEquals(categoryIconHandle.getCategoryBudgetCap(), budget.getBudgetCap(), DELTA);
         assertEquals(categoryIconHandle.getCategoryName(), budget.toString());

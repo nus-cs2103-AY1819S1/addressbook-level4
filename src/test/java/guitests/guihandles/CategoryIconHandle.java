@@ -12,11 +12,9 @@ import seedu.address.model.budget.CategoryBudget;
 public class CategoryIconHandle extends NodeHandle<Node> {
     public static final String CATEGORIES_ICON_ID = "#categoriesIcon";
     private static final String CATEGORY_NAME_FIELD_ID = "#categoryName";
-    private static final String CATEGORY_ICON_ID = "#categoryIcon";
     private static final String CATEGORY_BUDGET_CAP_ID = "#categoryBudgetCap";
 
     private final Label categoryName;
-    private final ImageView categoryIcon;
     private final Label categoryBudgetCap;
 
 
@@ -24,7 +22,6 @@ public class CategoryIconHandle extends NodeHandle<Node> {
         super(node);
 
         categoryBudgetCap = getChildNode(CATEGORY_BUDGET_CAP_ID);
-        categoryIcon = getChildNode(CATEGORY_ICON_ID);
         categoryName = getChildNode(CATEGORY_NAME_FIELD_ID);
     }
 
