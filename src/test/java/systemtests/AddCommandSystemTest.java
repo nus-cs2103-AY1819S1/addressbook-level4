@@ -50,7 +50,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         *//**//* Case: add to empty address book -> added *//**//*
         deleteAllRecipes();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(APPLE);
 
         *//**//* Case: add a recipe with tags, command with parameters in random order -> added *//**//*
         toAdd = BOB;
@@ -74,7 +74,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         *//**//* Case: selects first card in the recipe list, add a recipe -> added, card selection remains unchanged
          *//**//*
         selectRecipe(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(CHINESE);
 
         *//**//* ----------------------------------- Perform invalid add operations
         --------------------------------------- *//**//*
