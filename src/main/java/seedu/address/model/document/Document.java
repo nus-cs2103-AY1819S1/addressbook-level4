@@ -62,10 +62,8 @@ public abstract class Document {
      * Formats the file name of the object that extends document.
      * */
     private String makeFileName() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
-
-        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString() + FILE_NAME_DELIMITER
-                + icNumber.toString()) + FILE_NAME_DELIMITER + formatter.format(new Date())
+        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
+                + FILE_NAME_DELIMITER + icNumber.toString())
                 .replaceAll("\\s", FILE_NAME_DELIMITER)
                 .replaceAll("(_)+", FILE_NAME_DELIMITER);
     }

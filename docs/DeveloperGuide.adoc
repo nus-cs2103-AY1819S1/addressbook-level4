@@ -681,15 +681,13 @@ The following activity diagram summarises what happens internally when a _docume
 .Flow of activities when a _document related command_ is executed. Only the methods that are *implemented* within `Document` itself are labelled in the diagram.
 image::DocumentActivityDiagram.png[width="800"]
 
-As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command.
-Step 1. The resulting `Document` object will call the `generateFile()` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name`, `icNumber` and current `date time`.
+As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command. +
+Step 1. The resulting `Document` object will call the `generateFile()` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
 
 ``` Java
     private String makeFileName() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss");
-
-        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString() + FILE_NAME_DELIMITER
-                + icNumber.toString()) + FILE_NAME_DELIMITER + formatter.format(new Date())
+        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
+                + FILE_NAME_DELIMITER + icNumber.toString())
                 .replaceAll("\\s", FILE_NAME_DELIMITER)
                 .replaceAll("(_)+", FILE_NAME_DELIMITER);
     }
@@ -699,6 +697,9 @@ Step 1. The resulting `Document` object will call the `generateFile()` method, w
 The FILE_NAME_DELIMITER is abstracted so as to allow users to change the delimiter to a string of their choice.
 It is used as a means of separating fields of information in file names.
 ====
+
+Step 2.
+
 
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
