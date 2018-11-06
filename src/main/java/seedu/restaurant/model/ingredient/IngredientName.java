@@ -38,7 +38,6 @@ public class IngredientName {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
-
     @Override
     public String toString() {
         return fullName;
