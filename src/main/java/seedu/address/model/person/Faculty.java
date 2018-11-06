@@ -53,11 +53,20 @@ public class Faculty {
         }
     }
 
+    /**
+     * This method checks whether the Faculty value that has been passed in is valid or not by comparing to the
+     * list of Faculties in the Faculties enum.
+     * @param value The value to be checked.
+     * @param enumClass The enum class that the value will be compared to.
+     * @param <Faculties> The Faculties enum containing all valid faculties.
+     * @return true if the Faculty is valid (found in the Faculties enum).
+     */
     public static <Faculties extends Enum<Faculties>> boolean isInEnum(String value, Class<Faculties> enumClass) {
         for (Faculties e : enumClass.getEnumConstants()) {
-            if(e.name().equalsIgnoreCase(value)) {
+            if (e.name().equalsIgnoreCase(value)) {
                 System.out.println("I'm here");
-                return true; }
+                return true;
+            }
         }
         return false;
     }
