@@ -29,7 +29,7 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     public static final String NOTIFICATION_DEFAULT_TITLE = "Welcome";
-    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to Addressbook Level 4";
+    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to EventsPlus+";
     public static final String NOTIFICATION_FAVOURITE_TITLE = "Favourite Event";
 
     private static final String FXML = "MainWindow.fxml";
