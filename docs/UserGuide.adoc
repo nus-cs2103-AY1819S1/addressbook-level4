@@ -637,7 +637,7 @@ Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DA
 
 [WARNING]
 ====
-* Try to avoid ambiguous language as the it might be interpreted incorrectly.
+* Try to avoid ambiguous language as it might be interpreted incorrectly.
 * For example, `3/12` is ambiguous as it could mean `3rd December` or `12th March`!
 * If you want to be sure, we recommend using these formats:
 ** `DATE`: `DD-MM-YYYY`
