@@ -52,6 +52,7 @@ public class ParserUtilTest {
     private static final String INVALID_TIME = "222 22";
     private static final String INVALID_TIME_2 = "22 222";
     private static final String INVALID_TIME_3 = "2j @@";
+    private static final String INVALID_TYPE_2 = "@new";
 
     private static final String INVALID_ROLE = "abc";
     private static final String INVALID_PASSWORD = "";
@@ -74,6 +75,7 @@ public class ParserUtilTest {
 
     private static final String VALID_DATE = "02 02 2222";
     private static final String VALID_TIME = "22 22";
+    private static final String VALID_TYPE = "followup";
 
     private static final String VALID_NRIC = "S9323163I";
     private static final String VALID_MED_PROB_1 = "High Cholestrol";
@@ -390,6 +392,29 @@ public class ParserUtilTest {
 
         //invalid alphanumerics
         ParserUtil.parseDate(WHITESPACE + INVALID_TIME_3 + WHITESPACE);
+    }
+
+    @Test
+    public void parseType_nullType_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseType(null);
+    }
+
+    @Test
+    public void parseType_invalidType_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseType(INVALID_TYPE_2);
+    }
+
+    @Test
+    public void parseType_nonExistentType_throwsNullPointerException() throws Exception {
+        // TODO: Test for types that are neither followup nor new
+    }
+    
+    @Test
+    public void parseType_validType_returnInt() throws Exception {
+        int expectedType = 1;
+        assertEquals(expectedType, ParserUtil.parseType(VALID_TYPE));
     }
 
     @Test
