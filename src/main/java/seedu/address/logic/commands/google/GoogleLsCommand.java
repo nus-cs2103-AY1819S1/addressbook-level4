@@ -20,13 +20,14 @@ import seedu.address.model.Model;
 public class GoogleLsCommand extends GoogleCommand {
 
     public static final String FAILURE_MESSAGE = "Failed to list";
-    private static final String TYPE = COMMAND_WORD + " ls";
+    public static final String TYPE = "ls";
+    public static final String FULL_CMD = COMMAND_WORD + " " + TYPE;
     public static final String MESSAGE_USAGE = "Usage of google list (requires an internet connection): "
-            + "\n- " + TYPE + " Lists all photos in Google Photos, "
+            + "\n- " + FULL_CMD + " Lists all photos in Google Photos, "
             + "takes a longer amount of time depending on number of images in Google Photos."
-            + "\n- " + TYPE + " /a: " + "Lists all albums in Google Photos"
-            + "\n- " + TYPE + " <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
-            + "\n\tExample: " + TYPE + " <Vacation>, usage inclusive of <>";
+            + "\n- " + FULL_CMD + " /a: " + "Lists all albums in Google Photos"
+            + "\n- " + FULL_CMD + " <ALBUM_NAME>: " + "Lists all photos in specified album from Google Photos"
+            + "\n\tExample: " + FULL_CMD + " <Vacation>, usage inclusive of <>";
 
     public GoogleLsCommand(String parameter) {
         super(parameter);
@@ -70,5 +71,16 @@ public class GoogleLsCommand extends GoogleCommand {
         }
 
         return new CommandResult(toPrint.toString());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof GoogleLsCommand)) { //this handles null as well.
+            return false;
+        }
+        return ((GoogleLsCommand) other).parameter.equals(this.parameter);
     }
 }
