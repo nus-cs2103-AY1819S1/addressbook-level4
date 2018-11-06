@@ -16,6 +16,7 @@ import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
+import seedu.address.model.person.Person;
 
 /**
  * The Browser Panel of the App.
@@ -23,6 +24,8 @@ import seedu.address.model.module.Module;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
+    public static final String SEARCH_PAGE_URL =
+            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
     public static final String MODULE_PAGE_URL =
             "https://nusmods.com/modules/";
 
@@ -43,6 +46,9 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    private void loadPersonPage(Person person) {
+        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    }
     private void loadModulePage(Module module) {
         loadPage(MODULE_PAGE_URL + module.getModuleCode().fullModuleCode);
     }
@@ -69,7 +75,7 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadDefaultPage();
+        loadPersonPage(event.getNewSelection());
     }
 
     @Subscribe
