@@ -66,7 +66,7 @@ public class CdCommandTest {
         //assertFalse(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
         // different object -> returns false
-        //assertFalse(currDirectory.equals(nextDirectory));
+        assertFalse(currDirectory.equals(nextDirectory));
     }
 
     @Test
