@@ -117,7 +117,12 @@ Format: +
 Format: +
 `-exit`
 
-=== Recipes Commands
+=== Recipes Commands [Only applicable in recipe context]
+==== List recipes: `list`
+Show all recipes. +
+Format: +
+`list`
+
 ==== Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]...  cont i/INSTRUCTION... [c/TIME] end`
 Add new recipe. +
 ****
@@ -239,7 +244,7 @@ Format: +
 `review [Comment] RATING`
 
 // tag::ingredient[]
-=== Ingredient Manager Commands
+=== Ingredient Manager Commands [Only applicable in ingredient context]
 
 ==== Add an ingredient: `add`
 
@@ -292,14 +297,14 @@ Delete ingredient in ingredient manager according to its index in the last shown
 Format: +
 `delete INDEX`
 
-==== Clear ingredients: `clear`
+==== Clear all ingredients: `clear`
 
 Clears all ingredients in ingredient manager. +
 Format: +
 `clear`
 
 // tag::cross[]
-=== Ingredient-Recipe Query Commands
+=== Ingredient-Recipe Query Commands [Only applicable in cross context]
 
 ==== View Recipes based on Ingredients
 By default, the list shows recipes that are stored in application's recipe list. User can filter or sort the recipes
@@ -349,7 +354,11 @@ Format: +
 `list`
 
 // tag::mealplanner[]
-=== Meal Planner Commands
+=== Meal Planner Commands [Only applicable in meal planner context]
+
+Meal Planner commands should be used in the Meal Planner context, i.e. after entering the
+`-mealplanner` command to display the Meal Planner
+
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
 * MEAL can be specified with the following keywords: *breakfast*, *lunch*, *dinner*
@@ -374,8 +383,7 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 Format: `select INDEX MEAL`
 
 // end::mealplanner[]
-
-=== Health-planner Command
+=== Health Planner Commands [Only applicable in health plan context]
 
 ==== Add plan: `add`
 
@@ -516,7 +524,9 @@ Format: +
 * Display new recipe: `-surprise` [coming in V1.4]
 * Display favorites: `-favourite`
 * Display ingredient manager: `-ingredient`
+* Display ingredient-recipe query context: `-ingredient`
 * Display meal planner: `-mealplanner`
+* Display health plan: `-healthplan`
 * Exit application: `-exit`
 
 *Recipes Commands*
@@ -546,15 +556,14 @@ or +
 
 * Add an ingredient: `add NAME AMOUNT SERVING_UNIT DATE`
 * List all ingredients: `list`
-* Clear all ingredients: `clear`
-* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
-* Search ingredient: `find KEYWORD…`
+* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]…​`
+* Search ingredient: `find KEYWORD [MORE_KEYWORDS]…​`
 * Delete ingredient: `delete INDEX`
+* Clear all ingredients: `clear`
 
 *Recipe-Ingredient Query Commands*
 
-* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD…​ prioritize [inventory]
-KEYWORD…​`
+* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]…​ prioritize [inventory] KEYWORD [MORE_KEYWORDS]…​`
 * View needed amount of ingredients for a Recipe: `select INDEX`
 * List all recipes: `list`
 
