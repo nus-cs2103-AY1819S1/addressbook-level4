@@ -115,6 +115,7 @@ Format: +
 `-exit`
 
 === Recipes Commands
+
 ==== List recipes: `list`
 Show all recipes. +
 Format: +
@@ -246,7 +247,7 @@ Format: +
 `review [COMMENT] RATING`
 
 // tag::ingredient[]
-=== Ingredient Manager Commands
+=== Ingredient Manager Commands [Only applicable in ingredient context]
 
 ==== Add an ingredient: `add`
 
@@ -299,14 +300,14 @@ Delete ingredient in ingredient manager according to its index in the last shown
 Format: +
 `delete INDEX`
 
-==== Clear ingredients: `clear`
+==== Clear all ingredients: `clear`
 
 Clears all ingredients in ingredient manager. +
 Format: +
 `clear`
 
 // tag::cross[]
-=== Ingredient-Recipe Query Commands
+=== Ingredient-Recipe Query Commands [Only applicable in cross context]
 
 ==== View Recipes based on Ingredients `view`
 By default, the list shows recipes that are stored in application's recipe list. User can filter or sort the recipes
@@ -356,10 +357,7 @@ Format: +
 `list`
 
 // tag::mealplanner[]
-=== Meal Planner Commands
-
-Meal Planner commands should be used in the Meal Planner context, i.e. after entering the
-`-mealplanner` command to display the Meal Planner
+=== Meal Planner Commands [Only applicable in meal planner context]
 
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
@@ -372,7 +370,6 @@ After displaying the meal planner, deletes the specified day.
 
 Format: `delete INDEX`
 
-==== Clear planner: `clear`
 
 Clears all the meal slots of the meal planner.
 
@@ -385,8 +382,7 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 Format: `select INDEX MEAL`
 
 // end::mealplanner[]
-
-=== Health Planner Commands
+=== Health Planner Commands [Only applicable in health plan context]
 
 ==== Add plan: `add`
 
@@ -555,15 +551,14 @@ or +
 
 * Add an ingredient: `add NAME AMOUNT SERVING_UNIT DATE`
 * List all ingredients: `list`
-* Clear all ingredients: `clear`
-* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
-* Search ingredient: `find KEYWORD…`
+* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]…​`
+* Search ingredient: `find KEYWORD [MORE_KEYWORDS]…​`
 * Delete ingredient: `delete INDEX`
+* Clear all ingredients: `clear`
 
 *Recipe-Ingredient Query Commands*
 
-* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD…​ prioritize [inventory]
-KEYWORD…​`
+* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]…​ prioritize [inventory] KEYWORD [MORE_KEYWORDS]…​`
 * View needed amount of ingredients for a Recipe: `select INDEX`
 * List all recipes: `list`
 

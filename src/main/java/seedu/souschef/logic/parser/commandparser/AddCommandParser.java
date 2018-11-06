@@ -9,7 +9,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import java.text.SimpleDateFormat;
@@ -63,9 +62,12 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         double amount;
         Date date;
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("MM-dd-yyyy");
+        sdf.setLenient(false);
         try {
             amount = Double.parseDouble(tokens[1]);
-            date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[3]);
+            date = sdf.parse(tokens[3]);
         } catch (NumberFormatException ne) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_INGREDIENT_USAGE));
         } catch (java.text.ParseException pe) {
@@ -91,9 +93,9 @@ public class AddCommandParser implements CommandParser<AddCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_HPNAME, PREFIX_TWEIGHT, PREFIX_CWEIGHT,
-                        PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION, PREFIX_SCHEME);
+                        PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_HPNAME, PREFIX_SCHEME, PREFIX_AGE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_HPNAME, PREFIX_AGE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_ADD_HEALTHPLAN_USAGE));
         }
@@ -103,7 +105,21 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         CurrentHeight currentHeight = ParserUtil.parseCHeight(argMultimap.getValue(PREFIX_CHEIGHT).get());
         Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
         Duration duration = ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get());
-        Scheme scheme = ParserUtil.parseScheme(argMultimap.getValue(PREFIX_SCHEME).get());
+
+        //determine the scheme base on current and target weight
+        double difference = Double.parseDouble(targetWeight.value) - Double.parseDouble(currentWeight.value);
+        Scheme scheme;
+        //gain
+        if (difference > 0) {
+            scheme = Scheme.GAIN;
+        } else if (difference == 0) {
+
+            scheme = Scheme.MAINTAIN;
+        } else {
+            scheme = Scheme.LOSS;
+
+        }
+
 
         //generating a new plan, no list (empty by default)
         HealthPlan toAdd = new HealthPlan(healthPlanName, targetWeight,

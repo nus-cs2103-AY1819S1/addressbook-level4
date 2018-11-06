@@ -67,7 +67,7 @@ public class UniversalParser {
 
 
         case MealPlannerParser.COMMAND_WORD:
-            nextContext = Context.MEAL_PLANNER;
+            nextContext = Context.MEAL_PLAN;
             checkContext(historyContext, nextContext);
             ui.switchToMealPlanListPanel();
             return new ContextCommand(nextContext);

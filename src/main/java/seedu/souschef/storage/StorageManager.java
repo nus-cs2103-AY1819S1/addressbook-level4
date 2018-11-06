@@ -50,7 +50,7 @@ public class StorageManager extends ComponentManager implements Storage {
         listOfFeatureStorage.put(Context.RECIPE, recipeStorage);
         listOfFeatureStorage.put(Context.INGREDIENT, ingredientStorage);
         listOfFeatureStorage.put(Context.HEALTH_PLAN, healthPlanStorage);
-        listOfFeatureStorage.put(Context.MEAL_PLANNER, mealPlanStorage);
+        listOfFeatureStorage.put(Context.MEAL_PLAN, mealPlanStorage);
         this.featureStorage = recipeStorage;
     }
 
@@ -133,7 +133,7 @@ public class StorageManager extends ComponentManager implements Storage {
         readFeature(Context.RECIPE, SampleDataUtil::getSampleAddressBook);
         readFeature(Context.INGREDIENT, SampleDataUtil::getSampleIngredients);
         readFeature(Context.HEALTH_PLAN, SampleDataUtil::getSampleHealthPlans);
-        readFeature(Context.MEAL_PLANNER, SampleDataUtil::getSampleDays);
+        readFeature(Context.MEAL_PLAN, SampleDataUtil::getSampleDays);
         featureStorage = listOfFeatureStorage.get(Context.RECIPE);
 
         return Optional.of(this.appContent);

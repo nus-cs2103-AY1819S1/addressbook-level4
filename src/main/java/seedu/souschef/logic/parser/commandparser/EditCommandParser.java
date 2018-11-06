@@ -15,7 +15,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
@@ -198,8 +197,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                 }
                 ingredientServingUnit = new IngredientServingUnit(servingUnit);
             } else if (tokens[i].equals("date")) {
+                SimpleDateFormat sdf = new SimpleDateFormat();
+                sdf.applyPattern("MM-dd-yyyy");
+                sdf.setLenient(false);
                 try {
-                    date = (new SimpleDateFormat("MM-dd-yyyy")).parse(tokens[i + 1]);
+                    date = sdf.parse(tokens[i + 1]);
                 } catch (java.text.ParseException pe) {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             MESSAGE_EDIT_INGREDIENT_USAGE));
@@ -225,10 +227,11 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_HPNAME, PREFIX_TWEIGHT, PREFIX_CWEIGHT,
-                        PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION, PREFIX_SCHEME);
+                        PREFIX_CHEIGHT, PREFIX_AGE, PREFIX_DURATION);
 
         Index index;
-
+        boolean changeWeight = false;
+        double difference = 0.0;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
@@ -242,10 +245,12 @@ public class EditCommandParser implements CommandParser<EditCommand> {
                     ParserUtil.parseHpName(argMultimap.getValue(PREFIX_HPNAME).get()));
         }
         if (argMultimap.getValue(PREFIX_TWEIGHT).isPresent()) {
+            changeWeight = true;
             editHealthPlanDescriptor.setTargetWeight(
                     ParserUtil.parseTWeight(argMultimap.getValue(PREFIX_TWEIGHT).get()));
         }
         if (argMultimap.getValue(PREFIX_CWEIGHT).isPresent()) {
+            changeWeight = true;
             editHealthPlanDescriptor.setCurrentWeight(
                     ParserUtil.parseCWeight(argMultimap.getValue(PREFIX_CWEIGHT).get()));
         }
@@ -259,9 +264,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         if (argMultimap.getValue(PREFIX_DURATION).isPresent()) {
             editHealthPlanDescriptor.setDuration(ParserUtil.parseDuration(argMultimap.getValue(PREFIX_DURATION).get()));
         }
-        if (argMultimap.getValue(PREFIX_SCHEME).isPresent()) {
-            editHealthPlanDescriptor.setScheme(ParserUtil.parseScheme(argMultimap.getValue(PREFIX_SCHEME).get()));
-        }
+
 
         if (!editHealthPlanDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
@@ -276,6 +279,38 @@ public class EditCommandParser implements CommandParser<EditCommand> {
         }
 
         HealthPlan toEdit = lastShownList.get(index.getZeroBased());
+
+        if (changeWeight) {
+
+            //if target weight was given and current weight was given
+            if (!(args.indexOf("t/") == -1) && !(args.indexOf("w/") == -1)) {
+                difference = Double.parseDouble(argMultimap.getValue(PREFIX_TWEIGHT).get())
+                        - Double.parseDouble(argMultimap.getValue(PREFIX_CWEIGHT).get());
+
+            } else if (!(args.indexOf("t/") == -1) && (args.indexOf("w/") == -1)) {
+                difference = Double.parseDouble(argMultimap.getValue(PREFIX_TWEIGHT).get())
+                        - Double.parseDouble(toEdit.getCurrentWeight().value);
+
+            } else if (!(args.indexOf("w/") == -1) && (args.indexOf("t/") == -1)) {
+
+                difference = Double.parseDouble(toEdit.getTargetWeight().value)
+                        - Double.parseDouble(argMultimap.getValue(PREFIX_CWEIGHT).get());
+            }
+
+            //gain
+            if (difference > 0) {
+                editHealthPlanDescriptor.setScheme(Scheme.GAIN);
+
+            } else if (difference == 0) {
+
+                editHealthPlanDescriptor.setScheme(Scheme.MAINTAIN);
+
+            } else {
+                editHealthPlanDescriptor.setScheme(Scheme.LOSS);
+
+            }
+        }
+
         HealthPlan edited = createEditedHealthPlan(toEdit, editHealthPlanDescriptor);
 
         if (!toEdit.isSame(edited) && model.has(edited)) {
@@ -285,10 +320,6 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         return new EditCommand<>(model, toEdit, edited);
     }
-
-
-
-
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
