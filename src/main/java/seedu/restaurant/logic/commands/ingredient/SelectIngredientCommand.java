@@ -58,6 +58,6 @@ public class SelectIngredientCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SelectIngredientCommand // instanceof handles nulls
-                && targetIndex.equals(((SelectIngredientCommand) other).targetIndex)); // state check
+                    && targetIndex.equals(((SelectIngredientCommand) other).targetIndex)); // state check
     }
 }

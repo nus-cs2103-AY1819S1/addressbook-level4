@@ -1,4 +1,4 @@
-package guitests.guihandles.menu;
+package guitests.guihandles.ingredient;
 
 import guitests.guihandles.NodeHandle;
 import javafx.scene.Node;

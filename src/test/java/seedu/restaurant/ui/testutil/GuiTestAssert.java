@@ -15,7 +15,7 @@ import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.accounts.AccountCardHandle;
 import guitests.guihandles.ingredient.IngredientCardHandle;
-import guitests.guihandles.menu.IngredientStackPanelHandle;
+import guitests.guihandles.ingredient.IngredientStackPanelHandle;
 import guitests.guihandles.menu.ItemCardHandle;
 import guitests.guihandles.menu.ItemStackPanelHandle;
 import guitests.guihandles.reservation.ReservationCardHandle;

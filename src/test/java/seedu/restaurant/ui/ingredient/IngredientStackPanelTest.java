@@ -6,7 +6,7 @@ import static seedu.restaurant.ui.testutil.GuiTestAssert.assertStackPanelDisplay
 
 import org.junit.Test;
 
-import guitests.guihandles.menu.IngredientStackPanelHandle;
+import guitests.guihandles.ingredient.IngredientStackPanelHandle;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.ui.GuiUnitTest;

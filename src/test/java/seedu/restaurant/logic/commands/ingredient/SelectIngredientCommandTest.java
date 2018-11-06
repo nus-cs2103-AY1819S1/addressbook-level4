@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.restaurant.logic.commands.CommandTestUtil.showIngredientAtIndex;
-import static seedu.restaurant.logic.commands.menu.MenuCommandTestUtil.assertCommandFailure;
+import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_THIRD;
