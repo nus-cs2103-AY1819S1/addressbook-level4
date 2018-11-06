@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedCard.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalCards.CARD_A;
 import static seedu.address.testutil.TypicalCards.CARD_A_WITH_META;
 
 import org.junit.Test;
@@ -31,6 +30,7 @@ public class XmlAdaptedCardTest {
         assertEquals(CARD_A_WITH_META.getPerformance(), actualCard.getPerformance());
         assertEquals(CARD_A_WITH_META.getTimesReviewed(), actualCard.getTimesReviewed());
     }
+
     @Test
     public void toModelType_validCardDetailsNoMeta_returnsCardDefaultMeta() throws Exception {
         XmlAdaptedCard card = new XmlAdaptedCard(VALID_QUESTION, VALID_ANSWER);

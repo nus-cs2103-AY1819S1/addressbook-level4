@@ -53,11 +53,17 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Performance} of the {@code Card} that we are building
+     */
     public CardBuilder withPerformance(Performance performance) {
         this.performance = performance;
         return this;
     }
 
+    /**
+     * Sets the {@code timesReviewed} of the {@code Card} that we are building
+     */
     public CardBuilder withTimesReviewed(int timesReviewed) {
         this.timesReviewed = timesReviewed;
         return this;
