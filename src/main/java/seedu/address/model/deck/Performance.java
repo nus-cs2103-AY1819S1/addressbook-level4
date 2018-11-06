@@ -14,4 +14,16 @@ public enum Performance {
     public static Performance type(String type) {
         return Performance.valueOf(type.toUpperCase());
     }
+
+    public static boolean isValidPerformance(String type) {
+        if (type == null) {
+            return false;
+        }
+        try {
+            Performance dummy = Performance.type(type);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 }
