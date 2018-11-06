@@ -6,8 +6,8 @@
 == PROJECT: CLInic
 
 == Introduction
-Hello, I am Yu Cong. I am currently studying Computer Science as my major in the School of Computing, National University of Singapore.
-I formed a team with 4 other students to create CLInic as part of the project requirement under the CS2103T module (Introduction to Software Engineering)
+Hello, I am Yu Cong. I am currently studying Computer Science as my major in School of Computing, National University of Singapore.
+I formed a team with 4 other students to create CLInic for the CS2103T module (Introduction to Software Engineering)
 as part of my university education.
 
 // write clearly this is to showcase contributions
@@ -15,42 +15,38 @@ This project portfolio serves to document my contributions to this project. You 
 the <<Summary of Contributions, code contribution>>, the <<Contributions to the User Guide, user guide>> and the <<Contributions to the Developer Guide, developer guide>> below.
 
 CLInic is a desktop application made for clinics who wish to automate their daily operations.
-The CLI in CLInic is an acronym for Command Line Interface, which is the main method to use this application.
-Unlike traditional address books, the doctor or clinic receptionist can easily find patient or medicine information by entering one simple line in the command box.
-You can also manage patient and medical records easily with the easy-to-use CLinic.
+CLI in CLInic is an acronym for Command Line Interface, which is the primary method to use the application.
+Unlike traditional address books, the doctor or clinic receptionist can easily `add`, `edit` or `find` the information of
+patient or medicine by entering one simple line in the command box.
 
 // list of main features
-Examples of the main features include:
+Example of the main features includes:
 
-. Efficient management of patient and medicine information
-. Realistic model of clinic's daily operation and commands to cater to clinics.
+. Efficient management of patient and medicine information.
+. Realistic model of a clinic's daily operation and commands to manipulate data.
 . Customised receipts, medical certificates and referral letters for different clinics.
 
 == Summary of Contributions
 //preface to this section to inform reader purpose of this section
-In this section, you can find the major and minor enhancement that I made to CLInic:
+In this section, you can find the major and minor enhancement that I created for CLInic,
+as well as my contributions to the project.
 
-* *Major enhancement*: Implementation of *medical records in CLInic*
-** What it does: It allows the clinic to keep track of medical stocks in the clinic.
-** Justification: The medical stocks are managed and the useful commands can organise and find the information of a medicine.
-** Highlights: With a simple command, you can easily list out all medical stocks that are low in stock.
+* *Major enhancement*: Implementation of *medical records* in CLInic.
+** What it does: The clinic can automate the tracking of medical stocks.
+** Justification: The medical stocks are tracked and there are useful commands that can organise or find the information of a medicine.
+With this, you do not have to manually keep track of the change in stocks every time a medicine is dispensed.
+** Highlights: With the `checkstock` command, you can easily list out all medical stocks that are low in stock in just 2 seconds!
 
 * *Minor enhancement*:
-** Rewrote command output to make it more user friendly.
-
-// not yet done
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+** Rephrasing of command output to make it more user friendly.
+** Writing of basic commands for medicine.
 
 * *Other contributions*:
-** Wrote the utilities for test cases for other members to build their tests upon.
-** Proof-read all code written to adhere to standard Java writing style.
-** Advised my team to apply knowledge learnt in lecture wherever necessary.
+** Wrote the utilities for test cases for other team members to build their tests.
+** Proof-read all code to adhere to standard Java writing style.
+** Advised my team to apply knowledge learned in lecture where necessary.
 ** Reviewed pull requests : https://github.com[#27], https://github.com[#31], https://github.com[#107]
 ** Created the trailer for our project release.
-
-* *Future contributions*
-** Implement sort command for medicine
-** Add tags to medicine, to allow flexible management of controlled drugs
 
 == Contributions to the User Guide
 
@@ -58,7 +54,7 @@ In this section, you can find the major and minor enhancement that I made to CLI
 |_Given below are the sections that I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=medicine]
+include::../UserGuide.adoc[tag=addmedicine]
 
 == Contributions to the Developer Guide
 

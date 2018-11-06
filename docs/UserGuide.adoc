@@ -279,7 +279,7 @@ image::addmedicalrecord-example-2.png[width="650"]
 // end::addmedicalrecordcommand[]
 
 [[medicine]]
-// tag::medicine[]
+// tag::addmedicine[]
 === Medicine Inventory Management
 
 ==== Adding a medicine: `addmedicine`
@@ -289,15 +289,15 @@ Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
 [NOTE]
-.Thing(s) to note:
-The serial number of a medicine *must* be a 5 digit integer!
+The serial number of a medicine *must* have at least 5 digits!
 
 Example:
 
 * `addmedicine mn/panadol msq/500 ppu/0.50 sn/91853 s/1000` +
-Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `500` units to the CLInic inventory.
+Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `1000` units to the CLInic inventory.
 * `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
+// end::addmedicine[]
 
 ==== Editing a medicine: `editmedicine`
 
@@ -365,7 +365,6 @@ Lists all medicines that are low in supply. +
 Alias: `cs` +
 Format: `checkstock`
 
-// end::medicine[]
 
 [[pqms]]
 // tag::pqms[]
