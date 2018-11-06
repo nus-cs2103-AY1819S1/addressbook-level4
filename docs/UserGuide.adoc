@@ -285,7 +285,7 @@ image::addmedicalrecord-example-2.png[width="650"]
 ==== Adding a medicine: `addmedicine`
 
 Bought the latest medicine that effectively cures eczema? +
-Add that medicine to the CLInic medicine database now! +
+Use `addmedicine` to add that medicine to the CLInic now! +
 Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
@@ -385,6 +385,9 @@ the details of a medicine from its medicine name. +
 Alias: `fm` +
 Format: `findmedicine MEDICINE_NAME`
 
+[TIP]
+You can enter more than one name to get the results of all medicines with the names entered.
+
 Example:
 
 * `findmedicine panadol` +
@@ -411,10 +414,16 @@ image::find-medicine-example-2.png[width="650"]
 // tag::checkstock[]
 
 ==== Listing medicines that are low in supply: `checkstock`
-
-Lists all medicines that are low in supply. +
+Need to do the time-consuming stock taking?
+Use `checkstock` and get it done in under 2 seconds! +
 Alias: `cs` +
 Format: `checkstock`
+
+[NOTE]
+Medicines that are low in supply are those whose stock level is equal to or lower than their minimum stock quantity.
+
+See below for a pictorial guide on how to use checkstock:
+
 
 // end::checkstock[]
 
