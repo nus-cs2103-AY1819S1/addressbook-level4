@@ -7,6 +7,9 @@ import java.util.Date;
 public class DateFormatUtil {
     public static final String DATE_FORMAT_MINIMAL = "dd-MM-yy";
     public static final String DATE_FORMAT_STANDARD = "dd-MM-yy HHmm";
+    public static final String DATE_FORMAT_MINIMAL_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4}";
+    public static final String DATE_FORMAT_STANDARD_REGEX = "\\d{1,2}-\\d{1,2}-\\d{2,4} \\d{4}";
+
     public static final SimpleDateFormat FORMAT_MINIMAL;
     public static final SimpleDateFormat FORMAT_STANDARD;
 
@@ -44,16 +47,16 @@ public class DateFormatUtil {
      * @return true if is the correct format. False otherwise
      */
     public static boolean isValidDateFormat(String test) {
-        return isValidDateFormatFromTemplate(test, FORMAT_MINIMAL)
-                || isValidDateFormatFromTemplate(test, FORMAT_STANDARD);
+        return isValidDateMinimalFormat(test)
+                || isValidDateStandardFormat(test);
     }
 
     private static boolean isValidDateMinimalFormat(String test) {
-        return isValidDateFormatFromTemplate(test, FORMAT_MINIMAL);
+        return isValidDateFormatFromTemplate(test, FORMAT_MINIMAL, DATE_FORMAT_MINIMAL_REGEX);
     }
 
     private static boolean isValidDateStandardFormat(String test) {
-        return isValidDateFormatFromTemplate(test, FORMAT_STANDARD);
+        return isValidDateFormatFromTemplate(test, FORMAT_STANDARD, DATE_FORMAT_STANDARD_REGEX);
     }
 
     /**
@@ -63,13 +66,13 @@ public class DateFormatUtil {
      * @param format format to test string with
      * @return true if is the correct format. False otherwise
      */
-    private static boolean isValidDateFormatFromTemplate(String test, SimpleDateFormat format) {
+    private static boolean isValidDateFormatFromTemplate(String test, SimpleDateFormat format, String regex) {
         try {
             format.parse(test);
         } catch (Exception e) {
             return false;
         }
-        return true;
+        return test.matches(regex);
     }
 
     /**
