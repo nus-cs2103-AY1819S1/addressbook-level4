@@ -44,4 +44,15 @@ public class DateTest {
         assertTrue(Date.isValidDate("next thursday")); // wow! english!
         assertTrue(Date.isValidDate("in 2 weeks")); // it can parse this too??? wow!!!
     }
+
+    @Test
+    public void hasDatePassed() {
+        // dates in the past
+        assertTrue(Date.isPassed("31-12-2016"));
+        assertTrue(Date.isPassed("01-01-1987"));
+
+        // dates in the future
+        assertFalse(Date.isPassed("31-12-2019"));
+        assertFalse(Date.isPassed("01-01-2038"));
+    }
 }
