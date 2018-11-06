@@ -9,39 +9,81 @@
 
 == Overview
 
-EventsPlus+ is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+EventsPlus+ is a desktop address book application catered for busy university students to
+manage their contacts, events, project meetings and ad-hoc events efficiently.
+EventsPlus+ aims to simplify some of the more time-consuming administrative tasks
+such as coordinating location and date of ad-hoc events using a Command Line Interface (CLI)
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to add/delete events*
+** What it does: Allows the user to add and delete events with event tags and reference to existing contacts in EventsPlus+
+** Justification: Users should be able to use the application to manage his/her events, and should be able to incorporate
+contacts in EventsPlus+ into events, since both are features of the application.
+** Highlights: Users are able to view the crucial person information from events by hovering over the contact in the event,
+without searching for the person directly. Event tags are standardized based on a list of event tags displayed, which can
+be modified by the user.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Other enhancements*:
+** added *the ability to add event tags*
+*** What it does: Allows the user to add event tags into the system, which are needed for tagging new events added into
+EventsPlus+.
+*** Justification: This is required standardization of events tagging in EventsPlus+
+*** Highlights: Event tags are shown in a flowpane at the top of the *Events* tab
+
+** added *the ability to find events by event tags*
+*** What it does: Allows the user to find events based on their tags.
+*** Justification: Users should be able to search for a certain type of event quickly, instead of scanning through the whole list.
+*** Highlights: Since event tags are displayed on the top of the *Events* tab, users can refer to the list easily and
+find all events tagged as that particular type easily.
+
+** added *the ability to auto-complete commands*
+*** What it does: Reduces the time required for user to finish a command, especially when command words are long.
+*** Justification: Saves time on the user on typing commands, and reduces effort on users to remember the whole command word.
+*** Highlights: Only requires a simple pressing of the `Tab` key for command auto-completion.
+
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set up Travis and Appveyor for the repository
+*** Managed releases `v1.2` and `v1.4.1` (2 releases) on GitHub
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Added the AddEvent feature and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/60[#60],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/83[#83],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/95[#95],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/119[#119],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/120[#120],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/130[#130],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138])
+*** Added the DeleteEvent feature and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/121[#121])
+*** Added the AddEventTag feature and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/138[#138])
+*** Added the FindEvent feature and tests (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/175[#175])
+*** Added the command auto-completion feature (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/174[#174])
+*** Re-organized `BrowserPanel` to be grouped under a `TabPanel` (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/88[#88])
+
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated
+*** Updated documentation for the enhancements as above: (Pull requests  https://github.com/CS2103-AY1819S1-W13-2/main/pull/99[#99],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/102[#102],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/141[#141],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/178[#178])
+*** Created initial UI Mockup of the product (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38])
+*** Updated Developer Guide with use stories and some use cases (Pull requests https://github.com/CS2103-AY1819S1-W13-2/main/pull/38[#38],
+  https://github.com/CS2103-AY1819S1-W13-2/main/pull/73[#73])
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Contributed to forum discussions (examples: https://github.com/nus-cs2103-AY1819S1/forum/issues/116[#116])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W17-3/main/issues/186[1],
+  https://github.com/CS2103-AY1819S1-W17-3/main/issues/181[2],
+  https://github.com/CS2103-AY1819S1-W17-3/main/issues/184[3])
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -49,27 +91,17 @@ _{you can add/remove categories in the list above}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-////
 include::../UserGuide.adoc[tag=addEvent]
 include::../UserGuide.adoc[tag=addEventTag]
 include::../UserGuide.adoc[tag=deleteEvent]
 include::../UserGuide.adoc[tag=listEvent]
 include::../UserGuide.adoc[tag=findEvent]
-////
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
-////
 include::../DeveloperGuide.adoc[tag=events]
 include::../DeveloperGuide.adoc[tag=eventTags]
 include::../DeveloperGuide.adoc[tag=autoComplete]
 include::../DeveloperGuide.adoc[tag=tab]
-////
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
