@@ -23,7 +23,6 @@ import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ride.Maintenance;
 import seedu.thanepark.model.ride.Name;
 import seedu.thanepark.model.ride.Ride;
-import seedu.thanepark.model.ride.Status;
 import seedu.thanepark.model.ride.WaitTime;
 import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
@@ -102,9 +101,8 @@ public class UpdateCommand extends Command {
         WaitTime updatedWaitTime = updateRideDescriptor.getWaitTime().orElse(rideToEdit.getWaitingTime());
         Zone updatedZone = updateRideDescriptor.getZone().orElse(rideToEdit.getZone());
         Set<Tag> updatedTags = updateRideDescriptor.getTags().orElse(rideToEdit.getTags());
-        Status updatedStatus = updateRideDescriptor.getStatus().orElse(rideToEdit.getStatus());
 
-        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedZone, updatedTags, updatedStatus);
+        return new Ride(updatedName, updatedMaintenance, updatedWaitTime, updatedZone, updatedTags);
     }
 
     @Override
@@ -134,7 +132,6 @@ public class UpdateCommand extends Command {
         private Maintenance maintenance;
         private WaitTime waitTime;
         private Zone zone;
-        private Status status;
         private Set<Tag> tags;
 
         public UpdateRideDescriptor() {}
@@ -148,7 +145,6 @@ public class UpdateCommand extends Command {
             setMaintenance(toCopy.maintenance);
             setWaitTime(toCopy.waitTime);
             setZone(toCopy.zone);
-            setStatus(toCopy.status);
             setTags(toCopy.tags);
         }
 
@@ -182,10 +178,6 @@ public class UpdateCommand extends Command {
         public Optional<WaitTime> getWaitTime() {
             return Optional.ofNullable(waitTime);
         }
-
-        public void setStatus(Status status) { this.status = status; }
-
-        public Optional<Status> getStatus() { return Optional.ofNullable(status); }
 
         public void setZone(Zone zone) {
             this.zone = zone;
@@ -231,7 +223,6 @@ public class UpdateCommand extends Command {
                     && getMaintenance().equals(e.getMaintenance())
                     && getWaitTime().equals(e.getWaitTime())
                     && getZone().equals(e.getZone())
-                    && getStatus().equals(e.getStatus())
                     && getTags().equals(e.getTags());
         }
     }
