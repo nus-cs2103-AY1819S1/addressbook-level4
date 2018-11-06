@@ -12,8 +12,8 @@ public class CurrentWeight {
 
 
     public static final String MESSAGE_WEIGHT_CONSTRAINTS =
-            "Weights should only contain numbers";
-    public static final String WEIGHT_VALIDATION_REGEX = "[+-]?([0-9]*[.])?[0-9]+";
+            "Weights should only contain non-negative numbers, decimals are allowed";
+    public static final String WEIGHT_VALIDATION_REGEX = "[+]?([0-9]*[.])?[0-9]+";
     public final String value;
 
 
