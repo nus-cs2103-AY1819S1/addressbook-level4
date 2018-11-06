@@ -55,6 +55,9 @@ public class ReservationParserUtil {
         if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
+        if (Date.isPassed(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_DATE_PASSED);
+        }
         return new Date(trimmedDate);
     }
 

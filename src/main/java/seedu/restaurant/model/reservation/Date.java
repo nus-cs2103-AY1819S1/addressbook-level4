@@ -24,6 +24,8 @@ public class Date {
     public static final String MESSAGE_DATE_CONSTRAINTS =
             "Dates should only contain numbers, and it should be in the format DD-MM-YYYY.\nThe date must exist in "
                     + "the calendar";
+    public static final String MESSAGE_DATE_PASSED =
+            "Dates should not have already passed.";
     public static final String DATE_FORMAT_PATTERN = "dd-MM-uuuu";
 
     private final LocalDate date;
@@ -47,7 +49,7 @@ public class Date {
      *
      * i.e. NATTY will think 03-12-2018 means "12th of March" instead of "3rd of December"
      */
-    private LocalDate parseDate(String date) {
+    public static LocalDate parseDate(String date) {
         if (Date.canStrictParse(date)) {
             DateTimeFormatter validFormat =
                     DateTimeFormatter.ofPattern(DATE_FORMAT_PATTERN).withResolverStyle(ResolverStyle.STRICT);
@@ -97,6 +99,19 @@ public class Date {
         List<java.util.Date> dates = dateGroupList.get(0).getDates();
 
         return !dates.isEmpty();
+    }
+
+    /**
+     * Returns true if a given date has passed already.
+     */
+    public static boolean isPassed(String date) {
+        LocalDate testLocalDate;
+
+        requireNonNull(date);
+        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
+        testLocalDate = parseDate(date);
+
+        return (testLocalDate.isBefore(LocalDate.now()));
     }
 
     public LocalDate getValue() {
