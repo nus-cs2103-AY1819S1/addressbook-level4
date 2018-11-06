@@ -19,7 +19,7 @@ By: `Team W13-2`      Since: `Sept 2018`      Licence: `MIT`
 == Introduction
 
 EventsPlus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*.
-EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events 
+EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events
 using a *Command Line Interface* (CLI).
 
 == Quick Start
