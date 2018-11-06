@@ -14,7 +14,8 @@ import java.time.format.DateTimeParseException;
 public class EventDate implements Comparable<EventDate> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Dates should be in the format YYYY-MM-DD, and it should not be blank";
+            "Dates should be in the format YYYY-MM-DD, should be a valid date in the calendar, "
+                    + "and it should not be blank";
 
     /**
      * A blank string " " is considered invalid.
