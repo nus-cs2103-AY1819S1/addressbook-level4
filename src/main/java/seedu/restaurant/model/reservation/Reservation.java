@@ -2,9 +2,6 @@ package seedu.restaurant.model.reservation;
 
 import static seedu.restaurant.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -22,7 +19,8 @@ public class Reservation {
     // Identity fields
     private final Name name;
     private final Pax pax;
-    private final LocalDateTime dateTime;
+    private final Date date;
+    private final Time time;
     private final Remark remark;
 
     // Data fields
@@ -31,11 +29,12 @@ public class Reservation {
     /**
      * Every field must be present and not null.
      */
-    public Reservation(Name name, Pax pax, LocalDateTime dateTime, Remark remark, Set<Tag> tags) {
-        requireAllNonNull(name, pax, dateTime, tags);
+    public Reservation(Name name, Pax pax, Date date, Time time, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, pax, date, time, tags);
         this.name = name;
         this.pax = pax;
-        this.dateTime = dateTime;
+        this.date = date;
+        this.time = time;
         this.remark = remark;
         this.tags.addAll(tags);
     }
@@ -48,16 +47,12 @@ public class Reservation {
         return pax;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public Date getDate() {
+        return date;
     }
 
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
-    }
-
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
+    public Time getTime() {
+        return time;
     }
 
     public Remark getRemark() {
@@ -85,7 +80,8 @@ public class Reservation {
         return otherReservation != null
                 && otherReservation.getName().equals(getName())
                 && (otherReservation.getPax().equals(getPax())
-                    || otherReservation.getDateTime().equals(getDateTime()));
+                    || otherReservation.getDate().equals(getDate())
+                    || otherReservation.getTime().equals(getTime()));
     }
 
     /**
@@ -105,7 +101,8 @@ public class Reservation {
         Reservation otherReservation = (Reservation) other;
         return otherReservation.getName().equals(getName())
                 && otherReservation.getPax().equals(getPax())
-                && otherReservation.getDateTime().equals(getDateTime())
+                && otherReservation.getDate().equals(getDate())
+                && otherReservation.getTime().equals(getTime())
                 && otherReservation.getRemark().equals(getRemark())
                 && otherReservation.getTags().equals(getTags());
     }
@@ -113,7 +110,7 @@ public class Reservation {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, pax, dateTime, tags);
+        return Objects.hash(name, pax, date, time, tags);
     }
 
     @Override
@@ -122,8 +119,10 @@ public class Reservation {
         builder.append(getName())
                 .append(" Pax: ")
                 .append(getPax())
-                .append(" Date & Time: ")
-                .append(getDateTime())
+                .append(" Date: ")
+                .append(getDate())
+                .append(" Time: ")
+                .append(getTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

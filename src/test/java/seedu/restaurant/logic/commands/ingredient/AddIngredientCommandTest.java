@@ -28,9 +28,10 @@ import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 
@@ -285,6 +286,21 @@ public class AddIngredientCommandTest {
 
         @Override
         public SalesReport getSalesReport(Date date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> rankDateBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<ItemName, Double> rankItemBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> getChronologicalSalesData() {
             throw new AssertionError("This method should not be called.");
         }
 

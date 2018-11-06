@@ -24,7 +24,7 @@ import seedu.restaurant.model.account.Password;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * The main LogicManager of the app.

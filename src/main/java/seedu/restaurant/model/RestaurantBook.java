@@ -22,10 +22,11 @@ import seedu.restaurant.model.menu.UniqueItemList;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.reservation.UniqueReservationList;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
-import seedu.restaurant.model.salesrecord.UniqueRecordList;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
+import seedu.restaurant.model.sales.UniqueRecordList;
 import seedu.restaurant.model.tag.Tag;
 
 /**
@@ -158,6 +159,33 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         reservations.sortReservations();
     }
 
+    /**
+     * Removes {@code tag} from {@code reservation} in the Reservation List.
+     *
+     * @param reservation whose tag is being removed.
+     * @param tag to be removed.
+     */
+    private void removeTagForReservation(Reservation reservation, Tag tag) {
+        Set<Tag> tags = new HashSet<>(reservation.getTags());
+
+        if (!tags.remove(tag)) {
+            return;
+        }
+
+        Reservation newReservation = new Reservation(reservation.getName(), reservation.getPax(),
+                reservation.getDate(), reservation.getTime(), reservation.getRemark(), tags);
+        updateReservation(reservation, newReservation);
+    }
+
+    /**
+     * Removes {@code tag} from all {@code item} in this {@code RestaurantBook}.
+     *
+     * @param tag to be removed.
+     */
+    public void removeTagForReservationList(Tag tag) {
+        reservations.forEach(reservation -> removeTagForReservation(reservation, tag));
+    }
+
     @Override
     public ObservableList<Reservation> getReservationList() {
         return reservations.asUnmodifiableObservableList();
@@ -215,6 +243,18 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public SalesReport getSalesReport(Date date) {
         requireNonNull(date);
         return records.generateSalesReport(date);
+    }
+
+    public Map<Date, Double> rankDateBasedOnRevenue() {
+        return records.rankDateBasedOnRevenue();
+    }
+
+    public Map<ItemName, Double> rankItemBasedOnRevenue() {
+        return records.rankItemBasedOnRevenue();
+    }
+
+    public Map<Date, Double> getChronologicalSalesData() {
+        return records.getChronologicalSalesData();
     }
 
     //// account-level operations

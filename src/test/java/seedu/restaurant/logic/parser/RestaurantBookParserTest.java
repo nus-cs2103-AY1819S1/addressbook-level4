@@ -50,6 +50,7 @@ import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.EditIngredientCommand.EditIngredientDescriptor;
 import seedu.restaurant.logic.commands.ingredient.ListIngredientsCommand;
 import seedu.restaurant.logic.commands.ingredient.LowStockCommand;
+import seedu.restaurant.logic.commands.ingredient.SelectIngredientCommand;
 import seedu.restaurant.logic.commands.menu.AddItemCommand;
 import seedu.restaurant.logic.commands.menu.AddRequiredIngredientsCommand;
 import seedu.restaurant.logic.commands.menu.ClearMenuCommand;
@@ -72,11 +73,15 @@ import seedu.restaurant.logic.commands.reservation.EditReservationCommand.EditRe
 import seedu.restaurant.logic.commands.reservation.ListReservationsCommand;
 import seedu.restaurant.logic.commands.reservation.SelectReservationCommand;
 import seedu.restaurant.logic.commands.reservation.SortReservationsCommand;
+import seedu.restaurant.logic.commands.sales.ChartSalesCommand;
 import seedu.restaurant.logic.commands.sales.DeleteSalesCommand;
 import seedu.restaurant.logic.commands.sales.DisplaySalesCommand;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand.EditRecordDescriptor;
+import seedu.restaurant.logic.commands.sales.RankDateCommand;
+import seedu.restaurant.logic.commands.sales.RankItemCommand;
 import seedu.restaurant.logic.commands.sales.RecordSalesCommand;
+import seedu.restaurant.logic.commands.sales.SelectSalesCommand;
 import seedu.restaurant.logic.parser.exceptions.ParseException;
 import seedu.restaurant.model.account.Account;
 import seedu.restaurant.model.ingredient.Ingredient;
@@ -86,8 +91,8 @@ import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.Recipe;
 import seedu.restaurant.model.menu.TagContainsKeywordsPredicate;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.SalesRecord;
 import seedu.restaurant.testutil.account.AccountBuilder;
 import seedu.restaurant.testutil.account.AccountUtil;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
@@ -100,9 +105,9 @@ import seedu.restaurant.testutil.menu.ItemUtil;
 import seedu.restaurant.testutil.reservation.EditReservationDescriptorBuilder;
 import seedu.restaurant.testutil.reservation.ReservationBuilder;
 import seedu.restaurant.testutil.reservation.ReservationUtil;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordUtil;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordUtil;
 
 public class RestaurantBookParserTest {
 
@@ -201,7 +206,7 @@ public class RestaurantBookParserTest {
     }
 
     @Test
-    public void parseCommand_display_sales() throws Exception {
+    public void parseCommand_displaySales() throws Exception {
         Date date = new Date(VALID_DATE_RECORD_ONE);
         DisplaySalesCommand command = (DisplaySalesCommand) parser.parseCommand(
                 DisplaySalesCommand.COMMAND_WORD + " " + VALID_DATE_RECORD_ONE);
@@ -210,6 +215,44 @@ public class RestaurantBookParserTest {
         command = (DisplaySalesCommand) parser.parseCommand(DisplaySalesCommand.COMMAND_ALIAS + " "
                 + VALID_DATE_RECORD_ONE);
         assertEquals(new DisplaySalesCommand(date), command);
+    }
+
+    @Test
+    public void parseCommand_chartSales() throws Exception {
+        ChartSalesCommand command = (ChartSalesCommand) parser.parseCommand(ChartSalesCommand.COMMAND_WORD);
+        assertEquals(new ChartSalesCommand(), command);
+        // alias test
+        command = (ChartSalesCommand) parser.parseCommand(ChartSalesCommand.COMMAND_ALIAS);
+        assertEquals(new ChartSalesCommand(), command);
+    }
+
+    @Test
+    public void parseCommand_rankDate() throws Exception {
+        RankDateCommand command = (RankDateCommand) parser.parseCommand(RankDateCommand.COMMAND_WORD);
+        assertEquals(new RankDateCommand(), command);
+        // alias test
+        command = (RankDateCommand) parser.parseCommand(RankDateCommand.COMMAND_ALIAS);
+        assertEquals(new RankDateCommand(), command);
+    }
+
+    @Test
+    public void parseCommand_rankItem() throws Exception {
+        RankItemCommand command = (RankItemCommand) parser.parseCommand(RankItemCommand.COMMAND_WORD);
+        assertEquals(new RankItemCommand(), command);
+        // alias test
+        command = (RankItemCommand) parser.parseCommand(RankItemCommand.COMMAND_ALIAS);
+        assertEquals(new RankItemCommand(), command);
+    }
+
+    @Test
+    public void parseCommand_selectSales() throws Exception {
+        SelectSalesCommand command = (SelectSalesCommand) parser.parseCommand(
+                SelectSalesCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectSalesCommand(INDEX_FIRST), command);
+        // alias test
+        command = (SelectSalesCommand) parser.parseCommand(
+                SelectSalesCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectSalesCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -318,6 +361,7 @@ public class RestaurantBookParserTest {
         assertEquals(new AddIngredientCommand(ingredient), command);
     }
 
+    //@@author rebstan97
     @Test
     public void parseCommand_listIngredients() throws Exception {
         assertTrue(parser.parseCommand(ListIngredientsCommand.COMMAND_WORD) instanceof ListIngredientsCommand);
@@ -383,6 +427,16 @@ public class RestaurantBookParserTest {
                 EditIngredientByNameCommand.COMMAND_ALIAS + " " + "Chicken Thigh"
                         + " " + IngredientUtil.getEditIngredientDescriptorDetails(descriptor));
         assertEquals(new EditIngredientByNameCommand(new IngredientName("Chicken Thigh"), descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_selectIngredient() throws Exception {
+        SelectIngredientCommand command = (SelectIngredientCommand) parser.parseCommand(
+                SelectIngredientCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectIngredientCommand(INDEX_FIRST), command);
+        command = (SelectIngredientCommand) parser.parseCommand(
+                SelectIngredientCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectIngredientCommand(INDEX_FIRST), command);
     }
 
     //@@author yican95

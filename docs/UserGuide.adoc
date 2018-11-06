@@ -89,8 +89,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * You can keep track of the ingredient availability in your restaurant.
 
 === Sales
-* You can keep track of daily sales volume. You can also generate the sales report for a specific day, and rank dates
- and dishes based on revenue.
+* The built-in Sales Management System (SMS) in MeNUS provides you with the tools you will need to keep track of
+  financial records conveniently and efficiently. Several analytical features were also incorporated to assist you in
+  financial decision-making and devising marketing strategies.
 
 === Reservations
 * You can keep track of customer reservations on the system.
@@ -629,16 +630,28 @@ Add/Update the recipe of the 1st item in the results of the `find` command.
 ==== Adding a reservation: `add-reservation` or `ar`
 
 Adds a new reservation to the reservations list. +
-Format: `add-reservation n/NAME px/PAX dt/DATETIME` or `ar n/NAME px/PAX dt/DATETIME`
+Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DATE ti/TIME`
 
-****
-* DateTime is entered in yyyy-mm-dd**T**hh:mm:ss format.
-****
+[NOTE]
+====
+* We use natural language processing to parse the date and time values.
+* For example, phrases like `21st Dec` or `12 p.m.` will be accepted. Try it out!
+====
+
+[WARNING]
+====
+* Try to avoid ambiguous language as it might be interpreted incorrectly.
+* For example, `3/12` is ambiguous as it could mean `3rd December` or `12th March`!
+* If you want to be sure, we recommend using these formats:
+** `DATE`: `DD-MM-YYYY`
+** `TIME`: `HH:MM`
+====
 
 Examples:
 
-* `add-reservation n/TAN px/4 dt/2018-07-21T10:00:00`
-* `ar n/ONG px/2 dt/2018-08-30T12:00:00`
+* `add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
+* `ar n/ONG px/2 d/21st July ti/10am`
+* `ar n/LEE px/8 d/next tuesday ti/8 p.m.`
 
 ==== Listing all reservations : `list-reservations` or `lr`
 
@@ -648,7 +661,7 @@ Format: `list-reservations` or `lr`
 ==== Editing a reservation: `edit-reservation` or `er`
 
 Edits an reservation in the reservation list. +
-Format: `edit-reservation INDEX [n/NAME] [px/PAX] [dt/DATETIME]` or `er INDEX [n/NAME] [px/PAX] [dt/DATETIME]`
+Format: `edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` or `er INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]`
 
 ****
 * Edits the reservation at the specified `INDEX`. The index refers to the index number shown in the
@@ -659,8 +672,8 @@ displayed reservations list. The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
-* `edit-reservation 2 dt/2018-12-31T18:00:00` +
-Edits the time of the 2nd reservation in the list to `31st Dec 2018, 1800` hrs.
+* `edit-reservation 2 d/31-12-2019 ti/18:00` +
+Edits the time of the 2nd reservation in the list to `31st Dec 2019, 1800` hrs.
 
 * `er 6 n/ONG px/4`  +
 Edits the name and pax of the 6th reservation to `ONG` and `4` respectively.
@@ -718,17 +731,27 @@ Selects the 7th reservation in the reservations list.
 
 // tag::salesmanagement[]
 === Sales Management
+
+The following are Sales-related commands to help you with financial tracking and analysis.
+
 ==== Recording sales volume of an item: `record-sales` or `rs`
 
-Records the sales volume of an item within a specific day into the sales list. +
+Records the sales volume of an item within a specific day into the record list. +
 Format: `record-sales d/DATE n/ITEM_NAME q/QUANTITY_SOLD p/ITEM_PRICE` or `rs d/DATE n/ITEM_NAME q/QUANTITY_SOLD
 p/ITEM_PRICE` +
 
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
-* Both DATE and ITEM_NAME cannot be same as another record in the sales list.
+* Both DATE and ITEM_NAME cannot be same as another record in the record list.
 ****
+
+[NOTE]
+====
+A *sales record* is created whenever you record the sales volume of an item. +
+The *record list* holds all sales records you have recorded.
+====
+
 
 [[auto-ingredient-update]]
 ===== Auto-ingredient update mechanism:
@@ -768,13 +791,18 @@ Format: `display-sales DATE` or `dis DATE`
 ****
 * DATE must be written in the DD-MM-YYYY format.
 * DATE must exist in the calendar.
+* There must be at least one sales volume record associated with the specified DATE.
 ****
 
 Examples:
 
-* `display-sales 25-09-2018`
-* `dis 25-09-2018` +
-Displays the sales report dated 25-09-2018.
+* `display-sales 30-09-2018`
+* `dis 30-09-2018` +
+Displays the sales report dated 30-09-2018.
+
+The following is an example of what you will see if the sales report is generated and displayed correctly:
+
+image::display-sales-pic.png[width="465"]
 
 
 ==== Deleting a sales record: `delete-sales` or `des`
@@ -784,7 +812,7 @@ Format: `delete-sales ITEM_INDEX` or `des ITEM_INDEX`
 
 ****
 * Deletes the record at the specified `ITEM_INDEX`.
-* The item index refers to the index number shown in the sales list.
+* The item index refers to the index number shown in the record list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -798,7 +826,7 @@ Examples:
 
 * `delete-sales 2`
 * `des 2` +
-Deletes the 2nd record from the sales list.
+Deletes the 2nd record from the record list.
 
 ==== Editing a sales record: `edit-sales` or `es`
 
@@ -807,7 +835,7 @@ Format: `edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_
 [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]`
 
 ****
-* Edits the record at the specified `INDEX`. The index refers to the index number shown in the sales list.
+* Edits the record at the specified `INDEX`. The index refers to the index number shown in the record list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
@@ -832,6 +860,65 @@ Edits the item name of the 3rd record to be "Fried Omelet".
 * `edit-sales 7 q/37 p/6.50`
 * `es 7 q/37 p/6.50` +
 Edits the quantity sold and price of the 7th record to be 37 and 6.50 respectively.
+
+==== Display sales chart of date and revenue: `chart-sales` or `cs`
+
+Generates and displays the sales chart of revenue against date. +
+Format: `chart-sales` or `cs`
+
+****
+* Record list must not be empty.
+* Only existing dates in the record list are tabulated and shown.
+****
+
+The following is an example of what you will see if the sales chart is generated and displayed correctly:
+
+image::chart-sales-pic.png[width="550"]
+
+==== Ranking dates according to total revenue: `rank-date` or `rad`
+
+Ranks and displays all existing records' dates based on the total revenue. +
+Format: `rank-date` or `rad`
+
+****
+* Record list must not be empty.
+****
+
+The following is an example of what you will see if the ranking is generated and displayed correctly:
+
+image::rank-date-pic.png[width="325"]
+
+==== Ranking items according to total revenue: `rank-item` or `rai`
+
+Ranks and displays the items based on their total revenue accumulated in past sales records. +
+Format: `rank-item` or `rai`
+
+****
+* Record list must not be empty.
+****
+
+The following is an example of what you will see if the ranking is generated and displayed correctly:
+
+image::rank-item-pic.png[width="325"]
+
+==== Selecting a sales record : `select-sales` or `ss`
+
+Selects the sales record identified by the index number used in the record list. +
+Format: `select-sales INDEX` or `ss INDEX`
+
+****
+* Loads the record list and selects the record at the specified `INDEX`.
+* The index refers to the index number shown in the displayed record list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+`select-sales 2` +
+Selects the 2nd record in the record list.
+
+`ss 6` +
+Selects the 6th record in the record list.
 
 // end::salesmanagement[]
 
@@ -872,21 +959,6 @@ Examples:
 * `delete-role r/999`
 * `dr id/999`
 
-==== Ranking items according to total revenue `[coming in v1.4]`
-
-Ranks the items based on their total revenue accumulated in past sales records. +
-Format: `rank-item` or `ri`
-
-==== Ranking dates according to total revenue `[coming in v1.4]`
-
-Ranks the dates based on their total revenue for that day. +
-Format: `rank-date` or `rd`
-
-==== Displaying sales graph `[coming in v2.0]`
-Generates and displays the sales graph with the vertical axis representing the total revenue and horizontal axis
-representing the dates. +
-Format: `display-sales-graph` or `dsg`
-
 ==== Checking item sales history `[coming in v2.0]`
 Generates the item sales report that consists of all records associated with that item. +
 Format: `check-history n/ITEM_NAME` or `ch n/ITEM_NAME`
@@ -898,8 +970,12 @@ Examples:
 
 ==== Exporting sales report `[coming in v2.0]`
 Exports the sales report of a specific date into a pdf file. The generated .pdf sales report will be much more
-detailed than that displayed in app.
+detailed than that displayed in app. +
 Format: `export-sales DATE` or `es DATE`
+
+==== Exporting sales chart `[coming in v2.0]`
+Exports the sales chart into a pdf file. +
+Format: `export-chart` or `ec`
 
 ==== Removing out-of-stock dishes from daily menu `[coming in v1.4]`
 
@@ -976,7 +1052,7 @@ contains the data of your previous *MeNUS* folder.
 |*Add item* |`add-item n/ITEM_NAME p/ITEM_PRICE [t/TAG]...` |`add-item n/Burger Set p/3 t/set`
 |*Edit menu* |`edit-item INDEX [n/ITEM_NAME] [p/ITEM_PRICE] [t/TAG]...` |`edit-item 2 n/Fries p/3`
 |*Delete item* |`delete-item INDEX` |`delete-item 3`
-|*Select item* |`select-items INDEX` |`select-items 3`
+|*Select item* |`select-item INDEX` |`select-item 3`
 |*Find item* |`find-item KEYWORD [MORE_KEYWORDS]` |`find-item Cheese Burger`
 |*List items* |`list-items` |`list-items`
 |*Filter menu* |`filter-menu t/TAG` |`filter-menu t/cheese`
@@ -985,18 +1061,20 @@ contains the data of your previous *MeNUS* folder.
 |*Today's special* |`today-special` |`today-special`
 |*Export menu* |`export-menu fp/FILE_PATH fn/FILE_NAME` |`export-menu fp/backup/ fn/menu.txt`
 |*Import menu* |`import-menu fp/FILE_PATH fn/FILE_NAME` |`import-menu fp/backup/ fn/menu.txt`
-|*Add reservation* |`add-reservation n/NAME px/PAX dt/DATETIME` |`add-reservation n/TAN px/4 dt/2018-07-21:10:00:00`
-|*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [dt/DATETIME]` |`edit-reservation 2 px/2`
+|*Add reservation* |`add-reservation n/NAME px/PAX d/DATE ti/TIME` |`add-reservation n/TAN px/4 d/21-07-2019 ti/10:00`
+|*Edit reservation* |`edit-reservation INDEX [n/NAME] [px/PAX] [d/DATE] [ti/TIME]` |`edit-reservation 2 px/2`
 |*Delete reservation* |`delete-reservation INDEX` |`delete-reservation 2`
-|*Select reservation* |`select-reservations` |`select-reservation 1`
+|*Select reservation* |`select-reservation INDEX` |`select-reservation 1`
 |*List reservation* |`list-reservations` |`list-reservations`
 |*Sort reservation* |`sort-reservations` |`sort-reservations`
 |*Record sales volume* |`record-sales d/DATE n/ITEM_NAME q/QUANTITY SOLD p/ITEM_PRICE` |`record-sales d/25-09-2018 n/Fried Rice q/35 p/5.50`
 |*Display sales report* |`display-sales DATE` |`display-sales 25-09-2018`
 |*Edit sales record* |`edit-sales ITEM_INDEX [d/DATE] [n/ITEM_NAME] [q/QUANTITY SOLD] [p/ITEM_PRICE]` |`edit-sales 3 n/Fried Omelet p/7.99`
 |*Delete sales record* |`delete-sales ITEM_INDEX` |`delete-sales 2`
+|*Display sales chart* |`chart-sales` |`chart-sales`
 |*Rank items by total revenue* |`rank-item` |`rank-item`
 |*Rank dates by total revenue* |`rank-date` | `rank-date`
+|*Select sales record* |`select-sales INDEX` |`select-sales 3`
 |=======================================================================
 
 [appendix]

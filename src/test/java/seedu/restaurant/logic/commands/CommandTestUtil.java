@@ -3,7 +3,6 @@ package seedu.restaurant.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATE;
-import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_DATETIME;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_ID;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_MINIMUM;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_INGREDIENT_NAME;
@@ -19,6 +18,7 @@ import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PERCENT;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_PRICE;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_QUANTITY_SOLD;
 import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TAG;
+import static seedu.restaurant.logic.parser.util.CliSyntax.PREFIX_TIME;
 import static seedu.restaurant.testutil.menu.TypicalItems.FRIES;
 
 import java.util.ArrayList;
@@ -42,14 +42,12 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.NameContainsKeywordsPredicate;
-import seedu.restaurant.model.salesrecord.ItemNameContainsKeywordsPredicate;
-import seedu.restaurant.model.salesrecord.SalesRecord;
 import seedu.restaurant.storage.XmlAdaptedTag;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 import seedu.restaurant.testutil.ingredient.EditIngredientDescriptorBuilder;
 import seedu.restaurant.testutil.menu.EditItemDescriptorBuilder;
 import seedu.restaurant.testutil.reservation.EditReservationDescriptorBuilder;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -197,8 +195,12 @@ public class CommandTestUtil {
     public static final String VALID_RESERVATION_NAME_BILLY = "Billy Bong";
     public static final String VALID_RESERVATION_PAX_ANDREW = "2";
     public static final String VALID_RESERVATION_PAX_BILLY = "4";
-    public static final String VALID_RESERVATION_DATETIME_ANDREW = "2018-12-03T12:00:00";
-    public static final String VALID_RESERVATION_DATETIME_BILLY = "2018-12-05T18:00:00";
+    //public static final String VALID_RESERVATION_DATETIME_ANDREW = "2018-12-03T12:00:00";
+    //public static final String VALID_RESERVATION_DATETIME_BILLY = "2018-12-05T18:00:00";
+    public static final String VALID_RESERVATION_DATE_ANDREW = "03-12-2019";
+    public static final String VALID_RESERVATION_DATE_BILLY = "05-12-2019";
+    public static final String VALID_RESERVATION_TIME_ANDREW = "12:00";
+    public static final String VALID_RESERVATION_TIME_BILLY = "18:00";
     public static final String VALID_RESERVATION_REMARK_ANDREW = "Driving";
     public static final String VALID_RESERVATION_REMARK_BILLY = "Allergies";
     public static final String VALID_RESERVATION_TAG_ANDREW = "Driving";
@@ -208,16 +210,26 @@ public class CommandTestUtil {
     public static final String RESERVATION_NAME_DESC_BILLY = " " + PREFIX_NAME + VALID_RESERVATION_NAME_BILLY;
     public static final String RESERVATION_PAX_DESC_ANDREW = " " + PREFIX_PAX + VALID_RESERVATION_PAX_ANDREW;
     public static final String RESERVATION_PAX_DESC_BILLY = " " + PREFIX_PAX + VALID_RESERVATION_PAX_BILLY;
-    public static final String RESERVATION_DATETIME_DESC_ANDREW =
-            " " + PREFIX_DATETIME + VALID_RESERVATION_DATETIME_ANDREW;
-    public static final String RESERVATION_DATETIME_DESC_BILLY =
-            " " + PREFIX_DATETIME + VALID_RESERVATION_DATETIME_BILLY;
+    //public static final String RESERVATION_DATETIME_DESC_ANDREW =
+    //        " " + PREFIX_DATETIME + VALID_RESERVATION_DATETIME_ANDREW;
+    //public static final String RESERVATION_DATETIME_DESC_BILLY =
+    //        " " + PREFIX_DATETIME + VALID_RESERVATION_DATETIME_BILLY;
+    public static final String RESERVATION_DATE_DESC_ANDREW =
+            " " + PREFIX_DATE + VALID_RESERVATION_DATE_ANDREW;
+    public static final String RESERVATION_DATE_DESC_BILLY =
+            " " + PREFIX_DATE + VALID_RESERVATION_DATE_BILLY;
+    public static final String RESERVATION_TIME_DESC_ANDREW =
+            " " + PREFIX_TIME + VALID_RESERVATION_TIME_ANDREW;
+    public static final String RESERVATION_TIME_DESC_BILLY =
+            " " + PREFIX_TIME + VALID_RESERVATION_TIME_BILLY;
     public static final String RESERVATION_TAG_DESC_ANDREW = " " + PREFIX_TAG + VALID_RESERVATION_TAG_ANDREW;
     public static final String RESERVATION_TAG_DESC_BILLY = " " + PREFIX_TAG + VALID_RESERVATION_TAG_BILLY;
 
     public static final String INVALID_RESERVATION_NAME_DESC = " " + PREFIX_NAME + "S&shrew"; // '&' not allowed
     public static final String INVALID_RESERVATION_PAX_DESC = " " + PREFIX_PAX + "a4"; // letters not allowed
-    public static final String INVALID_RESERVATION_DATETIME_DESC = " " + PREFIX_DATETIME + "2018-99"; // incomplete
+    //public static final String INVALID_RESERVATION_DATETIME_DESC = " " + PREFIX_DATETIME + "2018-99"; // incomplete
+    public static final String INVALID_RESERVATION_DATE_DESC = " " + PREFIX_DATE + "hi im a date"; // terrible joke
+    public static final String INVALID_RESERVATION_TIME_DESC = " " + PREFIX_TIME + "hi im a time"; // bad joke
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -257,9 +269,11 @@ public class CommandTestUtil {
 
         // Reservation Management
         DESC_ANDREW = new EditReservationDescriptorBuilder().withName(VALID_RESERVATION_NAME_ANDREW)
-                .withPax(VALID_RESERVATION_PAX_ANDREW).withDateTime(VALID_RESERVATION_DATETIME_ANDREW).build();
+                .withPax(VALID_RESERVATION_PAX_ANDREW).withDate(VALID_RESERVATION_DATE_ANDREW)
+                .withTime(VALID_RESERVATION_TIME_ANDREW).build();
         DESC_BILLY = new EditReservationDescriptorBuilder().withName(VALID_RESERVATION_NAME_BILLY)
-                .withPax(VALID_RESERVATION_PAX_BILLY).withDateTime(VALID_RESERVATION_DATETIME_BILLY).build();
+                .withPax(VALID_RESERVATION_PAX_BILLY).withDate(VALID_RESERVATION_DATE_BILLY)
+                .withTime(VALID_RESERVATION_TIME_BILLY).build();
 
         // Sales Management
         DESC_RECORD_ONE = new EditRecordDescriptorBuilder().withDate(VALID_DATE_RECORD_ONE)
@@ -349,19 +363,5 @@ public class CommandTestUtil {
                 new IngredientNameContainsKeywordsPredicate(Arrays.asList(splitIngredient[0])));
 
         assertEquals(1, model.getFilteredIngredientList().size());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the sales record at the given {@code targetIndex} in the
-     * {@code model}'s restaurant book.
-     */
-    public static void showRecordAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredRecordList().size());
-
-        SalesRecord salesRecord = model.getFilteredRecordList().get(targetIndex.getZeroBased());
-        final String[] splitRecord = salesRecord.getName().toString().split("\\s+");
-        model.updateFilteredRecordList(new ItemNameContainsKeywordsPredicate(Arrays.asList(splitRecord[0])));
-
-        assertEquals(1, model.getFilteredRecordList().size());
     }
 }

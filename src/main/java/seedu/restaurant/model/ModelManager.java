@@ -22,9 +22,10 @@ import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 
 /**
@@ -123,6 +124,21 @@ public class ModelManager extends ComponentManager implements Model {
     public SalesReport getSalesReport(Date date) {
         requireNonNull(date);
         return versionedRestaurantBook.getSalesReport(date);
+    }
+
+    @Override
+    public Map<Date, Double> rankDateBasedOnRevenue() {
+        return versionedRestaurantBook.rankDateBasedOnRevenue();
+    }
+
+    @Override
+    public Map<ItemName, Double> rankItemBasedOnRevenue() {
+        return versionedRestaurantBook.rankItemBasedOnRevenue();
+    }
+
+    @Override
+    public Map<Date, Double> getChronologicalSalesData() {
+        return versionedRestaurantBook.getChronologicalSalesData();
     }
 
     //=========== Filtered Sales Record List Accessors =============================================================

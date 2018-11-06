@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.accounts.AccountCardHandle;
+import guitests.guihandles.ingredient.IngredientCardHandle;
+import guitests.guihandles.ingredient.IngredientStackPanelHandle;
 import guitests.guihandles.menu.ItemCardHandle;
 import guitests.guihandles.menu.ItemListPanelHandle;
 import guitests.guihandles.menu.ItemStackPanelHandle;
@@ -19,10 +21,11 @@ import guitests.guihandles.reservation.ReservationCardHandle;
 import guitests.guihandles.sales.RecordCardHandle;
 import guitests.guihandles.sales.RecordStackPanelHandle;
 import seedu.restaurant.model.account.Account;
+import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.SalesRecord;
+import seedu.restaurant.model.sales.SalesRecord;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -42,6 +45,35 @@ public class GuiTestAssert {
     private static final TagColourStyle[] TAG_COLOR_STYLES = TagColourStyle.values();
 
     private static final String LABEL_DEFAULT_STYLE = "label";
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedIngredient}.
+     */
+    public static void assertCardDisplaysIngredient(Ingredient expectedIngredient, IngredientCardHandle actualCard) {
+        assertEquals(expectedIngredient.getName().toString(), actualCard.getName());
+        String expectedPrice = "$" + expectedIngredient.getPrice().toString()
+                + " / " + expectedIngredient.getUnit().toString();
+        assertEquals(expectedPrice, actualCard.getPrice());
+        String expectedNumUnits = expectedIngredient.getNumUnits().toString() + " "
+                + expectedIngredient.getUnit().toString() + "(s) available";
+        assertEquals(expectedNumUnits, actualCard.getNumUnits());
+    }
+
+    /**
+     * Asserts that {@code actualStackPanel} displays the details of {@code expectedItem}.
+     */
+    public static void assertStackPanelDisplaysIngredient(Ingredient expectedIngredient,
+            IngredientStackPanelHandle actualStackPanel) {
+        assertEquals(expectedIngredient.getName().toString(), actualStackPanel.getName());
+        assertEquals("Unit: " + expectedIngredient.getUnit(), actualStackPanel.getUnit());
+        assertEquals("Price per unit: $" + expectedIngredient.getPrice().toString(),
+                actualStackPanel.getPrice());
+        assertEquals("Minimum stock: " + expectedIngredient.getMinimum().toString(),
+                actualStackPanel.getMinimum());
+        assertEquals("Number of units available: " + expectedIngredient.getNumUnits().toString(),
+                actualStackPanel.getNumUnits());
+
+    }
 
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
@@ -306,4 +338,5 @@ public class GuiTestAssert {
     public static void assertCardDisplaysAccount(Account expectedAccount, AccountCardHandle actualCard) {
         assertEquals(expectedAccount.getUsername().toString(), actualCard.getUsername());
     }
+
 }

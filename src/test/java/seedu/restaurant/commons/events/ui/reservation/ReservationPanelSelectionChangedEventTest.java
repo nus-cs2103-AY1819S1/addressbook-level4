@@ -10,9 +10,8 @@ import seedu.restaurant.testutil.reservation.ReservationBuilder;
 
 public class ReservationPanelSelectionChangedEventTest {
 
-    //TODO: Ming Xian needs to update the datetime handling here to be more intuitive
     private final Reservation reservation = new ReservationBuilder().withName("Ming Xian").withPax("2")
-            .withDateTime("2020-05-05T10:00:00").withTags("Dinner").build();
+            .withDate("05-05-2020").withTime("10:00").withTags("Dinner").build();
 
     @Test
     public void createEvent_success() {
@@ -24,7 +23,7 @@ public class ReservationPanelSelectionChangedEventTest {
     public void createEvent_correctItem_success() {
         ReservationPanelSelectionChangedEvent event = new ReservationPanelSelectionChangedEvent(reservation);
         System.out.println(event.getNewSelection().toString());
-        assertEquals("Name: Ming Xian Pax: 2 Date & Time: 2020-05-05T10:00 Tags: [Dinner]",
+        assertEquals("Name: Ming Xian Pax: 2 Date: 05-05-2020 Time: 10:00 Tags: [Dinner]",
                 event.getNewSelection().toString());
     }
 }

@@ -11,9 +11,10 @@ import seedu.restaurant.model.ingredient.IngredientName;
 import seedu.restaurant.model.menu.Item;
 import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 
 /**
@@ -72,6 +73,22 @@ public interface Model {
      * Returns the sales report of the specified date.
      */
     SalesReport getSalesReport(Date date);
+
+    /**
+     * Ranks the existing records' dates according to revenue in descending order.
+     */
+    Map<Date, Double> rankDateBasedOnRevenue();
+
+    /**
+     * Ranks the existing records' items according to revenue accumulated from past sales records in descending order.
+     */
+    Map<ItemName, Double> rankItemBasedOnRevenue();
+
+    /**
+     * Returns all dates, each associated with its total revenue for the day, in chronological order.
+     */
+    Map<Date, Double> getChronologicalSalesData();
+
 
     /**
      * Returns an unmodifiable view of the filtered record list
