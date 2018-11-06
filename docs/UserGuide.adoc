@@ -255,13 +255,16 @@ Format: `endreview`
 // end::review[]
 
 === Card difficulty classification : `classify`
-Allocates one of the four difficulties (easy, good, hard or review) +
-to the card currently being reviewed. +
+Allocates a difficulty (easy, normal, hard) to the card currently being reviewed. +
+This indicates how you felt about the difficulty of the card, relative to your performance. This rating will be taken
+into consideration when scheduling cards for review. For example, a card rated `easy` will show up less often compared
+to a card rated `hard`. +
 Format: `classify DIFFICULTY`
 
 ****
-* DIFFICULTY indicates how you felt about the question +
-*DIFFICULTY* : {‘easy’ | ‘good’ | ‘hard’ | ‘review’}
+* The *DIFFICULTY* parameter should be one of the strings: {`easy`, `normal`, `hard`}
+* The *DIFFICULTY* parameter is case-insensitive
+* By default, cards are assigned a `normal` difficulty
 ****
 
 // tag::sort[]
@@ -449,8 +452,7 @@ You must be inside a deck to perform this operation.
 |`nextcard` | Views the subsequent card in the deck.
 |`prevcard` | Views the previous card in the deck.
 |`endreview` | Exits the review.
-|`classify DIFFICULTY` | Classifies the current card into one of the following categories: {‘easy’, ‘good’ , ‘hard’ ,
-‘review’}
+|`classify DIFFICULTY` | Classifies the current card into one of the following categories: {‘easy’, ‘normal' , ‘hard’}
 |`sort` | Sorts the displayed list of decks by name. +
 When inside a deck, sorts the displayed list of cards by question.
 //|`rank` | Sort the list of cards by performance
