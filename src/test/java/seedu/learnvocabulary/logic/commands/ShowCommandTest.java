@@ -3,7 +3,6 @@ package seedu.learnvocabulary.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.learnvocabulary.commons.core.Messages.MESSAGE_BLANK;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.learnvocabulary.testutil.TypicalWords.FIRE;
 import static seedu.learnvocabulary.testutil.TypicalWords.GLIDE;
@@ -61,7 +60,7 @@ public class ShowCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         ShowCommand command = new ShowCommand(predicate);
         expectedModel.updateFilteredWordList(predicate);
-        assertCommandSuccess(command, model, commandHistory, MESSAGE_BLANK, expectedModel);
+        assertCommandSuccess(command, model, commandHistory, ShowCommand.COMMAND_NO_WORDS_FOUND, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredWordList());
     }
 

@@ -14,6 +14,8 @@ public class LearnCommand extends Command {
 
     public static final String COMMAND_WORD = "learn";
 
+    public static final String MESSAGE_NO_GROUP = "The group typed does not exist.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches Dictionary.com for given word. "
             + "Parameters: "
             + "WORD "

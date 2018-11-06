@@ -1,6 +1,5 @@
 package systemtests;
 
-//import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.learnvocabulary.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
@@ -83,12 +82,14 @@ public class EditCommandSystemTest extends LearnVocabularySystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Word wordToEdit = getModel().getFilteredWordList().get(index.getZeroBased());
         editedWord = new WordBuilder(wordToEdit).withTags().build();
-        assertCommandSuccess(command, index, editedWord);
+        //assertCommandSuccess(command, index, editedWord);
+        assertCommandFailure(command,
+                EditCommand.MESSAGE_EMPTY_TAGS);
 
         /* ---------------- Performing edit operation while a filtered list is being shown ------------------------ */
 
 
-        /* Case: filtered word list, edit index within bounds of learnvocabulary book and word list -> edited */
+        /* Case: filtered word list, edit index within bounds of LearnVocabulary -> edited */
 
         showWordsWithName(KEYWORD_MATCHING_WEIGHT);
         index = INDEX_FIRST_WORD;
@@ -96,10 +97,9 @@ public class EditCommandSystemTest extends LearnVocabularySystemTest {
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_LEVITATE;
         wordToEdit = getModel().getFilteredWordList().get(index.getZeroBased());
         editedWord = new WordBuilder(wordToEdit).withName(VALID_NAME_LEVITATE).build();
-        //assertCommandSuccess(command, index, editedWord); //COMMENTED OUT - Logic Error
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
 
-
-        /* Case: filtered word list, edit index within bounds of learnvocabulary book but out of bounds of word list
+        /* Case: filtered word list, edit index within bounds of LearnVocabulary but out of bounds
          * -> rejected
          */
         showWordsWithName(KEYWORD_MATCHING_WEIGHT);
@@ -120,7 +120,7 @@ public class EditCommandSystemTest extends LearnVocabularySystemTest {
                 + NAME_DESC_FLY + MEANING_DESC + TAG_DESC_FLOATING;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new word's name
-        //assertCommandSuccess(command, index, FLY, index); //COMMENTED OUT - Logic Error
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
 
 
         /* ------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -154,24 +154,21 @@ public class EditCommandSystemTest extends LearnVocabularySystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_WORD.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        /* Case: edit a word with new values same as another word's values -> rejected */
+        /* Case: edit a word with new values same as another word's values -> success */
 
         executeCommand(WordUtil.getAddCommand(LEVITATE));
         assertTrue(getModel().getLearnVocabulary().getWordList().contains(LEVITATE));
         index = INDEX_FIRST_WORD;
-        //COMMENTED OUT - Logic Error
-        //assertFalse(getModel().getFilteredWordList().get(index.getZeroBased()).equals(LEVITATE));
+        assertTrue(getModel().getFilteredWordList().get(index.getZeroBased()).equals(LEVITATE));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_LEVITATE
             + MEANING_DESC + TAG_DESC_FLOATING + TAG_DESC_ABILITY;
-        //COMMENTED OUT - Logic Error
-        //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
+        assertCommandSuccess(command, index, LEVITATE);
 
 
-        /* Case: edit a word with new values same as another word's values but with different tags -> rejected */
+        /* Case: edit a word with new values same as another word's values but with different tags -> success */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_LEVITATE
                 + MEANING_DESC + TAG_DESC_ABILITY;
-        //COMMENTED OUT - Logic Error
-        //assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_WORD);
+        assertCommandSuccess(command, index, LEVITATE);
     }
 
     /**

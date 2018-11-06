@@ -3,6 +3,7 @@ package seedu.learnvocabulary.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class LearnCommandTest {
         if (!validWord.getTags().isEmpty()) {
             CommandResult commandResult = new LearnCommand(validWord).execute(modelStub, commandHistory);
 
+            assertNotNull(commandResult.feedbackToUser);
             assertEquals(Arrays.asList(validWord), modelStub.wordsAdded);
             assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
         }

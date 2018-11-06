@@ -40,6 +40,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Meaning meaning = ParserUtil.parseMeaning(argMultimap.getValue(PREFIX_MEANING).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
+        if (tagList.isEmpty()) {
+            tagList.add(new Tag(
+                    "toLearn"));
+        }
+
         Word word = new Word(name, meaning, tagList);
 
         return new AddCommand(word);

@@ -2,6 +2,7 @@ package seedu.learnvocabulary.model.word;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.learnvocabulary.testutil.TypicalWords.SUMO;
 
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,26 @@ class DictionaryTest {
         Dictionary dictionary = new Dictionary(SUMO.getName().fullName);
         dictionary.invoke();
         assertNotNull(Dictionary.isWordInOnlineDictionary(dictionary.getWordToLearn()));
+    }
+
+    @Test
+    void wordNotInOnlineDictionary() {
+        Dictionary dictionary = new Dictionary("invalidwordtest");
+        try {
+            dictionary.invoke();
+        } catch (ParseException e) {
+            assertEquals(Dictionary.WORD_NOT_EXIST, e.getMessage());
+        }
+    }
+
+    @Test
+    void wordIsEmpty() {
+        Dictionary dictionary = new Dictionary("");
+        try {
+            dictionary.invoke();
+        } catch (ParseException e) {
+            assertEquals(Dictionary.MESSAGE_CANNOT_BE_EMPTY, e.getMessage());
+        }
     }
 
     @Test
