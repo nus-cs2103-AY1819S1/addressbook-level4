@@ -387,17 +387,16 @@ Format: `select INDEX MEAL`
 
 Adds a health plan under the user. +
 Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
-TARGET WEIGHT, DURATION AND SCHEME +
+TARGET WEIGHT, AND DURATION+
 
 Format: +
-`add n/NAME a/AGE h/HEIGHT w/CURRENTWEIGHT t/TARGETWEIGHT d/DURATION s/SCHEME` +
+`add n/NAME a/AGE h/HEIGHT w/CURRENTWEIGHT t/TARGETWEIGHT d/DURATION` +
 
 ****
 * Height is numeric and input is of centimetre units
 * Current weight is numeric and input is of Kilogram units
 * Target Weight is numeric and input is of Kilogram units
 * AGE must be numeric
-* GOAL specifies a string input of "GAIN", "LOSS" or "MAINTAIN"
 * DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
 ****
 
@@ -416,7 +415,7 @@ Format: +
 After listing the list of health plans by User. +
 Prompts for edit on the plan selected by the user. +
 Format : +
-`edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION] [s/SCHEME]` +
+`edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION]` +
 
 ****
 * INDEX specifies the entry to edit, has to be numeric and more than 0
@@ -424,7 +423,6 @@ Format : +
 * Current weight is numeric, be more than 0 and input is of Kilogram units
 * Target Weight is numeric, be more than 0 and input is of Kilogram units
 * AGE must be numeric and more than 0
-* GOAL specifies a string input of "GAIN", "LOSS" or "MAINTAIN"
 * DURATION specifies an integer input of time in days desired by user to achieve said GOAL, has to be numeric and more than 0
 ****
 
@@ -457,6 +455,12 @@ Format: +
 User enters command to view the full list of meals beside the health plan list
 Format: +
 'showMeal'
+
+==== Hide view on the right : 'hideMeal'
+
+User enters command to hide any view that is currently displayed on the right
+Format: +
+'hideMeal'
 
 ==== View plan details : `showDetails`
 
