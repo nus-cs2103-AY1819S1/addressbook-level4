@@ -56,6 +56,13 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 group/CS2013_Group2 i/3`
 ====
 
+=== Autocompletion of Commands: `TAB` button
+
+To auto-complete any command words, press the tab button. +
+For example, if `ad` is typed, `add` will be displayed in the command box upon pressing the `TAB` button. +
+Note that only command words will be auto-completed, and the auto-completion will only be successful if there
+are any valid command words (including command aliases) containing the current input as a prefix.
+
 === Viewing help : `help`, alias `h`
 
 Format: `help`
@@ -345,11 +352,12 @@ where the newly added event (as highlighted in green below) will be shown in the
 
 image::add-event_new-event.PNG[Adding an event]
 
+[[addEventTag]]
 === Adding an event tag: `addEventTag`
 
 Adds an event tag specified by the user into the system.
 
-Format: `addEventTag [t/EVENT_TAG...]`
+Format: `addEventTag t/EVENT_TAG [t/EVENT_TAG...]`
 
 [TIP]
 ====
@@ -401,6 +409,32 @@ image::delete-event-after.PNG[Deleting an event]
 
 Shows a list of all events in the address book. +
 Format: `listEvent`
+
+=== Find events by event tags: `findEvent`
+
+Shows a list of all events in the address book which are tagged as the specified tags in the command.
+Event tags are case-insensitive, as described in the <<addEventTag, addEventTag>> section. +
+i.e. `MEETING` and `meeting` are regarded as the same tag.
+
+Format: `findEvent EVENT_TAG [EVENT_TAG...]`
+
+Examples:
+
+**Before `findEvent` Execution**
+
+image::find-event-before.PNG[Finding an event]
+
+**After `findEvent` Execution**
+
+* `findEvent LECTURE` +
+Shows all the events tagged as `lecture`
+
+image::find-event-lecture.PNG[Finding an event]
+
+* `findEvent Class lecture` +
+Shows all the events tagged as `lecture` or `class`
+
+image::find-event-lecture-class.PNG[Finding an event]
 
 === Import Contacts: `importContacts`
 
@@ -661,6 +695,8 @@ e.g. `deleteEvent d/2018-10-18 i/1`
 * *Add Event Tag*: `addEventTag [t/EVENT_TAG...]` +
 e.g. `addEventTag t/Lecture t/Dinner`
 * *List Events* : `listEvent` +
+* *Find Events by Event Tag(s)* `findEvent EVENT_TAG [EVENT_TAG...]` +
+e.g. `findEvent Class lecture`
 * *Import Contacts* : `importContacts file/FILEPATH` +
 e.g. `importContacts file/~/Downloads/contacts1.csv`
 * *Disable and Enable Notification* : `notification enable/disable` +
