@@ -56,6 +56,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane browserPlaceholder;
 
     @FXML
+    private StackPane analyticsDisplayPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -133,6 +136,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
+
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
         browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 

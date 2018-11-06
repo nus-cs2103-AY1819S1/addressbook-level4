@@ -4,70 +4,70 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="analyticsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1000.0" styleClass="dashboard" stylesheets="@Analytics.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="analyticsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" styleClass="dashboard" stylesheets="@Analytics.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="summaryBar" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Avenir Light" size="18.0" />
          </font>
       </Label>
-      <AnchorPane id="numbers-pane" layoutX="93.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="900.0" styleClass="summary-pane" AnchorPane.bottomAnchor="640.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0">
+      <AnchorPane id="numbers-pane" layoutX="93.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="900.0" styleClass="summary-pane" AnchorPane.bottomAnchor="465.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0">
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="675.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="675.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="summaryTextOne" alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="118.0" text="Today" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
+                  <Label fx:id="summaryTextOne" alignment="CENTER" contentDisplay="CENTER" layoutX="94.0" layoutY="118.0" text="Today" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
                      <font>
                         <Font name="Avenir Roman" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="summaryValueOne" alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="37.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueOne" alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="37.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="totalsSummaryTwo" prefHeight="200.0" prefWidth="200.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="totalsSummaryTwo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="summaryValueTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="61.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
-                  <Label fx:id="summaryTextTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="91.0" prefHeight="16.0" prefWidth="137.0" text="This Week" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
+                  <Label fx:id="summaryTextTwo" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="91.0" prefHeight="16.0" prefWidth="137.0" text="This Week" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
                      <font>
                         <Font name="Avenir Light" size="14.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="totalsSummaryThree" prefHeight="200.0" prefWidth="200.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="totalsSummaryThree" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="225.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="summaryValueThree" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueThree" alignment="CENTER" contentDisplay="CENTER" layoutX="60.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
-                  <Label fx:id="summaryTextThree" alignment="CENTER" contentDisplay="CENTER" layoutY="92.0" prefHeight="20.0" prefWidth="111.0" text="This Month" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
+                  <Label fx:id="summaryTextThree" alignment="CENTER" contentDisplay="CENTER" layoutY="92.0" prefHeight="20.0" prefWidth="111.0" text="This Month" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
                      <font>
                         <Font name="Avenir Light" size="14.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="totalsSummaryFour" prefHeight="181.0" prefWidth="480.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="675.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="totalsSummaryFour" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="675.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="93.0" textAlignment="CENTER" textFill="#cccccc">
                      <font>
                         <Font name="Avenir Roman" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="summaryValueFour" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="summaryValueFour" alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="26.0" styleClass="summary-value" text="0" textAlignment="CENTER" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font name="Baskerville" size="85.0" />
                      </font>
                   </Label>
-                  <Label fx:id="summaryTextFour" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="93.0" prefHeight="17.0" prefWidth="142.0" text="This Year" textAlignment="CENTER" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
+                  <Label fx:id="summaryTextFour" alignment="CENTER" contentDisplay="CENTER" layoutX="2.0" layoutY="93.0" prefHeight="17.0" prefWidth="142.0" text="This Year" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
                      <font>
                         <Font name="Avenir Light" size="14.0" />
                      </font>
@@ -76,7 +76,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="visualization-pane" fx:id="visualizationPane" layoutX="50.0" layoutY="299.0" prefHeight="494.0" prefWidth="929.0" styleClass="visualization-pane" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="299.0">
+      <AnchorPane id="visualization-pane" fx:id="visualizationPane" layoutX="50.0" layoutY="299.0" prefHeight="440.0" prefWidth="900.0" styleClass="visualization-pane" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="270.0">
          <children>
             <AnchorPane fx:id="chartPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
          </children>

@@ -130,4 +130,5 @@ public class AnalyticsDisplay extends UiPart<Region> {
     public void setVisible(boolean visibility) {
         analyticsPane.setVisible(visibility);
     }
+
 }
