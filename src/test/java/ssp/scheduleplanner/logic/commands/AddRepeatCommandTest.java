@@ -11,6 +11,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
@@ -21,9 +23,6 @@ import ssp.scheduleplanner.model.task.Interval;
 import ssp.scheduleplanner.model.task.Repeat;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class AddRepeatCommandTest {
 
