@@ -410,7 +410,7 @@ public class ParserUtilTest {
     public void parseType_nonExistentType_throwsNullPointerException() throws Exception {
         // TODO: Test for types that are neither followup nor new
     }
-    
+
     @Test
     public void parseType_validType_returnInt() throws Exception {
         int expectedType = 1;
