@@ -28,8 +28,8 @@ link:{repoURL}[MeNUS] is here to help you and it is the only restaurant manageme
 
 Introducing link:{repoURL}[MeNUS], a revolutionary restaurant management desktop application that is *optimized for
 users who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User
-Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage aspects of your restaurants -- staff accounts,
-menus, ingredient, sales and reservations management -- all from a single location !
+Interface (GUI)*. If you can type fast, link:{repoURL}[MeNUS] allows you to manage core aspects of your restaurants --
+employees, menus, inventory, sales and reservations management -- all from a single location!
 
 === Legends
 The following *3* legends will be used throughout the documentation which you may wish to pay attention to as it may
