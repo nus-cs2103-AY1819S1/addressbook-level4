@@ -103,7 +103,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
-     * Check if argument array does not contain the same name twice and all
+     * Checks if argument array does not contain the same name twice and all
      * names are legal.
      *
      * @param args array of name-value pair arguments
@@ -130,7 +130,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
-     * Parse the value into its relevant object.
+     * Parses the value into its relevant object.
      *
      * @param args array of name-value pair arguments
      * @throws ParseException thrown when the value cannot be parsed
@@ -144,7 +144,7 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
-     * Target code should not be null.
+     * Checks that target code is not be null.
      *
      * @throws ParseException thrown when target code is null
      */
@@ -157,7 +157,8 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
-     * Target year and target semester cannot be null exclusively.
+     * Checks that target year is null if and only if target semester is also
+     * null.
      * <p>
      * Target year is null if and only if target semester is also null.
      *
@@ -173,7 +174,8 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
-     * One of code, year, semester, credit, or grade should have a new value.
+     * Checks that one of code, year, semester, credit, or grade should have a
+     * new value.
      *
      * @throws ParseException Thrown when code, year, semester, credit, and
      * grade are all null
