@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -74,7 +76,11 @@ public class EmailModel {
         return preview;
     }
 
+    /**
+     * Returns true if an email with the same subject as {@code fileName} exists in the EmailModel.
+     */
     public boolean hasEmail(String fileName) {
+        requireNonNull(fileName);
         return existingEmails.contains(fileName + emlExtension);
     }
 
