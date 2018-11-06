@@ -49,26 +49,26 @@ public class AppContentParser {
 
         switch (context) {
         case RECIPE:
-            setFeatureStorage(storage, Context.RECIPE);
+            setFeatureStorage(storage, context);
             Optional<Command> optionalCommand = getCrossContextCommand(userInput, modelSet, storage, history);
             return optionalCommand.isPresent() ? optionalCommand.get()
                     : new RecipeParser().parseCommand(modelSet.getRecipeModel(), userInput, history);
         case INGREDIENT:
-            setFeatureStorage(storage, Context.INGREDIENT);
+            setFeatureStorage(storage, context);
             return new IngredientParser().parseCommand(modelSet.getIngredientModel(), userInput);
         case CROSS:
             return new CrossParser().parseCommand(modelSet.getCrossRecipeModel(), modelSet.getIngredientModel(),
                     userInput);
         case HEALTH_PLAN:
-            setFeatureStorage(storage, Context.HEALTH_PLAN);
+            setFeatureStorage(storage, context);
             return new HealthPlanParser().parseCommand(modelSet.getHealthPlanModel(), modelSet.getMealPlannerModel(),
                     userInput);
         case MEAL_PLAN:
-            setFeatureStorage(storage, Context.MEAL_PLAN);
+            setFeatureStorage(storage, context);
             return new MealPlannerParser()
                     .parseCommand(modelSet.getMealPlannerModel(), modelSet.getRecipeModel(), userInput);
         case FAVOURITES:
-            setFeatureStorage(storage, Context.FAVOURITES);
+            setFeatureStorage(storage, context);
 
             return new FavouritesParser().parseCommand(modelSet.getFavouriteModel(), userInput);
         default:
