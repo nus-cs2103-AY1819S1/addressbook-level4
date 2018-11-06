@@ -26,16 +26,6 @@ public class XmlAdaptedEntry {
     public XmlAdaptedEntry() {}
 
     /**
-     * Constructs a {@code XmlAdaptedEntry} with the given {@code entryNum, date, amount and log}.
-     */
-    public XmlAdaptedEntry(String entryNum, String date, String amount, String log) {
-        this.entryNum = entryNum;
-        this.date = date;
-        this.amount = amount;
-        this.log = log;
-    }
-
-    /**
      * Converts a given Transaction entry into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
@@ -60,21 +50,21 @@ public class XmlAdaptedEntry {
         return new Entry(entryNum, date, amount, log);
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof XmlAdaptedEntry)) {
-            return false;
-        }
-
-        XmlAdaptedEntry otherEntry = (XmlAdaptedEntry) other;
-        return entryNum.equals(otherEntry.entryNum)
-            && date.equals(otherEntry.date)
-            && amount.equals(otherEntry.amount)
-            && log.equals(otherEntry.log);
-    }
+//    @Override
+//    public boolean equals(Object other) {
+//        if (other == this) {
+//            return true;
+//        }
+//
+//        if (!(other instanceof XmlAdaptedEntry)) {
+//            return false;
+//        }
+//
+//        XmlAdaptedEntry otherEntry = (XmlAdaptedEntry) other;
+//        return entryNum.equals(otherEntry.entryNum)
+//            && date.equals(otherEntry.date)
+//            && amount.equals(otherEntry.amount)
+//            && log.equals(otherEntry.log);
+//    }
 }
 

@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
  *
  * @author ericyjw
  */
-public class XmlToHmtl {
+public class XmlToHtml {
 
     private static final String ccaBook = "./data/ccabook.xml";
     private static final String ccaBookXsl = "./src/main/resources/docs/ccabook.xsl";
