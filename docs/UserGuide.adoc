@@ -384,6 +384,7 @@ Shorthand: `p`
 * InsuRen will add the image to the contact.
 * Only `.jpg` and `.png` files are accepted.
 * File location can be an absolute path (`/Users/john/Downloads/InsuRen/images/petertan.jpg`), or a relative path (`images/petertan.jpg`).
+* If the picture gets deleted or renamed, InsuRen will show the default user picture.
 ****
 
 Examples:
