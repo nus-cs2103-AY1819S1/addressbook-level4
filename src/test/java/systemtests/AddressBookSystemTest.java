@@ -27,6 +27,8 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.ModuleListPanelHandle;
+import guitests.guihandles.OccasionListPanelHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
@@ -117,6 +119,14 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getPersonListPanel();
     }
 
+    public ModuleListPanelHandle getModuleListPanel() {
+        return mainWindowHandle.getModuleListPanel();
+    }
+
+    public OccasionListPanelHandle getOccasionListPanel() {
+        return mainWindowHandle.getOccasionListPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
@@ -202,7 +212,7 @@ public abstract class AddressBookSystemTest {
     protected void selectModule(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         // TODO: -> getModuleListPanel implemented.
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getModuleListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -235,7 +245,7 @@ public abstract class AddressBookSystemTest {
     protected void selectOccasion(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         // TODO: -> getOccasionListPanel implemented. Need to morph select command.
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getOccasionListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -254,6 +264,32 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+    }
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                     Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+    }
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+                                                     Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());

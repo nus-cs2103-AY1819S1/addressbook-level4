@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.ModuleCardHandle;
+import guitests.guihandles.ModuleListPanelHandle;
 import guitests.guihandles.OccasionCardHandle;
+import guitests.guihandles.OccasionListPanelHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
@@ -95,11 +97,49 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that the list in {@code moduleListPanelHandle} displays the details of {@code modules} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatching(ModuleListPanelHandle moduleListPanelHandle, Module... modules) {
+        for (int i = 0; i < modules.length; i++) {
+            moduleListPanelHandle.navigateToCard(i);
+            assertCardDisplaysModule(modules[i], moduleListPanelHandle.getModuleCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code occasionListPanelHandle} displays the details of {@code occasions} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatching(OccasionListPanelHandle occasionListPanelHandle, Occasion... occasions) {
+        for (int i = 0; i < occasions.length; i++) {
+            occasionListPanelHandle.navigateToCard(i);
+            assertCardDisplaysOccasion(occasions[i], occasionListPanelHandle.getOccasionCardHandle(i));
+        }
+    }
+
+    /**
      * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
      * in the correct order.
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<Person> persons) {
         assertListMatching(personListPanelHandle, persons.toArray(new Person[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code moduleListPanelHandle} displays the details of {@code modules} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatching(ModuleListPanelHandle moduleListPanelHandle, List<Module> modules) {
+        assertListMatching(moduleListPanelHandle, modules.toArray(new Module[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code occasionListPanelHandle} displays the details of {@code occasions} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatching(OccasionListPanelHandle occasionListPanelHandle, List<Occasion> occasions) {
+        assertListMatching(occasionListPanelHandle, occasions.toArray(new Occasion[0]));
     }
 
     /**
