@@ -18,13 +18,11 @@ public class Analytics {
     private PatientStatistics patientStatistics;
     private AppointmentStatistics appointmentStatistics;
     private DoctorStatistics doctorStatistics;
-    private MedicineStatistics medicineStatistics;
 
     public Analytics() {
         patientStatistics = new PatientStatistics();
         appointmentStatistics = new AppointmentStatistics();
         doctorStatistics = new DoctorStatistics();
-        medicineStatistics = new MedicineStatistics();
     }
 
     public void setPatients(ObservableList<Patient> patients) {
@@ -60,21 +58,8 @@ public class Analytics {
         case DOCTOR:
             return doctorStatistics.getAllData();
 
-        case MEDICINE:
-            return medicineStatistics.getAllData();
-
         default:
             return appointmentStatistics.getAllData();
         }
     }
-
-    /**
-    public void setMedicines(ObservableList<Medicine> medicines) {
-        medicineStatistics.setMedicines(medicines);
-    }
-
-    public void getAllMedicineStatistics() {
-        medicineStatistics.getAllStatistics();
-    }
-     */
 }

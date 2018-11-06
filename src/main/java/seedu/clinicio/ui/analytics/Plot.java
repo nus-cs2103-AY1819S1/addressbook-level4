@@ -44,20 +44,6 @@ public class Plot {
         }
     }
 
-
-//    /**
-//     * Updates {@code chartPane} with the appropriate visualizations, if they exist.
-//     */
-//    public static void updateVisualization(CircularDoublyLinkedList<VisualizationData> allVisualizationData, Pane
-//        chartPane) {
-//        if (allVisualizationData.getSize() < 1) {
-//            chartPane.setStyle("-fx-background-color: #fff");
-//            return;
-//        }
-//
-//        plotChart(allVisualizationData.getFirst(), chartPane);
-//    }
-
     /**
      * Decides which chart type to plot.
      * @param data The data to plot.

@@ -484,14 +484,20 @@ public class ModelManager extends ComponentManager implements Model {
      * Updates statistics data depending on the type that is supplied.
      */
     public void updateAnalytics(StatisticType type) {
-        analytics.setConsultations(versionedClinicIo.getConsultationList());
         switch (type) {
+        case PATIENT:
+            analytics.setPatients(versionedClinicIo.getPatientList());
+            analytics.setConsultations(versionedClinicIo.getConsultationList());
+            break;
+
         case APPOINTMENT:
             analytics.setAppointments(versionedClinicIo.getAppointmentList());
             break;
 
         case DOCTOR:
             analytics.setDoctors(versionedClinicIo.getStaffList());
+            analytics.setPatients(versionedClinicIo.getPatientList());
+            analytics.setConsultations(versionedClinicIo.getConsultationList());
             break;
 
         default:

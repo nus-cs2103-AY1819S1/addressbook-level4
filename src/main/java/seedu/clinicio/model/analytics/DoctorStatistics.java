@@ -22,8 +22,6 @@ import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.staff.Staff;
 
-//@@author arsalanc-v2
-
 /**
  * Responsible for all statistics related to doctors.
  */
@@ -138,7 +136,7 @@ public class DoctorStatistics extends Statistics {
     /**
      * Counts the number of patients who prefer each doctor.
      * @return A list of tuples with the key being a doctor's name and the value being the number of patients who have
-     * a preference for him or her.
+     * a preference for that particular doctor.
      */
     public List<Tuple<String, Integer>> preferencesPerDoctorCount() {
         List<Tuple<String, Integer>> prefCounts = new ArrayList<Tuple<String, Integer>>();

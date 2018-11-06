@@ -163,7 +163,6 @@ public class Date {
 
     /**
      * @return the date without labels.
-     *
      */
     public String toStringNoLabel() {
         final StringBuilder builder = new StringBuilder();

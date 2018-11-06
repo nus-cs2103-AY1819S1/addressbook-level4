@@ -14,6 +14,7 @@ import seedu.clinicio.model.analytics.data.StatData;
 import seedu.clinicio.model.analytics.data.SummaryData;
 import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
+import seedu.clinicio.model.analytics.util.DateUtil;
 import seedu.clinicio.model.appointment.Date;
 
 //@@author arsalanc-v2
@@ -57,10 +58,10 @@ public abstract class Statistics {
      * @return A list of the number of occurrences of dates for each summary field.
      */
     public List<Integer> computeSummaryTotals(List<Date> dates) {
-        int todayCount = DateTimeUtil.today(dates);
-        int weekCount = DateTimeUtil.currentWeek(dates);
-        int monthCount = DateTimeUtil.currentMonth(dates);
-        int yearCount = DateTimeUtil.currentYear(dates);
+        int todayCount = DateUtil.today(dates);
+        int weekCount = DateUtil.currentWeek(dates);
+        int monthCount = DateUtil.currentMonth(dates);
+        int yearCount = DateUtil.currentYear(dates);
 
         return Arrays.asList(todayCount, weekCount, monthCount, yearCount);
     }
@@ -127,10 +128,10 @@ public abstract class Statistics {
         List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
 
         for (List<Date> datesGroup : datesGroups) {
-            Map<Date, Integer> nextWeekDateCounts = DateTimeUtil.eachDateOfNextWeekCount(datesGroup);
+            Map<Date, Integer> nextWeekDateCounts = DateUtil.eachDateOfNextWeekCount(datesGroup);
 
             List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.entrySet().stream()
-                .map(entry -> new Tuple<DayOfWeek, Integer>(DateTimeUtil.getDayFromDate(entry.getKey()), entry
+                .map(entry -> new Tuple<DayOfWeek, Integer>(DateUtil.getDayFromDate(entry.getKey()), entry
                     .getValue()))
                 .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
                 .map(tuple -> new Tuple<String, Integer>(tuple.getKey().name(), tuple.getValue()))
@@ -160,10 +161,10 @@ public abstract class Statistics {
         List<List<Tuple<String, Integer>>> dataGroups = new ArrayList<>();
 
         for (List<Date> datesGroup : datesGroups) {
-            Map<Date, Integer> nextWeekDateCounts = DateTimeUtil.eachDateOfNextWeekCount(datesGroup);
+            Map<Date, Integer> nextWeekDateCounts = DateUtil.eachDateOfNextWeekCount(datesGroup);
 
             List<Tuple<String, Integer>> dataGroup = nextWeekDateCounts.entrySet().stream()
-                .map(entry -> new Tuple<DayOfWeek, Integer>(DateTimeUtil.getDayFromDate(entry.getKey()), entry
+                .map(entry -> new Tuple<DayOfWeek, Integer>(DateUtil.getDayFromDate(entry.getKey()), entry
                     .getValue()))
                 .sorted((tuple1, tuple2) -> tuple1.getKey().compareTo(tuple2.getKey()))
                 .map(tuple -> new Tuple<String, Integer>(tuple.getKey().name(), tuple.getValue()))

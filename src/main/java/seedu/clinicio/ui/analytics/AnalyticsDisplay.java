@@ -3,14 +3,7 @@ package seedu.clinicio.ui.analytics;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 
@@ -21,6 +14,7 @@ import seedu.clinicio.model.analytics.data.Tuple;
 import seedu.clinicio.model.analytics.data.VisualizationData;
 import seedu.clinicio.ui.UiPart;
 
+import javafx.fxml.FXML;
 import com.google.common.eventbus.Subscribe;
 
 //@@author arsalanc-v2
@@ -76,59 +70,30 @@ public class AnalyticsDisplay extends UiPart<Region> {
     }
 
     /**
-     * Sets event listeners to maintain focus on the analytics pane and cycle through visualizations.
+     * Plots the next visualization in the case where the "Previous" button is clicked.
      */
-    public void setEventListeners() {
-        analyticsPane.addEventFilter(KeyEvent.KEY_PRESSED,
-            event -> {
-                if (event.getCode().equals(KeyCode.RIGHT)) {
-                    handleRightArrow();
-                } else if (event.getCode().equals(KeyCode.LEFT)) {
-                    handleLeftArrow();
-                }
-            });
-    }
-
-    /**
-     * Plots the next visualization in the case where the right arrow key is pressed.
-     * In a separate method for clarity as same number of lines would be required if in the same method as left arrow
-     * functionality.
-     */
-    public void handleRightArrow() {
+    @FXML
+    public void handleNextVisualization() {
         chartPane.getChildren().clear();
         Plot.plotChart(allDataToDisplay.getVisualizationData().getNext(), chartPane);
     }
 
     /**
-     * Plots the previous visualization in the case where the right arrow key is pressed.
-     * In a separate method for clarity as same number of lines would be required if in the same method as right arrow
-     * functionality.
+     * Plots the previous visualization in the case where the "Next" button is clicked.
      */
-    public void handleLeftArrow() {
+    @FXML
+    public void handlePreviousVisualization() {
         chartPane.getChildren().clear();
         Plot.plotChart(allDataToDisplay.getVisualizationData().getPrevious(), chartPane);
     }
 
     @Subscribe
     public void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
-        setEventListeners();
         allDataToDisplay = event.getAllData();
         chartPane.getChildren().clear();
-        chartPane.setStyle("-fx-background-color: #6593F5");
         CircularList<VisualizationData> allVisualizationData = allDataToDisplay.getVisualizationData();
-        //allVisualizationData.setIterator();
         Plot.plotChart(allVisualizationData.getNext(), chartPane);
         Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
         analyticsPane.setVisible(true);
-        analyticsPane.requestFocus();
     }
-
-    public boolean isVisible() {
-        return analyticsPane.isVisible();
-    }
-
-    public void setVisible(boolean visibility) {
-        analyticsPane.setVisible(visibility);
-    }
-
 }

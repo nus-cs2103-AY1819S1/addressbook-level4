@@ -1,4 +1,4 @@
-package seedu.clinicio.model.analytics;
+package seedu.clinicio.model.analytics.util;
 
 import static java.lang.Math.toIntExact;
 import static java.util.stream.Collectors.groupingBy;
@@ -19,9 +19,9 @@ import seedu.clinicio.model.appointment.Date;
 //@@author arsalanc-v2
 
 /**
- * Contains date and time utility methods for computing occurrences and retrieving date and time values.
+ * Contains utility methods for computing occurrences and retrieving date values.
  */
-public class DateTimeUtil {
+public class DateUtil {
 
     /**
      * @return a list of the number of dates that occur in various time periods.
@@ -209,7 +209,6 @@ public class DateTimeUtil {
 
         // ! .isAfter used instead of .before for inclusivity of the endDate
         while (!startDate.isAfter(lastDateOfYear)) {
-            System.out.println(startDate);
             currentYearDates.add(getDate(startDate));
             startDate = startDate.plusDays(1);
         }
@@ -218,7 +217,7 @@ public class DateTimeUtil {
     }
 
     /**
-     *
+     * @return a list of the first date of each month in the current year.
      */
     public static List<Date> getFirstDatesOfCurrentYear() {
         LocalDate today = LocalDate.now();

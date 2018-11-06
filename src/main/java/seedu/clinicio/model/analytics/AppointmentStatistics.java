@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.clinicio.model.analytics.data.Tuple;
+import seedu.clinicio.model.analytics.util.DateUtil;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.appointment.Date;
-import seedu.clinicio.model.consultation.Consultation;
 
 //@@author arsalanc-v2
 
@@ -26,7 +26,6 @@ public class AppointmentStatistics extends Statistics {
     private static final int NUM_APPOINTMENTS_DAY = 24;
 
     private List<Appointment> appointments;
-    private List<Consultation> consultations;
 
     public AppointmentStatistics() {
         this.appointments = new ArrayList<>();
@@ -39,14 +38,6 @@ public class AppointmentStatistics extends Statistics {
      */
     public void setAppointments(ObservableList<Appointment> appointments) {
         this.appointments = appointments;
-    }
-
-    /**
-     *
-     * @param consultations
-     */
-    public void setConsultations(ObservableList<Consultation> consultations) {
-        this.consultations = consultations;
     }
 
     /**
@@ -94,8 +85,8 @@ public class AppointmentStatistics extends Statistics {
                 .map(appt -> appt.getAppointmentDate())
                 .collect(Collectors.toList());
 
-        return DateTimeUtil.eachDateOfCurrentWeekCount(datesOfAppointments).entrySet().stream()
-            .map(entry -> new Tuple<String, Integer>(DateTimeUtil.getDayFromDate(entry.getKey()).name(),
+        return DateUtil.eachDateOfCurrentWeekCount(datesOfAppointments).entrySet().stream()
+            .map(entry -> new Tuple<String, Integer>(DateUtil.getDayFromDate(entry.getKey()).name(),
                 entry.getValue()))
             .collect(Collectors.toList());
     }
@@ -107,11 +98,11 @@ public class AppointmentStatistics extends Statistics {
         // get the subset of appointments that are scheduled for next week.
         List<Date> scheduledSlotsDates = appointments.stream()
             .map(appt -> appt.getAppointmentDate())
-            .filter(date -> DateTimeUtil.isNextWeek(date))
+            .filter(date -> DateUtil.isNextWeek(date))
             .collect(Collectors.toList());
 
         // get a list of the dates for next week
-        List<Date> nextWeekDates = DateTimeUtil.getNextWeekDates();
+        List<Date> nextWeekDates = DateUtil.getNextWeekDates();
 
         List<Date> availableSlotsDates = new ArrayList<>();
         // for each day of next week, find the number of slots scheduled
@@ -125,25 +116,25 @@ public class AppointmentStatistics extends Statistics {
             availableSlotsDates.addAll(Collections.nCopies(availableSlots, nextWeekDate));
         }
 
-        List<List<Tuple<String, Integer>>> appointmentGroupsData = overNextWeek(Arrays.asList
+        List<List<Tuple<String, Integer>>> appointmentDataGroups = overNextWeek(Arrays.asList
             (scheduledSlotsDates, availableSlotsDates));
-        List<String> appointmentGroupsLabels = Arrays.asList("scheduled", "available");
+        List<String> appointmentLabelGroups = Arrays.asList("scheduled", "available");
 
         // get a list of all days next week
-        List<String> nextWeekDays = DateTimeUtil.getDaysOfWeek().stream()
+        List<String> nextWeekDays = DateUtil.getDaysOfWeek().stream()
             .map(dayOfWeek -> dayOfWeek.name())
             .collect(Collectors.toList());
 
         statData.addVisualizationLabels("apptSupplyDemand", ChartType.STACKED_BAR,
-            "Appointments Next Week", "Day of week", "Number of appointments", nextWeekDays,
-            appointmentGroupsData, appointmentGroupsLabels);
+            "Appointments next week", "Day of week", "Number of appointments", nextWeekDays,
+            appointmentDataGroups, appointmentLabelGroups);
     }
 
     /**
      * Computes data to plot the number of appointments over the course of the current year.
      */
     public void plotAppointmentsOverYear() {
-        List<Date> currentYearDates = DateTimeUtil.getCurrentYearDates();
+        List<Date> currentYearDates = DateUtil.getCurrentYearDates();
 
         List<Tuple<String, Integer>> dateCounts = new ArrayList<>();
         for (Date currentYearDate : currentYearDates) {
@@ -156,9 +147,12 @@ public class AppointmentStatistics extends Statistics {
                 (numberOfAppointments)));
         }
 
-        List<String> xLabels = DateTimeUtil.getFirstDatesOfCurrentYear().stream()
+        List<String> xLabels = DateUtil.getFirstDatesOfCurrentYear().stream()
             .map(date -> date.toStringNoLabel())
             .collect(Collectors.toList());
+
+
+        System.out.println(xLabels.size());
 
         statData.addVisualizationLabels("apptsYear", ChartType.LINE, "Number of Appointments This Year", "Date",
             "Number of Appointments", xLabels, Arrays.asList(dateCounts), Arrays.asList(""));

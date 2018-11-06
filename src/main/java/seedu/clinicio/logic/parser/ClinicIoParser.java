@@ -26,7 +26,6 @@ import seedu.clinicio.logic.commands.HelpCommand;
 import seedu.clinicio.logic.commands.HistoryCommand;
 import seedu.clinicio.logic.commands.ListCommand;
 import seedu.clinicio.logic.commands.LoginCommand;
-import seedu.clinicio.logic.commands.MedicineStatisticsCommand;
 import seedu.clinicio.logic.commands.PatientStatisticsCommand;
 import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
@@ -108,9 +107,6 @@ public class ClinicIoParser {
 
         case DoctorStatisticsCommand.COMMAND_WORD:
             return new DoctorStatisticsCommand();
-
-        case MedicineStatisticsCommand.COMMAND_WORD:
-            return new MedicineStatisticsCommand();
 
         case LoginCommand.COMMAND_WORD:
             return new LoginCommandParser().parse(arguments);
