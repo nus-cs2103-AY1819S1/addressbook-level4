@@ -5,7 +5,7 @@
         <lunch>
             <name>Chicken Burger</name>
             <difficulty>1</difficulty>
-            <cooktime>PT15M</cooktime>
+            <cooktime>15M</cooktime>
         </lunch>
     </mp>
     <mp>
@@ -13,7 +13,7 @@
         <lunch>
             <name>Chicken Burger</name>
             <difficulty>1</difficulty>
-            <cooktime>PT15M</cooktime>
+            <cooktime>15M</cooktime>
         </lunch>
     </mp>
     <mp>
@@ -21,7 +21,7 @@
         <lunch>
             <name>Chicken Burger</name>
             <difficulty>1</difficulty>
-            <cooktime>PT15M</cooktime>
+            <cooktime>15M</cooktime>
         </lunch>
     </mp>
     <mp>
@@ -29,7 +29,7 @@
         <lunch>
             <name>Chicken Burger</name>
             <difficulty>1</difficulty>
-            <cooktime>PT15M</cooktime>
+            <cooktime>15M</cooktime>
         </lunch>
     </mp>
 </mealplans>
