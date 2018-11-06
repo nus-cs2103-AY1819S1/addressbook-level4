@@ -198,6 +198,7 @@ Edits the phone number and email address of the 1st user to be `91234567` and `j
 * `editUser 2 n/Betsy Crower t/` +
 Edits the name of the 2nd user to be `Betsy Crower` and clears all existing tags.
 
+// tag::addDeleteFriend[]
 ==== Add a friend : `addFriend`
 
 For two persons, adds friend with each other. +
@@ -226,7 +227,9 @@ Format: `deleteFriend INDEX,INDEX`
 * Each index *must be a positive integer* 1, 2, 3, ..., and must be different from each other.
 * The two users must already be friends.
 ****
+// end::addDeleteFriend[]
 
+// tag::suggestFriends[]
 ==== Suggest friends based on similar interests : `suggestFriendsByInterests`
 
 Suggest friends for an existing user in the Event Organiser that have at least one similar interest with the selected user. +
@@ -245,6 +248,7 @@ Examples:
 
 * `suggestFriendsByInterests 1` +
 Suggests friends for the 1st user in the Event Organiser that have at least one similar interest with the selected user.
+// end::suggestFriends[]
 
 // tag::maxschedule[]
 ==== Get free time between users : `maxSchedule`

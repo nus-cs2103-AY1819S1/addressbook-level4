@@ -16,37 +16,33 @@ who prefer to work with a Command Line Interface (CLI) while still having the be
 
 * *Major enhancement*: Added the ability to specify friendships among users
 ** What it does: Allows the users to add or delete friends with each other and have their friend lists displayed
-** Justification: This feature enforces some level of authorisation for our application so that some commands are only accessible by specific users
+** Justification: This feature allows users to keep a friendship list which they can refer to it themselves when creating new events. For example, if they would like to organize a friends meetup, they will know who to add to the event. Also, it allows users to search for friends with common interests and expand their friendship lists.
 
-* *Minor enhancement*: Added an all encompassing command that allows users to find other users based on their name, phone number, address, email, interests, and tags
+* *Minor enhancement*: Added a new attribute Interest for a user
+** Justification: This attribute allows users to specify any number of interests, which can be identified for friendships and events.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=agendazhang[Functional code]]
 
 * *Other contributions*:
 
-** Project management:
-*** Set up organisation's Github page
+** Project management
+** Enhancements to existing features:
+*** Updated the GUI browser display (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/123[#123])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull request https://github.com/CS2103-AY1819S1-W10-3/main/pull/163[#163])
 ** Documentation:
 *** Finalise User Stories: https://github.com/CS2103-AY1819S1-W10-3/main/pull/18[#18]
-*** Use Cases: https://github.com/CS2103-AY1819S1-W10-3/main/pull/17/files[#17]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/19[#19], https://github.com/CS2103-AY1819S1-W10-3/main/pull/45[#45], https://github.com/CS2103-AY1819S1-W10-3/main/pull/73[#73]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-T13-2/main/issues/95[#95], https://github.com/CS2103-AY1819S1-T13-2/main/issues/97[#97])
-** Tools:
-*** Integrated a continuous integration tool (Travis CI) to the project (https://github.com/CS2103-AY1819S1-W10-3/main/pull/60/files[#60])
-*** Integrated a web service that tracks code coverage (Coveralls) to the project (https://github.com/CS2103-AY1819S1-W10-3/main/pull/60/files[#60])
-*** Integrated a web service that automates code reviews and code analytics (Codacy) to the project (https://github.com/CS2103-AY1819S1-W10-3/main/pull/60/files[#60])
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W10-3/main/pull/164[#164], https://github.com/CS2103-AY1819S1-W10-3/main/pull/165[#165]
+*** Reported bugs and suggestions for other teams in the class (No reference as it was done verbally with group W10-2)
 
 == Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-include::../UserGuide.adoc[tag=yaofeng(login/logout)]
+include::../UserGuide.adoc[tag=addDeleteFriend]
 
-include::../UserGuide.adoc[tag=yaofeng(finduser)]
-
-include::../UserGuide.adoc[tag=yaofeng(commandsummary)]
+include::../UserGuide.adoc[tag=suggestFriends]
 
 == Contributions to the Developer Guide
 
@@ -54,6 +50,4 @@ include::../UserGuide.adoc[tag=yaofeng(commandsummary)]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=login/logout]
-
-include::../DeveloperGuide.adoc[tag=UC]
+include::../DeveloperGuide.adoc[tag=addDeleteFriend]
