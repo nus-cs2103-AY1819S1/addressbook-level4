@@ -263,6 +263,7 @@ Format: `classify DIFFICULTY`
 
 ****
 * The *DIFFICULTY* parameter should be one of the strings: {`easy`, `normal`, `hard`}
+* The *DIFFICULTY* parameter is case-insensitive
 * By default, cards are assigned a `normal` difficulty
 ****
 
