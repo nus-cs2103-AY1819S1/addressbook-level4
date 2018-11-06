@@ -1,6 +1,7 @@
 package seedu.clinicio.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
@@ -31,6 +32,7 @@ import seedu.clinicio.model.person.Email;
 import seedu.clinicio.model.person.Name;
 import seedu.clinicio.model.person.Phone;
 import seedu.clinicio.model.staff.Password;
+import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.tag.Tag;
 import seedu.clinicio.testutil.Assert;
 
@@ -567,5 +569,35 @@ public class ParserUtilTest {
                 Arrays.asList(new Allergy(VALID_ALLERGY_1), new Allergy(VALID_ALLERGY_2)));
 
         assertEquals(expectedAllergySet, actualAllergySet);
+    }
+
+    @Test
+    public void parsePreferredDoctor_null_throwNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parsePreferredDoctor(null);
+    }
+
+    @Test
+    public void parsePreferredDoctor_invalidDoctor_throwParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parsePreferredDoctor(INVALID_NAME);
+    }
+
+    @Test
+    public void parsePreferredDoctor_emptyDoctor_returnNull() throws Exception {
+        assertNull(ParserUtil.parsePreferredDoctor(""));
+    }
+
+    @Test
+    public void parsePreferredDoctor_validStaffAndNameWithoutWhitespace_returnDoctor() throws Exception {
+        Staff expectedStaff = new Staff(DOCTOR, new Name(VALID_NAME));
+        assertEquals(expectedStaff, ParserUtil.parsePreferredDoctor(VALID_NAME));
+    }
+
+    @Test
+    public void parsePreferredDoctor_validStaffAndNameWithWhitespace_returnTrimmedDoctor() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
+        Staff expectedStaff = new Staff(DOCTOR, new Name(VALID_NAME));
+        assertEquals(expectedStaff, ParserUtil.parsePreferredDoctor(nameWithWhitespace));
     }
 }
