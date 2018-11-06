@@ -12,7 +12,7 @@ import seedu.thanepark.model.ThanePark;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Zone book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Data in Thane Park has been cleared!";
 
 
     @Override

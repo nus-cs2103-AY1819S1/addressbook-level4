@@ -1,39 +1,39 @@
 :stylesDir: stylesheets
 :experimental:
 
+Command syntax summary, enter `help more` for full manual.
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
 |*Manage Attractions*
-|`add <attraction>` `<maintenance>` `<waitTime>` `<address>` `[tag(s)]` +
-|`delete <index>`
-|`update <index> <tag> <value>`
-|`shutdown <index>`
-|`open <index>`
-|`clear`
+|add <attraction> <maintenance> <waitTime> <address> [tag(s)] delete <index>
+|update <index> <tag> <value>
+|shutdown <index>
+|open <index>
+|clear
 |=======================================================================
 
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
 |*Get help and accessibility*
-|`help [option]`
+|help [option]
 |Autocomplete: kbd:[TAB]
-|`history [option]`
-|`undo`
-|`redo`
-|`exit`
+|history [option]
+|undo
+|redo
+|exit
 |=======================================================================
 
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
 |*View information on the list of rides*
-|`viewall`
-|`view <index>`
-|`viewstatus <status>`
+|viewall
+|view <index>
+|viewstatus <status>
 |=======================================================================
 
 [width="100%",cols="<100%",options="header",]
 |=======================================================================
 |*Find the relevant list of rides*
-|`filter <tag> <condition> [[tag] [condition]…​]`
-|`find <[name] [[tag][keyword]…​]>`
+|filter <tag> <condition> [[tag] [condition]…​]
+|find <[name] [[tag][keyword]…​]>
 |=======================================================================

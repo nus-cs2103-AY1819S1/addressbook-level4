@@ -117,7 +117,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the ride at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to showWithFilePath only the ride at the given {@code targetIndex} in the
      * {@code model}'s thanepark book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {

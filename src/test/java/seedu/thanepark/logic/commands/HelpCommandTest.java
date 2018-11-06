@@ -13,6 +13,7 @@ import org.junit.Test;
 import seedu.thanepark.commons.events.BaseEvent;
 import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.logic.CommandHistory;
+import seedu.thanepark.logic.parser.HelpCommandParser;
 import seedu.thanepark.model.Model;
 import seedu.thanepark.model.ModelManager;
 import seedu.thanepark.ui.testutil.EventsCollectorRule;
@@ -27,7 +28,8 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-        assertCommandSuccess(new HelpCommand(), model, commandHistory, SHOWING_SHORT_HELP_MESSAGE, expectedModel);
+        assertCommandSuccess(new HelpCommand(true, ""),
+                model, commandHistory, SHOWING_SHORT_HELP_MESSAGE, expectedModel);
 
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);
@@ -37,8 +39,9 @@ public class HelpCommandTest {
 
     @Test
     public void execute_helpMore_success() {
-        String[] args = {"more"};
-        assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
+        final String args = "more";
+        assertCommandSuccess(new HelpCommandParser().parse(args),
+                model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
 
         BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
         assertTrue(recentEvent instanceof ShowHelpRequestEvent);
@@ -51,9 +54,9 @@ public class HelpCommandTest {
         int numEvents = 0;
         for (String commandWord : AllCommandWords.COMMAND_WORDS) {
             numEvents++;
-            System.out.println(commandWord);
-            String[] args = {commandWord};
-            assertCommandSuccess(new HelpCommand(args), model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
+            final String args = commandWord;
+            assertCommandSuccess(new HelpCommand(false, args),
+                    model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
 
             BaseEvent recentEvent = eventsCollectorRule.eventsCollector.getMostRecent();
             assertTrue(recentEvent instanceof ShowHelpRequestEvent);
