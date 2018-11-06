@@ -36,6 +36,8 @@ public class MainWindow extends UiPart<Stage> {
 
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private ModuleListPanel moduleListPanel;
+    private OccasionListPanel occasionListPanel;
     private Config config;
     private Logic logic;
 
@@ -174,10 +176,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleModule() {
         getBrowserPlaceholder().getChildren().clear();
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
-
-        ModuleListPanel moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         getEntityListPanelPlaceholder().getChildren().clear();
+        moduleListPanel.clearSelection();
+
+        moduleListPanel.updatePanel(logic.getFilteredModuleList());
+        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
     }
 
@@ -187,10 +190,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handlePerson() {
         getBrowserPlaceholder().getChildren().clear();
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
-
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         getEntityListPanelPlaceholder().getChildren().clear();
+        personListPanel.clearSelection();
+
+        personListPanel.updatePanel(logic.getFilteredPersonList());
+        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
     }
 
@@ -200,10 +204,11 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleOccasion() {
         getBrowserPlaceholder().getChildren().clear();
-        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
-
-        OccasionListPanel occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
         getEntityListPanelPlaceholder().getChildren().clear();
+        occasionListPanel.clearSelection();
+
+        occasionListPanel.updatePanel(logic.getFilteredOccasionList());
+        getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
         getEntityListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
     }
 
@@ -215,6 +220,8 @@ public class MainWindow extends UiPart<Stage> {
         getBrowserPlaceholder().getChildren().add(browserPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+        occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
         getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
 
         ResultDisplay resultDisplay = new ResultDisplay();

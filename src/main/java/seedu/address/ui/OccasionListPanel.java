@@ -33,6 +33,24 @@ public class OccasionListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Clears selection of the view.
+     */
+    public void clearSelection() {
+        Platform.runLater(() -> {
+            occasionListView.getSelectionModel().clearSelection();
+        });
+    }
+
+    /**
+     * Change list of view.
+     * @param occasionList updated list.
+     */
+    public void updatePanel(ObservableList<Occasion> occasionList) {
+        occasionListView.setItems(occasionList);
+        occasionListView.setCellFactory(listView -> new OccasionListViewCell());
+    }
+
     private void setConnections(ObservableList<Occasion> occasionList) {
         occasionListView.setItems(occasionList);
         occasionListView.setCellFactory(listView -> new OccasionListViewCell());
