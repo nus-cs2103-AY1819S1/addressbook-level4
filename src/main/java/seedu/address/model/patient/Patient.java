@@ -95,19 +95,6 @@ public class Patient extends Person {
     }
 
     /**
-     * Delete allergy into the medical history of patient
-     */
-    public void deleteAllergy(String condition) {
-        medicalHistory.deleteAllergy(condition);
-    }
-    /**
-     * Delete condition into the medical history of patient
-     */
-    public void deleteCondition(String condition) {
-        medicalHistory.deleteCondition(condition);
-    }
-
-    /**
      * Adds an upcoming appointment to the patient's queue of upcoming appointment.
      */
     public void addUpcomingAppointment(Appointment appointment) {
