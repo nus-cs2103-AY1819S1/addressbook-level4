@@ -9,9 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_GAME;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2018;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GAME;
@@ -19,13 +18,9 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2018;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GAME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
@@ -51,7 +46,6 @@ import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ExpenseBuilder;
-import seedu.address.testutil.ExpenseUtil;
 
 public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
 
@@ -187,7 +181,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* Case: invalid address -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
-                + INVALID_ADDRESS_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
+                + INVALID_COST_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);

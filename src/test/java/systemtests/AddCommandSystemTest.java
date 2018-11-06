@@ -8,8 +8,8 @@ import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_GAME;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2018;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_GAME;
@@ -164,8 +164,8 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + INVALID_CATEGORY_DESC + COST_DESC_GAME + DATE_DESC_1990;
         assertCommandFailure(command, Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + CATEGORY_DESC_GAME + INVALID_ADDRESS_DESC + DATE_DESC_1990;
+        /* Case: invalid cost -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_GAME + CATEGORY_DESC_GAME + INVALID_COST_DESC + DATE_DESC_1990;
         assertCommandFailure(command, Cost.MESSAGE_COST_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */

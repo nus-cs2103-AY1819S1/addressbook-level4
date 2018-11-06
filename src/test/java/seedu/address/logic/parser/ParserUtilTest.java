@@ -25,12 +25,12 @@ import seedu.address.testutil.Assert;
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_CATEGORY = " ";
-    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_COST = " ";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_CATEGORY = "School";
-    private static final String VALID_ADDRESS = "12313123.00";
+    private static final String VALID_COST = "12313123.00";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
@@ -114,19 +114,19 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_COST));
     }
 
     @Test
     public void parseAddress_validValueWithoutWhitespace_returnsAddress() throws Exception {
-        Cost expectedCost = new Cost(VALID_ADDRESS);
-        assertEquals(expectedCost, ParserUtil.parseAddress(VALID_ADDRESS));
+        Cost expectedCost = new Cost(VALID_COST);
+        assertEquals(expectedCost, ParserUtil.parseAddress(VALID_COST));
     }
 
     @Test
     public void parseAddress_validValueWithWhitespace_returnsTrimmedAddress() throws Exception {
-        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
-        Cost expectedCost = new Cost(VALID_ADDRESS);
+        String addressWithWhitespace = WHITESPACE + VALID_COST + WHITESPACE;
+        Cost expectedCost = new Cost(VALID_COST);
         assertEquals(expectedCost, ParserUtil.parseAddress(addressWithWhitespace));
     }
 
