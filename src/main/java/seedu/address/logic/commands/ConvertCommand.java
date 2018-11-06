@@ -31,7 +31,6 @@ public class ConvertCommand extends Command {
     //the path of the json file containing the arguments of the convert command
     public static final URL SINGLE_COMMAND_TEMPLATE_PATH =
             ImageMagickUtil.class.getResource("/imageMagic/commandTemplates");
-
     private static final Logger logger = LogsCenter.getLogger(ConvertCommand.class);
 
     private Transformation transformation;
@@ -43,11 +42,6 @@ public class ConvertCommand extends Command {
      */
     public ConvertCommand(Transformation transformation) throws ParseException {
         this.transformation = transformation;
-    }
-
-    private static boolean isFileExist(URL fileUrl) {
-        /*return new File(fileUrl.toString()).exists();*/
-        return true;
     }
 
     /**
@@ -71,5 +65,11 @@ public class ConvertCommand extends Command {
             throw new CommandException(e.toString());
         }
         return new CommandResult("process is done");
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        ConvertCommand command = (ConvertCommand) object;
+        return command == this || transformation.equals(command.transformation);
     }
 }

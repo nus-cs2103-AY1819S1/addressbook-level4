@@ -31,6 +31,7 @@ public class JsonConvertArgsStorage {
     public static void storeArgument(String name, List<Transformation> cmds, String saveFolder) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode objectNode1 = mapper.createObjectNode();
+        //create node for the json file
         objectNode1.put("name", name);
         objectNode1.put("num", cmds.size());
         ObjectNode operation = mapper.createObjectNode();
@@ -49,6 +50,7 @@ public class JsonConvertArgsStorage {
         objectNode1.putPOJO("operations", operation);
         byte[] content = mapper.writer().writeValueAsString(objectNode1).getBytes();
         File command = new File(saveFolder + "/" + name + ".json");
+        //write the json content to the file
         BufferedOutputStream bio = new BufferedOutputStream(new FileOutputStream(command));
         bio.write(content);
         bio.write("\n".getBytes());
