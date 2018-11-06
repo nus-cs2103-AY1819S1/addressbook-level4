@@ -373,7 +373,7 @@ Format: `exportcert VOLUNTEER_INDEX`
 Example(s):
 
 * `exportcert 2` +
-Exports PDF certificate of volunteer at specified index 2 to folder 'Volunteer Certs' in the current working directory, or directly to the Desktop.
+Exports PDF certificate of volunteer at specified index 2 to folder 'Certs' in the current working directory, or directly to the Desktop.
 A success message will also be displayed in the following form: 'Certificate exported for volunteer at <INDEX> to <EXPORT FOLDER>'.
 
 Here is what the exported certificate currently looks like:

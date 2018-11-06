@@ -46,7 +46,7 @@ public class ExportCertCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
     public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to ";
     public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again";
-    public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + File.separator + "Volunteer Certs"
+    public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + File.separator + "Certs"
             + File.separator;
     public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + File.separator + "Desktop"
             + File.separator;
@@ -70,7 +70,7 @@ public class ExportCertCommand extends Command {
         if (!exportDir.exists()) {
             try {
                 exportDir.mkdir();
-                logger.info("Creating a new folder 'Volunteer Certs' in user's current working directory.");
+                logger.info("Creating a new folder 'Certs' in user's current working directory.");
             } catch (SecurityException se) {
                 logger.warning("Couldn't create a relative export path next to jar file. "
                         + "Defaulting to user's Desktop.");
