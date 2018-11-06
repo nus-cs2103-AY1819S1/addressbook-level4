@@ -199,7 +199,7 @@ public interface Model {
      * category totalBudget results in the sum of all category budgets exceeding the total totalBudget.
      */
     void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
-        NoUserSelectedException;
+            NoUserSelectedException;
 
     /**
      * Sets the totalBudget to reset and store spending data after a certain amount of time
