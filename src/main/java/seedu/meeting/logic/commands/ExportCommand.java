@@ -15,13 +15,8 @@ import seedu.meeting.model.Model;
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
-<<<<<<< HEAD:src/main/java/seedu/address/logic/commands/ExportCommand.java
-    public static final String MESSAGE_EXPORT_SUCCESS = "Export process has been successful.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the address book to specific filepath.\n"
-=======
     public static final String MESSAGE_EXPORT_SUCCESS = "Export process has been successfully completed.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Export the MeetingBook to specific filepath. "
->>>>>>> master:src/main/java/seedu/meeting/logic/commands/ExportCommand.java
             + "Parameters: "
             + PREFIX_PATH + "FilePath\n"
             + "Example: " + COMMAND_WORD + " "
