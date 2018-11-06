@@ -45,6 +45,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 *Command Format*
+
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Command words are case-sensitive e.g. `addEvent` is a valid command word, but `addevent` is not.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -56,10 +57,11 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 group/CS2013_Group2 i/3`
 ====
 
-=== Autocompletion of Commands: `TAB` button
+=== Auto-completion of commands: `TAB` key
 
-To auto-complete any command words, press the tab button. +
-For example, if `ad` is typed, `add` will be displayed in the command box upon pressing the `TAB` button. +
+To auto-complete any command words, press the `TAB` key. +
+For example, if `ad` is typed, `add` will be displayed in the command box upon pressing the `TAB` key. +
+
 Note that only command words will be auto-completed, and the auto-completion will only be successful if there
 are any valid command words (including command aliases) containing the current input as a prefix. The
 auto-completed is the nearest word containing the current input as a prefix.
