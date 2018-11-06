@@ -55,7 +55,7 @@ public class EventListPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         // manually reset eventTags (FlowPane) display
-        eventTags.getChildren().removeAll(allEventTags.getChildren());
+        allEventTags.getChildren().removeAll(allEventTags.getChildren());
         eventTagList.forEach(eventTag -> allEventTags.getChildren().add(new Label(eventTag.getLowerCaseTagName())));
     }
 
