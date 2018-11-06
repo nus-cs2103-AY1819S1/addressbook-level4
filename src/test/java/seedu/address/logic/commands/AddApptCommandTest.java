@@ -7,7 +7,6 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
-import java.util.function.Predicate;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -19,8 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.Type;
 import seedu.address.model.person.Address;

@@ -68,9 +68,9 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().
-            withPerson(ALICE).withPerson(BENSON).
-            withCheckedOutPerson(CARL).withCheckedOutPerson(DANIEL).build();
+        AddressBook addressBook = new AddressBookBuilder()
+            .withPerson(ALICE).withPerson(BENSON)
+            .withCheckedOutPerson(CARL).withCheckedOutPerson(DANIEL).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
