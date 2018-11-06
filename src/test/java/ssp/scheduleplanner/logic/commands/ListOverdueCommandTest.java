@@ -5,8 +5,6 @@ import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
 import ssp.scheduleplanner.model.UserPrefs;
-import ssp.scheduleplanner.model.task.Date;
-import ssp.scheduleplanner.model.task.DateSamePredicate;
 import ssp.scheduleplanner.model.task.OverduePredicate;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
