@@ -46,13 +46,20 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CommandBox extends UiPart<Region> {
 
     public static final List<String> ALL_COMMAND_WORDS = new ArrayList<>(Arrays.asList(AddCommand.COMMAND_WORD,
-            AddEventCommand.COMMAND_WORD, AddEventTagCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
-            DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-            FavouriteCommand.COMMAND_WORD, FindCommand.COMMAND_WORD, GenerateLocationCommand.COMMAND_WORD,
-            HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ImportContactsCommand.COMMAND_WORD,
-            ListCommand.COMMAND_WORD, ListEventCommand.COMMAND_WORD, NotificationCommand.COMMAND_WORD,
-            RedoCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD, ShowLocationCommand.COMMAND_WORD,
-            UndoCommand.COMMAND_WORD)).stream()
+            AddCommand.COMMAND_WORD_ALIAS, AddEventCommand.COMMAND_WORD, AddEventTagCommand.COMMAND_WORD,
+            ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD_ALIAS, DeleteCommand.COMMAND_WORD,
+            DeleteCommand.COMMAND_WORD_ALIAS, EditCommand.COMMAND_WORD, EditCommand.COMMAND_WORD_ALIAS,
+            ExitCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD_ALIAS, FavouriteCommand.COMMAND_WORD,
+            FavouriteCommand.COMMAND_WORD_ALIAS, FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD_ALIAS,
+            GenerateLocationCommand.COMMAND_WORD, GenerateLocationCommand.COMMAND_WORD_ALIAS,
+            HelpCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD_ALIAS, HistoryCommand.COMMAND_WORD,
+            HistoryCommand.COMMAND_WORD_ALIAS, ImportContactsCommand.COMMAND_WORD,
+            ListCommand.COMMAND_WORD, ListCommand.COMMAND_WORD_ALIAS, ListEventCommand.COMMAND_WORD,
+            NotificationCommand.COMMAND_WORD, NotificationCommand.COMMAND_WORD_ALIAS,
+            RedoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD,
+            SelectCommand.COMMAND_WORD_ALIAS, ShowLocationCommand.COMMAND_WORD,
+            ShowLocationCommand.COMMAND_WORD_ALIAS, UndoCommand.COMMAND_WORD,
+            UndoCommand.COMMAND_WORD_ALIAS)).stream()
             .sorted()
             .collect(Collectors.toList());
 
