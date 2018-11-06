@@ -55,7 +55,7 @@ public class LoginCommandTest {
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
 
         UserSession.destorySession();
-        
+
         command = new LoginCommand(
                 new Staff(RECEPTIONIST, ALAN.getName(), new Password(VALID_PASSWORD_ALAN, false)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, analytics);
