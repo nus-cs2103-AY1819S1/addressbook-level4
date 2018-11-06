@@ -24,6 +24,7 @@ import seedu.address.commons.events.ui.ClearHistoryEvent;
 import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.commons.exceptions.IllegalOperationException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -196,18 +197,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void setUpForGoogle(boolean isTest) {
         if (isTest) {
-            if (!DATA_STORE.exists()) {
-                DATA_STORE.mkdirs();
-            }
+            FileUtil.createDirectoriesIfMissing(DATA_STORE);
             try {
-                TEST_FILE.createNewFile();
+                FileUtil.createIfMissing(TEST_FILE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            if (TEST_FILE.exists()) {
-                TEST_FILE.delete();
-            }
+            FileUtil.deleteIfAvaliable(TEST_FILE);
             if (!BLOCKER.exists()) {
                 try {
                     photoLibrary = PhotosLibraryClientFactory.loginUserIfPossible();
