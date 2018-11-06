@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.UpdateCommand.MESSAGE_NON_EXISTENT_CCA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Objects;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowBudgetViewEvent;
 import seedu.address.logic.CommandHistory;
@@ -51,5 +53,15 @@ public class BudgetCommand extends Command {
 
         EventsCenter.getInstance().post(new ShowBudgetViewEvent(ccaName));
         return new CommandResult(SHOWING_BUDGET_MESSAGE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (ccaName == null && ((BudgetCommand) other).ccaName == null) {
+            return true;
+        }
+        return other == this // short circuit if same object
+            || (other instanceof BudgetCommand // instanceof handles nulls
+            && ccaName.equals(((BudgetCommand) other).ccaName)); // state check
     }
 }

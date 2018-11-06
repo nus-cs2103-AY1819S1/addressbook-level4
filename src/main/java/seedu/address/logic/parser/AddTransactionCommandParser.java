@@ -20,7 +20,7 @@ import seedu.address.model.transaction.Remarks;
  *
  * @author ericyjw
  */
-public class AddTransactionCommandPaser implements Parser<AddTransactionCommand> {
+public class AddTransactionCommandParser implements Parser<AddTransactionCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddTransactionCommand
      * and returns an AddTransactionCommand object for execution.
@@ -46,7 +46,8 @@ public class AddTransactionCommandPaser implements Parser<AddTransactionCommand>
         if (argMultimap.getAllValues(PREFIX_TAG).size() > 1 || argMultimap.getAllValues(PREFIX_DATE).size() > 1
             || argMultimap.getAllValues(PREFIX_AMOUNT).size() > 1
             || argMultimap.getAllValues(PREFIX_REMARKS).size() > 1) {
-            throw new ParseException(UpdateCommand.MESSAGE_USAGE);
+            throw new ParseException(AddTransactionCommand.MESSAGE_NOT_UPDATED
+                + "\n" + AddTransactionCommand.MESSAGE_USAGE);
         }
 
         CcaName ccaName = ParserUtil.parseCcaName((argMultimap.getValue(PREFIX_TAG).get()));

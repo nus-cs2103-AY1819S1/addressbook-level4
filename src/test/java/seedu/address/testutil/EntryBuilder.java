@@ -1,25 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE;
-import static seedu.address.testutil.TypicalEntries.TRANSACTION_EMPTY;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-
-import java.util.Set;
-
-import seedu.address.model.cca.Budget;
-import seedu.address.model.cca.Cca;
-import seedu.address.model.cca.CcaName;
-import seedu.address.model.cca.Outstanding;
-import seedu.address.model.cca.Spent;
-import seedu.address.model.person.Name;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.Date;
 import seedu.address.model.transaction.Entry;
 import seedu.address.model.transaction.Remarks;
 
 //@@author ericyjw
-
 /**
  * A utility class to help with building {@code Entry} objects.
  */

@@ -39,7 +39,7 @@ public class AddTransactionCommand extends Command {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_TAG + "basketball "
         + PREFIX_DATE + "13.12.2018 "
-        + PREFIX_AMOUNT + "-100"
+        + PREFIX_AMOUNT + "-100 "
         + PREFIX_REMARKS + "Purchase of equipment \n";
 
     public static final String MESSAGE_UPDATE_SUCCESS = "Transaction added: %1$s";

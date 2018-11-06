@@ -176,6 +176,8 @@ public class CommandTestUtil {
     public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT; // empty string not allowed for subjects
     public static final String INVALID_CONTENT_DESC = " " + PREFIX_CONTENT; // empty string not allowed for contents
 
+    public static final String INVALID_CCA_NAME_BASKETBALL_DESC =
+        " " + PREFIX_TAG + "Basketball - M"; // '-' not allowed in cca names
     public static final String INVALID_NAME_BASKETBALL_DESC =
         " " + PREFIX_NAME + "Basketball - M"; // '-' not allowed in cca names
     public static final String INVALID_HEAD_DESC = " " + PREFIX_HEAD + "$ally"; // '$' not allowed in name

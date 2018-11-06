@@ -163,7 +163,7 @@ public class AddressBookParser {
             return new DeleteCcaCommandParser().parse(arguments);
 
         case AddTransactionCommand.COMMAND_WORD:
-            return new AddTransactionCommandPaser().parse(arguments);
+            return new AddTransactionCommandParser().parse(arguments);
 
         case DeleteTransactionCommand.COMMAND_WORD:
             return new DeleteTransactionCommandParser().parse(arguments);

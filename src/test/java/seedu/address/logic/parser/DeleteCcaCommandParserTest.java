@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CCA_NAME_BASKETBALL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_BASKETBALL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -35,7 +36,7 @@ public class DeleteCcaCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCcaCommand.MESSAGE_USAGE));
 
         // not valid cca name
-        assertParseFailure(parser, " " + INVALID_NAME_BASKETBALL_DESC,
+        assertParseFailure(parser, " " + INVALID_CCA_NAME_BASKETBALL_DESC,
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCcaCommand.MESSAGE_USAGE));
     }
 }
