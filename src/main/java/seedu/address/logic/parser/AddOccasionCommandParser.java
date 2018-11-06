@@ -41,6 +41,7 @@ public class AddOccasionCommandParser implements Parser<AddOccasionCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOccasionCommand.MESSAGE_USAGE));
         }
         OccasionDescriptor addOccasionDescriptor = new OccasionDescriptor();
+
         OccasionName occasionName = ParserUtil.parseOccasionName(argMultimap.getValue(PREFIX_OCCASIONNAME).get());
         addOccasionDescriptor.setOccasionName(occasionName);
         if (argMultimap.getValue(PREFIX_OCCASIONDATE).isPresent()) {
