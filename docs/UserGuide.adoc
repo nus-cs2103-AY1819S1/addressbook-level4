@@ -67,7 +67,7 @@ Shows all the commands in the app and how to use them.
 ==== Add a user : `addUser`
 
 Adds a new user to EventOrganiser. +
-Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [t/TAG]...`
+Format: `addUser n/NAME p/PHONE_NUMBER e/EMAIL pass/password a/ADDRESS [i/INTEREST] [tt/TIMETABLE] [t/TAG]...`
 
 [TIP]
 A user can have any number of tags and interests (including 0)
@@ -76,6 +76,7 @@ Examples:
 
 * `addUser n/John Doe p/98765432 e/johnd@example.com pass/password123 a/John street, block 123, #01-01`
 * `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
+
 
 // tag::yaofeng(login/logout)[]
 
@@ -230,6 +231,7 @@ Examples:
 * `deleteFriend 1,2` +
 1st and 2nd user are no longer friends with each other and their names are removed from each other's friend list.
 
+// tag::maxschedule[]
 ==== Get free time between users : `maxSchedule`
 
 Compares the schedule of multiple users and return a string of common free time. +
@@ -239,6 +241,7 @@ Example:
 
 * `maxSchedule 1 2` +
 Compares the schedule of users of index 1 and 2 and return a string of common free time.
+// end::maxschedule[]
 
 // tag::KengJi[]
 === Create and confirm event commands
@@ -457,18 +460,22 @@ e.g. `findUser n/James i/basketball`
 * *Delete User* : `deleteUser INDEX` +
 e.g. `deleteUser 3`
 
+// tag::scheduletimetable[]
 * *Edit User* : `editUser INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [i/INTEREST] [tt/TIMETABLE] [s/SCHEDULE] [su/SCHEDULE_UPDATE] ...` +
 e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
 e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
 e.g. `editUser 1 su/ monday 0000`
+// end::scheduletimetable[]
 
 * *Select User* : `selectUser INDEX` +
 e.g.`selectUser 2`
 
 * *History* : `history`
 
+// tag::maxschedule[]
 * *Free time between persons*: `maxSchedule INDEX INDEX ...` +
 e.g. `maxSchedule 1 2 3`
+// end::maxschedule[]
 
 // tag::KengJi(Summary)[]
 === Event organiser commands
