@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.TypeUtil.OCCASION;
 
 import java.util.function.Predicate;
 
@@ -37,6 +38,7 @@ public class FindOccasionCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredOccasionList(predicate);
+        model.setActiveType(OCCASION);
         EventsCenter.getInstance().post(new ShowOccasionRequestEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_OCCASIONS_LISTED_OVERVIEW, model.getFilteredOccasionList().size()));
