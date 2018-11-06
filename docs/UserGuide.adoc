@@ -352,7 +352,7 @@ image::command_volunteer_delete_before.png[Before delete, 200]
 image::command_volunteer_delete_after.png[After delete, 200]
 --
 
-
+// tag::exportcert[]
 [[command-volunteer-exportcert]]
 ==== Exporting volunteer certificate : `exportcert`
 
@@ -392,6 +392,7 @@ image::FinalVolunteerCert.png[width="600"]
 ====
 To avoid exported file name clashes for volunteers with the same name, we have appended the volunteer ID to the filename as well. Exported file names will have the format '<VOLUNTEER NAME>_<VOLUNTEER ID>.pdf' (E.g. John Doe_1.pdf)
 ====
+// end::exportcert[]
 
 === Event Management
 

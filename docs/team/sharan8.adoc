@@ -2,71 +2,89 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:pullURL: https://github.com/CS2103-AY1819S1-W16-2/main/pull
 
-== PROJECT: SocialCare
+== PROJECT: _SocialCare_
 
 ---
 
 == Overview
+This project portfolio page serves to document my contributions to _SocialCare_, a software engineering project that was
+undertaken as part of the National University of Singapore (NUS) School of Computing's beginner Software Engineering
+module, CS2103T. More information on this module can be found
+https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/index.html[here].
 
-SocialCare morphs the given AddressBook - Level 4 application into a volunteer management system that allows Social Welfare Organisations to better manage their volunteers & events, and gain further statistical insights from the data. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+_SocialCare_ is an *event and volunteer management system* for social welfare organisations, which runs on desktops.
+The user interacts with it using the Command Line Interface (CLI), and it has a Graphical User Interface (GUI)
+created using https://docs.oracle.com/javafx/2/overview/jfxpub-overview.htm[JavaFX]. The application is written in Java,
+and has about 10,000 lines of code.
+
+Key Features of _SocialCare_:
+
+* Add, remove and store volunteers and events.
+* Assign volunteers to events.
+* Create event records for each volunteer consisting of the event and volunteer IDs, hours contributed and related
+remarks.
+* Export a PDF certificate detailing a volunteer’s involvement with the organisation (event records, contributed hours).
+
+Through the use of the CLI, _SocialCare_ enables the above functionalities to be executed faster than a typical
+mouse/GUI driven application.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: I added *the ability to export volunteer certificates in PDF format.*
+** _What it does_: This feature allows the user to export a volunteer’s event records and contributed hours in the form
+of a PDF certificate.
+** _Justification_: This feature improves the product significantly as it automates a task that is currently done
+largely manually, and offers the user a way to access information from outside of the application as well (via portable
+and printable PDF files).
+** _Highlights_: This enhancement involved an in-depth analysis of available external open source libraries, and
+meticulous design of the exported PDF document.
+** _Credits_: This feature was developed with the use of https://pdfbox.apache.org/team.html[Apache PDFBox], which
+provides the functionality to create and write to PDF files.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: I added the *total volunteer count to the status bar*. This enhancement is in line with our
+application’s intention to provide the user with easy access to useful information pertaining to volunteers.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: Here is a https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sharan8[link]
+to my code on the Project Code Dashboard.
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Revised the introduction sections of the
+https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/README.adoc[README] and
+https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide] ({pullURL}/109[#109])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed PRs (with non-trivial review comments): {pullURL}/92[#92], {pullURL}/107[#107], {pullURL}/114[#114], {pullURL}/232[#232]
+*** Involved forum members in the resolution of a design consideration: https://github.com/nus-cs2103-AY1819S1/forum/issues/114[#114]
+*** Shared a personal learning point with forum members: https://github.com/nus-cs2103-AY1819S1/forum/issues/143[#143]
+*** Reported bugs and suggestions for other teams: To be updated.
+*** Some parts of the `exportcert` feature I added inspired the implementation of the import/export csv/xml feature.
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated a third party library (https://pdfbox.apache.org/index.html[Apache PDFBox]) to the project
+({pullURL}/161[#161]).
+** Project conceptualisation:
+*** Set up and managed a shared
+https://docs.google.com/document/d/19iV64xK0EwaV8kjMaP72P1G7iGKKXtEX2my5M-QowKc/edit?usp=sharing[Brainstorming Canvas]
+to brainstorm on product morphing ideas using the 'Target User Profile-Problem-Value Proposition' framework.
+*** Conceptualised and validated the idea for _SocialCare_ through conversing with staff from 2
+social welfare organisations that I have worked with in the past.
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=exportcert]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=exportcert]
