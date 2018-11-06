@@ -4,7 +4,7 @@
 :toc: macro
 :imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
 :stylesDir: ../stylesheets
-:stylesheet: default.css
+:stylesheet: delong.css
 
 toc::[]
 
