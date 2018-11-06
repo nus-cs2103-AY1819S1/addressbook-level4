@@ -641,16 +641,17 @@ The `Document` abstract class represents all the documents that can be issued by
  `MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
  to henceforth as _document related commands_, all inherit from. It can be thought of as a *formatter* that
  specifies and organises the common information that all these documents must have with the help of the `DocumentTemplate.html`
- template file. Shown below is a class diagram  illustrating how `Document`, `Receipt`, `MedicalCertificate` and
+ template file. +
+ Shown below is a class diagram  illustrating how `Document`, `Receipt`, `MedicalCertificate` and
  `ReferralLetter` relate to one another.
 
 .Class diagram representing how the `Document` and _document related_ classes are implemented.
-image::DocumentClassDiagram.png[width="600"]
+image::DocumentClassDiagram.png[width="900"]
 
 As the formatter which directs how the documents are built from the `DocumentTemplate.html` template, the `Document`
 `abstract class` itself *cannot* be instantiated.  The `Document` `abstract class` has the following key features:
 
-* contains a `name` and `icNumber` attribute, extracted from the `ServedPatient` from which the document is constructed.
+* contains the `name` and `icNumber` attributes, extracted from the `ServedPatient` from which the document was constructed from.
 * has common methods like `generateContent` to standardise the way in which the contents of the `Document` are formatted.
 * has the `formatInformation` `abstract method` which the extending classes have to implement.
 
@@ -725,8 +726,8 @@ private HashMap<String, String> generateContent() {
     return informationFieldPairs;
 }
 ```
-Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the corresponding information, a `BufferedOutputStream`
-is used to write the `string` into the `HTML` file, concluding the generation of the `HTML` file.
+Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the correct information, a `BufferedOutputStream`
+is used to write the updated `string` into the `HTML` file, concluding the generation of the `Document` `HTML` file.
 
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
