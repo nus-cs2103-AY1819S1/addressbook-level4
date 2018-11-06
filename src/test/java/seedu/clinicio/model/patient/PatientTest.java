@@ -28,7 +28,7 @@ import seedu.clinicio.testutil.PatientBuilder;
 
 public class PatientTest {
     @Test
-    public void isSamePerson() {
+    public void isSamePatient() {
 
         // same name, different preferred staff -> returns false
         Patient editedAliceAsPatientWithPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
@@ -36,13 +36,13 @@ public class PatientTest {
         Patient editedAliceAsPatientWithAnotherPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(BEN).build();
         assertFalse(editedAliceAsPatientWithPreferredDoctor
-                .isSamePerson(editedAliceAsPatientWithAnotherPreferredDoctor));
+                .isSamePatient(editedAliceAsPatientWithAnotherPreferredDoctor));
 
         // same name, one with preferred staff, one without -> returns false
         editedAliceAsPatientWithPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(ADAM).build();
         Patient editedAliceWithoutPreferredDoctor = new PatientBuilder(ALICE_AS_PATIENT).build();
-        assertFalse(editedAliceAsPatientWithPreferredDoctor.isSamePerson(editedAliceWithoutPreferredDoctor));
+        assertFalse(editedAliceAsPatientWithPreferredDoctor.isSamePatient(editedAliceWithoutPreferredDoctor));
 
         // same name, same preferred staff, different attributes -> returns true
         Patient editedAliceAsPatientWithPreferredDoctorAndBobAddress = (Patient) new PatientBuilder(ALICE_AS_PATIENT)
@@ -52,19 +52,19 @@ public class PatientTest {
         Patient editedAliceAsPatientWithPreferredDoctorAndAliceAddress = new PatientBuilder(ALICE_AS_PATIENT)
                 .withPreferredDoctor(ADAM).build();
         assertTrue(editedAliceAsPatientWithPreferredDoctorAndBobAddress
-                .isSamePerson(editedAliceAsPatientWithPreferredDoctorAndAliceAddress));
+                .isSamePatient(editedAliceAsPatientWithPreferredDoctorAndAliceAddress));
 
         // same name, different appointment -> returns false
         Patient editedAmyAsPatientWithAppointment = new PatientBuilder(AMY_AS_PATIENT)
                 .withAppointment(AMY_APPT).build();
         Patient editedAmyAsPatientWithAnotherAppointment = new PatientBuilder(AMY_AS_PATIENT)
                 .withAppointment(BENSON_APPT).build();
-        assertFalse(editedAmyAsPatientWithAppointment.isSamePerson(editedAmyAsPatientWithAnotherAppointment));
+        assertFalse(editedAmyAsPatientWithAppointment.isSamePatient(editedAmyAsPatientWithAnotherAppointment));
 
         // same name, one with appointment, one without -> returns false
         editedAmyAsPatientWithAppointment = new PatientBuilder(AMY_AS_PATIENT).withAppointment(AMY_APPT).build();
         Patient editedAmyAsPatientWithoutAppointment = PatientBuilder.buildFromPerson(AMY).build();
-        assertFalse(editedAmyAsPatientWithAppointment.isSamePerson(editedAmyAsPatientWithoutAppointment));
+        assertFalse(editedAmyAsPatientWithAppointment.isSamePatient(editedAmyAsPatientWithoutAppointment));
 
         // same name, same appointment, different attributes -> returns true
         Patient editedAmyAsPatientWithAppointmentAndAmyAddress = (Patient) new PatientBuilder(AMY_AS_PATIENT)
@@ -76,7 +76,7 @@ public class PatientTest {
                 .withAddress(VALID_ADDRESS_BOB)
                 .build();
         assertTrue(editedAmyAsPatientWithAppointmentAndAmyAddress
-                .isSamePerson(editedAmyAsPatientWithAppointmentAndBobAddress));
+                .isSamePatient(editedAmyAsPatientWithAppointmentAndBobAddress));
     }
 
     @Test

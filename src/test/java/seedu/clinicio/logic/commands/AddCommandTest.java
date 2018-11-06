@@ -103,12 +103,15 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author jjlee050
+        @Override
+        public void addPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void addStaff(Staff staff) {
             throw new AssertionError("This method should not be called.");
         }
-
 
         //@@author jjlee050
         @Override
@@ -126,13 +129,16 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author jjlee050
         @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author jjlee050
+        @Override
+        public boolean hasPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public boolean hasStaff(Staff staff) {
             throw new AssertionError("This method should not be called.");
@@ -154,11 +160,15 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Patient> getFilteredPatientList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Person> getAllPatientsInQueue() {
             throw new AssertionError("This method should not be called.");
         }
 
-        //@@author jjlee050
         @Override
         public ObservableList<Staff> getFilteredStaffList() {
             throw new AssertionError("This method should not be called.");
@@ -166,6 +176,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPatientList(Predicate<Patient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

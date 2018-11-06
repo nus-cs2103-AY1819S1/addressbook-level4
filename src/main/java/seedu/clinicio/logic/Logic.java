@@ -6,6 +6,7 @@ import seedu.clinicio.logic.commands.CommandResult;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
@@ -24,6 +25,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of patients */
+    ObservableList<Patient> getFilteredPatientList();
 
     /** Returns an unmodifiable view of the filtered list of staffs */
     ObservableList<Staff> getFilteredStaffList();
