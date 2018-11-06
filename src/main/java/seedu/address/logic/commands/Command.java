@@ -12,7 +12,7 @@ public abstract class Command {
     public static final String MESSAGE_INCORRECT_MODEL_TODO =
             "Incorrect Model: To Do Commands should operate on the ModelTodo";
     public static final String MESSAGE_INCORRECT_MODEL_CALENDAR =
-            "Incorrect Model: Calendar Commands should operate on the ModelTodo";
+            "Incorrect Model: Calendar Commands should operate on the Model";
 
     protected boolean isToDoCommand;
 
