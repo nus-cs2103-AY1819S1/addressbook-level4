@@ -4,14 +4,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="analyticsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" styleClass="dashboard" stylesheets="@Analytics.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="analyticsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" styleClass="dashboard" stylesheets="@Analytics.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="summaryBar" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font name="Avenir Light" size="18.0" />
          </font>
       </Label>
-      <AnchorPane id="numbers-pane" layoutX="93.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="900.0" styleClass="summary-pane" AnchorPane.bottomAnchor="565.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0">
+      <AnchorPane id="numbers-pane" layoutX="93.0" layoutY="23.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="900.0" styleClass="summary-pane" AnchorPane.bottomAnchor="465.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="60.0">
          <children>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="225.0" styleClass="summary-element" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="675.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -76,7 +76,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="visualization-pane" fx:id="visualizationPane" layoutX="50.0" layoutY="299.0" prefHeight="440.0" prefWidth="900.0" styleClass="visualization-pane" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="299.0">
+      <AnchorPane id="visualization-pane" fx:id="visualizationPane" layoutX="50.0" layoutY="299.0" prefHeight="440.0" prefWidth="900.0" styleClass="visualization-pane" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="270.0">
          <children>
             <AnchorPane fx:id="chartPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0" />
          </children>
