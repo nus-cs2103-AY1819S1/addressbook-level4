@@ -639,17 +639,19 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 ==== Implementation of `Document`
 The `Document` abstract class represents all the documents that can be issued by the clinic. The `Receipt`,
  `MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
- to henceforth as _document related commands_, all inherit from it. It can be thought of as a *formatting template*,
- specifying and organising the common information that all these documents must have. Shown below is a class diagram
- illustrating how `Document`, `Receipt`, `MedicalCertificate` and `ReferralLetter` relate to one another.
+ to henceforth as _document related commands_, all inherit from. It can be thought of as a *formatter* that
+ specifies and organises the common information that all these documents must have with the help of the `DocumentTemplate.html`
+ template file. +
+ Shown below is a class diagram  illustrating how `Document`, `Receipt`, `MedicalCertificate` and
+ `ReferralLetter` relate to one another.
 
 .Class diagram representing how the `Document` and _document related_ classes are implemented.
-image::DocumentClassDiagram.png[width="600"]
+image::DocumentClassDiagram.png[width="900"]
 
-As the template on which the documents are built from, the `Document` `abstract class` itself *cannot* be instantiated.
- The `Document` `abstract class` has the following key features:
+As the formatter which directs how the documents are built from the `DocumentTemplate.html` template, the `Document`
+`abstract class` itself *cannot* be instantiated.  The `Document` `abstract class` has the following key features:
 
-* contains a `name` and `icNumber` attribute, extracted from the `ServedPatient` from which the document is constructed.
+* contains the `name` and `icNumber` attributes, extracted from the `ServedPatient` from which the document was constructed from.
 * has common methods like `generateContent` to standardise the way in which the contents of the `Document` are formatted.
 * has the `formatInformation` `abstract method` which the extending classes have to implement.
 
@@ -662,7 +664,7 @@ As seen in the above activity diagram, upon executing a _document related comman
 be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command,
  as detailed in the following steps.
 
-Step 1. The resulting _document related object_ will call the `generateFile()` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
+Step 1. The resulting _document related object_ will call the `generateDocument` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
 ``` Java
 private String makeFileName() {
     return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
@@ -676,7 +678,9 @@ private String makeFileName() {
 The `FILE_NAME_DELIMITER` is abstracted so as to allow users to change the delimiter to a `string` of their choice.
 It is used as a means of separating fields of information in file names.
 ====
-Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder values prefixed by a `$` that will be replaced with the actual information pertaining to the `Served Patient's` consultation.
+Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder
+values prefixed by a `$` that will be replaced with the actual information pertaining to the `ServedPatient's`
+consultation. Shown below is the code snippet that converts the `DocumentTemplate` `HTML` file into a `string`.
 ``` Java
 private String convertHtmlIntoString() {
     StringBuilder contentBuilder = new StringBuilder();
@@ -722,8 +726,8 @@ private HashMap<String, String> generateContent() {
     return informationFieldPairs;
 }
 ```
-Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the corresponding information, a `BufferedOutputStream`
-is used to write the `string` into the `HTML` file, concluding the generation of the `HTML` file.
+Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the correct information, a `BufferedOutputStream`
+is used to write the updated `string` into the `HTML` file, concluding the generation of the `Document` `HTML` file.
 
 ==== Design Considerations
 ===== Aspect: Implementation of the Document
@@ -738,7 +742,7 @@ flexibility of structuring the contents unique to its document type by means of 
 ** Pros:
 *** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
 ****
-`Enums` can prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+`Enums` can restrict the period of medical leave to be counted in only days/weeks. This prevents absurd scenarios like issuing a `Medical Certificate` that excuses a person from work/school for 10 **years**!
 ****
 ** Cons:
 *** Unable to standardise the way `inheriting` classes implement the `generateHeader` method.
@@ -752,7 +756,7 @@ flexibility of structuring the contents unique to its document type by means of 
 ==== Implementation of `Receipt`
 The `Receipt` class structure is as follows:
 
-* contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `Served Patient` from which the `Receipt` was constructed from.
+* contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `ServedPatient` from which the `Receipt` was constructed from.
 * contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
 * has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
 
