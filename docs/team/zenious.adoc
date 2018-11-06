@@ -12,7 +12,8 @@ Here you can find details on my contributions to various Software Engineering pr
 == PROJECT: MeetingBook
 
 MeetingBook is a desktop scheduler application targeted at university students involved in multiple Co-Curricular Activities and Project-Based modules. The application is a modified contact book with features to group contacts and assign meetings to such groups. MeetingBook is written by a team of 5 students from National University of Singapore's School of Computing. It is forked from https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook-Level4] written by https://se-edu.github.io/[SE-EDU].
-<Project Constraints><Purpose><Personalise><Summarise of contribution (My contribution includes)>
+//<Project Constraints><Purpose><Personalise><Summarise of contribution (My contribution includes)>
+
 === Summary of contributions
 
 * *Major enhancement*: added the ability to *export/import MeetingBook*
@@ -22,7 +23,7 @@ MeetingBook is a desktop scheduler application targeted at university students i
 
 * *Minor enhancement*: Implementation of `filepath` command . This allow user of MeetingBook to view or change the storage location of MeetingBook.
 
-* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zenious
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=zenious[code]]
 * *Other contributions*:
 
 ** Project management:
