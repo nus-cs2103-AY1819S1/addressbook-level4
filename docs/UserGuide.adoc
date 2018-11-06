@@ -179,7 +179,11 @@ Format:
 ==== Search for Tasks by Keyword: `find`
 [%hardbreaks]
 Format: `find KEYWORD`
-+Example: `find complete`
++Example: `find CS2103`
+
+==== Listing Tasks by topological order: `topoorder`
+[%hardbreaks]
+Shows a list of uncompleted tasks by their topological order. (In the CLI window).
 
 === Gamification
 ==== Display achievements across a time period: `achievements`
