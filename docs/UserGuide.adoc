@@ -376,6 +376,7 @@ Alias: `ls` +
 Format: `liststock`
 
 // tag::findmedicine[]
+
 ==== Finding details of a medicine: `findmedicine`
 
 Finding the best medicine for your patient? +
@@ -404,6 +405,7 @@ image::find-medicine-example-1.png[width="650"]
 
 .See all medicines named "chlorpheniramine".
 image::find-medicine-example-2.png[width="650"]
+
 // end::findmedicine[]
 
 // tag::checkstock[]
@@ -413,6 +415,7 @@ image::find-medicine-example-2.png[width="650"]
 Lists all medicines that are low in supply. +
 Alias: `cs` +
 Format: `checkstock`
+
 // end::checkstock[]
 
 [[pqms]]
