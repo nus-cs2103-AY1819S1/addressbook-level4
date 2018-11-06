@@ -1,8 +1,8 @@
 package seedu.address.ui;
 
-import java.util.HashSet;
 import java.util.logging.Logger;
 
+import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
 import javafx.application.Platform;
@@ -35,6 +35,8 @@ public class CommandBox extends UiPart<Region> {
 
     private boolean isNavigatingHistory = false;
 
+    private AutoCompletionBinding<String> acbCommandTextField;
+
     @FXML
     private TextField commandTextField;
 
@@ -42,7 +44,26 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.logic = logic;
 
-        TextFields.bindAutoCompletion(commandTextField, partialWord -> {
+        enableAutoComplete();
+
+
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        historySnapshot = logic.getHistorySnapshot();
+    }
+
+    /**
+     * Disable auto complete function. Mainly used for testing purposes.
+     */
+    public void disableAutoComplete() {
+        acbCommandTextField.dispose();
+    }
+
+    /**
+     * Enable auto complete function.
+     */
+    public void enableAutoComplete() {
+        acbCommandTextField = TextFields.bindAutoCompletion(commandTextField, partialWord -> {
             if (isNavigatingHistory) {
                 isNavigatingHistory = false;
                 return null;
@@ -50,12 +71,8 @@ public class CommandBox extends UiPart<Region> {
 
             return AutoCompleteCommandHelper.autoCompleteWord(partialWord.getUserText());
         });
-
-
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        historySnapshot = logic.getHistorySnapshot();
     }
+
 
     /**
      * Handles the key press event, {@code keyEvent}.

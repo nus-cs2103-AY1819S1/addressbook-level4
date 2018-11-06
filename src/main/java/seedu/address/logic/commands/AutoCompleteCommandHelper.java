@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Helper class to auto complete commands typed into command box
@@ -50,7 +51,7 @@ public class AutoCompleteCommandHelper {
             return new HashSet<>(Arrays.asList(commandWordList));
         }
 
-        Set<String> suggestions = new HashSet<>();
+        Set<String> suggestions = new TreeSet<>();
         for (String s : commandWordList) {
             if (s.startsWith(partialWord)) {
                 suggestions.add(s);

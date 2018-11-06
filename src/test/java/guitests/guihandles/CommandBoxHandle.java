@@ -3,7 +3,6 @@ package guitests.guihandles;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import seedu.address.logic.commands.AutoCompleteCommandHelper;
 
 /**
  * A handle to the {@code CommandBox} in the GUI.
@@ -31,12 +30,8 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
         guiRobot.interact(() -> getRootNode().setText(command));
         guiRobot.pauseForHuman();
 
-        //First enter for autocomplete, second to run command.
         guiRobot.type(KeyCode.ENTER);
-        if (AutoCompleteCommandHelper.autoCompleteWord(command).size() > 0) {
-            guiRobot.pauseForHuman();
-            guiRobot.type(KeyCode.ENTER);
-        }
+
     }
 
     /**
