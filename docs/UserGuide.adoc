@@ -576,6 +576,18 @@ or +
 * Clear planner: `clear`
 * View recipe details: `select INDEX MEAL`
 
+*Health Plan Commands*
+
+* Add health plan: `add n/NAME a/AGE h/HEIGHT w/CURRENTWEIGHT t/TARGETWEIGHT d/DURATION`
+* Delete health plan `delete INDEX`
+* Edit health plan: `edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION]`
+* Show all current meals planned in system: `showMeals`
+* Hide panels on the right: `hideMeals`
+* Show details of a health plan: `showDetails INDEX`
+* Add a day from meal planner into a health plan: `addDay p/PLANINDEX d/DAYINDEX`
+* Remove a day from the list of meals in health plan: `deleteDay p/PLANINDEX d/DAYINDEX`
+
+
 *Cook-Mode Commands [coming in V2.0]*
 
 * Next Instruction: Hit kbd:[Enter] key
