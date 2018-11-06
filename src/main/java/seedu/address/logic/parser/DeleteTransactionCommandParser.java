@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.cca.CcaName;
 
 //@@author ericyjw
+
 /**
  * Parses input arguments and creates a new DeleteTransactionCommand object
  *
@@ -35,16 +36,22 @@ public class DeleteTransactionCommandParser implements Parser<DeleteTransactionC
         }
 
         String name = argMultimap.getValue(PREFIX_TAG).get();
-        int index = Integer.valueOf(argMultimap.getValue(PREFIX_TRANSACTION).get());
+        try {
+            int index = Integer.valueOf(argMultimap.getValue(PREFIX_TRANSACTION).get());
 
+            if (!CcaName.isValidCcaName(name)) {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTransactionCommand.MESSAGE_USAGE));
+            }
 
-        if (!CcaName.isValidCcaName(name)) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCcaCommand.MESSAGE_USAGE));
+            CcaName ccaName = new CcaName(argMultimap.getValue(PREFIX_TAG).get());
+
+            return new DeleteTransactionCommand(ccaName, index);
+
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteTransactionCommand.MESSAGE_USAGE));
         }
 
-        CcaName ccaName = new CcaName(argMultimap.getValue(PREFIX_TAG).get());
-
-        return new DeleteTransactionCommand(ccaName, index);
     }
 }
