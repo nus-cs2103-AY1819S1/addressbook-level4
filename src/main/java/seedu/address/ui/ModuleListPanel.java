@@ -11,7 +11,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToModuleListRequestEvent;
+import seedu.address.commons.events.ui.JumpToPersonListRequestEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
 
@@ -80,7 +81,7 @@ public class ModuleListPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToListRequestEvent(JumpToModuleListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }

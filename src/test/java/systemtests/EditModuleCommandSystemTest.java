@@ -13,6 +13,7 @@ import static seedu.address.logic.commands.CommandModuleTestUtil.MODULECODE_DESC
 import static seedu.address.logic.commands.CommandModuleTestUtil.MODULECODE_DESC_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.MODULETITLE_DESC_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.MODULETITLE_DESC_ST2131;
+import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_CS2100;
 import static seedu.address.logic.commands.CommandModuleTestUtil.SEMESTER_DESC_ST2131;
 import static seedu.address.logic.commands.CommandModuleTestUtil.TAG_DESC_BINARY;
 import static seedu.address.logic.commands.CommandModuleTestUtil.TAG_DESC_CALCULUS;
@@ -26,6 +27,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MODULE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MODULE;
+import static seedu.address.testutil.TypicalModules.CS2100;
 import static seedu.address.testutil.TypicalModules.KEYWORD_MATCHING_MA1101R;
 import static seedu.address.testutil.TypicalModules.ST2131;
 
@@ -132,14 +134,14 @@ public class EditModuleCommandSystemTest extends AddressBookSystemTest {
          * remains unchanged but browser url changes
          */
         // TODO: -> uncomment test back when select works.
-        //showAllModules();
-        //index = INDEX_FIRST_MODULE;
-        //selectModule(index);
-        //command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_CS2100
-        //        + MODULETITLE_DESC_CS2100 + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100 + TAG_DESC_BINARY;
-        // this can be misleading: card selection actually remains unchanged but the
-        // browser's url is updated to reflect the new module's name
-        //assertCommandSuccess(command, index, CS2100, index);
+//        showAllModules();
+//        index = INDEX_FIRST_MODULE;
+//        selectModule(index);
+//        command = EditModuleCommand.COMMAND_WORD + " " + index.getOneBased() + MODULECODE_DESC_CS2100
+//                + MODULETITLE_DESC_CS2100 + ACADEMICYEAR_DESC_CS2100 + SEMESTER_DESC_CS2100 + TAG_DESC_BINARY;
+//        // this can be misleading: card selection actually remains unchanged but the
+//        // browser's url is updated to reflect the new module's name
+//        assertCommandSuccess(command, index, CS2100, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------- */
 
