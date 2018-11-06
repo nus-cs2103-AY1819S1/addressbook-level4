@@ -54,7 +54,7 @@ With this, you do not have to manually keep track of the change in stocks every 
 |===
 
 include::../UserGuide.adoc[tag=addmedicine]
-include::../Userguide.adoc[tag=findmedicine]
+include::../UserGuide.adoc[tag=findmedicine]
 include::../UserGuide.adoc[tag=checkstock]
 
 == Contributions to the Developer Guide
