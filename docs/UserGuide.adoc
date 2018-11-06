@@ -29,6 +29,14 @@ Piconso is for those who *prefer to use a desktop app for editing images*. More 
 
 image::Ui.png[width:800]
 
+// tag::getting_started[]
+== Getting started
+
+Let's work through a simple project in Piconso from start to finish.
+// end::getting_started[]
+
+
+
 [[Features]]
 == Features
 

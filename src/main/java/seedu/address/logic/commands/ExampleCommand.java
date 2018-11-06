@@ -44,7 +44,7 @@ public class ExampleCommand extends Command {
         try {
             imagePath = model.getCurrentPreviewImagePath();
             BufferedImage modifiedImage = processImage(targetIndex, imagePath);
-            model.updateCurrentPreviewImage(modifiedImage, transformationDone);
+            model.updateCurrentPreviewImage(modifiedImage);
             return new CommandResult(String.format(MESSAGE_EXAMPLE_SUCCESS, targetIndex.getOneBased()));
         } catch (IOException | InterruptedException | ParseException e) {
             throw new CommandException(e.toString());

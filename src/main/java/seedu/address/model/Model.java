@@ -136,9 +136,8 @@ public interface Model {
     /**
      * update the preview image stored in the model
      * @param image
-     * @param transformation
      */
-    void updateCurrentPreviewImage(BufferedImage image, Transformation transformation);
+    void updateCurrentPreviewImage(BufferedImage image);
 
     /**
      * Update the current displayed original image.
@@ -163,9 +162,14 @@ public interface Model {
 
     void addLayer(PreviewImage i);
 
-    void removeLayer(Index i) throws IllegalOperationException;
+    Index removeLayer(Index i) throws IllegalOperationException;
+
+    void setCurrentLayer(Index i);
+
+    void swapLayer(Index to, Index from) throws IllegalOperationException;
 
     Canvas getCanvas();
 
     void saveCanvas(String fileName) throws IOException, InterruptedException;
+
 }
