@@ -5,6 +5,8 @@ import java.util.List;
 
 import seedu.address.model.ReadOnlyWishBook;
 import seedu.address.model.WishTransaction;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.wish.Wish;
 
 /**
  * This class keeps track of the saving history for each wish across each executed command.
@@ -60,6 +62,39 @@ public class VersionedWishTransaction extends WishTransaction implements Version
         }
         wishStateList.add(getCopy(this));
         referencePointer++;
+    }
+
+    @Override
+    public void removeWish(Wish wish) {
+        commit();
+        super.removeWish(wish);
+    }
+
+    @Override
+    public void removeTagFromAll(Tag tag) {
+        commit();
+        super.removeTagFromAll(tag);
+    }
+
+    @Override
+    public void addWish(Wish wish) {
+        commit();
+        resetData(wishStateList.get(referencePointer));
+        super.addWish(wish);
+    }
+
+    @Override
+    public void updateWish(Wish target, Wish editedWish) {
+        commit();
+        resetData(wishStateList.get(referencePointer));
+        super.updateWish(target, editedWish);
+    }
+
+    @Override
+    public void resetData() {
+        commit();
+        resetData(wishStateList.get(referencePointer));
+        super.resetData();
     }
 
     private void removeStatesAfterCurrentPointer() {

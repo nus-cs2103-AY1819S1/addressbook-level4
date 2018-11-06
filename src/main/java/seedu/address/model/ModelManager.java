@@ -192,7 +192,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitWishBook() {
         versionedWishBook.commit();
-        versionedWishTransaction.commit();
     }
 
     @Override

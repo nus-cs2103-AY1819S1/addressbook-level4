@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.amount.Amount;
 import seedu.address.model.tag.Tag;
@@ -52,6 +53,16 @@ public class Wish {
         this.savedAmount = savedAmount;
 
         this.id = id;
+    }
+
+    public Wish(Wish wish) {
+        this(new Name(wish.name), new Price(wish.price), new Date(wish.date), new Url(wish.url),
+                new SavedAmount(wish.savedAmount), new Remark(wish.remark), wish.copyTags(), wish.id);
+    }
+
+    private Set<Tag> copyTags() {
+        Set<Tag> copy = tags.stream().map(Tag::new).collect(Collectors.toSet());
+        return copy;
     }
 
     /**

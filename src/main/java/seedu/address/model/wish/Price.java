@@ -25,6 +25,10 @@ public class Price {
         value = Double.parseDouble(price); // TO-DO: check before allowing.
     }
 
+    public Price(Price price) {
+        this(price.value.toString());
+    }
+
     /**
      * Returns true if a given string is a valid price.
      */
