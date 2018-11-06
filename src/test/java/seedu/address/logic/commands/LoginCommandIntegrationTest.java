@@ -8,70 +8,49 @@ import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.LoginCredentials;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.model.user.Username;
 import seedu.address.model.user.UsernameTest;
-import seedu.address.testutil.ModelStub;
 import seedu.address.testutil.TypicalExpenses;
 
 //@@author JasonChong96
-public class LoginCommandTest {
+public class LoginCommandIntegrationTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-    private static final Username NON_EXISTANT_USERNAME = new Username("noexist");
-    private static final String INVALID_PASSWORD_STRING = "password1";
-    private static final Password INVALID_PASSWORD = new Password(INVALID_PASSWORD_STRING, true);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelStubLogin();
-
-    @Test
-    public void constructor_nullLoginInformation_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        new LoginCommand(null);
-    }
+    private Model model = getTypicalModel();
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_userAcceptedByModel_loginSuccessful() throws Exception {
         CommandResult commandResult = new LoginCommand(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, null))
-                .execute(model, null);
+                .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
+        assertTrue(model.hasSelectedUser());
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_nonExistantUser_loginFailed() throws Exception {
+        assertFalse(model.isUserExists(new Username(UsernameTest.VALID_USERNAME_STRING)));
         thrown.expect(NonExistentUserException.class);
-        new LoginCommand(new LoginCredentials(NON_EXISTANT_USERNAME, null))
-                .execute(model, null);
+        new LoginCommand(new LoginCredentials(new Username(UsernameTest.VALID_USERNAME_STRING), null))
+                .execute(model, commandHistory);
     }
 
     @Test
     public void execute_incorrectPassword_loginFailed() throws Exception {
+        model.setPassword(PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD_STRING);
         CommandResult commandResult =
-                new LoginCommand(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, INVALID_PASSWORD_STRING))
-                        .execute(model, null);
+                new LoginCommand(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, null)).execute(model,
+                        commandHistory);
         assertEquals(LoginCommand.MESSAGE_INCORRECT_PASSWORD, commandResult.feedbackToUser);
-    }
-
-    /**
-     * Model stub for use with LoginCommand. Supports loadUserData(LoginCredentials) method.
-     */
-    private class ModelStubLogin extends ModelStub {
-        @Override
-        public boolean loadUserData(LoginCredentials loginCredentials) throws NonExistentUserException {
-            if (loginCredentials.getUsername().equals(NON_EXISTANT_USERNAME)) {
-                throw new NonExistentUserException(NON_EXISTANT_USERNAME, 0);
-            } else {
-                return !INVALID_PASSWORD.equals(loginCredentials.getPassword().orElse(null));
-            }
-        }
     }
 }

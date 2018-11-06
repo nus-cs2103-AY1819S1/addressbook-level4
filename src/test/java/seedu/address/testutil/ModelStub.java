@@ -13,6 +13,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
@@ -144,7 +145,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean loadUserData(LoginCredentials loginCredentials) {
+    public boolean loadUserData(LoginCredentials loginCredentials) throws NonExistentUserException {
         throw new AssertionError("loadUserData method should not be called.");
     }
 
