@@ -206,6 +206,33 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
         reservations.sortReservations();
     }
 
+    /**
+     * Removes {@code tag} from {@code reservation} in the Reservation List.
+     *
+     * @param reservation whose tag is being removed.
+     * @param tag to be removed.
+     */
+    private void removeTagForReservation(Reservation reservation, Tag tag) {
+        Set<Tag> tags = new HashSet<>(reservation.getTags());
+
+        if (!tags.remove(tag)) {
+            return;
+        }
+
+        Reservation newReservation = new Reservation(reservation.getName(), reservation.getPax(),
+                reservation.getDate(), reservation.getTime(), reservation.getRemark(), tags);
+        updateReservation(reservation, newReservation);
+    }
+
+    /**
+     * Removes {@code tag} from all {@code item} in this {@code RestaurantBook}.
+     *
+     * @param tag to be removed.
+     */
+    public void removeTagForReservationList(Tag tag) {
+        reservations.forEach(reservation -> removeTagForReservation(reservation, tag));
+    }
+
     @Override
     public ObservableList<Reservation> getReservationList() {
         return reservations.asUnmodifiableObservableList();
