@@ -149,6 +149,7 @@ Updates the phone number and e-mail address of the 5th patient in the list to `9
 
 .Before and after executing the `edit` command specified above.
 image::EditEx1.png[width="650"]
+// end::patientfirsthalf[]
 
 ==== Locating a patient by name: `find`
 Can't find the patient you're looking for amidst the other patient records? +
@@ -182,7 +183,6 @@ Sieves out all the patients who have `yu` in their names.
 
 .Before and after executing the `find` command specified above via its alias `f`.
 image::FindEx1.png[width="650"]
-// end::patientfirsthalf[]
 
 // tag::patientsecondhalf[]
 ==== Listing all patients: `list`
