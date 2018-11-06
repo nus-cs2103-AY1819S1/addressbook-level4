@@ -32,8 +32,8 @@ as it required changes to existing commands.
 * *Other contributions*:
 
 ** Enhancements to existing features:
-** Refactors original AddressBook and Person class into ExpenseTracker and Expense class.
-** Updates sample entries.
+** Refactored original AddressBook and Person class into ExpenseTracker and Expense class.
+** Updated sample entries.
 
 == Contributions to the User Guide
 
