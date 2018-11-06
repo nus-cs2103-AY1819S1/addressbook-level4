@@ -18,9 +18,11 @@ By: `Team W12-1`      Since: `Sep 2018`      Licence: `MIT`
 
 == Introduction
 
-Welcome to *LostBUTFound*! *LostBUTFound* is made for administrators *managing lost and found articles*.
+Welcome to *LostBUTFound*! *LostBUTFound* is a management tool designed to help *administrators manage lost and found articles*.
 
-More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits of a Graphical User Interface (GUI).
+Managing lost and found articles can be a frustrating experience, especially when there are a huge amount of articles to keep track of. LostBUTFound streamlines this management process and help you to increase your productivity.
+
+More importantly, LostBUTFound is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits of a Graphical User Interface (GUI). Fast typists will find that LostBUTFound can manage lost and found articles faster than traditional GUI applications.
 
 === Accessing the user guide
 
@@ -83,17 +85,20 @@ Examples:
 
 //tag::resolvefeature[]
 ==== Resolving an article: `resolve`
-Description: Resolves the specified article from LostBUTFound.
+Description: Resolves the specified article from LostBUTFound when the owner claims their article.
 
-Format: `resolve INDEX`
+Format: `resolve INDEX o/OWNER`
 
 * Resolves the article at the specified INDEX
 * The index refers to the index number shown in the displayed article list.
 * The index must be a positive number 1, 2, 3, ...
 
+[IMPORTANT]
+`resolve` and `delete` commands are different. By resolving the article, the article entry would still exist in LostBUTFound for logging purposes in the case of claim disputes.
+
 Examples:
 
-* `resolve 2` resolves the second article in the list
+* `resolve 2 o/John` resolves the second article in the list when John claims his article.
 
 //end::resolvefeature[]
 ==== Listing all articles : `list`
@@ -145,16 +150,20 @@ Examples:
 === Finding articles
 This section will detail commands that are used to find article entries using various parameters in LostBUTFound. The list shown in the interface will only show matching article entries after executing the command.
 
+[NOTE]
+The following rules apply to all `find` commands
+
+* The keyword is case insensitive e.g. `wallet` will match `Wallet`.
+* The order of the keywords does not matter. e.g. `iPhone XS` will match `XS iPhone`.
+* Only full words will be matched with the keyword. e.g. `Phone` will not match `iPhone`.
+
 ==== Finding unresolved articles by name: `find-n`
-Description: Finds unresolved articles whose name contains all of the given keywords.
+Description: Finds unresolved articles whose name contains *all* of the given keywords.
 
 Format: `find-n KEYWORD [MORE_KEYWORDS]`
 
-* The search is case insensitive e.g. `wallet` will match `Wallet`.
-* The order of the keywords does not matter. e.g. `iPhone XS` will match `XS iPhone`.
-* The name field of unresolved articles will be searched.
-* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
-* Unresolved articles matching all the keyword in the name field will be returned (AND operation), e.g. `iPhone XS` will not return `Cheap iPhone`, `iPhone`.
+* Only the name field of unresolved articles will be searched.
+* Unresolved articles matching all the keyword in the name field will be returned (AND operation).
 
 Examples:
 
@@ -162,31 +171,38 @@ Examples:
 * `find-n wallet blue` returns unresolved article entries with names `wallet blue` and `big blue wallet`.
 
 ==== Finding unresolved articles by description: `find-d`
-Description: Finds unresolved articles whose description contains all of the given keywords.
+Description: Finds unresolved articles whose description contains *all* of the given keywords.
 
 Format: `find-d KEYWORD [MORE_KEYWORDS]`
 
-* The search is case insensitive e.g. `library` will match `Library`.
-* The order of the keywords does not matter. e.g. `central library` will match `library central`.
-* The description field of unresolved articles will be searched.
-* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
-* Unresolved articles matching all the keyword in the description field will be returned (AND operation), e.g. `Central library` will not return `Science library`, `library`.
+* Only the description field of unresolved articles will be searched.
+* Unresolved articles matching all the keyword in the description field will be returned (AND operation).
 
 Examples:
 
 * `find-d Jacket` returns unresolved article entries with description `Jacket` and `Torn Jacket`.
 * `find-d central library` returns unresolved article entries with description `near Central library`, `Central library toilet`.
 
+==== Finding unresolved articles by name: `find-f`
+Description: Finds unresolved articles whose finder's name contains *all* of the given keywords.
+
+Format: `find-f KEYWORD [MORE_KEYWORDS]`
+
+* Only the finder field of unresolved articles will be searched.
+* Unresolved articles matching all the keyword in the finder field will be returned (AND operation).
+
+Examples:
+
+* `find-f John` returns unresolved article entries with finder `John Doe` and `John Ham`.
+* `find-f John Doe` returns unresolved article entries with finder `John Doe` and `John Hamilton Doe`.
+
 ==== Finding unresolved articles by keyword: `findall`
-Description: Finds unresolved articles which contains any of the given keywords.
+Description: Finds unresolved articles which contains *any* of the given keywords.
 
 Format: `findall KEYWORD [MORE_KEYWORDS]`
 
-* The search is case insensitive e.g. `library` will match `Library`.
-* The order of the keywords does not matter. e.g. `central library` will match `library central`.
 * All fields of unresolved articles will be searched.
-* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
-* Unresolved articles matching at least one of the keyword will be returned (OR operation), e.g. `Central library` will return `Science library`, `library toilet`.
+* Unresolved articles matching at least one of the keyword will be returned (OR operation).
 
 Examples:
 
@@ -194,20 +210,17 @@ Examples:
 * `findall Tom wallet` returns unresolved article entries which have fields having keywords `Tom`, `Wallet`.
 
 ==== Finding resolved articles by keyword: `findresolved`
-Description: Finds resolved articles which contains any of the given keywords.
+Description: Finds resolved articles which contains *any* of the keywords if given.
 
 Format: `findresolved [KEYWORD] [MORE_KEYWORDS]`
 
 * A list of resolved articles will be returned if no keywords are entered.
-* The search is case insensitive e.g. `library` will match `Library`.
-* The order of the keywords does not matter. e.g. `central library` will match `library central`.
 * All fields of resolved articles will be searched.
-* Only full words will be matched. e.g. `Phone` will not match `iPhone`.
-* Resolved articles matching at the keyword will be returned (OR operation), e.g. `Central library` will return `Science library`, `library toilet`.
+* If Resolved articles matching the keyword will be returned (OR operation).
 
 Examples:
 
-* `findresolved` returns the list of resolved article entries.
+* `findresolved` returns all resolved article entries.
 * `findresolved Jacket` returns resolved article entries which have fields having keywords `Jacket`.
 * `findresolved Tom wallet` returns resolved article entries which have fields having keywords `Tom`, `Wallet`.
 

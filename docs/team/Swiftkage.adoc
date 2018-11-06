@@ -47,8 +47,8 @@ include::../UserGuide.adoc[tag=findfeature]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=user]
-
-
+//include::../DeveloperGuide.adoc[tag=user]
+include::../DeveloperGuide.adoc[tag=find]
+include::../DeveloperGuide.adoc[tag=resolve]
 
 

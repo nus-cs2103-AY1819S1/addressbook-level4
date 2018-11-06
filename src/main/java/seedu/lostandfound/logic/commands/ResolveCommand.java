@@ -1,6 +1,7 @@
 package seedu.lostandfound.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_OWNER;
 import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 
 import java.util.List;
@@ -18,20 +19,24 @@ import seedu.lostandfound.model.article.Name;
  */
 public class ResolveCommand extends Command {
     public static final String COMMAND_WORD = "resolve";
-    private static final Name DEFAULT_OWNER = new Name("Claimed");
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Resolves the person identified by the index number used in the displayed article list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Resolves the article identified by the index number used in the displayed article list"
+            + " when owner claims their article.\n"
+            + "Parameters: INDEX (must be a positive integer) " + PREFIX_OWNER + "OWNER\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_OWNER + "John";
 
-    private static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    public static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    public static final String MESSAGE_NOT_RESOLVED = "Owner need to be specified!";
+
     private static final boolean SET_ISRESOLVED = true;
 
     private final Index targetIndex;
+    private final Name owner;
 
-    public ResolveCommand(Index targetIndex) {
+    public ResolveCommand(Index targetIndex, Name owner) {
         this.targetIndex = targetIndex;
+        this.owner = owner;
     }
 
     @Override
@@ -47,7 +52,7 @@ public class ResolveCommand extends Command {
 
         Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(),
                 articleToEdit.getEmail(), articleToEdit.getDescription(), articleToEdit.getFinder(),
-                DEFAULT_OWNER, SET_ISRESOLVED, articleToEdit.getTags());
+                owner, SET_ISRESOLVED, articleToEdit.getTags());
 
         model.updateArticle(articleToEdit, editedArticle);
         model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
