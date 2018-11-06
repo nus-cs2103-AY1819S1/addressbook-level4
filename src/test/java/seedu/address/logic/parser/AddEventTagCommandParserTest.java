@@ -42,10 +42,10 @@ public class AddEventTagCommandParserTest {
     }
 
     @Test
-    public void parse_noTagValuesPresent_success() {
+    public void parse_noTagValuesPresent_fail() {
         // zero tags
-        Set<Tag> expectedTags = new HashSet<>();
-        assertParseSuccess(parser, "", new AddEventTagCommand(expectedTags));
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventTagCommand.MESSAGE_USAGE));
     }
 
     @Test
