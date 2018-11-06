@@ -35,7 +35,7 @@ public class CarparkListPanel extends UiPart<Region> {
         super(FXML);
         setConnections(carparkList);
         registerAsAnEventHandler(this);
-        carparkListView.setFixedCellSize(280.0);
+        carparkListView.setFixedCellSize(270.0);
     }
 
     private void setConnections(ObservableList<Carpark> carparkList) {
