@@ -701,6 +701,55 @@ commands inherit from the abstract class and implement the execution functionali
 ** Cons: Requires more code to implement.
 // end::select[]
 
+// tag::list[]
+=== List feature
+
+The `list` command removes any filters applied to `UniqueGroupList`, `UniquePersonList` and `UniqueMeetingList` by other
+commands. This section will explain current implementation of list command and design considerations during development
+phase.
+
+==== Current implementation
+The list mechanism is facilitated by `ModelManager`. It uses the same operations as mentioned in `select` feature,
+namely `Model#updateFilteredPersonList`, `Model#updateFilteredGroupList` and `Model#updateFilteredMeetingList`.
+
+Given below is an example usage scenario and operations executed by list mechanism at each step.
+
+Step 1. The user launches the application. `ModelManager` will be initialized with initial MeetingBook state, and
+`UniquePersonList`, `UniqueMeetingList` and `UniqueGroupList` contains all person, meetings and groups respectively
+without filter.
+
+Step 2. The user executes `list` command with additional parameter to specify the list to show all items. Available
+parameters are `person`, `meeting` and `group`, or their shorthand equivalent `p`, `m` and `g`. `ListCommandParser`
+parses the command to determine the list type, and the command executes the following steps:
+
+* Step 2.1. If the parameter is `group` / `g`, `Model#updateFilteredGroupList` is called with
+`PREDICATE_SHOW_ALL_GROUPS` to remove any filters applied to `UniqueGroupList`.
+
+* Step 2.1. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
+`PREDICATE_SHOW_ALL_MEETINGS` to remove any filters applied to `UniqueMeetingList`.
+
+* Step 2.1. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
+`PREDICATE_SHOW_ALL_PERSONS` to remove any filters applied to `UniquePersonList`.
+
+[NOTE]
+List will remain unchanged if it does not have any filters applied before executing `list` command.
+
+.List group sequence diagram
+image::ListCommandSequenceDiagram.png[width="800"]
+
+==== Design considerations
+===== Aspect: Data structure to support the list command
+* **Alternative 1 (current choice)** : Use a single list class to perform all list operations.
+** Pros: Easy to implement as fewer lines of code are required.
+** Cons: Harder to extend list functionality if need to implement list command for other items, list class will become
+bloated if too many items require list command.
+* **Alternative 2** : Abstract list class containing required variables and methods without implementation, and specific
+list commands inherit from the abstract class and implement the execution functionality.
+** Pros: Good data structure, easy to extend functionality to other items that require list command.
+** Cons: Requires more lines of code to implement.
+
+// end::list[]
+
 // tag::export[]
 === Export feature
 ==== Current Implementation
