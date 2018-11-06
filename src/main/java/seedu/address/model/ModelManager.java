@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -190,6 +191,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTaskManager.rollback();
         indicateTaskManagerChanged();
     }
+
     //=========== Check overdue ==========================================================================
 
     @Override
@@ -212,6 +214,13 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedTaskManager.equals(other.versionedTaskManager)
                 && filteredTasks.equals(other.filteredTasks);
+    }
+
+    //=========== Topological order ======================================================================
+
+    @Override
+    public List<Task> getTopologicalOrder() {
+        return this.getTaskManager().getTopologicalOrder();
     }
 
 }

@@ -21,6 +21,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ShowTopologicalOrderCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -95,6 +96,9 @@ public class TaskManagerParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case ShowTopologicalOrderCommand.COMMAND_WORD:
+            return new ShowTopologicalOrderCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
