@@ -72,6 +72,7 @@ public class UniqueCategoryList implements Iterable<Category> {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
+
     /**
      * Replaces the contents of this list with {@code tasks}.
      * {@code tasks} must not contain duplicate tasks.
@@ -82,6 +83,15 @@ public class UniqueCategoryList implements Iterable<Category> {
             throw new DuplicateCategoryException();
         }
         internalList.setAll(categories);
+    }
+
+    /**
+     * Remove selected category from schedule planner.
+     */
+    public void removeCategory(String name) {
+        requireNonNull(name);
+        Category category = getCategory(name);
+        internalList.remove(category);
     }
 
     /**

@@ -1,5 +1,7 @@
 package ssp.scheduleplanner.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,13 +59,23 @@ public class XmlSerializableRangeOfWeek {
 
     /**
      * This method check if the date data from storage is modified into invalid date format
+     * or if the date range is invalid (startOfWeek value is after endOfWeek value or vice versa
      * @return return false if invalid date
      */
-    public boolean checkIfValidDateFromStorage() {
+    public boolean checkIfValidDateOrRangeFromStorage() {
         String[][] string2dArray = new String[WEEKS_IN_SEMESTER][3];
         for (int i = 0; i < WEEKS_IN_SEMESTER; i++) {
             if (!Date.isValidDate(rangeOfWeeks.get(i).getStartOfWeekDate())
                     || !Date.isValidDate(rangeOfWeeks.get(i).getEndOfWeekDate())) {
+                return false;
+            }
+
+            LocalDate firstDate = LocalDate.parse(rangeOfWeeks.get(i).getStartOfWeekDate(),
+                    DateTimeFormatter.ofPattern("ddMMyy"));
+            LocalDate lastDate = LocalDate.parse(rangeOfWeeks.get(i).getEndOfWeekDate(),
+                    DateTimeFormatter.ofPattern("ddMMyy"));
+
+            if (firstDate.isAfter(lastDate) || lastDate.isBefore(firstDate)) {
                 return false;
             }
         }

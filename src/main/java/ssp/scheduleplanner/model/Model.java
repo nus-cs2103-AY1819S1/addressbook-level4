@@ -24,6 +24,11 @@ public interface Model {
     ReadOnlySchedulePlanner getSchedulePlanner();
 
     /**
+     * Check through the archived task list and deletes tasks with date earlier than one week ago.
+     */
+    void autoDeleteArchived();
+
+    /**
      * Returns true if a task with the same identity as {@code task} exists in the Schedule Planner.
      */
     boolean hasTask(Task task);

@@ -1,57 +1,64 @@
 = Ang Chen Shin - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
+:sectnums:
 :stylesDir: ../stylesheets
 
-== PROJECT: Student Schedule Planner
+PROJECT: Student Schedule Planner
 
 ---
 
 == Overview
 
-Student Schedule Planner (SSP) is a desktop application aimed to help students to manage their tasks effectively. The
-user interacts with SSP using a Command-Line Interface (CLI), and it has a Graphical User Interface (GUI)
-created with JavaFX.
+This portfolio showcases the software engineering skills I acquired during my time of study in National University of
+ Singapore.
 
-== Summary of contributions
+Student Schedule Planner (SSP) is a desktop application created by my team T12-3 for the CS2103T module. SSP
+aimed to help university students to manage their tasks effectively. It is morphed from an existing product called
+AddressBook, with constraints such as the primary mode of user input must be via command-line interface.
 
-* *Major enhancement*: added *command to generate academic calendar weeks*
-** What it does: This feature allow user to use a command to generate the entire academic calendar weeks based on the
+My contributions to the project included adding `firstday`, `listday` and `listweek` commands to aid the
+users in better management of their tasks.
+
+== Summary of Contributions
+
+* *Major enhancement*: Added `firstday` *command to generate academic calendar weeks*
+** What it does: This feature allows generation of the entire academic calendar weeks based on the
  first day of the academic semester. Whenever the user launches the application within the academic semester, that
  particular week's description will be appended to the application title so the user know which academic week that
  particular week is.
-** Justification: This feature allows user to monitor their tasks easier as they may know that they have certain task
- due on a particular week and could use this to gauge the number of weeks they have left for the task.
-** Highlights: This implementation was challenging as it required creating a new model and storage for saving and
+** Justification: This feature allows user to monitor their tasks easier as they may know that they have certain tasks
+ due on a particular week and could use this to plan their remaining time properly.
+** Highlights: This implementation was challenging as it required creating a new `model` and `storage` for saving and
 retrieving the academic week data.
-** Credits: https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java
-
+** Credits: https://stackoverflow.com/questions/1816673/how-do-i-check-if-a-file-exists-in-java[#1],
+https://stackoverflow.com/questions/156503/how-do-you-assert-that-a-certain-exception-is-thrown-in-junit-4-tests[#2]
 * *Minor enhancement*:
-** added a "list day" command to display the tasks from current date.
-** added a "list week" command to display the tasks from current date till the closest Sunday.
+** Added `listday` command to display the tasks from current date.
+** Added `listweek` command to display the tasks from current date until the closest Sunday.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=crimsonang[Project
+Code Dashboard]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases `mid-v1.3` - `v1.3` (2 releases) on GitHub
 ** Documentation:
-
-*** Updated Target User Profile of the Developer Guide (Pull requests
-https://github.com/CS2103-AY1819S1-T12-3/main/pull/1[#1])
-*** Added User Stories of the Developer Guide (Pull requests
-https://github.com/CS2103-AY1819S1-T12-3/main/pull/1[#1])
+*** Morphed existing diagrams of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/81[#81]
+*** Updated `Target User Profile` of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/1[#1]
+*** Added `User Stories` of the Developer Guide:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/1[#1]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1819S1/forum/issues/132[1])
-*** Some parts of the listweek feature I added was adopted by a classmate
-(Pull Request https://github.com/CS2103-AY1819S1-T12-3/main/pull/125[125])
+*** Contributed to forum discussions: https://github.com/nus-cs2103-AY1819S1/forum/issues/132[#132],
+https://github.com/nus-cs2103-AY1819S1/forum/issues/146[#146]
+*** Some parts of the `listweek` feature I added was adopted by a classmate:
+https://github.com/CS2103-AY1819S1-T12-3/main/pull/125[#125]
 ** Tools:
 *** Integrated two Github plugin (AppVeyor, Coveralls) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -64,7 +71,20 @@ include::../UserGuide.adoc[tag=listday]
 
 include::../UserGuide.adoc[tag=listweek]
 
+The following diagram illustrates that when you used the `listweek` command on `021118`, you will only see tasks
+until `041118` which is the closest Sunday.
+
+.Illustration of how listweek Command Functions
+image::ListWeekCommand_UG_Before_After.png[width="700"]
+
 include::../UserGuide.adoc[tag=firstday]
+include::../UserGuide.adoc[tag=firstday2]
+
+The following diagram illustrates when you used the `firstday` command from E.g 221018 to 281018 (Week 10 for
+NUS academic year 18/19 semester 1) and launch the application within Week 10.
+
+.Illustration of how firstday Command Functions
+image::FirstDayCommand_UG_Before_After.png[width="700"]
 
 == Contributions to the Developer Guide
 
@@ -74,11 +94,13 @@ include::../UserGuide.adoc[tag=firstday]
 
 include::../DeveloperGuide.adoc[tag=viewarangeoftasks]
 
+include::../DeveloperGuide.adoc[tag=viewarangeoftasks2]
+
 include::../DeveloperGuide.adoc[tag=generateacademiccalendar]
 
+With the extra layer of data verification and rectification, the user do not need to worry when they accidentally
+messed up the storage file.
 
-== PROJECT: PowerPointLabs
+image::FirstDayCommand_DG_MainAppLaunchSnippet.png[width="275"]
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=generateacademiccalendar2]

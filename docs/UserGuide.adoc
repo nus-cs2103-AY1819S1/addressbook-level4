@@ -275,23 +275,15 @@ Shows a list of tasks that are due from current date till the closest Sunday. +
 ====
 [blue]`listweek`
 ====
-
+// end::listweek[]
 Example:
 ====
 input: [blue]`listweek` on the date 021118 +
 output: Shows a list of tasks from 021118 to closest Sunday which is 041118.
+
+image::ListWeekCommand_UG_Before_After.png[width="700"]
 ====
 
-Before:
-====
-image::ListWeekCommand_UG_Before.png[width="300"]
-====
-
-After:
-====
-image::ListWeekCommand_UG_After.png[width="400"]
-====
-// end::listweek[]
 
 === Viewing Tasks Due This Month
 
@@ -316,40 +308,36 @@ Generates the entire academic calendar with description, based on the first acad
 Currently, the generated academic calendar is based on the academic calender of National University of Singapore
 (NUS). It may not be compatible with academic calendars from other institutions.
 
-Whenever the application is launched within the academic calendar's dates, the application title
-will append that particular week's description to the title of the app. +
+Whenever the application is launched within the academic calendar's dates, the application title will append that
+particular week's description to the title of the app. +
 
 ====
-[blue]`firstday [DDMMYY]`
+[blue]`firstday DDMMYY`
 ====
-
+// end::firstday[]
 Example:
 ====
 input: [blue]`firstday 130818` +
 output: When the user launches the application from E.g 221018 to 281018 (Week 10 for NUS academic year 18/19
 semester 1), the application title will append "Week 10" to the title of the app.
+
+image::FirstDayCommand_UG_Before_After.png[width="600"]
 ====
-The [blue]`[DDMMYY]` refers to the date format of day, month and year. It must complies the following three rules in
+// tag::firstday2[]
+[NOTE]
+There would not be any visible changes upon using the command. The reflection would only occur after relaunching the
+application.
+
+The [blue]`DDMMYY` refers to the date format of day, month and year. It must complies the following three rules in
 order:
 
-1. The [blue]`DDMMYY]` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
-will be
-rejected as they are considered as more than one set of date.
+1. The [blue]`DDMMYY` must only be one set of value such as `130818`. Value such as `130818 200818` or `130818 20`
+will be rejected as they are considered as more than one set of date.
 
 2. The [blue]`DDMMYY` must be a valid date within 21st century.
 
 3. The [blue]`DDMMYY` must be a Monday.
-
-Before:
-====
-image::FirstDayCommand_UG_Bef.png[width="600"]
-====
-
-After:
-====
-image::FirstDayCommand_UG_Aft.png[width="400"]
-====
-// end::firstday[]
+// end::firstday2[]
 
 === Listing Overdue Tasks
 

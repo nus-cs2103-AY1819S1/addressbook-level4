@@ -182,15 +182,13 @@ public class FirstDayCommand extends Command {
      * @throws CommandException
      */
     public String computeAppTitle() throws CommandException {
-        String appTitle = "";
+        String appTitle = "Schedule Planner";
 
         String[][] retrieveData = new String[WEEKS_IN_SEMESTER][3];
         retrieveData = retrieveRangeOfWeeks(retrieveData);
 
         if (isWithinDateRange(retrieveData[0][0], retrieveData[16][1])) {
             appTitle = "Schedule Planner" + "  - " + retrieveWeekDescription(retrieveData);
-        } else {
-            appTitle = "Schedule Planner";
         }
 
         return appTitle;
@@ -235,10 +233,10 @@ public class FirstDayCommand extends Command {
      * This method create default storage file if the date data in the storage is modified into invalid date
      * @throws CommandException
      */
-    public void createDefaultFileIfInvalidDate () throws CommandException {
+    public void createDefaultFileIfInvalidDateOrRange () throws CommandException {
         try {
             XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(path);
-            if (!range.checkIfValidDateFromStorage()) {
+            if (!range.checkIfValidDateOrRangeFromStorage()) {
                 saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
             }
         } catch (DataConversionException e) {

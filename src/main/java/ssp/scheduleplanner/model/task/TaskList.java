@@ -3,6 +3,7 @@ package ssp.scheduleplanner.model.task;
 import static java.util.Objects.requireNonNull;
 import static ssp.scheduleplanner.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,6 +22,24 @@ import ssp.scheduleplanner.model.task.exceptions.TaskNotFoundException;
 public class TaskList implements Iterable<Task> {
 
     private ObservableList<Task> internalList = FXCollections.observableArrayList();
+
+    /**
+     * Check through the task list and deletes tasks with date earlier than one week ago.
+     */
+    public void autoDelete() {
+        Calendar expireTime = Calendar.getInstance();
+        expireTime.add(Calendar.DAY_OF_MONTH, -14);
+        java.util.Date expireDate = expireTime.getTime();
+        Iterator iterator = this.iterator();
+        while (iterator.hasNext()) {
+            Task nextTask = (Task) iterator.next();
+            java.util.Date date = nextTask.getDate().calendar.getTime();
+            if (date.compareTo(expireDate) < 0) {
+                iterator.remove();
+            }
+        }
+    }
+
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.

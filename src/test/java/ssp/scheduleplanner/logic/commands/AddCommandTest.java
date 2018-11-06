@@ -102,6 +102,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void autoDeleteArchived() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addTag(Tag tag, String category) {
             throw new AssertionError("This method should not be called.");
         }
@@ -243,6 +248,10 @@ public class AddCommandTest {
         };
 
         @Override
+        public void autoDeleteArchived(){
+        }
+
+        @Override
         public boolean hasTask(Task task) {
             requireNonNull(task);
             return tasksAdded.stream().anyMatch(task::isSameTask);
@@ -253,6 +262,7 @@ public class AddCommandTest {
             requireNonNull(task);
             tasksAdded.add(task);
         }
+
 
         @Override
         public void addTag(Tag tag, String category) {

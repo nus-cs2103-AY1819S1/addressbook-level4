@@ -464,10 +464,10 @@ The following sequence diagram illustrates how the mechanism works:
 
 .Sequence Diagram of ListWeek Command
 image::ListWeekCommand_DG_SequenceDiagram.png[width="800"]
-
+// end::viewarangeoftasks[]
 .Sequence Diagram of ListMonth Command
 image::ListMonthCommandSequenceDiagram.png[]
-
+// tag::viewarangeoftasks2[]
 ==== Design Considerations
 
 ===== Aspect: How does listday and listweek function
@@ -479,7 +479,7 @@ image::ListMonthCommandSequenceDiagram.png[]
 E.g listday 130818 to view all tasks for 13 August 2018.
 ** Pros: It allows viewing for different date(s).
 ** Cons: It would cause inconvenience for entering the date(s) each time the command was to be used.
-// end::viewarangeoftasks[]
+// end::viewarangeoftasks2[]
 
 // tag::generateacademiccalendar[]
 === Generate Academic Calendar Weeks
@@ -525,8 +525,8 @@ entries differ from the expected academic number of weeks.
 
 * `FirstDayCommand#createDefaultFileIfNull()` -- It creates the default `rangeofweek.xml` if any data is null.
 
-* `FirstDayCommand#createDefaultFileIfInvalidDate()` -- It creates the default `rangeofweek.xml` if date data in
-modified to be an invalid date format.
+* `FirstDayCommand#createDefaultFileIfInvalidDateOrRange()` -- It creates the default `rangeofweek.xml` if date data in
+modified to be an invalid date or date range format.
 
 Given below is an example usage scenario and how `firstday` mechanism behaves at each step:
 
@@ -554,10 +554,10 @@ calendar weeks. The academic calendar weeks will be stored in a `2D String array
 Step 7. `FirstDayCommand#saveRangeOfWeeks(rangeOfWeek)` will be activated. It will create a
 `XmlSerializableRangeOfWeek` object with `rangeOfWeek` as its parameter to allow the `rangeOfWeek` data to be
 converted into `Xml` format to be easily saved. Next, this method would call `XmlFileStorage#saveWeekDataToFile` to
-save the `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeOfWeek.xml`
+save the `XmlSerializableRangeOfWeek` object data into `Xml` format in `rangeofweek.xml`
 
 [NOTE]
-`CommandException` will be thrown if `rangeOfWeek.xml` does not exist.
+`CommandException` will be thrown if `rangeofweek.xml` does not exist.
 
 Step 8. After the data had been saved properly, should the current system date lies within the academic calendar
 weeks, the `UI` would display the corresponding week description to the user.
@@ -566,11 +566,12 @@ image::FirstDayCommand_UG_Bef.png[width="600"]
 
 Step 9. When user launch the application,`MainApp` will create a `FirstDayCommand` object named `fdc` to utilise the
 method `FirstDayCommand#createDefaultFileIfNotExist`, `FirstDayCommand#createDefaultFileIfDiffSize`,
-`FirstDayCommand#createDefaultFileIfNull` and `FirstDayCommand#createDefaultFileIfInvalidDate`.
+`FirstDayCommand#createDefaultFileIfNull` and `FirstDayCommand#createDefaultFileIfInvalidDateOrRange`.
 
 If it is the first time the user launch the application or if user deleted the `rangeofweek.xml` or modified the file
 content until some content are invalid, the application will create a default `rangeofweek.xml`.
-
+// end::generateacademiccalendar[]
+// tag::generateacademiccalendar2[]
 Step 10. `MainApp` will create a `Config` object named as `updateConfig` and then calls the method `updateConfig.setAppTitle(fdc.computeAppTitle())`. `fdc.computeAppTitle()` would generate the corresponding application title by
 checking the current system date and the saved academic calendar weeks data. It would then return the result into
 `updateConfig.setAppTitle()` to update the application title.
@@ -583,20 +584,16 @@ Step 11. `MainApp` would then retrieve the application title from `config.json` 
 image::FirstDayCommand_UG_Aft.png[width="400"]
 
 [NOTE]
-`CommandException` will be thrown if data from `rangeOfWeek.xml` could not be converted or if `rangeOfWeek.xml` does
+`CommandException` will be thrown if data from `rangeofweek.xml` could not be converted or if `rangeofweek.xml` does
 not exist.
-
-{empty} +
 
 The following sequence diagram illustrates how the mechanism works:
 
 .Sequence diagram of FirstDay Command
-image::FirstDayCommand_DG_SequenceDiagram.png[width="800"]
-
-{empty} +
+image::FirstDayCommand_DG_SequenceDiagram.png[width="700"]
 
 .Sequence diagram of launching MainApp
-image::LaunchMainApp_DG_SequenceDiagram.png[width="800"]
+image::LaunchMainApp_DG_SequenceDiagram.png[width="700"]
 
 
 ==== Design Considerations
@@ -620,7 +617,7 @@ description for each weeks.
 ** Pros: It would not require sequential memory for storage.
 ** Cons: It would not allow data retrieval at any specific index which requires traversing the `arraylist`.
 
-// end::generateacademiccalendar[]
+// end::generateacademiccalendar2[]
 
 // tag::filtertags[]
 === Filter Tags

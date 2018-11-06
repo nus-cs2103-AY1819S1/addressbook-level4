@@ -73,6 +73,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void autoDeleteArchived() {
+        versionedSchedulePlanner.autoDeleteArchived();
+    }
+    @Override
     public boolean hasTask(Task task) {
         requireNonNull(task);
         return versionedSchedulePlanner.hasTask(task);
