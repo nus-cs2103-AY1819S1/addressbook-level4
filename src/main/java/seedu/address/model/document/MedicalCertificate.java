@@ -25,6 +25,11 @@ public class MedicalCertificate extends Document {
         mcDays = Integer.parseInt(servedPatient.getMcContent());
     }
 
+    /**
+     * Formats all the relevant information of the MC in HTML for the served patient. Other than the main bulk
+     * of the text that is for completeness, this information includes the number of days of medical leave
+     * granted and the period which the medical leave will last.
+     */
     public String formatInformation() {
         int numMcDays = getMcDays();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

@@ -43,6 +43,12 @@ public class Receipt extends Document {
         servicesRendered.add(Service.CONSULTATION);
     }
 
+    /**
+     * Formats all the relevant information of the receipt in HTML for the served patient. It formats all the
+     * medicine dispensed and services rendered by the clinic during the consultation into a table, with entries for
+     * each chargeable medicines/services offered. This information includes the price and quantity of the
+     * medicines/services offered, along with the grand total price of the consultation.
+     */
     public String formatInformation() {
         StringBuilder stringbuilder = new StringBuilder();
         resetPrice();
