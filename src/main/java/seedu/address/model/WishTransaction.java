@@ -154,22 +154,8 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
     public void updateWish(Wish target, Wish editedWish) {
         // get a reference to the stored wishes
         LinkedList<Wish> wishes = getWishList(getKey(target));
-        // change the key of the target wish
-        // changeKey(target, editedWish);
         // update the stored wishes
         setValueOfKey(target, updateWishes(wishes, editedWish));
-    }
-
-    /**
-     * Changes the key for the entry of {@code existing} to key of {@code newWish}.
-     * Assumption: {@code existing} must be an existing wish in the map.
-     *
-     * @param existing existing wish in the {@code wishmap}.
-     * @param newWish wish to be changed to.
-     */
-    private void changeKey(Wish existing, Wish newWish) {
-        wishMap.remove(getKey(existing));
-        wishMap.put(getKey(newWish), null);
     }
 
     /**
