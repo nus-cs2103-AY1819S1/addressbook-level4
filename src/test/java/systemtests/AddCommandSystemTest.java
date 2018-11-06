@@ -19,6 +19,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_IPHONE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalExpenses.GAMBLE;
 import static seedu.address.testutil.TypicalExpenses.GAME;
@@ -108,6 +109,26 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
         /* Case: add a expense, missing tags -> added */
         assertCommandSuccess(STOCK);
 
+        /* Case: add a duplicate expense -> added */
+        command = ExpenseUtil.getAddCommand(STOCK);
+        toAdd = STOCK;
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add a duplicate expense except with different category -> added */
+        toAdd = new ExpenseBuilder(STOCK).withCategory(VALID_CATEGORY_IPHONE).build();
+        command = ExpenseUtil.getAddCommand(toAdd);
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add a duplicate expense except with different address -> added */
+        toAdd = new ExpenseBuilder(STOCK).withCost(VALID_COST_IPHONE).build();
+        command = ExpenseUtil.getAddCommand(toAdd);
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: add a duplicate expense except with different tags -> added */
+        toAdd = new ExpenseBuilder(STOCK).withTags(VALID_TAG_FRIEND).build();
+        command = ExpenseUtil.getAddCommand(STOCK) + " " + PREFIX_TAG.getPrefix() + "friend";
+        assertCommandSuccess(command, toAdd);
+
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the expense list before adding -> added */
@@ -121,24 +142,6 @@ public class AddCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandSuccess(TOY);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
-
-        /* Case: add a duplicate expense -> rejected */
-        command = ExpenseUtil.getAddCommand(STOCK);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: add a duplicate expense except with different category -> rejected */
-        toAdd = new ExpenseBuilder(STOCK).withCategory(VALID_CATEGORY_IPHONE).build();
-        command = ExpenseUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: add a duplicate expense except with different address -> rejected */
-        toAdd = new ExpenseBuilder(STOCK).withCost(VALID_COST_IPHONE).build();
-        command = ExpenseUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: add a duplicate expense except with different tags -> rejected */
-        command = ExpenseUtil.getAddCommand(STOCK) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EXPENSE);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + CATEGORY_DESC_GAME + COST_DESC_GAME + DATE_DESC_1990;

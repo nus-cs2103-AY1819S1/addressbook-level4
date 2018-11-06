@@ -86,10 +86,13 @@ public class AddCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicateExpense_throwsCommandException() throws NoUserSelectedException {
+    public void execute_duplicateExpense_budgetExceed() throws NoUserSelectedException {
         Expense expenseInList = model.getExpenseTracker().getExpenseList().get(0);
-        assertCommandFailure(new AddCommand(expenseInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_EXPENSE);
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
+        expectedModel.addExpense(expenseInList);
+        expectedModel.commitExpenseTracker();
+        assertCommandSuccess(new AddCommand(expenseInList), model, commandHistory,
+                AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, expectedModel);
     }
 
 }

@@ -7,8 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.address.model.expense.exceptions.DuplicateExpenseException;
-
 //@@author JasonChong96
 /**
  * A list of encrypted expenses that allows for duplication but does not allow null.

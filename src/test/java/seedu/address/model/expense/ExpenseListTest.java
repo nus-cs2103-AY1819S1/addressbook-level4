@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalExpenses.IPHONE;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

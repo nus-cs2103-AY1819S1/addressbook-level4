@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.exceptions.NegativeValueParseException.NEGATIVE_EXCEPTION_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
-import static seedu.address.commons.exceptions.NegativeValueParseException.NEGATIVE_EXCEPTION_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_GAME;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
