@@ -18,6 +18,7 @@ import guitests.guihandles.OccasionCardHandle;
 import guitests.guihandles.OccasionListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.ui.JumpToOccasionListRequestEvent;
 import seedu.address.commons.events.ui.JumpToPersonListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
@@ -28,8 +29,8 @@ public class OccasionListPanelTest extends GuiUnitTest {
     private static final ObservableList<Occasion> TYPICAL_OCCASIONS =
             FXCollections.observableList(getTypicalOccasions());
 
-    private static final JumpToPersonListRequestEvent JUMP_TO_SECOND_EVENT =
-            new JumpToPersonListRequestEvent(INDEX_SECOND_OCCASION);
+    private static final JumpToOccasionListRequestEvent JUMP_TO_SECOND_EVENT =
+            new JumpToOccasionListRequestEvent(INDEX_SECOND_OCCASION);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
