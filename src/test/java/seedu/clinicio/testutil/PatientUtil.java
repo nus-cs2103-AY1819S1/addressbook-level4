@@ -9,12 +9,9 @@ import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_MEDICATION;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_PREFERRED_DOCTOR;
-import static seedu.clinicio.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
-import seedu.clinicio.logic.commands.AddCommand;
 import seedu.clinicio.logic.commands.AddPatientCommand;
-import seedu.clinicio.logic.commands.EditCommand.EditPersonDescriptor;
+
 import seedu.clinicio.model.patient.Patient;
 
 /**
@@ -40,16 +37,16 @@ public class PatientUtil {
         sb.append(PREFIX_EMAIL + patient.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + patient.getAddress().value + " ");
         patient.getMedicalProblems().stream().forEach(
-                s -> sb.append(PREFIX_MEDICAL_PROBLEM + s.medProb + " ")
+            s -> sb.append(PREFIX_MEDICAL_PROBLEM + s.medProb + " ")
         );
         patient.getMedications().stream().forEach(
-                s -> sb.append(PREFIX_MEDICATION + s.value + " ")
+            s -> sb.append(PREFIX_MEDICATION + s.value + " ")
         );
         patient.getAllergies().stream().forEach(
-                s -> sb.append(PREFIX_ALLERGY + s.allergy + " ")
+            s -> sb.append(PREFIX_ALLERGY + s.allergy + " ")
         );
         patient.getPreferredDoctor().ifPresent(
-                s -> sb.append(PREFIX_PREFERRED_DOCTOR + s.getName().fullName + " ")
+            s -> sb.append(PREFIX_PREFERRED_DOCTOR + s.getName().fullName + " ")
         );
         return sb.toString();
     }

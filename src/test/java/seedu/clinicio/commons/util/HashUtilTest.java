@@ -29,17 +29,20 @@ public class HashUtilTest {
         Assert.assertThrows(NullPointerException.class, () -> HashUtil.verifyPassword("131", null));
 
         // Illegal value for empty password hash string
-        Assert.assertThrows(IllegalArgumentException.class, () -> HashUtil.verifyPassword(HashUtil.hashToString("124"), "")); // Empty password hash string only
-        Assert.assertThrows(IllegalArgumentException.class, () -> HashUtil.verifyPassword("", "")); // Empty password and password hash string
-        
+        Assert.assertThrows(IllegalArgumentException.class, () -> HashUtil.verifyPassword(
+                HashUtil.hashToString("124"), "")); // Empty password hash string only
+        Assert.assertThrows(IllegalArgumentException.class, () -> HashUtil.verifyPassword(
+                "", "")); // Empty password and password hash string
+
         // Verify Password -> returns false
-        assertFalse(HashUtil.verifyPassword(HashUtil.hashToString("123"), HashUtil.hashToString("124"))); // Both hashed password
-        assertFalse(HashUtil.verifyPassword("", HashUtil.hashToString("124"))); // Empty password  
-        
+        assertFalse(HashUtil.verifyPassword(HashUtil.hashToString("123"),
+                HashUtil.hashToString("124"))); // Both hashed password
+        assertFalse(HashUtil.verifyPassword("", HashUtil.hashToString("124"))); // Empty password
+
         // Verify Password -> returns true
         assertTrue(HashUtil.verifyPassword("abc123", HashUtil.hashToString("abc123"))); // alphanumeric
         assertTrue(HashUtil.verifyPassword("123", HashUtil.hashToString("123"))); // only numbers
-        assertTrue(HashUtil.verifyPassword("abc 123", HashUtil.hashToString("abc 123"))); // alphanumeric + spaces. 
-        
+        assertTrue(HashUtil.verifyPassword("abc 123", HashUtil.hashToString("abc 123"))); // alphanumeric + spaces.
+
     }
 }
