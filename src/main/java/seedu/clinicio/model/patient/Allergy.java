@@ -9,7 +9,7 @@ import static seedu.clinicio.commons.util.AppUtil.checkArgument;
  */
 public class Allergy {
     public static final String MESSAGE_ALLERGY_CONSTRAINTS = "Allergy should be alphanumeric";
-    public static final String ALLERGY_VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String ALLERGY_VALIDATION_REGEX = "[\\p{Alnum} ]*";
 
     public final String allergy;
 

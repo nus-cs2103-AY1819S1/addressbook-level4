@@ -3,6 +3,7 @@ package seedu.clinicio.model;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
@@ -16,10 +17,15 @@ public interface ReadOnlyClinicIo {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Person> getPersonList();
+    /**
+     * Returns an unmodifiable view of the patients list.
+     * This list will not contain any duplicate patients.
+     */
+    ObservableList<Patient> getPatientList();
 
     /**
-     * Returns an unmodifiable view of the doctors list.
-     * This list will not contain any duplicate doctors.
+     * Returns an unmodifiable view of the staffs list.
+     * This list will not contain any duplicate staffs.
      */
     ObservableList<Staff> getStaffList();
 

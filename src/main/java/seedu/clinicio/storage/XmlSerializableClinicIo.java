@@ -22,10 +22,14 @@ import seedu.clinicio.model.staff.Staff;
 public class XmlSerializableClinicIo {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s).";
     public static final String MESSAGE_DUPLICATE_STAFF = "Staffs list contains duplicate staff(s).";
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
+
+    @XmlElement
+    private List<XmlAdaptedPatient> patients;
 
     @XmlElement
     private List<XmlAdaptedStaff> staffs;
@@ -36,6 +40,7 @@ public class XmlSerializableClinicIo {
      */
     public XmlSerializableClinicIo() {
         persons = new ArrayList<>();
+        patients = new ArrayList<>();
         staffs = new ArrayList<>();
     }
 
@@ -45,6 +50,7 @@ public class XmlSerializableClinicIo {
     public XmlSerializableClinicIo(ReadOnlyClinicIo src) {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        patients.addAll(src.getPatientList().stream().map(XmlAdaptedPatient::new).collect(Collectors.toList()));
         staffs.addAll(src.getStaffList().stream().map(XmlAdaptedStaff::new).collect(Collectors.toList()));
     }
 
@@ -63,7 +69,13 @@ public class XmlSerializableClinicIo {
             }
             clinicIo.addPerson(person);
         }
-        //@@author jjlee050
+        for (XmlAdaptedPatient pa: patients) {
+            Patient patient = pa.toModelType();
+            if (clinicIo.hasPatient(patient)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PATIENT);
+            }
+            clinicIo.addPatient(patient);
+        }
         for (XmlAdaptedStaff s : staffs) {
             Staff staff = s.toModelType();
             if (clinicIo.hasStaff(staff)) {
@@ -86,6 +98,7 @@ public class XmlSerializableClinicIo {
         }
 
         return persons.equals(((XmlSerializableClinicIo) other).persons)
+                && patients.equals(((XmlSerializableClinicIo) other).patients)
                 && staffs.equals(((XmlSerializableClinicIo) other).staffs);
 
     }

@@ -39,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedClinicIo versionedClinicIo;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Staff> filteredStaffs;
     private final FilteredList<Appointment> filteredAppointments;
     private final FilteredList<Consultation> filteredConsultations;
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedClinicIo = new VersionedClinicIo(clinicIo);
         //@@author jjlee050
         filteredPersons = new FilteredList<>(versionedClinicIo.getPersonList());
+        filteredPatients = new FilteredList<>(versionedClinicIo.getPatientList());
         filteredStaffs = new FilteredList<>(versionedClinicIo.getStaffList());
         filteredAppointments = new FilteredList<>(versionedClinicIo.getAppointmentList());
         filteredConsultations = new FilteredList<>(versionedClinicIo.getConsultationList());
@@ -94,6 +96,12 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedClinicIo.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasPatient(Patient patient) {
+        requireNonNull(patient);
+        return versionedClinicIo.hasPatient(patient);
     }
 
     //@@author jjlee050
@@ -173,7 +181,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateClinicIoChanged();
     }
 
-    //@@author jjlee050
+    @Override
+    public void addPatient(Patient patient) {
+        versionedClinicIo.addPatient(patient);
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+        indicateClinicIoChanged();
+    }
+
     @Override
     public void addStaff(Staff staff) {
         versionedClinicIo.addStaff(staff);
@@ -300,6 +314,24 @@ public class ModelManager extends ComponentManager implements Model {
         allPatientsInQueue.sort(comparator);
         return FXCollections.unmodifiableObservableList(
                 new FilteredList<>(FXCollections.observableList(allPatientsInQueue)));
+    }
+    //=========== Filtered Patient List Accessors =============================================================
+
+    //@@author jjlee050
+    /**
+     * Returns an unmodifiable view of the list of {@code Patient} backed by the internal list of
+     * {@code versionedClinicIo}
+     */
+    @Override
+    public ObservableList<Patient> getFilteredPatientList() {
+        return FXCollections.unmodifiableObservableList(filteredPatients);
+    }
+
+    //@@author jjlee050
+    @Override
+    public void updateFilteredPatientList(Predicate<Patient> predicate) {
+        requireNonNull(predicate);
+        filteredPatients.setPredicate(predicate);
     }
 
     //=========== Filtered Staff List Accessors =============================================================

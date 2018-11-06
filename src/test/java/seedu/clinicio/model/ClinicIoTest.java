@@ -28,6 +28,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.exceptions.DuplicatePersonException;
 import seedu.clinicio.model.staff.Staff;
@@ -72,7 +73,7 @@ public class ClinicIoTest {
         List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
-                new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>());
 
         thrown.expect(DuplicatePersonException.class);
         clinicIo.resetData(newData);
@@ -86,7 +87,7 @@ public class ClinicIoTest {
         Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
         List<Staff> newStaffs = Arrays.asList(ADAM, editedAdam);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(),
-                newStaffs);
+                new ArrayList<>(), newStaffs);
 
         thrown.expect(DuplicateStaffException.class);
         clinicIo.resetData(newData);
@@ -222,14 +223,15 @@ public class ClinicIoTest {
      */
     private static class ClinicIoStub implements ReadOnlyClinicIo {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        private final ObservableList<Patient> patients = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
 
         ClinicIoStub(Collection<Appointment> appointments, Collection<Person> persons,
-                Collection<Staff> staffs) {
+                Collection<Patient> patients, Collection<Staff> staffs) {
             this.appointments.setAll(appointments);
             this.persons.setAll(persons);
-            //@@author jjlee050
+            this.patients.setAll(patients);
             this.staffs.setAll(staffs);
         }
 
@@ -238,7 +240,11 @@ public class ClinicIoTest {
             return persons;
         }
 
-        //@@author jjlee050
+        @Override
+        public ObservableList<Patient> getPatientList() {
+            return patients;
+        }
+
         @Override
         public ObservableList<Staff> getStaffList() {
             return staffs;
