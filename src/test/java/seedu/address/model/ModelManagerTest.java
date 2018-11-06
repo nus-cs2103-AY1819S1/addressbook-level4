@@ -42,6 +42,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasCheckedOutPerson_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasCheckedOutPerson(null);
+    }
+
+    @Test
+    public void hasCheckedOutPerson_personNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasCheckedOutPerson(ALICE));
+    }
+
+    @Test
+    public void hasCheckedOutPerson_personInAddressBook_returnsTrue() {
+        AddressBook internalAddressBook = new AddressBook();
+        internalAddressBook.addCheckedOutPerson(ALICE);
+        modelManager.resetData(internalAddressBook);
+        assertTrue(modelManager.hasCheckedOutPerson(ALICE));
+    }
+
+    @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);

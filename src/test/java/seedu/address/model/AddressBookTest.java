@@ -90,9 +90,40 @@ public class AddressBookTest {
     }
 
     @Test
+    public void hasCheckedOutPerson_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasCheckedOutPerson(null);
+    }
+
+    @Test
+    public void hasCheckOutPerson_personNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasCheckedOutPerson(ALICE));
+    }
+
+    @Test
+    public void hasCheckedOutPerson_personInAddressBook_returnsTrue() {
+        addressBook.addCheckedOutPerson(ALICE);
+        assertTrue(addressBook.hasCheckedOutPerson(ALICE));
+    }
+
+    @Test
+    public void hasCheckedOutPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addCheckedOutPerson(ALICE);
+        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
+            .withTags(VALID_DRUG_ALLERGY_PENICILLIN).build();
+        assertTrue(addressBook.hasCheckedOutPerson(editedAlice));
+    }
+
+    @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getPersonList().remove(0);
+    }
+
+    @Test
+    public void getCheckedOutPersonList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        addressBook.getCheckedOutPersonList().remove(0);
     }
 
     /**
