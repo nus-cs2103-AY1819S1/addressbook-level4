@@ -184,9 +184,20 @@ Example:
 
 Format: `ls`: lists files in the current directory
 
+// tag::cd[]
 === Changing directories : `cd`
 
 Format: `cd [DIRECTORY_NAME]`: changes directory
+
+[NOTE]
+====
+For changing of drives in Windows, add '//' after the drive name.
+====
+
+Example:
+
+* `cd C://Users` - Changes the directory to Users in C:/ drive.
+// end::cd[]
 
 === Canvas operations : `canvas`
 
