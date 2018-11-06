@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: WishBook
-By: `CS2103T Team T16-1`  
+By: `CS2103T Team T16-1`
 ---
 
 == Overview
@@ -31,40 +31,40 @@ image::savingsHistoryUI.png[caption="Fig 2: Savings History of a Wish", align="c
 _Fig 2: Savings History of a Wish_
 ****
 * What it does: Shows a history of savings you have allocated for any particular wish in the wishbook, from newest to oldest.
-* Justification: This feature improves the product significantly because the automatic book-keeping of savings for each Wish allows the user to easily and clearly keep track of his or her savings over a length of time. 
+* Justification: This feature improves the product significantly because the automatic book-keeping of savings for each Wish allows the user to easily and clearly keep track of his or her savings over a length of time.
 +
 This feature also allows for extensions since the data collected in terms of amount saved as well as frequency of saving allows for precious insights to be drawn about the saving habits as well as saving priorities of the user.
-* Highlights: This enhancement affects existing commands and commands to be added in future. 
-+ 
+* Highlights: This enhancement affects existing commands and commands to be added in future.
++
 The implementation of this feature involves many different components and is intrinsically tied to the state of the `WishBook`, which changes when the user executes an action-based command such as the `Add`, `Save`, `Edit` command.
 <<<
 
 ====
-Areas involved: 
+Areas involved:
 
 * Persistent Storage
 ** Facilitate reading and writing of savings histories of all wishes to hard disk. This data will also be saved to the hard disk when triggered by a change in the state of the wishbook.
 
-* Dynamic updating of savings history 
-** In order for savings histories of each `Wish` to be updated dynamically, the implementation follows an event-driven model. When an action-based command is executed, subscribed classes will be notified of the change in state of the `WishBook`. 
+* Dynamic updating of savings history
+** In order for savings histories of each `Wish` to be updated dynamically, the implementation follows an event-driven model. When an action-based command is executed, subscribed classes will be notified of the change in state of the `WishBook`.
 ** The implementation of tracking the savings history of each `Wish` also needs to follow a `VersionedModel` that responds when notified by the change in `WishBook` state.
-* Testing 
+* Testing
 ** Unit and Integrated testing for the code contributed.
 ====
 
-* Credits: 
+* Credits:
 ** Persistent storage
 *** Savings history saved as `xml` format using the `JAXB` framework.
 ** Dynamic updating of savings history
 *** Follows event-driven model of `AddressBook-L4`
 *** `VersionedModel` implementation inspired by `undo`, `redo` functionality in `AddressBook-L4`.
-** Testing 
+** Testing
 *** `JUnit` testing framework adopted.
 
 <<<
 
-=== *Minor enhancement*: updated the  `Help Window` display. 
-The `Help Window` is a pop-up window that appears when the `Help` command is executed. It is a guide to aid the user navigate the `WishBook`. 
+=== *Minor enhancement*: updated the  `Help Window` display.
+The `Help Window` is a pop-up window that appears when the `Help` command is executed. It is a guide to aid the user navigate the `WishBook`.
 ****
 The image below shows a screenshot of the `Help Window`.
 
@@ -72,13 +72,13 @@ image::helpWindow.png[width="790", caption="Fig 3: Help Window", align="center"]
 _Fig 3: Help Window_
 ****
 
-=== *Code contributed*: 
+=== *Code contributed*:
 _The following links contain code snippets of code contributed_
-[https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-7b7c12031dc90ab5f6a8ec163dc2e541[Functional code]] [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-b84c42f13e31e9508d50fbccaca0ac08[Test code]] 
+[https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-7b7c12031dc90ab5f6a8ec163dc2e541[Functional code]][https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-b84c42f13e31e9508d50fbccaca0ac08[Test code]]
 
 === *Other contributions*:
 * Documentation:
-* User Guide: 
+* User Guide:
 ** Wrote the first version of the user guide containing all features in the first version of `WishBook`. (https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[]
 ** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[]
 * Developer Guide:
@@ -87,7 +87,7 @@ _The following links contain code snippets of code contributed_
 <<<
 
 * Diagrams
-** Refactored undo, redo UML diagrams to reflect current version of WishBook. 
+** Refactored undo, redo UML diagrams to reflect current version of WishBook.
 +
 ****
 The following images show the undo, redo UML diagrams:
@@ -112,7 +112,7 @@ image::ModelClassDiagram.png[caption="Fig 6: Model Class Diagram", align="center
 _Fig 6: Model Class Diagram_
 ****
 ** Updated the Storage class diagram.
-+ 
++
 ****
 The following image shows the updated Storage Class Diagram.
 
