@@ -64,7 +64,6 @@ public class Faculty {
     public static <Faculties extends Enum<Faculties>> boolean isInEnum(String value, Class<Faculties> enumClass) {
         for (Faculties e : enumClass.getEnumConstants()) {
             if (e.name().equalsIgnoreCase(value)) {
-                System.out.println("I'm here");
                 return true;
             }
         }
