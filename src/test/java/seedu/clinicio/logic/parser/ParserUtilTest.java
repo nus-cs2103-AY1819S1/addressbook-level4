@@ -401,12 +401,6 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseType_invalidType_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseType(INVALID_TYPE_2);
-    }
-
-    @Test
     public void parseType_nonExistentType_throwsNullPointerException() throws Exception {
         // TODO: Test for types that are neither followup nor new
     }
