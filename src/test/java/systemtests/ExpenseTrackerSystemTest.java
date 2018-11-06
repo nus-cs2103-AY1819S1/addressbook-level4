@@ -260,7 +260,7 @@ public abstract class ExpenseTrackerSystemTest {
     /**
      * Asserts that the starting state of the application is correct.
      */
-    private void assertApplicationStartingStateIsCorrect() throws NoUserSelectedException {
+    private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         //assertExpenseListMatching(getExpenseListPanel(), getModel().getFilteredExpenseList());
