@@ -687,17 +687,13 @@ image::SelectActivityDiagram.png[width="800"]
 
 ===== Aspect: Data structure to support the select command
 
-* **Alternative 1 (current choice):** Use prefix to differentiate between selecting group, meeting or person, and use a
-single select class to perform all select operations.
+* **Alternative 1 (current choice):** Use a single select class to perform all select operations.
 ** Pros: Easy to implement as there are fewer lines of code required.
 ** Cons: Harder to extend if need to implement select command for other items, select class will become bloated if too
 many items require select command.
-* **Alternative 2:** Individual command for selecting group, meeting and person.
-** Pros: Easy to extend functionality to select other items as all select commands are independent.
-** Cons: Requires more code to implement.
-* **Alternative 3:** Abstract select class containing required variables and methods without implementation, and select
+* **Alternative 2:** Abstract select class containing required variables and methods without implementation, and select
 commands inherit from the abstract class and implement the execution functionality.
-** Pros: Good data structure.
+** Pros: Good data structure, easy to extend functionality to select other items.
 ** Cons: Requires more code to implement.
 // end::select[]
 
