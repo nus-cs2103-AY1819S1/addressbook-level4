@@ -560,8 +560,9 @@ faculty to be displayed in the Location Display Tab.
 When the (correct) showLocation command is input together with the index of the individual whose faculty location is to be displayed,
 the index is first checked to determine if it is correct (more than 0 and not larger than the size of the list of contacts
 in the address book). Following this, the appropriate person is obtained from the `FilteredPersonList` (note: this is so as to allow
-the displaying of the contact's faculty location even if the list is filtered). A event, `FacultyLocationDisplayChangedEvent`,
-also newly created for this showLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
+the displaying of the contact's faculty location even if the list is filtered).
+
+A event, `FacultyLocationDisplayChangedEvent`, also newly created for this showLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
 Display Tab) and subsequently by `LocationDisplayPanel`.
 
 If the contact has no faculty, a default location - University Hall - is displayed on the map.
