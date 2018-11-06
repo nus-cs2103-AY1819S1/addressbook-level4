@@ -35,8 +35,8 @@ public class DeleteMedicalHistoryCommand extends Command {
             + PREFIX_CONDITION + "CONDITIONS (separated by comma) \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_ALLERGY + "penicillin, milk "
-            + PREFIX_CONDITION + "sub-healthy, hyperglycemia ";
+            + PREFIX_ALLERGY + "penicillin,milk "
+            + PREFIX_CONDITION + "sub-healthy,hyperglycemia ";
 
     public static final String MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS = "Medical history deleted for: %1$s";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE = "This command is only for patients";
