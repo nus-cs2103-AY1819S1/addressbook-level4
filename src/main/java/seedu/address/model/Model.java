@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.canvas.Canvas;
 import seedu.address.model.google.PhotoHandler;
 import seedu.address.model.transformation.Transformation;
@@ -156,7 +155,7 @@ public interface Model {
      * update the transformationSet of the current image
      * @param transformation
      */
-    void addTransformation(Transformation transformation) throws ParseException, InterruptedException, IOException;
+    void addTransformation(Transformation transformation);
 
     void addLayer(PreviewImage i, String name);
 

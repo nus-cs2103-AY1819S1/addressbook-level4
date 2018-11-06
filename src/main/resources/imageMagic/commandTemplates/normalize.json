@@ -1,1 +1,0 @@
-{"name":"dither","num":"1","args":{"arg1":"radius x sigma"}, "patterns":{"pattern1":"\\d{1,2}x\\d{1,2}"}}
