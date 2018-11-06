@@ -45,6 +45,12 @@ Perhaps something can be done using another approach, but it is up to you to dec
 Some things might go wrong if you are not careful, or did not follow the instructions correctly; strongly advised to
 read whatever is in this block.
 
+=== A Quick Look at MeNUS
+
+*MeNUS*’s user interface is split into a few sections. These sections are highlighted in the image below.
+
+image::UserInterfaceHighlight.png[width="790"]
+
 Let's get started!
 // end::intro[]
 
