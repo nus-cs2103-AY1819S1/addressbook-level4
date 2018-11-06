@@ -200,6 +200,16 @@ Example:
 
 Deletes the specified person, module or occasion in TheTracker.
 
+==== Deleting from active list : `delete`
+
+Format: +
+`delete INDEX`
+
+Examples:
+
+* `delete 1` +
+Deletes the 1st entry of the active list. +
+
 ==== Deleting a person : `deleteperson`
 
 Format: +
