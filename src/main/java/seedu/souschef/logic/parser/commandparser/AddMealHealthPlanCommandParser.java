@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.core.Messages;
 import seedu.souschef.logic.commands.AddMealHealthPlanCommand;
 import seedu.souschef.logic.parser.ArgumentMultimap;
 import seedu.souschef.logic.parser.ArgumentTokenizer;
@@ -60,13 +61,13 @@ public class AddMealHealthPlanCommandParser {
         if (zeroBasedPlanIndex < 0
                 || zeroBasedPlanIndex >= healthPlanModel.getAppContent().getObservableHealthPlanList().size()) {
 
-            throw new ParseException(AddMealHealthPlanCommand.MESSAGE_USAGE);
+            throw new ParseException(Messages.MESSAGE_PLAN_INDEX_OUT_OF_RANGE);
         }
 
         if (zeroBasedDayIndex < 0
                 || zeroBasedDayIndex >= mealPlanModel.getAppContent().getObservableMealPlanner().size()) {
 
-            throw new ParseException(AddMealHealthPlanCommand.MESSAGE_USAGE);
+            throw new ParseException(Messages.MESSAGE_DAY_INDEX_OUT_OF_RANGE);
         }
         planToAddTo = healthPlanModel.getAppContent().getObservableHealthPlanList()
                 .get(Integer.parseInt(argMultimap.getValue(PREFIX_PLAN).get().trim()) - 1);

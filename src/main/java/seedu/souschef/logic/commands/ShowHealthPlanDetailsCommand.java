@@ -18,7 +18,7 @@ public class ShowHealthPlanDetailsCommand<T extends UniqueType> extends Command 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows the details of specified index\n"
             + "Parameters: INDEX\n"
-            + "Example: " +COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " 1";
 
 
 

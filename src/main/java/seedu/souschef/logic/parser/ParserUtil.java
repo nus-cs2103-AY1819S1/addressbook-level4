@@ -312,9 +312,14 @@ public class ParserUtil {
         return Scheme.valueOf(trimmedScheme);
     }
 
-
+    /**
+     *  parser for plan index of day commands in healthplan
+     * @param index
+     * @return
+     * @throws ParseException
+     */
     public static String parsePlanIndex(String index) throws ParseException {
-        String regex ="^[0-9]+$";
+        String regex = "^[0-9]+$";
         requireNonNull(index);
         String trimmedIndex = index.trim();
 
@@ -330,8 +335,14 @@ public class ParserUtil {
         return trimmedIndex;
     }
 
+    /**
+     *  parse the day index for the day commands of healthplan
+     * @param index
+     * @return
+     * @throws ParseException
+     */
     public static String parseDayIndex(String index) throws ParseException {
-        String regex ="^[0-9]+$";
+        String regex = "^[0-9]+$";
         requireNonNull(index);
         String trimmedIndex = index.trim();
 

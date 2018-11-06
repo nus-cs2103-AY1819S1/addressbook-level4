@@ -15,7 +15,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
@@ -232,7 +231,7 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
         Index index;
         boolean changeWeight = false;
-        double difference  = 0.0;
+        double difference = 0.0;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
@@ -294,17 +293,17 @@ public class EditCommandParser implements CommandParser<EditCommand> {
 
             //if target weight was given and current weight was given
             if (!(args.indexOf("t/") == -1) && !(args.indexOf("w/") == -1)) {
-                difference = Double.parseDouble(argMultimap.getValue(PREFIX_TWEIGHT).get()) -
-                        Double.parseDouble(argMultimap.getValue(PREFIX_CWEIGHT).get());
+                difference = Double.parseDouble(argMultimap.getValue(PREFIX_TWEIGHT).get())
+                        - Double.parseDouble(argMultimap.getValue(PREFIX_CWEIGHT).get());
 
             } else if (!(args.indexOf("t/") == -1) && (args.indexOf("w/") == -1)) {
-                difference = Double.parseDouble(argMultimap.getValue(PREFIX_TWEIGHT).get()) -
-                        Double.parseDouble(toEdit.getCurrentWeight().value);
+                difference = Double.parseDouble(argMultimap.getValue(PREFIX_TWEIGHT).get())
+                        - Double.parseDouble(toEdit.getCurrentWeight().value);
 
             } else if (!(args.indexOf("w/") == -1) && (args.indexOf("t/") == -1)) {
 
-                difference = Double.parseDouble(toEdit.getTargetWeight().value) -
-                        Double.parseDouble(argMultimap.getValue(PREFIX_CWEIGHT).get());
+                difference = Double.parseDouble(toEdit.getTargetWeight().value)
+                        - Double.parseDouble(argMultimap.getValue(PREFIX_CWEIGHT).get());
             }
 
             //gain

@@ -10,7 +10,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_INSTRUCTION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_STEP;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
@@ -32,8 +31,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_EMPTY_PLAN_INDEX = "Please enter an index!";
     public static final String MESSAGE_INVALID_PLAN_INDEX = "The plan index provided must be a non-decimal number";
     public static final String MESSAGE_INVALID_DAY_INDEX = "The day index provided must be a non-decimal number";
-    public static final String MESSAGE_PLAN_INDEX_OUT_OF_RANGE ="The plan index provided is invalid";
-    public static final String MESSAGE_DAY_INDEX_OUT_OF_RANGE ="The day index provided is invalid";
+    public static final String MESSAGE_PLAN_INDEX_OUT_OF_RANGE = "The plan index provided is invalid";
+    public static final String MESSAGE_DAY_INDEX_OUT_OF_RANGE = "The day index provided is invalid";
     public static final String MESSAGE_INVALID_INSTRUCTION_INDEX = "The instruction index provided is invalid";
     public static final String MESSAGE_LISTED_OVERVIEW = "%1$d %2$ss listed!";
     public static final String MESSAGE_DUPLICATE = "This %1$s already exists.";

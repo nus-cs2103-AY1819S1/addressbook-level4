@@ -1,12 +1,8 @@
 package seedu.souschef.logic.parser.commandparser;
 
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_EMPTY_PLAN_INDEX;
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_PLAN_INDEX;
-
 import seedu.souschef.logic.commands.ShowHealthPlanDetailsCommand;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
-
 
 /**
  *  parser class for the details command

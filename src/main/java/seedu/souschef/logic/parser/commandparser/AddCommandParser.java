@@ -9,7 +9,6 @@ import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CHEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_CWEIGHT;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_HPNAME;
-import static seedu.souschef.logic.parser.CliSyntax.PREFIX_SCHEME;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_TWEIGHT;
 
 import java.text.SimpleDateFormat;
@@ -111,7 +110,7 @@ public class AddCommandParser implements CommandParser<AddCommand> {
         double difference = Double.parseDouble(targetWeight.value) - Double.parseDouble(currentWeight.value);
         Scheme scheme;
         //gain
-        if (difference >0) {
+        if (difference > 0) {
             scheme = Scheme.GAIN;
         } else if (difference == 0) {
 
