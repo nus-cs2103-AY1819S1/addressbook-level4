@@ -286,6 +286,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToAccount() {
         switchList(accountListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -429,6 +430,7 @@ public class MainWindow extends UiPart<Stage> {
         salesChartWindow.show();
     }
 
+    @Subscribe
     private void handleDisplayReservationEvent(DisplayReservationListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToReservation();
