@@ -16,7 +16,7 @@ public class PlanMealCommand extends Command {
         + ": Adds the recipe identified by the index number used in the "
         + "displayed recipe list to the specified date and meal slot in the Meal Planner.\n"
         + "Parameters: INDEX (must be a positive integer)\n"
-        + "            DATE (must be ranging from the present or future)\n"
+        + "            DATE (must be ranging from the present to future)\n"
         + "            MEAL (must be either breakfast, lunch or dinner)\n"
         + "Example: " + COMMAND_WORD + " 1 2019-08-08 lunch";
 
