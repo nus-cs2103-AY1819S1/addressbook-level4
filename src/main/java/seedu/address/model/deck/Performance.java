@@ -10,4 +10,8 @@ public enum Performance {
 
     public static final String MESSAGE_PERFORMANCE_CONSTRAINTS =
             "Performance must be one of the strings {easy|normal|hard}";
+
+    public static Performance type(String type) {
+        return Performance.valueOf(type.toUpperCase());
+    }
 }

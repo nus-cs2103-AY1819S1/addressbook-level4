@@ -85,7 +85,7 @@ public class ParserUtil {
         requireNonNull(performance);
         String trimmed = performance.trim();
         try {
-            return Performance.valueOf(trimmed.toUpperCase());
+            return Performance.type(trimmed);
         } catch(IllegalArgumentException e) {
             throw new ParseException(Performance.MESSAGE_PERFORMANCE_CONSTRAINTS);
         }
