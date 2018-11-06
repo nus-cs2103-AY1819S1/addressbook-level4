@@ -27,8 +27,9 @@ public class LocationDisplayPanel extends UiPart<Region> {
     public static final String SEARCH_PAGE_URL =
             "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
-    private static final String API_KEY = "AIza"
-            + "SyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU";
+    private static final String API_KEY = "AIzaSyAUAMhSz-X72KN47J2YdyCE5VtDtcSmvmU";
+
+    private static final String DEFAULT_UHALL_PLACE_ID = "ChIJA1jFpVca2jERs1NXg5xbqbA";
 
 
     private static String locationContentA = "<iframe width=\"1150\" height=\"550\" frameborder=\"0\""
@@ -73,8 +74,13 @@ public class LocationDisplayPanel extends UiPart<Region> {
      */
     public String prepareLocationContent(Person person) {
         String faculty = person.getFaculty().toString();
-        String placeId = EmbedGoogleMaps.getPlaceId(faculty);
-        String finalLocationContent = locationContentA + placeId + locationContentB;
+        String finalLocationContent = null;
+        if (faculty.equals("-")) {
+            finalLocationContent = locationContentA + DEFAULT_UHALL_PLACE_ID + locationContentB;
+        } else {
+            String placeId = EmbedGoogleMaps.getPlaceId(faculty);
+            finalLocationContent = locationContentA + placeId + locationContentB;
+        }
         return finalLocationContent;
     }
 
