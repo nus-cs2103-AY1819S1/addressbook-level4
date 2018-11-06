@@ -1,7 +1,14 @@
 package ssp.scheduleplanner.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,13 +23,6 @@ import ssp.scheduleplanner.model.task.Interval;
 import ssp.scheduleplanner.model.task.Repeat;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
 
 public class AddRepeatCommandTest {
 

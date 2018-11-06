@@ -1,6 +1,16 @@
 package ssp.scheduleplanner.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import org.junit.Test;
+
 import ssp.scheduleplanner.logic.CommandHistory;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ModelManager;
@@ -8,15 +18,6 @@ import ssp.scheduleplanner.model.UserPrefs;
 import ssp.scheduleplanner.model.task.OverduePredicate;
 import ssp.scheduleplanner.model.task.Task;
 import ssp.scheduleplanner.testutil.TaskBuilder;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static ssp.scheduleplanner.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static ssp.scheduleplanner.testutil.TypicalTasks.getTypicalSchedulePlanner;
 
 public class ListOverdueCommandTest {
 
