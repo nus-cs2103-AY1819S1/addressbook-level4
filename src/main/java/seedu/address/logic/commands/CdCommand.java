@@ -43,18 +43,23 @@ public class CdCommand extends Command {
         Path newCurrDirectory = Paths.get("");
         try {
             if (toDirectories.isAbsolute()) {
+                File dir = toDirectories.toFile();
+                if (!dir.isDirectory()) {
+                    return new CommandResult(MESSAGE_FAILURE);
+                }
                 newCurrDirectory = toDirectories.toRealPath();
+                model.updateCurrDirectory(newCurrDirectory);
             } else {
                 File dir = new File(newDir);
                 if (!dir.isDirectory()) {
                     return new CommandResult(MESSAGE_FAILURE);
                 }
                 newCurrDirectory = dir.toPath().toRealPath();
+                model.updateCurrDirectory(newCurrDirectory);
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
-        model.updateCurrDirectory(newCurrDirectory);
 
         return new CommandResult(newCurrDirectory.toString() + "\n"
                 + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())

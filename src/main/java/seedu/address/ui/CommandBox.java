@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
@@ -165,8 +166,11 @@ public class CommandBox extends UiPart<Region> {
 
         for (int i = 0; i < numDir; i++) {
             String dir = directories[i];
-            // Enters if directory is the last argument.
-            if (i == (numDir - 1)) {
+            if (i == 0 && Paths.get(dir, "/").isAbsolute()) {
+                startDir = dir;
+                copyArgs.append(dir + "/");
+            } else if (i == (numDir - 1)) {
+                // Enters if directory is the last argument.
                 File checkDir = new File(startDir);
                 File[] fileList = checkDir.listFiles();
 
