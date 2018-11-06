@@ -46,8 +46,10 @@ public class ExportCertCommand extends Command {
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
     public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to ";
     public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again";
-    public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + "/Volunteer Certs/";
-    public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
+    public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + File.separator + "Volunteer Certs"
+            + File.separator;
+    public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + File.separator + "Desktop"
+            + File.separator;
     public static final String MESSAGE_VOLUNTEER_NO_RECORD = "Selected volunteer has no stored event records";
 
     private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportCertCommand.class);
@@ -246,7 +248,7 @@ public class ExportCertCommand extends Command {
         contStream.endText();
         contStream.close();
 
-        // Save document as <volunteerName>.pdf to the save path
+        // Save document as <volunteerName>_<volunteerId>.pdf to the save path
         doc.save(PDF_SAVE_PATH + volunteerName + "_" + volunteerId + ".pdf");
 
         // Close the document
