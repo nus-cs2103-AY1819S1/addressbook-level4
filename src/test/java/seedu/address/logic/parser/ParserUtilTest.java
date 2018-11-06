@@ -1,20 +1,15 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_IMAGE;
-
-import java.util.Arrays;
-import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String WHITESPACE = " \t\r\n";
