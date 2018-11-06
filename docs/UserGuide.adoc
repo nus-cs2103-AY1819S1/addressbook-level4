@@ -87,7 +87,7 @@ Format: `exit`
 Adds a task to the task manager.
 Format:
 
-`add n/TASK_NAME l/DUE_DATE t/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
+`add n/TASK_NAME t/DUE_DATE p/PRIORITY_VALUE [d/detailed description] [l/LABEL]`
 
 Date Format: `yyyy-mm-dd` or `yyyy-mm-dd hhmm`. A missing `hhmm` field will cause time to
 be interpreted as the start of the day, i.e `00:00`.

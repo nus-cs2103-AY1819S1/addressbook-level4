@@ -30,7 +30,6 @@ public class Task {
      * Every field must be present and not null.
      * Status of a new task is initialized to in progress unless specified.
      */
-    //TODO: Remove the need for multiple constructors
     public Task(Name name, DueDate dueDate, PriorityValue priorityValue, Description description, Set<Label> labels) {
         requireAllNonNull(name, dueDate, priorityValue, description, labels);
         this.name = name;
