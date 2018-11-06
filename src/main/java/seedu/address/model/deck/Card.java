@@ -40,7 +40,7 @@ public class Card {
     }
 
     public static Card classifyCard(Card card, Performance performance) {
-        return new Card(card.question, card.answer, performance, card.timesReviewed);
+        return new Card(card.question, card.answer, performance, card.timesReviewed + 1);
     }
 
     public Question getQuestion() {
