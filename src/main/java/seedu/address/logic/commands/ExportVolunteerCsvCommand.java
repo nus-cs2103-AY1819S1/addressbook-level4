@@ -91,7 +91,8 @@ public class ExportVolunteerCsvCommand extends Command {
      * @param list to contain the list of volunteers from model
      * @param index to hold the list of indexes to export
      */
-    private void createVolunteerCsv(ObservableList<Volunteer> list, ArrayList<Index> index) throws FileNotFoundException {
+    private void createVolunteerCsv(ObservableList<Volunteer> list,
+                                    ArrayList<Index> index) throws FileNotFoundException {
         // Setting up file path
         File output = new File(SAVE_PATH
                 + Integer.toString(index.size()) + "volunteers.csv");
