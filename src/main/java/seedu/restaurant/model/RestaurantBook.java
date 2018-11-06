@@ -24,10 +24,11 @@ import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.person.UniquePersonList;
 import seedu.restaurant.model.reservation.Reservation;
 import seedu.restaurant.model.reservation.UniqueReservationList;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
-import seedu.restaurant.model.salesrecord.UniqueRecordList;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
+import seedu.restaurant.model.sales.UniqueRecordList;
 import seedu.restaurant.model.tag.Tag;
 
 /**
@@ -294,6 +295,18 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     public SalesReport getSalesReport(Date date) {
         requireNonNull(date);
         return records.generateSalesReport(date);
+    }
+
+    public Map<Date, Double> rankDateBasedOnRevenue() {
+        return records.rankDateBasedOnRevenue();
+    }
+
+    public Map<ItemName, Double> rankItemBasedOnRevenue() {
+        return records.rankItemBasedOnRevenue();
+    }
+
+    public Map<Date, Double> getChronologicalSalesData() {
+        return records.getChronologicalSalesData();
     }
 
     //// account-level operations

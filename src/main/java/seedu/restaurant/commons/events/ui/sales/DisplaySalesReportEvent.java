@@ -1,7 +1,7 @@
 package seedu.restaurant.commons.events.ui.sales;
 
 import seedu.restaurant.commons.events.BaseEvent;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.SalesReport;
 
 /**
  * An event requesting to display the sales report of a specified date

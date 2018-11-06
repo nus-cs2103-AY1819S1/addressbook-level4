@@ -41,14 +41,12 @@ import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.restaurant.model.person.NameContainsKeywordsPredicate;
 import seedu.restaurant.model.person.Person;
-import seedu.restaurant.model.salesrecord.ItemNameContainsKeywordsPredicate;
-import seedu.restaurant.model.salesrecord.SalesRecord;
 import seedu.restaurant.testutil.EditPersonDescriptorBuilder;
 import seedu.restaurant.testutil.account.EditAccountDescriptorBuilder;
 import seedu.restaurant.testutil.ingredient.EditIngredientDescriptorBuilder;
 import seedu.restaurant.testutil.menu.EditItemDescriptorBuilder;
 import seedu.restaurant.testutil.reservation.EditReservationDescriptorBuilder;
-import seedu.restaurant.testutil.salesrecords.EditRecordDescriptorBuilder;
+import seedu.restaurant.testutil.sales.EditRecordDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -386,19 +384,5 @@ public class CommandTestUtil {
                 new IngredientNameContainsKeywordsPredicate(Arrays.asList(splitIngredient[0])));
 
         assertEquals(1, model.getFilteredIngredientList().size());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the sales record at the given {@code targetIndex} in the
-     * {@code model}'s restaurant book.
-     */
-    public static void showRecordAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredRecordList().size());
-
-        SalesRecord salesRecord = model.getFilteredRecordList().get(targetIndex.getZeroBased());
-        final String[] splitRecord = salesRecord.getName().toString().split("\\s+");
-        model.updateFilteredRecordList(new ItemNameContainsKeywordsPredicate(Arrays.asList(splitRecord[0])));
-
-        assertEquals(1, model.getFilteredRecordList().size());
     }
 }
