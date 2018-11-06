@@ -205,7 +205,7 @@ public class WishTransaction implements ActionCommandListener<WishTransaction> {
      */
     @Override
     public void resetData() {
-        resetData(new WishTransaction());
+        wishMap.clear();
     }
 
     /**

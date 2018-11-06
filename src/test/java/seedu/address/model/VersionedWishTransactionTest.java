@@ -200,16 +200,19 @@ public class VersionedWishTransactionTest {
         assertTrue(wishmapContainsKey(versionedWishTransaction, wish));
 
         Wish removed = getTypicalWishes().get(0);
+        addWishWithCommit(versionedWishTransaction, removed);
+        assertTrue(wishmapContainsKey(versionedWishTransaction, removed));
         removeWishWithCommit(versionedWishTransaction, removed);
-        assertFalse(wishmapContainsKey(populatedVersionedWishTransaction, removed));
+        assertFalse(wishmapContainsKey(versionedWishTransaction, removed));
+        versionedWishTransaction.undo();
+        assertTrue(wishmapContainsKey(versionedWishTransaction, removed));
+        versionedWishTransaction.redo();
+        assertFalse(wishmapContainsKey(versionedWishTransaction, removed));
+
         populatedVersionedWishTransaction.resetData();
         assertTrue(populatedVersionedWishTransaction.wishMap.isEmpty());
         populatedVersionedWishTransaction.undo();
         assertFalse(populatedVersionedWishTransaction.wishMap.isEmpty());
-        populatedVersionedWishTransaction.undo();
-        assertTrue(wishmapContainsKey(populatedVersionedWishTransaction, removed));
-        populatedVersionedWishTransaction.redo();
-        assertFalse(wishmapContainsKey(populatedVersionedWishTransaction, removed));
         populatedVersionedWishTransaction.redo();
         assertTrue(populatedVersionedWishTransaction.wishMap.isEmpty());
     }
