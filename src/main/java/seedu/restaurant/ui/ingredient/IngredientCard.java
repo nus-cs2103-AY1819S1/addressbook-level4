@@ -1,10 +1,11 @@
-package seedu.restaurant.ui;
+package seedu.restaurant.ui.ingredient;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.restaurant.model.ingredient.Ingredient;
+import seedu.restaurant.ui.UiPart;
 
 /**
  * An UI component that displays information of an {@code Ingredient}.
