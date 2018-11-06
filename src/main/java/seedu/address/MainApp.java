@@ -21,6 +21,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -60,9 +61,7 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("=============================[ Initializing Piconso ]===========================");
         super.init();
-        if (TEST_FILE.exists()) {
-            TEST_FILE.delete();
-        }
+        FileUtil.deleteIfAvaliable(TEST_FILE);
         AppParameters appParameters = AppParameters.parse(getParameters());
         config = initConfig(appParameters.getConfigPath());
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
@@ -177,13 +176,12 @@ public class MainApp extends Application {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
 
-        if (TEST_FILE.exists()) {
-            TEST_FILE.delete();
-        }
+        FileUtil.deleteIfAvaliable(TEST_FILE);
 
         if (BLOCKER.exists()) {
             PhotosLibraryClientFactory.logoutUserIfPossible();
         }
+
         Platform.exit();
         System.exit(0);
     }
