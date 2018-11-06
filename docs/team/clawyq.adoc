@@ -13,14 +13,10 @@ This Project Portfolio Page documents my contributions to the development of `CL
 students from NUS School Of Computing as part of the `CS2103T Software Engineering` module. The main
 features of the application are coded in `Java` while the GUI is handled by `JavaFX`, `HTML` and `CSS`.
 
-`CLInic` is a desktop application made to manage and expedite operations in clinics. It was inspired by
-the Command Line Interface (CLI), which allowed users to type commands to the computer efficently.
-However, the CLI's non-visual display and walls of cryptic text makes it intimidating to the general,
-non-tech-savvy populous.
-
-These reasons were the main impetus behind `CLInic`, which marries the **simplistic design** and
-**efficient command issuing mechanism** of the CLI with an **intuitive** Graphical User Interface (GUI).
-This culminated in an application that is easy for **anyone** to use, all while providing the powerful
+`CLInic` is a desktop application made to manage and expedite operations in clinics. The efficiency of typing commands
+yet cryptic walls of intimidating text of the CLI were the main impetus behind `CLInic`. `CLInic` marries the
+**simplistic design** and **efficient command issuing mechanism** of the CLI with an **intuitive** Graphical User
+Interface (GUI). This culminated in an application that is easy for **anyone** to use, all while providing the powerful
  functionalities and efficiencies offered by a CLI. Below are some of the key features provided by `CLInic`:
 
 * Allows users to manage patient and medicine information
@@ -34,25 +30,25 @@ them to work.
 
 == Summary of contributions
 
-* *Major enhancement*: Implementation of the `Document` class, its accompanying HTML template and
-extending classes, which include `Receipt`, `MedicalCertificate` and `ReferralLetter`.
+* *Major enhancement*: Implemented the `Document` class, its accompanying HTML template and
+extending classes, which includes the `Receipt`, `MedicalCertificate` and `ReferralLetter` classes.
 ** What it does: It takes in the information of a document that is to be printed by the clinic and
 generates a `HTML` file for it.
 ** Justification: This functionality simplifies the generation of documents that are required by the clinic.
-This makes the administrative tasks in the clinic easier and faster, boosting the productivity of its users
-translating into shorter wait times at the clinic for the patients.
-** Highlights: This functionality allows for seamless transfer of information from doctors to receptionists
+This makes the administrative tasks in the clinic easier and faster, *boosting the productivity of its users*,
+ translating into *shorter wait times at the clinic for the patients*.
+** Highlights: This functionality allows for *seamless transfer of information from doctors to receptionists*
 of the clinic during consultation, which when coupled with the fast retrieval of information from the
-application's database of `Patient` and `Medicine` information, makes for efficient generation of relevant
-documents.
+application's database of `Patient` and `Medicine` information, makes for *efficient generation of relevant
+documents*.
 
 * *Minor enhancements*:
 ** Improved and helped with the implementation of `ServedPatient` and `ServedPatientListManager`, which are intermediate
-abstractions that helped 'finalise' the information to be used for the generation of `Document`.
+abstractions(placeholders) that help to 'finalise' the information to be used for the generation of `Document`.
 ** Integrated `MedicalCertificate` with the `DocumentAddContentCommand`.
-** Implemented the `HTML` template which all the classes that extend `Document` use to format their own information.
+** Designed the `HTML` template which all the classes that extend `Document` use to format their information.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: https://github.com/CS2103-AY1819S1-W16-4/main/tree/master/src/main/java/seedu/address/model/document[Implementation of Document and its relevant classes], and their https://github.com/CS2103-AY1819S1-W16-4/main/tree/master/src/test/java/seedu/address/logic[associated test codes.]
 
 * *Other contributions*:
 
@@ -68,8 +64,8 @@ https://github.com/CS2103-AY1819S1-W16-4/main/pull/120[#120])
 *** Wrote the introduction to the User Guide (Pull Request: https://github.com/CS2103-AY1819S1-W16-4/main/pull/134[#134])
 *** Added many examples in the User Guide to demonstrate how various commands work. (Pull Request: https://github.com/CS2103-AY1819S1-W16-4/main/pull/138[#138])
 *** Standardised the formatting of the User Guide and corrected any incorrect use of language. (Pull Requests: https://github.com/CS2103-AY1819S1-W16-4/main/pull/139[#139],
-https://github.com/CS2103-AY1819S1-W16-4/main/pull/172[#172],
-https://github.com/CS2103-AY1819S1-W16-4/main/pull/174[#174])
+ https://github.com/CS2103-AY1819S1-W16-4/main/pull/172[#172],
+ https://github.com/CS2103-AY1819S1-W16-4/main/pull/174[#174])
 
 == Contributions to the User Guide
 
@@ -77,8 +73,7 @@ https://github.com/CS2103-AY1819S1-W16-4/main/pull/174[#174])
 |_Given below are the sections I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Implementation of the Patient Record Management System
-'''
+[.big.underline]#*Implementation of the Patient Record Management System*#
 
 include::../UserGuide.adoc[tag=patientfirsthalf]
 
@@ -88,10 +83,10 @@ include::../UserGuide.adoc[tag=patientfirsthalf]
 |_Given below are the sections I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-[.big.underline]#*Implementation of the `Receipt` class*#
+[.big.underline]#*Implementation of the Document class*#
+
+include::../DeveloperGuide.adoc[tag=documentpreamble]
+
+[.big.underline]#*Implementation of the Receipt class*#
 
 include::../DeveloperGuide.adoc[tag=receipt]
-
-[.big.underline]#*Design considerations of the `Document` class*#
-
-include::../DeveloperGuide.adoc[tag=documentconsiderations]

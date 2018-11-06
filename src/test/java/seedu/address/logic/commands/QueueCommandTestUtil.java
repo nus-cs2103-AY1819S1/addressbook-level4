@@ -181,7 +181,7 @@ public class QueueCommandTestUtil {
      * @param patient the patient for whom the file is being generated for
      */
     public static String generateFileName(String fileType, Patient patient) {
-        return (fileType + FILE_NAME_DELIMITER + patient.toNameAndIc()
+        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + patient.toNameAndIc()
                 .replace("[", "_").replace("]", ""))
                 .replaceAll("\\s", "_")
                 .replaceAll("(_)+", "_");

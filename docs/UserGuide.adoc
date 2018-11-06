@@ -120,7 +120,7 @@ Examples:
 Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97947435`, email `clinton@cs2103t.com` and address of `Tembusu College` to CLInic's patient database, as shown below.
 
 .After executing the `add` command specified above *and* left clicking `Clinton's` patient card in the patient list on the right, indicated by the black cursor.
-image::AddEx1.png[width="650"]
+image::AddEx1.png[width="600"]
 
 ==== Editing a patient: `edit`
 Uhoh! Made a mistake keying in a patient's particulars? Or perhaps a patient had recently changed his address? +
@@ -149,7 +149,8 @@ Examples:
 Updates the phone number and e-mail address of the 5th patient in the list to `98534228 ` and `clawyq@cs2101.com` respectively, as shown below.
 
 .Before and after executing the `edit` command specified above.
-image::EditEx1.png[width="650"]
+image::EditEx1.png[width="600"]
+// end::patientfirsthalf[]
 
 ==== Locating a patient by name: `find`
 Can't find the patient you're looking for amidst the other patient records? +
@@ -183,7 +184,6 @@ Sieves out all the patients who have `yu` in their names.
 
 .Before and after executing the `find` command specified above via its alias `f`.
 image::FindEx1.png[width="650"]
-// end::patientfirsthalf[]
 
 // tag::patientsecondhalf[]
 ==== Listing all patients: `list`
