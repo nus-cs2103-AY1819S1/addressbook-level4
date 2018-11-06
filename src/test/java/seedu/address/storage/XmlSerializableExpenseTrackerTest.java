@@ -41,13 +41,5 @@ public class XmlSerializableExpenseTrackerTest {
             typicalExpensesExpenseTracker.getMaximumTotalBudget());
     }
 
-    @Test
-    public void toModelType_duplicateExpenses_throwsIllegalValueException() throws Exception {
-        XmlSerializableExpenseTracker dataFromFile = XmlUtil.getDataFromFile(DUPLICATE_EXPENSE_FILE,
-                XmlSerializableExpenseTracker.class);
-        thrown.expect(IllegalValueException.class);
-        thrown.expectMessage(XmlSerializableExpenseTracker.MESSAGE_DUPLICATE_EXPENSE);
-        dataFromFile.toModelType();
-    }
 
 }

@@ -79,12 +79,16 @@ public class MassEditCommand extends Command {
             throw new CommandException(MESSAGE_NO_EXPENSE_FOUND);
         }
 
+        //Store all the expenses to edit
+        List<Expense> storeList = new ArrayList<>();
+        storeList.addAll(lastShownList);
+
         //Edit all the filtered expenses
         List<Expense> editedList = new ArrayList<>();
-        for (int i = 0; i < lastShownList.size(); i++) {
-            Expense expense = lastShownList.get(i);
-            Expense editedExpense = createEditedExpense(expense, editExpenseDescriptor);
-            model.updateExpense(expense, editedExpense);
+        for (int i = 0; i < storeList.size(); i++) {
+            Expense toEdit = storeList.get(i);
+            Expense editedExpense = createEditedExpense(toEdit, editExpenseDescriptor);
+            model.updateExpense(toEdit, editedExpense);
             editedList.add(editedExpense);
         }
         //Show the edited expenses to the user
