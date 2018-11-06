@@ -19,11 +19,14 @@ public class AcademicYear {
     public final Integer yearNumber;
     // TODO: Should it be change to string?
 
+    private boolean isEmptyYear = false;
+
     /**
      * Empty constructor.
      */
     public AcademicYear() {
         yearNumber = 0001;
+        isEmptyYear = true;
     }
 
     /**
@@ -64,7 +67,7 @@ public class AcademicYear {
 
     @Override
     public String toString() {
-        if (yearNumber == 0001) {
+        if (isEmptyYear) {
             return "";
         }
         return firstYear() + "" + secondYear();
