@@ -61,7 +61,13 @@ public class WordBuilder {
         return this;
     }
 
+    /**
+     * Builds a word, adds a new default tag to words initialized without tags.
+     */
     public Word build() {
+        if (tags.isEmpty()) {
+            tags.add(new Tag("toLearn"));
+        }
         return new Word(name, meaning, tags);
     }
 
