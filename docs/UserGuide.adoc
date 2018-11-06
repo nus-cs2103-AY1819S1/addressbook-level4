@@ -284,7 +284,8 @@ image::addmedicalrecord-example-2.png[width="650"]
 
 ==== Adding a medicine: `addmedicine`
 
-Adds a medicine to the CLInic medicine database. +
+Heard of the latest medicine that effectively cures ezcema?
+Add that medicine to the CLInic medicine database now! +
 Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
@@ -295,10 +296,40 @@ Example:
 
 * `addmedicine mn/panadol msq/500 ppu/0.50 sn/91853 s/1000` +
 Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `1000` units to the CLInic inventory.
+
 * `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
+
+See below for a pictorial guide on how to add aspirin to the records:
+
+[underline]#Add aspirin to CLInic:# +
+
+. Type `liststock` or `ls` into the command box as shown in <<Figure 10>>.
+
+.Start up of CLInic
+image::addmedicine-example-1.png[width="650"]
+
+[start = 2]
+. See <<Figure 11>> for the change of the patient panel to medicine panel.
+
+.Result of entering `liststock` command
+image::addmedicine-example-2.png[width="650"]
+
+[start = 3]
+. Enter the `am` command with the desired parameters as shown in <<Figure 12>>
+
+.Entering the `am` command
+image::addmedicine-example-3.png[width="650"]
+
+[start = 4]
+. Scroll all the way down on the medicine panel to see the medicine added to CLInic.
+See <<Figure 13>> for example.
+
+.Successful addition of the medicine
+image::addmedicine-example-4.png[width="650"]
 // end::addmedicine[]
 
+// tag::editmedicine[]
 ==== Editing a medicine: `editmedicine`
 
 Edits the details of an existing medicine. +
@@ -321,6 +352,7 @@ Example:
 Renames the medicine at index 1 to `hydrazine` whilst updating its stock to `1500`.
 * `em 1 sn/91853` +
 Updates the serial number of the medicine at index 1 to `91853`.
+// end::editmedicine[]
 
 ==== Restocking a medicine: `restock`
 
@@ -345,6 +377,7 @@ Lists all medicine information in the CLInic medicine inventory. +
 Alias: `ls` +
 Format: `liststock`
 
+// tag::findmedicine[]
 ==== Finding details of a medicine: `findmedicine`
 
 Finds the details of a medicine from its medicine name. +
@@ -358,13 +391,16 @@ Finds the details of the medicines tagged with the keyword `panadol`.
 * `fm chlorpheniramine` +
 Finds the details of the medicines tagged with the keyword `chlorpheniramine`.
 
+// end::findmedicine[]
+
+// tag::checkstock[]
 
 ==== Listing medicines that are low in supply: `checkstock`
 
 Lists all medicines that are low in supply. +
 Alias: `cs` +
 Format: `checkstock`
-
+// end::checkstock[]
 
 [[pqms]]
 // tag::pqms[]

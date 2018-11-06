@@ -12,7 +12,7 @@ as part of my university education.
 
 // write clearly this is to showcase contributions
 This project portfolio serves to document my contributions to this project. You can see my contributions to
-the <<Summary of Contributions, code contribution>>, the <<Contributions to the User Guide, user guide>> and the <<Contributions to the Developer Guide, developer guide>> below.
+the <<Summary of Contributions, project>>, the <<Contributions to the User Guide, user guide>> and the <<Contributions to the Developer Guide, developer guide>> below.
 
 CLInic is a desktop application made for clinics who wish to automate their daily operations.
 CLI in CLInic is an acronym for Command Line Interface, which is the primary method to use the application.
@@ -55,6 +55,8 @@ With this, you do not have to manually keep track of the change in stocks every 
 |===
 
 include::../UserGuide.adoc[tag=addmedicine]
+include::../Userguide.adoc[tag=findmedicine]
+include::../UserGuide.adoc[tag=checkstock]
 
 == Contributions to the Developer Guide
 
