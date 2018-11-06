@@ -15,12 +15,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.UniqueCardList;
 import seedu.address.testutil.AnakinBuilder;
 
 public class SortCommandTest {
 
-    CommandHistory commandHistory = new CommandHistory();
+    private final CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_sortDeckList() throws Exception {
