@@ -5,9 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import guitests.guihandles.CcaCardHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.cca.Cca;
 import seedu.address.model.person.Person;
 
 /**
@@ -38,6 +40,13 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getSchool().value, actualCard.getSchool());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedCca}.
+     */
+    public static void assertCardDisplaysCca(Cca expectedCca, CcaCardHandle actualCard) {
+        assertEquals(expectedCca.getCcaName(), actualCard.getName());
     }
 
     /**
