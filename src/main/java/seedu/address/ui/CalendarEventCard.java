@@ -46,8 +46,8 @@ public class CalendarEventCard extends UiPart<Region> {
         this.calendarEvent = calendarEvent;
         id.setText(displayedIndex + ". ");
         title.setText(calendarEvent.getTitle().value);
-        start.setText("Start: " + calendarEvent.getStart().toString());
-        end.setText("End: " + calendarEvent.getEnd().toString());
+        start.setText("Start:  " + calendarEvent.getStart().toString());
+        end.setText("End:   " + calendarEvent.getEnd().toString());
         description.setText(calendarEvent.getDescriptionObject().value);
         venue.setText(calendarEvent.getVenue().value);
         calendarEvent.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
