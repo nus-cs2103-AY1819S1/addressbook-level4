@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand;
+import seedu.address.logic.parser.arguments.EditArgument;
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;
 import seedu.address.model.module.Grade;
@@ -66,31 +67,38 @@ public class ModuleUtil {
     public static String getEditModuleCommand(Module target, Code code,
             Year year, Semester semester, Credit credit, Grade grade) {
         String command = EditModuleCommand.COMMAND_WORD
-                + " "
-                + target.getCode().value
-                + " "
-                + target.getYear().value
-                + " "
-                + target.getSemester().value;
+                + " " + EditArgument.TARGET_CODE.getShortName()
+                + " " + target.getCode().value
+                + " " + EditArgument.TARGET_YEAR.getShortName()
+                + " " + target.getYear().value
+                + " " + EditArgument.TARGET_SEMESTER.getShortName()
+                + " " + target.getSemester().value;
+
+        command += " ";
 
         if (code != null) {
-            command += " -code " + code.value;
+            command += EditArgument.NEW_CODE.getShortName()
+                    + " " + code.value;
         }
 
         if (year != null) {
-            command += " -year " + year.value;
+            command += EditArgument.NEW_YEAR.getShortName()
+                    + " " + year.value;
         }
 
         if (semester != null) {
-            command += " -semester " + semester.value;
+            command += EditArgument.NEW_SEMESTER.getShortName()
+                    + " " + semester.value;
         }
 
         if (credit != null) {
-            command += " -credit " + credit.value;
+            command += EditArgument.NEW_CREDIT.getShortName()
+                    + " " + credit.value;
         }
 
         if (grade != null) {
-            command += " -grade " + grade.value;
+            command += EditArgument.NEW_GRADE.getShortName()
+                    + " " + grade.value;
         }
 
         return command;

@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.parser.arguments.EditArgument;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 
 /**
@@ -39,7 +38,7 @@ public class EditModuleCommandParserTest {
      * Argument cannot be null.
      */
     @Test
-    public void parseNullArgumentFails() throws ParseException {
+    public void parseNullArgumentFails() {
         Assert.assertThrows(NullPointerException.class, () -> {
             parser.parse(null);
         });
@@ -152,17 +151,9 @@ public class EditModuleCommandParserTest {
     public void parseSuccess() {
         EnumMap<EditArgument, Object> argMap;
         argMap = new EnumMap<>(EditArgument.class);
-        argMap.put(EditArgument.TARGET_CODE, null);
-        argMap.put(EditArgument.TARGET_YEAR, null);
-        argMap.put(EditArgument.TARGET_SEMESTER, null);
-        argMap.put(EditArgument.NEW_CODE, null);
-        argMap.put(EditArgument.NEW_YEAR, null);
-        argMap.put(EditArgument.NEW_SEMESTER, null);
-        argMap.put(EditArgument.NEW_CREDIT, null);
-        argMap.put(EditArgument.NEW_GRADE, null);
-
         argMap.put(EditArgument.TARGET_CODE, DATA_STRUCTURES.getCode());
         argMap.put(EditArgument.NEW_CODE, DISCRETE_MATH.getCode());
+
         assertParseSuccess(parser,
                 "-t CS2040 -m CS1231",
                 new EditModuleCommand(argMap));
