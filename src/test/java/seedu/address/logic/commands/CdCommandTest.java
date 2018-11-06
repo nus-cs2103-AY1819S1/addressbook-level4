@@ -47,23 +47,25 @@ public class CdCommandTest {
         assert_cdToDirectory_success(currDirectory);
 
         // change to Desktop
-        expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("Desktop").normalize());
-        assert_cdToDirectory_success(nextDirectory);
-        assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
+        if (os.contains("win") || os.contains(("mac"))) {
+            expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("Desktop").normalize());
+            assert_cdToDirectory_success(nextDirectory);
+            assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
-        // change to previous directory
-        expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
-        //assert_cdToDirectory_success(prevDirectory);
-        //assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
+            // change to previous directory
+            expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
+            assert_cdToDirectory_success(prevDirectory);
+            assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
 
-        // change to previous directory
-        expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
-        //assert_cdToDirectory_success(prevDirectory);
-        //assertTrue(Paths.get(prevDir).normalize().equals(model.getCurrDirectory()));
+            // change to previous directory
+            expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
+            assert_cdToDirectory_success(prevDirectory);
+            assertTrue(Paths.get(prevDir).normalize().equals(model.getCurrDirectory()));
 
-        // different paths -> returns false
-        //assertFalse(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
-        //assertFalse(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
+            // different paths -> returns false
+            assertFalse(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
+            assertFalse(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
+        }
 
         // different object -> returns false
         assertFalse(currDirectory.equals(nextDirectory));

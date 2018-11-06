@@ -7,15 +7,20 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_IMAGE;
 
+import java.nio.file.Paths;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.CdCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.LogoutCommand;
 import seedu.address.logic.commands.LsCommand;
+import seedu.address.logic.commands.NextCommand;
+import seedu.address.logic.commands.PrevCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -50,6 +55,25 @@ public class PiconsoParserTest {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_IMAGE.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_IMAGE), command);
+    }
+
+    @Test
+    public void parseCommand_cd() throws Exception {
+        CdCommand command = (CdCommand) parser.parseCommand(
+                CdCommand.COMMAND_WORD + " Desktop");
+        assertEquals(new CdCommand(Paths.get("Desktop")), command);
+    }
+
+    @Test
+    public void parseCommand_nextCommandWord_returnsNextCommand() throws Exception {
+        assertTrue(parser.parseCommand(NextCommand.COMMAND_WORD) instanceof NextCommand);
+        assertTrue(parser.parseCommand(NextCommand.COMMAND_WORD + " 4") instanceof NextCommand);
+    }
+
+    @Test
+    public void parseCommand_prevCommandWord_returnsPrevCommand() throws Exception {
+        assertTrue(parser.parseCommand(PrevCommand.COMMAND_WORD) instanceof PrevCommand);
+        assertTrue(parser.parseCommand(PrevCommand.COMMAND_WORD + " 4") instanceof PrevCommand);
     }
 
     @Test

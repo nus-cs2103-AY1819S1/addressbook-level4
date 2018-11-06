@@ -70,4 +70,11 @@ public class CdCommand extends Command {
     public Path getPath() {
         return this.toDirectories;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CdCommand // instanceof handles nulls
+                && toDirectories.equals(((CdCommand) other).toDirectories)); // state check
+    }
 }
