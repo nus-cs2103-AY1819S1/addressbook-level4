@@ -13,11 +13,14 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1*: added functionality to edit, track dependencies in the task manager.
+** What it does: Users can add dependencies between tasks to ensure that the right tasks are completed in order. Users can order tasks by their dependencies.
+** Justification: This feature improves the product significantly because a user can better priorities
+** Highlights: There were significant design choices that needed to be made to specify dependencies (elaborated in Developer Guide).
+
+* *Major enhancement 2*: added time based features in task manager
+** What it does: Users can track in real-time what features are completed and what are not completed based on the
+
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
@@ -81,9 +84,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+<To include Dependency, Dependency Graph, Time Modelling, Date Parsing>
 
 
 == PROJECT: PowerPointLabs
