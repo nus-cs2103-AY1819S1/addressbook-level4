@@ -2,9 +2,269 @@
 <scheduleplanner>
     <categories>
         <name>Modules</name>
-        <tags>fuck</tags>
+        <tags>p</tags>
+        <tags>cs</tags>
     </categories>
     <categories>
         <name>Others</name>
     </categories>
+    <tasks>
+        <name>Do GEH1034 tutorial</name>
+        <date>111018</date>
+        <priority>2</priority>
+        <venue>Hoe</venue>
+        <tagged>Tutorial</tagged>
+        <tagged>GEH1034</tagged>
+    </tasks>
+    <tasks>
+        <name>Watch CS2103T lecture</name>
+        <date>121018</date>
+        <priority>3</priority>
+        <venue>Home</venue>
+        <tagged>Lecture</tagged>
+        <tagged>CS2103T</tagged>
+    </tasks>
+    <tasks>
+        <name>Do CS2030 lab</name>
+        <date>141018</date>
+        <priority>2</priority>
+        <venue>COM1 01-23</venue>
+        <tagged>CS2030</tagged>
+        <tagged>Lab</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>151018</date>
+        <priority>1</priority>
+        <venue>Tech Hangout</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>161018</date>
+        <priority>1</priority>
+        <venue>Home</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>171018</date>
+        <priority>1</priority>
+        <venue>Utown Starbucks</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>181018</date>
+        <priority>1</priority>
+        <venue>Home</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Groceries</name>
+        <date>191018</date>
+        <priority>2</priority>
+        <venue>Fairprice</venue>
+        <tagged>Errands</tagged>
+    </tasks>
+    <tasks>
+        <name>Do CS2100 lab</name>
+        <date>011118</date>
+        <priority>3</priority>
+        <venue>Home</venue>
+        <tagged>CS2100</tagged>
+        <tagged>Lab</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103 PE</name>
+        <date>021118</date>
+        <priority>3</priority>
+        <venue>NUS</venue>
+        <tagged>PE</tagged>
+        <tagged>CS2103</tagged>
+    </tasks>
+    <tasks>
+        <name>Do CS2105 lab</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>NUS</venue>
+        <tagged>CS2105</tagged>
+        <tagged>Lab</tagged>
+    </tasks>
+    <tasks>
+        <name>GEQ1000 Quiz</name>
+        <date>051118</date>
+        <priority>3</priority>
+        <venue>home</venue>
+        <tagged>GEQ1000</tagged>
+    </tasks>
+    <tasks>
+        <name>Watch CS2106 lecture</name>
+        <date>101118</date>
+        <priority>1</priority>
+        <venue>Home</venue>
+        <tagged>Lecture</tagged>
+        <tagged>CS2106</tagged>
+    </tasks>
+    <tasks>
+        <name>Do GEH1034 tutorial</name>
+        <date>111118</date>
+        <priority>2</priority>
+        <venue>Home</venue>
+        <tagged>Tutorial</tagged>
+        <tagged>GEH1034</tagged>
+    </tasks>
+    <tasks>
+        <name>Watch CS2103T lecture</name>
+        <date>121118</date>
+        <priority>3</priority>
+        <venue>Home</venue>
+        <tagged>Lecture</tagged>
+        <tagged>CS2103T</tagged>
+    </tasks>
+    <tasks>
+        <name>Do CS2100 tutorial</name>
+        <date>131118</date>
+        <priority>2</priority>
+        <venue>Tech Hangout</venue>
+        <tagged>Tutorial</tagged>
+        <tagged>CS2101</tagged>
+    </tasks>
+    <tasks>
+        <name>Do MA1101R tutorial</name>
+        <date>141118</date>
+        <priority>3</priority>
+        <venue>Home</venue>
+        <tagged>Tutorial</tagged>
+        <tagged>MA1101R</tagged>
+    </tasks>
+    <tasks>
+        <name>Do CS2030 lab</name>
+        <date>141118</date>
+        <priority>2</priority>
+        <venue>COM1 01-23</venue>
+        <tagged>CS2030</tagged>
+        <tagged>Lab</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>151118</date>
+        <priority>1</priority>
+        <venue>Tech Hangout</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>161118</date>
+        <priority>1</priority>
+        <venue>Home</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>171118</date>
+        <priority>1</priority>
+        <venue>Utown Starbucks</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Self study</name>
+        <date>181118</date>
+        <priority>1</priority>
+        <venue>Home</venue>
+        <tagged>Study</tagged>
+    </tasks>
+    <tasks>
+        <name>Groceries</name>
+        <date>191118</date>
+        <priority>2</priority>
+        <venue>Fairprice</venue>
+        <tagged>Errands</tagged>
+    </tasks>
+    <tasks>
+        <name>Groceries</name>
+        <date>201118</date>
+        <priority>2</priority>
+        <venue>ShengShiong</venue>
+        <tagged>Errands</tagged>
+    </tasks>
+    <tasks>
+        <name>GEH1034 Quiz </name>
+        <date>211118</date>
+        <priority>3</priority>
+        <venue>LT34</venue>
+        <tagged>Quiz</tagged>
+        <tagged>GEH1034</tagged>
+    </tasks>
+    <tasks>
+        <name>ST2334 Finals </name>
+        <date>221118</date>
+        <priority>3</priority>
+        <venue>MPSH 1</venue>
+        <tagged>ST2334</tagged>
+        <tagged>Exam</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103 Finals </name>
+        <date>231118</date>
+        <priority>3</priority>
+        <venue>MPSH 1</venue>
+        <tagged>ST2334</tagged>
+        <tagged>Exam</tagged>
+    </tasks>
+    <tasks>
+        <name>test 1</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
+    </tasks>
+    <tasks>
+        <name>test 2</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
+    </tasks>
+    <tasks>
+        <name>test3</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>1</venue>
+    </tasks>
+    <tasks>
+        <name>test4</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>3</venue>
+    </tasks>
+    <tasks>
+        <name>test5</name>
+        <date>041118</date>
+        <priority>2</priority>
+        <venue>1</venue>
+    </tasks>
+    <tasks>
+        <name>CS2103T Tutorial</name>
+        <date>191018</date>
+        <priority>3</priority>
+        <venue>COM1-0210</venue>
+        <tagged>Tutorial</tagged>
+    </tasks>
+    <archivedTasks>
+        <name>test 3</name>
+        <date>031118</date>
+        <priority>1</priority>
+        <venue>d</venue>
+    </archivedTasks>
+    <archivedTasks>
+        <name>test1</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>1</venue>
+    </archivedTasks>
+    <archivedTasks>
+        <name>test2</name>
+        <date>041118</date>
+        <priority>3</priority>
+        <venue>1</venue>
+    </archivedTasks>
 </scheduleplanner>
