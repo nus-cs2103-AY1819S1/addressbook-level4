@@ -110,7 +110,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpectedPerson(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpectedPerson(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see AddressBookSystemTest#assertSelectedPersonCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
@@ -124,7 +124,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
             assertSelectedCardUnchanged();
         } else {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedPersonCardChanged(expectedSelectedCardIndex);
         }
 
         assertCommandBoxShowsDefaultStyle();

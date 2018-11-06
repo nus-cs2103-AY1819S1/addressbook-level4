@@ -269,7 +269,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
      * Verifications 1 and 2 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpectedPerson(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpectedPerson(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see AddressBookSystemTest#assertSelectedPersonCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -278,7 +278,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         assertApplicationDisplaysExpectedPerson("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedPersonCardChanged(expectedSelectedCardIndex);
         } else {
             assertSelectedCardUnchanged();
         }
