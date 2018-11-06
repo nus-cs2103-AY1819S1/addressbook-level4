@@ -1,5 +1,5 @@
 = Ooi Heng Seng - Project Portfolio
-:imagesDir: images
+:imagesDir: ../images
 :stylesDir: stylesheets
 :repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
