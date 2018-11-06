@@ -479,15 +479,16 @@ _{TO-DO}_
 
 // end::wish[]
 
+// tag::save[]
 === Save Amount feature
 
 ==== Current Implementation
 
-The Save Amount feature is executed through an `SaveCommand` by the user, which after parsing,
+The Save Amount feature is executed through a `SaveCommand` by the user, which after parsing,
 is facilitated mainly by the `ModelManager` which implements `Model`.
 Wish stores the `price` and `savedAmount` of `Wish`, helping to track the progress of the savings towards the `price`.
-Meanwhile, WishBook stores the `spareFunds`, which is an excess pool of funds that can be used in the future.
-After adding a saving, the `filteredSortedWishes` is also updated to reflect the latest observable WishBook.
+Meanwhile, WishBook stores an `unusedFunds`, which is an unallocated pool of funds that can be used in the future.
+After adding a saving, the `filteredSortedWishes` in `ModelManager` is updated to reflect the latest observable WishBook.
 
 Given below is an example usage scenario and how the SaveCommand behaves at each step:
 
@@ -519,7 +520,7 @@ The resultant wish will have the following properties:
 `SavedAmount` of a wish cannot be negative. This means that an `Amount` cannot be negative enough to cause `SavedAmount`
 to be negative.
 
-Step 3. The user decides to execute save 1 10 again. However, SaveCommand checks that `savedAmount` > `price`.
+Step 3. The user decides to execute `save 1 10` again. However, SaveCommand checks that `savedAmount` > `price`.
 SaveCommand#execute creates a new updated `Wish` with `savedAmount = wish.getPrice()`.
 
 The resultant wish will have the following properties:
@@ -535,30 +536,30 @@ The resultant wish will have the following properties:
 * Fulfilled: `true`
 * Expired: `false`
 
-Step 4. The excess amount of $5 is stored in a new `SavedAmount` variable `excessAmount`.
-SaveCommand#execute then calls Model#addToSpareFunds(excess) to update the `spareFunds` in WishBook.
+Step 4. The excess amount of $5 is stored in a new `SavedAmount` variable `excess`.
+SaveCommand#execute then calls Model#updateUnusedFunds(excess) to update the `unusedFunds` in WishBook.
 
 In WishBook, the result would be:
 
-* spareFunds: 5.00
+* unusedFunds: 5.00
 
-Step 5. The user tries to execute `save 1 10` again. However, since the value for `fulfilled` is true,
+Step 5. The user tries to execute `save 1 10` again. However, since the value for Wish#isFulfilled is true, the amount
+will not be saved. SaveCommand#execute will throw a CommandException, with the message "Wish has already been fulfilled!".
 
 _{TO-DO: Sequence Diagram here}_
 
 ==== Design Considerations
-===== Aspect: Data structure to support the spareFunds feature
+===== Aspect: Data structure to support the unusedFunds feature
 
 * **Alternative 1 (current choice):** Store it in a `SavedAmount` variable in `WishBook`.
 ** Pros: Easy to implement.
-** Cons: More methods needed when needing to move funds from `spareFunds` to other wishes.
+** Cons: More methods needed when needing to move funds from `unusedFunds` to other wishes.
 * **Alternative 2:** Store it as a pseudo wish with index 0.
 ** Pros: It can be treated as another `wish`, hence existing methods can be used without needing to create much more new ones.
 ** Cons: Requires dealing with an extra wish that has to be hidden on the `WishListPanel` and displayed separately on the UI.
 We must remember to skip this wish in methods that involve displaying the WishList.
 
-
-// end::wish[]
+// end::save[]
 
 // tag::find[]
 === Find Wish Feature
@@ -608,6 +609,17 @@ _{TO-DO: Flow Chart Diagram}_
 ** Cons: Manipulates the data, editing it for every other case.
 
 // end::find[]
+
+// tag::savingsNotifications[]
+=== [Proposed] Savings Notifications
+==== Justification
+Some users may have many wishes, all of which have a different targeted date of completion and different price.
+It may thus be difficult for users to keep track of how much they need to consistently save to fulfil their various wishes on time.
+This Savings Notification feature will allow users to opt for daily/weekly/monthly notifications for each specific wish,
+reminding them of the amount that they need to save at the beginning of the chosen time period.
+This will help users to consistently save towards their wishes.
+
+// end::savingsNotifications[]
 
 === Logging
 

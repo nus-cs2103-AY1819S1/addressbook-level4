@@ -84,6 +84,18 @@ public class Wish {
     }
 
     /**
+     * Returns a newly created {@code Wish} with an incremented savedAmount.
+     * @param oldWish The wish to increment the saved amount on.
+     * @param amountToIncrement The amount to increment by.
+     */
+    public static Wish createWishWithIncrementedSavedAmount(Wish oldWish, Amount amountToIncrement) {
+        requireAllNonNull(oldWish, amountToIncrement);
+        return new Wish(oldWish.getName(), oldWish.getPrice(), oldWish.getDate(), oldWish.getUrl(),
+                oldWish.getSavedAmount().incrementSavedAmount(amountToIncrement), oldWish.getRemark(),
+                oldWish.getTags(), oldWish.getId());
+    }
+
+    /**
      * Returns true if SaveAmount exceeds Price of wish.
      */
     private boolean isSavedAmountGreaterThanOrEqualToPrice(SavedAmount savedAmount, Price price) {

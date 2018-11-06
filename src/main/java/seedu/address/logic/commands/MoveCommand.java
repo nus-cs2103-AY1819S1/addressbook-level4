@@ -37,8 +37,12 @@ public class MoveCommand extends Command {
             + "Unused Funds now contains $%3$s.";
     public static final String MESSAGE_MOVE_EXCESS_TO_WISH = "Moved %1$s from wish %2$s to wish %3$s,"
             + " with %4$s in excess. Unused Funds now contains $%5$s.";
-    public static final String MOVE_INVALID_SAME_INDEX = "Cannot move from and to the same index.";
-    public static final String MOVE_INVALID_AMOUNT = "Amount to move must be greater than zero.";
+    public static final String MESSAGE_MOVE_INVALID_SAME_INDEX = "Cannot move from and to the same index.";
+    public static final String MESSAGE_MOVE_INVALID_AMOUNT = "Amount to move must be greater than zero.";
+    public static final String MESSAGE_MOVE_INVALID_FROM_WISH = "Invalid. "
+            + "The wish at FROM_INDEX does not contain the specified amount.";
+    public static final String MESSAGE_MOVE_INVALID_FROM_UNUSED_FUNDS = "Invalid. "
+            + "The unused funds does not contain the specified amount.";
 
     /**
      * Represents the types of move commands.
@@ -86,7 +90,7 @@ public class MoveCommand extends Command {
 
         /* Amount must be greater than 0. */
         if (this.amountToMove.value <= 0.0) {
-            throw new CommandException(MOVE_INVALID_AMOUNT);
+            throw new CommandException(MESSAGE_MOVE_INVALID_AMOUNT);
         }
 
         CommandResult commandResult;
@@ -98,23 +102,20 @@ public class MoveCommand extends Command {
             checkWishFulfilled(toWish);
 
             try {
-                Wish editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                        toWish.getUrl(), toWish.getSavedAmount().incrementSavedAmount(amountToMove),
-                        toWish.getRemark(), toWish.getTags(), toWish.getId());
+                Wish editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToMove);
 
                 Amount wishSavedDifference = editedToWish.getSavedAmountToPriceDifference();
 
                 model.updateUnusedFunds(amountToMove.getNegatedAmount());
                 /* Transfer excess amount from unused funds. */
                 if (wishSavedDifference.value > 0) {
-                    editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                            toWish.getUrl(), toWish.getSavedAmount()
-                            .incrementSavedAmount(toWish.getSavedAmountToPriceDifference().getAbsoluteAmount()),
-                            toWish.getRemark(), toWish.getTags(), toWish.getId());
-                    commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS,
-                            toWish.getSavedAmountToPriceDifference().toString(), this.toIndex,
-                            wishSavedDifference.getAbsoluteAmount(), model.getUnusedFunds()));
+                    Amount amountToIncrement = toWish.getSavedAmountToPriceDifference().getAbsoluteAmount();
+                    Amount amountMovedToWish = toWish.getSavedAmountToPriceDifference().getAbsoluteAmount();
+                    editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToIncrement);
                     model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
+                    commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_EXCESS,
+                            amountMovedToWish.toString(), this.toIndex.getOneBased(),
+                            wishSavedDifference.getAbsoluteAmount(), model.getUnusedFunds()));
                 } else {
                     commandResult = new CommandResult(String.format(MESSAGE_MOVE_FROM_UNUSED_FUNDS_SUCCESS,
                             amountToMove.toString(), this.toIndex.getOneBased(), model.getUnusedFunds()));
@@ -123,7 +124,7 @@ public class MoveCommand extends Command {
                 model.commitWishBook();
                 EventsCenter.getInstance().post(new WishDataUpdatedEvent(editedToWish));
             } catch (IllegalArgumentException iae) {
-                throw new CommandException(iae.getMessage());
+                throw new CommandException(MESSAGE_MOVE_INVALID_FROM_UNUSED_FUNDS);
             }
         } else if (this.moveType.equals(MoveType.WISH_TO_UNUSED_FUNDS)) {
             /* Transfer from wish to unused funds. */
@@ -132,11 +133,8 @@ public class MoveCommand extends Command {
             checkWishFulfilled(fromWish);
 
             try {
-                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(),
-                        fromWish.getUrl(),
-                        fromWish.getSavedAmount().incrementSavedAmount(amountToMove.getNegatedAmount()),
-                        fromWish.getRemark(), fromWish.getTags(), fromWish.getId());
-
+                Amount amountToIncrement = amountToMove.getNegatedAmount();
+                Wish editedFromWish = Wish.createWishWithIncrementedSavedAmount(fromWish, amountToIncrement);
                 model.updateUnusedFunds(amountToMove);
 
                 model.updateWish(fromWish, editedFromWish);
@@ -145,13 +143,13 @@ public class MoveCommand extends Command {
                 commandResult = new CommandResult(String.format(MESSAGE_MOVE_TO_UNUSED_FUNDS_SUCCESS,
                         this.amountToMove.toString(), this.fromIndex.getOneBased(), model.getUnusedFunds()));
             } catch (IllegalArgumentException iae) {
-                throw new CommandException(iae.getMessage());
+                throw new CommandException(MESSAGE_MOVE_INVALID_FROM_WISH);
             }
         } else {
             /* Transfer from wish to wish. */
             /* Cannot transfer from and to same index. */
             if (this.fromIndex.equals(this.toIndex)) {
-                throw new CommandException(MOVE_INVALID_SAME_INDEX);
+                throw new CommandException(MESSAGE_MOVE_INVALID_SAME_INDEX);
             }
 
             checkValidIndex(lastShownList, this.toIndex);
@@ -164,24 +162,18 @@ public class MoveCommand extends Command {
             checkWishFulfilled(toWish);
 
             try {
-                Wish editedFromWish = new Wish(fromWish.getName(), fromWish.getPrice(), fromWish.getDate(),
-                        fromWish.getUrl(),
-                        fromWish.getSavedAmount().incrementSavedAmount(amountToMove.getNegatedAmount()),
-                        fromWish.getRemark(), fromWish.getTags(), fromWish.getId());
-                Wish editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                        toWish.getUrl(), toWish.getSavedAmount().incrementSavedAmount(amountToMove),
-                        toWish.getRemark(), toWish.getTags(), toWish.getId());
+                Wish editedFromWish = Wish.createWishWithIncrementedSavedAmount(fromWish,
+                        amountToMove.getNegatedAmount());
+                Wish editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToMove);
                 Amount wishSavedDifference = editedToWish.getSavedAmountToPriceDifference();
 
                 /* Transfer excess amount to unused funds. */
                 if (wishSavedDifference.value > 0) {
-                    editedToWish = new Wish(toWish.getName(), toWish.getPrice(), toWish.getDate(),
-                            toWish.getUrl(), toWish.getSavedAmount()
-                            .incrementSavedAmount(toWish.getSavedAmountToPriceDifference().getAbsoluteAmount()),
-                            toWish.getRemark(), toWish.getTags(), toWish.getId());
+                    Amount amountToIncrement = toWish.getSavedAmountToPriceDifference().getAbsoluteAmount();
+                    editedToWish = Wish.createWishWithIncrementedSavedAmount(toWish, amountToIncrement);
                     model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
                     commandResult = new CommandResult(String.format(MESSAGE_MOVE_EXCESS_TO_WISH,
-                            toWish.getSavedAmountToPriceDifference().toString(),
+                            amountToIncrement.toString(),
                             this.fromIndex.getOneBased(), this.toIndex.getOneBased(), wishSavedDifference.toString(),
                             model.getUnusedFunds()));
                 } else {
@@ -194,7 +186,7 @@ public class MoveCommand extends Command {
                 EventsCenter.getInstance().post(new WishDataUpdatedEvent(editedFromWish));
                 EventsCenter.getInstance().post(new WishDataUpdatedEvent(editedToWish));
             } catch (IllegalArgumentException iae) {
-                throw new CommandException(iae.getMessage());
+                throw new CommandException(MESSAGE_MOVE_INVALID_FROM_WISH);
             }
         }
         return commandResult;

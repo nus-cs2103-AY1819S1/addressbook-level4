@@ -1,0 +1,84 @@
+= Lionel Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: WishBook
+
+---
+
+== Overview
+
+WishBook is a desktop savings assistant application written in Java, built for people who want to set savings goals (Wishes)
+and keep track of their progress in saving toward those wishes.
+It is created by Team T16-1 for CS2103T: Software Engineering module offered by School of Computing,
+National University of Singapore, in AY2018/2019 Semester 1.
+This project portfolio consists of the contributions I have made to WishBook over the semester.
+
+== Summary of contributions
+
+=== Major Enhancements
+* *Move Command*: added Move Command
+** *What it does*: Allows users to move funds between wishes, or to transfer between wishes and the unused funds.
+** *Justification*: Previously, to reallocate funds from one wish to another, the user had to save a negated amount from one of their wishes,
+and then save that positive amount into the targeted wish.
+It can be quite troublesome to shift funds between wishes, as the user would have to type two separate commands.
+As such, I developed the move command that allows the user to transfer funds between wishes directly in a single command.
+
+* *Save to unused funds*:
+** *What it does*: Allow users to save toward unused funds directly. Also, any excess saved amount will be channelled automatically to unused funds.
+** *Justification*: Previously, if the input amount causes the wish’s saved amount to exceed its price,
+the excess amount would be stored inside that wish.
+However, this excess amount cannot be reallocated, since the wish has already been fulfilled.
+Thus, I modified the Save command to channel any excess saved amount to an UnusedFunds within WishBook.
+The money inside the UnusedFunds can later be redistributed to other wishes, via the Move Command.
+
+=== Minor Enhancements
+* *Savings History*: add option to show savings history for History Command.
+
+* *List*: add option to display only completed or uncompleted wishes.
+
+=== Other Contributions
+** Shorthand alias: Add shorthand equivalent alias for commands.
+*** Useful to increase speed and efficiency while using WishBook
+*** users would now be able to type a command with only 1 or 2 characters, instead of typing the whole word.
+(Pull Request https://github.com/CS2103-AY1819S1-T16-1/main/pull/3[#3])
+** Documentation:
+*** Documented new functions added to User Guide.
+*** Consistently updated the User Guide to reflect the current function usage in our application.
+*** Refactored Developer Guide to make it specific to our WishBook implementation.
+
+** Refactored code and documentation
+*** Contributed regularly to refactoring the code from the previous AddressBook-Level 4 application.
+*** Refactor terms specific to AddressBook-Level 4, to suit our current WishBook application
+
+** Reported bugs and issues:
+https://github.com/CS2103-AY1819S1-T16-1/main/issues/61[#61]
+https://github.com/CS2103-AY1819S1-T16-1/main/issues/created_by/lionelat[#90]
+
+*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=save]
+
+include::../UserGuide.adoc[tag=move]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=save]
+
+include::../DeveloperGuide.adoc[tag=savingsNotifications]
+
+
+---
+

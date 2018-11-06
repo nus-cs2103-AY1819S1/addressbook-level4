@@ -64,9 +64,15 @@ public class SaveCommand extends Command {
         List<Wish> lastShownList = model.getFilteredSortedWishList();
 
         if (this.noWishSpecified) {
-            model.updateUnusedFunds(this.amountToSave);
-            model.commitWishBook();
-            return new CommandResult(String.format(MESSAGE_SAVE_UNUSED_FUNDS, amountToSave.toString()));
+            try {
+                model.updateUnusedFunds(this.amountToSave);
+                model.commitWishBook();
+                return new CommandResult(String.format(MESSAGE_SAVE_UNUSED_FUNDS, amountToSave.toString(),
+                        model.getUnusedFunds()));
+            } catch (IllegalArgumentException iae) {
+                throw new CommandException(iae.getMessage());
+            }
+
         }
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -81,16 +87,12 @@ public class SaveCommand extends Command {
         String differenceString = "";
 
         try {
-            Wish editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
-                    wishToEdit.getUrl(), wishToEdit.getSavedAmount().incrementSavedAmount(amountToSave),
-                    wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getId());
+            Wish editedWish = Wish.createWishWithIncrementedSavedAmount(wishToEdit, amountToSave);
 
             Amount wishSavedDifference = editedWish.getSavedAmountToPriceDifference();
             if (wishSavedDifference.value > 0) {
-                editedWish = new Wish(wishToEdit.getName(), wishToEdit.getPrice(), wishToEdit.getDate(),
-                        wishToEdit.getUrl(), wishToEdit.getSavedAmount()
-                        .incrementSavedAmount(wishToEdit.getSavedAmountToPriceDifference().getAbsoluteAmount()),
-                        wishToEdit.getRemark(), wishToEdit.getTags(), wishToEdit.getId());
+                Amount amountToIncrement = wishToEdit.getSavedAmountToPriceDifference().getAbsoluteAmount();
+                editedWish = Wish.createWishWithIncrementedSavedAmount(wishToEdit, amountToIncrement);
                 model.updateUnusedFunds(wishSavedDifference.getAbsoluteAmount());
                 differenceString = String.format(MESSAGE_SAVE_EXCESS, wishSavedDifference.getAbsoluteAmount(),
                         model.getWishBook().getUnusedFunds());

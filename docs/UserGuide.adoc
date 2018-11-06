@@ -33,7 +33,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : Lists all the items you have set as wishes (sorted by due date).
-* **`add`**`n/uPhoneXX p/1000 d/5m` : adds an item “uPhoneXX” as a goal to be completed in 5 months.
+* **`add`**`n/uPhoneXX p/1000 a/5m` : adds an item “uPhoneXX” as a goal to be completed in 5 months.
 * *`help`*: displays list of command with usage.
 * *`clear`*: clears view
 * *`exit`* : exits the app
@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which can be used as add iPhone.
-* Items in square brackets are optional e.g. in `save AMOUNT [INDEX]`, `INDEX` is an optional parameter, since the save command can be used as `save 40`.
+* Items in square brackets are optional e.g. in `list [FILTER]`, `FILTER` is an optional parameter, since the list command can be used as `list` to display all wishes in WishBook.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/broke`, `t/needs` etc.
 * The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in `add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE` and `END_DATE` parameters.
 ====
@@ -59,7 +59,7 @@ Format: `help`
 
 === Adding a wish: `add`
 Adds a wish to the wish list +
-Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
+Format: `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
 
 [TIP]
 * `[END_DATE]`: Specified in _dd/mm/yyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
@@ -72,14 +72,14 @@ If an invalid date is provided, a warning message will be displayed to prompt th
 
 Examples:
 
-* `add n/smallRice p/999 d/2d`
-* `add n/kfcBook_13inch p/2300 d/6m3w`
+* `add n/smallRice p/999 a/2d`
+* `add n/kfcBook 13inch p/2300 a/6m3w`
 * `add n/prinkles p/1.95 d/24/04/2020`
 
 === Editing a wish : `edit`
 
 Edits an existing wish in the wish list. +
-Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
+Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
 
 ****
 * Edits the wish at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed list of goals. `INDEX` must be a positive integer 1, 2, 3, …
@@ -95,33 +95,23 @@ Examples:
 * `edit 1 n/Macbook Pro t/Broke wishes` +
 Edits the name of the wish and the tag of the 1st wish to be Macbook Pro and Broke wishes respectively
 
-* `edit 2 p/22 d/22w` +
+* `edit 2 p/22 a/22w` +
 Edits the price and time given to accomplish the 2nd wish to 22 (in the chosen currency) and 22 weeks respectively.
 
-=== Listing all wishes : `list`
+=== Listing wishes : `list`
 
-Shows a list of all the wishes you have set, sorted by date by default. +
-Format: `list`
+Shows a list of all the wishes you have set, sorted by date by default, based on the given filter.
+If no filter is specified, all wishes in the WishBook will be listed. +
+Format: `list [FILTER]`
 
-****
-* Only wishes in the current state of the wishbook will be listed.
-* Deleted wishes will not be displayed.
-****
+* `list` +
+Lists all the wishes in the WishBook.
 
-=== Listing completed wishes : `list -c`
+* `list -c` +
+Lists all the completed wishes in the WishBook.
 
-Shows a list of all the wishes that have been completed, sorted by date by default. +
-Format: `list -c`
-
-****
-* Only wishes in the current state of the wishbook will be listed.
-* Deleted wishes will not be displayed.
-****
-
-=== Listing uncompleted wishes : `list -u`
-
-Shows a list of all the wishes that are still in progress, sorted by date by default. +
-Format: `list -u`
+* `list -u` +
+Lists all the uncompleted wishes in the WishBook.
 
 ****
 * Only wishes in the current state of the wishbook will be listed.
@@ -167,11 +157,11 @@ Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 
 Examples:
 
-* `find d/22` +
-Returns wish with stipulated time given of 22 days.
+* `find n/watch` +
+Returns any wish with name containing watch
 
-* `find watch t/broke wishes` +
-Returns any wish with name containing watch, with tag broke wishes.
+* `find n/watch t/broke wishes` +
+Returns any wish with name containing 'watch', with tag 'broke wishes'.
 
 === Deleting a wish : `delete`
 
@@ -218,6 +208,7 @@ Selects the 2nd wish in the wish list.
 `select 1` +
 Selects the 1st wish in the results of the `find` command.
 
+// tag::save[]
 === Save money for a particular wish: `save`
 
 Channels a specified amount of money to savings for a specified wish. +
@@ -243,7 +234,10 @@ Attempt to remove $100.50 from the savings for the wish at index 1.
 * `save 0 100.50` +
 Attempt save $100.50 to `unusedFunds`.
 
-=== Move money between wishes: 'move'
+// end::save[]
+
+// tag::move[]
+=== Move money between wishes: `move`
 
 Moves funds from one wish to another. +
 Format: `move FROM_WISH_INDEX TO_WISH_INDEX AMOUNT`
@@ -275,6 +269,8 @@ Attempt to move $10 from unusedFunds to the wish at index 1.
 
 * `move 1 0 10` +
 Attempt to move $10 from the wish at index 1 to `unusedFunds`.
+
+// end::move[]
 
 === Editing a remark for a wish : `remark`
 
@@ -378,12 +374,12 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add*  `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]` +
-e.g. `add n/kfcBook_13inch p/2300 d/6m3w`
+* *Add*  `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE]` +
+e.g. `add n/kfcBook_13inch p/2300 a/6m3w`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
+* *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [a/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
 e.g. `edit 1 n/Macbook Pro t/Broke wishes`
 * *Find* : `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]` +
 e.g. `find d/22`
