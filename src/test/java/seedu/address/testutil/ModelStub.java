@@ -14,6 +14,7 @@ import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
@@ -160,7 +161,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addUser(Username username) {
+    public void addUser(Username username) throws UserAlreadyExistsException {
         throw new AssertionError("addUser method should not be called.");
     }
 
