@@ -78,14 +78,30 @@ public class AddEventCommand extends Command {
     public CommandResult execute(Model model, CommandHistory commandHistory) throws CommandException {
         requireNonNull(model);
 
+        checkForDuplicateEvent(model);
+        checkForClashingEvent(model);
+
+        checkForTagValidity(model);
+        setEventContacts(model);
+
+        model.addEvent(toAdd);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    private void checkForDuplicateEvent(Model model) throws CommandException {
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
+    }
 
+    private void checkForClashingEvent(Model model) throws CommandException {
         if (model.hasClashingEvent(toAdd)) {
             throw new CommandException(MESSAGE_CLASHING_EVENT);
         }
+    }
 
+    private void checkForTagValidity(Model model) throws CommandException {
         // check if tags are existing in the address book
         Set<Tag> nonExistingTags = toAdd.getEventTags().stream()
                 .filter(tag -> !model.hasEventTag(tag))
@@ -93,7 +109,9 @@ public class AddEventCommand extends Command {
         if (!nonExistingTags.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_NONEXISTENT_TAG, nonExistingTags));
         }
+    }
 
+    private void setEventContacts(Model model) throws CommandException {
         // set the list of Person objects as the eventContacts of the event to be added
         List<Person> lastShownPersonList = model.getFilteredPersonList();
         if (contactIndicesToAdd.stream()
@@ -107,10 +125,6 @@ public class AddEventCommand extends Command {
                 .collect(Collectors.toSet());
 
         toAdd.setEventContacts(contactsToAdd);
-
-        model.addEvent(toAdd);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
