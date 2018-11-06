@@ -73,7 +73,7 @@ public class FavouriteCommand extends Command {
 
         Event favouriteEvent = listToFavouriteFrom.get(targetIndex.getZeroBased());
 
-        model.updateFavouriteEvent("Event Name: " + favouriteEvent.getEventName()
+        model.updateFavourite("Event Name: " + favouriteEvent.getEventName()
                 + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
                 + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
                 + "\nEvent Details: " + favouriteEvent.getEventDescription());

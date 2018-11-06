@@ -19,17 +19,20 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
+import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.filereader.FileReader;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static VersionedAddressBook versionedAddressBook = null;
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
 
@@ -50,6 +53,26 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    public boolean getNotificationPref() {
+        return versionedAddressBook.getNotificationPref();
+    }
+
+    @Override
+    public void updateNotificationPref(boolean set) {
+        versionedAddressBook.setNotificationPref(set);
+        indicateAddressBookChanged();
+    }
+
+    public String getFavourite() {
+        return versionedAddressBook.getFavourite();
+    }
+
+    @Override
+    public void updateFavourite(String newEvent) {
+        versionedAddressBook.updateFavourite(newEvent);
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -126,6 +149,27 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //=========== File Reader methods ========================================================================
+    @Override
+    public void importContacts(FileReader fileReader) {
+        versionedAddressBook.importContacts(fileReader);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+    }
+
+    //=========== Event tag methods ==============================================================================
+    @Override
+    public boolean hasEventTag(Tag eventTag) {
+        requireNonNull(eventTag);
+        return versionedAddressBook.hasEventTag(eventTag);
+    }
+
+    @Override
+    public void addEventTag(Tag eventTag) {
+        versionedAddressBook.addEventTag(eventTag);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -135,6 +179,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(filteredPersons);
+    }
+
+    /**
+     * Returns an unmodifiable view of the unfiltered list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}.
+     */
+    @Override
+    public ObservableList<Person> getUnfilteredPersonList() {
+        return FXCollections.unmodifiableObservableList(versionedAddressBook.getPersonList());
     }
 
     @Override
@@ -199,6 +252,29 @@ public class ModelManager extends ComponentManager implements Model {
         return FXCollections.unmodifiableObservableList(filteredEventsByDate);
     }
 
+    //=========== Filtered Event Tag List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Tag} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Tag> getEventTagList() {
+        return FXCollections.unmodifiableObservableList(eventTags);
+    }
+
+    /**
+     * Adds a listener on the event tag list {@code eventTagList} to detect changes in the list
+     * and indicate the change to the address book.
+     */
+    public void addListenerToEventTagList() {
+        eventTags.addListener((ListChangeListener.Change<? extends Tag> change) -> {
+            if (change.next()) {
+                indicateAddressBookEventTagChanged();
+            }
+        });
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -246,26 +322,4 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredEvents.equals(other.filteredEvents);
     }
-
-    public boolean getNotificationPref() {
-        return versionedAddressBook.getNotificationPref();
-    }
-
-    @Override
-    public void updateNotificationPref(boolean set) {
-        versionedAddressBook.updateNotificationPref(set);
-        indicateAddressBookChanged();
-    }
-    @Override
-    public String getFavouriteEvent() {
-        return versionedAddressBook.getFavouriteEvent();
-    }
-
-    @Override
-    public void updateFavouriteEvent(String newEvent) {
-        versionedAddressBook.updateFavouriteEvent(newEvent);
-        indicateAddressBookChanged();
-    }
-
-
 }

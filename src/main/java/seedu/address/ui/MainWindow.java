@@ -19,9 +19,7 @@ import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -95,12 +93,12 @@ public class MainWindow extends UiPart<Stage> {
     private void setNotification(UserPrefs prefs) {
 
         model.updateNotificationPref(prefs.getGuiSettings().getNotificationIsEnabled());
-        model.updateFavouriteEvent(prefs.getGuiSettings().getFavouriteEvent());
+        model.updateFavourite(prefs.getGuiSettings().getFavouriteEvent());
+        model.commitAddressBook();
 
         if (model.getNotificationPref()) {
-            if (model.getFavouriteEvent() != null) {
-                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, model.getFavouriteEvent());
-                // delete event must clean up favourite as well!
+            if (model.getFavourite() != null) {
+                NotificationWindow.display(NOTIFICATION_FAVOURITE_TITLE, model.getFavourite());
             } else {
                 NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
             }
@@ -193,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY(),
                 model.getNotificationPref(),
-                model.getFavouriteEvent());
+                model.getFavourite());
     }
 
     /**

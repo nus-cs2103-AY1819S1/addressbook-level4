@@ -141,16 +141,23 @@ public interface Model {
      */
     void commitAddressBook();
 
-    /** Updates the notification preference in Versioned Address Book */
+    /**
+     * Updates the notification preference.
+     */
     void updateNotificationPref(boolean set);
 
-    /** Updates the favourite event in Versioned Address Book */
-    void updateFavouriteEvent(String favourite);
+    /**
+     * Updates the favourite event.
+     */
+    void updateFavourite(String favourite);
 
-    /** Returns the notification preference in Versioned Address Book */
+    /**
+     * Returns notification preference.
+     */
     boolean getNotificationPref();
 
-    /** Returns the favourite event in Versioned Address Book */
-    String getFavouriteEvent();
-
+    /**
+     * Returns favourite event String.
+     */
+    String getFavourite();
 }

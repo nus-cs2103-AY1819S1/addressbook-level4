@@ -9,6 +9,8 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Wraps all data at the address-book level
@@ -18,8 +20,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueEventList events;
+    private final UniqueTagList eventTags;
     private boolean notificationPref;
-    private static String favourite;
+    private String favourite;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -31,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         events = new UniqueEventList();
+        eventTags = new UniqueTagList();
         notificationPref = true;
         favourite = null;
     }
@@ -64,6 +68,24 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Replaces the contents of the event tag list with {@code eventTags}.
+     * {@code eventTags} must not contain duplicate event tags.
+     */
+    public void setEventTags(List<Tag> eventTags) {
+        this.eventTags.setTags(eventTags);
+    }
+
+    /**
+     * Updates the notification preference.
+     */
+    public void setNotificationPref(boolean set) {
+        this.notificationPref = set;
+    }
+
+    /**
+>>>>>>> f86c648336158f70e5a50e9ba57f4361d09d7778
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -71,8 +93,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
-        updateNotificationPref(newData.getNotificationPref());
-        updateFavouriteEvent(newData.getFavouriteEvent());
+        setEventTags(newData.getEventTagList());
+        setNotificationPref(newData.getNotificationPref());
+        updateFavourite(newData.getFavourite());
     }
 
 
@@ -176,6 +199,31 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Tag> getEventTagList() {
+        return eventTags.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean getNotificationPref() {
+        return notificationPref;
+    }
+
+    @Override
+    public void updateNotificationPref(boolean set) {
+        this.notificationPref = set;
+    }
+
+    @Override
+    public String getFavourite() {
+        return favourite;
+    }
+
+    @Override
+    public void updateFavourite(String favourite) {
+        this.favourite = favourite;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
@@ -186,14 +234,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public int hashCode() {
         return persons.hashCode() + events.hashCode();
-    }
-
-    public boolean getNotificationPref() {
-        return notificationPref;
-    }
-
-    public void updateNotificationPref(boolean set) {
-        notificationPref = set;
     }
 
     public String getFavouriteEvent() { return favourite; }
