@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static junit.framework.TestCase.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -11,7 +10,6 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.commands.CreateConvertCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.transformation.Transformation;
 
 public class CreateConvertCommandParserTest {
