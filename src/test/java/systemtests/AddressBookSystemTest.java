@@ -262,8 +262,8 @@ public abstract class AddressBookSystemTest {
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
      * and the person list panel displays the persons in the model correctly.
      */
-    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+    protected void assertApplicationDisplaysExpectedPerson(String expectedCommandInput, String expectedResultMessage,
+                                                           Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
@@ -275,12 +275,12 @@ public abstract class AddressBookSystemTest {
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
      * and the person list panel displays the persons in the model correctly.
      */
-    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-                                                     Model expectedModel) {
+    protected void assertApplicationDisplaysExpectedModule(String expectedCommandInput, String expectedResultMessage,
+                                                           Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getModuleListPanel(), expectedModel.getFilteredModuleList());
     }
 
     /**
@@ -288,12 +288,12 @@ public abstract class AddressBookSystemTest {
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
      * and the person list panel displays the persons in the model correctly.
      */
-    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-                                                     Model expectedModel) {
+    protected void assertApplicationDisplaysExpectedOccasion(String expectedCommandInput, String expectedResultMessage,
+                                                             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getOccasionListPanel(), expectedModel.getFilteredOccasionList());
     }
 
     /**
