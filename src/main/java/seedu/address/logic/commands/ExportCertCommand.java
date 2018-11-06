@@ -199,7 +199,7 @@ public class ExportCertCommand extends Command {
         contStream.newLine();
 
         String formalityTextLine2 = "This is to certify " + volunteerName
-                + "'s contributions to our organisation via the following events:";
+                + "'s contributions to our organisation via the following event(s):";
         contStream.showText(formalityTextLine2);
         contStream.newLine();
 
