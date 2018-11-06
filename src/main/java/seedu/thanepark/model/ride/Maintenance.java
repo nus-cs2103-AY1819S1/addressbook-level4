@@ -11,7 +11,7 @@ public class Maintenance implements NumericAttribute {
     public static final String MESSAGE_MAINTENANCE_CONSTRAINTS =
             "Maintenance should only contain numbers with at least 1 digit long and should be less than 1 billion";
     public static final String MAINTENANCE_VALIDATION_REGEX = "\\d+";
-    private int value;
+    private Date lastMaintenanceDate;
 
     /**
      * Constructs a {@code Maintenance}.
@@ -21,7 +21,8 @@ public class Maintenance implements NumericAttribute {
     public Maintenance(String daysSinceMaintenanceString) {
         requireNonNull(daysSinceMaintenanceString);
         checkArgument(isValidMaintenance(daysSinceMaintenanceString), MESSAGE_MAINTENANCE_CONSTRAINTS);
-        value = Integer.parseInt(daysSinceMaintenanceString);
+        int value = Integer.parseInt(daysSinceMaintenanceString);
+        lastMaintenanceDate = new Date(value);
     }
 
     /**
@@ -29,15 +30,15 @@ public class Maintenance implements NumericAttribute {
      * @param daysSinceMaintenance Days since last maintenance.
      */
     public Maintenance(int daysSinceMaintenance) {
-        value = daysSinceMaintenance;
+        lastMaintenanceDate = new Date(daysSinceMaintenance);
     }
 
     public int getValue() {
-        return value;
+        return lastMaintenanceDate.getDays();
     }
 
     public void setValue(int value) {
-        this.value = value;
+        lastMaintenanceDate = new Date(value);
     }
 
     /**
@@ -49,19 +50,19 @@ public class Maintenance implements NumericAttribute {
 
     @Override
     public String toString() {
-        return String.valueOf(value) + " days";
+        return String.valueOf(lastMaintenanceDate.getDays()) + " days";
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Maintenance // instanceof handles nulls
-            && value == ((Maintenance) other).value); // state check
+            && lastMaintenanceDate.equals(((Maintenance) other).lastMaintenanceDate)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value;
+        return lastMaintenanceDate.getDays();
     }
 
 }
