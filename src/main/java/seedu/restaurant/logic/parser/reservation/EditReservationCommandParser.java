@@ -55,12 +55,6 @@ public class EditReservationCommandParser implements Parser<EditReservationComma
         if (argMultimap.getValue(PREFIX_PAX).isPresent()) {
             editReservationDescriptor.setPax(ReservationParserUtil.parsePax(argMultimap.getValue(PREFIX_PAX).get()));
         }
-        /*
-        if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
-            editReservationDescriptor.setDateTime(ReservationParserUtil
-                    .parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get()));
-        }
-        */
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editReservationDescriptor.setDate(ReservationParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
