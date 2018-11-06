@@ -78,6 +78,7 @@ public class EditMedicineCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
         }
 
+
         Medicine medicineToEdit = lastShownList.get(index.getZeroBased());
         Medicine editedMedicine = createEditedMedicine(medicineToEdit, medicineDescriptor);
 
@@ -106,7 +107,6 @@ public class EditMedicineCommand extends Command {
                 && medicineDescriptor.isMedicineNameChanged()) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE_NAME);
         }
-
         model.updateMedicine(medicineToEdit, editedMedicine);
         model.updateFilteredMedicineList(Model.PREDICATE_SHOW_ALL_MEDICINES);
         model.commitAddressBook();
