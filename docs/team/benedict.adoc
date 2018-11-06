@@ -47,6 +47,8 @@ This portfolio seeks to document my contributions to our team’s project, Picon
 
 include::../UserGuide.adoc[tag=dir]
 
+include::../UserGuide.adoc[tag=cd]
+
 == Contributions to the Developer Guide
 
 |===

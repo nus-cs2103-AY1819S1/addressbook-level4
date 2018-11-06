@@ -40,17 +40,25 @@ public class CdCommand extends Command {
         String currDirectory = model.getCurrDirectory().toString();
         String newDir = currDirectory + "/" + toDirectories.toString();
 
-        File dir = new File(newDir);
-        if (!dir.isDirectory()) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
-
         Path newCurrDirectory = Paths.get("");
         try {
-            newCurrDirectory = dir.toPath().toRealPath();
-            model.updateCurrDirectory(newCurrDirectory);
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (toDirectories.isAbsolute()) {
+                File dir = toDirectories.toFile();
+                if (!dir.isDirectory()) {
+                    return new CommandResult(MESSAGE_FAILURE);
+                }
+                newCurrDirectory = toDirectories.toRealPath();
+                model.updateCurrDirectory(newCurrDirectory);
+            } else {
+                File dir = new File(newDir);
+                if (!dir.isDirectory()) {
+                    return new CommandResult(MESSAGE_FAILURE);
+                }
+                newCurrDirectory = dir.toPath().toRealPath();
+                model.updateCurrDirectory(newCurrDirectory);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
 
         return new CommandResult(newCurrDirectory.toString() + "\n"
@@ -61,5 +69,12 @@ public class CdCommand extends Command {
 
     public Path getPath() {
         return this.toDirectories;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CdCommand // instanceof handles nulls
+                && toDirectories.equals(((CdCommand) other).toDirectories)); // state check
     }
 }
