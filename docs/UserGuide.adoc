@@ -175,7 +175,7 @@ Examples:
 
 === Adding medical condition or allergy to patient: `add-medical-history`
 Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
-Format: `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
+Format: `add-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
 
 Examples:
 
@@ -187,7 +187,7 @@ Examples:
 
 === Deleting medical condition or allergy to patient: `delete-medical-history`
 Delete a condition or allergy to the patient's medical history. This will then be removed on the patient's information page. +
-Format: `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
+Format: `delete-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
 
 Examples:
 
