@@ -414,7 +414,7 @@ public class DeleteCommandTest {
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
-    
+
     @Test
     public void equals() {
         DeleteCommand deleteFirstPersonCommand = new DeleteCommand(INDEX_FIRST_PERSON);
