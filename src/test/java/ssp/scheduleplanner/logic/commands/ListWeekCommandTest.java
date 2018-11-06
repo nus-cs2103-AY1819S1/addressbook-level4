@@ -93,6 +93,7 @@ public class ListWeekCommandTest {
         String testFriday = LocalDate.of(2018, 10, 26).getDayOfWeek().name();
         String testSaturday = LocalDate.of(2018, 10, 27).getDayOfWeek().name();
         String testSunday = LocalDate.of(2018, 10, 28).getDayOfWeek().name();
+        String testDefault = "Invalid 'date', which return default 0";
 
         assertEquals(lwc.numDaysTillSunday(testMonday), 6);
         assertEquals(lwc.numDaysTillSunday(testTuesday), 5);
@@ -101,6 +102,7 @@ public class ListWeekCommandTest {
         assertEquals(lwc.numDaysTillSunday(testFriday), 2);
         assertEquals(lwc.numDaysTillSunday(testSaturday), 1);
         assertEquals(lwc.numDaysTillSunday(testSunday), 0);
+        assertEquals(lwc.numDaysTillSunday(testDefault), 0);
     }
 
     @Test

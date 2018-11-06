@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ang Chen Shin
 image::crimsonang.png[width="150", align="left"]
-{empty}[https://github.com/CrimsonAng[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/CrimsonAng[github]] [<<crimsonang#, portfolio>>]
 
 Role: Team Lead, Scheduling and Tracking +
 Responsibilities: Responsible for overall project coordination.
@@ -21,7 +21,7 @@ Responsibilities: Responsible for overall project coordination.
 
 === Lin Xu
 image::woodnsuns.png[width="150", align="left"]
-{empty}[https://github.com/Woodnsuns[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Woodnsuns[github]] [<<woodnsuns#, portfolio>>]
 
 Role: Documentation, Code Quality +
 Responsibilities: Maintaining the quality of various project documents +
@@ -31,7 +31,7 @@ Looks after code quality, ensures adherence to coding standards, etc.
 
 === Park Sang Jun
 image::park-sang-jun.png[width="150", align="left"]
-{empty}[https://github.com/park-sang-jun[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/park-sang-jun[github]] [<<park-sang-jun#, portfolio>>]
 
 Role: Deliverables and Deadlines +
 Responsibilities: Ensure project deliverables are done on time and in the right format.
@@ -40,7 +40,7 @@ Responsibilities: Ensure project deliverables are done on time and in the right 
 
 === Thaddeus Lim Zhi Yu
 image::thaddeuslzy.png[width="150", align="left"]
-{empty}[http://github.com/thaddeuslzy[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/thaddeuslzy[github]] [<<thaddeuslzy#, portfolio>>]
 
 Role: Integration +
 Responsibilities: In charge of versioning of the code, maintaining the code repository,
@@ -50,7 +50,7 @@ integrating various parts of the software to create a whole.
 
 === Xiao Yilin
 image::hotarumin.png[width="150", align="left"]
-{empty}[https://github.com/hotarumin[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/hotarumin[github]] [<<hotarumin#, portfolio>>]
 
 Role: Testing +
 Responsibilities: Ensures the testing of the project is done properly and on time.

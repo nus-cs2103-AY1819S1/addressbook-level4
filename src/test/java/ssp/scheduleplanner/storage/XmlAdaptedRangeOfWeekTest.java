@@ -1,6 +1,9 @@
 package ssp.scheduleplanner.storage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static ssp.scheduleplanner.storage.XmlAdaptedRangeOfWeek.MISSING_FIELD_MESSAGE_FORMAT;
 
 import org.junit.Test;
 
@@ -34,11 +37,55 @@ public class XmlAdaptedRangeOfWeekTest {
     }
 
     @Test
+    public void toModelType_nullStartOfWeek_throwsIllegalValueException() {
+        XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(null, VALID_END_OF_WEEK,
+                VALID_DESCRIPTION);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, RangeOfWeek.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, range::toModelType);
+    }
+
+    @Test
     public void toModelType_invalidEndOfWeek_throwsIllegalValueException() {
         String expectedMessage = Date.MESSAGE_DATE_CONSTRAINTS;
         XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(VALID_START_OF_WEEK,
                 INVALID_END_OF_WEEK, VALID_DESCRIPTION));
         Assert.assertThrows(IllegalValueException.class, expectedMessage, range::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullEndOfWeek_throwsIllegalValueException() {
+        XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(VALID_START_OF_WEEK, null,
+                VALID_DESCRIPTION);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, RangeOfWeek.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, range::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullDescription_throwsIllegalValueException() {
+        XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(VALID_START_OF_WEEK, VALID_END_OF_WEEK, null);
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, RangeOfWeek.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, range::toModelType);
+    }
+
+    @Test
+    public void toString_equal() {
+        XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(VALID_START_OF_WEEK,
+                VALID_END_OF_WEEK, VALID_DESCRIPTION));
+        String testString = new String(VALID_START_OF_WEEK + VALID_END_OF_WEEK + VALID_DESCRIPTION);
+        assertEquals(range.toString(), testString);
+    }
+
+    @Test
+    public void equals_equal() {
+        XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(VALID_START_OF_WEEK,
+                VALID_END_OF_WEEK, VALID_DESCRIPTION));
+        XmlAdaptedRangeOfWeek checkRange = range;
+        String notInstance = "not instance of XmlSerializableRangeOfWeek";
+
+        assertTrue(range.equals(new XmlAdaptedRangeOfWeek(new RangeOfWeek("130818", "190818",
+                "Week 1"))));
+        assertEquals(range, checkRange);
+        assertFalse(checkRange.equals(notInstance));
     }
 
 
