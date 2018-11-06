@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
 import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.EmbedGoogleMaps;

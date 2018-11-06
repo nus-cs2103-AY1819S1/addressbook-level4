@@ -3,6 +3,9 @@ package seedu.address.commons.events.ui;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.person.Person;
 
+/**
+ * Represents a change in the Faculty location of a Person being displayed in the Location Display panel.
+ */
 public class FacultyLocationDisplayChangedEvent extends BaseEvent {
 
     private final Person selectedPerson;

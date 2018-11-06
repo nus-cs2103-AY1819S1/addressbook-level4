@@ -9,6 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Faculty {
 
+    /**
+     * The Faculties that are allowed to be used as a valid input.
+     */
     enum Faculties {
         SOC, FOS, YLLSOM, FOD, BIZ, SDE, FOE, FOL, YSTCOM, FASS
 

@@ -2,6 +2,9 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
+/**
+ * Represents a request for a random meeting location to be generated.
+ */
 public class RandomMeetingLocationGeneratedEvent extends BaseEvent {
 
     private final String meetingPlaceId;
