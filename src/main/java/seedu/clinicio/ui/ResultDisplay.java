@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.clinicio.commons.core.LogsCenter;
 import seedu.clinicio.commons.events.ui.NewResultAvailableEvent;
 

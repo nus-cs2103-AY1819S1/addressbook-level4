@@ -57,7 +57,6 @@ public class AnalyticsDisplay extends UiPart<Region> {
 
     public AnalyticsDisplay() {
         super(FXML);
-        analyticsPane.setVisible(false);
         registerAsAnEventHandler(this);
 
         summaryLabels = Arrays.asList(
@@ -94,6 +93,9 @@ public class AnalyticsDisplay extends UiPart<Region> {
         CircularList<VisualizationData> allVisualizationData = allDataToDisplay.getVisualizationData();
         Plot.plotChart(allVisualizationData.getNext(), chartPane);
         Plot.fillSummary(allDataToDisplay.getSummaryData(), summaryBar, summaryLabels);
-        analyticsPane.setVisible(true);
+    }
+
+    public void setVisible(boolean isVisible) {
+        analyticsPane.setVisible(isVisible);
     }
 }

@@ -23,12 +23,15 @@ import javafx.stage.Stage;
 import seedu.clinicio.commons.core.Config;
 import seedu.clinicio.commons.core.GuiSettings;
 import seedu.clinicio.commons.core.LogsCenter;
+import seedu.clinicio.commons.events.ui.AnalyticsDisplayEvent;
 import seedu.clinicio.commons.events.ui.ExitAppRequestEvent;
+import seedu.clinicio.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
+import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
@@ -137,6 +140,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         analyticsDisplay = new AnalyticsDisplay();
+        analyticsDisplay.setVisible(false);
 
         browserPlaceholder.setAlignment(Pos.TOP_CENTER);
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
@@ -222,6 +226,18 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    @Subscribe
+    private void handleAnalyticsDisplayEvent(AnalyticsDisplayEvent event) {
+        browserPanel.setVisible(false);
+        analyticsDisplay.setVisible(true);
+    }
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        analyticsDisplay.setVisible(false);
+        browserPanel.setVisible(true);
     }
 
     @Subscribe
