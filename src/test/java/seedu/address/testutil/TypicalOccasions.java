@@ -61,7 +61,7 @@ public class TypicalOccasions {
             ab.addOccasion(occasion);
         }
     }
-    
+
     /**
      * Returns an {@code AddressBook} with all the typical occasions.
      */

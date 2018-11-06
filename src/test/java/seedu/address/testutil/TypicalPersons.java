@@ -64,7 +64,7 @@ public class TypicalPersons {
             ab.addPerson(person);
         }
     }
-    
+
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
