@@ -77,6 +77,7 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
+        primaryStage.setMaximized(true);
         setNotification(prefs);
 
         setAccelerators();
@@ -99,6 +100,7 @@ public class MainWindow extends UiPart<Stage> {
                 // delete event must clean up favourite as well!
             } else {
                 NotificationWindow.display(NOTIFICATION_DEFAULT_TITLE, NOTIFICATION_DEFAULT_TEXT);
+
             }
         }
     }

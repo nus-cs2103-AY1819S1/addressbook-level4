@@ -121,6 +121,9 @@ public class Person {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" ")
+                .append("Faculty: ")
+                .append(getFaculty());
         return builder.toString();
     }
 
