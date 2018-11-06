@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 import seedu.address.calendar.GoogleCalendar;
 import seedu.address.commons.core.EventsCenter;
@@ -67,7 +67,6 @@ public class AddMedicalHistoryCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
             throws CommandException {
         requireNonNull(model);
-        Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> lastShownList = model.getFilteredPersonList();
 
