@@ -49,7 +49,7 @@ public class ExportVolunteerCsvCommand extends Command {
         List<Volunteer> list = model.getFilteredVolunteerList();
 
         //Validate the given input within available index
-        for ( Index i : index ) {
+        for (Index i : index) {
             // Handle case where the index input exceeds or equals the size of the last displayed list
             if (i.getZeroBased() >= list.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_VOLUNTEER_DISPLAYED_INDEX);
@@ -92,7 +92,7 @@ public class ExportVolunteerCsvCommand extends Command {
         sb.append("VolunteerID");
         sb.append(System.getProperty("line.separator"));
 
-        for ( Index i : index ) {
+        for (Index i : index) {
             Volunteer volunteer = list.get(i.getOneBased());
 
             //appending volunteer information accordingly

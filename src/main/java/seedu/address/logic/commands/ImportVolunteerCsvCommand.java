@@ -32,8 +32,9 @@ import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Phone;
 import seedu.address.model.volunteer.Volunteer;
 
-
-
+/**
+ * Imports a list of volunteers in csv format
+ */
 public class ImportVolunteerCsvCommand extends Command {
     public static final String FILE_ERROR = "Unable to locate the file directory given.\n"
             + "Please check your file format and try again";
@@ -118,6 +119,7 @@ public class ImportVolunteerCsvCommand extends Command {
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * Taken from addCommandParser
      * {@code ArgumentMultimap}.
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
