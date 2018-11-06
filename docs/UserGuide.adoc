@@ -47,7 +47,7 @@ Format: `help`: viewing list of all commands
 // tag::dir[]
 === Selecting images for editing: `select`
 
-Format: `select [INDEX]`: selects an image for image-editing
+Format: `select [INDEX 1-10]`: selects an image for image-editing
 
 Format: `select -all`: adds all images in current directory from working set [Coming in v2.0]
 
