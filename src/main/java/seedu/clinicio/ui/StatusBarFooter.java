@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.clinicio.commons.core.LogsCenter;
-import seedu.clinicio.commons.core.UserSession;
 import seedu.clinicio.commons.events.model.ClinicIoChangedEvent;
 import seedu.clinicio.commons.events.ui.LoginSuccessEvent;
 import seedu.clinicio.model.staff.Staff;
@@ -87,7 +86,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleLoginSuccessEvent(LoginSuccessEvent loginSuccessEvent) {
-        Staff currentUser = UserSession.getCurrentSession();
+        Staff currentUser = loginSuccessEvent.getCurrentUser();
         logger.info(LogsCenter.getEventHandlingLogMessage(loginSuccessEvent,
                 "You are now logged in as " + currentUser));
         setUserSessionStatus(String.format(USER_SESSION_STATUS_UPDATED,
