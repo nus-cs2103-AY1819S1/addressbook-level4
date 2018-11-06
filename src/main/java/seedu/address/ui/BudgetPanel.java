@@ -107,7 +107,7 @@ public class BudgetPanel extends UiPart<Region> {
         }
 
         if (budgetCap == 0) {
-            currentPercentage = 0;
+            currentPercentage = 1;
         }
 
         animateBudgetPanel(currentExpenses, budgetCap, currentPercentage);

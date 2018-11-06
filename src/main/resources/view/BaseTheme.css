@@ -130,8 +130,8 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(#FFF, 20%);
     -fx-text-fill: black;
+    -fx-font-size: 10px;
 }
 
 .result-display {
@@ -404,3 +404,27 @@
 #notificationCardPane #notificationCardAnchor .label{
     -fx-fill: #61a15a;
 }
+
+#categoriesPanel {
+    -fx-background-color: #FFF;
+    -fx-padding: 10px 5px 10px 5px;
+    -fx-border-width: 3px 0px 0px 0px;
+    -fx-border-color: derive(#e3e3e3, 20%);
+}
+
+#categoriesPanel .label {
+    -fx-font-size: 25pt;
+    -fx-text-fill: #656565;
+    -fx-padding: 5px 5px 5px 10px;
+}
+
+#categoriesPanel #categoriesIcon {
+    -fx-translate-y: 20px;
+}
+
+#categoriesIcon .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Futura";
+    -fx-text-fill: #656565;
+}
+

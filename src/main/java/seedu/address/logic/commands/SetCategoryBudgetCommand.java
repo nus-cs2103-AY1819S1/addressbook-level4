@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
+import seedu.address.commons.events.ui.UpdateCategoriesPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -43,6 +46,8 @@ public class SetCategoryBudgetCommand extends Command {
             requireNonNull(model);
             model.setCategoryBudget(this.toSet);
             model.commitExpenseTracker();
+            EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
+            EventsCenter.getInstance().post(new UpdateCategoriesPanelEvent(model.getCategoryBudgets().iterator()));
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet.getCategory(), this.toSet));
         } catch (CategoryBudgetExceedTotalBudgetException catBudExc) {
             throw new CommandException(EXCEED_MESSAGE);
