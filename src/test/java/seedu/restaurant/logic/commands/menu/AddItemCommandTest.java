@@ -94,7 +94,7 @@ public class AddItemCommandTest {
         // null -> returns false
         assertFalse(addAppleCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(addAppleCommand.equals(addBurgerCommand));
     }
 

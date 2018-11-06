@@ -49,7 +49,7 @@ public class FindCommandSystemTest extends RestaurantBookSystemTest {
         assertCommandSuccess(command, model);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where person list is displaying the items we are finding
+        /* Case: repeat previous find command where item list is displaying the items we are finding
          * -> 2 items found
          */
         command = FindItemCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_CAKE;

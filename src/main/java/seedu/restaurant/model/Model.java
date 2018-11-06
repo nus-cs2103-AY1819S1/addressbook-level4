@@ -121,7 +121,7 @@ public interface Model {
     void addReservation(Reservation reservation);
 
     /**
-     * Replaces the given reservation {@code target} with {@code editedPerson}. {@code target} must exist in the
+     * Replaces the given reservation {@code target} with {@code editedReservation}. {@code target} must exist in the
      * restaurant book. The reservation identity of {@code editedReservation} must not be the same as another existing
      * reservation in the restaurant book.
      */
@@ -169,20 +169,20 @@ public interface Model {
     Account getAccount(Account account);
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
+     * Returns true if an account with the same identity as {@code Account} exists in the restaurant book.
      */
     boolean hasAccount(Account account);
 
     /**
-     * Deletes the given account. The person must exist in the restaurant book.
+     * Deletes the given account. The account must exist in the restaurant book.
      *
      * @param account to be removed.
      */
     void removeAccount(Account account);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist in the restaurant
-     * book. The person identity of {@code editedPerson} must not be the same as another existing person in the
+     * Replaces the given account {@code target} with {@code editedAccount}. {@code target} must exist in the restaurant
+     * book. The account identity of {@code editedAccount} must not be the same as another existing account in the
      * restaurant book.
      *
      * @param target account to be updated.

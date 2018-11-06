@@ -86,7 +86,7 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
 
         /* --------------------- Performing delete operation while a item card is selected ------------------------ */
 
-        /* Case: delete the selected person -> person list panel selects the person before the deleted person */
+        /* Case: delete the selected item -> item list panel selects the item before the deleted item */
         showAllItems();
         model = getModel();
         Index selectedIndex = getLastIndex(model);
@@ -125,8 +125,8 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
     }
 
     /**
-     * Removes the {@code Person} at the specified {@code index} in {@code model}'s restaurant book.
-     * @return the removed person
+     * Removes the {@code Item} at the specified {@code index} in {@code model}'s restaurant book.
+     * @return the removed item
      */
     private Item removeItem(Model model, Index index) {
         Item targetedItem = getItem(model, index);
@@ -135,8 +135,8 @@ public class DeleteCommandSystemTest extends RestaurantBookSystemTest {
     }
 
     /**
-     * Deletes the person at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
-     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     * Deletes the item at {@code toDelete} by creating a default {@code DeleteItemByIndexCommand} using {@code
+     * toDelete} and performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {

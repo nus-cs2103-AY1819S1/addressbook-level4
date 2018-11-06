@@ -95,7 +95,7 @@ public class AddReservationCommandTest {
         // null -> returns false
         assertFalse(addAndrewCommand.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(addAndrewCommand.equals(addBillyCommand));
     }
 

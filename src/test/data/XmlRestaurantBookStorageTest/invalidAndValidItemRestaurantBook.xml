@@ -9,7 +9,7 @@
         <recipe></recipe>
         <requiredIngredients/>
     </items>
-    <!-- Person with invalid name field -->
+    <!-- Item with invalid name field -->
     <items>
         <name>Cheese # Burger</name>
         <price>1.15</price>

@@ -73,7 +73,7 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
+    public void xmlAdaptedItemFromFile_fileWithMissingItemField_validResult() throws Exception {
         XmlAdaptedItem actualItem = XmlUtil
                 .getDataFromFile(MISSING_ITEM_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedItem = new XmlAdaptedItem(null, VALID_ITEM_PRICE_FRIES,
@@ -82,7 +82,7 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
+    public void xmlAdaptedItemFromFile_fileWithInvalidItemField_validResult() throws Exception {
         XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
                 INVALID_ITEM_FIELD_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedItem = new XmlAdaptedItem(VALID_ITEM_NAME_FRIES, INVALID_ITEM_PRICE,
@@ -91,7 +91,7 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
+    public void xmlAdaptedItemFromFile_fileWithValidItem_validResult() throws Exception {
         XmlAdaptedItem actualItem = XmlUtil.getDataFromFile(
                 VALID_ITEM_FILE, XmlAdaptedItemWithRootElement.class);
         XmlAdaptedItem expectedItem = new XmlAdaptedItem(VALID_ITEM_NAME_FRIES, VALID_ITEM_PRICE_FRIES,

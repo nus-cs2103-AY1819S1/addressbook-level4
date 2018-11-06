@@ -11,7 +11,7 @@ import seedu.restaurant.logic.commands.account.ChangePasswordCommand.EditAccount
 public class AccountUtil {
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditAccountDescriptor}'s details.
      */
     public static String getEditAccountDescriptorDetails(EditAccountDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();

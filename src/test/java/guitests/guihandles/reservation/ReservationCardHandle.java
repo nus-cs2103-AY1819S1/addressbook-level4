@@ -12,7 +12,7 @@ import javafx.scene.layout.Region;
 import seedu.restaurant.model.reservation.Reservation;
 
 /**
- * Provides a handle to a person card in the reservation list panel.
+ * Provides a handle to a reservation card in the reservation list panel.
  */
 public class ReservationCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";

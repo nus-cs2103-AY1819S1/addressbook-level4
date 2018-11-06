@@ -125,7 +125,7 @@ public class UniqueReservationListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsReservationNotFoundException() {
+    public void remove_reservationDoesNotExist_throwsReservationNotFoundException() {
         thrown.expect(ReservationNotFoundException.class);
         uniqueReservationList.remove(ANDREW);
     }
@@ -162,8 +162,8 @@ public class UniqueReservationListTest {
     @Test
     public void setReservations_list_replacesOwnListWithProvidedList() {
         uniqueReservationList.add(ANDREW);
-        List<Reservation> personList = Collections.singletonList(BILLY);
-        uniqueReservationList.setReservations(personList);
+        List<Reservation> reservationList = Collections.singletonList(BILLY);
+        uniqueReservationList.setReservations(reservationList);
         UniqueReservationList expectedUniqueReservationList = new UniqueReservationList();
         expectedUniqueReservationList.add(BILLY);
         assertEquals(expectedUniqueReservationList, uniqueReservationList);

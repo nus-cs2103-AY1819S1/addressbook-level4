@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- RestaurantBook save file which contains the same Person values as in TypicalAccounts#getTypicalRestaurantBook() -->
 <restaurantbook>
   <accounts>
     <username>azhikai</username>

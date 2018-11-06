@@ -109,8 +109,8 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     /**
      * Replaces the given reservation {@code target} in the list with {@code editedReservation}. {@code target} must
-     * exist in the restaurant book. The person identity of {@code editedReservation} must not be the same as another
-     * existing person in the restaurant book.
+     * exist in the restaurant book. The reservation identity of {@code editedReservation} must not be the same as
+     * another existing reservation in the restaurant book.
      */
     public void updateReservation(Reservation target, Reservation editedReservation) {
         requireNonNull(editedReservation);
@@ -123,33 +123,6 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
      */
     public void removeReservation(Reservation key) {
         reservations.remove(key);
-    }
-
-    /**
-     * Removes {@code tag} from all {@code item} in this {@code RestaurantBook}.
-     *
-     * @param tag to be removed.
-     */
-    public void removeTagForReservationList(Tag tag) {
-        reservations.forEach(reservation -> removeTagForReservation(reservation, tag));
-    }
-
-    /**
-     * Removes {@code tag} from {@code Reservation}.
-     *
-     * @param reservation whose tag is being removed.
-     * @param tag to be removed.
-     */
-    private void removeTagForReservation(Reservation reservation, Tag tag) {
-        Set<Tag> tags = new HashSet<>(reservation.getTags());
-
-        if (!tags.remove(tag)) {
-            return;
-        }
-
-        Reservation newReservation = new Reservation(reservation.getName(), reservation.getPax(),
-                reservation.getDateTime(), reservation.getRemark(), tags);
-        updateReservation(reservation, newReservation);
     }
 
     /**
@@ -260,6 +233,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     //// account-level operations
 
     //@@author AZhiKai
+
     /**
      * Replaces the contents of the account list with {@code Account}s. {@code Account}s must not contain duplicate
      * accounts.
@@ -269,7 +243,7 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
     }
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the restaurant book.
+     * Returns true if an account with the same identity as {@code Account} exists in the restaurant book.
      */
     public boolean hasAccount(Account account) {
         return accounts.contains(account);
@@ -390,9 +364,9 @@ public class RestaurantBook implements ReadOnlyRestaurantBook {
 
     // Menu Management
     //@@author yican95
+
     /**
-     * Replaces the contents of the person list with {@code Item}s. {@code Item}s must not contain duplicate
-     * items.
+     * Replaces the contents of the items list with {@code Item}s. {@code Item}s must not contain duplicate items.
      */
     public void setItems(List<Item> items) {
         this.items.setItems(items);

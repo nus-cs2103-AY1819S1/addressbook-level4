@@ -64,13 +64,13 @@ public class XmlRestaurantBookStorageTest {
     }
 
     @Test
-    public void readRestaurantBook_invalidPersonRestaurantBook_throwDataConversionException() throws Exception {
+    public void readRestaurantBook_invalidItemRestaurantBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readRestaurantBook("invalidItemRestaurantBook.xml");
     }
 
     @Test
-    public void readRestaurantBook_invalidAndValidPersonRestaurantBook_throwDataConversionException() throws Exception {
+    public void readRestaurantBook_invalidAndValidItemRestaurantBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readRestaurantBook("invalidAndValidItemRestaurantBook.xml");
     }

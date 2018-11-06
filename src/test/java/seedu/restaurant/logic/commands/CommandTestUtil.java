@@ -285,9 +285,10 @@ public class CommandTestUtil {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br> - the result message matches {@code expectedMessage} <br>
-     * - the {@code actualModel} matches {@code expectedModel} <br> - the {@code actualCommandHistory} remains
-     * unchanged.
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
@@ -303,9 +304,11 @@ public class CommandTestUtil {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br> - a {@code CommandException} is thrown <br> - the
-     * CommandException message matches {@code expectedMessage} <br> - the restaurant book and the filtered person list
-     * in the {@code actualModel} remain unchanged <br> - {@code actualCommandHistory} remains unchanged.
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the restaurant book and the filtered list in the {@code actualModel} remain unchanged <br>
+     * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
@@ -328,8 +331,8 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the {@code
-     * model}'s restaurant book.
+     * Updates {@code model}'s filtered list to show only the item at the given {@code targetIndex} in the {@code
+     * Model}'s restaurant book.
      */
     public static void showItemAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredItemList().size());

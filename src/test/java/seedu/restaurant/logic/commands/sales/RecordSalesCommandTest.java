@@ -203,7 +203,7 @@ public class RecordSalesCommandTest {
         // null -> returns false
         assertFalse(recordRecord1Command.equals(null));
 
-        // different person -> returns false
+        // different item -> returns false
         assertFalse(recordRecord1Command.equals(recordRecord2Command));
     }
 

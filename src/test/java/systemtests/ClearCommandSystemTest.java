@@ -49,7 +49,7 @@ public class ClearCommandSystemTest extends RestaurantBookSystemTest {
                 new ModelManager(SampleDataUtil.getSampleRestaurantBook(), new UserPrefs()));
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in person list and clears restaurant book -> cleared and no card selected */
+        /* Case: selects first card in item list and clears restaurant book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original restaurant book
         selectItem(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);

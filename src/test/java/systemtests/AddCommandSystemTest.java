@@ -93,7 +93,7 @@ public class AddCommandSystemTest extends RestaurantBookSystemTest {
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the person list before adding -> added */
+        /* Case: filters the item list before adding -> added */
         showItemsWithName(KEYWORD_MATCHING_EGG);
         assertCommandSuccess(HAINANESE_CHICKEN_RICE);
 
