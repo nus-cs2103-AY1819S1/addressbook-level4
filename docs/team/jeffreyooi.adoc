@@ -1,6 +1,6 @@
 = Ooi Heng Seng - Project Portfolio
 :imagesDir: ../images
-:stylesDir: stylesheets
+:stylesDir: ../stylesheets
 :repoURL: https://github.com/CS2103-AY1819S1-W17-3/main
 
 == Introduction
