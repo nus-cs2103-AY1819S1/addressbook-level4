@@ -56,6 +56,13 @@ public class VersionedWishTransaction extends WishTransaction implements Version
     }
 
     @Override
+    protected void extractData(ReadOnlyWishBook wishBook) {
+        for (Wish wish : wishBook.getWishList()) {
+            super.addWish(wish);
+        }
+    }
+
+    @Override
     public void commit() {
         if (!hasNothingToRemove()) {
             removeStatesAfterCurrentPointer();

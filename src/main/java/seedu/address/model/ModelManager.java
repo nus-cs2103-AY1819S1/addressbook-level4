@@ -192,6 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitWishBook() {
         versionedWishBook.commit();
+        // versionedWishTransaction performs a commit prior responding to the action command
     }
 
     @Override

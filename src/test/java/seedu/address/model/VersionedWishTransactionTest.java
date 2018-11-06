@@ -64,14 +64,13 @@ public class VersionedWishTransactionTest {
 
     @Test
     public void shouldBeAbleToUndoNotRedo() {
-        addWishWithCommit();
-        assertTrue(versionedWishTransaction.canUndo());
+        assertFalse(versionedWishTransaction.canUndo());
         assertFalse(versionedWishTransaction.canRedo());
     }
 
     @Test
     public void shouldBeAbleToRedo() {
-        addWishWithCommit();
+        addWishWithCommit(versionedWishTransaction, wish);
         versionedWishTransaction.undo();
         assertTrue(versionedWishTransaction.canRedo());
     }
@@ -92,22 +91,6 @@ public class VersionedWishTransactionTest {
         assertThrows(VersionedWishTransaction.NoRedoableStateException.class, versionedWishTransaction::redo);
     }
 
-    @Test
-    public void addWishWithoutCommit_shouldFail() {
-        int wishStateListSize = versionedWishTransaction.getWishStateList().size();
-        versionedWishTransaction.addWish(wish);
-        assertTrue(wishmapContainsKey(versionedWishTransaction, wish));
-        assertTrue(isSameSize(wishStateListSize));
-
-        VersionedWishTransaction copy = new VersionedWishTransaction(getTypicalWishTransaction());
-        wishStateListSize = getSizeOfWishStateList(copy);
-        populatedVersionedWishTransaction.addWish(wish);
-        assertTrue(wishmapContainsKey(populatedVersionedWishTransaction, wish));
-        assertTrue(wishmapContainsWish(populatedVersionedWishTransaction, wish));
-        assertNotEquals(populatedVersionedWishTransaction, copy);
-        assertEquals(getSizeOfWishStateList(copy), wishStateListSize);
-    }
-
     private boolean wishmapContainsWish(VersionedWishTransaction versionedWishTransaction, Wish wish) {
         return versionedWishTransaction.getWishMap().get(wish.getId()).peekLast().isSameWish(wish);
     }
@@ -115,17 +98,24 @@ public class VersionedWishTransactionTest {
     @Test
     public void addWishWithCommit_success() {
         int prevWishStateListSize = getSizeOfWishStateList(versionedWishTransaction);
-        addWishWithCommit();
+        addWishWithCommit(versionedWishTransaction, wish);
         assertTrue(wishmapContainsKey(versionedWishTransaction, wish));
         assertTrue(isSameSize(prevWishStateListSize + 1));
+
+        VersionedWishTransaction copy = new VersionedWishTransaction(getTypicalWishTransaction());
+        int wishStateListSize = getSizeOfWishStateList(copy);
+        addWishWithCommit(populatedVersionedWishTransaction, wish);
+        assertTrue(wishmapContainsKey(populatedVersionedWishTransaction, wish));
+        assertTrue(wishmapContainsWish(populatedVersionedWishTransaction, wish));
+        assertNotEquals(populatedVersionedWishTransaction, copy);
+        assertEquals(getSizeOfWishStateList(copy), wishStateListSize);
     }
 
     @Test
     public void addMultipleWishesWithCommit_success() {
         getTypicalWishes().stream().forEach(wish -> {
             int prevWishStateListSize = getSizeOfWishStateList(versionedWishTransaction);
-            versionedWishTransaction.addWish(wish);
-            versionedWishTransaction.commit();
+            addWishWithCommit(versionedWishTransaction, wish);
             assertEquals(getSizeOfWishStateList(versionedWishTransaction), prevWishStateListSize + 1);
         });
         assertEquals(versionedWishTransaction.getWishMap(), populatedVersionedWishTransaction.getWishMap());
@@ -135,8 +125,8 @@ public class VersionedWishTransactionTest {
     @Test
     public void removeWish_success() {
         int prevWishStateListSize = getSizeOfWishStateList(versionedWishTransaction);
-        addWishWithCommit();
-        removeWishWithCommit();
+        addWishWithCommit(versionedWishTransaction, wish);
+        removeWishWithCommit(versionedWishTransaction, wish);
         assertFalse(wishmapContainsKey(versionedWishTransaction, wish));
         assertEquals(getSizeOfWishStateList(versionedWishTransaction), prevWishStateListSize + 2);
     }
@@ -145,8 +135,7 @@ public class VersionedWishTransactionTest {
     public void removeAllWishes_success() {
         getTypicalWishes().stream().forEach(wish -> {
             int prevWishStateListSize = getSizeOfWishStateList(populatedVersionedWishTransaction);
-            populatedVersionedWishTransaction.removeWish(wish);
-            populatedVersionedWishTransaction.commit();
+            removeWishWithCommit(populatedVersionedWishTransaction, wish);
             assertEquals(getSizeOfWishStateList(populatedVersionedWishTransaction), prevWishStateListSize + 1);
         });
         assertEquals(versionedWishTransaction.getWishMap(), populatedVersionedWishTransaction.getWishMap());
@@ -155,11 +144,10 @@ public class VersionedWishTransactionTest {
     @Test
     public void undo_shouldSucceed() {
         int prevWishStateListSize = getSizeOfWishStateList(versionedWishTransaction);
-        addWishWithCommit();
+        addWishWithCommit(versionedWishTransaction, wish);
 
         Wish addedWish = getTypicalWishes().get(0);
-        versionedWishTransaction.addWish(addedWish);
-        versionedWishTransaction.commit();
+        addWishWithCommit(versionedWishTransaction, addedWish);
         assertEquals(getSizeOfWishStateList(versionedWishTransaction), prevWishStateListSize + 2);
 
         int prevRefPtr = getIndexOfReferencePtr(versionedWishTransaction);
@@ -180,17 +168,14 @@ public class VersionedWishTransactionTest {
         List<Wish> wishes = getTypicalWishes();
         int limit = wishes.size() / 2;
         VersionedWishTransaction blank = new VersionedWishTransaction();
-        versionedWishTransaction.addWish(wish);
-        versionedWishTransaction.commit();
-        versionedWishTransaction.addWish(getTypicalWishes().get(0));
-        versionedWishTransaction.commit();
+        addWishWithCommit(versionedWishTransaction, wish);
+        addWishWithCommit(versionedWishTransaction, getTypicalWishes().get(0));
         versionedWishTransaction.undo();
         assertFalse(wishmapContainsKey(versionedWishTransaction, getTypicalWishes().get(0)));
 
         versionedWishTransaction = new VersionedWishTransaction();
         for (int i = 0; i < limit; i++) {
-            versionedWishTransaction.addWish(wishes.get(i));
-            versionedWishTransaction.commit();
+            addWishWithCommit(versionedWishTransaction, wishes.get(i));
         }
         for (int i = 0; i < limit; i++) {
             versionedWishTransaction.undo();
@@ -199,10 +184,8 @@ public class VersionedWishTransactionTest {
 
         versionedWishTransaction = new VersionedWishTransaction();
         int prevSize = getSizeOfWishStateList(versionedWishTransaction);
-        versionedWishTransaction.addWish(wish);
-        versionedWishTransaction.commit();
-        versionedWishTransaction.removeWish(wish);
-        versionedWishTransaction.commit();
+        addWishWithCommit(versionedWishTransaction, wish);
+        removeWishWithCommit(versionedWishTransaction, wish);
         versionedWishTransaction.undo();
         assertEquals(getSizeOfWishStateList(versionedWishTransaction), prevSize + 2);
         assertTrue(wishmapContainsKey(versionedWishTransaction.getWishStateList().get(prevSize), wish));
@@ -210,18 +193,16 @@ public class VersionedWishTransactionTest {
 
     @Test
     public void redo_shouldSucceed() {
-        addWishWithCommit();
+        addWishWithCommit(versionedWishTransaction, wish);
         versionedWishTransaction.undo();
         assertFalse(wishmapContainsKey(versionedWishTransaction, wish));
         versionedWishTransaction.redo();
         assertTrue(wishmapContainsKey(versionedWishTransaction, wish));
 
         Wish removed = getTypicalWishes().get(0);
-        populatedVersionedWishTransaction.removeWish(removed);
-        populatedVersionedWishTransaction.commit();
+        removeWishWithCommit(versionedWishTransaction, removed);
         assertFalse(wishmapContainsKey(populatedVersionedWishTransaction, removed));
         populatedVersionedWishTransaction.resetData();
-        populatedVersionedWishTransaction.commit();
         assertTrue(populatedVersionedWishTransaction.wishMap.isEmpty());
         populatedVersionedWishTransaction.undo();
         assertFalse(populatedVersionedWishTransaction.wishMap.isEmpty());
@@ -235,7 +216,7 @@ public class VersionedWishTransactionTest {
 
     @Test
     public void commit_shouldSucceed() {
-        addWishWithCommit();
+        addWishWithCommit(versionedWishTransaction, wish);
         assertTrue(isSameSize(2));
     }
 
@@ -266,14 +247,12 @@ public class VersionedWishTransactionTest {
     /**
      * Commit to save new wish transaction state.
      */
-    private void addWishWithCommit() {
+    private void addWishWithCommit(VersionedWishTransaction versionedWishTransaction, Wish wish) {
         versionedWishTransaction.addWish(wish);
-        versionedWishTransaction.commit();
     }
 
-    private void removeWishWithCommit() {
+    private void removeWishWithCommit(VersionedWishTransaction versionedWishTransaction, Wish wish) {
         versionedWishTransaction.removeWish(wish);
-        versionedWishTransaction.commit();
     }
 
 }
