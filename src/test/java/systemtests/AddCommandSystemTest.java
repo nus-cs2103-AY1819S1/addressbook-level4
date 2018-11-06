@@ -166,6 +166,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_AMY;
         assertCommandSuccess(AMY);
 
+        /* Case: missing timings -> accepted */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + EDUCATION_DESC_AMY
+                + ADDRESS_DESC_AMY + GRADES_DESC_AMY;
+        assertCommandSuccess(AMY);
+
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);

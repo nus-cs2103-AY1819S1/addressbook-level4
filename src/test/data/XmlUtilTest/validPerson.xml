@@ -6,5 +6,6 @@
     <address>4th street</address>
     <education>Secondary 4</education>
     <grades>Y1819S1_Mid 100</grades>
+    <timings isPrivate="false">mon 0800 1000</timings>
     <tagged>friends</tagged>
 </person>

@@ -8,6 +8,7 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <education>Secondary 4</education>
         <grades>Y1819S1_Mid 100</grades>
+        <timings>tue 0800 1000</timings>
         <tagged>friends</tagged>
     </persons>
     <persons>
@@ -17,6 +18,7 @@
         <address>311, Clementi Ave 2, #02-25</address>
         <education>Secondary 3</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>wed 0800 1000</timings>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
@@ -27,6 +29,7 @@
         <address>wall street</address>
         <education>JC 2</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>wed 1000 1200</timings>
     </persons>
     <persons>
         <name>Daniel Meier</name>
@@ -35,6 +38,7 @@
         <address>10th street</address>
         <education>Primary 6</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>wed 1200 1400</timings>
         <tagged>friends</tagged>
     </persons>
     <persons>
@@ -44,6 +48,7 @@
         <address>michegan ave</address>
         <education>Secondary 4</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>wed 1400 1600</timings>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
@@ -52,6 +57,7 @@
         <address>little tokyo</address>
         <education>Primary 3</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>wed 1600 1800</timings>
     </persons>
     <persons>
         <name>George Best</name>
@@ -60,5 +66,6 @@
         <address>4th street</address>
         <education>Primary 1</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>thu 0800 1000</timings>
     </persons>
 </addressbook>
