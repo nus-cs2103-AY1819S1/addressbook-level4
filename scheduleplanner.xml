@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
+    <categories>
+        <name>Modules</name>
+        <tags>p</tags>
+        <tags>cs</tags>
+    </categories>
+    <categories>
+        <name>Others</name>
+    </categories>
     <tasks>
         <name>Do GEH1034 tutorial</name>
         <date>111018</date>
@@ -258,13 +266,5 @@
         <date>041118</date>
         <priority>3</priority>
         <venue>1</venue>
-    </archivedTasks>
-    <archivedTasks>
-        <name>Watch CS2106 lecture</name>
-        <date>101018</date>
-        <priority>1</priority>
-        <venue>Home</venue>
-        <tagged>Lecture</tagged>
-        <tagged>CS2106</tagged>
     </archivedTasks>
 </scheduleplanner>
