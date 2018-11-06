@@ -122,6 +122,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateWishBookChanged();
     }
 
+    /**
+     * Updates {@code target} wish with the {@code editedWish}.
+     * Precondition: Updated wish must have the same {@code ID}.
+     * @param target wish to update.
+     * @param editedWish updated wish.
+     */
     @Override
     public void updateWish(Wish target, Wish editedWish) {
         requireAllNonNull(target, editedWish);
