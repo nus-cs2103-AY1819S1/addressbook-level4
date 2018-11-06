@@ -308,6 +308,24 @@ Selects the 2nd account in the list.
 `sa 1` +
 Selects the 1st account in the results of the `find-account` command.
 
+==== Locating account by username: `find-account` or `fa`
+
+Finds account whose username contain any of the given keywords. +
+Format: `find-account KEYWORD` or `fa KEYWORD`
+
+****
+* The search is case insensitive. e.g `root` will match `Root`
+* Only the username is searched.
+* Only full words will be matched e.g. `roo` will not match `root`
+****
+
+Examples:
+
+* `find-account root` +
+Returns `root`
+* `fa root azhikai rebstan97` +
+Returns any account having username `root`, `azhikai`, or `rebstan97`
+
 ==== List user accounts: `list-accounts` or `la`
 
 List all user accounts. +
