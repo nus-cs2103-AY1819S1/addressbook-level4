@@ -525,17 +525,18 @@ The following sequence diagram shows how the readImportContactsFile operation wo
 image::ImportContactsSequenceDiagram.PNG[width="800"]
 
 // end::importcontacts[]
-=== Show Faculty Location in Location Display tab
+=== Show faculty location visually
 ==== Current Implementation
 
-The displaying of the a 'Person''s faculty is facilitated by the newly added 'Faculty' field in the 'Person' class. This
-'Faculty' field is defined as a separate class (akin to other classes constituting the 'Person' class such as Email and Address).
+The displaying of the a `Person`'s faculty is facilitated by the newly added `Faculty` field in the `Person` class. This
+`Faculty` field is defined as a separate class (akin to other classes constituting the `Person` class such as `Email` and `Address`).
 
-During the adding of 'Person's to the EventsPlus+ address book, the 'Faculty' class will ensure that the argument passed in is that of
-a valid NUS faculty. It does this via an inner enum class called 'Faculties' which stores as constants the only accepted 'Faculty'
-argument values. The 'isInEnum' method is used to check that the argument passed already exists as one of the constants.
+During the adding of `Person`s to the EventsPlus+ address book, the `Faculty` class will ensure that the argument passed in is that of
+a valid NUS faculty. It does this via an inner enum class called `Faculties` which stores as constants the only accepted `Faculty`
+argument values. The `isInEnum` method is used to check that the argument passed already exists as one of the constants.
 
 The valid arguments allowed are namely:
+
 * SOC (School of Computing)
 * FOS (Faculty of Science)
 * YLLSOM (Yong Loo Lin School of Medicine)
@@ -550,18 +551,18 @@ The valid arguments allowed are namely:
 A "-" response is also allowed as it is possible that the address book may indeed have contacts who are not in NUS at the
 current point in time.
 
-In addition to the 'Faculty' field, the showLocation command is assisted by Google Maps Embed API that allows for locations
+In addition to the `Faculty` field, the showLocation command is assisted by Google Maps Embed API that allows for locations
 to be displayed visually in a separate tab, Location Display Tab. Google Maps uses unique Place IDs to identify locations
-on the map. For each faculty, these place IDs are stored in a newly created class 'EmbedGoogleMaps' in the logic component of the
+on the map. For each faculty, these place IDs are stored in a newly created class `EmbedGoogleMaps` in the logic component of the
 application. Together with the Google Maps API key, the place ID allows for the generation of the exact spot of the person's
 faculty to be displayed in the Location Display Tab.
 
 When the (correct) showLocation command is input together with the index of the individual whose faculty location is to be displayed,
 the index is first checked to determine if it is correct (more than 0 and not larger than the size of the list of contacts
-in the address book). Following this, the appropriate person is obtained from the 'FilteredPersonList' (note: this is so as to allow
-the displaying of the contact's faculty location even if the list is filtered). A event, 'FacultyLocationDisplayChangedEvent',
-also newly created for this showLocation command, is posted and is then handled by 'TabPanel' (which switches to the Location
-Display Tab) and subsequently by 'LocationDisplayPanel'.
+in the address book). Following this, the appropriate person is obtained from the `FilteredPersonList` (note: this is so as to allow
+the displaying of the contact's faculty location even if the list is filtered). A event, `FacultyLocationDisplayChangedEvent`,
+also newly created for this showLocation command, is posted and is then handled by `TabPanel` (which switches to the Location
+Display Tab) and subsequently by `LocationDisplayPanel`.
 
 If the contact has no faculty, a default location - University Hall - is displayed on the map.
 
