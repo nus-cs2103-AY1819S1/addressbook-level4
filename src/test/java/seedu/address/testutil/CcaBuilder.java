@@ -85,7 +85,7 @@ public class CcaBuilder {
     /**
      * Sets the {@code Budget} of the {@code Cca} we are building.
      */
-    public CcaBuilder withBudget(int budget) {
+    public CcaBuilder withBudget(Integer budget) {
         this.budget = new Budget(budget);
         return this;
     }
@@ -93,7 +93,7 @@ public class CcaBuilder {
     /**
      * Sets the {@code Spent} of the {@code Cca} we are building.
      */
-    public CcaBuilder withSpent(int spent) {
+    public CcaBuilder withSpent(Integer spent) {
         this.spent = new Spent(spent);
         return this;
     }
@@ -101,7 +101,7 @@ public class CcaBuilder {
     /**
      * Sets the {@code Outstanding} of the {@code Cca} we are building.
      */
-    public CcaBuilder withOutstanding(int outstanding) {
+    public CcaBuilder withOutstanding(Integer outstanding) {
         this.outstanding = new Outstanding(outstanding);
         return this;
     }

@@ -384,8 +384,8 @@ public class UpdateCommand extends Command {
                 && getHead().equals(e.getHead())
                 && getViceHead().equals(e.getViceHead())
                 && getBudget().equals(e.getBudget())
-                && getSpent().equals(e.getSpent())
-                && getOutstanding().equals(e.getOutstanding())
+//                && getSpent().equals(e.getSpent())
+//                && getOutstanding().equals(e.getOutstanding())
                 && getTransactionEntries().equals(e.getTransactionEntries());
         }
     }

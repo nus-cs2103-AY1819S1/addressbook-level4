@@ -4,6 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_TRACK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
+import static seedu.address.testutil.TypicalEntries.ENTRY_COMPETITION_1;
+import static seedu.address.testutil.TypicalEntries.TRANSACTION_4_ENTRIES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -15,8 +23,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddTransactionCommand;
+import seedu.address.logic.commands.BudgetCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.CreateCcaCommand;
+import seedu.address.logic.commands.DeleteCcaCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteTransactionCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -27,10 +40,20 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UpdateCommand;
+import seedu.address.logic.commands.UpdateCommand.EditCcaDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.cca.Cca;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.transaction.Entry;
+import seedu.address.testutil.CcaBuilder;
+import seedu.address.testutil.CcaUtil;
+import seedu.address.testutil.EditCcaDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EntryBuilder;
+import seedu.address.testutil.EntryUtil;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -140,4 +163,58 @@ public class AddressBookParserTest {
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
     }
+
+    //@@author ericyjw
+    @Test
+    public void parseCommand_createCca() throws Exception {
+        Cca cca = new CcaBuilder().build();
+        CreateCcaCommand command = (CreateCcaCommand) parser.parseCommand(CcaUtil.getCreateCcaCommand(cca));
+        assertEquals(new CreateCcaCommand(cca), command);
+    }
+
+    @Test
+    public void parseCommand_deleteCca() throws Exception {
+        DeleteCcaCommand command = (DeleteCcaCommand) parser.parseCommand(
+            DeleteCcaCommand.COMMAND_WORD + " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL);
+        assertEquals(new DeleteCcaCommand(new CcaName(VALID_CCA_NAME_BASKETBALL)), command);
+    }
+
+    @Test
+    public void parseCommand_addTransaction() throws Exception {
+        Entry toAdd = new EntryBuilder().build();
+        CcaName cca = new CcaName(VALID_CCA_NAME_BASKETBALL);
+        AddTransactionCommand command =
+            (AddTransactionCommand) parser.parseCommand(EntryUtil.getAddTransactionCommand(VALID_CCA_NAME_BASKETBALL,
+                toAdd));
+        assertEquals(new AddTransactionCommand(cca, toAdd.getDate(), toAdd.getAmount(), toAdd.getRemarks()), command);
+    }
+
+    @Test
+    public void parseCommand_deleteTransaction() throws Exception {
+        DeleteTransactionCommand command = (DeleteTransactionCommand) parser.parseCommand(
+            DeleteTransactionCommand.COMMAND_WORD + " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + " " + PREFIX_TRANSACTION + "1");
+        assertEquals(new DeleteTransactionCommand(new CcaName(VALID_CCA_NAME_BASKETBALL), 1), command);
+    }
+
+    @Test
+    public void parseCommand_update() throws Exception {
+        Cca cca = new CcaBuilder()
+            .withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .withTransaction(null)
+            .build();
+        EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder(cca).build();
+
+        String userInput = UpdateCommand.COMMAND_WORD + " "
+            + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + " " + CcaUtil.getEditCcaDescriptorDetails(descriptor);
+        UpdateCommand command = (UpdateCommand) parser.parseCommand(userInput);
+        assertEquals(new UpdateCommand(new CcaName(VALID_CCA_NAME_BASKETBALL), descriptor), command);
+    }
+
+    @Test
+    public void parseCommand_budget() throws Exception {
+        BudgetCommand command = (BudgetCommand) parser.parseCommand(
+            BudgetCommand.COMMAND_WORD + " " + PREFIX_TAG + VALID_CCA_NAME_TRACK);
+        assertEquals(new BudgetCommand(new CcaName(VALID_CCA_NAME_TRACK)), command);
+    }
+
 }

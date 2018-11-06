@@ -123,6 +123,9 @@ public class Cca {
      * if modification is attempted.
      */
     public Set<Entry> getEntries() {
+        if (transactionEntries == null) {
+            return null;
+        }
         return Collections.unmodifiableSet(transactionEntries);
     }
 
@@ -258,8 +261,8 @@ public class Cca {
 
         Cca otherCca = (Cca) other;
         return otherCca.name.equals(this.name)
-            && otherCca.head.equals(this.head)
-            && otherCca.viceHead.equals(this.viceHead)
+//            && otherCca.head.equals(this.head)
+//            && otherCca.viceHead.equals(this.viceHead)
             && otherCca.budget.equals(this.budget);
     }
 
