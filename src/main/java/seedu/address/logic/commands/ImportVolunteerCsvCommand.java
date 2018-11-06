@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BIRTHDAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -41,10 +40,14 @@ public class ImportVolunteerCsvCommand extends Command {
 
     public static final String COMMAND_WORD = "importvolunteercsv";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a CSV file of the volunteer "
-            + "given the directory to the file.\n"
-            + "The CSV must have the following format: \n"
+    public static final String FORMAT_ERROR = "The CSV must have the following format:\n"
             + " Name, Phone, Address, Email, Birthday, Gender, Tags, VolunteerID";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a CSV file of the volunteer "
+            + "given the directory to the file." + FORMAT_ERROR;
+
+    public static final String MESSAGE_FORMAT_ERROR = FORMAT_ERROR + "\n"
+            + "Please check the validity of your csv inputs and try again.";
 
     private static final String MESSAGE_IMPORT_COMPLETED = "Volunteer(s) imported from CSV file "
             + "to your Desktop.";
@@ -89,7 +92,7 @@ public class ImportVolunteerCsvCommand extends Command {
                 if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENDER, PREFIX_BIRTHDAY,
                         PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                         || !argMultimap.getPreamble().isEmpty()) {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                    throw new CommandException(MESSAGE_FORMAT_ERROR);
                 }
 
                 Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -105,14 +108,16 @@ public class ImportVolunteerCsvCommand extends Command {
 
                 if (!model.hasVolunteer(volunteer)) {
                     model.addVolunteer(volunteer);
-                    model.commitAddressBook();
                 }
             }
+
+            model.commitAddressBook();
         } catch (IOException e) {
             throw new CommandException(MESSAGE_IMPORT_VOLUNTEER_FAILED);
         } catch (ParseException e) {
             throw new CommandException(MESSAGE_IMPORT_VOLUNTEER_LACK_INFO);
         }
+
 
         return new CommandResult(MESSAGE_IMPORT_COMPLETED);
     }

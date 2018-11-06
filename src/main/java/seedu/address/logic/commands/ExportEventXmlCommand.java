@@ -3,11 +3,15 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -16,6 +20,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -36,8 +41,16 @@ public class ExportEventXmlCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     private static final String MESSAGE_EXPORT_EVENT_SUCCESS = "Event at %1$d exported"
-            + "to your Desktop.";
     private static final String MESSAGE_EXPORT_EVENT_FAILED = "Event export failed, please try again.";
+    private static final String TRANSFORMER_ERROR = "Transformer error.";
+    private static final String PARSER_ERROR = "Parser error.";
+
+    private static final String DEFAULT_SAVE_PATH = System.getProperty("user.dir") + "/Event Xml/";
+    private static final String ALT_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
+    private static String SAVE_PATH = DEFAULT_SAVE_PATH;
+
+    private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportEventXmlCommand.class);
+
 
     private final Index index;
     private final String exportTypeE = "EVENT";
@@ -48,6 +61,18 @@ public class ExportEventXmlCommand extends Command {
     public ExportEventXmlCommand(Index index) {
         requireNonNull(index);
         this.index = index;
+
+        //Create folder for output
+        File exportDir = new File(DEFAULT_SAVE_PATH);
+        if (!exportDir.exists()) {
+            try {
+                exportDir.mkdir();
+            } catch (SecurityException se) {
+                logger.warning("Couldn't create a relative export path next to jar file. "
+                        + "Defaulting to user's Desktop.");
+                SAVE_PATH = ALT_SAVE_PATH;
+            }
+        }
     }
 
     @Override
@@ -65,8 +90,10 @@ public class ExportEventXmlCommand extends Command {
 
         try {
             createEventXml(model, selectedEvent);
-        } catch (Exception e) {
-            throw new CommandException(MESSAGE_EXPORT_EVENT_FAILED);
+        } catch (TransformerException e) {
+            throw new CommandException(MESSAGE_EXPORT_EVENT_FAILED + TRANSFORMER_ERROR);
+        } catch (ParserConfigurationException e) {
+            throw new CommandException(MESSAGE_EXPORT_EVENT_FAILED + PARSER_ERROR);
         }
 
         return new CommandResult(MESSAGE_EXPORT_EVENT_SUCCESS);
@@ -76,13 +103,15 @@ public class ExportEventXmlCommand extends Command {
      * Helper method to do the file creation and data writing
      * @param model model to take the entire list
      * @param event the specified event given on index
-     * @throws Exception - any given internal errors are thrown here
+     * @throws ParserConfigurationException - document builder errors
+     * @throws TransformerException - transformer writing error
      */
-    private void createEventXml (Model model, Event event) throws Exception {
+    private void createEventXml(Model model, Event event) throws TransformerException,
+            ParserConfigurationException {
         //setting up the document builders
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.newDocument();
+        DocumentBuilder docuBuilder = dbFactory.newDocumentBuilder();
+        Document doc = docuBuilder.newDocument();
 
         //root element - currently tag as event
         Element rootElement = doc.createElement(exportTypeE);
@@ -129,8 +158,9 @@ public class ExportEventXmlCommand extends Command {
         DOMSource source = new DOMSource(doc);
 
         // Setting up file path
-        File output = new File(System.getProperty("user.home") + "/Desktop/"
-                + event.getName().toString() + ".xml");
+        File output = new File(SAVE_PATH
+                + event.getName().toString() + event.getEventId().toString()
+                + ".xml");
 
         // writing to file
         StreamResult result = new StreamResult(output);
