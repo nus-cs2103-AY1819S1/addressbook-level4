@@ -81,7 +81,7 @@ public class ImportVolunteerCsvCommand extends Command {
                 String[] arrayLine = currLine.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
                 String args = "";
                 for (String i : arrayLine) {
-                    if (String i != null){
+                    if ( i != null) {
                         args += i + " ";
                     }
                 }
