@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.testutil.TypicalEmails.MEETING_EMAIL;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
@@ -12,10 +13,13 @@ import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.simplejavamail.email.Email;
 
+import junit.framework.TestCase;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.DefaultEmailBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -38,6 +42,29 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasEmail_nullEmail_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasEmail(null);
+    }
+
+    @Test
+    public void hasEmail_emailNotInEmailModel_returnsFalse() {
+        assertFalse(modelManager.hasEmail(MEETING_EMAIL.getSubject()));
+    }
+
+    @Test
+    public void hasEmail_emailInEmailModel_returnsTrue() {
+        modelManager.saveComposedEmail(MEETING_EMAIL);
+        TestCase.assertTrue(modelManager.hasEmail(MEETING_EMAIL.getSubject()));
+    }
+
+    @Test
+    public void getExistingEmails_modifySet_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getExistingEmails().add("Hello");
     }
 
     @Test
@@ -81,5 +108,10 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+
+        // different emailModel -> returns false
+        Email validEmail = new DefaultEmailBuilder().build();
+        modelManager.saveComposedEmail(validEmail);
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
     }
 }

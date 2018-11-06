@@ -474,18 +474,22 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         if (filteredPersons == null) {
-            return versionedAddressBook.equals(other.versionedAddressBook);
+            return versionedAddressBook.equals(other.versionedAddressBook)
+                    && calendarModel.equals(other.calendarModel)
+                    && emailModel.equals(other.emailModel);
         } else if (calendarModel == null) {
             return versionedAddressBook.equals(other.versionedAddressBook)
-                    && filteredPersons.equals(other.filteredPersons);
+                    && filteredPersons.equals(other.filteredPersons)
+                    && emailModel.equals(other.emailModel);
         }
         return versionedAddressBook.equals(other.versionedAddressBook)
             && filteredPersons.equals(other.filteredPersons)
-            && calendarModel.equals(other.calendarModel);
+            && calendarModel.equals(other.calendarModel)
+            && emailModel.equals(other.emailModel);
     }
 
     //@@author EatOrBeEaten
-    //=========== Compose email =================================================================================
+    //=========== Email =================================================================================
 
     @Override
     public void saveEmail(Email email) {
@@ -507,6 +511,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasEmail(String fileName) {
+        requireNonNull(fileName);
         return emailModel.hasEmail(fileName);
     }
 
