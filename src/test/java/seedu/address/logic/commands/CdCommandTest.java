@@ -18,7 +18,7 @@ import seedu.address.model.Model;
 /**
  * Contains integration tests (interaction with the Model) for {@code CdCommand}.
  */
-public class CdCommandTest extends DefaultCommandTest {
+public class CdCommandTest {
     private Model model = getDefaultModel();
     private Model expectedModel = getDefaultModel();
     private CommandHistory commandHistory = new CommandHistory();

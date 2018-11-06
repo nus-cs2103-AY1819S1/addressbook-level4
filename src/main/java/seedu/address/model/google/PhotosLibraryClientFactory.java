@@ -86,19 +86,19 @@ public class PhotosLibraryClientFactory {
         String clientSecret = clientSecrets.getDetails().getClientSecret();
         String clientId = clientSecrets.getDetails().getClientId();
 
-        //google standard authorization flow
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(
-                        GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
-                        SCOPE_LIST).setDataStoreFactory(
-                        dataStoreFactory).build();
-
         if (!TEST_FILE.exists()) {
             try {
                 BLOCKER.createNewFile();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //google standard authorization flow
+            GoogleAuthorizationCodeFlow flow =
+                    new GoogleAuthorizationCodeFlow.Builder(
+                            GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
+                            SCOPE_LIST).setDataStoreFactory(
+                            dataStoreFactory).build();
+
             // Credential is a google construct that wraps the access token and helps you to refresh periodically
             // AuthorizationCodeInstalledApp is another google standard that helps persist user end credentials
             Credential credential = new AuthorizationCodeInstalledApp(flow,
@@ -166,10 +166,11 @@ public class PhotosLibraryClientFactory {
      */
     public static boolean logoutUserIfPossible() {
         boolean userLoggedOut;
-        File credential;
         if (userLoggedOut = checkUserLogin()) {
-            if ((credential = new File(DATA_STORE, StoredCredential.DEFAULT_DATA_STORE_ID)).exists()) {
-                credential.delete();
+            File[] listFiles = DATA_STORE.listFiles();
+            for (File file : listFiles) {
+                file.delete();
+
             }
         }
         return userLoggedOut;
