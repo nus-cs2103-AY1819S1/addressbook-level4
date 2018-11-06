@@ -97,4 +97,11 @@ public class EmailModel {
         existingEmails.remove(fileName + emlExtension);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof EmailModel
+            && existingEmails.equals(((EmailModel) other).existingEmails));
+    }
+
 }
