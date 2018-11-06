@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,7 +11,6 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -33,7 +31,6 @@ public class PersonBuilder {
     private Address address;
     private Education education;
     private HashMap<String, Grades> grades;
-    private ArrayList<Time> timings;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -43,7 +40,6 @@ public class PersonBuilder {
         address = new Address(DEFAULT_ADDRESS);
         education = new Education(DEFAULT_EDUCATION);
         grades = new HashMap<>();
-        timings = new ArrayList<>();
         tags = new HashSet<>();
     }
 
@@ -57,7 +53,6 @@ public class PersonBuilder {
         address = personToCopy.getAddress();
         education = personToCopy.getEducation();
         grades = personToCopy.getGrades();
-        timings = personToCopy.getTime();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -121,18 +116,8 @@ public class PersonBuilder {
         return this;
     }
 
-    /**
-     * Sets the {@code Time} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withTimings(String... timings) {
-        for (String time : timings) {
-            this.timings.add(new Time(time));
-        }
-        return this;
-    }
-
     public Person build() {
-        return new Person(name, phone, email, address, education, grades, timings, tags);
+        return new Person(name, phone, email, address, education, grades, tags);
     }
 
 }

@@ -21,7 +21,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String EDUCATION_FIELD_ID = "#education";
     private static final String GRADES_FIELD_ID = "#grades";
-    private static final String TIMINGS_FIELD_ID = "#timings";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
@@ -31,7 +30,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private final Label emailLabel;
     private final Label educationLabel;
     private final List<Label> gradesLabels;
-  //  private final List<Label> timingsLabels;
     private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
@@ -50,14 +48,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .stream()
                 .map(Label.class::cast)
                 .collect(Collectors.toList());
-/**
-        Region timingsContainer = getChildNode(TIMINGS_FIELD_ID);
-        timingsLabels = timingsContainer
-                .getChildrenUnmodifiable()
-                .stream()
-                .map(Label.class::cast)
-                .collect(Collectors.toList());
-*/
+
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
                 .getChildrenUnmodifiable()
@@ -95,13 +86,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .map(Label::getText)
                 .collect(Collectors.toList());
     }
-/**
-    public List<String> getTimings() {
-        return timingsLabels.stream()
-                .map(Label::getText)
-                .collect(Collectors.toList());
-    }
-*/
+
     public List<String> getTags() {
         return tagLabels
                 .stream()
@@ -122,8 +107,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 person.getGrades().entrySet().stream().map(
                     entry -> (entry.getKey() + " " + entry.getValue().toString())
                 ).collect(Collectors.toList())))
-  //              && ImmutableMultiset.copyOf(getTimings()).equals(ImmutableMultiset.copyOf(person.getTime().stream()
-  //              .map(time -> time.toString()).collect(Collectors.toList())))
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
                 .map(tag -> tag.tagName).collect(Collectors.toList())));
     }

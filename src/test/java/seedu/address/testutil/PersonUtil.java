@@ -7,9 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -17,7 +15,6 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.person.Grades;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,7 +41,6 @@ public class PersonUtil {
         sb.append(PREFIX_EDUCATION + person.getEducation().toString() + " ");
         person.getGrades().forEach((key, value) ->
                 sb.append(PREFIX_GRADES + "" + key + " " + value.toString() + " "));
-        person.getTime().stream().forEach(time -> sb.append(PREFIX_TIME + time.toString() + " "));
         person.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -69,14 +65,6 @@ public class PersonUtil {
             } else {
                 grades.forEach((key, value) -> sb.append(PREFIX_GRADES)
                         .append(key + " " + value.toString()).append(" "));
-            }
-        }
-        if (descriptor.getTime().isPresent()) {
-            ArrayList<Time> timeList = descriptor.getTime().get();
-            if (timeList.isEmpty()) {
-                sb.append(PREFIX_TIME).append(" ");
-            } else {
-                timeList.forEach(time -> sb.append(PREFIX_TIME).append(time.toString()).append(" "));
             }
         }
         if (descriptor.getTags().isPresent()) {

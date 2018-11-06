@@ -2,7 +2,13 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,8 +40,6 @@ public class CommandTestUtil {
     public static final String VALID_EDUCATION_BOB = "Secondary 3";
     public static final String VALID_GRADES_AMY = "Y1819S1_Mid 99";
     public static final String VALID_GRADES_BOB = "Y1819S1_Mid 98";
-    public static final String VALID_TIMINGS_AMY = "sun 1000 1200";
-    public static final String VALID_TIMINGS_BOB = "sun 1200 1400";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -51,8 +55,6 @@ public class CommandTestUtil {
     public static final String EDUCATION_DESC_BOB = " " + PREFIX_EDUCATION + VALID_EDUCATION_BOB;
     public static final String GRADES_DESC_AMY = " " + PREFIX_GRADES + VALID_GRADES_AMY;
     public static final String GRADES_DESC_BOB = " " + PREFIX_GRADES + VALID_GRADES_BOB;
-    public static final String TIMINGS_DESC_AMY = " " + PREFIX_TIME + VALID_TIMINGS_AMY;
-    public static final String TIMINGS_DESC_BOB = " " + PREFIX_TIME + VALID_TIMINGS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
