@@ -22,6 +22,7 @@ import org.junit.rules.ExpectedException;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
 import seedu.clinicio.model.appointment.Date;
 import seedu.clinicio.model.appointment.Time;
+import seedu.clinicio.model.patient.Allergy;
 import seedu.clinicio.model.patient.MedicalProblem;
 import seedu.clinicio.model.patient.Medication;
 import seedu.clinicio.model.patient.Nric;
@@ -56,6 +57,7 @@ public class ParserUtilTest {
     private static final String INVALID_NRIC = "H1231";
     private static final String INVALID_MED_PROB = "+123";
     private static final String INVALID_MED = "a@bc";
+    private static final String INVALID_ALLERGY = "D^st";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -76,6 +78,8 @@ public class ParserUtilTest {
     private static final String VALID_MED_PROB_2 = "Lung Cancer";
     private static final String VALID_MED_1 = "Sabuthamol";
     private static final String VALID_MED_2 = "Panadol";
+    private static final String VALID_ALLERGY_1 = "Gluten Products";
+    private static final String VALID_ALLERGY_2 = "Dust";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -489,7 +493,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseMedications_collectionWithInvalidMedicalProblems_throwsParseException()
+    public void parseMedications_collectionWithInvalidMedications_throwsParseException()
             throws Exception {
         thrown.expect(ParseException.class);
         ParserUtil.parseMedications(Arrays.asList(VALID_MED_1, INVALID_MED));
@@ -501,7 +505,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseMedications_collectionWithValidMedicalProblems_returnsMedicalProblemSet()
+    public void parseMedications_collectionWithValidMedications_returnsMedicationSet()
             throws Exception {
         Set<Medication> actualMedicationSet = ParserUtil.parseMedications(
                 Arrays.asList(VALID_MED_1, VALID_MED_2));
@@ -509,5 +513,59 @@ public class ParserUtilTest {
                 Arrays.asList(new Medication(VALID_MED_1), new Medication(VALID_MED_2)));
 
         assertEquals(expectedMedicationSet, actualMedicationSet);
+    }
+
+    @Test
+    public void parseAllergy_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseAllergy(null);
+    }
+
+    @Test
+    public void parseAllergy_invalidValue_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseAllergy(INVALID_ALLERGY);
+    }
+
+    @Test
+    public void parseAllergy_validValueWithoutWhitespace_returnsAllergy() throws Exception {
+        Allergy expectedAllergy = new Allergy(VALID_ALLERGY_1);
+        assertEquals(expectedAllergy, ParserUtil.parseAllergy(VALID_ALLERGY_1));
+    }
+
+    @Test
+    public void parseAllergy_validValueWithWhitespace_returnsTrimmedAllergy() throws Exception {
+        String allergyWithWhitespace = WHITESPACE + VALID_ALLERGY_1 + WHITESPACE;
+        Allergy expectedAllergy = new Allergy(VALID_ALLERGY_1);
+        assertEquals(expectedAllergy, ParserUtil.parseAllergy(allergyWithWhitespace));
+    }
+
+    @Test
+    public void parseAllergies_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.parseAllergies(null);
+    }
+
+    @Test
+    public void parseAllergies_collectionWithInvalidAllergies_throwsParseException()
+            throws Exception {
+        thrown.expect(ParseException.class);
+        ParserUtil.parseAllergies(Arrays.asList(VALID_ALLERGY_1, INVALID_ALLERGY));
+    }
+
+    @Test
+    public void parseAllergies_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseAllergies(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseAllergies_collectionWithValidAllergies_returnsAllergySet()
+            throws Exception {
+        Set<Allergy> actualAllergySet = ParserUtil.parseAllergies(
+                Arrays.asList(VALID_ALLERGY_1, VALID_ALLERGY_2));
+        Set<Allergy> expectedAllergySet = new HashSet<>(
+                Arrays.asList(new Allergy(VALID_ALLERGY_1), new Allergy(VALID_ALLERGY_2)));
+
+        assertEquals(expectedAllergySet, actualAllergySet);
     }
 }
