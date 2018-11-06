@@ -38,6 +38,10 @@ public class CookTime {
         return time.matches(COOKTIME_VALIDATION_REGEX);
     }
 
+    public boolean isZero() {
+        return (value.toSeconds() == 0);
+    }
+
     @Override
     public String toString() {
         return String.valueOf(value).replaceFirst("PT", "");
