@@ -70,7 +70,7 @@ public interface Logic {
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
 
-    /** Returns the set of categoryBudgets */
+    /** Returns an iterator the categories and their total expenses */
     Iterator<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException;
 
     /**

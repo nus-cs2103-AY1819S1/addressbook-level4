@@ -270,7 +270,7 @@ public interface Model {
     void clearNotifications() throws NoUserSelectedException;
 
     /**
-     * Returns the list of category budgets
+     * Returns the set of category budgets
      */
     HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException;
 }
