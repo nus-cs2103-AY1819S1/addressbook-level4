@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:pullURL: https://github.com/CS2103-AY1819S1-W16-2/main/pull
 
 == PROJECT: _SocialCare_
 
@@ -31,8 +32,6 @@ mouse/GUI driven application.
 
 == Summary of contributions
 
-* My *code contributed* can be found
-https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sharan8[here].
 * *Major enhancement*: I added *the ability to export volunteer certificates in PDF format.*
 ** _What it does_: This feature allows the user to export a volunteer’s event records and contributed hours in the form
 of a PDF certificate.
@@ -47,23 +46,26 @@ provides the functionality to create and write to PDF files.
 * *Minor enhancement*: I added the *total volunteer count to the status bar*. This enhancement is in line with our
 application’s intention to provide the user with easy access to useful information pertaining to volunteers.
 
-* *Code contributed (To be updated)*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: Here is a https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=sharan8[link]
+to my code on the Project Code Dashboard.
 
 * *Other contributions*:
 
 ** Documentation:
 *** Revised the introduction sections of the
-https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/README.adoc[README],
-https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/docs/UserGuide.adoc[User Guide] and
-https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide].
+https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/README.adoc[README] and
+https://github.com/CS2103-AY1819S1-W16-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide] ({pullURL}/109[#109])
 ** Community:
-*** Reviewed PRs (with non-trivial review comments): To be updated.
-*** Contributed to forum discussions: To be updated.
+*** Reviewed PRs (with non-trivial review comments): {pullURL}/92[#92], {pullURL}/107[#107], {pullURL}/114[#114], {pullURL}/232[#232]
+*** Involved forum members in the resolution of a design consideration: https://github.com/nus-cs2103-AY1819S1/forum/issues/114[#114]
+*** Shared a personal learning point with forum members: https://github.com/nus-cs2103-AY1819S1/forum/issues/143[#143]
+*** Reported bugs and suggestions for other teams: To be updated.
+*** Some parts of the `exportcert` feature I added inspired the implementation of the import/export csv/xml feature.
 ** Tools:
 *** Integrated a third party library (https://pdfbox.apache.org/index.html[Apache PDFBox]) to the project
-(https://github.com/CS2103-AY1819S1-W16-2/main/pull/161[#161]).
+({pullURL}/161[#161]).
 ** Project conceptualisation:
-*** Set up a shared
+*** Set up and managed a shared
 https://docs.google.com/document/d/19iV64xK0EwaV8kjMaP72P1G7iGKKXtEX2my5M-QowKc/edit?usp=sharing[Brainstorming Canvas]
 to brainstorm on product morphing ideas using the 'Target User Profile-Problem-Value Proposition' framework.
 *** Conceptualised and validated the idea for _SocialCare_ through conversing with staff from 2
@@ -72,7 +74,8 @@ social welfare organisations that I have worked with in the past.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting
+end-users._
 |===
 
 include::../UserGuide.adoc[tag=exportcert]
@@ -80,7 +83,8 @@ include::../UserGuide.adoc[tag=exportcert]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=exportcert]
