@@ -36,6 +36,8 @@ public class SwitchCommand extends Command {
         requireNonNull(model);
 
         model.setCurrentContext(contextId);
+        model.updateFilteredVolunteerList(Model.PREDICATE_SHOW_ALL_VOLUNTEERS);
+        model.updateFilteredEventList(Model.PREDICATE_SHOW_ALL_EVENTS);
         model.updateFilteredRecordList(Model.PREDICATE_SHOW_ALL_RECORDS);
         model.resetStatePointer();
 
