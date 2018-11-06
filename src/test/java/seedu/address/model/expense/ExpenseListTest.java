@@ -129,7 +129,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    public void setExpenses_ExpenseList_replacesOwnListWithProvidedExpenseList() {
+    public void setExpenses_expenseList_replacesOwnListWithProvidedExpenseList() {
         expenseList.add(SCHOOLFEE);
         ExpenseList expectedExpenseList = new ExpenseList();
         expectedExpenseList.add(IPHONE);
