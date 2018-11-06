@@ -11,10 +11,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 
 import com.google.photos.library.v1.PhotosLibraryClient;
@@ -42,7 +43,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class PhotoHandler {
 
-    private static final String PICONSO_ALBUM = "Piconso Uploads";
+    public static final String PICONSO_ALBUM = "Piconso Uploads";
+    public static final String WRONG_PATH = "%s does not exist in folder!";
+    public static final String UPLOAD_FORMAT = "\n%s  >> saved as >>  %s";
+
     private PhotosLibraryClient photosLibraryClient;
     private String user;
     private Map<String, Album> albumMap = new HashMap<>();
@@ -54,6 +58,13 @@ public class PhotoHandler {
         user = email;
     }
 
+    public PhotoHandler(String email, Map<String, Album> albumMap, Map<String, MediaItem> imageMap) {
+        photosLibraryClient = null;
+        user = email;
+        this.albumMap = albumMap;
+        this.imageMap = imageMap;
+    }
+
     //=========== Listing Images (ls command) ================================
 
     /**
@@ -62,12 +73,10 @@ public class PhotoHandler {
      * @return list of image names
      */
     public List<String> returnAllImagesList() {
-        ArrayList<String> imageNames = new ArrayList<>();
-        retrieveAllImagesFromGoogle();
-        for (Map.Entry<String, MediaItem> entry : imageMap.entrySet()) {
-            imageNames.add(entry.getKey());
+        if (imageMap.isEmpty()) {
+            retrieveAllImagesFromGoogle();
         }
-        return imageNames;
+        return new ArrayList<>(imageMap.keySet());
     }
 
     /**
@@ -77,12 +86,10 @@ public class PhotoHandler {
      */
     public List<String> returnAllAlbumsList() {
 
-        ArrayList<String> albumNames = new ArrayList<>();
-        retrieveAllAlbumsFromGoogle();
-        for (Map.Entry<String, Album> entry : albumMap.entrySet()) {
-            albumNames.add(entry.getKey());
+        if (albumMap.isEmpty()) {
+            retrieveAllAlbumsFromGoogle();
         }
-        return albumNames;
+        return new ArrayList<>(albumMap.keySet());
     }
 
     /**
@@ -93,15 +100,17 @@ public class PhotoHandler {
      */
     public List<String> returnAllImagesinAlbum(String albumName) throws CommandException {
 
-        ArrayList<String> imageNames = new ArrayList<>();
-
         retrieveSpecificAlbumGoogle(albumName);
 
-        for (Map.Entry<String, MediaItem> entry : albumSpecificMap.entrySet()) {
-            imageNames.add(entry.getKey());
-        }
+        return new ArrayList<>(albumSpecificMap.keySet());
+    }
 
-        return imageNames;
+    /**
+     * Refreshes stored lists of album and image names.
+     */
+    public void refreshLists() {
+        retrieveAllAlbumsFromGoogle();
+        retrieveAllImagesFromGoogle();
     }
 
 
@@ -224,7 +233,6 @@ public class PhotoHandler {
                 saveImageInDir(entry.getValue(), currDir + "/" + entry.getKey());
             }
         }
-
     }
 
     /**
@@ -247,33 +255,41 @@ public class PhotoHandler {
      *
      * @param imageName name of image to be retrieved
      * @param pathName  directory to upload from
+     * @return name of image if it is a duplicate.
      */
-    public void uploadImage(String imageName, String pathName) throws Exception {
+    public String uploadImage(String imageName, String pathName) throws Exception {
         if (!Files.exists(Paths.get(pathName + "/" + imageName))) {
-            throw new Exception(imageName + " does not exist in folder!");
+            throw new Exception(String.format(WRONG_PATH, imageName));
         }
-        uploadMediaItemsToGoogle(Arrays.asList(generateNewMediaImage(imageName, pathName)));
+
+        Map<Integer, String> uploads = uploadMediaItemsToGoogle(
+                Collections.singletonList(generateNewMediaImage(imageName, pathName)));
+        return formatUploadFeedback(uploads, Collections.singletonList(imageName));
     }
 
     /**
      * Uploads all images in specified directory to Google Photos
      *
      * @param path directory to upload from
+     * @return names of non-duplicate images
      */
-    public void uploadAll(String path) throws Exception {
-        List<NewMediaItem> newItems = new ArrayList();
+    public String uploadAll(String path) throws Exception {
+        List<NewMediaItem> newItems = new ArrayList<>();
+        List<String> imageNames = new ArrayList<>();
+
         File dir = new File(path);
 
-        File[] fileList = dir.listFiles();
-        for (File file : fileList) {
+        for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isFile()) {
                 if (ImageIO.read(file) != null) {
+                    imageNames.add(file.getName());
                     newItems.add(generateNewMediaImage(file.getName(), path));
                 }
             }
         }
 
-        uploadMediaItemsToGoogle(newItems);
+        Map<Integer, String> uploads = uploadMediaItemsToGoogle(newItems);
+        return formatUploadFeedback(uploads, imageNames);
     }
 
     /**
@@ -311,9 +327,11 @@ public class PhotoHandler {
      * Uploads created NewMediaItems to Google Photos
      *
      * @param newItems list of NewMediaItems to pass to Google Photos
+     * @return array of nonDuplicate names
      * @throws Exception when uploading error occurs
      */
-    private void uploadMediaItemsToGoogle(List<NewMediaItem> newItems) throws Exception {
+    private Map<Integer, String> uploadMediaItemsToGoogle(List<NewMediaItem> newItems) throws Exception {
+        Map<Integer, String> nonDuplicates = new HashMap<>();
         BatchCreateMediaItemsResponse response;
         String albumId = retrievePiconsoAlbum();
 
@@ -328,12 +346,20 @@ public class PhotoHandler {
             response = photosLibraryClient.batchCreateMediaItems(albumId, newItems);
         }
 
+        int i = 0;
         for (NewMediaItemResult itemsResponse : response.getNewMediaItemResultsList()) {
             Status status = itemsResponse.getStatus();
             if (status.getCode() != Code.OK_VALUE) {
-                throw new Exception("An error occurred when uploading to Google Photos, please try again");
+                if (status.getCode() != 6) {
+                    throw new Exception("An error occurred when uploading to Google Photos, please try again");
+                }
+            } else {
+                nonDuplicates.put(i, itemsResponse.getMediaItem().getFilename());
             }
+            i++;
         }
+
+        return nonDuplicates;
     }
 
     //=========== Misc ================================
@@ -351,12 +377,12 @@ public class PhotoHandler {
      * As Album/Image names can be duplicates in Google Photos, new names to display in CLI are appended with a
      * suitable number to differentiate albums/images
      *
-     * @param map   Map to be comparing to
-     * @param title Key to search for
+     * @param map      Map to be comparing to
+     * @param title    Key to search for
      * @param mimeType Extension of image
      * @return new title to act as key in map
      */
-    private String getUniqueName(Map map, String title, String mimeType) {
+    public String getUniqueName(Map map, String title, String mimeType) {
         String newTitle = title;
         String titleWithoutExtension;
 
@@ -368,7 +394,6 @@ public class PhotoHandler {
         }
         int i = 1;
         while (map.get(newTitle) != null) {
-
             newTitle = titleWithoutExtension + " (" + i + ")" + mimeType;
             i++;
         }
@@ -377,11 +402,34 @@ public class PhotoHandler {
     }
 
     /**
+     * Format upload feedback message
+     *
+     * @param uploads    map of non-duplicate uploads
+     * @param imageNames list of images that were to be uploaded
+     * @return formatted feedback
+     */
+    public String formatUploadFeedback(Map<Integer, String> uploads, List<String> imageNames) {
+        StringBuilder sb = new StringBuilder();
+        if (uploads.isEmpty()) {
+            return "";
+        } else {
+            if (uploads.size() == imageNames.size()) {
+                sb.append(".all");
+            }
+
+            for (Integer entry : uploads.keySet()) {
+                sb.append(String.format(UPLOAD_FORMAT, imageNames.get(entry), uploads.get(entry)));
+            }
+            return sb.toString();
+        }
+    }
+
+    /**
      * Creates/Retrieves an album in user's library to store Piconso edited photos.
      *
      * @return Id of Piconso Album
      */
-    private String retrievePiconsoAlbum() {
+    public String retrievePiconsoAlbum() {
         String id;
         Album album;
 
@@ -391,6 +439,7 @@ public class PhotoHandler {
                 retrieveAllAlbumsFromGoogle();
                 if ((album = albumMap.get(PICONSO_ALBUM)) == null) {
                     album = photosLibraryClient.createAlbum(Album.newBuilder().setTitle(PICONSO_ALBUM).build());
+                    retrieveAllAlbumsFromGoogle();
                 }
             }
             id = album.getId();

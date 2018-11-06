@@ -15,6 +15,10 @@ import seedu.address.model.PreviewImage;
  * and that the canvas area must be larger than zero.
  */
 public class Canvas {
+
+    public static final String OUTPUT_ERROR_CURRENT_LAYER = "You cannot remove the layer you're currently working on!";
+    public static final String OUTPUT_ERROR_ONLY_LAYER = "You cannot remove the only layer in a canvas!";
+
     private static final String LAYER_NAME = "Layer %d";
     private String backgroundColor = "none";
     private ArrayList<Layer> layers = new ArrayList<>();
@@ -67,15 +71,15 @@ public class Canvas {
 
     /**
      * Removes a layer from the canvas. If the only layer left is being remove, throws an IllegalOperationException.
-     * @param i
+     * @param i - Index of the layer to remove
      */
 
     public Index removeLayer(Index i) throws IllegalOperationException {
         if (layers.size() <= 1) {
-            throw new IllegalOperationException("You cannot remove the only layer in a canvas!");
+            throw new IllegalOperationException(OUTPUT_ERROR_ONLY_LAYER);
         }
         if (i.getZeroBased() == currentLayerIndex.getZeroBased()) {
-            throw new IllegalOperationException("You cannot remove the layer you're currently working on!");
+            throw new IllegalOperationException(OUTPUT_ERROR_CURRENT_LAYER);
         }
         layers.remove(i.getZeroBased());
         if (i.getZeroBased() < currentLayerIndex.getZeroBased()) {
@@ -93,10 +97,10 @@ public class Canvas {
      * @param from A zero-based index within bounds
      */
     public void swapLayer(Index to, Index from) throws IllegalOperationException {
-        if (!layers.get(to.getZeroBased()).isLocked() && !layers.get(from.getZeroBased()).isLocked()) {
+        if (!to.equals(from)) {
             Collections.swap(layers, to.getZeroBased(), from.getZeroBased());
         } else {
-            throw new IllegalOperationException("One or more layers are locked!");
+            throw new IllegalOperationException("Invalid indexes provided!");
         }
     }
 

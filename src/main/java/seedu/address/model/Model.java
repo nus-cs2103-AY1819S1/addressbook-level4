@@ -34,6 +34,11 @@ public interface Model {
     String getUserLoggedIn() throws CommandException;
 
     /**
+     * Performs necessary set up for current model (test or actual)
+     */
+    void setUpForGoogle(boolean isTest);
+
+    /**
      * Returns true if the current layer's PreviewImage has undone states to restore.
      */
     boolean canUndoPreviewImage();
@@ -166,4 +171,6 @@ public interface Model {
     void removeLayer(Index i) throws IllegalOperationException;
 
     Canvas getCanvas();
+
+    void saveCanvas(String fileName) throws IOException, InterruptedException;
 }

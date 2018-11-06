@@ -7,13 +7,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.canvas.CanvasAutoResizeCommand;
-import seedu.address.logic.commands.canvas.CanvasBgcolourCommand;
+import seedu.address.logic.commands.canvas.CanvasBgcolorCommand;
 import seedu.address.logic.commands.canvas.CanvasCommand;
+import seedu.address.logic.commands.canvas.CanvasSaveCommand;
 import seedu.address.logic.commands.canvas.CanvasSizeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-
-
 
 //@@author j-lum
 
@@ -45,11 +43,19 @@ public class CanvasCommandParser {
             }
             return new CanvasAutoResizeCommand(argument);
         }
-        case "bgcolour": {
-            return new CanvasBgcolourCommand(argument);
+        case "bgcolor": {
+            if (argument == null) {
+                throw new ParseException(CanvasBgcolorCommand.MESSAGE_USAGE);
+            }
+            return new CanvasBgcolorCommand(argument);
+        }
+        case "save": {
+            if (argument == null) {
+                throw new ParseException(CanvasSaveCommand.MESSAGE_USAGE);
+            }
+            return new CanvasSaveCommand(argument);
         }
         case "size": {
-            logger.info(String.format("arg1 %s arg2 %s", subcommand, argument));
             return new CanvasSizeCommand(argument);
         }
         default:
