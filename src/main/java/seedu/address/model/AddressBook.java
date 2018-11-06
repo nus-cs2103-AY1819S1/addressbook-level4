@@ -108,8 +108,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the checkedOutPerson list of the address book.
+     * The person must not already exist in the checkedOutPerson list of the address book.
+     */
+    public void addCheckedOutPerson(Person p) {
+        checkedOutPersons.add(p);
+    }
+
+    /**
+     * Adds a person to the person list of address book.
+     * The person must not already exist in person list of the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
