@@ -1,4 +1,4 @@
-package seedu.address.model.user;
+package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,22 +7,24 @@ import java.util.Optional;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.user.Password;
+import seedu.address.model.user.Username;
 
 /**
- * Encapsulates the information passed when the user attempts to log in.
+ * Encapsulates the credentials used when the user attempts to log in.
  * Guarantees: immutable, password is null if and only if plainPassword is null.
  */
-public class LoginInformation {
+public class LoginCredentials {
     private final Username username;
     private final Password password;
     private final String plainPassword;
 
     /**
-     * Constructor for login information. Guarantees that password is null if and only if plainPassword is null.
+     * Constructor for login credentials. Guarantees that password is null if and only if plainPassword is null.
      * @param username the username
      * @param plainPassword the password as a plain text String
      */
-    public LoginInformation(Username username, String plainPassword) throws ParseException {
+    public LoginCredentials(Username username, String plainPassword) throws ParseException {
         requireNonNull(username);
         this.username = username;
         this.plainPassword = plainPassword;
@@ -53,12 +55,12 @@ public class LoginInformation {
         }
 
         // instanceof handles nulls
-        if (!(obj instanceof LoginInformation)) {
+        if (!(obj instanceof LoginCredentials)) {
             return false;
         }
 
         // state check
-        LoginInformation other = (LoginInformation) obj;
+        LoginCredentials other = (LoginCredentials) obj;
         return username.equals(other.username)
                 && getPassword().equals(other.getPassword())
                 && getPlainPassword().equals(other.getPlainPassword());
