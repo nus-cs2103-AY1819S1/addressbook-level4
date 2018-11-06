@@ -34,13 +34,14 @@ import seedu.restaurant.model.menu.Name;
 import seedu.restaurant.model.menu.exceptions.ItemNotFoundException;
 import seedu.restaurant.model.person.Person;
 import seedu.restaurant.model.reservation.Reservation;
-import seedu.restaurant.model.salesrecord.Date;
-import seedu.restaurant.model.salesrecord.SalesRecord;
-import seedu.restaurant.model.salesrecord.SalesReport;
+import seedu.restaurant.model.sales.Date;
+import seedu.restaurant.model.sales.ItemName;
+import seedu.restaurant.model.sales.SalesRecord;
+import seedu.restaurant.model.sales.SalesReport;
 import seedu.restaurant.model.tag.Tag;
 import seedu.restaurant.testutil.ingredient.IngredientBuilder;
 import seedu.restaurant.testutil.menu.ItemBuilder;
-import seedu.restaurant.testutil.salesrecords.RecordBuilder;
+import seedu.restaurant.testutil.sales.RecordBuilder;
 
 public class RecordSalesCommandTest {
 
@@ -284,6 +285,21 @@ public class RecordSalesCommandTest {
 
         @Override
         public SalesReport getSalesReport(Date date) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> rankDateBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<ItemName, Double> rankItemBasedOnRevenue() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Map<Date, Double> getChronologicalSalesData() {
             throw new AssertionError("This method should not be called.");
         }
 
