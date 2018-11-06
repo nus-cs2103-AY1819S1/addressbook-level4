@@ -2,18 +2,18 @@
 <restaurantbook>
     <reservations>
         <name>Jeeves</name>
-        <pax isPrivate="false">4</pax>
-        <date isPrivate="false">03-11-2019</date>
-        <time isPrivate="false">10:15</time>
-        <remark isPrivate="false">Some remarks</remark>
+        <pax>4</pax>
+        <date>03-11-2019</date>
+        <time>10:15</time>
+        <remark>Some remarks</remark>
     </reservations>
 
     <!-- Person with same identity as Jeeves -->
     <reservations>
         <name>Jeeves</name>
-        <pax isPrivate="false">4</pax>
-        <date isPrivate="false">03-11-2019</date>
-        <time isPrivate="false">10:15</time>
-        <remark isPrivate="false">Some remarks</remark>
+        <pax>4</pax>
+        <date>03-11-2019</date>
+        <time>10:15</time>
+        <remark>Some remarks</remark>
     </reservations>
 </restaurantbook>
