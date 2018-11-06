@@ -89,18 +89,31 @@ public class AddEventCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * Checks if there is a duplicate event with {@code toAdd} in the address book
+     * @throws CommandException if there is a duplicate event already existing in the address book
+     */
     private void checkForDuplicateEvent(Model model) throws CommandException {
         if (model.hasEvent(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
     }
 
+    /**
+     * Checks if there is a clashing event with {@code toAdd} in the address book
+     * @throws CommandException if there is a clashing event already existing in the address book
+     */
     private void checkForClashingEvent(Model model) throws CommandException {
         if (model.hasClashingEvent(toAdd)) {
             throw new CommandException(MESSAGE_CLASHING_EVENT);
         }
     }
 
+    /**
+     * Checks if all the event tags in {@code toAdd} is valid i.e. it exists in the list of event tags in the address
+     * book based on {@code model}
+     * @throws CommandException if one or more of the tags are not valid.
+     */
     private void checkForTagValidity(Model model) throws CommandException {
         // check if tags are existing in the address book
         Set<Tag> nonExistingTags = toAdd.getEventTags().stream()
@@ -111,6 +124,12 @@ public class AddEventCommand extends Command {
         }
     }
 
+    /**
+     * Sets the event contacts for {@code toAdd} based on retrieved contacts from the address book, using
+     * {@code contactIndicesToAdd}
+     * @throws CommandException if one or more of the indices in {@code contactIndicesToAdd} cannot be matched to
+     * a corresponding contact in the displayed person list.
+     */
     private void setEventContacts(Model model) throws CommandException {
         // set the list of Person objects as the eventContacts of the event to be added
         List<Person> lastShownPersonList = model.getFilteredPersonList();
