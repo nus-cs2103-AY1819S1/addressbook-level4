@@ -38,15 +38,24 @@ public class StatsCommandParser implements Parser<StatsCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         }
-
-        int periodAmount = Integer.parseInt(argMultimap.getValue(PREFIX_PERIOD_AMOUNT).get());
+        int periodAmount;
+        try {
+            periodAmount = Integer.parseInt(argMultimap.getValue(PREFIX_PERIOD_AMOUNT).get());
+        } catch (NumberFormatException nfe) {
+            throw new ParseException(
+                    String.format(
+                            MESSAGE_INVALID_COMMAND_FORMAT,
+                            StatsCommand.MESSAGE_PERIOD_AMOUNT_ERROR
+                    )
+            );
+        }
         String mode = argMultimap.getValue(PREFIX_MODE).get();
         String period = argMultimap.getValue(PREFIX_PERIOD).get();
 
         try {
             return new StatsCommand(periodAmount, period, mode);
         } catch (IllegalArgumentException iae) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, iae.getMessage()));
         }
     }
 }
