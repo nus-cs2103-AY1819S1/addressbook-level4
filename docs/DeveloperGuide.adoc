@@ -630,7 +630,7 @@ The implemented operations include: +
 
 * ClinicIo#hasStaff(): Check if the staff record exists inside ClinicIO
 * ClinicIo#getStaff(): Retrieve the staff record from the `UniqueStaffList`
-* Password#verifyPassword(): Check if password entered by user matches the staff record that was found in the `UniqueStaffList` 
+* Password#verifyPassword(): Check if password entered by user matches the staff record that was found in the `UniqueStaffList`
 
 These operations are exposed in the `Model` interface as `Model#checkStaffCredentials()`.
 
