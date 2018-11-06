@@ -6,6 +6,7 @@ import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
