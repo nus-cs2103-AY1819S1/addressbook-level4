@@ -2,8 +2,11 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
@@ -171,6 +174,20 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
 
         return gameManager.appraiseXpChange(taskFrom, taskTo);
+    }
+
+    public List<Task> getTopologicalOrder() {
+        DependencyGraph dg = new DependencyGraph(this.getTaskList());
+        List<String> hashes = dg.topologicalSort();
+        return getTasksFromHashes(hashes);
+    }
+
+    public List<Task> getTasksFromHashes(List<String> hashes) {
+        HashMap<String, Task> tasks = new HashMap<>();
+        for (Task task: this.getTaskList()) {
+            tasks.put(Integer.toString(task.hashCode()), task);
+        }
+        return hashes.stream().map((hash) -> tasks.get(hash)).collect(Collectors.toList());
     }
 
     //// util methods

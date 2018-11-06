@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.achievement.AchievementRecord;
 import seedu.address.model.task.Task;
@@ -19,5 +21,10 @@ public interface ReadOnlyTaskManager {
      * Returns a copy of the task manager's {@code AchievementRecord}.
      */
     AchievementRecord getAchievementRecord();
+
+    /**
+     * Returns list according to topological ordering of task
+     */
+    List<Task> getTopologicalOrder();
 
 }
