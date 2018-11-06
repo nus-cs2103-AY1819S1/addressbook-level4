@@ -90,4 +90,8 @@ public class Day extends UniqueType {
         return otherDay.getDate().equals(getDate());
     }
 
+    @Override
+    public String toString() {
+        return this.date.toString();
+    }
 }

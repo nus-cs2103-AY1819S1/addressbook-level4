@@ -60,8 +60,21 @@ public class History {
      */
     public Recipe buildRecipe() {
         Recipe recipe = recipeBuilder.build();
-        recipeBuilder = null;
         return recipe;
+    }
+
+    /**
+     * Clear an actual instance of recipe from the builder.
+     */
+    public void clearRecipe() {
+        recipeBuilder = null;
+    }
+
+    /**
+     * Check if history currently stores a recipe that is being build in mid-way.
+     */
+    public boolean isBuildingRecipe() {
+        return (recipeBuilder != null);
     }
 
     /**

@@ -41,18 +41,25 @@ image::Ui.png[width="790"]
 e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 .  Some example commands you can try:
-* *`-search KEYWORD... [x/KEYWORD]...`* : search for recipes related and excluded from the keywords
-* *`-favorite`* : display personal favorited recipes
-* *`-plannerlist`* : display personal meal schedule
+* *`find KEYWORD...`* : search for recipes related and excluded from the keywords (only within recipe context)
+* *`-mealplanner`* : Switch to meal planner context and display personal meal schedule
 * *`-exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+In Sous Chef, there are 2 types of command: universal commands and context-unique commands. +
+ +
+The universal commands can be used throughout the application and perform application-wide action. You can identify a
+ universal command from its "-" convention followed by a keyword (e.g. -exit). +
+ +
+ The context-unique commands on the other hand are only valid for that context. (e.g. <<Recipes Commands>> can only be
+ used in -recipe context). These commands contains only a action key word followed by the required parameters, if any
+ . (e.g. select INDEX)
 
 ====
-*Command Format*
+*Command Format Convention*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Chicken Rice`.
 * Items in square brackets are optional.
@@ -60,62 +67,45 @@ e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 ====
 === Universal Commands
-
-****
-For the following features in section 3, each feature's commands will only be recognised when the application is
-within the context of the respective feature. In order to switch to the desired feature context, the respective
-universal command has to be entered first.
-****
-
 ==== View help: `-help`
 To view the help menu containing all the universal commands. +
-
 Format: +
 `-help`
 
-==== Display recipes database: `-recipe`
-Display all recipes records. +
+==== View history: `-history`
+To view previous commands entered. +
+Format: +
+`-history`
+
+==== Switch to recipe context: `-recipe`
+Switch to recipe context and display recipes. +
+See <<Recipes Commands>> to view commands for recipe context. +
 Format: +
 `-recipe`
 
-==== Display recipe suggestion: `-suggest` [coming in V1.4]
-Display system suggestions based on user's past navigation history
-and favorites. +
-Format: +
-`-suggest`
-
-==== Display new recipe: `-surprise` [coming in V1.4]
-Display a random recipe for the user who wants to try something bold
-and new but has no idea what they want. +
-Format: +
-`-surprise`
-
-==== Display favorites: `-favourite`
-List all the bookmarked favourite recipes of the user. +
-Format: +
-`-favourite`
-
-==== Display ingredient manager: `-ingredient`
-Display ingredient manager, which helps stock
+==== Switch to ingredient manager context: `-ingredient`
+Switch to ingredient manager context and display ingredient manager, which helps stock
 tracking of ingredient that the user currently have. +
+See <<Ingredient Manager Commands>> to view commands for ingredient manager context. +
 Format: +
 `-ingredient`
 
-==== Display ingredient-recipe query page: `-cross`
-Display the page where you can sort, filter the recipe list by name of ingredients includes and get information of
-needed amounts of ingredients. +
+==== Switch to ingredient-recipe query context: `-cross`
+Switch to ingredient-recipe query context and where you can sort, filter the recipe list by name of ingredients includes and get information of needed amounts of ingredients. +
+See <<Ingredient-Recipe Query Commands>> to view commands for ingredient-recipe query context. +
 Format: +
 `-cross`
 
-==== Display meal planner: `-mealplanner`
-Display current Meal Planner. Shows the planned meals for breakfast,
-lunch and dinner for previously planned days. +
+==== Switch to meal planner context: `-mealplanner`
+Switch to meal planner context and display the planned meals for breakfast, lunch and dinner for previously planned days. +
+See <<Meal Planner Commands>> to view commands for meal planner context. +
 Format: +
 `-mealplanner`
 
-==== Display health plan: `-healthplan`
-Display the current health plan, shows health plan set by the user and the days added into the plan
-which is tied to meal plans +
+==== Switch to health plan context: `-healthplan`
+Switch to health planner context and display health plan set by the user and the days added into the plan which is tied
+ to meal plans. +
+See <<Health Planner Commands>> to view commands for health planner context. +
 Format: +
 `-healthplan`
 
@@ -125,10 +115,16 @@ Format: +
 `-exit`
 
 === Recipes Commands
+
+==== List recipes: `list`
+Show all recipes. +
+Format: +
+`list`
+
 ==== Add a recipe: `add n/NAME c/TIME d/DIFFICULTY [t/TAG]...  cont i/INSTRUCTION... [c/TIME] end`
 Add new recipe. +
 ****
-* This is a multi-line command.
+* This is a multi-line command. (i.e. `add`, `cont` and `end` must be in a seperate command entry)
 * Command starts with `add` and should include name, cook time and difficulty. Tags can be added as required.
 ** NAME should come with any alphanumeric characters.
 ** TIME should come with a PT prefix with H or/and M postfix, e.g. PT1H15M or PT35M.
@@ -142,7 +138,11 @@ Add new recipe. +
 *** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
 *** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
 *** SERVING_UNIT should only come as a single word. e.g. gram, g, ml.
-* Action will only be completed with a new line command `end`.
+* Action will only be completed (added) with a valid `end` command.
+* Recipe without at least one instruction and 'end' command will not be added.
+* User can perform other commands and continue adding instructions as required. Command need not be continuous.
+* To overwrite existing recipe that has yet been added (i.e. `end` command not used), simply use the `add` command
+and enter a new recipe details as desired.
 
 ****
 Format: +
@@ -193,8 +193,8 @@ Show recipes related to the keyword(s).
 Keywords include but not limited to cuisines (Indian, Japanese),
 dietary types (vegan, Keto),
 ingredients (egg, broccoli),
-preparation time (quick, 30mins)
-and difficulty (easy, simple, challenging). +
+preparation time (PT30M, PT1H40M)
+and difficulty (1, 2, ..., 5). +
 ****
 * `KEYWORD` is case insensitive.
 * The order of keywords does not matter.
@@ -246,7 +246,7 @@ Format: +
 `review [Comment] RATING`
 
 // tag::ingredient[]
-=== Ingredient Manager Commands
+=== Ingredient Manager Commands [Only applicable in ingredient context]
 
 ==== Add an ingredient: `add`
 
@@ -299,14 +299,14 @@ Delete ingredient in ingredient manager according to its index in the last shown
 Format: +
 `delete INDEX`
 
-==== Clear ingredients: `clear`
+==== Clear all ingredients: `clear`
 
 Clears all ingredients in ingredient manager. +
 Format: +
 `clear`
 
 // tag::cross[]
-=== Ingredient-Recipe Query Commands
+=== Ingredient-Recipe Query Commands [Only applicable in cross context]
 
 ==== View Recipes based on Ingredients
 By default, the list shows recipes that are stored in application's recipe list. User can filter or sort the recipes
@@ -356,10 +356,7 @@ Format: +
 `list`
 
 // tag::mealplanner[]
-=== Meal Planner Commands
-
-Meal Planner commands should be used in the Meal Planner context, i.e. after entering the
-`-mealplanner` command to display the Meal Planner
+=== Meal Planner Commands [Only applicable in meal planner context]
 
 ****
 * DATE should be entered in the format *yyyy-mm-dd*
@@ -372,7 +369,6 @@ After displaying the meal planner, deletes the specified day.
 
 Format: `delete INDEX`
 
-==== Clear planner: `clear`
 
 Clears all the meal slots of the meal planner.
 
@@ -385,8 +381,7 @@ Selects and views the details of a recipe at a specified meal slot of a specifie
 Format: `select INDEX MEAL`
 
 // end::mealplanner[]
-
-=== Health-planner Command
+=== Health Planner Commands [Only applicable in health plan context]
 
 ==== Add plan: `add`
 
@@ -527,7 +522,9 @@ Format: +
 * Display new recipe: `-surprise` [coming in V1.4]
 * Display favorites: `-favourite`
 * Display ingredient manager: `-ingredient`
+* Display ingredient-recipe query context: `-ingredient`
 * Display meal planner: `-mealplanner`
+* Display health plan: `-healthplan`
 * Exit application: `-exit`
 
 *Recipes Commands*
@@ -557,15 +554,14 @@ or +
 
 * Add an ingredient: `add NAME AMOUNT SERVING_UNIT DATE`
 * List all ingredients: `list`
-* Clear all ingredients: `clear`
-* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO (FIELD_NAME NEW_INFO)… end`
-* Search ingredient: `find KEYWORD…`
+* Edit ingredient info:`edit INDEX FIELD_NAME NEW_INFO [MORE FIELD_NAME NEW_INFO]…​`
+* Search ingredient: `find KEYWORD [MORE_KEYWORDS]…​`
 * Delete ingredient: `delete INDEX`
+* Clear all ingredients: `clear`
 
 *Recipe-Ingredient Query Commands*
 
-* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD…​ prioritize [inventory]
-KEYWORD…​`
+* View Recipe based on Ingredients: `view NUMBER_OF_SERVINGS include [inventory] KEYWORD [MORE_KEYWORDS]…​ prioritize [inventory] KEYWORD [MORE_KEYWORDS]…​`
 * View needed amount of ingredients for a Recipe: `select INDEX`
 * List all recipes: `list`
 
