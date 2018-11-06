@@ -31,6 +31,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueEventList events;
     private final UniqueTagList eventTags;
+    private boolean notificationPref;
+    private String favourite;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -43,6 +45,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         events = new UniqueEventList();
         eventTags = new UniqueTagList();
+        notificationPref = true;
+        favourite = null;
     }
 
     public AddressBook() {}
@@ -82,6 +86,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Updates the notification preference.
+     */
+    public void setNotificationPref(boolean set) {
+        this.notificationPref = set;
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -90,6 +101,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
         setEvents(newData.getEventList());
         setEventTags(newData.getEventTagList());
+        setNotificationPref(newData.getNotificationPref());
+        updateFavourite(newData.getFavourite());
     }
 
     //// person-level operations
@@ -255,6 +268,26 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Tag> getEventTagList() {
         return eventTags.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public boolean getNotificationPref() {
+        return notificationPref;
+    }
+
+    @Override
+    public void updateNotificationPref(boolean set) {
+        this.notificationPref = set;
+    }
+
+    @Override
+    public String getFavourite() {
+        return favourite;
+    }
+
+    @Override
+    public void updateFavourite(String favourite) {
+        this.favourite = favourite;
     }
 
     @Override

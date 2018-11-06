@@ -32,9 +32,6 @@ import seedu.address.model.tag.Tag;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static boolean notificationPref;
-    private static String favouriteEvent;
-
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
@@ -62,20 +59,24 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public static boolean getNotificationPref() {
-        return notificationPref;
+    public boolean getNotificationPref() {
+        return versionedAddressBook.getNotificationPref();
     }
 
-    public static void updateNotificationPref(boolean set) {
-        notificationPref = set;
+    @Override
+    public void updateNotificationPref(boolean set) {
+        versionedAddressBook.setNotificationPref(set);
+        indicateAddressBookChanged();
     }
 
-    public static String getFavouriteEvent() {
-        return favouriteEvent;
+    public String getFavourite() {
+        return versionedAddressBook.getFavourite();
     }
 
-    public static void updateFavourite(String newEvent) {
-        favouriteEvent = newEvent;
+    @Override
+    public void updateFavourite(String newEvent) {
+        versionedAddressBook.updateFavourite(newEvent);
+        indicateAddressBookChanged();
     }
 
     @Override

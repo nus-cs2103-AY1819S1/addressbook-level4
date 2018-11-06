@@ -19,7 +19,8 @@ public class NotificationCommand extends Command {
             + "Parameters: enable/disable\n"
             + "Example: " + COMMAND_WORD + " enable";
 
-    private String messageNotificationSuccess;
+    public static final String MESSAGE_NOTIFICATION_ENABLED_SUCCESS = "Notification: Enabled";
+    public static final String MESSAGE_NOTIFICATION_DISABLED_SUCCESS = "Notification: Disabled";
 
     private final boolean set;
 
@@ -27,22 +28,19 @@ public class NotificationCommand extends Command {
         this.set = set;
     }
 
-    public String getMessageNotificationSuccess() {
-        return messageNotificationSuccess;
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        ModelManager.updateNotificationPref(set);
-
-        if (set) {
-            messageNotificationSuccess = "Notification:" + " enabled";
-        } else {
-            messageNotificationSuccess = "Notification:" + " disabled";
-        }
-
+        model.updateNotificationPref(set);
         model.commitAddressBook();
 
-        return new CommandResult(String.format(messageNotificationSuccess));
+        if (set) {
+            return new CommandResult(String.format(MESSAGE_NOTIFICATION_ENABLED_SUCCESS));
+        } else {
+            return new CommandResult(String.format(MESSAGE_NOTIFICATION_DISABLED_SUCCESS));
+        }
+
+
+
+
     }
 }
