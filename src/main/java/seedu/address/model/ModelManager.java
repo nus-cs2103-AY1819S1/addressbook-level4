@@ -324,6 +324,14 @@ public class ModelManager extends ComponentManager implements Model {
         refreshLayerList();
     }
 
+    /**
+     * Removes the layer at the given index.
+     * @param i - Index of the layer to remove
+     * @return
+     * @throws IllegalOperationException - thrown if the current layer is being removed
+     * or the only layer is being removed.
+     */
+
     public Index removeLayer(Index i) throws IllegalOperationException {
         Index tmp = canvas.removeLayer(i);
         logger.info("refreshing after deleting layers");
