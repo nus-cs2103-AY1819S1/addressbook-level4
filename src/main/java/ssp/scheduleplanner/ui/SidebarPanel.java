@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -120,22 +121,29 @@ public class SidebarPanel extends UiPart<Region> {
     }
 
     private void setTags(ObservableList<Category> categories) {
-        accordion.getPanes().clear();
-        for (Category cat : categories) {
-            String catName = cat.getName();
-            TitledPane catPane = new TitledPane();
-            catPane.setText(catName);
-            accordion.getPanes().add(catPane);
-            ObservableList<Tag> tags = cat.getTags();
-            VBox tagsContent = new VBox();
-            for (Tag tag : tags) {
-                String tagName = tag.getTagName();
-                Text tagLabel = new Text(tagName);
-                tagLabel.setFill(Color.WHITE);
-                tagLabel.setFont(Font.font("Verdana", 18));
-                tagsContent.getChildren().add(tagLabel);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                accordion.getPanes().clear();
+
+                for (Category cat : categories) {
+                    String catName = cat.getName();
+                    TitledPane catPane = new TitledPane();
+                    catPane.setText(catName);
+                    accordion.getPanes().add(catPane);
+                    ObservableList<Tag> tags = cat.getTags();
+                    VBox tagsContent = new VBox();
+                    for (Tag tag : tags) {
+                        String tagName = tag.getTagName();
+                        Text tagLabel = new Text(tagName);
+                        tagLabel.setFill(Color.WHITE);
+                        tagLabel.setFont(Font.font("Verdana", 18));
+                        tagsContent.getChildren().add(tagLabel);
+                    }
+                    catPane.setContent(tagsContent);
+                }
             }
-            catPane.setContent(tagsContent);
-        }
+        });
+
     }
 }
