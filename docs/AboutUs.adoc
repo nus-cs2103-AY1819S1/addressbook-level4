@@ -34,7 +34,7 @@ image::kevvvinn.png[width="150", align="left"]
 === Lim Yu Xi
 image::swiftkage.png[width="150", align="left"]
 {empty}[https://github.com/Swiftkage[github]]
-{empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/Swiftkage.html[portfolio]]
+{empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/swiftkage.html[portfolio]]
 
 '''
 

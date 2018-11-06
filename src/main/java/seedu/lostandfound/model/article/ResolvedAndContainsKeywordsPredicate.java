@@ -23,15 +23,19 @@ public class ResolvedAndContainsKeywordsPredicate implements Predicate<Article> 
 
         return article.getIsResolved()
                 && (keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword))
-                        || keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(article.getPhone().value, keyword))
-                        || keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(article.getEmail().value, keyword))
-                        || keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword))
-                        || keywords.stream().anyMatch(keyword ->
-                        StringUtil.containsWordIgnoreCase(article.getStringTags(), keyword)));
+                StringUtil.containsWordIgnoreCase(article.getName().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getPhone().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getEmail().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getFinder().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getOwner().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
+                StringUtil.containsWordIgnoreCase(article.getStringTags(), keyword)));
 
     }
 
