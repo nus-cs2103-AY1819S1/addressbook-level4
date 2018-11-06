@@ -105,7 +105,8 @@ public class CommandTestUtil {
     public static final String TAG_DESC_FOOD = " " + PREFIX_TAG + VALID_TAG_FOOD;
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + " "; // empty entry is not allowed
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_COST; // empty string not allowed for addresses
+    public static final String INVALID_COST_DESC = " " + PREFIX_COST; // empty string not allowed for addresses
+    public static final String INVALID_COST_DESC_NEGATIVE = " " + PREFIX_COST + "0.00";
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "-01-1990"; // no day
 

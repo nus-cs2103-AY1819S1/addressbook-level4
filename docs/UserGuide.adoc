@@ -378,7 +378,7 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 === Setting a recurring frequency for totalBudget: `setRecurrenceFrequency`
 Sets the recurrence frequency for the `totalBudget` of Expense Tracker.
 
-Expense Tracker will reset your spending after every `FREQUENCY`
+Expense Tracker will reset your expenses after every `FREQUENCY`
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
@@ -387,9 +387,9 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 *Examples:*
 
 * `setRecurrenceFrequency hrs/1` +
-    Sets the spending of `totalBudget` to reset every 1 hour
+    Sets the expenses of `totalBudget` to reset every 1 hour
 * `setRecurrenceFrequency hrs/1 min/30` +
-    Sets the spending of `totalBudget` reset every 1 hour and 30 minutes
+    Sets the expenses of `totalBudget` to reset every 1 hour and 30 minutes
 ****
 
 [NOTE]
@@ -398,10 +398,10 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 * HOURS/MINUTES/SECONDS must be a positive number.
 ====
 
-=== Adding a Category Budget: `setCategoryBudget`
-Adds a Budget to limit spending on a certain category.
+=== Setting a Category Budget: `setCategoryBudget`
+Sets a Budget to limit expenses on a certain category.
 
-If spending exceeds Category budget, a warning similar to 4.10 will be shown.
+If expenses exceeds Category budget, a warning similar to 4.10 will be shown.
 
 Sum of all category budgets cannot exceed total budget of
 Expense Tracker.
@@ -418,7 +418,8 @@ Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 
 [NOTE]
 ====
-Valid `CATEOGRY` and `BUDGET` follows the syntax listed under 4.5 and 4.10
+* The `setCategoryBudget` command is case sensitive
+* `CATEOGRY` can only consist of one keyword and `BUDGET` must be a positive number with two decimal places.
 ====
 
 // end::budget[]
@@ -617,11 +618,10 @@ e.g. `delete 3`
 * *Find* : `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]` +
 e.g. `find c/School`
 * *List* : `list`
-//* *Select* : `select INDEX` +
-//e.g.`select 2`
 * *Set `totalBudget`* : `setBudget` +
 e.g. `setBudget 20.00`
 * *Set recurring frequency for `totalBudget`*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
+* *Set category budgets* : `setCategoryBudget c/CATEGORY b/BUDGET` +
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
@@ -629,3 +629,28 @@ e.g. `setBudget 20.00`
 e.g. `stats n/7 m/d`
 * *Clear* : `clear`
 * *Exit* : `exit`
+
+== Command Shorthands
+
+This is a list of mappings of commands to their command shorthands in Expense Tracker:
+
+* `signup`: `su`
+* `login`: `li`
+* `setpassword`: `sp`
+* `help`: `h`
+* `add`: `a`
+* `edit`: `e`
+* `delete`: `d`
+* `find`: `f`
+* `list`: `l`
+* `setBudget`: `sb`
+* `setRecurringFrequency`: `srf`
+* `setCategoryBudget`: `scb`
+* `history`: `h`
+* `undo`: `u`
+* `redo`: `r`
+* `stats`:  `su`
+* `clear`: `c`
+* `exit`: `x`
+
+

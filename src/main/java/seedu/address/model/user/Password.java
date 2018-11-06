@@ -18,7 +18,7 @@ public class Password {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String PASSWORD_VALIDATION_REGEX = "^\\w{5,}[^\\s]+$";
+    private static final String PASSWORD_VALIDATION_REGEX = "[^\\s]{6,}+$";
 
     private final String passwordHash;
 

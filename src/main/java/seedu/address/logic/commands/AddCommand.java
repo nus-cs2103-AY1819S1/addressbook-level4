@@ -28,7 +28,7 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_COST + "ADDRESS "
+            + PREFIX_COST + "COST "
             + "[" + PREFIX_DATE + "DATE]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "

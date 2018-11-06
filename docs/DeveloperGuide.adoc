@@ -688,12 +688,12 @@ The `n/` parameter can be omitted. In this case, all types of notifications will
 
 === Budget
 ==== Current Implementation
-The budget feature allows the user to set a budget for a specific time period.
-If the user's total spending exceeds their budget in the specified time period, a warning will be shown to the user.
+The budget feature allows the user to set a budget for their expenses.
+If the user's total expenses exceeds their budget, a warning will be shown to the user.
 
-The current implementation for `totalBudget` tracking is described as below.
+The current implementation for budget tracking is described as below.
 
-===== Setting a budget
+===== Setting a Budget
 
 Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget
 
@@ -711,12 +711,12 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 . The budget is then updated.
 
 
-===== Recurring budget
+===== Setting a recurring Budget
 
 Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
 where the
-current spending will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, current spending will be reset. Else,
+current expenses will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
+expense tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
 nothing will be done.
 
 * Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
@@ -748,9 +748,15 @@ returned to
 `LogicManager`.
 
 . `LogicManager` then calls `SetRecurringBudgetCommand#execute()`,which calls `ModelManager#setRecurrenceFrequency()`
-method to update the time when the next spendings of `totalBudget` is reset.
+method to update the time when the next expenses of `totalBudget` is reset.
 
-===== Budget by Category
+===== Setting a Budget by Category
+
+An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+allocate parts of their budget to certain categories.
+If the user's total expenses for a Category exceeds their Category Budget, a warning will be shown to the user.
+
+
 . User enters command `setCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
 
 . `ExpenseTrackerParser` will then create a `AddCategoryBudgetCommandParser` Object and calls
@@ -1033,7 +1039,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user who wants to track their spending |add a new expense |have the app keep track of my expenses
+|`* * *` |user who wants to track their expenses |add a new expense |have the app keep track of my expenses
 
 |`* * *` |clumsy user |delete inaccurately added expenditure |have an accurate recording of my expenditures and budget
 

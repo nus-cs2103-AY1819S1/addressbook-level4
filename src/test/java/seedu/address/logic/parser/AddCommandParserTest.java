@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.exceptions.NegativeValueParseException.NEGATIVE_EXCEPTION_MESSAGE;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_KFC;
@@ -9,8 +10,9 @@ import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2018;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_COST_DESC_NEGATIVE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -118,6 +120,7 @@ public class AddCommandParserTest {
                 expectedMessage);
     }
 
+
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
@@ -128,9 +131,13 @@ public class AddCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + INVALID_CATEGORY_DESC + COST_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
-        // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + INVALID_ADDRESS_DESC
+        // invalid cost
+        assertParseFailure(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + INVALID_COST_DESC
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Cost.MESSAGE_COST_CONSTRAINTS);
+
+        // 0 cost
+        assertParseFailure(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + INVALID_COST_DESC_NEGATIVE
+            + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, NEGATIVE_EXCEPTION_MESSAGE);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + COST_DESC_BOB
@@ -141,7 +148,7 @@ public class AddCommandParserTest {
                 + INVALID_DATE_DESC + VALID_TAG_FRIEND, Date.DATE_FORMAT_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + CATEGORY_DESC_BOB + INVALID_ADDRESS_DESC,
+        assertParseFailure(parser, INVALID_NAME_DESC + CATEGORY_DESC_BOB + INVALID_COST_DESC,
                 Name.MESSAGE_NAME_CONSTRAINTS);
 
         // non-empty preamble
