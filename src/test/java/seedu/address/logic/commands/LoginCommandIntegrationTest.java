@@ -8,6 +8,7 @@ import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.LoginCredentials;
 import seedu.address.model.Model;

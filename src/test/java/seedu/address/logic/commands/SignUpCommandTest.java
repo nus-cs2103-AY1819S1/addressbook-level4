@@ -1,17 +1,14 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import static seedu.address.model.user.UsernameTest.VALID_USERNAME_STRING;
-import static seedu.address.testutil.ModelUtil.getTypicalModel;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ModelStub;
