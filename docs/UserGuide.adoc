@@ -228,7 +228,7 @@ Examples:
 // tag::import[]
 ==== Importing residents information : `import`
 
-Imports file containing residents information and updates Hallper accordingly. +
+Imports file containing Hallper-related information and updates Hallper accordingly. +
 Format: `import f/FILEPATH`
 
 ****
@@ -239,19 +239,20 @@ Format: `import f/FILEPATH`
 * The file to be uploaded must be a *`.xml`* file.
 ****
 
-File formats for imported `.xml` files are as shown below:
+File format examples for importable `.xml` files are as shown below:
 
 image::AddressBookExample.png[width="790"]
-_Figure 4.1.10.1: Resident information format._
+_Figure 4.1.10.1: Resident information example. Multiple `persons` can be specified._
 
 image::CCAListExample.png[width="790"]
-_Figure 4.1.10.2: CCA list format._
+_Figure 4.1.10.2: CCA list example. Residents are identified by their unique room number. Multiple `room` can be
+specified for multiple `cca`._
 
 image::BudgetBookExample.png[width="790"]
-_Figure 4.1.10.3: Budget book information format._
+_Figure 4.1.10.3: Budget book information example. Multiple `transaction` can be specified for multiple `ccas`._
 
 image::TransactionsExample.png[width="790"]
-_Figure 4.1.10.4: Transaction information format._
+_Figure 4.1.10.4: Transaction information example. Multiple `transaction` can be specified._
 
 Example:
 
