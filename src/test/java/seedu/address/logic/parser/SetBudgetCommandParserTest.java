@@ -2,9 +2,11 @@ package seedu.address.logic.parser;
 //@@author winsonhys
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.exceptions.NegativeValueParseException.NEGATIVE_EXCEPTION_MESSAGE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.model.budget.TotalBudgetTest.INVALID_BUDGET;
+import static seedu.address.model.budget.TotalBudgetTest.NEGATIVE_BUDGET;
 import static seedu.address.model.budget.TotalBudgetTest.VALID_BUDGET;
 
 import org.junit.Test;
@@ -23,9 +25,14 @@ public class SetBudgetCommandParserTest {
     }
 
     @Test
-    public void parse_invalidBudget_throwsParseError() {
+    public void parse_invalidBudget_throwsParseException() {
         assertParseFailure(parser, " " + INVALID_BUDGET, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             SetBudgetCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidBudget_throwNegativeValueParseException() {
+        assertParseFailure(parser, " " + NEGATIVE_BUDGET, NEGATIVE_EXCEPTION_MESSAGE);
     }
 
 }

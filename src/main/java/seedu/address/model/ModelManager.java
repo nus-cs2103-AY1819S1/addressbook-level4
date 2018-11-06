@@ -25,6 +25,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.CategoryBudget;
@@ -44,7 +45,6 @@ import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.notification.TipNotification;
 import seedu.address.model.notification.Tips;
 import seedu.address.model.notification.WarningNotification;
-import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -107,8 +107,8 @@ public class ModelManager extends ComponentManager implements Model {
             this.statsMode = defaultStatsMode();
             this.expenseStatPredicate = defaultExpensePredicate();
             this.tips = new Tips();
-            LoginInformation loginInformation = new LoginInformation(expenseTracker.getUsername(), password);
-            loadUserData(loginInformation);
+            LoginCredentials loginCredentials = new LoginCredentials(expenseTracker.getUsername(), password);
+            loadUserData(loginCredentials);
         } catch (NonExistentUserException | IllegalValueException | InvalidDataException e) {
             // The ExpenseTracker data is guaranteed to be valid and added to the ModelManager.
             throw new IllegalStateException();
@@ -434,12 +434,12 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author JasonChong96
     //=========== Login =================================================================================
     @Override
-    public boolean loadUserData(LoginInformation loginInformation)
+    public boolean loadUserData(LoginCredentials loginCredentials)
             throws NonExistentUserException, InvalidDataException {
-        requireAllNonNull(loginInformation);
-        Username username = loginInformation.getUsername();
-        Optional<Password> password = loginInformation.getPassword();
-        Optional<String> plainPassword = loginInformation.getPlainPassword();
+        requireAllNonNull(loginCredentials);
+        Username username = loginCredentials.getUsername();
+        Optional<Password> password = loginCredentials.getPassword();
+        Optional<String> plainPassword = loginCredentials.getPlainPassword();
         EncryptedExpenseTracker encryptedTracker = expenseTrackers.get(username);
         if (!isUserExists(username)) {
             throw new NonExistentUserException(username, expenseTrackers.size());
@@ -541,6 +541,22 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean isMatchPassword(Password toCheck) throws NoUserSelectedException {
         requireUserSelected();
         return versionedExpenseTracker.isMatchPassword(toCheck);
+    }
+
+    @Override
+    public String encryptString(String toEncrypt) throws NoUserSelectedException {
+        requireUserSelected();
+        try {
+            return EncryptionUtil.encryptString(toEncrypt, versionedExpenseTracker.getEncryptionKey());
+        } catch (IllegalValueException e) {
+            throw new IllegalStateException("User's encryption key is invalid.");
+        }
+    }
+
+    @Override
+    public String decryptString(String toDecrypt) throws NoUserSelectedException, IllegalValueException {
+        requireUserSelected();
+        return EncryptionUtil.decryptString(toDecrypt, versionedExpenseTracker.getEncryptionKey());
     }
 
     /** Raises an event to indicate the user has logged in and has been processed by the model*/

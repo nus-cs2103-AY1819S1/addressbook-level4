@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.exceptions.NegativeValueParseException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Category;
@@ -44,6 +45,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Optional<String> dateString = argMultimap.getValue(PREFIX_DATE);
         Expense expense;
+        if (cost.getCostValue() <= 0) {
+            throw new NegativeValueParseException();
+        }
         if (!dateString.isPresent()) {
             expense = new Expense(name, category, cost, tagList);
         } else {

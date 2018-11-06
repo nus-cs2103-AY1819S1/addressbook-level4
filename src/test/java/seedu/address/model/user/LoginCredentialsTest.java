@@ -11,20 +11,21 @@ import static seedu.address.testutil.TypicalExpenses.SAMPLE_USERNAME;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author JasonChong96
-class LoginInformationTest {
+class LoginCredentialsTest {
 
     @Test
     public void constructor_nullUsername_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new LoginInformation(null, ""));
-        assertThrows(NullPointerException.class, () -> new LoginInformation(null, null));
+        assertThrows(NullPointerException.class, () -> new LoginCredentials(null, ""));
+        assertThrows(NullPointerException.class, () -> new LoginCredentials(null, null));
     }
 
     @Test
     public void constructor_nullPassword_success() throws ParseException {
-        LoginInformation toTest = new LoginInformation(SAMPLE_USERNAME, null);
+        LoginCredentials toTest = new LoginCredentials(SAMPLE_USERNAME, null);
         assertNotNull(toTest.getUsername());
         assertFalse(toTest.getPassword().isPresent());
         assertFalse(toTest.getPlainPassword().isPresent());
@@ -32,7 +33,7 @@ class LoginInformationTest {
 
     @Test
     public void constructor_noNull_success() throws ParseException {
-        LoginInformation toTest = new LoginInformation(SAMPLE_USERNAME, VALID_PASSWORD_STRING);
+        LoginCredentials toTest = new LoginCredentials(SAMPLE_USERNAME, VALID_PASSWORD_STRING);
         assertNotNull(toTest.getUsername());
         assertTrue(toTest.getPassword().isPresent());
         assertEquals(toTest.getPlainPassword().get(), VALID_PASSWORD_STRING);
@@ -40,15 +41,15 @@ class LoginInformationTest {
 
     @Test
     void testEquals() throws ParseException {
-        LoginInformation sampleUserWithPassword = new LoginInformation(SAMPLE_USERNAME, VALID_PASSWORD_STRING);
-        LoginInformation sampleUserWithNoPassword = new LoginInformation(SAMPLE_USERNAME, null);
-        LoginInformation sampleUserLowercaseWithPassword =
-                new LoginInformation(new Username(SAMPLE_USERNAME.toString().toLowerCase()), VALID_PASSWORD_STRING);
-        LoginInformation sampleUserUppercaseWithPassword =
-                new LoginInformation(new Username(SAMPLE_USERNAME.toString().toUpperCase()), VALID_PASSWORD_STRING);
+        LoginCredentials sampleUserWithPassword = new LoginCredentials(SAMPLE_USERNAME, VALID_PASSWORD_STRING);
+        LoginCredentials sampleUserWithNoPassword = new LoginCredentials(SAMPLE_USERNAME, null);
+        LoginCredentials sampleUserLowercaseWithPassword =
+                new LoginCredentials(new Username(SAMPLE_USERNAME.toString().toLowerCase()), VALID_PASSWORD_STRING);
+        LoginCredentials sampleUserUppercaseWithPassword =
+                new LoginCredentials(new Username(SAMPLE_USERNAME.toString().toUpperCase()), VALID_PASSWORD_STRING);
 
-        assertEquals(sampleUserWithPassword, new LoginInformation(SAMPLE_USERNAME, VALID_PASSWORD_STRING));
-        assertEquals(sampleUserWithNoPassword, new LoginInformation(SAMPLE_USERNAME, null));
+        assertEquals(sampleUserWithPassword, new LoginCredentials(SAMPLE_USERNAME, VALID_PASSWORD_STRING));
+        assertEquals(sampleUserWithNoPassword, new LoginCredentials(SAMPLE_USERNAME, null));
         assertNotEquals(sampleUserWithPassword, sampleUserWithNoPassword);
         // Username should be case-insensitive
         assertEquals(sampleUserLowercaseWithPassword, sampleUserUppercaseWithPassword);
@@ -57,9 +58,9 @@ class LoginInformationTest {
     @Test
     public void testHashCode() throws ParseException {
         // Only equality is test as there is no guarantee of no hash collision
-        assertEquals(new LoginInformation(SAMPLE_USERNAME, VALID_PASSWORD_STRING).hashCode(),
-                new LoginInformation(SAMPLE_USERNAME, VALID_PASSWORD_STRING).hashCode());
-        assertEquals(new LoginInformation(SAMPLE_USERNAME, null).hashCode(),
-                new LoginInformation(SAMPLE_USERNAME, null).hashCode());
+        assertEquals(new LoginCredentials(SAMPLE_USERNAME, VALID_PASSWORD_STRING).hashCode(),
+                new LoginCredentials(SAMPLE_USERNAME, VALID_PASSWORD_STRING).hashCode());
+        assertEquals(new LoginCredentials(SAMPLE_USERNAME, null).hashCode(),
+                new LoginCredentials(SAMPLE_USERNAME, null).hashCode());
     }
 }

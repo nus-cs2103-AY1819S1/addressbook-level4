@@ -102,20 +102,23 @@ public class MainApp extends Application {
         Map<Username, EncryptedExpenseTracker> expenseTrackers;
         try {
             expenseTrackers = storage.readAllExpenses(userPrefs.getExpenseTrackerDirPath());
-            ReadOnlyExpenseTracker sampleExpenseTracker = SampleDataUtil.getSampleExpenseTracker();
-            if (!expenseTrackers.containsKey(sampleExpenseTracker.getUsername())) {
-                expenseTrackers.put(sampleExpenseTracker.getUsername(),
-                        EncryptionUtil.encryptTracker(sampleExpenseTracker));
-            }
+
+
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");
             expenseTrackers = new TreeMap<>();
         } catch (IOException e) {
             logger.warning("Problem while reading from the files. Will be starting with no accounts");
             expenseTrackers = new TreeMap<>();
-        } catch (IllegalValueException e) {
-            logger.warning("Sample user has invalid key. Will be starting without sample user.");
-            expenseTrackers = new TreeMap<>();
+        }
+        ReadOnlyExpenseTracker sampleExpenseTracker = SampleDataUtil.getSampleExpenseTracker();
+        if (!expenseTrackers.containsKey(sampleExpenseTracker.getUsername())) {
+            try {
+                expenseTrackers.put(sampleExpenseTracker.getUsername(),
+                        EncryptionUtil.encryptTracker(sampleExpenseTracker));
+            } catch (IllegalValueException e) {
+                throw new IllegalStateException("Sample user has invalid key. ");
+            }
         }
         return new ModelManager(expenseTrackers, userPrefs, tips);
     }

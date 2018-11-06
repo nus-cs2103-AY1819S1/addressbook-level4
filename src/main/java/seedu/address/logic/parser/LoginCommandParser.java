@@ -7,9 +7,9 @@ import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import java.util.Optional;
 
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Username;
 
 //@@author JasonChong96
@@ -34,7 +34,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         }
         Username username = ParserUtil.parseUsername(argMultimap.getValue(PREFIX_USERNAME).get());
         Optional<String> plainPassword = argMultimap.getValue(PREFIX_PASSWORD);
-        LoginInformation loginInformation = new LoginInformation(username, plainPassword.orElse(null));
-        return new LoginCommand(loginInformation);
+        LoginCredentials loginCredentials = new LoginCredentials(username, plainPassword.orElse(null));
+        return new LoginCommand(loginCredentials);
     }
 }
