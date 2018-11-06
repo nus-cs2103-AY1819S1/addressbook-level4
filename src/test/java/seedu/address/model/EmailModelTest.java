@@ -40,4 +40,10 @@ public class EmailModelTest {
         emailModel.saveComposedEmail(MEETING_EMAIL);
         assertTrue(emailModel.hasEmail(MEETING_EMAIL.getSubject()));
     }
+
+    @Test
+    public void getExistingEmails_modifySet_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        emailModel.getExistingEmails().add("Hello");
+    }
 }
