@@ -1,0 +1,159 @@
+= Leong Shengmin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: WishBook
+
+---
+
+== Overview
+
+WishBook (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does WB keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants.
+
+****
+Below is a mockup of `WishBook`
+
+image::Ui.png[width="790", caption="Fig 1: Mockup of `WishBook`", align="center"]
+_Fig 1: Mockup of WishBook_
+****
+<<<
+
+== Summary of contributions
+
+=== *Major enhancement*: added the ability to view savings history
+
+****
+Below is a screenshot of the savings history for a `Wish`
+
+image::savingsHistoryUI.png[caption="Fig 2: Savings History of a Wish", align="center", width="300"]
+_Fig 2: Savings History of a Wish_
+****
+* What it does: Shows a history of savings you have allocated for any particular wish in the wishbook, from newest to oldest.
+* Justification: This feature improves the product significantly because the automatic book-keeping of savings for each Wish allows the user to easily and clearly keep track of his or her savings over a length of time. 
++
+This feature also allows for extensions since the data collected in terms of amount saved as well as frequency of saving allows for precious insights to be drawn about the saving habits as well as saving priorities of the user.
+* Highlights: This enhancement affects existing commands and commands to be added in future. 
++ 
+The implementation of this feature involves many different components and is intrinsically tied to the state of the `WishBook`, which changes when the user executes an action-based command such as the `Add`, `Save`, `Edit` command.
+<<<
+
+====
+Areas involved: 
+
+* Persistent Storage
+** Facilitate reading and writing of savings histories of all wishes to hard disk. This data will also be saved to the hard disk when triggered by a change in the state of the wishbook.
+
+* Dynamic updating of savings history 
+** In order for savings histories of each `Wish` to be updated dynamically, the implementation follows an event-driven model. When an action-based command is executed, subscribed classes will be notified of the change in state of the `WishBook`. 
+** The implementation of tracking the savings history of each `Wish` also needs to follow a `VersionedModel` that responds when notified by the change in `WishBook` state.
+* Testing 
+** Unit and Integrated testing for the code contributed.
+====
+
+* Credits: 
+** Persistent storage
+*** Savings history saved as `xml` format using the `JAXB` framework.
+** Dynamic updating of savings history
+*** Follows event-driven model of `AddressBook-L4`
+*** `VersionedModel` implementation inspired by `undo`, `redo` functionality in `AddressBook-L4`.
+** Testing 
+*** `JUnit` testing framework adopted.
+
+<<<
+
+=== *Minor enhancement*: updated the  `Help Window` display. 
+The `Help Window` is a pop-up window that appears when the `Help` command is executed. It is a guide to aid the user navigate the `WishBook`. 
+****
+The image below shows a screenshot of the `Help Window`.
+
+image::helpWindow.png[width="790", caption="Fig 3: Help Window", align="center"]
+_Fig 3: Help Window_
+****
+
+=== *Code contributed*: 
+_The following links contain code snippets of code contributed_
+[https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-7b7c12031dc90ab5f6a8ec163dc2e541[Functional code]] [https://github.com/CS2103-AY1819S1-T16-1/main/commit/6fb424a707d9bee9bd5b2441c741c5051bed3b18#diff-b84c42f13e31e9508d50fbccaca0ac08[Test code]] 
+
+=== *Other contributions*:
+* Documentation:
+* User Guide: 
+** Wrote the first version of the user guide containing all features in the first version of `WishBook`. (https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[#14]
+** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[#15]
+* Developer Guide:
+** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[#16]
+
+<<<
+
+* Diagrams
+** Refactored undo, redo UML diagrams to reflect current version of WishBook. 
++
+****
+The following images show the undo, redo UML diagrams:
+
+image::UndoRedoSequenceDiagram.png[caption="Fig 5.1: Undo Redo Sequence Diagram", align="center"]
+_Fig 5.1: Undo Redo Sequence Diagram_
+
+image::UndoRedoExecuteUndoStateListDiagram.png[caption="Fig 5.2.2 Undo Redo State Diagram after `Undo` command executed", align="center"]
+_Fig 5.2.2 Undo Redo State Diagram after `Undo` command executed_
+
+image::UndoRedoActivityDiagram.png[caption="Fig 5.3 Undo Redo Activity Diagram", align="center"]
+_Fig 5.3 Undo Redo Activity Diagram_
+****
+<<<
+
+** Updated the Model class diagram.
++
+****
+The following image shows the updated Model Class Diagram.
+
+image::ModelClassDiagram.png[caption="Fig 6: Model Class Diagram", align="center"]
+_Fig 6: Model Class Diagram_
+****
+** Updated the Storage class diagram.
++ 
+****
+The following image shows the updated Storage Class Diagram.
+
+image::StorageClassDiagram.png[width="790", caption="Fig 7: Storage Class Diagram", align="center"]
+_Fig 7: Storage Class Diagram_
+****
++
+* Community:
+** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Helped to integrate savings history feature with other components worked on by team members (https://github.com[1], https://github.com[2])
+** Resolved issues raised by team members (https://github.com[1], https://github.com[2])
+<<<
+
+* Tools:
+** Configured `RepoSense`, a Contribution Analysis Tool for the team repo (https://github.com[#42])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=savingsHistory]
+
+|===
+|_Proposed enhancement for V2.0_
+|===
+include::../UserGuide.adoc[tag=dataencryption]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=savingsHistory]
+
+|===
+|_Proposed enhancement for V2.0_
+|===
+include::../DeveloperGuide.adoc[tag=savingsHistory]
+
+---
