@@ -7,6 +7,7 @@
         <address isPrivate="false">4th street</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">mon 0800 1000</timings>
     </persons>
     <persons>
         <name>Ruth Mueller</name>
@@ -15,6 +16,7 @@
         <address isPrivate="false">81th street</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">mon 1000 1200</timings>
     </persons>
     <persons>
         <name>Heinz Kurz</name>
@@ -23,6 +25,7 @@
         <address isPrivate="false">wall street</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">mon 1200 1400</timings>
     </persons>
     <persons>
         <name>Cornelia Meier</name>
@@ -31,6 +34,7 @@
         <address isPrivate="false">10th street</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">mon 1400 1600</timings>
     </persons>
     <persons>
         <name>Werner Meyer</name>
@@ -39,6 +43,7 @@
         <address isPrivate="false">michegan ave</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">mon 1600 1800</timings>
     </persons>
     <persons>
         <name>Lydia Kunz</name>
@@ -47,6 +52,7 @@
         <address isPrivate="false">little tokyo</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">fri 0800 1000</timings>
     </persons>
     <persons>
         <name>Anna Best</name>
@@ -55,6 +61,7 @@
         <address isPrivate="false">4th street</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">fri 1000 1200</timings>
     </persons>
     <persons>
         <name>Stefan Meier</name>
@@ -63,6 +70,7 @@
         <address isPrivate="false">little india</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">fri 1200 1400</timings>
     </persons>
     <persons>
         <name>Martin Mueller</name>
@@ -71,5 +79,6 @@
         <address isPrivate="false">chicago ave</address>
         <education isPrivate="false">Secondary 4</education>
         <grades isPrivate="false">Y1819S1_Mid 99</grades>
+        <timings isPrivate="false">mon 1400 1600</timings>
     </persons>
 </addressbook>

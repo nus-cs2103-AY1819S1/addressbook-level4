@@ -8,6 +8,7 @@
         <address>123, Jurong West Ave 6, #08-111</address>
         <education>Primary 6</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>tue 0800 1000</timings>
         <tagged>friends</tagged>
     </persons>
 
@@ -19,6 +20,7 @@
         <address>4th street</address>
         <education>Primary 3</education>
         <grades>Y1819S1_Mid 99</grades>
+        <timings>tue 0800 1000</timings>
     </persons>
 
 </addressbook>
