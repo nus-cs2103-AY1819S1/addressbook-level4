@@ -15,7 +15,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.model.Model;
-import seedu.address.model.event.polls.AbstractPoll;
 
 /**
  * Command to adds an option to the specified poll

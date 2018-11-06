@@ -68,6 +68,9 @@ public class FindEventCommandParser implements Parser<FindEventCommand> {
         return new FindEventCommand(predicate);
     }
 
+    /**
+     * Checks if any of the relevant values are present in the ArgumentMultiMap.
+     */
     private boolean valuePresent(ArgumentMultimap argMultimap) {
         return argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()
                 || argMultimap.getValue(PREFIX_ADDRESS).isPresent()

@@ -140,7 +140,8 @@ public interface Model {
      * @throws NoUserLoggedInException
      * @throws NotEventOrganiserException
      */
-    String addPoll(String pollName) throws NoEventSelectedException, NoUserLoggedInException, NotEventOrganiserException;
+    String addPoll(String pollName) throws NoEventSelectedException, NoUserLoggedInException,
+            NotEventOrganiserException;
 
     /**
      * Creates a time poll to the pre-selected event with the given name.

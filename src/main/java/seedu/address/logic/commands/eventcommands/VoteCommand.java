@@ -17,7 +17,6 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
-import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**

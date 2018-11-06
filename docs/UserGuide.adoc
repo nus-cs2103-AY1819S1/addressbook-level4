@@ -64,7 +64,6 @@ Shows all the commands in the app and how to use them.
 
 === User Commands
 
-
 ==== Add a user : `addUser`
 
 Adds a new user to EventOrganiser. +
@@ -79,6 +78,7 @@ Examples:
 * `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
 
 // tag::yaofeng(login/logout)[]
+
 ==== Login a user : `login`
 
 Logs in the user to EventOrganiser. A user must first log in to enable certain commands to be executed.
@@ -111,6 +111,7 @@ Shows a list of all users in the event organiser. +
 Format: `listUser`
 
 // tag::yaofeng(finduser)[]
+
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +

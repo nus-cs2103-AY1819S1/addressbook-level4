@@ -15,7 +15,6 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
-import seedu.address.model.event.polls.Poll;
 
 /**
  * Command to add a new poll to the pre-selected event.

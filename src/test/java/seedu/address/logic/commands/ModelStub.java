@@ -12,8 +12,6 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.polls.Poll;
-import seedu.address.model.event.polls.TimePoll;
 import seedu.address.model.person.Person;
 
 /**

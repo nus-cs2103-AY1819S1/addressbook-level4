@@ -18,7 +18,6 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
-import seedu.address.model.event.polls.TimePoll;
 
 /**
  * Command to add a time poll to the event.
