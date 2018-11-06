@@ -56,14 +56,18 @@ public class TypicalOccasions {
 
     private TypicalOccasions() {} // prevents instantiation
 
+    public static void addTypicalOccasions(AddressBook ab) {
+        for (Occasion occasion : getTypicalOccasions()) {
+            ab.addOccasion(occasion);
+        }
+    }
+    
     /**
      * Returns an {@code AddressBook} with all the typical occasions.
      */
     public static AddressBook getTypicalOccasionsAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Occasion occasion : getTypicalOccasions()) {
-            ab.addOccasion(occasion);
-        }
+        addTypicalOccasions(ab);
         return ab;
     }
 
