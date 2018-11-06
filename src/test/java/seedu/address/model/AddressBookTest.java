@@ -74,7 +74,7 @@ public class AddressBookTest {
         AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
 
         thrown.expect(DuplicatePersonException.class);
-        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);	        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
+        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);
         AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
     }
 
@@ -106,7 +106,7 @@ public class AddressBookTest {
                         .withEventEndTime(CLASHING_EVENT_END_TIME_DOCTORAPPT)
                         .build();
         List<Event> newEvents = Arrays.asList(DOCTORAPPT, clashingEvent);
-        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);	        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
+        List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);
         AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
 
         thrown.expect(EventClashException.class);
@@ -252,16 +252,11 @@ public class AddressBookTest {
         private final boolean notificationPref = true;
         private final String favourite = null;
 
-        AddressBookStub(Collection<Person> persons, Collection<Event> events, Collection<Tag> eventTags) {	        AddressBookStub(Collection<Person> persons, Collection<Event> events) {
-            this.persons.setAll(persons);	            this.persons.setAll(persons);
-            this.events.setAll(events);	            this.events.setAll(events);
+        AddressBookStub(Collection<Person> persons, Collection<Event> events, Collection<Tag> eventTags) {
+            this.persons.setAll(persons);
+            this.events.setAll(events);
             this.eventTags.setAll(eventTags);
         }
-
-        @Override
-        public ObservableList<Tag> getEventList() {
-            return eventTags;
-            }
 
         @Override
         public ObservableList<Person> getPersonList() {
