@@ -23,7 +23,7 @@ public class SelectCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the recipe identified by the index number used in the displayed recipe list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1\n\n";
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MEALPLANNER_MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the recipe at the specified index and meal slot.\n"
