@@ -636,45 +636,114 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 // tag::documentpreamble[]
 [[Document]]
 === Document
-==== Current Implementation
-The `Document`  class represents all documents that can be issued by the clinic. The `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
-It specifies what general information these documents should have and how they should be formatted. It can be thought of as the formatting template for all the information
-belonging to its inheriting classes.
+==== Implementation of `Document`
+The `Document` abstract class represents all the documents that can be issued by the clinic. The `Receipt`,
+`MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
+to henceforth as _document related commands_, all inherit from it. It specifies what general information
+ these documents should have and how they should be formatted. It can hence be thought of as a
+ *formatting template*.
+
+As the template on which the documents depend on, the `Document` class itself *cannot* be instantiated, hence
+implemented as an `abstract class`. The `Document` class has the following key features:
+
+* contains a `name` and `icNumber` attribute, extracted from the `ServedPatient` from which the document is constructed.
+* has common methods like `generateContent` to standardise the way in which the contents of the `Document` are formatted.
+* has the `formatInformation` `abstract method` which the extending classes have to implement.
+
+The following activity diagram summarises what happens internally when a _document related command_ is called.
+
+.Flow of activities when a _document related command_ is executed. Only the methods that are *implemented* within `Document` itself are labelled in the diagram.
+image::DocumentActivityDiagram.png[width="800"]
+
+As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command. +
+Step 1. The resulting `Document` object will call the `generateFile()` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
+
+``` Java
+    private String makeFileName() {
+        return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
+                + FILE_NAME_DELIMITER + icNumber.toString())
+                .replaceAll("\\s", FILE_NAME_DELIMITER)
+                .replaceAll("(_)+", FILE_NAME_DELIMITER);
+    }
+```
+[NOTE]
+====
+The FILE_NAME_DELIMITER is abstracted so as to allow users to change the delimiter to a string of their choice.
+It is used as a means of separating fields of information in file names.
+====
+
+Step 2.
+
+
+==== Design Considerations
+===== Aspect: Implementation of the Document
+* **Alternative 1 (current choice)**: Using an `abstract class` to implement `Document`. +
+** Pros:
+*** Allows `inheriting` classes to use a standardised method to format common information while granting them the
+flexibility of structuring the contents unique to its document type.
+** Cons:
+*** Prevents `inheriting` classes from `inheriting` from other useful classes or becoming an `enum` as `Java` does not support `multiple inheritance`.
+*** More computationally expensive than using an `interface` due to the overhead incurred looking up `inherited methods` and various `class members`.
+* **Alternative 2**: Using an `interface` to implement `Document`.
+** Pros:
+*** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
+****
+`Enums` can prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+****
+** Cons:
+*** Unable to standardise the way the `inheriting` classes implement the `generateHeader` method.
+****
+* Potentially allow the `inheriting` classes to omit certain header fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+* Information might be formatted differently.
+****
 //end::documentpreamble[]
 
 // tag::receipt[]
-===== Implementation of `Receipt`
+==== Implementation of `Receipt`
 The `Receipt` class structure is as follows:
 
-* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
-** These attributes are marked as `final` as they should not be changed.
-* contains all the `Medicine` and their associated `MedicineQuantity`.
-** These are the medicines and their quantities respectively, prescribed by the doctor to the patient during his consultation.
+* contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `Served Patient` from which the `Receipt` was constructed from.
+* contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
+* has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
 
-Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the served patient's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
 
-Given below is an example usage scenario and explanation for the inner workings of the `ReceiptCommand`.
+When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extracts the relevant information from the `ServedPatient` specified by the `index`.
+Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is unpacked to sieve out the individual table entries for the cost of different medicines.
 
-Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
-This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
+``` Java
+    private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int quantity;
+        float pricePerUnit;
+        float totalPriceForSpecificMedicine;
+        String medicineName;
+        for (Map.Entry<Medicine, QuantityToDispense> entry : medicineAllocated.entrySet()) {
+            Medicine medicine = entry.getKey();
+            medicineName = medicine.getMedicineName().toString();
+            quantity = entry.getValue().getValue();
+            pricePerUnit = Float.parseFloat(medicine.getPricePerUnit().toString());
+            totalPriceForSpecificMedicine = pricePerUnit * quantity;
+            increaseTotalPriceBy(totalPriceForSpecificMedicine);
 
-.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`. +
-image::ServePatient.png[width="650"]
+            stringBuilder.append("<tr><td>")
+                    .append(medicineName)
+                    .append(super.HTML_TABLE_DATA_DIVIDER)
+                    .append(quantity)
+                    .append(super.HTML_TABLE_DATA_DIVIDER)
+                    .append(String.format("%.02f", pricePerUnit))
+                    .append(super.HTML_TABLE_DATA_DIVIDER)
+                    .append(String.format("%.02f", totalPriceForSpecificMedicine))
+                    .append("</td></tr>");
+        }
+        return stringBuilder.toString();
+    }
+```
 
-Step 2. The user executes `receipt 1` command to generate a `Receipt` with the relevant object. Up till this milestone v1.2, the contents of the `Receipt` will be reflected in the `ResultDisplay` as shown below.
-
-.Contents of the `Receipt` generated for the `Patient` Bryan Lew. +
-image::ReceiptExamplePrintOut.png[width="650"]
-
-[WARNING]
-Executing `receipt` with an invalid index will **not** result in the generation of a `Receipt`.
-
-.Result of executing `receipt` with an invalid index.
-image::ServedPatientListEmptyReceipt.png[width="650"]
 // end::receipt[]
 
 // tag::mc[]
-===== Implementation of `MedicalCertificate`
+==== Implementation of `MedicalCertificate`
 The `MedicalCertificate` class structure is as follows:
 
 * has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
@@ -699,7 +768,7 @@ Executing `mc` with an invalid index will **not** result in the generation of a 
 // end::mc[]
 
 // tag::referralletter[]
-===== Implementation of `ReferralLetter`
+==== Implementation of `ReferralLetter`
 The `ReferralLetter` class structure is as follows:
 
 * has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
@@ -721,29 +790,6 @@ Step 2. The user executes `refer 1` command to generate a `ReferralLetter` with 
 [WARNING]
 Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.
 // end::referralletter[]
-
-// tag::documentconsiderations[]
-==== Design Considerations
-===== Aspect: Implementation of the Document
-* **Alternative 1 (current choice)**: Using a typical `class` to implement `Document`. +
-** Pros:
-*** Allows all classes `inheriting` from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
-** Cons:
-*** `Java` does not support `multiple inheritance`; therefore, it prevents the classes that are `inheriting` from `Document` from inheriting from other useful classes or becoming an `enum`.
-*** Comparatively, `inheriting` from classes is more computationally expensive than using `interfaces` due to the overhead incurred looking up `methods` and various `class members`.
-* **Alternative 2**: Using an `interface` to implement `Document`.
-** Pros:
-*** The classes implementing `Document` can be converted to `enums`, which ensures that the inputs fed to these classes are valid.
-****
-For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
-****
-** Cons:
-*** Unable to standardise the way the classes that `inherit` from `Document` implement the `generate` method.
-****
-* This can potentially allow the `inheriting` classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
-* Even if all the information are present, they might be formatted differently.
-****
-// end::documentconsiderations[]
 
 // tag::applicationgui[]
 === Application GUI
