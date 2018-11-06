@@ -23,19 +23,20 @@ import seedu.address.model.person.Name;
  */
 public abstract class Document {
 
-    //Data placeholders in the HTML template from which all the document objects are extended from
+    //Formatting the path to the directory all documents should be saved in
+    public static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
+    public static final String FILE_NAME_DELIMITER = "_";
     static final String HTML_TABLE_DATA_DIVIDER = "</td><td>";
+    private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
+    private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
+
+    //Data placeholders in the HTML template from which all the document objects are extended from
     private static final String HEADER_PLACEHOLDER = "$headers";
     private static final String NAME_PLACEHOLDER = "$name";
     private static final String ICNUMBER_PLACEHOLDER = "$icNumber";
     private static final String CONTENT_PLACEHOLDER = "$content";
 
-    //Formatting the path to the directory all documents should be saved in
-    public static final String DIRECTORY_PATH = "src/main/resources/view/Documents/";
-    public static final String FILE_NAME_DELIMITER = "_";
-    private static final String TEMPLATE_PATH = "/view/Documents/DocumentTemplate.html";
-    private static final String COMPLETE_TEMPLATE_PATH = MainApp.class.getResource(TEMPLATE_PATH).getFile();
-
+    //Error message strings
     private static final String TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE = "Unable to find DocumentTemplate.html!";
     private static final String FILE_WRITE_FAILURE_ERROR_MESSAGE = "Unable to write contents into ";
 
