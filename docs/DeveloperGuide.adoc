@@ -409,14 +409,22 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-=======
-=======
-// tag::addEvents[]
-=== Add Events feature
+[[EventTags]]
+// tag::eventTags[]
+
+
+// end::eventTags[]
+
+[[AddDeleteEvents]]
+// tag::events[]
+=== Add/Delete Events feature
+
 ==== Current Implementation
-The adding of events is mainly carried out from `Model`. In the `Model` component, an `Event` class, as well as classes for `Event` attributes were created.
-Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` were created to represent their respective information in an `Event`,
-as shown in the Class diagram below. Note that `EventDay` is generated from `EventDate` values. +
+===== Structure of an Event
+In the `Model` component, an `Event` consists of various `Event` attributes.
+Namely, the classes `EventName`, `EventDescription`, `EventDate`, `EventTime`, `EventAddress` are used to represent respective information in an `Event`,
+as shown in the Class diagram below. Note that `EventDay` is generated from `EventDate` values, and each event also contains a `Set` of `Person` and `Tag` objects,
+which are used to represent the event contacts (from the address book) and event tags (from <<EventTags, event tags>> currently existing in the address book). +
 
 By doing so, we achieve more abstraction and cohesion, and this abides by the Separation of Concerns (SoC) principle at the class level.
 On top of facilitating checking of bugs within the individual attributes,
@@ -425,9 +433,10 @@ doing so will also allow the developer to alter the definition of the different 
 
 image::Event.png[Event class]
 
-Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding of persons.
+===== Adding/Deleting of an Event
+Methods have been added to `ModelManager`, `AddressBook` and the newly-added class `UniqueEventList` to facilitate adding and deleting of events.
 In order to limit modification of the internal list of `Event` objects, changes to this list is only carried out at the most fundamental level,
-which is `UniqueEventList`. `ModelManager` stores an unmodifiable copy of the list, and `AddressBook` the reference to the internal list.
+which is `UniqueEventList`. `AddressBook` stores a reference to this internal list, and `ModelManager` stores an unmodifiable copy of this list.
 
 An example usage scenario of the adding of events is as shown in the sequence diagram below.
 
@@ -435,19 +444,26 @@ image::add-event-component.png[Interactions between components]
 
 More specific interactions between `Logic` and `Model` are as shown in the diagram below.
 
-image::add-event_logic-model.png[Interactions between components]
+image::add-event_logic-model.png[Interactions between Logic and Model]
 
 Step 1. User enters command to add events +
 Step 2. `AddressBookParser` calls `AddEventCommandParser`, which generates an `AddEventCommand` with an `Event` and `Set<Index>` which specifies the contact indices to add into the event. +
 Step 3. `AddEventCommand` calls `Model#hasEvent`, `Model#hasClashingEvent`, `Model#hasEventTag` to check if the event information is valid +
 Step 4. `AddEventCommand` calls `Event#setEventContacts` to set the `Set<Person>` of event contacts (Each `Person` has to be in the existing address book records) +
-Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. The event is added into the address book from `Model`.
+Step 5. `AddEventCommand` calls `Model#addEvent` after all checks have passed. The event is added into the address book from the `Model` component.
 
-When the events are triggered from the `Model` component, they are handled by the UI, which updates the displayed information, and the
-`Storage` component, which saves the information to XML format. The event triggers are handled as follows.
+Upon adding/deletion of events in `Model`, `AddressBookChangedEvent` and `AddressBookEventChangedEvent` are triggered from the `Model` component.
+The raised events are handled by:
 
-image::add-event-event-trigger.png[Handling of events triggered]
+* `UI`, which updates the displayed information, and
+* `Storage`, which saves the information to an XML data file.
 
+For instance, when an `Event` is added,
+the event triggers are handled as follows.
+
+image::add-event-event-trigger.png[Handling of triggered events]
+
+===== UI Display of Events
 To display the event information according to their date, a list of lists of events grouped by `EventDate` is set in the `ListView` object in the `EventPanelList`.
 Each cell represents the `EventListCard` for a particular date, which contains all the events, each displayed in a `EventCard`. For this implementation,
 we require `ModelManager` to be able to return such an `ObservableList<List<Event>>` object to the UI class `MainWindow`, and this is achieved via the method
@@ -499,7 +515,7 @@ The task of maintaining two lists may lead to inconsistencies between the two li
 should future developers decide to include more actions to mutate the underlying list of `Event` objects.
 Hence, this is not preferred in our implementation.
 
-// end::addEvents[]
+// end::events[]
 
 // tag::importcontacts[]
 === Import Contacts
