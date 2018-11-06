@@ -33,6 +33,10 @@ public class Tag {
         return test.matches(TAG_VALIDATION_REGEX);
     }
 
+    public String getLowerCaseTagName() {
+        return tagName.toLowerCase();
+    }
+
     /**
      * Returns true if the two tags have the same {@code tagName} (case-insensitive).
      */
