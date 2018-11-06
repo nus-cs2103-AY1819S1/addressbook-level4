@@ -40,13 +40,13 @@ public class ModelManagerTest {
         thrown.expect(NullPointerException.class);
         modelManager.hasPerson(null);
     }
-    
+
     @Test
     public void hasPatient_nullPatient_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasPatient(null);
     }
-    
+
     @Test
     public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -59,7 +59,7 @@ public class ModelManagerTest {
         thrown.expect(NullPointerException.class);
         modelManager.hasAppointment(null);
     }
-    
+
     @Test
     public void hasAppointmentClash_nullAppointment_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -75,7 +75,7 @@ public class ModelManagerTest {
     public void hasPatient_patientNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasPatient(ALEX));
     }
-    
+
     @Test
     public void hasStaff_staffNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasStaff(ADAM));
