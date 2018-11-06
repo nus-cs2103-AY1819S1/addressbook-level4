@@ -11,7 +11,7 @@ public class ChangeViewEvent extends BaseEvent {
      * Types of views to display
      */
     public enum View {
-        NORMAL, ARCHIVE, CALENDAR
+        NORMAL, ARCHIVE
     }
 
     private View view;

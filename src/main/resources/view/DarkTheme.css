@@ -3,13 +3,6 @@
     background-color: #1f3a4c; /* Used in the default.html file */
 }
 
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
-    -fx-opacity: 0.9;
-}
-
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -326,7 +319,7 @@
 }
 
 .titled-pane {
-    -fx-padding: 5 22 5 22;
+    -fx-padding: 0 0 0 0;
     -fx-max-width: 500px;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 1;
@@ -344,6 +337,7 @@
 
 .titled-pane > *.content {
     -fx-background-color: #1f3a4c;
+    -fx-border-color: #1f3a4c;
 }
 
 .titled-pane:focused {

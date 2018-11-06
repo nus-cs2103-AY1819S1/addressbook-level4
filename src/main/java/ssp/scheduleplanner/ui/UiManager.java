@@ -31,7 +31,7 @@ public class UiManager extends ComponentManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     //need to modify scheduleplanner icon as this is only renaming
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/calendar.png";
 
     private Logic logic;
     private Config config;
