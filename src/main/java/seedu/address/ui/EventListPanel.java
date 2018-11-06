@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,8 +14,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookEventTagChangedEvent;
-import seedu.address.commons.events.ui.EventPanelSelectionChangedEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -47,37 +44,10 @@ public class EventListPanel extends UiPart<Region> {
     private void setConnections(ObservableList<List<Event>> eventList, ObservableList<Person> personList,
                                 ObservableList<Tag> eventTagList) {
 
-        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.tagName)));
+        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.getLowerCaseTagName())));
 
         eventListView.setItems(eventList);
         eventListView.setCellFactory(listView -> new EventListViewCell(personList));
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        eventListView.getSelectionModel().selectedItemProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        logger.fine("Selection in event list panel changed to : '" + newValue + "'");
-                        raise(new EventPanelSelectionChangedEvent(newValue));
-                    }
-                });
-    }
-
-    /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
-     */
-    private void scrollTo(int index) {
-        Platform.runLater(() -> {
-            eventListView.scrollTo(index);
-            eventListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
     }
 
     @Subscribe
@@ -86,7 +56,7 @@ public class EventListPanel extends UiPart<Region> {
 
         // manually reset eventTags (FlowPane) display
         eventTags.getChildren().removeAll(eventTags.getChildren());
-        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.tagName)));
+        eventTagList.forEach(eventTag -> eventTags.getChildren().add(new Label(eventTag.getLowerCaseTagName())));
     }
 
     /**
