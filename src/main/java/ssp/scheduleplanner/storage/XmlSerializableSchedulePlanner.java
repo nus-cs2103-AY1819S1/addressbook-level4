@@ -61,7 +61,13 @@ public class XmlSerializableSchedulePlanner {
         SchedulePlanner schedulePlanner = new SchedulePlanner();
         for (XmlAdaptedCategory c: categories) {
             Category category = c.toModelType();
-            if (schedulePlanner.hasCategory(category)) {
+            String name = category.getName();
+            if (name.equals("Modules") || name.equals("Others")) {
+                schedulePlanner.removeCategory(name);
+            }
+            if (schedulePlanner.hasCategory(name)) {
+                //debug
+                System.out.println(name);
                 throw new IllegalValueException(MESSAGE_DUPLICATE_CATEGORY);
             }
             schedulePlanner.addCategory(category);

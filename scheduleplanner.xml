@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <scheduleplanner>
-    <tasks>
-        <name>Watch CS2106 lecture</name>
-        <date>101018</date>
-        <priority>1</priority>
-        <venue>Home</venue>
-        <tagged>Lecture</tagged>
-        <tagged>CS2106</tagged>
-    </tasks>
+    <categories>
+        <name>Modules</name>
+        <tags>p</tags>
+        <tags>cs</tags>
+    </categories>
+    <categories>
+        <name>Others</name>
+    </categories>
     <tasks>
         <name>Do GEH1034 tutorial</name>
         <date>111018</date>
@@ -242,30 +242,13 @@
         <priority>2</priority>
         <venue>1</venue>
     </tasks>
-    <archivedTasks>
-        <name>Do CS2100 lab</name>
-        <date>081018</date>
+    <tasks>
+        <name>CS2103T Tutorial</name>
+        <date>191018</date>
         <priority>3</priority>
-        <venue>Home</venue>
-        <tagged>CS2100</tagged>
-        <tagged>Lab</tagged>
-    </archivedTasks>
-    <archivedTasks>
-        <name>Do MA1101R tutorial</name>
-        <date>141018</date>
-        <priority>3</priority>
-        <venue>Home</venue>
+        <venue>COM1-0210</venue>
         <tagged>Tutorial</tagged>
-        <tagged>MA1101R</tagged>
-    </archivedTasks>
-    <archivedTasks>
-        <name>Do CS2105 lab</name>
-        <date>091018</date>
-        <priority>3</priority>
-        <venue>NUS</venue>
-        <tagged>CS2105</tagged>
-        <tagged>Lab</tagged>
-    </archivedTasks>
+    </tasks>
     <archivedTasks>
         <name>test 3</name>
         <date>031118</date>
