@@ -47,7 +47,7 @@ public class XmlAdaptedTime {
         case "Monday":
             dayString = "mon";
             break;
-        case "Tueday":
+        case "Tuesday":
             dayString = "tue";
             break;
         case "Wednesday":
@@ -61,6 +61,7 @@ public class XmlAdaptedTime {
             break;
         default:
             dayString = "sat";
+            break;
         }
 
         return new Time(dayString + " " + splittedTime[1] + " " + splittedTime[2]);
