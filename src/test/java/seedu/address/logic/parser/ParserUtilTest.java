@@ -17,12 +17,19 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Answer;
 import seedu.address.model.deck.Name;
+import seedu.address.model.deck.Performance;
 import seedu.address.model.deck.Question;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
 
     private static final String WHITESPACE = " \t\r\n";
+
+    private static final String INVALID_PERFORMANCE_STRING = "tough";
+    private static final Performance VALID_PERFORMANCE = Performance.HARD;
+    private static final String VALID_PERFORMANCE_STRING = VALID_PERFORMANCE.toString();
+    private static final String VALID_PERFORMANCE_STRING_MIXED_CASE = "hArD";
+
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -73,16 +80,6 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseQuestion_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseQuestion((String) null));
-    }
-
-    @Test
-    public void parseQuestion_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseQuestion(INVALID_QUESTION));
-    }
-
-    @Test
     public void parseQuestion_validValueWithoutWhitespace_returnsQuestion() throws Exception {
         Question expectedQuestion = new Question(VALID_QUESTION_A);
         assertEquals(expectedQuestion, ParserUtil.parseQuestion(VALID_QUESTION_A));
@@ -118,17 +115,6 @@ public class ParserUtilTest {
         assertEquals(expectedAnswer, ParserUtil.parseAnswer(addressWithWhitespace));
     }
 
-    private static final String INVALID_PERFORMANCE_STRING = "tough";
-
-    private static final Performance VALID_PERFORMANCE = Performance.HARD;
-    private static final String VALID_PERFORMANCE_STRING = VALID_PERFORMANCE.toString();
-    private static final String VALID_PERFORMANCE_STRING_MIXED_CASE = "hArD";
-
-
-    private static final String WHITESPACE = " \t\r\n";
-
-    @Rule
-    public final ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void parsePerformance_null_throwsNullPointerException() {

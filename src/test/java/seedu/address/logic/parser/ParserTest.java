@@ -222,8 +222,9 @@ public class ParserTest {
 
     @Test
     public void parseCommand_classify() throws Exception {
-        ClassifyCommand command = (ClassifyCommand) parser.parseCommand(ClassifyCommand.COMMAND_WORD + " good");
-        assertEquals(new ClassifyCommand(Performance.GOOD), command);
+        ClassifyCommand command = (ClassifyCommand) parser
+            .parseCommand(ClassifyCommand.COMMAND_WORD + String.valueOf(Performance.EASY));
+        assertEquals(new ClassifyCommand(Performance.EASY), command);
     }
 
     @Test

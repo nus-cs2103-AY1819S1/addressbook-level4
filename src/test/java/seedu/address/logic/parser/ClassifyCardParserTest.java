@@ -24,7 +24,7 @@ public class ClassifyCardParserTest {
     @Test
     public void parse_validArgs_success() {
         // GOOD
-        assertParseSuccess(parser, String.valueOf(Performance.GOOD), new ClassifyCommand(Performance.GOOD));
+        assertParseSuccess(parser, String.valueOf(Performance.EASY), new ClassifyCommand(Performance.EASY));
     }
 
 
