@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,7 +13,6 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,7 +41,6 @@ public class EditPersonDescriptorBuilder {
         descriptor.setAddress(person.getAddress());
         descriptor.setEducation(person.getEducation());
         descriptor.setGrades(person.getGrades());
-        descriptor.setTime(person.getTime());
         descriptor.setTags(person.getTags());
     }
 
@@ -98,18 +95,6 @@ public class EditPersonDescriptorBuilder {
             gradesHashMap.put(splitGrade[0], new Grades(splitGrade[1]));
         }
         descriptor.setGrades(gradesHashMap);
-        return this;
-    }
-
-    /**
-     * Sets the {code Time} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withTimings(String... timings) {
-        ArrayList<Time> timeList = new ArrayList<>();
-        for (String time : timings) {
-            timeList.add(new Time(time));
-        }
-        descriptor.setTime(timeList);
         return this;
     }
 
