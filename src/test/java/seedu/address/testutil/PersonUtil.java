@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import java.util.Set;
 
 import seedu.address.logic.commands.CheckinCommand;
+import seedu.address.logic.commands.CheckoutCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.model.person.Person;
@@ -25,6 +26,13 @@ public class PersonUtil {
      */
     public static String getCheckinCommand(Person person) {
         return CheckinCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    }
+
+    /**
+     * Returns a checkout command String for checking out the {@code person}.
+     */
+    public static String getCheckoutCommand(Person person) {
+        return CheckoutCommand.COMMAND_WORD + " " + PREFIX_NRIC + person.getNric().toString();
     }
 
     /**

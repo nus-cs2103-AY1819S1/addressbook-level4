@@ -26,8 +26,8 @@ public class CheckoutCommand extends Command {
                                                + PREFIX_NRIC + "S1234567A ";
 
     public static final String MESSAGE_SUCCESS = "Patient %1$s has been successfully checked out.";
-    private static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
-    private static final String MESSAGE_MULTIPLE_PATIENTS = "Multiple such patients exist. "
+    static final String MESSAGE_NO_SUCH_PATIENT = "No such patient exists.";
+    static final String MESSAGE_MULTIPLE_PATIENTS = "Multiple such patients exist. "
                                                            + "Please contact the system administrator.";
 
     private final Nric patientNric;
