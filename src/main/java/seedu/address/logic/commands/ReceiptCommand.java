@@ -55,6 +55,7 @@ public class ReceiptCommand extends QueueCommand {
 
         Patient patient = servedPatient.getPatient();
 
+        //If the patient's details has been altered (which is unlikely), remove the patient from the queue.
         if (!model.hasPerson(patient)) {
             servedPatientList.removeAtIndex(index.getZeroBased());
             EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue,

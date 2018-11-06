@@ -60,11 +60,14 @@ public class DispenseMedicineCommand extends QueueCommand {
             throw new CommandException(MESSAGE_CURRENT_PATIENT_NOT_FOUND);
         }
         Patient patient = currentPatient.getPatient();
+
+        //If the patient's details has been altered (which is unlikely), remove the patient from the queue.
         if (!model.hasPerson(patient)) {
             currentPatient.finishServing();
             EventsCenter.getInstance().post(new ShowPatientListEvent());
             throw new CommandException(Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE);
         }
+
         List<Medicine> lastShownList = model.getFilteredMedicineList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

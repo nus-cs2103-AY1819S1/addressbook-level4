@@ -16,7 +16,6 @@ import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 
-
 /**
  * Registers a patient to the end of the current queue.
  */

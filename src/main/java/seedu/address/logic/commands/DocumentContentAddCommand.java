@@ -22,7 +22,7 @@ import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 
 /**
- * Edits the details of an existing patient in the address book.
+ * Adds document content to the Current Patient.
  */
 public class DocumentContentAddCommand extends QueueCommand {
 
@@ -58,6 +58,8 @@ public class DocumentContentAddCommand extends QueueCommand {
         }
 
         Patient patient = currentPatient.getPatient();
+
+        //If the patient's details has been altered (which is unlikely), remove the patient from the queue.
         if (!model.hasPerson(patient)) {
             currentPatient.finishServing();
             EventsCenter.getInstance().post(new ShowPatientListEvent());

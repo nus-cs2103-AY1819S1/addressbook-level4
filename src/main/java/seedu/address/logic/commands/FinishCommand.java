@@ -51,6 +51,7 @@ public class FinishCommand extends QueueCommand {
         try {
             Patient notUpdatedPatient = finishedPatient.getPatient();
 
+            //If the patient's details has been altered (which is unlikely), remove the patient from the queue.
             if (!model.hasPerson(notUpdatedPatient)) {
                 throw new CommandException(String.format(
                         Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE, notUpdatedPatient.getName()));

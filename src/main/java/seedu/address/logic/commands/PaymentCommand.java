@@ -53,6 +53,8 @@ public class PaymentCommand extends QueueCommand {
 
         ServedPatient servedPatient = servedPatientList.removeAtIndex(targetPosition.getZeroBased());
         Patient patient = servedPatient.getPatient();
+
+        //If the patient's details has been altered (which is unlikely), remove the patient from the queue.
         if (!model.hasPerson(patient)) {
             EventsCenter.getInstance().post(new ShowQueueInformationEvent(patientQueue,
                     servedPatientList, currentPatient));
