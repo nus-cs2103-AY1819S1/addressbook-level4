@@ -29,7 +29,7 @@ import seedu.thanepark.model.ride.Zone;
 import seedu.thanepark.model.tag.Tag;
 
 /**
- * Edits the details of an existing ride in the thanepark book.
+ * Updates the details of an existing ride in Thanepark.
  */
 public class UpdateCommand extends Command {
 
