@@ -393,7 +393,7 @@ Required parameters are NAME, AGE, CURRENT HEIGHT, CURRENT WEIGHT, +
 TARGET WEIGHT, AND DURATION+
 
 Format: +
-`add n/NAME a/AGE h/HEIGHT w/CURRENTWEIGHT t/TARGETWEIGHT d/DURATION` +
+`add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION` +
 
 ****
 * Height is numeric and input is of centimetre units
@@ -418,7 +418,7 @@ Format: +
 After listing the list of health plans by User. +
 Prompts for edit on the plan selected by the user. +
 Format : +
-`edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION]` +
+`edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]` +
 
 ****
 * INDEX specifies the entry to edit, has to be numeric and more than 0
@@ -434,7 +434,7 @@ Format : +
 After being shown the meal planner list by the system +
 User selects to add to intake List +
 Format: +
-`addDay p/PlanIndex d/DayIndex'
+`addDay p/PLAN_INDEX d/DAY_INDEX'
 
 ****
 * Plan Index specifies the plan to add to, has to be more than 0 and be a valid index on the list
@@ -446,7 +446,7 @@ Format: +
 After being shown the list of days from intake list +
 User selects day to remove and also the plan to remove from +
 Format: +
-`deleteDay p/PlanIndex d/DayIndex`
+`deleteDay p/PLAN_INDEX d/DAY_INDEX`
 
 ****
 * Plan Index specifies the plan to delete from, has to be more than 0 and be a valid index on the list
@@ -577,14 +577,14 @@ or +
 
 *Health Plan Commands*
 
-* Add health plan: `add n/NAME a/AGE h/HEIGHT w/CURRENTWEIGHT t/TARGETWEIGHT d/DURATION`
+* Add health plan: `add n/NAME a/AGE h/HEIGHT w/CURRENT_WEIGHT t/TARGET_WEIGHT d/DURATION`
 * Delete health plan `delete INDEX`
-* Edit health plan: `edit INDEX [n/NAME] [a/AGE] [t/TARGETWEIGHT] [h/HEIGHT] [w/CURRENTWEIGHT] [d/DURATION]`
-* Show all current meals planned in system: `showMeals`
-* Hide panels on the right: `hideMeals`
+* Edit health plan: `edit INDEX [n/NAME] [a/AGE] [t/TARGET_WEIGHT] [h/HEIGHT] [w/CURRENT_WEIGHT] [d/DURATION]`
+* Show all current meals planned in system: `showMeal`
+* Hide panels on the right: `hideMeal`
 * Show details of a health plan: `showDetails INDEX`
-* Add a day from meal planner into a health plan: `addDay p/PLANINDEX d/DAYINDEX`
-* Remove a day from the list of meals in health plan: `deleteDay p/PLANINDEX d/DAYINDEX`
+* Add a day from meal planner into a health plan: `addDay p/PLAN_INDEX d/DAY_INDEX`
+* Remove a day from the list of meals in health plan: `deleteDay p/PLAN_INDEX d/DAY_INDEX`
 
 
 *Cook-Mode Commands [coming in V2.0]*
