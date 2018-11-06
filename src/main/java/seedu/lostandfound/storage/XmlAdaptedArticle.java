@@ -124,10 +124,14 @@ public class XmlAdaptedArticle {
         }
         final Description modelDescription = new Description(description);
 
+
+        if (image == null) {
+            image = Image.DEFAULT.toString();
+        }
         if (!Image.isValid(image)) {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }
-        final Image modelImage = image != null ? new Image(image) : null;
+        final Image modelImage = new Image(image);
 
         final Set<Tag> modelTags = new HashSet<>(articleTags);
 

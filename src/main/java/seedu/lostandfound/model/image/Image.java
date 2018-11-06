@@ -74,12 +74,18 @@ public class Image {
      * Returns true if the given string is a valid image path.
      */
     public static boolean isValid(String test) {
+        if (test == null) {
+            return false;
+        }
+
         if (!FileUtil.isValidPath(test)) {
             return false;
         }
+
         if (!FileUtil.isFileExists(Paths.get(test))) {
             return false;
         }
+
         return Paths.get(test).getFileName().toString().matches(VALIDATION_REGEX);
     }
 
