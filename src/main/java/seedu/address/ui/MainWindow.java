@@ -29,7 +29,7 @@ import seedu.address.model.UserPrefs;
 public class MainWindow extends UiPart<Stage> {
 
     public static final String NOTIFICATION_DEFAULT_TITLE = "Welcome";
-    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to Addressbook Level 4";
+    public static final String NOTIFICATION_DEFAULT_TEXT = "Welcome to EventsPlus+";
     public static final String NOTIFICATION_FAVOURITE_TITLE = "Favourite Event";
 
     private static final String FXML = "MainWindow.fxml";
@@ -194,6 +194,12 @@ public class MainWindow extends UiPart<Stage> {
                 ModelManager.getFavouriteEvent());
     }
 
+    private void refreshTabPanel() {
+        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
+                logic.getUnfilteredPersonList(), logic.getEventTagList());
+        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+    }
+
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -236,8 +242,6 @@ public class MainWindow extends UiPart<Stage> {
     private void handleAddressBookEventChangedEvent(AddressBookEventChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
-        tabPanel = new TabPanel(logic.getFilteredEventListByDate(),
-                logic.getUnfilteredPersonList(), logic.getEventTagList());
-        tabsPlaceholder.getChildren().add(tabPanel.getRoot());
+        refreshTabPanel();
     }
 }

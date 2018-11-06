@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookEventChangedEvent;
 import seedu.address.commons.events.ui.FacultyLocationDisplayChangedEvent;
+import seedu.address.commons.events.ui.EventPanelDisplayChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.RandomMeetingLocationGeneratedEvent;
 import seedu.address.model.person.Person;
@@ -125,5 +126,13 @@ public class TabPanel extends UiPart<Region> {
 
         // switch active tab
         selectionModel.select(locationDisplayTab);
+    }
+
+    @Subscribe
+    private void handleEventPanelDisplayChangedEvent(EventPanelDisplayChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        // switch active tab
+        selectionModel.select(eventsTab);
     }
 }
