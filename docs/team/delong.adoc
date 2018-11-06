@@ -1,21 +1,42 @@
 = Xiao Delong - Project Portfolio
+:sectnums:
 :site-section: AboutUs
+:toc: macro
 :imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
 :stylesDir: ../stylesheets
 :stylesheet: default.css
 
+toc::[]
+
+---
+
 image::delong.jpg[width="150", align="left"]
 {empty}[https://github.com/dlworldpeace[github]]
 
-== PROJECT: Car park Finder
+== Introduction
 
-== Overview
+Hi there! I am Delong, currently a second year student at National University of Singapore major in Computer Science.  +
+
+I like building things from scratch. Since young, I like building LEGO. And ever
+after starting to programme, I fell in love with it and enjoy creating my own web
+app, phone app and software.
+
+This project is part of a Software Engineering module (CS2103T) that I have taken.
+Together with my teammates, Keith, Zhuanyu, Yurou and Alvin, I would like to present
+_Car park Finder_ to you.
+
+== Project Overview: `Car park Finder`
 
 Car park finder is a desktop address book application to find HDB (Housing Development Board) car parks in Singapore.
 It allows you to work with a *Command Line Interface (CLI)* to display a list of car parks with the convenience of simply typing.
 If you *use the computer frequently* and *commute by driving*, you would find our application useful in helping you obtain various information about car parks.
 
+.Sample display of the application
+image::findbefore.png[width="880"]
+
 == Summary of contributions
+
+Here is the list of my contributions to this project, ranging from adding features to documentations:
 
 * *Major enhancement*: Add auto-complete feature to commands that require parameters.
 ** What it does: It prompts the user the full format of a command.
@@ -61,9 +82,10 @@ https://github.com/CS2103-AY1819S1-T09-4/main/pull/80[#80])
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+Here is the list of my contributions to the User Guide. They showcase my ability
+to write documentation for end-users to understand easily. We are targeting car
+owners, e.g. taxi drivers.
+
 
 === Quick Start
 Here are several quick tips to get the application running.
