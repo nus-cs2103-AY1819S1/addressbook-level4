@@ -372,10 +372,7 @@ Step 1. The user types in `add-medical-history` in the command box followed by t
 c/sub-healthy,hyperglycemia`
 
 [NOTE]
-For multiple inputs in the same field, use comma `,` to separate.
-
-[WARNING]
-Do not use `, ` instead.
+For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
 
 Step 2. Upon hitting enter, the `allergies` AND `conditions` of `MedicalHistory` will get added
 
@@ -400,10 +397,8 @@ Step 1. The user types in `delete-medical-history` in the command box followed b
 al/penicillin,milk c/sub-healthy,hyperglycemia`
 
 [NOTE]
-For multiple inputs in the same field, use comma `,` to separate.
+For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
 
-[WARNING]
-Do not use `, ` instead.
 
 Step 2. Upon hitting enter, the `allergies` AND `conditions` of `MedicalHistory` will get deleted
 
