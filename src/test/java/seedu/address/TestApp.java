@@ -8,9 +8,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.ImageMagickUtil;
-import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -82,7 +80,6 @@ public class TestApp extends MainApp {
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
-        userPrefs.setAddressBookFilePath(saveFileLocation);
         return userPrefs;
     }
 
@@ -101,17 +98,5 @@ public class TestApp extends MainApp {
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    /**
-     * Creates an XML file at the {@code filePath} with the {@code data}.
-     */
-    private <T> void createDataFileWithData(T data, Path filePath) {
-        try {
-            FileUtil.createIfMissing(filePath);
-            XmlUtil.saveDataToFile(filePath, data);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

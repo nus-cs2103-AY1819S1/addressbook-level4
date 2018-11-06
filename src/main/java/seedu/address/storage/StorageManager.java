@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Piconso data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
