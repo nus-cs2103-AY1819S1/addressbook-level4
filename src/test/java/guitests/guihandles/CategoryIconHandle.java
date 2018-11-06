@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import seedu.address.model.budget.CategoryBudget;
 
 //@@author Snookerballs

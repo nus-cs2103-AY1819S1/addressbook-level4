@@ -2,12 +2,9 @@ package seedu.address.ui;
 
 import java.util.Iterator;
 
-import java.util.logging.Logger;
-
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.budget.CategoryBudget;
 
 //@@author snookerballs
