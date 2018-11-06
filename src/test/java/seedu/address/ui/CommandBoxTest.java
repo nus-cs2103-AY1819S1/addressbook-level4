@@ -164,14 +164,14 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void handleKeyPress_cdCommandWordWithTab() {
         // cd commands to get current directory with one input
-        commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " Desk");
+        /*commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " Desk");
         assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " Desktop/");
         assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " Desktop/");
-        assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " Desktop/");
+        assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " Desktop/");*/
 
         String os = System.getProperty("os.name").toLowerCase();
 
-        /*if (os.contains("win")) {
+        if (os.contains("win")) {
             // cd commands to change drive on windows
             commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " C://Us");
             assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " C://Users/");
@@ -185,7 +185,7 @@ public class CommandBoxTest extends GuiUnitTest {
             assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
             assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
             assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
-        }*/
+        }
     }
 
     /**

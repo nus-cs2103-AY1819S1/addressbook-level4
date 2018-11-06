@@ -48,8 +48,8 @@ public class CdCommandTest {
 
         // change to Desktop
         expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("Desktop").normalize());
-        //assert_cdToDirectory_success(nextDirectory);
-        //assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
+        assert_cdToDirectory_success(nextDirectory);
+        assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
         // change to previous directory
         expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
