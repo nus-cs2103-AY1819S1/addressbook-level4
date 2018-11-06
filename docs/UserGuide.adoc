@@ -302,30 +302,28 @@ Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _
 
 See below for a pictorial guide on how to add aspirin to the records:
 
-[underline]#Add aspirin to CLInic:# +
+//. Type `liststock` or `ls` into the command box as shown in Figure 10 below.
 
-. Type `liststock` or `ls` into the command box as shown in Figure 10 below.
+//.Start up of CLInic
+//image::addmedicine-example-1.png[width="650"]
 
-.Start up of CLInic
-image::addmedicine-example-1.png[width="650"]
+//[start = 1]
+//. See Figure 10 below for the change of the patient panel to medicine panel.
 
-[start = 2]
-. See Figure 11 below for the change of the patient panel to medicine panel.
+//.Result of entering `liststock` command
+//image::addmedicine-example-2.png[width="650"]
 
-.Result of entering `liststock` command
-image::addmedicine-example-2.png[width="650"]
+[start = 1]
+. Enter the `am` command with the desired parameters as shown in Figure 10 below.
 
-[start = 3]
-. Enter the `am` command with the desired parameters as shown in Figure 12 below.
-
-.Entering the `am` command
+.Type the `am` command into the command box
 image::addmedicine-example-3.png[width="650"]
 
-[start = 4]
+[start = 2]
 . Scroll all the way down on the medicine panel to see the medicine added to CLInic.
-See Figure 13 below for example.
+See Figure 11 below for example.
 
-.Successful addition of the medicine
+.Scroll down to see the medicine successfully added
 image::addmedicine-example-4.png[width="650"]
 // end::addmedicine[]
 
@@ -380,7 +378,9 @@ Format: `liststock`
 // tag::findmedicine[]
 ==== Finding details of a medicine: `findmedicine`
 
-Finds the details of a medicine from its medicine name. +
+Finding the best medicine for your patient? +
+Use `findmedicine` to search for
+the details of a medicine from its medicine name. +
 Alias: `fm` +
 Format: `findmedicine MEDICINE_NAME`
 
@@ -391,6 +391,19 @@ Finds the details of the medicines tagged with the keyword `panadol`.
 * `fm chlorpheniramine` +
 Finds the details of the medicines tagged with the keyword `chlorpheniramine`.
 
+See below for a pictorial guide on how to find chlorpheniramine in the records:
+
+[start = 1]
+. Enter the `fm` command with the desired parameters as shown in Figure 12 below.
+
+.Type `fm` command into the command box
+image::find-medicine-example-1.png[width="650"]
+
+[start = 2]
+. See the medicine panel as shown in Figure 13 for all the medicines named "chlorpheniramine".
+
+.See all medicines named "chlorpheniramine".
+image::find-medicine-example-2.png[width="650"]
 // end::findmedicine[]
 
 // tag::checkstock[]

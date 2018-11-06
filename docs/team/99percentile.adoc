@@ -38,8 +38,7 @@ With this, you do not have to manually keep track of the change in stocks every 
 ** Highlights: With the `checkstock` command, you can easily list out all medical stocks that are low in stock in just 2 seconds!
 
 * *Minor enhancement*:
-** Rephrasing of command output to make it more user friendly.
-** Writing of basic commands for medicine.
+** Rephrased output messages to make it more user friendly.
 
 * *Other contributions*:
 ** Wrote the utilities for test cases for other team members to build their tests.
