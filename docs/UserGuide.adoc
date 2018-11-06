@@ -284,7 +284,7 @@ image::addmedicalrecord-example-2.png[width="650"]
 
 ==== Adding a medicine: `addmedicine`
 
-Heard of the latest medicine that effectively cures ezcema?
+Bought the latest medicine that effectively cures eczema? +
 Add that medicine to the CLInic medicine database now! +
 Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
