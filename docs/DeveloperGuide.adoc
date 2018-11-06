@@ -525,7 +525,7 @@ The following sequence diagram shows how the readImportContactsFile operation wo
 image::ImportContactsSequenceDiagram.PNG[width="800"]
 
 // end::importcontacts[]
-=== Show faculty location visually
+=== Show Person's faculty location visually
 ==== Current Implementation
 
 The displaying of the a ``Person``'s faculty is facilitated by the newly added `Faculty` field in the `Person` class. This
