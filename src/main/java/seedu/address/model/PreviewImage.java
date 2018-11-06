@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
@@ -212,5 +214,15 @@ public class PreviewImage {
         private NoRedoableStateException() {
             super("Current state pointer at end of previewImageState list, unable to redo.");
         }
+    }
+
+    public ArrayList<String> getTransformationsAsString() {
+        ArrayList<String> output = new ArrayList<>();
+        LinkedList<Transformation> sub =
+                new LinkedList<> (transformationSet.getTransformations().subList(0, currentIndex));
+        for (Transformation t : sub) {
+            output.add(t.toString());
+        }
+        return output;
     }
 }

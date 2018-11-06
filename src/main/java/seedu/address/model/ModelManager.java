@@ -15,10 +15,9 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.AllTransformationEvent;
 import seedu.address.commons.events.ui.ChangeDirectoryEvent;
-import seedu.address.commons.events.ui.ClearHistoryEvent;
-import seedu.address.commons.events.ui.TransformationEvent;
+import seedu.address.commons.events.ui.HistoryUpdateEvent;
+import seedu.address.commons.events.ui.LayerUpdateEvent;
 import seedu.address.commons.events.ui.UpdateFilmReelEvent;
 import seedu.address.commons.exceptions.IllegalOperationException;
 import seedu.address.commons.util.ImageMagickUtil;
@@ -152,7 +151,8 @@ public class ModelManager extends ComponentManager implements Model {
         PreviewImage selectedImage = new PreviewImage(SwingFXUtils.fromFXImage(img, null));
         canvas = new Canvas(selectedImage);
 
-        EventsCenter.getInstance().post(new ClearHistoryEvent());
+        refreshHistoryList();
+        refreshLayerList();
     }
 
     /**
@@ -210,25 +210,25 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void undoPreviewImage() {
         getCurrentPreviewImage().undo();
-        EventsCenter.getInstance().post(new TransformationEvent(true));
+        refreshHistoryList();
     }
 
     @Override
     public void redoPreviewImage() {
         getCurrentPreviewImage().redo();
-        EventsCenter.getInstance().post(new TransformationEvent(false));
+        refreshHistoryList();
     }
 
     @Override
     public void undoAllPreviewImage() {
         getCurrentPreviewImage().undoAll();
-        EventsCenter.getInstance().post(new AllTransformationEvent(true));
+        refreshHistoryList();
     }
 
     @Override
     public void redoAllPreviewImage() {
         getCurrentPreviewImage().redoAll();
-        EventsCenter.getInstance().post(new AllTransformationEvent(false));
+        refreshHistoryList();
     }
 
     //=========== get/updating preview image ==========================================================================
@@ -240,10 +240,9 @@ public class ModelManager extends ComponentManager implements Model {
      * @throws InterruptedException
      * @throws IOException
      */
-    public void addTransformation(Transformation transformation) throws
-        ParseException, InterruptedException, IOException {
+    public void addTransformation(Transformation transformation) {
         canvas.getCurrentLayer().addTransformation(transformation);
-        EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
+        refreshHistoryList();
     }
 
     @Override
@@ -263,10 +262,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author lancelotwillow
     @Override
-    public void updateCurrentPreviewImage(BufferedImage image, Transformation transformation) {
+    public void updateCurrentPreviewImage(BufferedImage image) {
         try {
-            getCanvas().getCurrentLayer().addTransformation(transformation);
             getCanvas().getCurrentLayer().getImage().commit(image);
+            refreshHistoryList();
         } catch (Exception e) {
             logger.severe(e.getMessage());
         }
@@ -306,8 +305,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Canvas and layers ==========================================================================
 
+    /**
+     * Adds a layer to the canvas, a name is generated automatically.
+     * @param i - PreviewImage to add.
+     */
     public void addLayer(PreviewImage i) {
         canvas.addLayer(i);
+        refreshLayerList();
     }
 
     /**
@@ -317,11 +321,14 @@ public class ModelManager extends ComponentManager implements Model {
      */
     public void addLayer(PreviewImage i, String name) {
         canvas.addLayer(i, name);
-
+        refreshLayerList();
     }
 
-    public void removeLayer(Index i) throws IllegalOperationException {
-        canvas.removeLayer(i);
+    public Index removeLayer(Index i) throws IllegalOperationException {
+        Index tmp = canvas.removeLayer(i);
+        logger.info("refreshing after deleting layers");
+        refreshLayerList();
+        return tmp;
     }
 
     public Canvas getCanvas() {
@@ -330,5 +337,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void saveCanvas(String fileName) throws IOException, InterruptedException {
         ImageMagickUtil.saveCanvas(canvas, userPrefs.getCurrDirectory(), fileName);
+    }
+
+    public void setCurrentLayer(Index i) {
+        getCanvas().setCurrentLayer(i);
+        refreshLayerList();
+    }
+
+    /**
+     * Swaps two layers.
+     * @param to - Layer 1
+     * @param from - Layer 2.
+     * @throws IllegalOperationException - thrown when the two layers are the same.
+     */
+    public void swapLayer(Index to, Index from) throws IllegalOperationException {
+        getCanvas().swapLayer(to, from);
+        refreshLayerList();
+    }
+
+    private void refreshHistoryList() {
+        EventsCenter.getInstance().post(
+                new HistoryUpdateEvent(
+                        getCanvas().getCurrentLayer().getImage().getTransformationsAsString()));
+    }
+
+    private void refreshLayerList() {
+        EventsCenter.getInstance().post(
+                new LayerUpdateEvent(
+                        getCanvas().getLayerNames(), getCanvas().getCurrentLayerIndex()));
     }
 }

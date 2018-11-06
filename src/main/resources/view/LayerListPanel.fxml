@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @@author j-lum -->
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="historyPanel" alignment="CENTER_LEFT">
+    <VBox>
+        <Text fx:id="layerTitle" styleClass="titles">Layers</Text>
+        <VBox.margin>
+            <Insets>
+                <bottom>7</bottom>
+            </Insets>
+        </VBox.margin>
+    </VBox>
+    <ListView fx:id="layerListView"/>
+</VBox>
