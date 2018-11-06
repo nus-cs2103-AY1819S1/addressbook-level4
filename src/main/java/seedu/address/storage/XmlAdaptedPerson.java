@@ -43,7 +43,7 @@ public class XmlAdaptedPerson {
     @XmlElement
     private List<XmlAdaptedGrades> grades = new ArrayList<>();
 
-    @XmlElement(required = true)
+    @XmlElement
     private List<XmlAdaptedTime> timings = new ArrayList<>();
 
     @XmlElement
