@@ -105,34 +105,6 @@ public class AddCommandSystemTest extends SchedulePlannerSystemTest {
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        // OLD TESTS
-        /* Case: add a duplicate task -> rejected */
-        //command = TaskUtil.getAddCommand(HOON);
-        //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
-
-        /* Case: add a duplicate task except with different date -> rejected */
-        //commented off as task are unique when one field is different
-        //toAdd = new TaskBuilder(HOON).withDate(VALID_DATE_BOB).build();
-        //command = TaskUtil.getAddCommand(toAdd);
-        //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
-
-        /* Case: add a duplicate task except with different email -> rejected */
-        //toAdd = new TaskBuilder(HOON).withPriority(VALID_EMAIL_BOB).build();
-        //command = TaskUtil.getAddCommand(toAdd);
-        //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
-
-        /* Case: add a duplicate task except with different address -> rejected */
-        //commented off as task are unique when one field is different
-        //toAdd = new TaskBuilder(HOON).withVenue(VALID_ADDRESS_BOB).build();
-        //command = TaskUtil.getAddCommand(toAdd);
-        //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
-
-        /* Case: add a duplicate task except with different tags -> rejected */
-        //commented off as task are unique when one field is different
-        //command = TaskUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        //assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_TASK);
-        // OLD TESTS
-
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + DATE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
