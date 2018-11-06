@@ -20,7 +20,6 @@ public class UserPrefs {
     private static int currBatchPointer = 0;
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private Path currDirectory = Paths.get(System.getProperty("user.home"));
     private ArrayList<Path> imageList = new ArrayList<>();
 
@@ -38,14 +37,6 @@ public class UserPrefs {
 
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
-    }
-
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
-    }
-
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
     }
 
     // @@author benedictcss
@@ -139,20 +130,18 @@ public class UserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+        return Objects.equals(guiSettings, o.guiSettings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
     }
 

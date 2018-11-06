@@ -30,6 +30,7 @@ import com.google.photos.library.v1.PhotosLibrarySettings;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.LoginStatusEvent;
+import seedu.address.commons.util.FileUtil;
 
 //@@author chivent
 
@@ -66,9 +67,7 @@ public class PhotosLibraryClientFactory {
      * @throws GeneralSecurityException when there is an error with authentication
      */
     public static PhotoHandler createClient() throws IOException, GeneralSecurityException {
-        if (!DATA_STORE.exists()) {
-            DATA_STORE.mkdirs();
-        }
+        FileUtil.createDirectoriesIfMissing(DATA_STORE);
 
         //@@author chivent-reused
         //Reused from https://github.com/google/java-photoslibrary/blob/master/sample/src/main/
@@ -88,7 +87,7 @@ public class PhotosLibraryClientFactory {
 
         if (!TEST_FILE.exists()) {
             try {
-                BLOCKER.createNewFile();
+                FileUtil.createIfMissing(BLOCKER);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -112,7 +111,7 @@ public class PhotosLibraryClientFactory {
                     .build();
 
             credentialFile.close();
-            BLOCKER.delete();
+            FileUtil.deleteIfAvaliable(BLOCKER);
             return new PhotoHandler(createPhotosLibraryClient(userCredentials), getUserEmail(credential));
         } else {
             return null;
