@@ -34,7 +34,7 @@ public class RegisterPatientCommand extends Command {
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 ";
 
     public static final String MESSAGE_SUCCESS = "New patient registered: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = 
+    public static final String MESSAGE_DUPLICATE_PERSON =
             "There exists a patient/doctor with this name in the HealthBook";
 
     private final Patient patientToRegister;
