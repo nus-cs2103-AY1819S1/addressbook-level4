@@ -22,8 +22,9 @@ import com.joestelmach.natty.Parser;
 public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Times should only contain numbers, and it should be in the format HH:MM.\nThe time must be a valid 24h "
-                    + "time.";
+            "Time could not be parsed. Use unambiguous language such as \"2p.m.\".\nThe format HH:MM is "
+                    + "recommended.\nTIP: We use natural language processing to parse your Dates and Times! Kindly "
+                    + "refer to the User Guide for more information.";
     public static final String TIME_FORMAT_PATTERN = "HH:mm";
 
     private final LocalTime time;

@@ -22,8 +22,9 @@ import com.joestelmach.natty.Parser;
 public class Date {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Dates should only contain numbers, and it should be in the format DD-MM-YYYY.\nThe date must exist in "
-                    + "the calendar";
+            "Date could not be parsed. Use unambiguous language such as \"31st Dec 2019\".\nThe format DD-MM-YYYY is "
+                    + "recommended.\nTIP: We use natural language processing to parse your Dates and Times! Kindly "
+                    + "refer to the User Guide for more information.";
     public static final String MESSAGE_DATE_PASSED =
             "Dates should not have already passed.";
     public static final String DATE_FORMAT_PATTERN = "dd-MM-uuuu";
