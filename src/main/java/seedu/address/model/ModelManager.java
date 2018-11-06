@@ -22,6 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook internalAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> filteredCheckedOutPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         internalAddressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(internalAddressBook.getPersonList());
+        filteredCheckedOutPersons = new FilteredList<>(internalAddressBook.getCheckedOutPersonList());
     }
 
     public ModelManager() {
@@ -60,6 +62,24 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return internalAddressBook.hasPerson(person);
+    }
+
+    @Override
+    public boolean hasCheckedOutPerson(Person person) {
+        requireNonNull(person);
+        return internalAddressBook.hasCheckedOutPerson(person);
+    }
+
+    @Override
+    public void checkOutPerson(Person person) {
+        internalAddressBook.checkOutPerson(person);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void reCheckInPerson(Person person) {
+        internalAddressBook.reCheckInPerson(person);
+        indicateAddressBookChanged();
     }
 
     @Override

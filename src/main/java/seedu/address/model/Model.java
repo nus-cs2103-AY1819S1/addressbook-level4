@@ -24,6 +24,23 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a person with the same identity as {@code person} exists in the list of checked out patients.
+     */
+    boolean hasCheckedOutPerson(Person person);
+
+    /**
+     * Checkout the given person.
+     * The person must exist in person list of the address book.
+     */
+    void checkOutPerson(Person person);
+
+    /**
+     * Re-checkin the given person.
+     * The person must exist in the checkedOutPerson list of the address book.
+     */
+    void reCheckInPerson(Person person);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
