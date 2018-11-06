@@ -100,6 +100,7 @@ public class ModelManagerTest {
         thrown.expect(NullPointerException.class);
         modelManager.checkStaffCredentials(null);
     }
+    //=========== Filtered List =========================================================================
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
@@ -120,6 +121,8 @@ public class ModelManagerTest {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredAppointmentList().remove(0);
     }
+
+    //========================================================================================================
 
     @Test
     public void equals() {

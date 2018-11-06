@@ -18,4 +18,11 @@ public class AppointmentContainsDatePredicate implements Predicate<Appointment> 
     public boolean test(Appointment appointment) {
         return date.equals(appointment.getAppointmentDate());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof AppointmentContainsDatePredicate
+                && date.equals(((AppointmentContainsDatePredicate) other).date));
+    }
 }
