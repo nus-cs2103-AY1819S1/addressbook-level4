@@ -26,7 +26,7 @@ public class Price {
     }
 
     public Price(Price price) {
-        this(price.value.toString());
+        this(String.format("%.2f", price.value));
     }
 
     /**
