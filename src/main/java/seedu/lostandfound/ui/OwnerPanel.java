@@ -30,7 +30,7 @@ public class OwnerPanel extends UiPart<Region> {
     }
 
     private void loadOwner(Article article) {
-        Platform.runLater(() -> owner.setText(article.getName().fullName));
+        Platform.runLater(() -> owner.setText(article.getOwner().fullName));
     }
 
     @Subscribe

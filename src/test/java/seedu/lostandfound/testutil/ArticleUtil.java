@@ -2,6 +2,7 @@ package seedu.lostandfound.testutil;
 
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_FINDER;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
@@ -31,6 +32,7 @@ public class ArticleUtil {
     public static String getArticleDetails(Article article) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + article.getName().fullName + " ");
+        sb.append(PREFIX_FINDER + article.getFinder().fullName + " ");
         sb.append(PREFIX_PHONE + article.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + article.getEmail().value + " ");
         sb.append(PREFIX_DESCRIPTION + article.getDescription().value + " ");
@@ -46,6 +48,7 @@ public class ArticleUtil {
     public static String getEditArticleDescriptorDetails(EditArticleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getFinder().ifPresent(finder -> sb.append(PREFIX_FINDER).append(finder.fullName).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getDescription().ifPresent(description ->

@@ -2,13 +2,13 @@ package seedu.lostandfound.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_RED;
 
 import org.junit.Test;
 
@@ -20,39 +20,40 @@ public class EditArticleDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditArticleDescriptor descriptorWithSameValues = new EditArticleDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
+        EditArticleDescriptor descriptorWithSameValues = new EditArticleDescriptor(DESC_POWERBANK);
+        assertTrue(DESC_POWERBANK.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_AMY.equals(DESC_AMY));
+        assertTrue(DESC_POWERBANK.equals(DESC_POWERBANK));
 
         // null -> returns false
-        assertFalse(DESC_AMY.equals(null));
+        assertFalse(DESC_POWERBANK.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_AMY.equals(5));
+        assertFalse(DESC_POWERBANK.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_AMY.equals(DESC_BOB));
+        assertFalse(DESC_POWERBANK.equals(DESC_MOUSE));
 
         // different name -> returns false
-        EditArticleDescriptor editedAmy = new EditArticleDescriptorBuilder(DESC_AMY).withName(VALID_NAME_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditArticleDescriptor editedAmy = new EditArticleDescriptorBuilder(DESC_POWERBANK)
+                .withName(VALID_NAME_MOUSE).build();
+        assertFalse(DESC_POWERBANK.equals(editedAmy));
 
         // different phone -> returns false
-        editedAmy = new EditArticleDescriptorBuilder(DESC_AMY).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditArticleDescriptorBuilder(DESC_POWERBANK).withPhone(VALID_PHONE_MOUSE).build();
+        assertFalse(DESC_POWERBANK.equals(editedAmy));
 
         // different email -> returns false
-        editedAmy = new EditArticleDescriptorBuilder(DESC_AMY).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditArticleDescriptorBuilder(DESC_POWERBANK).withEmail(VALID_EMAIL_MOUSE).build();
+        assertFalse(DESC_POWERBANK.equals(editedAmy));
 
         // different description -> returns false
-        editedAmy = new EditArticleDescriptorBuilder(DESC_AMY).withDescription(VALID_DESCRIPTION_BOB).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditArticleDescriptorBuilder(DESC_POWERBANK).withDescription(VALID_DESCRIPTION_MOUSE).build();
+        assertFalse(DESC_POWERBANK.equals(editedAmy));
 
         // different tags -> returns false
-        editedAmy = new EditArticleDescriptorBuilder(DESC_AMY).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditArticleDescriptorBuilder(DESC_POWERBANK).withTags(VALID_TAG_RED).build();
+        assertFalse(DESC_POWERBANK.equals(editedAmy));
     }
 }

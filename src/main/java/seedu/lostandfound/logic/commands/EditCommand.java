@@ -3,6 +3,8 @@ package seedu.lostandfound.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_FINDER;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_IMAGE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
@@ -40,9 +42,11 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_FINDER + "FINDER] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + PREFIX_IMAGE + "IMAGE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
@@ -106,10 +110,11 @@ public class EditCommand extends Command {
         Email updatedEmail = editArticleDescriptor.getEmail().orElse(articleToEdit.getEmail());
         Description updatedDescription = editArticleDescriptor.getDescription().orElse(articleToEdit.getDescription());
         Image updatedImage = editArticleDescriptor.getImage().orElse(articleToEdit.getImage());
+        Name updatedFinder = editArticleDescriptor.getFinder().orElse(articleToEdit.getFinder());
         Set<Tag> updatedTags = editArticleDescriptor.getTags().orElse(articleToEdit.getTags());
 
-        return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription,
-                updatedImage, articleToEdit.getIsResolved(), updatedTags);
+        return new Article(updatedName, updatedPhone, updatedEmail, updatedDescription, updatedImage, updatedFinder,
+                articleToEdit.getOwner(), articleToEdit.getIsResolved(), updatedTags);
     }
 
     @Override
@@ -140,6 +145,7 @@ public class EditCommand extends Command {
         private Email email;
         private Description description;
         private Image image;
+        private Name finder;
         private Set<Tag> tags;
 
         public EditArticleDescriptor() {}
@@ -154,6 +160,7 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setDescription(toCopy.description);
             setImage(toCopy.image);
+            setFinder(toCopy.finder);
             setTags(toCopy.tags);
         }
 
@@ -161,7 +168,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, description, image, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, description, image, finder, tags);
         }
 
         public void setName(Name name) {
@@ -204,6 +211,13 @@ public class EditCommand extends Command {
             return Optional.ofNullable(image);
         }
 
+        public void setFinder(Name finder) {
+            this.finder = finder;
+        }
+
+        public Optional<Name> getFinder() {
+            return Optional.ofNullable(finder);
+        }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -242,6 +256,7 @@ public class EditCommand extends Command {
                     && getEmail().equals(e.getEmail())
                     && getDescription().equals(e.getDescription())
                     && getImage().equals(e.getImage())
+                    && getFinder().equals(e.getFinder())
                     && getTags().equals(e.getTags());
         }
     }

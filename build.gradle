@@ -82,7 +82,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'articlelist.jar'
+    archiveName = 'LostBUTFound.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

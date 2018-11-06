@@ -27,6 +27,8 @@ public class ContainsKeywordsPredicate implements Predicate<Article> {
                 || keywords.stream().anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(article.getDescription().value, keyword))
                 || keywords.stream().anyMatch(keyword ->
+                        StringUtil.containsWordIgnoreCase(article.getFinder().fullName, keyword))
+                || keywords.stream().anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(article.getStringTags(), keyword)));
     }
 

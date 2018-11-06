@@ -2,13 +2,13 @@ package seedu.lostandfound.model.article;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
-import static seedu.lostandfound.testutil.TypicalArticles.BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
+import static seedu.lostandfound.testutil.TypicalArticles.BAG;
+import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,71 +30,71 @@ public class ArticleTest {
     @Test
     public void isSameArticle() {
         // same object -> returns true
-        assertTrue(ALICE.isSameArticle(ALICE));
+        assertTrue(BAG.isSameArticle(BAG));
 
         // null -> returns false
-        assertFalse(ALICE.isSameArticle(null));
+        assertFalse(BAG.isSameArticle(null));
 
         // different phone and email -> returns false
-        Article editedAlice = new ArticleBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameArticle(editedAlice));
+        Article editedAlice = new ArticleBuilder(BAG).withPhone(VALID_PHONE_MOUSE).withEmail(VALID_EMAIL_MOUSE).build();
+        assertFalse(BAG.isSameArticle(editedAlice));
 
         // different name -> returns false
-        editedAlice = new ArticleBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameArticle(editedAlice));
+        editedAlice = new ArticleBuilder(BAG).withName(VALID_NAME_MOUSE).build();
+        assertFalse(BAG.isSameArticle(editedAlice));
 
         // same name, same phone, different attributes -> returns true
-        editedAlice = new ArticleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withDescription(VALID_DESCRIPTION_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameArticle(editedAlice));
+        editedAlice = new ArticleBuilder(BAG).withEmail(VALID_EMAIL_MOUSE).withDescription(VALID_DESCRIPTION_MOUSE)
+                .withTags(VALID_TAG_BLUE).build();
+        assertTrue(BAG.isSameArticle(editedAlice));
 
         // same name, same email, different attributes -> returns true
-        editedAlice = new ArticleBuilder(ALICE).withPhone(VALID_PHONE_BOB).withDescription(VALID_DESCRIPTION_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameArticle(editedAlice));
+        editedAlice = new ArticleBuilder(BAG).withPhone(VALID_PHONE_MOUSE).withDescription(VALID_DESCRIPTION_MOUSE)
+                .withTags(VALID_TAG_BLUE).build();
+        assertTrue(BAG.isSameArticle(editedAlice));
 
         // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ArticleBuilder(ALICE)
-                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameArticle(editedAlice));
+        editedAlice = new ArticleBuilder(BAG)
+                .withDescription(VALID_DESCRIPTION_MOUSE).withTags(VALID_TAG_BLUE).build();
+        assertTrue(BAG.isSameArticle(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Article aliceCopy = new ArticleBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Article aliceCopy = new ArticleBuilder(BAG).build();
+        assertTrue(BAG.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(BAG.equals(BAG));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(BAG.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(BAG.equals(5));
 
         // different article -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(BAG.equals(MOUSE));
 
         // different name -> returns false
-        Article editedAlice = new ArticleBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Article editedAlice = new ArticleBuilder(BAG).withName(VALID_NAME_MOUSE).build();
+        assertFalse(BAG.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new ArticleBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ArticleBuilder(BAG).withPhone(VALID_PHONE_MOUSE).build();
+        assertFalse(BAG.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new ArticleBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ArticleBuilder(BAG).withEmail(VALID_EMAIL_MOUSE).build();
+        assertFalse(BAG.equals(editedAlice));
 
         // different description -> returns false
-        editedAlice = new ArticleBuilder(ALICE).withDescription(VALID_DESCRIPTION_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ArticleBuilder(BAG).withDescription(VALID_DESCRIPTION_MOUSE).build();
+        assertFalse(BAG.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new ArticleBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new ArticleBuilder(BAG).withTags(VALID_TAG_BLUE).build();
+        assertFalse(BAG.equals(editedAlice));
     }
 }

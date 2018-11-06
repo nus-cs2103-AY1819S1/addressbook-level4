@@ -194,7 +194,7 @@ link:{repoURL}/src/main/java/seedu/lostandfound/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `ArticleListParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+.  The command execution can affect the `Model` (e.g. adding a article) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -264,18 +264,18 @@ Step 1. The user launches the application for the first time. The `VersionedArti
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the article list. The `delete` command calls `Model#commitArticleList()`, causing the modified state of the article list after the `delete 5` command executes to be saved in the `articleListStateList`, and the `currentStatePointer` is shifted to the newly inserted article list state.
+Step 2. The user executes `delete 5` command to delete the 5th article in the article list. The `delete` command calls `Model#commitArticleList()`, causing the modified state of the article list after the `delete 5` command executes to be saved in the `articleListStateList`, and the `currentStatePointer` is shifted to the newly inserted article list state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitArticleList()`, causing another modified article list state to be saved into the `articleListStateList`.
+Step 3. The user executes `add n/Wallet ...` to add a new article. The `add` command also calls `Model#commitArticleList()`, causing another modified article list state to be saved into the `articleListStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitArticleList()`, so the article list state will not be saved into the `articleListStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoArticleList()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous article list state, and restores the article list to that state.
+Step 4. The user now decides that adding the article was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoArticleList()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous article list state, and restores the article list to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
@@ -295,7 +295,7 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitArticleList()`. Since the `currentStatePointer` is not pointing at the end of the `articleListStateList`, all article list states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitArticleList()`. Since the `currentStatePointer` is not pointing at the end of the `articleListStateList`, all article list states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Wallet ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -311,7 +311,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the article being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -324,12 +324,58 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::find[]
+=== Find feature
+The `find-(FIELD)` command allows users to find unresolved articles by `name`, `description` or `finder` with keywords. The command finds all article whose fields contain all of the given keywords.
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+The below diagram illustrates the interaction between the `Logic` and `Model` components in finding an article with the specified keyword. In this example, `find-n wallet` command was executed.
 
-// end::dataencryption[]
+image::FindSequenceDiagram.png[width="800"]
+
+The `find-(FIELD)` command input is passed into an ArticleListParser object. The ArticleListParser reads the command word `find` and creates a `FindCommandParser` object that further parses the command input and creates a `FindCommand`. The `FindCommand` filters the the article list based on the keywords and updates the `Model` component on changes in the filtered article list.
+
+==== Design Considerations
+===== Aspect: Keyword matching
+* **Alternative 1 (current choice):** Match all of the keywords
+** Pros: Find command would be more targeted and precise.
+** Cons: User cannot find multiple articles using multiple keywords at the same time.
+* **Alternative 2:** Match any of the keywords
+** Pros: User can find multiple articles using multiple keywords at the same time.
+** Cons: Harder for user to accurately find a specific article if there are multiple articles with the same keywords.
+* **Alternative 3:** Approximate matching
+** Pros: User can easily find articles even if they are unsure of the keywords.
+** Cons: Harder to implement the find feature.
+
+// end::find[]
+
+// tag::find[]
+=== Resolve feature
+The `resolve` command allows users to resolve articles when they are claimed bu the owner.
+
+==== Current Implementation
+The below diagram illustrates the interaction between the `Logic` and `Model` components in resolving an article.
+
+image::ResolveSequenceDiagram.png[width="800"]
+
+The `resolve` command input is passed into an ArticleListParser object. The ArticleListParser reads the command word `resolve` and creates a `ResolveCommandParser` object that further parses the command input and creates a `ResolveCommand`. The `ResolveCommand` then updates the article with the new information and updates the `Model` component on changes in the filtered unresolved article list.
+
+In the ResolveCommand, a new `Article` object is created directly with the following information:
+
+        Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(), articleToEdit.getEmail(), articleToEdit.getDescription(), articleToEdit.getFinder(), owner, SET_ISRESOLVED, articleToEdit.getTags());
+
+Unlike the `edit` command where there can be multiple fields edited, only 2 fields - `owner` and `isResolved` is changed for the `resolve` feature. Thus, once the `owner` field is parsed and accepted, a new `Article` object can be created. The Article would have the same data as the target Article, except for the new `owner` and `isResolved` field.
+
+==== Design Considerations
+===== Aspect: changing the owner and isResolved field
+* **Alternative 1 (current choice):** Create a new `Article` object
+** Pros: Easy implementation without affecting other functions.
+** Cons: Parsing and exception handling would have to be added to the feature.
+* **Alternative 2:** Call the `EditCommand` method
+** Pros: Use of existing function to change the relevant fields.
+** Cons: Increase coupling of project.
+
+// end::resolve[]
 
 === Logging
 
@@ -560,7 +606,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all articles in the list.
 +
 ****
 * Hints
@@ -587,9 +633,9 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 * Hints
 ** The link:{repoURL}/src/main/java/seedu/lostandfound/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/lostandfound/model/ArticleList.java[`ArticleList`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/lostandfound/model/ArticleList.java[`ArticleList`] and link:{repoURL}/src/main/java/seedu/lostandfound/model/person/Article.java[`Article`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/lostandfound/model/ArticleList.java[`ArticleList`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/lostandfound/model/person/Article.java[`Article`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/lostandfound/model/ArticleList.java[`ArticleList`] and link:{repoURL}/src/main/java/seedu/lostandfound/model/article/Article.java[`Article`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/lostandfound/model/ArticleList.java[`ArticleList`] allows you to update a article, and link:{repoURL}/src/main/java/seedu/lostandfound/model/article/Article.java[`Article`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/lostandfound/model/ArticleList.java[`ArticleList`]. Loop through each person, and remove the `tag` from each person.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/lostandfound/model/ArticleList.java[`ArticleList`]. Loop through each article, and remove the `tag` from each article.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/lostandfound/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/lostandfound/model/ModelManager.java[`ModelManager`] should call `ArticleList#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/articlelist-level4/pull/790[PR] for the full solution.
@@ -598,12 +644,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your article list application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your article list application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last article in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
+. Use different colors for different tags inside article cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
 +
 **Before**
 +
@@ -663,10 +709,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
 ** link:{repoURL}/src/main/java/seedu/lostandfound/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the article list is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/lostandfound/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/lostandfound/ui/StatusBarFooter.java[`StatusBarFooter#handleArticleListChangedEvent(ArticleListChangedEvent)`] to update the number of persons whenever there are new changes to the articlelist.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/lostandfound/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of articles when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/lostandfound/ui/StatusBarFooter.java[`StatusBarFooter#handleArticleListChangedEvent(ArticleListChangedEvent)`] to update the number of articles whenever there are new changes to the articlelist.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/ArticleListSystemTest.java[`ArticleListSystemTest`] to also verify the new total number of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/ArticleListSystemTest.java[`ArticleListSystemTest`] to also verify the new total number of articles status bar.
 ** See this https://github.com/se-edu/articlelist-level4/pull/803[PR] for the full solution.
 ****
 
@@ -696,15 +742,15 @@ By creating this command, you will get a chance to learn how to implement a feat
 *Scenario:* You are a software maintainer for `articlelist`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
-Edits the remark for a person specified in the `INDEX`. +
+Edits the remark for a article specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
 Examples:
 
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
+* `remark 1 r/Often lost article.` +
+Edits the remark for the first article to `Often lost article.`
 * `remark 1 r/` +
-Removes the remark for the first person.
+Removes the remark for the first article.
 
 ==== Step-by-step Instructions
 
@@ -738,7 +784,7 @@ for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/lostandfound/logic/parser/ArticleListParserTest.java[`ArticleListParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `ArticleCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/lostandfound/ui/ArticleCard.java[`ArticleCard`] s to display a remark for each person later.
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/lostandfound/ui/ArticleCard.java[`ArticleCard`] s to display a remark for each article later.
 
 **Main:**
 
@@ -750,11 +796,11 @@ Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/lostandfou
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/ArticleCardHandle.java[`ArticleCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/lostandfound/model/person/Article.java[`Article`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/lostandfound/model/article/Article.java[`Article`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/lostandfound/model/person/Description.java[`Description`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/lostandfound/model/article/Description.java[`Description`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -762,12 +808,12 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Article` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/lostandfound/model/person/Article.java[`Article`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/lostandfound/model/article/Article.java[`Article`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/lostandfound/model/person/Article.java[`Article`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/lostandfound/model/article/Article.java[`Article`].
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the article will be created without a remark).
 . Modify link:{repoURL}/src/main/java/seedu/lostandfound/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `articleList.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedArticle` class
@@ -782,11 +828,11 @@ We now have `Remark` s for `Article` s, but they will be gone when we exit the a
 . Fix `invalidAndValidArticleArticleList.xml`, `typicalArticlesArticleList.xml`, `validArticleList.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `ArticleBuilder`
-Since `Article` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/lostandfound/testutil/ArticleBuilder.java[`ArticleBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/lostandfound/model/person/Article.java[`Article`].
+Since `Article` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/lostandfound/testutil/ArticleBuilder.java[`ArticleBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/lostandfound/model/article/Article.java[`Article`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/lostandfound/testutil/ArticleBuilder.java[`ArticleBuilder`]. This method will create a new `Remark` for the person that it is currently building.
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/lostandfound/testutil/ArticleBuilder.java[`ArticleBuilder`]. This method will create a new `Remark` for the article that it is currently building.
 . Try and use the method on any sample `Article` in link:{repoURL}/src/test/java/seedu/lostandfound/testutil/TypicalArticles.java[`TypicalArticles`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `ArticleCard`
@@ -805,7 +851,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 **Main:**
 
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a article.
 
 **Tests:**
 
@@ -815,10 +861,11 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 See this https://github.com/se-edu/articlelist-level4/pull/599[PR] for the step-by-step solution.
 
+//tag::user[]
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: an administrator who
 
 * has a need to manage a lot of lost and found articles
 * prefer desktop apps over web equivalents
@@ -836,43 +883,34 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions | Refer to instructions when I forget how to use the commands
+|`* * *` |new administrator |see usage instructions | Refer to instructions when I forget how to use the commands
 
-|`* * *` |user |add an article | Make a new entry
+|`* * *` |administrator who received a lost article|add an article | Make a new entry
 
-|`* * *` |user |delete an article | Remove articles that are no longer needed
+|`* * *` |administrator |delete an article | Remove articles that are no longer relevant
 
-|`* * *` |user |Set the description of the article | Identify the article
+|`* * *` |careless administrator |edit an article | Change details of an article that I made by mistake
 
-|`* * *` |user |Set the photo of the article | Identify the article
+|`* * *` |administrator |Set the photo of the article | Identify the article easily by sight
 
-|`* * *` |user |Set the properties of the article | Identify the article
+|`* * *` |administrator |Differentiate resolved and unresolved articles | Identify different types of articles easily
 
-|`* * *` |user |Set the location the article was lost/found | Identify the article
+|`* * *` |detailed administrator |Show the number of listings| Keep track of the number of entries
 
-|`* * *` |user |Show the number of listings| Keep track of the number of entries
+|`* * *` |detailed administrator |View the details of a selected article| See the specific details of the article
 
-|`* * *` |user |View the details of a selected article| See the specific details of the article
+|`* * *` |administrator who received a claim request |Find articles using the name of the article| Find the article easily
 
-|`* * *` |user |Find articles using the name of the article| Find the article easily
+|`* *`   |administrator who received a claim request |Find articles with matching keywords in their description| Find the articles easily
 
-|`* * *` |user |Resolve articles that have been returned| Categorize resolved articles
+|`* * *` |administrator who received a claim request|Resolve articles that have been claimed| Separate resolved and unresolved articles
 
-|`* *`   |user |Find articles with matching keywords in their description| Find the articles easily
+|`* * *` |administrator who received a claim dispute|View resolved articles that have been previously claimed| Check the article's claim of ownership
 
-|`* *`   |user |Sort the article by their names| Reorganize the listings
+|`* *`   |careless administrator |Undo the last n actions|Cancel actions I did by mistake
 
-|`* *`   |user |Undo the last n actions|Cancel actions I did by mistake
+|`* *`   |careless administrator |Redo the last n actions|Cancel undo actions that I did by mistake
 
-|`* *`   |user |Redo the last n actions|Cancel undo actions that I did by mistake
-
-|`* *`   |user |Add / remove multiple tags from an article |
-
-|`*`     |user |Sort the articles by the name of the person who lost it |
-
-|`*`     |user |Sort the articles by the name of the person who found it |
-
-|`*`     |user |Find articles with specific combination of tag|
 
 |=======================================================================
 
@@ -880,7 +918,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `ArticleList` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `LostBUTFound` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use Cases: Add article
@@ -902,11 +940,11 @@ Use case ends.
 Use case ends
 
 [discrete]
-=== Use Cases: Delete article
+=== Use Cases: Delete unresolved article
 *MSS*
 
 1.  User requests to list article
-2.  System shows a list of articles
+2.  System shows a list of unresolved articles
 3.  User requests to delete a specific article from the list
 4.  System deletes the article
 +
@@ -923,30 +961,12 @@ Use case ends.
 Use case ends
 
 [discrete]
-=== Use Cases: Find article
+=== Use Cases: Delete resolved article
 *MSS*
 
-1.  User requests to find articles
-2.  System shows a list of articles
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 3a. Invalid command format
-+
-[none]
-** 3aa. Systems sends error message to user
-Use case ends.
-
-[discrete]
-=== Use Cases: Resolve article
-*MSS*
-
-1.  User requests to list article
-2.  System shows a list of articles
-3.  User requests to resolve a specific article from the list
+1.  User requests to find list of resolved article
+2.  System shows a list of resolved articles
+3.  User requests to delete a specific article from the list
 4.  System deletes the article
 +
 Use case ends.
@@ -954,19 +974,76 @@ Use case ends.
 *Extensions*
 
 [none]
-* 4a. The list is empty
+* 3a. The list is empty
 +
 Use case ends.
-* 4b. The given index is invalid.
+* 3b. The given index is invalid.
 +
 Use case ends
 
 [discrete]
-=== Use Cases: Set description article
+=== Use Cases: Find unresolved article by name
+*MSS*
+
+1.  User requests to find articles using keywords
+2.  System shows a list of unresolved articles matching the given keywords
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 4a. Invalid command format
++
+[none]
+** 4aa. Systems sends error message to user
+Use case ends.
+
+[discrete]
+=== Use Cases: Find resolved article by keyword
+*MSS*
+
+1.  User requests to find list of resolved article using keywords
+2.  System shows a list of resolved articles matching the keywords
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 5a. Invalid command format
++
+[none]
+** 5aa. Systems sends error message to user
+Use case ends.
+
+[discrete]
+=== Use Cases: Resolve article
 *MSS*
 
 1.  User requests to list article
-2.  System shows a list of articles
+2.  System shows a list of unresolved articles
+3.  User requests to resolve a specific article from the list
+4.  System sets the state of the article to resolved
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 6a. The list is empty
++
+Use case ends.
+* 6b. The given index is invalid.
++
+Use case ends
+
+[discrete]
+=== Use Cases: Edit description of a unresolved article
+*MSS*
+
+1.  User requests to list article
+2.  System shows a list of unresolved articles
 3.  User requests to set the description of a specific article from the list
 4.  System changes the description of the article
 +
@@ -975,10 +1052,10 @@ Use case ends.
 *Extensions*
 
 [none]
-* 5a. The list is empty
+* 7a. The list is empty
 +
 Use case ends.
-* 5b. The given index is invalid.
+* 7b. The given index is invalid.
 +
 Use case ends
 
@@ -993,7 +1070,9 @@ Use case ends
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The commands and the function it provides should be clear to the user.
 .  The user interface’s font and size should be legible by user.
+.  Should be able to retain information in event of crash or force shutdown.
 
+//end::user[]
 [appendix]
 == Glossary
 
@@ -1042,17 +1121,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding an article
 
-=== Deleting a person
+. Adding an article to LostBUTFound
 
-. Deleting a person while all persons are listed
+.. Prerequisites: No article in LostBUTFound has the same name and description as the article to be added.
+.. Test case: `add` +
+   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No article is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+=== Deleting a article
+
+. Deleting a article while all articles are listed
+
+.. Prerequisites: List all articles using the `list` command. Multiple articles in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No article is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

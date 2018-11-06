@@ -14,8 +14,12 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop lost and found application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* This application is made for lost and found administrators who are comfortable with CLI.
+Welcome to *LostBUTFound*! *LostBUTFound* is a management tool designed to help *administrators manage lost and found articles*.
+
+Managing lost and found articles can be a frustrating experience, especially when there are a huge amount of articles to keep track of. LostBUTFound streamlines this management process and help you to increase your productivity.
+
+More importantly, LostBUTFound is optimized for those who prefer to work with a Command Line Interface (CLI), while still having the benefits of a Graphical User Interface (GUI). Fast typists will find that LostBUTFound can manage lost and found articles faster than traditional GUI applications.
+
 
 == Site Map
 

@@ -4,5 +4,8 @@
     <phone>9482424</phone>
     <email>hans@example</email>
     <description>4th street</description>
+	<finder>Hans Muster</finder>
+	<owner>Not Claimed</owner>
+	<isResolved> false</isResolved>
     <tagged>friends</tagged>
 </article>

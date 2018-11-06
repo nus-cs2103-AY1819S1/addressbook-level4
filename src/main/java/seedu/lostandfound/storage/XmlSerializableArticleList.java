@@ -17,7 +17,6 @@ import seedu.lostandfound.model.article.Article;
  */
 @XmlRootElement(name = "articlelist")
 public class XmlSerializableArticleList {
-
     public static final String MESSAGE_DUPLICATE_ARTICLE = "Articles list contains duplicate article(s).";
 
     @XmlElement

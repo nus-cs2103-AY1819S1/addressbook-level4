@@ -3,8 +3,8 @@ package seedu.lostandfound.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
-import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
-import static seedu.lostandfound.testutil.TypicalArticles.BENSON;
+import static seedu.lostandfound.testutil.TypicalArticles.BAG;
+import static seedu.lostandfound.testutil.TypicalArticles.WALLET;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -30,13 +30,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasArticle_articleNotInArticleList_returnsFalse() {
-        assertFalse(modelManager.hasArticle(ALICE));
+        assertFalse(modelManager.hasArticle(BAG));
     }
 
     @Test
     public void hasArticle_articleInArticleList_returnsTrue() {
-        modelManager.addArticle(ALICE);
-        assertTrue(modelManager.hasArticle(ALICE));
+        modelManager.addArticle(BAG);
+        assertTrue(modelManager.hasArticle(BAG));
     }
 
     @Test
@@ -47,7 +47,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        ArticleList articleList = new ArticleListBuilder().withArticle(ALICE).withArticle(BENSON).build();
+        ArticleList articleList = new ArticleListBuilder().withArticle(BAG).withArticle(WALLET).build();
         ArticleList differentArticleList = new ArticleList();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -69,7 +69,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentArticleList, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = BAG.getName().fullName.split("\\s+");
         modelManager.updateFilteredArticleList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(articleList, userPrefs)));
 

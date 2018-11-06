@@ -3,9 +3,9 @@ package seedu.lostandfound.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_DESCRIPTION_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
+import static seedu.lostandfound.testutil.TypicalArticles.BAG;
 import static seedu.lostandfound.testutil.TypicalArticles.getTypicalArticleList;
 
 import java.util.Arrays;
@@ -51,10 +51,10 @@ public class ArticleListTest {
     @Test
     public void resetData_withDuplicateArticles_throwsDuplicateArticleException() {
         // Two articles with the same identity fields
-        Article editedAlice = new ArticleBuilder(ALICE)
-                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        Article editedAlice = new ArticleBuilder(BAG)
+                .withDescription(VALID_DESCRIPTION_MOUSE).withTags(VALID_TAG_BLUE)
                 .build();
-        List<Article> newArticles = Arrays.asList(ALICE, editedAlice);
+        List<Article> newArticles = Arrays.asList(BAG, editedAlice);
         ArticleListStub newData = new ArticleListStub(newArticles);
 
         thrown.expect(DuplicateArticleException.class);
@@ -69,20 +69,20 @@ public class ArticleListTest {
 
     @Test
     public void hasArticle_articleNotInArticleList_returnsFalse() {
-        assertFalse(articleList.hasArticle(ALICE));
+        assertFalse(articleList.hasArticle(BAG));
     }
 
     @Test
     public void hasArticle_articleInArticleList_returnsTrue() {
-        articleList.addArticle(ALICE);
-        assertTrue(articleList.hasArticle(ALICE));
+        articleList.addArticle(BAG);
+        assertTrue(articleList.hasArticle(BAG));
     }
 
     @Test
     public void hasArticle_articleWithSameIdentityFieldsInArticleList_returnsTrue() {
-        articleList.addArticle(ALICE);
-        Article editedAlice = new ArticleBuilder(ALICE)
-                .withDescription(VALID_DESCRIPTION_BOB).withTags(VALID_TAG_HUSBAND)
+        articleList.addArticle(BAG);
+        Article editedAlice = new ArticleBuilder(BAG)
+                .withDescription(VALID_DESCRIPTION_MOUSE).withTags(VALID_TAG_BLUE)
                 .build();
         assertTrue(articleList.hasArticle(editedAlice));
     }

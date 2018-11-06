@@ -2,9 +2,9 @@ package seedu.lostandfound.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.lostandfound.testutil.TypicalArticles.ALICE;
-import static seedu.lostandfound.testutil.TypicalArticles.HOON;
-import static seedu.lostandfound.testutil.TypicalArticles.IDA;
+import static seedu.lostandfound.testutil.TypicalArticles.BAG;
+import static seedu.lostandfound.testutil.TypicalArticles.NECKLACE;
+import static seedu.lostandfound.testutil.TypicalArticles.SHIRT;
 import static seedu.lostandfound.testutil.TypicalArticles.getTypicalArticleList;
 
 import java.io.IOException;
@@ -85,14 +85,14 @@ public class XmlArticleListStorageTest {
         assertEquals(original, new ArticleList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addArticle(HOON);
-        original.removeArticle(ALICE);
+        original.addArticle(SHIRT);
+        original.removeArticle(BAG);
         xmlArticleListStorage.saveArticleList(original, filePath);
         readBack = xmlArticleListStorage.readArticleList(filePath).get();
         assertEquals(original, new ArticleList(readBack));
 
         //Save and read without specifying file path
-        original.addArticle(IDA);
+        original.addArticle(NECKLACE);
         xmlArticleListStorage.saveArticleList(original); //file path not specified
         readBack = xmlArticleListStorage.readArticleList().get(); //file path not specified
         assertEquals(original, new ArticleList(readBack));

@@ -3,31 +3,33 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.DESCRIPTION_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.EMAIL_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.FINDER_DESC_POWERBANK;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_DESCRIPTION_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.lostandfound.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.NAME_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.PHONE_DESC_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_BLUE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.TAG_DESC_RED;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_EMAIL_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_MOUSE;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_NAME_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_PHONE_POWERBANK;
+import static seedu.lostandfound.logic.commands.CommandTestUtil.VALID_TAG_BLUE;
 import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.lostandfound.model.Model.PREDICATE_SHOW_ALL_ARTICLES;
-import static seedu.lostandfound.testutil.TypicalArticles.AMY;
-import static seedu.lostandfound.testutil.TypicalArticles.BOB;
 import static seedu.lostandfound.testutil.TypicalArticles.KEYWORD_MATCHING_MEIER;
+import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
+import static seedu.lostandfound.testutil.TypicalArticles.POWERBANK;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_FIRST_ARTICLE;
 import static seedu.lostandfound.testutil.TypicalIndexes.INDEX_SECOND_ARTICLE;
 
@@ -60,9 +62,10 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_ARTICLE;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + DESCRIPTION_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
-        Article editedArticle = new ArticleBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_MOUSE + "  "
+                + FINDER_DESC_MOUSE + "  " + PHONE_DESC_MOUSE + " " + EMAIL_DESC_MOUSE + "  "
+                + DESCRIPTION_DESC_MOUSE + " " + TAG_DESC_BLUE + " ";
+        Article editedArticle = new ArticleBuilder(MOUSE).withTags(VALID_TAG_BLUE).build();
         assertCommandSuccess(command, index, editedArticle);
 
         /* Case: undo editing the last article in the list -> last article restored */
@@ -78,26 +81,27 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a article with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandSuccess(command, index, BOB);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
+        assertCommandSuccess(command, index, MOUSE);
 
         /* Case: edit a article with new values same as another article's values but with different name -> edited */
-        assertTrue(getModel().getArticleList().getArticleList().contains(BOB));
+        assertTrue(getModel().getArticleList().getArticleList().contains(MOUSE));
         index = INDEX_SECOND_ARTICLE;
-        assertNotEquals(getModel().getFilteredArticleList().get(index.getZeroBased()), BOB);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedArticle = new ArticleBuilder(BOB).withName(VALID_NAME_AMY).build();
+        assertNotEquals(getModel().getFilteredArticleList().get(index.getZeroBased()), MOUSE);
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_POWERBANK + PHONE_DESC_MOUSE
+                + FINDER_DESC_MOUSE + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
+        editedArticle = new ArticleBuilder(MOUSE).withName(VALID_NAME_POWERBANK).build();
         assertCommandSuccess(command, index, editedArticle);
 
         /* Case: edit a article with new values same as another article's values but with different phone and email
          * -> edited
          */
         index = INDEX_SECOND_ARTICLE;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedArticle = new ArticleBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_POWERBANK
+                + EMAIL_DESC_POWERBANK + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
+        editedArticle = new ArticleBuilder(MOUSE).withPhone(VALID_PHONE_POWERBANK)
+                .withEmail(VALID_EMAIL_POWERBANK).build();
         assertCommandSuccess(command, index, editedArticle);
 
         /* Case: clear tags -> cleared */
@@ -113,9 +117,9 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         showArticlesWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_ARTICLE;
         assertTrue(index.getZeroBased() < getModel().getFilteredArticleList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_MOUSE;
         articleToEdit = getModel().getFilteredArticleList().get(index.getZeroBased());
-        editedArticle = new ArticleBuilder(articleToEdit).withName(VALID_NAME_BOB).build();
+        editedArticle = new ArticleBuilder(articleToEdit).withName(VALID_NAME_MOUSE).build();
         assertCommandSuccess(command, index, editedArticle);
 
         /* Case: filtered article list, edit index within bounds of article list but out of bounds of article list
@@ -123,7 +127,7 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
          */
         showArticlesWithName(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getArticleList().getArticleList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_MOUSE,
                 Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
 
         /* --------------------- Performing edit operation while a article card is selected ------------------------- */
@@ -134,29 +138,29 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
         showAllArticles();
         index = INDEX_FIRST_ARTICLE;
         selectArticle(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_POWERBANK + PHONE_DESC_POWERBANK
+                + FINDER_DESC_POWERBANK + EMAIL_DESC_POWERBANK + DESCRIPTION_DESC_POWERBANK + TAG_DESC_RED;
         // this can be misleading: card selection actually remains unchanged but the
         // article details is updated to reflect the new article's name
-        assertCommandSuccess(command, index, AMY, index);
+        assertCommandSuccess(command, index, POWERBANK, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_MOUSE,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_MOUSE,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredArticleList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_MOUSE,
                 Messages.MESSAGE_INVALID_ARTICLE_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_MOUSE,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing all fields -> rejected */
@@ -164,55 +168,55 @@ public class EditCommandSystemTest extends ArticleListSystemTest {
                 EditCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_NAME_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
+                        + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_PHONE_DESC,
-                Phone.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
+                        + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_EMAIL_DESC,
-                Email.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
+                        + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
         assertCommandFailure(
-                EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_DESCRIPTION_DESC,
-                Description.MESSAGE_CONSTRAINTS);
+                EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
+                        + INVALID_DESCRIPTION_DESC, Description.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased() + INVALID_TAG_DESC,
-                Tag.MESSAGE_CONSTRAINTS);
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_ARTICLE.getOneBased()
+                        + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a article with new values same as another article's values -> rejected */
-        executeCommand(ArticleUtil.getAddCommand(BOB));
-        assertTrue(getModel().getArticleList().getArticleList().contains(BOB));
+        executeCommand(ArticleUtil.getAddCommand(MOUSE));
+        assertTrue(getModel().getArticleList().getArticleList().contains(MOUSE));
         index = INDEX_FIRST_ARTICLE;
-        assertFalse(getModel().getFilteredArticleList().get(index.getZeroBased()).equals(BOB));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertFalse(getModel().getFilteredArticleList().get(index.getZeroBased()).equals(MOUSE));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit article with new values same as another article's values
          * but with different description -> rejected
          */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_POWERBANK + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different phone -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_BOB
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_POWERBANK
+                + EMAIL_DESC_MOUSE + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
 
         /* Case: edit a article with new values same as another article's values but with different email -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
-                + DESCRIPTION_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_MOUSE + PHONE_DESC_MOUSE
+                + EMAIL_DESC_POWERBANK + DESCRIPTION_DESC_MOUSE + TAG_DESC_BLUE + TAG_DESC_RED;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_ARTICLE);
     }
 

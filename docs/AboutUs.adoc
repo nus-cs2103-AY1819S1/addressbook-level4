@@ -12,25 +12,29 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Bobbie Ramadhani Soedirgo
 image::dan-delion.png[width="150", align="left"]
-{empty}[https://github.com/dan-delion[github]] [<<dan-delion#, portfolio>>]
+{empty}[https://github.com/dan-delion[github]]
+{empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/dan-delion.html[portfolio]]
 
 '''
 
 === Jerrell Ezralemuel
 image::plty.png[width="150", align="left"]
-{empty}[https://github.com/plty[github]] [<<plty#, portfolio>>]
+{empty}[https://github.com/plty[github]]
+{empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/plty.html[portfolio]]
 
 '''
 
 === Kevin Law
 image::kevvvinn.png[width="150", align="left"]
-{empty}[https://github.com/kevvvinn[github]] [<<kevvvinn#, portfolio>>]
+{empty}[https://github.com/kevvvinn[github]]
+{empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/kevvvinn.html[portfolio]]
 
 '''
 
 === Lim Yu Xi
 image::swiftkage.png[width="150", align="left"]
-{empty}[https://github.com/swiftkage[github]] [<<swiftkage#, portfolio>>]
+{empty}[https://github.com/Swiftkage[github]]
+{empty}[https://cs2103-ay1819s1-w12-1.github.io/main/team/swiftkage.html[portfolio]]
 
 '''
 

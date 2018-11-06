@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.lostandfound.testutil.TypicalArticles.AMY;
-import static seedu.lostandfound.testutil.TypicalArticles.BOB;
-import static seedu.lostandfound.testutil.TypicalArticles.CARL;
+import static seedu.lostandfound.testutil.TypicalArticles.MOUSE;
+import static seedu.lostandfound.testutil.TypicalArticles.POWERBANK;
+import static seedu.lostandfound.testutil.TypicalArticles.WATCH;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,9 @@ import seedu.lostandfound.testutil.ArticleListBuilder;
 
 public class VersionedArticleListTest {
 
-    private final ReadOnlyArticleList articleListWithAmy = new ArticleListBuilder().withArticle(AMY).build();
-    private final ReadOnlyArticleList articleListWithBob = new ArticleListBuilder().withArticle(BOB).build();
-    private final ReadOnlyArticleList articleListWithCarl = new ArticleListBuilder().withArticle(CARL).build();
+    private final ReadOnlyArticleList articleListWithAmy = new ArticleListBuilder().withArticle(POWERBANK).build();
+    private final ReadOnlyArticleList articleListWithBob = new ArticleListBuilder().withArticle(MOUSE).build();
+    private final ReadOnlyArticleList articleListWithCarl = new ArticleListBuilder().withArticle(WATCH).build();
     private final ReadOnlyArticleList emptyArticleList = new ArticleListBuilder().build();
 
     @Test

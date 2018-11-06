@@ -100,6 +100,9 @@ public class ArticleListPanelTest extends GuiUnitTest {
             builder.append("<phone>000</phone>\n");
             builder.append("<email>a@aa</email>\n");
             builder.append("<description>a</description>\n");
+            builder.append("<finder>a</finder>\n");
+            builder.append("<owner>a</owner>\n");
+            builder.append("<isResolved>false</isResolved>\n");
             builder.append("</articles>\n");
         }
         builder.append("</articlelist>\n");

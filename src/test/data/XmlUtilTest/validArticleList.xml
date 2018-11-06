@@ -1,57 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <articlelist>
     <articles>
-        <name>Hans Muster</name>
+        <name>Hans Bag</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <description isPrivate="false">4th street</description>
+		<finder isPrivate="false">Hans Muster</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false"> false</isResolved>
     </articles>
     <articles>
-        <name>Ruth Mueller</name>
+        <name>Ruth Wallet</name>
         <phone isPrivate="false">87249245</phone>
         <email isPrivate="false">ruth@example.com</email>
         <description isPrivate="false">81th street</description>
+		<finder isPrivate="false">Ruth Mueller</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
     <articles>
-        <name>Heinz Kurz</name>
+        <name>Heinz Phone</name>
         <phone isPrivate="false">95352563</phone>
         <email isPrivate="false">heinz@example.com</email>
         <description isPrivate="false">wall street</description>
+		<finder isPrivate="false">Heinz Kurz</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
     <articles>
-        <name>Cornelia Meier</name>
+        <name>Cornelia Watch</name>
         <phone isPrivate="false">87652533</phone>
         <email isPrivate="false">cornelia@example.com</email>
         <description isPrivate="false">10th street</description>
+		<finder isPrivate="false">Cornelia Meier</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
     <articles>
-        <name>Werner Meyer</name>
+        <name>Werner Thumbdrive</name>
         <phone isPrivate="false">9482224</phone>
         <email isPrivate="false">werner@example.com</email>
         <description isPrivate="false">michegan ave</description>
+		<finder isPrivate="false">Werner Meyer</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
     <articles>
-        <name>Lydia Kunz</name>
+        <name>Lydia Paper</name>
         <phone isPrivate="false">9482427</phone>
         <email isPrivate="false">lydia@example.com</email>
         <description isPrivate="false">little tokyo</description>
+		<finder isPrivate="false">Lydia Kunz</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
     <articles>
-        <name>Anna Best</name>
+        <name>Anna Book</name>
         <phone isPrivate="false">9482442</phone>
         <email isPrivate="false">anna@example.com</email>
         <description isPrivate="false">4th street</description>
+		<finder isPrivate="false">Anna Best</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
     <articles>
-        <name>Stefan Meier</name>
+        <name>Stefan Card</name>
         <phone isPrivate="false">8482424</phone>
         <email isPrivate="false">stefan@example.com</email>
         <description isPrivate="false">little india</description>
+		<finder isPrivate="false">Stefan Meier</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
     <articles>
-        <name>Martin Mueller</name>
+        <name>Martin Mouse</name>
         <phone isPrivate="false">8482131</phone>
         <email isPrivate="false">hans@example.com</email>
         <description isPrivate="false">chicago ave</description>
+		<finder isPrivate="false">Martin Mueller</finder>
+		<owner isPrivate="false">Not Claimed</owner>
+		<isResolved isPrivate="false">false</isResolved>
     </articles>
 </articlelist>

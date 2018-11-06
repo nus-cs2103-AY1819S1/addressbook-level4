@@ -1,6 +1,7 @@
 package seedu.lostandfound.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.lostandfound.logic.parser.CliSyntax.PREFIX_OWNER;
 import static seedu.lostandfound.model.Model.NOT_RESOLVED_PREDICATE;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import seedu.lostandfound.logic.CommandHistory;
 import seedu.lostandfound.logic.commands.exceptions.CommandException;
 import seedu.lostandfound.model.Model;
 import seedu.lostandfound.model.article.Article;
+import seedu.lostandfound.model.article.Name;
 
 /**
  * Resolves an article identified using it's displayed index from the address book.
@@ -19,17 +21,22 @@ public class ResolveCommand extends Command {
     public static final String COMMAND_WORD = "resolve";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Resolves the person identified by the index number used in the displayed article list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Resolves the article identified by the index number used in the displayed article list"
+            + " when owner claims their article.\n"
+            + "Parameters: INDEX (must be a positive integer) " + PREFIX_OWNER + "OWNER\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_OWNER + "John";
 
-    private static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    public static final String MESSAGE_RESOLVED_ARTICLE_SUCCESS = "Resolved Article: %1$s";
+    public static final String MESSAGE_NOT_RESOLVED = "Owner need to be specified!";
+
     private static final boolean SET_ISRESOLVED = true;
 
     private final Index targetIndex;
+    private final Name owner;
 
-    public ResolveCommand(Index targetIndex) {
+    public ResolveCommand(Index targetIndex, Name owner) {
         this.targetIndex = targetIndex;
+        this.owner = owner;
     }
 
     @Override
@@ -44,7 +51,7 @@ public class ResolveCommand extends Command {
         Article articleToEdit = lastShownList.get(targetIndex.getZeroBased());
 
         Article editedArticle = new Article(articleToEdit.getName(), articleToEdit.getPhone(),
-                articleToEdit.getEmail(), articleToEdit.getDescription(), null, SET_ISRESOLVED, articleToEdit.getTags());
+                articleToEdit.getEmail(), articleToEdit.getDescription(), articleToEdit.getImage(), articleToEdit.getFinder(), owner, SET_ISRESOLVED, articleToEdit.getTags());
 
         model.updateArticle(articleToEdit, editedArticle);
         model.updateFilteredArticleList(NOT_RESOLVED_PREDICATE);
