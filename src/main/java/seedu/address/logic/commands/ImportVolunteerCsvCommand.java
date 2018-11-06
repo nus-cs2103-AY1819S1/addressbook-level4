@@ -40,13 +40,13 @@ public class ImportVolunteerCsvCommand extends Command {
 
     public static final String COMMAND_WORD = "importvolunteercsv";
 
-    public static final String FORMAT_ERROR = "The CSV must have the following format:\n"
+    private static final String FORMAT_ERROR = "The CSV must have the following format:\n"
             + " Name, Phone, Address, Email, Birthday, Gender, Tags, VolunteerID";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports a CSV file of the volunteer "
             + "given the directory to the file." + FORMAT_ERROR;
 
-    public static final String MESSAGE_FORMAT_ERROR = FORMAT_ERROR + "\n"
+    private static final String MESSAGE_FORMAT_ERROR = FORMAT_ERROR + "\n"
             + "Please check the validity of your csv inputs and try again.";
 
     private static final String MESSAGE_IMPORT_COMPLETED = "Volunteer(s) imported from CSV file "
