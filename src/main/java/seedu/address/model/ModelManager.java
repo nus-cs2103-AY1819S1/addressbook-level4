@@ -35,6 +35,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Event> filteredEvents;
+    private final ObservableList<Tag> eventTags;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -48,7 +49,10 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredEvents = new FilteredList<>(versionedAddressBook.getEventList());
+        eventTags = versionedAddressBook.getEventTagList();
+
         addListenerToBaseEventList();
+        addListenerToEventTagList();
     }
 
     public ModelManager() {
@@ -94,6 +98,11 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the events list in the model has changed */
     private void indicateAddressBookEventChanged() {
         raise(new AddressBookEventChangedEvent(filteredEvents));
+    }
+
+    /** Raises an event to indicate the event tags list in the model has changes */
+    private void indicateAddressBookEventTagChanged() {
+        raise(new AddressBookEventTagChangedEvent(eventTags));
     }
 
     @Override

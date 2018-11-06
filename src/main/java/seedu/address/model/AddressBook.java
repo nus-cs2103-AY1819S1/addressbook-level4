@@ -2,12 +2,22 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Set;
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.UniqueEventList;
+import seedu.address.model.filereader.FileReader;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Faculty;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -166,7 +176,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Adds an event to the address book.
      * The event must not already exist in the address book, and must not clash any of the existing events in the
-     * address book.
+     * address book. All event tags must be existing in the address book.
      */
     //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
     // ask the
@@ -176,7 +186,63 @@ public class AddressBook implements ReadOnlyAddressBook {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);
 
+        for (Tag eventTag : event.getEventTags()) {
+            assert hasEventTag(eventTag);
+        }
+
         events.add(event);
+    }
+
+    /**
+     * Reads contacts info in the given file reader.
+     */
+    public void importContacts(FileReader fileReader) {
+        ArrayList<String> contacts = fileReader.getContacts();
+        for (String s : contacts) {
+            String[] parts = s.split(",");
+            String nameString = parts[fileReader.getNameIndex()];
+            String phoneString = parts[fileReader.getPhoneIndex()].replaceAll("\\s", "");
+            String addressString = parts[fileReader.getAddressIndex()];
+            String emailString = parts[fileReader.getEmailIndex()];
+            String facultyString = parts[fileReader.getFacultyIndex()];
+            if (!(Name.isValidName(nameString) && Phone.isValidPhone(phoneString)
+                    && Address.isValidAddress(addressString) && Email.isValidEmail(emailString))
+                    && Faculty.isValidFaculty(facultyString)) {
+                continue;
+            }
+            try {
+                Name name = ParserUtil.parseName(nameString);
+                Phone phone = ParserUtil.parsePhone(phoneString);
+                Email email = ParserUtil.parseEmail(emailString);
+                Address address = ParserUtil.parseAddress(addressString);
+                Set<Tag> tagList = ParserUtil.parseTags(new ArrayList<>());
+                Faculty faculty = ParserUtil.parseFaculty(facultyString);
+                Person person = new Person(name, phone, email, address, tagList, faculty);
+                if (!persons.contains(person)) {
+                    persons.add(person);
+                } else {
+                    fileReader.incrementFailCounter();
+                }
+            } catch (ParseException e) {
+                fileReader.incrementFailCounter();
+            }
+        }
+    }
+    //// tag-level operations
+    /**
+     * Returns true if an event tag with the same identity as {@code tag} exists in the address book.
+     */
+    public boolean hasEventTag(Tag tag) {
+        requireNonNull(tag);
+        return eventTags.contains(tag);
+    }
+    /**
+     * Adds an event tag to the address book.
+     * The event tag must not be already existing in the address book.
+     */
+    public void addEventTag(Tag tag) {
+        assert !hasEventTag(tag);
+        eventTags.add(tag);
     }
 
     //// util methods
@@ -228,12 +294,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && persons.equals(((AddressBook) other).persons)
-                && events.equals(((AddressBook) other).events));
+                && events.equals(((AddressBook) other).events))
+                && eventTags.equals(((AddressBook) other).eventTags);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode() + events.hashCode();
+        return persons.hashCode() + events.hashCode() + eventTags.hashCode();
     }
 
     public String getFavouriteEvent() { return favourite; }
