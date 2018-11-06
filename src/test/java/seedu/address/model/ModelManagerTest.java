@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.simplejavamail.email.Email;
 
-import junit.framework.TestCase;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
@@ -44,6 +43,7 @@ public class ModelManagerTest {
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
+    //@@author EatOrBeEaten
     @Test
     public void hasEmail_nullEmail_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -58,7 +58,7 @@ public class ModelManagerTest {
     @Test
     public void hasEmail_emailInEmailModel_returnsTrue() {
         modelManager.saveComposedEmail(MEETING_EMAIL);
-        TestCase.assertTrue(modelManager.hasEmail(MEETING_EMAIL.getSubject()));
+        assertTrue(modelManager.hasEmail(MEETING_EMAIL.getSubject()));
     }
 
     @Test
@@ -66,6 +66,7 @@ public class ModelManagerTest {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getExistingEmails().add("Hello");
     }
+    //@@author
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
