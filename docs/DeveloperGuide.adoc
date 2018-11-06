@@ -626,6 +626,7 @@ with a https://pdfbox.apache.org/docs/2.0.2/javadocs/org/apache/pdfbox/pdmodel/P
 
 // end::exportcert[]
 
+// tag::eventmanagement[]
 === Event management
 
 This section describes the details on how the event management features are implemented.
@@ -677,6 +678,7 @@ the highest ID with the event ID and creates the event. If it isn't, skip to the
 
 ==== Delete event [Coming in V1.3]
 
+// end::eventmanagement[]
 
 
 === Record management

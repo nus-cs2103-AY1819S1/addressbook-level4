@@ -394,6 +394,7 @@ To avoid exported file name clashes for volunteers with the same name, we have a
 ====
 // end::exportcert[]
 
+// tag::eventmanagement[]
 === Event Management
 
 The following commands can only be accessed after switching to the 'event' panel. (see <<command-switch>>)
@@ -495,6 +496,8 @@ The expected result is shown in the figure below.
 .Result of `delete 3`
 image::command_event_delete_before_after.png[Before delete, 600]
 
+
+// end::eventmanagement[]
 
 === Record Management
 
