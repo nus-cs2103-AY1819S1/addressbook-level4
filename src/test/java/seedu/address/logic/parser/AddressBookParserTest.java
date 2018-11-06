@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.junit.Rule;
@@ -16,6 +18,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddApptCommand;
+import seedu.address.logic.commands.AddDietCommand;
 import seedu.address.logic.commands.AddmedsCommand;
 import seedu.address.logic.commands.AddmhCommand;
 import seedu.address.logic.commands.CheckinCommand;
@@ -33,6 +36,8 @@ import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.logic.commands.VisitorinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.diet.Diet;
+import seedu.address.model.diet.DietCollection;
 import seedu.address.model.medicalhistory.Diagnosis;
 import seedu.address.model.medicine.Prescription;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -42,6 +47,8 @@ import seedu.address.testutil.AppointmentBuilder;
 import seedu.address.testutil.AppointmentUtil;
 import seedu.address.testutil.DiagnosisBuilder;
 import seedu.address.testutil.DiagnosisUtil;
+import seedu.address.testutil.DietBuilder;
+import seedu.address.testutil.DietUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
@@ -83,7 +90,13 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_adddiet() throws Exception {
-        //TODO: finish this test
+        Person person = new PersonBuilder().build();
+        Diet diet = new DietBuilder().build();
+        Set<Diet> dietSet = new HashSet<>();
+        dietSet.add(diet);
+        DietCollection dietCollection = new DietCollection(dietSet);
+        AddDietCommand cmd = (AddDietCommand) parser.parseCommand(DietUtil.getAddDietCommand(person.getNric(), diet));
+        assertEquals(new AddDietCommand(person.getNric(), dietCollection), cmd);
     }
 
     @Test
