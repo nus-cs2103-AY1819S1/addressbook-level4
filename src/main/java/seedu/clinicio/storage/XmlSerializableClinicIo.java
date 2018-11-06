@@ -115,7 +115,7 @@ public class XmlSerializableClinicIo {
         }
 
         return persons.equals(((XmlSerializableClinicIo) other).persons)
-                && appointments.equals(((XmlSerializableClinicIo) other).appointments);
+                && appointments.equals(((XmlSerializableClinicIo) other).appointments)
                 && patients.equals(((XmlSerializableClinicIo) other).patients)
                 && staffs.equals(((XmlSerializableClinicIo) other).staffs);
 
