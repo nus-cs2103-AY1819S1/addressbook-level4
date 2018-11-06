@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
-// import static java.util.Objects.requireNonNull;
-// import static seedu.address.commons.util.AppUtil.checkArgument;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's faculty in the address book.
@@ -9,8 +9,13 @@ package seedu.address.model.person;
  */
 public class Faculty {
 
+    enum Faculties {
+        SOC, FOS, YLLSOM, FOD, BIZ, SDE, FOE, FOL, YSTCOM, FASS
+
+    }
+
     public static final String MESSAGE_FACULTY_CONSTRAINTS =
-            "Faculty name should be standardized with what NUS uses."
+            "Faculty name should be standardized with what NUS uses. "
                     + "Contacts with no faculty should have the field set to '-'.";
 
     /*
@@ -27,9 +32,9 @@ public class Faculty {
      * @param faculty A valid faculty.
      */
     public Faculty(String faculty) {
-        // requireNonNull(faculty);
-        // checkArgument(isValidFaculty(faculty), MESSAGE_FACULTY_CONSTRAINTS);
-        value = faculty;
+        requireNonNull(faculty);
+        checkArgument(isValidFaculty(faculty), MESSAGE_FACULTY_CONSTRAINTS);
+        value = faculty.toUpperCase();
     }
 
 
@@ -38,7 +43,16 @@ public class Faculty {
      */
 
     public static boolean isValidFaculty(String test) {
-        return test.matches(FACULTY_VALIDATION_REGEX);
+        return test.matches(FACULTY_VALIDATION_REGEX) && isInEnum(test, Faculties.class);
+    }
+
+    public static <Faculties extends Enum<Faculties>> boolean isInEnum(String value, Class<Faculties> enumClass) {
+        for (Faculties e : enumClass.getEnumConstants()) {
+            if(e.name().equalsIgnoreCase(value)) {
+                System.out.println("I'm here");
+                return true; }
+        }
+        return false;
     }
 
     @Override
