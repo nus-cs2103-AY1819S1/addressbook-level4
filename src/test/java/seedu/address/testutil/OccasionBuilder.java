@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.util.TypeUtil;
@@ -8,6 +9,8 @@ import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDate;
 import seedu.address.model.occasion.OccasionLocation;
 import seedu.address.model.occasion.OccasionName;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -22,6 +25,7 @@ public class OccasionBuilder {
     private OccasionName occasionName;
     private OccasionDate occasionDate;
     private OccasionLocation occasionLocation;
+    private UniquePersonList attendanceList;
     private Set<Tag> tags;
 
     public OccasionBuilder() {
@@ -35,6 +39,7 @@ public class OccasionBuilder {
         occasionName = occasionToCopy.getOccasionName();
         occasionDate = occasionToCopy.getOccasionDate();
         occasionLocation = occasionToCopy.getOccasionLocation();
+        attendanceList = occasionToCopy.getAttendanceList();
         tags = occasionToCopy.getTags();
     }
 
@@ -67,6 +72,19 @@ public class OccasionBuilder {
      */
     public OccasionBuilder withoutOccasionDate() {
         this.occasionDate = new OccasionDate();
+        return this;
+    }
+
+    public OccasionBuilder withAttendanceList(List<Person> personList) {
+        for (Person person : personList) {
+            attendanceList.add(person);
+        }
+
+        return this;
+    }
+
+    public OccasionBuilder withAttendanceList(UniquePersonList personList) {
+        this.attendanceList = personList;
         return this;
     }
 

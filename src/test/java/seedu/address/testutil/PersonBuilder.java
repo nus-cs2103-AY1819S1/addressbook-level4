@@ -1,8 +1,13 @@
 package seedu.address.testutil;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.address.model.module.Module;
+import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -25,6 +30,8 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
+    private UniqueModuleList moduleList;
+    private UniqueOccasionList occasionList;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -33,6 +40,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        moduleList = new UniqueModuleList();
+        occasionList = new UniqueOccasionList();
     }
 
     /**
@@ -44,6 +53,8 @@ public class PersonBuilder {
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
+        moduleList = personToCopy.getModuleList();
+        occasionList = personToCopy.getOccasionList();
     }
 
     /**
@@ -83,6 +94,30 @@ public class PersonBuilder {
      */
     public PersonBuilder withEmail(String email) {
         this.email = new Email(email);
+        return this;
+    }
+
+    public PersonBuilder withModuleList(List<Module> moduleList) {
+        for (Module module : moduleList) {
+            moduleList.add(module);
+        }
+        return this;
+    }
+
+    public PersonBuilder withModuleList(UniqueModuleList moduleList) {
+        this.moduleList = moduleList;
+        return this;
+    }
+
+    public PersonBuilder withOccasionList(List<Occasion> occasionList) {
+        for (Occasion occasion : occasionList) {
+            occasionList.add(occasion);
+        }
+        return this;
+    }
+
+    public PersonBuilder withOccasionList(UniqueOccasionList occasionList) {
+        this.occasionList = occasionList;
         return this;
     }
 
