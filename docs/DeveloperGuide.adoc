@@ -31,7 +31,7 @@ If you are new to development, you can try working step-by-step tutorial from Or
 - https://docs.oracle.com/javase/tutorial/[Java™ Tutorials from Oracle]
 - https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm[JavaFX Tutorials from Oracle]
 
-If you are new to contributing to ClinicIO, head over to <<#Setting Up, Setting Up>> to start 
+If you are new to contributing to ClinicIO, head over to <<#Setting Up, Setting Up>> to start
 set up ClinicIO project.
 
 
