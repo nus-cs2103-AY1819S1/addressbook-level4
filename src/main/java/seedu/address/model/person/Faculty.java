@@ -43,7 +43,11 @@ public class Faculty {
      */
 
     public static boolean isValidFaculty(String test) {
-        return test.matches(FACULTY_VALIDATION_REGEX) && isInEnum(test, Faculties.class);
+        if (test.equals("-")) {
+            return true;
+        } else {
+            return test.matches(FACULTY_VALIDATION_REGEX) && isInEnum(test, Faculties.class);
+        }
     }
 
     public static <Faculties extends Enum<Faculties>> boolean isInEnum(String value, Class<Faculties> enumClass) {
