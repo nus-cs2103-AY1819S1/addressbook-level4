@@ -46,16 +46,6 @@ public class Receipt extends Document {
         totalPrice = 0;
     }
 
-    public float pioneerDiscount() {
-        totalPrice -= 28.5;
-        return totalPrice;
-    }
-
-    public float blueDiscount() {
-        totalPrice -= 18.5;
-        return totalPrice;
-    }
-
     public Map<Medicine, QuantityToDispense> getAllocatedMedicine() {
         return allocatedMedicine;
     }

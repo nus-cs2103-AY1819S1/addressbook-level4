@@ -57,14 +57,14 @@ public class PersonCard extends UiPart<Region> {
      */
     private String getTagColorStyleFor(String tagName) {
         switch(tagName) {
-            case "pioneer":
-                return "red";
-            case "blue":
-                return "blue";
-            case "orange":
-                return "orange";
-            default:
-                return "grey";
+        case "pioneer":
+            return "red";
+        case "blue":
+            return "blue";
+        case "orange":
+            return "orange";
+        default:
+            return "grey";
         }
     }
     /**

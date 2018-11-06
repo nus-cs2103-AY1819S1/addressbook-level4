@@ -54,9 +54,6 @@ public class Document {
             + "<th>Prescription</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></div></tr>";
     private static final String RECEIPT_END_CONTENT_WITHOUT_PRICE = "<tr ID = \"receiptEnd\"><td>Total:"
             + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER;
-    private static final String RECEIPT_END_CONTENT_WITHOUT_DISCOUNT = "<tr ID = \"receiptEnd\"><td>Grand Total " +
-            "(after CHAS discount):" + HTML_TABLE_DATA_DIVIDER + "-" + HTML_TABLE_DATA_DIVIDER + "-" +
-            HTML_TABLE_DATA_DIVIDER;
     private static final String RECEIPT_END = "</td></tr></table>";
 
     private static String documentFilePath;
