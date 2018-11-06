@@ -28,6 +28,5 @@ public class ImportVolunteerCsvCommandParser implements Parser<ImportVolunteerCs
         } catch (FileNotFoundException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportVolunteerCsvCommand.FILE_ERROR));
         }
-        
     }
 }
