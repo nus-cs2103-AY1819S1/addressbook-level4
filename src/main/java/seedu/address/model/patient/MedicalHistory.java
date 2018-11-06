@@ -39,6 +39,14 @@ public class MedicalHistory {
         conditions.add(condition);
     }
 
+    public void deleteAllergy(String allergy) {
+        allergies.remove(allergy);
+    }
+
+    public void deleteCondition(String condition) {
+        conditions.remove(condition);
+    }
+
     public void setAllergies(ArrayList<String> allergies) {
         this.allergies = allergies;
     }

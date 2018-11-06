@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 import seedu.address.calendar.GoogleCalendar;
 import seedu.address.commons.core.EventsCenter;
@@ -16,6 +16,7 @@ import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.patient.MedicalHistory;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -66,6 +67,8 @@ public class DeleteMedicalHistoryCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history, GoogleCalendar googleCalendar)
             throws CommandException {
         requireNonNull(model);
+        Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> lastShownList = model.getFilteredPersonList();
 
         Person personToEdit = null;
@@ -85,14 +88,15 @@ public class DeleteMedicalHistoryCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE);
         }
         Patient patientToEdit = (Patient) personToEdit;
+        MedicalHistory editedMedicalHistory = new MedicalHistory(patientToEdit.getMedicalHistory());
         if (allergy.equals("") && condition.equals("")) {
             throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
         }
         if (!(allergy.equals(""))) {
             ArrayList<String> allergiesToDelete = new ArrayList<>(Arrays.asList(allergy.split(",")));
             for (int index = 0; index < allergiesToDelete.size(); index++) {
-                if (patientToEdit.getMedicalHistory().getAllergies().contains(allergiesToDelete.get(index))) {
-                    patientToEdit.getMedicalHistory().getAllergies().remove(allergiesToDelete.get(index));
+                if (editedMedicalHistory.getAllergies().contains(allergiesToDelete.get(index))) {
+                    editedMedicalHistory.getAllergies().remove(allergiesToDelete.get(index));
                 } else {
                     throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY
                             + allergiesToDelete.get(index));
@@ -102,8 +106,8 @@ public class DeleteMedicalHistoryCommand extends Command {
         if (!(condition.equals(""))) {
             ArrayList<String> conditionsToDelete = new ArrayList<>(Arrays.asList(condition.split(",")));
             for (int index = 0; index < conditionsToDelete.size(); index++) {
-                if (patientToEdit.getMedicalHistory().getConditions().contains(conditionsToDelete.get(index))) {
-                    patientToEdit.getMedicalHistory().getConditions().remove(conditionsToDelete.get(index));
+                if (editedMedicalHistory.getConditions().contains(conditionsToDelete.get(index))) {
+                    editedMedicalHistory.getConditions().remove(conditionsToDelete.get(index));
                 } else {
                     throw new CommandException(MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION
                             + conditionsToDelete.get(index));
@@ -113,7 +117,7 @@ public class DeleteMedicalHistoryCommand extends Command {
         Patient editedPatient = new Patient(patientToEdit.getName(), patientToEdit.getPhone(), patientToEdit.getEmail(),
                 patientToEdit.getAddress(), patientToEdit.getRemark(), patientToEdit.getTags(),
                 patientToEdit.getTelegramId(), patientToEdit.getUpcomingAppointments(),
-                patientToEdit.getPastAppointments(), patientToEdit.getMedicalHistory());
+                patientToEdit.getPastAppointments(), editedMedicalHistory);
         model.updatePerson(patientToEdit, editedPatient);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
