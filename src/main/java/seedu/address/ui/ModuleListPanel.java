@@ -35,6 +35,24 @@ public class ModuleListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Clears selection of the view.
+     */
+    public void clearSelection() {
+        Platform.runLater(() -> {
+            moduleListView.getSelectionModel().clearSelection();
+        });
+    }
+
+    /**
+     * Change list of view.
+     * @param moduleList updated list.
+     */
+    public void updatePanel(ObservableList<Module> moduleList) {
+        moduleListView.setItems(moduleList);
+        moduleListView.setCellFactory(listView -> new ModuleListViewCell());
+    }
+
     private void setConnections(ObservableList<Module> moduleList) {
         moduleListView.setItems(moduleList);
         moduleListView.setCellFactory(listView -> new ModuleListViewCell());

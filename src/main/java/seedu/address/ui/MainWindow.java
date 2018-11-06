@@ -1,6 +1,6 @@
 package seedu.address.ui;
 
-import java.net.URL;
+//import java.net.URL;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -22,32 +22,32 @@ import seedu.address.commons.events.ui.ShowModuleRequestEvent;
 import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.commons.events.ui.ShowPersonRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.model.module.Module;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.occasion.Occasion;
+import seedu.address.model.person.Person;
 
 /**
  * The MainWindow parent class from which children entity windows are spawned from.
  */
-abstract class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> {
 
     public final Logger logger = LogsCenter.getLogger(getClass());
-
     private UserPrefs prefs;
     private Stage primaryStage;
     private HelpWindow helpWindow;
 
-    private BrowserPanel browserPanel;
+    private PersonBrowserPanel personBrowserPanel;
+    private OccasionBrowserPanel occasionBrowserPanel;
+    private ModuleBrowserPanel moduleBrowserPanel;
     private PersonListPanel personListPanel;
+    private ModuleListPanel moduleListPanel;
+    private OccasionListPanel occasionListPanel;
     private Config config;
     private Logic logic;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
-
-    @FXML
-    private StackPane moduleListPanelPlaceholder;
-
-    @FXML
-    private StackPane occasionListPanelPlaceholder;
+    private StackPane entityListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -68,12 +68,14 @@ abstract class MainWindow extends UiPart<Stage> {
     private MenuItem personMenuItem;
 
     @FXML
-    private MenuItem moduleWindowItem;
+    private MenuItem moduleMenuItem;
 
     @FXML
-    private MenuItem occasionWindowItem;
+    private MenuItem occasionMenuItem;
 
-
+    MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        this("MainWindow.fxml", primaryStage, config, prefs, logic);
+    }
 
     MainWindow(String fxml, Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(fxml, primaryStage);
@@ -82,6 +84,17 @@ abstract class MainWindow extends UiPart<Stage> {
         this.config = config;
         this.prefs = prefs;
         this.logic = logic;
+
+        // Configure the UI
+        setTitle(config.getAppTitle());
+        setWindowDefaultSize(prefs);
+
+        setAccelerators();
+        registerAsAnEventHandler(this);
+    }
+
+    private void setTitle(String appTitle) {
+        primaryStage.setTitle(appTitle);
     }
 
     void hide() {
@@ -138,8 +151,6 @@ abstract class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
-    abstract void releaseResources();
-
     /**
      * Closes the application.
      */
@@ -165,12 +176,13 @@ abstract class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleModule() {
-        URL moduleWindowUrl = getFxmlFileUrl("ModuleWindow.fxml");
-        loadFxmlFile(moduleWindowUrl, primaryStage);
+        getBrowserPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().clear();
+        moduleListPanel.clearSelection();
 
-        MainWindow moduleWindow = new ModuleWindow(this.primaryStage, this.config, this.prefs, this.logic);
-
-        moduleWindow.fillInnerParts();
+        moduleListPanel.updatePanel(logic.getFilteredModuleList());
+        getBrowserPlaceholder().getChildren().add(moduleBrowserPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().add(moduleListPanel.getRoot());
     }
 
     /**
@@ -178,12 +190,13 @@ abstract class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handlePerson() {
-        URL personWindowUrl = getFxmlFileUrl("PersonWindow.fxml");
-        loadFxmlFile(personWindowUrl, primaryStage);
+        getBrowserPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().clear();
+        personListPanel.clearSelection();
 
-        MainWindow personWindow = new PersonWindow(this.primaryStage, this.config, this.prefs, this.logic);
-
-        personWindow.fillInnerParts();
+        personListPanel.updatePanel(logic.getFilteredPersonList());
+        getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
     }
 
     /**
@@ -191,15 +204,43 @@ abstract class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleOccasion() {
-        URL occasionWindowUrl = getFxmlFileUrl("OccasionWindow.fxml");
-        loadFxmlFile(occasionWindowUrl, primaryStage);
+        getBrowserPlaceholder().getChildren().clear();
+        getEntityListPanelPlaceholder().getChildren().clear();
+        occasionListPanel.clearSelection();
 
-        MainWindow occasionWindow = new OccasionWindow(this.primaryStage, this.config, this.prefs, this.logic);
-
-        occasionWindow.fillInnerParts();
+        occasionListPanel.updatePanel(logic.getFilteredOccasionList());
+        getBrowserPlaceholder().getChildren().add(occasionBrowserPanel.getRoot());
+        getEntityListPanelPlaceholder().getChildren().add(occasionListPanel.getRoot());
     }
 
-    abstract void fillInnerParts();
+    /**
+     * Fills up all the placeholders of this window.
+     */
+    void fillInnerParts() {
+        Person firstPerson = logic.getFilteredPersonList().get(0);
+        Module firstModule = logic.getFilteredModuleList().get(0);
+        Occasion firstOccasion = logic.getFilteredOccasionList().get(0);
+        personBrowserPanel = new PersonBrowserPanel(firstPerson.getModuleList().asUnmodifiableObservableList(),
+                                                    firstPerson.getOccasionList().asUnmodifiableObservableList());
+        moduleBrowserPanel = new ModuleBrowserPanel(firstModule.getStudents().asUnmodifiableObservableList());
+        occasionBrowserPanel = new OccasionBrowserPanel(firstOccasion
+                                                            .getAttendanceList().asUnmodifiableObservableList());
+        getBrowserPlaceholder().getChildren().add(personBrowserPanel.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+        occasionListPanel = new OccasionListPanel(logic.getFilteredOccasionList());
+        getEntityListPanelPlaceholder().getChildren().add(personListPanel.getRoot());
+
+        ResultDisplay resultDisplay = new ResultDisplay();
+        getResultDisplayPlaceholder().getChildren().add(resultDisplay.getRoot());
+
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+        getStatusbarPlaceholder().getChildren().add(statusBarFooter.getRoot());
+
+        CommandBox commandBox = new CommandBox(logic);
+        getCommandBoxPlaceholder().getChildren().add(commandBox.getRoot());
+    }
 
     /**
      * Sets the default size based on user preferences.
@@ -237,16 +278,8 @@ abstract class MainWindow extends UiPart<Stage> {
         handleOccasion();
     }
 
-    public StackPane getPersonListPanelPlaceholder() {
-        return personListPanelPlaceholder;
-    }
-
-    public StackPane getModuleListPanelPlaceholder() {
-        return moduleListPanelPlaceholder;
-    }
-
-    public StackPane getOccasionListPanelPlaceholder() {
-        return occasionListPanelPlaceholder;
+    public StackPane getEntityListPanelPlaceholder() {
+        return entityListPanelPlaceholder;
     }
 
     public StackPane getResultDisplayPlaceholder() {
@@ -263,21 +296,5 @@ abstract class MainWindow extends UiPart<Stage> {
 
     public StackPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
-    }
-
-    public MenuItem getPersonMenuItem() {
-        return personMenuItem;
-    }
-
-    public MenuItem getModuleWindowItem() {
-        return moduleWindowItem;
-    }
-
-    public void setModuleWindowItem(MenuItem moduleWindowItem) {
-        this.moduleWindowItem = moduleWindowItem;
-    }
-
-    public MenuItem getOccasionWindowItem() {
-        return occasionWindowItem;
     }
 }

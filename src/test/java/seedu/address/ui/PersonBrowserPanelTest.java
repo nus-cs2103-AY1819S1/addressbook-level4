@@ -23,8 +23,7 @@ public class PersonBrowserPanelTest extends GuiUnitTest {
 
         // Load up the panel with an empty occasions and modules table.
         guiRobot.interact(() -> personBrowserPanel = new PersonBrowserPanel(new UniqueModuleList()
-                                                                .asUnmodifiableObservableList(),
-                                                        new UniqueOccasionList().asUnmodifiableObservableList()));
+                                                                .asUnmodifiableObservableList()),
         uiPartRule.setUiPart(personBrowserPanel);
 
         personBrowserPanelHandle = new PersonBrowserPanelHandle(personBrowserPanel.getRoot());

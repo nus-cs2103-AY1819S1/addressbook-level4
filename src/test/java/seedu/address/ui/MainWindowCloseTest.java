@@ -18,13 +18,13 @@ import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
- * Contains tests for closing of the {@code PersonWindow}.
+ * Contains tests for closing of the {@code MainWindow}.
  */
-public class PersonWindowCloseTest extends GuiUnitTest {
+public class MainWindowCloseTest extends GuiUnitTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private PersonWindow personWindow;
+    private MainWindow mainWindow;
     private EmptyMainWindowHandle mainWindowHandle;
     private Stage stage;
 
@@ -32,10 +32,10 @@ public class PersonWindowCloseTest extends GuiUnitTest {
     public void setUp() throws Exception {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            personWindow = new PersonWindow(stage, new Config(), new UserPrefs(), new LogicManager(new ModelManager()));
+            mainWindow = new MainWindow(stage, new Config(), new UserPrefs(), new LogicManager(new ModelManager()));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
 
-            stage.setScene(personWindow.getRoot().getScene());
+            stage.setScene(mainWindow.getRoot().getScene());
             mainWindowHandle.focus();
         });
         FxToolkit.showStage();

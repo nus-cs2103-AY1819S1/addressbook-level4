@@ -32,6 +32,24 @@ public class PersonListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    /**
+     * Clears selection of the view.
+     */
+    public void clearSelection() {
+        Platform.runLater(() -> {
+            personListView.getSelectionModel().clearSelection();
+        });
+    }
+
+    /**
+     * Change list of view.
+     * @param personList updated list.
+     */
+    public void updatePanel(ObservableList<Person> personList) {
+        personListView.setItems(personList);
+        personListView.setCellFactory(listView -> new PersonListViewCell());
+    }
+
     private void setConnections(ObservableList<Person> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
