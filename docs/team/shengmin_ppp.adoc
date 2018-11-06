@@ -4,13 +4,14 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: WishBook
-
+By: `CS2103T Team T16-1`  
 ---
 
 == Overview
 
 WishBook (WB) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does WB keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. WB is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants.
 
+This project portfolio consists of the contributions I have made to WishBook over the semester.
 ****
 Below is a mockup of `WishBook`
 
@@ -78,10 +79,10 @@ _The following links contain code snippets of code contributed_
 === *Other contributions*:
 * Documentation:
 * User Guide: 
-** Wrote the first version of the user guide containing all features in the first version of `WishBook`. (https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[#14]
-** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[#15]
+** Wrote the first version of the user guide containing all features in the first version of `WishBook`. (https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/old_userguide.md[]
+** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[]
 * Developer Guide:
-** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[#16]
+** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[]
 
 <<<
 
@@ -120,14 +121,13 @@ _Fig 7: Storage Class Diagram_
 ****
 +
 * Community:
-** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Helped to integrate savings history feature with other components worked on by team members (https://github.com[1], https://github.com[2])
-** Resolved issues raised by team members (https://github.com[1], https://github.com[2])
+** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T16-1/main/pull/54[#54], https://github.com/CS2103-AY1819S1-T16-1/main/pull/32[#32]
+** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103-AY1819S1-W10-2/main/issues/285[1], https://github.com/CS2103-AY1819S1-W10-2/main/issues/276[2], https://github.com/CS2103-AY1819S1-W10-2/main/issues/275[3])
+** Raised and resolved issues (https://github.com/CS2103-AY1819S1-T16-1/main/issues/created_by/leongshengmin[1], https://github.com/CS2103-AY1819S1-T16-1/main/issues?q=is%3Aissue+assignee%3Aleongshengmin+is%3Aclosed[2])
 <<<
 
 * Tools:
-** Configured `RepoSense`, a Contribution Analysis Tool for the team repo (https://github.com[#42])
+** Configured `RepoSense`, a Contribution Analysis Tool for the team repo (https://github.com/CS2103-AY1819S1-T16-1/main/pull/62/files[#62])
 
 == Contributions to the User Guide
 
@@ -154,6 +154,6 @@ include::../DeveloperGuide.adoc[tag=savingsHistory]
 |===
 |_Proposed enhancement for V2.0_
 |===
-include::../DeveloperGuide.adoc[tag=savingsHistory]
+include::../DeveloperGuide.adoc[tag=savingsNotifications]
 
 ---
