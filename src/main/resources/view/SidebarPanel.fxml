@@ -6,14 +6,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="sidebar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
    <top>
      <VBox prefWidth="300" spacing="5" VBox.vgrow="ALWAYS">
          <ToggleButton fx:id="today" onAction="#handleShowView" text="Today" userData="today" />
          <ToggleButton fx:id="week" onAction="#handleShowView" text="This Week" userData="week" />
          <Text fx:id="categorieslabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" wrappingWidth="300" />
-         <Accordion fx:id="accordion" prefHeight="300.0" prefWidth="300">
-         </Accordion>
+         <ScrollPane prefWidth="300" VBox.vgrow="ALWAYS">
+             <Accordion fx:id="accordion" prefWidth="300">
+             </Accordion>
+         </ScrollPane>
      </VBox>
    </top>
 

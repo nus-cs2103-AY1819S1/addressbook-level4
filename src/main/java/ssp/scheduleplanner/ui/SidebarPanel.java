@@ -1,6 +1,5 @@
 package ssp.scheduleplanner.ui;
 
-import java.util.Iterator;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -15,7 +14,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import ssp.scheduleplanner.commons.core.LogsCenter;
 import ssp.scheduleplanner.commons.events.model.SchedulePlannerChangedEvent;
@@ -119,24 +120,22 @@ public class SidebarPanel extends UiPart<Region> {
     }
 
     private void setTags(ObservableList<Category> categories) {
-        accordion.getPanes().removeAll();
-        System.out.println(categories.size());
+        accordion.getPanes().clear();
         for (Category cat : categories) {
             String catName = cat.getName();
-            System.out.println(catName);
             TitledPane catPane = new TitledPane();
             catPane.setText(catName);
             accordion.getPanes().add(catPane);
             ObservableList<Tag> tags = cat.getTags();
-            System.out.println(tags.size());
+            VBox tagsContent = new VBox();
             for (Tag tag : tags) {
-                System.out.println("adding tags");
                 String tagName = tag.getTagName();
-                ToggleButton tagButton = new ToggleButton(tagName);
-                tagButton.setToggleGroup(group);
-                System.out.println(tagName);
-                catPane.setContent(tagButton);
+                Text tagLabel = new Text(tagName);
+                tagLabel.setFill(Color.WHITE);
+                tagLabel.setFont(Font.font("Verdana", 18));
+                tagsContent.getChildren().add(tagLabel);
             }
+            catPane.setContent(tagsContent);
         }
     }
 }
