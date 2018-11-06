@@ -630,7 +630,7 @@ Format: `add-reservation n/NAME px/PAX d/DATE ti/TIME` or `ar n/NAME px/PAX d/DA
 
 [NOTE]
 ====
-* We use Natural Language processing to parse the date and time values.
+* We use natural language processing to parse the date and time values.
 * For example, phrases like `21st Dec` or `12 p.m.` will be accepted. Try it out!
 ====
 
