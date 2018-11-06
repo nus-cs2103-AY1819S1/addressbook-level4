@@ -494,7 +494,7 @@ This is only possible when in the 'volunteer' context. The information included 
 
 Currently, the certificate will be exported to either of these two locations:
 
-* Folder named 'Volunteer Certs' in the user's current working directory (next to jar file)
+* Folder named 'Certs' in the user's current working directory (next to jar file)
 * Direct to Desktop (if permission not allowed for the above)
 
 This is what the exported PDF certificate currently looks like:

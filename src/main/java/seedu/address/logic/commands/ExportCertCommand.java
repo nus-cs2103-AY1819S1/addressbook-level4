@@ -4,11 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import seedu.address.commons.core.LogsCenter;
@@ -19,9 +22,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Date;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventContainsEventIdPredicate;
 import seedu.address.model.event.EventId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordContainsVolunteerIdPredicate;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Volunteer;
 import seedu.address.model.volunteer.VolunteerId;
@@ -39,10 +44,13 @@ public class ExportCertCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d";
-    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at %1$d to ";
-    public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again.";
-    public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + "/Volunteer Certs/";
-    public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + "/Desktop/";
+    public static final String MESSAGE_EXPORT_CERT_SUCCESS = "Certificate exported for volunteer at INDEX %1$d to ";
+    public static final String MESSAGE_EXPORT_FAILED = "Certificate export failed, please try again";
+    public static final String PDF_SAVE_PATH = System.getProperty("user.dir") + File.separator + "Certs"
+            + File.separator;
+    public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + File.separator + "Desktop"
+            + File.separator;
+    public static final String MESSAGE_VOLUNTEER_NO_RECORD = "Selected volunteer has no stored event records";
 
     private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportCertCommand.class);
 
@@ -62,6 +70,7 @@ public class ExportCertCommand extends Command {
         if (!exportDir.exists()) {
             try {
                 exportDir.mkdir();
+                logger.info("Creating a new folder 'Certs' in user's current working directory.");
             } catch (SecurityException se) {
                 logger.warning("Couldn't create a relative export path next to jar file. "
                         + "Defaulting to user's Desktop.");
@@ -87,6 +96,12 @@ public class ExportCertCommand extends Command {
         // Get the Volunteer object whom the index corresponds to
         Volunteer selectedVolunteer = lastShownList.get(index.getZeroBased());
 
+        // Return CommandException if volunteer has no records
+        if (!hasEventRecords(model, selectedVolunteer)) {
+            logger.info("Volunteer has no records.");
+            throw new CommandException(MESSAGE_VOLUNTEER_NO_RECORD);
+        }
+
         // Try creating and exporting the PDF for the selected volunteer
         try {
             createPdf(model, selectedVolunteer);
@@ -99,18 +114,34 @@ public class ExportCertCommand extends Command {
     }
 
     /**
-     * Creates and exports a PDF document containing a Volunteer's data
-     * @param volunteer who's data is to be input into the PDF document
+     * Checks if a {@code volunteer} has any event {@code record}s.
+     * @param model from which the {@code volunteer}'s {@code record}s will be retrieved, if present
+     * @param volunteer who's presence of event {@code record}s is to be checked
+     * @return true if {@code volunteer} has {@code record}s, and false otherwise
+     */
+    private boolean hasEventRecords(Model model, Volunteer volunteer) {
+        VolunteerId volunteerId = volunteer.getVolunteerId();
+
+        // Attempt to retrieve a list of the volunteer's records
+        List<Record> eventRecords = model.getFilteredRecordList()
+                .filtered(new RecordContainsVolunteerIdPredicate(volunteerId));
+
+        return !eventRecords.isEmpty();
+    }
+
+    /**
+     * Creates and exports a PDF document containing a {@code volunteer}'s data
      * @param model from which the volunteer's event records will be accessed
+     * @param volunteer who's data is to be input into the PDF document
      */
     private void createPdf(Model model, Volunteer volunteer) throws IOException {
         // Retrieve the selected volunteer's attributes
         VolunteerId volunteerId = volunteer.getVolunteerId();
         Name volunteerName = volunteer.getName();
 
-        // Retrieve the volunteer's events
-        List<Record> eventRecords = model.getFilteredRecordList().filtered((x) -> x.getVolunteerId()
-                .equals(volunteerId));
+        // Retrieve the volunteer's event records
+        List<Record> eventRecords = model.getFilteredRecordList()
+                .filtered(new RecordContainsVolunteerIdPredicate(volunteerId));
 
         // Create the new document
         PDDocument doc = new PDDocument();
@@ -125,60 +156,99 @@ public class ExportCertCommand extends Command {
         // Populate the PDF with necessary details
         contStream.beginText();
 
-        contStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 12);
-        contStream.setLeading(14.5f);
+        contStream.setLeading(20f);
 
-        // Title
-        contStream.newLineAtOffset(10, 770);
-        String line1 = "Certificate of Recognition";
-        contStream.showText(line1);
+        // Set title font
+        PDFont titleFont = PDType1Font.TIMES_BOLD_ITALIC;
+        float titleFontSize = 24;
+        contStream.setFont(titleFont, titleFontSize);
+
+        // Input title to the center of the page
+        String title = "Certificate of Recognition";
+        float titleWidth = titleFont.getStringWidth(title) * titleFontSize / 1000f;
+        contStream.newLineAtOffset(page.getMediaBox().getWidth() / 2 - titleWidth / 2, 740);
+        contStream.showText(title);
+        contStream.newLine();
         contStream.newLine();
 
-        // Date of export
-        contStream.showText(String.valueOf(java.time.LocalDate.now()));
+        // Volunteer Name, ID and current date section
+        contStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 14);
+
+        contStream.newLineAtOffset(-(page.getMediaBox().getWidth() / 2 - titleWidth / 2) + 20, 0);
+
+        String volunteerNameLine = "Volunteer Name: " + volunteerName;
+        contStream.showText(volunteerNameLine);
         contStream.newLine();
 
-        // Name
-        String line2 = "Name: " + volunteerName;
-        contStream.showText(line2);
+        String volunteerIdLine = "Volunteer ID: " + volunteerId;
+        contStream.showText(volunteerIdLine);
         contStream.newLine();
 
-        // ID
-        String line3 = "Volunteer ID: " + volunteerId;
-        contStream.showText(line3);
+        contStream.showText("Date: " + String.valueOf(LocalDate.now().format(DateTimeFormatter
+                .ofPattern("dd-MM-yyyy"))));
+        contStream.newLine();
         contStream.newLine();
 
-        // Events
-        if (eventRecords.isEmpty()) {
-            String noEventsLine = volunteerName + " has not participated in any events thus far.";
-            contStream.showText(noEventsLine);
+        // Reduce the leading for main body of certificate
+        contStream.setLeading(17f);
+
+        // Standardised formality text
+        String formalityTextLine1 = "To whomever it may concern,";
+        contStream.showText(formalityTextLine1);
+        contStream.newLine();
+        contStream.newLine();
+
+        String formalityTextLine2 = "This is to certify " + volunteerName
+                + "'s contributions to our organisation via the following event(s):";
+        contStream.showText(formalityTextLine2);
+        contStream.newLine();
+
+        // Event contribution information
+        contStream.newLine();
+        for (Record r: eventRecords) {
+            // Information from event record
+            Hour eventHours = r.getHour();
+            EventId eventId = r.getEventId();
+
+            // Get the exact corresponding event object and extract information from it
+            List<Event> filteredEventList = model.getFilteredEventList()
+                    .filtered(new EventContainsEventIdPredicate(eventId));
+            assert(filteredEventList.size() == 1); // Make sure no duplicate events
+            Event event = filteredEventList.get(0);
+            seedu.address.model.event.Name eventName = event.getName();
+            Date startDate = event.getStartDate();
+            Date endDate = event.getEndDate();
+
+            String eventEntryLine = eventName + " - " + eventHours + " hour(s) from " + startDate + " to " + endDate;
+
+            contStream.showText("\u2022  "); // bullet
+            contStream.showText(eventEntryLine);
             contStream.newLine();
-        } else {
-            contStream.showText("Events:");
-            contStream.newLine();
-            for (Record r: eventRecords) {
-                // Information from event record
-                Hour eventHours = r.getHour();
-                EventId eventId = r.getEventId();
-
-                // Get the exact corresponding event object and extract information from it
-                Event event = model.getFilteredEventList().filtered((x) -> x.getEventId().equals(eventId)).get(0);
-                seedu.address.model.event.Name eventName = event.getName();
-                Date startDate = event.getStartDate();
-                Date endDate = event.getEndDate();
-
-                String eventEntryLine = eventName + " - " + eventHours + " hours from " + startDate + " to " + endDate;
-
-                contStream.showText(eventEntryLine);
-                contStream.newLine();
-            }
         }
+
+        contStream.newLine();
+
+        String appreciationLine = "We greatly appreciate " + volunteerName
+                + "'s services rendered to our organisation.";
+        contStream.showText(appreciationLine);
+        contStream.newLine();
+
+        contStream.newLine();
+
+        String regardsLine = "Regards,";
+        contStream.showText(regardsLine);
+        contStream.newLine();
+        contStream.newLine();
+        contStream.newLine();
+
+        // Line for user to manually sign off on the certificate
+        contStream.showText("___________________");
 
         // Close the content stream
         contStream.endText();
         contStream.close();
 
-        // Save document as <volunteerName>.pdf to the save path
+        // Save document as <volunteerName>_<volunteerId>.pdf to the save path
         doc.save(PDF_SAVE_PATH + volunteerName + "_" + volunteerId + ".pdf");
 
         // Close the document
