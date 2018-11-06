@@ -151,9 +151,6 @@ public class AppointmentStatistics extends Statistics {
             .map(date -> date.toStringNoLabel())
             .collect(Collectors.toList());
 
-
-        System.out.println(xLabels.size());
-
         statData.addVisualizationLabels("apptsYear", ChartType.LINE, "Number of Appointments This Year", "Date",
             "Number of Appointments", xLabels, Arrays.asList(dateCounts), Arrays.asList(""));
     }

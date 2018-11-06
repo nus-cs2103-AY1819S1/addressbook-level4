@@ -177,7 +177,6 @@ public class Plot {
         if (data.getXLabels() != null) {
             data = (VisualizationData<String>) data;
 
-            // hide axis, keep match
             final CategoryAxis xAxis = new CategoryAxis();
             xAxis.setLabel(data.getXTitle());
 
@@ -194,8 +193,9 @@ public class Plot {
                 List<Tuple<String, Integer>> seriesData = (List<Tuple<String, Integer>>) data.getDataGroups().get(i);
                 for (Tuple<String, Integer> dataPoint : seriesData) {
                     String xAxisTick = dataPoint.getKey();
+                    // remove data point if the list of labels does not contain the data point's x value.
                     if (!data.getXLabels().contains(xAxisTick)) {
-                        xAxisTick = "";
+                       continue;
                     }
                     series.getData().add(new XYChart.Data<String, Number>(xAxisTick, dataPoint.getValue()));
                 }
