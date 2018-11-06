@@ -58,7 +58,7 @@ public class UpdateCommand extends Command {
         + PREFIX_VICE_HEAD + "Alex "
         + PREFIX_BUDGET + "700 \n"
         + "or\n"
-        + COMMAND_WORD + ": Update transaction details of an existing CCA. It is required to key in an exisiting CCA "
+        + COMMAND_WORD + ": Update transaction details of an existing CCA. It is required to key in an existing CCA "
         + "and a valid transaction entry number.\n"
         + "Parameters: "
         + PREFIX_TAG + "CCA "
@@ -129,9 +129,6 @@ public class UpdateCommand extends Command {
         if (!editedCca.getViceHeadName().equals("-") && !model.hasPerson(editedCca.getViceHead())) {
             throw new CommandException(MESSAGE_INVALID_VICE_HEAD_NAME);
         }
-
-        boolean b1 = ccaToEdit.isSameCca(editedCca);
-        boolean b2 = model.hasCca(editedCca);
 
         if (!ccaToEdit.isSameCca(editedCca) && model.hasCca(editedCca)) {
             throw new CommandException(MESSAGE_DUPLICATE_CCA);

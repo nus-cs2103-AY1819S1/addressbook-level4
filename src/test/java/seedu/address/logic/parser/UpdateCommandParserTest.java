@@ -1,66 +1,57 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CCA;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_BASKETBALL;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROOM_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_SCHOOL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.ROOM_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ROOM_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.AMOUNT_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.BUDGET_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.BUDGET_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.HEAD_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.HEAD_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_BUDGET_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_HEAD_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_BASKETBALL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_VICE_HEAD_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.REMARKS_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.REMARKS_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.TRANSACTION_NUM_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.TRANSACTION_NUM_DESC_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BUDGET_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BADMINTON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CCA_NAME_BASKETBALL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_BASKETBALL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_CARL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DAVID;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARKS_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TRANSACTION_NUM_BASKETBALL;
+import static seedu.address.logic.commands.CommandTestUtil.VICE_HEAD_DESC_BADMINTON;
+import static seedu.address.logic.commands.CommandTestUtil.VICE_HEAD_DESC_BASKETBALL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TRANSACTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.model.person.Email;
+import seedu.address.logic.commands.UpdateCommand.EditCcaDescriptor;
+import seedu.address.model.cca.Budget;
+import seedu.address.model.cca.CcaName;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Room;
-import seedu.address.model.person.School;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.model.transaction.Amount;
+import seedu.address.model.transaction.Date;
+import seedu.address.testutil.EditCcaDescriptorBuilder;
 
 //@@author ericyjw
 public class UpdateCommandParserTest {
-
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
-
-    private static final String MESSAGE_INVALID_FORMAT =
-        String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE);
 
     private UpdateCommandParser parser = new UpdateCommandParser();
 
@@ -83,155 +74,251 @@ public class UpdateCommandParserTest {
     @Test
     public void parse_invalidFields_failure() {
         // invalid Cca
-        assertParseFailure(parser, " " + PREFIX_TAG + INVALID_NAME_BASKETBALL, MESSAGE_INVALID_CCA);
-
-        // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, " " + PREFIX_TAG + INVALID_NAME_BASKETBALL_DESC, CcaName.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string", UpdateCommand.MESSAGE_NO_SPECIFIC_CCA);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 i/ string", UpdateCommand.MESSAGE_NO_SPECIFIC_CCA);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ROOM_DESC, Room.MESSAGE_ROOM_CONSTRAINTS); // invalid room
-        assertParseFailure(parser, "1" + INVALID_SCHOOL_DESC, School.MESSAGE_SCHOOL_CONSTRAINTS); //invalid school
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser,
+            " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_NAME_BASKETBALL_DESC,
+            CcaName.MESSAGE_NAME_CONSTRAINTS); // invalid cca name
+        assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_HEAD_DESC,
+            Name.MESSAGE_NAME_CONSTRAINTS); // invalid head name
+        assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_VICE_HEAD_DESC,
+            Name.MESSAGE_NAME_CONSTRAINTS); // invalid vice head name
+        assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_BUDGET_DESC,
+            Budget.MESSAGE_BUDGET_CONSTRAINTS); // invalid vice head name
+        assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_DATE_DESC,
+            Date.MESSAGE_DATE_CONSTRAINTS); // invalid date format
+        assertParseFailure(parser, " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_AMOUNT_DESC,
+            Amount.MESSAGE_AMOUNT_CONSTRAINTS); // invalid amount
 
-        // invalid phone followed by valid email
-        assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_PHONE_CONSTRAINTS);
+        // invalid name followed by valid head name
+        assertParseFailure(parser,
+            " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_NAME_BASKETBALL_DESC + HEAD_DESC_BASKETBALL,
+            CcaName.MESSAGE_NAME_CONSTRAINTS);
 
-        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS);
+        // invalid name followed by valid vice head name
+        assertParseFailure(parser,
+            " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_NAME_BASKETBALL_DESC + VICE_HEAD_DESC_BASKETBALL,
+            CcaName.MESSAGE_NAME_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
-        // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_AMY + TAG_DESC_BOB + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_AMY + TAG_EMPTY + TAG_DESC_BOB, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_AMY + TAG_DESC_BOB, Tag.MESSAGE_TAG_CONSTRAINTS);
+        // invalid name followed by valid budget
+        assertParseFailure(parser,
+            " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_NAME_BASKETBALL_DESC + BUDGET_DESC_BASKETBALL,
+            CcaName.MESSAGE_NAME_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ROOM_AMY + VALID_PHONE_AMY,
+        // invalid name followed by valid budget
+        assertParseFailure(parser,
+            " " + PREFIX_TAG + VALID_CCA_NAME_BASKETBALL + INVALID_NAME_BASKETBALL_DESC + INVALID_HEAD_DESC + INVALID_VICE_HEAD_DESC + INVALID_BUDGET_DESC + NAME_DESC_BADMINTON,
             Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_BOB
-            + EMAIL_DESC_AMY + ROOM_DESC_AMY + NAME_DESC_AMY + TAG_DESC_AMY;
+        String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
+        String userInput =
+            targetCca + NAME_DESC_BASKETBALL + HEAD_DESC_BASKETBALL + VICE_HEAD_DESC_BASKETBALL + BUDGET_DESC_BASKETBALL
+                + TRANSACTION_NUM_DESC_BASKETBALL + DATE_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL + REMARKS_DESC_BASKETBALL;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-            .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withRoom(VALID_ROOM_AMY)
-            .withTags(VALID_TAG_BOB, VALID_TAG_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .withHead(VALID_NAME_BOB)
+            .withViceHead(VALID_NAME_CARL)
+            .withBudget(VALID_BUDGET_BASKETBALL)
+            .withEntryNum(Integer.valueOf(VALID_TRANSACTION_NUM_BASKETBALL))
+            .withDate(VALID_DATE_BASKETBALL)
+            .withAmount(VALID_AMOUNT_BASKETBALL)
+            .withRemarks(VALID_REMARKS_BASKETBALL)
+            .build();
+
+        UpdateCommand expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+        String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
+        String userInput =
+            targetCca + NAME_DESC_BASKETBALL + VICE_HEAD_DESC_BASKETBALL + BUDGET_DESC_BASKETBALL
+                + TRANSACTION_NUM_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL + REMARKS_DESC_BASKETBALL;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .withViceHead(VALID_NAME_CARL)
+            .withBudget(VALID_BUDGET_BASKETBALL)
+            .withEntryNum(Integer.valueOf(VALID_TRANSACTION_NUM_BASKETBALL))
+            .withAmount(VALID_AMOUNT_BASKETBALL)
+            .withRemarks(VALID_REMARKS_BASKETBALL)
+            .build();
+
+        UpdateCommand expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parse_oneFieldSpecified_success() {
-        // name
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        // new cca name
+        String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
+        String userInput =
+            targetCca + NAME_DESC_BASKETBALL;
+
+        EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .build();
+
+        UpdateCommand expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
+
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // phone
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        // head
+        userInput =
+            targetCca + HEAD_DESC_BASKETBALL;
+
+        descriptor = new EditCcaDescriptorBuilder()
+            .withHead(VALID_NAME_BOB)
+            .build();
+
+        expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        // vice-head
+        userInput =
+            targetCca + VICE_HEAD_DESC_BASKETBALL;
+
+        descriptor = new EditCcaDescriptorBuilder()
+            .withViceHead(VALID_NAME_CARL)
+            .build();
+
+        expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        //@@author javenseow
-        // room
-        userInput = targetIndex.getOneBased() + ROOM_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withRoom(VALID_ROOM_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        // budget
+        userInput =
+            targetCca + BUDGET_DESC_BASKETBALL;
+
+        descriptor = new EditCcaDescriptorBuilder()
+            .withBudget(VALID_BUDGET_BASKETBALL)
+            .build();
+
+        expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        //school
-        userInput = targetIndex.getOneBased() + SCHOOL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withSchool(VALID_SCHOOL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-        //@@author
+        // date
+        userInput =
+            targetCca + TRANSACTION_NUM_DESC_BASKETBALL + DATE_DESC_BASKETBALL;
 
-        // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        descriptor = new EditCcaDescriptorBuilder()
+            .withEntryNum(Integer.valueOf(VALID_TRANSACTION_NUM_BASKETBALL))
+            .withDate(VALID_DATE_BASKETBALL)
+            .build();
+
+        expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // amount
+        userInput =
+            targetCca + TRANSACTION_NUM_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL;
+
+        descriptor = new EditCcaDescriptorBuilder()
+            .withEntryNum(Integer.valueOf(VALID_TRANSACTION_NUM_BASKETBALL))
+            .withAmount(VALID_AMOUNT_BASKETBALL)
+            .build();
+
+        expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // remarks
+        userInput =
+            targetCca + TRANSACTION_NUM_DESC_BASKETBALL + REMARKS_DESC_BASKETBALL;
+
+        descriptor = new EditCcaDescriptorBuilder()
+            .withEntryNum(Integer.valueOf(VALID_TRANSACTION_NUM_BASKETBALL))
+            .withRemarks(VALID_REMARKS_BASKETBALL)
+            .build();
+
+        expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ROOM_DESC_AMY + EMAIL_DESC_AMY
-            + TAG_DESC_AMY + PHONE_DESC_AMY + ROOM_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_AMY
-            + PHONE_DESC_BOB + ROOM_DESC_BOB + EMAIL_DESC_BOB + SCHOOL_DESC_BOB + TAG_DESC_BOB;
+    public void parse_multipleCcaRepeatedFields_acceptsLast() {
+        String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
+        String userInput =
+            targetCca + NAME_DESC_BASKETBALL + HEAD_DESC_BASKETBALL + VICE_HEAD_DESC_BASKETBALL + BUDGET_DESC_BASKETBALL
+                + NAME_DESC_BADMINTON + HEAD_DESC_BADMINTON + VICE_HEAD_DESC_BADMINTON + BUDGET_DESC_BADMINTON;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withRoom(VALID_ROOM_BOB).withSchool(VALID_SCHOOL_BOB)
-            .withTags(VALID_TAG_AMY, VALID_TAG_BOB)
+        EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_BADMINTON)
+            .withHead(VALID_NAME_AMY)
+            .withViceHead(VALID_NAME_DAVID)
+            .withBudget(VALID_BUDGET_BADMINTON)
             .build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        UpdateCommand expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_multipleTransactionRepeatedFields_failure() {
+        String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
+        String userInput =
+            targetCca + TRANSACTION_NUM_DESC_BASKETBALL + DATE_DESC_BASKETBALL + AMOUNT_DESC_BASKETBALL + REMARKS_DESC_BASKETBALL
+                + TRANSACTION_NUM_DESC_BADMINTON + DATE_DESC_BADMINTON + AMOUNT_DESC_BADMINTON + REMARKS_DESC_BADMINTON;
+
+        assertParseFailure(parser,
+            userInput, UpdateCommand.MESSAGE_USAGE);
     }
 
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
+        String userInput =
+            targetCca + INVALID_NAME_BASKETBALL_DESC + NAME_DESC_BASKETBALL;
+
+        EditCcaDescriptor descriptor = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .build();
+
+        UpdateCommand expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
+
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // other valid values specified
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_BOB + INVALID_PHONE_DESC + ROOM_DESC_BOB
-            + PHONE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-            .withRoom(VALID_ROOM_BOB).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        // valid values specified follows
+        userInput =
+            targetCca + INVALID_NAME_BASKETBALL_DESC + NAME_DESC_BASKETBALL + HEAD_DESC_BASKETBALL + BUDGET_DESC_BASKETBALL;
+
+        descriptor = new EditCcaDescriptorBuilder()
+            .withCcaName(VALID_CCA_NAME_BASKETBALL)
+            .withHead(VALID_NAME_BOB)
+            .withBudget(VALID_BUDGET_BASKETBALL)
+            .build();
+
+        expectedCommand = new UpdateCommand(new CcaName(VALID_CCA_NAME_BADMINTON), descriptor);
+
         assertParseSuccess(parser, userInput, expectedCommand);
+
     }
-
     @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + TAG_EMPTY;
+    public void parse_invalidTransactionValueFollowedByValidValue_failure() {
+        // no other valid transaction values specified
+        String targetCca = " " + PREFIX_TAG + VALID_CCA_NAME_BADMINTON;
+        String userInput =
+            targetCca + TRANSACTION_NUM_DESC_BASKETBALL + INVALID_DATE_DESC + DATE_DESC_BASKETBALL;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseFailure(parser, userInput, UpdateCommand.MESSAGE_USAGE);
 
-        assertParseSuccess(parser, userInput, expectedCommand);
+
     }
 }
