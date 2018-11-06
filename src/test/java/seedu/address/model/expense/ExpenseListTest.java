@@ -123,13 +123,13 @@ public class ExpenseListTest {
     }
 
     @Test
-    public void setExpenses_nullUniqueExpenseList_throwsNullPointerException() {
+    public void setExpenses_nullExpenseList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         expenseList.setExpenses((ExpenseList) null);
     }
 
     @Test
-    public void setExpenses_uniqueExpenseList_replacesOwnListWithProvidedUniqueExpenseList() {
+    public void setExpenses_ExpenseList_replacesOwnListWithProvidedExpenseList() {
         expenseList.add(SCHOOLFEE);
         ExpenseList expectedExpenseList = new ExpenseList();
         expectedExpenseList.add(IPHONE);
