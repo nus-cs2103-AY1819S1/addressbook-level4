@@ -18,8 +18,20 @@ public class XmlAdaptedTime {
     public XmlAdaptedTime() {
     }
 
+    /**
+     * Converts a given Time into this class for JAXB use.
+     *
+     * @param time future changes to this will not affect the created
+     */
     public XmlAdaptedTime(Time time) {
         this.time = time.toString();
+    }
+
+    /**
+     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     */
+    public XmlAdaptedTime(String time) {
+        this.time = time;
     }
 
     /**
@@ -52,5 +64,18 @@ public class XmlAdaptedTime {
         }
 
         return new Time(dayString + " " + splittedTime[1] + " " + splittedTime[2]);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedTime)) {
+            return false;
+        }
+
+        return time.equals(((XmlAdaptedTime) other).time);
     }
 }
