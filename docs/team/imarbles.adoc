@@ -38,6 +38,11 @@ This enhancement affects existing commands and commands to be added in future. I
 * *Minor enhancement*:
 added a command to allow users to *switch between panels*. The panels are used to display either volunteers or events for users to manage.
 
+* *Code contributed*:
+Here is a https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=imarbles[link]
+to my code on the Project Code Dashboard.
+
+
 * *Other contributions*:
 
 ** Project management:
