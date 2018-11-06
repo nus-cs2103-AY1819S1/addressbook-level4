@@ -231,6 +231,11 @@ To testers: You may access the application using the default `root` account: `lo
 Logs out of the account. +
 Format: `logout`
 
+[NOTE]
+====
+History will automatically be cleared upon logging out
+====
+
 ==== Creating user account: `register` or `reg`
 
 Creates a new user account. +
