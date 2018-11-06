@@ -13,7 +13,7 @@
          <ToggleButton fx:id="today" onAction="#handleShowView" text="Today" userData="today" />
          <ToggleButton fx:id="week" onAction="#handleShowView" text="This Week" userData="week" />
          <Text fx:id="categorieslabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Tags" wrappingWidth="300" />
-         <ListView VBox.vgrow="ALWAYS" maxHeight="300">
+         <ListView fx:id="listview" VBox.vgrow="ALWAYS" maxHeight="250">
              <Accordion fx:id="accordion" prefWidth="300">
              </Accordion>
          </ListView>
