@@ -76,7 +76,11 @@ public class AddCommandParser implements Parser<AddCommand> {
                 argMultimap.getAllValues(PREFIX_EVENT_REMINDER_DURATION));
 
         if (!Event.isValidEventDateTime(startDateTime, endDateTime)) {
-            throw new ParseException(Event.MESSAGE_DATETIME_CONSTRAINTS);
+            throw new ParseException(Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);
+        }
+
+        if (!Event.isValidEventDateTime(endDateTime, repeatUntilDateTime)) {
+            throw new ParseException(Event.MESSAGE_END_REPEAT_UNTIL_DATETIME_CONSTRAINTS);
         }
 
         Event event = new Event(UUID.randomUUID(), eventName, startDateTime, endDateTime, description,

@@ -5,6 +5,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,25 +37,8 @@ public class RepeatEventGenerator {
      * Returns an unmodifiable list of repeated events.
      */
     public List<Event> generateAllRepeatedEvents(Event targetEvent) {
-        switch(targetEvent.getRepeatType()) {
-        case DAILY:
-            return Collections.unmodifiableList(generateDailyRepeatEvents(targetEvent));
-        case WEEKLY:
-            return Collections.unmodifiableList(generateWeeklyRepeatEvents(targetEvent));
-        case MONTHLY:
-            return Collections.unmodifiableList(generateMonthlyRepeatEvents(targetEvent));
-        case YEARLY:
-            return Collections.unmodifiableList(generateYearlyRepeatEvents(targetEvent));
-        default:
-            return List.of(targetEvent);
-        }
-    }
+        assert targetEvent != null;
 
-    /**
-     * Generate all events that are repeated daily from {@code targetEvent}.
-     * Returns a list of events that are repeated daily.
-     */
-    public List<Event> generateDailyRepeatEvents(Event targetEvent) {
         List<Event> repeatedEventList = new ArrayList<>();
         LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
         LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
@@ -73,118 +58,54 @@ public class RepeatEventGenerator {
                     targetEvent.getTags(),
                     targetEvent.getReminderDurationList()
             ));
-            repeatStartDateTime = repeatStartDateTime.plusDays(1);
+            switch (targetEvent.getRepeatType()) {
+            case DAILY:
+                repeatStartDateTime = repeatStartDateTime.plusDays(1);
+                break;
+            case WEEKLY:
+                repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
+                break;
+            case MONTHLY:
+                repeatStartDateTime = repeatStartDateTime.with(
+                        new SameDayOfMonthTemporalAdjuster(targetEvent, ChronoUnit.MONTHS));
+                break;
+            case YEARLY:
+                repeatStartDateTime = repeatStartDateTime.with(
+                        new SameDayOfMonthTemporalAdjuster(targetEvent, ChronoUnit.YEARS));
+                break;
+            default:
+                return Collections.unmodifiableList(repeatedEventList);
+            }
         }
-        return repeatedEventList;
+        return Collections.unmodifiableList(repeatedEventList);
     }
 
     /**
-     * Generate all events that are repeated weekly from {@code targetEvent}.
-     * Returns a list of events that are repeated weekly.
+     * Custom Temporal Adjuster that helps adjust date to the next date
+     * according to its {@code unitType}.
      */
-    public List<Event> generateWeeklyRepeatEvents(Event targetEvent) {
-        List<Event> repeatedEventList = new ArrayList<>();
-        LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
-        LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
-        Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
-                targetEvent.getEndDateTime().value);
-        while (repeatStartDateTime.isBefore(repeatUntilDateTime)
-                && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
-            repeatedEventList.add(new Event(
-                    targetEvent.getEventSetUid(),
-                    targetEvent.getEventName(),
-                    new DateTime(repeatStartDateTime),
-                    new DateTime(repeatStartDateTime.plus(durationDiff)),
-                    targetEvent.getDescription(),
-                    targetEvent.getVenue(),
-                    targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getTags(),
-                    targetEvent.getReminderDurationList()
-            ));
-            repeatStartDateTime = repeatStartDateTime.plusWeeks(1);
-        }
-        return repeatedEventList;
-    }
+    private class SameDayOfMonthTemporalAdjuster implements TemporalAdjuster {
+        private Event targetEvent;
+        private ChronoUnit unitType;
 
-    /**
-     * Generate all events that are repeated monthly from {@code targetEvent}.
-     * Returns a list of events that are repeated monthly.
-     */
-    public List<Event> generateMonthlyRepeatEvents(Event targetEvent) {
-        List<Event> repeatedEventList = new ArrayList<>();
-        LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
-        LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
-        Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
-                targetEvent.getEndDateTime().value);
-        while (repeatStartDateTime.isBefore(repeatUntilDateTime)
-                && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
-            repeatedEventList.add(new Event(
-                    targetEvent.getEventSetUid(),
-                    targetEvent.getEventName(),
-                    new DateTime(repeatStartDateTime),
-                    new DateTime(repeatStartDateTime.plus(durationDiff)),
-                    targetEvent.getDescription(),
-                    targetEvent.getVenue(),
-                    targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getTags(),
-                    targetEvent.getReminderDurationList()
-            ));
-            repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
-                do {
-                    try {
-                        temporal = temporal.plus(1, ChronoUnit.MONTHS).with(ChronoField.DAY_OF_MONTH,
-                                targetEvent.getStartDateTime().value.getDayOfMonth());
-                    } catch (DateTimeException e) {
-                        temporal = temporal.plus(1, ChronoUnit.MONTHS);
-                    }
-                } while (temporal.get(ChronoField.DAY_OF_MONTH)
-                        != targetEvent.getStartDateTime().value.getDayOfMonth());
-                return temporal;
-            });
+        private SameDayOfMonthTemporalAdjuster(Event targetEvent, ChronoUnit unitType) {
+            this.targetEvent = targetEvent;
+            this.unitType = unitType;
         }
-        return repeatedEventList;
-    }
 
-    /**
-     * Generate all events that are repeated yearly from {@code targetEvent}.
-     * Returns a list of events that are repeated yearly.
-     */
-    public List<Event> generateYearlyRepeatEvents(Event targetEvent) {
-        List<Event> repeatedEventList = new ArrayList<>();
-        LocalDateTime repeatStartDateTime = targetEvent.getStartDateTime().value;
-        LocalDateTime repeatUntilDateTime = targetEvent.getRepeatUntilDateTime().value;
-        Duration durationDiff = Duration.between(targetEvent.getStartDateTime().value,
-                targetEvent.getEndDateTime().value);
-        while (repeatStartDateTime.isBefore(repeatUntilDateTime)
-                && !repeatStartDateTime.plus(durationDiff).isAfter(repeatUntilDateTime)) {
-            repeatedEventList.add(new Event(
-                    targetEvent.getEventSetUid(),
-                    targetEvent.getEventName(),
-                    new DateTime(repeatStartDateTime),
-                    new DateTime(repeatStartDateTime.plus(durationDiff)),
-                    targetEvent.getDescription(),
-                    targetEvent.getVenue(),
-                    targetEvent.getRepeatType(),
-                    targetEvent.getRepeatUntilDateTime(),
-                    targetEvent.getTags(),
-                    targetEvent.getReminderDurationList()
-            ));
-            repeatStartDateTime = repeatStartDateTime.with((temporal) -> {
-                do {
-                    try {
-                        temporal = temporal.plus(1, ChronoUnit.YEARS).with(ChronoField.DAY_OF_MONTH,
-                                targetEvent.getStartDateTime().value.getDayOfMonth());
-                    } catch (DateTimeException e) {
-                        temporal = temporal.plus(1, ChronoUnit.YEARS);
-                    }
-                } while (temporal.get(ChronoField.DAY_OF_MONTH)
-                        != targetEvent.getStartDateTime().value.getDayOfMonth());
-                return temporal;
-            });
+        @Override
+        public Temporal adjustInto(Temporal temporal) {
+            do {
+                try {
+                    temporal = temporal.plus(1, unitType).with(ChronoField.DAY_OF_MONTH,
+                            targetEvent.getStartDateTime().value.getDayOfMonth());
+                } catch (DateTimeException e) {
+                    temporal = temporal.plus(1, unitType);
+                }
+            } while (temporal.get(ChronoField.DAY_OF_MONTH)
+                    != targetEvent.getStartDateTime().value.getDayOfMonth());
+            return temporal;
         }
-        return repeatedEventList;
     }
 
 }

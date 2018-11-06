@@ -140,7 +140,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, EVENT_NAME_DESC_MA2101 + INVALID_START_END_DATETIMES[0]
                 + INVALID_START_END_DATETIMES[1] + DESCRIPTION_DESC_MA2101
                 + VENUE_DESC_MA2101 + REPEAT_TYPE_DESC_MA2101 + REPEAT_UNTIL_DATETIME_DESC_MA2101
-                + TAG_DESC_PLAY + VALID_TAG_SCHOOL, Event.MESSAGE_DATETIME_CONSTRAINTS);
+                + TAG_DESC_PLAY + VALID_TAG_SCHOOL, Event.MESSAGE_START_END_DATETIME_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_EVENT_NAME_DESC + START_DATETIME_DESC_MA2101
