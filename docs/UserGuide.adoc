@@ -54,7 +54,7 @@ In Sous Chef, there are 2 types of command: universal commands and context-uniqu
 The universal commands can be used throughout the application and perform application-wide action. You can identify a
  universal command from its "-" convention followed by a keyword (e.g. -exit). +
  +
- The context-unique commands on the other hand are only valid for that context. (e.g. <<Recipes Commands>> can only be
+ The context-unique commands on the other hand are only valid for that context. (e.g. <<Recipes Commands (Only applicable in recipe context)>> can only be
  used in -recipe context). These commands contains only a action key word followed by the required parameters, if any
  . (e.g. select INDEX)
 
