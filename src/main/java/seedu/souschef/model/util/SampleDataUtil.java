@@ -141,8 +141,8 @@ public class SampleDataUtil {
 
     public static Day[] getDay() {
 
-        LocalDate modelDate = LocalDate.parse("2018-10-22");
-        LocalDate modelDate2 = LocalDate.parse("2018-10-23");
+        LocalDate modelDate = LocalDate.parse("2019-10-22");
+        LocalDate modelDate2 = LocalDate.parse("2019-10-23");
 
         ArrayList<Meal> list = new ArrayList<>();
         ArrayList<Meal> list2 = new ArrayList<>();

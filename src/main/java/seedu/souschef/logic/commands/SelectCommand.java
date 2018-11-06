@@ -25,6 +25,12 @@ public class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
+    public static final String MEALPLANNER_MESSAGE_USAGE = COMMAND_WORD
+            + ": Selects the recipe at the specified index and meal slot.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "            MEAL SLOT (must be either breakfast, lunch or dinner, and must be non-empty)\n"
+            + "Example: " + COMMAND_WORD + " 1 lunch";
+
     public static final String MESSAGE_SELECT_RECIPE_SUCCESS = "Selected Recipe: %1$s";
 
     private final Model model;
