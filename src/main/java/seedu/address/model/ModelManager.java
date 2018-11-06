@@ -128,6 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void refillMedicine(Medicine medicine, QuantityToDispense quantityToRefill) {
         requireAllNonNull(medicine, quantityToRefill);
         versionedAddressBook.refillMedicine(medicine, quantityToRefill);
+        indicateAddressBookChanged();
     }
 
     @Override

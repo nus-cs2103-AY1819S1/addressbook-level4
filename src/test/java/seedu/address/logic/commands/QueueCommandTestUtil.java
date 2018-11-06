@@ -113,10 +113,6 @@ public class QueueCommandTestUtil {
             CommandResult result = queueCommand.execute(actualModel, actualPatientQueue, actualCurrentPatient,
                     actualServedPatientList, actualCommandHistory);
 
-
-            System.out.println(expectedModel.getFilteredMedicineList());
-            System.out.println(actualModel.getFilteredMedicineList());
-
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedPatientQueue, actualPatientQueue);
             assertEquals(expectedCurrentPatient, actualCurrentPatient);

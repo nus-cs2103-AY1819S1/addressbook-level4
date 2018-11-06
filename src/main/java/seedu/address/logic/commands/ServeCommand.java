@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.ShowCurrentPatientViewEvent;
 import seedu.address.commons.events.ui.ShowMedicineListEvent;
 import seedu.address.logic.CommandHistory;
@@ -13,9 +14,8 @@ import seedu.address.model.ServedPatientList;
 import seedu.address.model.person.CurrentPatient;
 import seedu.address.model.person.Patient;
 
-
 /**
- * Serve the patient that is first in queue.
+ * Serve the patient that is first in queue, transferring the patient to the Current Patient.
  * Updates the queue to remove the first patient.
  */
 public class ServeCommand extends QueueCommand {
@@ -42,6 +42,13 @@ public class ServeCommand extends QueueCommand {
         }
 
         Patient patient = patientQueue.dequeue();
+
+        //If the patient's details has been altered (which is unlikely), remove the patient from the queue.
+        if (!model.hasPerson(patient)) {
+            throw new CommandException(String.format(
+                    Messages.MESSAGE_PATIENT_MODIFIED_WHILE_IN_QUEUE, patient.getName()));
+        }
+
         currentPatient.assignPatient(patient);
 
         EventsCenter.getInstance().post(new ShowMedicineListEvent());

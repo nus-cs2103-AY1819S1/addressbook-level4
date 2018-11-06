@@ -26,6 +26,7 @@ public abstract class QueueCommand extends Command {
 
     /**
      * Executes the command and returns the result message.
+     * This version of execute is used because there are more arguments needed for the queue commands.
      *
      * @param model {@code Model} which the command should opreate on.
      * @param patientQueue {@code patientQueue} which the command should operate on.

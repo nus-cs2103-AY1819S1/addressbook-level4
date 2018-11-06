@@ -34,6 +34,7 @@ public class DocumentContentDisplayCommandTest {
         patientQueue = new PatientQueueManager();
         servedPatientList = new ServedPatientListManager();
         commandHistory = new CommandHistory();
+        model.addPerson(AMY);
     }
 
     @Test

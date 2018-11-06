@@ -33,21 +33,22 @@ My task in CLInic is to implement a *Patient Queue Management System*, as well a
 * *Other contributions*:
 
 ** Project management:
-*** Team Lead
+*** Took on the role of *Team Lead*
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to test coverage:
 *** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
-//** Documentation:
-//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Documentation:
+*** Designed the mock-up of the <<UI, UI>>
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
+*** Reviewd PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
+*** Fixed bugs for my teammates: https://github.com/CS2103-AY1819S1-W16-4/main/pull/180[#180]
 //*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
-
-== Contributions to the GUI Design
+[[UI]]
+== Contributions to the UI Design
 
 |===
-|_Given below is the mockup of the GUI that I designed. It showcases my ability to visualise an end-product._
+|_Given below is the mock-up of the GUI that I designed. It showcases my ability to visualise an end-product._
 |===
 
 include::../UserGuide.adoc[tag=UI]
