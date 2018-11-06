@@ -2,10 +2,6 @@ package seedu.souschef.logic.parser.commandparser;
 
 import static seedu.souschef.commons.core.Messages.MESSAGE_DUPLICATE;
 import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_DAY_INDEX;
-import static seedu.souschef.commons.core.Messages.MESSAGE_INVALID_PLAN_INDEX;
-import static seedu.souschef.commons.core.Messages.MESSAGE_PREFIX_WITHOUT_VALUE;
-
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.souschef.logic.parser.CliSyntax.PREFIX_PLAN;
 
@@ -16,6 +12,7 @@ import seedu.souschef.commons.core.LogsCenter;
 import seedu.souschef.logic.commands.AddMealHealthPlanCommand;
 import seedu.souschef.logic.parser.ArgumentMultimap;
 import seedu.souschef.logic.parser.ArgumentTokenizer;
+import seedu.souschef.logic.parser.ParserUtil;
 import seedu.souschef.logic.parser.Prefix;
 import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
@@ -52,49 +49,25 @@ public class AddMealHealthPlanCommandParser {
                     AddMealHealthPlanCommand.MESSAGE_USAGE));
         }
 
-        //capture cases when prefix is not followed by a value
-        if (argMultimap.getValue(PREFIX_PLAN).get().trim().length() == 0
-                || argMultimap.getValue(PREFIX_DURATION).get().trim().length() == 0) {
+        this.planIndex = Integer.parseInt(ParserUtil.parsePlanIndex(argMultimap.getValue(PREFIX_PLAN).get().trim()));
 
-            throw new ParseException(MESSAGE_PREFIX_WITHOUT_VALUE);
-        }
-
-
-        //check if numeric otherwise throw error
-        if (!argMultimap.getValue(PREFIX_PLAN).get().trim().matches("^[0-9]+$")) {
-            throw new ParseException(MESSAGE_INVALID_PLAN_INDEX);
-        }
-
-        if (!argMultimap.getValue(PREFIX_DURATION).get().trim().matches("^[0-9]+$")) {
-            throw new ParseException(MESSAGE_INVALID_DAY_INDEX);
-        }
-
-
-        this.planIndex = Integer.parseInt(argMultimap.getValue(PREFIX_PLAN).get().trim());
-
-        this.dayIndex = Integer.parseInt(argMultimap.getValue(PREFIX_DURATION).get().trim());
-
+        this.dayIndex = Integer.parseInt(ParserUtil.parseDayIndex(argMultimap.getValue(PREFIX_DURATION).get().trim()));
 
         //capture 0 or negative cases and also out of allowed bounds cases (plan)
         int zeroBasedPlanIndex = this.planIndex - 1;
         int zeroBasedDayIndex = this.dayIndex - 1;
 
-
         if (zeroBasedPlanIndex < 0
                 || zeroBasedPlanIndex >= healthPlanModel.getAppContent().getObservableHealthPlanList().size()) {
 
-            throw new ParseException(MESSAGE_INVALID_PLAN_INDEX);
+            throw new ParseException(AddMealHealthPlanCommand.MESSAGE_USAGE);
         }
 
         if (zeroBasedDayIndex < 0
                 || zeroBasedDayIndex >= mealPlanModel.getAppContent().getObservableMealPlanner().size()) {
 
-            throw new ParseException(MESSAGE_INVALID_DAY_INDEX);
+            throw new ParseException(AddMealHealthPlanCommand.MESSAGE_USAGE);
         }
-
-
-
-
         planToAddTo = healthPlanModel.getAppContent().getObservableHealthPlanList()
                 .get(Integer.parseInt(argMultimap.getValue(PREFIX_PLAN).get().trim()) - 1);
 

@@ -30,9 +30,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_RECIPE_DISPLAYED_INDEX = "The recipe index provided is invalid";
     public static final String MESSAGE_INVALID_EMPTY_PLAN_INDEX = "Please enter an index!";
-    public static final String MESSAGE_INVALID_PLAN_INDEX = "The plan index provided is invalid";
-    public static final String MESSAGE_INVALID_DAY_INDEX = "The day index provided is invalid";
-    public static final String MESSAGE_PREFIX_WITHOUT_VALUE = "Please enter a valid value after provided prefix!";
+    public static final String MESSAGE_INVALID_PLAN_INDEX = "The plan index provided must be a non-decimal number";
+    public static final String MESSAGE_INVALID_DAY_INDEX = "The day index provided must be a non-decimal number";
+    public static final String MESSAGE_PLAN_INDEX_OUT_OF_RANGE ="The plan index provided is invalid";
+    public static final String MESSAGE_DAY_INDEX_OUT_OF_RANGE ="The day index provided is invalid";
     public static final String MESSAGE_INVALID_INSTRUCTION_INDEX = "The instruction index provided is invalid";
     public static final String MESSAGE_LISTED_OVERVIEW = "%1$d %2$ss listed!";
     public static final String MESSAGE_DUPLICATE = "This %1$s already exists.";
@@ -78,16 +79,14 @@ public class Messages {
             + PREFIX_CHEIGHT + "Current Height(CM) "
             + PREFIX_CWEIGHT + "Current Weight(KG) "
             + PREFIX_TWEIGHT + "Target Weight(KG) "
-            + PREFIX_DURATION + "Duration(Days) "
-            + PREFIX_SCHEME + "Scheme(GAIN/LOSS/MAINTAIN)\n"
+            + PREFIX_DURATION + "Duration(Days) \n"
             + "Example: " + AddCommand.COMMAND_WORD + " "
             + PREFIX_HPNAME + "SLIM DOWN "
             + PREFIX_AGE + "25 "
             + PREFIX_CHEIGHT + "170 "
             + PREFIX_CWEIGHT + "70.0 "
             + PREFIX_TWEIGHT + "60.0 "
-            + PREFIX_DURATION + "10 "
-            + PREFIX_SCHEME + "LOSS ";
+            + PREFIX_DURATION + "10 ";
 
     public static final String MESSAGE_ADD_FAVOURITE_USAGE = AddCommand.COMMAND_WORD
             + ": Adds a recipe to your favourite. "
@@ -153,8 +152,7 @@ public class Messages {
             + "[" + PREFIX_CWEIGHT + "CURRENT WEIGHT(KG)] "
             + "[" + PREFIX_CHEIGHT + "CURRENT HEIGHT(CM)] "
             + "[" + PREFIX_TWEIGHT + "TARGET WEIGHT(KG)] "
-            + "[" + PREFIX_DURATION + "DURATION(DAYS)] "
-            + "[" + PREFIX_SCHEME + "SCHEME(GAIN/LOSS/MAINTAIN)] \n"
+            + "[" + PREFIX_DURATION + "DURATION(DAYS)] \n"
             + "Example: " + EditCommand.COMMAND_WORD + " 1 "
             + PREFIX_HPNAME + "Lose weight "
             + PREFIX_AGE + "23";

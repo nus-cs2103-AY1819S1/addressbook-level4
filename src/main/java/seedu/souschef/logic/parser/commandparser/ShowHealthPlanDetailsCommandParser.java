@@ -13,12 +13,6 @@ import seedu.souschef.model.Model;
  */
 public class ShowHealthPlanDetailsCommandParser {
 
-    public static final String COMMAND_WORD = "showDetails";
-
-    public static final String MESSAGE_SUCCESS = "Showing details of plan %1$s.";
-
-
-
 
     public ShowHealthPlanDetailsCommandParser() {
 
@@ -36,12 +30,12 @@ public class ShowHealthPlanDetailsCommandParser {
         index = index.trim();
         //throw error when length of index is 0
         if (index.length() == 0) {
-            throw new ParseException(MESSAGE_INVALID_EMPTY_PLAN_INDEX);
+            throw new ParseException(ShowHealthPlanDetailsCommand.MESSAGE_USAGE);
         }
 
         //check if numeric otherwise throw error
         if (!index.matches("^[0-9]+$")) {
-            throw new ParseException(MESSAGE_INVALID_PLAN_INDEX);
+            throw new ParseException(ShowHealthPlanDetailsCommand.MESSAGE_USAGE);
         }
 
         int zeroBasedIndex = Integer.parseInt(index) - 1;
@@ -49,14 +43,12 @@ public class ShowHealthPlanDetailsCommandParser {
         //check the range of entered index against list for validity
         if (zeroBasedIndex < 0
                 || zeroBasedIndex >= healthPlanModel.getAppContent().getObservableHealthPlanList().size()) {
-            throw new ParseException(MESSAGE_INVALID_PLAN_INDEX);
+            throw new ParseException(ShowHealthPlanDetailsCommand.MESSAGE_USAGE);
         }
 
 
         return new ShowHealthPlanDetailsCommand(index);
 
     }
-
-
 
 }

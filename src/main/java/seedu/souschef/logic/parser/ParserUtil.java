@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.souschef.commons.core.LogsCenter;
+import seedu.souschef.commons.core.Messages;
 import seedu.souschef.commons.core.index.Index;
 import seedu.souschef.commons.util.StringUtil;
 import seedu.souschef.logic.parser.exceptions.ParseException;
@@ -256,7 +257,6 @@ public class ParserUtil {
         return new CurrentWeight(trimmedWeight);
     }
 
-
     /**
      * parse current height for commands
      * parse cheight
@@ -267,10 +267,6 @@ public class ParserUtil {
         if (!CurrentHeight.isValidHeight(trimmedHeight)) {
             throw new ParseException(CurrentHeight.MESSAGE_HEIGHT_CONSTRAINTS);
         }
-
-
-
-
         return new CurrentHeight(trimmedHeight);
     }
 
@@ -314,6 +310,41 @@ public class ParserUtil {
 
         }
         return Scheme.valueOf(trimmedScheme);
+    }
+
+
+    public static String parsePlanIndex(String index) throws ParseException {
+        String regex ="^[0-9]+$";
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
+
+
+
+        if (trimmedIndex.length() == 0) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PLAN_INDEX);
+        }
+
+        if (!trimmedIndex.matches(regex)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_PLAN_INDEX);
+        }
+        return trimmedIndex;
+    }
+
+    public static String parseDayIndex(String index) throws ParseException {
+        String regex ="^[0-9]+$";
+        requireNonNull(index);
+        String trimmedIndex = index.trim();
+
+
+        if (trimmedIndex.length() == 0) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DAY_INDEX);
+
+        }
+
+        if (!trimmedIndex.matches(regex)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DAY_INDEX);
+        }
+        return trimmedIndex;
     }
 
 }
