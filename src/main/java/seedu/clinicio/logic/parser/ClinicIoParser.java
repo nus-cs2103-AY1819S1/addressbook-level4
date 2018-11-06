@@ -74,9 +74,6 @@ public class ClinicIoParser {
         case CancelApptCommand.COMMAND_WORD:
             return new CancelApptCommandParser().parse(arguments);
 
-        case AddApptCommand.COMMAND_WORD:
-            return new AddApptCommandParser().parse(arguments);
-
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
