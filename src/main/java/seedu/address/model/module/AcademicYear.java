@@ -23,7 +23,7 @@ public class AcademicYear {
      * Empty constructor.
      */
     public AcademicYear() {
-        yearNumber = 0000;
+        yearNumber = 0001;
     }
 
     /**
@@ -64,6 +64,9 @@ public class AcademicYear {
 
     @Override
     public String toString() {
+        if (yearNumber == 0001) {
+            return "";
+        }
         return firstYear() + "" + secondYear();
     }
 
