@@ -567,6 +567,12 @@ Display Tab) and subsequently by `LocationDisplayPanel`.
 
 If the contact has no faculty, a default location - University Hall - is displayed on the map.
 
+The above-mentioned information can be represented in the following sequence diagram:
+
+image::showLocation_UI_LogicManager_seqDiagram.PNG[width="800"]
+
+image::showLocation_EventsCenter_seqDiagram.PNG[width="800"]
+
 //tag::meetinglocation[]
 === Meeting Location
 
