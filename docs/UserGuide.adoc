@@ -187,13 +187,17 @@ image::FindEx1.png[width="650"]
 
 // tag::patientsecondhalf[]
 ==== Listing all patients: `list`
-Displays a list of all patients in CLInic's patient database. +
+Need to list all patients in the database? +
+Do this easily with the `list` command. +
 Alias: `l` +
 Format: `list`
 
-==== Deleting a patient: `delete`
+.Before and after executing the `list` command
+image::list-command-example.png[width="650"]
 
-Deletes the specified patient from the CLInic database. +
+==== Deleting a patient: `delete`
+What if we need to remove a patient's details from the database? +
+You can do so with the `delete` command, which will clear the user's details from the database completely. +
 Alias: `d` +
 Format: `delete INDEX`
 
@@ -212,9 +216,12 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd patient in the database.
-* `find Betsy` +
+* `find Bryan` +
 `d 1` +
 Deletes the 1st patient in the resulting list of the `find` command.
+
+.Before and after executing the `find Bryan` and `d 1` command
+image::delete-command-example.png[width="650]
 
 ==== Selecting a patient: `select`
 
@@ -231,9 +238,13 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd patient in the whole database.
-* `find Betsy` +
+* `find Bryan` +
 `s 1` +
 Selects the 1st patient in the resulting list of the `find` command.
+
+.Before and after executing the `find Bryan` and `s 1` command.
+image::select-command-example.png[width="650"]
+
 // end::patientsecondhalf[]
 
 // tag::addmedicalrecordcommand[]
