@@ -11,10 +11,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 
 import com.google.photos.library.v1.PhotosLibraryClient;
@@ -72,12 +73,10 @@ public class PhotoHandler {
      * @return list of image names
      */
     public List<String> returnAllImagesList() {
-        ArrayList<String> imageNames = new ArrayList<>();
         if (imageMap.isEmpty()) {
             retrieveAllImagesFromGoogle();
         }
-        imageNames.addAll(imageMap.keySet());
-        return imageNames;
+        return new ArrayList<>(imageMap.keySet());
     }
 
     /**
@@ -87,12 +86,10 @@ public class PhotoHandler {
      */
     public List<String> returnAllAlbumsList() {
 
-        ArrayList<String> albumNames = new ArrayList<>();
         if (albumMap.isEmpty()) {
             retrieveAllAlbumsFromGoogle();
         }
-        albumNames.addAll(albumMap.keySet());
-        return albumNames;
+        return new ArrayList<>(albumMap.keySet());
     }
 
     /**
@@ -103,12 +100,9 @@ public class PhotoHandler {
      */
     public List<String> returnAllImagesinAlbum(String albumName) throws CommandException {
 
-        ArrayList<String> imageNames = new ArrayList<>();
-
         retrieveSpecificAlbumGoogle(albumName);
-        imageNames.addAll(albumSpecificMap.keySet());
 
-        return imageNames;
+        return new ArrayList<>(albumSpecificMap.keySet());
     }
 
     /**
@@ -269,8 +263,8 @@ public class PhotoHandler {
         }
 
         Map<Integer, String> uploads = uploadMediaItemsToGoogle(
-                Arrays.asList(generateNewMediaImage(imageName, pathName)));
-        return formatUploadFeedback(uploads, Arrays.asList(imageName));
+                Collections.singletonList(generateNewMediaImage(imageName, pathName)));
+        return formatUploadFeedback(uploads, Collections.singletonList(imageName));
     }
 
     /**
@@ -285,7 +279,7 @@ public class PhotoHandler {
 
         File dir = new File(path);
 
-        for (File file : dir.listFiles()) {
+        for (File file : Objects.requireNonNull(dir.listFiles())) {
             if (file.isFile()) {
                 if (ImageIO.read(file) != null) {
                     imageNames.add(file.getName());
@@ -415,7 +409,7 @@ public class PhotoHandler {
      * @return formatted feedback
      */
     public String formatUploadFeedback(Map<Integer, String> uploads, List<String> imageNames) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (uploads.isEmpty()) {
             return "";
         } else {
