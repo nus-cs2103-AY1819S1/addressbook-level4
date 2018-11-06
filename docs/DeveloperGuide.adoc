@@ -1,4 +1,6 @@
 ﻿= ClinicIO - Developer Guide
+Thank you for your interest in contributing to ClinicIO!
+
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -19,9 +21,19 @@ By: `W14-1`      Since: `Sept 2018`      Licence: `MIT`
 = About this guide
 
 This guide provides an overview of ClinicIO and walks you through the installation process.
-In addition, this guide provides in-depth documentation for all features.
+In addition, this guide provides in-depth documentation for all features and cover everything you need to know
+when developing ClinicIO.
 
-This guide assume that readers has certain developers knowledge.
+This guide assume that readers has certain developers knowledge with Java and JavaFX.
+
+If you are new to development, you can try working step-by-step tutorial from Oracle:
+
+- https://docs.oracle.com/javase/tutorial/[Java™ Tutorials from Oracle]
+- https://docs.oracle.com/javafx/2/get_started/jfxpub-get_started.htm[JavaFX Tutorials from Oracle]
+
+If you are new to contributing to ClinicIO, head over to <<#Setting Up, Setting Up>> to start 
+set up ClinicIO project.
+
 
 == Setting up
 
