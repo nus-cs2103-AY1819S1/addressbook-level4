@@ -371,7 +371,7 @@ Format: `checkstock`
 === Queue Management
 
 [WARNING]
-You cannot `edit`, `delete`, `addmedicalrecord` a patient when the patient is in queue. If an the patient's details are changed when
+You cannot use `edit`, `delete`, `addmedicalrecord` commands on a patient that is in queue. If the patient's details are changed when
 the patient is in queue, the patient will be removed from queue.
 
 ==== Registering a patient to Waiting Queue: `register`
