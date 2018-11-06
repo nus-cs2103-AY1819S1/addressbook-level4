@@ -45,8 +45,8 @@ public class Event {
     private Person organiser;
 
     private final Set<Tag> tags = new HashSet<>();
-    private final ArrayList<AbstractPoll> polls;
-    private final UniquePersonList personList;
+    private final ArrayList<AbstractPoll> polls = new ArrayList<>();
+    private final UniquePersonList personList = new UniquePersonList();
 
     /**
      * Every field must be present and not null.
@@ -56,8 +56,18 @@ public class Event {
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
-        polls = new ArrayList<>();
-        personList = new UniquePersonList();
+    }
+
+    public Event(String name, Address location, Set<Tag> tags, LocalDate date, LocalTime startTime, LocalTime endTime,
+                 Person organiser) {
+        requireAllNonNull(name, location, tags, date, startTime, endTime, organiser);
+        this.name = name;
+        this.location = location;
+        this.tags.addAll(tags);
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.organiser = organiser;
     }
 
     public String getName() {
@@ -322,7 +332,12 @@ public class Event {
         }
 
         return otherEvent != null
-                && otherEvent.getName().equals(getName());
+                && otherEvent.getName().equals(getName())
+                && otherEvent.getLocation().equals(getLocation())
+                && otherEvent.getOrganiser().equals(getOrganiser())
+                && otherEvent.getDate().equals(getDate())
+                && otherEvent.getStartTime().equals(getStartTime())
+                && otherEvent.getEndTime().equals(getEndTime());
     }
 
     /**
