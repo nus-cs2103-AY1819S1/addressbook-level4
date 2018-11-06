@@ -40,18 +40,21 @@ public class CdCommand extends Command {
         String currDirectory = model.getCurrDirectory().toString();
         String newDir = currDirectory + "/" + toDirectories.toString();
 
-        File dir = new File(newDir);
-        if (!dir.isDirectory()) {
-            return new CommandResult(MESSAGE_FAILURE);
-        }
-
         Path newCurrDirectory = Paths.get("");
         try {
-            newCurrDirectory = dir.toPath().toRealPath();
-            model.updateCurrDirectory(newCurrDirectory);
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (toDirectories.isAbsolute()) {
+                newCurrDirectory = toDirectories.toRealPath();
+            } else {
+                File dir = new File(newDir);
+                if (!dir.isDirectory()) {
+                    return new CommandResult(MESSAGE_FAILURE);
+                }
+                newCurrDirectory = dir.toPath().toRealPath();
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
+        model.updateCurrDirectory(newCurrDirectory);
 
         return new CommandResult(newCurrDirectory.toString() + "\n"
                 + String.format(Messages.MESSAGE_TOTAL_IMAGES_IN_DIR, model.getTotalImagesInDir())
