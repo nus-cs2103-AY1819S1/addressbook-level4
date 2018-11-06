@@ -20,6 +20,7 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.CardQuestionContainsKeywordsPredicate;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
+import seedu.address.model.deck.Performance;
 import seedu.address.testutil.EditDeckDescriptorBuilder;
 import seedu.address.testutil.TypicalCards;
 
@@ -40,6 +41,7 @@ public class CommandTestUtil {
 
     public static final String VALID_QUESTION_A = "Another valid stuff";
     public static final String VALID_QUESTION_B = "Need another valid question";
+    public static final Performance VALID_PERFORMANCE_A = Performance.EASY;
     public static final String VALID_ANSWER_A = "Valid question needs a valid answer";
     public static final String VALID_ANSWER_B = "Whateverrrrrrr";
     public static final String INVALID_QUESTION = " ";
