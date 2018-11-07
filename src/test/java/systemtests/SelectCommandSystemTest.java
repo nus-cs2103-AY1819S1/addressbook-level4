@@ -10,6 +10,8 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
+import org.junit.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -17,11 +19,8 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
 public class SelectCommandSystemTest extends SchedulerSystemTest {
-    // @Test
-    /**
-     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     * TODO remember to import org.JUnit.Test
-     */
+
+    @Test
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
@@ -104,7 +103,9 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
             MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
     }
 
+
     /**
+     *
      * Executes {@code command} and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
@@ -113,10 +114,8 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
      * 4. {@code Storage} and {@code CalendarPanel} remain unchanged.<br>
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
-     * Verifications 1, 3 and 4 are performed by
-     * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     *
-     * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * Verifications 1, 3 and 4 are perfo
+     * mTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see SchedulerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {

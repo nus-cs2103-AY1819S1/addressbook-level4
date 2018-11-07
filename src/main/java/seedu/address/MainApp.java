@@ -61,7 +61,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing U-Schedule ]===========================");
+        logger.info("=============================[ Initializing U-Schedule ]=============================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());

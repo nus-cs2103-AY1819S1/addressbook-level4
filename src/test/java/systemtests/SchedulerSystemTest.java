@@ -50,6 +50,7 @@ public abstract class SchedulerSystemTest {
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
 
+
     @BeforeClass
     public static void setupBeforeClass() {
         SystemTestSetupHelper.initialize();

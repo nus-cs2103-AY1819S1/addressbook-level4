@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.showCalendarEventAtIndex;
 import static seedu.address.testutil.TypicalEvents.getTypicalScheduler;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
@@ -36,7 +36,7 @@ public class ListEventCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showPersonAtIndex(model, INDEX_FIRST_ELEMENT);
+        showCalendarEventAtIndex(model, INDEX_FIRST_ELEMENT);
         assertCommandSuccess(new ListEventCommand(), model, commandHistory,
                                 ListEventCommand.MESSAGE_SUCCESS, expectedModel);
     }
