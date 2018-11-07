@@ -281,6 +281,8 @@ The `Model`,
 
 // end::modelComponent[]
 
+
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -303,7 +305,7 @@ common calls for load and saving.
 without much creation of new methods at the storage level. Just by calling the context switch and also the save and load
 calls the intended result will be achieved.
 
-
+// end::storage[]
 
 
 [[Design-Commons]]
@@ -533,7 +535,9 @@ Pros - Search done more effectively as the system only need to display all recip
 Cons - Bi-directional association, increase difficulty in maintaining data integrity
 // end::recipeManagement[]
 
-=== Health Plan list
+
+// tag::healthplan[]
+=== Health Plan
 
 This is a feature that users can access to have health plans to manage their diet and health due to dietary
 needs of their choice. Users are able to add a health list to based on their specifications:
@@ -551,24 +555,27 @@ eat per day to hit their target.
 * Users are able to display all days of the meal planner segment concurrently with the health plan lists
 * Users are able to display the details of a health plan to see the days stored and also other information
 * Users are able to remove days of the health plan they added.
+* Users are now able to view the calories count from the meals they included into the healthplan and when the details of
+the health plan is shown the target to hit will be shown to the user, in value and also bar chart. Along with such info,
+there is also a percentage met to show how much of the target is already achieved.
 
-==== Ongoing implementation (Implementing calory count)
+==== Ongoing implementation (Implementing plan comparisons)
 
-Firstly, a library of calories for the ingredients need to set up.
-Then the new implementation of this function should extend the already established functionality by adding a calorie count
-for the ingredients within the recipes stored in the days of the health plan
-Providing the capability of being able to calculating the calorie intake of the meal by days,
-and also calculating the total of the entire plan.
+This new implementation of this feature will allow the users to select 2 plans of their choice and compare
+with a side by side comparison of the calories consumed. This information will be displayed to the user much like the show
+details command that is available with slight tweaks. There will not be a percentage met but instead the feature will
+try to cover breakdown of the calories intake by day using the set duration of the targetted plans.
+This will provided clarity of the day by day consumption of calories of the user across 2 plans.
+The information will be in calculated values and then displayed in a series of bar graphs for quick understanding of the
+information by just looking at the graphs.
 
-Furthermore the system will compute a target daily intake based on the age, current height and current weight provided.
-There will also then be a computed bar graph to compare the actual intake against the computed target to meet.
-Providing some statistics such as percentage met or exceeded and also speculated weight if the user continues with the
-current calories consumed.
 
 ==== Ongoing implementation (Expiry of health plans)
 
 The new implementation of this feature should have an expiry feature that counts down the system base on the app's date
  against the duration set by the user.
+
+// end::healthplan[]
 
 === Logging
 
@@ -858,7 +865,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 
-=== Health Planner
+=== Health Plan
 |========================================================================
 |Priority | As a... |I want to ... | So that I can...
 
