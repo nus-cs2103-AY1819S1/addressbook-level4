@@ -109,6 +109,19 @@ public class AddPrescriptionCommandTest {
                 addPrescriptionCommand.MESSAGE_APPOINTENT_DOES_NOT_EXIST);
     }
 
+    @Test
+    public void execute_patientAllergicToMedicine_failure() {
+        Appointment firstAppointment = model.getFilteredAppointmentList().get(0);
+        Prescription prescriptionToAdd = new PrescriptionBuilder()
+                .withAppointmentId(firstAppointment.getAppointmentId()).build();
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(firstAppointment.getAppointmentId(),
+                prescriptionToAdd);
+
+        assertCommandFailure(addPrescriptionCommand, model, commandHistory,
+                String.format(addPrescriptionCommand.MESSAGE_PATIENT_ALLERGIC_TO_MEDICINE,
+                        prescriptionToAdd.getMedicineName()));
+    }
+
 
     @Test
     public void equals() {
