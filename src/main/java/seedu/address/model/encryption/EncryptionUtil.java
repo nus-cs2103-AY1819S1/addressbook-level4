@@ -55,7 +55,7 @@ public class EncryptionUtil {
             return new String(decryptedBytes);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | InvalidKeyException e) {
             throw new IllegalStateException(e.getMessage());
-        } catch (BadPaddingException | IllegalBlockSizeException e) {
+        } catch (BadPaddingException | IllegalBlockSizeException | IllegalArgumentException e) {
             throw new IllegalValueException(String.format("Error decrypting String: %s", toDecrypt), e);
         }
     }

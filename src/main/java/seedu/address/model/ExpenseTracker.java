@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -13,7 +14,7 @@ import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.UniqueExpenseList;
+import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
@@ -28,7 +29,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     protected Username username;
     protected Password password;
     private String encryptionKey;
-    private final UniqueExpenseList expenses;
+    private final ExpenseList expenses;
     private TotalBudget maximumTotalBudget;
 
     private NotificationHandler notificationHandler;
@@ -41,7 +42,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         this.username = username;
         this.password = password;
         this.encryptionKey = encryptionKey;
-        this.expenses = new UniqueExpenseList();
+        this.expenses = new ExpenseList();
         this.notificationHandler = new NotificationHandler();
         this.maximumTotalBudget = new TotalBudget("28.00");
     }
@@ -66,7 +67,6 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
         double previousSpending = this.maximumTotalBudget.getCurrentExpenses();
         this.maximumTotalBudget = totalBudget;
         this.maximumTotalBudget.modifyExpenses(previousSpending);
-
     }
 
     /**
@@ -284,6 +284,11 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     @Override
     public ObservableList<Notification> getNotificationList() {
         return notificationHandler.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public HashSet<CategoryBudget> getCategoryBudgets() {
+        return maximumTotalBudget.getCategoryBudgets();
     }
 
     @Override

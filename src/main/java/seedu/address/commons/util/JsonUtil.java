@@ -3,6 +3,7 @@ package seedu.address.commons.util;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 
 import java.nio.file.Path;
@@ -117,18 +118,18 @@ public class JsonUtil {
 
     /**
      * Converts a JSON file to an arrayList of type T
-     * @param jsonFile Path of the JSON file to convert
+     * @param jsonStream Stream of the JSON file to convert
      * @param instanceClass to set arrayList generic to
      * @param <T> The generic type to create an arrayList of
      * @return An optional containing the arrayList of objects of T type
      * @throws IOException
      */
     //@@Snookerballs
-    public static <T> Optional<List<T>> fromJsonToArray(Path jsonFile, Class<T> instanceClass) throws IOException {
+    public static <T> Optional<List<T>> fromJsonToArray(InputStream jsonStream, Class<T> instanceClass)
+            throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, instanceClass);
-        List<T> list = mapper.readValue(jsonFile.toFile(), listType);
-
+        List<T> list = mapper.readValue(jsonStream, listType);
         return Optional.of(list);
     }
 

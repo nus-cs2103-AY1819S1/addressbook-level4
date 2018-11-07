@@ -76,9 +76,6 @@ public class XmlSerializableExpenseTracker {
         }
         for (XmlAdaptedExpense p : expenses) {
             EncryptedExpense expense = p.toModelType();
-            if (expenseTracker.hasExpense(expense)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
-            }
             expenseTracker.addExpense(expense);
         }
 

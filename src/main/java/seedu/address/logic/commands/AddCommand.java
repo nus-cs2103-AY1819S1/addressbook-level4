@@ -40,7 +40,6 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "nus";
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense tracker";
     //TODO: Redirect this to notification center
     public static final String MESSAGE_BUDGET_EXCEED_WARNING = "WARNING: "
         + "Adding this expense will cause your totalBudget to exceed.";
@@ -59,9 +58,6 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException {
         requireNonNull(model);
         EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.LIST));
-        if (model.hasExpense(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
-        }
         boolean withinBudget = model.addExpense(toAdd);
         model.addWarningNotification();
         model.commitExpenseTracker();

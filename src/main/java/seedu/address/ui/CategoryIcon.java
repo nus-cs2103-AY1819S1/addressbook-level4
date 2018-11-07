@@ -1,10 +1,11 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
+import seedu.address.model.budget.CategoryBudget;
 
 /**
  * A UI Component that displays information of a {@code Category}
@@ -13,18 +14,23 @@ import javafx.scene.text.Text;
 //@@author snookerballs
 public class CategoryIcon extends UiPart<Region> {
     private static final String FXML = "CategoryIcon.fxml";
+    private static final String IMAGE_PATH = "/images/categoryIcons/categoryIcon.png";
 
     @FXML
-    private Text categoryName;
+    private Label categoryName;
 
     @FXML
     private ImageView categoryIcon;
 
-    public CategoryIcon(String text, String iconRoute) {
-        super(FXML);
+    @FXML
+    private Label categoryBudgetCap;
 
-        categoryName.setText(text);
-        Image image = new Image(iconRoute);
+    public CategoryIcon(CategoryBudget budget) {
+        super(FXML);
+        categoryBudgetCap.setText("$" + Double.toString(budget.getBudgetCap()));
+        categoryName.setText(budget.toString());
+        Image image = new Image(IMAGE_PATH);
         categoryIcon.setImage(image);
     }
+
 }

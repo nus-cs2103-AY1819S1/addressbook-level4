@@ -46,7 +46,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense tracker.";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
@@ -76,9 +75,6 @@ public class EditCommand extends Command {
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
         Expense editedExpense = createEditedExpense(expenseToEdit, editExpenseDescriptor);
 
-        if (!expenseToEdit.isSameExpense(editedExpense) && model.hasExpense(editedExpense)) {
-            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
-        }
         model.updateExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         model.addWarningNotification();
