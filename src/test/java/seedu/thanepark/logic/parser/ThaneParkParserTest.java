@@ -28,9 +28,12 @@ import seedu.thanepark.logic.commands.UpdateCommand;
 import seedu.thanepark.logic.commands.UpdateCommand.UpdateRideDescriptor;
 import seedu.thanepark.logic.commands.ViewAllCommand;
 import seedu.thanepark.logic.commands.ViewCommand;
+import seedu.thanepark.logic.commands.ViewStatusCommand;
 import seedu.thanepark.logic.parser.exceptions.ParseException;
 import seedu.thanepark.model.ride.Ride;
 import seedu.thanepark.model.ride.RideContainsKeywordsPredicate;
+import seedu.thanepark.model.ride.RideStatusPredicate;
+import seedu.thanepark.model.ride.Status;
 import seedu.thanepark.testutil.RideBuilder;
 import seedu.thanepark.testutil.RideUtil;
 import seedu.thanepark.testutil.UpdateRideDescriptorBuilder;
@@ -123,6 +126,14 @@ public class ThaneParkParserTest {
         ViewCommand command = (ViewCommand) parser.parseCommand(
                 ViewCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new ViewCommand(INDEX_FIRST_PERSON), command);
+    }
+
+    @Test
+    public void parseCommand_viewstatus() throws Exception {
+        RideStatusPredicate predicate = new RideStatusPredicate(Status.OPEN);
+        ViewStatusCommand command = (ViewStatusCommand) parser.parseCommand(
+                ViewStatusCommand.COMMAND_WORD + " open");
+        assertEquals(new ViewStatusCommand(predicate), command);
     }
 
     @Test

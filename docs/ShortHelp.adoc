@@ -27,8 +27,8 @@ Command syntax summary, enter `help more` for full manual.
 |=======================================================================
 |*View information on the list of rides*
 |viewall
-|view
-|viewstatus <name>
+|view <index>
+|viewstatus <status>
 |=======================================================================
 
 [width="100%",cols="<100%",options="header",]

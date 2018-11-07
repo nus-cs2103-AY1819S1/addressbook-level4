@@ -8,7 +8,7 @@ public class AllCommandWords {
         DeleteCommand.COMMAND_WORD, UpdateCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, FindCommand.COMMAND_WORD,
         HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, OpenCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD,
         ShutDownCommand.COMMAND_WORD, ViewAllCommand.COMMAND_WORD, ViewStatusCommand.COMMAND_WORD,
-        ViewCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD};
+        ViewCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, FilterCommand.COMMAND_WORD};
 
     /**
      * Checks if the given commandWord is valid
