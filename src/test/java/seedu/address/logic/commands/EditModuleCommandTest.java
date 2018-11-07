@@ -6,9 +6,12 @@ import static seedu.address.testutil.TypicalModules.ASKING_QUESTIONS;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
 import static seedu.address.testutil.TypicalModules.getTypicalTranscript;
 
+import java.util.EnumMap;
+
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.arguments.EditArgument;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -33,15 +36,18 @@ public class EditModuleCommandTest {
      */
     @Test
     public void executeTargetNotInTranscriptFail() {
-        EditModuleCommand editModuleCommand = new EditModuleCommand(
-                ASKING_QUESTIONS.getCode(),
-                null,
-                null,
-                DISCRETE_MATH.getCode(),
-                null,
-                null,
-                null,
-                null);
+        EnumMap<EditArgument, Object> argMap;
+        argMap = new EnumMap<>(EditArgument.class);
+        argMap.put(EditArgument.TARGET_CODE, ASKING_QUESTIONS.getCode());
+        argMap.put(EditArgument.TARGET_YEAR, null);
+        argMap.put(EditArgument.TARGET_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CODE, DISCRETE_MATH.getCode());
+        argMap.put(EditArgument.NEW_YEAR, null);
+        argMap.put(EditArgument.NEW_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CREDIT, null);
+        argMap.put(EditArgument.NEW_GRADE, null);
+
+        EditModuleCommand editModuleCommand = new EditModuleCommand(argMap);
 
         assertCommandFailure(editModuleCommand,
                 model, commandHistory,
@@ -53,6 +59,17 @@ public class EditModuleCommandTest {
      */
     @Test
     public void executeTargetIsIncompleteGradeChangeFail() {
+        EnumMap<EditArgument, Object> argMap;
+        argMap = new EnumMap<>(EditArgument.class);
+        argMap.put(EditArgument.TARGET_CODE, DISCRETE_MATH.getCode());
+        argMap.put(EditArgument.TARGET_YEAR, null);
+        argMap.put(EditArgument.TARGET_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CODE, null);
+        argMap.put(EditArgument.NEW_YEAR, null);
+        argMap.put(EditArgument.NEW_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CREDIT, null);
+        argMap.put(EditArgument.NEW_GRADE, ASKING_QUESTIONS.getGrade());
+
         Grade gradeGeneratedByTarget = DISCRETE_MATH.getGrade()
                 .targetGrade(TypicalModules.GRADE_F);
 
@@ -64,15 +81,7 @@ public class EditModuleCommandTest {
         model.updateModule(DISCRETE_MATH, discreteMathIncomplete);
         model.commitTranscript();
 
-        EditModuleCommand editModuleCommand = new EditModuleCommand(
-                DISCRETE_MATH.getCode(),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                ASKING_QUESTIONS.getGrade());
+        EditModuleCommand editModuleCommand = new EditModuleCommand(argMap);
 
         assertCommandFailure(editModuleCommand,
                 model, commandHistory,
@@ -89,18 +98,21 @@ public class EditModuleCommandTest {
      */
     @Test
     public void executeEditedModuleAlreadyExistFail() {
+        EnumMap<EditArgument, Object> argMap;
+        argMap = new EnumMap<>(EditArgument.class);
+        argMap.put(EditArgument.TARGET_CODE, ASKING_QUESTIONS.getCode());
+        argMap.put(EditArgument.TARGET_YEAR, null);
+        argMap.put(EditArgument.TARGET_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CODE, DISCRETE_MATH.getCode());
+        argMap.put(EditArgument.NEW_YEAR, DISCRETE_MATH.getYear());
+        argMap.put(EditArgument.NEW_SEMESTER, DISCRETE_MATH.getSemester());
+        argMap.put(EditArgument.NEW_CREDIT, DISCRETE_MATH.getCredits());
+        argMap.put(EditArgument.NEW_GRADE, DISCRETE_MATH.getGrade());
+
         model.addModule(ASKING_QUESTIONS);
         model.commitTranscript();
 
-        EditModuleCommand editModuleCommand = new EditModuleCommand(
-                ASKING_QUESTIONS.getCode(),
-                null,
-                null,
-                DISCRETE_MATH.getCode(),
-                DISCRETE_MATH.getYear(),
-                DISCRETE_MATH.getSemester(),
-                DISCRETE_MATH.getCredits(),
-                DISCRETE_MATH.getGrade());
+        EditModuleCommand editModuleCommand = new EditModuleCommand(argMap);
 
         assertCommandFailure(editModuleCommand,
                 model, commandHistory,
@@ -112,15 +124,18 @@ public class EditModuleCommandTest {
 
     @Test
     public void executeEditCommandSuccess() {
-        EditModuleCommand editModuleCommand = new EditModuleCommand(
-                DISCRETE_MATH.getCode(),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                ASKING_QUESTIONS.getGrade());
+        EnumMap<EditArgument, Object> argMap;
+        argMap = new EnumMap<>(EditArgument.class);
+        argMap.put(EditArgument.TARGET_CODE, DISCRETE_MATH.getCode());
+        argMap.put(EditArgument.TARGET_YEAR, null);
+        argMap.put(EditArgument.TARGET_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CODE, null);
+        argMap.put(EditArgument.NEW_YEAR, null);
+        argMap.put(EditArgument.NEW_SEMESTER, null);
+        argMap.put(EditArgument.NEW_CREDIT, null);
+        argMap.put(EditArgument.NEW_GRADE, ASKING_QUESTIONS.getGrade());
+
+        EditModuleCommand editModuleCommand = new EditModuleCommand(argMap);
 
         Module editedDiscreteMath = new ModuleBuilder(DISCRETE_MATH)
                 .withGrade(ASKING_QUESTIONS.getGrade())

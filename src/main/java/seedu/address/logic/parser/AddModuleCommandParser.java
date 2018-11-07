@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.ParserUtil.validateNumOfArgs;
+import static seedu.address.logic.parser.ParserUtil.argsWithBounds;
 
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -24,7 +24,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
      */
     public AddModuleCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
-        validateNumOfArgs(tokenizedArgs, 4, 5);
+        argsWithBounds(tokenizedArgs, 4, 5);
 
         int index = 0;
 
