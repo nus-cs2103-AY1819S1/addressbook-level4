@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.sun.istack.Nullable;
+
 import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.Messages;
 import seedu.parking.commons.events.ui.FilterResultChangedEvent;
@@ -23,7 +25,7 @@ import seedu.parking.model.carpark.CarparkFilteringPredicate;
  */
 public class FilterCommand extends Command {
     public static final String COMMAND_WORD = "filter";
-    public static final String FORMAT = "filter f/ DAY START_TIME END_TIME CARPARK_TYPE ps/ SYSTEM_TYPE a/ st/ n/ ct/ ";
+    public static final String FORMAT = "filter f/ DAY START_TIME END_TIME ct/ CARPARK_TYPE ps/ SYSTEM_TYPE a/ n/ st/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Filters the list of car parks returned by the previous find command with the use of flags. "
@@ -46,8 +48,9 @@ public class FilterCommand extends Command {
     /**
      * Creates a FilterCommand with the relevant flags
      */
-    public FilterCommand(List<String> flagList, FreeParkingParameter freeParkingParameter, CarparkTypeParameter
-            carparkTypeParameter, ParkingSystemTypeParameter parkingSystemTypeParameter) {
+    public FilterCommand(List<String> flagList, @Nullable FreeParkingParameter freeParkingParameter,
+        @Nullable CarparkTypeParameter carparkTypeParameter,
+        @Nullable ParkingSystemTypeParameter parkingSystemTypeParameter) {
         this.predicate = null;
         this.flagList = flagList;
         this.freeParkingParameter = freeParkingParameter;
@@ -76,10 +79,11 @@ public class FilterCommand extends Command {
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
     }
 
+    // Please fix the last line, it will give NULLPOINTEREXCEPTION because predicate is initialized as null value.
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FilterCommand // instanceof handles nulls
-                && predicate.equals(((FilterCommand) other).predicate)); // state check
+                || other instanceof FilterCommand; // instanceof handles nulls
+                //&& predicate.equals(((FilterCommand) other).predicate)); // state check
     }
 }

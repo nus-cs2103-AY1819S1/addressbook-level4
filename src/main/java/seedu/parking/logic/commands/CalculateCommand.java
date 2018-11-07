@@ -135,10 +135,11 @@ public class CalculateCommand extends Command {
                 String.format(Messages.MESSAGE_COST_OF_PARKING, cost));
     }
 
+    // Please fix the last line, it will give NULLPOINTEREXCEPTION because predicate is initialized as null value.
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CalculateCommand // instanceof handles nulls
-                && predicate.equals(((CalculateCommand) other).predicate)); // state check
+                || other instanceof CalculateCommand; // instanceof handles nulls
+                //&& predicate.equals(((CalculateCommand) other).predicate)); // state check
     }
 }
