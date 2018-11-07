@@ -95,6 +95,18 @@ public class UniqueCategoryList implements Iterable<Category> {
     }
 
     /**
+     * Change the name of an existing category.
+     */
+    public void editCategory(String original, String name) {
+        requireNonNull(original);
+        Category category = getCategory(original);
+        if (this.contains(name)) {
+            throw new DuplicateCategoryException();
+        }
+        category.editName(name);
+    }
+
+    /**
      * Returns true if {@code categories} contains only unique categories.
      */
     private boolean categoriesAreUnique(List<Category> categories) {

@@ -112,6 +112,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void editCategory(String original, String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addCategory(String name) {
             throw new AssertionError("This method should not be called.");
         }

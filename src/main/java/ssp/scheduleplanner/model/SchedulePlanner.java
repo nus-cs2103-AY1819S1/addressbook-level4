@@ -81,6 +81,14 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
         }
         this.categories.removeCategory(categoryName);
     }
+
+    /**
+     * Change the name of selected category in schedule planner.
+     */
+    public void editCategory(String originalName, String categoryName) {
+        this.categories.editCategory(originalName, categoryName);
+    }
+
     /**
      * Resets the existing data of this {@code SchedulePlanner} with {@code newData}.
      */

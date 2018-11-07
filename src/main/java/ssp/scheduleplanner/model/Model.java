@@ -44,7 +44,10 @@ public interface Model {
      */
     boolean hasTagInCategory(Tag tag, Category category);
 
-
+    /**
+     * Change name of a category.
+     */
+    void editCategory(String original, String categoryName);
     /**
      * Deletes the given task.
      * The task must exist in the Schedule Planner.

@@ -33,6 +33,13 @@ public class Category {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
+    /**
+     * Change name of this category.
+     * @param name
+     */
+    public void editName(String name) {
+        this.name = name;
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

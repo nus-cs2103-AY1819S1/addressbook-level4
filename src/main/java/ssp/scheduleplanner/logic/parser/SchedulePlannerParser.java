@@ -12,6 +12,7 @@ import ssp.scheduleplanner.logic.commands.ArchiveCommand;
 import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.Command;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
+import ssp.scheduleplanner.logic.commands.EditCategoryCommand;
 import ssp.scheduleplanner.logic.commands.EditCommand;
 import ssp.scheduleplanner.logic.commands.ExitCommand;
 import ssp.scheduleplanner.logic.commands.FilterCommand;
@@ -64,6 +65,9 @@ public class SchedulePlannerParser {
 
         case AddCategoryCommand.COMMAND_WORD:
             return new AddCategoryCommandParser().parse(arguments);
+
+        case EditCategoryCommand.COMMAND_WORD:
+            return new EditCategoryCommandParser().parse(arguments);
 
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);
