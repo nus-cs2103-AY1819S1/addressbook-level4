@@ -1,5 +1,7 @@
 package seedu.clinicio.model.appointment;
 
+//@@author gingivitiss
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -259,5 +261,8 @@ public class AppointmentTest {
         //diff status
         appt2.cancelAppointment();
         assertFalse(appt2.equals(appt3));
+
+        //instance of
+        assertFalse(appt2.equals(validDate));
     }
 }
