@@ -180,6 +180,8 @@ Format: `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 Examples:
 
 * `add-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* `add-medical-history n/John Doe al/penicillin,milk`
+* `add-medical-history n/John Doe c/sub-healthy`
 
 ****
 * Either condition or allergy must be provided.
@@ -192,6 +194,8 @@ Format: `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 Examples:
 
 * `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* `delete-medical-history n/John Doe al/penicillin,milk`
+* `delete-medical-history n/John Doe c/sub-healthy`
 
 ****
 * Either condition or allergy must be provided.
