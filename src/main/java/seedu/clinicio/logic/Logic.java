@@ -37,7 +37,7 @@ public interface Logic {
     ObservableList<Appointment> getFilteredAppointmentList();
 
     /** Returns an unmodifiable view of the filtered list of patients. */
-    ObservableList<Person> getAllPatientsInQueue();
+    ObservableList<Patient> getAllPatientsInQueue();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

@@ -110,7 +110,7 @@ public interface Model {
     ObservableList<Staff> getFilteredStaffList();
 
     // @@author iamjackslayer
-    ObservableList<Person> getAllPatientsInQueue();
+    ObservableList<Patient> getAllPatientsInQueue();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

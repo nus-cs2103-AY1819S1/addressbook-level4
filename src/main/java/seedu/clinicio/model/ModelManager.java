@@ -255,7 +255,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void enqueueIntoMainQueue(Person patient) {
-        mainQueue.add(patient);
+        mainQueue.add((Patient) patient);
     }
 
     //@@author iamjackslayer
@@ -265,7 +265,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void enqueueIntoPreferenceQueue(Person patient) {
-        preferenceQueue.add(patient);
+        preferenceQueue.add((Patient) patient);
     }
 
     @Override
@@ -308,8 +308,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author iamjackslayer
     @Override
-    public ObservableList<Person> getAllPatientsInQueue() {
-        ArrayList<Person> allPatientsInQueue = new ArrayList(mainQueue.getList());
+    public ObservableList<Patient> getAllPatientsInQueue() {
+        ArrayList<Patient> allPatientsInQueue = new ArrayList(mainQueue.getList());
         allPatientsInQueue.addAll(preferenceQueue.getList());
 
         PatientComparator<Person> comparator = new PatientComparator<>();
