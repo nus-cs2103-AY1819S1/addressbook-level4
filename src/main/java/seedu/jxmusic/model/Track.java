@@ -1,5 +1,7 @@
 package seedu.jxmusic.model;
 
+import static javafx.scene.media.MediaPlayer.Status.READY;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -49,9 +51,11 @@ public class Track {
         AppUtil.checkArgument(file.exists(), MESSAGE_FILE_NOT_EXIST);
         AppUtil.checkArgument(isSupported(file), MESSAGE_FILE_NOT_SUPPORTED);
         this.file = file;
-        Media media = new Media(this.getFile().toURI().toString());
+        Media media = new Media(file.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
-        this.fileDuration = mediaPlayer.getTotalDuration();
+        while (mediaPlayer.getStatus() != READY) {
+        }
+        this.fileDuration = media.getDuration();
     }
 
     public Track(File file) {
@@ -62,9 +66,11 @@ public class Track {
         this.file = file;
         String fileNameDotMp3 = file.getName();
         fileNameWithoutExtension = removeMp3Extension(fileNameDotMp3);
-        Media media = new Media(this.getFile().toURI().toString());
+        Media media = new Media(file.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
-        this.fileDuration = mediaPlayer.getTotalDuration();
+        while (mediaPlayer.getStatus() != READY) {
+        }
+        this.fileDuration = media.getDuration();
     }
 
     public File getFile() {
@@ -86,9 +92,11 @@ public class Track {
     public String getDisplayedFileDuration() {
         int totalSeconds = (int) fileDuration.toSeconds();
         int seconds = totalSeconds % 60;
+        String secondString = (seconds >= 10) ? ":" + seconds : ":0" + seconds;
         int hours = totalSeconds / 3600;
         int minutes = (totalSeconds - seconds - hours * 3600) / 60;
-        return hours + ":" + minutes + ":" + seconds;
+        String minuteString = (minutes >= 10) ? ":" + minutes : ":0" + minutes;
+        return hours + minuteString + secondString;
     }
 
     /**

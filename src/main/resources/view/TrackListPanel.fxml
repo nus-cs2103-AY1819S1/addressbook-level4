@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="BOTTOM_CENTER" minWidth="40.0" styleClass="cell_track_vbox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" minWidth="60.0" styleClass="cell_track_vbox" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <Text fill="ffffff" styleClass="cell_track_captain" text="TRACK LIBRARY" textAlignment="CENTER">
     </Text>
    <AnchorPane minHeight="20.0" prefWidth="200.0" styleClass="cell_track_field_anchor_pane">
       <children>
-         <Label layoutX="32.0" layoutY="2.0" styleClass="cell_track_field_captain" text="name" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="2.0" />
-         <Label styleClass="cell_track_field_captain" text="duration" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="2.0" />
+         <Label layoutX="32.0" layoutY="2.0" styleClass="cell_track_field_captain" text="name" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="2.0" />
+         <Label styleClass="cell_track_field_captain" text="time" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="2.0" />
       </children>
    </AnchorPane>
     <ListView fx:id="trackListView" VBox.vgrow="ALWAYS" />
