@@ -15,6 +15,8 @@
             AnchorPane.topAnchor="30" AnchorPane.bottomAnchor="5" AnchorPane.leftAnchor="5" AnchorPane.rightAnchor="5">
     <rowConstraints>
       <RowConstraints vgrow="NEVER" />
+      <RowConstraints vgrow="NEVER" />
+      <RowConstraints vgrow="NEVER" />
     </rowConstraints>
     <columnConstraints>
       <ColumnConstraints hgrow="NEVER" />
@@ -22,7 +24,22 @@
     </columnConstraints>
     <Label text="Name:" styleClass="label-bright"
            GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
-    <Label fx:id="finder" styleClass="label-bright"
-           GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+    <Label fx:id="name" styleClass="label-bright"
+           GridPane.columnIndex="1"
+           GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+
+    <Label text="Phone:" styleClass="label-bright"
+           GridPane.rowIndex="1"
+           GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+    <Label fx:id="phone" styleClass="label-bright"
+           GridPane.rowIndex="1" GridPane.columnIndex="1"
+           GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+
+    <Label text="Email:" styleClass="label-bright"
+           GridPane.rowIndex="2"
+           GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+    <Label fx:id="email" styleClass="label-bright"
+           GridPane.rowIndex="2" GridPane.columnIndex="1"
+           GridPane.halignment="LEFT" GridPane.valignment="TOP" />
   </GridPane>
 </AnchorPane>
