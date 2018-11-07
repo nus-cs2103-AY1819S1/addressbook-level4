@@ -110,7 +110,7 @@ public class EditUserCommandParser implements Parser<EditUserCommand> {
             return Optional.empty();
         }
         Collection<String> interestSet = interests.size() == 1
-                && interests.contains("") ? Collections.emptySet() : interests;
+            && interests.contains("") ? Collections.emptySet() : interests;
         return Optional.of(ParserUtil.parseInterests(interestSet));
     }
 

@@ -32,7 +32,7 @@ public class MaxScheduleCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new MaxScheduleCommand(null);
+        new MaxScheduleCommand(null, null);
     }
 
 
@@ -44,7 +44,7 @@ public class MaxScheduleCommandTest {
         Index[] index = {
             INDEX_FIRST, INDEX_SECOND
         };
-        MaxScheduleCommand maxScheduleCommand = new MaxScheduleCommand(index);
+        MaxScheduleCommand maxScheduleCommand = new MaxScheduleCommand(index, null);
 
         Schedule newSchedule = personToFind1.getSchedule().maxSchedule(personToFind2.getSchedule());
 
@@ -59,7 +59,7 @@ public class MaxScheduleCommandTest {
 
         Index invalidIndex = Index.fromZeroBased(20);
         Index[] index = {INDEX_FIRST, INDEX_SECOND, invalidIndex};
-        MaxScheduleCommand maxScheduleCommand = new MaxScheduleCommand(index);
+        MaxScheduleCommand maxScheduleCommand = new MaxScheduleCommand(index, null);
 
         String expectedMessage = String.format(MaxScheduleCommand.MESSAGE_PERSON_DOES_NOT_EXIST);
 

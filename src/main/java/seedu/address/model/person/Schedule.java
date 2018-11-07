@@ -9,6 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a schedule of a person, reflected as a 24h x 2-30min x 7 days - weekly schedule.
+ *
  * @author adjscent
  */
 public class Schedule {
@@ -63,6 +64,7 @@ public class Schedule {
 
     /**
      * Accesses the internal schedule and check if specified day and time is free
+     *
      * @param day
      * @param time
      * @return
@@ -93,6 +95,7 @@ public class Schedule {
 
     /**
      * Check the internal schedule and set the vacancy of a specific day and time
+     *
      * @param day
      * @param time
      * @param occupied
@@ -237,6 +240,7 @@ public class Schedule {
 
     /**
      * For poll methods. Return an arraylist of slots of free time
+     *
      * @return
      * @throws ParseException
      */
@@ -267,6 +271,7 @@ public class Schedule {
 
     /**
      * For poll methods. Return an arraylist of slots of free time by day
+     *
      * @return
      * @throws ParseException
      */
@@ -279,10 +284,45 @@ public class Schedule {
                     filteredSlots.add(slot);
                 }
             } catch (ParseException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
         }
-        return slots;
+        return filteredSlots;
+    }
+
+    /**
+     * For poll methods. Return an arraylist of slots of free time by time
+     *
+     * @return
+     * @throws ParseException
+     */
+    public ArrayList<Slot> getFreeSlotsByTime(String startTime, String endTime) {
+        ArrayList<Slot> slots = getFreeSlots();
+        ArrayList<Slot> filteredSlots = new ArrayList<>();
+
+        int startTimeInt = Integer.valueOf(startTime);
+        int endTimeInt = Integer.valueOf(endTime);
+        System.out.println("START" + startTimeInt);
+        System.out.println("END" + endTimeInt);
+        for (Slot slot : slots) {
+            int time = Integer.valueOf(slot.getTime());
+            System.out.println(time);
+            if (time >= startTimeInt && time <= endTimeInt) {
+                filteredSlots.add(slot);
+            }
+        }
+        return filteredSlots;
+    }
+
+    /**
+     * @return
+     * @throws ParseException
+     */
+    public String freeTimeToStringByTime(String startTime, String endTime) {
+        StringBuilder sb = new StringBuilder();
+        getFreeSlotsByTime(startTime, endTime)
+            .forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + "; "));
+        return sb.toString().trim();
     }
 
     /**
@@ -291,7 +331,7 @@ public class Schedule {
      */
     public String freeTimeToString() {
         StringBuilder sb = new StringBuilder();
-        getFreeSlots().forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + ";"));
+        getFreeSlots().forEach((slot) -> sb.append(slot.getDay() + "," + slot.getTime() + "; "));
         return sb.toString().trim();
     }
 
@@ -342,7 +382,7 @@ public class Schedule {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Schedule // instanceof handles nulls
-                && Arrays.equals(this.value, ((Schedule) other).value)); // state check
+            || (other instanceof Schedule // instanceof handles nulls
+            && Arrays.equals(this.value, ((Schedule) other).value)); // state check
     }
 }
