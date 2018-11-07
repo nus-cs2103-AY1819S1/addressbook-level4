@@ -68,7 +68,7 @@ public class XmlAdaptedRangeOfWeekTest {
     }
 
     @Test
-    public void toString_equal() {
+    public void toString_test_equal() {
         XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(VALID_START_OF_WEEK,
                 VALID_END_OF_WEEK, VALID_DESCRIPTION));
         String testString = new String(VALID_START_OF_WEEK + VALID_END_OF_WEEK + VALID_DESCRIPTION);
@@ -76,7 +76,7 @@ public class XmlAdaptedRangeOfWeekTest {
     }
 
     @Test
-    public void equals_equal() {
+    public void equals_test() {
         XmlAdaptedRangeOfWeek range = new XmlAdaptedRangeOfWeek(new RangeOfWeek(VALID_START_OF_WEEK,
                 VALID_END_OF_WEEK, VALID_DESCRIPTION));
         XmlAdaptedRangeOfWeek checkRange = range;
