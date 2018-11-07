@@ -19,18 +19,21 @@ one-stop shop
 for managing contacts and events, a few lines and you’re all set!
 ""
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java application catered for busy university students to manage their contacts, events and project meetings
- efficiently.
+* EventsPlus+ is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is a Java application catered for busy university students to manage their contacts, events, project meetings and ad-hoc
+ efficiently. EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events
+ using a *Command Line Interface* (CLI).
 * This application includes the following features:
 ** A sophisticated GUI that includes a list panel and an in-built Browser.
 ** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
 
 * With this application, you can
-** Manage groups of contacts easily
-** Work in multiple groups conveniently and contact multiple persons with one command via a third-party application.
-** Obtain suggested locations and timings for events or meetings based on participants’ locations and timetable.
-** Send automated RSVP requests, for event or meeting participants using the app.
+
+** Avoid contact duplication, so the user has a clean and well-maintained address book.
+** Provide suggested locations and timings for events or meetings based on participants’ locations and timetable. This eases for the user the process of asking people for available timings / places to meet, by automating it.
+** Notifications to alert the user to favourited events
+** Allow the user to import contacts from an external source
+** Allow the user to manage events neatly in the address book, so that he/she can avoid event clashes.
 
 
 == Site Map
