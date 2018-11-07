@@ -5,7 +5,6 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.model.util.DateFormatUtil.isValidDateFormat;
 import static seedu.address.model.util.DateFormatUtil.parseDate;
 
-import java.time.Period;
 import java.util.Date;
 
 /**
@@ -56,7 +55,7 @@ public class DueDate {
      * @return time to the time
      */
     public long millisecondsToDueDate() {
-        return new Date().getTime() - this.valueDate.getTime();
+        return this.valueDate.getTime() - new Date().getTime();
     }
 
     @Override
