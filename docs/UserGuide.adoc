@@ -50,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `register-patient n/NAME`, `NAME` is a parameter which can be used as `register-patient n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [al/ALLERGIES]` can be used as `n/John Doe al/milk` or as `n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [al/ALLERGIES] [c/CONDITION]` can be used as `n/John Doe al/milk c/healthy` or as `n/John Doe al/milk`.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -175,27 +175,32 @@ Examples:
 
 === Adding medical condition or allergy to patient: `add-medical-history`
 Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
-Format: `add-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
+Format: `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
 Examples:
 
 * `add-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* `add-medical-history n/John Doe al/penicillin,milk`
+* `add-medical-history n/John Doe c/sub-healthy`
 
 ****
-* Either condition or allergy must be non-blank value.
+* Either condition or allergy must be provided.
+* Duplicated allergy or condition is not allowed.
 ****
 
 === Deleting medical condition or allergy to patient: `delete-medical-history`
 Delete a condition or allergy to the patient's medical history. This will then be removed on the patient's information page. +
-Format: `delete-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
+Format: `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
 
 Examples:
 
 * `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* `delete-medical-history n/John Doe al/penicillin,milk`
+* `delete-medical-history n/John Doe c/sub-healthy`
 
 ****
-* Either condition or allergy must be non-blank value.
-* Condition and allergy indicated must be present in the patient's records
+* Either allergy or condition must be provided.
+* Input allergy or condition must exist in the healthbook.
 ****
 
 === Listing entered commands : `history`
@@ -314,10 +319,10 @@ e.g. `complete-appointment 10001`
 e.g. `add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
 * *Delete prescriptions* : `delete-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME`
 e.g. `delete-prescription pi/10001 pn/Paracetamol`
-* *Add allergies or conditions* : `add-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
-e.g. `add-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
-* *Delete allergies or conditions* : `delete-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
-e.g. `delete-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
+* *Add allergies or conditions* : `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
+e.g. `add-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* *Delete allergies or conditions* : `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
+e.g. `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

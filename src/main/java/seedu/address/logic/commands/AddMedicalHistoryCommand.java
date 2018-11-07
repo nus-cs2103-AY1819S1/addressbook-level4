@@ -36,8 +36,8 @@ public class AddMedicalHistoryCommand extends Command {
             + PREFIX_CONDITION + "CONDITIONS (separated by comma) \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_ALLERGY + "penicillin, milk "
-            + PREFIX_CONDITION + "sub-healthy, hyperglycemia ";
+            + PREFIX_ALLERGY + "penicillin,milk "
+            + PREFIX_CONDITION + "sub-healthy,hyperglycemia ";
 
     public static final String MESSAGE_ADD_MEDICAL_HISTORY_SUCCESS = "Medical history added for: %1$s";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY = "This command is only for patients";
