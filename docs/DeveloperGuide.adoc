@@ -289,16 +289,16 @@ image::LoginFeatureAfterLogin.png[width="300"]
 
 ===== Aspect: security
 
-* Alternative 1(Current choice) : store the password for each user as an attribute of Person class
+* **Alternative 1**(Current implementation) : store the password for each user as an attribute of Person class
 ** Pros: Enforce some level of authentication with minimal code
 ** Cons: Level of security is minimal
 
 
-* Alternative 2 : Use Java API to hash the password
+* **Alternative 2** : Use Java API to hash the password
 ** Pros: Higher level of security for users
 ** Cons: May not be pertinent for the EventOrganiser app as of v1.3
 
-* Alternative 3 : implement "login" via select command
+* **Alternative 3** : implement "login" via select command
 ** Pros: Easy to implement
 ** Cons: No security at all
 // end::login/logout[]
@@ -447,7 +447,7 @@ Hence, the event organiser must wait for all participants to be confirmed before
 
 ===== Aspect: The relationship between `Poll` and `TimePoll`
 
-* **Alternative 1** (current implementation): Design them as separate classes which both inherit from an abstract `AbstractPoll` class.
+* **Alternative 1** (Current implementation): Design them as separate classes which both inherit from an abstract `AbstractPoll` class.
 ** Pros: Allows for future extendability from the abstract Poll class eg additional types of Polls (location, date) which constrain the option types
  and include additional features to recommend the best option eg most convenient location by distance for participants.
 
@@ -457,7 +457,7 @@ Hence, the event organiser must wait for all participants to be confirmed before
 
 ===== Aspect: Storage of voters in Poll
 
-* **Alternative 1** (current implementation): Store the voters as Persons.
+* **Alternative 1** (Current implementation): Store the voters as Persons.
 ** Pros: All information about the voters are stored.
 ** Cons: Need for complete reference to the actual person via the XmlPersonIndex class in storage, rather than duplicating the person details.
 The voter list must also be manually updated every time the person details are updated.
@@ -1527,8 +1527,47 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Login a user
+.. Note: The states of each test case is continued in the next test case.
+.. Prerequisites: Event Organiser already has a user with name as "Alex Yeoh" and password as "password". Futhermore, no user is currently logged in. The Event Organiser does not have a user with name as "Michael Lim" and password as "password".
+.. Test case: `login`
+   Expected: Login unsuccessful.
+.. Test case: `login n/Michael Lim pass/password`
+   Expected: Login unsuccessful.
 
+.. Test case `login n/Alex Yeoh pass/password`
+   Expected: Login successful.
+
+.. Test case: `login n/Michael Lim pass/password`
+   Expected: Login unsuccessful.
+
+=== Logout a user
+.. Note: The states of each test case is continued in the next test case.
+.. Prerequisites: There is no user currently logged in and the user with name as "Alex Yeoh" and password as "password" is currently logged in.
+.. Test case `logout`
+   Expected: Logout successful.
+.. Test case: `logout`
+   Expected: Logout unsuccessful.
+
+=== Find users
+.. Prerequisites: Event Organiser currently has two user accounts. The first user has name as "Alex Yeoh" and interests as "study". The second user has name as "Bernice Yu" and interest as "play".
+.. Test case `findUser n/Alex Yeoh`
+   Expected: Only user "Alex Yeoh" is listed.
+.. Test case: `findUser i/interest`
+   Expected: Only user "Bernice Yu" is listed.
+.. Test case: `findUser n/Alex Yeoh i/interest`
+   Expected: Only users "Bernice Yu" and "Alex Yeoh" are listed.
+
+=== Edit a user
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `editUser n/Alex Tan`
+   Expected: Name of user successfully changed to "Alex Tan".
+
+=== Delete a user
+.. Prerequisites: Event Organiser has a user with name as "Alex Yeoh" and user "Alex Yeoh" is currently logged in.
+.. Test case `deleteUSer`
+   Expected: user "Alex Yeoh" successfully deleted.
+////
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -1542,7 +1581,7 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
-
+////
 === Saving data
 
 . Dealing with missing/corrupted data files
