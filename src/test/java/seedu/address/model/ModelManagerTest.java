@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
+import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -69,7 +69,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = LECTURE.getTitle().value.split("\\s+");
-        modelManager.updateFilteredCalendarEventList(new TitleContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(scheduler, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

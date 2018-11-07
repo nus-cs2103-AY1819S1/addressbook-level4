@@ -10,9 +10,10 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindEventCommand;
+import seedu.address.model.calendarevent.DatePredicate;
 import seedu.address.model.calendarevent.FuzzySearchComparator;
+import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.model.calendarevent.TagsPredicate;
-import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
 
 public class FindEventCommandParserTest {
 
@@ -28,8 +29,9 @@ public class FindEventCommandParserTest {
     public void parse_validArgs_returnsFindCommand() {
         // no leading and trailing whitespaces
         FindEventCommand expectedFindEventCommand =
-            new FindEventCommand(new TitleContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")),
+            new FindEventCommand(new FuzzySearchFilterPredicate(Arrays.asList("Alice", "Bob")),
                                  new FuzzySearchComparator(Arrays.asList("Alice", "Bob")),
+                                 new DatePredicate(null, null),
                                  new TagsPredicate(new ArrayList<>()));
         assertParseSuccess(parser, "Alice Bob", expectedFindEventCommand);
 

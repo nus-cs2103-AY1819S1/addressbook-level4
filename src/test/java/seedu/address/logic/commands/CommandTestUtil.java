@@ -22,7 +22,7 @@ import seedu.address.model.ModelToDo;
 import seedu.address.model.Scheduler;
 import seedu.address.model.ToDoList;
 import seedu.address.model.calendarevent.CalendarEvent;
-import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
+import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.model.todolist.TitleToDoContainsKeywordsPredicate;
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
@@ -190,7 +190,7 @@ public class CommandTestUtil {
 
         CalendarEvent calendarEvent = model.getFilteredCalendarEventList().get(targetIndex.getZeroBased());
         final String[] splitTitle = calendarEvent.getTitle().value.split("\\s+");
-        model.updateFilteredCalendarEventList(new TitleContainsKeywordsPredicate(Arrays.asList(splitTitle[0])));
+        model.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(splitTitle[0])));
 
         assertEquals(1, model.getFilteredCalendarEventList().size());
     }

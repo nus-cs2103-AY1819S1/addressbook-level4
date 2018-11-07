@@ -102,6 +102,10 @@ public class DateTime implements Comparable<DateTime> {
         return true;
     }
 
+    public boolean isBefore(DateTime other) {
+        return this.localDateTime.isBefore(other.localDateTime);
+    }
+
     public boolean isAfter(DateTime other) {
         return this.localDateTime.isAfter(other.localDateTime);
     }

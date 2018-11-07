@@ -32,9 +32,10 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendarevent.CalendarEvent;
+import seedu.address.model.calendarevent.DatePredicate;
 import seedu.address.model.calendarevent.FuzzySearchComparator;
+import seedu.address.model.calendarevent.FuzzySearchFilterPredicate;
 import seedu.address.model.calendarevent.TagsPredicate;
-import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
 import seedu.address.model.todolist.ToDoListEvent;
 import seedu.address.testutil.CalendarEventBuilder;
 import seedu.address.testutil.EditCalendarEventDescriptorBuilder;
@@ -88,8 +89,9 @@ public class SchedulerParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindEventCommand command = (FindEventCommand) parser.parseCommand(
             FindEventCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindEventCommand(new TitleContainsKeywordsPredicate(keywords),
-                    new FuzzySearchComparator(keywords), new TagsPredicate(new ArrayList<>())), command);
+        assertEquals(new FindEventCommand(new FuzzySearchFilterPredicate(keywords),
+                    new FuzzySearchComparator(keywords), new DatePredicate(null, null),
+                    new TagsPredicate(new ArrayList<>())), command);
     }
 
     @Test

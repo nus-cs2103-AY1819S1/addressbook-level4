@@ -103,17 +103,9 @@ public class StringUtil {
      * @return whether words are similar within the tolerance
      */
     public static boolean containsWordFuzzy(String sentence, String word, int tolerance) {
-        requireNonNull(sentence);
-        requireNonNull(word);
+        int score = fuzzyMatchScore(sentence, word);
 
-        String preppedWord = word.trim();
-        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        preppedWord = preppedWord.toLowerCase();
-
-        String preppedSentence = sentence.toLowerCase();
-
-        return partialRatioTest(preppedSentence, preppedWord, tolerance)
-                || tokenSetRatioTest(sentence, word, tolerance);
+        return (score > tolerance);
     }
 
     /**
@@ -139,28 +131,6 @@ public class StringUtil {
                                     computeTokenSetRatio(preppedSentence, preppedWord));
 
         return score;
-    }
-
-    /**
-     * Tests 2 strings if they are similar within the specified tolerance
-     * Uses partial ratio test to check similarity
-     * @param tolerance strings of higher similarity will return True
-     *
-     * @return boolean of whether the strings are similar enough
-     */
-    private static boolean partialRatioTest(String s1, String s2, int tolerance) {
-        return computePartialRatio(s1, s2) >= tolerance;
-    }
-
-    /**
-     * Tests 2 strings if they are similar within the specified tolerance
-     * Uses token set ratio test to check similarity
-     * @param tolerance strings of higher similarity will return True
-     *
-     * @return boolean of whether the strings are similar enough
-     */
-    private static boolean tokenSetRatioTest(String s1, String s2, int tolerance) {
-        return computeTokenSetRatio(s1, s2) >= tolerance;
     }
 
     /**
