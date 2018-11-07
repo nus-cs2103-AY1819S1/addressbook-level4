@@ -1,5 +1,7 @@
 package seedu.parking.commons.util;
 
+import static seedu.parking.ui.UiPart.DATA_FILE_FOLDER;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,8 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,6 +28,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import seedu.parking.MainApp;
 import seedu.parking.commons.core.LogsCenter;
 
 /**
@@ -46,15 +51,7 @@ public class GsonUtil {
     public static List<List<String>> fetchAllCarparkInfo() throws Exception {
         final boolean[] hasError = {false, false, false};
 
-        //Thread first = new Thread(() -> {
-        //    try {
-        //        loadCarparkPostalCode();
-        //    } catch (IOException e) {
-        //        hasError[0] = true;
-        //        logger.warning("Unable to load postal code.");
-        //    }
-        //});
-        //first.start();
+        loadCarparkPostalCode();
 
         Thread second = new Thread(() -> {
             try {
@@ -76,7 +73,6 @@ public class GsonUtil {
         });
         third.start();
 
-        //first.join();
         second.join();
         third.join();
 
@@ -268,15 +264,21 @@ public class GsonUtil {
      */
     private static void loadCarparkPostalCode() throws IOException {
         postalCodeMap.clear();
-        File file = new File(POSTAL_CODE_TXT);
+        URL url = MainApp.class.getResource(DATA_FILE_FOLDER + POSTAL_CODE_TXT);
+        File file = null;
+        try {
+            file = Paths.get(url.toURI()).toFile();
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
-        while ((st = br.readLine()) != null) {
-            String[] splitData = st.split(",");
-            if (!splitData[1].equals("null")) {
-                postalCodeMap.put(Long.parseLong(splitData[0]), splitData[1]);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String st;
+            while ((st = br.readLine()) != null) {
+                String[] splitData = st.split(",");
+                if (!splitData[1].equals("null")) {
+                    postalCodeMap.put(Long.parseLong(splitData[0]), splitData[1]);
+                }
             }
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 

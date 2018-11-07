@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 
 import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.events.model.DataFetchExceptionEvent;
+import seedu.parking.commons.events.ui.ListCarparkRequestEvent;
 import seedu.parking.commons.events.ui.NewResultAvailableEvent;
 import seedu.parking.commons.events.ui.ToggleTextFieldRequestEvent;
 import seedu.parking.commons.util.GsonUtil;
@@ -77,6 +78,7 @@ public class QueryCommand extends Command {
                 EventsCenter.getInstance().post(new NewResultAvailableEvent(String.format(MESSAGE_SUCCESS, updated)));
                 EventsCenter.getInstance().post(new ToggleTextFieldRequestEvent());
             } catch (Exception e) {
+                e.printStackTrace();
                 model.updateFilteredCarparkList(unused -> true);
                 EventsCenter.getInstance().post(new DataFetchExceptionEvent(
                         new CommandException(MESSAGE_ERROR_CARPARK)));
@@ -86,6 +88,7 @@ public class QueryCommand extends Command {
 
         threadExecutor.submit(task);
 
+        EventsCenter.getInstance().post(new ListCarparkRequestEvent());
         return new CommandResult("Loading...please wait...");
     }
 }

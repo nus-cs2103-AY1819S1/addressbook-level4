@@ -123,7 +123,6 @@ include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=postalcode]
 
 
-
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
 //== Portfolio : Individual website

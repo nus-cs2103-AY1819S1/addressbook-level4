@@ -29,7 +29,7 @@ Role: Project Advisor
 
 === Fong Zhi Zhong
 image::keith.png[width="150", align="left"]
-{empty}[https://github.com/dlworldpeace[github]] [<<keith#, portfolio>>]
+{empty}[https://github.com/lexzt[github]] [<<keith#, portfolio>>]  [https://www.linkedin.com/in/fong-keith[linkedin]] [https://lexzt.github.io[website]]
 
 Role: Team Leader +
 Responsibilities:
