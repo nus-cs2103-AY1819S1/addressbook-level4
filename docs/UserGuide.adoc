@@ -77,7 +77,6 @@ Examples:
 * `addUser n/John Doe p/98765432 e/johnd@example.com pass/password123 a/John street, block 123, #01-01`
 * `addUser n/Betsy Crowe p/92346611 e/betsycrowe@example.com pass/123 a/Yui Road, block 30, #010-123 i/study t/friend`
 
-
 // tag::yaofeng(login/logout)[]
 
 ==== Login a user : `login`
@@ -301,7 +300,33 @@ Format: `selectEvent index`
 ****
 * An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.
 * Selecting an event displays the event participants as well as the polls associated with the event.
+* Each poll in the event is given a unique index.
 ****
+
+image::EventSelectedDisplay.png[width="800"]
+
+==== Edit an event : `editEvent`
+
+Edits an existing event in the Event Organiser. Only the event name, location and tags may be edited using this command. +
+Format: `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...`
+
+[NOTE]
+====
+At least one of the optional fields must be provided.
+====
+
+****
+* Edits the previously selected event i.e. a event must already be selected.
+* To edit an event, the currently logged in user must be the event organiser.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the event will be removed i.e adding of tags is not cumulative.
+* You can remove all the event's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `editEvent n/CS2102 Discussion t/URGENT` +
+Edits name of the currently selected event to `CS2102 Discussion` and its tag to `URGENT`.
 
 ==== Set the event date : `setDate`
 Sets the event date. +
@@ -338,6 +363,13 @@ Examples:
 Sets up a new poll for the event with the specified name. +
 Format: `addPoll n/Poll name`
 
+* `addPoll n/Date` +
+The screenshot shows the outcome of this command.
+Upon adding a new poll, only the index and name of the poll is displayed, as shown.
+The event organiser can then proceed to add options to the poll.
+
+image::AddPollDisplay.png[width="800"]
+
 ==== Create a new time-based poll for an event : `addTimePoll`
 Sets up a new time-based poll for the event with the specified name after all users have joined. +
 Format: `addTimePoll d1/DAY-MONTH-YEAR d2/DAY-MONTH-YEAR``
@@ -362,12 +394,21 @@ Format: `addOption i/POLL_ID o/OPTION_NAME`
 * An event must first be selected.
 * An option can be any string.
 * Time polls do not support adding of options.
+* When options are added and no users have voted, the list of most popular options is empty.
 ****
 
 Examples:
+
 * `addOption i/1 o/Play chess` +
 Adds an option to the first poll of the selected event, where the option is `Play chess`.
 This option would be relevant in the context of a poll for an appropriate activity.
+
+* `addOption i/3 o/12 November` +
+`addOption i/3 o/13 November` +
+In the following example, the options `12 November` and `13 November` have been added to the poll.
+Since there are no voters yet, the most popular options list is empty.
+
+image::AddOptionDisplay.png[width="800"]
 
 ==== Get poll result : `displayPoll`
 Gets the result of a specified poll. +
@@ -383,6 +424,11 @@ Examples:
 
 * `displayPoll i/1` +
 Displays the poll with index 1 associated with the selected event.
+
+==== List all events : `listEvent`
+
+Shows a list of all events in the Event Organiser. +
+Format: `listEvent`
 
 === Join event commands
 
@@ -424,11 +470,18 @@ Format: `voteDate i/POLL_ID o/OPTION_ID`
 * The index is the index of the poll in the pre-selected event.
 * The option specified must be in the poll.
 * User must have joined the event in order to vote.
+* Adding a vote may or may not change the most popular options list.
 ****
 
 Examples:
 
 * `voteDate i/3 o/12 August`
+
+* `voteDate i/3 o/13 November` +
+In the following example, `Alex Yeoh` has voted for `13 November`.
+Since it is the most popular option, `13 November` appears in the most popular options list.
+
+image::VoteOptionDisplay.png[width="800"]
 
 // end::KengJi[]
 
@@ -508,6 +561,11 @@ e.g. `addEvent n/CS2103 Project Meeting a/SoC Canteen t/Urgent`
 * *Delete Event* : `deleteEvent INDEX` +
 e.g. `deleteEvent 1`
 
+* *Edit Event* : `editEvent [n/NAME] [a/ADDRESS] [t/TAG] ...` +
+  e.g. `editUser 2 n/James Lee e/jameslee@example.com` +
+  e.g. `editUser 1 tt/ http://modsn.us/H4v8s` +
+  e.g. `editUser 1 su/ monday 0000`
+
 * *Add Poll* : `addPoll n/POLL_NAME` +
 e.g. `addPoll n/Activity`
 
@@ -539,4 +597,6 @@ e.g. `findEvent d/12-12-2018 pn/John Doe`
 e.g. `findEvent a/SoC Canteen on/Alice Tan`
 * *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`
+* *List Events* : `listEvent` +
+e.g. `listEvent`
 // end::KengJi(Summary)[]
