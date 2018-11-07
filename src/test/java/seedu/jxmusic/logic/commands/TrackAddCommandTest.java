@@ -67,7 +67,7 @@ public class TrackAddCommandTest {
     // No need to test if trackToAdd exists: Non-existent track handled by Track class
 
     @Test
-    public void execute_addTrackToPlaylist() {
+    public void executeAddTrackToPlaylist() {
         Playlist oneTrack = addTracksToExpectedModel(trackToAdd);
         expectedModel = new ModelManager(getTestPlaylistLibrary(oneTrack), new UserPrefs());
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, trackToAdd, targetPlaylist.getName());
@@ -76,7 +76,7 @@ public class TrackAddCommandTest {
     }
 
     @Test
-    public void execute_addTracksToPlaylist() {
+    public void executeAddTracksToPlaylist() {
         Playlist multipleTracks = addTracksToExpectedModel(tracksToAdd);
         expectedModel = new ModelManager(getTestPlaylistLibrary(multipleTracks), new UserPrefs());
         String successMessage = String.format(TrackAddCommand.MESSAGE_SUCCESS, tracksToAdd, targetPlaylist.getName());
@@ -85,7 +85,7 @@ public class TrackAddCommandTest {
     }
 
     @Test
-    public void execute_addTrackToNonExistentPlaylist() {
+    public void executeAddTrackToNonExistentPlaylist() {
         expectedModel = new ModelManager(getTypicalLibrary(), new UserPrefs());
         targetPlaylist = new Playlist(new Name("playlistNameDoesNotExist"));
         TrackAddCommand command = new TrackAddCommand(targetPlaylist, tracksToAdd);

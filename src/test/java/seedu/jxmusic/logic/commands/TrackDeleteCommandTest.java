@@ -36,7 +36,7 @@ public class TrackDeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteIndexFromPlaylist() {
+    public void executeDeleteIndexFromPlaylist() {
         targetPlaylist.addTrack(new Track(new Name(VALID_TRACK_NAME_MARBLES)));
         Index lastTrackNum = Index.fromOneBased(targetPlaylist.getSize());
         trackToDelete = targetPlaylist.getTracks().get(lastTrackNum.getZeroBased());
@@ -54,7 +54,7 @@ public class TrackDeleteCommandTest {
     }
 
     @Test
-    public void execute_removeNonExistentIndexFromPlaylist() {
+    public void executeDeleteNonExistentIndexFromPlaylist() {
         targetPlaylist = TypicalPlaylistList.ANIME;
         index = Index.fromZeroBased(targetPlaylist.getTracks().size() + 1);
         assertCommandSuccess(new TrackDeleteCommand(targetPlaylist, index), model, commandHistory,
@@ -63,7 +63,7 @@ public class TrackDeleteCommandTest {
     }
 
     @Test
-    public void execute_deleteIndexFromNonExistentPlaylist() {
+    public void executeDeleteIndexFromNonExistentPlaylist() {
         trackToDelete = new Track(new Name(VALID_TRACK_NAME_MARBLES));
         targetPlaylist = new Playlist(new Name("playlistNameDoesNotExist"));
         index = Index.fromOneBased(1);
