@@ -23,7 +23,6 @@ import seedu.restaurant.logic.LogicManager;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.ModelManager;
 import seedu.restaurant.model.ReadOnlyRestaurantBook;
-import seedu.restaurant.model.RestaurantBook;
 import seedu.restaurant.model.UserPrefs;
 import seedu.restaurant.model.util.SampleDataUtil;
 import seedu.restaurant.storage.JsonUserPrefsStorage;
@@ -89,15 +88,15 @@ public class MainApp extends Application {
         try {
             restaurantBookOptional = storage.readRestaurantBook();
             if (!restaurantBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample RestaurantBook");
+                logger.info("Data file not found. Will be starting with a default RestaurantBook");
             }
             initialRestaurantBookData = restaurantBookOptional.orElseGet(SampleDataUtil::getSampleRestaurantBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty RestaurantBook");
-            initialRestaurantBookData = new RestaurantBook();
+            logger.warning("Data file not in the correct format. Will be starting with a default RestaurantBook");
+            initialRestaurantBookData = SampleDataUtil.getSampleRestaurantBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty RestaurantBook");
-            initialRestaurantBookData = new RestaurantBook();
+            logger.warning("Problem while reading from the file. Will be starting with a default RestaurantBook");
+            initialRestaurantBookData = SampleDataUtil.getSampleRestaurantBook();
         }
 
         return new ModelManager(initialRestaurantBookData, userPrefs);
