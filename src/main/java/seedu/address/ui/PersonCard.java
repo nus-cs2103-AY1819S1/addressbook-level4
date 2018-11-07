@@ -25,9 +25,9 @@ public class PersonCard extends UiPart<Region> {
     public final Patient patient;
 
     private static final String BLUE_CHAS_COLOUR = "blue";
+    private static final String GREY_COLOUR = "grey";
     private static final String ORANGE_CHAS_COLOUR = "orange";
     private static final String PIONEER_CHAS_COLOUR = "red";
-    private static final String GREY_COLOUR = "grey";
 
     @FXML
     private HBox cardPane;
