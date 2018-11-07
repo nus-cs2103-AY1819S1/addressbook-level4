@@ -18,6 +18,7 @@ import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.person.Address;
 import seedu.address.model.tag.Tag;
@@ -36,14 +37,14 @@ public class EditEventCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n";
     public static final String MESSAGE_SUCCESS = "Event %1$s edited";
 
-    private final Optional<String> name;
+    private final Optional<EventName> name;
     private final Optional<Address> location;
     private final Optional<Set<Tag>> tags;
 
     /**
      * Creates an EditEventCommand to edit the specified {@code Event}.
      */
-    public EditEventCommand(Optional<String> name, Optional<Address> location, Optional<Set<Tag>> tags) {
+    public EditEventCommand(Optional<EventName> name, Optional<Address> location, Optional<Set<Tag>> tags) {
         requireAllNonNull(name, location, tags);
         this.name = name;
         this.location = location;

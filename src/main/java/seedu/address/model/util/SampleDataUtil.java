@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.interest.Interest;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -54,37 +55,37 @@ public class SampleDataUtil {
 
     public static Event[] getSampleEvents() {
         return new Event[] {
-            new Event("CS2103 weekly meeting", new Address("NUS SoC Canteen"), getTagSet("Urgent"),
+            new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"), getTagSet("Urgent"),
                     LocalDate.of(2018, 12, 12), LocalTime.of(12, 30),
                     LocalTime.of(13, 00), ALEX),
-            new Event("CS2103 weekly meeting", new Address("NUS SoC Canteen"), getTagSet(),
+            new Event(new EventName("CS2103 weekly meeting"), new Address("NUS SoC Canteen"), getTagSet(),
                     LocalDate.of(2018, 12, 19), LocalTime.of(12, 30),
                     LocalTime.of(13, 00), ALEX),
-            new Event("CS2100 discussion", new Address("NUS Deck"), getTagSet(),
+            new Event(new EventName("CS2100 discussion"), new Address("NUS Deck"), getTagSet(),
                     LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
                     LocalTime.of(18, 30), DAVID),
-            new Event("Week 12 karaoke session", new Address("Clementi MRT"), getTagSet("Public"),
+            new Event(new EventName("Week 12 karaoke session"), new Address("Clementi MRT"), getTagSet("Public"),
                     LocalDate.of(2018, 11, 8), LocalTime.of(20, 30),
                     LocalTime.of(22, 30), ROY),
-            new Event("Linguistics Reading Group", new Address("NUS Central Library"), getTagSet(),
+            new Event(new EventName("Linguistics Reading Group"), new Address("NUS Central Library"), getTagSet(),
                     LocalDate.of(2018, 11, 12), LocalTime.of(17, 30),
                     LocalTime.of(18, 30), CHARLOTTE),
-            new Event("Linguistics Reading Group", new Address("NUS Central Library"), getTagSet(),
+            new Event(new EventName("Linguistics Reading Group"), new Address("NUS Central Library"), getTagSet(),
                     LocalDate.of(2018, 11, 19), LocalTime.of(17, 30),
                     LocalTime.of(18, 30), CHARLOTTE),
-            new Event("Bernice's BD party", new Address("Cinnamon College"), getTagSet(),
+            new Event(new EventName("Bernice's BD party"), new Address("Cinnamon College"), getTagSet(),
                     LocalDate.of(2018, 12, 1), LocalTime.of(22, 00),
                     LocalTime.of(23, 30), DAVID),
-            new Event("11th floor party", new Address("Cinnamon College"), getTagSet(),
+            new Event(new EventName("11th floor party"), new Address("Cinnamon College"), getTagSet(),
                     LocalDate.of(2018, 11, 15), LocalTime.of(22, 00),
                     LocalTime.of(23, 00), IRFAN),
-            new Event("Hackathon", new Address("SoC LT19"), getTagSet(),
+            new Event(new EventName("Hackathon"), new Address("SoC LT19"), getTagSet(),
                     LocalDate.of(2018, 11, 27), LocalTime.of(10, 00),
                     LocalTime.of(22, 30), BERNICE),
-            new Event("Lunch", new Address("NUS Techno"), getTagSet(),
+            new Event(new EventName("Lunch"), new Address("NUS Techno"), getTagSet(),
                     LocalDate.of(2018, 12, 1), LocalTime.of(12, 30),
                     LocalTime.of(13, 00), IRFAN),
-            new Event("EOY Christmas Party", new Address("Cinnamon College"), getTagSet(),
+            new Event(new EventName("EOY Christmas Party"), new Address("Cinnamon College"), getTagSet(),
                     LocalDate.of(2018, 12, 22), LocalTime.of(19, 30),
                     LocalTime.of(22, 00), IRFAN)
         };

@@ -22,6 +22,7 @@ import seedu.address.commons.events.ui.UserLoginStatusChangedEvent;
 import seedu.address.logic.commands.exceptions.NoEventSelectedException;
 import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 
@@ -221,7 +222,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void editEvent(Optional<String> name, Optional<Address> location, Optional<Set<Tag>> tags) throws
+    public void editEvent(Optional<EventName> name, Optional<Address> location, Optional<Set<Tag>> tags) throws
             NoUserLoggedInException, NoEventSelectedException, NotEventOrganiserException {
         if (currentUser == null) {
             throw new NoUserLoggedInException();

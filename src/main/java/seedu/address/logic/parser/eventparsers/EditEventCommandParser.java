@@ -17,6 +17,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventName;
 import seedu.address.model.person.Address;
 import seedu.address.model.tag.Tag;
 
@@ -44,10 +45,10 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditEventCommand.MESSAGE_USAGE));
         }
 
-        Optional<String> name = Optional.empty();
+        Optional<EventName> name = Optional.empty();
         Optional<Address> address = Optional.empty();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            name = Optional.of(ParserUtil.parseGenericString(argMultimap.getValue(PREFIX_NAME).get()));
+            name = Optional.of(ParserUtil.parseEventName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             address = Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));

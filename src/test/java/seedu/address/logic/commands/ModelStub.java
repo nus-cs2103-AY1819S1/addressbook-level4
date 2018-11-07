@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -138,7 +139,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void editEvent(Optional<String> name, Optional<Address> location, Optional<Set<Tag>> tags) {
+    public void editEvent(Optional<EventName> name, Optional<Address> location, Optional<Set<Tag>> tags) {
         throw new AssertionError("This method should not be called.");
     }
 
