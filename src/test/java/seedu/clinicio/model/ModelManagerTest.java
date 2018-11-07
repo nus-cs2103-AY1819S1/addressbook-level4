@@ -167,6 +167,12 @@ public class ModelManagerTest {
         modelManager.getFilteredAppointmentList().remove(0);
     }
 
+    @Test
+    public void getFilteredConsultationsList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredConsultationList().remove(0);
+    }
+
     //========================================================================================================
 
     @Test
