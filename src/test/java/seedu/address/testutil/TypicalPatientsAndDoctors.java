@@ -140,6 +140,7 @@ public class TypicalPatientsAndDoctors {
     }
 
     public static List<Person> getTypicalPatientsAndDoctors() {
-        return new ArrayList<>(Arrays.asList(ALICE_PATIENT, BENSON_PATIENT, CARL_PATIENT, DANIEL_PATIENT, ELLE_PATIENT, FIONA_DOCTOR, GEORGE_DOCTOR, HELENA_DOCTOR));
+        return new ArrayList<>(Arrays.asList(ALICE_PATIENT, BENSON_PATIENT, CARL_PATIENT,
+                DANIEL_PATIENT, ELLE_PATIENT, FIONA_DOCTOR, GEORGE_DOCTOR, HELENA_DOCTOR));
     }
 }
