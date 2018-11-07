@@ -13,6 +13,11 @@ import seedu.address.model.person.Patient;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    
+    private static final String BLUE_CHAS_COLOUR = "blue";
+    private static final String GREY_COLOUR = "grey";
+    private static final String ORANGE_CHAS_COLOUR = "orange";
+    private static final String PIONEER_CHAS_COLOUR = "red";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -23,11 +28,6 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Patient patient;
-
-    private static final String BLUE_CHAS_COLOUR = "blue";
-    private static final String GREY_COLOUR = "grey";
-    private static final String ORANGE_CHAS_COLOUR = "orange";
-    private static final String PIONEER_CHAS_COLOUR = "red";
 
     @FXML
     private HBox cardPane;
