@@ -139,14 +139,10 @@ public class XmlAdaptedArticle {
         }
         final Image modelImage = new Image(image);
 
-        final Set<Tag> modelTags = new HashSet<>(articleTags);
-
-        final boolean modelIsResolved = isResolved;
-
         if (finder == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(finder)) {
+        if (!Name.isValid(finder)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelFinder = new Name(finder);
@@ -154,7 +150,7 @@ public class XmlAdaptedArticle {
         if (owner == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(owner)) {
+        if (!Name.isValid(owner)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelOwner = new Name(owner);

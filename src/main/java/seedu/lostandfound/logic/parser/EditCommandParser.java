@@ -62,6 +62,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_IMAGE).isPresent()) {
             System.out.println(ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get()));
             editArticleDescriptor.setImage(ParserUtil.parseImage(argMultimap.getValue(PREFIX_IMAGE).get()));
+        }
         if (argMultimap.getValue(PREFIX_FINDER).isPresent()) {
             editArticleDescriptor.setFinder(ParserUtil.parseName(argMultimap.getValue(PREFIX_FINDER).get()));
         }

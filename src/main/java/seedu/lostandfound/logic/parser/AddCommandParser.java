@@ -19,6 +19,7 @@ import seedu.lostandfound.model.article.Description;
 import seedu.lostandfound.model.article.Email;
 import seedu.lostandfound.model.article.Name;
 import seedu.lostandfound.model.article.Phone;
+import seedu.lostandfound.model.image.Image;
 import seedu.lostandfound.model.tag.Tag;
 
 /**
