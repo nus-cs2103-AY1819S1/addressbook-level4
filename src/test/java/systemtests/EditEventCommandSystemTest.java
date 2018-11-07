@@ -143,9 +143,9 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
          unchanged but
          * browser url changes
          */
-        showAllPersons();
+        showAllCalendarEvents();
         index = INDEX_FIRST_ELEMENT;
-        selectPerson(index);
+        selectCalendarEvent(index);
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_TUTORIAL
             + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL + END_DESC_TUTORIAL
             + VENUE_DESC_TUTORIAL + TAG_DESC_HUSBAND + TAG_DESC_FRIEND;

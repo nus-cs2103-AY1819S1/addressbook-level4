@@ -84,11 +84,11 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: delete the selected calendarevent -> calendarevent list panel selects the calendarevent before the
         deleted calendarevent */
-        showAllPersons();
+        showAllCalendarEvents();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectPerson(selectedIndex);
+        selectCalendarEvent(selectedIndex);
         command = DeleteEventCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedCalendarEvent = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_CALENDAR_EVENT_SUCCESS, deletedCalendarEvent);

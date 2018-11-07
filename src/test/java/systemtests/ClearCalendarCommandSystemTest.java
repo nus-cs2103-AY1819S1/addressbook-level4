@@ -41,7 +41,7 @@ public class ClearCalendarCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: selects first card in calendarevent list and clears address book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        selectPerson(Index.fromOneBased(1));
+        selectCalendarEvent(Index.fromOneBased(1));
         assertCommandSuccess(ClearCalendarCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 

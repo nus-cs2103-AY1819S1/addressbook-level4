@@ -135,16 +135,16 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find while a calendarevent is selected -> selected card deselected */
-        showAllPersons();
-        selectPerson(Index.fromOneBased(1));
-        assertFalse(getPersonListPanel().getHandleToSelectedCard().getTitle().equals(DANIEL.getTitle().value));
+        showAllCalendarEvents();
+        selectCalendarEvent(Index.fromOneBased(1));
+        assertFalse(getCalendarEventListPanel().getHandleToSelectedCard().getTitle().equals(DANIEL.getTitle().value));
         command = FindEventCommand.COMMAND_WORD + " Daniel";
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
         /* Case: find calendarevent in empty address book -> 0 persons found */
-        deleteAllPersons();
+        deleteAllCalendarEvents();
         command = FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_LECTURE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);

@@ -56,7 +56,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered calendar event list, select index within bounds of address book but out of bounds of
+        /* Case: filtered calendar event list, select index within bounds of scheduler but out of bounds of
         calendar event list
          * -> rejected
          */
@@ -65,7 +65,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
             MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
 
-        /* Case: filtered calendar event list, select index within bounds of address book and calendar event list ->
+        /* Case: filtered calendar event list, select index within bounds of scheduler and calendar event list ->
         selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredCalendarEventList().size());
@@ -100,7 +100,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
         assertCommandFailure("SeLeCt eVeNt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
-        deleteAllPersons();
+        deleteAllCalendarEvents();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased(),
             MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
     }
@@ -124,7 +124,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
             MESSAGE_SELECT_CALENDAR_EVENT_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getCalendarEventListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

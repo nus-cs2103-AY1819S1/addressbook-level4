@@ -97,7 +97,7 @@ public class AddEventCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
-        deleteAllPersons();
+        deleteAllCalendarEvents();
         assertCommandSuccess(LECTURE);
 
         /* Case: add a calendarevent with tags, command with parameters in random order -> added */
@@ -121,7 +121,7 @@ public class AddEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: selects first card in the calendarevent list, add a calendarevent -> added, card selection remains
         unchanged */
-        selectPerson(Index.fromOneBased(1));
+        selectCalendarEvent(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
