@@ -17,7 +17,7 @@ effectively keep track of their menu, ingredient inventory, financial records an
 
 
 == Summary of contributions
-
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=hyperionnkj[RepoSense]
 * *Major enhancement*: added Sales Management features to help restaurant owners keep track of financial records.
 ** What it does: allows the user to record, edit and delete financial records. Besides, they can view the sales
 report of a specified date, and even the revenue ranking of the items and dates. An auto-ingredient update mechanism

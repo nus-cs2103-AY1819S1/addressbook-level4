@@ -18,8 +18,8 @@ Restaurant owners interact with *MeNUS* using a Command Line Interface
 is written using https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java 9] with
 approximately 30 KLOC.
 
-== Summary of contributions
-
+== Summary of Contributions
+* *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=azhikai[RepoSense]
 * *Major enhancement*: Added the *user management* feature
 ** *What it does*: Allows the restaurant owner to create account for each of his employee to manage the system.
 ** *Justification*: This feature introduce the security layer to the application by ensuring that only
