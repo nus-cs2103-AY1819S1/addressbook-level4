@@ -13,9 +13,6 @@ import java.util.regex.Pattern;
 public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
-    private static final Pattern FILE_NAME_VALIDATION_REGEX_WIN =
-            Pattern.compile("^(?:[\\w]\\:|\\\\)(\\\\[a-z_\\-\\s0-9\\.]+)+\\.(txt|gif|pdf|doc|docx|xls|xlsx)$");
-    private static final String FILE_NAME_VALIDATION_REGEX_OS = "^//[a-zA-Z0-9._]//*";
 
     public static boolean isFileExists(Path file) {
         return Files.exists(file) && Files.isRegularFile(file);
