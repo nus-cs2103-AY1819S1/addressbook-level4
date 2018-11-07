@@ -15,7 +15,7 @@ public class UserPrefs {
     private Path carparkFinderFilePath = Paths.get("data" , "carparkfinder.xml");
 
     public UserPrefs() {
-        setGuiSettings(1366, 768, 0, 0);
+        setGuiSettings(1024, 768, 0, 0);
     }
 
     public GuiSettings getGuiSettings() {

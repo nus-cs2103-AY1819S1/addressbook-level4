@@ -218,7 +218,7 @@ public class GsonUtil {
      */
     private static void getCarparkData() throws IOException {
         String urlHalf = "https://data.gov.sg/api/action/datastore_search?"
-                + "resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=1000&offset=";
+                + "resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2000&offset=";
 
         int offset = 0;
         StringBuilder urlFull = new StringBuilder();
@@ -249,10 +249,10 @@ public class GsonUtil {
                 carparkList.add(cPark);
             }
 
-            offset += 1000;
+            offset += 2000;
             urlFull.setLength(0);
             urlFull.append(urlHalf).append(offset);
-        } while (array.size() > 0);
+        } while (array.size() == 2000);
         in.close();
     }
 

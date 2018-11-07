@@ -8,7 +8,6 @@ import seedu.parking.model.carpark.Carpark;
  */
 public class CarparkPanelSelectionChangedEvent extends BaseEvent {
 
-
     private final Carpark newSelection;
 
     public CarparkPanelSelectionChangedEvent(Carpark newSelection) {

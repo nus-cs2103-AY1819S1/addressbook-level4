@@ -1,29 +1,53 @@
 = Yeo Zhuan Yu - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:toc: macro
+:imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
 :stylesDir: ../stylesheets
+:stylesheet: zhuanyu.css
 
-image::zhuanyu.png[width="150", align="left"]
-{empty}[https://github.com/ZhuanYu[github]]
+toc::[]
 
-== PROJECT: Car Park Finder
+== Introduction
 
----
+image::zhuanyu.png[width="200", align="left"]
+{empty}[https://github.com/ZhuanYu[GitHub]]
 
-== Overview
+Hello! My name is Zhuan Yu and I am a second year Computer Science undergraduate. As an aspiring programmer, I want to
+show people about the joy of coding through samples of my work.
+
+I am currently a developer for _Car Park Finder_, a team project to be completed as part of the module CS2103T Software Engineering in NUS.
+
+:sectnums:
+== Project: Car Park Finder
+
+=== Overview
 
 _Car Park Finder_ is a desktop command-line application for all car owners seeking a hassle-free way to find
-HDB (Housing Development Board) car parks in Singapore.
-Our application allows you to view various information about the car parks so that you can plan ahead. If you use the computer frequently
-and commute by driving, try out our convenient application that simply requires typing to get started.
+HDB (Housing Development Board) car parks in Singapore. +
 
-== Summary of contributions
+Our application allows you to view vital information such as lots availability for each car park, so that you can
+plan ahead of your trip.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+If you use the computer frequently and commute by driving, why not try out
+https://github.com/CS2103-AY1819S1-T09-4/main/releases[_Car Park Finder_]. No installation is required and getting
+started is as simple as typing out a text message.
+
+=== Summary of contributions
+
+My task for _Car Park Finder_ is to implement real-time updates and notification of car parks, which allows users to:
+
+* Find car parks based on their postal code, address or number
+* Filter car parks using information like night parking as flags
+* View and click on car parks in the Google Map found inside _Car Park Finder_
+
+'''
+
+==== *Major enhancement*:
+added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Credits: https://github.com/google/gson[Gson] library for converting JSON data from data.gov.sg database to Java Objects for use in the project. +
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
@@ -32,7 +56,7 @@ and commute by driving, try out our convenient application that simply requires 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed https://github.com/CS2103-AY1819S1-T09-4/main/releases[releases] `v1.1` - `v1.3` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
@@ -40,27 +64,28 @@ and commute by driving, try out our convenient application that simply requires 
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated a third party library (Gson) to the project (https://github.com[#42])
+*** Integrated two new Github plugin (AppVeyor & Coveralls) to the team repo
 
 == Contributions to the User Guide
-
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation
+targeting end-users._
 |===
 
+include::../UserGuide.adoc[tag=query]
 
+include::../UserGuide.adoc[tag=notify]
 
 == Contributions to the Developer Guide
-
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=query]
+
+include::../DeveloperGuide.adoc[tag=notify]
+
+include::../DeveloperGuide.adoc[tag=weather]

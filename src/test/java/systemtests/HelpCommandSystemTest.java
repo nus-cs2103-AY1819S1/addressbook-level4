@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.parking.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
+import static seedu.parking.ui.BrowserPanel.MAIN_PAGE;
 import static seedu.parking.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
@@ -14,7 +15,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.parking.logic.commands.ClearCommand;
 import seedu.parking.logic.commands.HelpCommand;
 import seedu.parking.logic.commands.SelectCommand;
-import seedu.parking.ui.BrowserPanel;
 import seedu.parking.ui.StatusBarFooter;
 
 /**
@@ -64,7 +64,7 @@ public class HelpCommandSystemTest extends CarparkFinderSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertNotEquals(MAIN_PAGE, getBrowserPanel().getLoadedUrl());
         assertListMatching(getCarparkListPanel(), getModel().getFilteredCarparkList());
 
         // assert that the status bar too is updated correctly while the help window is open

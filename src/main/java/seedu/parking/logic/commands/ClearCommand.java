@@ -3,6 +3,7 @@ package seedu.parking.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.parking.commons.core.EventsCenter;
+import seedu.parking.commons.events.ui.ClearResultChangedEvent;
 import seedu.parking.commons.events.ui.NoSelectionRequestEvent;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.model.CarparkFinder;
@@ -27,6 +28,7 @@ public class ClearCommand extends Command {
                 return new CommandResult(MESSAGE_EMPTY);
             }
 
+            EventsCenter.getInstance().post(new ClearResultChangedEvent());
             return new CommandResult(MESSAGE_SUCCESS);
         } finally {
             model.resetData(new CarparkFinder());

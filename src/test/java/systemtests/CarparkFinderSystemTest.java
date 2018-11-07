@@ -4,7 +4,8 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.parking.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.parking.ui.BrowserPanel.MAIN_PAGE;
+import static seedu.parking.ui.BrowserPanel.SEARCH_PAGE_URL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.parking.ui.testutil.GuiTestAssert.assertListMatching;
@@ -13,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -23,6 +25,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+
+import com.google.gson.JsonArray;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CarparkListPanelHandle;
@@ -41,8 +45,8 @@ import seedu.parking.logic.commands.ListCommand;
 import seedu.parking.logic.commands.SelectCommand;
 import seedu.parking.model.CarparkFinder;
 import seedu.parking.model.Model;
+import seedu.parking.model.carpark.Carpark;
 import seedu.parking.testutil.TypicalCarparks;
-import seedu.parking.ui.BrowserPanel;
 import seedu.parking.ui.CommandBox;
 
 /**
@@ -217,19 +221,69 @@ public abstract class CarparkFinderSystemTest {
         String selectedCardCarparkNumber = null;
         try {
             selectedCardCarparkNumber = getCarparkListPanel().getHandleToSelectedCard().toJson();
-            System.out.println(selectedCardCarparkNumber);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardCarparkNumber);
+            expectedUrl = new URL(SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getCarparkListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Asserts that the browser's url is changed to display the details of the car park in the car park list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see CarparkListPanelHandle#isSelectedCarparkCardChanged()
+     */
+    protected void assertSelectedCardChangedMulti(Carpark[] carprks) {
+        String selectedCardCarparkNumber = null;
+        try {
+            JsonArray arr = new JsonArray();
+            for (Carpark cp : carprks) {
+                arr.add(cp.getCarparkNumber().value);
+            }
+            selectedCardCarparkNumber = URLEncoder.encode(arr.toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        URL expectedUrl;
+        try {
+            expectedUrl = new URL(SEARCH_PAGE_URL + "jsonArr=" + selectedCardCarparkNumber);
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("URL expected to be valid.", mue);
+        }
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+    }
+
+    /**
+     * Asserts that the browser's url is changed to display the details of the car park in the car park list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see CarparkListPanelHandle#isSelectedCarparkCardChanged()
+     */
+    protected void assertSelectedCardChangedSingle(Index expectedSelectedCardIndex) {
+        getCarparkListPanel().navigateToCard(getCarparkListPanel().getSelectedCardIndex());
+        String selectedCardCarparkNumber = null;
+        try {
+            JsonArray arr = new JsonArray();
+            arr.add(getCarparkListPanel().getHandleToSelectedCard().getCarparkNumber());
+            selectedCardCarparkNumber = URLEncoder.encode(arr.toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        URL expectedUrl;
+        try {
+            expectedUrl = new URL(SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("URL expected to be valid.", mue);
+        }
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
     }
 
     /**
@@ -285,7 +339,7 @@ public abstract class CarparkFinderSystemTest {
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCarparkListPanel(), getModel().getFilteredCarparkList());
         try {
-            assertEquals(new URL(DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+            assertEquals(new URL(MAIN_PAGE), getBrowserPanel().getLoadedUrl());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

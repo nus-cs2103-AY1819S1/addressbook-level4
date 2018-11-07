@@ -23,6 +23,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
+    public static final String CARPARK_STATUS = "Total Car Park(s): %d";
 
     /**
      * Used to generate time stamps.
@@ -42,12 +43,15 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar syncStatus;
     @FXML
     private StatusBar saveLocationStatus;
+    @FXML
+    private StatusBar carparkStatus;
 
 
-    public StatusBarFooter(Path saveLocation) {
+    public StatusBarFooter(Path saveLocation, int totalCarparks) {
         super(FXML);
         setSyncStatus(SYNC_STATUS_INITIAL);
         setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
+        setCarparkStatus(totalCarparks);
         registerAsAnEventHandler(this);
     }
 
@@ -73,11 +77,16 @@ public class StatusBarFooter extends UiPart<Region> {
         Platform.runLater(() -> syncStatus.setText(status));
     }
 
+    private void setCarparkStatus(int carparks) {
+        Platform.runLater(() -> carparkStatus.setText(String.format(CARPARK_STATUS, carparks)));
+    }
+
     @Subscribe
-    public void handleCarparkFinderChangedEvent(CarparkFinderChangedEvent abce) {
+    public void handleCarparkFinderChangedEvent(CarparkFinderChangedEvent event) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        setCarparkStatus(event.data.getCarparkList().size());
     }
 }

@@ -1,0 +1,134 @@
+= Keith Fong - Project Portfolio
+:site-section: AboutUs
+:toc: macro
+:imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
+:stylesDir: ../stylesheets
+:stylesheet: keith.css
+
+toc::[]
+
+---
+
+image::keith.png[width="180", align="left"]
+{empty}https://github.com/Lexzt[Github] | https://www.linkedin.com/in/fong-keith[LinkedIn] | https://lexzt.github.io[Website]
+
+== Introduction
+
+---
+
+Hi! My name is Fong Zhi Zhong but you can call me Keith! I am currently a second year student at National University of Singapore studying Computer Science.  +
+As a passionate programmer, I believe I can solve many problems through coding.
+
+I am the team leader for _Car Park Finder_, a project for my CS2103T Software Engineering module,
+where I was in charge of UI (user interface), threading, scheduling and tracking.
+
+---
+
+== Project: Car Park Finder
+:sectnums:
+
+---
+== Overview
+
+_Car park Finder_ is a CLI (command line interface) application to find HDB (Housing Development Board) car parks in Singapore.
+It allows you to display a list of car parks with the convenience of typing. It provides crucial information like real time updates and cost of car parks.
+If you use the computer frequently and commute by driving, you would find our application useful in your daily lives. +
+Interested? Head towards our releases page to download and try it out! No installation is required.
+
+---
+
+
+== Summary of contributions
+
+|===
+|_Given below are sections I contributed to the development of the application. They showcase my technical depth and ability._
+|===
+
+* *Major enhancement*: Modified the *find feature to search for partial words* and *ignore certain words*.
+** What it does: Allows the user to search for partial instances of words without needed to type everything.
+** Justification: This feature improves the product significantly because a user can type lesser and the app should provide the same data still.
+** Highlights:  This enhancement affects the existing commands and commands to be added in the future. I also wrote extra code which allowed us to re-use in the future.
+
+* *Minor enhancements*:
+** Pulled postal code information using coordinates data by querying an API to convert it to store in a file for quick loading.
+** Updated HTML,CSS and Javascript for google maps display with real time updates from each individual commands.
+** Credits: [https://github.com/cgcai/SVY21[SVY21 to WGS84]].
+
+* *Code contributed*:
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/main/java/seedu/parking/commons/util/StringUtil.java[String Util]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/main/java/seedu/parking/logic/commands/FindCommand.java[Find Command]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/main/java/seedu/parking/logic/parser/FindCommandParser.java[Find Command Parser]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/src/test/java/seedu/parking/commons/util/GsonUtilTest.java[Gson test]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/blob/master/docs/DummySearchPage.html[HTML, JS]].
+
+
+* *Other contributions*:
+** Project management:
+*** Morphed the code from address book to car park.
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/1[#1]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/5[#5]].
+
+*** Morphed the test cases from address book to car park.
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/15[#15]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/25[#25]].
+
+** Enhancement of existing features:
+*** Wrote additional test for existing features to increase coverage from 72% - 77%
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/83[#83]].
+
+** Documentation:
+*** Did cosmetics tweaks to existing contents of the User Guide:
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/34[#34]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/36[#36]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/60[#60]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/74[#74]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/76[#76]].
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/28[#28]],
+[https://github.com/CS2103-AY1819S1-T09-4/main/pull/37[#37]].
+
+---
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=find]
+
+include::../UserGuide.adoc[tag=undo]
+
+include::../UserGuide.adoc[tag=redo]
+
+---
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=find]
+
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+
+include::../DeveloperGuide.adoc[tag=ui]
+
+
+include::../DeveloperGuide.adoc[tag=postalcode]
+
+
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+//== Portfolio : Individual website
+//
+//---
+//
+//https://lexzt.github.io[Website]
+

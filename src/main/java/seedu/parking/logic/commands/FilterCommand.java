@@ -5,13 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.Messages;
+import seedu.parking.commons.events.ui.FilterResultChangedEvent;
 import seedu.parking.logic.CommandHistory;
 import seedu.parking.logic.commands.exceptions.CommandException;
 import seedu.parking.logic.parser.CarparkTypeParameter;
 import seedu.parking.logic.parser.FreeParkingParameter;
 import seedu.parking.logic.parser.ParkingSystemTypeParameter;
 import seedu.parking.model.Model;
+import seedu.parking.model.carpark.Carpark;
 import seedu.parking.model.carpark.CarparkContainsKeywordsPredicate;
 import seedu.parking.model.carpark.CarparkFilteringPredicate;
 
@@ -68,6 +71,8 @@ public class FilterCommand extends Command {
 
         model.updateFilteredCarparkList(predicate);
 
+        EventsCenter.getInstance().post(new FilterResultChangedEvent(
+                model.getFilteredCarparkList().toArray(new Carpark[]{})));
         return new CommandResult(
                 String.format(Messages.MESSAGE_CARPARKS_LISTED_OVERVIEW, model.getFilteredCarparkList().size()));
     }

@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: default.css
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
@@ -81,7 +82,6 @@ A help window will pop up that contains all the commands available and how to
 use them.
 ====
 
-
 // tag::filterug[]
 [[Features-Filter]]
 === Filtering car parks : `filter`
@@ -135,9 +135,11 @@ Upper or lower case characters do not matter.
 
 .Filtering covered car parks that have available parking lots
 image::filter.png[width="880"]
-
 // end::filterug[]
+
+
 [[Features-Find]]
+// tag::find[]
 === Finding car parks : `find`
 
 Find a list of car parks within a certain location.
@@ -152,17 +154,56 @@ Find a list of car parks within a certain location.
 
 [NOTE]
 ====
-* Common words are ignored, like blk and ave.
-* Upper and lower case characters do not matter.
+Common words are ignored, like `blk` and `ave`. Upper and lower case characters do not matter.
 ====
+The figure below is a sample display of the application.
 
 .Before using find command
 image::findbefore.png[width="880"]
-The figure above is a sample display of the application.
 
-.After using find command
+
+The figure below shows what happen after executing the `find` command.
+
+.After using `find punggol` command
 image::findafter.png[width="880"]
-The figure above shows what happen after executing the `find` command.
+// end::find[]
+
+[[Features-Undo]]
+// tag::undo[]
+=== Undoing commands: `undo`
+Restores the car park finder to the state before the previous undoable command was executed.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`undo`| `-` | `find sengkang`,`list`,`undo` +
+`find sengkang`,`filter n\`,`undo`,`undo`
+|===
+
+[NOTE]
+====
+You can only `undo` when you have ran a undoable commands (`clear`, `find`, `filter` and `query`).
+====
+// end::undo[]
+
+[[Features-Redo]]
+// tag::redo[]
+=== Redoing commands : `redo`
+Reverses the most recent `undo` command.
+
+[width="95%"]
+[cols="2,1,3"]
+|===
+|Format| Abbreviation | Example(s)
+|`redo`| `-` | `find sengkang`,`undo`,`redo`
+|===
+
+[NOTE]
+====
+* You can only `redo` after an `undo` command.
+====
+// end::redo[]
 
 [[Features-Select]]
 === Selecting a car park : `select`
@@ -182,10 +223,15 @@ Select the car park you wish to go to.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ====
 
-.After using select command
+.Before running the `select 20` command
 image::select.png[width="880"]
 
-The figure above is the outcome of the select command.
+The figure above is the outcome of `find punggol`.
+
+.An example of the output of the `select 20` command.
+image::selectafter.png[width="880"]
+
+The figure above is the outcome of the select command. Selecting any index will automatically zoom the UI in.
 
 [NOTE]
 There must be car parks available for `SelectCommand` to work.
@@ -207,8 +253,15 @@ Lists all the commands that you have entered in reverse chronological order. +
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+.After running several commands, before the using the `history` command
+image::beforehistory.png[width="880"]
+
+.An example of the output of the `history` command
+image::afterhistory.png[width="880"]
+
 // tag::calculateug[]
-[[Features-List]]
+[[Features-Calculate]]
+
 === Calculating the cost of parking : `calculate`
 
 Calculates the cost of parking at a selected car park between a specified time period.
@@ -232,6 +285,7 @@ image::calculate.png[width="880"]
 
 // end::calculateug[]
 
+[[Features-List]]
 === Listing all car parks : `list`
 
 Show a list of all the car parks with their details.
@@ -243,19 +297,22 @@ Show a list of all the car parks with their details.
 |`list`| l | `list`
 |===
 
-.After using list command
-image::listafter.png[width="880"]
+.Previously filtered list, before using the `list` command.
+image::beforelist.png[width="880"]
 
+.An example of the output of the `list` command, showing all the car parks.
+image::afterlist.png[width="880"]
+
+// tag::query[]
 [[Features-Query]]
 === Querying data: `query`
 
 If you want to get the latest updates for all the car parks, just type `query` into the _Command Box_. +
 
-[width="95%"]
-[cols="2,1,3"]
+[cols="^2,^1", width="40%", options="header"]
 |===
-|Format| Abbreviation | Example(s)
-|`query`| - | `query`
+|Format| Abbrev
+| query | -
 |===
 
 [NOTE]
@@ -278,18 +335,19 @@ image::zy_after_query.png[width="880"]
 
 All information for the car parks are refreshed, with the bottom left text telling you when it was
 last updated.
+// end::query[]
 
+// tag::notify[]
 [[Features-Notify]]
 === Enabling Notification : `notify`
 
 After selecting a car park, you can get real-time notifications by typing `notify 10`, where
 10 means updating the car park information every 10 seconds.
 
-[width="95%"]
-[cols="2,1,3"]
+[cols="^4,^1,^1", width="40%", options="header"]
 |===
-|Format| Abbreviation | Example(s)
-|`notify TIME_SECONDS`| n | `notify 60`
+|Format| Abbrev | Example(s)
+| notify TIME_SECONDS | n | notify 60
 |===
 
 [NOTE]
@@ -320,6 +378,7 @@ image::zy_notify_invalid.png[width="880"]
 
 .Invalid command format
 image::zy_notify_select.png[width="880"]
+// end::notify[]
 
 [[Features-Clear]]
 === Clearing all entries : `clear`
@@ -332,6 +391,12 @@ Clears all entries from the list.
 |Format| Abbreviation | Example(s)
 |`clear`| - | `clear`
 |===
+
+.All car parks are listed
+image::beforeclear.png[width="880"]
+
+.An example of the output of the `clear` command showing nothing.
+image::afterclear.png[width="880"]
 
 [[Features-Exit]]
 === Exiting the application : `exit`
@@ -435,7 +500,7 @@ Include weather updates in the notifications by indicating on or off.
 Here are a few technical terms used in the user guide.
 
 .Technical Terms
-[cols="1,6"]
+[cols="2,6"]
 |===
 |Term |Explanation
 
@@ -456,6 +521,15 @@ Here are a few technical terms used in the user guide.
 
 |*User Interface (UI)*
 |Allows the user to interact with the application through inputs and outputs of data.
+
+|*Hyper Text Markup Language (HTML)*
+|A standardized system for tagging text files to achieve font, colour, graphic, and hyperlink effects on World Wide Web pages.
+
+|*Cascading Style Sheets (CSS)*
+|A style sheet language used for describing the presentation of a document written in a markup language like HTML.
+
+|*Javascript (JS)*
+|A high-level, interpreted programming language. It is a language which is also characterized as dynamic, weakly typed, prototype-based and multi-paradigm.
 |===
 
 == Command Summary
@@ -517,4 +591,3 @@ Here are the summarize list of commands available to the user.
 |`notify`
 |`n 60`
 |===
-

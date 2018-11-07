@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: default.css
 :xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -320,7 +321,10 @@ The `Storage` component can perform the following functions:
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::undoredo[]
 === Undo/Redo feature
+This section describes how the Undo/Redo feature is implemented for the car park finder.
+
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedCarparkFinder`.
@@ -369,7 +373,7 @@ image::UndoRedoActivityDiagramNew4.png[width="800"]
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial car park finder state, then there are no previous car park finder states to restore. The `undo` command uses `Model#canUndoCarparkFinder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-The following *_sequence diagram_* shows how the undo operation works:
+The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram of Undo/Redo feature
 image::Sequence Diagram - Undo.png[width="800"]
@@ -436,15 +440,17 @@ image::General new command.png[width="650"]
 |Pros| We do not need to maintain a separate list, and just reuse what is already in the codebase.
 |Cons| Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 |===
+// end::undoredo[]
 
+// tag::query[]
 === Query feature
 
 The `query` command updates the information of every car park using the latest information provided by
-`data.gov.sg` database.
+_data.gov.sg_ database.
 
 ==== Overview
 
-The mechanism does an API call to the website `data.gov.sg` to obtain car park information in `JSON` format.
+The mechanism does an API call to the website _data.gov.sg_ to obtain car park information in `JSON` format.
 An external library `Gson` is used to parse the data in `GsonUtil`. The data is stored internally as a `CarparkJson` object.
 
 Some notable methods that `GsonUtil` implement are:
@@ -463,8 +469,8 @@ A <<localcopy, local copy>> of the data is saved at the end. Users only need to 
 
 Given below is an example usage scenario of how the query mechanism behaves at each step.
 
-Step 1. The user launches the application but initial car park finder state might not be up-to-date
-with those published on `data.gov.sg`.
+Step 1. The user launches the application, where the initial state of _Car Park Finder_ is not up-to-date
+with the latest data published by _data.gov.sg_.
 
 Step 2. The user executes the `query` command to fetch the latest data. The `query` command calls
 `GsonUtil#fetchCarparkInfo()` which in turn runs `GsonUtil#getCarparkData()` and `GsonUtil#getCarparkAvailability()`.
@@ -507,8 +513,6 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Easy to implement.
 |Cons| Application hangs while data is being queried.
 |===
-+
-
 
 * **Alternative 2 :** Data is queried using a separate thread.
 +
@@ -517,8 +521,6 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Application can continue to function as the data is being fetched in the background.
 |Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
 |===
-+
-
 
 ===== Aspect: Data structure to support query command
 
@@ -529,7 +531,6 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Easy to maintain and iterate through an array list of array lists to get a specific car park.
 |Cons| Using an `ArrayList<ArrayList<String>>` can be confusing and unintuitive. Accessing elements is also not that efficient.
 |===
-+
 
 * **Alternative 2 :** Use a `HashMap<String,Carpark>` to store data.
 +
@@ -538,9 +539,9 @@ For more details on the internal workings of `Model` please refer to `undo`.
 |Pros| Much more efficient in accessing elements by using a key and better code readability.
 |Cons| `HashMap` does not provide an ordered collection.
 |===
-+
+// end::query[]
 
-
+// tag::notify[]
 === Notify feature
 
 The notify feature updates specific car parks.
@@ -568,7 +569,6 @@ image::zy_act.png[width="800", align="left"]
 |Pros| Easy to implement.
 |Cons| Performance issues as the application might stall.
 |===
-+
 
 * **Alternative 2 :** Data is queried using a separate thread every interval.
 +
@@ -577,7 +577,9 @@ image::zy_act.png[width="800", align="left"]
 |Pros| Application can be used as the data is being fetched in the background.
 |Cons| Reading the car park list while querying might cause unintended side effects if not handled properly.
 |===
+// end::notify[]
 
+// tag::find[]
 === Find feature
 
 The find feature searches for a car park by keyword or location.
@@ -596,7 +598,6 @@ The predicate `CarparkContainsKeywordsPredicate` takes in a list of strings and 
 
 .How the find operation works
 image::seqdiagram-find.png[width="800", align="left"]
-
 
 The diagram above describes how the flow of a find command would execute. It rely on `FindCommandParser` to ensure the variables are correct.
 
@@ -642,7 +643,7 @@ image::actdiagram-find.png[width="800", align="left"]
 |Cons| Breaks OOP style as the parser will modify the data.
 |===
 +
-
+// end::find[]
 
 // tag::filter[]
 === Filter feature
@@ -984,9 +985,109 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+
+// tag::postalcode[]
+[[Implementation-PostalCode]]
+=== Postal Code
+The postal code feature is built to allow easier finding of car park by knowing the postal code they are searching for.
+As the car park data from `data.gov.sg` does not have any postal code, we converted coordinates of each respective
+car park to a postal code whenever possible.
+
+==== Overview
+Currently, postal code data are stored in a separate file. This is due to it being too slow and unreliable to convert coordinate to postal code
+in real time. However, in order to generate the file, we first had to go through every carpark and find respective their postal code.
+
+==== Example
+
+Step 1. The user launches the application.
+
+Step 2. The system loads the file, `postalcodeData.txt` into a `Hashmap<Long,String>` using the `GsonUtil#loadCarparkPostalCode()` where the key is a hash and the value is a postal code.
+
+Step 3. The system goes through every car park's coordinates and hashes them together with `GsonUtil#fnvHash(x,y)` where x is the x coordinate of the carpark and y is the y coordinate of the carpark.
+
+Step 4. If the key is found, it will return the value which is the postal code of the car park. If not, it will return the
+default value `000000`.
+
+[NOTE]
+As certain car park do not have postal code, `000000` is the default value and a flag to show that the car park does *not* have a postal code.
+
+==== Design Considerations
+
+===== Aspect: Source of postal code information
+* **Alternative 1 (Current choice):** Pull data from file
++
+[cols="1,10"]
+|===
+|Pros| Fast and efficient. No need to change due to no postal code changes.
+|Cons| Unable to update for new car parks. Require you to download the .jar file again.
+|===
+
+* **Alternative 2:** Pull data from API
++
+[cols="1,10"]
+|===
+|Pros| Easy to update and scalable to new car parks.
+|Cons| Too slow to do in real time. Takes roughly 20 minutes to update all car park postal code. Not realistic and efficient to do in real time.
+|===
+
+// end::postalcode[]
+
+// tag::ui[]
+[[Implementation-UI]]
+=== UI
+The UI was a combination of JavaFX, HTML and CSS. This section describes the challenges faced, how it was overcome
+and an example of how it works.
+
+==== Overview
+As we wanted to showcase real time updates when the user issues a command, we had to update the HTML accordingly.
+However, we did not want to just update it. We wanted to showcase the selected car park or the filtered list accordingly.
+
+==== Example
+Step 1. The user launches the application and is greeted by this UI
+
+.On start of the application
+image::UIstep3.png[width="700", align="left"]
+
+Step 2. The user selects a car park with a `select` command. E.g. `select 10`.
+
+.An example outcome of the `select 10` command
+image::UIstep2.png[width="700", align="left"]
+
+`SelectCommand#Execute` is called. If the input is valid, it creates a `JumpToListRequestEvent` event for `BrowserPanel#handleCarparkPanelSelectionChangedEvent()` to catch.
+
+Step 3. The user then list all the car park with a `list` command.
+A `ListCarparkRequestEvent` is created and `BrowserPanel` catches the event to call `BrowserPanel#handleListCarparkRequestEvent()`
+
+.An example outcome of the `select 10` command
+image::UIstep1.png[width="700", align="left"]
+
+The HTML is refreshed to show all car parks.
+
+==== Design Considerations
+===== Aspect: HTML/CSS/JS design choices
+* **Alternative 1 (Current choice):** Have a callback function in javascript
++
+[cols="1,10"]
+|===
+|Pros| Easy to implement google maps and stylesheet.
+|Cons| Hard to test. Different rendering between devices.
+|===
+
+* **Alternative 2:** Have a query in the url parameters to filter data and update iFrame
++
+[cols="1,10"]
+|===
+|Pros| No rendering issue. Easy to test and debug.
+|Cons| Complex query and hard to understand again once working. Server must allow filtering by url paramters.
+|===
+
+// end::ui[]
+
+// tag::weather[]
 === [Proposed] Weather Forecast
 
 _This feature is coming in v2.0._
+// end::weather[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -1000,13 +1101,12 @@ The key will stored in a secured location to prevent people from accessing it.
 
 The two main files it will encrypt are:
 
-* Carpark information
+* Car park information
 * User's favorites
 
 ==== Example
 
 _This feature is coming in v2.0._
-
 // end::dataencryption[]
 
 == Documentation

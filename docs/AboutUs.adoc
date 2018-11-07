@@ -3,6 +3,7 @@
 :relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: default.css
 
 We are Team T09-4 and based in
 the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. +
@@ -41,7 +42,7 @@ Responsibilities:
 
 === Yeo Zhuan Yu
 image::zhuanyu.png[width="150", align="left"]
-{empty}[https://github.com/ZhuanYu[github]]
+{empty}[https://github.com/ZhuanYu[github]] [<<zhuanyu#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
