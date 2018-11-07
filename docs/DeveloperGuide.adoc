@@ -977,10 +977,10 @@ Use case ends
 Use case ends.
 
 [discrete]
-=== Use case: Checkin patient
+=== Use case: Register patient
 *MSS*
 
-1.  Counter nurse request to check in patient
+1.  Counter nurse request to register a new patient
 2.  Counter nurse inputs the patient's NRIC
 3.  HealthBase adds the patient into the patient queue
 +
@@ -1059,7 +1059,7 @@ Past records of healthcare visits, pre-existing medical conditions
 [[authorised-visitors]] Authorised visitors::
 Upon check-in of patient, the information of permitted visitors entered
 
-[[checkin]] Checkin::
+[[register]] Register::
 Patient registers at the hospital
 
 [[checkout]] Checkout::

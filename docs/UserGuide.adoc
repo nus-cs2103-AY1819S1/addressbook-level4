@@ -116,6 +116,7 @@ Example(s):
 rest and rehydrate. doc/Dr. Zhang De`
 //end::addmh[]
 
+//tag::register[]
 === Register a new patient to the system: `register`
 Register a new patient together with necessary information into the system.
 
@@ -127,6 +128,7 @@ Format: `register ic/NRIC n/NAME p/PHONE_NUMBER a/ADDRESS d/DRUG_ALLERGIES`
 Example(s):
 
 * `register ic/S1234567A n/Ling Zhi Yu p/91234567 a/6 College Avenue East, #00-00, University Town, National University of Singapore, 138614 d/nil`
+//end::register[]
 
 === Check-out a patient: `checkout`
 Remove a patient from the patient queue.
