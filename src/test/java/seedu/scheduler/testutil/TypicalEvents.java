@@ -45,9 +45,9 @@ public class TypicalEvents {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a628"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a629"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a630"),
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a631")));
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a631"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632")));
     private static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a634"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a635"),
@@ -57,7 +57,9 @@ public class TypicalEvents {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a639"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a640"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a641"),
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a642")));
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a642"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a643"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a644")));
 
     // single event
     public static final Event DISCUSSION_WITH_JACK = new EventBuilder()
@@ -179,10 +181,48 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList())
             .build();
 
-    // monthly event
-    public static final Event STARTUP_LECTURE_MONTH_ONE = new EventBuilder()
+    // weekly event
+    public static final Event DINNER_WITH_JOE_WEEK_ONE = new EventBuilder()
             .withEventUid(CONSTANT_EVENTUID.get(4))
             .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
+            .withEventName("Dinner with Joe")
+            .withStartDateTime(LocalDateTime.of(2018, 3, 3, 3, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 3, 3, 4, 0))
+            .withDescription("Catch up and dinner with Joe").withVenue("Singapore")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 3, 17, 4, 0))
+            .withTags("Relaxation", "Dinner")
+            .withReminderDurationList(getReminderDurationList())
+            .build();
+    public static final Event DINNER_WITH_JOE_WEEK_TWO = new EventBuilder()
+            .withEventUid(CONSTANT_EVENTUID.get(4))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
+            .withEventName("Dinner with Joe")
+            .withStartDateTime(LocalDateTime.of(2018, 3, 10, 3, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 3, 10, 4, 0))
+            .withDescription("Catch up and dinner with Joe").withVenue("Singapore")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 3, 17, 4, 0))
+            .withTags("Relaxation", "Dinner")
+            .withReminderDurationList(getReminderDurationList())
+            .build();
+    public static final Event DINNER_WITH_JOE_WEEK_THREE = new EventBuilder()
+            .withEventUid(CONSTANT_EVENTUID.get(4))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
+            .withEventName("Dinner with Joe")
+            .withStartDateTime(LocalDateTime.of(2018, 3, 17, 3, 0))
+            .withEndDateTime(LocalDateTime.of(2018, 3, 17, 4, 0))
+            .withDescription("Catch up and dinner with Joe").withVenue("Singapore")
+            .withRepeatType(RepeatType.WEEKLY)
+            .withRepeatUntilDateTime(LocalDateTime.of(2018, 3, 17, 4, 0))
+            .withTags("Relaxation", "Dinner")
+            .withReminderDurationList(getReminderDurationList())
+            .build();
+
+    // monthly event
+    public static final Event STARTUP_LECTURE_MONTH_ONE = new EventBuilder()
+            .withEventUid(CONSTANT_EVENTUID.get(5))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(5))
             .withEventName("Startup Lecture")
             .withStartDateTime(LocalDateTime.of(2018, 1, 28, 8, 0))
             .withEndDateTime(LocalDateTime.of(2018, 1, 28, 10, 0))
@@ -193,8 +233,8 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(0, 1, 2, 3))
             .build();
     public static final Event STARTUP_LECTURE_MONTH_TWO = new EventBuilder()
-            .withEventUid(CONSTANT_EVENTUID.get(4))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
+            .withEventUid(CONSTANT_EVENTUID.get(5))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(5))
             .withEventName("Startup Lecture")
             .withStartDateTime(LocalDateTime.of(2018, 2, 28, 8, 0))
             .withEndDateTime(LocalDateTime.of(2018, 2, 28, 10, 0))
@@ -205,8 +245,8 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(0, 1, 2, 3))
             .build();
     public static final Event STARTUP_LECTURE_MONTH_THREE = new EventBuilder()
-            .withEventUid(CONSTANT_EVENTUID.get(4))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(4))
+            .withEventUid(CONSTANT_EVENTUID.get(5))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(5))
             .withEventName("Startup Lecture")
             .withStartDateTime(LocalDateTime.of(2018, 3, 28, 8, 0))
             .withEndDateTime(LocalDateTime.of(2018, 3, 28, 10, 0))
@@ -219,8 +259,8 @@ public class TypicalEvents {
 
     // yearly event
     public static final Event LEAP_DAY_CELEBRATION_YEAR_ONE = new EventBuilder()
-            .withEventUid(CONSTANT_EVENTUID.get(5))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(5))
+            .withEventUid(CONSTANT_EVENTUID.get(6))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(6))
             .withEventName("Leap Day Celebration")
             .withStartDateTime(LocalDateTime.of(2016, 2, 29, 0, 0))
             .withEndDateTime(LocalDateTime.of(2016, 2, 29, 1, 0))
@@ -231,8 +271,8 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(0))
             .build();
     public static final Event LEAP_DAY_CELEBRATION_YEAR_TWO = new EventBuilder()
-            .withEventUid(CONSTANT_EVENTUID.get(5))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(5))
+            .withEventUid(CONSTANT_EVENTUID.get(6))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(6))
             .withEventName("Leap Day Celebration")
             .withStartDateTime(LocalDateTime.of(2020, 2, 29, 0, 0))
             .withEndDateTime(LocalDateTime.of(2020, 2, 29, 1, 0))
@@ -243,8 +283,8 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(1, 2))
             .build();
     public static final Event JIM_BIRTHDAY_YEAR_ONE = new EventBuilder()
-            .withEventUid(CONSTANT_EVENTUID.get(6))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(6))
+            .withEventUid(CONSTANT_EVENTUID.get(7))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(7))
             .withEventName("Jim's Birthday")
             .withStartDateTime(LocalDateTime.of(2018, 12, 31, 0, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 31, 1, 0))
@@ -255,8 +295,8 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(1, 2))
             .build();
     public static final Event JIM_BIRTHDAY_YEAR_TWO = new EventBuilder()
-            .withEventUid(CONSTANT_EVENTUID.get(6))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(6))
+            .withEventUid(CONSTANT_EVENTUID.get(7))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(7))
             .withEventName("Jim's Birthday")
             .withStartDateTime(LocalDateTime.of(2019, 12, 31, 0, 0))
             .withEndDateTime(LocalDateTime.of(2019, 12, 31, 1, 0))
@@ -267,8 +307,8 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(1, 2))
             .build();
     public static final Event JIM_BIRTHDAY_YEAR_THREE = new EventBuilder()
-            .withEventUid(CONSTANT_EVENTUID.get(6))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(6))
+            .withEventUid(CONSTANT_EVENTUID.get(7))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(7))
             .withEventName("Jim's Birthday")
             .withStartDateTime(LocalDateTime.of(2020, 12, 31, 0, 0))
             .withEndDateTime(LocalDateTime.of(2020, 12, 31, 1, 0))
@@ -285,6 +325,10 @@ public class TypicalEvents {
     public static final List<Event> STUDY_WITH_JILL_DAILY_LIST = List.of(STUDY_WITH_JILL_DAY_ONE,
             STUDY_WITH_JILL_DAY_TWO, STUDY_WITH_JILL_DAY_THREE, STUDY_WITH_JILL_DAY_FOUR);
 
+    // weekly list
+    public static final List<Event> DINNER_WITH_JOE_WEEKLY_LIST = List.of(DINNER_WITH_JOE_WEEK_ONE,
+            DINNER_WITH_JOE_WEEK_TWO, DINNER_WITH_JOE_WEEK_THREE);
+
     // monthly list
     public static final List<Event> STARTUP_LECTURE_MONTHLY_LIST = List.of(STARTUP_LECTURE_MONTH_ONE,
             STARTUP_LECTURE_MONTH_TWO, STARTUP_LECTURE_MONTH_THREE);
@@ -297,14 +341,14 @@ public class TypicalEvents {
 
     // Manually added
     public static final Event AD_HOC_WORK = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(7))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(7))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(8))
             .withEventName("Ad hoc work").withStartDateTime(LocalDateTime.of(2018, 12, 12, 0, 0))
             .withEndDateTime(LocalDateTime.of(2018, 12, 12, 1, 0))
             .withDescription("Ad hoc part time work").withVenue("Starbucks")
             .withRepeatType(RepeatType.NONE).withRepeatUntilDateTime(LocalDateTime.of(2018, 12, 12, 1, 0))
             .withTags("Work").withReminderDurationList(getReminderDurationList(3)).build();
-    public static final Event ONE_TIME_JOB = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(7))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(8))
+    public static final Event ONE_TIME_JOB = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(8))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(9))
             .withEventName("One time job").withStartDateTime(LocalDateTime.of(2018, 6, 1, 0, 0))
             .withEndDateTime(LocalDateTime.of(2018, 6, 1, 1, 0))
             .withDescription("One time job and get paid").withVenue("McDonald's")
@@ -313,7 +357,7 @@ public class TypicalEvents {
 
     // Manually added - Event's details found in {@code CommandTestUtil}
     public static final Event MA2101_JANUARY_1_2018_YEARLY = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(9))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(9))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(10))
             .withEventName(VALID_EVENT_NAME_MA2101).withStartDateTime(VALID_START_DATETIME_MA2101)
             .withEndDateTime(VALID_END_DATETIME_MA2101).withDescription(VALID_DESCRIPTION_MA2101)
             .withVenue(VALID_VENUE_MA2101).withRepeatType(VALID_REPEAT_TYPE_MA2101)
@@ -321,7 +365,7 @@ public class TypicalEvents {
             .withReminderDurationList(getReminderDurationList(3)).build();
 
     public static final Event MA3220_JANUARY_1_2019_SINGLE = new EventBuilder().withEventUid(CONSTANT_EVENTUID.get(10))
-            .withEventSetUid(CONSTANT_EVENTSETUID.get(10))
+            .withEventSetUid(CONSTANT_EVENTSETUID.get(11))
             .withEventName(VALID_EVENT_NAME_MA3220).withStartDateTime(VALID_START_DATETIME_MA3220)
             .withEndDateTime(VALID_END_DATETIME_MA3220).withDescription(VALID_DESCRIPTION_MA3220)
             .withVenue(VALID_VENUE_MA3220).withRepeatType(VALID_REPEAT_TYPE_MA3220)
@@ -345,7 +389,8 @@ public class TypicalEvents {
         return new ArrayList<>(Arrays.asList(DISCUSSION_WITH_JACK, INTERVIEW_WITH_JOHN, STUDY_WITH_JANE_DAY_ONE,
                 STUDY_WITH_JANE_DAY_TWO, STUDY_WITH_JANE_DAY_THREE, STUDY_WITH_JANE_DAY_FOUR,
                 STUDY_WITH_JILL_DAY_ONE, STUDY_WITH_JILL_DAY_TWO, STUDY_WITH_JILL_DAY_THREE,
-                STUDY_WITH_JILL_DAY_FOUR, JIM_BIRTHDAY_YEAR_ONE, JIM_BIRTHDAY_YEAR_TWO,
+                STUDY_WITH_JILL_DAY_FOUR, DINNER_WITH_JOE_WEEK_ONE, DINNER_WITH_JOE_WEEK_TWO,
+                DINNER_WITH_JOE_WEEK_THREE, JIM_BIRTHDAY_YEAR_ONE, JIM_BIRTHDAY_YEAR_TWO,
                 JIM_BIRTHDAY_YEAR_THREE, LEAP_DAY_CELEBRATION_YEAR_ONE, LEAP_DAY_CELEBRATION_YEAR_TWO,
                 STARTUP_LECTURE_MONTH_ONE, STARTUP_LECTURE_MONTH_TWO, STARTUP_LECTURE_MONTH_THREE));
     }

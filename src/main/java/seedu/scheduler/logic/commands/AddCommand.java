@@ -5,8 +5,11 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_END_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_EVENT_REMINDER_DURATION;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_TYPE;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_REPEAT_UNTIL_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_START_DATE_TIME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_VENUE;
 
 import java.util.Collections;
 
@@ -16,6 +19,7 @@ import seedu.scheduler.logic.RepeatEventGenerator;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.event.Event;
+import seedu.scheduler.model.event.exceptions.EventOverflowException;
 
 /**
  * Adds an event to the scheduler.
@@ -31,22 +35,33 @@ public class AddCommand extends Command {
             + PREFIX_EVENT_NAME + "NAME "
             + "[" + PREFIX_START_DATE_TIME + "DATETIME in natural language] "
             + "[" + PREFIX_END_DATE_TIME + "DATETIME in natural language] "
-            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]\n"
+            + "[" + PREFIX_DESCRIPTION + "DESCRIPTION]"
+            + "[" + PREFIX_VENUE + "VENUE]"
+            + "[" + PREFIX_REPEAT_TYPE + "REPEAT TYPE]"
+            + "[" + PREFIX_REPEAT_UNTIL_DATE_TIME + "REPEAT UNTIL DATETIME]"
+            + "[" + PREFIX_EVENT_REMINDER_DURATION + "REMINDER DURATION]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_EVENT_NAME + "Study with me "
+            + PREFIX_EVENT_NAME + "Discussion with John "
             + PREFIX_START_DATE_TIME + "today 5pm "
             + PREFIX_END_DATE_TIME + "tomorrow 3am "
             + PREFIX_DESCRIPTION + "Studying time "
+            + PREFIX_VENUE + "NUS "
+            + PREFIX_REPEAT_TYPE + "Daily "
+            + PREFIX_REPEAT_UNTIL_DATE_TIME + "next friday 3am "
+            + PREFIX_EVENT_REMINDER_DURATION + "1h "
             + PREFIX_TAG + "study "
-            + PREFIX_TAG + "adhoc"
-            + PREFIX_EVENT_REMINDER_DURATION + "1h";
+            + PREFIX_TAG + "ad-hoc";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the scheduler";
+    public static final String MESSAGE_OVERFLOW_EVENT = "This event repeats too many times"; 
     public static final String MESSAGE_INTERNET_ERROR = "Warning: Internet Error. "
             + "Only local changes,"
             + "no effects on your Google Calender.";
+
+    
+
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
@@ -69,17 +84,23 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_EVENT);
         }
 
-        model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
+        try {
+            model.addEvents(RepeatEventGenerator.getInstance().generateAllRepeatedEvents(toAdd));
+        } catch (EventOverflowException e) {
+            throw new CommandException(MESSAGE_OVERFLOW_EVENT);
+        }
         model.commitScheduler();
+
         boolean operationOnGoogleCalIsSuccessful =
                 connectToGoogleCalendar.pushToGoogleCal(Collections.singletonList(toAdd));
 
         if (operationOnGoogleCalIsSuccessful | connectToGoogleCalendar.isGoogleCalendarDisabled()) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEventName()));
         } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd)
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getEventName())
                     + "\n" + MESSAGE_INTERNET_ERROR);
         }
+
     }
 
     @Override

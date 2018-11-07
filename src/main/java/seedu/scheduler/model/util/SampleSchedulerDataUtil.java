@@ -31,15 +31,17 @@ public class SampleSchedulerDataUtil {
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a624"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a625"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a626"),
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a627")));
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a627"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a628")));
     private static final ArrayList<UUID> CONSTANT_EVENTSETUID = new ArrayList<>(Arrays.asList(
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a628"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a629"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a630"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a631"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a632"),
             UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a633"),
-            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a634")));
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a634"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a635"),
+            UUID.fromString("066db0fd-0bd2-423f-aef4-fd1f8d30a636")));
 
     public static Event[] getSampleEvents() {
         return new Event[] {
@@ -89,6 +91,17 @@ public class SampleSchedulerDataUtil {
                     getReminderDurationList()),
             new Event(CONSTANT_EVENTUID.get(4),
                     CONSTANT_EVENTSETUID.get(4),
+                    new EventName("Dinner with Joe"),
+                    new DateTime(LocalDateTime.of(2018, 3, 3, 3, 0)),
+                    new DateTime(LocalDateTime.of(2018, 3, 3, 4, 0)),
+                    new Description("Catch up and dinner with Joe"),
+                    new Venue("Singapore"),
+                    RepeatType.WEEKLY,
+                    new DateTime(LocalDateTime.of(2018, 3, 17, 4, 0)),
+                    getTagSet("Relaxation", "Dinner"),
+                    getReminderDurationList()),
+            new Event(CONSTANT_EVENTUID.get(5),
+                    CONSTANT_EVENTSETUID.get(5),
                     new EventName("Jim's Birthday"),
                     new DateTime(LocalDateTime.of(2018, 12, 31, 0, 0)),
                     new DateTime(LocalDateTime.of(2018, 12, 31, 1, 0)),
@@ -98,8 +111,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2020, 12, 31, 1, 0)),
                     getTagSet("Celebration"),
                     getReminderDurationList(1, 2)),
-            new Event(CONSTANT_EVENTUID.get(5),
-                    CONSTANT_EVENTSETUID.get(5),
+            new Event(CONSTANT_EVENTUID.get(6),
+                    CONSTANT_EVENTSETUID.get(6),
                     new EventName("Leap Day Celebration"),
                     new DateTime(LocalDateTime.of(2016, 2, 29, 0, 0)),
                     new DateTime(LocalDateTime.of(2016, 2, 29, 1, 0)),
@@ -109,8 +122,8 @@ public class SampleSchedulerDataUtil {
                     new DateTime(LocalDateTime.of(2020, 2, 29, 1, 0)),
                     getTagSet("Celebration"),
                     getReminderDurationList(0)),
-            new Event(CONSTANT_EVENTUID.get(6),
-                    CONSTANT_EVENTSETUID.get(6),
+            new Event(CONSTANT_EVENTUID.get(7),
+                    CONSTANT_EVENTSETUID.get(7),
                     new EventName("Startup Lecture"),
                     new DateTime(LocalDateTime.of(2018, 1, 28, 8, 0)),
                     new DateTime(LocalDateTime.of(2018, 1, 28, 10, 0)),
