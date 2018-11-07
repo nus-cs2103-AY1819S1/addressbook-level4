@@ -24,7 +24,7 @@ import seedu.address.ui.DescriptionDisplay;
  */
 public class ShowDescriptionCommand extends Command {
 
-    public static final String COMMAND_WORD = "show description";
+    public static final String COMMAND_WORD = "show todo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Shows description of the todo event identified by the index number used in the displayed event list.\n"
