@@ -32,6 +32,9 @@ public class ListWeekCommand extends Command {
 
     /**
      * This method append the date of days till nearest sunday into 'dateList'
+     * Prerequisite: this method only work for dates in 21st century
+     * @param dateList the list to keep the string date values
+     * @param numDays the number of days from current date until Sunday, excluding the current date
      */
     public static void appendDateList (List<String> dateList, int numDays) {
         dateList.clear();
@@ -53,8 +56,9 @@ public class ListWeekCommand extends Command {
 
     /**
      * This method check and return the number of positive days left from current date till the nearest sunday.
+     * Prerequisite: this method only work for dates in 21st century
      * @param currentDate the name of today date
-     * @return numDays
+     * @return numDays the number of days from current date until Sunday, excluding current date
      */
     public static int numDaysTillSunday (String currentDate) {
         int numDays;
