@@ -3,14 +3,17 @@ package seedu.clinicio.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.clinicio.model.Model.PREDICATE_SHOW_ALL_STAFFS;
 
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
+import static seedu.clinicio.testutil.TypicalPersons.ALEX;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE_AS_PATIENT;
 import static seedu.clinicio.testutil.TypicalPersons.BEN;
 import static seedu.clinicio.testutil.TypicalPersons.BENSON;
+import static seedu.clinicio.testutil.TypicalPersons.BRYAN;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -38,7 +41,12 @@ public class ModelManagerTest {
         modelManager.hasPerson(null);
     }
 
-    //@@author jjlee050
+    @Test
+    public void hasPatient_nullPatient_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasPatient(null);
+    }
+
     @Test
     public void hasStaff_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
@@ -53,11 +61,21 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasAppointmentClash_nullAppointment_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasAppointmentClash(null);
+    }
+
+    @Test
     public void hasPerson_personNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasPerson(ALICE));
     }
 
-    //@@author jjlee050
+    @Test
+    public void hasPatient_patientNotInClinicIo_returnsFalse() {
+        assertFalse(modelManager.hasPatient(ALEX));
+    }
+
     @Test
     public void hasStaff_staffNotInClinicIo_returnsFalse() {
         assertFalse(modelManager.hasStaff(ADAM));
@@ -73,12 +91,25 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasAppointmentClash_appointmentClash_returnsFalse() {
+        Date date = new Date(1, 1, 2018);
+        Time time = new Time(5, 30);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
+        assertFalse(modelManager.hasAppointmentClash(appt));
+    }
+
+    @Test
     public void hasPerson_personInClinicIo_returnsTrue() {
         modelManager.addPerson(ALICE);
         assertTrue(modelManager.hasPerson(ALICE));
     }
 
-    //@@author jjlee050
+    @Test
+    public void hasPatient_patientInClinicIo_returnsTrue() {
+        modelManager.addPatient(ALEX);
+        assertTrue(modelManager.hasPatient(ALEX));
+    }
+
     @Test
     public void hasStaff_staffInClinicIo_returnsTrue() {
         modelManager.addStaff(ADAM);
@@ -96,6 +127,15 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void hasAppointmentClash_appointmentNoClashInClinicIo_returnsTrue() {
+        Date date = new Date(1, 1, 2018);
+        Time time = new Time(5, 30);
+        Appointment appt = new Appointment(date, time, ALICE_AS_PATIENT, 0);
+        modelManager.addAppointment(appt);
+        assertTrue(modelManager.hasAppointmentClash(appt));
+    }
+
+    @Test
     public void checkStaffCredentials_nullStaff_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.checkStaffCredentials(null);
@@ -108,7 +148,12 @@ public class ModelManagerTest {
         modelManager.getFilteredPersonList().remove(0);
     }
 
-    //@@author jjlee050
+    @Test
+    public void getFilteredPatientList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredPatientList().remove(0);
+    }
+
     @Test
     public void getFilteredStaffList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
@@ -127,6 +172,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         ClinicIo clinicIo = new ClinicIoBuilder().withPerson(ALICE).withPerson(BENSON)
+                .withPatient(ALEX).withPatient(BRYAN)
                 .withStaff(ADAM).withStaff(BEN).build();
         ClinicIo differentClinicIo = new ClinicIo();
         UserPrefs userPrefs = new UserPrefs();
@@ -155,7 +201,7 @@ public class ModelManagerTest {
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        //@@author jjlee050
+        modelManager.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         modelManager.updateFilteredStaffList(PREDICATE_SHOW_ALL_STAFFS);
 
         // different userPrefs -> returns true
