@@ -29,7 +29,8 @@ import seedu.address.model.tag.Tag;
 public class DeleteGradeCommand extends Command {
     public static final String COMMAND_WORD = "deleteGrade";
 
-    private static final String MESSAGE_DELETE_GRADE_SUCCESS = "Successfully delete the grade of %1$s from %2$s success.";
+    private static final String MESSAGE_DELETE_GRADE_SUCCESS =
+            "Successfully delete the grade of %1$s from %2$s success.";
     private static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book";
     private static final String MESSAGE_EXAM_NAME_FOUND = "This exam name is not found in the records of this student.";
 
