@@ -4,10 +4,11 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.parking.ui.BrowserPanel.MAIN_PAGE;
+import static seedu.parking.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.parking.ui.BrowserPanel.SEARCH_PAGE_URL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.parking.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.parking.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.parking.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.UnsupportedEncodingException;
@@ -36,6 +37,7 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 
+import seedu.parking.MainApp;
 import seedu.parking.TestApp;
 import seedu.parking.commons.core.EventsCenter;
 import seedu.parking.commons.core.index.Index;
@@ -220,13 +222,15 @@ public abstract class CarparkFinderSystemTest {
         getCarparkListPanel().navigateToCard(getCarparkListPanel().getSelectedCardIndex());
         String selectedCardCarparkNumber = null;
         try {
-            selectedCardCarparkNumber = getCarparkListPanel().getHandleToSelectedCard().toJson();
+            JsonArray arr = new JsonArray();
+            arr.add(getCarparkListPanel().getHandleToSelectedCard().getCarparkNumber());
+            selectedCardCarparkNumber = URLEncoder.encode(arr.toString(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         URL expectedUrl;
         try {
-            expectedUrl = new URL(SEARCH_PAGE_URL + "json=" + selectedCardCarparkNumber);
+            expectedUrl = new URL(SEARCH_PAGE_URL + "jsonArr=" + selectedCardCarparkNumber);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -338,11 +342,7 @@ public abstract class CarparkFinderSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCarparkListPanel(), getModel().getFilteredCarparkList());
-        try {
-            assertEquals(new URL(MAIN_PAGE), getBrowserPanel().getLoadedUrl());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

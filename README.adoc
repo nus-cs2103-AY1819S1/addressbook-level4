@@ -4,6 +4,8 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/CS2103-AY1819S1-T09-4/main[image:https://travis-ci.org/CS2103-AY1819S1-T09-4/main.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/ZhuanYu/main/branch/master[image:https://ci.appveyor.com/api/projects/status/f9hvilg7n554igd4/branch/master?svg=true[Build status]]
 https://coveralls.io/github/CS2103-AY1819S1-T09-4/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-T09-4/main/badge.svg?branch=master[Coverage Status]]
+https://opensource.org/licenses/MIT[image:https://img.shields.io/badge/License-MIT-yellow.svg[License]]
+
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -33,6 +35,12 @@ It has a GUI (Graphic User Interface) but most of the user interactions happen u
 * Some parts of this sample application were inspired by the excellent Java FX tutorial by Marco Jakob.
 * This application was morphed from https://github.com/se-edu/addressbook-level4[Address Book level 4], a project created by the SE-EDU initiative.
 * Libraries used: https://github.com/google/gson[Gson],
-https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+https://github.com/TestFX/TestFX[TextFX],
+https://bitbucket.org/controlsfx/controlsfx/[ControlsFX],
+https://github.com/FasterXML/jackson[Jackson],
+https://github.com/google/guava[Guava],
+https://github.com/junit-team/junit5[JUnit5],
+https://developers.google.com/maps/documentation/[Google Maps],
+https://github.com/cgcai/SVY21[SVY21]
 
 == Licence : link:LICENSE[MIT]

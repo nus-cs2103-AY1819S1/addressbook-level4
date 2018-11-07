@@ -1,5 +1,6 @@
 package seedu.parking.ui;
 
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
+import seedu.parking.MainApp;
 import seedu.parking.commons.core.LogsCenter;
 import seedu.parking.commons.events.ui.CarparkPanelSelectionChangedEvent;
 import seedu.parking.commons.events.ui.ClearResultChangedEvent;
@@ -23,6 +25,8 @@ import seedu.parking.model.carpark.Carpark;
  * The Browser Panel of the App.
  */
 public class BrowserPanel extends UiPart<Region> {
+
+    public static final String DEFAULT_PAGE = "default.html";
 
     public static final String MAIN_PAGE =
             "https://cs2103-ay1819s1-t09-4.github.io/main/MainPage.html?isDefault=1";
@@ -43,15 +47,8 @@ public class BrowserPanel extends UiPart<Region> {
         getRoot().setOnKeyPressed(Event::consume);
         getRoot().setOnMouseClicked(Event::consume);
 
-        loadPage(MAIN_PAGE);
+        loadDefaultPage();
         registerAsAnEventHandler(this);
-    }
-
-    /**
-     * Loads the car park HTML file with a json data parsed in UTF-8.
-     */
-    private void loadCarparkPage(Carpark carpark) throws Exception {
-        loadPage(SEARCH_PAGE_URL + "json=" + carpark.toJson());
     }
 
     /**
@@ -74,6 +71,14 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Loads a default HTML file with a background that matches the general theme.
+     */
+    private void loadDefaultPage() {
+        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        loadPage(defaultPage.toExternalForm());
+    }
+
+    /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
@@ -83,7 +88,7 @@ public class BrowserPanel extends UiPart<Region> {
     @Subscribe
     private void handleCarparkPanelSelectionChangedEvent(CarparkPanelSelectionChangedEvent event) throws Exception {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        loadCarparkPage(event.getNewSelection());
+        loadCarparkPage(new Carpark[] { event.getNewSelection() });
     }
 
     @Subscribe
