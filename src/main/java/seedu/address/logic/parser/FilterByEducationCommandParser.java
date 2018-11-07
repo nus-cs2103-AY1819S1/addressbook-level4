@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class FilterByEducationCommandParser implements Parser<FilterByEducationCommand> {
     /**
-     * FilterByGradeCommand
+     * FilterByEducationCommand
      * @param args
      * @return
      * @throws ParseException
@@ -23,7 +23,7 @@ public class FilterByEducationCommandParser implements Parser<FilterByEducationC
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
         }
-        if (!("pri".equals(stringCommand) || "sec".equals(stringCommand) || "jc".equals(stringCommand))) {
+        if (!("Primary".equals(stringCommand) || "Secondary".equals(stringCommand) || "JC".equals(stringCommand))) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByEducationCommand.MESSAGE_USAGE));
 

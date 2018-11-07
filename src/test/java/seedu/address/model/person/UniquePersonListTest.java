@@ -75,13 +75,33 @@ public class UniquePersonListTest {
     @Test
     public void addTimeSlot_nullTime_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePersonList.addTimeSlot("Alice Pauline", null);
+        uniquePersonList.add(ALICE);
+        uniquePersonList.addTimeSlot(ALICE, null);
     }
 
     @Test
     public void addTimeSlot_targetPersonNotInList_throwsPersonNotFoundException() {
         thrown.expect(PersonNotFoundException.class);
-        uniquePersonList.addTimeSlot("Alice Pauline", SECOND_TIME);
+        uniquePersonList.addTimeSlot(ALICE, SECOND_TIME);
+    }
+
+    @Test
+    public void deleteTimeSlot_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniquePersonList.deleteTimeSlot(null, FIRST_TIME);
+    }
+
+    @Test
+    public void deleteTimeSlot_nullTime_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniquePersonList.add(ALICE);
+        uniquePersonList.deleteTimeSlot(ALICE, null);
+    }
+
+    @Test
+    public void deleteTimeSlot_targetPersonNotInList_throwsPersonNotFoundException() {
+        thrown.expect(PersonNotFoundException.class);
+        uniquePersonList.deleteTimeSlot(ALICE, SECOND_TIME);
     }
 
     @Test

@@ -70,8 +70,8 @@ public class EditTimeCommand extends Command {
         if (!model.hasPerson(targetPerson)) {
             throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
         }
-        model.deleteTime(name, oldTime);
-        model.addTime(name, newTime);
+        model.deleteTime(targetPerson, oldTime);
+        model.addTime(targetPerson, newTime);
         return new CommandResult(String.format(MANAGE_SUCCESS));
 
     }
