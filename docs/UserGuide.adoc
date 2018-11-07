@@ -47,8 +47,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items,Grades in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items,Grades with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times or grades), `t/friend`, `g/midterm 100`, `t/friend t/family`, `g/test1 100 g/test2 99` etc.
+* Grade consists of two parts, exam name and exam score.
+** The name and score should be separated by space.
+** Score should be between 0 and 100.
+** Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -59,15 +63,17 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL [g/GRADE] [t/TAG]`
 
 [TIP]
-A person can have any number of tags and grades (including 0).
-You can see the details about grade attribute in the <<grade,grade feature>>
+====
+* A person can have any number of tags and grades (including 0).
+* Name of the exam should be different. Otherwise, they will be considered as the same one and the APP will store the score of the last one.
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Mid 89 t/friends t/owesMoney`
+* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney`
 
 === Listing all persons : `list`
 
@@ -77,7 +83,7 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GRADE]... [t/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -85,7 +91,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* You can see the details about grade attribute in the <<grade,grade feature>>
+* Edit grade will not delete the previous grades as the tap attribute. If the exam name exists already, it will cover the previous one and edit the score only.
 ****
 
 Examples:
@@ -237,9 +243,6 @@ Selects the 2nd person in the address book.
 Selects the 1st person in the results of the `find` command.
 
 
-
-
-
 === Making list by limit fee command: `filterByFee`
 
 Making list of according to minimal limit fee +
@@ -335,39 +338,6 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-
-[[grade]]
-=== Grades attribute
-
-Grade attribute consists of two parts, exam name and exam score.
-
-[NOTE]
-====
-* The name and grade should be separated by space.
-
-* Score should be between 0 and 100.
-
-* Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
-====
-
-Add grade:
-
-You can add some grades record for a student, both using add command and edit command.
-
-Example
-
-`add g/mid-test 100 [other part]`
-
-`edit 1 g/mid-test 100`
-
-[NOTE]
-====
-Edit grade will not delete the previous grades as tap attribute.
-====
-
-Change grade:
-
-if you need to change the score of a exam, you can use edit as well.
 
 === Analyzing grades commands `[coming in v2.0]`
 
