@@ -13,7 +13,7 @@ import seedu.souschef.logic.parser.exceptions.ParseException;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.recipe.IngredientNameContainsKeywordsPredicate;
-import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -35,7 +35,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand<>(model, new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand<>(model, new RecipeContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
     /**
@@ -74,7 +74,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindCommand<>(model, new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindCommand<>(model, new RecipeContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 

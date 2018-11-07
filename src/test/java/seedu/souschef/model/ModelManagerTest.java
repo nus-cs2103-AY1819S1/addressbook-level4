@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 import seedu.souschef.testutil.AppContentBuilder;
 
@@ -72,7 +72,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = APPLE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredList(new RecipeContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel()));
 
         // resets modelManager to initial state for upcoming tests

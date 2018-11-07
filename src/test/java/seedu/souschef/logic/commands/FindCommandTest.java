@@ -16,7 +16,7 @@ import seedu.souschef.logic.History;
 import seedu.souschef.model.Model;
 import seedu.souschef.model.ModelSetCoordinator;
 import seedu.souschef.model.UserPrefs;
-import seedu.souschef.model.recipe.NameContainsKeywordsPredicate;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
 
 /**
@@ -30,10 +30,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        RecipeContainsKeywordsPredicate firstPredicate =
+                new RecipeContainsKeywordsPredicate(Collections.singletonList("first"));
+        RecipeContainsKeywordsPredicate secondPredicate =
+                new RecipeContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand<Recipe> findFirstCommand = new FindCommand<Recipe>(model, firstPredicate);
         FindCommand<Recipe> findSecondCommand = new FindCommand<Recipe>(model, secondPredicate);
@@ -58,7 +58,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_LISTED_OVERVIEW, 0, "recipe");
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        RecipeContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand<Recipe> command = new FindCommand<Recipe>(model, predicate);
         expectedModel.updateFilteredList(predicate);
         assertCommandSuccess(command, model, history, expectedMessage, expectedModel);
@@ -68,7 +68,7 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private RecipeContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new RecipeContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }
