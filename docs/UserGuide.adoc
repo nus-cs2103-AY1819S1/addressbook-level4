@@ -75,48 +75,64 @@ Examples:
 * `register-doctor n/Mary Jane p/98765432 e/maryj@example.com a/John street, block 123, #01-01`
 
 === Deleting a patient: `delete-patient`
-Deletes a patient from the HealthBook by name. +
-Format: `delete-patient n/NAME`
+Deletes a patient from the HealthBook by name and phone. +
+Format: `delete-patient n/NAME [p/PHONE]`
+
+[NOTE]
+Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook, so phone number is needed to differentiate them.
 
 Examples:
 
-* `delete-patient n/John Doe`
+* `delete-patient n/Jane Doe'
+* `delete-patient n/John Doe p/98264293`
 
 === Deleting a doctor: `delete-doctor`
-Deletes a doctor from the HealthBook by name. +
-Format: `delete-doctor n/NAME`
+Deletes a doctor from the HealthBook by name and phone. +
+Format: `delete-doctor n/NAME [p/PHONE]`
+
+[NOTE]
+Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook, so phone number is needed to differentiate them.
 
 Examples:
 
-* `delete-doctor n/Mary Jane`
+* `delete-doctor n/Amanda Jane`
+* `delete-doctor n/Mary Jane p/94726274`
 
 === Viewing a patient: `view-patient`
 Views a landing page of a patient on the HealthBook. This will display all information of the patient onto the HealthBook
 including their medical history, upcoming appointment and their past appointments. +
-Format: `view-patient n/NAME`
+Format: `view-patient n/NAME [p/PHONE]`
+
+[NOTE]
+Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook, so phone number is needed to differentiate them.
 
 ****
-* Views the patient and loads the information page of the patient with the specified `NAME`.
-* The name refers to the name that the patient is registered under.
-* The name must have been registered into the HealthBook.
+* Views the patient and loads the information page of the patient with the specified `NAME` and/or `PHONE`.
+* The name/phone refers to the name/phone that the patient is registered under.
+* The name/phone must have been registered into the HealthBook.
 ****
 
 Examples:
 
 * `view-patient n/John Doe`
+* `view-patient n/Jane Doe p/93726273`
 
 === Viewing a doctor: `view-doctor`
 Views a landing page of a doctor on the HealthBook. This will display the doctor's upcoming appointments. +
-Format: `view-doctor n/NAME`
+Format: `view-doctor n/NAME [p/PHONE]`
+
+[NOTE]
+Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook, so phone number is needed to differentiate them.
 
 ****
-* Views the doctor's upcoming appointments with the specified `NAME`.
-* The name refers to the name that the doctor is registered under.
-* The name must have been registered into the HealthBook.
+* Views the doctor's upcoming appointments with the specified `NAME` and/or `PHONE`.
+* The name/phone refers to the name/phone that the doctor is registered under.
+* The name/phone must have been registered into the HealthBook.
 ****
 
 Examples:
 
+* `view-doctor n/Amanda Jane p/93726272`
 * `view-doctor n/Mary Jane`
 
 === Listing all patients and doctors : `list`
@@ -125,7 +141,10 @@ Format: `list`
 
 === Booking an appointment: `add-appointment`
 Book a doctor's appointment for the patient. An ID of this appointment will be generated. +
-Format: `add-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME`
+Format: `add-appointment np/PATIENT_NAME [pp/PATIENT_PHONE] nd/DOCTOR_NAME [pd/DOCTOR_PHONE] d/DATE_TIME`
+
+[NOTE]
+Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook, so phone number is needed to differentiate them.
 
 ****
 * Date and time should be in the format `yyyy-MM-dd HH:mm`
@@ -133,7 +152,8 @@ Format: `add-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME`
 
 Examples:
 
-* `add-appointment np/John Doe np/Mary Jane d/2018-10-17 15:00`
+* `add-appointment np/Jane Doe pp/92937272 nd/Amanda Jane pd/94827284 d/2018-12-12 13:00`
+* `add-appointment np/John Doe nd/Mary Jane d/2018-10-17 15:00`
 
 === Deleting an appointment `delete-appointment`
 Delete a doctor's appointment for the patient by its ID. +
@@ -154,24 +174,25 @@ Examples:
 === Adding prescriptions to a patient's appointment: `add-prescription`
 Adds a prescription to the patient's appointment with details of medicine name, dosage and number of times to consume
 in a day. +
-Format: `add-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY`
+Format: `add-prescription APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY`
 
 Examples:
 
-* `add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
+* `add-prescription 10001 pn/Paracetamol pd/2 pc/3`
 
 ****
 * Each prescription is tied to an appointment.
 * There cannot be a duplicate of drug name for that particular appointment.
+* Drug that patient is allergic to cannot be added
 ****
 
-=== Adding prescriptions to a patient's appointment: `delete-prescription`
-Delete a prescription to the patient's appointment by appointment ID and medicine name. +
-Format: `delete-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME`
+=== Deleting prescriptions of a patient's appointment: `delete-prescription`
+Delete a prescription of the patient's appointment by appointment ID and medicine name. +
+Format: `delete-prescription APPOINTMENT_ID pn/MEDICINE_NAME`
 
 Examples:
 
-* `delete-prescription pi/10001 pn/Paracetamol`
+* `delete-prescription 10001 pn/Paracetamol`
 
 === Adding medical condition or allergy to patient: `add-medical-history`
 Add a condition or allergy to the patient's medical history. This will then be displayed on the users information page. +
@@ -198,19 +219,17 @@ Examples:
 * Condition and allergy indicated must be present in the patient's records
 ****
 === Adding remark to patient : `remark`
-Adds a remark to the patient's information. Input will override current remark. If input is empty, previous remark will be deleted. +
-Format: `remark np/PATIENT_NAME r/REMARK`
+Adds a remark to the patient/doctor's information. Input will override current remark. If input is empty, previous remark will be deleted. +
+Format: `remark n/NAME [p/PHONE] r/REMARK`
+
+[NOTE]
+Parameter `p/PHONE` is only needed when there are duplicate names in HealthBook, so phone number is needed to differentiate them.
+
 
 Examples:
 
-* `remark np/John Doe r/Has chronic heart disease`
-* `remark np/Mary Jane r/`
-
-****
-* Remark can only be added to patients
-****
-
-
+* `remark n/John Doe r/Has chronic heart disease`
+* `remark n/Amanda Jane p/84739294 r/`
 
 === Listing entered commands : `history`
 
@@ -311,24 +330,24 @@ inform them about their upcoming appointment.
 e.g. `register-patient n/John Doe p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665`
 * *Register doctor* `register-patient n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS` +
 e.g. `register-doctor n/Mary Jane p/12224444 e/maryjane@example.com a/12, Clementi Rd, 1234665`
-* *Delete patient* : `delete-patient n/NAME` +
-e.g. `delete-patient n/John Doe`
-* *Delete doctor* : `delete-doctor n/NAME` +
+* *Delete patient* : `delete-patient n/NAME [p/PHONE]` +
+e.g. `delete-patient n/John Doe p/84729292`
+* *Delete doctor* : `delete-doctor n/NAME [p/PHONE]` +
 e.g. `delete-doctor n/Mary Jane`
-* *View patient* : `view-patient n/NAME` +
-e.g. `view-patient n/John Doe`
-* *View doctor* : `view-doctor n/NAME` +
+* *View patient* : `view-patient n/NAME [p/PHONE]` +
+e.g. `view-patient n/John Doe p/84729292`
+* *View doctor* : `view-doctor n/NAME [p/PHONE]` +
 e.g. `view-doctor n/Mary Jane`
-* *Book appointment* : `add-appointment n/PATIENT_NAME doc/DOCTOR_NAME dt/DATE_TIME` +
-e.g. `add-appointment np/John Doe np/Mary Jane d/2018-10-17 15:00`
-* *Delete appointment* : `delete-appointment APPOINTMENT_ID`
+* *Book appointment* : `add-appointment np/PATIENT_NAME [pp/PATIENT_PHONE] nd/DOCTOR_NAME [pd/PATIENT_PHONE] d/DATE_TIME` +
+e.g. `add-appointment np/John Doe nd/Mary Jane pd/93736272 d/2018-10-17 15:00`
+* *Delete appointment* : `delete-appointment APPOINTMENT_ID` +
 e.g. `delete-appointment 10001`
-* *Complete appointment* : `complete-appointment APPOINTMENT_ID`
+* *Complete appointment* : `complete-appointment APPOINTMENT_ID` +
 e.g. `complete-appointment 10001`
-* *Add prescriptions* : `add-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY``add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
-e.g. `add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
-* *Delete prescriptions* : `delete-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME`
-e.g. `delete-prescription pi/10001 pn/Paracetamol`
+* *Add prescriptions* : `add-prescription APPOINTMENT_ID pn/MEDICINE_NAME pd/DOSAGE pc/CONSUMPTION_PER_DAY` +
+e.g. `add-prescription 10001 pn/Paracetamol pd/2 pc/3`
+* *Delete prescriptions* : `delete-prescription APPOINTMENT_ID pn/MEDICINE_NAME` +
+e.g. `delete-prescription 10001 pn/Paracetamol`
 * *Add allergies or conditions* : `add-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
 e.g. `add-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
 * *Delete allergies or conditions* : `delete-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
