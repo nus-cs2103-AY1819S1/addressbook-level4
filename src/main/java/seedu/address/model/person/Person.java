@@ -131,6 +131,9 @@ public class Person {
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
+    /**
+     * Makes an identical deep copy of this person.
+     */
     public Person makeDeepDuplicate() {
         Name newName = this.name.makeDeepDuplicate();
         Phone newPhone = this.phone.makeDeepDuplicate();

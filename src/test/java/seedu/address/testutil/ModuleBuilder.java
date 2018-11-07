@@ -93,6 +93,10 @@ public class ModuleBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code students list} of the {@code Module} that we are building
+     * via another list.
+     */
     public ModuleBuilder withStudents(List<Person> studentList) {
         for (Person person : studentList) {
             students.add(person);

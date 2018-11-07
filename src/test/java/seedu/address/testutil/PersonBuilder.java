@@ -97,6 +97,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the module list using {@code moduleList}.
+     */
     public PersonBuilder withModuleList(List<Module> moduleList) {
         for (Module module : moduleList) {
             moduleList.add(module);
@@ -104,11 +107,17 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the module list using {@code moduleList}.
+     */
     public PersonBuilder withModuleList(UniqueModuleList moduleList) {
         this.moduleList = moduleList;
         return this;
     }
 
+    /**
+     * Sets the occasion list using {@code occasionList}.
+     */
     public PersonBuilder withOccasionList(List<Occasion> occasionList) {
         for (Occasion occasion : occasionList) {
             occasionList.add(occasion);
@@ -116,6 +125,9 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the occasion list using {@code occasionList}.
+     */
     public PersonBuilder withOccasionList(UniqueOccasionList occasionList) {
         this.occasionList = occasionList;
         return this;

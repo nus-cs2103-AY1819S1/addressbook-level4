@@ -75,6 +75,9 @@ public class OccasionBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code attendance list} by using {@code personList}.
+     */
     public OccasionBuilder withAttendanceList(List<Person> personList) {
         for (Person person : personList) {
             attendanceList.add(person);
@@ -83,6 +86,9 @@ public class OccasionBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code attendance list} by using the UniquePersonList {@code personList}.
+     */
     public OccasionBuilder withAttendanceList(UniquePersonList personList) {
         this.attendanceList = personList;
         return this;

@@ -42,6 +42,9 @@ public class OccasionName {
         fullOccasionName = name;
     }
 
+    /**
+     * Makes an identical deep copy of this OccasionName.
+     */
     public OccasionName makeDeepDuplicate() {
         OccasionName newName = new OccasionName(new String(fullOccasionName));
         return newName;

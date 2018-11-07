@@ -6,12 +6,10 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
@@ -20,10 +18,12 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.module.UniqueModuleList;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
+import seedu.address.model.occasion.OccasionName;
 import seedu.address.model.occasion.UniqueOccasionList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
@@ -31,47 +31,52 @@ import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.OccasionBuilder;
 import seedu.address.testutil.PersonBuilder;
 
+import javafx.collections.ObservableList;
+
+/**
+ * The unit tests for the Insert Person Command.
+ */
 public class InsertPersonCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
-    public ExpectedException thrown =  ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_nullOccasion_throwsNullPointerException() {
+    public void constructor_nullPersonNullOccasion_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new InsertPersonCommand(null, null, new Occasion(new OccasionDescriptor()));
     }
 
     @Test
-    public void constructor_nullPerson_nullModule_throwsNullPointerException() {
+    public void constructor_nullPersonNullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new InsertPersonCommand(null, null, new Module(new ModuleDescriptor()));
     }
 
     @Test
-    public void constructor_nullPerson_nonNullOccasion_throwsNullPointerException() {
+    public void constructor_nullPersonNonNullOccasion_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new InsertPersonCommand(null, Index.fromZeroBased(1), new Occasion(new OccasionDescriptor()));
     }
 
     @Test
-    public void constructor_nullPerson_nonNullModule_throwsNullPointerException() {
+    public void constructor_nullPersonNonNullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new InsertPersonCommand(null, Index.fromZeroBased(1), new Module(new ModuleDescriptor()));
     }
 
     @Test
-    public void constructor_nonNullPerson_nullOccasion_throwsNullPointerException() {
+    public void constructor_nonNullPersonNullOccasion_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new InsertPersonCommand(null, Index.fromZeroBased(1), new Occasion(new OccasionDescriptor()));
     }
 
     @Test
-    public void constructor_nonNullPerson_nullModule_throwsNullPointerException() {
+    public void constructor_nonNullPersonNullModule_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new InsertPersonCommand(Index.fromZeroBased(1), null, new Module(new ModuleDescriptor()));
     }
@@ -87,10 +92,11 @@ public class InsertPersonCommandTest {
         CommandResult commandResult = new InsertPersonCommand(Index.fromZeroBased(0),
                                             Index.fromZeroBased(0),
                                             new Module(new ModuleDescriptor())).execute(stub, commandHistory);
-
+        ModuleCode insertedModuleCode = stub.getFilteredPersonList()
+                                            .get(0).getModuleList().asUnmodifiableObservableList()
+                                            .get(0).getModuleCode();
         assertEquals(InsertPersonCommand.MESSAGE_SUCCESS_INSERT_INTO_MODULE, commandResult.feedbackToUser);
-        assertEquals(stub.getFilteredPersonList().get(0).getModuleList().asUnmodifiableObservableList().get(0),
-                        validModule);
+        assertEquals(validModule.getModuleCode(), insertedModuleCode);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -107,8 +113,11 @@ public class InsertPersonCommandTest {
                 new Occasion(new OccasionDescriptor())).execute(stub, commandHistory);
 
         assertEquals(InsertPersonCommand.MESSAGE_SUCCESS_INSERT_INTO_OCCASION, commandResult.feedbackToUser);
-        assertEquals(stub.getFilteredPersonList().get(0).getOccasionList().asUnmodifiableObservableList().get(0),
-                validOccasion);
+        OccasionName insertedOccasionName = stub.getFilteredPersonList()
+                                                .get(0).getOccasionList().asUnmodifiableObservableList()
+                                                .get(0).getOccasionName();
+        // A shallow equals to check if the names of the occasions match.
+        assertEquals(validOccasion.getOccasionName(), insertedOccasionName);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -303,9 +312,9 @@ public class InsertPersonCommandTest {
      * module or occasion.
      */
     private class ModelStubInsertingPersons extends ModelStub {
-        UniquePersonList personList = new UniquePersonList();
-        UniqueOccasionList occasionList = new UniqueOccasionList();
-        UniqueModuleList moduleList = new UniqueModuleList();
+        private UniquePersonList personList = new UniquePersonList();
+        private UniqueOccasionList occasionList = new UniqueOccasionList();
+        private UniqueModuleList moduleList = new UniqueModuleList();
 
         ModelStubInsertingPersons(Person person, Occasion occasion, Module module) {
             requireAllNonNull(person, occasion, module);
@@ -320,6 +329,8 @@ public class InsertPersonCommandTest {
             requireAllNonNull(personToInsert, occasionToInsert, personToReplace, occasionToReplace);
             personToInsert.getOccasionList().add(occasionToInsert);
             occasionToInsert.getAttendanceList().add(personToInsert);
+            updatePerson(personToInsert, personToReplace);
+            updateOccasion(occasionToInsert, occasionToReplace);
         }
 
         @Override
@@ -336,21 +347,21 @@ public class InsertPersonCommandTest {
         public void updatePerson(Person target, Person editedPerson) {
             requireNonNull(editedPerson);
 
-            personList.setPerson(target, editedPerson);
+            personList.setPerson(editedPerson, target);
         }
 
         @Override
         public void updateModule(Module target, Module editedModule) {
             requireNonNull(editedModule);
 
-            moduleList.setModule(target, editedModule);
+            moduleList.setModule(editedModule, target);
         }
 
         @Override
         public void updateOccasion(Occasion target, Occasion editedOccasion) {
             requireNonNull(editedOccasion);
 
-            occasionList.setOccasion(target, editedOccasion);
+            occasionList.setOccasion(editedOccasion, target);
         }
 
         @Override
@@ -366,6 +377,30 @@ public class InsertPersonCommandTest {
         @Override
         public ObservableList<Occasion> getFilteredOccasionList() {
             return this.occasionList.asUnmodifiableObservableList();
+        }
+
+        /**
+         * An empty implementation as it need not be tested for unit testing.
+         */
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+
+        }
+
+        /**
+         * An empty implementation as it need not be tested for unit testing.
+         */
+        @Override
+        public void updateFilteredOccasionList(Predicate<Occasion> predicate) {
+
+        }
+
+        /**
+         * An empty implementation as it need not be tested for unit testing.
+         */
+        @Override
+        public void updateFilteredPersonList(Predicate<Person> predicate) {
+
         }
 
         @Override

@@ -33,6 +33,9 @@ public class Phone {
         value = phone;
     }
 
+    /**
+     * Makes an identical deep copy of this Phone.
+     */
     public Phone makeDeepDuplicate() {
         Phone newPhone = new Phone(new String(this.value));
         return newPhone;

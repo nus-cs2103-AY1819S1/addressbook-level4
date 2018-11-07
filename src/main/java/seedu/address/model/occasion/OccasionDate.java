@@ -44,6 +44,9 @@ public class OccasionDate {
         fullOccasionDate = date;
     }
 
+    /**
+     * Make an identical deep copy of this OccasionDate.
+     */
     public OccasionDate makeDeepDuplicate() {
         OccasionDate newDate = new OccasionDate(new String(fullOccasionDate));
         return newDate;

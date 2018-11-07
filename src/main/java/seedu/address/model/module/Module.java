@@ -86,9 +86,12 @@ public class Module {
         return new SimpleStringProperty(moduleTitle.fullModuleTitle);
     }
 
+    /**
+     * Makes an indentical deep copy of this module.
+     */
     public Module makeDeepDuplicate() {
         ModuleCode newCode = this.moduleCode.makeDeepDuplicate();
-        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicat();
+        ModuleTitle newTitle = this.moduleTitle.makeDeepDuplicate();
         AcademicYear newYear = this.academicYear.makeDeepDuplicate();
         Semester newSem = this.semester.makeDeepDuplicate();
         UniquePersonList newList = this.students.makeDeepDuplicate();

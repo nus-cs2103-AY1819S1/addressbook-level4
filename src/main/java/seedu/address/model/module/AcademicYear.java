@@ -40,6 +40,9 @@ public class AcademicYear {
         yearNumber = Integer.parseInt(number);
     }
 
+    /**
+     * Makes an identical deep copy of this academic year.
+     */
     public AcademicYear makeDeepDuplicate() {
         AcademicYear newYear = new AcademicYear(new String(yearNumber.toString()));
         return newYear;

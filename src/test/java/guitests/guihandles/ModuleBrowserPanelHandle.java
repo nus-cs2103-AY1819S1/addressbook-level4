@@ -6,6 +6,10 @@ import javafx.scene.control.TableView;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
+/**
+ * The browser panel handle responsible for acquiring information of the current
+ * list displays when the UI is switched to the module panel.
+ */
 public class ModuleBrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#moduleBrowserPanel";

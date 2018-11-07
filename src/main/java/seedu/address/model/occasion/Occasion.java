@@ -89,6 +89,9 @@ public class Occasion {
         return new SimpleStringProperty(occasionName.fullOccasionName);
     }
 
+    /**
+     * Make an identical deep copy of this occasion.
+     */
     public Occasion makeDeepDuplicate() {
         OccasionName newName = this.occasionName.makeDeepDuplicate();
         OccasionDate newDate = this.occasionDate.makeDeepDuplicate();

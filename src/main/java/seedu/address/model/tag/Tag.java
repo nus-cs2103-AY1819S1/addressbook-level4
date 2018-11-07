@@ -25,6 +25,9 @@ public class Tag {
         this.tagName = tagName;
     }
 
+    /**
+     * Makes an identical deep copy of this Tag.
+     */
     public Tag makeDeepDuplicate() {
         Tag newTag = new Tag(new String(tagName));
         return newTag;

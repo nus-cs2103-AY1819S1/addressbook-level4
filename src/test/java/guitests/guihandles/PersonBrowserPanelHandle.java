@@ -2,12 +2,15 @@ package guitests.guihandles;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
+/**
+ * The browser panel handle responsible for displaying the information
+ * when the UI is switched to the Person's panel.
+ */
 public class PersonBrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#personBrowserPanel";

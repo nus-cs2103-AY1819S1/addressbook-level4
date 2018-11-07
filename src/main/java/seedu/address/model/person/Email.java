@@ -47,6 +47,9 @@ public class Email {
         value = email;
     }
 
+    /**
+     * Makes an identical deep copy of this Email.
+     */
     public Email makeDeepDuplicate() {
         Email newEmail = new Email(new String(value));
         return newEmail;

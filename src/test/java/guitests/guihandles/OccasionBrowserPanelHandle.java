@@ -6,6 +6,10 @@ import javafx.scene.control.TableView;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
 
+/**
+ * The browser panel handle responsible for rendering the information about
+ * the lists when the UI is switched to the Occasion's panel.
+ */
 public class OccasionBrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#occasionBrowserPanel";

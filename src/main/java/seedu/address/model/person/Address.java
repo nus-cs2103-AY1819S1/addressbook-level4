@@ -38,6 +38,9 @@ public class Address {
         value = address;
     }
 
+    /**
+     * Makes an identical deep copy of this Address.
+     */
     public Address makeDeepDuplicate() {
         Address newAddress = new Address(new String(value));
         return newAddress;

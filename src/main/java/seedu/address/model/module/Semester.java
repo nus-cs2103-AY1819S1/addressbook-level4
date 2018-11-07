@@ -35,6 +35,9 @@ public class Semester {
         semesterNumber = number;
     }
 
+    /**
+     * Makes an identical deep copy of this Semester.
+     */
     public Semester makeDeepDuplicate() {
         Semester newSemester = new Semester(new String(semesterNumber));
         return newSemester;

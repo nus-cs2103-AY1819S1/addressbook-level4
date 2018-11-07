@@ -55,6 +55,9 @@ public class UniqueModuleList implements Iterable<Module> {
         internalList.add(moduleToAdd);
     }
 
+    /**
+     * Makes an identical deep copy of this List.
+     */
     public UniqueModuleList makeDeepDuplicate() {
         List<Module> newList = this.internalList.stream()
                                     .map(value -> value.makeDeepDuplicate()).collect(Collectors.toList());

@@ -192,6 +192,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         modules.remove(key);
     }
 
+    /**
+     * Replaces {@code personToInsert} and {@code moduleToInsert} with
+     * {@code personToReplace} and {@code moduleToReplace} respectively.
+     */
     public void insertPerson(Person personToInsert, Module moduleToInsert,
                              Person personToReplace, Module moduleToReplace) {
         requireAllNonNull(personToInsert, moduleToInsert);
@@ -201,6 +205,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         updateModule(moduleToReplace, moduleToInsert);
     }
 
+    /**
+     * Replaces {@code personToInsert} and {@code occasionToInsert} with
+     * {@code personToReplace} and {@code occasionToReplace} respectively.
+     */
     public void insertPerson(Person personToInsert, Occasion occasionToInsert,
                              Person personToReplace, Occasion occasionToReplace) {
         requireAllNonNull(personToInsert, occasionToInsert, personToReplace, occasionToReplace);

@@ -42,6 +42,9 @@ public class UniqueOccasionList implements Iterable<Occasion> {
         return internalList.stream().anyMatch(occasionToCheck::isSameOccasion);
     }
 
+    /**
+     * Makes an identical deep copy of this UniqueOccasionList.
+     */
     public UniqueOccasionList makeDeepDuplicate() {
         List<Occasion> newOccasions = this.internalList
                                             .stream().map(value -> value.makeDeepDuplicate())
