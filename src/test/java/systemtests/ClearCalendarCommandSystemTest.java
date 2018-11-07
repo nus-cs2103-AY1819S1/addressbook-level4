@@ -1,7 +1,7 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCalendarCommand;
@@ -46,7 +46,7 @@ public class ClearCalendarCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: filters the calendarevent list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        showPersonsWithTitle(KEYWORD_MATCHING_MEIER);
+        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
         assertCommandSuccess(ClearCalendarCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 

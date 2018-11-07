@@ -7,7 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_CALENDAR_EVENT_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import org.junit.Test;
@@ -24,16 +24,16 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
-        /* Case: select the first card in the calendarevent list, command with leading spaces and trailing spaces
+        /* Case: select the first card in the calendar event list, command with leading spaces and trailing spaces
          * -> selected
          */
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_ELEMENT);
 
-        /* Case: select the last card in the calendarevent list -> selected */
-        Index personCount = getLastIndex(getModel());
-        command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
-        assertCommandSuccess(command, personCount);
+        /* Case: select the last card in the calendar event list -> selected */
+        Index calendarEventCount = getLastIndex(getModel());
+        command = SelectCommand.COMMAND_WORD + " " + calendarEventCount.getOneBased();
+        assertCommandSuccess(command, calendarEventCount);
 
         /* Case: undo previous selection -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -45,26 +45,27 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: select the middle card in the calendarevent list -> selected */
+        /* Case: select the middle card in the calendar event list -> selected */
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
 
         /* Case: select the current selected card -> selected */
+
         assertCommandSuccess(command, middleIndex);
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered calendarevent list, select index within bounds of address book but out of bounds of
-        calendarevent list
+        /* Case: filtered calendar event list, select index within bounds of address book but out of bounds of
+        calendar event list
          * -> rejected
          */
-        showPersonsWithTitle(KEYWORD_MATCHING_MEIER);
+        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
         int invalidIndex = getModel().getScheduler().getCalendarEventList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
             MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);
 
-        /* Case: filtered calendarevent list, select index within bounds of address book and calendarevent list ->
+        /* Case: filtered calendar event list, select index within bounds of address book and calendar event list ->
         selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredCalendarEventList().size());
@@ -72,6 +73,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
         assertCommandSuccess(command, validIndex);
 
         /* ----------------------------------- Perform invalid select operations ------------------------------------ */
+
 
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
@@ -95,7 +97,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 
         /* Case: mixed case command word -> rejected */
-        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
+        assertCommandFailure("SeLeCt eVeNt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
         deleteAllPersons();
@@ -147,6 +149,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

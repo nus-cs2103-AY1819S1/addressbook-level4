@@ -82,7 +82,7 @@ public class TypicalEvents {
             VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_LECTURE = "Lecture"; // A keyword that matches MEIER
 
     private TypicalEvents() {
     } // prevents instantiation

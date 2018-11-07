@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalEvents.BENSON;
 import static seedu.address.testutil.TypicalEvents.CARL;
 import static seedu.address.testutil.TypicalEvents.DANIEL;
 import static seedu.address.testutil.TypicalEvents.ELLE;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 3 persons found
          */
-        String command = "   " + FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
+        String command = "   " + FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_LECTURE + "   ";
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL, ELLE); // Benson Meier, Daniel Meier, and Elle Meyer
         assertCommandSuccess(command, expectedModel);
@@ -40,7 +40,7 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: repeat previous find command where calendarevent list is displaying the persons we are finding
          * -> 3 persons found
          */
-        command = FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_LECTURE;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -87,7 +87,7 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: find same persons in address book after deleting 1 of them -> 2 calendarevent found */
         executeCommand(DeleteEventCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getScheduler().getCalendarEventList().contains(BENSON));
-        command = FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_LECTURE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL, ELLE);
         assertCommandSuccess(command, expectedModel);
@@ -144,7 +144,7 @@ public class FindEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: find calendarevent in empty address book -> 0 persons found */
         deleteAllPersons();
-        command = FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
+        command = FindEventCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_LECTURE;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);

@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.DeleteEventCommand.MESSAGE_DELETE_CAL
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
-import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 
 import seedu.address.commons.core.Messages;
@@ -64,7 +64,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
 
         /* Case: filtered calendarevent list, delete index within bounds of address book and calendarevent list ->
         deleted */
-        showPersonsWithTitle(KEYWORD_MATCHING_MEIER);
+        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
         Index index = INDEX_FIRST_ELEMENT;
         assertTrue(index.getZeroBased() < getModel().getFilteredCalendarEventList().size());
         assertCommandSuccess(index);
@@ -73,7 +73,7 @@ public class DeleteEventCommandSystemTest extends SchedulerSystemTest {
         calendarevent list
          * -> rejected
          */
-        showPersonsWithTitle(KEYWORD_MATCHING_MEIER);
+        showCalendarEventsWithTitle(KEYWORD_MATCHING_LECTURE);
         int invalidIndex = getModel().getScheduler().getCalendarEventList().size();
         command = DeleteEventCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CALENDAR_EVENTS_DISPLAYED_INDEX);

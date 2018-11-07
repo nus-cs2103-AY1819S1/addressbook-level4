@@ -127,7 +127,7 @@ public abstract class SchedulerSystemTest {
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
-    protected void showPersonsWithTitle(String keyword) {
+    protected void showCalendarEventsWithTitle(String keyword) {
         executeCommand(FindEventCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredCalendarEventList().size()
             < getModel().getScheduler().getCalendarEventList().size());
