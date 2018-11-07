@@ -447,7 +447,15 @@ list in the favourites model.
 
 // tag::recipeManagement[]
 === Recipe Management
-==== Recipe Add Functionality
+==== Recipe Data Structure with manipulation (Add, Edit) Functionality
+===== Current Implementation
+
+
+===== Why it is implemented that way:
+
+
+===== Alternatives:
+
 
 
 ==== All-field Recipe Search
