@@ -33,7 +33,7 @@ public class XmlAdaptedDiagnosis {
     public XmlAdaptedDiagnosis(String description, String doctorName, Timestamp timestamp) {
         this.description = description;
         this.doctorInCharge = doctorName;
-        this.timestamp = new XmlAdaptedTimestamp();
+        this.timestamp = new XmlAdaptedTimestamp(timestamp);
     }
 
     /**
