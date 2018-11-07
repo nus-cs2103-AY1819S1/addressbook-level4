@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
+import seedu.address.MainApp;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CdCommand;
@@ -38,6 +40,8 @@ public class CommandBoxTest extends GuiUnitTest {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model);
         UserPrefs prefs = new UserPrefs();
+
+        prefs.updateUserPrefs(Paths.get(MainApp.MAIN_PATH + "/src/test/resources/testimgs"));
 
         CommandBox commandBox = new CommandBox(logic, prefs);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
@@ -135,6 +139,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertInputHistory(KeyCode.UP, thirdCommand);
     }
 
+    // @@author benedictcss
     @Test
     public void handleKeyPress_wrongCommandWordWithTab() {
         // empty commandBox
@@ -164,13 +169,12 @@ public class CommandBoxTest extends GuiUnitTest {
     @Test
     public void handleKeyPress_cdCommandWordWithTab() {
         String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("win") || os.contains(("mac"))) {
-            // cd commands to get current directory with one input
-            commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " Desk");
-            assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " Desktop/");
-            assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " Desktop/");
-            assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " Desktop/");
-        }
+
+        // cd commands to get current directory with one input
+        commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " test");
+        assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
+        assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
+        assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " testimgs10/");
 
         if (os.contains("win")) {
             // cd commands to change drive on windows
@@ -180,14 +184,15 @@ public class CommandBoxTest extends GuiUnitTest {
             assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " C://Users/");
         }
 
-        if (os.contains("mac")) {
-            // cd commands to change drive on mac
-            commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " /Vol");
-            assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
-            assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
-            assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
-        }
+        String testPath = MainApp.MAIN_PATH.toString() + "/sr";
+        String expectedPath = MainApp.MAIN_PATH.toString() + "/src/";
+
+        commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " " + testPath);
+        assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
+        assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
+        assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
     }
+    //@@author
 
     /**
      * Runs a command that fails, then verifies that <br>
