@@ -165,6 +165,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updateEvent(Event target, Event editedEvent) {
+        requireAllNonNull(target, editedEvent);
+
+        versionedAddressBook.updateEvent(target, editedEvent);
+        indicateAddressBookChanged();
+    }
+
     //=========== File Reader methods ========================================================================
     @Override
     public void importContacts(FileReader fileReader) {

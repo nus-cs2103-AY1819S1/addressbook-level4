@@ -5,8 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_END_TIME_DOCTORAPPT;
 import static seedu.address.logic.commands.CommandTestUtil.CLASHING_EVENT_START_TIME_DOCTORAPPT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_ADDRESS_MEETING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalEvents.DOCTORAPPT;
 import static seedu.address.testutil.TypicalEvents.MEETING;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,6 +24,11 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.event.exceptions.DuplicateEventException;
 import seedu.address.model.event.exceptions.EventClashException;
 import seedu.address.model.event.exceptions.EventNotFoundException;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.ScheduledEventBuilder;
 
 public class UniqueEventListTest {
@@ -145,5 +155,61 @@ public class UniqueEventListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         uniqueEventList.asUnmodifiableObservableList().add(DOCTORAPPT);
+    }
+
+    @Test
+    public void setEvent_nullTargetEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueEventList.setEvent(null, DOCTORAPPT);
+    }
+
+    @Test
+    public void setEvent_nullEditedEvent_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueEventList.setEvent(DOCTORAPPT, null);
+    }
+
+    @Test
+    public void setEvent_targetEventNotInList_throwsEventNotFoundException() {
+        thrown.expect(EventNotFoundException.class);
+        uniqueEventList.setEvent(DOCTORAPPT, DOCTORAPPT);
+    }
+
+    @Test
+    public void setEvent_editedEventIsSameEvent_success() {
+        uniqueEventList.add(DOCTORAPPT);
+        uniqueEventList.setEvent(DOCTORAPPT, DOCTORAPPT);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        expectedUniqueEventList.add(DOCTORAPPT);
+        assertEquals(expectedUniqueEventList, uniqueEventList);
+    }
+
+    @Test
+    public void setEvent_editedEventHasSameIdentity_success() {
+        uniqueEventList.add(DOCTORAPPT);
+        Event editedAppointment = new ScheduledEventBuilder(DOCTORAPPT)
+                .withEventAddress(VALID_EVENT_ADDRESS_MEETING)
+                .build();
+        uniqueEventList.setEvent(DOCTORAPPT, editedAppointment);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        expectedUniqueEventList.add(editedAppointment);
+        assertEquals(expectedUniqueEventList, uniqueEventList);
+    }
+
+    @Test
+    public void setEvent_editedEventHasDifferentIdentity_success() {
+        uniqueEventList.add(DOCTORAPPT);
+        uniqueEventList.setEvent(DOCTORAPPT, MEETING);
+        UniqueEventList expectedUniqueEventList = new UniqueEventList();
+        expectedUniqueEventList.add(MEETING);
+        assertEquals(expectedUniqueEventList, uniqueEventList);
+    }
+
+    @Test
+    public void setEvent_editedEventHasNonUniqueIdentity_throwsDuplicatePersonException() {
+        uniqueEventList.add(DOCTORAPPT);
+        uniqueEventList.add(MEETING);
+        thrown.expect(DuplicateEventException.class);
+        uniqueEventList.setEvent(DOCTORAPPT, MEETING);
     }
 }

@@ -160,10 +160,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The event must not already exist in the address book, and must not clash any of the existing events in the
      * address book. All event tags must be existing in the address book.
      */
-    //TODO: decision to allow clashing events? If from xml, goes here directly. If from user, can do additional check to
-    // ask the
-    // user (by raising an event which brings up a message and prompts user for further input - enter to add anyway
-    // or esc to delete) for confirmation before adding.
     public void addEvent(Event event) {
         assert !hasEvent(event);
         assert !hasClashingEvent(event);
@@ -172,6 +168,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         events.add(event);
+    }
+
+    /**
+     * Replaces the given event {@code target} in the list with {@code editedEvent}.
+     * {@code target} must exist in the address book.
+     * The event identity of {@code editedEvent} must not be the same as another existing event in the address book.
+     */
+    public void updateEvent(Event target, Event editedEvent) {
+        requireNonNull(editedEvent);
+
+        events.setEvent(target, editedEvent);
     }
 
     /**
