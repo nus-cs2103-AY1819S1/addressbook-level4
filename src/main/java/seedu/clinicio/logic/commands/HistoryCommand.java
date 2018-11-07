@@ -7,7 +7,6 @@ import java.util.List;
 
 import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 
 /**
  * Lists all the commands entered by user from the start of app launch.
@@ -19,7 +18,7 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
         List<String> previousCommands = history.getHistory();
 

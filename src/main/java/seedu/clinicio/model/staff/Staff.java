@@ -19,8 +19,20 @@ import seedu.clinicio.model.person.Phone;
 public class Staff extends Person {
 
     // Identity fields
-    private Role role;
-    private final Password password;
+    private final Role role;
+
+    // Data fields
+    private Password password;
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Staff(Role role, Name name) {
+        super(name, new Phone("999"), new Email("alice@live.com"), new Address("1"), new HashSet<>());
+        requireAllNonNull(role, name);
+        this.role = role;
+        this.password = new Password("123456", false);
+    }
 
     /**
      * Every field must be present and not null.

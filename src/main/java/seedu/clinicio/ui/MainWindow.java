@@ -4,11 +4,14 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
 
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -25,6 +28,8 @@ import seedu.clinicio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.clinicio.logic.Logic;
 
 import seedu.clinicio.model.UserPrefs;
+import seedu.clinicio.model.person.Person;
+import seedu.clinicio.ui.analytics.AnalyticsDisplay;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -42,9 +47,11 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private AppointmentListPanel appointmentListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private AnalyticsDisplay analyticsDisplay;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -59,10 +66,22 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
+    private StackPane appointmentListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane tabLists;
+
+    @FXML
+    private Tab personTab;
+
+    @FXML
+    private Tab appointmentTab;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -125,8 +144,24 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+
+        personTab.setText("Persons");
+        personTab.setContent(personListPanelPlaceholder);
+        personTab.setClosable(false);
+
+        appointmentTab.setText("Appointments");
+        appointmentTab.setContent(appointmentListPanelPlaceholder);
+        appointmentTab.setClosable(false);
+
+        tabLists = new TabPane(personTab, appointmentTab);
+
         browserPanel = new BrowserPanel();
+        analyticsDisplay = new AnalyticsDisplay();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        //browserPlaceholder.getChildren().add(analyticsDisplay.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -143,6 +178,10 @@ public class MainWindow extends UiPart<Stage> {
 
     void hide() {
         primaryStage.hide();
+    }
+
+    public void setPersonListPanel(ObservableList<Person> list) {
+        personListPanel = new PersonListPanel(list);
     }
 
     private void setTitle(String appTitle) {
@@ -204,10 +243,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
-    }
-
-    void releaseResources() {
-        browserPanel.freeResources();
     }
 
     @Subscribe

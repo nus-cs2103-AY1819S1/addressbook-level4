@@ -21,6 +21,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.clinicio.logic.commands.AddCommand;
+import seedu.clinicio.logic.commands.AddPatientCommand;
 import seedu.clinicio.logic.commands.ClearCommand;
 import seedu.clinicio.logic.commands.DeleteCommand;
 import seedu.clinicio.logic.commands.EditCommand;
@@ -35,11 +36,14 @@ import seedu.clinicio.logic.commands.RedoCommand;
 import seedu.clinicio.logic.commands.SelectCommand;
 import seedu.clinicio.logic.commands.UndoCommand;
 import seedu.clinicio.logic.parser.exceptions.ParseException;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.NameContainsKeywordsPredicate;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
+import seedu.clinicio.testutil.PatientBuilder;
+import seedu.clinicio.testutil.PatientUtil;
 import seedu.clinicio.testutil.PersonBuilder;
 import seedu.clinicio.testutil.PersonUtil;
 
@@ -55,6 +59,13 @@ public class ClinicIoParserTest {
         Person person = new PersonBuilder().build();
         AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         assertEquals(new AddCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_addPatient() throws Exception {
+        Patient patient = new PatientBuilder().build();
+        AddPatientCommand command = (AddPatientCommand) parser.parseCommand(PatientUtil.getAddPatientCommand(patient));
+        assertEquals(new AddPatientCommand(patient), command);
     }
 
     @Test

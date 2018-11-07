@@ -148,10 +148,10 @@ public class Appointment {
         return stringBuilder.toString();
     }
 
+    //@@author arsalanc-v2
     /**
      * Converts type to string.
      * @return String form of type.
-     * @@author arsalanc-v2
      */
     public String typeToString() {
         StringBuilder stringBuilder = new StringBuilder();

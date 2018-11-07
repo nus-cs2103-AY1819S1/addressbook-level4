@@ -30,8 +30,8 @@ public class XmlSerializableClinicIoTest {
     public void toModelType_typicalPersonsFile_success() throws Exception {
         XmlSerializableClinicIo dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
                 XmlSerializableClinicIo.class);
-        ClinicIo clinicIoFromFile = dataFromFile.toModelType();
-        ClinicIo typicalPersonsClinicIo = TypicalPersons.getTypicalClinicIo();
+        ClinicIo clinicIoFromFile = dataFromFile.toModelType(); // actual
+        ClinicIo typicalPersonsClinicIo = TypicalPersons.getTypicalClinicIo(); // test util
         assertEquals(clinicIoFromFile, typicalPersonsClinicIo);
     }
 

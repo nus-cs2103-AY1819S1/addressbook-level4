@@ -13,7 +13,6 @@ import seedu.clinicio.logic.CommandHistory;
 import seedu.clinicio.logic.commands.exceptions.CommandException;
 
 import seedu.clinicio.model.Model;
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.staff.Staff;
 
 //@@author jjlee050
@@ -28,10 +27,10 @@ public class LoginCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Authenticate user to provide "
             + "user access to ClinicIO based on the roles.\n"
             + "Parameters: " + COMMAND_WORD
-            + "[" + PREFIX_ROLE + "ROLE]"
-            + "[" + PREFIX_NAME + "NAME]"
-            + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
-            + "Example: login r/staff n/Adam Bell pass/doctor1";
+            + " " + PREFIX_ROLE + "ROLE"
+            + " " + PREFIX_NAME + "NAME"
+            + " " + PREFIX_PASSWORD + "PASSWORD\n"
+            + "Example: login r/doctor n/Adam Bell pass/doctor1";
 
     public static final String MESSAGE_FAILURE = "Invalid login credentials. Please try again.";
     public static final String MESSAGE_LOGIN_ALREADY = "You have already logged in.";
@@ -50,7 +49,7 @@ public class LoginCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history, Analytics analytics) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (!model.hasStaff(toAuthenticate)) {

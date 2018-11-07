@@ -9,10 +9,17 @@ import seedu.clinicio.model.staff.Staff;
  */
 public class LoginSuccessEvent extends BaseEvent {
 
-    private Staff currentUser;
+    private final Staff currentUser;
 
     public LoginSuccessEvent(Staff currentUser) {
         this.currentUser = currentUser;
+    }
+
+    /**
+     * Retrieve current user session
+     */
+    public Staff getCurrentUser() {
+        return currentUser;
     }
 
     @Override

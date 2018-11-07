@@ -4,8 +4,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
+import seedu.clinicio.logic.commands.exceptions.CommandException;
+import seedu.clinicio.model.analytics.StatisticType;
 import seedu.clinicio.model.appointment.Appointment;
 import seedu.clinicio.model.consultation.Consultation;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
@@ -17,10 +20,21 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Staff> PREDICATE_SHOW_ALL_STAFFS = unused -> true;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluates to true */
+    Predicate<Person> PREDICATE_SHOW_ALL_PATIENTS_IN_QUEUE = (person) -> {
+        if (!(person instanceof Patient)) {
+            return false;
+        }
+        return ((Patient) person).isQueuing();
+    };
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Consultation> PREDICATE_SHOW_ALL_CONSULTATIONS = unused -> true;
@@ -31,10 +45,18 @@ public interface Model {
     /** Returns the ClinicIo */
     ReadOnlyClinicIo getClinicIo();
 
+    /** */
+    void requestAnalyticsDisplay(StatisticType statisticType);
+
     /**
      * Returns true if a person with the same identity as {@code person} exists in the ClinicIO.
      */
     boolean hasPerson(Person person);
+
+    /**
+     * Returns true if a patient with the same identity as {@code patient} exists in the ClinicIO.
+     */
+    boolean hasPatient(Patient patient);
 
     /**
      * Returns true if a staff with the same identity as {@code staff} exists in the ClinicIO.
@@ -52,6 +74,12 @@ public interface Model {
      * {@code person} must not already exist in the ClinicIO.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given patient.
+     * {@code patient} must not already exist in the ClinicIO.
+     */
+    void addPatient(Patient patient);
 
     /**
      * Adds the given staff.
@@ -75,14 +103,26 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the filtered patient list */
+    ObservableList<Patient> getFilteredPatientList();
+
     /** Returns an unmodifiable view of the filtered staff list */
     ObservableList<Staff> getFilteredStaffList();
+
+    // @@author iamjackslayer
+    ObservableList<Person> getAllPatientsInQueue();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPatientList(Predicate<Patient> predicate);
 
     /**
      * Updates the filter of the filtered staff list to filter by the given {@code predicate}.
@@ -161,15 +201,28 @@ public interface Model {
     //@@author iamjackslayer
     /**
      * Enqueues the given person.
-     * TODO Change Person object to Patient Object
      */
-    void enqueue(Person patient);
+    void enqueue(Patient patient) throws CommandException;
+
+    //@@author iamjackslayer
+    /**
+     * Removes the given patient from the queue.
+     * @param patient
+     * @throws CommandException
+     */
+    void dequeue(Patient patient) throws CommandException;
+
+    //@@author iamjackslayer
+    /**
+     * Enqueues the given patient into main queue.
+     * @param patient
+     */
+    void enqueueIntoMainQueue(Person patient);
 
     //@@author iamjackslayer
     /**
      * Enqueues the given person into preference queue.
      */
-    // TODO Change Person object to Patient Object
     void enqueueIntoPreferenceQueue(Person patient);
 
     //@@author iamjackslayer
@@ -184,6 +237,7 @@ public interface Model {
      */
     boolean hasPatientInPreferenceQueue();
 
+    //@@author iamjackslayer
     /**
      * Check if patient exists in the patient queue.
      */

@@ -7,58 +7,65 @@
 
 ---
 
-== Overview
+== 1. Overview
 
-ClinicIO is a clinic management desktop application so that a receptionist can manage a clinic with ease and efficiency.
+The purpose of this project portfolio page is to showcase my work done and contributions made throughout the project.
+
+ClinicIO is a project from CS2103T intended for students
+to learn Software Engineering at an entry-level.
+
+ClinicIO is a clinic management desktop application that allows receptionists can manage a clinic with ease and efficiency.
 ClinicIO can be used to manage patient records, queues, medical inventory, appointments as well as view detailed statistics.
 
-== Summary of contributions
+== 2. Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*:
+** Added *the ability to login/logout commands*
+*** What it does: This feature allows the user to login to ClinicIO to gain access to ClinicIO record. Users can logout of ClinicIO to change account.
+*** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+*** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+*** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Setup organisation/team repo
+*** Setup Travis CI, AppVeyor, Codacy and Coveralls
+*** Setup project website with Netlify
+*** Managed issue tracker
+*** Managed project schedule tracking
+*** Managed releases `v1.1`, `v1.2`, `v1.2.1`, `v1.3`, `v1.4` (5 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (Pull requests https://github.com/CS2103-AY1819S1-W14-1/main/pull/105[#105], https://github.com/CS2103-AY1819S1-W14-1/main/pull/144[#144])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S1-W14-1/main/pull/112[#112], https://github.com/CS2103-AY1819S1-W14-1/main/pull/132[#132], https://github.com/CS2103-AY1819S1-W14-1/main/pull/152[#152]
+*** Provided UI walkthrough of ClinicIO in the user guide. https://github.com/CS2103-AY1819S1-W14-1/main/pull/174[#174]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (BCrypt) to the project (https://github.com[#42])
 
-_{you can add/remove categories in the list above}_
-
-== Contributions to the User Guide
-
+== 3. Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=ui-walkthrough]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=authenticationcommands]
 
-== Contributions to the Developer Guide
+include::../UserGuide.adoc[tag=patientcommands]
+
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=login]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]

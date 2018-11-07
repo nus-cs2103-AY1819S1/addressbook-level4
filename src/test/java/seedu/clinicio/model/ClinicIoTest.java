@@ -11,6 +11,8 @@ import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.clinicio.testutil.TypicalPersons.ADAM;
 import static seedu.clinicio.testutil.TypicalPersons.ALICE;
 import static seedu.clinicio.testutil.TypicalPersons.AMY_APPT;
+import static seedu.clinicio.testutil.TypicalPersons.AMY_AS_PATIENT;
+import static seedu.clinicio.testutil.TypicalPersons.BENSON_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.CARL_APPT;
 import static seedu.clinicio.testutil.TypicalPersons.getTypicalClinicIo;
 
@@ -28,6 +30,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
+import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.person.exceptions.DuplicatePersonException;
 import seedu.clinicio.model.staff.Staff;
@@ -69,10 +74,10 @@ public class ClinicIoTest {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
+        List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, AMY_APPT);
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
-                new ArrayList<>());
+                new ArrayList<>(), new ArrayList<>());
 
         thrown.expect(DuplicatePersonException.class);
         clinicIo.resetData(newData);
@@ -82,13 +87,40 @@ public class ClinicIoTest {
     @Test
     public void resetData_withDuplicateStaffs_throwsDuplicateStaffException() {
         // Two staff with the same identity fields
-        List<Appointment> newAppointments = new ArrayList<Appointment>(); //TODO
+        List<Appointment> newAppointments = Arrays.asList(BENSON_APPT, AMY_APPT);
         Staff editedAdam = new StaffBuilder(ADAM).withName(VALID_NAME_ADAM).build();
+        List<Person> newPersons = Arrays.asList(ALICE);
         List<Staff> newStaffs = Arrays.asList(ADAM, editedAdam);
-        ClinicIoStub newData = new ClinicIoStub(newAppointments, new ArrayList<>(),
-                newStaffs);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons,
+                new ArrayList<>(), newStaffs);
 
         thrown.expect(DuplicateStaffException.class);
+        clinicIo.resetData(newData);
+    }
+
+    //@@author gingivitiss
+    @Test
+    public void resetData_withDuplicateAppointments_throwsDuplicateAppointmentException() {
+        //Two appointments with the same identity fields
+        Appointment editedAmy = new AppointmentBuilder(AMY_APPT).withPatient(AMY_AS_PATIENT).build();
+        List<Appointment> newAppointments = Arrays.asList(AMY_APPT, editedAmy);
+        List<Person> newPersons = Arrays.asList(ALICE);
+        List<Staff> newStaffs = Arrays.asList(ADAM);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs);
+        thrown.expect(DuplicateAppointmentException.class);
+        clinicIo.resetData(newData);
+    }
+
+    @Test
+    public void resetData_withClashingAppointments_throwsClashingAppointmentException() {
+        //Two appointments with clashing slots
+        Appointment clashingAppt = new AppointmentBuilder(CARL_APPT)
+                .withTime(13, 30).build();
+        List<Appointment> newAppointments = Arrays.asList(AMY_APPT, clashingAppt);
+        List<Person> newPersons = Arrays.asList(ALICE);
+        List<Staff> newStaffs = Arrays.asList(ADAM);
+        ClinicIoStub newData = new ClinicIoStub(newAppointments, newPersons, new ArrayList<>(), newStaffs);
+        thrown.expect(AppointmentClashException.class);
         clinicIo.resetData(newData);
     }
 
@@ -123,6 +155,7 @@ public class ClinicIoTest {
         assertFalse(clinicIo.hasStaff(ADAM));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentNotInClinicIo_returnsFalse() {
         assertFalse(clinicIo.hasAppointment(AMY_APPT));
@@ -141,6 +174,7 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasStaff(ADAM));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentInClinicIo_returnsTrue() {
         clinicIo.addAppointment(AMY_APPT);
@@ -163,6 +197,7 @@ public class ClinicIoTest {
         assertTrue(clinicIo.hasStaff(editedAdam));
     }
 
+    //@@author gingivitiss
     @Test
     public void hasAppointment_appointmentWithSameIdentityFieldsInAddressBook_returnsTrue() {
         clinicIo.addAppointment(AMY_APPT);
@@ -222,14 +257,15 @@ public class ClinicIoTest {
      */
     private static class ClinicIoStub implements ReadOnlyClinicIo {
         private final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        private final ObservableList<Patient> patients = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Staff> staffs = FXCollections.observableArrayList();
 
         ClinicIoStub(Collection<Appointment> appointments, Collection<Person> persons,
-                Collection<Staff> staffs) {
+                Collection<Patient> patients, Collection<Staff> staffs) {
             this.appointments.setAll(appointments);
             this.persons.setAll(persons);
-            //@@author jjlee050
+            this.patients.setAll(patients);
             this.staffs.setAll(staffs);
         }
 
@@ -238,7 +274,11 @@ public class ClinicIoTest {
             return persons;
         }
 
-        //@@author jjlee050
+        @Override
+        public ObservableList<Patient> getPatientList() {
+            return patients;
+        }
+
         @Override
         public ObservableList<Staff> getStaffList() {
             return staffs;

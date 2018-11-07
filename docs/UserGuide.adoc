@@ -55,9 +55,62 @@ _Figure 1 Startup Window_
 Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
+// tag::ui-walkthrough[]
 == User Interface Walkthrough
 
-This section is designed to help you familiarise with all of the user componenet in ClinicIO.
+This section is designed to help you familiarise with all of the user component in ClinicIO.
+
+Here is an example of how ClinicIO looks like:
+
+image::user-guide-ui-walkthrough-overview.png[width="900"]
+
+It consists of 8 parts: <<#Menu Bar, Menu Bar>>, <<#Command Box, Command Box>>,
+<<#Result Display, Result Display>>, <<#List Panel, List Panel>>,
+<<#Card, Card>>, <<#Display Panel, Display Panel>>
+<<#Sync Status Bar, Sync Status Bar>>, <<#User Session Status Bar, User Session Status Bar>>,
+each of the sections is explained as below.
+
+=== Menu Bar
+
+The *Menu Bar* provide you quick access to functions as below.
+
+Here are the available options currently: +
+
+* File: Provide access to file functions.
+** Exit: Exit the program.
+* Help: Show ClinicIO tutorial.
+
+You can also press F1 to show ClinicIO tutorial.
+
+=== Command Box
+
+The *Command Box* allow you to enter command input. +
+
+=== Result Display
+
+The *Result Display* provides you information with regards to the result of the command. +
+
+=== List Panel
+
+The *List Panel* displays a list of objects. +
+
+=== Card
+
+The *Card* displays the object with minimal information. +
+
+=== Display Panel
+
+The *Display Panel* displays the object in detail. +
+
+=== Sync Status Bar
+
+The *Sync Status Bar* displays the last updated date and time of any changes to the data. +
+
+=== User Session Status Bar
+
+The *User Session Status Bar* displays the current user session. +
+
+// end::ui-walkthrough[]
 
 == Features
 
@@ -86,7 +139,7 @@ image::user-guide-help-window-after.png[width="500"]
 
 ==== Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+You can view all the commands that you have entered in reverse chronological order. +
 Format: `history`
 
 [NOTE]
@@ -96,13 +149,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from the clinic record. +
+You can clears all entries from the clinic record. +
 Format: `clear`
 
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
-Restores the clinic record to the state before the previous _undoable_ command was executed. +
+You can restores ClinicIO to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -128,7 +181,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 ==== Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+You can reverses the most recent `undo` command. +
 Format: `redo`
 
 Examples:
@@ -151,28 +204,45 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 ==== Exiting the program : `exit`
 
-Exits the program. +
+You can exit ClinicIO. +
 Format: `exit`
 
 // tag::authenticationcommands[]
-=== User Authentication Commands
+=== User Authentication
+
+ClinicIO's User Authentication ensure that clinic staff are provided with correct
+access rights.
+
+Here are the list of commands:
 
 ==== Login : `login`
 
-Log in to ClinicIO. +
+You can login to ClinicIO. +
 Format: `login r/ROLE n/NAME pass/PASSWORD` +
+
+[WARNING]
+Do not use this feature if you are already logged in. +
 
 ****
 * Roles available to login: Doctor and Receptionist
 * The roles are in lowercase.
-* Password will be censored when you entered.
+* Password will be censored except the last character when you entered.
 * Password can only be 6 to 12 characters long.
 ****
 
+Prior to logging in to ClinicIO, the ClinicIO user status will show that you have not logged in yet (Shown as below):
+
+image::user-guide-login-before.png[width="500"]
+
+Once you have login successfully, the ClinicIO user status will be updated as below:
+
+image::user-guide-login-after.png[width="500"]
+
 Examples:
 
-* `login r/doctor n/Adam Bell pass/-------` +
-* `login r/receptionist n/Mary Jane pass/-------` +
+* `login r/doctor n/Adam Bell pass/doctor1` +
+
+* `login r/receptionist n/Mary Jane pass/reception3` +
 
 ==== Log out of the program : `logout` `[coming in v2.0]`
 
@@ -181,21 +251,26 @@ Examples:
 You must login in order to use this feature. +
 // end::loginUser[]
 
-Log out of the program. +
+You can log out of ClinicIO. +
 Format: `logout`
 // end::authenticationcommands[]
 
 // tag::patientcommands[]
-=== Patient Management Commands
+=== Patient Management
+
+ClinicIO provides a centralised patient management system
+to allow you to manage the clinic's patient record more efficiently.
+
+Here are the list of commands:
 
 ==== Adding a patient: `addpatient` `[coming in v2.0]`
 
 // tag::loginReceptionist[]
 [WARNING]
-You must login as an receptionist in order to use this feature. +
+You must login as a receptionist in order to use this feature. +
 // end::loginReceptionist[]
 
-Adds a patient to the clinic record. +
+You can add a patient to the clinic record. +
 Format: `addpatient n/NAME ic/NRIC p/PHONE_NUMBER e/EMAIL a/ADDRESS [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
 
 [TIP]
@@ -211,12 +286,12 @@ Examples:
 
 ==== Listing all patients : `listpatient` `[coming in v2.0]`
 
-Shows a list of all patients in the clinic record. +
+You can view a list of all patients in the clinic record. +
 Format: `listpatient`
 
 ==== Editing a patient : `editpatient` `[coming in v2.0]`
 
-Edits an existing patient in the clinic record. +
+You can edit an existing patient in the clinic record. +
 Format: `editpatient INDEX [n/NAME] [ic/NRIC] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [medProb/MEDICAL_PROBLEMS]... [medList/MEDICATIONS]... [allergies/ALLERGIES]... [preferredDoc/PREFERRED_DOC]`
 
 ****
@@ -239,7 +314,7 @@ Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing t
 
 ==== Locating patients by name: `findpatient` `[coming in v2.0]`
 
-Finds patients whose names contain any of the given keywords. +
+You can find patients whose names contain any of the given keywords. +
 Format: `findpatient KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -259,7 +334,7 @@ Returns any patient having names `Betsy`, `Tim`, or `John`
 
 ==== Deleting a patient : `deletepatient` `[coming in v2.0]`
 
-Deletes the specified patient from the clinic record. +
+You can delete the specified patient from the clinic record. +
 Format: `deletepatient INDEX`
 
 ****
@@ -366,14 +441,14 @@ Displays the following information about patients:
 ****
 Format: `patientstats`
 
-==== Displaying appointment statistics : `appointmentstats`
+==== Displaying appointment statistics : `apptstats`
 
 Displays the following information about appointments:
 ****
 * A summary of the number of scheduled appointments over various time periods.
 * The availability of appointment slots as compared to the number of scheduled appointments.
 ****
-Format: `appointmentstats`
+Format: `apptstats`
 
 ==== Displaying doctor statistics : `doctorstats`
 
@@ -527,10 +602,10 @@ Format: `listappt d/DATE` +
 
 Examples:
 
-* `listappt d/02032017` +
+* `listappt 02 03 2017` +
 Lists all appointments on 2 March 2017. +
 
-* `listappt d/01012000` +
+* `listappt 01 01 2000` +
 Lists all appointments on 1 January 2000.
 
 ==== Cancelling Appointments: `cancelappt` [Coming in v1.4]
@@ -565,7 +640,6 @@ This section is designed to help you answer any issues that are frequently asked
 
 *Q*: How to save data in ClinicIO? +
 *A*: There is no need for you to save manually. ClinicIO will automatically save data to the hard disk after any command that changes the data. +
-
 
 == Command Summary
 

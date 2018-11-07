@@ -9,7 +9,6 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.appointment.exceptions.AppointmentClashException;
 import seedu.clinicio.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException;
@@ -29,17 +28,6 @@ import seedu.clinicio.model.appointment.exceptions.DuplicateAppointmentException
 public class UniqueAppointmentList implements Iterable<Appointment> {
 
     private final ObservableList<Appointment> internalList = FXCollections.observableArrayList();
-    private final Analytics analytics;
-
-    /**
-     * Initializes a {@code UniqueAppointmentList} object.
-     * Updates an {@code Analytics} instance.
-     * @@author arsalanc-v2
-     */
-    public UniqueAppointmentList(Analytics analytics) {
-        this.analytics = analytics;
-        updateAppointmentAnalytics();
-    }
 
     /**
      * Returns true if the list contains an equivalent appointment as the given argument.
@@ -70,7 +58,6 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
             throw new AppointmentClashException();
         }
         internalList.add(toAdd);
-        updateAppointmentAnalytics();
     }
 
     /**
@@ -91,7 +78,6 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
             throw new AppointmentClashException();
         }
         internalList.set(index, editedAppt);
-        updateAppointmentAnalytics();
     }
 
     /**
@@ -105,10 +91,9 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         if (index == -1) {
             throw new AppointmentNotFoundException();
         }
-        target.isCancelled();
+        target.cancelAppointment();
         Appointment cancelledAppt = target;
         internalList.set(index, cancelledAppt);
-        updateAppointmentAnalytics();
     }
 
     /**
@@ -120,13 +105,11 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         if (!internalList.remove(toRemove)) {
             throw new AppointmentNotFoundException();
         }
-        updateAppointmentAnalytics();
     }
 
     public void setAppointments(UniqueAppointmentList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
-        updateAppointmentAnalytics();
     }
 
     /**
@@ -138,18 +121,10 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         if (!appointmentsAreUnique(appts)) {
             throw new DuplicateAppointmentException();
         }
+        if (!appointmentsAreNotOverlapping(appts)) {
+            throw new AppointmentClashException();
+        }
         internalList.setAll(appts);
-        updateAppointmentAnalytics();
-    }
-
-    /**
-     * Sends a copy of appointments to {@code Analytics} for extracting data.
-     * @@author arsalanc-v2
-     */
-    private void updateAppointmentAnalytics() {
-        final ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-        appointments.setAll(internalList);
-        analytics.setAppointments(appointments);
     }
 
     /**
@@ -190,4 +165,17 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         return true;
     }
 
+    /**
+     * Returns true if {@code appts} contains only non-overlapping appointments.
+     */
+    private boolean appointmentsAreNotOverlapping(List<Appointment> appts) {
+        for (int i = 0; i < appts.size() - 1; i++) {
+            for (int j = i + 1; j < appts.size(); j++) {
+                if (appts.get(i).isOverlapAppointment(appts.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

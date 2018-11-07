@@ -74,9 +74,10 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
+        boolean isSame = otherPerson != null
                 && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return isSame;
     }
 
     /**
@@ -104,7 +105,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, preferredDoctor, appointment);
+        return Objects.hash(name, phone, email, address, tags);
     }
 
     @Override

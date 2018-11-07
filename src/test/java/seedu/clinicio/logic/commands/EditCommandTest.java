@@ -28,6 +28,7 @@ import seedu.clinicio.model.UserPrefs;
 import seedu.clinicio.model.analytics.Analytics;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.testutil.EditPersonDescriptorBuilder;
+import seedu.clinicio.testutil.PatientBuilder;
 import seedu.clinicio.testutil.PersonBuilder;
 
 /**
@@ -41,7 +42,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Person editedPerson = new PersonBuilder().build();
+        Person editedPerson = new PatientBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -59,7 +60,7 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Person lastPerson = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastPerson);
+        PersonBuilder personInList = PatientBuilder.buildFromPerson(lastPerson);
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
@@ -94,7 +95,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
+        Person editedPerson = PatientBuilder.buildFromPerson(personInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
@@ -167,7 +168,7 @@ public class EditCommandTest {
         expectedModel.commitClinicIo();
 
         // edit -> first person edited
-        editCommand.execute(model, commandHistory, analytics);
+        editCommand.execute(model, commandHistory);
 
         // undo -> reverts ClinicIO back to previous state and filtered person list to show all persons
         expectedModel.undoClinicIo();
@@ -215,7 +216,7 @@ public class EditCommandTest {
         expectedModel.commitClinicIo();
 
         // edit -> edits second person in unfiltered person list / first person in filtered person list
-        editCommand.execute(model, commandHistory, analytics);
+        editCommand.execute(model, commandHistory);
 
         // undo -> reverts ClinicIO back to previous state and filtered person list to show all persons
         expectedModel.undoClinicIo();
