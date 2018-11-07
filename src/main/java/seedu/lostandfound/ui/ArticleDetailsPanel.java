@@ -49,7 +49,7 @@ public class ArticleDetailsPanel extends UiPart<Region> {
      */
     private void loadArticleDetails(Article article) {
         Platform.runLater(() -> {
-            image.setImage(new Image("/images/address_book_32.png"));
+            image.setImage(new Image("/images/default-image.png"));
             articleDetails.setText(article.getName().fullName);
             tags.getChildren().clear();
             article.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
