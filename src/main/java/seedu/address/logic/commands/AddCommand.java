@@ -64,8 +64,8 @@ public class AddCommand extends Command {
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         if (!withinBudget) {
             model.addGeneralNotification(new GeneralNotification("Exceeding Budget!",
-                "Adding this expense has " +
-                "caused your budget to exceed!"));
+                "Adding this expense has "
+                + "caused your budget to exceed!"));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
