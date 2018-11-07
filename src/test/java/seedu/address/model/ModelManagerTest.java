@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalEvents.BENSON;
+import static seedu.address.testutil.TypicalEvents.ELLE;
 import static seedu.address.testutil.TypicalEvents.LECTURE;
 
 import java.nio.file.Paths;
@@ -13,7 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.SchedulerBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -22,31 +23,32 @@ public class ModelManagerTest {
     private ModelManager modelManager = new ModelManager();
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasCalendarEvent_nullCalendarEvent_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasCalendarEvent(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    public void hasCalendarEvent_calendarEventNotInScheduler_returnsFalse() {
         assertFalse(modelManager.hasCalendarEvent(LECTURE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    public void hasCalendarEvent_calendarEventInScheduler_returnsTrue() {
         modelManager.addCalendarEvent(LECTURE);
         assertTrue(modelManager.hasCalendarEvent(LECTURE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredCalendarEventList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredCalendarEventList().remove(0);
     }
 
     @Test
     public void equals() {
-        Scheduler scheduler = new AddressBookBuilder().withPerson(LECTURE).withPerson(BENSON).build();
+        Scheduler scheduler =
+            new SchedulerBuilder().withCalendarEvent(LECTURE).withCalendarEvent(BENSON).withCalendarEvent(ELLE).build();
         Scheduler differentScheduler = new Scheduler();
         UserPrefs userPrefs = new UserPrefs();
 

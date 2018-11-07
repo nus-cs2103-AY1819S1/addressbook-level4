@@ -27,7 +27,7 @@ import seedu.address.storage.XmlSerializableToDoList;
 public class TaskListPanelTest extends GuiUnitTest {
 
     private static final ObservableList<ToDoListEvent> TYPICAL_TODOLIST_EVENTS =
-            FXCollections.observableList(getTypicalToDoListEvents());
+        FXCollections.observableList(getTypicalToDoListEvents());
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_ELEMENT);
 
@@ -52,9 +52,9 @@ public class TaskListPanelTest extends GuiUnitTest {
     }
 
     // @Test
+
     /**
      * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     *
      */
     public void handleJumpToListRequestEvent() {
         initUi(TYPICAL_TODOLIST_EVENTS);
@@ -62,7 +62,7 @@ public class TaskListPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         ToDoListEventCardHandle expectedEvent =
-                taskListPanelHandle.getToDoListCardHandle(INDEX_SECOND_ELEMENT.getZeroBased());
+            taskListPanelHandle.getToDoListCardHandle(INDEX_SECOND_ELEMENT.getZeroBased());
         ToDoListEventCardHandle selectedEvent = taskListPanelHandle.getHandleToSelectedCard();
         assertCardEqualsToDo(expectedEvent, selectedEvent);
     }
@@ -90,7 +90,7 @@ public class TaskListPanelTest extends GuiUnitTest {
     private ObservableList<ToDoListEvent> createBackingList(int toDoListEventCount) throws Exception {
         Path xmlFile = createXmlFileWithToDoListEvents(toDoListEventCount);
         XmlSerializableToDoList xmlScheduler =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableToDoList.class);
+            XmlUtil.getDataFromFile(xmlFile, XmlSerializableToDoList.class);
         return FXCollections.observableArrayList(xmlScheduler.toModelType().getToDoList());
     }
 
@@ -129,7 +129,7 @@ public class TaskListPanelTest extends GuiUnitTest {
 
 
         taskListPanelHandle = new TaskListPanelHandle(getChildNode(taskListPanel.getRoot(),
-                TaskListPanelHandle.TODOLIST_VIEW_ID));
+            TaskListPanelHandle.TODOLIST_VIEW_ID));
     }
 
 }

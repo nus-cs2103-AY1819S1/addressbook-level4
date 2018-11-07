@@ -70,11 +70,11 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommandToDo_success() {
         ToDoListEvent validToDoListEvent = new ToDoListEventBuilder().withTitle("CS")
-                .withDescription("aaa").withPriority("L").build();
+            .withDescription("aaa").withPriority("L").build();
         String event = " t/CS d/aaa p/L";
         String addToDoCommand = AddToDoCommand.COMMAND_WORD + event;
         assertCommandToDoSuccess(addToDoCommand, String.format(AddToDoCommand.MESSAGE_SUCCESS,
-                validToDoListEvent.toString()), modelToDo);
+            validToDoListEvent.toString()), modelToDo);
         assertHistoryCorrect(addToDoCommand);
     }
 
@@ -194,7 +194,7 @@ public class LogicManagerTest {
      * - {@code expectedModel}'s todolist was saved to the storage file.
      */
     private void assertCommandToDoBehavior(Class<?> expectedException, String inputCommand,
-                                       String expectedMessage, ModelToDo expectedModel) {
+                                           String expectedMessage, ModelToDo expectedModel) {
 
         try {
             CommandResult result = logic.execute(inputCommand);

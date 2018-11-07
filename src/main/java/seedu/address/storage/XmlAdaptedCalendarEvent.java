@@ -132,7 +132,7 @@ public class XmlAdaptedCalendarEvent {
 
         final Set<Tag> modelTags = new HashSet<>(calendarEventTags);
         return new CalendarEvent(modelName, modelDescription,
-                                    new DateTimeInfo(modelStart, modelEnd), modelVenue, modelTags);
+            new DateTimeInfo(modelStart, modelEnd), modelVenue, modelTags);
     }
 
     @Override

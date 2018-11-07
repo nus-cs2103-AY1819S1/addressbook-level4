@@ -33,7 +33,7 @@ public class FindEventCommand extends Command {
     private final TagsPredicate tagsPredicate;
 
     public FindEventCommand(TitleContainsKeywordsPredicate titlePredicate, FuzzySearchComparator fuzzySearchComparator,
-                                TagsPredicate tagsPredicate) {
+                            TagsPredicate tagsPredicate) {
         this.titlePredicate = titlePredicate;
         this.fuzzySearchComparator = fuzzySearchComparator;
         this.tagsPredicate = tagsPredicate;
