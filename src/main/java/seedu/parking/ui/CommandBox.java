@@ -275,8 +275,13 @@ public class CommandBox extends UiPart<Region> {
     @Subscribe
     private void handleToggleTextFieldRequestEvent(ToggleTextFieldRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        commandTextField.setPromptText("");
-        commandTextField.setDisable(!commandTextField.isDisable());
+        if (!commandTextField.isDisable()) {
+            commandTextField.setDisable(true);
+            commandTextField.setPromptText("");
+        } else {
+            commandTextField.setDisable(false);
+            commandTextField.setPromptText("Enter command here...");
+        }
     }
 
     @Subscribe

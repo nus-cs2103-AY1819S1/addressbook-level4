@@ -19,7 +19,7 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@AppTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
@@ -34,29 +34,29 @@
         </MenuBar>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="carparkList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="carparkList" minWidth="320" prefWidth="320" SplitPane.resizableWithParent="false">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="5" right="2" bottom="2" left="2" />
             </padding>
             <StackPane fx:id="carparkListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
           <VBox>
             <StackPane fx:id="browserPlaceholder" prefWidth="340" >
               <padding>
-                <Insets top="10" right="10" bottom="10" />
+                <Insets top="5" right="5" bottom="5" left="5" />
               </padding>
             </StackPane>
 
             <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
                        minHeight="140" prefHeight="140" maxHeight="140">
               <padding>
-                <Insets right="10" />
+                <Insets right="5" bottom="5" left="5" />
               </padding>
             </StackPane>
 
             <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
               <padding>
-                <Insets right="10" />
+                <Insets right="5" bottom="2" left="5" />
               </padding>
             </StackPane>
           </VBox>
