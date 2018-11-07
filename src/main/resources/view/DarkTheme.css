@@ -51,7 +51,6 @@
     -fx-text-fill: #CCCCCC;
 }
 
-
 /* task list styles */
 #taskListHeader {
     -fx-font-family: "Segoe UI";
@@ -84,7 +83,6 @@
     -fx-border-radius: 10;
 }
 
-
 /* calendar styles */
 #monthYearPanelPlaceholder {
     -fx-background-color: #282828;
@@ -115,7 +113,6 @@
     -fx-background-color: #282828;
 }
 
-
 /* dark theme for todolist and search pane items */
 .list-view {
     -fx-background-insets: 0;
@@ -125,7 +122,7 @@
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
+    -fx-graphic-text-gap: 0;
     -fx-padding: 0 0 0 0;
 }
 
@@ -162,7 +159,6 @@
     -fx-text-fill: #010504;
 }
 
-
 /* font for todolist panel */
 .label {
     -fx-font-size: 11pt;
@@ -188,7 +184,6 @@
 #priority {
     -fx-alignment: CENTER;
 }
-
 
 /* command box styles */
 #commandTypeLabel {
@@ -222,7 +217,7 @@
     -fx-background-color: #1B1B1B #1B1B1B;
     -fx-background-radius: 0;
     -fx-border-insets: 0;
-    -fx-border-width: 0 0 0 ;
+    -fx-border-width: 0 0 0;
     -fx-border-color: #1B1B1B #1B1B1B;
 }
 
@@ -238,7 +233,6 @@
     -fx-text-fill: black !important;
 }
 
-
 /* tags styles */
 #tags {
     -fx-hgap: 7;
@@ -253,7 +247,6 @@
     -fx-text-fill: white;
     -fx-font-size: 11;
 }
-
 
 /* alert box */
 .dialog-pane {
@@ -280,7 +273,6 @@
     -fx-fill: white;
     -fx-text-fill: white;
 }
-
 
 /* dark scroll bar for todolist */
 /* todo use this scrollbar style for the calendar too, it looks really nice */
