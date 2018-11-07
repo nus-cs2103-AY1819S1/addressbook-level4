@@ -646,10 +646,10 @@ image::actdiagram-find.png[width="800", align="left"]
 // end::find[]
 
 // tag::filter[]
-
 === Filter feature
 
 The filter feature allow users to find a suitable car park based on criteria that users input, within a certain area.
+
 
 ==== Overview
 The filter mechanism is facilitated by `FilterCommand` and `FilterCommandParser`.
@@ -673,6 +673,7 @@ The `FilterCommand` extends `Command` and implements the following operation:
 * `FilterCommand#execute()` -- Executes the command by filtering the car park list with `CarparkFilteringPredicate`.
 
 The `FilterCommand` is able to filter car parks by multiple criteria at a time.
+
 
 ==== Current Implementation
 
@@ -735,11 +736,13 @@ Please refer to the _Sequence Diagram_ below for the filter operation.
 .How the filter operation works
 image::SequenceDiagram-filter.png[width="700", align="left"]
 
-The following _Activity Diagram_ summarizes the implementation of the
-filter command.
+//The following _Activity Diagram_ summarizes the implementation of the
+//filter command.
+//
+//.Summary for executing a filter command
+//image::ActivityDiagram-filter.png[width="700", align="left"]
 
-.Summary for executing a filter command
-image::ActivityDiagram-filter.png[width="700", align="left"]
+---
 
 ==== Design Considerations
 
@@ -768,11 +771,13 @@ A whole new set of classes and methods needs to be written to store the filtered
 
 The calculate feature helps users calculate the cost of parking at a specific car park for a specified time period.
 
+
 ==== Overview
 
 The calculate mechanism is facilitated by `CalculateCommand` and `CalculateCommandParser`.
 
-==== Example
+
+==== Current Implementation
 
 Given below is an example usage scenario of how the calculate mechanism behaves at each step when
 the user wants to know the cost of parking at car park W49, on a Monday, from 9.00am to 5.30pm.
@@ -789,7 +794,7 @@ Step 4. The `CarparkFinderParser` splits the arguments by white spaces, then cre
 Step 5. `CalculateCommand` creates a `CarparkIsOfNumberPredicate` to find the specified car park, car park W49, from
 the list of car parks.
 
-Step 6. `CalculateCommand` checks if the car park W49 has free parking.
+Step 6. `CalculateCommand` checks if the car park W49 has short-term parking.
 
 Step 7. As some car parks only has short-term parking between certain timings, `CalculateCommand` checks if the parking time input by the user is valid.
 
@@ -797,6 +802,37 @@ Step 8. After which `CalculateCommand` checks of there is free parking on Monday
 is no free parking during that time period, it will calculate the cost of parking by the standard rate of $0.60 per half an hour.
 
 Step 9. The calculated cost is then returned to the GUI as a command result.
+
+The following _Activity Diagram_ summarizes the implementation of the
+calculate command.
+
+.How the calculate operation works
+image::ActivityDiag-calculate.png[width="700", align="left"]
+
+ ---
+
+==== Design Considerations
+
+===== Aspect: How specified car park is identified and obtained from car park list
+
+* **Alternative 1 (Current choice):** Identify car park by car park number. Filter list of car parks by the car park number. Then obtain the car park from filtered list.
++
+[cols="1,10"]
+|===
+|Pros| Command can be executed independently, as long as user knows the car park number of car park.
+Make use of existing filtering methods to obtain car park.
+Since car park number is unique to each car park, there would only be one car park left in filtered list if car park number is valid.
+|Cons| Less efficient as command needs to find the specific car park from all the car parks.
+|===
+
+* **Alternative 2:** Identify the car park by index from last filtered list.
++
+[cols="1,10"]
+|===
+|Pros| Simple to implement, can directly obtain car park by obtaining the last filtered list from `modal` and then using the `get` method on the list.
+|Cons| Command can only work after `FindCommand` or `FilterCommand` is executed.
+|===
+
 // end::calculate[]
 
 //==== Design Considerations

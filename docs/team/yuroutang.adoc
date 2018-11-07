@@ -1,53 +1,86 @@
-= John Doe - Project Portfolio
+= Tang Yurou - Project Portfolio
 :site-section: AboutUs
 :imagesDir: https://raw.githubusercontent.com/CS2103-AY1819S1-T09-4/main/master/docs/images/
-:stylesDir: ../stylesheets
-:stylesheet: default.css
+:stylesheet: ../stylesheets/yurou.css
 
 == PROJECT: Car Park Finder
 
 ---
 
+image::yurou2.jpg[width="150", align="left"]
+
+My name is Tang Yurou, a Year 2 Computer Science student at NUS School of Computing.
+This is the portfolio of the project my team and I worked on for CS2103T
+Software Engineering module. Other than implementing various enhancement
+features, my main responsibilities include ensuring proper documentation
+and ensuring proper integration of command features implemented by different
+teammates. My teammates include Keith Fong, Yeo Zhuan Yu, Xiao Delong and Alvin Ng.
+
 == Overview
 
-The Car Park Finder is an application to find a HDB (Housing Development Board) car
-park that is suited to your needs as easily as possible. The application uses a
-Command Line Interface (CLI), hence you could find the car park you need with the
-convenience of simply typing. If you use the computer frequently and commute by
-driving, this application is for you!
+The project that my team and I worked on is a
+Car Park Finder that helps users find a suitable car park easily.
+Car Park Finder is a desktop application customised for users who
+are more comfortable with typing.
+The application uses the Command Line Interface for all commands, i.e.
+all functions of the application can be used by simply typing!
+
+=== More About Our Application
+
+The `Find` command helps you find a list of car parks within a specific
+location. After which, you can use the `Filter` command
+to narrow down the list of car parks to just those that fit their needs,
+e.g. you can use the `Filter` command to find a car park that
+has both night parking and short-term parking. With our `Query` and `Notify`
+feature, you can always received the most updated car park information!
+
+Moreover, to decide on which car park to choose or whether to even drive,
+you can use the `Calculate` command to calculate the cost of
+parking at a particular car park during
+a specified period of time.
+
+The `Autocomplete` and `Abbreviation` features makes it even easier for
+you to find a car park of your choice by making typing easier.
 
 == Summary of contributions
 
-* *Major enhancement 1*: added the *Filter command*
-** What it does: allow users to filter car parks at a certain location based on six criteria:
+|===
+|_Given below is a summary of my contributions to the project. My main contributions
+ include implementing the `Filter` command and `Calculate` command._
+|===
+
+* *Major enhancement*: added the *Filter command*
+** What it does: allow users to filter car parks listed by `Find` command based on six criteria:
 *** Car park has available parking slots
 *** Car park has short-term parking
 *** Type of car park
 *** Car park has free parking between a specified time period
 *** Car park has night parking
 *** Type of parking system that the car park uses
-** Justification: This feature would be really helpful to users because it
-would be too time consuming for users to scroll through every car park in the
-location to find a suitable car park. The feature helps to narrow down a long
-list of car parks in the location to just those that meets the criteria of the user
+** Justification: The feature helps to narrow down a long
+list of car parks in the location to just those that meets the
+criteria of the user. Helps user to decide on which car park to go to.
 
 ** Highlights:
-*** Filter command needs to integrate with Find command to accomplish location-based
+*** `Filter` command integrates with `Find` command to accomplish location-based
 filtering.
-*** Moreover, the command also needs to work with varying number of flags, i.e.
+*** Moreover, the command can work with varying number of flags, i.e.
 users can choose how many criteria they would like to filter by, and input them in any order.
-Each criteria may also have different input parameters.
-*** If users were to forget what flags there are and what parameters are required
+Each criteria may have different input parameters.
+*** If users were to forget what valid flags there are and which parameters are required
 for each flag, error messages would guide them to execute the commands correctly.
+ +
 
-* *Major enhancement 2*: added the *Calculate command*
-** What it does: Allow users to calculate the cost of parking at a car park.
-** Justification: Users might want to know how much it cost to park their car, and choose between using their car and
+* *Minor enhancement*: added the *Calculate command*
+** What it does: Allow users to calculate the cost of parking at
+a car park when they specify the day and time they are parking.
+** Justification: Users might want to know how much it cost to park their car, or choose between driving and
 other transport options e.g. taking public transport.
+ +
 
-* *Minor enhancement*: Revised the list of command messages to suite the needs of the commands better.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+** Filter command: [https://github.com/CS2103-AY1819S1-T09-4/main/pull/9[#9]][https://github.com/CS2103-AY1819S1-T09-4/main/pull/30[#30]][https://github.com/CS2103-AY1819S1-T09-4/main/pull/80[#80]][https://github.com/CS2103-AY1819S1-T09-4/main/pull/90[#90]]
+** Calculate command: [https://github.com/CS2103-AY1819S1-T09-4/main/pull/90[#90]]
 
 * *Other contributions*:
 
@@ -55,13 +88,14 @@ other transport options e.g. taking public transport.
 *** Ensure consistency in format and clear language use in Developer Guide and User Guide: https://github.com/CS2103-AY1819S1-T09-4/main/pull/68[#68] https://github.com/CS2103-AY1819S1-T09-4/main/pull/90[#90]
 *** Updated contents of the User Guide and Developer Guide with new features: https://github.com/CS2103-AY1819S1-T09-4/main/pull/9[#9] https://github.com/CS2103-AY1819S1-T09-4/main/pull/11[#11] https://github.com/CS2103-AY1819S1-T09-4/main/pull/38[#38]
 ** Community:
-*** Check on the integration of the various commands of the project.
+*** Ensure that the various commands of the project are able to integrate properly.
+
+
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_My main contributions to the User Guide are in the sections documenting the `Filter` and `Calculate` commands. They showcase my ability to write clear and concise documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=filterug]
@@ -71,15 +105,11 @@ include::../UserGuide.adoc[tag=calculateug]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=filter]
 
 include::../DeveloperGuide.adoc[tag=calculate]
 
-== PROJECT: PowerPointLabs
-
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
