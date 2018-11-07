@@ -114,8 +114,14 @@ public class EditCommand extends Command {
                 getUpdatedGrades(personToEdit, editPersonDescriptor.getGrades().orElse(null));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail,
+        Person editedPerson = new Person(updatedName, updatedPhone, updatedEmail,
                 updatedAddress, updatedEducation, updatedGrades, updatedTags);
+
+        if (editedPerson.hasGraduated()) {
+            editedPerson.removeGraduatedTag();
+        }
+
+        return editedPerson;
     }
 
     private static HashMap<String, Grades> getUpdatedGrades(

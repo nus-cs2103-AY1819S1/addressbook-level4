@@ -48,6 +48,19 @@ public class Person {
         this.timeSlots = new ArrayList<>();
     }
 
+    public Person(Person otherPerson) {
+        this.name = otherPerson.name;
+        this.phone = otherPerson.phone;
+        this.email = otherPerson.email;
+        this.address = otherPerson.address;
+        this.education = otherPerson.education;
+        this.grades = otherPerson.grades;
+        this.tags.addAll(otherPerson.tags);
+        this.tuitionFee = otherPerson.tuitionFee;
+        this.timeSlots = new ArrayList<>(otherPerson.getTime());
+    }
+
+
     public Name getName() {
         return name;
     }
@@ -81,18 +94,6 @@ public class Person {
     }
 
     /**
-     * Returns an array list containing days in which students
-     * have tuition lessons
-     */
-    public ArrayList<Time.Day> getDays() {
-        ArrayList<Time.Day> daysWithTuition = new ArrayList<>();
-        for (Time time : timeSlots) {
-            daysWithTuition.add(time.getDay());
-        }
-        return daysWithTuition;
-    }
-
-    /**
      * Adds a time slot to a Person's time array list
      */
     public void addTime(Time time) {
@@ -104,6 +105,28 @@ public class Person {
      */
     public void deleteTime(Time time) {
         timeSlots.remove(time);
+    }
+
+    /**
+     * Adds a new tag to Person's tags
+     */
+    public boolean addTag(Tag tag) {
+        return tags.add(tag);
+    }
+
+    /**
+     * Returns true if Person contains a "Graduated" Tag which indicates that student
+     * has graduated from his/her educational Level.
+     */
+    public boolean hasGraduated() {
+        return tags.contains(new Tag("Graduated"));
+    }
+
+    /**
+     * Removes the "Graduated" Tag from the student.
+     */
+    public boolean removeGraduatedTag() {
+        return tags.remove(new Tag("Graduated"));
     }
 
     /**

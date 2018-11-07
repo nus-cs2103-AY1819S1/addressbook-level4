@@ -27,8 +27,8 @@ public class Education {
         Primary, Secondary, JC
     }
 
-    private EducationalLevel educationalLevel;
-    private int educationalGrade;
+    private final EducationalLevel educationalLevel;
+    private final int educationalGrade;
 
     /**
      * Constructs an {@code Education}.
@@ -38,7 +38,8 @@ public class Education {
     public Education(String education) {
         requireNonNull(education);
         checkArgument(isValidEducation(education), MESSAGE_EDUCATION_CONSTRAINTS);
-        setEducationalLevelAndGrade(education);
+        educationalLevel = setEducationalLevel(education);
+        educationalGrade = setEducationalGrade(education);
     }
 
     /**
@@ -56,25 +57,45 @@ public class Education {
     }
 
     /**
-     * Sets the Educational Level and Grade based on user input.
+     * Returns a string of the promoted educational grade.
+     * Returns the unchanged educational level and grade if the current education is a Final year.
      */
-    public void setEducationalLevelAndGrade(String education) {
-        String[] splittedEducation = education.split("\\s+");
-        educationalGrade = Integer.valueOf(splittedEducation[1]);
-
-        switch (splittedEducation[0]) {
-        case "Primary":
-            educationalLevel = EducationalLevel.Primary;
-            break;
-        case "Secondary":
-            educationalLevel = EducationalLevel.Secondary;
-            break;
-
-        case "jc":
-        default:
-            educationalLevel = EducationalLevel.JC;
-            break;
+    public String getPromotedEducation() {
+        if (isGraduatingYear(this)) {
+            return toString();
         }
+
+        return educationalLevel.name() + " " + (educationalGrade + 1);
+    }
+
+    /*
+     * Returns true if a student who has graduated and is promoted to the first year of the next
+     * educational level.
+
+    public boolean isPromotedToNextLevel() {
+        return equals(new Education("Secondary 1")) || equals(new Education("Secondary 4"))
+                || equals(new Education("Secondary 5")) || equals(new Education("JC 1"));
+    }*/
+
+    /**
+     * Initializes educationalLevel based on user input
+     */
+    public EducationalLevel setEducationalLevel(String education) {
+        switch (education.split("\\s+")[0]) {
+        case "Primary":
+            return EducationalLevel.Primary;
+        case "Secondary":
+            return EducationalLevel.Secondary;
+        default:
+            return EducationalLevel.JC;
+        }
+    }
+
+    /**
+     * Initializes educationalGrade based on user input
+     */
+    public int setEducationalGrade(String education) {
+        return Integer.parseInt(education.split("\\s+")[1]);
     }
 
     /**
@@ -99,13 +120,19 @@ public class Education {
         }
     }
 
+    /**
+     * Returns a boolean value to indicate if an education object consist of a education
+     * grade which is in the graduating academic year.
+     */
+    public boolean isGraduatingYear(Education education) {
+        return education.toString().equals("JC 2") || education.toString().equals("Primary 6")
+                || education.toString().equals("Secondary 4") || education.toString().equals("Secondary 5");
+    }
 
     @Override
     public String toString() {
         return educationalLevel.toString() + " " + educationalGrade;
     }
-
-
 
     @Override
     public boolean equals(Object other) {

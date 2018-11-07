@@ -7,8 +7,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import javafx.collections.ObservableList;
+import java.util.List;
 
 import javafx.util.Pair;
 import seedu.address.logic.CommandHistory;
@@ -144,7 +143,7 @@ public class EarningsCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        ObservableList<Person> persons = model.getAddressBook().getPersonList();
+        List<Person> persons = model.getInternalList();
         ArrayList<Pair<Fees, Time>> timeslotOfAllStudents = new ArrayList<>();
 
         for (Person p : persons) {
