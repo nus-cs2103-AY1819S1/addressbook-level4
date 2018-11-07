@@ -38,7 +38,7 @@ This portfolio seeks to document my contributions to our team’s project, Picon
 *** Updated the icon and name of application
 *** Wrote additional test for existing features
 
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]][https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=benedictcss[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=benedictcss[Project Code Dashboard]]
 
 * *Other contributions*:
 ** Project Management:
