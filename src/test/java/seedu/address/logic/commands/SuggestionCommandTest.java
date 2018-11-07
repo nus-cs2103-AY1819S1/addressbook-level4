@@ -3,9 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import java.util.ArrayList;
 
 import org.junit.Test;
+
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+
 
 public class SuggestionCommandTest {
 
