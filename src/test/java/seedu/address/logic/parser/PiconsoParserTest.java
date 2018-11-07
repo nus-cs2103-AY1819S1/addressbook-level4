@@ -57,11 +57,15 @@ public class PiconsoParserTest {
         assertEquals(new SelectCommand(INDEX_FIRST_IMAGE), command);
     }
 
+    //@@author benedictcss
     @Test
     public void parseCommand_cd() throws Exception {
-        CdCommand command = (CdCommand) parser.parseCommand(
-                CdCommand.COMMAND_WORD + " Desktop");
+        CdCommand command = (CdCommand) parser.parseCommand(CdCommand.COMMAND_WORD + " Desktop");
         assertEquals(new CdCommand(Paths.get("Desktop")), command);
+
+        // Throws parse exception when field is Empty
+        assertThrows(ParseException.class, ()->parser.parseCommand(
+                CdCommand.COMMAND_WORD + " "));
     }
 
     @Test
@@ -75,6 +79,7 @@ public class PiconsoParserTest {
         assertTrue(parser.parseCommand(PrevCommand.COMMAND_WORD) instanceof PrevCommand);
         assertTrue(parser.parseCommand(PrevCommand.COMMAND_WORD + " 4") instanceof PrevCommand);
     }
+    //@@author
 
     @Test
     public void parseCommand_lsCommandWord_returnsLsCommand() throws Exception {

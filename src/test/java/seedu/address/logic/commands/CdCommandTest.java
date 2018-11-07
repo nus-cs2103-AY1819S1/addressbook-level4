@@ -6,12 +6,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.ModelGenerator.getDefaultModel;
+import static seedu.address.testutil.ModelGenerator.getModelWithTestImgDirectory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import seedu.address.MainApp;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -21,12 +23,12 @@ import seedu.address.model.Model;
  */
 public class CdCommandTest {
 
-    private Model model = getDefaultModel();
-    private Model expectedModel = getDefaultModel();
+    private Model model = getModelWithTestImgDirectory();
+    private Model expectedModel = getModelWithTestImgDirectory();
     private CommandHistory commandHistory = new CommandHistory();
 
     private Path currPath = Paths.get(".");
-    private Path nextPath = Paths.get("Desktop");
+    private Path nextPath = Paths.get("testimgs10");
     private Path backPath = Paths.get("..");
 
     private String os = System.getProperty("os.name").toLowerCase();
@@ -37,7 +39,7 @@ public class CdCommandTest {
         CdCommand nextDirectory = new CdCommand(nextPath);
         CdCommand prevDirectory = new CdCommand(backPath);
 
-        String homeDirectory = System.getProperty("user.home");
+        String homeDirectory = MainApp.MAIN_PATH + "/src/test/resources/testimgs";
         String currDir = homeDirectory + "/" + currDirectory.getPath().toString();
         String nextDir = homeDirectory + "/" + nextDirectory.getPath().toString();
         String prevDir = homeDirectory + "/" + prevDirectory.getPath().toString();
@@ -46,26 +48,24 @@ public class CdCommandTest {
         assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
         assert_cdToDirectory_success(currDirectory);
 
-        // change to Desktop
-        if (os.contains("win") || os.contains(("mac"))) {
-            expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("Desktop").normalize());
-            assert_cdToDirectory_success(nextDirectory);
-            assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
+        // change to testimgs10
+        expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("testimgs10").normalize());
+        assert_cdToDirectory_success(nextDirectory);
+        assertTrue(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
-            // change to previous directory
-            expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
-            assert_cdToDirectory_success(prevDirectory);
-            assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
+        // change to previous directory
+        expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
+        assert_cdToDirectory_success(prevDirectory);
+        assertTrue(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
 
-            // change to previous directory
-            expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
-            assert_cdToDirectory_success(prevDirectory);
-            assertTrue(Paths.get(prevDir).normalize().equals(model.getCurrDirectory()));
+        // change to previous directory
+        expectedModel.updateCurrDirectory(expectedModel.getCurrDirectory().resolve("..").normalize());
+        assert_cdToDirectory_success(prevDirectory);
+        assertTrue(Paths.get(prevDir).normalize().equals(model.getCurrDirectory()));
 
-            // different paths -> returns false
-            assertFalse(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
-            assertFalse(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
-        }
+        // different paths -> returns false
+        assertFalse(Paths.get(currDir).normalize().equals(model.getCurrDirectory()));
+        assertFalse(Paths.get(nextDir).normalize().equals(model.getCurrDirectory()));
 
         // different object -> returns false
         assertFalse(currDirectory.equals(nextDirectory));
@@ -73,6 +73,9 @@ public class CdCommandTest {
 
     @Test
     public void execute_cdToDirectory_failure() {
+        model = getDefaultModel();
+        expectedModel = getDefaultModel();
+
         // access a non existent directory in current directory
         String expectedMessage = CdCommand.MESSAGE_FAILURE;
         Path directory = Paths.get("testFolder");
@@ -81,8 +84,6 @@ public class CdCommandTest {
         assertEquals(Paths.get(System.getProperty("user.home")), model.getCurrDirectory());
 
         // access a non existent directory from drive
-
-
         if (os.contains("win")) {
             // cd commands to change to non existent directory in drive on windows
             Path absWinPath = Paths.get("C://12345");
@@ -95,9 +96,18 @@ public class CdCommandTest {
         if (os.contains("mac")) {
             // cd commands to change to non existent directory in drive on mac
             Path absMacPath = Paths.get("/Volume/12345");
-            CdCommand winCommand = new CdCommand(absMacPath);
+            CdCommand macCommand = new CdCommand(absMacPath);
 
-            assertCommandSuccess(winCommand, model, commandHistory, expectedMessage, expectedModel);
+            assertCommandSuccess(macCommand, model, commandHistory, expectedMessage, expectedModel);
+            assertEquals(Paths.get(System.getProperty("user.home")), model.getCurrDirectory());
+        }
+
+        if (os.contains("nux") || os.contains("ubuntu")) {
+            // cd commands to change to non existent directory in drive on mac
+            Path absUbuPath = Paths.get("/home/12345");
+            CdCommand ubuCommand = new CdCommand(absUbuPath);
+
+            assertCommandSuccess(ubuCommand, model, commandHistory, expectedMessage, expectedModel);
             assertEquals(Paths.get(System.getProperty("user.home")), model.getCurrDirectory());
         }
     }
@@ -119,6 +129,15 @@ public class CdCommandTest {
             expectedModel.updateCurrDirectory(absMacPath);
 
             CdCommand command = new CdCommand(absMacPath);
+            assert_cdToDirectory_success(command);
+        }
+
+        if (os.contains("nux") || os.contains("ubuntu")) {
+            // cd commands to change drive on mac
+            Path absUbuPath = Paths.get("/home");
+            expectedModel.updateCurrDirectory(absUbuPath);
+
+            CdCommand command = new CdCommand(absUbuPath);
             assert_cdToDirectory_success(command);
         }
     }
