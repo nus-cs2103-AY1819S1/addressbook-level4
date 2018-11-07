@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-
 import seedu.address.model.todolist.ToDoListEvent;
 
 /**
@@ -43,6 +42,6 @@ public class ToDoListEventCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(ToDoListEvent toDoListEvent) {
         return getTitle().equals(toDoListEvent.getTitle().value)
-                && getPriority().equals(toDoListEvent.getPriority().value);
+            && getPriority().equals(toDoListEvent.getPriority().value);
     }
 }

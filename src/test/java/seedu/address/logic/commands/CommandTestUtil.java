@@ -84,7 +84,7 @@ public class CommandTestUtil {
             .withTags(VALID_TAG_FRIEND).build();
         DESC_TUTORIAL = new EditCalendarEventDescriptorBuilder().withTitle(VALID_TITLE_TUTORIAL)
             .withDescription(VALID_DESCRIPTION_TUTORIAL).withStart(VALID_START_DATETIME_TUTORIAL)
-                .withEnd(VALID_END_DATETIME_TUTORIAL).withVenue(VALID_VENUE_TUTORIAL)
+            .withEnd(VALID_END_DATETIME_TUTORIAL).withVenue(VALID_VENUE_TUTORIAL)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
@@ -185,13 +185,13 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the calendar event at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showCalendarEventAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCalendarEventList().size());
 
         CalendarEvent calendarEvent = model.getFilteredCalendarEventList().get(targetIndex.getZeroBased());
         final String[] splitTitle = calendarEvent.getTitle().value.split("\\s+");
-        model.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(splitTitle[0])));
-
+        model.updateFilteredCalendarEventList(new FuzzySearchFilterPredicate(Arrays.asList(splitTitle[1])));
+        // fuzzy search may cause the size to be more than 1, e.g. CS2103 and CS2104 are similar words
         assertEquals(1, model.getFilteredCalendarEventList().size());
     }
 

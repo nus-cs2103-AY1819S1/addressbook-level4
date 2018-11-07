@@ -75,7 +75,7 @@ public class StringUtil {
      * Checks if {@code collection} of strings contains {@code string}
      *
      * @param collection collection to be checked
-     * @param string that is being searched for
+     * @param string     that is being searched for
      * @return whether words are similar within the tolerance
      */
     public static boolean containsIgnoreCase(Collection<String> collection, String string) {
@@ -98,8 +98,8 @@ public class StringUtil {
      * Checks if {@code sentence} contains {@code word}, or words similar to {@code word}
      *
      * @param tolerance higher tolerance means only very similar words will match, value between 0 to 100
-     * @param sentence sentence to be checked
-     * @param word that is being searched for, does not need to be single word
+     * @param sentence  sentence to be checked
+     * @param word      that is being searched for, does not need to be single word
      * @return whether words are similar within the tolerance
      */
     public static boolean containsWordFuzzy(String sentence, String word, int tolerance) {
@@ -114,7 +114,7 @@ public class StringUtil {
      * Closer match would return a higher integer
      *
      * @param sentence sentence to be checked
-     * @param word that is being searched for, does not need to be single word
+     * @param word     that is being searched for, does not need to be single word
      * @return int between 0 and 100
      */
     public static int fuzzyMatchScore(String sentence, String word) {
@@ -128,7 +128,7 @@ public class StringUtil {
         String preppedSentence = sentence.toLowerCase();
 
         int score = Integer.max(computePartialRatio(preppedSentence, preppedWord),
-                                    computeTokenSetRatio(preppedSentence, preppedWord));
+            computeTokenSetRatio(preppedSentence, preppedWord));
 
         return score;
     }

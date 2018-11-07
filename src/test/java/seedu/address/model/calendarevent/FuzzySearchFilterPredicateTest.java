@@ -69,9 +69,9 @@ public class FuzzySearchFilterPredicateTest {
         predicate = new FuzzySearchFilterPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new CalendarEventBuilder().withTitle("Alice Bob").build()));
 
-        // Keywords match phone, email and address, but does not match name
+        // Keywords do not match title, venue or description
         predicate = new FuzzySearchFilterPredicate(Arrays.asList("12345", "boba@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new CalendarEventBuilder().withTitle("Alice").withDescription("12345")
-            .withVenue("Main Street").build()));
+        assertFalse(predicate.test(new CalendarEventBuilder().withTitle("Lecture").withDescription("Daydream")
+            .withVenue("LT19").build()));
     }
 }

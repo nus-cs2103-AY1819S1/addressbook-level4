@@ -46,7 +46,6 @@ import seedu.address.testutil.ToDoListEventUtil;
 public class SchedulerParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     private final SchedulerParser parser = new SchedulerParser();
 
     @Test
@@ -90,8 +89,8 @@ public class SchedulerParserTest {
         FindEventCommand command = (FindEventCommand) parser.parseCommand(
             FindEventCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindEventCommand(new FuzzySearchFilterPredicate(keywords),
-                    new FuzzySearchComparator(keywords), new DatePredicate(null, null),
-                    new TagsPredicate(new ArrayList<>())), command);
+            new FuzzySearchComparator(keywords), new DatePredicate(null, null),
+            new TagsPredicate(new ArrayList<>())), command);
     }
 
     @Test
@@ -156,14 +155,14 @@ public class SchedulerParserTest {
     public void parseCommand_addToDo() throws Exception {
         ToDoListEvent toDoListEvent = new ToDoListEventBuilder().build();
         AddToDoCommand commandToDo = (AddToDoCommand) parser
-                .parseCommand(ToDoListEventUtil.getAddToDoCommand(toDoListEvent));
+            .parseCommand(ToDoListEventUtil.getAddToDoCommand(toDoListEvent));
         assertEquals(new AddToDoCommand(toDoListEvent), commandToDo);
     }
 
     @Test
     public void parseCommand_deleteToDo() throws Exception {
         DeleteToDoCommand commandToDo = (DeleteToDoCommand) parser.parseCommand(
-                DeleteToDoCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
+            DeleteToDoCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
         assertEquals(new DeleteToDoCommand(INDEX_FIRST_ELEMENT), commandToDo);
     }
 }

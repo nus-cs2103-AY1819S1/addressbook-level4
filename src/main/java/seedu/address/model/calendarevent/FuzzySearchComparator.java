@@ -30,12 +30,11 @@ public class FuzzySearchComparator implements Comparator<CalendarEvent> {
      */
     public int maxFuzzyMatchScore(CalendarEvent calendarEvent) {
         return keywords.stream()
-                .mapToInt(keyword -> Math.max(Math.max(
-                                                StringUtil.fuzzyMatchScore(calendarEvent.getTitle().value, keyword),
-                                                StringUtil.fuzzyMatchScore(calendarEvent.getDescription(), keyword)),
-                                                StringUtil.fuzzyMatchScore(calendarEvent.getVenue().value, keyword)))
-                .max()
-                .orElse(0);
+            .mapToInt(keyword -> Math.max(Math.max(StringUtil.fuzzyMatchScore(calendarEvent.getTitle().value, keyword),
+                    StringUtil.fuzzyMatchScore(calendarEvent.getDescription(), keyword)),
+                    StringUtil.fuzzyMatchScore(calendarEvent.getVenue().value, keyword)))
+            .max()
+            .orElse(0);
     }
 
     @Override

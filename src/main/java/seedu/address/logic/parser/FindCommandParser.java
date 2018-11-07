@@ -55,9 +55,9 @@ public class FindCommandParser implements Parser<FindEventCommand> {
         }
 
         return new FindEventCommand(new FuzzySearchFilterPredicate(Arrays.asList(nameKeywords)),
-                                    new FuzzySearchComparator(Arrays.asList(nameKeywords)),
-                                    new DatePredicate(dateFrom, dateTo),
-                                    new TagsPredicate(tagList));
+            new FuzzySearchComparator(Arrays.asList(nameKeywords)),
+            new DatePredicate(dateFrom, dateTo),
+            new TagsPredicate(tagList));
     }
 
 }

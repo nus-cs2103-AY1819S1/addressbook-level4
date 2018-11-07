@@ -88,12 +88,13 @@ public class FindEventCommandTest {
     @Test
     public void execute_multipleKeywords_multipleCalendarEventsFound() {
         String expectedMessage = String.format(MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW, 3);
-        FuzzySearchFilterPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        FuzzySearchComparator comparator = prepareComparator("Kurz Elle Kunz");
+        FuzzySearchFilterPredicate predicate = preparePredicate("Lab Practice Fair");
+        FuzzySearchComparator comparator = prepareComparator("Lab Practice Fair");
         DatePredicate datePredicate = prepareDatePredicate(" ", " ");
         TagsPredicate tagsPredicate = prepareTagsPredicate("");
         FindEventCommand command = new FindEventCommand(predicate, comparator, datePredicate, tagsPredicate);
         expectedModel.updateFilteredCalendarEventList(predicate);
+        expectedModel.sortFilteredCalendarEventList(comparator); // added because FindEventCommand sorts as well
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredCalendarEventList());
     }
