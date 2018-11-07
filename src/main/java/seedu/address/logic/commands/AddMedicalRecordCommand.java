@@ -80,8 +80,8 @@ public class AddMedicalRecordCommand extends Command {
             model.commitAddressBook();
 
             EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(editedPatient));
-
             EventsCenter.getInstance().post(new ShowPatientListEvent());
+
         } catch (DifferentBloodTypeException dbte) {
             throw new CommandException(Messages.MESSAGE_DIFFERENT_BLOOD_TYPE);
         }

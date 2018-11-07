@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowPatientListEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -35,6 +37,7 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(predicate);
 
         EventsCenter.getInstance().post(new ShowPatientListEvent());
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(Index.fromOneBased(1)));
 
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
