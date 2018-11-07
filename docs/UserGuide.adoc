@@ -453,8 +453,42 @@ if you need to change the score of a exam, you can use edit as well.
 
 === Promote students stored in TutorPal : `promote`
 
-Changes the student's educational grade +
-Format: `promote ACTION [parameters]`
+Promotes educational grade of the selected student(s) +
+Format: `promote [INDEX]...`
+
+* Promotes the educational grade of the students specified by their index.
+* There can be more than one INDEX provided.
+
+[NOTE]
+====
+Multiple indexes should be separated by a space.
+====
+
+Format: `promote all`
+
+* Promotes all students stored in TutorPal, including those who are not
+displayed on the panel.
+
+Examples
+
+* `promote 1 2 4 12` +
+Promotes the first, second, fourth and twelfth student.
+* `promote all` +
+Promotes all students in TutorPal.
+
+
+****
+* The promote function does not promote students across educational levels +
+i.e. from Primary to Secondary. For such changes, see command: edit.
+* For students advancing to Secondary 5, use command: edit.
+* For students in their final year (Primary 6, Secondary 4/5, JC 2), +
+the promote function automatically adds a tag "Graduated" to indicate that
+the student has graduated.
+* The "Graduated" tag is automatically removed when command: edit is used to +
+edit the student's educational level and/or grade.
+* Users can choose to delete graduated students or edit their educational level/grade +
+according to their needs.
+****
 
 === Analyzing grades commands `[coming in v2.0]`
 
