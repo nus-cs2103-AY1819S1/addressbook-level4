@@ -126,7 +126,7 @@ public class CalendarDisplay extends UiPart<Region> {
                     if (c.wasAdded()) {
                         for (CalendarEvent addedEvent : c.getAddedSubList()) {
                             addedEvent.setAppointmentGroup(appointmentGroup);
-                            agenda.appointments().add(addedEvent);
+                            agenda.appointments().add(c.getFrom(), addedEvent);
                         }
                     }
                 }

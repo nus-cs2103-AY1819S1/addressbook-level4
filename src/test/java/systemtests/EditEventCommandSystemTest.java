@@ -30,6 +30,7 @@ import static seedu.address.testutil.TypicalEvents.TUTORIAL;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ELEMENT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ELEMENT;
 
+import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditEventCommand;
@@ -46,7 +47,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
-    // @Test
+    @Test
     /**
      * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
      * TODO remember to import org.JUnit.Test
@@ -235,8 +236,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditEventCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the calendarevent at index {@code toEdit}
-     * being
-     * updated to values specified {@code editedCalendarEvent}.<br>
+     * being updated to values specified {@code editedCalendarEvent}.<br>
      *
      * @param toEdit the index of the current model's filtered list.
      * @see EditEventCommandSystemTest#assertCommandSuccess(String, Model, String, Index)

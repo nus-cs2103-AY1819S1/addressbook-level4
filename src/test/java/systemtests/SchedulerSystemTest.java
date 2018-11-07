@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
+import guitests.guihandles.CalendarDisplayHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -96,6 +97,10 @@ public abstract class SchedulerSystemTest {
         return mainWindowHandle.getCalendarPanel();
     }
 
+    public CalendarDisplayHandle getCalendarDisplay() {
+        return mainWindowHandle.getCalendarDisplay();
+    }
+
     public ResultDisplayHandle getResultDisplay() {
         return mainWindowHandle.getResultDisplay();
     }
@@ -115,7 +120,7 @@ public abstract class SchedulerSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all CalendarEvents in the scheduler.
      */
     protected void showAllPersons() {
         executeCommand(ListEventCommand.COMMAND_WORD);

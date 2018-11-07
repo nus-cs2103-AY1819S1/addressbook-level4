@@ -41,6 +41,10 @@ public class CalendarDisplayHandle extends NodeHandle<Node> {
         return agenda.getDisplayedLocalDateTime();
     }
 
+    /**
+     * Gets the list of events that the calendar is currently displaying
+     * @return
+     */
     public List<CalendarEvent> getDisplayedCalendarEvents() {
         ArrayList<CalendarEvent> events = new ArrayList<>();
         for(Agenda.Appointment appt : agenda.appointments()) {
