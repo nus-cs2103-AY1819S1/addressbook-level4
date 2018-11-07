@@ -171,7 +171,9 @@ and tags.
 *** DIFFICULTY should range from 1 to 5.
 *** TAG should come with any alphanumberic character.
 ** Second: Used to edit a single instruction of that recipe.
-*** STEP of the instruction to be replaced as displayed with `SELECT INDEX` command.
+*** STEP of the instruction to be replaced as displayed with `SELECT INDEX` command. Or you can add a new step by
+using a STEP 1 number higher the highest existing step. (e.g. 6 existing steps, use `s/7` to add instead of
+replace.)
 *** INSTRUCTION must be included and should come with any alphanumeric characters. Ingredients can be added using
 `#INGREDIENT_NAME AMOUNT SERVING_UNIT` as required.
 ****
