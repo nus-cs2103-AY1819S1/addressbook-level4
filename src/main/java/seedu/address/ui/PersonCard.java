@@ -24,6 +24,11 @@ public class PersonCard extends UiPart<Region> {
 
     public final Patient patient;
 
+    private static final String BLUE_CHAS_COLOUR = "blue";
+    private static final String ORANGE_CHAS_COLOUR = "orange";
+    private static final String PIONEER_CHAS_COLOUR = "red";
+    private static final String GREY_COLOUR = "grey";
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -57,14 +62,14 @@ public class PersonCard extends UiPart<Region> {
      */
     private String getTagColorStyleFor(String tagName) {
         switch(tagName) {
-        case "pioneer":
-            return "red";
-        case "blue":
-            return "blue";
-        case "orange":
-            return "orange";
+        case PIONEER_CHAS_COLOUR:
+            return PIONEER_CHAS_COLOUR;
+        case BLUE_CHAS_COLOUR:
+            return BLUE_CHAS_COLOUR;
+        case ORANGE_CHAS_COLOUR:
+            return ORANGE_CHAS_COLOUR;
         default:
-            return "grey";
+            return GREY_COLOUR;
         }
     }
     /**
