@@ -13,57 +13,50 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 import seedu.address.testutil.ExpenseBuilder;
 
 //@@author JasonChong96
-public class UniqueEncryptedExpenseListTest {
+public class EncryptedExpenseListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final UniqueEncryptedExpenseList uniqueExpenseList = new UniqueEncryptedExpenseList();
+    private final EncryptedExpenseList expenseList = new EncryptedExpenseList();
     private final EncryptedExpense encryptedSchoolFee;
 
-    public UniqueEncryptedExpenseListTest() throws IllegalValueException {
+    public EncryptedExpenseListTest() throws IllegalValueException {
         encryptedSchoolFee = encryptExpense(SCHOOLFEE, DEFAULT_ENCRYPTION_KEY);
     }
 
     @Test
     public void contains_nullExpense_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueExpenseList.contains(null);
+        expenseList.contains(null);
     }
 
     @Test
     public void contains_expenseNotInList_returnsFalse() {
-        assertFalse(uniqueExpenseList.contains(encryptedSchoolFee));
+        assertFalse(expenseList.contains(encryptedSchoolFee));
     }
 
     @Test
     public void contains_expenseInList_returnsTrue() {
-        uniqueExpenseList.add(encryptedSchoolFee);
-        assertTrue(uniqueExpenseList.contains(encryptedSchoolFee));
+        expenseList.add(encryptedSchoolFee);
+        assertTrue(expenseList.contains(encryptedSchoolFee));
     }
 
     @Test
     public void contains_expenseWithSameIdentityFieldsInList_returnsTrue() throws IllegalValueException {
-        uniqueExpenseList.add(encryptedSchoolFee);
+        expenseList.add(encryptedSchoolFee);
         EncryptedExpense editedAlice =
                 new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).withTags(VALID_TAG_HUSBAND)
                 .buildEncrypted();
-        assertTrue(uniqueExpenseList.contains(editedAlice));
+        assertTrue(expenseList.contains(editedAlice));
     }
 
     @Test
     public void add_nullExpense_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniqueExpenseList.add(null);
+        expenseList.add(null);
     }
 
-    @Test
-    public void add_duplicateExpense_throwsDuplicateExpenseException() {
-        uniqueExpenseList.add(encryptedSchoolFee);
-        thrown.expect(DuplicateExpenseException.class);
-        uniqueExpenseList.add(encryptedSchoolFee);
-    }
 }
