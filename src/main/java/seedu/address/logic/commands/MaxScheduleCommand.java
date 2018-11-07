@@ -29,13 +29,15 @@ public class MaxScheduleCommand extends Command {
 
     private Index[] indexs;
     private Schedule schedule;
+    private String limit;
 
     /**
      * Creates an LoginCommand to log in the specified {@code CurrentUser}
      */
-    public MaxScheduleCommand(Index[] indexs) {
+    public MaxScheduleCommand(Index[] indexs, String limit) {
         requireNonNull(indexs);
         this.indexs = indexs;
+        this.limit = limit;
     }
 
     @Override
@@ -51,7 +53,12 @@ public class MaxScheduleCommand extends Command {
                 Person person = model.getPerson(index);
                 persons.add(person);
                 schedule = Schedule.maxSchedule(schedule, person.getSchedule());
-                text = schedule.freeTimeToString();
+                if (limit != null) {
+                    String[] limitRange = limit.split("-");
+                    text = schedule.freeTimeToStringByTime(limitRange[0], limitRange[1]);
+                } else {
+                    text = schedule.freeTimeToString();
+                }
 
             }
         } catch (Exception e) {
