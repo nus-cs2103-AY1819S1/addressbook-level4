@@ -3,6 +3,8 @@ package seedu.souschef.model.recipe;
 import static java.util.Objects.requireNonNull;
 import static seedu.souschef.commons.util.AppUtil.checkArgument;
 
+import seedu.souschef.commons.util.StringUtil;
+
 /**
  * Represents a Recipe's name in the application content.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -28,7 +30,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
-        fullName = name;
+        fullName = StringUtil.toCamelCase(name);
     }
 
     /**
