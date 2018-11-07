@@ -25,17 +25,16 @@
 }
 
 .tab {
-    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-background-insets: 0 1 0 1, 0, 0;
 }
 
 .tab-pane {
-    -fx-tab-min-width:90px;
+    -fx-tab-min-width: 90px;
 }
 
 .tab-header-background {
     -fx-background-color: #3c3c3c
 }
-
 
 /* task list styles */
 #taskListHeader {
@@ -157,7 +156,7 @@
     -fx-background-color: #1B1B1B #1B1B1B;
     -fx-background-radius: 0;
     -fx-border-insets: 0;
-    -fx-border-width: 0 0 0 ;
+    -fx-border-width: 0 0 0;
     -fx-border-color: #1B1B1B #1B1B1B;
 }
 

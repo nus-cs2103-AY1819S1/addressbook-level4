@@ -31,13 +31,13 @@ public class ListEventCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListEventCommand(), model, commandHistory,
-                                ListEventCommand.MESSAGE_SUCCESS, expectedModel);
+            ListEventCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showCalendarEventAtIndex(model, INDEX_FIRST_ELEMENT);
         assertCommandSuccess(new ListEventCommand(), model, commandHistory,
-                                ListEventCommand.MESSAGE_SUCCESS, expectedModel);
+            ListEventCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

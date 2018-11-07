@@ -19,8 +19,8 @@ import seedu.address.model.Scheduler;
 import seedu.address.storage.XmlAdaptedCalendarEvent;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableScheduler;
-import seedu.address.testutil.SchedulerBuilder;
 import seedu.address.testutil.CalendarEventBuilder;
+import seedu.address.testutil.SchedulerBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {

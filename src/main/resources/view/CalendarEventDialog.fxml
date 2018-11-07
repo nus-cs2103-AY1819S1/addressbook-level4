@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
-
-<AnchorPane minHeight="300.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" >
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="300.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8">
+    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0">
         <Label alignment="CENTER" text="Event Title" minWidth="100"/>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Title" />
+            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Title"/>
             <Label fx:id="titleLabel" HBox.hgrow="ALWAYS" text="Some Title"/>
         </HBox>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Description" />
+            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Description"/>
             <Label fx:id="descriptionLabel" HBox.hgrow="ALWAYS" text="Some Description"/>
         </HBox>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Venue" />
+            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Venue"/>
             <Label fx:id="venueLabel" HBox.hgrow="ALWAYS" text="Some Venue"/>
         </HBox>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
-            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Date and Time" />
+            <Label alignment="CENTER_RIGHT" minWidth="100.0" text="Date and Time"/>
             <Label fx:id="dateTimeLabel" HBox.hgrow="ALWAYS" text="Some Date and Time"/>
         </HBox>
         <HBox alignment="CENTER_RIGHT">
-            <Button mnemonicParsing="false" onAction="#onOkButtonClicked" text="OK" />
+            <Button mnemonicParsing="false" onAction="#onOkButtonClicked" text="OK"/>
         </HBox>
     </VBox>
 </AnchorPane>

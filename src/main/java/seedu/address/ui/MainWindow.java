@@ -33,10 +33,10 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
-
+    private final int toDoListPanelTab = 0;
+    private final int searchPanelTab = 1;
     private Stage primaryStage;
     private Logic logic;
-
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private CalendarDisplay calendarDisplay;
@@ -45,10 +45,6 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
-
-    private final int toDoListPanelTab = 0;
-    private final int searchPanelTab = 1;
-
     @FXML
     private TabPane tabPane;
 
@@ -182,7 +178,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
     /**

@@ -10,10 +10,10 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateTime implements Comparable<DateTime> {
     public static final String MESSAGE_DATETIMEINPUT_CONSTRAINTS =
-                        "Format for date and time input should be YYYY-MM-DD HH:MM";
+        "Format for date and time input should be YYYY-MM-DD HH:MM";
     public static final String DATETIMEINPUT_VALIDATION_REGEX = "(\\d{4})-(\\d{1,2})-(\\d{1,2}) (\\d{2}):(\\d{2})";
     public static final String MESSAGE_DATETIME_CONSTRAINTS =
-                        "Ensure that the input year, month, day, hour and minute correspond to a valid date and time";
+        "Ensure that the input year, month, day, hour and minute correspond to a valid date and time";
 
     public final LocalDateTime localDateTime;
 
@@ -30,11 +30,11 @@ public class DateTime implements Comparable<DateTime> {
      * Constructs a {@code DateTime} from input year, month, day, hour and minute
      * Wrapper class for LocalDateTime
      *
-     * @param year      A valid int year
-     * @param month     A valid int month
-     * @param day       A valid int day
-     * @param hour      A valid int hour
-     * @param minute    A valid int minute
+     * @param year   A valid int year
+     * @param month  A valid int month
+     * @param day    A valid int day
+     * @param hour   A valid int hour
+     * @param minute A valid int minute
      */
     public DateTime(int year, int month, int day, int hour, int minute) {
         if (!DateTime.isValidDateTime(year, month, day, hour, minute)) {
@@ -48,7 +48,7 @@ public class DateTime implements Comparable<DateTime> {
      * Constructs a {@code DateTime} from date time input string
      * Wrapper class for LocalDateTime
      *
-     * @param dateTimeInput     valid date time input string
+     * @param dateTimeInput valid date time input string
      */
     public DateTime(String dateTimeInput) {
         String[] dateTimeInputNumbers = dateTimeInput.split("[- :]");
@@ -64,18 +64,6 @@ public class DateTime implements Comparable<DateTime> {
         }
 
         this.localDateTime = LocalDateTime.of(year, month, day, hour, minute);
-    }
-
-    /**
-     * Converts date to the input format.
-     */
-    public String toInputFormat() {
-        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-    }
-
-    @Override
-    public String toString() {
-        return localDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
     }
 
     /**
@@ -102,21 +90,33 @@ public class DateTime implements Comparable<DateTime> {
         return true;
     }
 
+    /**
+     * Converts date to the input format.
+     */
+    public String toInputFormat() {
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+    @Override
+    public String toString() {
+        return localDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+    }
+
     public boolean isAfter(DateTime other) {
         return this.localDateTime.isAfter(other.localDateTime);
     }
 
     @Override
     public int compareTo(DateTime other) {
-        assert(other instanceof DateTime);
+        assert (other instanceof DateTime);
         return localDateTime.compareTo(((DateTime) other).localDateTime);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DateTime // instanceof handles nulls
-                && localDateTime.isEqual(((DateTime) other).localDateTime)); // state check
+            || (other instanceof DateTime // instanceof handles nulls
+            && localDateTime.isEqual(((DateTime) other).localDateTime)); // state check
     }
 
     @Override

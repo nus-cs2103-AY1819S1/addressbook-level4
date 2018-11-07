@@ -47,7 +47,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        Scheduler scheduler = new SchedulerBuilder().withCalendarEvent(LECTURE).withCalendarEvent(BENSON).withCalendarEvent(ELLE).build();
+        Scheduler scheduler =
+            new SchedulerBuilder().withCalendarEvent(LECTURE).withCalendarEvent(BENSON).withCalendarEvent(ELLE).build();
         Scheduler differentScheduler = new Scheduler();
         UserPrefs userPrefs = new UserPrefs();
 

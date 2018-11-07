@@ -107,7 +107,6 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
 
 
     /**
-     *
      * Executes {@code command} and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
@@ -118,6 +117,7 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are perfo
      * mTest#assertApplicationDisplaysExpected(String, String, Model)
+     *
      * @see SchedulerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
@@ -149,7 +149,6 @@ public class SelectCommandSystemTest extends SchedulerSystemTest {
      * {@code SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      *
      * @see SchedulerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

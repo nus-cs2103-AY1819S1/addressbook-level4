@@ -10,15 +10,14 @@ import seedu.address.model.ModelToDo;
  */
 public abstract class Command {
     public static final String MESSAGE_INCORRECT_MODEL_TODO =
-            "Incorrect Model: To Do Commands should operate on the ModelTodo";
+        "Incorrect Model: To Do Commands should operate on the ModelTodo";
     public static final String MESSAGE_INCORRECT_MODEL_CALENDAR =
-            "Incorrect Model: Calendar Commands should operate on the ModelTodo";
+        "Incorrect Model: Calendar Commands should operate on the ModelTodo";
 
     protected boolean isToDoCommand;
 
     /**
      * Returns whether command is a todolist command
-     *
      */
     public boolean isToDoCommand() {
         return isToDoCommand;
@@ -38,7 +37,7 @@ public abstract class Command {
      * Executes the todolist command and returns the result message.
      *
      * @param modelToDo {@code ModelToDo} which the todolist command should operate on.
-     * @param history {@code CommandHistory} which the todolist command should operate on.
+     * @param history   {@code CommandHistory} which the todolist command should operate on.
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */

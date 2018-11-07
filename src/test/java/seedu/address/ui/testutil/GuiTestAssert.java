@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import guitests.guihandles.CalendarEventCardHandle;
 import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-
 import guitests.guihandles.ToDoListEventCardHandle;
 import seedu.address.model.calendarevent.CalendarEvent;
 import seedu.address.model.todolist.ToDoListEvent;

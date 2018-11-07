@@ -47,6 +47,7 @@ import seedu.address.testutil.PersonUtil;
 public class EditEventCommandSystemTest extends SchedulerSystemTest {
 
     // @Test
+
     /**
      * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
      * TODO remember to import org.JUnit.Test
@@ -105,7 +106,7 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
             + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedCalendarEvent =
             new CalendarEventBuilder(TUTORIAL).withStart(VALID_START_DATETIME_LECTURE)
-                    .withEnd(VALID_END_DATETIME_LECTURE).build();
+                .withEnd(VALID_END_DATETIME_LECTURE).build();
         assertCommandSuccess(command, index, editedCalendarEvent);
 
         /* Case: clear tags -> cleared */
@@ -146,8 +147,8 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         index = INDEX_FIRST_ELEMENT;
         selectPerson(index);
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_TUTORIAL
-                + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL + END_DESC_TUTORIAL
-                + VENUE_DESC_TUTORIAL + TAG_DESC_HUSBAND + TAG_DESC_FRIEND;
+            + DESCRIPTION_DESC_TUTORIAL + START_DESC_TUTORIAL + END_DESC_TUTORIAL
+            + VENUE_DESC_TUTORIAL + TAG_DESC_HUSBAND + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new calendarevent's title
         assertCommandSuccess(command, index, TUTORIAL, index);
@@ -207,8 +208,8 @@ public class EditEventCommandSystemTest extends SchedulerSystemTest {
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different tags
         -> rejected */
         command = EditEventCommand.COMMAND_WORD + " " + index.getOneBased() + TITLE_DESC_LECTURE
-                + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE
-                + VENUE_DESC_LECTURE + TAG_DESC_HUSBAND;
+            + DESCRIPTION_DESC_LECTURE + START_DESC_LECTURE + END_DESC_LECTURE
+            + VENUE_DESC_LECTURE + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditEventCommand.MESSAGE_DUPLICATE_CALENDAR_EVENT);
 
         /* Case: edit a calendarevent with new values same as another calendarevent's values but with different

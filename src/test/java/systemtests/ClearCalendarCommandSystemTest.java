@@ -13,6 +13,7 @@ import seedu.address.model.ModelManager;
 public class ClearCalendarCommandSystemTest extends SchedulerSystemTest {
 
     // @Test
+
     /**
      * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
      * TODO remember to import org.JUnit.Test
