@@ -112,7 +112,7 @@ public class UniqueMedicineList implements Iterable<Medicine> {
                 || (other instanceof UniqueMedicineList // instanceof handles nulls
                 && internalMedicineList.equals(((UniqueMedicineList) other).internalMedicineList));
     }
-    
+
     @Override
     public int hashCode() {
         return internalMedicineList.hashCode();
