@@ -3,6 +3,8 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalEvents.KEYWORD_MATCHING_LECTURE;
 
+import org.junit.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCalendarCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -12,12 +14,7 @@ import seedu.address.model.ModelManager;
 
 public class ClearCalendarCommandSystemTest extends SchedulerSystemTest {
 
-    // @Test
-
-    /**
-     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     * TODO remember to import org.JUnit.Test
-     */
+    @Test
     public void clear() {
         final Model defaultModel = getModel();
 
