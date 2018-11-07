@@ -68,15 +68,6 @@ public class Education {
         return educationalLevel.name() + " " + (educationalGrade + 1);
     }
 
-    /*
-     * Returns true if a student who has graduated and is promoted to the first year of the next
-     * educational level.
-
-    public boolean isPromotedToNextLevel() {
-        return equals(new Education("Secondary 1")) || equals(new Education("Secondary 4"))
-                || equals(new Education("Secondary 5")) || equals(new Education("JC 1"));
-    }*/
-
     /**
      * Initializes educationalLevel based on user input
      */
