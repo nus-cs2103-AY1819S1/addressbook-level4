@@ -26,8 +26,8 @@ It is cross-platform supported and can be used on both Windows-based and Unix-ba
 * *Major enhancement*: Added the *user management* feature
 ** *What it does*: Allows the restaurant owner to create account for each of his employee to manage the system on his
  behalf.
-** *Justification*: This feature introduce the security layer to the application by ensuring that only
-authorised personnel are able to execute certain sets of commands depending on their level of privilege.
+** *Justification*: This feature introduces the security layer by ensuring that only authorised employees are able to
+ execute certain sets of commands, depending on their level of privilege.
 ** *Highlights*: This enhancement affects existing commands such that certain commands require the user to be
 authenticated, otherwise it will not be executed. It required an in-depth analysis and understanding of the `Logic`,
 `Model` and `Storage` components. The implementation too was challenging as it required modifications to existing
