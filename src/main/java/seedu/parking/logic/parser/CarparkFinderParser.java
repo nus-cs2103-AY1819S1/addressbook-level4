@@ -86,7 +86,7 @@ public class CarparkFinderParser {
             return new FilterCommandParser().parse(arguments);
 
         case CalculateCommand.COMMAND_WORD:
-        case CalculateCommand.COMMAND_ALIAS:
+        case CalculateCommand.COMMAND_ABBREVIATION:
             return new CalculateCommandParser().parse(arguments);
 
         case QueryCommand.COMMAND_WORD:
