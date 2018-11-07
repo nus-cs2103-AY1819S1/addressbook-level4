@@ -33,15 +33,21 @@ public class TrackAddCommand extends Command {
     private List<Track> argTracksToAdd;
     private Playlist argPlaylist;
 
+    public TrackAddCommand(Playlist targetPlaylist, Track... trackToAdd) {
+        requireNonNull(trackToAdd);
+        requireNonNull(targetPlaylist);
+        this.argPlaylist = targetPlaylist;
+        this.argTracksToAdd = new ArrayList<Track>();
+        for (Track track : trackToAdd) {
+            this.argTracksToAdd.add(track);
+        }
+    }
+
     public TrackAddCommand(Playlist targetPlaylist, List<Track> tracksToAdd) {
         requireNonNull(tracksToAdd);
         requireNonNull(targetPlaylist);
         this.argTracksToAdd = tracksToAdd;
         this.argPlaylist = targetPlaylist;
-    }
-
-    public TrackAddCommand(Playlist targetPlaylist, Track... trackToAdd) {
-        new TrackAddCommand(targetPlaylist, Arrays.asList(trackToAdd));
     }
 
     @Override
@@ -67,8 +73,7 @@ public class TrackAddCommand extends Command {
         // check if tracks exist
         // argTracksToAdd.stream().forEach(track -> System.out.println(track.getFileNameWithoutExtension()));
         for (Track trackToAdd : argTracksToAdd) {
-            Optional<Track> listOfTracks = model.getLibrary()
-                    .getTracks().stream()
+            Optional<Track> listOfTracks = model.getFilteredTrackList().stream()
                     .filter(track -> track.equals(trackToAdd))
                     .findFirst();
             boolean trackExists = listOfTracks.isPresent();
@@ -81,13 +86,16 @@ public class TrackAddCommand extends Command {
         }
 
         for (Track trackToAdd : tracksToAdd) {
-            actualTrack = model.getLibrary().getTracks().stream().filter(track -> track
+            actualTrack = model.getFilteredTrackList().stream().filter(track -> track
                     .equals(trackToAdd)).findFirst().get();
             updatedPlaylist.addTrack(actualTrack);
         }
 
         model.updatePlaylist(actualPlaylist, updatedPlaylist);
         if (tracksNotAdded.isEmpty()) {
+            if (tracksToAdd.size() == 1) {
+                return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd.get(0), actualPlaylist.getName()));
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, tracksToAdd, actualPlaylist.getName()));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS + "\n" + MESSAGE_TRACK_DOES_NOT_EXIST,

@@ -7,6 +7,7 @@ import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_H
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_INSTRUMENTAL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_ROCK;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_SFX;
+import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_PLAYLIST_NAME_TEST;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_BELL;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_HAIKEI;
 import static seedu.jxmusic.logic.commands.CommandTestUtil.VALID_TRACK_NAME_IHOJIN;
@@ -19,6 +20,7 @@ import java.util.List;
 
 import seedu.jxmusic.model.Library;
 import seedu.jxmusic.model.Playlist;
+import seedu.jxmusic.model.Track;
 
 /**
  * A utility class containing a list of {@code Playlist} objects to be used in tests.
@@ -32,9 +34,6 @@ public class TypicalPlaylistList {
             .withTracks(VALID_TRACK_NAME_SOS, VALID_TRACK_NAME_BELL, VALID_TRACK_NAME_MARBLES).build();
     public static final Playlist ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
             .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN).build();
-    // for TrackAddCommand, TrackRemoveCommand test
-    public static final Playlist TEST_ANIME = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_ANIME)
-            .withTracks(VALID_TRACK_NAME_HAIKEI, VALID_TRACK_NAME_IHOJIN, VALID_TRACK_NAME_MARBLES).build();
     public static final Playlist INSTRUMENTAL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_INSTRUMENTAL)
             .withTracks(VALID_TRACK_NAME_IHOJIN).build();
     public static final Playlist CHILL = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_CHILL)
@@ -43,6 +42,15 @@ public class TypicalPlaylistList {
             .withTracks(VALID_TRACK_NAME_SOS).build();
     public static final Playlist HIPHOP = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_HIPHOP)
             .withTracks(VALID_TRACK_NAME_MARBLES).build();
+    public static final Playlist TEST = new PlaylistBuilder().withName(VALID_PLAYLIST_NAME_TEST).build();
+
+    public static final List<Track> ALL_SAMPLE_TRACKS = new ArrayList<>(
+            Arrays.asList(
+            new TrackBuilder().withName(VALID_TRACK_NAME_MARBLES).build(),
+            new TrackBuilder().withName(VALID_TRACK_NAME_IHOJIN).build(),
+            new TrackBuilder().withName(VALID_TRACK_NAME_BELL).build(),
+            new TrackBuilder().withName(VALID_TRACK_NAME_HAIKEI).build(),
+            new TrackBuilder().withName(VALID_TRACK_NAME_SOS).build()));
 
 
     public static final String KEYWORD_MATCHING_MUSIC = "music"; // A keyword that matches name with "music"
@@ -57,23 +65,37 @@ public class TypicalPlaylistList {
         for (Playlist playlist : getTypicalPlaylistList()) {
             library.addPlaylist(playlist);
         }
+        for (Track track : getTypicalTrackList()) {
+            library.addTrack(track);
+        }
         return library;
     }
 
     /**
      * Returns an {@code Library} with all the typical playlists after adding an additional track.
      */
-    public static Library getModifiedTypicalLibrary() {
+    public static Library getTestPlaylistLibrary(Playlist testPlaylist) {
         Library library = new Library();
-        ArrayList<Playlist> newLibrary = new ArrayList<>(
-                Arrays.asList(EMPTY, SFX, TEST_ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
-        for (Playlist playlist : newLibrary) {
+        for (Playlist playlist : getTestPlaylistList(testPlaylist)) {
             library.addPlaylist(playlist);
+        }
+        for (Track track : getTypicalTrackList()) {
+            library.addTrack(track);
         }
         return library;
     }
 
     public static List<Playlist> getTypicalPlaylistList() {
-        return new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+        return new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP, TEST));
+    }
+
+    public static List<Playlist> getTestPlaylistList(Playlist testPlaylist) {
+        ArrayList<Playlist> result = new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+        result.add(testPlaylist);
+        return result;
+    }
+
+    public static List<Track> getTypicalTrackList() {
+        return ALL_SAMPLE_TRACKS;
     }
 }
