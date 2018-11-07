@@ -103,6 +103,6 @@ include::../DeveloperGuide.adoc[tag=generateacademiccalendar]
 With the extra layer of data verification and rectification, the user do not need to worry when they accidentally
 messed up the storage file.
 
-image::FirstDayCommand_DG_MainAppLaunchSnippet.png[width="275"]
+image::FirstDayCommand_DG_MainAppLaunchSnippet.png[width="300"]
 
 include::../DeveloperGuide.adoc[tag=generateacademiccalendar2]
