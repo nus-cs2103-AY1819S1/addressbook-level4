@@ -69,8 +69,8 @@ public class FirstDayCommand extends Command {
 
     /**
      * Check if system date is within the semester date
-     * @param firstDayOfSem
-     * @param lastDayOfSem
+     * @param firstDayOfSem the first day of academic semester
+     * @param lastDayOfSem the last day of academic semester
      * @return true or false
      */
     public boolean isWithinDateRange(String firstDayOfSem, String lastDayOfSem) {
@@ -85,7 +85,7 @@ public class FirstDayCommand extends Command {
      * The following code is referenced from:
      * https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
      * Retrieve the description of a particular week. If week can't be found, return empty string
-     * @param rangeOfWeek
+     * @param rangeOfWeek the 2d String array that contains the dates and description of the academic calendar
      * @return description of week
      */
     public String retrieveWeekDescription(String[][] rangeOfWeek) {
@@ -103,7 +103,7 @@ public class FirstDayCommand extends Command {
 
     /**
      * This method save the rangeOfWeeks into storage
-     * @param rangeOfWeek
+     * @param rangeOfWeek the 2d String array that contains the dates and description of the academic calendar
      * @throws CommandException
      */
     public void saveRangeOfWeeks (String[][] rangeOfWeek) throws CommandException {
@@ -135,7 +135,7 @@ public class FirstDayCommand extends Command {
      * The following code is referenced from:
      * https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html
      * This method compute the range of weeks for one semester based on the first Monday.
-     * @param firstDay
+     * @param firstDay the first day of the academic semester
      * @return the 2d string array
      */
     public String[][] computeRangeOfWeeks(String firstDay) {
@@ -154,7 +154,7 @@ public class FirstDayCommand extends Command {
 
     /**
      * Helper method to insert description of each week in the 2d String array
-     * @param rangeOfWeek
+     * @param rangeOfWeek the 2d String array that contains the dates and description of the academic semester
      */
     public void addDescriptionForWeeks(String[][] rangeOfWeek) {
         rangeOfWeek[0][2] = "Week 1";
@@ -176,6 +176,12 @@ public class FirstDayCommand extends Command {
         rangeOfWeek[16][2] = "Examination Week";
     }
 
+    /**
+     * This method check if the input date is a monday
+     * Pre-requisite: this method only work for dates in 21st century
+     * @param inputDate the date to be check if is a monday
+     * @return true or false
+     */
     public boolean isMonday(String inputDate) {
         return (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() == "MONDAY");
     }
