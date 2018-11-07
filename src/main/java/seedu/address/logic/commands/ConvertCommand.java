@@ -6,13 +6,10 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.transformation.Transformation;
 
@@ -40,7 +37,7 @@ public class ConvertCommand extends Command {
      * the constructor take the path of the JSON file of the detail of the convert operation
      * @param transformation contains the operation to be processed to the image
      */
-    public ConvertCommand(Transformation transformation) throws ParseException {
+    public ConvertCommand(Transformation transformation) {
         this.transformation = transformation;
     }
 
@@ -55,14 +52,14 @@ public class ConvertCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         try {
-            model.addTransformation(transformation);
             BufferedImage modifiedImage = ImageMagickUtil.processImage(model.getCurrentPreviewImagePath(),
                     transformation);
+            model.addTransformation(transformation);
             model.updateCurrentPreviewImage(modifiedImage, transformation);
             ImageMagickUtil.render(model.getCanvas(), logger, "preview");
-            EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
+            //EventsCenter.getInstance().post(new TransformationEvent(transformation.toString()));
         } catch (Exception e) {
-            throw new CommandException(e.toString());
+            throw new CommandException(e.getMessage());
         }
         return new CommandResult("process is done");
     }
