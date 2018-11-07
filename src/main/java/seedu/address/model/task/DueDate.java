@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.model.util.DateFormatUtil.isValidDateFormat;
 import static seedu.address.model.util.DateFormatUtil.parseDate;
 
+import java.time.Period;
 import java.util.Date;
 
 /**
@@ -48,6 +49,14 @@ public class DueDate {
      */
     public boolean isOverdue() {
         return new Date().compareTo(valueDate) > 0;
+    }
+
+    /**
+     * Returns time difference (in milliseconds) between now and due date
+     * @return time to the time
+     */
+    public long millisecondsToDueDate() {
+        return new Date().getTime() - this.valueDate.getTime();
     }
 
     @Override
