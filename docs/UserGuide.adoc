@@ -463,7 +463,6 @@ image::delete_event_diagram_after_valid.png[width="790"]
 
 ==== Viewing calendar : `view_calendar`
 
-*Currently doesn't work on Mac OS* +
 Loads the specified monthly calendar `.ics` file into the UI. UI by default displays the current week. +
 Format: `view_calendar month/MMM year/YYYY`
 
