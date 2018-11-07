@@ -12,7 +12,8 @@ import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Nric;
 
-
+// @@author omegafishy
+// Old code removed from HealthBase, no longer relevant.
 public class ViewmhCommandParserTest {
     private ViewmhCommandParser parser;
     private Nric patientNric;
