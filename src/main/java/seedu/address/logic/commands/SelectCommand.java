@@ -51,21 +51,21 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INDEX_EXCEED_MAX_BATCH_SIZE);
         }
 
+
         Path selectedImagePath = dirImageList.get(targetIndex.getZeroBased());
-        Image img = new Image("https://via.placeholder.com/1x1");
 
         try {
             String selectedImage = selectedImagePath.toString();
             FileInputStream fis = new FileInputStream(selectedImage);
-            img = new Image(fis);
+            Image img = new Image(fis);
+
+            model.updateCurrentOriginalImage(img, selectedImagePath);
+            EventsCenter.getInstance().post(new FilmReelSelectionChangeEvent(targetIndex.getZeroBased()));
+            EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
+            EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        model.updateCurrentOriginalImage(img, selectedImagePath);
-        EventsCenter.getInstance().post(new FilmReelSelectionChangeEvent(targetIndex.getZeroBased()));
-        EventsCenter.getInstance().post(new ChangeImageEvent(img, "preview"));
-        EventsCenter.getInstance().post(new ChangeImageEvent(img, "original"));
 
         return new CommandResult(String.format(MESSAGE_SELECT_IMAGE_SUCCESS, targetIndex.getOneBased())
                 + " of " + Math.min(SelectCommand.BATCH_SIZE, model.getDirectoryImageList().size()));
