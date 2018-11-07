@@ -75,7 +75,7 @@ public class DateTime implements Comparable<DateTime> {
 
     @Override
     public String toString() {
-        return localDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"));
+        return localDateTime.format(DateTimeFormatter.ofPattern("E, dd MMM yyyy hh:mm a"));
     }
 
     /**
