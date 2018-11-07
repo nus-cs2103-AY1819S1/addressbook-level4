@@ -40,6 +40,7 @@ import seedu.restaurant.logic.commands.account.ListAccountsCommand;
 import seedu.restaurant.logic.commands.account.LoginCommand;
 import seedu.restaurant.logic.commands.account.LogoutCommand;
 import seedu.restaurant.logic.commands.account.RegisterCommand;
+import seedu.restaurant.logic.commands.account.SelectAccountCommand;
 import seedu.restaurant.logic.commands.ingredient.AddIngredientCommand;
 import seedu.restaurant.logic.commands.ingredient.DeleteIngredientByIndexCommand;
 import seedu.restaurant.logic.commands.ingredient.DeleteIngredientByNameCommand;
@@ -305,6 +306,16 @@ public class RestaurantBookParserTest {
     @Test
     public void parseCommand_logout() throws ParseException {
         assertTrue(parser.parseCommand(LogoutCommand.COMMAND_WORD) instanceof LogoutCommand);
+    }
+
+    @Test
+    public void parseCommand_selectAccount() throws Exception {
+        SelectAccountCommand command = (SelectAccountCommand) parser.parseCommand(
+                SelectAccountCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectAccountCommand(INDEX_FIRST), command);
+        command = (SelectAccountCommand) parser.parseCommand(
+                SelectAccountCommand.COMMAND_ALIAS + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new SelectAccountCommand(INDEX_FIRST), command);
     }
 
     @Test
