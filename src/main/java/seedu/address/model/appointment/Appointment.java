@@ -3,6 +3,8 @@ package seedu.address.model.appointment;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 
 /**
  * Represents an Appointment in the health book.
@@ -11,28 +13,35 @@ import java.util.List;
 public class Appointment implements Comparable<Appointment> {
 
     private AppointmentId appointmentId;
-    private String doctor;
-    private String patient;
+    private Name doctorName;
+    private Name patientName;
+    private Phone patientPhone;
+    private Phone doctorPhone;
     private LocalDateTime dateTime;
     private Status status;
     private String comments;
     private List<Prescription> prescriptions;
 
-    public Appointment(int appointmentCounter, String doctor, String patient, LocalDateTime dateTime) {
+    public Appointment(int appointmentCounter, Name patientName, Phone patientPhone, Name doctorName,
+                       Phone doctorPhone, LocalDateTime dateTime) {
         appointmentId = new AppointmentId(appointmentCounter);
-        this.doctor = doctor;
-        this.patient = patient;
+        this.patientName = patientName;
+        this.patientPhone = patientPhone;
+        this.doctorName = doctorName;
+        this.doctorPhone = doctorPhone;
         this.dateTime = dateTime;
         this.status = Status.UPCOMING;
         prescriptions = new ArrayList<>();
     }
 
-    public Appointment(AppointmentId appointmentId, String doctor, String patient,
-                       LocalDateTime dateTime, Status status,
+    public Appointment(AppointmentId appointmentId, Name patientName, Phone patientPhone, Name doctorName,
+                       Phone doctorPhone, LocalDateTime dateTime, Status status,
                        String comments, List<Prescription> prescriptions) {
         this.appointmentId = appointmentId;
-        this.doctor = doctor;
-        this.patient = patient;
+        this.patientName = patientName;
+        this.patientPhone = patientPhone;
+        this.doctorName = doctorName;
+        this.doctorPhone = doctorPhone;
         this.dateTime = dateTime;
         this.status = status;
         if (comments != null) {
@@ -49,12 +58,20 @@ public class Appointment implements Comparable<Appointment> {
         return appointmentId.getAppointmentId();
     }
 
-    public String getDoctor() {
-        return doctor;
+    public Name getDoctorName() {
+        return doctorName;
     }
 
-    public String getPatient() {
-        return patient;
+    public Name getPatientName() {
+        return patientName;
+    }
+
+    public Phone getDoctorPhone() {
+        return doctorPhone;
+    }
+
+    public Phone getPatientPhone() {
+        return patientPhone;
     }
 
     public LocalDateTime getDateTime() {
@@ -163,8 +180,8 @@ public class Appointment implements Comparable<Appointment> {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.getAppointmentId() == getAppointmentId()
-                && otherAppointment.getDoctor().equals(getDoctor())
-                && otherAppointment.getPatient().equals(getPatient())
+                && otherAppointment.getDoctorName().equals(getDoctorName())
+                && otherAppointment.getPatientName().equals(getPatientName())
                 && otherAppointment.getDateTime().equals(getDateTime());
     }
 }
