@@ -370,7 +370,7 @@ Step 2. The user wishes to add a `MedicalRecord` containing only the `BloodType`
 When this command is executed, the program creates a new `MedicalRecord` object with just the `BloodType` specified, takes the old `MedicalRecord` object of the `Patient` (which is empty), and does a merging of the two objects, returning a new `MedicalRecord` object. The `Patient` is then updated with this new combined `MedicalRecord`. The following figure shows the sequence diagram for this command.
 
 .Sequence diagram for AddMedicalRecordCommand
-image::addMedicalRecord-SequenceDiagram.png[width="650"]
+image::addMedicalRecord-SequenceDiagram.png[width="850"]
 
 The following figure shows the code section which performs this merging.
 
@@ -472,9 +472,9 @@ The Patient Queue Management System (PQMS) consists of three main classes: `Pati
 registers to see the doctor is put into the `PatientQueue`. When it is the patient's turn to see the doctor, he will become the `CurrentPatient`. After
 he is done with seeing the doctor, he will become a `ServedPatient` and put into the  `ServedPatientQueue` to await payment and document processing.
 
-The PQMS consists of the `register`, `insert`, `remove`, `serve`, `docAdd`, `docDisplay`, `dispenseMedicine`, `finish`, `payment` and `Document` commands.
+The PQMS consists of the `register`, `insert`, `remove`, `serve`, `adddocument`, `displaydocuments`, `dispenseMedicine`, `finish`, `payment` and <<Document,`Document`>> commands.
 
-The following code snippet shows how the `ServedPatient` is implemented:
+The following code snippet shows part of how the `ServedPatient` is implemented:
 
 ```Java
 /**
@@ -552,16 +552,6 @@ public class ServedPatient {
     }
 
     /**
-     * Creates a note from the noteContent and dispensedMedicines and saves to the patient's medicalRecord.
-     */
-    public Patient createNewPatientWithUpdatedMedicalRecord() {
-        Note noteToSave = new Note(this.noteContent, this.medicineAllocated);
-        Patient editedPatient = new Patient(this.patient, this.patient.getMedicalRecord());
-        editedPatient.addNoteMedicalRecord(noteToSave);
-        return editedPatient;
-    }
-
-    /**
      * Checks whether current is a specified patient.
      * @return true if queue contains patient.
      */
@@ -586,37 +576,20 @@ public class ServedPatient {
     public Patient getPatient() {
         return this.patient;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ServedPatient)) {
-            return false;
-        }
-
-        // state check
-        ServedPatient other = (ServedPatient) obj;
-
-        return this.patient.equals(other.patient)
-                && this.mcContent.equals(other.mcContent)
-                && this.referralContent.equals(other.referralContent)
-                && this.noteContent.equals(other.noteContent)
-                && this.medicineAllocated.equals(other.medicineAllocated);
-    }
 }
 ```
+
+The `ServedPatient` class composes of a `Patient`.  `ServedPatient` acts as a wrapper to the `Patient` class,
+holding intermediate information that  are likely to change during the `Patient's` stay in the PQMS. When the `finish` command is called, the `Note` of
+the `Patient` will be updated. `Document` content such as `McContent` and `ReferralContent` can be accessed by the `Document` class to process the
+Medical Certificate and Referral Letter if necessary.
 
 The following sequence diagram shows how the `register` command works:
 
 .Register Sequence Diagram
 image::RegisterSequenceDiagram.png[width="1000"]
 
-The other commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
+The other PQMS commands roughly follow the same sequence as `Register` command but can interact with `CurrentPatient` or `ServedPatientList` instead of `PatientQueue`.
 
 Given below is an example usage scenario and how the PQMS is used in each step.
 
@@ -642,7 +615,7 @@ image::PQMSServedPatientQueue.png[650, 250]
 
 Step 5. The user executes various commands to generate necessary documents for the served patient.
 
-Step 6. The user finally executes `payment` command to generate the receipt and ends the patient's visit to the clinic, removing
+Step 6. The user finally executes `payment` command to end the patient's visit to the clinic, removing
 him from the `ServedPatientQueue`.
 
 ==== Design Considerations
@@ -653,7 +626,7 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 * **Current Implementation:** Composition
 ** `CurrentPatient` is composed of `ServedPatient`. `ServedPatient` is composed of `Patient`.
 ** Pros: Easy manipulation of composed class.
-** Cons: Weird relationship between the three classes.
+** Cons: Weird relationship between the three classes. i.e. `ServedPatient` has-a `Patient`.
 * **Alternative:** Inheritance
 * `CurrentPatient` inherits from `ServedPatient`. `ServedPatient` inherits from `Patient`.
 ** Pros: Proper relationship between three classes.
@@ -661,46 +634,167 @@ Relationship between `CurrentPatient`, `ServedPatient` and `Patient`.
 //end::pqms[]
 
 // tag::documentpreamble[]
+[[Document]]
 === Document
-==== Current Implementation
-The `Document`  class represents all documents that can be issued by the clinic. The `Receipt`, `MedicalCertificate` and `ReferralLetter` classes all inherit from it. +
-It specifies what general information these documents should have and how they should be formatted. It can be thought of as the formatting template for all the information
-belonging to its inheriting classes.
+==== Implementation of `Document`
+The `Document` abstract class represents all the documents that can be issued by the clinic. The `Receipt`,
+ `MedicalCertificate` and `ReferralLetter` concrete classes, which respective *commands* will be referred
+ to henceforth as _document related commands_, all inherit from. It can be thought of as a *formatter* that
+ specifies and organises the common information that all these documents must have with the help of the `DocumentTemplate.html`
+ template file. +
+ Shown below is a class diagram  illustrating how `Document`, `Receipt`, `MedicalCertificate` and
+ `ReferralLetter` relate to one another.
+
+.Class diagram representing how the `Document` and _document related_ classes are implemented.
+image::DocumentClassDiagram.png[width="900"]
+
+As the formatter which directs how the documents are built from the `DocumentTemplate.html` template, the `Document`
+`abstract class` itself *cannot* be instantiated.  The `Document` `abstract class` has the following key features:
+
+* contains the `name` and `icNumber` attributes, extracted from the `ServedPatient` from which the document was constructed from.
+* has common methods like `generateContent` to standardise the way in which the contents of the `Document` are formatted.
+* has the `formatInformation` `abstract method` which the extending classes have to implement.
+
+The following activity diagram summarises what happens internally when a _document related command_ is executed.
+
+.Flow of activities when a _document related command_ is executed. Only the methods that are *implemented* within `Document` itself are labelled in the diagram.
+image::DocumentActivityDiagram.png[width="600"]
+
+As seen in the above activity diagram, upon executing a _document related command_, the corresponding document will
+be constructed from the `ServedPatient` object specified by the `index` that was passed in with the command,
+ as detailed in the following steps.
+
+Step 1. The resulting _document related object_ will call the `generateDocument` method, which will first make a unique `fileName` for the file to be created, identified by the type of `Document`, `ServedPatient's` `name` and `icNumber`.
+``` Java
+private String makeFileName() {
+    return (fileType + FILE_NAME_DELIMITER + "For" + FILE_NAME_DELIMITER + name.toString()
+        + FILE_NAME_DELIMITER + icNumber.toString())
+        .replaceAll("\\s", FILE_NAME_DELIMITER)
+        .replaceAll("(_)+", FILE_NAME_DELIMITER);
+}
+```
+[TIP]
+====
+The `FILE_NAME_DELIMITER` is abstracted so as to allow users to change the delimiter to a `string` of their choice.
+It is used as a means of separating fields of information in file names.
+====
+Step 2. The `DocumentTemplate.html` file is then converted into a `string`. It is a template with placeholder
+values prefixed by a `$` that will be replaced with the actual information pertaining to the `ServedPatient's`
+consultation. Shown below is the code snippet that converts the `DocumentTemplate` `HTML` file into a `string`.
+``` Java
+private String convertHtmlIntoString() {
+    StringBuilder contentBuilder = new StringBuilder();
+    try {
+        BufferedReader in = new BufferedReader(new FileReader(COMPLETE_TEMPLATE_PATH));
+        String str;
+        while ((str = in.readLine()) != null) {
+            contentBuilder.append(str).append("\n");
+        }
+        in.close();
+    } catch (IOException e) {
+        System.out.println(TEMPLATE_LOCATE_FAILURE_ERROR_MESSAGE);
+    }
+    return contentBuilder.toString();
+}
+```
+Step 3. The `generateContent` method will then be called within the `writeContentsIntoDocumentTemplate` method.
+The `generateContent` method will construct a `HashMap` of `string` to `string` key-value pairs. The keys are the aforementioned
+placeholder `strings` prefixed by `$` found in the `HTML` template, while the values are the corresponding information that are to
+substitute the placeholders in the `HTML` template(keys). The `writeContentsIntoDocumentTemplate` method will then use the
+key-value pairs found in the `HashMap` created by the `generateContent` method to replace the placeholder values in the
+`HTML` template.
+``` Java
+private String writeContentsIntoDocumentTemplate() {
+    String htmlContent = convertHtmlIntoString();
+    String title = fileType + " for " + this.name;
+    htmlContent = htmlContent.replace("$title", title);
+    HashMap<String, String> fieldValues = this.generateContent();
+    for (Map.Entry<String, String> entry : fieldValues.entrySet()) {
+        String key = entry.getKey();
+        String value = entry.getValue();
+        htmlContent = htmlContent.replace(key, value);
+    }
+    return htmlContent;
+}
+
+private HashMap<String, String> generateContent() {
+    HashMap<String, String> informationFieldPairs = new HashMap<>();
+    informationFieldPairs.put(HEADER_PLACEHOLDER, generateHeaders());
+    informationFieldPairs.put(NAME_PLACEHOLDER, name.toString());
+    informationFieldPairs.put(ICNUMBER_PLACEHOLDER, icNumber.toString());
+    informationFieldPairs.put(CONTENT_PLACEHOLDER, formatInformation());
+    return informationFieldPairs;
+}
+```
+Step 4. Now that the `HTML` template is a `string` with the placeholder values replaced by the correct information, a `BufferedOutputStream`
+is used to write the updated `string` into the `HTML` file, concluding the generation of the `Document` `HTML` file.
+
+==== Design Considerations
+===== Aspect: Implementation of the Document
+* **Alternative 1 (current choice)**: Using an `abstract class` to implement `Document`. +
+** Pros:
+*** Allows `inheriting` classes to use a standardised method to format common information while granting them the
+flexibility of structuring the contents unique to its document type by means of `abstract methods`.
+** Cons:
+*** Prevents `inheriting` classes from becoming an `Enum` as `Java` does not support `multiple inheritance`, since all `enums` implicitly inherit from `Enum`.
+*** More computationally expensive than an `interface` due to the overhead incurred looking up `inherited methods` and various `class members`.
+* **Alternative 2**: Using an `interface` to implement `Document`.
+** Pros:
+*** Can convert `inheriting` classes to `enums`, ensuring that the inputs fed to these classes are valid.
+****
+`Enums` can restrict the period of medical leave to be counted in only days/weeks. This prevents absurd scenarios like issuing a `Medical Certificate` that excuses a person from work/school for 10 **years**!
+****
+** Cons:
+*** Unable to standardise the way `inheriting` classes implement the `generateHeader` method.
+****
+* Potentially allow the `inheriting` classes to omit certain header fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
+* Information might be formatted differently.
+****
 //end::documentpreamble[]
 
 // tag::receipt[]
-===== Implementation of `Receipt`
+==== Implementation of `Receipt`
 The `Receipt` class structure is as follows:
 
-* has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
-** These attributes are marked as `final` as they should not be changed.
-* contains all the `Medicine` and their associated `MedicineQuantity`.
-** These are the medicines and their quantities respectively, prescribed by the doctor to the patient during his consultation.
+* contains a `Map<Medicine, MedicineQuantity>` attribute to record the quantity dispensed of each type of `Medicine` to the `ServedPatient` from which the `Receipt` was constructed from.
+* contains a `HashSet<Service>` attribute to record the `Services` administered to the patient.
+* has an attribute `totalPrice` which stores the total price of all the `Services` and `Medicines` received by the patient.
 
-Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the served patient's index in the `ServedPatientList`. +
+Users can generate a `Receipt` for a specific `ServedPatient` by invoking the `ReceiptCommand` accompanied by the
+ served patient's index in the `ServedPatientList`. The below sequence diagram illustrates how the `ReceiptCommand` works.
 
-Given below is an example usage scenario and explanation for the inner workings of the `ReceiptCommand`.
+When the `ReceiptCommand` is executed, it will construct a new `Receipt` object and extract the relevant information
+from the `ServedPatient` specified by the `index`.
+Shown below is how the `Map<Medicine, MedicineQuantity>` of a `ServedPatient` is unpacked to sieve out the individual
+ table entries for the cost of different medicines.
+``` Java
+    private String unpackMedicineAllocation(Map<Medicine, QuantityToDispense> medicineAllocated) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<Medicine, QuantityToDispense> entry : medicineAllocated.entrySet()) {
+            Medicine medicine = entry.getKey();
+            String medicineName = medicine.getMedicineName().toString();
+            int quantity = entry.getValue().getValue();
+            float pricePerUnit = Float.parseFloat(medicine.getPricePerUnit().toString());
+            float totalPriceForSpecificMedicine = pricePerUnit * quantity;
+            increaseTotalPriceBy(totalPriceForSpecificMedicine);
+            stringBuilder.append("<tr><td>")
+                    .append(medicineName)
+                    .append(super.HTML_TABLE_DATA_DIVIDER)
+                    .append(quantity)
+                    .append(super.HTML_TABLE_DATA_DIVIDER)
+                    .append(String.format("%.02f", pricePerUnit))
+                    .append(super.HTML_TABLE_DATA_DIVIDER)
+                    .append(String.format("%.02f", totalPriceForSpecificMedicine))
+                    .append("</td></tr>");
+        }
+        return stringBuilder.toString();
+    }
+```
 
-Step 1. The user executes the `serve` command to serve the first `Patient` in the `PatientQueue`. +
-This creates a new `ServedPatient` object that is added to the `ServedPatientList`.
-
-.Serving a `Patient` in the `PatientQueue`. Note that the `Patient` **Bryan Lew** is the only `Patient` in the `ServedPatientList` and hence has an index of `1`. +
-image::ServePatient.png[width="650"]
-
-Step 2. The user executes `receipt 1` command to generate a `Receipt` with the relevant object. Up till this milestone v1.2, the contents of the `Receipt` will be reflected in the `ResultDisplay` as shown below.
-
-.Contents of the `Receipt` generated for the `Patient` Bryan Lew. +
-image::ReceiptExamplePrintOut.png[width="650"]
-
-[WARNING]
-Executing `receipt` with an invalid index will **not** result in the generation of a `Receipt`.
-
-.Result of executing `receipt` with an invalid index.
-image::ServedPatientListEmptyReceipt.png[width="650"]
 // end::receipt[]
 
 // tag::mc[]
-===== Implementation of `MedicalCertificate`
+==== Implementation of `MedicalCertificate`
 The `MedicalCertificate` class structure is as follows:
 
 * has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
@@ -725,7 +819,7 @@ Executing `mc` with an invalid index will **not** result in the generation of a 
 // end::mc[]
 
 // tag::referralletter[]
-===== Implementation of `ReferralLetter`
+==== Implementation of `ReferralLetter`
 The `ReferralLetter` class structure is as follows:
 
 * has attributes of the `Served Patient` it is generated from, which includes the served patient's `name` and `IcNumber`.
@@ -748,29 +842,6 @@ Step 2. The user executes `refer 1` command to generate a `ReferralLetter` with 
 Executing `refer` with an invalid index will **not** result in the generation of a `ReferralLetter`.
 // end::referralletter[]
 
-// tag::documentconsiderations[]
-==== Design Considerations
-===== Aspect: Implementation of the Document
-* **Alternative 1 (current choice)**: Using a typical `class` to implement `Document`. +
-** Pros:
-*** Allows all classes `inheriting` from `Document` to use a standardised method to format the relevant information that appears in every document that is issued by the clinic.
-** Cons:
-*** `Java` does not support `multiple inheritance`; therefore, it prevents the classes that are `inheriting` from `Document` from inheriting from other useful classes or becoming an `enum`.
-*** Comparatively, `inheriting` from classes is more computationally expensive than using `interfaces` due to the overhead incurred looking up `methods` and various `class members`.
-* **Alternative 2**: Using an `interface` to implement `Document`.
-** Pros:
-*** The classes implementing `Document` can be converted to `enums`, which ensures that the inputs fed to these classes are valid.
-****
-For example, an `enum` will prevent the issuing of a `Medical Certificate` that excuses a person from work/school for 10 **years**!
-****
-** Cons:
-*** Unable to standardise the way the classes that `inherit` from `Document` implement the `generate` method.
-****
-* This can potentially allow the `inheriting` classes to omit certain fields that are relevant to the printing of a document, such as `date` and `time` of the consultation.
-* Even if all the information are present, they might be formatted differently.
-****
-// end::documentconsiderations[]
-
 // tag::applicationgui[]
 === Application GUI
 
@@ -780,7 +851,7 @@ As an extension to the original addressbook-level4 application, more UI elements
 In particular, the real-time status of the Patient Queue Management System (PQMS) is reflected to the user via a small window near the top of the application. This is depicted in the figure below:
 
 .GUI for the PQMS
-image::PQMS-gui.png[width="650"]
+image::PQMS-gui.png[width="850"]
 
 After `QueueCommands` such as `register`, `serve`, etc., the GUI will automatically update itself as the user enters these commands to reflect the situation of the PQMS at that exact point in time.
 

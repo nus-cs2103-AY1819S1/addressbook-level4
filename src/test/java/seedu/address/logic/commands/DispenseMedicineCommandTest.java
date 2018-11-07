@@ -52,6 +52,7 @@ public class DispenseMedicineCommandTest {
         servedPatientList = new ServedPatientListManager();
         commandHistory = new CommandHistory();
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model.addPerson(AMY);
     }
 
     @Test
@@ -65,11 +66,11 @@ public class DispenseMedicineCommandTest {
         Medicine medicine = model.getFilteredMedicineList().get(0);
         CurrentPatient expectedCurrentPatient = new CurrentPatient(new ServedPatient(AMY));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.addPerson(AMY);
         //stock is sufficient
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
@@ -86,11 +87,11 @@ public class DispenseMedicineCommandTest {
         Medicine medicine = model.getFilteredMedicineList().get(0);
         CurrentPatient expectedCurrentPatient = new CurrentPatient(new ServedPatient(AMY));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.addPerson(AMY);
         //stock is sufficient
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
@@ -111,11 +112,11 @@ public class DispenseMedicineCommandTest {
         Medicine medicine = model.getFilteredMedicineList().get(0);
         CurrentPatient expectedCurrentPatient = new CurrentPatient(new ServedPatient(AMY));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.addPerson(AMY);
 
         QuantityToDispense quantityToDispense = new QuantityToDispense(medicine.getStockValue());
         String expectedMessage = String.format(MESSAGE_SUCCESS, medicine.getStockValue(), medicine.getMedicineName());
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
 
         medicine.refill(quantityToDispense.getValue());
@@ -134,16 +135,14 @@ public class DispenseMedicineCommandTest {
         Medicine medicine = model.getFilteredMedicineList().get(0);
         CurrentPatient expectedCurrentPatient = new CurrentPatient(new ServedPatient(AMY));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.addPerson(AMY);
         //stock is sufficient
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
-        //For checking later on
-        showMedicineAtIndex(expectedModel, Index.fromOneBased(1));
 
         showMedicineAtIndex(model, Index.fromOneBased(1));
         assertCommandSuccess(new DispenseMedicineCommand(INDEX_FIRST_PERSON, quantityToDispense), commandHistory,
@@ -156,16 +155,14 @@ public class DispenseMedicineCommandTest {
         Medicine medicine = model.getFilteredMedicineList().get(0);
         CurrentPatient expectedCurrentPatient = new CurrentPatient(new ServedPatient(AMY));
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.addPerson(AMY);
         //stock is sufficient
         assertTrue(10 <= medicine.getStockValue());
         QuantityToDispense quantityToDispense = new QuantityToDispense(10);
         expectedModel.dispenseMedicine(medicine, quantityToDispense);
-        expectedModel.commitAddressBook();
         expectedCurrentPatient.addMedicine(medicine, quantityToDispense);
         String expectedMessage = String.format(MESSAGE_SUCCESS, 10, medicine.getMedicineName());
 
-        //For checking later on
-        showMedicineAtIndex(expectedModel, Index.fromOneBased(1));
 
         //Let current patient have medicine first.
         currentPatient.addMedicine(medicine, new QuantityToDispense(5));

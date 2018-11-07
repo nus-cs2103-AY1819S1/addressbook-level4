@@ -9,26 +9,20 @@
 
 == Overview
 
-This project portfolio serves to document my contributions to CLInic, a CS2103T (Introduction to Software Engineering) project as part of my
-Computer Science curriculum in NUS.
+This project portfolio serves to document my contributions to CLInic, a CS2103T (Introduction to Software Engineering) project, as part of my Computer Science curriculum in NUS.
 
-CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application.
-CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the
-primary programming language and uses JavaFX, HTML and CSS for the GUI.
+CLInic is a desktop application made for clinics. The CLI in CLInic stands for Command Line Interface, which is the main method to use this application. CLInic also has a Graphical User Interface (GUI) to display information in a structured and user-friendly manner. This application uses Java as the primary programming language and uses JavaFX, HTML and CSS for the GUI.
 
-The project scope for CLInic is to morph the given `addressbook-level4` into a clinic management application that allows users to manage patient
-and medicine information and additionally manage the clinic queue.
+The project scope for CLInic is to morph the given `addressbook-level4` into a clinic management application that allows users to manage patient and medicine information and additionally manage the clinic queue.
 
-My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works
-after every enhancement or change.
+My task in CLInic is to implement a *Patient Queue Management System*, as well as to integrate the changes of my team to ensure CLInic works after every enhancement or change.
 
 == Summary of Contributions
 
 * *Major enhancement*: Implementation of *Patient Queue Management System (PQMS)*
 ** What it does: This system allows the clinic to keep track of the queue in the clinic.
 ** Justification: This system improves the product significantly because it has created another use case for this application apart from just storing patient and medicine information.
-** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands
-are made to be as intuitive as possible.
+** Highlights: This system builds upon existing commands, patient information and medicine information. This system attempts to model the real life queue system in the clinic and the commands are made to be as intuitive as possible.
 
 * *Minor enhancement*:
 ** Integration of `Patient` and `Document` class with PQMS through `DocumentAddCommand` and `DocumentDisplayCommand`
@@ -39,21 +33,22 @@ are made to be as intuitive as possible.
 * *Other contributions*:
 
 ** Project management:
-*** Team Lead
+*** Took on the role of *Team Lead*
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 ** Enhancements to test coverage:
 *** Wrote tests for PQMS features to increase coverage from 67% to 75% (Pull request https://goo.gl/vQbh82[#109])
-//** Documentation:
-//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-//** Community:
-//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+** Documentation:
+*** Designed the mock-up of the <<UI, UI>>
+** Community:
+*** Reviewd PRs (with non-trivial review comments): https://github.com/CS2103-AY1819S1-W16-4/main/pull/176[#176]
+*** Fixed bugs for my teammates: https://github.com/CS2103-AY1819S1-W16-4/main/pull/180[#180]
 //*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
-
-== Contributions to the GUI Design
+[[UI]]
+== Contributions to the UI Design
 
 |===
-|_Given below is the mockup of the GUI that I designed. It showcases to visualise an end-product._
+|_Given below is the mock-up of the GUI that I designed. It showcases my ability to visualise an end-product._
 |===
 
 include::../UserGuide.adoc[tag=UI]

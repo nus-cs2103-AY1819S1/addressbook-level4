@@ -3,16 +3,18 @@ package seedu.address.model.medicine;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 import seedu.address.testutil.Assert;
 
 public class QuantityToDispenseTest {
 
-    @org.junit.Test
+    @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new QuantityToDispense(null));
     }
 
-    @org.junit.Test
+    @Test
     public void isValidQuantityToDispense() {
         // invalid quantities to dispense
         assertFalse(QuantityToDispense.isValidQuantityToDispense(0)); // cannot be 0

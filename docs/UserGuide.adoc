@@ -120,7 +120,7 @@ Examples:
 Adds a patient named `Clinton Law`, with IC number `S9638902L`, phone number `97947435`, email `clinton@cs2103t.com` and address of `Tembusu College` to CLInic's patient database, as shown below.
 
 .After executing the `add` command specified above *and* left clicking `Clinton's` patient card in the patient list on the right, indicated by the black cursor.
-image::AddEx1.png[width="650"]
+image::AddEx1.png[width="600"]
 
 ==== Editing a patient: `edit`
 Uhoh! Made a mistake keying in a patient's particulars? Or perhaps a patient had recently changed his address? +
@@ -134,6 +134,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * The `INDEX` refers to the index number shown in the displayed patient list. It must be a *non zero, positive integer* (eg. 1, 2, 3...)!
 * At least one of the optional parameters must be provided.
 * Existing values will be *overwritten* by the newly input values of the corresponding field.
+* You cannot edit the record of a patient that is currently in queue.
 ====
 
 [TIP]
@@ -148,7 +149,8 @@ Examples:
 Updates the phone number and e-mail address of the 5th patient in the list to `98534228 ` and `clawyq@cs2101.com` respectively, as shown below.
 
 .Before and after executing the `edit` command specified above.
-image::EditEx1.png[width="650"]
+image::EditEx1.png[width="600"]
+// end::patientfirsthalf[]
 
 ==== Locating a patient by name: `find`
 Can't find the patient you're looking for amidst the other patient records? +
@@ -182,19 +184,28 @@ Sieves out all the patients who have `yu` in their names.
 
 .Before and after executing the `find` command specified above via its alias `f`.
 image::FindEx1.png[width="650"]
-// end::patientfirsthalf[]
 
 // tag::patientsecondhalf[]
 ==== Listing all patients: `list`
-Displays a list of all patients in CLInic's patient database. +
+Need to list all patients in the database? +
+Do this easily with the `list` command. +
 Alias: `l` +
 Format: `list`
 
-==== Deleting a patient: `delete`
+.Before and after executing the `list` command
+image::list-command-example.png[width="650"]
 
-Deletes the specified patient from the CLInic database. +
+==== Deleting a patient: `delete`
+What if we need to remove a patient's details from the database? +
+You can do so with the `delete` command, which will clear the user's details from the database completely. +
 Alias: `d` +
 Format: `delete INDEX`
+
+[NOTE]
+.Thing(s) to note:
+====
+* You cannot delete a patient that is currently in queue.
+====
 
 [TIP]
 .Pro tip(s):
@@ -205,9 +216,12 @@ Examples:
 * `list` +
 `delete 2` +
 Deletes the 2nd patient in the database.
-* `find Betsy` +
+* `find Bryan` +
 `d 1` +
 Deletes the 1st patient in the resulting list of the `find` command.
+
+.Before and after executing the `find Bryan` and `d 1` command
+image::delete-command-example.png[width="650]
 
 ==== Selecting a patient: `select`
 
@@ -224,9 +238,13 @@ Examples:
 * `list` +
 `select 2` +
 Selects the 2nd patient in the whole database.
-* `find Betsy` +
+* `find Bryan` +
 `s 1` +
 Selects the 1st patient in the resulting list of the `find` command.
+
+.Before and after executing the `find Bryan` and `s 1` command.
+image::select-command-example.png[width="650"]
+
 // end::patientsecondhalf[]
 
 // tag::addmedicalrecordcommand[]
@@ -261,26 +279,55 @@ image::addmedicalrecord-example-2.png[width="650"]
 // end::addmedicalrecordcommand[]
 
 [[medicine]]
-// tag::medicine[]
+// tag::addmedicine[]
 === Medicine Inventory Management
 
 ==== Adding a medicine: `addmedicine`
 
-Adds a medicine to the CLInic medicine database. +
+Bought the latest medicine that effectively cures eczema? +
+Use `addmedicine` to add that medicine to the CLInic now! +
 Alias: `am` +
 Format: `addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK`
 
 [NOTE]
-.Thing(s) to note:
-The serial number of a medicine *must* be a 5 digit integer!
+The serial number of a medicine *must* have at least 5 digits!
 
 Example:
 
 * `addmedicine mn/panadol msq/500 ppu/0.50 sn/91853 s/1000` +
-Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `500` units to the CLInic inventory.
+Adds a medicine _named_ `panadol` with _minimum stock quantity_ of `500` units, _price per unit_ of `$0.50`, _serial number_ of `91853` and _stock_ of `1000` units to the CLInic inventory.
+
 * `am mn/asprin msq/100 ppu/0.20 sn/53068 s/100` +
 Adds a medicine _named_ `asprin` with _minimum stock quantity_ of `100` units, _price per unit_ of `$0.20`, _serial number_ of `53068` and _stock_ of `100` units to the CLInic inventory.
 
+See below for a pictorial guide on how to add aspirin to the records:
+
+//. Type `liststock` or `ls` into the command box as shown in Figure 10 below.
+
+//.Start up of CLInic
+//image::addmedicine-example-1.png[width="650"]
+
+//[start = 1]
+//. See Figure 10 below for the change of the patient panel to medicine panel.
+
+//.Result of entering `liststock` command
+//image::addmedicine-example-2.png[width="650"]
+
+[start = 1]
+. Enter the `am` command with the desired parameters as shown in Figure 10 below.
+
+.Type the `am` command into the command box
+image::addmedicine-example-3.png[width="650"]
+
+[start = 2]
+. Scroll all the way down on the medicine panel to see the medicine added to CLInic.
+See Figure 11 below for example.
+
+.Scroll down to see the medicine successfully added
+image::addmedicine-example-4.png[width="650"]
+// end::addmedicine[]
+
+// tag::editmedicine[]
 ==== Editing a medicine: `editmedicine`
 
 Edits the details of an existing medicine. +
@@ -303,6 +350,7 @@ Example:
 Renames the medicine at index 1 to `hydrazine` whilst updating its stock to `1500`.
 * `em 1 sn/91853` +
 Updates the serial number of the medicine at index 1 to `91853`.
+// end::editmedicine[]
 
 ==== Restocking a medicine: `restock`
 
@@ -327,11 +375,18 @@ Lists all medicine information in the CLInic medicine inventory. +
 Alias: `ls` +
 Format: `liststock`
 
+// tag::findmedicine[]
+
 ==== Finding details of a medicine: `findmedicine`
 
-Finds the details of a medicine from its medicine name. +
+Finding the best medicine for your patient? +
+Use `findmedicine` to search for
+the details of a medicine from its medicine name. +
 Alias: `fm` +
 Format: `findmedicine MEDICINE_NAME`
+
+[TIP]
+You can enter more than one name to get the results of all medicines with the names entered.
 
 Example:
 
@@ -340,18 +395,45 @@ Finds the details of the medicines tagged with the keyword `panadol`.
 * `fm chlorpheniramine` +
 Finds the details of the medicines tagged with the keyword `chlorpheniramine`.
 
+See below for a pictorial guide on how to find chlorpheniramine in the records:
+
+[start = 1]
+. Enter the `fm` command with the desired parameters as shown in Figure 12 below.
+
+.Type `fm` command into the command box
+image::find-medicine-example-1.png[width="650"]
+
+[start = 2]
+. See the medicine panel as shown in Figure 13 for all the medicines named "chlorpheniramine".
+
+.See all medicines named "chlorpheniramine".
+image::find-medicine-example-2.png[width="650"]
+
+// end::findmedicine[]
+
+// tag::checkstock[]
 
 ==== Listing medicines that are low in supply: `checkstock`
-
-Lists all medicines that are low in supply. +
+Need to do the time-consuming stock taking?
+Use `checkstock` and get it done in under 2 seconds! +
 Alias: `cs` +
 Format: `checkstock`
 
-// end::medicine[]
+[NOTE]
+Medicines that are low in supply are those whose stock level is equal to or lower than their minimum stock quantity.
+
+See below for a pictorial guide on how to use checkstock:
+
+
+// end::checkstock[]
 
 [[pqms]]
 // tag::pqms[]
 === Queue Management
+
+[WARNING]
+You cannot `edit`, `delete`, `addmedicalrecord` a patient when the patient is in queue. If an the patient's details are changed when
+the patient is in queue, the patient will be removed from queue.
 
 ==== Registering a patient to Waiting Queue: `register`
 
@@ -370,7 +452,7 @@ Example:
 Registers the 3rd patient in the database.
 
 .After executing the `register 3` command
-image::Register3Command.png[width="750"]
+image::registercommand.png[width="750"]
 
 
 * `find david` +
@@ -399,10 +481,10 @@ Examples:
 Removes the 3rd patient in the queue.
 
 .Before `remove 3` command
-image::BeforeRemove3Command.png[width="750"]
+image::beforeremove.png[width="750"]
 
 .After `remove 3` command
-image::AfterRemove3Command.png[width="750"]
+image::afterremove.png[width="750"]
 
 * `rem 3` +
 Removes the 2nd patient in the queue.
@@ -428,10 +510,10 @@ Examples:
 Inserts the 4th patient in the database into the 2nd position in the patient queue.
 
 .Before `insert 4 p/2` command
-image::BeforeInsert2Command.png[width="750"]
+image::beforeinsert.png[width="750"]
 
 .After `insert 4 p/2` command
-image::AfterInsert2Command.png[width="750"]
+image::afterinsert.png[width="750"]
 
 * `ins 3 p/5` +
 Inserts the 3rd patient into the 5th position in the patient queue.
@@ -448,10 +530,10 @@ Format: `serve`
 Upon successful call of this command, the medicine list will be displayed.
 
 .Before `serve` command
-image::BeforeServeCommand.png[width="750"]
+image::beforeserve.png[width="750"]
 
 .After `serve` command
-image::AfterServeCommand.png[width="750"]
+image::afterserve.png[width="750"]
 
 [[adddocument]]
 ==== Adding document contents to Current Patient: `adddocument`
@@ -477,10 +559,10 @@ Examples:
 Adds MC duration and notes to the Current Patient.
 
 .Before `adddocument mc/3 n/Headache for the past 2 days` command
-image::BeforeAddDocumentCommand.png[width="750"]
+image::beforeadddocument.png[width="750"]
 
 .After `adddocument mc/3 n/Headache for the past 2 days` command
-image::AfterAddDocumentCommand.png[width="750"]
+image::afteradddocument.png[width="750"]
 
 * `ad r/Ng Teng Fong Hospital` +
 Adds referral to the Current Patient.
@@ -507,10 +589,10 @@ Examples:
 10 units of the 1st medicine in the displayed medicine list will be added to the Current Patient. +
 
 .Before `dispensemedicine 1 amt/10`
-image::BeforeDispenseMedicineCommand.png[width="750"]
+image::beforedispensemedicine.png[width="750"]
 
 .After `dispensemedicine 1 amt/10`
-image::AfterDispenseMedicineCommand.png[width="750"]
+image::afterdispensemedicine.png[width="750"]
 
 * `dm 5 amt/2` +
 2 units of the 5th medicine in the displayed medicine list will be added to the Current Patient.
@@ -544,10 +626,10 @@ Examples:
 Removes the 3rd patient from the Served Patient Queue.
 
 .Before `payment 3` command
-image::BeforePaymentCommand.png[width="750"]
+image::beforepayment.png[width="750"]
 
 .After `payment 3` command
-image::AfterPaymentCommand.png[width="750"]
+image::afterpayment.png[width="750"]
 
 * `pay 1` +
 Removes the 1st patient from the Served Patient Queue.
@@ -563,8 +645,11 @@ Generates a medical certificate for the Served Patient. +
 Format: `mc INDEX`
 
 [TIP]
+====
 .Pro tip(s):
-Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+*This command cannot be used if there is no mc content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
+*Generates a medical certificate for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+====
 
 Examples:
 
@@ -595,7 +680,10 @@ Format: `refer INDEX`
 
 [TIP]
 .Pro tip(s):
-Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+====
+*This command cannot be used if there is no referral content. Use <<adddocument, `adddocument`>> to add to the Current Patient first.
+*Generates a referral letter for the patient at the specified `INDEX` of the Served Patient Queue. The index *must be a positive integer* (i.e. 1, 2, 3, ...).
+====
 
 Examples:
 
@@ -630,7 +718,7 @@ Format: `undo`
 [NOTE]
 .Thing(s) to note:
 ====
-Undoable commands: those commands that modify the database's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the database's content (`add`, `delete`, `edit`, `addmedicalrecord` etc).
 This includes all commands that change the `Patient` or `Medicine` class but *not* <<pqms, PQMS-related>> commands.
 ====
 
@@ -709,9 +797,9 @@ There is no need to save manually.
 |find |`f`  |`find KEYWORD [MORE_KEYWORDS]​` |`find Betsy Tim John`
 |delete |`d`  |`delete INDEX` |`delete 2`
 |select |`s`  |`select INDEX` |`select 3`
-|addmedicalrecord |`amr`  |`addMedicalRecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…`​ or +
-                            `addMedicalRecord IC_NUMBER [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…​​` |`addMedicalRecord 5 b/A+ da/Paracetamol d/Diabetes` or +
-                            `addMedicalRecord S94738123X b/B+`
+|addmedicalrecord |`amr`  |`addmedicalrecord INDEX [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…`​ or +
+                            `addmedicalrecord IC_NUMBER [b/BLOOD_TYPE] [d/PAST_DISEASE]…​ [da/DRUG_ALLERGY]…​ [m/NOTE]…​​` |`addmedicalrecord 5 b/A+ da/Paracetamol d/Diabetes` or +
+                            `addmedicalrecord S94738123X b/B+`
 |=======================================================================
 
 === Medicine
@@ -719,12 +807,12 @@ There is no need to save manually.
 [width="59%",cols="5%,<2%,<50%,<42%",options="header",]
 |=======================================================================
 |Command Word |Command Alias |Format|Example
-|addmedicine |`am`  |`​addMedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK` |`addMedicine mn/panadol msq/500 ppu/0.50 sn/1234 s/1000`
-|editmedicine |`em`  | `editMedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editMedicine 1 n/hydrazine s/50022 p/20 min/30`
+|addmedicine |`am`  |`​addmedicine mn/MEDICINE_NAME msq/MINIMUM_STOCK_QUANTITY ppu/PRICE_PER_UNIT sn/SERIAL_NUMBER s/STOCK` |`addmedicine mn/panadol msq/500 ppu/0.50 sn/1234 s/1000`
+|editmedicine |`em`  | `editmedicine INDEX [mn/MEDICINE_NAME] [msq/MINIMUM_STOCK_QUANTITY] [ppu/PRICE_PER_UNIT] [sn/SERIAL_NUMBER] [s/STOCK]` |`editmedicine 1 n/hydrazine s/50022 p/20 min/30`
 |restock |`rs`  |`restock INDEX amt/AMOUNT` |`restock 2 amt/123`
-|liststock |`ls`  |`listStock` |`listStock`
-|findmedicine |`fm`  |`findMedicine SERIAL_NUMBER` |`findMedicine 1001`
-|checkstock |`cs`  |`checkStock` |`checkStock`
+|liststock |`ls`  |`liststock` |`listStock`
+|findmedicine |`fm`  |`findmedicine SERIAL_NUMBER` |`findmedicine 1001`
+|checkstock |`cs`  |`checkctock` |`checkStock`
 |=======================================================================
 
 === Queue Management
@@ -737,9 +825,9 @@ There is no need to save manually.
 |remove |`rem`  |`remove INDEX` |`remove 2`
 |insert |`ins`  |`insert INDEX p/POSITION` |`insert 3 p/4`
 |serve |`ser`  |`serve` |`serve`
-|adddocument |`da`  |`docAdd [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]` |`docAdd mc/3 n/This patient complains of headache for the past 3 days`
-|displaydocuments |`dd` | `displayDocuments` | `displayDocuments`
-|dispensemedicine |`dm`  |`dispenseMedicine MEDICINE_INDEX amt/AMOUNT` |`dispenseMedicine 5 amt/10`
+|adddocument |`da`  |`adddocument [mc/MC_DAYS] [n/NOTES] [r/REFERRAL]` |`adddocument mc/3 n/This patient complains of headache for the past 3 days`
+|displaydocuments |`dd` | `displaydocuments` | `displaydocuments`
+|dispensemedicine |`dm`  |`dispensemedicine MEDICINE_INDEX amt/AMOUNT` |`dispensemedicine 5 amt/10`
 |finish |- |`finish` |`finish`
 |payment |`pay`  |`payment INDEX` |`payment 6`
 |=======================================================================

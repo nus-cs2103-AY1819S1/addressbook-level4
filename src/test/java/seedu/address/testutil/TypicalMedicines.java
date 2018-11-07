@@ -84,8 +84,6 @@ public class TypicalMedicines {
             .withPricePerUnit(VALID_PRICE_PER_UNIT_ZYRTEC)
             .withStock(VALID_STOCK_ZYRTEC).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
     private TypicalMedicines() {} // prevents instantiation
 
     /**

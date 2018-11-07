@@ -128,12 +128,18 @@ public class ModelManager extends ComponentManager implements Model {
     public void refillMedicine(Medicine medicine, QuantityToDispense quantityToRefill) {
         requireAllNonNull(medicine, quantityToRefill);
         versionedAddressBook.refillMedicine(medicine, quantityToRefill);
+        indicateAddressBookChanged();
     }
 
     @Override
     public void updatePerson(Patient target, Patient editedPatient) {
         requireAllNonNull(target, editedPatient);
 
+        System.out.println();
+        System.out.println("In Model manager:");
+        System.out.println("Target: " + target);
+        System.out.println("Edited person: " + editedPatient);
+        System.out.println();
         versionedAddressBook.updatePerson(target, editedPatient);
         indicateAddressBookChanged();
     }

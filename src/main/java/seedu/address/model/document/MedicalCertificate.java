@@ -1,5 +1,8 @@
 package seedu.address.model.document;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import seedu.address.model.person.ServedPatient;
 
 /**
@@ -19,8 +22,29 @@ public class MedicalCertificate extends Document {
         setFileType(FILE_TYPE);
         setName(servedPatient.getName());
         setIcNumber(servedPatient.getIcNumber());
-        setMcContent(servedPatient.getMcContent());
         mcDays = Integer.parseInt(servedPatient.getMcContent());
+    }
+
+    /**
+     * Formats all the relevant information of the MC in HTML for the served patient. Other than the main bulk
+     * of the text that is for completeness, this information includes the number of days of medical leave
+     * granted and the period which the medical leave will last.
+     */
+    public String formatInformation() {
+        int numMcDays = getMcDays();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("This is to certify that the above-named patient is unfit for duty for a period of ")
+                .append("<b>" + numMcDays + "</b>")
+                .append(" <b>day(s)</b>, from ")
+                .append("<b>" + LocalDate.now().format(formatter) + "</b>")
+                .append(" <b>to</b> ")
+                .append("<b>" + LocalDate.now().plusDays(numMcDays - 1).format(formatter) + "</b>")
+                .append(" <b>inclusive.</b><br><br>")
+                .append("This certificate is not valid for absence from court attendance.<br><br>")
+                .append("<b>Issuing Doctor:</b> Dr Chester Sng" + "<br>");
+        return stringBuilder.toString();
     }
 
     public int getMcDays() {
