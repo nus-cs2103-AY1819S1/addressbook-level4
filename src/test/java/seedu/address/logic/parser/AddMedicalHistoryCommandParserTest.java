@@ -28,19 +28,19 @@ public class AddMedicalHistoryCommandParserTest {
         String userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
                 + PREFIX_ALLERGY + VALID_ALLERGY + " " + PREFIX_CONDITION + VALID_CONDITION;
         AddMedicalHistoryCommand expectedCommand = new AddMedicalHistoryCommand(
-                new Name(VALID_NAME_ALICE), VALID_ALLERGY, VALID_CONDITION);
+                new Name(VALID_NAME_ALICE), null, VALID_ALLERGY, VALID_CONDITION);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for allergy is left blank
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
                 + PREFIX_CONDITION + VALID_CONDITION;
-        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", VALID_CONDITION);
+        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, "", VALID_CONDITION);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for condition is left blank
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_ALLERGY
                 + VALID_ALLERGY;
-        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, "");
+        expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, VALID_ALLERGY, "");
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
