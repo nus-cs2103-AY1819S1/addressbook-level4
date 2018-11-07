@@ -55,10 +55,10 @@ public class Plot {
     public static void plotChart(VisualizationData data, Pane chartPane) {
         switch (data.getChartType()) {
         case VERTICAL_BAR:
-            plotVBar((VisualizationData<String>) data, chartPane);
+            plotVerticalBar((VisualizationData<String>) data, chartPane);
             break;
         case HORIZONTAL_BAR:
-            plotHBar((VisualizationData<String>) data, chartPane);
+            plotHorizontalBar((VisualizationData<String>) data, chartPane);
             break;
         case STACKED_BAR:
             plotStackedBar((VisualizationData<String>) data, chartPane);
@@ -79,7 +79,7 @@ public class Plot {
      */
     public static void plotStackedBar(VisualizationData data, Pane chartPane) {
         Tuple<Axis, Axis> axes = getAxes(data.getXTitle(), data.getYTitle(), false);
-        StackedBarChart<String, Integer> stackedBarChart = getStackedBarChart(axes, data.getId(), data.getChartTitle());
+        StackedBarChart<String, Number> stackedBarChart = getStackedBarChart(axes, data.getId(), data.getChartTitle());
         List<XYChart.Series> allSeries = getSeries(data.getDataGroups(), data.getDataGroupsLabels());
 
         for (XYChart.Series series : allSeries) {
@@ -90,7 +90,37 @@ public class Plot {
     }
 
     /**
-     *
+     * Plots a vertical bar chart for categorical data.
+     */
+    public static void plotVerticalBar(VisualizationData data, Pane chartPane) {
+        Tuple<Axis, Axis> axes = getAxes(data.getXTitle(), data.getYTitle(), false);
+        BarChart<String, Number> verticalBarChart = getVerticalBarChart(axes, data.getId(), data.getChartTitle());
+        List<XYChart.Series> allSeries = getSeries(data.getDataGroups(), data.getDataGroupsLabels());
+
+        for (XYChart.Series series : allSeries) {
+            verticalBarChart.getData().add(series);
+        }
+        verticalBarChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
+        chartPane.getChildren().add(verticalBarChart);
+    }
+
+    /**
+     * Plots a horizontal bar chart for categorical data.
+     */
+    public static void plotHorizontalBar(VisualizationData data, Pane chartPane) {
+        Tuple<Axis, Axis> axes = getAxes(data.getXTitle(), data.getYTitle(), false);
+        BarChart<Number, String> horizontalBarChart = getHorizontalBarChart(axes, data.getId(), data.getChartTitle());
+        List<XYChart.Series> allSeries = getSeries(data.getDataGroups(), data.getDataGroupsLabels());
+
+        for (XYChart.Series series : allSeries) {
+            horizontalBarChart.getData().add(series);
+        }
+        horizontalBarChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
+        chartPane.getChildren().add(horizontalBarChart);
+    }
+
+    /**
+     * @return a pair of axes for a chart.
      */
     public static Tuple<Axis, Axis> getAxes(String xTitle, String yTitle, boolean isContinuous) {
         Axis xAxis;
@@ -108,9 +138,9 @@ public class Plot {
     }
 
     /**
-     *
+     * @return A stacked bar chart with the appropriate axes, id and title.
      */
-    public static StackedBarChart getStackedBarChart(Tuple<Axis, Axis> axes, String id, String title) {
+    public static StackedBarChart<String, Number> getStackedBarChart(Tuple<Axis, Axis> axes, String id, String title) {
         StackedBarChart<String, Number> stackedBarChart = new StackedBarChart<String, Number>(axes.getKey(), axes.getValue());
         stackedBarChart.setTitle(title);
         stackedBarChart.setId(id);
@@ -118,21 +148,27 @@ public class Plot {
     }
 
     /**
-     *
+     * @return a vertical bar chart with the appropriate axes, id and title.
      */
-    public static void getVerticalBarChart() {
-
+    public static BarChart<String, Number> getVerticalBarChart(Tuple<Axis, Axis> axes, String id, String title) {
+        BarChart<String, Number> verticalBarChart = new BarChart<>(axes.getKey(), axes.getValue());
+        verticalBarChart.setTitle(title);
+        verticalBarChart.setId(id);
+        return verticalBarChart;
     }
 
     /**
-     *
+     * @return a horizontal bar chart with the appropriate axes, id and title.
      */
-    public static void getHorizontalBarChart() {
-
+    public static BarChart<Number, String> getHorizontalBarChart(Tuple<Axis, Axis> axes, String id, String title) {
+        BarChart<Number, String> horizontalBarChart = new BarChart<>(axes.getValue(), axes.getKey());
+        horizontalBarChart.setTitle(title);
+        horizontalBarChart.setId(id);
+        return horizontalBarChart;
     }
 
     /**
-     *
+     * @return one or more series of dat to be plotted on a chart.
      */
     public static List<XYChart.Series> getSeries(List<List<Tuple<?, Integer>>> dataGroups, List<String> dataGroupLabels) {
         List<XYChart.Series> allSeries = new ArrayList<>();
@@ -150,69 +186,6 @@ public class Plot {
         }
 
         return allSeries;
-    }
-
-
-
-
-    /**
-     * Plots a vertical bar chart for categorical data.
-     */
-    public static void plotVBar(VisualizationData<String> data, Pane chartPane) {
-//        final CategoryAxis xAxis = new CategoryAxis();
-//        xAxis.setLabel(data.getXTitle());
-//
-//        final NumberAxis yAxis = new NumberAxis();
-//        yAxis.setLabel(data.getYTitle());
-//
-//        final BarChart<String, Number> barChart = new BarChart<String, Number>(xAxis, yAxis);
-//        barChart.setTitle(data.getChartTitle());
-//        barChart.setId(data.getId());
-//
-//        for (int i = 0; i < data.getDataGroups().size(); i++) {
-//            List<Tuple<String, Integer>> seriesData = data.getDataGroups().get(i);
-//
-//            XYChart.Series<String, Number> series = new XYChart.Series<String, Number>();
-//            series.setName(data.getDataGroupsLabels().get(i));
-//            for (Tuple<String, Integer> dataPoint : seriesData) {
-//                series.getData().add(new XYChart.Data<String, Number>(dataPoint.getKey(), dataPoint.getValue()));
-//            }
-//
-//            barChart.getData().add(series);
-//        }
-//
-//        barChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
-//        chartPane.getChildren().add(barChart);
-    }
-
-    /**
-     * Plots a horizontal bar chart for categorical data.
-     */
-    public static void plotHBar(VisualizationData<String> data, Pane chartPane) {
-//        final CategoryAxis yAxis = new CategoryAxis();
-//        yAxis.setLabel(data.getYTitle());
-//
-//        final NumberAxis xAxis = new NumberAxis();
-//        xAxis.setLabel(data.getXTitle());
-//
-//        final BarChart<Number, String> barChart = new BarChart<Number, String>(xAxis, yAxis);
-//        barChart.setTitle(data.getChartTitle());
-//        barChart.setId(data.getId());
-//
-//        for (int i = 0; i < data.getDataGroups().size(); i++) {
-//            XYChart.Series<Number, String> series = new XYChart.Series<Number, String>();
-//            series.setName(data.getDataGroupsLabels().get(i));
-//
-//            List<Tuple<String, Integer>> seriesData = data.getDataGroups().get(i);
-//            for (Tuple<String, Integer> dataPoint : seriesData) {
-//                series.getData().add(new XYChart.Data<Number, String>(dataPoint.getValue(), dataPoint.getKey()));
-//            }
-//
-//            barChart.getData().add(series);
-//        }
-//
-//        barChart.setPrefSize(chartPane.getWidth(), chartPane.getHeight());
-//        chartPane.getChildren().add(barChart);
     }
 
     /**

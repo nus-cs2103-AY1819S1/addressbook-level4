@@ -44,8 +44,11 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private Optional<Appointment> appointment;
 
+    /**
+     * Constructs an XmlAdaptedPatient.
+     * This is the no-arg constructor that is required by JAXB.
+     */
     public XmlAdaptedPatient() {
-
     }
 
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
@@ -121,7 +124,7 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
 
         Patient patient = new Patient(person, modelNric,
                 modelMedicalProblems, modelMedications,
-                modelAllergies, preferredDoctor.get());
+                modelAllergies, preferredDoctor.orElse(null));
 
         if (isQueuing) {
             patient.isQueuing();
