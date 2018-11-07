@@ -75,6 +75,8 @@ in the transcript and updated on the UI.
 
 * *Minor enhancement*: Added the *Current CAP Calculation* feature.
 
+* *Code Contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jeremiah_ang
+
 * *Other contributions*:
 
 ** Project management:
@@ -104,6 +106,7 @@ TBC
 //|===
 //
 //include::../UserGuide.adoc[tag=c_goal]
+
 
 == Contributions to the Developer Guide
 
