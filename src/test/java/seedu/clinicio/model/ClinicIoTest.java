@@ -2,13 +2,10 @@ package seedu.clinicio.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_ADAM;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NAME_BEN;
-import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_ALEX;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_NRIC_BRYAN;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_PASSWORD_ADAM;
 import static seedu.clinicio.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
@@ -48,10 +45,9 @@ import seedu.clinicio.model.staff.Password;
 import seedu.clinicio.model.staff.Role;
 import seedu.clinicio.model.staff.Staff;
 import seedu.clinicio.model.staff.exceptions.DuplicateStaffException;
-
 import seedu.clinicio.model.staff.exceptions.StaffNotFoundException;
+
 import seedu.clinicio.testutil.AppointmentBuilder;
-import seedu.clinicio.testutil.Assert;
 import seedu.clinicio.testutil.PatientBuilder;
 import seedu.clinicio.testutil.PersonBuilder;
 import seedu.clinicio.testutil.StaffBuilder;
@@ -205,7 +201,7 @@ public class ClinicIoTest {
     }
 
     @Test
-    public void hasPatient_PatientInClinicIo_returnsTrue() {
+    public void hasPatient_patientInClinicIo_returnsTrue() {
         clinicIo.addPatient(ALEX);
         assertTrue(clinicIo.hasPatient(ALEX));
     }
@@ -281,6 +277,12 @@ public class ClinicIoTest {
         Staff staffToCheck = new Staff(DOCTOR, new Name(VALID_NAME_ADAM),
                 new Password(VALID_PASSWORD_ADAM, false));
         assertThrows(StaffNotFoundException.class, () -> clinicIo.checkStaffCredentials(staffToCheck));
+    }
+
+    @Test
+    public void checkStaffCredentials_invalidStaff_returnFalse() {
+        clinicIo.addStaff(ADAM);
+        assertFalse(clinicIo.checkStaffCredentials(ADAM));
     }
 
     @Test
