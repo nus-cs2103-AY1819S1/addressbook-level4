@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -77,7 +78,12 @@ public class CalendarPanel extends UiPart<Region> {
      * Loads the calendar requested by the user onto the UI.
      */
     public void loadCalendar(Calendar calendar) {
-        VCalendar vCalendar = VCalendar.parse(calendar.toString());
+        String content = calendar.toString();
+        if (!isWindowsOs()) {
+            content = content.replace("\r\n", System.getProperty("line.separator"));
+        }
+
+        VCalendar vCalendar = VCalendar.parse(content);
         ICalendarAgenda iCalendarAgenda = new ICalendarAgenda(vCalendar);
         borderPane.setCenter(iCalendarAgenda);
 
@@ -86,6 +92,18 @@ public class CalendarPanel extends UiPart<Region> {
         borderPane.getCenter().addEventFilter(MouseEvent.ANY, handler);
         setUpBorderPane(iCalendarAgenda);
 
+    }
+
+    /**
+     * Checks if the operating system is windows.
+     */
+    private boolean isWindowsOs() {
+        String osName = System.getProperty("os.name");
+        if (osName == null) {
+            return false;
+        }
+        osName = osName.toLowerCase(Locale.ENGLISH);
+        return osName.contains("windows");
     }
 
     @Subscribe
