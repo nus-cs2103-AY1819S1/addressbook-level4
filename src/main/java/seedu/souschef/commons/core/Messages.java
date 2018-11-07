@@ -177,5 +177,11 @@ public class Messages {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + FindCommand.COMMAND_WORD + " onion";
 
+    public static final String MESSAGE_FIND_MEALPLAN_USAGE = FindCommand.COMMAND_WORD
+        + ": Finds the meal plan whose date matches the "
+        + "the specified date and displays it.\n"
+        + "Parameters: DATE\n"
+        + "Example: " + FindCommand.COMMAND_WORD + " 2018-11-29";
+
     public static final String MESSAGE_FIND_FAVOURITES_USAGE = FindCommand.COMMAND_WORD;
 }
