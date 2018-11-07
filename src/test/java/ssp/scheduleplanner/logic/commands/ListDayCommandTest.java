@@ -35,14 +35,12 @@ public class ListDayCommandTest {
         model.addTask(validToday);
         expectedModel.addTask(validToday);
         expectedModel.updateFilteredTaskList(new DateSamePredicate(validToday.getDate().value));
-        System.out.println(expectedModel.getFilteredTaskList());
-        System.out.println(model.getFilteredTaskList());
         assertCommandSuccess(new ListDayCommand(), model, commandHistory, ListDayCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }
 
     @Test
-    public void task_remain_afterFilter() {
+    public void dateSamePredicate_taskRemainAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would have that task remaining
         Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         Model expectedModel = new ModelManager();
@@ -58,7 +56,7 @@ public class ListDayCommandTest {
     }
 
     @Test
-    public void task_gone_afterFilter() {
+    public void dateSamePredicate_taskGoneAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would not have other task remaining
         Model model = new ModelManager();
         Model modelCheck = new ModelManager();
