@@ -270,10 +270,23 @@ Format: `filterByEducation [education level]`
 * filter result: list the person's name whose education level is the same as input.
 ****
 
+Examples:
+
+* `filterByEducation Secondary`
+returns a list of students whose Education level is Secondary.(no matter
+ which year he or she is in)
+
+* `filterByEducation JC`
+returns a list of students whose Education level is JC.(no matter which year
+he or she is in)
+
 [NOTE]
 ====
 If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
+
+The input of the education level must be "JC" "Secondary" or "Primary"
+Other input will be considered invalid input.
 ====
 
 === Making list by limit fee command: `filterByGrade`
@@ -283,11 +296,19 @@ Format: `filterByGrade [minimum grade] [maximum grade]`
 
 ****
 * filter result: A list containing students with grades which fall between the minimum and
-maximum grade.
+maximum grade(both included).
 ****
+
+Examples:
+
+* `filterByGrade 50 100`
+returns a list of students whose has grade within 50 and 100.
 
 [NOTE]
 ====
+If the input minimal grade is larger than maximal grade, then it will be regarded as
+the range between maximal and minimal grade.
+
 If no students qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
@@ -301,27 +322,88 @@ Format: `filterByTime [given TimeSlot]`
 * filter result: A student who has a lesson at the given timeslot
 ****
 
+Examples:
+
+* `filterByTime mon 1300 1400`
+returns the student whose has tuition time in monday 1300-1400.
+
 [NOTE]
 ====
-If no students qualify the filter criteria, an empty list is returned along with
+The time must be followed as format like "mon 1300 1400"
+and only "mon" "tue" "wed" "thu" "fri" "sun" "sat" are considered valid date.
+
+If no student qualify the filter criteria, an empty list is returned along with
 a system message which says that no such students can be found.
 ====
 
+=== Edit certain class time of certain student: `ExchangeTime`
+
+Exchange class time between two students who are in the same grade of same education level +
+Format: `Exch [studentA name] [A time-slot ordinal number within A's time-slot array] [studentB name]
+[B time-slot ordinal number within B's time-slot array]`
+
+****
+* exchange result: exchanged the time between the given students with given time found by the ordinal number.
+****
+
+Examples:
+
+* `ExchangeTime Alice 0 Bob 0`
+Exchange Alice first time-slot and Bob first time-slot.
+
+[NOTE]
+====
+The reason this command exists is that when two student want to swap time
+it cannot only use edit because the existing time-slot will crush.
+
+If the two students are not in the same grade of same education level
+It will be considered as invalid command.
+
+The ordinal number of the time is 0 base.
+If the the corresponding time-slot doenst exit based on the ordinal number, then return invalid input.
+====
 
 === Edit certain class time of certain student: `EditTime`
 
 Edit certain class time of certain student +
-Format: `EditTime [student name] [old timeslot] [new timeslot]`
+Format: `EditTime n/student name ts/old timeslot ts/new timeslot`
 
 ****
 * filter result: list the person's name who takes class at given time.
 ****
 
+Examples:
+
+* `EditTime n/Alice ts/mon 1300 1400 ts/tue 1300 1400`
+Edit the time slot of Alice into new time slot tue 1300-1400.
+
 [NOTE]
 ====
-If no one is qualified then shows cannot find.
+The prefix is needed as valid input.
+
+If the new time slot already token by others then cannot edit anymore.
+If the old time does not exit then cannot edit.
 ====
 
+=== Give Suggestions to students: `Suggestion`
+
+Give Suggestions to students +
+Format: `Suggestion studentName`
+
+****
+* result: show the suggestions.
+****
+
+Examples:
+
+* `Suggestion Alice`
+Show the suggestion to Alice according to her performance.
+
+[NOTE]
+====
+If the student has not taken any exam before
+No suggestion gonna be shown.
+====
 
 
 

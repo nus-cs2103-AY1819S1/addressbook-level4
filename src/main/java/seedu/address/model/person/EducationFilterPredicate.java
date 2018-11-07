@@ -18,7 +18,6 @@ public class EducationFilterPredicate implements Predicate<Person> {
     public boolean test(Person person) {
         String a = person.getEducation().getEducationalLevel().toString();
         return a.equalsIgnoreCase(education);
-
     }
 
 }

@@ -99,6 +99,7 @@ public class Time {
         case "fri":
             day = Day.Friday;
             break;
+        case "sat":
         default:
             day = Day.Saturday;
             break;
