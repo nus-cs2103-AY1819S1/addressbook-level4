@@ -236,7 +236,14 @@ Extended usage of suggesting commands:
 * No visible change is reflected.
 
 |kbd:[TAB] a|
-* `CommandBox` starts with a complete command word a|
+* `CommandBox` starts with a complete command word
+* *More than 1* command word match to first prefix in `CommandBox` a|
+* Display all matching command words in result panel.
+* No change in `CommandBox`.
+
+|kbd:[TAB] a|
+* `CommandBox` starts with a complete command word
+* *Only 1* command word match to first prefix in `CommandBox` a|
 * Strip all text behind command word in `CommandBox`.
 * Command in `CommandBox` will not be executed.
 * Command word will be shown in result panel.
