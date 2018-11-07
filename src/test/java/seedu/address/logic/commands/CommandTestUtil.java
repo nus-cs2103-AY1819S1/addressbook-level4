@@ -32,7 +32,8 @@ public class CommandTestUtil {
     public static final String VALID_AGE_YEAR = "5y";
 
     public static final String VALID_PRICE_CHARLES = "32.20";
-    public static final String VALID_DATE_1 = "01/01/2019";    public static final String VALID_AGE_YEAR_MONTH = "7y2m";
+    public static final String VALID_DATE_1 = "01/01/2019";
+    public static final String VALID_AGE_YEAR_MONTH = "7y2m";
     public static final String VALID_AGE_ALL_FIELDS = "3y7m2d";
     public static final String VALID_AGE_YEAR_DAY = "2y3d";
     public static final String VALID_AGE_DAY = "3d";
