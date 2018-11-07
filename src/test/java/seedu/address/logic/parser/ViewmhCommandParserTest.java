@@ -28,9 +28,4 @@ public class ViewmhCommandParserTest {
     public void parse_allFieldsPresent_success() throws ParseException {
         assertParseSuccess(parser, NRIC_DESC_BOB, new ViewmhCommand(patientNric));
     }
-
-    @Test
-    public void parse_compulsoryFilesMissing_failure() {
-        //todo
-    }
 }
