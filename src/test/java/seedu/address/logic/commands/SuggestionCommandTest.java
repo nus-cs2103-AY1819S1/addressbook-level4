@@ -2,19 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-
-import java.util.Arrays;
 
 import org.junit.Test;
-
-
 
 public class SuggestionCommandTest {
 
@@ -22,16 +11,16 @@ public class SuggestionCommandTest {
     @Test
     public void equals() {
         String first = "Alice";
-        SuggestionCommand SuggestionFirstCommand = new SuggestionCommand(first);
+        SuggestionCommand suggestionFirstCommand = new SuggestionCommand(first);
         // same object -> returns true
-        assertTrue(SuggestionFirstCommand.equals(SuggestionFirstCommand));
+        assertTrue(suggestionFirstCommand.equals(suggestionFirstCommand));
 
         // same values -> returns true
-        SuggestionCommand SuggestionFirstCommandCopy = new SuggestionCommand(first);
-        assertTrue(SuggestionFirstCommand.equals(SuggestionFirstCommandCopy));
+        SuggestionCommand suggestionFirstCommandCopy = new SuggestionCommand(first);
+        assertTrue(suggestionFirstCommand.equals(suggestionFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(SuggestionFirstCommand.equals(1));
+        assertFalse(suggestionFirstCommand.equals(1));
 
     }
 
