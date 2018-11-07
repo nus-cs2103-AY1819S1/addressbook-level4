@@ -453,18 +453,23 @@ list in the favourites model.
 ==== All-field Recipe Search
 The all-field recipe search matches keywords with details of `Recipe`.
 Each keyword goes through the matching process against the `Name`, `Tag`, `Difficulty`, `CookTime` and even
-`ingredient` from each `instruction` of every recipe.
+`Ingredient` from each `Instruction` of every recipe.
 Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
 
 ===== Current Implementation
 To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in a predicate to
 filter away recipes that does not meet the requirement.
 
-The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
- in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
- one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
-  in
- the `FilteredList`.
+The desired search keywords, once parsed as `List` of `String` will be turned to `Stream`. Each keyword is checked
+against a recipe `Name` for any matching word, `Difficult` for exact matching value, `Tag` for any matching
+word, and `Ingredient` for any matching `IngredientDefinition`. All keywords must return true (i.e. matching at least
+ one attribute of the recipe) before the recipe is deemed fit to be kept in the `FilteredList`.
+
+The following code snippet shows how the predict determines each recipe: +
+
+include::../src/main/java/seedu/souschef/model/recipe/NameContainsKeywordsPredicate.java[lines=20..34]
+
+The following sequence diagram shows how the keywords are being parsed to feed into the predicate:
 
 image::recipe_search_seq.png[width="1000"]
 
