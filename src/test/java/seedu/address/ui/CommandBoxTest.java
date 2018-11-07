@@ -139,6 +139,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertInputHistory(KeyCode.UP, thirdCommand);
     }
 
+    // @@author benedictcss
     @Test
     public void handleKeyPress_wrongCommandWordWithTab() {
         // empty commandBox
@@ -183,22 +184,15 @@ public class CommandBoxTest extends GuiUnitTest {
             assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " C://Users/");
         }
 
-        if (os.contains("mac")) {
-            // cd commands to change drive on mac
-            commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " /Vol");
-            assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
-            assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
-            assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " /Volume/");
-        }
+        String testPath = MainApp.MAIN_PATH.toString() + "/sr";
+        String expectedPath = MainApp.MAIN_PATH.toString() + "/src/";
 
-        /*if (os.contains("nux") || os.contains("ubuntu")) {
-            // cd commands to change drive on ubuntu/linux
-            commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " /ho");
-            assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " /home/");
-            assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " /home/");
-            assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " /home/");
-        }*/
+        commandBoxHandle.setText(CD_COMMAND_THAT_SUCCEEDS + " " + testPath);
+        assertInputHistory(KeyCode.TAB, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
+        assertInputHistory(KeyCode.DOWN, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
+        assertInputHistory(KeyCode.UP, CD_COMMAND_THAT_SUCCEEDS + " " + expectedPath);
     }
+    //@@author
 
     /**
      * Runs a command that fails, then verifies that <br>
