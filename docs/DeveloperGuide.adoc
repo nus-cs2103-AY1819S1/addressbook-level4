@@ -562,7 +562,12 @@ there is also a percentage met to show how much of the target is already achieve
 ==== Ongoing implementation (Implementing plan comparisons)
 
 This new implementation of this feature will allow the users to select 2 plans of their choice and compare
-with a side by side comparison of the calories consumed. In value and also bar chart format for clarity.
+with a side by side comparison of the calories consumed. This information will be displayed to the user much like the show
+details command that is available with slight tweaks. There will not be a percentage met but instead the feature will
+try to cover breakdown of the calories intake by day using the set duration of the targetted plans.
+This will provided clarity of the day by day consumption of calories of the user across 2 plans.
+The information will be in calculated values and then displayed in a series of bar graphs for quick understanding of the
+information by just looking at the graphs.
 
 
 ==== Ongoing implementation (Expiry of health plans)
