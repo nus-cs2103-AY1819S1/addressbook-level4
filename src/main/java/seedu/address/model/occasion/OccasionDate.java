@@ -61,7 +61,6 @@ public class OccasionDate {
         SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
         dateFormat.setLenient(false);
 
-
         dateFormat.parse(test, new ParsePosition(1));
         return true;
 

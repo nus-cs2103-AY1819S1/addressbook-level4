@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -232,5 +234,17 @@ public class ParserUtil {
             throw new ParseException(OccasionLocation.MESSAGE_OCCASIONLOCATION_CONSTRAINTS);
         }
         return new OccasionLocation(trimmedOccasionLocation);
+    }
+
+    /**
+     * Parses a {@code filePath} into a {@code Path}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param filePath
+     * @return The trimmedFilePath.
+     */
+    public static Path parseFilePath(String filePath) {
+        Path trimmedFilePath = Paths.get(filePath.trim());
+        return trimmedFilePath;
     }
 }
