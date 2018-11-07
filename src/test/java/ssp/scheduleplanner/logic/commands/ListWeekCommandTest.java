@@ -62,7 +62,7 @@ public class ListWeekCommandTest {
     }
 
     @Test
-    public void appendDateList_test() {
+    public void appendDateList_test_success() {
         ListWeekCommand lwc = new ListWeekCommand();
         List<String> dateList = new ArrayList<String>();
         List<String> expectedDateList = new ArrayList<String>();
@@ -84,7 +84,7 @@ public class ListWeekCommandTest {
     }
 
     @Test
-    public void numDaysTillSunday_test() {
+    public void numDaysTillSunday_test_success() {
         ListWeekCommand lwc = new ListWeekCommand();
         String testMonday = LocalDate.of(2018, 10, 22).getDayOfWeek().name();
         String testTuesday = LocalDate.of(2018, 10, 23).getDayOfWeek().name();
@@ -106,7 +106,7 @@ public class ListWeekCommandTest {
     }
 
     @Test
-    public void task_remain_afterFilter() {
+    public void dateWeekSamePredicate_taskRemainAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would have that task(s) from that date
         //till the closest sunday.
         //131018 is a saturday -> task from 131018 and 141018 will remain.
@@ -133,7 +133,7 @@ public class ListWeekCommandTest {
     }
 
     @Test
-    public void task_gone_afterFilter() {
+    public void dateWeekSamePredicate_taskGoneAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would have that task(s) from that date
         //till the closest sunday and not other days.
         //131018 is a saturday -> task from 131018 and 141018 will remain

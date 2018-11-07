@@ -43,8 +43,8 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
     /**
      * If user input only one set of argument in correct format, there should be no space as it
      * suggest more than one set of argument
-     * @param string
-     * @return
+     * @param string the value to be check if there are more than one set of argument
+     * @return true or false
      */
     private boolean onlyOneSetArgument(String string) {
         return containsWhiteSpace(string);
@@ -52,8 +52,8 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
 
     /**
      * Helper method to check if a string contains white space
-     * @param string
-     * @return boolean value
+     * @param string the value to check if there are any white space
+     * @return true or false
      */
     private boolean containsWhiteSpace(String string) {
         for (int i = 0; i < string.length(); i++) {
@@ -64,6 +64,12 @@ public class FirstDayCommandParser implements Parser<FirstDayCommand> {
         return true;
     }
 
+    /**
+     * Method to check if input date is a Monday
+     * Pre-requisite: This method only work for date in 21st century
+     * @param inputDate the date to check if input date is a monday
+     * @return true or false
+     */
     public boolean isMonday(String inputDate) {
         return (LocalDate.parse(inputDate, DateTimeFormatter.ofPattern("ddMMyy")).getDayOfWeek().name() == "MONDAY");
     }
