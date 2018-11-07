@@ -401,7 +401,11 @@ For all the above commands, the event must first be selected using the `selectEv
 This is done to ensure that users do not have to continually specify the event for which the Poll commands are called for every command.
 This is on top of the `currentUser` in the Model which was already selected through the `LoginCommand`.
 
-There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll. Each AbstractPoll object contains a `HashMap<String, UniquePersonList>` attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
+There are two types of Polls which extends from the abstract class AbstractPoll: Poll and TimePoll.
+Each AbstractPoll object contains a `HashMap<String, UniquePersonList>` attribute which stores each option as a string and the list of voters to that particular option as a UniquePersonList.
+
+image::PollClassDiagram.png[width="800"]
+
 When storing the Poll object in the Storage component, since the XML format does not support the HashMap format,
 each entry of the HashMap must be converted to a XmlAdaptedPollEntry.
 Each XmlAdaptedPollEntry contains the option as a String as well as a list of XmlPersonIndex objects,
@@ -443,25 +447,25 @@ Hence, the event organiser must wait for all participants to be confirmed before
 
 ===== Aspect: The relationship between `Poll` and `TimePoll`
 
-* **Alternative 1:**: Design them as separate classes which both inherit from an abstract `AbstractPoll` class.
+* **Alternative 1** (current implementation): Design them as separate classes which both inherit from an abstract `AbstractPoll` class.
 ** Pros: Allows for future extendability from the abstract Poll class eg additional types of Polls (location, date) which constrain the option types
  and include additional features to recommend the best option eg most convenient location by distance for participants.
 
-* **Alternative 2:**: Allow `TimePoll` to extend from the `Poll` class.
+* **Alternative 2**: Allow `TimePoll` to extend from the `Poll` class.
 ** Pros: The two classes differ only in that `TimePoll` has the augmented feature of generating options from the schedule of event participants.
 ** Cons: Unable to constrain the input and prevent users from adding the wrong format for options into `TimePoll`, since this would violate the Liskov Substitution Principle.
 
 ===== Aspect: Storage of voters in Poll
 
-* **Alternative 1:**: Store the voters as Persons.
+* **Alternative 1** (current implementation): Store the voters as Persons.
 ** Pros: All information about the voters are stored.
 ** Cons: Need for complete reference to the actual person via the XmlPersonIndex class in storage, rather than duplicating the person details.
 The voter list must also be manually updated every time the person details are updated.
 
-* **Alternative 2:**: Store only the names of voters.
+* **Alternative 2**: Store only the names of voters.
 ** Pros: No need for complete reference to the actual person via the XmlPersonIndex class in storage.
 ** Cons: Some persons might share the same name. It is also not extendable for future versions where the data/attributes of the voters might be relevant to computing the best option.
-// end:::poll[]
+//end::poll[]
 
 // tag::schedule[]
 === Schedule feature

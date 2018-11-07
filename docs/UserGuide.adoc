@@ -79,6 +79,7 @@ Examples:
 
 
 // tag::yaofeng(login/logout)[]
+
 ==== Login a user : `login`
 
 Logs in the user to EventOrganiser. A user must first log in to enable certain commands to be executed.
@@ -111,6 +112,7 @@ Shows a list of all users in the Event Organiser. +
 Format: `listUser`
 
 // tag::yaofeng(finduser)[]
+
 ==== Find users by name, phone number, email, address, interest, tag : `findUser`
 
 Finds users with any matching name, phone number, email, address, interest, tag. +
@@ -142,6 +144,7 @@ Format: `deleteUser INDEX`
 * Deletes the user at the specified `INDEX`.
 * The index refers to the index number shown in the displayed user list.
 * The index *must be a positive integer* 1, 2, 3, ...
+* The events organised by this user will also be deleted.
 ****
 
 Examples:
@@ -260,9 +263,9 @@ Example:
 
 * `maxSchedule 1 2` +
 Compares the schedule of users of index 1 and 2 and return a string of common free time.
-
 // end::maxschedule[]
 
+// tag::KengJi[]
 === Create and confirm event commands
 
 ==== Create a new event : `addEvent`
@@ -297,6 +300,7 @@ Format: `selectEvent index`
 
 ****
 * An event must be selected before setDate, setTime, addPoll, addTimePoll, addOption, and vote commands can be used.
+* Selecting an event displays the event participants as well as the polls associated with the event.
 ****
 
 ==== Set the event date : `setDate`
@@ -371,6 +375,7 @@ Format: `displayPoll i/POLL_INDEX`
 
 ****
 * The index is the index of the poll in the pre-selected event.
+* This index can be viewed by selecting the event using the `selectEvent` command.
 * This command displays the most popular options as well as the names of the users who voted for each option.
 ****
 
@@ -389,19 +394,6 @@ Examples:
 
 * `findEvent e/FaceBook Recruitment Talk on/John Doe` +
 Finds all events with the name "FaceBook Recruitment Talk" and with the organiser whose name is "John Doe".
-
-==== Find event by a date range : `findEventByDate`
-Finds events based start and end date. +
-Format: `findEvent d1/FROMDATE d2/TODATE`
-
-****
-* Dates are specified in DAY/MONTH/YEAR format.
-****
-
-Examples:
-
-* `findEvent d1/23-08-2018 d2/25-08-2018` +
-Finds all events held between 23 August and 25 August in 2018.
 
 ==== Find event by a time interval: `findEventByTime`
 Finds events based start and end time. +
@@ -437,6 +429,8 @@ Format: `voteDate i/POLL_ID o/OPTION_ID`
 Examples:
 
 * `voteDate i/3 o/12 August`
+
+// end::KengJi[]
 
 === Listing entered commands : `history`
 
@@ -505,6 +499,7 @@ e.g.`selectUser 2`
 e.g. `maxSchedule 1 2 3`
 // end::maxschedule[]
 
+// tag::KengJi(Summary)[]
 === Event organiser commands
 
 * *Add Event* : `addEvent n/EVENT_NAME a/LOCATION [t/TAG]...` +
@@ -544,3 +539,4 @@ e.g. `findEvent d/12-12-2018 pn/John Doe`
 e.g. `findEvent a/SoC Canteen on/Alice Tan`
 * *Find Event by Time* : `findEventByTime d/DAY-MONTH-YEAR t1/HOUR:MINUTE t2/HOUR:MINUTE`
 e.g. `findEventByTime d/12-12-2018 t1/12:30 t2/13:45`
+// end::KengJi(Summary)[]

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -136,7 +137,8 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         try {
-            LocalDate newDate = LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate newDate = LocalDate.parse(trimmedDate, DateTimeFormatter.ofPattern("dd-MM-yyyy")
+                .withResolverStyle(ResolverStyle.SMART));
             return newDate;
         } catch (DateTimeParseException e) {
             throw new ParseException(Messages.MESSAGE_WRONG_DATE_FORMAT);
