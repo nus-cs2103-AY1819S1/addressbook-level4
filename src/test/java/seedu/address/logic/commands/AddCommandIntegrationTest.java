@@ -66,7 +66,7 @@ public class AddCommandIntegrationTest {
         expectedModel.addExpense(expenseInList);
         expectedModel.commitExpenseTracker();
         assertCommandSuccess(new AddCommand(expenseInList), model, commandHistory,
-                AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, expectedModel);
+            String.format(AddCommand.MESSAGE_SUCCESS, expenseInList), expectedModel);
     }
 
 }

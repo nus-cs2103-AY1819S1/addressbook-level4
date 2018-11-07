@@ -18,6 +18,7 @@ import seedu.address.model.ExpenseTracker;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelStub;
