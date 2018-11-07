@@ -144,6 +144,22 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> categories} into a String array of size two {@code names}.
+     * names[0] contains original name of selected category,
+     * names[1] contains new name of this category.
+     */
+    public static String[] parseCategoryNames(Collection<String> categories) throws ParseException {
+        requireNonNull(categories);
+        String[] names = new String[2];
+        int i = 0;
+        for (String categoryName: categories) {
+            names[i] = parseCategoryName(categoryName);
+            i++;
+        }
+        return names;
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
