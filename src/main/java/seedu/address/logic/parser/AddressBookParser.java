@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddApptCommand;
 import seedu.address.logic.commands.AddDietCommand;
 import seedu.address.logic.commands.AddmedsCommand;
@@ -13,10 +14,12 @@ import seedu.address.logic.commands.AddmhCommand;
 import seedu.address.logic.commands.CheckinCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GendataCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -27,7 +30,9 @@ import seedu.address.logic.commands.ViewmhCommand;
 import seedu.address.logic.commands.ViewvisitorsCommand;
 import seedu.address.logic.commands.VisitorinCommand;
 import seedu.address.logic.commands.VisitoroutCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 /**
  * Parses user input.
@@ -38,7 +43,10 @@ public class AddressBookParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
+    private static final String MESSAGE_INSUFFICIENT_PERMISSIONS = "You have insufficient permissions"
+        + " to invoke this command!";
+    private static final String TOGGLE_DEV_MODE_COMMAND_WORD = "dev-mode";
+    private boolean isDevModeEnabled = false;
     /**
      * Parses user input into command for execution.
      *
@@ -54,6 +62,7 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
 
         case CheckinCommand.COMMAND_WORD:
@@ -115,6 +124,21 @@ public class AddressBookParser {
 
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
+
+        case GendataCommand.COMMAND_WORD:
+            if (!isDevModeEnabled) {
+                throw new ParseException(MESSAGE_INSUFFICIENT_PERMISSIONS);
+            }
+            return new GendataCommandParser().parse(arguments);
+
+        case TOGGLE_DEV_MODE_COMMAND_WORD:
+            isDevModeEnabled = !isDevModeEnabled;
+            return new Command() {
+                @Override
+                public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+                    return new CommandResult("Developer mode " + (isDevModeEnabled ? "enabled!" : "disabled!"));
+                }
+            };
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
