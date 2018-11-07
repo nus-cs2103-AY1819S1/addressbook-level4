@@ -16,8 +16,8 @@ import seedu.souschef.model.ingredient.Ingredient;
 import seedu.souschef.model.planner.Day;
 import seedu.souschef.model.planner.MealPlanContainsDatePredicate;
 import seedu.souschef.model.recipe.IngredientNameContainsKeywordsPredicate;
-import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
