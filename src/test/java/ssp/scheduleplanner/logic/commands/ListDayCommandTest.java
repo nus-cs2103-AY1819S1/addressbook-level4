@@ -42,7 +42,7 @@ public class ListDayCommandTest {
     }
 
     @Test
-    public void execute_taskRemainAfterFilter_success() {
+    public void dateSamePredicate_taskRemainAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would have that task remaining
         Model model = new ModelManager(getTypicalSchedulePlanner(), new UserPrefs());
         Model expectedModel = new ModelManager();
@@ -58,7 +58,7 @@ public class ListDayCommandTest {
     }
 
     @Test
-    public void execute_taskGoneAfterFilter_success() {
+    public void dateSamePredicate_taskGoneAfterFilter_success() {
         //after update the filteredtasklist with a specific date predicate, model would not have other task remaining
         Model model = new ModelManager();
         Model modelCheck = new ModelManager();
