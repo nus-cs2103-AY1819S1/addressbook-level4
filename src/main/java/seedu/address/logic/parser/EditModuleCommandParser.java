@@ -147,7 +147,34 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
-     * Parse the value into its relevant object.
+     * Checks if argument array does not contain the same name twice and all
+     * names are legal.
+     *
+     * @param args array of name-value pair arguments
+     * @throws ParseException
+     */
+    public static void validateName(String[] args) throws ParseException {
+        List<EditArgument> nameArray = IntStream.range(0, args.length)
+                .filter(index -> index % 2 == 0)
+                .mapToObj(index -> NAME_TO_ARGUMENT_MAP.get(args[index]))
+                .collect(Collectors.toList());
+
+        boolean illegalNameExist = nameArray.stream()
+                .anyMatch(Objects::isNull);
+
+        if (illegalNameExist) {
+            throw parseException(MESSAGE_INVALID_FORMAT);
+        }
+
+        Set<EditArgument> nameSet = new HashSet<>(nameArray);
+
+        if (nameArray.size() != nameSet.size()) {
+            throw parseException(MESSAGE_INVALID_FORMAT);
+        }
+    }
+
+    /**
+     * Parses the value into its relevant object.
      *
      * @param args array of name-value pair arguments
      * @throws ParseException thrown when the value cannot be parsed
@@ -161,7 +188,38 @@ public class EditModuleCommandParser implements Parser<EditModuleCommand> {
     }
 
     /**
-     * One of code, year, semester, credit, or grade should have a new value.
+     * Checks that target code is not be null.
+     *
+     * @throws ParseException thrown when target code is null
+     */
+    private void targetCodeNotNull() throws ParseException {
+        // Throw parse exception if target code is null.
+        Object targetCode = argMap.get(EditArgument.TARGET_CODE);
+        if (targetCode == null) {
+            throw parseException(MESSAGE_TARGET_CODE_REQUIRED);
+        }
+    }
+
+    /**
+     * Checks that target year is null if and only if target semester is also
+     * null.
+     * <p>
+     * Target year is null if and only if target semester is also null.
+     *
+     * @throws ParseException thrown when target year and target semester is
+     * exclusively null
+     */
+    private void targetYearNullIffTargetSemesterNull() throws ParseException {
+        Object targetYear = argMap.get(EditArgument.TARGET_YEAR);
+        Object targetSemester = argMap.get(EditArgument.TARGET_SEMESTER);
+        if (targetYear == null ^ targetSemester == null) {
+            throw parseException(MESSAGE_YEAR_AND_SEMESTER_XOR_NULL);
+        }
+    }
+
+    /**
+     * Checks that one of code, year, semester, credit, or grade should have a
+     * new value.
      *
      * @throws ParseException Thrown when code, year, semester, credit, and
      * grade are all null
