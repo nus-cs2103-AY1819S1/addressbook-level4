@@ -37,7 +37,7 @@ public class TypicalEvents {
         .withTags("tutorial", "CS2104").build();
     public static final CalendarEvent CARL = new CalendarEventBuilder().withTitle("CS2040 Lab")
         .withStart("2018-11-14 08:00")
-        .withEnd("22018-11-14 10:00")
+        .withEnd("2018-11-14 10:00")
         .withDescription("Linked Lists")
         .withVenue("COM1 02-09").build();
     public static final CalendarEvent DANIEL = new CalendarEventBuilder().withTitle("FIN3101 Seminar")
