@@ -24,7 +24,7 @@ TutorPal is for private tutors who *prefer to use a desktop app for managing stu
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `Tutor Pal.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your Tutor Pal.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -284,8 +284,12 @@ Selects the 1st person in the results of the `find` command.
 
 === Filter students by tuition fee: `filterByFee`
 
-List all the students whose tuition fee is greater or equal to a given minimal limit fee. +
-Format: `filterByFee [minimal fee to be filtered]`
+List all the students whose tuition fee is greater or equal to the input fee. +
+Format: `filterByFee FEE`
+
+****
+* filter result: list all the students whose tuition fee is greater or equal to the input fee.
+****
 
 Examples:
 
@@ -301,32 +305,46 @@ a system message which says that no such students can be found.
 === Filter students by educational level: `filterByEducation`
 
 List all the students with given educational level +
-Format: `filterByEducation [educational level]`
+Format: `filterByEducation EDUCATIONAL_LEVEL`
 
 ****
-* filter result: list the person's name whose education level is the same as input.
+* filter result: list all the students whose education level is the same as input.
 ****
+
+Examples:
+
+ * `filterByEducation Secondary` +
+ returns a list of students whose Education level is Secondary.(no matter which year he or she is in)
+
+ * `filterByEducation JC` +
+ returns a list of students whose Education level is JC.(no matter which year he or she is in)
 
 [NOTE]
 ====
-If no students qualify the filter criteria, an empty list is returned along with
-a system message which says that no such students can be found.
+If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
+
+The input of the education level must be "JC" "Secondary" or "Primary". Other input will be considered invalid input.
 ====
 
 === Filter students by grade: `filterByGrade`
 
-Returns a list of of students whose grades fall between the minimum and maximum grade +
-Format: `filterByGrade [minimum grade] [maximum grade]`
+Returns a list of of students whose grades fall between the minimum and maximum grade(both inclusive). +
+Format: `filterByGrade MINIMUM_GRADE MAXIMUM_GRADE`
 
 ****
-* filter result: A list containing students with grades which fall between the minimum and
-maximum grade.
+* filter result: A list containing students with grades which fall between the minimum and maximum grade.
 ****
+
+Examples:
+
+ * `filterByGrade 50 100` +
+ returns a list of students whose has grade within 50 and 100 (both 50 and 100 are inclusive).
 
 [NOTE]
 ====
-If no students qualify the filter criteria, an empty list is returned along with
-a system message which says that no such students can be found.
+If the input minimal grade is larger than maximal grade, then it will be regarded as the range between maximal and minimal grade.
+
+If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
 
 === Making list by limit fee command: `filterByTime`
@@ -338,10 +356,16 @@ Format: `filterByTime [given TimeSlot]`
 * filter result: A student who has a lesson at the given timeslot
 ****
 
+Examples:
+
+* `filterByTime mon 1300 1400` +
+returns the student whose has tuition time in monday 1300-1400.
+
 [NOTE]
 ====
-If no students qualify the filter criteria, an empty list is returned along with
-a system message which says that no such students can be found.
+The time must be followed as format like "mon 1300 1400" and only "mon" "tue" "wed" "thu" "fri" "sun" "sat" are considered valid date.
+
+If no students qualify the filter criteria, an empty list is returned along with a system message which says that no such students can be found.
 ====
 
 === Adding tuition time of a student : `addTime`
@@ -350,10 +374,11 @@ Adds a tuition time slot for a student in the address book.
 
 Format: `addtime n/NAME ts/TIME`
 
-
+****
 * The student with the name `NAME` must be already be in the address book.
 * Adds the tuition time `TIME` for the student called `NAME`.
 * `TIME` must not clash with any other tuition time in the address book.
+****
 
 Example:
 
@@ -363,7 +388,7 @@ Adds the tuition timing for John Doe that is on Monday which starts at 1300hour 
 === Edit certain class time of certain student: `EditTime`
 
 Edit certain class time of certain student +
-Format: `EditTime [student name] [old timeslot] [new timeslot]`
+Format: `EditTime n/NAME ts/OLD_TIMESLOT ts/NEW_TIMESLOT`
 
 ****
 * filter result: list the person's name who takes class at given time.
@@ -372,6 +397,33 @@ Format: `EditTime [student name] [old timeslot] [new timeslot]`
 [NOTE]
 ====
 If no one is qualified then shows cannot find.
+====
+
+=== Edit certain class time of certain student: `ExchangeTime`
+
+Exchange class time between two students who are in the same grade of same education level +
+Format: `Exch [studentA name] [A time-slot ordinal number within A's time-slot array] [studentB name]
+[B time-slot ordinal number within B's time-slot array]`
+
+****
+* exchange result: exchanged the time between the given students with given time found by the ordinal number.
+****
+
+Examples:
+
+* `ExchangeTime Alice 0 Bob 0`
+Exchange Alice first time-slot and Bob first time-slot.
+
+[NOTE]
+====
+The reason this command exists is that when two student want to swap time
+it cannot only use edit because the existing time-slot will crush.
+
+If the two students are not in the same grade of same education level
+It will be considered as invalid command.
+
+The ordinal number of the time is 0 base.
+If the the corresponding time-slot doenst exit based on the ordinal number, then return invalid input.
 ====
 
 === Deleting tuition time of a student : `deleteTime`
