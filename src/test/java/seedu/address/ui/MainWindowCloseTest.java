@@ -43,7 +43,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
     }
 
     @Test
-    public void close_menuBarExitButton_exitAppRequestEventPosted() {
+    public void close_menuBarExitButton_exitAppRequestEventPosted() throws InterruptedException {
+        Thread.sleep(6000);
         mainWindowHandle.clickOnMenuExitButton();
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);

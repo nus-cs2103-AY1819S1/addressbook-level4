@@ -18,7 +18,9 @@ By: `Team W13-2`      Since: `Sept 2018`      Licence: `MIT`
 
 == Introduction
 
-EventsPlus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*. EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events using a *Command Line Interface* (CLI).
+EventsPlus+ is for the busy university student who *prefer to use a desktop app for managing contacts and planning ad-hoc events*.
+EventsPlus+ aims to simplify some of the more time-consuming administrative tasks such as coordinating location and date of ad-hoc events
+using a *Command Line Interface* (CLI).
 
 == Quick Start
 
@@ -34,7 +36,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 f/SDE` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -47,6 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Command words are case-sensitive e.g. `addEvent` is a valid command word, but `addevent` is not.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times
 e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -56,11 +59,19 @@ e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend 
 e.g. `{group/GROUP_NAME i/1 INDEX}...` can be used as `group/CS2103_Group1 i/1 group/CS2013_Group2 i/3`
 ====
 
+=== Auto-completion of commands: `TAB` key
+
+To auto-complete any command words, press the `TAB` key. +
+For example, if `ad` is typed, `add` will be displayed in the command box upon pressing the `TAB` key. +
+
+Note that only command words will be auto-completed, and the auto-completion will only be successful if there
+are any valid command words (including command aliases) containing the current input as a prefix. The
+auto-completed is the nearest word containing the current input as a prefix.
+
 === Viewing help : `help`, alias `h`
 
 Format: `help`
 
-=== Adding a person: `add`, `a`
 === Adding a person: `add`, alias `a`
 
 Adds a person to the address book +
@@ -71,6 +82,7 @@ Format: `add n/NAME p/PHONE_NUMBER... e/EMAIL a/ADDRESS [t/TAG] f/FACULTY`
 * A person can have any number of tags (including 0)
 * A person can have 1 or many phone numbers
 * A person can have no faculty using '-', else faculty names are based on NUS naming conventions
+* A person's tags will be converted to lowercase regardless of the input (upper or lower case)
 ====
 
 Examples:
@@ -276,6 +288,7 @@ Examples:
 
 * `generateLocation event/First Meeting group/CS2103Group`
 
+// tag::addEvent[]
 === Adding an event: `addEvent`
 
 Adds an event in the system with information specified by the user.
@@ -303,6 +316,8 @@ In addition, note the following constraints for the input values.
 and should not have any special characters e.g. *, &, etc.
 * Event dates should be in the format YYYY-MM-DD
 * Event times (start or end time) should be in the 24-hour format HHMM
+* Start and end times for a given event can be the same. +
+e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1030 a/123, Clementi Rd, 1234665` is a valid command
 * Contact indices should be based on the latest displayed person list.
 * Event type has to be one of the existing tags in the EventsPlus+. If an event tag does not exist
 in EventsPlus+, it has to be added in before creating the event with the new event tag.
@@ -334,18 +349,24 @@ The user will be automatically directed to the Events tab,
 where the newly added event (as highlighted in green below) will be shown in the tab.
 
 image::add-event_new-event.PNG[Adding an event]
+// end::addEvent[]
 
+[[addEventTag]]
+// tag::addEventTag[]
 === Adding an event tag: `addEventTag`
 
 Adds an event tag specified by the user into the system.
 
-Format: `addEventTag [t/EVENT_TAG...]`
+Format: `addEventTag t/EVENT_TAG [t/EVENT_TAG...]`
 
 [TIP]
 ====
-Event tags are case-insensitive. i.e. MEETING and meeting are considered the same tag.
+* Event tags are case-insensitive, and will always be converted into lowercase.
+i.e. `MEETING` and `meeting` are considered the same tag,
+and only `meeting` will be shown in EventsPlus+
 Executing `addEventTag t/MEETING t/meeting` will only result in the first tag being added.
 Executing `addEventTag t/MEETING` again will not be successful, as the tag already exists in the system.
+* Event tags should only be alphanumeric (A-Z, a-z, 0-9) and hence should exclude any spaces, special characters or symbols such as '%', '*', '~'
 ====
 
 Example:
@@ -355,7 +376,9 @@ Adds the event tags into the system, if they do not already exist in the system.
 The newly added tags are highlighted in green below.
 
 image::add-event-tag_new-event-tag.PNG[Adding an event tag]
+// end::addEventTag[]
 
+// tag::deleteEvent[]
 === Deleting an event: `deleteEvent`
 
 Adds an event in the system with information specified by the user.
@@ -368,19 +391,60 @@ before the event can be successfully deleted from the system.
 [TIP]
 ====
 * Event dates should be in the format YYYY-MM-DD
-* Event index is based on the displayed index of each event in the displayed list (see example below).
+* Event index is based on the displayed index of each event **within each date** in the displayed list (see example below). +
+e.g. In the screenshot below, the event named "Meeting" is the 1st event on the date 2018-04-01,
+hence the command `deleteEvent d/2018-04-01 i/1` will delete this event. +
+The event named "Lecture" is the 2nd event on the date 2018-10-18,
+hence the command `deleteEvent d/2018-10-18 i/2` will delete this event.
 ====
 
 Example:
 
-* `deleteEvent d/2018-10-14 i/1`
+* `deleteEvent d/2018-04-01 i/1`
 
-image::delete-event.PNG[Deleting an event]
+**Before Deletion**
 
+image::delete-event-before.PNG[Deleting an event]
+
+**After Deletion**
+
+image::delete-event-after.PNG[Deleting an event]
+// end::deleteEvent[]
+
+// tag::listEvent[]
 === List all events: `listEvent`
 
 Shows a list of all events in the address book. +
 Format: `listEvent`
+// end::listEvent[]
+
+// tag::findEvent[]
+=== Find events by event tags: `findEvent`
+
+Shows a list of all events in the address book which are tagged as the specified tags in the command.
+Event tags are case-insensitive, as described in the <<addEventTag, addEventTag>> section. +
+i.e. `MEETING` and `meeting` are regarded as the same tag.
+
+Format: `findEvent EVENT_TAG [EVENT_TAG...]`
+
+Examples:
+
+**Before `findEvent` Execution**
+
+image::find-event-before.PNG[Finding an event]
+
+**After `findEvent` Execution**
+
+* `findEvent LECTURE` +
+Shows all the events tagged as `lecture`
+
+image::find-event-lecture.PNG[Finding an event]
+
+* `findEvent Class lecture` +
+Shows all the events tagged as `lecture` or `class`
+
+image::find-event-lecture-class.PNG[Finding an event]
+// end::findEvent[]
 
 === Import Contacts: `importContacts`
 
@@ -637,10 +701,12 @@ e.g. `generateLocation event/First Meeting group/CS2103Group`
 * *Add Event* : `addEvent n/EVENT_NAME dsc/EVENT_DESCRIPTION d/DATE(YYYY-MM-DD) st/START_TIME(HHMM) et/END_TIME(HHMM) a/ADDRESS [i/CONTACT_INDEX]... [t/EVENT_TAG]...` +
 e.g. `addEvent n/Doctor Appointment dsc/Consultation d/2018-10-14 st/1030 et/1200 a/123, Clementi Rd, 1234665 i/1 t/Meeting t/Appointment`
 * *Delete Event* : `deleteEvent d/DATE(YYYY-MM-DD) i/EVENT_INDEX` +
-e.g. `deleteEvent d/2018-10-12 i/1`
+e.g. `deleteEvent d/2018-10-18 i/1`
 * *Add Event Tag*: `addEventTag [t/EVENT_TAG...]` +
 e.g. `addEventTag t/Lecture t/Dinner`
 * *List Events* : `listEvent` +
+* *Find Events by Event Tag(s)* `findEvent EVENT_TAG [EVENT_TAG...]` +
+e.g. `findEvent Class lecture`
 * *Import Contacts* : `importContacts file/FILEPATH` +
 e.g. `importContacts file/~/Downloads/contacts1.csv`
 * *Disable and Enable Notification* : `notification enable/disable` +

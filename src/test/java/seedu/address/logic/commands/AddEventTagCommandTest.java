@@ -77,6 +77,18 @@ public class AddEventTagCommandTest {
     }
 
     @Test
+    public void execute_emptyEventTags_success() throws Exception {
+        ModelStubAcceptingEventTagAdded modelStub = new ModelStubAcceptingEventTagAdded();
+        Set<Tag> validEventTags = new HashSet<>();
+
+        CommandResult commandResult = new AddEventTagCommand(validEventTags).execute(modelStub, commandHistory);
+
+        assertEquals(String.format(AddEventTagCommand.MESSAGE_SUCCESS, validEventTags), commandResult.feedbackToUser);
+        assertEquals(new ArrayList<>(validEventTags), modelStub.eventTagsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
     public void equals() {
         Tag appointmentTag = new Tag(VALID_TAG_APPOINTMENT);
         Tag meetingTag = new Tag(VALID_TAG_MEETING);

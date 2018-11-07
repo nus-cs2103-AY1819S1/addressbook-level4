@@ -16,6 +16,7 @@ public class EmbedGoogleMaps {
     private static final String folPlaceId = "ChIJfyddcgMa2jER6C0WKzLdP6w";
     private static final String ystcomPlaceId = "ChIJSejKW_Ya2jER9bHfrr9sA-c";
     private static final String fassPlaceId = "ChIJadpVLvka2jERHq8cT_xdGVQ";
+    private static final String yihPlaceId = "ChIJcWXf-_ca2jERnQ81RhxHf5o";
 
     /**
      * This method returns the faculty location's Google Place ID.
@@ -50,4 +51,8 @@ public class EmbedGoogleMaps {
         return placeId;
     }
 
+    // TODO to replace this with a random generator of placeId with an assortment of places
+    public static String getYihPlaceId() {
+        return yihPlaceId;
+    }
 }
