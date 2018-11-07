@@ -7,7 +7,6 @@ import static seedu.restaurant.commons.core.Messages.MESSAGE_INVALID_ACCOUNT_DIS
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.restaurant.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.restaurant.logic.commands.CommandTestUtil.showAccountAtIndex;
-import static seedu.restaurant.logic.commands.CommandTestUtil.showIngredientAtIndex;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.restaurant.testutil.TypicalIndexes.INDEX_THIRD;
@@ -56,14 +55,14 @@ public class SelectAccountCommandTest {
 
     @Test
     public void execute_validAccountFilteredList_success() {
-        showIngredientAtIndex(model, INDEX_FIRST);
-        showIngredientAtIndex(expectedModel, INDEX_FIRST);
+        showAccountAtIndex(model, INDEX_FIRST);
+        showAccountAtIndex(expectedModel, INDEX_FIRST);
 
         assertExecutionSuccess(INDEX_FIRST);
     }
 
     @Test
-    public void execute_invalidIngredientFilteredList_failure() {
+    public void execute_invalidAccountFilteredList_failure() {
         showAccountAtIndex(model, INDEX_FIRST);
         showAccountAtIndex(expectedModel, INDEX_FIRST);
 
