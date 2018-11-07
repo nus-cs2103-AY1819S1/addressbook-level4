@@ -39,10 +39,17 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): #7, https://github.com[#31],
- https://github.com[#36], https://github.com[#37], https://github.com[#41],
- https://github.com[#70], https://github.com[#75], https://github.com[#78],
- https://github.com[#84], https://github.com[#114], https://github.com[#144]
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/31[#31],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/36[#36],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/37[#37],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/41[#41],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/70[#70],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/75[#75],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/78[#78],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/84[#84],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/114[#114],
+https://github.com/CS2103-AY1819S1-F11-3/main/pull/144[#144]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
