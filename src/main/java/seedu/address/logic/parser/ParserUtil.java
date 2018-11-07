@@ -205,7 +205,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String schedule} into a {@code Schedule}.
+     * Parses a {@code String} into a {@code Schedule}.
      * @param schedule
      *
      * @throws ParseException
