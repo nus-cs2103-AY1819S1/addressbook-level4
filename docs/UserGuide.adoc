@@ -46,14 +46,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by users. +
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
 e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional. +
+* Items,Grades in square brackets are optional. +
 e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times. +
-e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items,Grades with `…`​ after them can be used multiple times including zero times. +
+e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times or grades), `t/friend`, `g/midterm 100`, `t/friend t/family`, `g/test1 100 g/test2 99` etc.
+* Grade consists of two parts, exam name and exam score.
+** The name and score should be separated by space.
+** Score should be between 0 and 100.
+** Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
 * Parameters can be in any order. +
 e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+
 ====
 
 === Viewing help : `help`
@@ -61,6 +67,7 @@ e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` i
 Format: `help`
 
 === Adding a person: `add`
+
 
 Adds a person to the student list +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL [g/GRADE]... [t/TAG]...`
@@ -72,6 +79,7 @@ e.g. `... el/Primary ...` is valid; however, `... el/primary ...`, `... el/Unive
 * The format of `GRADE` is `exam name` + `exam score`. +
 e.g. `... g/mid-test 100 ...`
 ****
+
 
 [TIP]
 ====
@@ -87,6 +95,7 @@ Examples:
 
 Edits an existing person in the student list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [el/EDUCATIONAL_LEVEL] [g/GRADE] [t/TAG]...`
+
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -104,39 +113,6 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `alex@example.com` respectively.
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-[[grade]]
-=== Grades attribute
-
-Grade attribute consists of two parts, `exam name` and `exam score`.
-
-[NOTE]
-====
-* The name and grade should be separated by space.
-
-* Score should be between 0 and 100.
-
-* Considering the grades are just some records, the APP didn't implement the delete function temporarily. If you input a wrong exam name, use undo to fix it.
-====
-
-Add grade:
-
-You can add some grades record for a student, both using add command and edit command.
-
-Example
-
-`add ... g/mid-test 100 [other grades]`
-
-`edit 1 g/mid-test 100`
-
-[NOTE]
-====
-Edit grade will not delete the previous grades as tap attribute.
-====
-
-Change grade:
-
-if you need to change the score of a exam, you can use edit as well.
 
 === Listing all persons : `list`
 
@@ -213,6 +189,21 @@ Example:
 
 * `deleteTime n/John Doe ts/mon 1300 1500` +
 Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+
+
+=== Deleting grade of a student : `deleteGrade`
+
+Deletes a grade record for a student in the address book.
+Format: `deleteGrade INDEX NAME_OF_EXAM`
+
+* `NAME_OF_EXAM` must already exist in the student's grade records.
+* The student with the index `INDEX` will have the grade named `NAME_OF_EXAM` deleted.
+
+Example:
+
+* `deleteGrade 1 Y1819S1_Mid` +
+Deletes grade record named "Y1819S1_Mid" for the first person in the display panel.
+
 
 === Locating persons by name: `find`
 
@@ -550,20 +541,6 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-=== Analyzing grades commands `[coming in v2.0]`
-
-Analyze the grades of students +
-Format: `grades ACTION [parameters]`
-
-****
-* grades sort: list the details of students sorting by grades.
-****
-
-[NOTE]
-====
-Regard the mark of the student who doesn't have a grade as 0.
-====
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
