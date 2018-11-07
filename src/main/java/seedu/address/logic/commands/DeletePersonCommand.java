@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes a person from health book.
+ * Deletes a patient from health book.
  */
 public class DeletePersonCommand extends Command {
 
