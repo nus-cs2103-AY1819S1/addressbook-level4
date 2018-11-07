@@ -57,6 +57,7 @@ public class CarparkCard extends UiPart<Region> {
     public CarparkCard(Carpark carpark, int displayedIndex) {
         super(FXML);
         this.carpark = carpark;
+
         id.setText(displayedIndex + ". ");
         carparkNumber.setText(carpark.getCarparkNumber().toString());
         address.setText(carpark.getAddress().toString());
