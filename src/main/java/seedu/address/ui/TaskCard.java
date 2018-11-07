@@ -1,11 +1,16 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.model.task.Task;
+
 
 /**
  * An UI component that displays information of a {@code Task}.
@@ -53,13 +58,26 @@ public class TaskCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
         dueDate.setText(task.getDueDate().value);
-        remainingTime.setText("Remaining time: " + task.getTimeToDueDate());
+        remainingTime.setText(getRemainingTime());
         description.setText(task.getDescription().value);
         priorityValue.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
-        hash.setText("id: " + Integer.toString(task.hashCode()));
-        dependency.setText("dependencies: " + task.getDependency().toString());
+        hash.setText(getHashId());
+        dependency.setText(getDependencies());
         task.getLabels().forEach(tag -> tags.getChildren().add(new Label(tag.labelName)));
+        registerAsAnEventHandler(this);
+    }
+
+    private String getHashId() {
+        return "id: " + Integer.toString(task.hashCode());
+    }
+
+    private String getDependencies() {
+        return "dependencies: " + task.getDependency().toString();
+    }
+
+    private String getRemainingTime() {
+        return "Remaining time: " + task.getTimeToDueDate();
     }
 
     @Override
