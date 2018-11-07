@@ -1,7 +1,6 @@
 package seedu.learnvocabulary.logic.parser;
 
-import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.learnvocabulary.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,9 +8,13 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import seedu.learnvocabulary.commons.core.Messages;
+import seedu.learnvocabulary.logic.CommandHistory;
+import seedu.learnvocabulary.logic.commands.CommandResult;
 import seedu.learnvocabulary.logic.commands.WordOfTheDayCommand;
+
 import seedu.learnvocabulary.logic.parser.exceptions.ParseException;
+import seedu.learnvocabulary.model.Model;
+import seedu.learnvocabulary.model.ModelManager;
 import seedu.learnvocabulary.model.tag.Tag;
 import seedu.learnvocabulary.model.word.Dictionary;
 import seedu.learnvocabulary.model.word.Meaning;
@@ -25,21 +28,27 @@ public class WordOfTheDayParserTest {
     public void parse_success() {
         String empty = "";
         Dictionary dictionary;
-        Word word = null;
+        Word word;
         try {
-            dictionary = new Dictionary(empty).fetchWordOfTheDay();
+            dictionary = new Dictionary(empty);
+            dictionary.fetchWordOfTheDay();
             String wordOfTheDay = dictionary.getWordOfTheDay();
             String definition = dictionary.getDefinition();
-            Tag defaultTag = new Tag("wordOfTheDay");
+            Tag defaultTag = new Tag("WordOfTheDay");
             ArrayList<String> stringArrayList = new ArrayList<>(Collections.singleton(defaultTag.tagName));
 
             Name name = ParserUtil.parseName(wordOfTheDay);
             Meaning meaning = ParserUtil.parseMeaning(definition);
             Set<Tag> tagList = ParserUtil.parseTags(stringArrayList);
             word = new Word(name, meaning, tagList);
+
+            Model model = new ModelManager();
+            CommandHistory history = new CommandHistory();
+            CommandResult commandResult1 = parser.parse(empty).execute(model, history);
+            CommandResult commandResult2 = new WordOfTheDayCommand(word).execute(model, history);
+            assertEquals(commandResult1.feedbackToUser, commandResult2.feedbackToUser);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertParseSuccess(parser, empty, new WordOfTheDayCommand(word));
     }
 }
