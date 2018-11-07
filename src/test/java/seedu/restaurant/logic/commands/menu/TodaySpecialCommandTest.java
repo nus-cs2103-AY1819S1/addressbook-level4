@@ -67,8 +67,15 @@ public class TodaySpecialCommandTest {
         expectedModel.updateFilteredItemList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
 
-        // Saturday
+        // Friday
         calendar.set(2018, Calendar.NOVEMBER, 9);
+        predicate = preparePredicate(calendar);
+        command = new TodaySpecialCommand(calendar);
+        expectedModel.updateFilteredItemList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+
+        // Saturday
+        calendar.set(2018, Calendar.NOVEMBER, 10);
         predicate = preparePredicate(calendar);
         command = new TodaySpecialCommand(calendar);
         expectedModel.updateFilteredItemList(predicate);
