@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.BENSON;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE_PATIENT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.BENSON_PATIENT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE_DOCTOR;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Rule;
@@ -36,7 +36,7 @@ public class ViewPatientCommandTest {
 
     @Test
     public void execute_validPatient_success() {
-        Patient patientToDelete = ALICE;
+        Patient patientToDelete = ALICE_PATIENT;
         assertExecutionSuccess(patientToDelete);
     }
 
@@ -47,19 +47,19 @@ public class ViewPatientCommandTest {
                 model, commandHistory, ViewPatientCommand.MESSAGE_INVALID_PATIENT);
 
         // not patient
-        assertExecutionFailure(GEORGE, ViewPatientCommand.MESSAGE_INVALID_PATIENT);
+        assertExecutionFailure(GEORGE_DOCTOR, ViewPatientCommand.MESSAGE_INVALID_PATIENT);
     }
 
     @Test
     public void equals() {
-        ViewPatientCommand viewFirstPatientCommand = new ViewPatientCommand(ALICE.getName());
-        ViewPatientCommand viewSecondPatientCommand = new ViewPatientCommand(BENSON.getName());
+        ViewPatientCommand viewFirstPatientCommand = new ViewPatientCommand(ALICE_PATIENT.getName());
+        ViewPatientCommand viewSecondPatientCommand = new ViewPatientCommand(BENSON_PATIENT.getName());
 
         // same object -> returns true
         assertTrue(viewFirstPatientCommand.equals(viewFirstPatientCommand));
 
         // same values -> returns true
-        ViewPatientCommand viewFirstPatientCommandCopy = new ViewPatientCommand(ALICE.getName());
+        ViewPatientCommand viewFirstPatientCommandCopy = new ViewPatientCommand(ALICE_PATIENT.getName());
         assertTrue(viewFirstPatientCommand.equals(viewFirstPatientCommandCopy));
 
         // different types -> returns false

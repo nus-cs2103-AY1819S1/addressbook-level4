@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA_DOCTOR;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class RegisterDoctorCommandIntegrationTest {
 
     @Test
     public void execute_duplicateDoctor_throwsCommandException() {
-        assertCommandFailure(new RegisterDoctorCommand(FIONA), model, commandHistory,
+        assertCommandFailure(new RegisterDoctorCommand(FIONA_DOCTOR), model, commandHistory,
                 RegisterDoctorCommand.MESSAGE_DUPLICATE_PERSON);
     }
 }

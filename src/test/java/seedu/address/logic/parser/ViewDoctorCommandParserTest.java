@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.GEORGE_DOCTOR;
 
 import org.junit.Test;
 
@@ -23,9 +23,9 @@ public class ViewDoctorCommandParserTest {
     @Test
     public void parse_validArgs_returnsViewDoctorCommand() {
         // no leading and trailing whitespaces
-        String userInput = " " + PREFIX_NAME + GEORGE.getName();
+        String userInput = " " + PREFIX_NAME + GEORGE_DOCTOR.getName();
         ViewDoctorCommand expectedViewDoctorCommand =
-                new ViewDoctorCommand(GEORGE.getName());
+                new ViewDoctorCommand(GEORGE_DOCTOR.getName());
         assertParseSuccess(parser, userInput, expectedViewDoctorCommand);
     }
 

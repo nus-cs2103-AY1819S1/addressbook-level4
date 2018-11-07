@@ -4,8 +4,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.CARL;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.HELENA;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.CARL_PATIENT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.HELENA_DOCTOR;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import java.time.LocalDateTime;
@@ -30,8 +30,8 @@ public class DeleteAppointmentCommandTest {
     @Test
     public void execute_deleteAppointment_success() {
         // add appointment into expectedModel and actualModel first
-        Appointment appointment = new Appointment(10000, HELENA.getName().toString(),
-                CARL.getName().toString(), LocalDateTime.of(2018, 10, 17, 18, 0));
+        Appointment appointment = new Appointment(10000, HELENA_DOCTOR.getName().toString(),
+                CARL_PATIENT.getName().toString(), LocalDateTime.of(2018, 10, 17, 18, 0));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addAppointment(appointment);
         expectedModel.incrementAppointmentCounter();
@@ -41,11 +41,11 @@ public class DeleteAppointmentCommandTest {
         model.commitAddressBook();
 
         // delete
-        expectedModel.deleteAppointment(appointment, CARL, HELENA);
+        expectedModel.deleteAppointment(appointment, CARL_PATIENT, HELENA_DOCTOR);
         expectedModel.commitAddressBook();
 
-        CARL.addUpcomingAppointment(appointment);
-        HELENA.addUpcomingAppointment(appointment);
+        CARL_PATIENT.addUpcomingAppointment(appointment);
+        HELENA_DOCTOR.addUpcomingAppointment(appointment);
         DeleteAppointmentCommand deleteAppointmentCommand =
                 new DeleteAppointmentCommand(appointment.getAppointmentId());
 

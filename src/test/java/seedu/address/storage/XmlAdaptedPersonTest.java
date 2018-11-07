@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.ELLE;
-import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ELLE_PATIENT;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.FIONA_DOCTOR;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.ArrayList;
@@ -125,20 +125,20 @@ public class XmlAdaptedPersonTest {
 
     @Test
     public void toModelType_validDoctorDetails_returnsDoctor() throws Exception {
-        XmlAdaptedPerson doctor = new XmlAdaptedPerson(FIONA);
-        assertEquals(FIONA, doctor.toModelType());
+        XmlAdaptedPerson doctor = new XmlAdaptedPerson(FIONA_DOCTOR);
+        assertEquals(FIONA_DOCTOR, doctor.toModelType());
     }
 
     @Test
     public void toModelType_invalidDoctorDetails_returnsNotDoctor() throws Exception {
-        XmlAdaptedPerson notDoctor = new XmlAdaptedPerson(ELLE);
+        XmlAdaptedPerson notDoctor = new XmlAdaptedPerson(ELLE_PATIENT);
         assertFalse(notDoctor.toModelType() instanceof Doctor);
     }
 
     @Test
     public void toModelType_validPatientDetails_returnsPatient() throws Exception {
-        XmlAdaptedPerson patient = new XmlAdaptedPerson(ELLE);
-        assertEquals(ELLE, patient.toModelType());
+        XmlAdaptedPerson patient = new XmlAdaptedPerson(ELLE_PATIENT);
+        assertEquals(ELLE_PATIENT, patient.toModelType());
     }
 
     @Test
