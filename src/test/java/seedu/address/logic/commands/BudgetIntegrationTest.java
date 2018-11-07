@@ -21,7 +21,6 @@ import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
 import seedu.address.testutil.ExpenseBuilder;
 
-import java.util.ArrayList;
 
 
 public class BudgetIntegrationTest {
