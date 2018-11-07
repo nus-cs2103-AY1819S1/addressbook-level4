@@ -19,15 +19,36 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added the ability to *complete a task as identified by
+index*, *complete a batch of tasks as identified by a label*.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Complete a task as identified by index
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*** What it does: allows the user to complete task in the task manager
+*** Justification: This feature provides on of the core functionality of task
+managers, marking a task as complete.
+
+** Complete a batch of tasks as identified by a label
+
+*** What it does: allows the user to complete a batch of task identified by
+a label in the task manager atomically.
+*** Justification: This feature allows for the user to convenient complete
+multiple tasks at one go through the simple use of labels.
+**** This present to them
+a better user experience than monotonously completing tasks one by one.
+**** Furthermore, as this operation is atomic to the user, if he makes a mistake in
+completing the tasks he need only use the undo command once to revert changes
+to the batch of tasks. He need not painstakingly undo them one by one.
+*** Highlights: This enhancement required careful design considerations due to the
+creation of two flavours of the complete command. Moreover, the atomicity
+required from this feature required a model rollback operation that it does not
+currently support. Moreover, this implementation was challenging as it required
+changes to other components of the application.
+**** Converting `CompleteCommand` into an abstract class in order to support the
+polymorphic behaviour of the two flavour of completion. Additionally, this helps
+keeps code organised neatly by following the Single Responsibility Principle.
+**** Implementing a rollback operation for the model, which could possibly be
+used to provide better data integrity of the application in future development.
 
 * *Other contributions*:
 
