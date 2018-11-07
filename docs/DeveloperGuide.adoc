@@ -1256,16 +1256,52 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding of recipe
+. Adding of a non-duplicate recipe
+.. Prerequisites: Switched to `-recipe` context and recipe to be added is not in SousChef.
+.. Test case: `add n/Chicken Rice d/3 c/20M` `cont i/Remove skin from #chicken 500 gram.` `cont i/Boil chicken in
+#water 700 ml for 20m c/20M` `end` +
+Expected: Recipe added to the end of recipes list. Details of the added recipe shown in the status message. Timestamp
+ in the status bar is updated.
+ .. Test case: `add n/Tuna Roll d/3 c/10M` `end` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
+ . Adding of a duplicate recipe
+ .. Prerequisites: Switched to `-recipe` context.
+ .. Test case: `add n/Egg Roll d/2 c/10M` `cont i/Spread #rice 100 gram on the mat.` `cont i/Put #egg 1 piece on top
+ of the rice.` `cont i/Roll the rice.` `end` `add n/Egg Roll d/2 c/10M` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
+
+=== Editing a recipe
+. Editing a recipe while all recipes are listed
+
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
+... Test case: `edit 1 n/Chicken Burger` +
+Expected: First recipe is updated with a new name. Details of the edited recipe shown in the status message. Timestamp in the status bar is updated.
+... Test case: `edit 1` +
+Expected: No recipe is edited. Error details shown in the status message. Status bar remains the same.
+
 === Deleting a recipe
 
 . Deleting a recipe while all recipes are listed
 
-.. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
 .. Test case: `delete 1` +
    Expected: First recipe is deleted from the list. Details of the deleted recipe shown in the status message.
    Timestamp
    in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Finding a recipe
+. Finding a recipe while all recipes are listed
+
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+lsit.
+.. Test case: `find vegetarian noodles 1 20M` +
+Expected: Recipes meeting all the keywords is listed. Number of listed recipes shown in the status message. Status bar remains the same.
+.. Test case: `find` +
+Expected: No recipe listed. Error details shown in the status message. Status bar remains the same.
