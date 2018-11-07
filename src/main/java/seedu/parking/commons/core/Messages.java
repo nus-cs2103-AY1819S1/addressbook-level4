@@ -7,6 +7,9 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND = "Ambiguous command. You can try 'fin' or 'fil'";
+    public static final String MESSAGE_UNCERTAIN_HELP_OR_HISTORY_COMMAND = "Ambiguous command. You can try 'he' or 'hi'";
+    public static final String MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND = "Ambiguous command. You can try 'cl' or 'ca'";
 
     public static final String MESSAGE_INVALID_CARPARK_DISPLAYED_INDEX = "The car park index provided is invalid";
     public static final String MESSAGE_CARPARKS_LISTED_OVERVIEW = "%1$d car parks listed!";

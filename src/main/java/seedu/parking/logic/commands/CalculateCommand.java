@@ -19,7 +19,7 @@ import seedu.parking.model.carpark.CarparkIsOfNumberPredicate;
  */
 public class CalculateCommand extends Command {
     public static final String COMMAND_WORD = "calculate";
-    public static final String COMMAND_ABBREVIATION = "cal";
+    public static final String FORMAT = "calculate CARPARK_NUMBER DAY START_TIME END_TIME\n";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Calculates the cost of parking at a particular car park for a specified time period.\n"
