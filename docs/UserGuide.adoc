@@ -97,7 +97,7 @@ Format: +
 * Module with the same code, academic year and semester are considered to be the same module.
 * ModuleCode must be specified to create a module.
 * By default, Academic Year, ModuleTitle, Semester and Tag are empty strings.
-* Valid semester number is 1-4. (3 and 4 refers to special semester).
+* Valid semester number is 1-4. (3 and 4 refers to special term).
 ====
 
 Example:

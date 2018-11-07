@@ -14,8 +14,7 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Adds
- * a person to the address book.
+ * Adds a person to the address book.
  */
 public class AddPersonCommand extends Command {
 
