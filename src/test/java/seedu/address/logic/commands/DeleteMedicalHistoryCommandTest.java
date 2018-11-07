@@ -49,7 +49,7 @@ public class DeleteMedicalHistoryCommandTest {
 
         DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
                 new DeleteMedicalHistoryCommand(
-                        new Name(VALID_NAME_ALICE), VALID_ALLERGY_TO_DELETE, VALID_CONDITION_TO_DELETE);
+                        new Name(VALID_NAME_ALICE), null, VALID_ALLERGY_TO_DELETE, VALID_CONDITION_TO_DELETE);
 
         String expectedMessage = String.format(DeleteMedicalHistoryCommand.MESSAGE_DELETE_MEDICAL_HISTORY_SUCCESS,
                 editedPatient);
@@ -64,7 +64,7 @@ public class DeleteMedicalHistoryCommandTest {
     @Test
     public void execute_invalidPersonName_failure() {
         DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
-                new DeleteMedicalHistoryCommand(new Name(NON_EXIST_NAME), VALID_ALLERGY, VALID_CONDITION);
+                new DeleteMedicalHistoryCommand(new Name(NON_EXIST_NAME), null, VALID_ALLERGY, VALID_CONDITION);
 
         assertCommandFailure(deleteMedicalHistoryCommand,
                 model, commandHistory, DeleteMedicalHistoryCommand
@@ -77,7 +77,7 @@ public class DeleteMedicalHistoryCommandTest {
         model.updateFilteredPersonList(predicate);
 
         DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
-                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), NON_EXIST_ALLERGY, "");
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, NON_EXIST_ALLERGY, "");
 
         assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
                 DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_ALLERGY
@@ -91,7 +91,7 @@ public class DeleteMedicalHistoryCommandTest {
         model.updateFilteredPersonList(predicate);
 
         DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
-                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", NON_EXIST_CONDITION);
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, "", NON_EXIST_CONDITION);
 
         assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
                 DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_CONDITION
@@ -106,7 +106,7 @@ public class DeleteMedicalHistoryCommandTest {
         DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
                 new DeleteMedicalHistoryCommand(
                         model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getName(),
-                        VALID_ALLERGY, VALID_CONDITION);
+                        null, VALID_ALLERGY, VALID_CONDITION);
         assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
                 DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_WRONG_TYPE);
 
@@ -117,7 +117,7 @@ public class DeleteMedicalHistoryCommandTest {
         final TagContainsPatientPredicate predicate = new TagContainsPatientPredicate();
         model.updateFilteredPersonList(predicate);
         DeleteMedicalHistoryCommand deleteMedicalHistoryCommand =
-                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", "");
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, "", "");
         assertCommandFailure(deleteMedicalHistoryCommand, model, commandHistory,
                 DeleteMedicalHistoryCommand.MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO);
     }
@@ -125,11 +125,11 @@ public class DeleteMedicalHistoryCommandTest {
     @Test
     public void equals() {
         final DeleteMedicalHistoryCommand standardCommand =
-                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, VALID_CONDITION);
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, VALID_ALLERGY, VALID_CONDITION);
 
         // same values -> returns true
         DeleteMedicalHistoryCommand commandWithSameValues =
-                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, VALID_CONDITION);
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, VALID_ALLERGY, VALID_CONDITION);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -143,10 +143,10 @@ public class DeleteMedicalHistoryCommandTest {
 
         // different index -> returns false
         assertFalse(standardCommand.equals(
-                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_BENSON), VALID_ALLERGY, VALID_CONDITION)));
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_BENSON), null, VALID_ALLERGY, VALID_CONDITION)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(
-                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", "")));
+                new DeleteMedicalHistoryCommand(new Name(VALID_NAME_ALICE), null, "", "")));
     }
 }

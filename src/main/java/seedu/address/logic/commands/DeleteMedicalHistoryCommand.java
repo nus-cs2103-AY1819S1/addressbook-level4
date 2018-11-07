@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import seedu.address.model.patient.MedicalHistory;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,11 +31,12 @@ public class DeleteMedicalHistoryCommand extends Command {
     public static final String COMMAND_WORD = "delete-medical-history";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": delete medical history for a person to the address book. "
+            + ": Deletes medical history for a patient in the health book. \n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
-            + PREFIX_ALLERGY + "ALLERGIES (separated by comma) "
-            + PREFIX_CONDITION + "CONDITIONS (separated by comma) \n"
+            + "[" + PREFIX_PHONE + "PHONE] "
+            + "[" + PREFIX_ALLERGY + "ALLERGIES (separated by comma)] "
+            + "[" + PREFIX_CONDITION + "CONDITIONS (separated by comma)] \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_ALLERGY + "penicillin,milk "
@@ -46,21 +49,23 @@ public class DeleteMedicalHistoryCommand extends Command {
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
     public static final String MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME =
             " does not exist in the healthbook";
-
+    public static final String MESSAGE_DUPLICATE_PATIENT =
+            "There is multiple patients with this name. Please enter patients's number to identify the unique patient";
 
     private final Name name;
+    private final Phone phone;
     private String allergy;
     private String condition;
 
     /**
      * Creates an DeleteMedicalHistoryCommand for the specified {@code Person}
      */
-    public DeleteMedicalHistoryCommand(Name name, String allergy, String condition) {
+    public DeleteMedicalHistoryCommand(Name name, Phone phone, String allergy, String condition) {
         requireNonNull(name);
         this.name = name;
         this.condition = condition;
         this.allergy = allergy;
-
+        this.phone = phone;
     }
 
     @Override
@@ -73,9 +78,19 @@ public class DeleteMedicalHistoryCommand extends Command {
         boolean personExist = false;
         for (Person person : lastShownList) {
             if (person.getName().equals(name)) {
-                personToEdit = person;
-                personExist = true;
-                break;
+                if (phone != null) {
+                    if (person.getPhone().equals(phone)) {
+                        personToEdit = person;
+                        personExist = true;
+                    }
+                } else {
+                    if (personToEdit != null && personToEdit.getName().equals(name)) {
+                        throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+                    } else {
+                        personToEdit = person;
+                        personExist = true;
+                    }
+                }
             }
         }
         if (!personExist) {

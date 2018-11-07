@@ -48,7 +48,7 @@ public class AddMedicalHistoryCommand extends Command {
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_INFO = "Please provide valid info";
     public static final String MESSAGE_INVALID_ADD_MEDICAL_HISTORY_NO_MATCH_NAME = " does not exist in the healthbook";
     public static final String MESSAGE_DUPLICATE_PATIENT =
-            "There is multiple patients with this name. Please enter patients's number to identify the unique doctor";
+            "There is multiple patients with this name. Please enter patients's number to identify the unique patient";
 
     private final Name name;
     private final Phone phone;
