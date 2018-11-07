@@ -114,8 +114,27 @@ public class StringUtil {
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(w -> w.contains("\\d+") || w.length() < 4 ? preppedWord.equals(w)
+                .anyMatch(w -> containsDigit(w) || w.length() < 4 ? preppedWord.equals(w)
                         : w.length() < 8 ? calculate(preppedWord, w) < 3 : calculate(preppedWord, w) < 4);
+    }
+
+    /**
+     * Check whether a string contains digit.
+     * @param s String
+     * @return Boolean
+     */
+    public static final boolean containsDigit(String s) {
+        boolean containsDigit = false;
+
+        if (s != null && !s.isEmpty()) {
+            for (char c : s.toCharArray()) {
+                if (containsDigit = Character.isDigit(c)) {
+                    break;
+                }
+            }
+        }
+
+        return containsDigit;
     }
 
     /**
