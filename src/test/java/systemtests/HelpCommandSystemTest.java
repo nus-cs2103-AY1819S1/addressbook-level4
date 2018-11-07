@@ -135,6 +135,7 @@ public class HelpCommandSystemTest extends ThaneParkSystemTest {
 
     /**
      * Asserts that the browser's url is changed to display the short help
+     *
      * @see BrowserPanelHandle#isHelpUrl()
      */
     private void assertShortHelpDisplayed() throws IOException {
@@ -143,6 +144,7 @@ public class HelpCommandSystemTest extends ThaneParkSystemTest {
 
     /**
      * Asserts that the browser's url is not displaying the short help
+     *
      * @see BrowserPanelHandle#isHelpUrl()
      */
     private void assertShortHelpNotDisplayed() throws IOException {

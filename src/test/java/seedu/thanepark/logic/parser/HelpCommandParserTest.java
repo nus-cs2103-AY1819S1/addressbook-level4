@@ -1,7 +1,5 @@
 package seedu.thanepark.logic.parser;
 
-import static seedu.thanepark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.thanepark.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
@@ -21,15 +19,12 @@ public class HelpCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsHistoryCommand() {
-        assertParseSuccess(parser, "", new HelpCommand());
-        final String[] args2 = {"more"};
-        assertParseSuccess(parser, "more", new HelpCommand(args2));
-        final String[] args3 = {"add"};
-        assertParseSuccess(parser, "add", new HelpCommand(args3));
-    }
-
-    @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        assertParseSuccess(parser, "", new HelpCommand(true, ""));
+        final String args2 = "more";
+        assertParseSuccess(parser, args2, new HelpCommand(false, ""));
+        final String args3 = "add";
+        assertParseSuccess(parser, args3, new HelpCommand(false, args3));
+        final String args4 = args3 + " 1234";
+        assertParseSuccess(parser, args4, new HelpCommand(false, args3));
     }
 }

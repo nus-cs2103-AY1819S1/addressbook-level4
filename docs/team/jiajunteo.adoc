@@ -1,7 +1,5 @@
 = Teo Jia Jun - Project Portfolio
 :site-section: AboutUs
-:toc:
-:toc-title:
 :sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -14,22 +12,27 @@
 == Overview
 
 This portfolio serves to document my contributions to ThanePark.
-ThanePark is a desktop application used for theme park operators to manage their rides.
-My task in ThanePark is to enhance the viewall command to view rides
+ThanePark is a project that I have done in my software engineering module(CS2103T), in year 2, semester 1.
+It is a desktop application used for theme park operators to manage their rides.
 
-The user interacts with it using a Command Line Interface(CLI), and it has a Graphical
-User Interface(GUI) created with JavaFX. It is written in Java, and has about 10,000 lines of code.
+A limitation set by the module is that the user has to interact with ThanePark using a Command Line Interface(CLI).
+It also has a Graphical User Interface(GUI) created with JavaFX.
+ThanePark is written in Java, and has about 10,000 lines of code.
+
+My task in ThanePark is to implement the view status command to view rides of different statuses and to update documents.
 
 
-== Summary of contributions
+== Summary of Contributions
 
 * *Major enhancement*: added the `viewstatus` command
 ** What it does: allows the user to obtain a list of rides filtered by the statuses of the rides.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits:
+** Justification: Allows the user to find relevant rides with ease.
+** Highlight: This enhancement involved introduction a new predicate class, `RideStatusPredicate`,
+  to allow users to input a fixed set of statuses to compare values with the existing data.
+** Credits: The view status feature is based on the way find feature works, with a `RideStatusPredicate` instead of a
+            `RideContainsKeywordsPredicate`.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 

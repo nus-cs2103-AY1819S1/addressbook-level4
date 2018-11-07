@@ -1,6 +1,5 @@
 package seedu.thanepark.ui;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -21,6 +20,7 @@ import seedu.thanepark.commons.events.ui.ShowHelpRequestEvent;
 import seedu.thanepark.commons.events.ui.ShowHistoryRequestEvent;
 import seedu.thanepark.logic.Logic;
 import seedu.thanepark.model.UserPrefs;
+import seedu.thanepark.ui.browser.AboutUsWindow;
 import seedu.thanepark.ui.browser.BrowserPanel;
 import seedu.thanepark.ui.browser.HelpWindow;
 import seedu.thanepark.ui.browser.HistoryWindow;
@@ -45,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private AboutUsWindow aboutUsWindow;
     private HistoryWindow historyWindow;
 
     @FXML
@@ -82,6 +83,7 @@ public class MainWindow extends UiPart<Stage> {
         registerAsAnEventHandler(this);
 
         helpWindow = new HelpWindow();
+        aboutUsWindow = new AboutUsWindow();
         historyWindow = new HistoryWindow();
     }
 
@@ -196,6 +198,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the about us window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void showAboutUsWindow() {
+        if (!aboutUsWindow.isShowing()) {
+            aboutUsWindow.show();
+        } else {
+            aboutUsWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -229,10 +243,6 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleShowHistoryEvent(ShowHistoryRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        try {
-            historyWindow.show(event.getReportFilePath());
-        } catch (IOException ie) {
-            logger.warning(ie.getMessage());
-        }
+        historyWindow.showWithFilePath(event.getReportFilePath());
     }
 }
