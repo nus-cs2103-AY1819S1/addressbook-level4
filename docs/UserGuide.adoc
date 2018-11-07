@@ -132,6 +132,10 @@ Format: +
 
 ==== Add a recipe: `add` `cont` `end`
 Add new recipe. +
+[NOTE]
+====
+Full set of commands `add` `cont` `end` should be performed for the addition of recipe to be completed.
+====
 ****
 * This is a multi-line command. (i.e. `add`, `cont` and `end` must be in a seperate command entry)
 * Command starts with `add` and should include name, cook time and difficulty. Tags can be added as required.
@@ -148,13 +152,17 @@ Add new recipe. +
 *** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
 *** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
 *** SERVING_UNIT should only come as a single word. e.g. gram, g, ml.
-* Action will only be completed (added) with a valid `end` command.
 * Recipe without at least one instruction and 'end' command will not be added.
-* User can perform other commands and continue adding instructions as required. Command need not be continuous.
+* User can perform other commands and continue adding instructions as required. `cont` command need not be continuous.
 * To overwrite existing recipe that has yet been added (i.e. `end` command not used), simply use the `add` command
 and enter a new recipe details as desired.
 
+[NOTE]
+====
+Recipes containing the same name, difficulty and cooktime are considered as duplicates and should not be allowed.
+====
 ****
+
 Format: +
 `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
 cont i/INSTRUCTION... [c/TIME] +
