@@ -3,9 +3,11 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
+This document outlines my contributions to the following software projects:
+
 == PROJECT: Anakin
 
-== Overview
+=== Overview
 
 Anakin is a desktop flashcard management application created by team T09-2 to solve the inherent problems associated with physical flashcards. It aims to facilitate quick and intuitive management of virtual flashcards as well as the sharing of flashcard decks. Additionally, it features the ability to rate the difficulty of individual flashcards and a scheduling algorithm that prompts reviews of cards based on their difficulty rating.
 
@@ -17,19 +19,20 @@ The user interacts with Anakin using a commandline interface, and has a GUI crea
 
 Anakin's codebase draws from https://se-edu.github.io/[SE-EDU]'s AddressBook Level 4.
 
-== Summary of contributions
-* *Area of responsibility*: Logic
-** Role: Manage command structure, command execution (by making API calls to the main model), and parsing of user input arguments.
+=== Summary of contributions
+* *Area of responsibility: Logic*
+** Role: Manage command structure, command execution (by making API calls to the main model), and handling of user input arguments.
+** Integration: Have to work closely with the head of Model, Thanh, to successfully implement most of the features and functionalities in Anakin.
 
-* *Major enhancement*: added the ability to *import/export decks*  https://github.com/CS2103-AY1819S1-T09-2/main/pull/166[#166]
-** What it does: allows users to export a deck to a specified file location. Also allows the user to import any decks by providing the location of the file.
-** Justification: This feature improves the product significantly because a user can share decks across devices or even with other users.
-** Highlights: This enhancement has a major effect on user experience. It required an in-depth analysis of design alternatives.
+* *Major enhancement*: added the ability to *import/export decks* (Pull request: https://github.com/CS2103-AY1819S1-T09-2/main/pull/166[#166])
+** _What it does:_ allows users to export a deck to a specified file location. Also allows the user to import any decks by providing the location of the file.
+** _Justification:_ This feature improves the product significantly because a user can share decks across devices or even with other users.
+** _Highlights:_ This enhancement has a major effect on user experience. It required an in-depth analysis of design alternatives.
 
 * *Minor enhancement*: added the ability to *navigate into a deck*
-** What it does: allows users to select and enter a deck object.
-** Justification: The UI would be too cluttered if every deck displayed all the cards it contained. Instead we opted to have cards of each hidden until the user enters a deck. Only then will a user be able to see the cards of that deck.
-** Highlights: Subsequent card level operations implemented by other team members rely on the framework provided by this feature as card creation, editing and deletion actions are only available from inside a deck.
+** _What it does:_ allows users to select and enter a deck object.
+** _Justification:_ The UI would be too cluttered if every deck displayed all the cards it contained. Instead we opted to have cards of each hidden until the user enters a deck. Only then will a user be able to see the cards of that deck.
+** _Highlights:_ Subsequent card level operations implemented by other team members rely on the framework provided by this feature as card creation, editing and deletion actions are only available from inside a deck.
 
 * *Minor enhancement*: added a list command for decks that clears the current filters and displays all decks in Anakin.
 
@@ -39,9 +42,9 @@ Anakin's codebase draws from https://se-edu.github.io/[SE-EDU]'s AddressBook Lev
 
 ** Project management:
 *** Managed release `v1.3` - `v1.3.1` on GitHub
-*** Fixed project-wide formatting issues across over 200 files. https://github.com/CS2103-AY1819S1-T09-2/main/pull/147/files[#147]
+*** Fixed project-wide formatting issues across over 200 files: https://github.com/CS2103-AY1819S1-T09-2/main/pull/147/files[#147]
 ** Enhancements to existing features:
-*** Wrote several additional tests for existing features to increase coverage from 80% to 86% (Pull requests https://github.com/CS2103-AY1819S1-T09-2/main/pull/140[#140],
+*** Wrote several additional tests for existing features to increase coverage from 80% to 86% (Pull Requests: https://github.com/CS2103-AY1819S1-T09-2/main/pull/140[#140],
     https://github.com/CS2103-AY1819S1-T09-2/main/pull/144[#144])
 ** Documentation:
 *** Created and maintained User Guide throughout development: https://github.com/CS2103-AY1819S1-T09-2/main/pull/11[#11],  https://github.com/CS2103-AY1819S1-T09-2/main/pull/30/[#30],  https://github.com/CS2103-AY1819S1-T09-2/main/pull/87/[#87],
@@ -50,10 +53,12 @@ https://github.com/CS2103-AY1819S1-T09-2/main/pull/180[#180]
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/97[#97],
 https://github.com/CS2103-AY1819S1-T09-2/main/pull/188[#188]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T09-2/main/pull/60[#60], https://github.com/CS2103-AY1819S1-T09-2/main/pull/73[#73], https://github.com/CS2103-AY1819S1-T09-2/main/pull/192[#192]
+*** Highlighted several bugs: https://github.com/CS2103-AY1819S1-T09-2/main/issues/139[#139], https://github.com/CS2103-AY1819S1-T09-2/main/issues/167[#167], https://github.com/CS2103-AY1819S1-T09-2/main/issues/194[#194], https://github.com/CS2103-AY1819S1-T09-2/main/issues/208[#208]
+*** Led the discussion on major bug: https://github.com/CS2103-AY1819S1-T09-2/main/issues/203[#203]
 
 
-== Contributions to the User Guide
+=== Contributions to the User Guide
 
 |===
 |_Below are some of my more notable contributions to the Userguide._
@@ -63,7 +68,7 @@ include::../UserGuide.adoc[tag=importexport]
 
 include::../UserGuide.adoc[tag=cmdsummary]
 
-== Contributions to the Developer Guide
+=== Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide._
