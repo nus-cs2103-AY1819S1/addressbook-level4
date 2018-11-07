@@ -29,7 +29,8 @@ public class ListAccountCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListAccountsCommand(), model, commandHistory, ListAccountsCommand.MESSAGE_SUCCESS,
+        assertCommandSuccess(new ListAccountsCommand(), model, commandHistory,
+                String.format(ListAccountsCommand.MESSAGE_SUCCESS, model.getFilteredAccountList().size()),
                 expectedModel);
     }
 }
