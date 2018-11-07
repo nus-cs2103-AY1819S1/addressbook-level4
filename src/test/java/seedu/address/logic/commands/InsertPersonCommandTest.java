@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
@@ -31,7 +32,6 @@ import seedu.address.testutil.ModuleBuilder;
 import seedu.address.testutil.OccasionBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-import javafx.collections.ObservableList;
 
 /**
  * The unit tests for the Insert Person Command.

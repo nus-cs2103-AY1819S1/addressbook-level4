@@ -10,10 +10,11 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.InsertPersonCommand;
-import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleDescriptor;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.occasion.OccasionDescriptor;
 
