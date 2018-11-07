@@ -59,13 +59,20 @@ public class TypicalModules {
     private TypicalModules() {} // prevents instantiation
 
     /**
+     * Adds all the typical modules to an {@code AddressBook}.
+     */
+    public static void addTypicalModules(AddressBook ab) {
+        for (Module module : getTypicalModules()) {
+            ab.addModule(module);
+        }
+    }
+
+    /**
      * Returns an {@code AddressBook} with all the typical modules.
      */
     public static AddressBook getTypicalModulesAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Module module : getTypicalModules()) {
-            ab.addModule(module);
-        }
+        addTypicalModules(ab);
         return ab;
     }
 

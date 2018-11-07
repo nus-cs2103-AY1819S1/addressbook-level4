@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.TypeUtil.MODULE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MODULES;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.ShowModuleRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -20,6 +23,8 @@ public class ListModuleCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredModuleList(PREDICATE_SHOW_ALL_MODULES);
+        model.setActiveType(MODULE);
+        EventsCenter.getInstance().post(new ShowModuleRequestEvent());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

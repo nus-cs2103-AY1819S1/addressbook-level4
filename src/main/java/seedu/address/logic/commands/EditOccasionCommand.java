@@ -10,8 +10,10 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OCCASIONS;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.ui.ShowOccasionRequestEvent;
 import seedu.address.commons.util.TypeUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -84,6 +86,7 @@ public class EditOccasionCommand extends Command {
         model.updateOccasion(occasionToEdit, editedOccasion);
         model.updateFilteredOccasionList(PREDICATE_SHOW_ALL_OCCASIONS);
         model.commitAddressBook();
+        EventsCenter.getInstance().post(new ShowOccasionRequestEvent());
         return new CommandResult(String.format(MESSAGE_EDIT_OCCASION_SUCCESS, editedOccasion));
     }
 

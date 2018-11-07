@@ -27,6 +27,8 @@ import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.ModuleListPanelHandle;
+import guitests.guihandles.OccasionListPanelHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
@@ -117,6 +119,14 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getPersonListPanel();
     }
 
+    public ModuleListPanelHandle getModuleListPanel() {
+        return mainWindowHandle.getModuleListPanel();
+    }
+
+    public OccasionListPanelHandle getOccasionListPanel() {
+        return mainWindowHandle.getOccasionListPanel();
+    }
+
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
@@ -202,7 +212,7 @@ public abstract class AddressBookSystemTest {
     protected void selectModule(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         // TODO: -> getModuleListPanel implemented.
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getModuleListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -235,7 +245,7 @@ public abstract class AddressBookSystemTest {
     protected void selectOccasion(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         // TODO: -> getOccasionListPanel implemented. Need to morph select command.
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getOccasionListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -252,12 +262,38 @@ public abstract class AddressBookSystemTest {
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
      * and the person list panel displays the persons in the model correctly.
      */
-    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) {
+    protected void assertApplicationDisplaysExpectedPerson(String expectedCommandInput, String expectedResultMessage,
+                                                           Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+    }
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpectedModule(String expectedCommandInput, String expectedResultMessage,
+                                                           Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertListMatching(getModuleListPanel(), expectedModel.getFilteredModuleList());
+    }
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpectedOccasion(String expectedCommandInput, String expectedResultMessage,
+                                                             Model expectedModel) {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertListMatching(getOccasionListPanel(), expectedModel.getFilteredOccasionList());
     }
 
     /**
@@ -288,7 +324,7 @@ public abstract class AddressBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    protected void assertSelectedPersonCardChanged(Index expectedSelectedCardIndex) {
         getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
@@ -300,6 +336,46 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Asserts that the browser's url is changed to display the details of the module in the module list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see ModuleListPanelHandle#isSelectedModuleCardChanged()
+     */
+    protected void assertSelectedModuleCardChanged(Index expectedSelectedCardIndex) {
+        getModuleListPanel().navigateToCard(getModuleListPanel().getSelectedCardIndex());
+        String selectedCardName = getModuleListPanel().getHandleToSelectedCard().getName();
+        URL expectedUrl;
+        try {
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("URL expected to be valid.", mue);
+        }
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getModuleListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Asserts that the browser's url is changed to display the details of the occasion in the person list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see OccasionListPanelHandle#isSelectedOccasionCardChanged()
+     */
+    protected void assertSelectedOccasionCardChanged(Index expectedSelectedCardIndex) {
+        getOccasionListPanel().navigateToCard(getOccasionListPanel().getSelectedCardIndex());
+        String selectedCardName = getOccasionListPanel().getHandleToSelectedCard().getName();
+        URL expectedUrl;
+        try {
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("URL expected to be valid.", mue);
+        }
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getOccasionListPanel().getSelectedCardIndex());
     }
 
     /**

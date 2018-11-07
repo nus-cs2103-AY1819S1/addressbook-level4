@@ -11,7 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToModuleListRequestEvent;
 import seedu.address.commons.events.ui.ModulePanelSelectionChangedEvent;
 import seedu.address.model.module.Module;
 
@@ -33,6 +33,24 @@ public class ModuleListPanel extends UiPart<Region> {
         setConnections(moduleList);
 
         registerAsAnEventHandler(this);
+    }
+
+    /**
+     * Clears selection of the view.
+     */
+    public void clearSelection() {
+        Platform.runLater(() -> {
+            moduleListView.getSelectionModel().clearSelection();
+        });
+    }
+
+    /**
+     * Change list of view.
+     * @param moduleList updated list.
+     */
+    public void updatePanel(ObservableList<Module> moduleList) {
+        moduleListView.setItems(moduleList);
+        moduleListView.setCellFactory(listView -> new ModuleListViewCell());
     }
 
     private void setConnections(ObservableList<Module> moduleList) {
@@ -62,7 +80,7 @@ public class ModuleListPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToListRequestEvent(JumpToModuleListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }

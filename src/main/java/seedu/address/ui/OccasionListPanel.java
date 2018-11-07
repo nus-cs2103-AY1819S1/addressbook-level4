@@ -11,7 +11,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.JumpToOccasionListRequestEvent;
 import seedu.address.commons.events.ui.OccasionPanelSelectionChangedEvent;
 import seedu.address.model.occasion.Occasion;
 
@@ -31,6 +31,24 @@ public class OccasionListPanel extends UiPart<Region> {
         setConnections(occasionList);
 
         registerAsAnEventHandler(this);
+    }
+
+    /**
+     * Clears selection of the view.
+     */
+    public void clearSelection() {
+        Platform.runLater(() -> {
+            occasionListView.getSelectionModel().clearSelection();
+        });
+    }
+
+    /**
+     * Change list of view.
+     * @param occasionList updated list.
+     */
+    public void updatePanel(ObservableList<Occasion> occasionList) {
+        occasionListView.setItems(occasionList);
+        occasionListView.setCellFactory(listView -> new OccasionListViewCell());
     }
 
     private void setConnections(ObservableList<Occasion> occasionList) {
@@ -60,7 +78,7 @@ public class OccasionListPanel extends UiPart<Region> {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+    private void handleJumpToListRequestEvent(JumpToOccasionListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         scrollTo(event.targetIndex);
     }
