@@ -67,6 +67,12 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getFilteredCheckedOutPersonList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getFilteredCheckedOutPersonList().remove(0);
+    }
+
+    @Test
     public void equals() {
         AddressBook addressBook = new AddressBookBuilder()
             .withPerson(ALICE).withPerson(BENSON)
