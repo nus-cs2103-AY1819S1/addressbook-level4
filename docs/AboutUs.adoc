@@ -4,9 +4,9 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-FlashBook is developed by the https://github.com/CS2103-AY1819S1-W17-3[CS2103-AY1819S1-W17-3] team. +
+MeetingBook is developed by the https://github.com/CS2103-AY1819S1-W17-3[CS2103-AY1819S1-W17-3] team. +
 {empty} +
-FlashBook is morphed from https://github.com/se-edu/addressbook-level4[AddressBook - Level 4],
+MeetingBook is morphed from https://github.com/se-edu/addressbook-level4[AddressBook - Level 4],
 originally developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
@@ -33,16 +33,16 @@ Responsibilities: UI
 
 === Koh Zheng Wei
 image::zenious.png[width="150", align="left"]
-{empty}[http://github.com/Zenious[github]]
+{empty}[http://github.com/Zenious[github]][<<zenious#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Storage
 
 '''
 
-=== Zhuang Xinjie Derek
+=== Zhuang Xinjie
 image::derek-hardy.png[width="150", align="left"]
-{empty}[https://github.com/Derek-Hardy[github]]
+{empty}[https://github.com/Derek-Hardy[github]][<<Derek-Hardy#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Group

@@ -49,7 +49,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.meeting.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -111,7 +111,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/meeting/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -147,7 +147,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when MeetingBook data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `MeetingBookChangedEvent` when MeetingBook data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -165,11 +165,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/meeting/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `GroupListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/meeting/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -185,9 +185,9 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/meeting/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MeetingBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -203,7 +203,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::updatedModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:https://github.com/CS2103-AY1819S1-W17-3/main/blob/master/src/main/java/seedu/meeting/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -225,7 +225,7 @@ unique `Group`, instead of each `Person` needing their own `Tag` and `Group` obj
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/meeting/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -235,7 +235,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.meetingbook.commons` package.
 
 == Implementation
 
@@ -249,7 +249,7 @@ This section describes some noteworthy details on how certain features are imple
 .The enhanced Person class
 image::PersonClassDiagram.png[width="300"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person.java`]
+*API* : link:{repoURL}/src/main/java/seedu/meeting/model/person/Person.java[`Person.java`]
 
 * `Person` now supports group identification. Every person will keep a list of groups that he/she has enrolled in.
 * Every `Person` in MeetingBook can be added or removed from an existing group. Use the methods `addGroup()` and `removeGroup`.
@@ -264,7 +264,7 @@ image::PersonClassDiagram.png[width="300"]
 .The new Group class
 image::GroupClassDiagram.png[width="300"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/group/Group.java[`Group.java`]
+*API* : link:{repoURL}/src/main/java/seedu/meeting/model/group/Group.java[`Group.java`]
 
 The `Group`,
 
@@ -278,7 +278,7 @@ The `Group`,
 ==== Usage of Group class
 A `Group` can be added and removed from `MeetingBook` using `addGroup` and `deleteGroup` command respectively.
 
-Once the `Group` exists in the `AddressBook`, the existing `Person` can be assigned to that group using `join` command.
+Once the `Group` exists in the `MeetingBook`, the existing `Person` can be assigned to that group using `join` command.
 The person can also be removed from the group by `leave` command.
 
 Each `Group` can keep track of a list of its members. This is supported by `UniquePersonList` class.
@@ -293,7 +293,7 @@ Each `Person` can also keep a list of groups he/she enrols in. An `UniqueGroupLi
 ** Pros: Less complexity in current project structure.
 ** Cons: The future optimisation of these operations is less flexible.
 
-* **Alternative 2:** Use a central `groupManager` to manage the group-person relationships on the `AddressBook level`.
+* **Alternative 2:** Use a central `groupManager` to manage the group-person relationships on the `MeetingBook level`.
 ** Pros: Greater room for possible future improvement, and ability to contain more complex relationships required by potential users.
 ** Cons: The idea is less compatible with the current project structure. Extensive change in structure and logic must be performed, and is error-prone.
 // end::group[]
@@ -304,7 +304,7 @@ Each `Person` can also keep a list of groups he/she enrols in. An `UniqueGroupLi
 .The UniqueGroupList class
 image::uniqueGroupListClassDiagram.png[width="500"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/group/UniqueGroupList.java[`UniqueGroupList.java`]
+*API* : link:{repoURL}/src/main/java/seedu/meeting/model/group/UniqueGroupList.java[`UniqueGroupList.java`]
 
 The `UniqueGroupList`,
 
@@ -313,12 +313,12 @@ The `UniqueGroupList`,
 * exposes an unmodifiable `ObservableList<Group>` for observation of the list.
 
 [NOTE]
-Both `UniqueGroupList` and `UniquePersonList` implements `Iterable` interface.
+Both `UniqueGroupList`, `UniquePersonList` and `UniqueMeetingList` implements `Iterable` interface.
 // end::uniqueGroupList[]
 
 // tag::addgroup/deletegroup[]
 === AddGroup and DeleteGroup feature
-The AddGroup and DeleteGroup commands modify the `UniqueGroupList` in the `versionedAddressBook`.
+The AddGroup and DeleteGroup commands modify the `UniqueGroupList` in the `versionedMeetingBook`.
 This section shows how the addGroup and deleteGroup commands are implemented.
 
 ==== `addGroup` command usage
@@ -349,14 +349,14 @@ Example: `deleteGroup n/CS2101`: removes the existing group with title 'CS2101' 
 image::DeleteGroupCommand.png[width="350"]
 
 ==== Implementation of `addGroup` and `deleteGroup` commands
-The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups
+The `versionedMeetingBook` maintains a `UniqueGroupList` to keep track of all groups
 that exist in this MeetingBook. The commands thus modify and update this list of groups through `ModelManager`.
 // end::addgroup/deletegroup[]
 
 // tag::join/leave[]
 === Join and Leave feature
 The Join and Leave commands modify the relationship between groups existed in the `UniqueGroupList` and
-people in the `UniquePersonList` maintained by `versionedAddressBook. This section provides description of the usage
+people in the `UniquePersonList` maintained by `versionedMeetingBook. This section provides description of the usage
 and implementation of these commands.
 
 ==== `join` command usage
@@ -390,7 +390,7 @@ Example: `leave n/Ben g/CS2103T`: removes the person `Ben` from the group `CS210
 image::LeaveCommand.png[width="500"]
 
 ==== Implementation of `join` and `leave` commands
-The `versionedAddressBook` maintains a `UniqueGroupList` to keep track of all groups that exist in this MeetingBook.
+The `versionedMeetingBook` maintains a `UniqueGroupList` to keep track of all groups that exist in this MeetingBook.
 It also maintains a `UniquePersonList` to keep track of all people that exist in this MeetingBook.
 The commands thus modify and update a pair of person and group, as specified by user input, in their respective list
 through `ModelManager`.
@@ -410,7 +410,7 @@ A `Group` can only have a maximum of one `Meeting` at any given time.
 
 image::meetingClassDiagram.png[width="300"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/group/Meeting.java[`Meeting.java`]
+*API* : link:{repoURL}/src/main/java/seedu/meeting/model/group/Meeting.java[`Meeting.java`]
 
 The `Meeting`,
 
@@ -498,16 +498,16 @@ image::cancelCommandSequenceDiagram.png[width="300"]
 // end::meeting[]
 
 // tag::addressbook[]
-=== AddressBook feature
+=== MeetingBook feature
 
 ==== Current Implementation
 
-.The object diagram of AddressBook
+.The object diagram of MeetingBook
 image::addressbookObject.png[width="350"]
 
 *Enhancements:*
 
-* `versionedAddressBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
+* `versionedMeetingBook` now also contains group list and meeting list, which supports categorisation of persons in MeetingBook.
 * `Group` can be created or removed from the MeetingBook.
 * `Meeting` can be scheduled or cancelled from the MeetingBook.
 * When a `Group` is removed from the MeetingBook, all members will be removed from this group.
@@ -517,6 +517,7 @@ image::addressbookObject.png[width="350"]
 The categorisation of `Person` is not exclusive. One `Person` can be enrolled in multiple groups at the same time.
 // end::addressbook[]
 
+// tag::sortfind[]
 === Sort and Find feature
 
 The Sort and Find commands modifies the `ObservableList<Person>` in `Model` that the UI is bound to. This section will
@@ -524,41 +525,11 @@ detail how the sort and find commands are implemented.
 
 ==== `sort` command usage
 
-The `sort` command allows the user to sort the displayed persons list according to each person's name, email,
-phone number, or address by alphanumerical order. This command is executed with the following syntax: +
-
-Syntax: `sort [name|phone|email|address]` +
-
-Example: `sort name`: This command will sort the current displayed list by name by alphanumerical order.
+include::UserGuide.adoc[tag=sort]
 
 ==== `find` command usage
 
-The `find` command allows the user to filter the displayed persons list by each person's name based on
-keywords given by the user. This command is executed with the following syntax: +
-
-Syntax: `find [a/<keywords>] [s/<keywords>] [n/<keywords>]` +
-
-The user can include as many keywords as desired in `<keywords>` separated by a kbd:[space].
-The keywords are case-insensitive. +
-
-The `a/`, `s/`, and `n/` prefixes allows the user to include further specifications. They function as such: +
-
-* `a/`: The results displayed must match all of the keywords following this prefix.
-* `s/`: The results displayed must match some (at least one) of the keywords following this prefix.
-* `n/`: The results displayed must match none of the keywords following this prefix.
-
-Example: `find a/alice bob s/shirlene david n/charlie`: This command will filter the displayed list such that all
-results will contain "alice" and "bob", either "shirlene" or "david", and none of the results will contain
-"charlie". +
-
-If the user doesn't use prefixes. With the following syntax: +
-
-Syntax: `find <keywords>` +
-
-The command is equivalent to `find a/<keywords>` by default. +
-
-Example: `find mary john`: This command will filter the displayed list such that all results will contain "mary" and
-"john". This command is equivalent to `find a/mary john`.
+include::UserGuide.adoc[tag=find]
 
 ==== Implementation of `sort` and `find` commands
 
@@ -566,8 +537,8 @@ Example: `find mary john`: This command will filter the displayed list such that
 `FilteredList<Person>`. +
 
 Illustrated in the figure below, `sortedPersons` list wraps the `filteredPersons` list and
-`filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedAddressBook`.
-`persons` list in `versionedAddressBook` contains all the persons stored in the MeetingBook.
+`filteredPersons` list wraps the `persons` list of type `ObservableList<Person>` maintained by `versionedMeetingBook`.
+`persons` list in `versionedMeetingBook` contains all the persons stored in the MeetingBook.
 
 image::sortedList-filteredList-persons.png[width="400"]
 
@@ -588,59 +559,60 @@ Similarly, when a user executes a `sort` command, an appropriate `Comparator<Per
 
 Due to this two-layered structure. The user can chain `find` and `sort` commands back-to-back to display the desired
 list.
+// end::sortfind[]
 
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedMeetingBook`.
+It extends `MeetingBook` with an undo/redo history, stored internally as an `meetingBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current MeetingBook state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous MeetingBook state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone MeetingBook state from its history.
+* `VersionedMeetingBook#commit()` -- Saves the current MeetingBook state in its history.
+* `VersionedMeetingBook#undo()` -- Restores the previous MeetingBook state from its history.
+* `VersionedMeetingBook#redo()` -- Restores a previously undone MeetingBook state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitMeetingBook()`, `Model#undoMeetingBook()` and `Model#redoMeetingBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial MeetingBook state, and the `currentStatePointer` pointing to that single MeetingBook state.
+Step 1. The user launches the application for the first time. The `VersionedMeetingBook` will be initialized with the initial MeetingBook state, and the `currentStatePointer` pointing to that single MeetingBook state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the MeetingBook. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the MeetingBook after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted MeetingBook state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the MeetingBook. The `delete` command calls `Model#commitMeetingBook()`, causing the modified state of the MeetingBook after the `delete 5` command executes to be saved in the `meetingBookStateList`, and the `currentStatePointer` is shifted to the newly inserted MeetingBook state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified MeetingBook state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitMeetingBook()`, causing another modified MeetingBook state to be saved into the `meetingBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the MeetingBook state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitMeetingBook()`, so the MeetingBook state will not be saved into the `meetingBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous MeetingBook state, and restores the MeetingBook to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoMeetingBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous MeetingBook state, and restores the MeetingBook to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial MeetingBook state, then there are no previous MeetingBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial MeetingBook state, then there are no previous MeetingBook states to restore. The `undo` command uses `Model#canUndoMeetingBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the MeetingBook to that state.
+The `redo` command does the opposite -- it calls `Model#redoMeetingBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the MeetingBook to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest MeetingBook state, then there are no undone MeetingBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `meetingBookStateList.size() - 1`, pointing to the latest MeetingBook state, then there are no undone MeetingBook states to restore. The `redo` command uses `Model#canRedoMeetingBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the MeetingBook, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the MeetingBook, such as `list`, will usually not call `Model#commitMeetingBook()`, `Model#undoMeetingBook()` or `Model#redoMeetingBook()`. Thus, the `meetingBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all MeetingBook states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitMeetingBook()`. Since the `currentStatePointer` is not pointing at the end of the `meetingBookStateList`, all MeetingBook states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -663,7 +635,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 * **Alternative 1 (current choice):** Use a list to store the history of MeetingBook states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedMeetingBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
@@ -671,58 +643,132 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 // tag::select[]
 === Select feature
+
+The select command selects the `GroupCard`, `MeetingCard` or `PersonCard` in the `ObservableList<Group>`, `ObservableList<Meeting>`,
+or `ObservableList<Person>` respectively in `Model` that is bounded to the UI. This section will explain current implementation
+of select command, execution sequence, and design considerations of multiple implementations.
+
 ==== Current Implementation
 
 The select mechanism is facilitated by `ModelManager`.
-It extends `Model` with two lists, `UniquePersonList` and `UniqueGroupList` and implements the following operations:
+It extends `Model` with three lists, `UniquePersonList`, `UniqueMeetingList` and `UniqueGroupList` and implements the following operations:
 
 * `Model#updateFilteredPersonList` -- Updates person list with a specific `Predicate`.
+* `Model#updateFilteredGroupList` -- Updates group list with specific `Predicate`.
+* `Model#updateFilteredMeetingList` -- Updates meeting list with specific `Predicate`.
 
 Given below is an example usage scenario and how the select mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-The `ModelManager` will be initialized with the initial MeetingBook state, and both `UniquePersonList` and `UniqueGroupList` contains all person and group without filter.
+The `ModelManager` will be initialized with the initial MeetingBook state, and `UniquePersonList`, `UniqueMeetingList` and `UniqueGroupList` contains all person, meetings and groups respectively without filter.
 
-Step 2. The user executes `select g/1` command to select the 1st group in the MeetingBook.
-The `SelectCommandParser` parses the command to determine the select type, and the command calls executes the following steps:
+Step 2. The user executes `select` command to select the item type with the specified index in the MeetingBook.
+The `SelectCommandParser` parses the command to determine the select type, and the command executes the following steps:
 
-* Step 2.1. If the select type is `SELECT_TYPE_GROUP`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
-and `Model#updateFilteredPersonList` is called to filter `UniquePersonList` to contain only person that are associated with the group.
+* Step 2.1. If the prefix is `g/`, a `JumpToGroupListRequestEvent` is sent to update the UI to select the group card,
+`Model#updateFilteredPersonList` is called to filter `UniquePersonList` to contain only person that are associated with the group,
+and `Model#updateFilteredMeetingList` is called to filter `UniqueMeetingList` to show only meeting that is associated with the group.
 
-* Step 2.2. If the select type is `SELECT_TYPE_PERSON`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
+* Step 2.2. If the prefix is `m/`, a `JumpToMeetingListRequestEvent` is sent to the UI to select the meeting card.
+
+* Step 2.3. If the prefix is `p/`, a `JumpToListRequestEvent` is sent to the UI to select the person card.
 
 [NOTE]
-If a group is selected, calling `select` command with `SELECT_TYPE_PERSON` will only select the person in the filtered `UniquePersonList` that contains only person in the selected group.
+If a group is selected, subsequent `select` calls to person and meeting list will only select the person or meeting in the filtered
+`UniquePersonList` or `UniqueMeetingList` respectively.
 
-The following activity diagram summarizes what happens when a user executes a `select` command:
+.Select group sequence diagram when user executes select group 1
+image::SelectGroupSequenceDiagram.png[width="800"]
 
-image::SelectActivityDiagram.png[width="650"]
+.Select command activity diagram
+image::SelectActivityDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: How select executes
+===== Aspect: Data structure to support the select command
 
-* **Alternative 1 (current choice):** Use prefix to differentiate between selecting group or person.
-** Pros: Easy to implement.
-** Cons: Select command becomes too generalized.
-* **Alternative 2:** Individual command for selecting group and person.
-** Pros: Structurally correct as each command is specialized to executing a specific task.
+* **Alternative 1 (current choice):** Use a single select class to perform all select operations.
+** Pros: Easy to implement as there are fewer lines of code required.
+** Cons: Harder to extend if need to implement select command for other items, select class will become bloated if too
+many items require select command.
+* **Alternative 2:** Abstract select class containing required variables and methods without implementation, and select
+commands inherit from the abstract class and implement the execution functionality.
+** Pros: Good data structure, easy to extend functionality to select other items.
 ** Cons: Requires more code to implement.
 // end::select[]
+
+// tag::list[]
+=== List feature
+
+The `list` command removes any filters applied to `UniqueGroupList`, `UniquePersonList` and `UniqueMeetingList` by other
+commands. This section will explain current implementation of list command and design considerations during development
+phase.
+
+==== Current implementation
+The list mechanism is facilitated by `ModelManager`. It uses the same operations as mentioned in `select` feature,
+namely `Model#updateFilteredPersonList`, `Model#updateFilteredGroupList` and `Model#updateFilteredMeetingList`.
+
+Given below is an example usage scenario and operations executed by list mechanism at each step.
+
+Step 1. The user launches the application. `ModelManager` will be initialized with initial MeetingBook state, and
+`UniquePersonList`, `UniqueMeetingList` and `UniqueGroupList` contains all person, meetings and groups respectively
+without filter.
+
+Step 2. The user executes `list` command with additional parameter to specify the list to show all items. Available
+parameters are `person`, `meeting` and `group`, or their shorthand equivalent `p`, `m` and `g`. `ListCommandParser`
+parses the command to determine the list type, and the command executes the following steps:
+
+* Step 2.1. If the parameter is `group` / `g`, `Model#updateFilteredGroupList` is called with
+`PREDICATE_SHOW_ALL_GROUPS` to remove any filters applied to `UniqueGroupList`.
+
+* Step 2.1. If the parameter is `meeting` / `m`, `Model#updateFilteredMeetingList` is called with
+`PREDICATE_SHOW_ALL_MEETINGS` to remove any filters applied to `UniqueMeetingList`.
+
+* Step 2.1. If the parameter is `person` / `p`, `Model#updateFilteredPersonList` is called with
+`PREDICATE_SHOW_ALL_PERSONS` to remove any filters applied to `UniquePersonList`.
+
+[NOTE]
+List will remain unchanged if it does not have any filters applied before executing `list` command.
+
+.List group sequence diagram
+image::ListCommandSequenceDiagram.png[width="800"]
+
+==== Design considerations
+===== Aspect: Data structure to support the list command
+* **Alternative 1 (current choice)** : Use a single list class to perform all list operations.
+** Pros: Easy to implement as fewer lines of code are required.
+** Cons: Harder to extend list functionality if need to implement list command for other items, list class will become
+bloated if too many items require list command.
+* **Alternative 2** : Abstract list class containing required variables and methods without implementation, and specific
+list commands inherit from the abstract class and implement the execution functionality.
+** Pros: Good data structure, easy to extend functionality to other items that require list command.
+** Cons: Requires more lines of code to implement.
+
+// end::list[]
 
 // tag::export[]
 === Export feature
 ==== Current Implementation
-
-The export mechanism is facilitated by `ExportCommand`. `ExportCommandParser` is responsible for parsing the input arguments. +
+===== Overview
+The export mechanism is facilitated by `ExportCommand`. `ExportCommandParser` is responsible for parsing the input arguments. The end result of this command is a Xtensible Markup Language (XML) file containing data of MeetingBook when is executed successfully. +
 [NOTE]
 If there is no filepath provided, `export` command will return an invalid message, which the usage information to the user.
 
 The following sequence diagram shows how export operation works:
 
-image::ExportCommandSeqDiagram.png[width="1000"]
-//TODO Explain XML
-The program will raise a `AddressBookExportEvent` to `EventCenter`. `StorageManager` which subscribed to the `EventCenter` which will trigger `handleAddressBookExportEvent` when received `AddressBookExportEvent`. This method will then export the data as a XML file using `Model#exportAddressBook`.
+.Sequence diagram of ExportCommand
+image::exportCommandSeqDiagram.png[width="1000"]
+
+The program will raise a `MeetingBookExportEvent` to `EventCenter`. `StorageManager` which subscribed to the `EventCenter` will trigger `StorageManager#handleMeetingBookExportEvent` when received `MeetingBookExportEvent`.
+This method will then attempt to export the data as a XML file using `Model#exportMeetingBook`.
+
+===== Export to a XML file
+Translation from MeetingBook to XML formatted file is handled by `XmlFileStorage#saveDataToFile`.
+As MeetingBook stores `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted into Java Architecture for XML Binding (JAXB)-friendly version before it can be successfully saved.
+``Object``s are modelled using their respective `XMLAdapted` classes which contain directions for it to parse into JAXB-friendly version. `Marshal` Object will then marshal all the JAXB-friendly version of `Person`, `Meeting`, `Group` and assemble it into a XML file.
+
+.Class diagram of XmlAdapted classes and their associations
+image::xmlAdaptedClassDiagram.png[]
 
 ==== Design Consideration
 
@@ -738,9 +784,40 @@ The program will raise a `AddressBookExportEvent` to `EventCenter`. `StorageMana
 *** After user export data, user rename the XML file or move the XML file. This causes the original file referenced by the `export` command to be lost and unable to continue the undo operation.
 
 +
-These scenarios create unnecessary complications when we want to attempt undoing the operation. Therefore we do not allow the command to be undoable.
+These scenarios create unnecessary complications when we want to attempt undoing the operation. Therefore, we choose to not allow the command to be undoable.
 
 // end::export[]
+
+// tag::import[]
+=== Import feature
+==== Current Implementation
+===== Overview
+The import command allow the user to import a XML file containing of MeetingBook data into his MeetingBook.
+This is facilitated by is facilitated by `ImportCommand`. `ImportCommandParser` is responsible for parsing the input arguments.
+The end result of this command is entries of `Person`, `Group`, `Meeting` added into the current MeetingBook.
+
+===== Import from XML file
+Translation from XML formatted file to `MeetingBook` is handled by `XmlFileStorage#loadDataToFile`.
+As MeetingBook consists `Person`, `Group`, `Meeting` as ``Object``s, these information have to be properly formatted back into Java Architecture for XML Binding (JAXB)-friendly version before it can then modelled into its respective classes (i.e. `xmlAdaptedPerson` modelled back into `Person` object).
+Each ``Object``s has their respective `XMLAdapted` class which contain directions to model back from JAXB-friendly version . `Unmarshal` Object is solely responsible for disassemble the XML file into  JAXB-friendly versions of `Person`, `Meeting`, `Group`, which will then be feed as parameters to create another instance of `MeetingBook`.
+The imported `MeetingBook` will then merge with the current `MeetingBook` using `MeetingBook#merge`.
+
+.Class diagram of XmlAdapted classes and their associations
+image::xmlAdaptedClassDiagram.png[]
+
+==== Design Consideration
+===== Aspect: Handling of conflict files
+* **Alternative 1 (current choice):** Either ignore or overwrite conflicting files.
+*** Pros: Easy to handle conflicting cases.
+*** Cons: Loss of data as information is destroyed or lost when importing.
+When we choose to ignore, we lose data from the XML file as they are not imported in.
+If we were to overwrite conflicting files, we lose information in our current MeetingBook as they are overwritten by the imported data.
+* **Alternative 2:**  Append an arbitrary number to the name of `Person`/`Group`.
+*** Pros: No loss of data when importing.
+*** Cons: End up with lots of data with arbitrary number appended to it.
+This may cause confusion to the user as there is many similar entries of the `Person`/`Group` object only to  be differ by an arbitrary number.
+This will also cause `find` command to not work as expected. `find` command currently matches exact search term and the arbitrary number appended cause it to no longer match the name of the `Object`.
+// end::import[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -907,14 +984,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.meeting.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.meeting.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.meeting.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.meeting.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -944,7 +1021,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/meeting/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -982,10 +1059,10 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/meeting/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/meeting/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:{repoURL}/src/main/java/seedu/meeting/logic/parser/MeetingBookParser.java[`MeetingBookParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/meeting/logic/parser/MeetingBookParser.java[`MeetingBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -1003,14 +1080,14 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/meeting/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/meeting/model/MeetingBook.java[`MeetingBook`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/meeting/model/MeetingBook.java[`MeetingBook`] and link:{repoURL}/src/main/java/seedu/meeting/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/meeting/model/MeetingBook.java[`MeetingBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/meeting/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/meeting/model/MeetingBook.java[`MeetingBook`]. Loop through each person, and remove the `tag` from each person.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/meeting/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/meeting/model/ModelManager.java[`ModelManager`] should call `MeetingBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
+** See this https://github.com/se-edu/book-level4/pull/790[PR] for the full solution.
 ****
 
 [discrete]
@@ -1033,7 +1110,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/meeting/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
@@ -1042,7 +1119,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:{repoURL}/src/main/java/seedu/meeting/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/meeting/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
@@ -1054,19 +1131,19 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:{repoURL}/src/main/java/seedu/meeting/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/meeting/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/meeting/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** Refer to link:{repoURL}/src/main/java/seedu/meeting/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify link:{repoURL}/src/main/java/seedu/meeting/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}/src/main/java/seedu/meeting/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests link:{repoURL}/src/test/java/systemtests/MeetingBookSystemTest.java[`MeetingBookSystemTest#assertCommandBoxShowsDefaultStyle() and MeetingBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the MeetingBook.
+. Modify the link:{repoURL}/src/main/java/seedu/meeting/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the MeetingBook.
 +
 **Before**
 +
@@ -1079,12 +1156,12 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the MeetingBook is updated.
+** link:{repoURL}/src/main/java/seedu/meeting/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the MeetingBook is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/meeting/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/meeting/ui/StatusBarFooter.java[`StatusBarFooter#handleMeetingBookChangedEvent(MeetingBookChangedEvent)`] to update the number of persons whenever there are new changes to the MeetingBook.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/MeetingBookSystemTest.java[`MeetingBookSystemTest`] to also verify the new total number of persons status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -1096,12 +1173,12 @@ image::getting-started-ui-status-after.png[width="500"]
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the MeetingBook can be saved in a fixed temporary location.
+. Add a new method `backupMeetingBook(ReadOnlyMeetingBook)`, so that the MeetingBook can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/meeting/storage/MeetingBookStorage.java[`MeetingBookStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/meeting/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/meeting/storage/XmlMeetingBookStorage.java[`XmlMeetingBookStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -1111,7 +1188,7 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `MeetingBook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -1131,13 +1208,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/meeting/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
+. Modify link:{repoURL}/src/main/java/seedu/meeting/logic/parser/MeetingBookParser.java[`MeetingBookParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/meeting/logic/parser/MeetingBookParserTest.java[`MeetingBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -1146,33 +1223,33 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/meeting/logic/parser/MeetingBookParser.java[`MeetingBookParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/meeting/logic/parser/MeetingBookParserTest.java[`MeetingBookParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/meeting/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
 
 **Main:**
 
 . Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
+. Add FXML annotation in link:{repoURL}/src/main/java/seedu/meeting/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
 
 **Tests:**
 
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/meeting/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/meeting/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -1180,16 +1257,16 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/meeting/model/person/Person.java[`Person`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/meeting/model/person/Person.java[`Person`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/meeting/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `meetingBook.xml` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/meeting/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -1197,26 +1274,26 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 **Tests:**
 
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
+. Fix `invalidAndValidPersonMeetingBook.xml`, `typicalPersonsMeetingBook.xml`, `validMeetingBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
 
 ===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
+Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/meeting/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/meeting/model/person/Person.java[`Person`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/meeting/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
+. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/meeting/testutil/TypicalPersons.java[`TypicalPersons`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+Our remark label in link:{repoURL}/src/main/java/seedu/meeting/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
+. Modify link:{repoURL}/src/main/java/seedu/meeting/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/src/test/java/seedu/meeting/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
@@ -1277,7 +1354,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |import and export data |transfer data between machines
 
-|`* *` |new user |quick rundown of functionalities |fully understand the software features
+|`* *` |new user |has a quick rundown of functionalities |fully understand the software features
 
 |`* *` |user |see an overview of meeting list for the day |plan schedule for the day
 
