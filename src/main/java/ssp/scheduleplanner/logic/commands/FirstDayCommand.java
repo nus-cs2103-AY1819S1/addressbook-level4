@@ -273,6 +273,20 @@ public class FirstDayCommand extends Command {
         }
     }
 
+    /**
+     * This method create default storage file if the date data in the storage is unable to be converted
+     * @throws CommandException
+     */
+    public void createDefaultFileIfUnableConvert () throws CommandException {
+        try {
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(PATH);
+        } catch (DataConversionException e) {
+            saveRangeOfWeeks(computeRangeOfWeeks(DEFAULT_MONDAY_DATE));
+        } catch (FileNotFoundException e) {
+            throw new CommandException(MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
     public String returnUserDate () {
         return inputDate;
     }
