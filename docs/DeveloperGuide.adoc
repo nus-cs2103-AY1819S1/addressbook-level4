@@ -312,32 +312,30 @@ Classes used by multiple components are in the `seedu.souschef.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 === Ingredient Manager
-==== Select feature of the Ingredient Manager(to be implemented)
+==== Total management of ingredients that user currently have
+Ingredient Manager is an address book of ingredients. With the basic functions of a normal address book such as
+add, edit, delete and list, Ingredient Manager has some useful functions specific for management of ingredients. +
+First of all, converting to a common unit. Ingredients has different serving units, but most of them can be converted to
+common unit to be compared with each other and to make arithmetic calculation easier. It uses gram for mass and
+centimeter cube for volume as a common unit. Serving unit dictionary implemented with static arraylist is referred
+when the
+conversion is done. +
+Secondly, when you apply the list command, ingredients are sorted by date. Since ingredients have to be consumed in a
+ certain period, it keeps user be reminded of old ingredients.
 
-Selecting recipe based on ingredients that are currently in the inventory is a key feature of Ingredient Manager.
-In this sense, you can think of the Ingredient Manager as storing and manipulating ingredient related information
-rather than person related information.
-However, select feature of it is noteworthy in that it enables users to filter out necessary knowledge outside of the
-ingredient manager(e.g. recipes), using the information stored in it(e.g. ingredients).
+==== View recipes according to ingredients, and check shop amount
+This command works on separate context called cross, because the result of command manipulates recipes, not
+ingredients. This commands
+filters(include) and sorts(prioritize) recipes based on ingredients given in the command. However, this command is
+closely tied to the information stored in Ingredient Manager. First of all, you can provide all ingredients in
+Ingredient
+ Manager as parameter for filtering or sorting. This might be useful when a user wants to find food that can be
+ cooked while maximizing the use of existing ingredients. Secondly, for the recipes that are on the list as a result
+ of the commands, additionally needed amount of each ingredient in a recipe is calculated. Because ingredients in
+ Ingredient Manager are considered as the ones that the user currently have, their amounts are subtracted from the
+ desired amount calculated considering the number of servings. If the user has selected a certain recipe and cooked,
+ she can go back to Ingredient Manager and edit amount of ingredients or delete ingredients used for cooking.
 
-In AppContentParser, Ingredient Manager is passed two model parameters, which are recipe model and ingredient model.
-If you execute select command, it conducts search based on ingredients in inventory. Then It takes
-additional ingredients in as parameters, no matter if they are currently in inventory or not.
-Based on those ingredients, it conducts second round of search.
-The ingredients you put before 'optional' command would be considered as the ones that you want to necessarily
-include in your recipe search.
-The ingredients following 'optional' command is considered as the ones that you want to include as much as possible.
-Ingredient Manager display recipes sorted based on the number of optional ingredients, with the ones that contains most
-number at the top.
-Therefore, you can think of it as a 2 step, where 'must' ingredients filter out the recipes and 'optional'
-ingredients sorts the recipe.
-
-The difference between normal search using ingredient and current select method lies in the fact that it conducts
-search based
- on ingredients in inventory as a default.
-Although you just put in 'select' without any additional parameters, it shows the recipes that contains most number
-of ingredients in inventory so that increases the possibility for user to use up the ingredients that are recorded in
- inventory.
 
 // tag::mealplannerimplementation[]
 === Meal Planner feature

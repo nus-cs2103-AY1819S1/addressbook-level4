@@ -1,9 +1,7 @@
-package seedu.souschef.model.recipe;
+package seedu.souschef.model.ingredient;
 
 import java.util.List;
 import java.util.function.Predicate;
-
-import seedu.souschef.model.ingredient.Ingredient;
 
 /**
  * Tests that a {@code Ingredient}'s {@code IngredientName} matches any of the keywords given.
