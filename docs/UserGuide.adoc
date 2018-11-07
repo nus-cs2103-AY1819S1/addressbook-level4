@@ -47,6 +47,8 @@ e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::features[]
+
 [[Features]]
 == Features
 In Sous Chef, there are 2 types of command: universal commands and context-unique commands. +
@@ -55,8 +57,7 @@ The universal commands can be used throughout the application and perform applic
  universal command from its "-" convention followed by a keyword (e.g. -exit). +
  +
  The context-unique commands on the other hand are only valid for that context. (e.g. <<Recipes Commands (Only applicable in recipe context)>> can only be
- used in -recipe context). These commands contains only a action key word followed by the required parameters, if any
- . (e.g. select INDEX)
+ used in -recipe context). These commands contains only a action key word followed by the required parameters, if any. (e.g. select INDEX)
 
 ====
 *Command Format Convention*
@@ -66,6 +67,9 @@ The universal commands can be used throughout the application and perform applic
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Japanese`, `t/Halal t/Seafood` etc.
 
 ====
+// end::features[]
+
+// tag::universalCommand[]
 === Universal Commands
 ==== View help: `-help`
 To view the help menu containing all the universal commands. +
@@ -116,6 +120,9 @@ Format: +
 Format: +
 `-exit`
 
+// end::universalCommand[]
+// tag::recipeCommand[]
+
 === Recipes Commands (Only applicable in recipe context)
 
 ==== List recipes: `list`
@@ -125,6 +132,10 @@ Format: +
 
 ==== Add a recipe: `add` `cont` `end`
 Add new recipe. +
+[NOTE]
+====
+Full set of commands `add` `cont` `end` should be performed for the addition of recipe to be completed.
+====
 ****
 * This is a multi-line command. (i.e. `add`, `cont` and `end` must be in a seperate command entry)
 * Command starts with `add` and should include name, cook time and difficulty. Tags can be added as required.
@@ -141,13 +152,17 @@ Add new recipe. +
 *** Compound INGREDIENT_NAME is acceptable. e.g. Bleached Wheat Flour.
 *** AMOUNT accepts both integer and decimal. Decimal must come with a leading 0 for values less than 1. e.g. 0.25
 *** SERVING_UNIT should only come as a single word. e.g. gram, g, ml.
-* Action will only be completed (added) with a valid `end` command.
 * Recipe without at least one instruction and 'end' command will not be added.
-* User can perform other commands and continue adding instructions as required. Command need not be continuous.
+* User can perform other commands and continue adding instructions as required. `cont` command need not be continuous.
 * To overwrite existing recipe that has yet been added (i.e. `end` command not used), simply use the `add` command
 and enter a new recipe details as desired.
 
+[NOTE]
+====
+Recipes containing the same name, difficulty and cooktime are considered as duplicates and should not be allowed.
+====
 ****
+
 Format: +
 `add n/NAME c/TIME d/DIFFICULTY [t/TAG]... +
 cont i/INSTRUCTION... [c/TIME] +
@@ -171,7 +186,9 @@ and tags.
 *** DIFFICULTY should range from 1 to 5.
 *** TAG should come with any alphanumberic character.
 ** Second: Used to edit a single instruction of that recipe.
-*** STEP of the instruction to be replaced as displayed with `SELECT INDEX` command.
+*** STEP of the instruction to be replaced as displayed with `SELECT INDEX` command. Or you can add a new step by
+using a STEP 1 number higher the highest existing step. (e.g. 6 existing steps, use `s/7` to add instead of
+replace.)
 *** INSTRUCTION must be included and should come with any alphanumeric characters. Ingredients can be added using
 `#INGREDIENT_NAME AMOUNT SERVING_UNIT` as required.
 ****
@@ -220,6 +237,8 @@ A cook mode that provides step-by-step guidance to aid real-time cooking. +
 ****
 Format: +
 `cook INDEX`
+
+// end::recipeCommand[]
 
 ==== Add recipe to favourite: `favourite`
 Add a recipe to their favourites list. +
