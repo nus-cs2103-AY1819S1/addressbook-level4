@@ -47,6 +47,8 @@ e.g. typing *`-help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::features[]
+
 [[Features]]
 == Features
 In Sous Chef, there are 2 types of command: universal commands and context-unique commands. +
@@ -55,8 +57,7 @@ The universal commands can be used throughout the application and perform applic
  universal command from its "-" convention followed by a keyword (e.g. -exit). +
  +
  The context-unique commands on the other hand are only valid for that context. (e.g. <<Recipes Commands (Only applicable in recipe context)>> can only be
- used in -recipe context). These commands contains only a action key word followed by the required parameters, if any
- . (e.g. select INDEX)
+ used in -recipe context). These commands contains only a action key word followed by the required parameters, if any. (e.g. select INDEX)
 
 ====
 *Command Format Convention*
@@ -66,6 +67,9 @@ The universal commands can be used throughout the application and perform applic
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Japanese`, `t/Halal t/Seafood` etc.
 
 ====
+// end::features[]
+
+// tag::universalCommand[]
 === Universal Commands
 ==== View help: `-help`
 To view the help menu containing all the universal commands. +
@@ -115,6 +119,9 @@ Format: +
 ==== Exit application: `-exit`
 Format: +
 `-exit`
+
+// end::universalCommand[]
+// tag::recipeCommand[]
 
 === Recipes Commands (Only applicable in recipe context)
 
@@ -222,6 +229,8 @@ A cook mode that provides step-by-step guidance to aid real-time cooking. +
 ****
 Format: +
 `cook INDEX`
+
+// end::recipeCommand[]
 
 ==== Add recipe to favourite: `favourite`
 Add a recipe to their favourites list. +

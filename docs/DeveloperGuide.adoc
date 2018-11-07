@@ -253,6 +253,8 @@ gram 10-23-2018")` API call.
 .Interactions Inside the Logic Component for the adding ingredient
 image::LogicSequenceDiagram.png[width="800"]
 
+// tag::modelComponent[]
+
 [[Design-Model]]
 === Model component
 
@@ -276,6 +278,8 @@ The `Model`,
 ** ensures data abstraction for each feature.
 * is reusable as model is now generic.
 * exposes an unmodifiable `ObservableList<T extends UniqueType>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+// end::modelComponent[]
 
 [[Design-Storage]]
 === Storage component
@@ -441,7 +445,7 @@ execute the `favourite INDEX` command. The recipe selected would be copied from 
 list in the favourites model.
 // end::favouritesimplementation[]
 
-// tag::recipemanagement[]
+// tag::recipeManagement[]
 === Recipe Management
 ==== All-field search
 The all-field search matches keywords with details of `Recipe`.
@@ -477,7 +481,7 @@ switch. Subsequent commands will be parse further by a parser unique to cook-mod
 navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
 `ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
 instructions.
-// end::recipemanagement[]
+// end::recipeManagement[]
 
 === Health Plan list
 
