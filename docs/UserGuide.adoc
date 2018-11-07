@@ -57,17 +57,25 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Displays a popup window showing all the commands a user can use in `WishBook`. +
 Format: `help`
 
-=== Adding a wish: `add`
-Adds a wish to the wish list +
-Format: `add n/WISH_NAME p/PRICE t/[a/TIME_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
+=== Add a new wish: `add`
+Add a new wish to the wish list. +
+Format: `add n/WISH_NAME p/PRICE [a/PERIOD_GIVEN]/[d/END_DATE] [u/URL] [t/TAG]`
 
-[TIP]
-* `[END_DATE]`: Specified in _dd/mm/yyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
-* `[TIME_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
+****
+* `[END_DATE]`: Specified in _dd/mm/yyyy_ format.
+* `[PERIOD_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time
+periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
+****
 
 [NOTE]
 ====
-If an invalid date is provided, a warning message will be displayed to prompt the user to reenter a valid date. Until all fields provided are valid, the wish will not be added to `WishBook`.
+If you enter an invalid date, a warning message will be displayed to prompt the user to reenter a valid date.
+Until all fields provided are valid, the wish will not be added to `WishBook`.
+====
+
+[NOTE]
+====
+The expiry date you enter must be after current date.
 ====
 
 Examples:
@@ -75,6 +83,7 @@ Examples:
 * `add n/smallRice p/999 a/2d`
 * `add n/kfcBook 13inch p/2300 a/6m3w`
 * `add n/prinkles p/1.95 d/24/04/2020`
+* `add n/prinkles p/1.95 d/24/04/2020 u/www.amazon.com/prinkles t/high`
 
 === Editing a wish : `edit`
 
@@ -138,28 +147,39 @@ Format: `history -s`
 Only history of wishes which currently exist in the `WishBook` will be stored. (i.e. wishes that have been deleted will no longer be tracked.)
 ====
 
-=== Locating wishes by name: `find`
+=== Locate your wish with speed and precision: `find`
 
-Finds wishes which satisfy the given search predicate. +
-Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
+Find wishes which match the given search keywords. +
+Format: `find [-e] [n/NAME_KEYWORD]... [t/TAG_KEYWORD]... [r/REMARK_KEYWORD]`
 
 ****
-* The user can search using the following search predicates:
-    * `NAME`
-    * `TAG`
-* `NAME` is the default search predicate.
+* At least one keyword must be provided.
+* Searching multiple keywords of the *same prefix* will return wishes whose
+attribute corresponding to the prefix contain *any* one of the keywords.
+* Searching with keywords of *different prefixes* will return only wishes that
+match will *all* the keywords of the different prefixes.
+* Using the `-e` flag returns wishes whose corresponding attributes contain *all*
+the keywords.
 * The search is case insensitive. e.g. watch will match Watch.
-* Only full words will be matched. e.g. wat will not match watch.
-* Wishes matching at least one keyword will be returned. e.g. watch will return apple watch, pebble watch.
 ****
 
 Examples:
 
-* `find n/watch` +
-Returns any wish with name containing watch
+* `find n/wat` +
+Returns any wish whose name contains the _wat_.
 
-* `find n/watch t/broke wishes` +
-Returns any wish with name containing 'watch', with tag 'broke wishes'.
+* `find n/wat n/balloon n/appl` +
+Returns wishes whose names which contain at least any one of _wat_, _balloon_ or _appl_.
+
+* `find -e n/wat n/balloon n/appl` +
+Returns only wishes whose names that contain all of _wat_, _balloon_ and _appl_.
+
+* `find n/watch t/important` +
+Returns any wish whose name contains _watch_, and whose tags contains _broke wishes_.
+
+* `find n/wat n/balloon t/important` +
+Returns any wish whose name contains _wat_ or _balloon_, and whose tags contains
+_important_.
 
 === Deleting a wish : `delete`
 
@@ -209,7 +229,7 @@ Selects the 1st wish in the results of the `find` command.
 // tag::save[]
 === Save money for a particular wish: `save`
 
-Channels a specified amount of money to savings for a specified wish. +
+Channel a specified amount of money to savings for a specified wish. +
 Format: `save INDEX AMOUNT`
 
 ****
@@ -218,7 +238,7 @@ Format: `save INDEX AMOUNT`
 * If `AMOUNT` saved to `INDEX` is greater than the amount needed to fulfil that wish, excess funds will be channelled to `unusedFunds`.
 * If `AMOUNT` is negative, money will be removed from amount saved for that wish. +
 * If `AMOUNT` brings the savings value for that wish to below 0, `AMOUNT` will not be accepted and the `save` command will fail.
-* If wish at `INDEX` is already fulfilled, `AMOUNT` will not accepted.
+* If wish at `INDEX` is already fulfilled, `AMOUNT` will not be accepted.
 ****
 
 Examples: +
