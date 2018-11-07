@@ -135,6 +135,7 @@ public class TotalBudget extends Budget {
 
     @Override
     public void clearSpending() {
+        System.out.println("Clear spending is called");
         super.clearSpending();
         this.categoryBudgets.forEach(expense -> expense.clearSpending());
     }

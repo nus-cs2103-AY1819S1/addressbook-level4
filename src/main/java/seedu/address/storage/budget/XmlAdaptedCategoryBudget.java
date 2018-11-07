@@ -18,10 +18,12 @@ public class XmlAdaptedCategoryBudget extends XmlAdaptedBudget {
     private String category;
 
     public XmlAdaptedCategoryBudget() {
+        super();
     }
 
     public XmlAdaptedCategoryBudget(String category, String budget) {
         super(budget);
+        System.out.println("First constructor is called");
         this.category = category;
 
     }
@@ -34,7 +36,7 @@ public class XmlAdaptedCategoryBudget extends XmlAdaptedBudget {
     @Override
     public CategoryBudget toModelType() throws IllegalValueException {
         try {
-            return new CategoryBudget(this.category, this.budgetCap);
+            return new CategoryBudget(this.category, this.budgetCap, this.currentExpenses);
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException(MESSAGE_INVALID_FIELDS);
         }
