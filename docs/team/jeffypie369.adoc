@@ -57,7 +57,7 @@ include::../UserGuide.adoc[tag=addappt]
 
 include::../UserGuide.adoc[tag=visitorin]
 
-include::../UserGuide.adoc[tag=checkin]
+include::../UserGuide.adoc[tag=register]
 
 == Contributions to the Developer Guide
 
@@ -69,7 +69,7 @@ include::../DeveloperGuide.adoc[tag=addappt]
 
 == PROJECT: Accuride SG
 
----
+include::../UserGuide.adoc[tag=register]
 
 An Android offline MRT app where you can get the fastest duration and the least transfers duration from one station to another.
 
