@@ -48,6 +48,8 @@ public class AddressBookTest {
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
         assertEquals(Collections.emptyList(), addressBook.getEventList());
+        assertEquals(true, addressBook.getNotificationPref());
+        assertEquals(null, addressBook.getFavourite());
     }
 
     @Test
@@ -71,11 +73,11 @@ public class AddressBookTest {
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
 
         List<Event> newEvents = Arrays.asList(DOCTORAPPT);
-        AddressBookStub newData = new AddressBookStub(newPersons, newEvents);
-
-        thrown.expect(DuplicatePersonException.class);
         List<Tag> newTags = Arrays.asList(APPOINTMENT_TAG);
         AddressBookStub newData = new AddressBookStub(newPersons, newEvents, newTags);
+
+        thrown.expect(DuplicatePersonException.class);
+        addressBook.resetData(newData);
     }
 
     @Test
@@ -249,14 +251,19 @@ public class AddressBookTest {
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Event> events = FXCollections.observableArrayList();
         private final ObservableList<Tag> eventTags = FXCollections.observableArrayList();
-        private final boolean notificationPref = true;
-        private final String favourite = null;
+        private boolean notificationPref = true;
+        private String favourite = null;
 
         AddressBookStub(Collection<Person> persons, Collection<Event> events, Collection<Tag> eventTags) {
             this.persons.setAll(persons);
             this.events.setAll(events);
             this.eventTags.setAll(eventTags);
         }
+
+        public ObservableList<Tag> getEventTagList() {
+            return eventTags;
+        }
+
 
         @Override
         public ObservableList<Person> getPersonList() {
@@ -271,12 +278,22 @@ public class AddressBookTest {
         @Override
         public boolean getNotificationPref() {
             return notificationPref;
-        };
+        }
 
         @Override
-        public String getFavouriteEvent() {
+        public void updateNotificationPref(boolean set) {
+            this.notificationPref = set;
+        }
+
+        @Override
+        public String getFavourite() {
             return favourite;
-        };
+        }
+
+        @Override
+        public void updateFavourite(String favourite) {
+            this.favourite = favourite;
+        }
     }
 
 }

@@ -27,6 +27,7 @@ public class NotificationCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateNotificationPref(false);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(notificationCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -39,6 +40,7 @@ public class NotificationCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.updateNotificationPref(true);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(notificationCommand, model, commandHistory, expectedMessage, expectedModel);
     }

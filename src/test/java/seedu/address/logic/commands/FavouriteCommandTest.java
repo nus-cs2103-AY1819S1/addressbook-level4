@@ -37,10 +37,11 @@ public class FavouriteCommandTest {
 
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        ModelManager.updateFavourite("Event Name: " + favouriteEvent.getEventName()
+        expectedModel.updateFavourite("Event Name: " + favouriteEvent.getEventName()
                 + "\nEvent Date: " + favouriteEvent.getEventDate() + ", " + favouriteEvent.getEventDay()
                 + "\nEvent Time: " + favouriteEvent.getEventStartTime() + " - " + favouriteEvent.getEventEndTime()
                 + "\nEvent Details: " + favouriteEvent.getEventDescription());
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(favouriteCommand, model, commandHistory, expectedMessage, expectedModel);
     }

@@ -302,9 +302,4 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         return persons.hashCode() + events.hashCode() + eventTags.hashCode();
     }
-
-    public String getFavouriteEvent() { return favourite; }
-
-    public void updateFavouriteEvent(String newEvent) { favourite = newEvent; }
-
 }
