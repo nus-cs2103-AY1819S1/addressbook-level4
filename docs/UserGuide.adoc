@@ -40,14 +40,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+== User Interface
+This section will explain the user interface of the application.
+
+image::UiExplanation.png[width="790"]
+
+. Menu bar
+. Group list: displays a list of groups
+. Meeting list: displays a list of meetings
+. Person list: displays a list of person
+. Command box: receives command from user and execute
+. Result display: displays the result of command executed
+. Update status: displays the update status of current session
+. Save path: displays current data save path
+
 [[Features]]
 == Features
 
 ====
 *Command Format*
 
-* Words in square brackets are the parameters to be supplied by the user e.g. in `edit 1 e/[Email] p/[Phone]`, `Email` and `Phone` are parameters which can be used as `edit 1 e/email@email.com`.
-* Words in square brackets are optional. e.g. `edit 1 e/[Email] p/[Phone]` can be used as `edit 1 e/hello@hello.com` or `edit 1 p/12345678`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `edit 1 e/EMAIL p/PHONE`, `EMAIL` and `PHONE` are parameters which can be used as `edit 1 e/email@email.com p/12345678`.
+* Words in square brackets are optional. e.g. `n/NAME [t/TAG]` can be used as `n/Derek t/Groupmate` or `n/Derek`.
+* Words in arrow brackets separated by `|` are the parameter options that require user to supply exactly one e.g. `list <person|group|meeting>`, `person`, `group` and `meeting` are parameter options that can be used as `list group`, `list person` or `list meeting`, and each of them execute different operations.
+* Items with `...` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as ` ` (i.e. 0 times), `t/classmate`, `t/classmate t/project` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE, p/PHONE n/NAME is also acceptable.
 
 ====
 
@@ -57,32 +74,20 @@ Format: `help`
 
 === Adding a new member: `addMember`
 
-Add a new person named [Name] with parameters described in [Person Parameters] to the MeetingBook.
-Format: `addMember n/[Name] p/[Phone] e/[Email] a/[Address] t/[Tag] g/[Group Tag]`
-
-.Required person parameters:
-* name / n
-* phone / p
-* email / e
-* address / a
-
-.Optional person parameters:
-* tag / t
-* group tag / g
-
-[NOTE]
-Optional parameters such as [Tag] and [GroupTag] are used for filtering the list. To learn more about how to utilize these parameters, see `select` command.
+Add a new person named `NAME` with parameters described in [Person Parameters] to the MeetingBook. +
+Format: `addMember n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
 
 Examples:
 
-* `addMember Zheng Wei p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
-* `addMember Ben p/12345678 e/hello@nus.edu.sg a/NUS School of Computing t/project g/CS2103T`
+* `addMember n/Zheng Wei p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
+* `addMember n/Ben p/12345678 e/hello@nus.edu.sg a/NUS School of Computing t/project`
+* `addMember n/Pakorn p/24681357 e/cs2101@celc.nus.edu.sg a/NUS School of Computing t/TA t/project`
 
 === Editing a person : `edit`
 
 Replace the person’s parameters with those described in this command (undescribed parameters will not be changed) +
 
-Format: `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 Examples:
 
@@ -93,7 +98,7 @@ Edits the phone number of the first person in the person list to 12345678.
 
 === Deleting a person: `delete/del`
 Remove the selected person. +
-Format: `delete`, or the shorthand `del`
+Format: `delete INDEX`, or the shorthand `del INDEX`
 
 Examples:
 
@@ -102,97 +107,281 @@ Deletes the second person in the person list.
 * `del 4` +
 Deletes the fourth person in the person list.
 
-=== Find a group / person / meeting: `find`
+=== Adding a new group: `addGroup`
+
+Add a new group with user input title into MeetingBook. +
+
+Format: `addGroup n/NAME` +
+
+Examples:
+
+* `addGroup n/CS2103T` +
+Adds a new group with title 'CS2103T' into the MeetingBook.
+* `addGroup n/Discussion Group 1` +
+Adds a new group with title 'Discussion Group 1' into the MeetingBook.
+
+=== Deleting a group: `deleteGroup`
+
+Remove the group that matches use input title. +
+
+Format: `deleteGroup n/NAME` +
+
+Examples:
+
+* `deleteGroup n/CS2103T` +
+Removes the group with title 'CS2103T', which is added previously, from MeetingBook.
+* `deleteGroup n/Discussion Group 1` +
+Removes the group with title 'Discussion Group 1', which is added previously, from MeetingBook.
+
+// tag::sort[]
+=== Sorting the list of displayed persons: `sort`
+
+The `sort` command sorts the list in the display of persons.
+The user can specify whether to sort by name, phone number, email address, or home address,
+in lexicographical order or numerical order. +
+
+Format: +
+`sort <name|phone|email|address>` +
+
+****
+* `<name|phone|email|address>`: this parameter specifies whether to sort by name, phone, email
+address, or home address in lexicographical order or numerical order.
+****
+
+Examples: +
+* `sort name`: Sorts the list of persons by name in lexicographical order.
+* `sort phone`: Sorts the list of persons by phone number in numerical order.
+* `sort email`: Sorts the list of persons by email address in lexicographical order.
+* `sort address`: Sorts the list of persons by home address in lexicographical order.
+// end::sort[]
+
+// tag::find[]
+=== Finding a group / person / meeting: `find`
 
 The `find` command searches the MeetingBook for specified person, group, or meeting, and displays the results on
 the panel. +
 
-Syntax: +
- Longhand: `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>` +
- Shorthand: `find [p|g|m] *[a]/<keyword...> *[s]/<keywords> *[n]/<keywords>` +
+Format: +
+Longhand: `find <person|group|meeting> [a/KEYWORDS] [s/KEYWORDS] [n/KEYWORDS]` +
+Shorthand: `find <p|g|m> [KEYWORDS]`
 
-* `[person|group|meeting]`, `[p|g|m]`: This parameter specifies whether to search for persons, groups, or meetings.
+****
+* `<person|group|meeting>`, `<p|g|m>`: this parameter specifies whether to search for persons, groups, or meetings.
     This parameter is required to execute this command.
-    ** `person`, `p`: Specifies to search for persons.
-    ** `group`, `g`: Specifies to search for groups.
-    ** `meeting`, `m`: Specifies to search for meetings.
-* `<keywords>`: This tag contains any number of keywords separated by a kbd:[space].
-* `[all]`, `[a]`: This parameter specifies that the results must contain every keyword specified in `<keywords>`.
+    ** `person`, `p`: specifies to search for persons.
+    ** `group`, `g`: specifies to search for groups.
+    ** `meeting`, `m`: specifies to search for meetings.
+* `KEYWORDS`: this tag contains any number of keywords separated by a kbd:[space].
+* `[all]`, `[a]`: this parameter specifies that the results must contain every keyword specified in `<keywords>`.
     This parameter may be omitted.
-* `[some]`, `[s]`: This parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
+* `[some]`, `[s]`: this parameter specifies that the results must contain at least one keyword specified in `<keywords>`.
     This parameter may be omitted.
-* `[none]`, `[n]`: This parameter specifies that the results must not contain any keyword specified in `<keywords>`.
+* `[none]`, `[n]`: this parameter specifies that the results must not contain any keyword specified in `<keywords>`.
     This parameter may be omitted.
-
-The “then” keyword:
-
-If “then [Command]”  is inserted after find, the [Command] will be applied to all results of the find command.
-[Command] can be replaced with either changeto, delete, or markdone.
-
-Thus it is possible to run commands like
-“in CS2101 findwhere then delete” to delete every task under CS2101
-
-=== Selecting a group / person : `select`
-
-****
-Pre-condition: user already list all available groups / persons using `find/findwhere` command.
-Select and displays a group / person from the list obtained using `find`
 ****
 
-Format: `select [person|group] [index]` or `s [p|g][index]` when `[index]` is a positive integer (starts from 1)
-
 ****
-* If `select [Group]` is entered, the person list will be filtered to show only person who belong to the group.
-* If `select [Person]` is entered, only the person that is in the filtered person list will be selected.
+* When the shorthand format is used, the keywords will be placed in the `a/` parameter.
 ****
 
-=== Add Meeting to Group: `meet`
+Examples: +
 
-Add a meeting to the group specified by its name.
+* `find person Abby`: finds all persons whose name contains `Abby`. +
+* `find p Betty Charles`: finds all persons whose name contains `Betty` and `Charles`. +
+* `find p s/David Eric n/James`: finds all persons whose name contains one of `David` or `Eric`,
+and whose name does not contain `James`. +
+* `find group project`: finds all groups whose title contains `project`. +
+* `find g a/team n/school`: finds all groups whose title contains `team` and whose title
+does not contain `school`. +
+* `find meeting s/official important`: finds all meetings whose title contains one of
+`official` or `important`.
+* `find m a/urgent n/basketball`: finds all meetings whose titles contains `urgent` and
+whose title does not contain `basketball`.
+// end::find[]
 
-Format: `meet [Group Name] n/[Meeting Name] t/[Meeting Time] l/[Meeting Location] d/[Meeting Description]`
+=== Selecting a group / person / meeting: `select`
 
-Meeting time is specified in the format `dd-mm-yyyy@hh:mm`
+Format: `select <p|g|m>/INDEX`
 
-Not specifying any fields will cancel the meeting associated with the group.
+****
+* If `select g` is entered, the person list will be filtered to show only person who belong to the group, and the
+meeting list will be filtered to show only meeting scheduled for the group.
+* If `select p` is entered, only the person that is in the filtered person list will be selected.
+* If `select m` is entered, only the meeting that is in the filtered meeting list will be selected.
+****
+
+Examples:
+
+* `select g/1`: selects the first group in the filtered group list. Meetings and persons not related to the group selected will be hidden.
+* `select m/3`: selects the third meeting in the filtered meeting list.
+* `select p/2`: selects the second person in the filtered person list.
+
+=== Schedule meetings: `meet`
+
+To schedule a meeting, use the `meet` command.
+
+Format: `meet GROUP_NAME n/MEETING_NAME t/MEETING_TIME l/MEETING_LOCATION d/MEETING_DESCRIPTION`
+
+* Schedules a meeting with the group `GROUP_NAME`
+* Either all or none of the fields must be provided.
+* In case that none of the fields is provided, the command will cancel the meeting associated with the group.
+* Scheduling a new meeting to the same group overwrites the old meeting.
+
+[NOTE]
+`MEETING_TIME` is specified in the format `dd-mm-yyyy@hh:mm`
+
+Examples:
+
+* Example 1:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays the list of meetings)
+
+* Example 2:
+1. `meet Presentation2101 n/Demo Rehearsal t/26-10-2018@12:30 l/COM1-0218 d/Meeting for Project Demo` +
+(This schedules the meeting) +
++
+2. `list meeting` +
+(This displays `Demo Rehearsal` as the meeting associated with `Presentation 2101`) +
++
+3. `meet Presentation2101 n/Discussion on Slides t/26-10-2018@12:30 l/COM1-0218 d/Some slides are wrong` +
+(This overwrites `Demo Rehearsal` with `Discussion on Slides`) +
++
+4. `list meeting` (`Emergency Meeting` is displayed instead of `Demo Rehearsal`)
+
+* Example 3:
+1. `meet OtherGroup ...` +
+(This fails because `OtherGroup` is not in the MeetingBook)
+
+[NOTE]
+It is assumed that the group `Presentation2101` is present and is the only group in the MeetingBook and has no meeting as of the moment before each example starts.
+
+=== Cancel meetings: `cancel`
+
+To cancel a meeting, use the `cancel` command.
+
+Format: `cancel GROUP_NAME`
 
 Example:
-* `Meet CS2103 n/Demo Rehearsal t/11-11-2018@11:11 l/COM1 02-18 d/preparation for the upcoming product demo`
-* `Meet CS2103` note that this will cancel the current meeting with the group CS2103.
 
-=== Listing all persons : `list`
+* `cancel Project2103` (This cancels the meeting with `Project2103`)
 
-Display all existing persons on the person list display.
+* `cancel Project2103` +
+`cancel Project2103` (This fails because the meeting is already cancelled)
 
-=== Import data : `import`
+[NOTE]
+It is assumed that the group `Project2103` is present in the MeetingBook and has a meeting.
+
+[NOTE]
+calling `meet GROUP_NAME` without argument is equivalent to calling `cancel GROUP_NAME`.
+
+=== Joining a person to group: `join`
+
+Add a person, specified by name, into a group, specified by the group title. +
+
+Format: `join n/NAME g/GROUP` +
+
+Example:
+
+* `join n/Derek g/CS2103T` +
+Makes the person 'Derek' to be a member of group 'CS2103T'.
+
+
+[NOTE]
+Both the person and group should exist in the MeetingBook.
+
+=== Removing a person from group: `leave`
+
+Remove a person, specified by name, from a group, specified by the group title. +
+
+Format: `leave n/NAME g/GROUP` +
+
+Example:
+
+* `leave n/Derek g/CS2101` +
+Removes the person 'Derek' from the group 'CS2101'.
+
+[NOTE]
+Both the person and group should exist in the MeetingBook.
+The person should also be an existing member of the group.
+
+=== Listing all groups / meetings / persons : `list`
+
+Display all existing groups on the group list / meetings on the meeting list / persons on the person list display.
+
+Format: `list <group|meeting|person>` +
+Shorthand: `list <g|m|p>`
+
+[NOTE]
+If the list is unfiltered, the list will remain the same.
+
+Examples:
+
+* `list group`: list all groups.
+* `list m`: list all meetings.
+* `list person`: list all persons.
+
+// tag::import[]
+=== Importing data : `import`
 
 User is able to import other data. +
-Format: `import <relative filepath>`
 
-=== Export data : `export`
+Default behaviour is to ignore any conflicting Person/Group entries unless `--force` option is supplied. +
+
+Format: `import [--force] f/FILEPATH`
+
+Example: +
+
+* `import f/backup.xml` : Import backup.xml into MeetingBook +
+* `import --force f/backup.xml` : Import backup.xml into MeetingBook, overwriting all conflicting entries.
+
+The image below shows the result after successfully executing the command.
+
+image::importSuccessfulOutput.png[width="450"]
+// end::import[]
+
+// tag::export[]
+=== Exporting data : `export`
 
 User is able to export data to store as backup elsewhere or send data to other users of MeetingBook. +
-Format: +
-`Export all groups, meetings and persons : export * <relative filepath>` +
-`Export all meetings and persons of a specific group: export #[Group] <relative filepath>`
+A XML file containing MeetingBook data will be created at the filepath indicated by the user.
 
-`export f/<filepath>`
+Format: `export  f/FILEPATH` +
+// Future implementation
+//`Export all meetings and persons of a specific group: export #[Group] <relative filepath>`
 
-Example:
-`export f/backup.xml` : Export MeetingBook as `backup.xml`.
+Example: +
 
-=== Change Storage Location: `filepath`
+* `export f/backup.xml` : Export MeetingBook as `backup.xml`. +
+
+The image below shows the result after successfully executing the command.
+
+image::exportSuccessfulOutput.png[width="450"]
+
+// end::export[]
+
+// tag::filepath[]
+=== Changing Storage Location: `filepath`
 
 Change the storage location of MeetingBook. +
-Format: +
-`filepath f/<filepath>`
+
+Format: `filepath f/FILEPATH`
 
 Example:
-`filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
+
+* `filepath f/new_path.xml` : Storage location of MeetingBook is now stored at `new_path.xml`.
 
 ****
-User can also check the current path of MeetingBook use `filepath show`
+[NOTE]
+User can also check the current path where MeetingBook store its data using `filepath --show` command. +
+
+The image below shows the result after successfully executing the command.
+
+image::filepath--showOutput.png[width="450"]
 ****
+
 
 === Saving the data
 
@@ -224,14 +413,26 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Adding a new person:* `addMember n/[Name] p/[Phone] e/[Email] a/[Address]` +
+* *Adding a new person:* `addMember n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `addMember Derek p/87654321 e/cs2103t@comp.nus.edu.sg a/NUS School of Computing`
-* *Editing a person* : `edit [Index] n/[Name]|p/[Phone]|e/[Email]|a/[Address]|t/[Tag]|g/[GroupTag]` +
+* *Editing a person* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/Jeffrey`
-* *Delete a person* : `delete`
-* *Find a person / group / meeting* : `find [person|group|meeting]  *[all]/<keywords> *[some]/<keywords> *[none]/<keywords>`
-* *Selecting a group / person* : `select [group|person]` +
+* *Schedule a meeting* : `meet GROUP_NAME n/MEETING_NAME t/MEETING_TIME l/MEETING_LOCATION d/MEETING_DESCRIPTION`
+* *Cancel a meeting* : `cancel GROUP_NAME`
+* *Deleting a person* : `delete INDEX` +
+* *Adding a new group* : `addGroup n/NAME` +
+e.g. `addGroup n/CS2103T`
+* *Deleting a new group* : `deleteGroup n/NAME` +
+e.g. `deleteGroup n/CS2101`
+* *Joining a person to group* : `join n/NAME g/GROUP` +
+e.g. `join n/Derek g/CS2103T`
+* *Removing a person from group* : `leave n/NAME g/GROUP` +
+e.g. `leave n/Derek g/CS2101`
+* *Find a person / group / meeting* : `find <person|group|meeting> [all/KEYWORDS] [some/KEYWORDS] [none/KEYWORDS]`
+* *Selecting a group / meeting / person* : `select <g|m|p>/INDEX` +
 e.g. `select g/1`
-* *List all person* : `list`
-* *Import data* : `import`
-* *Export data* : `export`
+* *List all groups / meetings / person* : `list <group|meeting|person>` +
+e.g. `list meeting`
+* *Import data* : `import [--force] f/FILEPATH`
+* *Export data* : `export f/FILEPATH`
+* *Change storage location* : `filepath f/FILEPATH`

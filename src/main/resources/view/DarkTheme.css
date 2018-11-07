@@ -24,6 +24,13 @@
     -fx-opacity: 1;
 }
 
+.label-header-medium {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .text-field {
     -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -347,19 +354,5 @@
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
-    -fx-font-size: 11;
-}
-
-#groupTags {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
-}
-
-#groupTags .label {
-    -fx-text-fill: black;
-    -fx-background-color: white;
-    -fx-padding: 1 3 1 3;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
     -fx-font-size: 11;
 }
