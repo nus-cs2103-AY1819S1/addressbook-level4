@@ -44,6 +44,10 @@ public class XmlAdaptedPatient extends XmlAdaptedPerson {
     @XmlElement
     private Optional<Appointment> appointment;
 
+    public XmlAdaptedPatient() {
+
+    }
+
     public XmlAdaptedPatient(String name, String nric, String phone, String email,
             String address, List<XmlAdaptedMedicalProblem> medicalProblems, List<XmlAdaptedMedication> medications,
             List<XmlAdaptedAllergy> allergies, boolean isQueuing,
