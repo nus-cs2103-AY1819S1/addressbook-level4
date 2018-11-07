@@ -33,7 +33,7 @@ public class CheckoutCommand extends Command {
     private final Nric patientNric;
 
     /**
-     * Creates an CheckoutCommand to check out a patient from the system.
+     * Creates a CheckoutCommand to check out a patient from the system.
      * @param patientNric NRIC of the patient to be checked out.
      */
     public CheckoutCommand(Nric patientNric) {
