@@ -1,12 +1,14 @@
 package seedu.parking.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.parking.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_CLEAR_OR_CALCULATE_COMMAND;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_FIND_OR_FILTER_COMMAND;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNCERTAIN_HELP_OR_HISTORY_COMMAND;
 import static seedu.parking.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.parking.logic.parser.CarparkFinderParser.containsFromFirstLetter;
 import static seedu.parking.testutil.TypicalIndexes.INDEX_FIRST_CARPARK;
 
 import java.util.ArrayList;
@@ -230,5 +232,11 @@ public class CarparkFinderParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("unknownCommand");
+    }
+
+    @Test
+    public void parseCommand_containsFromFirstLetter() throws Exception {
+        assertTrue(containsFromFirstLetter(FilterCommand.COMMAND_WORD, "filt"));
+        assertFalse(containsFromFirstLetter(FilterCommand.COMMAND_WORD, "ilt"));
     }
 }
