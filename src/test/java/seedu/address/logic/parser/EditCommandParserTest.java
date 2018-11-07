@@ -1,8 +1,11 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DOUBLE_DATE_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_AGE_1;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_AGE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
@@ -33,6 +36,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_WISH;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
@@ -80,12 +84,19 @@ public class EditCommandParserTest {
     }
 
     @Test
+    public void parse_doubleDate_failure() {
+        assertParseFailure(parser, "1 a/2d d/20/10/2018", MESSAGE_DOUBLE_DATE_FORMAT);
+    }
+
+    @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC, Price.MESSAGE_PRICE_CONSTRAINTS); // invalid price
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_DATE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_URL_DESC, Url.MESSAGE_URL_CONSTRAINTS); // invalid url
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_AGE_DESC,
+                String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, INVALID_AGE_1)); // invalid age
 
         // invalid price followed by valid email
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC + DATE_DESC_1, Price.MESSAGE_PRICE_CONSTRAINTS);
