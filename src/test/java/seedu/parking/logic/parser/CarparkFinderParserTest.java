@@ -44,8 +44,8 @@ public class CarparkFinderParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ABBREVIATION) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_ABBREVIATION + " 3") instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD.substring(0, 1)) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD.substring(0, 1) + " 3") instanceof ExitCommand);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CarparkFinderParserTest {
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new CarparkContainsKeywordsPredicate(keywords)), command);
         command = (FindCommand) parser.parseCommand(
-            FindCommand.COMMAND_ABBREVIATION + " " + keywords.stream().collect(Collectors.joining(" ")));
+            FindCommand.COMMAND_WORD.substring(0, 3) + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new CarparkContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -63,8 +63,8 @@ public class CarparkFinderParserTest {
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_ABBREVIATION) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_ABBREVIATION + " 3") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD.substring(0, 2)) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD.substring(0, 2) + " 3") instanceof HelpCommand);
     }
 
     @Test
@@ -84,8 +84,8 @@ public class CarparkFinderParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ABBREVIATION) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_ABBREVIATION + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD.substring(0, 1)) instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD.substring(0, 1) + " 3") instanceof ListCommand);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class CarparkFinderParserTest {
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARPARK.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_CARPARK), command);
         command = (SelectCommand) parser.parseCommand(
-            SelectCommand.COMMAND_ABBREVIATION + " " + INDEX_FIRST_CARPARK.getOneBased());
+            SelectCommand.COMMAND_WORD.substring(0, 1) + " " + INDEX_FIRST_CARPARK.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_CARPARK), command);
     }
 
@@ -102,8 +102,8 @@ public class CarparkFinderParserTest {
     public void parseCommand_query() throws Exception {
         assertTrue(parser.parseCommand(QueryCommand.COMMAND_WORD) instanceof QueryCommand);
         assertTrue(parser.parseCommand(QueryCommand.COMMAND_WORD + " 3") instanceof QueryCommand);
-        assertTrue(parser.parseCommand(QueryCommand.COMMAND_ABBREVIATION) instanceof QueryCommand);
-        assertTrue(parser.parseCommand(QueryCommand.COMMAND_ABBREVIATION + " 3") instanceof QueryCommand);
+        assertTrue(parser.parseCommand(QueryCommand.COMMAND_WORD.substring(0, 1)) instanceof QueryCommand);
+        assertTrue(parser.parseCommand(QueryCommand.COMMAND_WORD.substring(0, 1) + " 3") instanceof QueryCommand);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class CarparkFinderParserTest {
             NotifyCommand.COMMAND_WORD + " " + 60);
         assertEquals(new NotifyCommand(60), command);
         command = (NotifyCommand) parser.parseCommand(
-            NotifyCommand.COMMAND_ABBREVIATION + " " + 60);
+            NotifyCommand.COMMAND_WORD.substring(0, 1) + " " + 60);
         assertEquals(new NotifyCommand(60), command);
     }
 
