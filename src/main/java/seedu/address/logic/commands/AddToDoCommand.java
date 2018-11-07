@@ -9,13 +9,14 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.SwitchToTasksTabEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ModelToDo;
 import seedu.address.model.todolist.ToDoListEvent;
 
 /**
  * Adds a todolist event to the toDoList.
  */
-public class AddToDoCommand extends CommandToDo {
+public class AddToDoCommand extends Command {
     public static final String COMMAND_WORD = "add todo";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a event to the todo list. "
@@ -39,6 +40,12 @@ public class AddToDoCommand extends CommandToDo {
     public AddToDoCommand(ToDoListEvent toDoListEvent) {
         requireNonNull(toDoListEvent);
         toAdd = toDoListEvent;
+        super.isToDoCommand = true;
+    }
+
+    @Override
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        throw new CommandException(MESSAGE_INCORRECT_MODEL_TODO);
     }
 
     @Override

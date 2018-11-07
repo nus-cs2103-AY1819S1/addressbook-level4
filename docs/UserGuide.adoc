@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T10-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T10-1`
 
 == Introduction
 
@@ -23,19 +23,22 @@ U-Schedule is for university students who *prefer to use a desktop app for manag
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `u-schedule.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for this application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="900"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all calendar events
-* **`add`**`t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tags/lecture` : adds a calendar event titled `CS2103 Lecture` to the calendar.
-* **`delete`**`3` : deletes the calendar event marked `3`.
+* *`list event`* : lists all calendar events
+* *`list todo`* : lists all todo items
+* **`add event`**`t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tags/lecture` : adds a calendar event titled `CS2103 Lecture` to the calendar.
+* **`add todo`**`t/CS2103 Assignment d/Version Control p/H` : adds a todo item titled `CS2103 Assignment` to the todo list.
+* **`delete event`**`3` : deletes the calendar event marked `3`.
+* **`delete todo`**`3` : deletes the todo item marked `3`.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,47 +49,55 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add t/TITLE`, `TITLE` is a parameter which can be used as `add t/CS2103 Lecture`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add event t/TITLE`, `TITLE` is a parameter which can be used as `add event t/CS2103 Lecture`.
+* Items in curly brackets denote the choices of words that can be used. e.g. `add {event/todo}`
 * Items in square brackets are optional e.g `t/TITLE [tags/TAG]` can be used as `t/CS2103 Lecture tags/lecture` or as `t/CS2103 Lecture`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[tags/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `tags/lecture`, `tags/cs2103` etc.
 * Parameters can be in any order e.g. if the command specifies `t/TITLE d/DESCRIPTION`, `d/DESCRIPTION t/TITLE` is also acceptable.
+* The second word specifies whether the command will operate on the todo list or the calendar. For example `add event` adds an event to the calendar and `add todo` will add an item to the todo list.
+* Priorities on the todo list are either `H`, `M` or `L` for high, medium or low respectively.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a calendar event: `add`
+=== Adding: `add`
 
 Adds a calendar event to the calendar +
-Format: `add t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tags/TAG]...`
+Format: `add event t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tags/TAG]...` +
+Adds an item to the todo list +
+Format: `add todo t/TITLE d/DESCRIPTION p/PRIORITY`
 
 ****
-* Adds the specified event to the Scheduler
-* Since it is difficult to type a rigidly formatted date and time, a natural language date parser will try to parse the input.
-* The Start and End times can be word descriptions, such as 'the day after tomorrow', or '1 week from now'.
+* Adds the specified item to the calendar or todo list
+* Since it is difficult to type a rigidly formatted date and time, a natural language date parser will try to parse the input for calendar events.
+* The start and end datetimes can be word descriptions, such as 'the day after tomorrow', or '1 week from now'.
 * If only a time is specified, Scheduler will assume you mean today.
 ****
 
 [TIP]
 A calendar event can have any number of tags. (including 0)
 
-
 Examples:
 
-* `add t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tags/lecture`
+* `add event t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tags/lecture`
+* `add todo t/CS2103 Assignment d/Version Control p/L`
 
-=== Listing all calendar events : `list`
+=== Listing: `list`
 
-Shows a list of all calendar events in the calendar. +
+Shows the list of all calendar events / todo items in the calendar / todo list. +
+Format: `list {event/todo}`
 
-=== Editing a calendar event : `edit`
+=== Editing: `edit`
 
 Edits an existing calendar event in the calendar. +
-Format: `edit INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME] [v/VENUE] [tags/TAG]...`
+Format: `edit event INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME] [v/VENUE] [tags/TAG]...` +
+Edits an existing item in the todo list. +
+Format: `edit todo INDEX [t/TITLE] [d/DESCRIPTION] [p/PRIORITY]`
 
 ****
-* Edits the calendar event at the specified `INDEX`. The index refers to the index number shown in the displayed calendar event list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the calendar event / todo list item at the specified `INDEX`. The index refers to the index number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the calendar event will be removed i.e adding of tags is not cumulative.
@@ -95,35 +106,36 @@ Format: `edit INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME
 
 Examples:
 
-* `edit 1 d/Abstraction v/i3 Auditorium` +
+* `edit event 1 d/Abstraction v/i3 Auditorium` +
 Edits the description and venue of the calendar event to be `Abstraction ` and `i3 Auditorium` respectively.
-* `edit 2 t/CS2103 Tutorial tags/` +
-Edits the name of the 2nd calendar event to be `CS2103 Tutorial` and clears all existing tags.
+* `edit todo 2 t/CS2103 Project` +
+Edits the name of the 2nd todo list item to be `CS2103 Project`.
 
-=== Locating calendar events by title: `find`
+=== Locating: `find`
 
-Finds calendar events whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds calendar events whose names contain any of the given keywords.
+Also optionally filters the search by the specified tags. +
+Format: `find event KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]`
 
 ****
-* The search is case insensitive. e.g `lecture` will match `Lecture`
+* The search is case insensitive for both keywords and tags. e.g `lecture` will match `Lecture`
 * The order of the keywords does not matter. e.g. `CS2103 Lecture` will match `Lecture CS2103`
-* Only the name is searched.
+* Currently only the title will be searched.
 * The search does not look for only exact matches; slight differences and typos will attempt to be matched
 * `CS2103 Lecture` will match 'CS210X Lectures', or 'Lecture CS'
+* However, tags must be an exact (albeit case-insensitive) match.
 ****
-
 Examples:
 
-* `find lecture` +
+* `find event lecture` +
 Returns `CS2103 Lecture` and `Lecture`
-* `find `CS2103 Lecture` +
-Returns any calendar event having titles with `CS2103` or `Lecture`
+* `find event cs2103 assignment tag/Project` +
+Returns any event with the tag `Project` having `CS2103` or `assignment` in the title.
 
-=== Deleting a calendar event : `delete`
+=== Deleting: `delete`
 
-Deletes the specified calendar event from the calendar. +
-Format: `delete INDEX`
+Deletes the specified calendar event / todo item from the calendar / todo list. +
+Format: `delete {event/todo} INDEX`
 
 ****
 * Deletes the calendar event at the specified `INDEX`.
@@ -133,17 +145,17 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` +
-`delete 2` +
+* `list event` +
+`delete event 2` +
 Deletes the 2nd calendar event in the calendar.
-* `find lecture` +
-`delete 1` +
-Deletes the 1st calendar event in the results of the `find` command.
+* `find todo assignment` +
+`delete todo 1` +
+Deletes the 1st todo item in the results of the `find todo` command.
 
-=== Selecting a calendar event : `select`
+=== Selecting: `select`
 
-Selects the calendar event identified by the index number used in the displayed calendar event list. +
-Format: `select INDEX`
+Selects the calendar event / todo item identified by the index number used in the displayed list. +
+Format: `select {event/todo} INDEX`
 
 ****
 * Selects the calendar event and loads the Google search page the calendar event at the specified `INDEX`.
@@ -153,12 +165,12 @@ Format: `select INDEX`
 
 Examples:
 
-* `list` +
-`select 2` +
+* `list event` +
+`select event 2` +
 Selects the 2nd calendar event in the calendar.
 * `find lecture` +
-`select 1` +
-Selects the 1st calendar event in the results of the `find` command.
+`select event 1` +
+Selects the 1st calendar event in the results of the `find event` command.
 
 === Listing entered commands : `history`
 
@@ -178,24 +190,24 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the calendar's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the calendar's /todo list's content (`add event`, `delete event`, `edit event` and `clear`).
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `delete event 1` +
+`list event` +
+`undo` (reverses the `delete event 1` command) +
 
 * `select 1` +
-`list` +
+`list event` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `delete 1` +
+* `delete event 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
+`undo` (reverses the `delete event 1` command) +
 
 === Redoing the previously undone command : `redo`
 
@@ -204,19 +216,19 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete event 1` +
+`undo` (reverses the `delete event 1` command) +
+`redo` (reapplies the `delete event 1` command) +
 
-* `delete 1` +
+* `delete event 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `delete 1` +
+* `delete event 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+`undo` (reverses the `delete event 1` command) +
+`redo` (reapplies the `delete event 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
@@ -247,7 +259,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Scheduler data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -259,23 +271,27 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous U-Schedule folder.
 
 == Command Summary
 
-* *Add* `add t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tags/TAG]...` +
-e.g. `add t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tags/lecture`
+* *Add* `add event t/TITLE d/DESCRIPTION s/START_DATETIME e/END_DATETIME v/VENUE [tags/TAG]...` +
+e.g. `add event t/CS2103 Lecture d/Abstraction, IntelliJ, Gradle s/2018-10-16 14:00 e/2018-10-16 16:00 v/i3 Auditorium tags/lecture`
+* *Add* `add todo t/TITLE d/DESCRIPTION p/PRIORITY` +
+e.g. `add todo t/CS2103 Assignment d/Version Control p/L`
 * *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME] [v/VENUE] [tags/TAG]...` +
-e.g. `edit 1 d/Abstraction v/i3 Auditorium`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find CS2103 Lecture`
-* *List* : `list`
+* *Delete* : `delete {event/todo} INDEX` +
+e.g. `delete event 3`
+* *Edit* : `edit event INDEX [t/TITLE] [d/DESCRIPTION] [s/START_DATETIME] [e/END_DATETIME] [v/VENUE] [tags/TAG]...` +
+e.g. `edit event 1 d/Abstraction v/i3 Auditorium`
+* *Edit* : `edit todo INDEX [t/TITLE] [d/DESCRIPTION] [p/PRIORITY]` +
+e.g. `edit todo 2 t/CS2103 Project`
+* *Find* : `find event KEYWORD [MORE_KEYWORDS] [tag/TAG] [tag/MORE_TAGS]` +
+e.g. `find event CS2103 Lecture`
+* *List* : `list {event/todo}`
 * *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
+* *Select* : `select {event/todo} INDEX` +
+e.g.`select event 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

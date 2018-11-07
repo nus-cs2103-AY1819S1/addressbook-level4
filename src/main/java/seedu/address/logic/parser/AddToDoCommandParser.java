@@ -17,7 +17,7 @@ import seedu.address.model.todolist.ToDoListEvent;
 /**
  * Parses input arguments and creates a new AddToDoCommand object
  */
-public class AddToDoCommandParser implements ParserToDo<AddToDoCommand> {
+public class AddToDoCommandParser implements Parser<AddToDoCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddToDoCommand

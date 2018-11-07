@@ -7,7 +7,9 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.SwitchToSearchTabEvent;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelToDo;
 import seedu.address.model.calendarevent.FuzzySearchComparator;
 import seedu.address.model.calendarevent.TagsPredicate;
 import seedu.address.model.calendarevent.TitleContainsKeywordsPredicate;
@@ -52,6 +54,11 @@ public class FindEventCommand extends Command {
         return new CommandResult(
             String.format(Messages.MESSAGE_CALENDAR_EVENTS_LISTED_OVERVIEW,
                 model.getFilteredCalendarEventList().size()));
+    }
+
+    @Override
+    public CommandResult execute(ModelToDo modelToDo, CommandHistory history) throws CommandException {
+        throw new CommandException(MESSAGE_INCORRECT_MODEL_CALENDAR);
     }
 
     @Override

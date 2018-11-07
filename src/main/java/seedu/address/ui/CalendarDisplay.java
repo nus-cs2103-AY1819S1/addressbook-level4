@@ -92,6 +92,10 @@ public class CalendarDisplay extends UiPart<Region> {
         calendarDisplayBox.getChildren().add(agenda);
     }
 
+    /**
+     * TODO add javadoc comment
+     *
+     */
     private void displayPopUp(Parent root) {
         Scene scene = new Scene(root, 300, 200);
         Stage stage = new Stage();
