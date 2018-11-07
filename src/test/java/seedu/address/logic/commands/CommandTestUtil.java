@@ -5,12 +5,14 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +55,19 @@ public class CommandTestUtil {
     public static final Year VALID_YEAR_2018 = new Year("2018");
     public static final Year VALID_YEAR_2017 = new Year("2017");
     public static final int VALID_CALENDAR_DATE = 1;
+
+    public static final String VALID_STRING_JAN = "JAN";
+    public static final String VALID_STRING_YEAR = "2018";
+    public static final String LOWER_CASE_MONTH = " " + PREFIX_MONTH + "jan";
+    public static final String MIX_CASE_MONTH = " " + PREFIX_MONTH + "jAn";
+    public static final String UPPER_CASE_MONTH = " " + PREFIX_MONTH + "JAN";
+    public static final String FOUR_DIGIT_YEAR = " " + PREFIX_YEAR + VALID_STRING_YEAR;
+
+    public static final String INVALID_MONTH_CHAR_NO = " " + PREFIX_MONTH + "January";
+    public static final String INVALID_MONTH_VALUE = " " + PREFIX_MONTH + "Mov";
+    public static final String INVALID_NEGATIVE_YEAR = " " + PREFIX_YEAR + "-2018";
+    public static final String INVALID_YEAR_MORE_THAN_FOUR_DIGIT = " " + PREFIX_YEAR + "12345";
+    public static final String INVALID_YEAR_LESS_THAN_FOUR_DIGIT = " " + PREFIX_YEAR + "1";
 
     public static final String VALID_EMAIL_EXCURSION = "excursion@example.com";
     public static final String VALID_EMAIL_CAMP = "camp@example.com";
