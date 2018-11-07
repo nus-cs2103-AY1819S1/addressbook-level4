@@ -14,4 +14,6 @@ public class EarningsCommandTest {
         thrown.expect(NullPointerException.class);
         new EarningsCommand(null, null);
     }
+
+
 }

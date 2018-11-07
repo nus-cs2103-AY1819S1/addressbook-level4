@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -112,10 +114,11 @@ public class EditCommand extends Command {
         Education updatedEducation = editPersonDescriptor.getEducation().orElse(personToEdit.getEducation());
         HashMap<String, Grades> updatedGrades =
                 getUpdatedGrades(personToEdit, editPersonDescriptor.getGrades().orElse(null));
+        ArrayList<Time> updatedTime = getUpdatedTime(personToEdit, editPersonDescriptor.getTime().orElse(null));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail,
-                updatedAddress, updatedEducation, updatedGrades, updatedTags);
+                updatedAddress, updatedEducation, updatedGrades, updatedTime, updatedTags);
     }
 
     private static HashMap<String, Grades> getUpdatedGrades(
@@ -128,6 +131,17 @@ public class EditCommand extends Command {
             finalGrades.put(grade.getKey(), grade.getValue());
         }
         return finalGrades;
+    }
+
+    private static ArrayList<Time> getUpdatedTime(Person personToEdit, ArrayList<Time> timings) {
+        if (timings == null) {
+            return new ArrayList<>(personToEdit.getTime());
+        }
+        ArrayList<Time> finalTime = new ArrayList<>(personToEdit.getTime());
+        for (Time time : timings) {
+            finalTime.add(time);
+        }
+        return finalTime;
     }
 
 
@@ -160,6 +174,7 @@ public class EditCommand extends Command {
         private Address address;
         private Education education;
         private HashMap<String, Grades> grades;
+        private ArrayList<Time> timings;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {
@@ -176,6 +191,7 @@ public class EditCommand extends Command {
             setAddress(toCopy.address);
             setEducation(toCopy.education);
             setGrades(toCopy.grades);
+            setTime(toCopy.timings);
             setTags(toCopy.tags);
         }
 
@@ -232,6 +248,14 @@ public class EditCommand extends Command {
 
         public Optional<HashMap<String, Grades>> getGrades() {
             return (grades != null) ? Optional.of(grades) : Optional.empty();
+        }
+
+        public void setTime(ArrayList<Time> timings) {
+            this.timings = timings;
+        }
+
+        public Optional<ArrayList<Time>> getTime() {
+            return (timings != null) ? Optional.of(timings) : Optional.empty();
         }
 
         /**

@@ -19,6 +19,7 @@ import seedu.address.model.person.Grades;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,10 +44,10 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedGrades> grades = new ArrayList<>();
 
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    private List<XmlAdaptedTime> timings = new ArrayList<>();
 
-    @XmlElement(required = true)
-    private List<XmlAdaptedTime> timeSlots = new ArrayList<>();
+    @XmlElement
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs an XmlAdaptedPerson.
@@ -59,7 +60,7 @@ public class XmlAdaptedPerson {
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String education,
-                            List<XmlAdaptedGrades> grades, List<XmlAdaptedTag> tagged) {
+                            List<XmlAdaptedGrades> grades, List<XmlAdaptedTime> timings, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -67,6 +68,9 @@ public class XmlAdaptedPerson {
         this.education = education;
         if (grades != null) {
             this.grades = new ArrayList<>(grades);
+        }
+        if (timings != null) {
+            this.timings = new ArrayList<>(timings);
         }
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -88,12 +92,11 @@ public class XmlAdaptedPerson {
         grades = source.getGrades().entrySet().stream()
                 .map(XmlAdaptedGrades::new)
                 .collect(Collectors.toList());
+        timings = source.getTime().stream()
+                .map(XmlAdaptedTime::new)
+                .collect(Collectors.toList());
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
-
-        timeSlots = source.getTime().stream()
-                .map(XmlAdaptedTime::new)
                 .collect(Collectors.toList());
     }
 
@@ -108,6 +111,11 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedGrades grade : grades) {
             Pair<String, Grades> gradePair = grade.toModelType();
             modelGrades.put(gradePair.getKey(), gradePair.getValue());
+        }
+
+        ArrayList<Time> modelTime = new ArrayList<>();
+        for (XmlAdaptedTime time : timings) {
+            modelTime.add(time.toModelType());
         }
 
         final List<Tag> personTags = new ArrayList<>();
@@ -159,11 +167,7 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
         Person modelPerson = new Person(modelName, modelPhone, modelEmail, modelAddress,
-                modelEducation, modelGrades, modelTags);
-
-        for (XmlAdaptedTime t : timeSlots) {
-            modelPerson.getTime().add(t.toModelType());
-        }
+                modelEducation, modelGrades, modelTime, modelTags);
 
         return modelPerson;
     }
@@ -185,6 +189,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(address, otherPerson.address)
                 && Objects.equals(education, otherPerson.education)
                 && grades.equals(otherPerson.grades)
+                && timings.equals(otherPerson.timings)
                 && tagged.equals(otherPerson.tagged);
     }
 }

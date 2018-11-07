@@ -12,6 +12,11 @@ public class GradeFilterPredicate implements Predicate<Person> {
     private double maxLimit;
 
     public GradeFilterPredicate(double minLimit, double maxLimit) {
+        if (minLimit > maxLimit) {
+            Double temp = minLimit;
+            minLimit = maxLimit;
+            maxLimit = temp;
+        }
         this.minLimit = minLimit;
         this.maxLimit = maxLimit;
     }

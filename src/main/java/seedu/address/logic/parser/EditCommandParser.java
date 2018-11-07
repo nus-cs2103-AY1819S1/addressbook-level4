@@ -10,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,6 +24,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Grades;
+import seedu.address.model.person.Time;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -66,6 +69,8 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         parseGradesForEdit(argMultimap.getAllValues(PREFIX_GRADES)).ifPresent(editPersonDescriptor::setGrades);
 
+        parseTimeForEdit(argMultimap.getAllValues(PREFIX_TIME)).ifPresent(editPersonDescriptor::setTime);
+
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
@@ -91,9 +96,9 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * Parses {@code Collection<String> grades} into a {@code HashMap<String, Grades>} if {@code grades} is non-empty.
+     * If {@code grades} contain only one element which is an empty string, it will be parsed into a
+     * {@code HashMap<String, Grades>} containing zero grades.
      */
     private Optional<HashMap<String, Grades>> parseGradesForEdit(Collection<String> grades) throws ParseException {
         assert grades != null;
@@ -105,4 +110,18 @@ public class EditCommandParser implements Parser<EditCommand> {
         return Optional.of(ParserUtil.parseGrades(gradeSet));
     }
 
+    /**
+     * Parses {@code Collection<String> timings} into a {@code ArrayList<Time>} if {@code timings} is non-empty.
+     * If {@code timings} contain only one element which is an empty string, it will be parsed into a
+     * {@code ArrayList<Time>} containing zero tags.
+     */
+    private Optional<ArrayList<Time>> parseTimeForEdit(Collection<String> timings) throws ParseException {
+        assert timings != null;
+
+        if (timings.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> timeList = timings.size() == 1 && timings.contains("") ? Collections.emptySet() : timings;
+        return Optional.of(ParserUtil.parseTimings(timeList));
+    }
 }

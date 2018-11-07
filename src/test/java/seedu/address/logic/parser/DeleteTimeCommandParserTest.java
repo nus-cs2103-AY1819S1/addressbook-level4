@@ -7,29 +7,28 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddTimeCommand;
+import seedu.address.logic.commands.DeleteTimeCommand;
 import seedu.address.model.person.Time;
 
-public class AddTimeCommandParserTest {
-    private AddTimeCommandParser parser = new AddTimeCommandParser();
+public class DeleteTimeCommandParserTest {
+    private DeleteTimeCommandParser parser = new DeleteTimeCommandParser();
 
     @Test
     public void parseValidIndexValidTime() {
         String userInput = "1 ts/mon 1300 1500";
-        AddTimeCommand expectedCommand = new AddTimeCommand(INDEX_FIRST_PERSON, new Time("mon 1300 1500"));
+        DeleteTimeCommand expectedCommand = new DeleteTimeCommand(INDEX_FIRST_PERSON, new Time("mon 1300 1500"));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
     public void parseInvalidIndexValidTime() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimeCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTimeCommand.MESSAGE_USAGE);
 
         String userInput = "-1 ts/mon 1300 1500";
         assertParseFailure(parser, userInput, expectedMessage);
 
         userInput = "0 ts/mon 1300 1500";
         assertParseFailure(parser, userInput, expectedMessage);
-
     }
 
     @Test
@@ -45,7 +44,7 @@ public class AddTimeCommandParserTest {
 
     @Test
     public void parseMissingTimePrefix() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimeCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTimeCommand.MESSAGE_USAGE);
 
         String userInput = "0 mon 1300 1500";
         assertParseFailure(parser, userInput, expectedMessage);

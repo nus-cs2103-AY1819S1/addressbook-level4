@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -144,6 +145,19 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses {@code Collection<String> timeSlots} into a {@code ArrayList<Time>}.
+     */
+    public static ArrayList<Time> parseTimings(Collection<String> timeSlots) throws ParseException {
+        requireNonNull(timeSlots);
+        final ArrayList<Time> timeList = new ArrayList<>();
+        for (String time : timeSlots) {
+            Time tuitionTime = parseTime(time);
+            timeList.add(tuitionTime);
+        }
+        return timeList;
     }
 
     /**

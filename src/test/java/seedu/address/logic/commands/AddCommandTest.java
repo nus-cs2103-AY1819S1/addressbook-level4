@@ -120,12 +120,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addTime(String name, Time timeslot) {
+        public void addTime(Person target, Time timeslot) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deleteTime(String name, Time timeslot) {
+        public void deleteTime(Person target, Time timeslot) {
             throw new AssertionError("This method should not be called.");
         }
 
