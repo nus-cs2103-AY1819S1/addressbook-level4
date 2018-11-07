@@ -54,7 +54,6 @@ e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order. +
 e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
 
 === Viewing help : `help`
 
@@ -74,12 +73,14 @@ e.g. `... g/mid-test 100 ...`
 ****
 
 [TIP]
-A person can have any number of tags and grades (including 0).
-You can see the details about grade attribute in the <<grade,grade feature>>
+====
+* A person can have any number of tags and grades (including 0).
+* Name of the exam should be different. Otherwise, they will be considered as the same one and the APP will store the score of the last one.
+====
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Mid 89 t/friends t/owesMoney`
+* `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 el/Primary 4 g/Y1819S1_Final 100 g/Y1819S1_Mid 89 t/friends t/owesMoney`
 
 === Editing a person : `edit`
 
@@ -93,7 +94,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [el/EDUCATIONAL_LEV
 * When editing tags, the existing tags of the person will be removed. +
 i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* You can see the details about grade attribute in the <<grade,grade feature>>
+* Edit grade will not delete the previous grades as the tap attribute. If the exam name exists already, it will cover the previous one and edit the score only.
 ****
 
 Examples:
