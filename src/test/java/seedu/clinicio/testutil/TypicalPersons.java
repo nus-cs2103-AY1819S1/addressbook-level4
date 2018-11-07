@@ -31,12 +31,13 @@ import java.util.List;
 
 import seedu.clinicio.model.ClinicIo;
 import seedu.clinicio.model.appointment.Appointment;
+import seedu.clinicio.model.medicine.Medicine;
 import seedu.clinicio.model.patient.Patient;
 import seedu.clinicio.model.person.Person;
 import seedu.clinicio.model.staff.Staff;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Person} and {@code Medicine} objects to be used in tests.
  */
 public class TypicalPersons {
 
@@ -125,6 +126,24 @@ public class TypicalPersons {
     public static final Appointment CARL_APPT = new AppointmentBuilder().withDate(2, 10, 2018)
             .withTime(18, 00).withType(1).withPatient(CARL_AS_PATIENT).withStaff(ADAM).build();
 
+    // Medicines
+    public static final Medicine PARACETAMOL = new MedicineBuilder().withMedicineName("Paracetamol")
+            .withMedicineType("Tablet").withEffectiveDosage("2").withLethalDosage("8")
+            .withMedicinePrice("0.05").withMedicineQuantity("1000")
+            .withTags("take one or two tablets at a time", "every six hours").build();
+    public static final Medicine CHLORPHENIRAMINE = new MedicineBuilder().withMedicineName("Chlorpheniramine")
+            .withMedicineType("Liquid").withEffectiveDosage("4").withLethalDosage("32")
+            .withMedicinePrice("18.90").withMedicineQuantity("500")
+            .withTags("take 4mg orally every four to six hours").build();
+    public static final Medicine ORACORT = new MedicineBuilder().withMedicineName("Oracort")
+            .withMedicineType("Topical").withEffectiveDosage("5").withLethalDosage("30")
+            .withMedicinePrice("8.90").withMedicineQuantity("100")
+            .withTags("apply 5mm on ulcer area", "two or three times a day").build();
+    public static final Medicine VENTOLIN = new MedicineBuilder().withMedicineName("Ventolin")
+            .withMedicineType("Inhaler").withEffectiveDosage("2").withLethalDosage("10")
+            .withMedicinePrice("13.55").withMedicineQuantity("200")
+            .withTags("take two puffs four times a day").build();
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalPersons() {
@@ -149,6 +168,9 @@ public class TypicalPersons {
             clinicIo.addAppointment(appointment);
         }
         */
+        for (Medicine medicine : getTypicalMedicines()) {
+            clinicIo.addMedicine(medicine);
+        }
         return clinicIo;
     }
 
@@ -167,4 +189,9 @@ public class TypicalPersons {
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(AMY_APPT, BENSON_APPT, CARL_APPT));
     }
+
+    public static List<Medicine> getTypicalMedicines() {
+        return new ArrayList<>(Arrays.asList(PARACETAMOL, CHLORPHENIRAMINE, ORACORT, VENTOLIN));
+    }
+
 }
