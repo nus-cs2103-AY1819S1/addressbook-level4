@@ -35,10 +35,10 @@ public class DeleteMedicalHistoryCommandParser implements Parser<DeleteMedicalHi
         String nameStr = argMultimap.getValue(PREFIX_NAME).get();
         String allergy = "";
         String condition = "";
-        if (arePrefixesPresent(argMultimap, PREFIX_ALLERGY)){
+        if (arePrefixesPresent(argMultimap, PREFIX_ALLERGY)) {
             allergy = argMultimap.getValue(PREFIX_ALLERGY).get();
         }
-        if (arePrefixesPresent(argMultimap, PREFIX_CONDITION)){
+        if (arePrefixesPresent(argMultimap, PREFIX_CONDITION)) {
             condition = argMultimap.getValue(PREFIX_CONDITION).get();
         }
         Name name = new Name(nameStr);
