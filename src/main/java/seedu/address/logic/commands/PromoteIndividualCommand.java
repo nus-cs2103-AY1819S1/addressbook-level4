@@ -5,9 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -19,8 +17,6 @@ import seedu.address.model.person.Person;
  * Promotes an individual student to the next educational grade.
  */
 public class PromoteIndividualCommand extends PromoteCommand {
-
-    private static final Logger logger = LogsCenter.getLogger(PromoteIndividualCommand.class);
 
     private ArrayList<Index> indexesToPromote = new ArrayList<>();
 
@@ -45,8 +41,6 @@ public class PromoteIndividualCommand extends PromoteCommand {
             Person promotedPerson = createPromotedPerson(personToPromote);
 
             model.updatePerson(personToPromote, promotedPerson);
-            logger.info("===================" + promotedPerson.getName().fullName + ": "
-                    + promotedPerson.getEducation().toString() + "===================");
         }
 
         StringBuilder graduatedStudentsList = new StringBuilder();
