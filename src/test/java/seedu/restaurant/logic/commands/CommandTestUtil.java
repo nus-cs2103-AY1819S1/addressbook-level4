@@ -23,6 +23,7 @@ import static seedu.restaurant.testutil.menu.TypicalItems.FRIES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,8 @@ import seedu.restaurant.logic.commands.reservation.EditReservationCommand;
 import seedu.restaurant.logic.commands.sales.EditSalesCommand;
 import seedu.restaurant.model.Model;
 import seedu.restaurant.model.RestaurantBook;
+import seedu.restaurant.model.account.Account;
+import seedu.restaurant.model.account.AccountContainsKeywordsPredicate;
 import seedu.restaurant.model.ingredient.Ingredient;
 import seedu.restaurant.model.ingredient.IngredientNameContainsKeywordsPredicate;
 import seedu.restaurant.model.menu.Item;
@@ -285,10 +288,9 @@ public class CommandTestUtil {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the result message matches {@code expectedMessage} <br>
-     * - the {@code actualModel} matches {@code expectedModel} <br>
-     * - the {@code actualCommandHistory} remains unchanged.
+     * Executes the given {@code command}, confirms that <br> - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br> - the {@code actualCommandHistory} remains
+     * unchanged.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
@@ -304,11 +306,9 @@ public class CommandTestUtil {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     * - the restaurant book and the filtered list in the {@code actualModel} remain unchanged <br>
-     * - {@code actualCommandHistory} remains unchanged.
+     * Executes the given {@code command}, confirms that <br> - a {@code CommandException} is thrown <br> - the
+     * CommandException message matches {@code expectedMessage} <br> - the restaurant book and the filtered list in the
+     * {@code actualModel} remain unchanged <br> - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
@@ -366,5 +366,20 @@ public class CommandTestUtil {
                 new IngredientNameContainsKeywordsPredicate(Arrays.asList(splitIngredient[0])));
 
         assertEquals(1, model.getFilteredIngredientList().size());
+    }
+
+    /**
+     * Updates {@code Model}'s filtered list to show only the account at the given {@code targetIndex} in the {@code
+     * Model}'s restaurant book.
+     */
+    public static void showAccountAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredAccountList().size());
+
+        Account account = model.getFilteredAccountList().get(targetIndex.getZeroBased());
+        final String[] splitAccount = account.getUsername().toString().split("\\s+");
+        model.updateFilteredAccountList(
+                new AccountContainsKeywordsPredicate(Collections.singletonList(splitAccount[0])));
+
+        assertEquals(1, model.getFilteredAccountList().size());
     }
 }

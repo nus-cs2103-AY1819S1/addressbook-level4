@@ -11,6 +11,7 @@ public class Messages {
     // Account Management
     public static final String MESSAGE_COMMAND_FORBIDDEN = "Please login to execute privileged commands. For more "
             + "information, enter `help`.";
+    public static final String MESSAGE_INVALID_ACCOUNT_DISPLAYED_INDEX = "The account index provided is invalid";
 
     // Ingredient Management
     public static final String MESSAGE_INVALID_INGREDIENT_DISPLAYED_INDEX = "The ingredient index provided is invalid";

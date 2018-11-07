@@ -31,7 +31,7 @@ public class SelectAccountCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_INGREDIENT_SUCCESS = "Selected account: %1$s";
+    public static final String MESSAGE_SELECT_ACCOUNT_SUCCESS = "Selected account: %1$s";
     public static final String MESSAGE_INVALID_ACCOUNT_DISPLAYED_INDEX = "The account index provided is invalid";
 
     private final Index targetIndex;
@@ -51,7 +51,7 @@ public class SelectAccountCommand extends Command {
         }
         EventsCenter.getInstance().post(new DisplayAccountListRequestEvent());
         EventsCenter.getInstance().post(new JumpToAccountListRequestEvent(targetIndex));
-        return new CommandResult(String.format(MESSAGE_SELECT_INGREDIENT_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_ACCOUNT_SUCCESS, targetIndex.getOneBased()));
 
     }
 
