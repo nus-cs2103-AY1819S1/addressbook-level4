@@ -24,7 +24,7 @@ Unlike them, Piconso offers the same features, in a much more simplified manner.
 * *Minor enhancement*: Added a ls command that allows the user to list the files in their current directory. Additionally, also created and linked the UIs for FilmReel (shows images in current directory batch) and HistoryList (shows history of transformations performed on image)
 
 //* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=chivent[All commits]]
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-T09-3/main/commits?author=chivent[All commits]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=chivent[Project Code Dashboard]]
 
 
 * *Other contributions*:
