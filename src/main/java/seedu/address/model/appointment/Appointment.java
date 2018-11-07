@@ -159,9 +159,9 @@ public class Appointment implements Comparable<Appointment> {
             return false;
         }
         Appointment otherAppointment = (Appointment) other;
-        return appointmentId.equals(otherAppointment.appointmentId)
-                && doctor.equals(otherAppointment.doctor)
-                && patient.equals(otherAppointment.patient)
-                && dateTime.equals(otherAppointment.dateTime);
+        return otherAppointment.getAppointmentId() == getAppointmentId()
+                && otherAppointment.getDoctor().equals(getDoctor())
+                && otherAppointment.getPatient().equals(getPatient())
+                && otherAppointment.getDateTime().equals(getDateTime());
     }
 }
