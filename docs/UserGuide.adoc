@@ -205,7 +205,7 @@ Format: `add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]...`
 [NOTE]
 ====
 * COST should be a non-zero positive number with two decimal places
-* If the user does not input a DATE parameter, the expense  date will default to the current day.
+* If the user does not input a DATE parameter, the expense date will default to the current day.
 * DATE should be in the format of "dd-mm-yyyy".
 * DATE can be a date in the future
 ====
