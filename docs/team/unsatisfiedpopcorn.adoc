@@ -39,7 +39,7 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#31],
+*** PRs reviewed (with non-trivial review comments): #7, https://github.com[#31],
  https://github.com[#36], https://github.com[#37], https://github.com[#41],
  https://github.com[#70], https://github.com[#75], https://github.com[#78],
  https://github.com[#84], https://github.com[#114], https://github.com[#144]
