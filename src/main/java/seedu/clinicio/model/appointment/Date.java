@@ -1,5 +1,7 @@
 package seedu.clinicio.model.appointment;
 
+//@@author gingivitiss
+
 import static java.util.Objects.requireNonNull;
 import static seedu.clinicio.commons.util.AppUtil.checkArgument;
 import static seedu.clinicio.commons.util.CollectionUtil.requireAllNonNull;
@@ -146,6 +148,12 @@ public class Date {
         return (targetDate.isEqual(currentWeekMonday) || targetDate.isAfter(currentWeekMonday))
             && targetDate.isBefore(nextWeekMonday);
     }
+
+    /**
+     * Returns a simple string
+     * @param other
+     * @return
+     */
 
     @Override
     public boolean equals(Object other) {
