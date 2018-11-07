@@ -39,7 +39,6 @@ public class ExportCommandParserTest {
                 String.format(ExportCommand.MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH));
 
         // the file type the user want to export is not supported
-        // want to export txt file but file path extension is not txt
         assertParseFailure(parser, "--pdf exported.pdf",
                 String.format(ExportCommand.MESSAGE_FILE_TYPE_NOT_SUPPORTED_OR_TYPE_NOT_MATCH));
     }

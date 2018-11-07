@@ -14,7 +14,8 @@ public abstract class ExportCommand extends Command {
             + "and store into a specified location with specified file format. \n "
             + "Parameters: FILE_PATH "
             + "Example: " + COMMAND_WORD + " --xml "
-            + "/Users/user/Desktop/backup.xml";
+            + "/Users/Anna/Desktop/backup.xml (macOS, Linux) \n"
+            + COMMAND_WORD + " --txt C:\\Users\\Anna\\desktop\\info.xml (Windows)";
 
     public static final String MESSAGE_SUCCESS = "Export successfully.";
     public static final String MESSAGE_FAIL_READ_FILE = "Failed to read file path. Please recheck the validity "
