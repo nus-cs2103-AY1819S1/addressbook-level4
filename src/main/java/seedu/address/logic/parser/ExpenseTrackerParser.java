@@ -9,8 +9,10 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -139,6 +141,14 @@ public class ExpenseTrackerParser {
         case NotificationCommand.COMMAND_WORD:
         case NotificationCommand.COMMAND_ALIAS:
             return new NotificationCommandParser().parse(arguments);
+
+        case EncryptCommand.COMMAND_WORD:
+        case EncryptCommand.COMMAND_ALIAS:
+            return new EncryptCommandParser().parse(arguments);
+
+        case DecryptCommand.COMMAND_WORD:
+        case DecryptCommand.COMMAND_ALIAS:
+            return new DecryptCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

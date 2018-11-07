@@ -17,8 +17,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EncryptCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -197,6 +199,22 @@ public class ExpenseTrackerParserTest {
                 instanceof NotificationCommand);
         assertTrue(parser.parseCommand(NotificationCommand.COMMAND_ALIAS + " n/tip t/off")
                 instanceof NotificationCommand);
+    }
+
+    @Test
+    public void parseCommand_decrypt() throws Exception {
+        assertTrue(parser.parseCommand(DecryptCommand.COMMAND_WORD + " aaaaaaa")
+                instanceof DecryptCommand);
+        assertTrue(parser.parseCommand(DecryptCommand.COMMAND_WORD + "")
+                instanceof DecryptCommand);
+    }
+
+    @Test
+    public void parseCommand_encrypt() throws Exception {
+        assertTrue(parser.parseCommand(EncryptCommand.COMMAND_WORD + " aaaaaaa")
+                instanceof EncryptCommand);
+        assertTrue(parser.parseCommand(EncryptCommand.COMMAND_WORD + "")
+                instanceof EncryptCommand);
     }
 
     @Test
