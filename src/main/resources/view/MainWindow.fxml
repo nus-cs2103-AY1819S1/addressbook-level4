@@ -26,23 +26,11 @@
                 <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
                     <Tab text="To Do List">
                         <VBox prefHeight="675.0" prefWidth="300.0">
-                            <Label fx:id="taskListHeader" maxWidth="1.7976931348623157E308" minHeight="25.0" text="Tasks"
-                                   VBox.vgrow="ALWAYS">
-                                <padding>
-                                    <Insets left="5.0"/>
-                                </padding>
-                            </Label>
                             <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="NEVER"/>
                         </VBox>
                     </Tab>
                     <Tab text="Calendar Events">
                         <VBox prefHeight="675.0" prefWidth="300.0">
-                            <Label fx:id="CalendarEventListHeader" maxWidth="1.7976931348623157E308" minHeight="25.0" text="Events"
-                                   VBox.vgrow="ALWAYS">
-                                <padding>
-                                    <Insets left="5.0"/>
-                                </padding>
-                            </Label>
                             <StackPane fx:id="calendarPanelPlaceholder" minWidth="600.0" prefHeight="380" prefWidth="900"
                                        VBox.vgrow="ALWAYS"/>
                         </VBox>
