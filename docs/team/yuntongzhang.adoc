@@ -17,7 +17,7 @@ HealthBase is a desktop application designed to aid in the management of clinics
 
 * *Major enhancement*: added *`adddiet` command*
 ** What it does: allows the user enter dietary requirements information for a given patient.
-** Justification: This feature enables the dietary information of a patient to be recorded upon checking in, and to be reviewed subsequently, so that the nurses can prepare food for patients efficiently.
+** Justification: This feature enables the dietary information of a patient to be recorded upon checking in or being registered, and to be reviewed subsequently, so that the nurses can prepare food for patients efficiently.
 ** Highlights: This enhancement brings a unique feature for the application, which is not usually included in other hospital management systems. There are three types of dietary requirements included, so the implementation required to take into consideration how to separate different types of dietary requirements.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
@@ -31,6 +31,7 @@ HealthBase is a desktop application designed to aid in the management of clinics
 *** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
 *** Managed the project dashboard on Github
 ** Enhancements to existing features:
+*** Refactored `checkin` command to `register` command (Commit: `link to commit`)
 *** Updated the user interface mockup to be consistent with our proposed product (Pull request https://github.com/CS2103-AY1819S1-W14-3/main/pull/18[#18])
 ** Documentation:
 *** Updated the User Guide to be aligned with the newly created `adddiet` command: https://github.com/CS2103-AY1819S1-W14-3/main/pull/83[#83]
