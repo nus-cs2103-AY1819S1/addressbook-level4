@@ -229,7 +229,6 @@ public class MainWindow extends UiPart<Stage> {
         FadeTransition ft = new FadeTransition(duration, placeholder);
         ft.setFromValue(0);
         ft.setToValue(1);
-
         return ft;
     }
 
@@ -265,21 +264,34 @@ public class MainWindow extends UiPart<Stage> {
     //@@author AZhiKai
 
     /**
-     * Toggle the navigation button's opacity and clickability based on whether {@code isOn} which is toggled by the
+     * Toggle the navigation button's opacity and disability based on whether {@code isLoggedIn} which is toggled by the
      * {@code LoginEvent} and {@code LogoutEvent}.
      *
-     * @param isOn determines if the button can be clicked and with a full opacity of value 1.0.
+     * @param isLoggedIn determines if the button can be clicked and with a full opacity of value 1.0.
      */
-    private void toggleButton(boolean isOn) {
-        switchToAccountButton.setDisable(!isOn);
-        switchToIngredientButton.setDisable(!isOn);
-        switchToSalesButton.setDisable(!isOn);
-        switchToReservationButton.setDisable(!isOn);
+    private void toggleNavigationBar(boolean isLoggedIn) {
+        setButtonDisableProperty(isLoggedIn);
+        setButtonOpacityProperty(isLoggedIn);
+    }
 
-        switchToAccountButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
-        switchToIngredientButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
-        switchToSalesButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
-        switchToReservationButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
+    /**
+     * Sets the disable property of the {@code ImageButton}.
+     */
+    private void setButtonDisableProperty(boolean isLoggedIn) {
+        switchToAccountButton.setDisable(!isLoggedIn);
+        switchToIngredientButton.setDisable(!isLoggedIn);
+        switchToSalesButton.setDisable(!isLoggedIn);
+        switchToReservationButton.setDisable(!isLoggedIn);
+    }
+
+    /**
+     * Sets the opacity property of the {@code ImageButton}.
+     */
+    private void setButtonOpacityProperty(boolean isLoggedIn) {
+        switchToAccountButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToIngredientButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToSalesButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToReservationButton.setOpacity(isLoggedIn ? FULL_OPACITY : DISABLED_OPACITY);
     }
 
     /**
@@ -467,13 +479,13 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleLoginEvent(LoginEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        toggleButton(true);
+        toggleNavigationBar(true);
     }
 
     @Subscribe
     private void handleLogoutEvent(LogoutEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        toggleButton(false);
+        toggleNavigationBar(false);
         handleSwitchToMenu();
     }
 }
