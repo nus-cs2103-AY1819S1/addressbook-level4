@@ -11,11 +11,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
@@ -23,6 +26,7 @@ import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.CalendarDisplayTimeChangedEvent;
+import seedu.address.commons.events.ui.CalendarPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.JumpToDateTimeEvent;
 import seedu.address.model.calendarevent.CalendarEvent;
 
@@ -67,31 +71,35 @@ public class CalendarDisplay extends UiPart<Region> {
 
         appointmentGroup = new Agenda.AppointmentGroupImpl().withStyleClass("group18");
 
-        // TODO: decide what action callback is best
         // this actionCallBack is called when the user double clicks on an appointment in the display
         agenda.actionCallbackProperty().set(new Callback<Appointment, Void>() {
             @Override
             public Void call(Appointment param) {
                 logger.info("User double clicked on " + param.toString());
-                CalendarEvent calendarEvent = (CalendarEvent) param;
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Event Information");
-                alert.setHeaderText(calendarEvent.getTitle().value);
-                alert.setContentText(calendarEvent.getDescriptionObject().value);
-                alert.show();
+                CalendarEventDialog dialog = new CalendarEventDialog((CalendarEvent) param);
+                displayPopUp(dialog.getRoot());
                 return null;
             }
         });
 
-        agenda.setAppointmentChangedCallback(null);
-
         agenda.setAllowDragging(false);
-
-        agenda.setEditAppointmentCallback(null);
-
+        agenda.setAppointmentChangedCallback(param -> null);
+        agenda.setEditAppointmentCallback(param -> null);
         agenda.setSkin(new AgendaWeekSkin(agenda));
 
         calendarDisplayBox.getChildren().add(agenda);
+    }
+
+    /**
+     * TODO add javadoc comment
+     *
+     */
+    private void displayPopUp(Parent root) {
+        Scene scene = new Scene(root, 300, 200);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     /**
@@ -178,9 +186,21 @@ public class CalendarDisplay extends UiPart<Region> {
     }
 
     @Subscribe
+    /**
+     * Calendar will display the period containing the specified LocalDateTime
+     */
     private void handleJumpToDateTimeEvent(JumpToDateTimeEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         setDisplayedDateTime(event.targetLocalDateTime);
+    }
+
+    @Subscribe
+    /**
+     * Calendar will display the period containing the selected CalendarEvent
+     */
+    private void handleCalendarPanelSelectionChangedEvent(CalendarPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setDisplayedDateTime(event.getNewSelection().getStartLocalDateTime());
     }
 
     /**
