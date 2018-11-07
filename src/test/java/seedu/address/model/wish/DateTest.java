@@ -14,7 +14,8 @@ import seedu.address.testutil.Assert;
 public class DateTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Date(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Date((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new Date((Date) null));
     }
 
     @Test

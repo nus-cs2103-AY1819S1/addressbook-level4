@@ -13,7 +13,8 @@ public class UrlTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Url(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Url((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new Url((Url) null));
     }
 
     @Test

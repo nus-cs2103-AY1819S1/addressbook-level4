@@ -16,7 +16,8 @@ public class SavedAmountTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new SavedAmount(null));
+        Assert.assertThrows(NullPointerException.class, () -> new SavedAmount((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new SavedAmount((SavedAmount) null));
     }
 
     @Test

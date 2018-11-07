@@ -13,7 +13,8 @@ public class NameTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Name(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Name((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new Name((Name) null));
     }
 
     @Test

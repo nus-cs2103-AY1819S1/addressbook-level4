@@ -83,10 +83,6 @@ _The following links contain code snippets of code contributed_
 ** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/UserGuide.adoc#viewing-your-saving-history-code-history-s-code[]
 * Developer Guide:
 ** Added content for `History -s` command. https://github.com/CS2103-AY1819S1-T16-1/main/blob/master/docs/DeveloperGuide.adoc#savings-history-feature[]
-
-<<<
-
-* Diagrams
 ** Refactored undo, redo UML diagrams to reflect current version of WishBook.
 +
 ****

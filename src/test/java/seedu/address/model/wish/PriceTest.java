@@ -13,7 +13,8 @@ public class PriceTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Price(null));
+        Assert.assertThrows(NullPointerException.class, () -> new Price((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> new Price((Price) null));
     }
 
     @Test
