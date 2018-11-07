@@ -373,6 +373,7 @@ c/sub-healthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
+You can only omit either ALLERGY parameter or CONDITION parameter.
 
 Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHistory` will get added
 
@@ -398,6 +399,7 @@ al/penicillin,milk c/sub-healthy,hyperglycemia`
 
 [NOTE]
 For multiple inputs in the same field, use comma `,` to separate. Do not append blank after `,`.
+You can only omit either ALLERGY parameter or CONDITION parameter.
 
 
 Step 2. Upon hitting enter, the `allergies` AND/OR `conditions` of `MedicalHistory` will get deleted

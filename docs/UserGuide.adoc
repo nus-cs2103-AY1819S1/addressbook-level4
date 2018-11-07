@@ -50,7 +50,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `register-patient n/NAME`, `NAME` is a parameter which can be used as `register-patient n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [al/ALLERGIES]` can be used as `n/John Doe al/milk` or as `n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [al/ALLERGIES] [c/CONDITION]` can be used as `n/John Doe al/milk c/healthy` or as `n/John Doe al/milk`.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
@@ -313,10 +313,10 @@ e.g. `complete-appointment 10001`
 e.g. `add-prescription pi/10001 pn/Paracetamol pd/2 pc/3`
 * *Delete prescriptions* : `delete-prescription pi/APPOINTMENT_ID pn/MEDICINE_NAME`
 e.g. `delete-prescription pi/10001 pn/Paracetamol`
-* *Add allergies or conditions* : `add-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
-e.g. `add-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
-* *Delete allergies or conditions* : `delete-medical-history n/NAME al/ALLERGIES c/CONDITIONS`
-e.g. `delete-medical-history n/John Doe al/penicillin, milk c/sub-healthy, hyperglycemia`
+* *Add allergies or conditions* : `add-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
+e.g. `add-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
+* *Delete allergies or conditions* : `delete-medical-history n/NAME [al/ALLERGIES] [c/CONDITIONS]`
+e.g. `delete-medical-history n/John Doe al/penicillin,milk c/sub-healthy,hyperglycemia`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
