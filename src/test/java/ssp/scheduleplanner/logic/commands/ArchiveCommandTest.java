@@ -1,5 +1,6 @@
 package ssp.scheduleplanner.logic.commands;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -41,6 +42,9 @@ public class ArchiveCommandTest {
         expectedModel.commitSchedulePlanner();
 
         assertCommandSuccess(archiveCommand, model, commandHistory, expectedMessage, expectedModel);
+        //Check whether expected model and actual model has archived task in archived task list.
+        assertTrue(expectedModel.hasArchivedTask(taskToArchive));
+        assertTrue(model.hasArchivedTask(taskToArchive));
     }
 
     @Test
@@ -66,6 +70,9 @@ public class ArchiveCommandTest {
         showNoTask(expectedModel);
 
         assertCommandSuccess(archiveCommand, model, commandHistory, expectedMessage, expectedModel);
+        //Check whether expected model and actual model has archived task in archived task list.
+        assertTrue(expectedModel.hasArchivedTask(taskToArchive));
+        assertTrue(model.hasArchivedTask(taskToArchive));
     }
 
     @Test
@@ -92,13 +99,25 @@ public class ArchiveCommandTest {
         // archive -> first task archived
         archiveCommand.execute(model, commandHistory);
 
+        //Check whether expected model and actual model has archived task in archived task list.
+        assertTrue(expectedModel.hasArchivedTask(taskToArchive));
+        assertTrue(model.hasArchivedTask(taskToArchive));
+
         // undo -> reverts addressbook back to previous state and filtered task list to show all tasks
         expectedModel.undoSchedulePlanner();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
+        //Check whether expected model and actual model has archived task in archived task list.
+        assertFalse(expectedModel.hasArchivedTask(taskToArchive));
+        assertFalse(model.hasArchivedTask(taskToArchive));
+
         // redo -> same first task archived again
         expectedModel.redoSchedulePlanner();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        //Check whether expected model and actual model has archived task in archived task list.
+        assertTrue(expectedModel.hasArchivedTask(taskToArchive));
+        assertTrue(model.hasArchivedTask(taskToArchive));
     }
 
     @Test
@@ -116,10 +135,10 @@ public class ArchiveCommandTest {
 
     /**
      * 1. Archives a {@code Task} from a filtered list.
-     * 2. Undo the deletion.
+     * 2. Undo the archive.
      * 3. The unfiltered list should be shown now. Verify that the index of the previously archived task in the
      * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} archives the task object regardless of indexing.
+     * 4. Redo the archive. This ensures {@code RedoCommand} archives the task object regardless of indexing.
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameTaskArchived() throws Exception {
@@ -143,6 +162,29 @@ public class ArchiveCommandTest {
         // redo -> archives same second task in unfiltered task list
         expectedModel.redoSchedulePlanner();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executeRepeatitive_validIndexUnfilteredList_success() {
+        Task taskToArchive = model.getFilteredTaskList().get(INDEX_FIRST_TASK.getZeroBased());
+        ArchiveCommand archiveCommand = new ArchiveCommand(INDEX_FIRST_TASK);
+
+        String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_TASK_SUCCESS, taskToArchive);
+
+        ModelManager expectedModel = new ModelManager(model.getSchedulePlanner(), new UserPrefs());
+        expectedModel.archiveTask(taskToArchive);
+        expectedModel.commitSchedulePlanner();
+
+        assertCommandSuccess(archiveCommand, model, commandHistory, expectedMessage, expectedModel);
+        expectedModel = new ModelManager(model.getSchedulePlanner(), new UserPrefs());
+        //Add back the archived task
+        expectedModel.addTask(taskToArchive);
+        model.undoSchedulePlanner();
+        assertEquals(expectedModel.getFilteredTaskList(), model.getFilteredTaskList());
+        //Archive feature should not fail even if two same tasks are archived.
+        expectedModel.archiveTask(taskToArchive);
+        assertNotEquals(expectedModel.getFilteredArchivedTaskList(), model.getFilteredArchivedTaskList());
+
     }
 
     @Test

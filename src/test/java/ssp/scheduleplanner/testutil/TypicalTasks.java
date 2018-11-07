@@ -76,8 +76,6 @@ public class TypicalTasks {
      */
     public static SchedulePlanner getTypicalSchedulePlanner() {
         SchedulePlanner sp = new SchedulePlanner();
-        //debug
-        System.out.println("sp has Others: " + sp.hasCategory("Others"));
         for (Task task : getTypicalTasks()) {
             sp.addTask(task);
         }

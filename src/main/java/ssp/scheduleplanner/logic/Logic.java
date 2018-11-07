@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import ssp.scheduleplanner.logic.commands.CommandResult;
 import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
+import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -24,6 +25,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of archived tasks */
     ObservableList<Task> getFilteredArchivedTaskList();
+
+    /** Returns an unmodifiable view of the list of categories */
+    ObservableList<Category> getCategoryList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

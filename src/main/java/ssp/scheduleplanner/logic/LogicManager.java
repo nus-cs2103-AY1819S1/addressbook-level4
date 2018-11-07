@@ -11,6 +11,7 @@ import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.logic.parser.SchedulePlannerParser;
 import ssp.scheduleplanner.logic.parser.exceptions.ParseException;
 import ssp.scheduleplanner.model.Model;
+import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.task.Task;
 
 /**
@@ -48,6 +49,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Task> getFilteredArchivedTaskList() {
         return model.getFilteredArchivedTaskList();
+    }
+
+    @Override
+    public ObservableList<Category> getCategoryList() {
+        return model.getCategoryList();
     }
 
     @Override

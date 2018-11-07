@@ -166,8 +166,6 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
      */
     public void addTag(Tag tag, String categoryName) {
         Category category = categories.getCategory(categoryName);
-        //debug
-        System.out.println("categoryName = " + categoryName + ", it exists: " + hasCategory(categoryName));
         category.addTag(tag);
     }
 

@@ -2,6 +2,8 @@ package ssp.scheduleplanner.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,17 +16,16 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ssp.scheduleplanner.logic.CommandHistory;
+import ssp.scheduleplanner.logic.commands.exceptions.CommandException;
 import ssp.scheduleplanner.model.Model;
 import ssp.scheduleplanner.model.ReadOnlySchedulePlanner;
 import ssp.scheduleplanner.model.SchedulePlanner;
 import ssp.scheduleplanner.model.category.Category;
 import ssp.scheduleplanner.model.tag.Tag;
-import ssp.scheduleplanner.model.task.Interval;
-import ssp.scheduleplanner.model.task.Repeat;
 import ssp.scheduleplanner.model.task.Task;
-import ssp.scheduleplanner.testutil.TaskBuilder;
+import ssp.scheduleplanner.testutil.CategoryBuilder;
 
-public class AddRepeatCommandTest {
+public class AddCategoryCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -34,27 +35,58 @@ public class AddRepeatCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullTask_throwsNullPointerException() {
+    public void constructor_nullCategory_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddRepeatCommand(null, new Repeat("3"), new Interval("3"));
+        new AddCategoryCommand(null);
     }
 
     @Test
-    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new TaskBuilder().build();
+    public void execute_categoryAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingCategoryAdded modelStub = new ModelStubAcceptingCategoryAdded();
+        Category validCategory = new CategoryBuilder().build();
 
-        CommandResult commandResult = new AddRepeatCommand(validTask, new Repeat("2"), new Interval("1"))
-                .execute(modelStub, commandHistory);
+        CommandResult commandResult =
+                new AddCategoryCommand(validCategory.getName()).execute(modelStub, commandHistory);
 
-        Task anotherValidTask = (new TaskBuilder()).withDate("121155").build();
-
-
-        assertEquals(String.format(AddRepeatCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validTask, anotherValidTask), modelStub.tasksAdded);
+        assertEquals(String.format(AddCategoryCommand.MESSAGE_SUCCESS,
+                validCategory.getName()), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validCategory), modelStub.categoriesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
+    @Test
+    public void execute_duplicateCategory_throwsCommandException() throws Exception {
+        Category validModules = new CategoryBuilder().withName("Modules").build();
+        Category validOthers = new CategoryBuilder().withName("Others").build();
+        AddCategoryCommand addModulesCommand = new AddCategoryCommand(validModules.getName());
+        AddCategoryCommand addOthersCommand = new AddCategoryCommand(validOthers.getName());
+        ModelStub modelStub = new ModelStubWithCategory();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCategoryCommand.MESSAGE_DUPLICATE_CATEGORY);
+        addModulesCommand.execute(modelStub, commandHistory);
+        addOthersCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void equals() {
+        Category games = new CategoryBuilder().withName("Games").build();
+        Category queen = new CategoryBuilder().withName("Queen").build();
+        AddCategoryCommand addGamesCommand = new AddCategoryCommand("Games");
+        AddCategoryCommand addQueenCommand = new AddCategoryCommand("Queen");
+
+        // same object -> returns true
+        assertTrue(addGamesCommand.equals(addGamesCommand));
+
+        // different types -> returns false
+        assertFalse(addGamesCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(addGamesCommand.equals(null));
+
+        // different category -> returns false
+        assertFalse(addGamesCommand.equals(addQueenCommand));
+    }
 
     /**
      * A default model stub that have all of the methods failing.
@@ -183,60 +215,54 @@ public class AddRepeatCommandTest {
     }
 
     /**
-     * A Model stub that contains a single task.
+     * A Model stub that contains two default categories.
      */
-    private class ModelStubWithTask extends ModelStub {
-        private final Task task;
+    private class ModelStubWithCategory extends ModelStub {
+        private final Category modules;
+        private final Category others;
 
-        ModelStubWithTask(Task task) {
-            requireNonNull(task);
-            this.task = task;
+        ModelStubWithCategory() {
+            this.modules = new Category("Modules");
+            this.others = new Category("Others");
         }
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return this.task.isSameTask(task);
+        public boolean hasCategory(String category) {
+            requireNonNull(category);
+            return (category.equals("Modules") || category.equals("Others"));
         }
     }
 
     /**
-     * A Model stub that always accept the task being added.
+     * A Model stub that always accept the category being added.
      */
-    private class ModelStubAcceptingTaskAdded extends ModelStub {
-        final ArrayList<Task> tasksAdded = new ArrayList<>();
+    private class ModelStubAcceptingCategoryAdded extends ModelStub {
+        final ArrayList<Category> categoriesAdded = new ArrayList<>();
         final Category modules = new Category("Modules");
         final Category others = new Category("Others");
         final ArrayList<Tag> tags = new ArrayList<>();
         final ArrayList<Category> categories =
-                new ArrayList<Category>() {
-            {
-                add(modules);
-                add(others);
-            }
-        };
+                new ArrayList<Category>() {{
+                    add(modules);
+                    add(others);
+                }};
 
         @Override
         public void autoDeleteArchived(){
         }
 
         @Override
-        public boolean hasTask(Task task) {
-            requireNonNull(task);
-            return tasksAdded.stream().anyMatch(task::isSameTask);
+        public boolean hasCategory(String category) {
+            requireNonNull(category);
+            return (category.equals("Modules") || category.equals("Others"));
         }
 
         @Override
-        public void addTask(Task task) {
-            requireNonNull(task);
-            tasksAdded.add(task);
+        public void addCategory(String name) {
+            requireNonNull(name);
+            categoriesAdded.add(new Category(name));
         }
 
-
-        @Override
-        public void addTag(Tag tag, String category) {
-            tags.add(tag);
-        }
 
         @Override
         public ObservableList<Category> getCategoryList() {
@@ -252,4 +278,5 @@ public class AddRepeatCommandTest {
             return new SchedulePlanner();
         }
     }
+
 }
