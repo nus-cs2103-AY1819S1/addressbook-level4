@@ -135,6 +135,7 @@ public class MainApp extends Application {
         //generate the file with a default setting to allow user to use 'firstday' command
         FirstDayCommand fdc = new FirstDayCommand();
         fdc.createDefaultFileIfNotExist();
+        fdc.createDefaultFileIfUnableConvert();
         fdc.createDefaultFileIfSizeDiff();
         fdc.createDefaultFileIfNull();
         fdc.createDefaultFileIfInvalidDateOrRange();
