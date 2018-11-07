@@ -13,7 +13,6 @@ import seedu.address.model.person.Patient;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    
     private static final String BLUE_CHAS_COLOUR = "blue";
     private static final String GREY_COLOUR = "grey";
     private static final String ORANGE_CHAS_COLOUR = "orange";
