@@ -106,23 +106,35 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_duplicateExpenseUnfilteredList_failure() throws NoUserSelectedException {
+    public void execute_duplicateExpenseUnfilteredList_success() throws NoUserSelectedException {
         Expense firstExpense = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(firstExpense).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_EXPENSE, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, firstExpense);
+
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
+        expectedModel.updateExpense(model.getFilteredExpenseList().get(1), firstExpense);
+        expectedModel.commitExpenseTracker();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_duplicateExpenseFilteredList_failure() throws NoUserSelectedException {
+    public void execute_duplicateExpenseFilteredList_success() throws NoUserSelectedException {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
         // edit expense in filtered list into a duplicate in expense tracker
         Expense expenseInList = model.getExpenseTracker().getExpenseList().get(INDEX_SECOND_EXPENSE.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EXPENSE,
                 new EditExpenseDescriptorBuilder(expenseInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, expenseInList);
+
+        Model expectedModel = new ModelManager(new ExpenseTracker(model.getExpenseTracker()), new UserPrefs(), null);
+        expectedModel.updateExpense(model.getFilteredExpenseList().get(0), expenseInList);
+        expectedModel.commitExpenseTracker();
+
+        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
