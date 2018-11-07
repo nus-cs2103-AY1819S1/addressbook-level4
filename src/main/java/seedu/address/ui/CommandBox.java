@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditEventAddressCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FavouriteCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -59,7 +60,7 @@ public class CommandBox extends UiPart<Region> {
             RedoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD,
             SelectCommand.COMMAND_WORD_ALIAS, ShowLocationCommand.COMMAND_WORD,
             ShowLocationCommand.COMMAND_WORD_ALIAS, UndoCommand.COMMAND_WORD,
-            UndoCommand.COMMAND_WORD_ALIAS)).stream()
+            UndoCommand.COMMAND_WORD_ALIAS, EditEventAddressCommand.COMMAND_WORD)).stream()
             .sorted()
             .collect(Collectors.toList());
 
