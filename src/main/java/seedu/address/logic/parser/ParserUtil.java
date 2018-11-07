@@ -3,12 +3,11 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -24,6 +23,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+//@@author alexkmj
 /**
  * Contains utility methods used for parsing strings in the various
  * Parser classes.
@@ -33,15 +33,14 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a"
         + " non-zero unsigned integer.";
 
-    public static final String PREFIX = "-";
+    public static final String NAME_PREFIX_SHORT = "-";
+    public static final String NAME_PREFIX_LONG = "--";
 
-    //@@author alexkmj
     /**
-     * Tokenize args into an array of args. Checks if args is null and trims
-     * leading and trailing whitespaces.
+     * Tokenize arguments in a string into an argument array.
      *
-     * @param args the target args that would be tokenize
-     * @return array of args
+     * @param args non-null string that contains the arguments
+     * @return tokenized argument array
      */
     public static String[] tokenize(String args) {
         requireNonNull(args);
@@ -49,28 +48,38 @@ public class ParserUtil {
         return trimmedArgs.split("\\s+");
     }
 
-    //@@author alexkmj
     /**
-     * Validates the number of arguments. If number of arguments does not equal
-     * to {@code required}, {@code ParseException} will be thrown.
+     * Validates that the size of {@code args} equals to the size of
+     * {@code size}.
+     * <p>
+     * Throws {@code ParseException} when size of {@code args} is not equal to
+     * {@code size}.
      *
-     * @throws ParseException if the number of arguments is invalid
+     * @param args argument array to validate
+     * @param size the size that the argument array should have
+     * @throws ParseException when the number of arguments is not equal to
+     * {@code size}.
      */
-    public static void validateNumOfArgs(Object[] args, int required)
+    public static void argsWithBounds(Object[] args, int size)
             throws ParseException {
         requireNonNull(args);
-
-        validateNumOfArgs(args, required, required);
+        argsWithBounds(args, size, size);
     }
 
-    //@@author alexkmj
     /**
-     * Validates the number of arguments. If number of arguments is not within
-     * the bounds, {@code ParseException} will be thrown.
+     * Validates that the size of {@code args} is between {@code min} and
+     * {@code max}.
+     * <p>
+     * Throws {@code ParseException} when size of {@code args} is not between
+     * {@code min} and {@code max}.
      *
-     * @throws ParseException if the number of arguments is invalid
+     * @param args argument array to validate
+     * @param min the minimum size allowed for {@code args}
+     * @param max the maximum size allowed for {@code args}
+     * @throws ParseException when the number of arguments is not equal between
+     * {@code min} and {@code max}.
      */
-    public static void validateNumOfArgs(Object[] args, int min, int max)
+    public static void argsWithBounds(Object[] args, int min, int max)
             throws ParseException {
         requireNonNull(args);
 
@@ -83,30 +92,81 @@ public class ParserUtil {
         }
     }
 
-    //@@author alexkmj
     /**
-     * Validates the number of arguments. If number of arguments is not within
-     * the {@code setOfAllowedNumOfArgs}, {@code ParseException} is thrown.
+     * Validates that the size of {@code args} is in {@code allowedSize}.
+     * <p>
+     * Throws {@code ParseException} when size of {@code args} is not in
+     * {@code allowedSize}.
      *
-     * @throws ParseException if the number of arguments is not within the
-     * {@code setOfAllowedNumOfArgs}
+     * @param args argument array to validate
+     * @param allowedSize set containing size that {@code args} is allowed to
+     * have
+     * @throws ParseException when the number of arguments is not in
+     * {@code allowedSize}
      */
-    public static void validateNumOfArgs(Object[] args,
-            Set<Integer> setOfAllowedNumOfArgs) throws ParseException {
+    public static void argsWithBounds(Object[] args,
+            Set<Integer> allowedSize) throws ParseException {
         requireNonNull(args);
 
-        if (!setOfAllowedNumOfArgs.contains(args.length)) {
-            String allowedNumOfArgs = setOfAllowedNumOfArgs.stream()
+        if (!allowedSize.contains(args.length)) {
+            String allowedNumOfArgs = allowedSize.stream()
                     .map(Objects::toString)
                     .collect(Collectors.joining(", "));
 
-            throw parseException("Invalid number of arguments!"
-                    + " Number of arguments should be "
+            throw parseException("Invalid number of arguments! "
+                    + "Number of arguments should be "
                     + allowedNumOfArgs);
         }
     }
 
-    //@@author alexkmj
+    /**
+     * Validates that {@code args} contains name-value pair.
+     * <p>
+     * For all of the arguments in the argument array, odd arguments must be a
+     * name and even arguments must be a value. Throws {@code ParseException}
+     * when argument is not in name value pair format.
+     * <p>
+     * <b>Valid:</b> -name1 value1 -name2 value2
+     * <p>
+     * <b>Invalid:</b> -name1 -name2 value2
+     * <p>
+     * <b>Invalid:</b> -name1 value1 value2
+     *
+     * @param args argument array that contains the name-value pair
+     * @param errorMsg error message shown when ParseException is thrown
+     * @throws ParseException thrown wh argument array to validateen argument is
+     * not in name value pairparseValues
+     */
+    public static void argsAreNameValuePair(String[] args, String errorMsg)
+            throws ParseException {
+        // Short circuit if number of argument is not even.
+        if (args.length % 2 != 0) {
+            throw parseException(errorMsg);
+        }
+
+        boolean invalidFormat = IntStream.range(0, args.length)
+                .mapToObj(index -> {
+                    boolean isEven = index % 2 == 0;
+                    boolean isName = isName(args[index]);
+                    return isEven == isName;
+                })
+                .anyMatch(booleanValue -> !booleanValue);
+
+        if (invalidFormat) {
+            throw parseException(errorMsg);
+        }
+    }
+
+    /**
+     *
+     * @param argument
+     * @return
+     */
+    public static boolean isName(String argument) {
+        return argument.startsWith(NAME_PREFIX_SHORT)
+                || argument.startsWith(NAME_PREFIX_LONG);
+    }
+
     /**
      * Creates parse exception with the error message.
      *
@@ -118,32 +178,6 @@ public class ParserUtil {
         return new ParseException(messageError);
     }
 
-    //@@author alexkmj
-    /**
-     * Maps arguments according to their prefixes.
-     */
-    public static Map<String, String> mapArgs(String[] args) {
-        Map<String, String> argsMap = new HashMap<>();
-
-        for (int index = 0; index < args.length; index++) {
-            if (args[index].startsWith(PREFIX)
-                    && (index + 1 < args.length)) {
-                String key = args[index].substring(1);
-                String value = args[index + 1];
-
-                // Value cannot start with prefix
-                if (value.startsWith(PREFIX)) {
-                    continue;
-                }
-
-                argsMap.put(key, value);
-            }
-        }
-
-        return argsMap;
-    }
-
-    //@@author alexkmj
     /**
      * Parses a {@code String code} into a {@code Code}. Leading and trailing
      * whitespaces will be trimmed.
@@ -161,7 +195,6 @@ public class ParserUtil {
         return new Code(trimmedCode);
     }
 
-    //@@author alexkmj
     /**
      * Parses a {@code String year} into a {@code Year}. Leading and trailing
      * whitespaces will be trimmed.
@@ -177,7 +210,6 @@ public class ParserUtil {
         return new Year(trimmedYear);
     }
 
-    //@@author alexkmj
     /**
      * Parses a {@code String semester} into a {@code Semester}. Leading and
      * trailing whitespaces will be trimmed.
@@ -193,7 +225,6 @@ public class ParserUtil {
         return new Semester(trimmedSemester);
     }
 
-    //@@author alexkmj
     /**
      * Parses a {@code String credit} into a {@code Credit}. Leading and
      * trailing whitespaces will be trimmed.
@@ -210,7 +241,6 @@ public class ParserUtil {
         return new Credit(intCredit);
     }
 
-    //@@author alexkmj
     /**
      * Parses a {@code String grade} into a {@code Grade}. Leading and trailing
      * whitespaces will be trimmed.

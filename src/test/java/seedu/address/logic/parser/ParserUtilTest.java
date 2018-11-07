@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalModules.YEAR_THREE;
 import static seedu.address.testutil.TypicalModules.YEAR_TWO;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.junit.Rule;
@@ -62,31 +61,22 @@ public class ParserUtilTest {
     public void validateNumOfArgs() throws Exception {
         String[] tokenize = {"a", "b", "c", "d"};
 
-        ParserUtil.validateNumOfArgs(tokenize, 4);
-        ParserUtil.validateNumOfArgs(tokenize, Integer.MIN_VALUE, 4);
-        ParserUtil.validateNumOfArgs(tokenize, 4, Integer.MAX_VALUE);
+        ParserUtil.argsWithBounds(tokenize, 4);
+        ParserUtil.argsWithBounds(tokenize, Integer.MIN_VALUE, 4);
+        ParserUtil.argsWithBounds(tokenize, 4, Integer.MAX_VALUE);
 
         thrown.expect(ParseException.class);
-        ParserUtil.validateNumOfArgs(tokenize, 5, Integer.MAX_VALUE);
+        ParserUtil.argsWithBounds(tokenize, 5, Integer.MAX_VALUE);
 
         thrown.expect(ParseException.class);
-        ParserUtil.validateNumOfArgs(tokenize, Integer.MAX_VALUE, 3);
+        ParserUtil.argsWithBounds(tokenize, Integer.MAX_VALUE, 3);
 
         Set<Integer> allowedNumOfArgs = new HashSet<>();
         allowedNumOfArgs.add(2);
         allowedNumOfArgs.add(3);
 
         thrown.expect(ParseException.class);
-        ParserUtil.validateNumOfArgs(tokenize, allowedNumOfArgs);
-    }
-
-    @Test
-    public void validateParseArgsMap() throws Exception {
-        String[] tokenize = {"rand", "-a", "a", "rand", "-b", "b", "-c", "c"};
-        Map<String, String> argsMap = ParserUtil.mapArgs(tokenize);
-        assertEquals(argsMap.get("a"), "a");
-        assertEquals(argsMap.get("b"), "b");
-        assertEquals(argsMap.get("c"), "c");
+        ParserUtil.argsWithBounds(tokenize, allowedNumOfArgs);
     }
 
     @Test

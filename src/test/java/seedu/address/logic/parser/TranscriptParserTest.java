@@ -3,13 +3,17 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 
 import static seedu.address.testutil.TypicalModules.ASKING_QUESTIONS;
+import static seedu.address.testutil.TypicalModules.DATA_STRUCTURES;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
+
+import java.util.EnumMap;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.DeleteModuleCommand;
 import seedu.address.logic.commands.EditModuleCommand;
+import seedu.address.logic.parser.arguments.EditArgument;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.ModuleUtil;
@@ -29,14 +33,13 @@ import seedu.address.testutil.ModuleUtil;
  * </ul>
  */
 public class TranscriptParserTest {
-
     /**
      * {@code TranscriptParser} used for all tests in {@TranscriptParserTest}.
      */
     private final TranscriptParser parser = new TranscriptParser();
 
     /**
-     * null, empty, or invalid command should fail.
+     * {@code null}, empty, or invalid command should fail.
      */
     @Test
     public void parseCommandInvalidModuleFail() {
@@ -90,23 +93,22 @@ public class TranscriptParserTest {
      */
     @Test
     public void parseCommandEditModuleSuccess() throws ParseException {
-        EditModuleCommand editModuleCommand = new EditModuleCommand(
-                DISCRETE_MATH.getCode(),
-                DISCRETE_MATH.getYear(),
-                DISCRETE_MATH.getSemester(),
-                ASKING_QUESTIONS.getCode(),
-                null,
-                null,
-                null,
-                null
-        );
+        EnumMap<EditArgument, Object> argMap;
+        argMap = new EnumMap<>(EditArgument.class);
+        argMap.put(EditArgument.TARGET_CODE, DATA_STRUCTURES.getCode());
+        argMap.put(EditArgument.TARGET_YEAR, DATA_STRUCTURES.getYear());
+        argMap.put(EditArgument.TARGET_SEMESTER, DATA_STRUCTURES.getSemester());
+        argMap.put(EditArgument.NEW_CODE, ASKING_QUESTIONS.getCode());
+
+        EditModuleCommand editModuleCommand = new EditModuleCommand(argMap);
         String editModuleString = ModuleUtil
-                .getEditModuleCommand(DISCRETE_MATH,
+                .getEditModuleCommand(DATA_STRUCTURES,
                         ASKING_QUESTIONS.getCode(),
                         null,
                         null,
                         null,
                         null);
+
         EditModuleCommand command = (EditModuleCommand) parser
                 .parseCommand(editModuleString);
         assertEquals(editModuleCommand, command);
