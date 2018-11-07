@@ -28,8 +28,8 @@ public class GetGoogleCalendarEventsCommand extends Command {
     public static final String MESSAGE_INITIALIZE_SUCCESS = "Events in google calendar downloaded.";
     public static final String MESSAGE_NO_EVENTS = "No upcoming events found in Google Calender.";
     public static final String MESSAGE_INTERNET_ERROR = "Internet connection error. Please check your network.";
-    public static final String MESSAGE_REJECT_SECOND_INITIALIZE = "Note that you are only allowed " +
-            "to initialize the app once. You have already initialized it before. Command rejected.";
+    public static final String MESSAGE_REJECT_SECOND_INITIALIZE = "Note that you are only allowed"
+            + " to initialize the app once. You have already initialized it before. Command rejected.";
 
     private final ConnectToGoogleCalendar connectToGoogleCalendar =
             new ConnectToGoogleCalendar();
@@ -40,7 +40,7 @@ public class GetGoogleCalendarEventsCommand extends Command {
         if (!connectToGoogleCalendar.netIsAvailable()) {
             throw new CommandException(MESSAGE_INTERNET_ERROR);
         }
-        if (connectToGoogleCalendar.isGoogleCalendarEnabled()){
+        if (connectToGoogleCalendar.isGoogleCalendarEnabled()) {
             throw new CommandException(MESSAGE_REJECT_SECOND_INITIALIZE);
         }
 
