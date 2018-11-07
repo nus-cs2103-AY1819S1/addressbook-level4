@@ -11,13 +11,9 @@
 
 EventOrganiser is a desktop event organiser book application used to store personal particulars and organise events and for other users to join the event as event participants.The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
-This project portfolio summarizes the contributions that I have to the project.
+This project portfolio summarizes the contributions that I have done to the EventOrganiser.
 
 == Summary of contributions
-The following section shows my major code contributions to EventOrganiser.
-
-* *Code Contribution*:
-[https://github.com/CS2103-AY1819S1-W10-3/main[Project Link]][https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=adjscent&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Reposense Link]]
 
 * *Major enhancement*: added *the ability to manage schedule*
 ** What it does: allows the user to manage their schedule inside the event organiser
@@ -32,7 +28,7 @@ The following section shows my major code contributions to EventOrganiser.
 
 * *Minor enhancement*: added a schedule comparsion command that allows the user to compare multiple schedule to get the possible free slots.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/CS2103-AY1819S1-W10-3/mai[Functional code]] [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=adjscent&sort=displayName&since=2018-09-12&until=2018-11-06&timeframe=day&reverse=false&repoSort=true[Test code]]
 
 * *Other contributions*:
 
