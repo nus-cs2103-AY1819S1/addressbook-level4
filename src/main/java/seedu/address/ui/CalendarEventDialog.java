@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -19,24 +20,32 @@ public class CalendarEventDialog extends UiPart<Region> {
     private CalendarEvent calendarEvent;
 
     @FXML
-    private TextField tfId;
+    private Label titleLabel;
 
     @FXML
-    private TextField tfName;
+    private Label descriptionLabel;
 
     @FXML
-    private TextField tfAge;
+    private Label venueLabel;
+
+    @FXML
+    private Label dateTimeLabel;
 
     public CalendarEventDialog(CalendarEvent calendarEvent) {
         super(FXML);
-
         this.calendarEvent = calendarEvent;
+        fillLabels();
+    }
+
+    public void fillLabels() {
+        titleLabel.setText(calendarEvent.getTitle().value);
+        descriptionLabel.setText(calendarEvent.getDescriptionObject().value);
+        venueLabel.setText(calendarEvent.getVenue().value);
+        dateTimeLabel.setText(calendarEvent.getStartLocalDateTime().toString());
     }
 
     @FXML
     public void onOkButtonClicked(ActionEvent event) {
-        System.out.println("huehuehue");
-
         closeStage(event);
     }
 
