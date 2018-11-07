@@ -370,6 +370,11 @@ Format: `exportcert VOLUNTEER_INDEX`
 * `VOLUNTEER INDEX` **must be a positive integer** 1, 2, 3, ...
 * If the index given exceeds the number of volunteers in the displayed volunteer list, the message 'The volunteer index provided is invalid.' will be shown.
 
+[NOTE]
+====
+A certificate will be exported only if *the volunteer has event records* and *the records have a positive, non-zero hour value*.
+====
+
 Example(s):
 
 * `exportcert 2` +

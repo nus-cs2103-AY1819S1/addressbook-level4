@@ -26,6 +26,7 @@ import seedu.address.model.event.EventContainsEventIdPredicate;
 import seedu.address.model.event.EventId;
 import seedu.address.model.record.Hour;
 import seedu.address.model.record.Record;
+import seedu.address.model.record.RecordContainsNonZeroHourPredicate;
 import seedu.address.model.record.RecordContainsVolunteerIdPredicate;
 import seedu.address.model.volunteer.Name;
 import seedu.address.model.volunteer.Volunteer;
@@ -50,7 +51,8 @@ public class ExportCertCommand extends Command {
             + File.separator;
     public static final String PDF_ALT_SAVE_PATH = System.getProperty("user.home") + File.separator + "Desktop"
             + File.separator;
-    public static final String MESSAGE_VOLUNTEER_NO_RECORD = "Selected volunteer has no stored event records";
+    public static final String MESSAGE_VOLUNTEER_NO_RECORD = "Selected volunteer has no valid event records. "
+            + "Try adding some records or updating current records to set a positive non-zero hour value.";
 
     private static final java.util.logging.Logger logger = LogsCenter.getLogger(ExportCertCommand.class);
 
@@ -97,7 +99,7 @@ public class ExportCertCommand extends Command {
         Volunteer selectedVolunteer = lastShownList.get(index.getZeroBased());
 
         // Return CommandException if volunteer has no records
-        if (!hasEventRecords(model, selectedVolunteer)) {
+        if (!hasNonZeroEventRecords(model, selectedVolunteer)) {
             logger.info("Volunteer has no records.");
             throw new CommandException(MESSAGE_VOLUNTEER_NO_RECORD);
         }
@@ -114,23 +116,24 @@ public class ExportCertCommand extends Command {
     }
 
     /**
-     * Checks if a {@code volunteer} has any event {@code record}s.
-     * @param model from which the {@code volunteer}'s {@code record}s will be retrieved, if present
-     * @param volunteer who's presence of event {@code record}s is to be checked
-     * @return true if {@code volunteer} has {@code record}s, and false otherwise
+     * Checks if a {@code volunteer} has any event {@code records}.
+     * @param model from which the {@code volunteer}'s {@code records} will be retrieved, if present
+     * @param volunteer who's presence of event {@code records} is to be checked
+     * @return true if {@code volunteer} has {@code records}, and false otherwise
      */
-    private boolean hasEventRecords(Model model, Volunteer volunteer) {
+    private boolean hasNonZeroEventRecords(Model model, Volunteer volunteer) {
         VolunteerId volunteerId = volunteer.getVolunteerId();
 
-        // Attempt to retrieve a list of the volunteer's records
+        // Attempt to retrieve a list of the volunteer's records with non-zero hour value
         List<Record> eventRecords = model.getFilteredRecordList()
-                .filtered(new RecordContainsVolunteerIdPredicate(volunteerId));
+                .filtered(new RecordContainsVolunteerIdPredicate(volunteerId))
+                .filtered(new RecordContainsNonZeroHourPredicate());
 
         return !eventRecords.isEmpty();
     }
 
     /**
-     * Creates and exports a PDF document containing a {@code volunteer}'s data
+     * Creates and exports a PDF document containing a {@code volunteer's} data
      * @param model from which the volunteer's event records will be accessed
      * @param volunteer who's data is to be input into the PDF document
      */
