@@ -59,9 +59,12 @@ public class PiconsoParserTest {
 
     @Test
     public void parseCommand_cd() throws Exception {
-        CdCommand command = (CdCommand) parser.parseCommand(
-                CdCommand.COMMAND_WORD + " Desktop");
+        CdCommand command = (CdCommand) parser.parseCommand(CdCommand.COMMAND_WORD + " Desktop");
         assertEquals(new CdCommand(Paths.get("Desktop")), command);
+
+        // Throws parse exception when field is Empty
+        assertThrows(ParseException.class, ()->parser.parseCommand(
+                CdCommand.COMMAND_WORD + " "));
     }
 
     @Test
