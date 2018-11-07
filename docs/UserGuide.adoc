@@ -197,6 +197,20 @@ Examples:
 * Either condition or allergy must be non-blank value.
 * Condition and allergy indicated must be present in the patient's records
 ****
+=== Adding remark to patient : `remark`
+Adds a remark to the patient's information. Input will override current remark. If input is empty, previous remark will be deleted. +
+Format: `remark np/PATIENT_NAME r/REMARK`
+
+Examples:
+
+* `remark np/John Doe r/Has chronic heart disease`
+* `remark np/Mary Jane r/`
+
+****
+* Remark can only be added to patients
+****
+
+
 
 === Listing entered commands : `history`
 
@@ -216,7 +230,8 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the HealthBook's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the HealthBook's content (`register-doctor`,`register-patient`,
+`delete-doctor`, `delete-patient` and `remark`).
 ====
 
 Examples:
