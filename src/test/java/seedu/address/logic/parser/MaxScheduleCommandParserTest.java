@@ -26,7 +26,7 @@ public class MaxScheduleCommandParserTest {
     public void parse_valid() {
         Index[] index = {INDEX_FIRST, INDEX_SECOND};
         MaxScheduleCommand expectedMaxScheduleCommand =
-            new MaxScheduleCommand(index);
+            new MaxScheduleCommand(index, "null");
 
         assertParseSuccess(parser, "1 2",
             expectedMaxScheduleCommand);
