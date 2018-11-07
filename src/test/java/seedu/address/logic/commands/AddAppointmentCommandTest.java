@@ -37,8 +37,8 @@ public class AddAppointmentCommandTest {
         Appointment toAdd = new Appointment(10000, HELENA.getName().toString(),
                 CARL.getName().toString(), LocalDateTime.of(2018, 10, 17, 18, 0));
         AddAppointmentCommand addAppointmentCommand =
-                new AddAppointmentCommand(CARL.getName(), HELENA.getName(),
-                        LocalDateTime.of(2018, 10, 17, 18, 0));
+                new AddAppointmentCommand(CARL.getName(), null, HELENA.getName(),
+                        null, LocalDateTime.of(2018, 10, 17, 18, 0));
 
         String expectedMessage = AddAppointmentCommand.MESSAGE_SUCCESS;
 
@@ -54,7 +54,7 @@ public class AddAppointmentCommandTest {
     public void execute_invalidPatient_throwsCommandException() {
         Name patientName = new Name("ASFASFASF");
         AddAppointmentCommand addAppointmentCommand =
-                new AddAppointmentCommand(patientName, GEORGE.getName(),
+                new AddAppointmentCommand(patientName, null, GEORGE.getName(), GEORGE.getPhone(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
 
         assertCommandFailure(addAppointmentCommand,
@@ -65,7 +65,7 @@ public class AddAppointmentCommandTest {
     public void execute_invalidDoctor_throwsCommandException() {
         Name doctorName = new Name("ASFASFASF");
         AddAppointmentCommand addAppointmentCommand =
-                new AddAppointmentCommand(ALICE.getName(), doctorName,
+                new AddAppointmentCommand(ALICE.getName(), null, doctorName, null,
                         LocalDateTime.of(2018, 10, 17, 18, 0));
 
         assertCommandFailure(addAppointmentCommand,
@@ -85,7 +85,7 @@ public class AddAppointmentCommandTest {
 
         // another appointment on the same datetime for same patient but different doctor
         AddAppointmentCommand addAppointmentCommand =
-                new AddAppointmentCommand(ALICE.getName(), FIONA.getName(),
+                new AddAppointmentCommand(ALICE.getName(), ALICE.getPhone(), FIONA.getName(), FIONA.getPhone(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
         assertCommandFailure(addAppointmentCommand,
                 modifiableModel, modifiableCommandHistory, AddAppointmentCommand.MESSAGE_PATIENT_CLASH_APPOINTMENT);
@@ -104,7 +104,7 @@ public class AddAppointmentCommandTest {
 
         // another appointment on the same datetime for same doctor but different patient
         AddAppointmentCommand addAppointmentCommand =
-                new AddAppointmentCommand(BENSON.getName(), GEORGE.getName(),
+                new AddAppointmentCommand(BENSON.getName(), BENSON.getPhone(), GEORGE.getName(), GEORGE.getPhone(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
         assertCommandFailure(addAppointmentCommand,
                 modifiableModel, modifiableCommandHistory, AddAppointmentCommand.MESSAGE_DOCTOR_CLASH_APPOINTMENT);
@@ -113,10 +113,10 @@ public class AddAppointmentCommandTest {
     @Test
     public void equals() {
         AddAppointmentCommand addAppointmentFirstCommand =
-                new AddAppointmentCommand(ALICE.getName(), GEORGE.getName(),
+                new AddAppointmentCommand(ALICE.getName(), ALICE.getPhone(), GEORGE.getName(), GEORGE.getPhone(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
         AddAppointmentCommand addAppointmentSecondCommand =
-                new AddAppointmentCommand(BENSON.getName(), GEORGE.getName(),
+                new AddAppointmentCommand(BENSON.getName(), BENSON.getPhone(), GEORGE.getName(), GEORGE.getPhone(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
 
         // same object -> returns true
@@ -124,7 +124,7 @@ public class AddAppointmentCommandTest {
 
         // same values -> returns true
         AddAppointmentCommand addAppointmentFirstCommandCopy =
-                new AddAppointmentCommand(ALICE.getName(), GEORGE.getName(),
+                new AddAppointmentCommand(ALICE.getName(), ALICE.getPhone(), GEORGE.getName(), GEORGE.getPhone(),
                         LocalDateTime.of(2018, 10, 17, 18, 0));
         assertTrue(addAppointmentFirstCommand.equals(addAppointmentFirstCommandCopy));
 

@@ -2,7 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.ALICE;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class RegisterPatientCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBookWithPatientAndDoctor(), new UserPrefs());
     }
 
     @Test
@@ -47,8 +48,7 @@ public class RegisterPatientCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePatient_throwsCommandException() {
-        Patient validPatient = new PatientBuilder().build();
-        assertCommandFailure(new RegisterPatientCommand(validPatient), model, commandHistory,
+        assertCommandFailure(new RegisterPatientCommand(ALICE), model, commandHistory,
                 RegisterPatientCommand.MESSAGE_DUPLICATE_PERSON);
     }
 }

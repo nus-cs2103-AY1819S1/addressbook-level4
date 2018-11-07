@@ -125,10 +125,17 @@ public class TypicalPatientsAndDoctors {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
+    /**
+     * Returns an {@code AddressBook} with all the typical persons.
+     */
     public static AddressBook getTypicalAddressBookWithPatientAndDoctor() {
         AddressBook ab = new AddressBook();
         for (Person person : getTypicalPatientsAndDoctors()) {
-            ab.addPerson(person);
+            if (person instanceof Patient) {
+                ab.addPatient((Patient) person);
+            } else if (person instanceof Doctor) {
+                ab.addDoctor((Doctor) person);
+            }
         }
         return ab;
     }
