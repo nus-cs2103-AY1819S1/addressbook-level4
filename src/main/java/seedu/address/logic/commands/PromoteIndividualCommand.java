@@ -37,7 +37,7 @@ public class PromoteIndividualCommand extends PromoteCommand {
             if (i.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
-            Person personToPromote = new Person(lastShownList.get(i.getZeroBased()));
+            Person personToPromote = lastShownList.get(i.getZeroBased());
             Person promotedPerson = createPromotedPerson(personToPromote);
 
             model.updatePerson(personToPromote, promotedPerson);

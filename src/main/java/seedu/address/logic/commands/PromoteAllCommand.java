@@ -22,7 +22,7 @@ public class PromoteAllCommand extends PromoteCommand {
         int numberOfStudentsPromoted = internalList.size() - getNumberOfGraduatedStudents(internalList);
 
         for (int i = 0; i < internalList.size(); i++) {
-            Person personToPromote = new Person(internalList.get(i));
+            Person personToPromote = internalList.get(i);
             Person promotedPerson = createPromotedPerson(personToPromote);
 
             model.updatePerson(personToPromote, promotedPerson);
