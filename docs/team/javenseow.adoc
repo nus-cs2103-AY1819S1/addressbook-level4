@@ -51,11 +51,10 @@ along with the tagged profile picture of the specified resident.
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Reorganized the User Guide to make it more user-friendly: https://github.com[#14]
+*** Designed the project logo
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Tools:
-*** Integrated a third party library (Apache Commons IO) to the project (https://github.com[#42])
 
 
 == Contributions to the User Guide

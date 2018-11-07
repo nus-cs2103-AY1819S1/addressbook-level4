@@ -75,19 +75,22 @@ Examples:
 // tag::image[]
 ==== Adds a picture to resident detail : `image`
 
-Uploads the image of resident staying in the specified room to Hallper. +
-Format: `image ROOM`
+Uploads the image of resident staying in the specified room to Hallper and opens the resident's profile page. +
+Format: `image r/ROOM f/FILEPATH`
 
 ****
 * Allow for the upload of the profile picture of resident.
-* ROOM is not case-sensitive
+* ROOM is not case-sensitive.
 * The image must be in *`.jpg`*.
 ****
 
-Examples:
+Example:
 
 * `image r/a123 f/C:/user/images/e0000000.jpg` +
-Uploads the profile picture (in *`.jpg`*) of the resident living in room A123 into Hallper.
+Uploads the profile picture (in *`.jpg`*) of the resident living in room `A123` into Hallper.
+
+* `image r/B111 f/C:/user/images/e0000000.jpg` +
+Uploads the profile picture (in *`.jpg`*) of the resident living in room `B111` into Hallper.
 
 // end::image[]
 
@@ -258,14 +261,23 @@ Format: `search KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 
+Searches Hallper and lists all residents that are in `basketball`, staying in room `A123` or studying in `SoC`
+ as seen in Figure 4.2.1.1 and Figure 4.2.1.2.
+
+image::SearchExample.png[width="790"]
+_Figure 4.2.1.1: Screen before running search on Hallper._
+
+image::SearchExample2.png[width="790"]
+_Figure 4.2.1.2: Screen after running search on Hallper._
+
 * `search SoC` +
 Searches Hallper and lists all residents that are studying in `SoC`.
+
 * `search basketball` +
 Searches Hallper and lists all residents that are in `basketball`.
 * `search A123` +
 Searches Hallper and lists all residents that are staying in room `A123`.
 * `search basketball A123 Soc` +
-Searches Hallper and lists all residents that are in `basketball`, staying in room`A123` and studying in `SoC`.
 // end::search[]
 
 ==== Locating persons by name: `find`
