@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<healthplans>
+    <hp>
+        <name>Lose weight</name>
+        <tweight>70</tweight>
+        <cweight>80</cweight>
+        <cheight>160</cheight>
+        <age>25</age>
+        <duration>10</duration>
+        <scheme>LOSS</scheme>
+    </hp>
+</healthplans>

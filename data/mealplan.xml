@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mealplans>
+    <mp>
+        <date>2018-10-22</date>
+        <lunch>
+            <name>Chicken Burger</name>
+            <difficulty>1</difficulty>
+            <cooktime>15M</cooktime>
+        </lunch>
+    </mp>
+    <mp>
+        <date>2019-01-01</date>
+        <lunch>
+            <name>Chicken Burger</name>
+            <difficulty>1</difficulty>
+            <cooktime>15M</cooktime>
+        </lunch>
+    </mp>
+    <mp>
+        <date>2019-02-02</date>
+        <lunch>
+            <name>Chicken Burger</name>
+            <difficulty>1</difficulty>
+            <cooktime>15M</cooktime>
+        </lunch>
+    </mp>
+    <mp>
+        <date>2020-02-02</date>
+        <lunch>
+            <name>Chicken Burger</name>
+            <difficulty>1</difficulty>
+            <cooktime>15M</cooktime>
+        </lunch>
+    </mp>
+</mealplans>
