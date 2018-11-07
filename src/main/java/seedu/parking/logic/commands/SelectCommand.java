@@ -19,7 +19,6 @@ import seedu.parking.model.carpark.Carpark;
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
-    public static final String COMMAND_ABBREVIATION = "s";
     public static final String FORMAT = "select INDEX";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

@@ -29,7 +29,7 @@ Role: Project Advisor
 
 === Fong Zhi Zhong
 image::keith.png[width="150", align="left"]
-{empty}[https://github.com/dlworldpeace[github]] [<<keith#, portfolio>>]  [https://www.linkedin.com/in/fong-keith[linkedin]] [https://lexzt.github.io[website]]
+{empty}[https://github.com/lexzt[github]] [<<keith#, portfolio>>]  [https://www.linkedin.com/in/fong-keith[linkedin]] [https://lexzt.github.io[website]]
 
 Role: Team Leader +
 Responsibilities:
@@ -54,7 +54,7 @@ Responsibilities:
 
 === Tang Yurou
 image::yurou.jpg[width="150", align="left"]
-{empty}[https://github.com/YurouTang[github]]
+{empty}[https://github.com/YurouTang[github]] [<<yurou#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
@@ -66,7 +66,7 @@ Responsibilities:
 
 === Xiao Delong
 image::delong.jpg[width="150", align="left"]
-{empty}[https://github.com/dlworldpeace[github]]
+{empty}[https://github.com/dlworldpeace[github]] [<<delong#, portfolio>>]
 
 Role: Developer +
 Responsibilities:
@@ -78,7 +78,7 @@ Responsibilities:
 
 === Alvin Ng
 image::alvin.png[width="150", align="left"]
-{empty}[https://github.com/yijinl[github]]
+{empty}[https://github.com/yijinl[github]] [<<alvin#, portfolio>>]
 
 Role: Developer +
 Responsibilities:

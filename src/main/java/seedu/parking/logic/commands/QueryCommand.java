@@ -36,8 +36,6 @@ import seedu.parking.model.carpark.TypeOfParking;
 public class QueryCommand extends Command {
 
     public static final String COMMAND_WORD = "query";
-    public static final String COMMAND_ABBREVIATION = "q";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates all the car park information in Car Park Finder.\n"
             + "Example: " + COMMAND_WORD;

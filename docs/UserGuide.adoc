@@ -425,7 +425,7 @@ Only available in the following commands:
 * <<Features-Find,*`find`*>>
 * <<Features-Select,*`select`*>>
 * <<Features-Filter,*`filter`*>>
-* <<Features-Sort,*`sort`*>>
+* <<Features-Sort,*`sort`*>> `[coming in v2.0]`
 
 [[Features-Add]]
 === Adding to favorites list : `add` `[coming in v2.0]`
