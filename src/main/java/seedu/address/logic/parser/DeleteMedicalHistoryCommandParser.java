@@ -24,15 +24,23 @@ public class DeleteMedicalHistoryCommandParser implements Parser<DeleteMedicalHi
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_ALLERGY, PREFIX_CONDITION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ALLERGY) || !arePrefixesPresent(argMultimap, PREFIX_CONDITION)
-                || !arePrefixesPresent(argMultimap, PREFIX_NAME)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteMedicalHistoryCommand.MESSAGE_USAGE));
         }
-
+        if (!arePrefixesPresent(argMultimap, PREFIX_ALLERGY) && !arePrefixesPresent(argMultimap, PREFIX_CONDITION)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    DeleteMedicalHistoryCommand.MESSAGE_USAGE));
+        }
         String nameStr = argMultimap.getValue(PREFIX_NAME).get();
-        String allergy = argMultimap.getValue(PREFIX_ALLERGY).get();
-        String condition = argMultimap.getValue(PREFIX_CONDITION).get();
+        String allergy = "";
+        String condition = "";
+        if (arePrefixesPresent(argMultimap, PREFIX_ALLERGY)){
+            allergy = argMultimap.getValue(PREFIX_ALLERGY).get();
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_CONDITION)){
+            condition = argMultimap.getValue(PREFIX_CONDITION).get();
+        }
         Name name = new Name(nameStr);
 
         return new DeleteMedicalHistoryCommand(name, allergy, condition);

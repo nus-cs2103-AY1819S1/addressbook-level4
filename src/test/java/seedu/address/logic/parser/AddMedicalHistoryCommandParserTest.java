@@ -32,14 +32,14 @@ public class AddMedicalHistoryCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for allergy is left blank
-        userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_ALLERGY + " "
+        userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
                 + PREFIX_CONDITION + VALID_CONDITION;
         expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), "", VALID_CONDITION);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         //input for condition is left blank
         userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_ALLERGY
-                + VALID_ALLERGY + " " + PREFIX_CONDITION;
+                + VALID_ALLERGY;
         expectedCommand = new AddMedicalHistoryCommand(new Name(VALID_NAME_ALICE), VALID_ALLERGY, "");
         assertParseSuccess(parser, userInput, expectedCommand);
     }
