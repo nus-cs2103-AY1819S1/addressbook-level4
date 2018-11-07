@@ -447,16 +447,58 @@ list in the favourites model.
 
 // tag::recipeManagement[]
 === Recipe Management
-==== Recipe Data Structure with manipulation (Add, Edit) Functionality
+==== Multi-line Recipe Adding
 ===== Current Implementation
+As the adding of recipes deal with lengthy input parameters from the basic details such as name to a list of
+instructions, single-line add command proves to be inefficient and often providing an inconvenient user experience.
+To allow flexibility, adding of recipes have been implemented as a multi-line command fitting into this CLI application.
 
+Multi-line add function consists of 3 main commands: `add` `cont` `end`. The `add` command requires user input of the
+recipe basic information such as `Name`, `Difficulty`, `CookTime` and the optional `Tag`. The `cont` command requires
+ user input of the recipe `Instruction`. Each `cont` command allows only 1 `Instruction`. Again this is to
+ break down the lengthy input parameter of `Instruction`.  Lastly, with the `end` command the `Recipe` is being
+ recognised and is added to the `Model`. +
+
+The following is the sequence diagram of the `add` command:
+
+image::recipe_add_add.png[width="1000"]
+Once user's input is being parsed, a `RecipeBuilder` is created instead of a `Recipe` instance. This `RecipeBuilder`
+will be stored in `History` when the command is being executed.
+[NOTE]
+====
+Repeating use of `add` will replace existing `RecipeBuilder` rendering the previous data unsaved.
+====
+
+The following is the sequence diagram of the `cont` command:
+
+image::recipe_add_cont.png[width="1000"]
+Upon parsing the user's input that contains `Instruction`, a `Instruction` instance will be created. This
+`Instruction` is to be passed to the command for execution. The execution process once again make use of the `History`
+to append the `Instruction` into `RecipeBuilder`.
+
+The following is the sequence diagram of the `end` command:
+
+image::recipe_add_end.png[width="1000"]
+Upon receiving the `end` command, `Recipe` will be built from the `RecipeBuilder`. The parsing process checks to
+ensure that the `Recipe` built contains at least a single `Instruction` to prevent adding of `Recipe` without
+`Instruction`. With a valid `Recipe`, a `AddCommand` will be created and the `RecipeBuilder` in `History` will be
+cleared (i.e. set to null). This `AddCommand` when executed will add the `Recipe` into `Model`.
 
 ===== Why it is implemented that way:
-
+Due to the nature of a multi-line add command where the `Recipe` is incomplete together with the inability to execute
+ the add
+ function immediately, 2 mechanisms namely, a builder and a historical storage, have to be put
+  in place. The builder works effectively in managing the data of a partial `Recipe` while allowing continuous
+  modification. The historical storage, `History` in this context, ensures that lossless partial
+  `Recipe` data. Moreover, since `History` interaction with commands has already been well establish in Logic
+  component and a partial `Recipe` is indeed a representation the historical commands, storing in `History`
+  becomes a dominant choice.
 
 ===== Alternatives:
-
-
+Adding of incomplete recipe to the model and edit that recipe with the subsequent commands.
+Pros - Make use of existing add and edit command without the need of additional implementation.
+Cons - Model contains incomplete recipe that violates the validity of recipe data. This might be exploited and in the
+ process the application can be filled with incomplete recipes.
 
 ==== All-field Recipe Search
 The all-field recipe search matches keywords with details of `Recipe`.
