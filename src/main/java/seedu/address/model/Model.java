@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
@@ -22,6 +23,11 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
+    /** Returns the type of list that is currently active. */
+    TypeUtil getActiveType();
+
+    /** Changes the type of list that is currently active. */
+    void setActiveType(TypeUtil newActiveType);
 
     /**
      * Returns true if an occasion with the same identity as {@code occasion} exists in the address book.

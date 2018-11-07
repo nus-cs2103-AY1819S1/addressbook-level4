@@ -4,9 +4,7 @@ import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.commands.AddOccasionCommand;
 import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteModuleCommand;
-import seedu.address.logic.commands.DeleteOccasionCommand;
-import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditModuleCommand;
 import seedu.address.logic.commands.EditOccasionCommand;
 import seedu.address.logic.commands.EditPersonCommand;
@@ -33,12 +31,11 @@ public class AutoComplete {
 
     private final String[] allCommands = { AddPersonCommand.COMMAND_WORD, AddModuleCommand.COMMAND_WORD,
         AddOccasionCommand.COMMAND_WORD, EditPersonCommand.COMMAND_WORD, EditModuleCommand.COMMAND_WORD,
-        EditOccasionCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD, DeletePersonCommand.COMMAND_WORD,
-        DeleteModuleCommand.COMMAND_WORD, DeleteOccasionCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
-        FindPersonCommand.COMMAND_WORD, FindModuleCommand.COMMAND_WORD, FindOccasionCommand.COMMAND_WORD,
-        ListPersonCommand.COMMAND_WORD, ListModuleCommand.COMMAND_WORD, ListOccasionCommand.COMMAND_WORD,
-        HistoryCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
-        UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD};
+        EditOccasionCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD,
+        ClearCommand.COMMAND_WORD, FindPersonCommand.COMMAND_WORD, FindModuleCommand.COMMAND_WORD,
+        FindOccasionCommand.COMMAND_WORD, ListPersonCommand.COMMAND_WORD, ListModuleCommand.COMMAND_WORD,
+        ListOccasionCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+        HelpCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, RedoCommand.COMMAND_WORD};
 
     private String[] personList;
     private String[] moduleList;

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.TypeUtil.PERSON;
 
 import java.util.function.Predicate;
 
@@ -38,6 +39,7 @@ public class FindPersonCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
+        model.setActiveType(PERSON);
         EventsCenter.getInstance().post(new ShowPersonRequestEvent());
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));

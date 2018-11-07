@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.commons.util.TypeUtil.PERSON;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.util.TypeUtil;
 import seedu.address.model.module.Module;
 import seedu.address.model.occasion.Occasion;
 import seedu.address.model.person.Person;
@@ -26,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Occasion> filteredOccasions;
     private final FilteredList<Module> filteredModules;
+    private TypeUtil activeType;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredModules = new FilteredList<>(versionedAddressBook.getModuleList());
         filteredOccasions = new FilteredList<>(versionedAddressBook.getOccasionList());
+        activeType = PERSON;
     }
 
     public ModelManager() {
@@ -60,6 +64,16 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
+    }
+
+    @Override
+    public TypeUtil getActiveType() {
+        return activeType;
+    }
+
+    @Override
+    public void setActiveType(TypeUtil newActiveType) {
+        activeType = newActiveType;
     }
 
     @Override

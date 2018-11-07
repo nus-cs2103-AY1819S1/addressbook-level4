@@ -62,13 +62,20 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
+     * Adds all the typical persons to an {@code AddressBook}.
+     */
+    public static void addTypicalPersons(AddressBook ab) {
+        for (Person person : getTypicalPersons()) {
+            ab.addPerson(person);
+        }
+    }
+
+    /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static AddressBook getTypicalPersonsAddressBook() {
         AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            ab.addPerson(person);
-        }
+        addTypicalPersons(ab);
         return ab;
     }
 
