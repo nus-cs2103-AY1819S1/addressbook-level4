@@ -90,7 +90,8 @@ public class TypicalPlaylistList {
     }
 
     public static List<Playlist> getTestPlaylistList(Playlist testPlaylist) {
-        ArrayList<Playlist> result = new ArrayList<>(Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
+        ArrayList<Playlist> result = new ArrayList<>(
+                Arrays.asList(EMPTY, SFX, ANIME, INSTRUMENTAL, CHILL, ROCK, HIPHOP));
         result.add(testPlaylist);
         return result;
     }

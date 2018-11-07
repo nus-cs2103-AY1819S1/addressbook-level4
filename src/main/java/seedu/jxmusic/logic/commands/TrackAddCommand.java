@@ -5,7 +5,6 @@ import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_PLAYLIST;
 import static seedu.jxmusic.logic.parser.CliSyntax.PREFIX_TRACK;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
