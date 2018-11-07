@@ -59,31 +59,6 @@ public class AddCommandIntegrationTest {
             String.format(AddCommand.MESSAGE_SUCCESS, validExpense), expectedModel);
     }
 
-    @Test
-    public void execute_newExpense_budgetExceed() throws NoUserSelectedException {
-        Expense validExpense = new ExpenseBuilder().withCost("9999.99").build();
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
-        expectedModel.addExpense(validExpense);
-        expectedModel.commitExpenseTracker();
-        assertCommandSuccess(new AddCommand(validExpense), model, commandHistory,
-            AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, expectedModel);
-    }
-
-    @Test
-    public void execute_newExpense_categoryBudgetExceed() throws NoUserSelectedException,
-        CategoryBudgetExceedTotalBudgetException {
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
-        this.model.modifyMaximumBudget(new TotalBudget("200.00"));
-        this.model.setCategoryBudget(new CategoryBudget("Test", "1.00"));
-        expectedModel.modifyMaximumBudget(new TotalBudget("200.00"));
-        expectedModel.setCategoryBudget(new CategoryBudget("Test", "1.00"));
-        Expense validExpense = new ExpenseBuilder().withCost("2.00").withCategory("Test").build();
-        expectedModel.addExpense(validExpense);
-        expectedModel.commitExpenseTracker();
-        assertCommandSuccess(new AddCommand(validExpense), model, commandHistory,
-            AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, expectedModel);
-
-    }
 
     @Test
     public void execute_duplicateExpense_throwsCommandException() throws NoUserSelectedException {

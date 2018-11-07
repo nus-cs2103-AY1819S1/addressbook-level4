@@ -225,6 +225,12 @@ public interface Model {
     boolean addTipNotification() throws NoUserSelectedException;
 
     /**
+     * Adds a notification of type {@code GeneralNotification}to the list of notification
+     * @throws NoUserSelectedException
+     */
+    void addGeneralNotification(Notification notif) throws NoUserSelectedException;
+
+    /**
      * Returns an {@code ObservableList} of current notifications
      * @return an {@code ObservableList} of current notifications
      * @throws NoUserSelectedException

@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.GeneralNotification;
 
 /**
  * Adds a expense to the expense tracker.
@@ -65,10 +66,12 @@ public class AddCommand extends Command {
         model.addWarningNotification();
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
-        if (withinBudget) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        if (!withinBudget) {
+            model.addGeneralNotification(new GeneralNotification("Exceeding Budget!",
+                "Adding this expense has " +
+                "caused your budget to exceed!"));
         }
-        return new CommandResult(MESSAGE_BUDGET_EXCEED_WARNING);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
