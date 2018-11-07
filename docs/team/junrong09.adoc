@@ -14,8 +14,11 @@ life in the kitchen. +
 
 Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
 
-== Summary of contributions (To be updated...)
-* *Major enhancement*: added *the ability to view recipes*
+== Summary of contributions
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=junrong09[Functional
+code]]
+
+* *Major enhancement*: added *the ability to manage and manipulate recipes*
 ** What it does: Allows the user to list recipes via search and view the details of individual recipe.
 
 ** Justification: This is a core feature of the application which allow user to search and view recipes.
@@ -25,40 +28,43 @@ structure only supports managing of single core data, the Model Component has to
 for multiple features to be implement in time to come. Since there are common functions such as add, delete, edit and
  search, this requires design of classes that are generic to reduce duplication in code.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Setting up of GitHub, Travis, AppVeyor, coveralls, codacy.
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Maintaining of Github issue tracker (allocate assignee, labels) and milestones
+** General/Team Enhancements:
+*** Morphing the AB4 into a SousChef (Pull requests
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/28[#28], https://github.com/CS2103-AY1819S1-W10-4/main/pull/29[#29],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/31[#31])
+*** Revamp model component to allow extension (Pull requests
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/46[#46],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/55[#55])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updating README, AboutUs and user docs that are not specific to a feature:
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/6[#6], https://github.com/CS2103-AY1819S1-W10-4/main/pull/26[#26]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments and suggestions):
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/52[#52],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/64[#64],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/139[#139]
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/CS2103-AY1819S1-T16-3/main/issues/133[1], https://github.com/CS2103-AY1819S1-T16-3/main/issues/134[2],
+https://github.com/CS2103-AY1819S1-T16-3/main/issues/135[3])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+include::../UserGuide.adoc[tag=features]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=universalCommand]
+
+include::../UserGuide.adoc[tag=recipeCommand]
+
 
 == Contributions to the Developer Guide
 
@@ -66,13 +72,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=modelComponent]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=recipeManagement]

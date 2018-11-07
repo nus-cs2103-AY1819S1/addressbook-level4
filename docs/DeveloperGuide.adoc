@@ -253,6 +253,8 @@ gram 10-23-2018")` API call.
 .Interactions Inside the Logic Component for the adding ingredient
 image::LogicSequenceDiagram.png[width="800"]
 
+// tag::modelComponent[]
+
 [[Design-Model]]
 === Model component
 
@@ -276,6 +278,8 @@ The `Model`,
 ** ensures data abstraction for each feature.
 * is reusable as model is now generic.
 * exposes an unmodifiable `ObservableList<T extends UniqueType>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+
+// end::modelComponent[]
 
 [[Design-Storage]]
 === Storage component
@@ -441,23 +445,83 @@ execute the `favourite INDEX` command. The recipe selected would be copied from 
 list in the favourites model.
 // end::favouritesimplementation[]
 
-// tag::recipemanagement[]
+// tag::recipeManagement[]
 === Recipe Management
-==== All-field search
-The all-field search matches keywords with details of `Recipe`.
-Each keyword searches through the `Name`, `Tag` and even `Difficulty` and `CookTime` of every recipes. Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
+==== Multi-line Recipe Adding
+===== Current Implementation
+As the adding of recipes deal with lengthy input parameters from the basic details such as name to a list of
+instructions, single-line add command proves to be inefficient and often providing an inconvenient user experience.
+To allow flexibility, adding of recipes have been implemented as a multi-line command fitting into this CLI application.
+
+Multi-line add function consists of 3 main commands: `add` `cont` `end`. The `add` command requires user input of the
+recipe basic information such as `Name`, `Difficulty`, `CookTime` and the optional `Tag`. The `cont` command requires
+ user input of the recipe `Instruction`. Each `cont` command allows only 1 `Instruction`. Again this is to
+ break down the lengthy input parameter of `Instruction`.  Lastly, with the `end` command the `Recipe` is being
+ recognised and is added to the `Model`. +
+
+The following is the sequence diagram of the `add` command:
+
+image::recipe_add_add.png[width="1000"]
+Once user's input is being parsed, a `RecipeBuilder` is created instead of a `Recipe` instance. This `RecipeBuilder`
+will be stored in `History` when the command is being executed.
+[NOTE]
+====
+Repeating use of `add` will replace existing `RecipeBuilder` rendering the previous data unsaved.
+====
+
+The following is the sequence diagram of the `cont` command:
+
+image::recipe_add_cont.png[width="1000"]
+Upon parsing the user's input that contains `Instruction`, a `Instruction` instance will be created. This
+`Instruction` is to be passed to the command for execution. The execution process once again make use of the `History`
+to append the `Instruction` into `RecipeBuilder`.
+
+The following is the sequence diagram of the `end` command:
+
+image::recipe_add_end.png[width="1000"]
+Upon receiving the `end` command, `Recipe` will be built from the `RecipeBuilder`. The parsing process checks to
+ensure that the `Recipe` built contains at least a single `Instruction` to prevent adding of `Recipe` without
+`Instruction`. With a valid `Recipe`, a `AddCommand` will be created and the `RecipeBuilder` in `History` will be
+cleared (i.e. set to null). This `AddCommand` when executed will add the `Recipe` into `Model`.
+
+===== Why it is implemented that way:
+Due to the nature of a multi-line add command where the `Recipe` is incomplete together with the inability to execute
+ the add
+ function immediately, 2 mechanisms namely, a builder and a historical storage, have to be put
+  in place. The builder works effectively in managing the data of a partial `Recipe` while allowing continuous
+  modification. The historical storage, `History` in this context, ensures that lossless partial
+  `Recipe` data. Moreover, since `History` interaction with commands has already been well establish in Logic
+  component and a partial `Recipe` is indeed a representation the historical commands, storing in `History`
+  becomes a dominant choice.
+
+===== Alternatives:
+Adding of incomplete recipe to the model and edit that recipe with the subsequent commands.
+Pros - Make use of existing add and edit command without the need of additional implementation.
+Cons - Model contains incomplete recipe that violates the validity of recipe data. This might be exploited and in the
+ process the application can be filled with incomplete recipes.
+
+==== All-field Recipe Search
+The all-field recipe search matches keywords with details of `Recipe`.
+Each keyword goes through the matching process against the `Name`, `Tag`, `Difficulty`, `CookTime` and even
+`Ingredient` from each `Instruction` of every recipe.
+Such search feature provides a complex querying, rather than a superficial search on merely recipes' name.
 
 ===== Current Implementation
-To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in of a predicate to
+To implement this feature, recipe `Model` is implemented with `FilteredList`. This list takes in a predicate to
 filter away recipes that does not meet the requirement.
 
-The desired search keywords, once parsed as `List` of `String` will be turned to `Stream` checking for matching words
- in the a recipe `Name`, complete matching of `CookTime`, matching of `Difficulty` and finally exact matching of any
- one `Tag` in a `Stream` of tags. This ultimately returns a `boolean` that decides whether a `Recipe` stays or remain
-  in
- the `FilteredList`.
+The desired search keywords, once parsed as `List` of `String` will be turned to `Stream`. Each keyword is checked
+against a recipe `Name` for any matching word, `Difficult` for exact matching value, `Tag` for any matching
+word, and `Ingredient` for any matching `IngredientDefinition`. All keywords must return true (i.e. matching at least
+ one attribute of the recipe) before the recipe is deemed fit to be kept in the `FilteredList`.
 
-image::recipe_search_seq.png[width="800"]
+The following code snippet shows how the predict determines each recipe: +
+
+include::../src/main/java/seedu/souschef/model/recipe/NameContainsKeywordsPredicate.java[lines=20..34]
+
+The following sequence diagram shows how the keywords are being parsed to feed into the predicate:
+
+image::recipe_search_seq.png[width="1000"]
 
 ===== Why it is implemented that way:
 Due to the existing data structure implemented by model, to access the attributes within a recipe, the system needs
@@ -467,17 +531,7 @@ to use its getter and perform matching with its keywords. Hence, a filter via pr
 Tag saving recipes that uses it. +
 Pros - Search done more effectively as the system only need to display all recipes stored in a tag +
 Cons - Bi-directional association, increase difficulty in maintaining data integrity
-
-==== Cook-mode
-The cook-mode is a feature on its own with its individual feature `Ui` and commands. The switch to cook-mode can be triggered by choosing a `Recipe` listed.
-
-===== Current Implementation
-Upon `Command` execution, logic identify the context, which in this case cook-mode, of the application and perform a
-switch. Subsequent commands will be parse further by a parser unique to cook-mode. These commands allows the
-navigation between instructions, possibility controlling of a real-time timer is specified by the `Instruction`. A
-`ArrayList` is stored with the current index being saved to track and allow movement forward/backward between
-instructions.
-// end::recipemanagement[]
+// end::recipeManagement[]
 
 === Health Plan list
 
@@ -1252,16 +1306,52 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding of recipe
+. Adding of a non-duplicate recipe
+.. Prerequisites: Switched to `-recipe` context and recipe to be added is not in SousChef.
+.. Test case: `add n/Chicken Rice d/3 c/20M` `cont i/Remove skin from #chicken 500 gram.` `cont i/Boil chicken in
+#water 700 ml for 20m c/20M` `end` +
+Expected: Recipe added to the end of recipes list. Details of the added recipe shown in the status message. Timestamp
+ in the status bar is updated.
+ .. Test case: `add n/Tuna Roll d/3 c/10M` `end` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
+ . Adding of a duplicate recipe
+ .. Prerequisites: Switched to `-recipe` context.
+ .. Test case: `add n/Egg Roll d/2 c/10M` `cont i/Spread #rice 100 gram on the mat.` `cont i/Put #egg 1 piece on top
+ of the rice.` `cont i/Roll the rice.` `end` `add n/Egg Roll d/2 c/10M` +
+ Expected: No recipe is added. Error details shown in the status message. Status bar remains the same.
+
+=== Editing a recipe
+. Editing a recipe while all recipes are listed
+
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
+... Test case: `edit 1 n/Chicken Burger` +
+Expected: First recipe is updated with a new name. Details of the edited recipe shown in the status message. Timestamp in the status bar is updated.
+... Test case: `edit 1` +
+Expected: No recipe is edited. Error details shown in the status message. Status bar remains the same.
+
 === Deleting a recipe
 
 . Deleting a recipe while all recipes are listed
 
-.. Prerequisites: List all recipes using the `list` command. Multiple recipes in the list.
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+list.
 .. Test case: `delete 1` +
    Expected: First recipe is deleted from the list. Details of the deleted recipe shown in the status message.
    Timestamp
    in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No recipe is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Finding a recipe
+. Finding a recipe while all recipes are listed
+
+.. Prerequisites: Switched to `-recipe` context and list all recipes using the `list` command. Multiple recipes in the
+lsit.
+.. Test case: `find vegetarian noodles 1 20M` +
+Expected: Recipes meeting all the keywords is listed. Number of listed recipes shown in the status message. Status bar remains the same.
+.. Test case: `find` +
+Expected: No recipe listed. Error details shown in the status message. Status bar remains the same.
