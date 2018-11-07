@@ -79,7 +79,7 @@ public class CalendarPanel extends UiPart<Region> {
      */
     public void loadCalendar(Calendar calendar) {
         String content = calendar.toString();
-        if (!isWindowsOS()) {
+        if (!isWindowsOs()) {
             content = content.replace("\r\n", System.getProperty("line.separator"));
         }
 
@@ -97,7 +97,7 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * Checks if the operating system is windows.
      */
-    private boolean isWindowsOS() {
+    private boolean isWindowsOs() {
         String osName = System.getProperty("os.name");
         if (osName == null) {
             return false;
