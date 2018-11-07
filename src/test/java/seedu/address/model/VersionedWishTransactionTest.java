@@ -33,11 +33,13 @@ public class VersionedWishTransactionTest {
     private VersionedWishTransaction fromWishBook;
     private Wish wish;
 
+    private static final String TAG_NAME = "wish1";
+
     @Before
     public void init() {
         this.versionedWishTransaction = new VersionedWishTransaction();
         Set<Tag> tagSet = new HashSet<>();
-        tagSet.add(new Tag("wish1"));
+        tagSet.add(new Tag(TAG_NAME));
         this.wish = Wish.createWish(new Name("wish1"),
                 new Price("81320902"),
                 new Date("22/09/2023"),
@@ -60,6 +62,30 @@ public class VersionedWishTransactionTest {
 
         assertTrue(fromWishBook.getWishStateList().size() == 1);
         assertTrue(fromWishBook.getReferencePointer() == 0);
+    }
+
+    @Test
+    public void removeTagFromAll_shouldSucceed() {
+        populatedVersionedWishTransaction.addWish(wish);
+        // check if wish is present
+        assertTrue(wishmapContainsKey(populatedVersionedWishTransaction, wish));
+        int wishStateListSize = getSizeOfWishStateList(populatedVersionedWishTransaction);
+        WishTransaction currentState = populatedVersionedWishTransaction.getWishStateList().get(wishStateListSize - 1);
+        assertTrue(wishmapContainsKey(currentState, wish));
+
+        // check if tag is present
+        assertEquals(currentState.wishMap.get(wish.getId()).peekLast().getTags(), wish.getTags());
+        // remove tag
+        wish.getTags()
+                .stream()
+                .forEach(tag -> populatedVersionedWishTransaction.removeTagFromAll(tag));
+        // tag should be absent from newState
+        int newSize = getSizeOfWishStateList(populatedVersionedWishTransaction);
+        WishTransaction newState = populatedVersionedWishTransaction.getWishStateList().get(newSize - 1);
+        assertNotEquals(newState.wishMap.get(wish.getId()).peekLast().getTags(), wish.getTags());
+        // tag should still be present in {@code currentState}
+        assertEquals(currentState, populatedVersionedWishTransaction.getWishStateList().get(newSize - 2));
+        assertEquals(currentState.wishMap.get(wish.getId()).peekLast().getTags(), wish.getTags());
     }
 
     @Test
@@ -142,7 +168,7 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void undo_shouldSucceed() {
+    public void afterAdd_undo_shouldSucceed() {
         int prevWishStateListSize = getSizeOfWishStateList(versionedWishTransaction);
         addWishWithCommit(versionedWishTransaction, wish);
 
@@ -164,7 +190,7 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void multipleUndos_shouldSucceed() {
+    public void afterAddRemove_multipleUndos_shouldSucceed() {
         List<Wish> wishes = getTypicalWishes();
         int limit = wishes.size() / 2;
         VersionedWishTransaction blank = new VersionedWishTransaction();
@@ -192,7 +218,7 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void redo_shouldSucceed() {
+    public void afterAddRemove_redo_shouldSucceed() {
         addWishWithCommit(versionedWishTransaction, wish);
         versionedWishTransaction.undo();
         assertFalse(wishmapContainsKey(versionedWishTransaction, wish));
@@ -218,7 +244,7 @@ public class VersionedWishTransactionTest {
     }
 
     @Test
-    public void commit_shouldSucceed() {
+    public void singleAddWithCommit_shouldSucceed() {
         addWishWithCommit(versionedWishTransaction, wish);
         assertTrue(isSameSize(2));
     }
