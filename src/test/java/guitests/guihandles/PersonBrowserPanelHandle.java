@@ -20,8 +20,9 @@ public class PersonBrowserPanelHandle extends NodeHandle<Node> {
         super(personBrowserPanelNode);
 
         tableOfModules = getChildNode(TABLE_ID_MODULES);
+        // tableOfOccasions = getChildNode(TABLE_ID_OCCASIONS);
         //tableOfOccasions = getChildNode(TABLE_ID_OCCASIONS);
-        // TableColumn test = (TableColumn) tableOfOccasions.getColumns().stream().findFirst().get();
+        //TableColumn test = (TableColumn) tableOfOccasions.getColumns().stream().findFirst().get();
     }
 
     /**

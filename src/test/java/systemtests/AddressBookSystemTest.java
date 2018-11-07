@@ -140,13 +140,13 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getPersonBrowserPanel();
     }
 
-    public ModuleBrowserPanelHandle getModuleBrowserPanel() {
-        return mainWindowHandle.getModuleBrowserPanel();
-    }
-
-    public OccasionBrowserPanelHandle getOccasionBrowserPanel() {
-        return mainWindowHandle.getOccasionBrowserPanel();
-    }
+//    public ModuleBrowserPanelHandle getModuleBrowserPanel() {
+//        return mainWindowHandle.getModuleBrowserPanel();
+//    }
+//
+//    public OccasionBrowserPanelHandle getOccasionBrowserPanel() {
+//        return mainWindowHandle.getOccasionBrowserPanel();
+//    }
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
