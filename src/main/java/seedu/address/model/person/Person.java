@@ -28,14 +28,14 @@ public class Person {
     private final Education education;
     private final Fees tuitionFee;
     private final HashMap<String, Grades> grades;
-    private final ArrayList<Time> timeSlots;
+    private final ArrayList<Time> timings;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Education education,
-                  HashMap<String, Grades> grades, Set<Tag> tags) {
+                  HashMap<String, Grades> grades, ArrayList<Time> timings, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, education, grades, tags);
         this.name = name;
         this.phone = phone;
@@ -43,9 +43,9 @@ public class Person {
         this.address = address;
         this.education = education;
         this.grades = grades;
+        this.timings = timings;
         this.tags.addAll(tags);
         this.tuitionFee = new Fees(education);
-        this.timeSlots = new ArrayList<>();
     }
 
     public Name getName() {
@@ -77,7 +77,7 @@ public class Person {
     }
 
     public ArrayList<Time> getTime() {
-        return timeSlots;
+        return timings;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Person {
      */
     public ArrayList<Time.Day> getDays() {
         ArrayList<Time.Day> daysWithTuition = new ArrayList<>();
-        for (Time time : timeSlots) {
+        for (Time time : timings) {
             daysWithTuition.add(time.getDay());
         }
         return daysWithTuition;
@@ -96,14 +96,14 @@ public class Person {
      * Adds a time slot to a Person's time array list
      */
     public void addTime(Time time) {
-        timeSlots.add(time);
+        timings.add(time);
     }
 
     /**
      * Adds a time slot to a Person's time array list
      */
     public void deleteTime(Time time) {
-        timeSlots.remove(time);
+        timings.remove(time);
     }
 
     /**
@@ -171,6 +171,8 @@ public class Person {
                 .append(" Education: ")
                 .append(getEducation());
         getGrades().forEach((key, value) -> builder.append(" " + key + " " + value + " "));
+        builder.append(" Tuition Timings: ");
+        getTime().forEach(time -> builder.append(time + " "));
         builder.append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -537,35 +537,33 @@ Format: `clear`
 
 === Adding tuition time of a student : `addTime`
 
-Adds a tuition time slot for a student in the address book.
+Adds a tuition timing for a student in the address book.
 
-Format: `addtime n/NAME ts/TIME`
+Format: `addTime INDEX ts/TIME`
 
 
-* The student with the name `NAME` must be already be in the address book.
-* Adds the tuition time `TIME` for the student called `NAME`.
+* Adds tuition timing `TIME` for the student at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, ...
 * `TIME` must not clash with any other tuition time in the address book.
 
 Example:
 
-* `addTime n/John Doe ts/mon 1300 1500` +
-Adds the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+* `addTime 1 ts/mon 1300 1500` +
+Adds the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person in the address book.
 
 === Deleting tuition time of a student : `deleteTime`
 
-Deletes a tuition time slot for a student in the address book.
+Deletes a tuition timing for a student in the address book.
 
-Format: `deletetime n/NAME ts/TIME`
+Format: `deleteTime INDEX ts/TIME`
 
 
-* The student with the name `NAME` must be already be in the address book.
+* Deletes tuition timing `TIME` for the student at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, ...
 * `TIME` must already exist in the student's tuition timings.
-* The student with the name `NAME` will have the tuition timing `TIME` deleted.
 
 Example:
 
-* `deleteTime n/John Doe ts/mon 1300 1500` +
-Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
+* `deleteTime 1 ts/mon 1300 1500` +
+Deletes the tuition timing that is on Monday which starts on 1300hour and ends on 1500hour for the 1st person in the address book.
 
 === Exiting the program : `exit`
 
@@ -592,13 +590,13 @@ _{explain how the user can enable/disable data encryption}_
 
 * *Add* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS el/EDUCATIONAL_LEVEL g/GRADE [t/TAG]` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 el/JC 1 g/FinalExam 85`
-* *AddTime* : `addtime n/NAME ts/TIME` +
-e.g. `addtime n/James Ho ts/mon 1300 1500`
+* *AddTime* : `addTime INDEX ts/TIME` +
+e.g. `addTime 1 ts/mon 1300 1500`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *DeleteTime* : `deletetime n/NAME ts/TIME` +
-e.g. `deletetime n/James Ho ts/mon 1300 1500`
+* *DeleteTime* : `deleteTime INDEX ts/TIME` +
+e.g. `deleteTime 1 ts/mon 1300 1500`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
