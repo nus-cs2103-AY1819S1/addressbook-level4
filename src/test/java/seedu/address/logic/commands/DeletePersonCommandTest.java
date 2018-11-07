@@ -40,7 +40,7 @@ public class DeletePersonCommandTest {
         String expectedMessage = String.format(DeletePersonCommand.MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(patientToDelete);
+        expectedModel.deletePerson(patientToDelete); // Test
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(deletePatientCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -89,7 +89,7 @@ public class DeletePersonCommandTest {
         DeletePatientCommand deletePatientCommand =
                 new DeletePatientCommand(patientToDelete.getName());
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(patientToDelete);
+        expectedModel.deletePerson(patientToDelete); // Test
         expectedModel.commitAddressBook();
 
         // delete -> first person deleted
