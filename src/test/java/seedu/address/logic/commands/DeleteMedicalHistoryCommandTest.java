@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BENSON;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPatientsAndDoctors.CARL_PATIENT;
 import static seedu.address.testutil.TypicalPatientsAndDoctors.getTypicalAddressBookWithPatientAndDoctor;
 
 import org.junit.Test;
@@ -69,6 +70,20 @@ public class DeleteMedicalHistoryCommandTest {
         assertCommandFailure(deleteMedicalHistoryCommand,
                 model, commandHistory, DeleteMedicalHistoryCommand
                         .MESSAGE_INVALID_DELETE_MEDICAL_HISTORY_NO_MATCH_NAME);
+    }
+
+    @Test
+    public void execute_duplicatePatient_failure() {
+        Patient similarPatientDifferentNumber = new PatientBuilder().withName(CARL_PATIENT.getName().toString())
+                .withPhone("12341234").build();
+        model.addPatient(similarPatientDifferentNumber);
+
+        AddMedicalHistoryCommand addMedicalHistoryCommand =
+                new AddMedicalHistoryCommand(new Name(CARL_PATIENT.getName().toString()),
+                        null, VALID_ALLERGY, VALID_CONDITION);
+
+        assertCommandFailure(addMedicalHistoryCommand,
+                model, commandHistory, AddMedicalHistoryCommand.MESSAGE_DUPLICATE_PATIENT);
     }
 
     @Test

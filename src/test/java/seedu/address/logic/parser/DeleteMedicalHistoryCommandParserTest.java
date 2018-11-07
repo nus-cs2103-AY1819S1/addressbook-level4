@@ -1,12 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ALLERGY_TO_DELETE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_TO_DELETE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ALLERGY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -14,6 +18,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.DeleteMedicalHistoryCommand;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 
 public class DeleteMedicalHistoryCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
@@ -22,10 +27,17 @@ public class DeleteMedicalHistoryCommandParserTest {
 
     @Test
     public void parse_fieldSpecified_success() {
-        //input is not blank for both allergy and condition
-        String userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
-                + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE + " " + PREFIX_CONDITION + VALID_CONDITION_TO_DELETE;
+        //input is not blank for phone, allergy and condition
+        String userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " " + PREFIX_PHONE + VALID_PHONE_BOB + " "
+                + PREFIX_ALLERGY + VALID_ALLERGY + " " + PREFIX_CONDITION + VALID_CONDITION;
         DeleteMedicalHistoryCommand expectedCommand = new DeleteMedicalHistoryCommand(
+                new Name(VALID_NAME_ALICE), new Phone(VALID_PHONE_BOB), VALID_ALLERGY, VALID_CONDITION);
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        //input is not blank for both allergy and condition
+        userInput = " " + PREFIX_NAME + VALID_NAME_ALICE + " "
+                + PREFIX_ALLERGY + VALID_ALLERGY_TO_DELETE + " " + PREFIX_CONDITION + VALID_CONDITION_TO_DELETE;
+        expectedCommand = new DeleteMedicalHistoryCommand(
                 new Name(VALID_NAME_ALICE), null, VALID_ALLERGY_TO_DELETE, VALID_CONDITION_TO_DELETE);
         assertParseSuccess(parser, userInput, expectedCommand);
 
