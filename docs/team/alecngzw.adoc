@@ -9,7 +9,11 @@
 
 == Overview
 
-SousChef is a desktop recipe The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Souschef is a desktop smart cooking sidekick, offering personalised guidance every step of the way. From recipe
+recommendations just for you, to meal planning and inventory management, SousChef has everything you need to improve
+life in the kitchen. +
+
+Our users interact via CLI and GUI created with JavaFX. Written in Java, experience what many are enjoying.
 
 == Summary of contributions
 
@@ -17,30 +21,34 @@ SousChef is a desktop recipe The user interacts with it using a CLI, and it has 
 ** This change allows the team to easily implement their functionality with much more ease.
 ** Justification: This enhancement improves the product significantly because it allows the other functions to work jointly
 ** Highlights: Without this the other components will not have functionalities to access their individual xml file.
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/52[PR#52]
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: Health plan segment of Souschef
+** This change allows new added on functionality and usage for the users of Souschef as the users are now able to view their
+calories intake based on the meals they planned for themselves. Allowing them to make more informed decisions about
+their food choices.
+** Justification: This improve the product with the newly added on functionality.
+** Highlights: Allow users to view their calories overview with a simple command along with graphic for easy understanding.
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/72[PR#72], https://github.com/CS2103-AY1819S1-W10-4/main/pull/77[PR#77]
+,https://github.com/CS2103-AY1819S1-W10-4/main/pull/139[PR#139], https://github.com/CS2103-AY1819S1-W10-4/main/pull/213[PR#213]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+
+* *Bug fix* : solved bug issue when system will function when xml files are not found
+** This change allows the system to bootup normally when any of the xml files are not found. Uses sampleData to start up.
+** Justification: This improves the user experience
+** Highlights: Without this change, the user experience would be drastically different as the system will not function properly.
+** https://github.com/CS2103-AY1819S1-W10-4/main/pull/135[PR#135]
+
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/58[#58],
+https://github.com/CS2103-AY1819S1-W10-4/main/pull/151[#151]
+*** Reported bugs and suggestions for other teams in the class
+(examples: https://github.com/CS2103-AY1819S1-T13-3/main/issues/82[1])
 
 == Contributions to the User Guide
 
@@ -59,13 +67,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=healthplan]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=storage]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
