@@ -37,11 +37,7 @@ public class TaskListPanelTest extends GuiUnitTest {
 
     private TaskListPanelHandle taskListPanelHandle;
 
-    // @Test
-
-    /**
-     * TODO pass test (and remove this placeholder javadoc comment which only exists to satisfy checkstyle)
-     */
+    @Test
     public void display() {
         initUi(TYPICAL_TODOLIST_EVENTS);
 

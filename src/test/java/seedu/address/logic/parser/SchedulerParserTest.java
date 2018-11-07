@@ -29,6 +29,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListEventCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.ShowDescriptionCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.calendarevent.CalendarEvent;
@@ -162,5 +163,12 @@ public class SchedulerParserTest {
         DeleteToDoCommand commandToDo = (DeleteToDoCommand) parser.parseCommand(
             DeleteToDoCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
         assertEquals(new DeleteToDoCommand(INDEX_FIRST_ELEMENT), commandToDo);
+    }
+
+    @Test
+    public void parseCommand_showDescription() throws Exception {
+        ShowDescriptionCommand commandToDo = (ShowDescriptionCommand) parser.parseCommand(
+                ShowDescriptionCommand.COMMAND_WORD + " " + INDEX_FIRST_ELEMENT.getOneBased());
+        assertEquals(new ShowDescriptionCommand(INDEX_FIRST_ELEMENT), commandToDo);
     }
 }

@@ -34,7 +34,14 @@ public class ToDoListEventCardHandle extends NodeHandle<Node> {
     }
 
     public String getPriority() {
-        return priorityLabel.getText();
+        String priority = priorityLabel.getText();
+        if (priority.contains("High")) {
+            return "H";
+        } else if (priority.contains("Medium")) {
+            return "M";
+        } else {
+            return "L";
+        }
     }
 
     /**
