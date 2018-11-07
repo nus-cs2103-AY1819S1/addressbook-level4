@@ -21,7 +21,7 @@ public class UserPrefs {
     private Path budgetBookFilePath = Paths.get("data", "ccabook.xml");
     private Path ccaXslFilePath = Paths.get("data", "ccabook.xsl");
     private Path emailPath = Paths.get("email");
-    private Path calendarPath = Paths.get("calendar");
+    private Path calendarPath = Paths.get("calendars");
     private Path profilePicturePath = Paths.get("src", "main", "resources", "profile_picture");
     private Map<Year, Set<Month>> existingCalendar;
 
