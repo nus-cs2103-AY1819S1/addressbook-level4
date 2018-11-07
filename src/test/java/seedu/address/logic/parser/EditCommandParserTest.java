@@ -2,29 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_DOUBLE_DATE_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PRICE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_URL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PRICE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.URL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PRICE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_URL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.*;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -34,6 +12,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_WISH;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditWishDescriptor;
@@ -92,6 +71,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_DATE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_URL_DESC, Url.MESSAGE_URL_CONSTRAINTS); // invalid url
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_AGE_DESC,
+                String.format(Messages.MESSAGE_INVALID_TIME_FORMAT, INVALID_AGE_1)); // invalid age
 
         // invalid price followed by valid email
         assertParseFailure(parser, "1" + INVALID_PRICE_DESC + DATE_DESC_1, Price.MESSAGE_PRICE_CONSTRAINTS);
