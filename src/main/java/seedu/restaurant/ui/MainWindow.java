@@ -25,6 +25,8 @@ import seedu.restaurant.commons.core.LogsCenter;
 import seedu.restaurant.commons.events.ui.ExitAppRequestEvent;
 import seedu.restaurant.commons.events.ui.ShowHelpRequestEvent;
 import seedu.restaurant.commons.events.ui.accounts.DisplayAccountListRequestEvent;
+import seedu.restaurant.commons.events.ui.accounts.LoginEvent;
+import seedu.restaurant.commons.events.ui.accounts.LogoutEvent;
 import seedu.restaurant.commons.events.ui.ingredient.DisplayIngredientListRequestEvent;
 import seedu.restaurant.commons.events.ui.ingredient.IngredientPanelSelectionChangedEvent;
 import seedu.restaurant.commons.events.ui.menu.DisplayItemListRequestEvent;
@@ -58,6 +60,8 @@ import seedu.restaurant.ui.sales.SalesReportWindow;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final double FULL_OPACITY = 1.0;
+    private static final double DISABLED_OPACITY = 0.15;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -259,6 +263,25 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     //@@author AZhiKai
+
+    /**
+     * Toggle the navigation button's opacity and clickability based on whether {@code isOn} which is toggled by the
+     * {@code LoginEvent} and {@code LogoutEvent}.
+     *
+     * @param isOn determines if the button can be clicked and with a full opacity of value 1.0.
+     */
+    private void toggleButton(boolean isOn) {
+        switchToAccountButton.setDisable(!isOn);
+        switchToIngredientButton.setDisable(!isOn);
+        switchToSalesButton.setDisable(!isOn);
+        switchToReservationButton.setDisable(!isOn);
+
+        switchToAccountButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToIngredientButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToSalesButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
+        switchToReservationButton.setOpacity(isOn ? FULL_OPACITY : DISABLED_OPACITY);
+    }
+
     /**
      * Switch the list panel to the given region
      */
@@ -281,6 +304,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switch to the menu view.
+     */
+    @FXML
+    private void handleSwitchToMenu() {
+        switchList(itemListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
+    }
+
+    /**
      * Switch to the account view.
      */
     @FXML
@@ -290,19 +322,12 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switch to the menu view.
-     */
-    @FXML
-    private void handleSwitchToMenu() {
-        switchList(itemListPanel.getRoot());
-    }
-
-    /**
      * Switch to the sales view.
      */
     @FXML
     private void handleSwitchToSales() {
         switchList(recordListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -311,6 +336,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToIngredient() {
         switchList(ingredientListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -319,6 +345,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwitchToReservation() {
         switchList(reservationListPanel.getRoot());
+        setPanel(browserPanel.getRoot());
     }
 
     /**
@@ -365,7 +392,7 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     private void handleReservationPanelSelectionChangedEvent(ReservationPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setPanel(browserPanel.getRoot());
+        //setPanel(browserPanel.getRoot());
     }
 
     @Subscribe
@@ -434,5 +461,19 @@ public class MainWindow extends UiPart<Stage> {
     private void handleDisplayReservationEvent(DisplayReservationListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleSwitchToReservation();
+    }
+
+    //@@author AZhiKai
+    @Subscribe
+    private void handleLoginEvent(LoginEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        toggleButton(true);
+    }
+
+    @Subscribe
+    private void handleLogoutEvent(LogoutEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        toggleButton(false);
+        handleSwitchToMenu();
     }
 }
