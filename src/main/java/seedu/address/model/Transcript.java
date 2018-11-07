@@ -8,7 +8,6 @@ import java.util.List;
 
 import java.util.function.Predicate;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
@@ -247,7 +246,7 @@ public class Transcript implements ReadOnlyTranscript {
             return;
         }
         ObservableList<Module> targetableModules = getTargetableModulesList();
-        List<Module> newTargetModules = calculateNewTargetModuleGrade(targetableModules);
+        List<Module> newTargetModules = getNewTargetModuleGrade(targetableModules);
         if (newTargetModules == null) {
             makeCapGoalImpossible();
             return;
@@ -275,7 +274,7 @@ public class Transcript implements ReadOnlyTranscript {
      * Calculates target module grade in order to achieve target goal
      * @return a list of modules with target grade if possible. null otherwise
      */
-    private List<Module> calculateNewTargetModuleGrade(ObservableList<Module> targetableModules) {
+    private List<Module> getNewTargetModuleGrade(ObservableList<Module> targetableModules) {
         ObservableList<Module> gradedModules = getGradedModulesList();
         ObservableList<Module> adjustedModules = getAdjustedModulesList();
         ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
@@ -287,9 +286,39 @@ public class Transcript implements ReadOnlyTranscript {
         double currentTotalPoint = calculateTotalModulePoint(gradedModules)
                 + calculateTotalModulePoint(adjustedModules);
 
+        if (totalUngradedModuleCredit == 0) {
+            if (totalMc == 0) {
+                return null;
+            }
+            double adjustedCap = currentTotalPoint / totalMc;
+            if (capGoal.getValue() > adjustedCap) {
+                return null;
+            }
+            return new ArrayList<>();
+        }
+
+        return createNewTargetModuleGrade(
+                sortedTargetableModules,
+                totalUngradedModuleCredit, totalMc, currentTotalPoint);
+    }
+
+    /**
+     * Creates the new list of modules with target grade
+     * @param sortedTargetableModules
+     * @param totalUngradedModuleCredit
+     * @param totalMc
+     * @param currentTotalPoint
+     * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
+     * @return the new list of modules with target grade
+     */
+    private List<Module> createNewTargetModuleGrade(
+            ObservableList<Module> sortedTargetableModules,
+            double totalUngradedModuleCredit, double totalMc, double currentTotalPoint) {
+        if (totalUngradedModuleCredit <= 0) {
+            throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
+        }
         double totalScoreToAchieve = capGoal.getValue() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
-
         return calculateAndCreateNewTargetModuleGrade(
                 sortedTargetableModules,
                 totalUngradedModuleCredit, totalScoreToAchieve, unitScoreToAchieve);
@@ -301,16 +330,17 @@ public class Transcript implements ReadOnlyTranscript {
      * @param totalUngradedModuleCredit
      * @param totalScoreToAchieve
      * @param unitScoreToAchieve
+     * @throws IllegalArgumentException  if totalUngradedModuleCredit is zero or negative
      * @return the new list of modules with target grade
      */
     private List<Module> calculateAndCreateNewTargetModuleGrade(
             ObservableList<Module> sortedTargetableModules,
             double totalUngradedModuleCredit, double totalScoreToAchieve, double unitScoreToAchieve) {
+        if (totalUngradedModuleCredit <= 0) {
+            throw new IllegalArgumentException("totalUngradedModuleCredit cannot be zero or negative");
+        }
         if (unitScoreToAchieve > 5) {
             return null;
-        }
-        if (totalUngradedModuleCredit == 0) {
-            return FXCollections.observableArrayList(new ArrayList<>());
         }
         List<Module> targetModules = new ArrayList<>();
         Module newTargetModule;
