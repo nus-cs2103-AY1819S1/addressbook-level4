@@ -71,11 +71,11 @@ public class GuiTestAssert {
 
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName) {
-        case "blue":
+        case BLUE_CHAS_COLOUR:
             return BLUE_CHAS_COLOUR;
-        case "orange":
+        case ORANGE_CHAS_COLOUR:
             return ORANGE_CHAS_COLOUR;
-        case "pioneer":
+        case PIONEER_CHAS_COLOUR:
             return PIONEER_CHAS_COLOUR;
         default:
             throw new AssertionError(tagName + " does not have a color assigned.");
