@@ -16,6 +16,7 @@ import seedu.address.model.module.Code;
 import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
+import seedu.address.model.module.exceptions.ModuleCompletedException;
 
 //@@author alexkmj
 /**
@@ -395,6 +396,9 @@ public class Transcript implements ReadOnlyTranscript {
     public Module adjustModule(Module targetModule, Grade adjustGrade) {
         requireNonNull(targetModule);
         requireNonNull(adjustGrade);
+        if (targetModule.hasCompleted()) {
+            throw new ModuleCompletedException();
+        }
 
         Module adjustedModule = targetModule.adjustGrade(adjustGrade);
         //TODO: Use updateModule when fixed
