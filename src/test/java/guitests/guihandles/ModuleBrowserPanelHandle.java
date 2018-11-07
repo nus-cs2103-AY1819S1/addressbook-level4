@@ -1,17 +1,26 @@
 package guitests.guihandles;
 
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.TableView;
+import seedu.address.model.module.Module;
+import seedu.address.model.person.Person;
 
 public class ModuleBrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#moduleBrowserPanel";
+    public static final String TABLE_ID_PERSONS = "#personTableView";
 
     // The currently selected person whose module and occasion information is displayed
     // on the panel.
     private Module lastRememberedModule;
+    private TableView<Person> tableOfPersons;
+    private ObservableList<Person> personItems;
 
     public ModuleBrowserPanelHandle(Node moduleBrowserPanelNode) {
         super(moduleBrowserPanelNode);
+        tableOfPersons = getChildNode(TABLE_ID_PERSONS);
+        personItems = tableOfPersons.getItems();
     }
 
     /**
@@ -19,6 +28,7 @@ public class ModuleBrowserPanelHandle extends NodeHandle<Node> {
      */
     public void rememberModule(Module module) {
         lastRememberedModule = module;
+        personItems = module.getStudents().asUnmodifiableObservableList();
     }
 
     /**
@@ -26,5 +36,9 @@ public class ModuleBrowserPanelHandle extends NodeHandle<Node> {
      */
     public Module getLastRememberedModule() {
         return lastRememberedModule;
+    }
+
+    public ObservableList<Person> getPersonItems() {
+        return this.personItems;
     }
 }
