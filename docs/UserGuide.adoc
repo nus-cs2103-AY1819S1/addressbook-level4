@@ -190,6 +190,21 @@ Example:
 * `deleteTime n/John Doe ts/mon 1300 1500` +
 Deletes the tuition timing for John Doe that is on Monday which starts at 1300hour and ends at 1500hour.
 
+
+=== Deleting grade of a student : `deleteGrade`
+
+Deletes a grade record for a student in the address book.
+Format: `deleteGrade INDEX NAME_OF_EXAM`
+
+* `NAME_OF_EXAM` must already exist in the student's grade records.
+* The student with the index `INDEX` will have the grade named `NAME_OF_EXAM` deleted.
+
+Example:
+
+* `deleteGrade 1 Y1819S1_Mid` +
+Deletes grade record named "Y1819S1_Mid" for the first person in the display panel.
+
+
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
@@ -526,20 +541,6 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-=== Analyzing grades commands `[coming in v2.0]`
-
-Analyze the grades of students +
-Format: `grades ACTION [parameters]`
-
-****
-* grades sort: list the details of students sorting by grades.
-****
-
-[NOTE]
-====
-Regard the mark of the student who doesn't have a grade as 0.
-====
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
