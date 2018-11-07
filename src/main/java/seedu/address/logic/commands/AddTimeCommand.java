@@ -26,7 +26,7 @@ public class AddTimeCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "mon 1300 1500 ";
 
-    public static final String MESSAGE_SUCCESS_ADDED = "Time slot successfully added";
+    public static final String MESSAGE_SUCCESS = "Time slot successfully added";
     public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book";
     public static final String MESSAGE_TIME_IS_NOT_AVAILABLE = "The time has already been taken";
     public static final String MESSAGE_INVALID_START_END_TIME = "Start time must be earlier than end time";
@@ -76,6 +76,13 @@ public class AddTimeCommand extends Command {
         if (toAdd.getStartTime() >= toAdd.getEndTime()) {
             throw new CommandException(MESSAGE_INVALID_START_END_TIME);
         }
+        if (toAdd.getStartTime() >= 2400) {
+            throw new CommandException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+        if (toAdd.getEndTime() >= 2400) {
+            throw new CommandException(Time.MESSAGE_TIME_CONSTRAINTS);
+        }
+
         for (Time time : sameDay) {
             if (toAdd.getStartTime() >= time.getStartTime() && toAdd.getStartTime() < time.getEndTime()) {
                 throw new CommandException(MESSAGE_TIME_CLASH);
@@ -89,7 +96,15 @@ public class AddTimeCommand extends Command {
         }
         model.addTime(targetPerson, toAdd);
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS_ADDED));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddTimeCommand // instanceof handles nulls
+                && toAdd.equals(((AddTimeCommand) other).toAdd))
+                && index.equals(((AddTimeCommand) other).index);
     }
 }
 

@@ -37,7 +37,6 @@ public class AddTimeCommandParser implements Parser<AddTimeCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimeCommand.MESSAGE_USAGE));
         }
 
-       // Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Time time = ParserUtil.parseTime(argMultimap.getValue(PREFIX_TIME).get());
 
         return new AddTimeCommand(index, time);

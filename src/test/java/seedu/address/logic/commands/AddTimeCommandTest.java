@@ -2,39 +2,38 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Time;
 
 public class AddTimeCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void equals() {
-        String testName1 = "John Doe";
-        String testName2 = "Mary Ray";
-        Time testTime1 = new Time("mon 1300 1500");
-        Time testTime2 = new Time("tue 1500 1700");
+        Index indexOne = INDEX_FIRST_PERSON;
+        Index indexTwo = INDEX_SECOND_PERSON;
+        Time testTimeOne = new Time("mon 1300 1500");
+        Time testTimeTwo = new Time("tue 1500 1700");
 
-        AddTimeCommand firstTimeAddCommand = new AddTimeCommand(testName1, testTime1);
-        AddTimeCommand secondTimeAddCommand = new AddTimeCommand(testName2, testTime1);
-        AddTimeCommand thirdTimeAddCommand = new AddTimeCommand(testName1, testTime2);
+        AddTimeCommand firstAddTimeCommand = new AddTimeCommand(indexOne, testTimeOne);
+        AddTimeCommand secondAddTimeCommand = new AddTimeCommand(indexTwo, testTimeOne);
+        AddTimeCommand thirdAddTimeCommand = new AddTimeCommand(indexOne, testTimeTwo);
 
         //same object -> returns true
-        assertTrue(firstTimeAddCommand.equals(firstTimeAddCommand));
+        assertTrue(firstAddTimeCommand.equals(firstAddTimeCommand));
+
+        // same values -> returns true
+        AddTimeCommand firstAddTimeCommandCopy = new AddTimeCommand(indexOne, testTimeOne);
+        assertTrue(firstAddTimeCommand.equals(firstAddTimeCommandCopy));
 
         //different person with same time slot -> returns false;
-        assertFalse(firstTimeAddCommand.equals(secondTimeAddCommand));
+        assertFalse(firstAddTimeCommand.equals(secondAddTimeCommand));
 
         //same person with different time slot -> returns false;
-        assertFalse(firstTimeAddCommand.equals(thirdTimeAddCommand));
+        assertFalse(firstAddTimeCommand.equals(thirdAddTimeCommand));
     }
 }

@@ -25,7 +25,7 @@ public class DeleteTimeCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TIME + "mon 1300 1500 ";
 
-    public static final String MESSAGE_SUCCESS_DELETED = "Time slot successfully deleted";
+    public static final String MESSAGE_SUCCESS = "Time slot successfully deleted";
     public static final String MESSAGE_PERSON_NOT_FOUND = "This person does not exists in the address book";
     public static final String MESSAGE_TIME_NOT_FOUND = "This tuition timing is not found in the address book";
 
@@ -63,7 +63,13 @@ public class DeleteTimeCommand extends Command {
         model.deleteTime(targetPerson, toDelete);
 
         model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS_DELETED));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
-
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof DeleteTimeCommand // instanceof handles nulls
+                && toDelete.equals(((DeleteTimeCommand) other).toDelete))
+                && index.equals(((DeleteTimeCommand) other).index);
+    }
 }
