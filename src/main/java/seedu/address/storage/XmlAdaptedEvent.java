@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventName;
 import seedu.address.model.event.polls.AbstractPoll;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -95,7 +96,7 @@ public class XmlAdaptedEvent {
      * @param source future changes to this will not affect the created XmlAdaptedEvent
      */
     public XmlAdaptedEvent(Event source) {
-        name = source.getName();
+        name = source.getName().value;
         address = source.getLocation().value;
         organiser = String.valueOf(personList.indexOf(source.getOrganiser()));
         //organiser = new XmlAdaptedPerson(source.getOrganiser());
@@ -147,7 +148,10 @@ public class XmlAdaptedEvent {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        final String modelName = name;
+        if (!EventName.isValidEventName(name)) {
+            throw new IllegalValueException(EventName.MESSAGE_EVENT_NAME_CONSTRAINTS);
+        }
+        final EventName modelName = new EventName(name);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));

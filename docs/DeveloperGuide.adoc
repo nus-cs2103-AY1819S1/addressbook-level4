@@ -431,9 +431,9 @@ The sequence diagram within the model for the `AddPollCommand` is illustrated he
 
 image::AddPollSequenceDiagram.png[width="800"]
 
-In all cases, the Poll object is returned to the calling Command object,
-so that the contents of the poll can be retrieved as a String through the `Poll#displayPoll()` method.
+In all cases, the contents of the poll is returned to the calling Command object as String through the `Poll#displayPoll()` method.
 The displayed details of the poll contains the most popular options, computed using the `Poll#getPopularOptions()` method.
+This method returns an empty list if there no user has voted for any option yet.
 A new `DisplayPollEvent` is then posted to the EventsCenter, which is handled by the PollDisplayPanel in the UI component.
 
 The `TimePoll` class extends from the abstract `AbstractPoll` class which is constructed by calling the `AddTimePollCommand`.

@@ -33,10 +33,10 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
-    private final String name;
+    private EventName name;
 
     // Data fields
-    private final Address location;
+    private Address location;
 
     private LocalDate date;
     private LocalTime startTime;
@@ -44,22 +44,22 @@ public class Event {
 
     private Person organiser;
 
-    private final Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags = new HashSet<>();
     private final ArrayList<AbstractPoll> polls = new ArrayList<>();
     private final UniquePersonList personList = new UniquePersonList();
 
     /**
      * Every field must be present and not null.
      */
-    public Event(String name, Address address, Set<Tag> tags) {
+    public Event(EventName name, Address address, Set<Tag> tags) {
         requireAllNonNull(name, address, tags);
         this.name = name;
         this.location = address;
         this.tags.addAll(tags);
     }
 
-    public Event(String name, Address location, Set<Tag> tags, LocalDate date, LocalTime startTime, LocalTime endTime,
-                 Person organiser) {
+    public Event(EventName name, Address location, Set<Tag> tags, LocalDate date, LocalTime startTime,
+                 LocalTime endTime, Person organiser) {
         requireAllNonNull(name, location, tags, date, startTime, endTime, organiser);
         this.name = name;
         this.location = location;
@@ -70,12 +70,20 @@ public class Event {
         this.organiser = organiser;
     }
 
-    public String getName() {
+    public EventName getName() {
         return name;
+    }
+
+    public void setName(EventName name) {
+        this.name = name;
     }
 
     public Address getLocation() {
         return location;
+    }
+
+    public void setLocation(Address location) {
+        this.location = location;
     }
 
     public Person getOrganiser() {
@@ -321,6 +329,10 @@ public class Event {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     /**
