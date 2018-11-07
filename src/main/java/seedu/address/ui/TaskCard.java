@@ -31,11 +31,13 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label dueDate;
     @FXML
-    private Label address;
+    private Label remainingTime;
     @FXML
-    private Label email;
+    private Label description;
+    @FXML
+    private Label priorityValue;
     @FXML
     private Label status;
     @FXML
@@ -44,16 +46,16 @@ public class TaskCard extends UiPart<Region> {
     private Label dependency;
     @FXML
     private FlowPane tags;
-    //TODO:Cannot find local variable tag
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
         name.setText(task.getName().fullName);
-        phone.setText(task.getDueDate().value);
-        address.setText(task.getDescription().value);
-        email.setText(task.getPriorityValue().value);
+        dueDate.setText(task.getDueDate().value);
+        remainingTime.setText("Remaining time: " + task.getTimeToDueDate());
+        description.setText(task.getDescription().value);
+        priorityValue.setText(task.getPriorityValue().value);
         status.setText(task.getStatus().toString());
         hash.setText("id: " + Integer.toString(task.hashCode()));
         dependency.setText("dependencies: " + task.getDependency().toString());
