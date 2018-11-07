@@ -3,8 +3,8 @@ package seedu.souschef.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.souschef.model.Model.PREDICATE_SHOW_ALL;
-import static seedu.souschef.testutil.TypicalRecipes.ALICE;
-import static seedu.souschef.testutil.TypicalRecipes.BENSON;
+import static seedu.souschef.testutil.TypicalRecipes.APPLE;
+import static seedu.souschef.testutil.TypicalRecipes.BANDITO;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -31,13 +31,13 @@ public class ModelManagerTest {
 
     @Test
     public void hasRecipe_recipeNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.has(ALICE));
+        assertFalse(modelManager.has(APPLE));
     }
 
     @Test
     public void hasRecipe_recipeInAddressBook_returnsTrue() {
-        modelManager.add(ALICE);
-        assertTrue(modelManager.has(ALICE));
+        modelManager.add(APPLE);
+        assertTrue(modelManager.has(APPLE));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AppContent addressBook = new AppContentBuilder().withRecipe(ALICE).withRecipe(BENSON).build();
+        AppContent addressBook = new AppContentBuilder().withRecipe(APPLE).withRecipe(BANDITO).build();
         AppContent differentAddressBook = new AppContent();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -71,7 +71,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelSetCoordinator(differentAddressBook, userPrefs).getRecipeModel()));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = APPLE.getName().fullName.split("\\s+");
         modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelSetCoordinator(addressBook, userPrefs).getRecipeModel()));
 

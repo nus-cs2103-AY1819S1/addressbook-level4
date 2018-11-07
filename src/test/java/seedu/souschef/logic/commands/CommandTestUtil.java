@@ -31,8 +31,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_DIFFICULTY_AMY = "5";
     public static final String VALID_DIFFICULTY_BOB = "1";
-    public static final String VALID_COOKTIME_AMY = "PT20M";
-    public static final String VALID_COOKTIME_BOB = "PT24M";
+    public static final String VALID_COOKTIME_AMY = "20M";
+    public static final String VALID_COOKTIME_BOB = "24M";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 

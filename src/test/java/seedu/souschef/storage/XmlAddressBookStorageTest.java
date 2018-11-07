@@ -2,7 +2,7 @@ package seedu.souschef.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.souschef.testutil.TypicalRecipes.ALICE;
+import static seedu.souschef.testutil.TypicalRecipes.APPLE;
 import static seedu.souschef.testutil.TypicalRecipes.HOON;
 import static seedu.souschef.testutil.TypicalRecipes.IDA;
 import static seedu.souschef.testutil.TypicalRecipes.getTypicalAddressBook;
@@ -89,7 +89,7 @@ public class XmlAddressBookStorageTest {
         // rwrite exiting file, and readAppContent back
 
         original.getRecipes().add(HOON);
-        original.getRecipes().remove(ALICE);
+        original.getRecipes().remove(APPLE);
         xmlAddressBookStorage.saveFeature(original, filePath);
         readBack = xmlAddressBookStorage.readFeature(filePath).get();
         assertEquals(original, new AppContent(readBack));

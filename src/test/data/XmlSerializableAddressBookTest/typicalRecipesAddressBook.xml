@@ -2,61 +2,61 @@
 <!-- AppContent saveAppContent file which contains the same Recipe values as in TypicalPersons#getTypicalAddressBook() -->
 <souschef>
     <recipes>
-        <name>Alice Pauline</name>
-        <difficulty>5</difficulty>
-        <cooktime>PT23M</cooktime>
-        <tagged>friends</tagged>
+        <name>Apple Pie</name>
+        <difficulty>2</difficulty>
+        <cooktime>23M</cooktime>
+        <tagged>dessert</tagged>
         <instructions>
         <instruction>Pre-heat oven.</instruction>
         </instructions>
     </recipes>
     <recipes>
-        <name>Benson Meier</name>
+        <name>Bandito Pockett</name>
         <difficulty>5</difficulty>
-        <cooktime>PT23M</cooktime>
-        <tagged>owesMoney</tagged>
-        <tagged>friends</tagged>
+        <cooktime>23M</cooktime>
+        <tagged>mexican</tagged>
+        <tagged>wrap</tagged>
         <instructions>
         <instruction>Mix all ingredients</instruction>
         </instructions>
     </recipes>
     <recipes>
-        <name>Carl Kurz</name>
+        <name>Chinese Fried Noodles</name>
         <difficulty>5</difficulty>
-        <cooktime>PT23M</cooktime>
+        <cooktime>23M</cooktime>
         <instructions>
         <instruction>Pre-heat oven.</instruction>
         </instructions>
     </recipes>
     <recipes>
-        <name>Daniel Meier</name>
+        <name>Danish Blueberry Tart</name>
         <difficulty>5</difficulty>
-        <cooktime>PT23M</cooktime>
-        <tagged>friends</tagged>
+        <cooktime>23M</cooktime>
+        <tagged>Danish</tagged>
         <instructions>
         <instruction>Pre-heat oven.</instruction>
         </instructions>
     </recipes>
     <recipes>
-        <name>Elle Meyer</name>
+        <name>Egg Roll</name>
         <difficulty>5</difficulty>
-        <cooktime>PT23M</cooktime>
+        <cooktime>23M</cooktime>
         <instructions>
         <instruction>Pre-heat oven.</instruction>
         </instructions>
     </recipes>
     <recipes>
-        <name>Fiona Kunz</name>
+        <name>French Onion Soup</name>
         <difficulty>5</difficulty>
-        <cooktime>PT23M</cooktime>
+        <cooktime>23M</cooktime>
         <instructions>
         <instruction>Pre-heat oven.</instruction>
         </instructions>
     </recipes>
     <recipes>
-        <name>George Best</name>
+        <name>Green Curry</name>
         <difficulty>5</difficulty>
-        <cooktime>PT23M</cooktime>
+        <cooktime>23M</cooktime>
         <instructions>
         <instruction>Pre-heat oven.</instruction>
         </instructions>
