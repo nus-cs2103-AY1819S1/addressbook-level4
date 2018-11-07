@@ -71,7 +71,7 @@ public class XmlSerializableRangeOfWeekTest {
     }
 
     @Test
-    public void equal_test_assertTrue() {
+    public void equal_test() {
         FirstDayCommand fdc = new FirstDayCommand();
         checkRangeOfWeeks = fdc.computeRangeOfWeeks(USER_INPUT_DATE);
         XmlSerializableRangeOfWeek checkSerializableRangeOfWeek = new XmlSerializableRangeOfWeek(checkRangeOfWeeks);
