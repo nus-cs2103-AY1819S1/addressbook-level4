@@ -451,6 +451,11 @@ Change grade:
 
 if you need to change the score of a exam, you can use edit as well.
 
+=== Promote students stored in TutorPal : `promote`
+
+Changes the student's educational grade +
+Format: `promote ACTION [parameters]`
+
 === Analyzing grades commands `[coming in v2.0]`
 
 Analyze the grades of students +
