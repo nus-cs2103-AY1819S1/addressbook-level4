@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.text.CollationElementIterator;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -22,8 +21,6 @@ public class StudentPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    @FXML
-    private AnchorPane studentAnchor;
     @FXML
     private Label nameLabel;
     @FXML
