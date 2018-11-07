@@ -127,6 +127,14 @@ public class Medicine {
                 && otherMedicine.getSerialNumber().equals(getSerialNumber());
     }
 
+    /**
+     * @return a clone of this medicine.
+     */
+    public Medicine clone() {
+        return new Medicine(this.medicineName, this.minimumStockQuantity, this.pricePerUnit, this.serialNumber,
+                this.stock);
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

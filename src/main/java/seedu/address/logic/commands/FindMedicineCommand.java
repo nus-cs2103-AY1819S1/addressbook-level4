@@ -37,7 +37,7 @@ public class FindMedicineCommand extends Command {
         EventsCenter.getInstance().post(new ShowMedicineListEvent());
 
         return new CommandResult(
-                String.format(Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW, model.getFilteredMedicineList())
+                String.format(Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW, model.getFilteredMedicineList().size())
         );
     }
 

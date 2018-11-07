@@ -37,13 +37,15 @@ public class Patient {
      * Every field must be present and not null.
      */
     public Patient(Name name, IcNumber icNumber, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, icNumber, phone, email, address, tags);
+        requireAllNonNull(name, icNumber, phone, email, address);
         this.name = name;
         this.icNumber = icNumber;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
+        if (tags != null) {
+            this.tags.addAll(tags);
+        }
         this.medicalRecord = new MedicalRecord();
         this.isInQueue = false;
     }
@@ -156,11 +158,16 @@ public class Patient {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons of the same name and IC have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Patient otherPatient) {
         if (otherPatient == this) {
+            return true;
+        }
+
+        // IC number is the same, immediately same person.
+        if (otherPatient != null && otherPatient.getIcNumber().equals(getIcNumber())) {
             return true;
         }
 
@@ -183,8 +190,6 @@ public class Patient {
             return false;
         }
         Patient otherPatient = (Patient) other;
-        System.out.println(otherPatient.getMedicalRecord());
-        System.out.println(getMedicalRecord());
         return otherPatient.getName().equals(getName())
                 && otherPatient.getIcNumber().equals(getIcNumber())
                 && otherPatient.getPhone().equals(getPhone())
