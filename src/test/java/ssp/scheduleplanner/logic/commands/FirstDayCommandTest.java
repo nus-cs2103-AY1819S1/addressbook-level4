@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.rmi.UnmarshalException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -34,6 +35,7 @@ public class FirstDayCommandTest {
     private static final Path INVALID_DATE_RANGE_PATH = TEST_DATA_FOLDER.resolve("invaliddaterangerangeofweek.xml");
     private static final Path TYPICAL_PATH = TEST_DATA_FOLDER.resolve("typicalrangeofweek.xml");
     private static final Path NON_EXIST_FILE_PATH = TEST_DATA_FOLDER.resolve("testrangeofweek.xml");
+    private static final Path UNABLE_CONVERT_FILE_PATH = TEST_DATA_FOLDER.resolve("unableconvertrangeofweek.xml");
 
     private FirstDayCommand fds = new FirstDayCommand();
     private String[][] rangeOfWeeks = new String[FirstDayCommand.WEEKS_IN_SEMESTER][3];
@@ -307,6 +309,19 @@ public class FirstDayCommandTest {
             throw new CommandException(fds.MESSAGE_DATA_UNABLE_CONVERT);
         } catch (FileNotFoundException e) {
             throw new CommandException(fds.MESSAGE_FILE_DOES_NOT_EXIST);
+        }
+    }
+
+    @Test
+    public void unableConvertFilePath_invalidData_throwsUnmarshalException() throws UnmarshalException {
+        ExpectedException thrown = ExpectedException.none();
+        try {
+            thrown.expect(UnmarshalException.class);
+            XmlSerializableRangeOfWeek range = XmlFileStorage.loadWeekDataFromSaveFile(UNABLE_CONVERT_FILE_PATH);
+        } catch (DataConversionException e) {
+            System.out.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
         }
     }
 
