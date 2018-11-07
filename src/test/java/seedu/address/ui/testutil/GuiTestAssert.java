@@ -20,9 +20,9 @@ import seedu.address.ui.PersonCard;
 public class GuiTestAssert {
     private static final String LABEL_DEFAULT_STYLE = "label";
 
-    private static String BLUE_CHAS_COLOUR = "blue";
-    private static String ORANGE_CHAS_COLOUR = "orange";
-    private static String PIONEER_CHAS_COLOUR = "red";
+    private static final String BLUE_CHAS_COLOUR = "blue";
+    private static final String ORANGE_CHAS_COLOUR = "orange";
+    private static final String PIONEER_CHAS_COLOUR = "red";
 
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
