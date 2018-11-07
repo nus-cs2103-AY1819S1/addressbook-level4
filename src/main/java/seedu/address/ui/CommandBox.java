@@ -129,7 +129,9 @@ public class CommandBox extends UiPart<Region> {
         String commandWord = getCommandWord(commandText.trim());
         if (commandWord.equals(CdCommand.COMMAND_WORD)) {
             String arguments = getArguments(commandText.trim());
-            if (arguments.equals("")) { return; }
+            if (arguments.equals("")) {
+                return;
+            }
             searchDirectory(arguments);
         }
     }
@@ -147,7 +149,9 @@ public class CommandBox extends UiPart<Region> {
      */
     private String getArguments(String commandText) {
         String[] commandLineArgs = commandText.split(" ", 2);
-        if (commandLineArgs.length == 1) { return ""; }
+        if (commandLineArgs.length == 1) {
+            return "";
+        }
         return commandLineArgs[1];
     }
 
