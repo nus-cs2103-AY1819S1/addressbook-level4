@@ -40,4 +40,9 @@ public class CategoryBudget extends Budget {
     public int hashCode () {
         return belongsToCategory.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return belongsToCategory.categoryName;
+    }
 }

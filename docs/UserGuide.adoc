@@ -137,7 +137,9 @@ Format: `signup USERNAME`
 
 [NOTE]
 ====
-* USERNAME must not contain any of the following characters :  > < : \ / | ?
+* USERNAME must be at least 1 character long
+* USERNAME must be at most 250 characters long
+* USERNAME cannot contain white spaces or any of the following characters :  > < : \ / | ?
 ====
 
 === Logging in as an existing user : `login`
@@ -158,8 +160,10 @@ Format: `login u/USERNAME [p/PASSWORD]`
 ====
 * USERNAME is case insensitive
 * PASSWORD is case sensitive
-* PASSWORD cannot contain any spaces and must be at least 6 characters long
+* PASSWORD cannot contain any spaces and must be 6 to 100 characters long
 * Expense Tracker contains a sample user with USERNAME `sample`
+* If the user with USERNAME has no password, then the login will be successful
+regardless of whether a PASSWORD has been provided
 ====
 
 === Setting a password for the current user : `setpassword`
@@ -241,29 +245,28 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 Edits the expenses with the keywords specified by the user.
 Existing values of the expense will be edited according to the value of the parameters +
 
-Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] -> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
+Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] \-> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 
 ****
 *Examples:*
 
-* `massedit c/school -> c/food` +
+* `massedit c/school \-> c/food` +
  Edits the expenses under `school` category.
  The category of these expenses is changed to `food`.
-* `massedit n/School fee d/01-10-2018:03-10-2018 -> t/books` +
+* `massedit n/School fee d/01-10-2018:03-10-2018 \-> t/books` +
  Edits expenses, whose names contain `school`,with date between `01-10-2018` and `03-10-2018`(inclusively).
  The tags of these expenses are changed to `book` tag.
-* `massedit $/1.00:2.00 -> c/waste n/saving` +
+* `massedit $/1.00:2.00 \-> c/waste n/saving` +
  Edits expenses with cost between 1.00 and 2.00 inclusively.
  The category and name of these expenses are changed to `waste` and `saving` respecitvely.
-* `massedit c/shopping $/100.00 -> n/waste $/200.00` +
+* `massedit c/shopping $/100.00 \-> n/waste $/200.00` +
  Edits the expenses with cost of `100.00` under `shopping` category.
  The name and cost of these expenses are changed to `waste` and `200.00` respectively.
 ****
 
 [NOTE]
 ====
-* `->` can be key in by typing `-` followed by `>`.
-* At least one keyword before `->` and one keyword after `->` must be provided.
+* At least one keyword before `\->` and one keyword after `\->` must be provided.
 * The order of the keywords doesn't matter.
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
 * COST should be a non-zero positive number with two decimal places

@@ -1,9 +1,12 @@
 package seedu.address.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LoginCredentials;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.CategoryBudget;
@@ -16,7 +19,6 @@ import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
-import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 
@@ -131,7 +133,7 @@ public interface Model {
      * Selects the ExpenseTracker of the user with the input username to be used.
      * Returns true if successful, false if the input password is incorrect.
      */
-    boolean loadUserData(LoginInformation loginInformation)
+    boolean loadUserData(LoginCredentials loginCredentials)
             throws NonExistentUserException, InvalidDataException;
 
     /**
@@ -154,6 +156,22 @@ public interface Model {
      * Returns true if a user has been selected to be used. i.e Already logged in
      */
     boolean hasSelectedUser();
+
+    /**
+     * Encrypts the input String using the current user's encryption key.
+     * @param toEncrypt the String to encrypt
+     * @return the encrypted String
+     * @throws NoUserSelectedException if there is no user selected in this Model
+     */
+    String encryptString(String toEncrypt) throws NoUserSelectedException;
+
+    /**
+     * Decrypts the input String using the current user's encryption key.
+     * @param toDecrypt the encrypted String to decrypt
+     * @return the decrypted String
+     * @throws NoUserSelectedException if there is no user selected in this Model
+     */
+    String decryptString(String toDecrypt) throws NoUserSelectedException, IllegalValueException;
 
     /** Returns an unmodifiable view of the expense stats*/
     ObservableList<Expense> getExpenseStats() throws NoUserSelectedException;
@@ -182,7 +200,7 @@ public interface Model {
      * category totalBudget results in the sum of all category budgets exceeding the total totalBudget.
      */
     void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
-        NoUserSelectedException;
+            NoUserSelectedException;
 
     /**
      * Sets the totalBudget to reset and store spending data after a certain amount of time
@@ -267,4 +285,9 @@ public interface Model {
      * Clears the list in notificationHandler
      */
     void clearNotifications() throws NoUserSelectedException;
+
+    /**
+     * Returns the set of category budgets
+     */
+    HashSet<CategoryBudget> getCategoryBudgets() throws NoUserSelectedException;
 }

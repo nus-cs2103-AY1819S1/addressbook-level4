@@ -21,7 +21,7 @@ import seedu.address.model.user.Username;
 public class EncryptedExpenseTracker {
     private Username username;
     private final Password password;
-    private final UniqueEncryptedExpenseList expenses;
+    private final EncryptedExpenseList expenses;
     private final TotalBudget maximumTotalBudget;
     private final NotificationHandler notificationHandler;
 
@@ -37,7 +37,7 @@ public class EncryptedExpenseTracker {
                                    NotificationHandler notificationHandler) {
         this.username = username;
         this.password = password;
-        this.expenses = new UniqueEncryptedExpenseList();
+        this.expenses = new EncryptedExpenseList();
         this.maximumTotalBudget = budget;
         this.notificationHandler = notificationHandler;
     }
@@ -107,7 +107,7 @@ public class EncryptedExpenseTracker {
                 this.maximumTotalBudget.getCategoryBudgets());
     }
 
-    public UniqueEncryptedExpenseList getEncryptedExpenses() {
+    public EncryptedExpenseList getEncryptedExpenses() {
         return expenses;
     }
 

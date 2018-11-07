@@ -61,8 +61,6 @@ public class BudgetPanel extends UiPart<Region> {
         budgetDisplay.setStyle("-fx-fill: #555555;");
         budgetDisplay.setFont(Font.font("Futura", CURRENT_FONT_SIZE));
         expenseDisplay.setFont(Font.font("Futura", CURRENT_FONT_SIZE));
-        budgetDisplay.maxHeight(10.00);
-        expenseDisplay.maxWidth(10.00);
         percentageDisplay.getChildren().addAll(expenseDisplay, budgetDisplay);
 
         update(totalBudget);
@@ -109,7 +107,7 @@ public class BudgetPanel extends UiPart<Region> {
         }
 
         if (budgetCap == 0) {
-            currentPercentage = 0;
+            currentPercentage = 1;
         }
 
         animateBudgetPanel(currentExpenses, budgetCap, currentPercentage);

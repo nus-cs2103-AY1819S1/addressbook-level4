@@ -12,13 +12,13 @@ import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_CHARSET;
  */
 public class Password {
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
-            "Passwords cannot contain spaces and must be at least 6 characters long";
+            "Passwords cannot contain spaces and must be 6 to 100 characters long.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    private static final String PASSWORD_VALIDATION_REGEX = "[^\\s]{6,}+$";
+    private static final String PASSWORD_VALIDATION_REGEX = "[^\\s]{6,100}+$";
 
     private final String passwordHash;
 

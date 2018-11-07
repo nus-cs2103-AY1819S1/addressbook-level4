@@ -5,6 +5,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.SwapLeftPanelEvent;
+import seedu.address.commons.events.ui.UpdateCategoriesPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -26,7 +29,7 @@ public class SetCategoryBudgetCommand extends Command {
         + "decimal places)\n"
         + "Example " + COMMAND_WORD + " " + PREFIX_CATEGORY + "School " + PREFIX_BUDGET + "130.00";
 
-    public static final String MESSAGE_SUCCESS = "%s TotalBudget set to %1$s";
+    public static final String MESSAGE_SUCCESS = "%s CategoryBudget set to $%1.2f";
 
     public static final String EXCEED_MESSAGE = "The sum of your category budgets cannot exceed your total budget";
 
@@ -38,12 +41,16 @@ public class SetCategoryBudgetCommand extends Command {
     }
 
     @Override
+
     public CommandResult execute(Model model, CommandHistory history) throws NoUserSelectedException, CommandException {
         try {
             requireNonNull(model);
             model.setCategoryBudget(this.toSet);
             model.commitExpenseTracker();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet.getCategory(), this.toSet));
+            EventsCenter.getInstance().post(new SwapLeftPanelEvent(SwapLeftPanelEvent.PanelType.STATISTIC));
+            EventsCenter.getInstance().post(new UpdateCategoriesPanelEvent(model.getCategoryBudgets().iterator()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS,
+                this.toSet.getCategory(), this.toSet.getBudgetCap()));
         } catch (CategoryBudgetExceedTotalBudgetException catBudExc) {
             throw new CommandException(EXCEED_MESSAGE);
         }

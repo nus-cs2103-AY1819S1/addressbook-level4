@@ -9,10 +9,9 @@ import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_K
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Optional;
 
 import org.junit.Rule;
@@ -21,9 +20,9 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 import seedu.address.model.notification.Notification;
 import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Password;
@@ -58,18 +57,6 @@ public class ExpenseTrackerTest {
         newData.setUsername(ModelUtil.TEST_USERNAME);
         assertEquals(newData, expenseTracker);
         assertEquals(newData.getMaximumTotalBudget(), expenseTracker.getMaximumTotalBudget());
-    }
-
-    @Test
-    public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
-        // Two expenses with the same identity fields
-        Expense editedAlice = new ExpenseBuilder(SCHOOLFEE).withCost(VALID_COST_IPHONE).withTags(VALID_TAG_HUSBAND)
-                .build();
-        List<Expense> newExpenses = Arrays.asList(SCHOOLFEE, editedAlice);
-        ExpenseTrackerStub newData = new ExpenseTrackerStub(newExpenses);
-
-        thrown.expect(DuplicateExpenseException.class);
-        expenseTracker.resetData(newData);
     }
 
     @Test
@@ -148,6 +135,11 @@ public class ExpenseTrackerTest {
         @Override
         public Optional<Password> getPassword() {
             return Optional.empty();
+        }
+
+        @Override
+        public HashSet<CategoryBudget> getCategoryBudgets() {
+            return new HashSet<>();
         }
 
         @Override
