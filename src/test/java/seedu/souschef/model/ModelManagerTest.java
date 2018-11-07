@@ -13,8 +13,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.model.recipe.Recipe;
+import seedu.souschef.model.recipe.RecipeContainsKeywordsPredicate;
 import seedu.souschef.testutil.AppContentBuilder;
 
 public class ModelManagerTest {

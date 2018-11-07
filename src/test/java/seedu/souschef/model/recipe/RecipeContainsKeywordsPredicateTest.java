@@ -18,14 +18,17 @@ public class RecipeContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        RecipeContainsKeywordsPredicate firstPredicate = new RecipeContainsKeywordsPredicate(firstPredicateKeywordList);
-        RecipeContainsKeywordsPredicate secondPredicate = new RecipeContainsKeywordsPredicate(secondPredicateKeywordList);
+        RecipeContainsKeywordsPredicate firstPredicate =
+                new RecipeContainsKeywordsPredicate(firstPredicateKeywordList);
+        RecipeContainsKeywordsPredicate secondPredicate =
+                new RecipeContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        RecipeContainsKeywordsPredicate firstPredicateCopy = new RecipeContainsKeywordsPredicate(firstPredicateKeywordList);
+        RecipeContainsKeywordsPredicate firstPredicateCopy =
+                new RecipeContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +44,8 @@ public class RecipeContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        RecipeContainsKeywordsPredicate predicate = new RecipeContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        RecipeContainsKeywordsPredicate predicate =
+                new RecipeContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new RecipeBuilder().withName("Alice Bob").build()));
 
         // Multiple keywords
