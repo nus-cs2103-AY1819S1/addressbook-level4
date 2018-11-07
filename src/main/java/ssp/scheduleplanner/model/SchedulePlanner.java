@@ -83,10 +83,20 @@ public class SchedulePlanner implements ReadOnlySchedulePlanner {
     }
 
     /**
+     * Removes all tags from selected category.
+     */
+    public void clearCategory(String name) {
+        if (!this.hasCategory(name)) {
+            throw new CategoryNotFoundException();
+        }
+        this.categories.setCategory(name, new Category(name));
+    }
+
+    /**
      * Change the name of selected category in schedule planner.
      */
     public void editCategory(String originalName, String categoryName) {
-        this.categories.editCategory(originalName, categoryName);
+        this.categories.setCategory(originalName, categoryName);
     }
 
     /**

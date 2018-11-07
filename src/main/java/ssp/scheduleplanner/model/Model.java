@@ -55,6 +55,11 @@ public interface Model {
     void removeCategory(String name);
 
     /**
+     * Clears all existing tags of selected category.
+     */
+    void clearCategory(String name);
+
+    /**
      * Deletes the given task.
      * The task must exist in the Schedule Planner.
      */

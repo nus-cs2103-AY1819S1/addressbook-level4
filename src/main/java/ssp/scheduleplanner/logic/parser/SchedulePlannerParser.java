@@ -9,6 +9,7 @@ import ssp.scheduleplanner.logic.commands.AddCommand;
 import ssp.scheduleplanner.logic.commands.AddRepeatCommand;
 import ssp.scheduleplanner.logic.commands.AddTagCommand;
 import ssp.scheduleplanner.logic.commands.ArchiveCommand;
+import ssp.scheduleplanner.logic.commands.ClearCategoryCommand;
 import ssp.scheduleplanner.logic.commands.ClearCommand;
 import ssp.scheduleplanner.logic.commands.Command;
 import ssp.scheduleplanner.logic.commands.DeleteCommand;
@@ -72,6 +73,9 @@ public class SchedulePlannerParser {
 
         case RemoveCategoryCommand.COMMAND_WORD:
             return new RemoveCategoryCommandParser().parse(arguments);
+
+        case ClearCategoryCommand.COMMAND_WORD:
+            return new ClearCategoryCommandParser().parse(arguments);
 
         case AddTagCommand.COMMAND_WORD:
             return new AddTagCommandParser().parse(arguments);

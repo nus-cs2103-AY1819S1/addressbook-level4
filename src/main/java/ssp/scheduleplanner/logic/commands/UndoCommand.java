@@ -28,6 +28,7 @@ public class UndoCommand extends Command {
 
         model.undoSchedulePlanner();
         model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        model.updateFilteredArchivedTaskList(PREDICATE_SHOW_ALL_TASKS);
         EventsCenter.getInstance().post(new ChangeViewEvent(ChangeViewEvent.View.NORMAL));
         return new CommandResult(MESSAGE_SUCCESS);
     }

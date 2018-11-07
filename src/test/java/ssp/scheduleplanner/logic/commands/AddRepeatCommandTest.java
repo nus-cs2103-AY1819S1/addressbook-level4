@@ -86,6 +86,21 @@ public class AddRepeatCommandTest {
         }
 
         @Override
+        public void editCategory(String originalName, String newName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeCategory(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearCategory(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Category getCategory(String category) {
             throw new AssertionError("This method should not be called.");
         }

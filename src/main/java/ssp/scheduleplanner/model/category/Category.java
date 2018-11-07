@@ -26,12 +26,19 @@ public class Category {
         this.tags = new UniqueTagList();
     }
 
+    public Category(String name, UniqueTagList tags) {
+        checkArgument(isValidName(name), MESSAGE_NAME_CONSTRAINTS);
+        this.name = name;
+        this.tags = tags;
+    }
+
     /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
+
 
     /**
      * Change name of this category.
