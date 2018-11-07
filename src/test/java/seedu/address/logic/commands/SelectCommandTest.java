@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
+//import seedu.address.commons.events.ui.FilmReelSelectionChangeEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.ui.testutil.EventsCollectorRule;
@@ -37,8 +37,8 @@ public class SelectCommandTest {
     @Test
     public void execute_validIndexImageList_success() {
 
-        //assertExecutionSuccess(INDEX_FIRST_IMAGE);
-        //assertExecutionSuccess(INDEX_SECOND_IMAGE);
+        assertExecutionSuccess(INDEX_FIRST_IMAGE);
+        assertExecutionSuccess(INDEX_SECOND_IMAGE);
     }
 
     @Test
@@ -83,14 +83,15 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_IMAGE_SUCCESS, index.getOneBased());
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_IMAGE_SUCCESS, index.getOneBased())
+                + " of " + Math.min(SelectCommand.BATCH_SIZE, model.getDirectoryImageList().size());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
 
 
-        FilmReelSelectionChangeEvent lastEvent =
+        /*FilmReelSelectionChangeEvent lastEvent =
                 (FilmReelSelectionChangeEvent) eventsCollectorRule.eventsCollector.getMostRecent();
-        assertEquals(index, Index.fromZeroBased(lastEvent.index));
+        assertEquals(index, Index.fromZeroBased(lastEvent.index));*/
     }
 
     /**
