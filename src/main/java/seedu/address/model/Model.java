@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -11,8 +13,10 @@ import seedu.address.logic.commands.exceptions.NoUserLoggedInException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -124,6 +128,12 @@ public interface Model {
      * @param target the event to be deleted
      */
     void deleteEvent(Event target);
+
+    /**
+     * Edits the name, location and tags of the event.
+     */
+    void editEvent(Optional<String> name, Optional<Address> location, Optional<Set<Tag>> tags) throws
+            NoUserLoggedInException, NoEventSelectedException, NotEventOrganiserException;
 
     /**
      * Gets the event in the address book.

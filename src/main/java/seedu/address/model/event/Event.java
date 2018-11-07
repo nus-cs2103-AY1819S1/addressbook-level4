@@ -33,10 +33,10 @@ import seedu.address.model.tag.Tag;
 public class Event {
 
     // Identity fields
-    private final String name;
+    private String name;
 
     // Data fields
-    private final Address location;
+    private Address location;
 
     private LocalDate date;
     private LocalTime startTime;
@@ -44,7 +44,7 @@ public class Event {
 
     private Person organiser;
 
-    private final Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags = new HashSet<>();
     private final ArrayList<AbstractPoll> polls = new ArrayList<>();
     private final UniquePersonList personList = new UniquePersonList();
 
@@ -74,8 +74,16 @@ public class Event {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Address getLocation() {
         return location;
+    }
+
+    public void setLocation(Address location) {
+        this.location = location;
     }
 
     public Person getOrganiser() {
@@ -321,6 +329,10 @@ public class Event {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     /**

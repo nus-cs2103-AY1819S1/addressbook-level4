@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -23,8 +25,10 @@ import seedu.address.model.event.Event;
 import seedu.address.model.event.exceptions.NotEventOrganiserException;
 import seedu.address.model.event.exceptions.UserNotJoinedEventException;
 
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the event organiser data.
@@ -213,6 +217,31 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NotEventOrganiserException();
         }
         versionedAddressBook.removeEvent(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void editEvent(Optional<String> name, Optional<Address> location, Optional<Set<Tag>> tags) throws
+            NoUserLoggedInException, NoEventSelectedException, NotEventOrganiserException {
+        if (currentUser == null) {
+            throw new NoUserLoggedInException();
+        }
+        if (currentEvent == null) {
+            throw new NoEventSelectedException();
+        }
+        if (!currentEvent.getOrganiser().equals(currentUser)) {
+            throw new NotEventOrganiserException();
+        }
+
+        if (name.isPresent()) {
+            currentEvent.setName(name.get());
+        }
+        if (location.isPresent()) {
+            currentEvent.setLocation(location.get());
+        }
+        if (tags.isPresent()) {
+            currentEvent.setTags(tags.get());
+        }
         indicateAddressBookChanged();
     }
 
