@@ -56,12 +56,12 @@ e.g. typing [blue]`help` and pressing kbd:[Enter] will open the help window.
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in [blue]`add n/NAME`, [blue]`NAME` is a parameter which can be used as [blue]`add n/do CS2100 tutorial`.
-* Items in square brackets are optional e.g [blue]`n/[NAME] t/[TAG]` can be used as [blue]`n/do CS2100 tutorial
+* Items in square brackets are optional e.g [blue]`n/NAME t/[TAG]` can be used as [blue]`n/do CS2100 tutorial
 t/CS2100` or as [blue]`n/do CS2100 tutorial`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. [blue]`t/[TAG]...` can be used
  as `{nbsp}` (i.e. 0 times), [blue]`t/tutorial`, [blue]`t/tutorial t/CS2100` etc.
-* Parameters can be in any order e.g. if the command specifies [blue]`n/[NAME] d/[DEADLINE]`, [blue]`d/[DEADLINE]
-n/[NAME]` is also acceptable.
+* Parameters can be in any order e.g. if the command specifies [blue]`n/NAME d/DEADLINE`, [blue]`d/DEADLINE
+n/NAME` is also acceptable.
 ****
 
 //tag::sorting[]
@@ -83,7 +83,7 @@ Opens the user guide page. +
 
 Adds a task to the schedule planner. +
 ====
-[blue]`add n/[NAME] p/[PRIORITYLEVEL] t/[TAG] d/[DEADLINE] v/[VENUE]` +
+[blue]`add n/NAME p/PRIORITYLEVEL t/[TAG] d/DEADLINE v/VENUE` +
 ====
 Example: +
 ====
@@ -135,7 +135,7 @@ Lists all tasks in the schedule planner. +
 
 Edits an existing task in the schedule planner. +
 ====
-[blue]`edit [INDEX] n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE]`
+[blue]`edit INDEX n/[NAME] p/[PRIORITYLEVEL] t/[TAGS]... d/[DEADLINE] v/[VENUE]`
 ====
 Example:
 
@@ -161,7 +161,7 @@ If input is [blue]`task 3 t/`, all the tags of the task with `INDEX` 3 will be r
 
 
 [TIP]
-Use [blue]`list task`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified. +
+Use [blue]`list`, [blue]`listday` or [blue]`listweek` to find out the index of the task to be modified. +
 For example, you can use [blue]`listday` to list the tasks due today, and choose the index of the task you want
  to edit.
 
