@@ -29,6 +29,7 @@ public class AddTimeCommandParserTest {
 
         userInput = "0 ts/mon 1300 1500";
         assertParseFailure(parser, userInput, expectedMessage);
+
     }
 
     @Test
@@ -39,6 +40,14 @@ public class AddTimeCommandParserTest {
         assertParseFailure(parser, userInput, expectedMessage);
 
         userInput = "1 ts/mon 1 3";
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
+
+    @Test
+    public void parseMissingTimePrefix() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimeCommand.MESSAGE_USAGE);
+
+        String userInput = "0 mon 1300 1500";
         assertParseFailure(parser, userInput, expectedMessage);
     }
 }

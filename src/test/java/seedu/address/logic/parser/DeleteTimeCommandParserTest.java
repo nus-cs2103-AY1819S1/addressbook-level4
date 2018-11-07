@@ -41,4 +41,12 @@ public class DeleteTimeCommandParserTest {
         userInput = "1 ts/mon 1 3";
         assertParseFailure(parser, userInput, expectedMessage);
     }
+
+    @Test
+    public void parseMissingTimePrefix() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTimeCommand.MESSAGE_USAGE);
+
+        String userInput = "0 mon 1300 1500";
+        assertParseFailure(parser, userInput, expectedMessage);
+    }
 }
