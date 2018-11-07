@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
  * Given suggestions to students.
  */
 public class SuggestionCommand extends Command {
-    public static final String COMMAND_WORD = "Suggestion";
+    public static final String COMMAND_WORD = "suggestion";
 
     public static final String MESSAGE_SUCCESS = "Suggestion provided as following";
 

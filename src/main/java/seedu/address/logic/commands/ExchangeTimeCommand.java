@@ -14,7 +14,7 @@ import seedu.address.model.person.Time;
  * Exchange Time.
  */
 public class ExchangeTimeCommand extends Command {
-    public static final String COMMAND_WORD = "ExchangeTime";
+    public static final String COMMAND_WORD = "exchangeTime";
     public static final String MESSAGE_SUCCESS = "Already exchanged the time"
             + " between the given students with given time!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": ExchangeTime. "
