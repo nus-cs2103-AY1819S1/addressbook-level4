@@ -6,9 +6,7 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.TransformationEvent;
 import seedu.address.commons.util.ImageMagickUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -40,7 +38,7 @@ public class ConvertCommand extends Command {
      * the constructor take the path of the JSON file of the detail of the convert operation
      * @param transformation contains the operation to be processed to the image
      */
-    public ConvertCommand(Transformation transformation) throws ParseException {
+    public ConvertCommand(Transformation transformation) {
         this.transformation = transformation;
     }
 
