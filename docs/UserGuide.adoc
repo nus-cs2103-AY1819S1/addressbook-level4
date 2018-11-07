@@ -86,7 +86,7 @@ use them.
 [[Features-Filter]]
 === Filtering car parks : `filter`
 
-Filters the list of car parks returned by `FindCommand` by: +
+Filters the list of car parks returned by `FindCommand` by the following flags: +
 
 * Car park has available parking slots `a/`
 * Car park has short-term parking `s/`
@@ -95,42 +95,48 @@ Filters the list of car parks returned by `FindCommand` by: +
 * Car park has night parking `n/`
 * Type of parking system that the car park uses `ps/`
 
+`FilterCommand` can take in any number of flags, in any order.
+
 [width="95%"]
 [cols="3,1,5"]
 |===
 |Format| Abbreviation | Example(s)
-|`filter [flag&parameter(s)] [flag&parameter(s)] ...`| `fi` | `filter f/ SUN 7.30AM 5.30PM ct/ SURFACE`
-
+|`filter [flag&parameter(s)] [flag&parameter(s)] ...`| `fi` | `filter f/ SUN 7.30AM 5.30PM ct/ SURFACE` +
+`fi a/ ps/ COUPON`
 |===
 
-[NOTE]
-`FilterCommand` and take in any number of flags, in any order.
+//[NOTE]
+//`FilterCommand` can take in any number of flags, in any order.
 
 List of valid flags:
 
 [width="95%"]
-[cols="3,1,1,3,3"]
+[cols="2,1,4,3,4"]
 |===
 | Criteria | Flag| Parameter Structure | Valid Parameters | Example(s)
 | Car park has free parking |`f/`| `DAY START_TIME END_TIME` | `DAY`: `MON` - `SUN` +
-`START_TIME`: e.g. `7.30AM` +
-`END_TIME`: e.g. `9.30PM` | `filter f/ sun 9.00am 5.30pm`
-| Car park has night parking |`n/`| - | - |
+`START_TIME: e.g. 7.30AM` +
+`END_TIME: e.g. 9.30PM` | `filter f/ sun 9.00am 5.30pm`
+| Car park has night parking |`n/`| - | - |`filter n/`
 | Type of car park |`ct/`| `CAR_PARK_TYPE`| `"SURFACE", "MULTISTOREY", "BASEMENT", "MECHANISED", "COVERED"`| `filter ct/ covered`
-| Car park has available parking slot |`a/`| - | - |
-| Car park has short-term parking | `s/`| - | - |
+| Car park has available parking slot |`a/`| - | - |`filter a/`
+| Car park has short-term parking | `s/`| - | - |`filter s/`
 | Type of parking system | `ps/` |`PARKING_SYSTEM_TYPE`|`"COUPON", "ELECTRONIC"` | `filter ps/ coupon`
 |===
 
-[NOTE]
-====
-* `FindCommand` must be used to find a list of carparks within the location first.
-* Upper and lower case characters do not matter.
-====
+Take note that `FindCommand` must be used to find a list of carparks within the location first.
 
-.Filtering covered car parks
+Upper or lower case characters do not matter.
+//[NOTE]
+//====
+//* `FindCommand` must be used to find a list of carparks within the location first.
+//* Upper or lower case characters do not matter.
+//====
+
+.Filtering covered car parks that have available parking lots
 image::filter.png[width="880"]
 // end::filterug[]
+
 
 [[Features-Find]]
 // tag::find[]
@@ -255,6 +261,7 @@ image::afterhistory.png[width="880"]
 
 // tag::calculateug[]
 [[Features-Calculate]]
+
 === Calculating the cost of parking : `calculate`
 
 Calculates the cost of parking at a selected car park between a specified time period.
@@ -263,13 +270,19 @@ Calculates the cost of parking at a selected car park between a specified time p
 [cols="2,1,3"]
 |===
 |Format| Abbreviation | Example(s)
-|`calculate DAY START_TIME END_TIME`| cal | `calculate SUN 3.30PM 6.30PM`
+|`calculate CARPARK_NAME DAY START_TIME END_TIME`| `cal` | `calculate TJ39 SUN 3.30AM 6.30PM` +
+`cal TJ39 SUN 3.30AM 6.30PM`
 |===
 
-[NOTE]
-====
-`CalculateCommand` takes into account the free parking times of car parks.
-====
+`CalculateCommand` takes into account the free parking times of car parks. It also checks if a car park has short-term parking.
+//[NOTE]
+//====
+//`CalculateCommand` takes into account the free parking times of car parks. It also checks if a car park has short-term parking.
+//====
+
+.Calculating the cost of parking at car park TJ39 on Sunday from 3.30am to 6.30pm
+image::calculate.png[width="880"]
+
 // end::calculateug[]
 
 [[Features-List]]
