@@ -131,7 +131,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it’s API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+image::LogicClassDiagram1.png[width="800"]
 
 [discrete]
 ==== Events-Driven nature of the design
@@ -139,10 +139,51 @@ image::LogicClassDiagram.png[width="800"]
 
 [[Design-Ui]]
 === UI component
+image::UiClassDiagram_Piconso.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`,
+`HistoryListPanel`, `FilmReel`, `ImagePanel` etc. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Binds itself to some images in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
+
+_{To be updated}_
+
+[[Design-Logic]]
+=== Logic component
+image::LogicClassDiagram1.png[width="800"]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+
+.  `Logic` uses the `PiconsoParser` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. converting an image) and/or raise events.
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+
 _{To be updated}_
 
 [[Design-Model]]
 === Model component
+image::ModelClassDiagram_Piconso.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the `Canvas` for the current image.
+* does not depend on any of the other three components.
+
 _{To be updated}_
 
 [[Design-Storage]]
