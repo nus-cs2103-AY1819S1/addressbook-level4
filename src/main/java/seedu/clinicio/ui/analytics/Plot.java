@@ -2,7 +2,6 @@ package seedu.clinicio.ui.analytics;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.BarChart;
